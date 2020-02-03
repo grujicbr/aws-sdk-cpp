@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AttachmentStateChange();
-    AttachmentStateChange(const Aws::Utils::Json::JsonValue& jsonValue);
-    AttachmentStateChange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AttachmentStateChange(Aws::Utils::Json::JsonView jsonValue);
+    AttachmentStateChange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the attachment.</p>
      */
     inline const Aws::String& GetAttachmentArn() const{ return m_attachmentArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the attachment.</p>
+     */
+    inline bool AttachmentArnHasBeenSet() const { return m_attachmentArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the attachment.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The status of the attachment.</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the attachment.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the attachment.</p>

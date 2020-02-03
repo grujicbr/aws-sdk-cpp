@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -35,10 +36,10 @@ namespace Model
 
   /**
    * <p>An object that recognizes faces in a streaming video. An Amazon Rekognition
-   * stream processor is created by a call to . The request parameters for
-   * <code>CreateStreamProcessor</code> describe the Kinesis video stream source for
-   * the streaming video, face recognition parameters, and where to stream the
-   * analysis resullts. </p><p><h3>See Also:</h3>   <a
+   * stream processor is created by a call to <a>CreateStreamProcessor</a>. The
+   * request parameters for <code>CreateStreamProcessor</code> describe the Kinesis
+   * video stream source for the streaming video, face recognition parameters, and
+   * where to stream the analysis resullts. </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/StreamProcessor">AWS
    * API Reference</a></p>
    */
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     StreamProcessor();
-    StreamProcessor(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamProcessor& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamProcessor(Aws::Utils::Json::JsonView jsonValue);
+    StreamProcessor& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Name of the Amazon Rekognition stream processor. </p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>Name of the Amazon Rekognition stream processor. </p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>Name of the Amazon Rekognition stream processor. </p>
@@ -91,6 +97,11 @@ namespace Model
      * <p>Current status of the Amazon Rekognition stream processor.</p>
      */
     inline const StreamProcessorStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>Current status of the Amazon Rekognition stream processor.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>Current status of the Amazon Rekognition stream processor.</p>

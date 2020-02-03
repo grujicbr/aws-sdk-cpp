@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ParameterNameValue();
-    ParameterNameValue(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParameterNameValue& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParameterNameValue(Aws::Utils::Json::JsonView jsonValue);
+    ParameterNameValue& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the parameter.</p>
      */
     inline const Aws::String& GetParameterName() const{ return m_parameterName; }
+
+    /**
+     * <p>The name of the parameter.</p>
+     */
+    inline bool ParameterNameHasBeenSet() const { return m_parameterNameHasBeenSet; }
 
     /**
      * <p>The name of the parameter.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The value of the parameter.</p>
      */
     inline const Aws::String& GetParameterValue() const{ return m_parameterValue; }
+
+    /**
+     * <p>The value of the parameter.</p>
+     */
+    inline bool ParameterValueHasBeenSet() const { return m_parameterValueHasBeenSet; }
 
     /**
      * <p>The value of the parameter.</p>

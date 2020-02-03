@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ChannelEgressEndpoint();
-    ChannelEgressEndpoint(const Aws::Utils::Json::JsonValue& jsonValue);
-    ChannelEgressEndpoint& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ChannelEgressEndpoint(Aws::Utils::Json::JsonView jsonValue);
+    ChannelEgressEndpoint& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * Public IP of where a channel's output comes from
      */
     inline const Aws::String& GetSourceIp() const{ return m_sourceIp; }
+
+    /**
+     * Public IP of where a channel's output comes from
+     */
+    inline bool SourceIpHasBeenSet() const { return m_sourceIpHasBeenSet; }
 
     /**
      * Public IP of where a channel's output comes from

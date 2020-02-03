@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PipelineSummary();
-    PipelineSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    PipelineSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PipelineSummary(Aws::Utils::Json::JsonView jsonValue);
+    PipelineSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the pipeline.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the pipeline.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the pipeline.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The version number of the pipeline.</p>
      */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
+
+    /**
+     * <p>The version number of the pipeline.</p>
+     */
     inline void SetVersion(int value) { m_versionHasBeenSet = true; m_version = value; }
 
     /**
@@ -103,6 +114,11 @@ namespace Model
      * <p>The date and time the pipeline was created, in timestamp format.</p>
      */
     inline const Aws::Utils::DateTime& GetCreated() const{ return m_created; }
+
+    /**
+     * <p>The date and time the pipeline was created, in timestamp format.</p>
+     */
+    inline bool CreatedHasBeenSet() const { return m_createdHasBeenSet; }
 
     /**
      * <p>The date and time the pipeline was created, in timestamp format.</p>
@@ -130,6 +146,12 @@ namespace Model
      * format.</p>
      */
     inline const Aws::Utils::DateTime& GetUpdated() const{ return m_updated; }
+
+    /**
+     * <p>The date and time of the last update to the pipeline, in timestamp
+     * format.</p>
+     */
+    inline bool UpdatedHasBeenSet() const { return m_updatedHasBeenSet; }
 
     /**
      * <p>The date and time of the last update to the pipeline, in timestamp

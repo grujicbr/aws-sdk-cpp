@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaPackage
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CmafEncryption();
-    CmafEncryption(const Aws::Utils::Json::JsonValue& jsonValue);
-    CmafEncryption& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CmafEncryption(Aws::Utils::Json::JsonView jsonValue);
+    CmafEncryption& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * Time (in seconds) between each encryption key rotation.
      */
     inline int GetKeyRotationIntervalSeconds() const{ return m_keyRotationIntervalSeconds; }
+
+    /**
+     * Time (in seconds) between each encryption key rotation.
+     */
+    inline bool KeyRotationIntervalSecondsHasBeenSet() const { return m_keyRotationIntervalSecondsHasBeenSet; }
 
     /**
      * Time (in seconds) between each encryption key rotation.
@@ -65,6 +71,9 @@ namespace Model
 
     
     inline const SpekeKeyProvider& GetSpekeKeyProvider() const{ return m_spekeKeyProvider; }
+
+    
+    inline bool SpekeKeyProviderHasBeenSet() const { return m_spekeKeyProviderHasBeenSet; }
 
     
     inline void SetSpekeKeyProvider(const SpekeKeyProvider& value) { m_spekeKeyProviderHasBeenSet = true; m_spekeKeyProvider = value; }

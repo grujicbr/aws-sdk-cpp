@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -37,7 +38,7 @@ namespace Model
    * bucket containing the S3 object must match the region you use for Amazon
    * Rekognition operations.</p> <p>For Amazon Rekognition to process an S3 object,
    * the user must have permission to access the S3 object. For more information, see
-   * Resource Based Policies in the Amazon Rekognition Developer Guide.
+   * Resource-Based Policies in the Amazon Rekognition Developer Guide.
    * </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/S3Object">AWS
    * API Reference</a></p>
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     S3Object();
-    S3Object(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3Object& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3Object(Aws::Utils::Json::JsonView jsonValue);
+    S3Object& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Name of the S3 bucket.</p>
      */
     inline const Aws::String& GetBucket() const{ return m_bucket; }
+
+    /**
+     * <p>Name of the S3 bucket.</p>
+     */
+    inline bool BucketHasBeenSet() const { return m_bucketHasBeenSet; }
 
     /**
      * <p>Name of the S3 bucket.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>S3 object key name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>S3 object key name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -127,6 +138,11 @@ namespace Model
      * <p>If the bucket is versioning enabled, you can specify the object version. </p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>If the bucket is versioning enabled, you can specify the object version. </p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>If the bucket is versioning enabled, you can specify the object version. </p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -37,7 +38,7 @@ namespace Model
    * class="remarks"> <p>To associate an API stage with a selected API key in a usage
    * plan, you must create a UsagePlanKey resource to represent the selected
    * <a>ApiKey</a>.</p> </div>" <div class="seeAlso"> <a
-   * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html">Create
+   * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html">Create
    * and Use Usage Plans</a> </div><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/UsagePlanKey">AWS
    * API Reference</a></p>
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     UsagePlanKey();
-    UsagePlanKey(const Aws::Utils::Json::JsonValue& jsonValue);
-    UsagePlanKey& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UsagePlanKey(Aws::Utils::Json::JsonView jsonValue);
+    UsagePlanKey& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The Id of a usage plan key.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The Id of a usage plan key.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The Id of a usage plan key.</p>
@@ -92,6 +98,12 @@ namespace Model
      * <code>API_KEY</code>.</p>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of a usage plan key. Currently, the valid key type is
+     * <code>API_KEY</code>.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of a usage plan key. Currently, the valid key type is
@@ -138,6 +150,11 @@ namespace Model
     /**
      * <p>The value of a usage plan key.</p>
      */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>The value of a usage plan key.</p>
+     */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
@@ -170,6 +187,11 @@ namespace Model
      * <p>The name of a usage plan key.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of a usage plan key.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of a usage plan key.</p>

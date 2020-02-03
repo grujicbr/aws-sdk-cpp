@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     Segment();
-    Segment(const Aws::Utils::Json::JsonValue& jsonValue);
-    Segment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Segment(Aws::Utils::Json::JsonView jsonValue);
+    Segment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>The segment's ID.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The segment's ID.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The segment's ID.</p>
@@ -93,6 +99,11 @@ namespace Model
      * <p>The segment document.</p>
      */
     inline const Aws::String& GetDocument() const{ return m_document; }
+
+    /**
+     * <p>The segment document.</p>
+     */
+    inline bool DocumentHasBeenSet() const { return m_documentHasBeenSet; }
 
     /**
      * <p>The segment document.</p>

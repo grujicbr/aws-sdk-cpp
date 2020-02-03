@@ -19,6 +19,7 @@
 #include <aws/core/utils/stream/PreallocatedStreamBuf.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/HashingUtils.h>
+#include <aws/core/utils/FileSystemUtils.h>
 #include <aws/core/platform/FileSystem.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/HeadObjectRequest.h>
@@ -35,6 +36,11 @@ namespace Aws
 {
     namespace Transfer
     {
+        static inline bool IsS3KeyPrefix(const Aws::String& path)
+        {
+            return (path.find_last_of('/') == path.size() - 1 || path.find_last_of('\\') == path.size() - 1);
+        }
+
         struct TransferHandleAsyncContext : public Aws::Client::AsyncCallerContext
         {
             std::shared_ptr<TransferHandle> handle;
@@ -50,7 +56,7 @@ namespace Aws
         std::shared_ptr<TransferManager> TransferManager::Create(const TransferManagerConfiguration& config)
         {
             // Because TransferManager's ctor is private (to ensure it's always constructed as a shared_ptr)
-            // Aws::MakeShared does not have access to that private constructor. This workaround essentially 
+            // Aws::MakeShared does not have access to that private constructor. This workaround essentially
             // enables Aws::MakeShared to construct TransferManager.
             struct MakeSharedEnabler : public TransferManager {
                 MakeSharedEnabler(const TransferManagerConfiguration& config) : TransferManager(config) {}
@@ -65,7 +71,7 @@ namespace Aws
             assert(m_transferConfig.transferExecutor);
             for (uint64_t i = 0; i < m_transferConfig.transferBufferMaxHeapSize; i += m_transferConfig.bufferSize)
             {
-                m_bufferManager.PutResource(Aws::New<Aws::Utils::Array<uint8_t>>(CLASS_TAG, static_cast<size_t>(m_transferConfig.bufferSize)));
+                m_bufferManager.PutResource(Aws::NewArray<unsigned char>(static_cast<size_t>(m_transferConfig.bufferSize), CLASS_TAG));
             }
         }
 
@@ -96,9 +102,9 @@ namespace Aws
             return this->DoUploadFile(fileStream, bucketName, keyName, contentType, metadata, context);
         }
 
-        std::shared_ptr<TransferHandle> TransferManager::DownloadFile(const Aws::String& bucketName, 
-                                                                      const Aws::String& keyName, 
-                                                                      CreateDownloadStreamCallback writeToStreamfn, 
+        std::shared_ptr<TransferHandle> TransferManager::DownloadFile(const Aws::String& bucketName,
+                                                                      const Aws::String& keyName,
+                                                                      CreateDownloadStreamCallback writeToStreamfn,
                                                                       const DownloadConfiguration& downloadConfig,
                                                                       const Aws::String& writeToFile,
                                                                       const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context)
@@ -112,9 +118,9 @@ namespace Aws
             return handle;
         }
 
-        std::shared_ptr<TransferHandle> TransferManager::DownloadFile(const Aws::String& bucketName, 
-                                                                      const Aws::String& keyName, 
-                                                                      const Aws::String& writeToFile, 
+        std::shared_ptr<TransferHandle> TransferManager::DownloadFile(const Aws::String& bucketName,
+                                                                      const Aws::String& keyName,
+                                                                      const Aws::String& writeToFile,
                                                                       const DownloadConfiguration& downloadConfig,
                                                                       const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context)
         {
@@ -226,7 +232,7 @@ namespace Aws
         {
             assert(m_transferConfig.transferInitiatedCallback);
             Aws::FileSystem::CreateDirectoryIfNotExists(directory.c_str());
-         
+
             auto self = shared_from_this(); // keep transfer manager alive until all callbacks are finished.
             auto handler = [self](const Aws::S3::S3Client* client, const Aws::S3::Model::ListObjectsV2Request& request,
                 const Aws::S3::Model::ListObjectsV2Outcome& outcome,
@@ -337,7 +343,7 @@ namespace Aws
                 {
                     auto lengthToWrite = partsIter->second->GetSizeInBytes();
                     streamToPut->seekg((partsIter->first - 1) * m_transferConfig.bufferSize);
-                    streamToPut->read((char*)buffer->GetUnderlyingData(), lengthToWrite);
+                    streamToPut->read(reinterpret_cast<char*>(buffer), lengthToWrite);
 
                     auto streamBuf = Aws::New<Aws::Utils::Stream::PreallocatedStreamBuf>(CLASS_TAG, buffer, static_cast<size_t>(lengthToWrite));
                     auto preallocatedStreamReader = Aws::MakeShared<Aws::IOStream>(CLASS_TAG, streamBuf);
@@ -359,6 +365,9 @@ namespace Aws
 
                     uploadPartRequest.SetBody(preallocatedStreamReader);
                     uploadPartRequest.SetContentType(handle->GetContentType());
+                    if (m_transferConfig.computeContentMD5) {
+                        uploadPartRequest.SetContentMD5(Aws::Utils::HashingUtils::Base64Encode(Aws::Utils::HashingUtils::CalculateMD5(*preallocatedStreamReader)));
+                    }
                     auto asyncContext = Aws::MakeShared<TransferHandleAsyncContext>(CLASS_TAG);
                     asyncContext->handle = handle;
                     asyncContext->partState = partsIter->second;
@@ -418,7 +427,7 @@ namespace Aws
             putObjectRequest.SetCustomizedAccessLogTag(m_transferConfig.customizedAccessLogTag);
             putObjectRequest.SetContinueRequestHandler([handle](const Aws::Http::HttpRequest*) { return handle->ShouldContinue(); });
             putObjectRequest.WithBucket(handle->GetBucketName())
-                .WithKey(handle->GetKey())                
+                .WithKey(handle->GetKey())
                 .WithContentLength(static_cast<long long>(handle->GetBytesTotalSize()))
                 .WithMetadata(handle->GetMetadata());
 
@@ -426,12 +435,15 @@ namespace Aws
 
             auto buffer = m_bufferManager.Acquire();
 
-            auto lengthToWrite = (std::min)(static_cast<uint64_t>(buffer->GetLength()), handle->GetBytesTotalSize());
-            streamToPut->read((char*)buffer->GetUnderlyingData(), lengthToWrite);
+            auto lengthToWrite = (std::min)(m_transferConfig.bufferSize, handle->GetBytesTotalSize());
+            streamToPut->read((char*)buffer, lengthToWrite);
             auto streamBuf = Aws::New<Aws::Utils::Stream::PreallocatedStreamBuf>(CLASS_TAG, buffer, static_cast<size_t>(lengthToWrite));
             auto preallocatedStreamReader = Aws::MakeShared<Aws::IOStream>(CLASS_TAG, streamBuf);
 
             putObjectRequest.SetBody(preallocatedStreamReader);
+            if (m_transferConfig.computeContentMD5) {
+                putObjectRequest.SetContentMD5(Aws::Utils::HashingUtils::Base64Encode(Aws::Utils::HashingUtils::CalculateMD5(*preallocatedStreamReader)));
+            }
 
             auto self = shared_from_this(); // keep transfer manager alive until all callbacks are finished.
             auto uploadProgressCallback = [self, partState, handle](const Aws::Http::HttpRequest*, long long progress)
@@ -575,7 +587,7 @@ namespace Aws
             std::shared_ptr<TransferHandleAsyncContext> transferContext =
                 std::const_pointer_cast<TransferHandleAsyncContext>(std::static_pointer_cast<const TransferHandleAsyncContext>(context));
 
-            auto originalStreamBuffer = (Aws::Utils::Stream::PreallocatedStreamBuf*)request.GetBody()->rdbuf();
+            auto originalStreamBuffer = static_cast<Aws::Utils::Stream::PreallocatedStreamBuf*>(request.GetBody()->rdbuf());
 
             m_bufferManager.Release(originalStreamBuffer->GetBuffer());
             Aws::Delete(originalStreamBuffer);
@@ -610,7 +622,7 @@ namespace Aws
         {
             assert(retryHandle->GetStatus() != TransferStatus::IN_PROGRESS);
             assert(retryHandle->GetStatus() != TransferStatus::COMPLETED);
-            assert(retryHandle->GetStatus() != TransferStatus::NOT_STARTED);           
+            assert(retryHandle->GetStatus() != TransferStatus::NOT_STARTED);
 
             if (retryHandle->GetStatus() == TransferStatus::ABORTED)
             {
@@ -622,9 +634,9 @@ namespace Aws
             retryHandle->UpdateStatus(TransferStatus::NOT_STARTED);
             retryHandle->Restart();
             TriggerTransferStatusUpdatedCallback(retryHandle);
-            
+
             auto self = shared_from_this();
-            m_transferConfig.transferExecutor->Submit([self, retryHandle] 
+            m_transferConfig.transferExecutor->Submit([self, retryHandle]
                                                       { self->DoDownload(retryHandle); });
 
             return retryHandle;
@@ -706,7 +718,7 @@ namespace Aws
                 {
                     headObjectRequest.SetVersionId(handle->GetVersionId());
                 }
-            
+
                 auto headObjectOutcome = m_transferConfig.s3Client->HeadObject(headObjectRequest);
 
                 if (!headObjectOutcome.IsSuccess())
@@ -726,7 +738,11 @@ namespace Aws
                 handle->SetBytesTotalSize(downloadSize);
                 handle->SetContentType(headObjectOutcome.GetResult().GetContentType());
                 handle->SetMetadata(headObjectOutcome.GetResult().GetMetadata());
-                if(handle->GetVersionId().empty())
+                /* When bucket versioning is susppended, head object will return "null" for unversioned object.
+                 * Send following GetObject with "null" as versionId will result in 403 access denied error if your IAM role or policy
+                 * doesn't have GetObjectVersion permission.
+                 */
+                if(handle->GetVersionId().empty() && headObjectOutcome.GetResult().GetVersionId() != "null")
                 {
                     handle->SetVersionId(headObjectOutcome.GetResult().GetVersionId());
                 }
@@ -784,9 +800,9 @@ namespace Aws
                 auto buffer = m_bufferManager.Acquire();
                 partState->SetDownloadBuffer(buffer);
 
-                CreateDownloadStreamCallback responseStreamFunction = [partState, buffer, rangeEnd, rangeStart]() 
-                {                    
-                    auto bufferStream = Aws::New<Aws::Utils::Stream::DefaultUnderlyingStream>(CLASS_TAG, 
+                CreateDownloadStreamCallback responseStreamFunction = [partState, buffer, rangeEnd, rangeStart]()
+                {
+                    auto bufferStream = Aws::New<Aws::Utils::Stream::DefaultUnderlyingStream>(CLASS_TAG,
                             Aws::MakeUnique<Aws::Utils::Stream::PreallocatedStreamBuf>(CLASS_TAG, buffer, rangeEnd - rangeStart + 1));
                     partState->SetDownloadPartStream(bufferStream);
                     return bufferStream;
@@ -854,13 +870,13 @@ namespace Aws
             if (handle->HasFailedParts())
             {
                 handle->UpdateStatus(DetermineIfFailedOrCanceled(*handle));
-                TriggerTransferStatusUpdatedCallback(handle);      
+                TriggerTransferStatusUpdatedCallback(handle);
             }
         }
 
-        void TransferManager::HandleGetObjectResponse(const Aws::S3::S3Client* client, 
+        void TransferManager::HandleGetObjectResponse(const Aws::S3::S3Client* client,
                                                       const Aws::S3::Model::GetObjectRequest& request,
-                                                      const Aws::S3::Model::GetObjectOutcome& outcome, 
+                                                      const Aws::S3::Model::GetObjectOutcome& outcome,
                                                       const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context)
         {
             AWS_UNREFERENCED_PARAM(client);
@@ -1008,16 +1024,14 @@ namespace Aws
                 // take the new prefix and call list again. if it's an object key, go ahead and initiate download.
                 for (auto& content : result.GetContents())
                 {
-                    if (content.GetSize() <= 0 && content.GetKey() != request.GetPrefix())
-                    {
-                        Aws::FileSystem::CreateDirectoryIfNotExists(DetermineFilePath(directory, prefix, content.GetKey()).c_str());
-                        requestCpy.SetPrefix(content.GetKey());
-                        m_transferConfig.s3Client->ListObjectsV2Async(requestCpy, handler, context);
-                    }
-                    //this is our fixed point in the algorithm. Eventually, everything will return an object.
-                    else if (content.GetSize() > 0)
+                    if (!IsS3KeyPrefix(content.GetKey()))
                     {
                         Aws::String fileName = DetermineFilePath(downloadContext->rootDirectory, downloadContext->prefix, content.GetKey());
+                        auto lastDelimter = fileName.find_last_of(Aws::FileSystem::PATH_DELIM);
+                        if (lastDelimter != std::string::npos)
+                        {
+                            Aws::FileSystem::CreateDirectoryIfNotExists(fileName.substr(0, lastDelimter).c_str(), true/*create parent dirs*/);
+                        }
                         AWS_LOGSTREAM_INFO(CLASS_TAG, "Initiating download of key: [" << content.GetKey() <<
                                 "] in bucket: [" << directory << "] to destination file: [" << fileName << "]");
                         m_transferConfig.transferInitiatedCallback(this, DownloadFile(request.GetBucket(), content.GetKey(), fileName));
@@ -1039,19 +1053,18 @@ namespace Aws
 
         Aws::String TransferManager::DetermineFilePath(const Aws::String& directory, const Aws::String& prefix, const Aws::String& keyName)
         {
-            Aws::String prefixCpy = prefix;
             Aws::String shortenedFileName = keyName;
-            auto loc = shortenedFileName.find(prefixCpy);
+            auto loc = shortenedFileName.find(prefix);
 
             if (loc != std::string::npos)
             {
-                shortenedFileName = shortenedFileName.substr(loc + prefixCpy.length());
+                shortenedFileName = shortenedFileName.substr(loc + prefix.length());
             }
 
             char delimiter[] = { Aws::FileSystem::PATH_DELIM, 0 };
             Aws::Utils::StringUtils::Replace(shortenedFileName, "/", delimiter);
             Aws::StringStream ss;
-            ss << directory << delimiter << shortenedFileName;
+            ss << directory << shortenedFileName;
 
             return ss.str();
         }
@@ -1095,15 +1108,15 @@ namespace Aws
 
         bool TransferManager::MultipartUploadSupported(uint64_t length) const
         {
-            return length > m_transferConfig.bufferSize && 
-                   m_transferConfig.s3Client            && 
+            return length > m_transferConfig.bufferSize &&
+                   m_transferConfig.s3Client            &&
                    m_transferConfig.s3Client->MultipartUploadSupported();
         }
 
         std::shared_ptr<TransferHandle> TransferManager::CreateUploadFileHandle(Aws::IOStream* fileStream,
                                                                                 const Aws::String& bucketName,
                                                                                 const Aws::String& keyName,
-                                                                                const Aws::String& contentType, 
+                                                                                const Aws::String& contentType,
                                                                                 const Aws::Map<Aws::String, Aws::String>& metadata,
                                                                                 const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context,
                                                                                 const Aws::String& fileName)
@@ -1186,7 +1199,7 @@ namespace Aws
 
         std::shared_ptr<TransferHandle> TransferManager::DoUploadFile(const Aws::String& fileName,
                                                                       const Aws::String& bucketName,
-                                                                      const Aws::String& keyName, 
+                                                                      const Aws::String& keyName,
                                                                       const Aws::String& contentType,
                                                                       const Aws::Map<Aws::String, Aws::String>& metadata,
                                                                       const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context)

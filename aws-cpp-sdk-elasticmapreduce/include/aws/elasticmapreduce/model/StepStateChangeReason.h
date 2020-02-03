@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     StepStateChangeReason();
-    StepStateChangeReason(const Aws::Utils::Json::JsonValue& jsonValue);
-    StepStateChangeReason& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StepStateChangeReason(Aws::Utils::Json::JsonView jsonValue);
+    StepStateChangeReason& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * service provides no code for the state change.</p>
      */
     inline const StepStateChangeReasonCode& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The programmable code for the state change reason. Note: Currently, the
+     * service provides no code for the state change.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The programmable code for the state change reason. Note: Currently, the
@@ -82,6 +89,11 @@ namespace Model
      * <p>The descriptive message for the state change reason.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The descriptive message for the state change reason.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The descriptive message for the state change reason.</p>

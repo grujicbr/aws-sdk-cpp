@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     SchemaExtensionInfo();
-    SchemaExtensionInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    SchemaExtensionInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SchemaExtensionInfo(Aws::Utils::Json::JsonView jsonValue);
+    SchemaExtensionInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The identifier of the directory to which the schema extension is applied.</p>
      */
     inline const Aws::String& GetDirectoryId() const{ return m_directoryId; }
+
+    /**
+     * <p>The identifier of the directory to which the schema extension is applied.</p>
+     */
+    inline bool DirectoryIdHasBeenSet() const { return m_directoryIdHasBeenSet; }
 
     /**
      * <p>The identifier of the directory to which the schema extension is applied.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The identifier of the schema extension.</p>
      */
+    inline bool SchemaExtensionIdHasBeenSet() const { return m_schemaExtensionIdHasBeenSet; }
+
+    /**
+     * <p>The identifier of the schema extension.</p>
+     */
     inline void SetSchemaExtensionId(const Aws::String& value) { m_schemaExtensionIdHasBeenSet = true; m_schemaExtensionId = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>A description of the schema extension.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the schema extension.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the schema extension.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>The current status of the schema extension.</p>
      */
+    inline bool SchemaExtensionStatusHasBeenSet() const { return m_schemaExtensionStatusHasBeenSet; }
+
+    /**
+     * <p>The current status of the schema extension.</p>
+     */
     inline void SetSchemaExtensionStatus(const SchemaExtensionStatus& value) { m_schemaExtensionStatusHasBeenSet = true; m_schemaExtensionStatus = value; }
 
     /**
@@ -186,6 +207,11 @@ namespace Model
      * <p>The reason for the <code>SchemaExtensionStatus</code>.</p>
      */
     inline const Aws::String& GetSchemaExtensionStatusReason() const{ return m_schemaExtensionStatusReason; }
+
+    /**
+     * <p>The reason for the <code>SchemaExtensionStatus</code>.</p>
+     */
+    inline bool SchemaExtensionStatusReasonHasBeenSet() const { return m_schemaExtensionStatusReasonHasBeenSet; }
 
     /**
      * <p>The reason for the <code>SchemaExtensionStatus</code>.</p>
@@ -228,6 +254,12 @@ namespace Model
      * <p>The date and time that the schema extension started being applied to the
      * directory.</p>
      */
+    inline bool StartDateTimeHasBeenSet() const { return m_startDateTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time that the schema extension started being applied to the
+     * directory.</p>
+     */
     inline void SetStartDateTime(const Aws::Utils::DateTime& value) { m_startDateTimeHasBeenSet = true; m_startDateTime = value; }
 
     /**
@@ -253,6 +285,11 @@ namespace Model
      * <p>The date and time that the schema extension was completed.</p>
      */
     inline const Aws::Utils::DateTime& GetEndDateTime() const{ return m_endDateTime; }
+
+    /**
+     * <p>The date and time that the schema extension was completed.</p>
+     */
+    inline bool EndDateTimeHasBeenSet() const { return m_endDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time that the schema extension was completed.</p>

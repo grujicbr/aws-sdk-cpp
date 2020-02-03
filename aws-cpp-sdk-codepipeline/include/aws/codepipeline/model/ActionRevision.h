@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ActionRevision();
-    ActionRevision(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActionRevision& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActionRevision(Aws::Utils::Json::JsonView jsonValue);
+    ActionRevision& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * action.</p>
      */
     inline const Aws::String& GetRevisionId() const{ return m_revisionId; }
+
+    /**
+     * <p>The system-generated unique ID that identifies the revision number of the
+     * action.</p>
+     */
+    inline bool RevisionIdHasBeenSet() const { return m_revisionIdHasBeenSet; }
 
     /**
      * <p>The system-generated unique ID that identifies the revision number of the
@@ -92,44 +99,50 @@ namespace Model
 
 
     /**
-     * <p>The unique identifier of the change that set the state to this revision, for
-     * example a deployment ID or timestamp.</p>
+     * <p>The unique identifier of the change that set the state to this revision (for
+     * example, a deployment ID or timestamp).</p>
      */
     inline const Aws::String& GetRevisionChangeId() const{ return m_revisionChangeId; }
 
     /**
-     * <p>The unique identifier of the change that set the state to this revision, for
-     * example a deployment ID or timestamp.</p>
+     * <p>The unique identifier of the change that set the state to this revision (for
+     * example, a deployment ID or timestamp).</p>
+     */
+    inline bool RevisionChangeIdHasBeenSet() const { return m_revisionChangeIdHasBeenSet; }
+
+    /**
+     * <p>The unique identifier of the change that set the state to this revision (for
+     * example, a deployment ID or timestamp).</p>
      */
     inline void SetRevisionChangeId(const Aws::String& value) { m_revisionChangeIdHasBeenSet = true; m_revisionChangeId = value; }
 
     /**
-     * <p>The unique identifier of the change that set the state to this revision, for
-     * example a deployment ID or timestamp.</p>
+     * <p>The unique identifier of the change that set the state to this revision (for
+     * example, a deployment ID or timestamp).</p>
      */
     inline void SetRevisionChangeId(Aws::String&& value) { m_revisionChangeIdHasBeenSet = true; m_revisionChangeId = std::move(value); }
 
     /**
-     * <p>The unique identifier of the change that set the state to this revision, for
-     * example a deployment ID or timestamp.</p>
+     * <p>The unique identifier of the change that set the state to this revision (for
+     * example, a deployment ID or timestamp).</p>
      */
     inline void SetRevisionChangeId(const char* value) { m_revisionChangeIdHasBeenSet = true; m_revisionChangeId.assign(value); }
 
     /**
-     * <p>The unique identifier of the change that set the state to this revision, for
-     * example a deployment ID or timestamp.</p>
+     * <p>The unique identifier of the change that set the state to this revision (for
+     * example, a deployment ID or timestamp).</p>
      */
     inline ActionRevision& WithRevisionChangeId(const Aws::String& value) { SetRevisionChangeId(value); return *this;}
 
     /**
-     * <p>The unique identifier of the change that set the state to this revision, for
-     * example a deployment ID or timestamp.</p>
+     * <p>The unique identifier of the change that set the state to this revision (for
+     * example, a deployment ID or timestamp).</p>
      */
     inline ActionRevision& WithRevisionChangeId(Aws::String&& value) { SetRevisionChangeId(std::move(value)); return *this;}
 
     /**
-     * <p>The unique identifier of the change that set the state to this revision, for
-     * example a deployment ID or timestamp.</p>
+     * <p>The unique identifier of the change that set the state to this revision (for
+     * example, a deployment ID or timestamp).</p>
      */
     inline ActionRevision& WithRevisionChangeId(const char* value) { SetRevisionChangeId(value); return *this;}
 
@@ -139,6 +152,12 @@ namespace Model
      * timestamp format.</p>
      */
     inline const Aws::Utils::DateTime& GetCreated() const{ return m_created; }
+
+    /**
+     * <p>The date and time when the most recent version of the action was created, in
+     * timestamp format.</p>
+     */
+    inline bool CreatedHasBeenSet() const { return m_createdHasBeenSet; }
 
     /**
      * <p>The date and time when the most recent version of the action was created, in

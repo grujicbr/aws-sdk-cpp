@@ -38,7 +38,7 @@ namespace Model
   {
   public:
     GetObjectAclRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,47 +52,157 @@ namespace Model
     Aws::Http::HeaderValueCollection GetRequestSpecificHeaders() const override;
 
 
-    
+    /**
+     * <p>The bucket name that contains the object for which to get the ACL
+     * information. </p> <p>When using this API with an access point, you must direct
+     * requests to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this operation using an access point through the AWS SDKs, you
+     * provide the access point ARN in place of the bucket name. For more information
+     * about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using
+     * Access Points</a> in the <i>Amazon Simple Storage Service Developer
+     * Guide</i>.</p>
+     */
     inline const Aws::String& GetBucket() const{ return m_bucket; }
 
-    
+    /**
+     * <p>The bucket name that contains the object for which to get the ACL
+     * information. </p> <p>When using this API with an access point, you must direct
+     * requests to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this operation using an access point through the AWS SDKs, you
+     * provide the access point ARN in place of the bucket name. For more information
+     * about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using
+     * Access Points</a> in the <i>Amazon Simple Storage Service Developer
+     * Guide</i>.</p>
+     */
+    inline bool BucketHasBeenSet() const { return m_bucketHasBeenSet; }
+
+    /**
+     * <p>The bucket name that contains the object for which to get the ACL
+     * information. </p> <p>When using this API with an access point, you must direct
+     * requests to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this operation using an access point through the AWS SDKs, you
+     * provide the access point ARN in place of the bucket name. For more information
+     * about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using
+     * Access Points</a> in the <i>Amazon Simple Storage Service Developer
+     * Guide</i>.</p>
+     */
     inline void SetBucket(const Aws::String& value) { m_bucketHasBeenSet = true; m_bucket = value; }
 
-    
+    /**
+     * <p>The bucket name that contains the object for which to get the ACL
+     * information. </p> <p>When using this API with an access point, you must direct
+     * requests to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this operation using an access point through the AWS SDKs, you
+     * provide the access point ARN in place of the bucket name. For more information
+     * about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using
+     * Access Points</a> in the <i>Amazon Simple Storage Service Developer
+     * Guide</i>.</p>
+     */
     inline void SetBucket(Aws::String&& value) { m_bucketHasBeenSet = true; m_bucket = std::move(value); }
 
-    
+    /**
+     * <p>The bucket name that contains the object for which to get the ACL
+     * information. </p> <p>When using this API with an access point, you must direct
+     * requests to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this operation using an access point through the AWS SDKs, you
+     * provide the access point ARN in place of the bucket name. For more information
+     * about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using
+     * Access Points</a> in the <i>Amazon Simple Storage Service Developer
+     * Guide</i>.</p>
+     */
     inline void SetBucket(const char* value) { m_bucketHasBeenSet = true; m_bucket.assign(value); }
 
-    
+    /**
+     * <p>The bucket name that contains the object for which to get the ACL
+     * information. </p> <p>When using this API with an access point, you must direct
+     * requests to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this operation using an access point through the AWS SDKs, you
+     * provide the access point ARN in place of the bucket name. For more information
+     * about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using
+     * Access Points</a> in the <i>Amazon Simple Storage Service Developer
+     * Guide</i>.</p>
+     */
     inline GetObjectAclRequest& WithBucket(const Aws::String& value) { SetBucket(value); return *this;}
 
-    
+    /**
+     * <p>The bucket name that contains the object for which to get the ACL
+     * information. </p> <p>When using this API with an access point, you must direct
+     * requests to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this operation using an access point through the AWS SDKs, you
+     * provide the access point ARN in place of the bucket name. For more information
+     * about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using
+     * Access Points</a> in the <i>Amazon Simple Storage Service Developer
+     * Guide</i>.</p>
+     */
     inline GetObjectAclRequest& WithBucket(Aws::String&& value) { SetBucket(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>The bucket name that contains the object for which to get the ACL
+     * information. </p> <p>When using this API with an access point, you must direct
+     * requests to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this operation using an access point through the AWS SDKs, you
+     * provide the access point ARN in place of the bucket name. For more information
+     * about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using
+     * Access Points</a> in the <i>Amazon Simple Storage Service Developer
+     * Guide</i>.</p>
+     */
     inline GetObjectAclRequest& WithBucket(const char* value) { SetBucket(value); return *this;}
 
 
-    
+    /**
+     * <p>The key of the object for which to get the ACL information.</p>
+     */
     inline const Aws::String& GetKey() const{ return m_key; }
 
-    
+    /**
+     * <p>The key of the object for which to get the ACL information.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
+
+    /**
+     * <p>The key of the object for which to get the ACL information.</p>
+     */
     inline void SetKey(const Aws::String& value) { m_keyHasBeenSet = true; m_key = value; }
 
-    
+    /**
+     * <p>The key of the object for which to get the ACL information.</p>
+     */
     inline void SetKey(Aws::String&& value) { m_keyHasBeenSet = true; m_key = std::move(value); }
 
-    
+    /**
+     * <p>The key of the object for which to get the ACL information.</p>
+     */
     inline void SetKey(const char* value) { m_keyHasBeenSet = true; m_key.assign(value); }
 
-    
+    /**
+     * <p>The key of the object for which to get the ACL information.</p>
+     */
     inline GetObjectAclRequest& WithKey(const Aws::String& value) { SetKey(value); return *this;}
 
-    
+    /**
+     * <p>The key of the object for which to get the ACL information.</p>
+     */
     inline GetObjectAclRequest& WithKey(Aws::String&& value) { SetKey(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>The key of the object for which to get the ACL information.</p>
+     */
     inline GetObjectAclRequest& WithKey(const char* value) { SetKey(value); return *this;}
 
 
@@ -100,6 +210,11 @@ namespace Model
      * <p>VersionId used to reference a specific version of the object.</p>
      */
     inline const Aws::String& GetVersionId() const{ return m_versionId; }
+
+    /**
+     * <p>VersionId used to reference a specific version of the object.</p>
+     */
+    inline bool VersionIdHasBeenSet() const { return m_versionIdHasBeenSet; }
 
     /**
      * <p>VersionId used to reference a specific version of the object.</p>
@@ -136,6 +251,9 @@ namespace Model
     inline const RequestPayer& GetRequestPayer() const{ return m_requestPayer; }
 
     
+    inline bool RequestPayerHasBeenSet() const { return m_requestPayerHasBeenSet; }
+
+    
     inline void SetRequestPayer(const RequestPayer& value) { m_requestPayerHasBeenSet = true; m_requestPayer = value; }
 
     
@@ -150,6 +268,9 @@ namespace Model
 
     
     inline const Aws::Map<Aws::String, Aws::String>& GetCustomizedAccessLogTag() const{ return m_customizedAccessLogTag; }
+
+    
+    inline bool CustomizedAccessLogTagHasBeenSet() const { return m_customizedAccessLogTagHasBeenSet; }
 
     
     inline void SetCustomizedAccessLogTag(const Aws::Map<Aws::String, Aws::String>& value) { m_customizedAccessLogTagHasBeenSet = true; m_customizedAccessLogTag = value; }

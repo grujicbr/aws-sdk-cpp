@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     Operation();
-    Operation(const Aws::Utils::Json::JsonValue& jsonValue);
-    Operation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Operation(Aws::Utils::Json::JsonView jsonValue);
+    Operation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The ID of the operation.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the operation.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the operation.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>The resource name.</p>
      */
+    inline bool ResourceNameHasBeenSet() const { return m_resourceNameHasBeenSet; }
+
+    /**
+     * <p>The resource name.</p>
+     */
     inline void SetResourceName(const Aws::String& value) { m_resourceNameHasBeenSet = true; m_resourceName = value; }
 
     /**
@@ -131,6 +142,11 @@ namespace Model
     /**
      * <p>The resource type. </p>
      */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
+
+    /**
+     * <p>The resource type. </p>
+     */
     inline void SetResourceType(const ResourceType& value) { m_resourceTypeHasBeenSet = true; m_resourceType = value; }
 
     /**
@@ -159,6 +175,12 @@ namespace Model
      * <p>The timestamp when the operation was initialized (e.g.,
      * <code>1479816991.349</code>).</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The timestamp when the operation was initialized (e.g.,
+     * <code>1479816991.349</code>).</p>
+     */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -181,27 +203,32 @@ namespace Model
 
 
     /**
-     * <p>The region and Availability Zone.</p>
+     * <p>The AWS Region and Availability Zone.</p>
      */
     inline const ResourceLocation& GetLocation() const{ return m_location; }
 
     /**
-     * <p>The region and Availability Zone.</p>
+     * <p>The AWS Region and Availability Zone.</p>
+     */
+    inline bool LocationHasBeenSet() const { return m_locationHasBeenSet; }
+
+    /**
+     * <p>The AWS Region and Availability Zone.</p>
      */
     inline void SetLocation(const ResourceLocation& value) { m_locationHasBeenSet = true; m_location = value; }
 
     /**
-     * <p>The region and Availability Zone.</p>
+     * <p>The AWS Region and Availability Zone.</p>
      */
     inline void SetLocation(ResourceLocation&& value) { m_locationHasBeenSet = true; m_location = std::move(value); }
 
     /**
-     * <p>The region and Availability Zone.</p>
+     * <p>The AWS Region and Availability Zone.</p>
      */
     inline Operation& WithLocation(const ResourceLocation& value) { SetLocation(value); return *this;}
 
     /**
-     * <p>The region and Availability Zone.</p>
+     * <p>The AWS Region and Availability Zone.</p>
      */
     inline Operation& WithLocation(ResourceLocation&& value) { SetLocation(std::move(value)); return *this;}
 
@@ -210,6 +237,11 @@ namespace Model
      * <p>A Boolean value indicating whether the operation is terminal.</p>
      */
     inline bool GetIsTerminal() const{ return m_isTerminal; }
+
+    /**
+     * <p>A Boolean value indicating whether the operation is terminal.</p>
+     */
+    inline bool IsTerminalHasBeenSet() const { return m_isTerminalHasBeenSet; }
 
     /**
      * <p>A Boolean value indicating whether the operation is terminal.</p>
@@ -226,6 +258,11 @@ namespace Model
      * <p>Details about the operation (e.g., <code>Debian-1GB-Ohio-1</code>).</p>
      */
     inline const Aws::String& GetOperationDetails() const{ return m_operationDetails; }
+
+    /**
+     * <p>Details about the operation (e.g., <code>Debian-1GB-Ohio-1</code>).</p>
+     */
+    inline bool OperationDetailsHasBeenSet() const { return m_operationDetailsHasBeenSet; }
 
     /**
      * <p>Details about the operation (e.g., <code>Debian-1GB-Ohio-1</code>).</p>
@@ -266,6 +303,11 @@ namespace Model
     /**
      * <p>The type of operation. </p>
      */
+    inline bool OperationTypeHasBeenSet() const { return m_operationTypeHasBeenSet; }
+
+    /**
+     * <p>The type of operation. </p>
+     */
     inline void SetOperationType(const OperationType& value) { m_operationTypeHasBeenSet = true; m_operationType = value; }
 
     /**
@@ -288,6 +330,11 @@ namespace Model
      * <p>The status of the operation. </p>
      */
     inline const OperationStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the operation. </p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the operation. </p>
@@ -320,6 +367,12 @@ namespace Model
      * <p>The timestamp when the status was changed (e.g.,
      * <code>1479816991.349</code>).</p>
      */
+    inline bool StatusChangedAtHasBeenSet() const { return m_statusChangedAtHasBeenSet; }
+
+    /**
+     * <p>The timestamp when the status was changed (e.g.,
+     * <code>1479816991.349</code>).</p>
+     */
     inline void SetStatusChangedAt(const Aws::Utils::DateTime& value) { m_statusChangedAtHasBeenSet = true; m_statusChangedAt = value; }
 
     /**
@@ -345,6 +398,11 @@ namespace Model
      * <p>The error code.</p>
      */
     inline const Aws::String& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The error code.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The error code.</p>
@@ -381,6 +439,11 @@ namespace Model
      * <p>The error details.</p>
      */
     inline const Aws::String& GetErrorDetails() const{ return m_errorDetails; }
+
+    /**
+     * <p>The error details.</p>
+     */
+    inline bool ErrorDetailsHasBeenSet() const { return m_errorDetailsHasBeenSet; }
 
     /**
      * <p>The error details.</p>

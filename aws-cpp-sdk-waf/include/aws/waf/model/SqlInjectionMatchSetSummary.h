@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     SqlInjectionMatchSetSummary();
-    SqlInjectionMatchSetSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    SqlInjectionMatchSetSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SqlInjectionMatchSetSummary(Aws::Utils::Json::JsonView jsonValue);
+    SqlInjectionMatchSetSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +61,20 @@ namespace Model
      * <a>ListSqlInjectionMatchSets</a>.</p>
      */
     inline const Aws::String& GetSqlInjectionMatchSetId() const{ return m_sqlInjectionMatchSetId; }
+
+    /**
+     * <p>A unique identifier for a <code>SqlInjectionMatchSet</code>. You use
+     * <code>SqlInjectionMatchSetId</code> to get information about a
+     * <code>SqlInjectionMatchSet</code> (see <a>GetSqlInjectionMatchSet</a>), update a
+     * <code>SqlInjectionMatchSet</code> (see <a>UpdateSqlInjectionMatchSet</a>),
+     * insert a <code>SqlInjectionMatchSet</code> into a <code>Rule</code> or delete
+     * one from a <code>Rule</code> (see <a>UpdateRule</a>), and delete a
+     * <code>SqlInjectionMatchSet</code> from AWS WAF (see
+     * <a>DeleteSqlInjectionMatchSet</a>).</p> <p> <code>SqlInjectionMatchSetId</code>
+     * is returned by <a>CreateSqlInjectionMatchSet</a> and by
+     * <a>ListSqlInjectionMatchSets</a>.</p>
+     */
+    inline bool SqlInjectionMatchSetIdHasBeenSet() const { return m_sqlInjectionMatchSetIdHasBeenSet; }
 
     /**
      * <p>A unique identifier for a <code>SqlInjectionMatchSet</code>. You use
@@ -151,6 +166,12 @@ namespace Model
      * <code>Id</code>.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the <code>SqlInjectionMatchSet</code>, if any, specified by
+     * <code>Id</code>.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the <code>SqlInjectionMatchSet</code>, if any, specified by

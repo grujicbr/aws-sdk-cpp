@@ -28,32 +28,33 @@ using namespace Aws::Http;
 using namespace Aws::Utils;
 using namespace Aws::Client;
 
-static const char* AWS_ERROR_MARSHALLER_LOG_TAG = "AWSErrorMarshaller";
-AWS_CORE_API const char* MESSAGE_LOWER_CASE = "message";
-AWS_CORE_API const char* MESSAGE_CAMEL_CASE = "Message";
-AWS_CORE_API const char* ERROR_TYPE_HEADER = "x-amzn-ErrorType";
-AWS_CORE_API const char* TYPE = "__type";
+static const char AWS_ERROR_MARSHALLER_LOG_TAG[] = "AWSErrorMarshaller";
+AWS_CORE_API extern const char MESSAGE_LOWER_CASE[]     = "message";
+AWS_CORE_API extern const char MESSAGE_CAMEL_CASE[]     = "Message";
+AWS_CORE_API extern const char ERROR_TYPE_HEADER[]      = "x-amzn-ErrorType";
+AWS_CORE_API extern const char TYPE[]                   = "__type";
 
 AWSError<CoreErrors> JsonErrorMarshaller::Marshall(const Aws::Http::HttpResponse& httpResponse) const
 {
     JsonValue exceptionPayload(httpResponse.GetResponseBody());
-    if (!exceptionPayload.WasParseSuccessful()) 
+    JsonView payloadView(exceptionPayload);
+    if (!exceptionPayload.WasParseSuccessful())
     {
         return AWSError<CoreErrors>(CoreErrors::UNKNOWN, "", "Failed to parse error payload", false);
     }
 
-    AWS_LOGSTREAM_TRACE(AWS_ERROR_MARSHALLER_LOG_TAG, "Error response is " << exceptionPayload.WriteReadable());
+    AWS_LOGSTREAM_TRACE(AWS_ERROR_MARSHALLER_LOG_TAG, "Error response is " << payloadView.WriteReadable());
 
-    Aws::String message(exceptionPayload.ValueExists(MESSAGE_CAMEL_CASE) ? exceptionPayload.GetString(MESSAGE_CAMEL_CASE) :
-            exceptionPayload.ValueExists(MESSAGE_LOWER_CASE) ? exceptionPayload.GetString(MESSAGE_LOWER_CASE) : "");
+    Aws::String message(payloadView.ValueExists(MESSAGE_CAMEL_CASE) ? payloadView.GetString(MESSAGE_CAMEL_CASE) :
+            payloadView.ValueExists(MESSAGE_LOWER_CASE) ? payloadView.GetString(MESSAGE_LOWER_CASE) : "");
 
     if (httpResponse.HasHeader(ERROR_TYPE_HEADER))
     {
         return Marshall(httpResponse.GetHeader(ERROR_TYPE_HEADER), message);
     }
-    else if (exceptionPayload.ValueExists(TYPE))
+    else if (payloadView.ValueExists(TYPE))
     {
-        return Marshall(exceptionPayload.GetString(TYPE), message);
+        return Marshall(payloadView.GetString(TYPE), message);
     }
     else
     {

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     LogPublishingOptionsStatus();
-    LogPublishingOptionsStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    LogPublishingOptionsStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LogPublishingOptionsStatus(Aws::Utils::Json::JsonView jsonValue);
+    LogPublishingOptionsStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The log publishing options configured for the Elasticsearch domain.</p>
      */
     inline const Aws::Map<LogType, LogPublishingOption>& GetOptions() const{ return m_options; }
+
+    /**
+     * <p>The log publishing options configured for the Elasticsearch domain.</p>
+     */
+    inline bool OptionsHasBeenSet() const { return m_optionsHasBeenSet; }
 
     /**
      * <p>The log publishing options configured for the Elasticsearch domain.</p>
@@ -101,6 +107,12 @@ namespace Model
      * <code>OptionStatus</code> for the status information that's included. </p>
      */
     inline const OptionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the log publishing options for the Elasticsearch domain. See
+     * <code>OptionStatus</code> for the status information that's included. </p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the log publishing options for the Elasticsearch domain. See

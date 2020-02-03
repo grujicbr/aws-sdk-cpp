@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UploadMetadata();
-    UploadMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    UploadMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UploadMetadata(Aws::Utils::Json::JsonView jsonValue);
+    UploadMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The URL of the upload.</p>
      */
     inline const Aws::String& GetUploadUrl() const{ return m_uploadUrl; }
+
+    /**
+     * <p>The URL of the upload.</p>
+     */
+    inline bool UploadUrlHasBeenSet() const { return m_uploadUrlHasBeenSet; }
 
     /**
      * <p>The URL of the upload.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The signed headers.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetSignedHeaders() const{ return m_signedHeaders; }
+
+    /**
+     * <p>The signed headers.</p>
+     */
+    inline bool SignedHeadersHasBeenSet() const { return m_signedHeadersHasBeenSet; }
 
     /**
      * <p>The signed headers.</p>

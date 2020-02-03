@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     StepExecutionFilter();
-    StepExecutionFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    StepExecutionFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StepExecutionFilter(Aws::Utils::Json::JsonView jsonValue);
+    StepExecutionFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,13 @@ namespace Model
      * StartTimeBefore, StartTimeAfter.</p>
      */
     inline const StepExecutionFilterKey& GetKey() const{ return m_key; }
+
+    /**
+     * <p>One or more keys to limit the results. Valid filter keys include the
+     * following: StepName, Action, StepExecutionId, StepExecutionStatus,
+     * StartTimeBefore, StartTimeAfter.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>One or more keys to limit the results. Valid filter keys include the
@@ -89,6 +97,11 @@ namespace Model
      * <p>The values of the filter key.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>The values of the filter key.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>The values of the filter key.</p>

@@ -43,12 +43,14 @@ WriteCampaignRequest::WriteCampaignRequest() :
     m_segmentIdHasBeenSet(false),
     m_segmentVersion(0),
     m_segmentVersionHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_templateConfigurationHasBeenSet(false),
     m_treatmentDescriptionHasBeenSet(false),
     m_treatmentNameHasBeenSet(false)
 {
 }
 
-WriteCampaignRequest::WriteCampaignRequest(const JsonValue& jsonValue) : 
+WriteCampaignRequest::WriteCampaignRequest(JsonView jsonValue) : 
     m_additionalTreatmentsHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_holdoutPercent(0),
@@ -63,17 +65,19 @@ WriteCampaignRequest::WriteCampaignRequest(const JsonValue& jsonValue) :
     m_segmentIdHasBeenSet(false),
     m_segmentVersion(0),
     m_segmentVersionHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_templateConfigurationHasBeenSet(false),
     m_treatmentDescriptionHasBeenSet(false),
     m_treatmentNameHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-WriteCampaignRequest& WriteCampaignRequest::operator =(const JsonValue& jsonValue)
+WriteCampaignRequest& WriteCampaignRequest::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("AdditionalTreatments"))
   {
-    Array<JsonValue> additionalTreatmentsJsonList = jsonValue.GetArray("AdditionalTreatments");
+    Array<JsonView> additionalTreatmentsJsonList = jsonValue.GetArray("AdditionalTreatments");
     for(unsigned additionalTreatmentsIndex = 0; additionalTreatmentsIndex < additionalTreatmentsJsonList.GetLength(); ++additionalTreatmentsIndex)
     {
       m_additionalTreatments.push_back(additionalTreatmentsJsonList[additionalTreatmentsIndex].AsObject());
@@ -149,6 +153,23 @@ WriteCampaignRequest& WriteCampaignRequest::operator =(const JsonValue& jsonValu
     m_segmentVersion = jsonValue.GetInteger("SegmentVersion");
 
     m_segmentVersionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("TemplateConfiguration"))
+  {
+    m_templateConfiguration = jsonValue.GetObject("TemplateConfiguration");
+
+    m_templateConfigurationHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("TreatmentDescription"))
@@ -240,6 +261,23 @@ JsonValue WriteCampaignRequest::Jsonize() const
   if(m_segmentVersionHasBeenSet)
   {
    payload.WithInteger("SegmentVersion", m_segmentVersion);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
+  }
+
+  if(m_templateConfigurationHasBeenSet)
+  {
+   payload.WithObject("TemplateConfiguration", m_templateConfiguration.Jsonize());
 
   }
 

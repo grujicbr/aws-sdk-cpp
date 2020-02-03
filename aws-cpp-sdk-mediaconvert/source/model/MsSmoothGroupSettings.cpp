@@ -29,9 +29,11 @@ namespace Model
 {
 
 MsSmoothGroupSettings::MsSmoothGroupSettings() : 
+    m_additionalManifestsHasBeenSet(false),
     m_audioDeduplication(MsSmoothAudioDeduplication::NOT_SET),
     m_audioDeduplicationHasBeenSet(false),
     m_destinationHasBeenSet(false),
+    m_destinationSettingsHasBeenSet(false),
     m_encryptionHasBeenSet(false),
     m_fragmentLength(0),
     m_fragmentLengthHasBeenSet(false),
@@ -40,10 +42,12 @@ MsSmoothGroupSettings::MsSmoothGroupSettings() :
 {
 }
 
-MsSmoothGroupSettings::MsSmoothGroupSettings(const JsonValue& jsonValue) : 
+MsSmoothGroupSettings::MsSmoothGroupSettings(JsonView jsonValue) : 
+    m_additionalManifestsHasBeenSet(false),
     m_audioDeduplication(MsSmoothAudioDeduplication::NOT_SET),
     m_audioDeduplicationHasBeenSet(false),
     m_destinationHasBeenSet(false),
+    m_destinationSettingsHasBeenSet(false),
     m_encryptionHasBeenSet(false),
     m_fragmentLength(0),
     m_fragmentLengthHasBeenSet(false),
@@ -53,8 +57,18 @@ MsSmoothGroupSettings::MsSmoothGroupSettings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-MsSmoothGroupSettings& MsSmoothGroupSettings::operator =(const JsonValue& jsonValue)
+MsSmoothGroupSettings& MsSmoothGroupSettings::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("additionalManifests"))
+  {
+    Array<JsonView> additionalManifestsJsonList = jsonValue.GetArray("additionalManifests");
+    for(unsigned additionalManifestsIndex = 0; additionalManifestsIndex < additionalManifestsJsonList.GetLength(); ++additionalManifestsIndex)
+    {
+      m_additionalManifests.push_back(additionalManifestsJsonList[additionalManifestsIndex].AsObject());
+    }
+    m_additionalManifestsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("audioDeduplication"))
   {
     m_audioDeduplication = MsSmoothAudioDeduplicationMapper::GetMsSmoothAudioDeduplicationForName(jsonValue.GetString("audioDeduplication"));
@@ -67,6 +81,13 @@ MsSmoothGroupSettings& MsSmoothGroupSettings::operator =(const JsonValue& jsonVa
     m_destination = jsonValue.GetString("destination");
 
     m_destinationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("destinationSettings"))
+  {
+    m_destinationSettings = jsonValue.GetObject("destinationSettings");
+
+    m_destinationSettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("encryption"))
@@ -97,6 +118,17 @@ JsonValue MsSmoothGroupSettings::Jsonize() const
 {
   JsonValue payload;
 
+  if(m_additionalManifestsHasBeenSet)
+  {
+   Array<JsonValue> additionalManifestsJsonList(m_additionalManifests.size());
+   for(unsigned additionalManifestsIndex = 0; additionalManifestsIndex < additionalManifestsJsonList.GetLength(); ++additionalManifestsIndex)
+   {
+     additionalManifestsJsonList[additionalManifestsIndex].AsObject(m_additionalManifests[additionalManifestsIndex].Jsonize());
+   }
+   payload.WithArray("additionalManifests", std::move(additionalManifestsJsonList));
+
+  }
+
   if(m_audioDeduplicationHasBeenSet)
   {
    payload.WithString("audioDeduplication", MsSmoothAudioDeduplicationMapper::GetNameForMsSmoothAudioDeduplication(m_audioDeduplication));
@@ -105,6 +137,12 @@ JsonValue MsSmoothGroupSettings::Jsonize() const
   if(m_destinationHasBeenSet)
   {
    payload.WithString("destination", m_destination);
+
+  }
+
+  if(m_destinationSettingsHasBeenSet)
+  {
+   payload.WithObject("destinationSettings", m_destinationSettings.Jsonize());
 
   }
 

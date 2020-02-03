@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     FailedItemDetails();
-    FailedItemDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    FailedItemDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FailedItemDetails(Aws::Utils::Json::JsonView jsonValue);
+    FailedItemDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The status code of a failed item.</p>
      */
     inline const FailedItemErrorCode& GetFailureCode() const{ return m_failureCode; }
+
+    /**
+     * <p>The status code of a failed item.</p>
+     */
+    inline bool FailureCodeHasBeenSet() const { return m_failureCodeHasBeenSet; }
 
     /**
      * <p>The status code of a failed item.</p>
@@ -77,6 +83,12 @@ namespace Model
      * specified resource.</p>
      */
     inline bool GetRetryable() const{ return m_retryable; }
+
+    /**
+     * <p>Indicates whether you can immediately retry a request for this item for a
+     * specified resource.</p>
+     */
+    inline bool RetryableHasBeenSet() const { return m_retryableHasBeenSet; }
 
     /**
      * <p>Indicates whether you can immediately retry a request for this item for a

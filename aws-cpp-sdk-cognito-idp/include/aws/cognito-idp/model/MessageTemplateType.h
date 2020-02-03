@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     MessageTemplateType();
-    MessageTemplateType(const Aws::Utils::Json::JsonValue& jsonValue);
-    MessageTemplateType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MessageTemplateType(Aws::Utils::Json::JsonView jsonValue);
+    MessageTemplateType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The message template for SMS messages.</p>
      */
     inline const Aws::String& GetSMSMessage() const{ return m_sMSMessage; }
+
+    /**
+     * <p>The message template for SMS messages.</p>
+     */
+    inline bool SMSMessageHasBeenSet() const { return m_sMSMessageHasBeenSet; }
 
     /**
      * <p>The message template for SMS messages.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The message template for email messages.</p>
      */
+    inline bool EmailMessageHasBeenSet() const { return m_emailMessageHasBeenSet; }
+
+    /**
+     * <p>The message template for email messages.</p>
+     */
     inline void SetEmailMessage(const Aws::String& value) { m_emailMessageHasBeenSet = true; m_emailMessage = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The subject line for email messages.</p>
      */
     inline const Aws::String& GetEmailSubject() const{ return m_emailSubject; }
+
+    /**
+     * <p>The subject line for email messages.</p>
+     */
+    inline bool EmailSubjectHasBeenSet() const { return m_emailSubjectHasBeenSet; }
 
     /**
      * <p>The subject line for email messages.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     OptionStatus();
-    OptionStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    OptionStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OptionStatus(Aws::Utils::Json::JsonView jsonValue);
+    OptionStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Timestamp which tells the creation date for the entity.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>Timestamp which tells the creation date for the entity.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>Timestamp which tells the creation date for the entity.</p>
@@ -81,6 +87,11 @@ namespace Model
     /**
      * <p>Timestamp which tells the last updated time for the entity.</p>
      */
+    inline bool UpdateDateHasBeenSet() const { return m_updateDateHasBeenSet; }
+
+    /**
+     * <p>Timestamp which tells the last updated time for the entity.</p>
+     */
     inline void SetUpdateDate(const Aws::Utils::DateTime& value) { m_updateDateHasBeenSet = true; m_updateDate = value; }
 
     /**
@@ -107,6 +118,11 @@ namespace Model
     /**
      * <p>Specifies the latest version for the entity.</p>
      */
+    inline bool UpdateVersionHasBeenSet() const { return m_updateVersionHasBeenSet; }
+
+    /**
+     * <p>Specifies the latest version for the entity.</p>
+     */
     inline void SetUpdateVersion(int value) { m_updateVersionHasBeenSet = true; m_updateVersion = value; }
 
     /**
@@ -119,6 +135,11 @@ namespace Model
      * <p>Provides the <code>OptionState</code> for the Elasticsearch domain.</p>
      */
     inline const OptionState& GetState() const{ return m_state; }
+
+    /**
+     * <p>Provides the <code>OptionState</code> for the Elasticsearch domain.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>Provides the <code>OptionState</code> for the Elasticsearch domain.</p>
@@ -145,6 +166,11 @@ namespace Model
      * <p>Indicates whether the Elasticsearch domain is being deleted.</p>
      */
     inline bool GetPendingDeletion() const{ return m_pendingDeletion; }
+
+    /**
+     * <p>Indicates whether the Elasticsearch domain is being deleted.</p>
+     */
+    inline bool PendingDeletionHasBeenSet() const { return m_pendingDeletionHasBeenSet; }
 
     /**
      * <p>Indicates whether the Elasticsearch domain is being deleted.</p>

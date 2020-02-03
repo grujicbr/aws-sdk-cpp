@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RefreshSchemasStatus();
-    RefreshSchemasStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    RefreshSchemasStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RefreshSchemasStatus(Aws::Utils::Json::JsonView jsonValue);
+    RefreshSchemasStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * endpoint.</p>
      */
     inline const Aws::String& GetEndpointArn() const{ return m_endpointArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) string that uniquely identifies the
+     * endpoint.</p>
+     */
+    inline bool EndpointArnHasBeenSet() const { return m_endpointArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) string that uniquely identifies the
@@ -99,6 +106,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the replication instance.</p>
      */
+    inline bool ReplicationInstanceArnHasBeenSet() const { return m_replicationInstanceArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the replication instance.</p>
+     */
     inline void SetReplicationInstanceArn(const Aws::String& value) { m_replicationInstanceArnHasBeenSet = true; m_replicationInstanceArn = value; }
 
     /**
@@ -135,6 +147,11 @@ namespace Model
     /**
      * <p>The status of the schema.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the schema.</p>
+     */
     inline void SetStatus(const RefreshSchemasStatusTypeValue& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -161,6 +178,11 @@ namespace Model
     /**
      * <p>The date the schema was last refreshed.</p>
      */
+    inline bool LastRefreshDateHasBeenSet() const { return m_lastRefreshDateHasBeenSet; }
+
+    /**
+     * <p>The date the schema was last refreshed.</p>
+     */
     inline void SetLastRefreshDate(const Aws::Utils::DateTime& value) { m_lastRefreshDateHasBeenSet = true; m_lastRefreshDate = value; }
 
     /**
@@ -183,6 +205,11 @@ namespace Model
      * <p>The last failure message for the schema.</p>
      */
     inline const Aws::String& GetLastFailureMessage() const{ return m_lastFailureMessage; }
+
+    /**
+     * <p>The last failure message for the schema.</p>
+     */
+    inline bool LastFailureMessageHasBeenSet() const { return m_lastFailureMessageHasBeenSet; }
 
     /**
      * <p>The last failure message for the schema.</p>

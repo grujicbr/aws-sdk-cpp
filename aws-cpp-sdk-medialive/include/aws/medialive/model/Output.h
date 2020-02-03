@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Output();
-    Output(const Aws::Utils::Json::JsonValue& jsonValue);
-    Output& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Output(Aws::Utils::Json::JsonView jsonValue);
+    Output& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * The names of the AudioDescriptions used as audio sources for this output.
      */
     inline const Aws::Vector<Aws::String>& GetAudioDescriptionNames() const{ return m_audioDescriptionNames; }
+
+    /**
+     * The names of the AudioDescriptions used as audio sources for this output.
+     */
+    inline bool AudioDescriptionNamesHasBeenSet() const { return m_audioDescriptionNamesHasBeenSet; }
 
     /**
      * The names of the AudioDescriptions used as audio sources for this output.
@@ -98,6 +104,11 @@ namespace Model
     /**
      * The names of the CaptionDescriptions used as caption sources for this output.
      */
+    inline bool CaptionDescriptionNamesHasBeenSet() const { return m_captionDescriptionNamesHasBeenSet; }
+
+    /**
+     * The names of the CaptionDescriptions used as caption sources for this output.
+     */
     inline void SetCaptionDescriptionNames(const Aws::Vector<Aws::String>& value) { m_captionDescriptionNamesHasBeenSet = true; m_captionDescriptionNames = value; }
 
     /**
@@ -139,6 +150,11 @@ namespace Model
     /**
      * The name used to identify an output.
      */
+    inline bool OutputNameHasBeenSet() const { return m_outputNameHasBeenSet; }
+
+    /**
+     * The name used to identify an output.
+     */
     inline void SetOutputName(const Aws::String& value) { m_outputNameHasBeenSet = true; m_outputName = value; }
 
     /**
@@ -175,6 +191,11 @@ namespace Model
     /**
      * Output type-specific settings.
      */
+    inline bool OutputSettingsHasBeenSet() const { return m_outputSettingsHasBeenSet; }
+
+    /**
+     * Output type-specific settings.
+     */
     inline void SetOutputSettings(const OutputSettings& value) { m_outputSettingsHasBeenSet = true; m_outputSettings = value; }
 
     /**
@@ -197,6 +218,11 @@ namespace Model
      * The name of the VideoDescription used as the source for this output.
      */
     inline const Aws::String& GetVideoDescriptionName() const{ return m_videoDescriptionName; }
+
+    /**
+     * The name of the VideoDescription used as the source for this output.
+     */
+    inline bool VideoDescriptionNameHasBeenSet() const { return m_videoDescriptionNameHasBeenSet; }
 
     /**
      * The name of the VideoDescription used as the source for this output.

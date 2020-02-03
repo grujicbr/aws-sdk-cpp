@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticTranscoder
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Warning();
-    Warning(const Aws::Utils::Json::JsonValue& jsonValue);
-    Warning& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Warning(Aws::Utils::Json::JsonView jsonValue);
+    Warning& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The code of the cross-regional warning.</p>
      */
     inline const Aws::String& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The code of the cross-regional warning.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The code of the cross-regional warning.</p>
@@ -92,6 +98,13 @@ namespace Model
      * pipeline.</p> </note>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The message explaining what resources are in a different region from the
+     * pipeline.</p> <note> <p>AWS KMS keys must be in the same region as the
+     * pipeline.</p> </note>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The message explaining what resources are in a different region from the

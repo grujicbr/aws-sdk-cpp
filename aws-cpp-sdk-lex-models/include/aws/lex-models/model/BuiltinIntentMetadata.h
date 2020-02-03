@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BuiltinIntentMetadata();
-    BuiltinIntentMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    BuiltinIntentMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BuiltinIntentMetadata(Aws::Utils::Json::JsonView jsonValue);
+    BuiltinIntentMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,14 @@ namespace Model
      * Built-in Intents</a> in the <i>Alexa Skills Kit</i>.</p>
      */
     inline const Aws::String& GetSignature() const{ return m_signature; }
+
+    /**
+     * <p>A unique identifier for the built-in intent. To find the signature for an
+     * intent, see <a
+     * href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents">Standard
+     * Built-in Intents</a> in the <i>Alexa Skills Kit</i>.</p>
+     */
+    inline bool SignatureHasBeenSet() const { return m_signatureHasBeenSet; }
 
     /**
      * <p>A unique identifier for the built-in intent. To find the signature for an
@@ -109,6 +118,11 @@ namespace Model
      * <p>A list of identifiers for the locales that the intent supports.</p>
      */
     inline const Aws::Vector<Locale>& GetSupportedLocales() const{ return m_supportedLocales; }
+
+    /**
+     * <p>A list of identifiers for the locales that the intent supports.</p>
+     */
+    inline bool SupportedLocalesHasBeenSet() const { return m_supportedLocalesHasBeenSet; }
 
     /**
      * <p>A list of identifiers for the locales that the intent supports.</p>

@@ -32,6 +32,7 @@ GameSession::GameSession() :
     m_gameSessionIdHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_fleetIdHasBeenSet(false),
+    m_fleetArnHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_terminationTimeHasBeenSet(false),
     m_currentPlayerSessionCount(0),
@@ -44,6 +45,7 @@ GameSession::GameSession() :
     m_statusReasonHasBeenSet(false),
     m_gamePropertiesHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
+    m_dnsNameHasBeenSet(false),
     m_port(0),
     m_portHasBeenSet(false),
     m_playerSessionCreationPolicy(PlayerSessionCreationPolicy::NOT_SET),
@@ -54,10 +56,11 @@ GameSession::GameSession() :
 {
 }
 
-GameSession::GameSession(const JsonValue& jsonValue) : 
+GameSession::GameSession(JsonView jsonValue) : 
     m_gameSessionIdHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_fleetIdHasBeenSet(false),
+    m_fleetArnHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_terminationTimeHasBeenSet(false),
     m_currentPlayerSessionCount(0),
@@ -70,6 +73,7 @@ GameSession::GameSession(const JsonValue& jsonValue) :
     m_statusReasonHasBeenSet(false),
     m_gamePropertiesHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
+    m_dnsNameHasBeenSet(false),
     m_port(0),
     m_portHasBeenSet(false),
     m_playerSessionCreationPolicy(PlayerSessionCreationPolicy::NOT_SET),
@@ -81,7 +85,7 @@ GameSession::GameSession(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-GameSession& GameSession::operator =(const JsonValue& jsonValue)
+GameSession& GameSession::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("GameSessionId"))
   {
@@ -102,6 +106,13 @@ GameSession& GameSession::operator =(const JsonValue& jsonValue)
     m_fleetId = jsonValue.GetString("FleetId");
 
     m_fleetIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("FleetArn"))
+  {
+    m_fleetArn = jsonValue.GetString("FleetArn");
+
+    m_fleetArnHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("CreationTime"))
@@ -148,7 +159,7 @@ GameSession& GameSession::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("GameProperties"))
   {
-    Array<JsonValue> gamePropertiesJsonList = jsonValue.GetArray("GameProperties");
+    Array<JsonView> gamePropertiesJsonList = jsonValue.GetArray("GameProperties");
     for(unsigned gamePropertiesIndex = 0; gamePropertiesIndex < gamePropertiesJsonList.GetLength(); ++gamePropertiesIndex)
     {
       m_gameProperties.push_back(gamePropertiesJsonList[gamePropertiesIndex].AsObject());
@@ -161,6 +172,13 @@ GameSession& GameSession::operator =(const JsonValue& jsonValue)
     m_ipAddress = jsonValue.GetString("IpAddress");
 
     m_ipAddressHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("DnsName"))
+  {
+    m_dnsName = jsonValue.GetString("DnsName");
+
+    m_dnsNameHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("Port"))
@@ -223,6 +241,12 @@ JsonValue GameSession::Jsonize() const
 
   }
 
+  if(m_fleetArnHasBeenSet)
+  {
+   payload.WithString("FleetArn", m_fleetArn);
+
+  }
+
   if(m_creationTimeHasBeenSet)
   {
    payload.WithDouble("CreationTime", m_creationTime.SecondsWithMSPrecision());
@@ -269,6 +293,12 @@ JsonValue GameSession::Jsonize() const
   if(m_ipAddressHasBeenSet)
   {
    payload.WithString("IpAddress", m_ipAddress);
+
+  }
+
+  if(m_dnsNameHasBeenSet)
+  {
+   payload.WithString("DnsName", m_dnsName);
 
   }
 

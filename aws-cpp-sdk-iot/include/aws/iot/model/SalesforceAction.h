@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     SalesforceAction();
-    SalesforceAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    SalesforceAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SalesforceAction(Aws::Utils::Json::JsonView jsonValue);
+    SalesforceAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * creation of the Input Stream.</p>
      */
     inline const Aws::String& GetToken() const{ return m_token; }
+
+    /**
+     * <p>The token used to authenticate access to the Salesforce IoT Cloud Input
+     * Stream. The token is available from the Salesforce IoT Cloud platform after
+     * creation of the Input Stream.</p>
+     */
+    inline bool TokenHasBeenSet() const { return m_tokenHasBeenSet; }
 
     /**
      * <p>The token used to authenticate access to the Salesforce IoT Cloud Input
@@ -103,6 +111,13 @@ namespace Model
      * Stream.</p>
      */
     inline const Aws::String& GetUrl() const{ return m_url; }
+
+    /**
+     * <p>The URL exposed by the Salesforce IoT Cloud Input Stream. The URL is
+     * available from the Salesforce IoT Cloud platform after creation of the Input
+     * Stream.</p>
+     */
+    inline bool UrlHasBeenSet() const { return m_urlHasBeenSet; }
 
     /**
      * <p>The URL exposed by the Salesforce IoT Cloud Input Stream. The URL is

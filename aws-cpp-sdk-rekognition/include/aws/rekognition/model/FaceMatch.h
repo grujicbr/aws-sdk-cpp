@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     FaceMatch();
-    FaceMatch(const Aws::Utils::Json::JsonValue& jsonValue);
-    FaceMatch& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FaceMatch(Aws::Utils::Json::JsonView jsonValue);
+    FaceMatch& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Confidence in the match of this face with the input face.</p>
      */
     inline double GetSimilarity() const{ return m_similarity; }
+
+    /**
+     * <p>Confidence in the match of this face with the input face.</p>
+     */
+    inline bool SimilarityHasBeenSet() const { return m_similarityHasBeenSet; }
 
     /**
      * <p>Confidence in the match of this face with the input face.</p>
@@ -68,6 +74,12 @@ namespace Model
      * the source image, and external image ID that you assigned.</p>
      */
     inline const Face& GetFace() const{ return m_face; }
+
+    /**
+     * <p>Describes the face properties such as the bounding box, face ID, image ID of
+     * the source image, and external image ID that you assigned.</p>
+     */
+    inline bool FaceHasBeenSet() const { return m_faceHasBeenSet; }
 
     /**
      * <p>Describes the face properties such as the bounding box, face ID, image ID of

@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     S3Location();
-    S3Location(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3Location& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3Location(Aws::Utils::Json::JsonView jsonValue);
+    S3Location& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>The name of the Amazon S3 bucket where the job results are stored.</p>
      */
     inline const Aws::String& GetBucketName() const{ return m_bucketName; }
+
+    /**
+     * <p>The name of the Amazon S3 bucket where the job results are stored.</p>
+     */
+    inline bool BucketNameHasBeenSet() const { return m_bucketNameHasBeenSet; }
 
     /**
      * <p>The name of the Amazon S3 bucket where the job results are stored.</p>
@@ -93,6 +99,11 @@ namespace Model
      * <p>The prefix that is prepended to the results for this request.</p>
      */
     inline const Aws::String& GetPrefix() const{ return m_prefix; }
+
+    /**
+     * <p>The prefix that is prepended to the results for this request.</p>
+     */
+    inline bool PrefixHasBeenSet() const { return m_prefixHasBeenSet; }
 
     /**
      * <p>The prefix that is prepended to the results for this request.</p>
@@ -135,6 +146,12 @@ namespace Model
      * <p>Contains information about the encryption used to store the job results in
      * Amazon S3.</p>
      */
+    inline bool EncryptionHasBeenSet() const { return m_encryptionHasBeenSet; }
+
+    /**
+     * <p>Contains information about the encryption used to store the job results in
+     * Amazon S3.</p>
+     */
     inline void SetEncryption(const Encryption& value) { m_encryptionHasBeenSet = true; m_encryption = value; }
 
     /**
@@ -164,6 +181,11 @@ namespace Model
     /**
      * <p>The canned access control list (ACL) to apply to the job results.</p>
      */
+    inline bool CannedACLHasBeenSet() const { return m_cannedACLHasBeenSet; }
+
+    /**
+     * <p>The canned access control list (ACL) to apply to the job results.</p>
+     */
     inline void SetCannedACL(const CannedACL& value) { m_cannedACLHasBeenSet = true; m_cannedACL = value; }
 
     /**
@@ -186,6 +208,11 @@ namespace Model
      * <p>A list of grants that control access to the staged results.</p>
      */
     inline const Aws::Vector<Grant>& GetAccessControlList() const{ return m_accessControlList; }
+
+    /**
+     * <p>A list of grants that control access to the staged results.</p>
+     */
+    inline bool AccessControlListHasBeenSet() const { return m_accessControlListHasBeenSet; }
 
     /**
      * <p>A list of grants that control access to the staged results.</p>
@@ -222,6 +249,11 @@ namespace Model
      * <p>The tag-set that is applied to the job results.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetTagging() const{ return m_tagging; }
+
+    /**
+     * <p>The tag-set that is applied to the job results.</p>
+     */
+    inline bool TaggingHasBeenSet() const { return m_taggingHasBeenSet; }
 
     /**
      * <p>The tag-set that is applied to the job results.</p>
@@ -287,6 +319,11 @@ namespace Model
     /**
      * <p>A map of metadata to store with the job results in Amazon S3.</p>
      */
+    inline bool UserMetadataHasBeenSet() const { return m_userMetadataHasBeenSet; }
+
+    /**
+     * <p>A map of metadata to store with the job results in Amazon S3.</p>
+     */
     inline void SetUserMetadata(const Aws::Map<Aws::String, Aws::String>& value) { m_userMetadataHasBeenSet = true; m_userMetadata = value; }
 
     /**
@@ -344,6 +381,11 @@ namespace Model
      * <p>The storage class used to store the job results.</p>
      */
     inline const StorageClass& GetStorageClass() const{ return m_storageClass; }
+
+    /**
+     * <p>The storage class used to store the job results.</p>
+     */
+    inline bool StorageClassHasBeenSet() const { return m_storageClassHasBeenSet; }
 
     /**
      * <p>The storage class used to store the job results.</p>

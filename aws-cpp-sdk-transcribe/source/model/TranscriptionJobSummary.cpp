@@ -31,6 +31,7 @@ namespace Model
 TranscriptionJobSummary::TranscriptionJobSummary() : 
     m_transcriptionJobNameHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
+    m_startTimeHasBeenSet(false),
     m_completionTimeHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
@@ -42,9 +43,10 @@ TranscriptionJobSummary::TranscriptionJobSummary() :
 {
 }
 
-TranscriptionJobSummary::TranscriptionJobSummary(const JsonValue& jsonValue) : 
+TranscriptionJobSummary::TranscriptionJobSummary(JsonView jsonValue) : 
     m_transcriptionJobNameHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
+    m_startTimeHasBeenSet(false),
     m_completionTimeHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
@@ -57,7 +59,7 @@ TranscriptionJobSummary::TranscriptionJobSummary(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-TranscriptionJobSummary& TranscriptionJobSummary::operator =(const JsonValue& jsonValue)
+TranscriptionJobSummary& TranscriptionJobSummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TranscriptionJobName"))
   {
@@ -71,6 +73,13 @@ TranscriptionJobSummary& TranscriptionJobSummary::operator =(const JsonValue& js
     m_creationTime = jsonValue.GetDouble("CreationTime");
 
     m_creationTimeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("StartTime"))
+  {
+    m_startTime = jsonValue.GetDouble("StartTime");
+
+    m_startTimeHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("CompletionTime"))
@@ -124,6 +133,11 @@ JsonValue TranscriptionJobSummary::Jsonize() const
   if(m_creationTimeHasBeenSet)
   {
    payload.WithDouble("CreationTime", m_creationTime.SecondsWithMSPrecision());
+  }
+
+  if(m_startTimeHasBeenSet)
+  {
+   payload.WithDouble("StartTime", m_startTime.SecondsWithMSPrecision());
   }
 
   if(m_completionTimeHasBeenSet)

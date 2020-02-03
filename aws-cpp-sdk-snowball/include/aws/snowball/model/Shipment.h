@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Shipment();
-    Shipment(const Aws::Utils::Json::JsonValue& jsonValue);
-    Shipment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Shipment(Aws::Utils::Json::JsonView jsonValue);
+    Shipment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Status information for a shipment.</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>Status information for a shipment.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>Status information for a shipment.</p>
@@ -90,6 +96,14 @@ namespace Model
      * UPS is the carrier.</p>
      */
     inline const Aws::String& GetTrackingNumber() const{ return m_trackingNumber; }
+
+    /**
+     * <p>The tracking number for this job. Using this tracking number with your
+     * region's carrier's website, you can track a Snowball as the carrier transports
+     * it.</p> <p>For India, the carrier is Amazon Logistics. For all other regions,
+     * UPS is the carrier.</p>
+     */
+    inline bool TrackingNumberHasBeenSet() const { return m_trackingNumberHasBeenSet; }
 
     /**
      * <p>The tracking number for this job. Using this tracking number with your

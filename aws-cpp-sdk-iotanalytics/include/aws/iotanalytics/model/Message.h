@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Message();
-    Message(const Aws::Utils::Json::JsonValue& jsonValue);
-    Message& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Message(Aws::Utils::Json::JsonView jsonValue);
+    Message& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * within each batch sent.</p>
      */
     inline const Aws::String& GetMessageId() const{ return m_messageId; }
+
+    /**
+     * <p>The ID you wish to assign to the message. Each "messageId" must be unique
+     * within each batch sent.</p>
+     */
+    inline bool MessageIdHasBeenSet() const { return m_messageIdHasBeenSet; }
 
     /**
      * <p>The ID you wish to assign to the message. Each "messageId" must be unique
@@ -96,6 +103,13 @@ namespace Model
      * pipeline activity).</p>
      */
     inline const Aws::Utils::ByteBuffer& GetPayload() const{ return m_payload; }
+
+    /**
+     * <p>The payload of the message. This may be a JSON string or a Base64-encoded
+     * string representing binary data (in which case you must decode it by means of a
+     * pipeline activity).</p>
+     */
+    inline bool PayloadHasBeenSet() const { return m_payloadHasBeenSet; }
 
     /**
      * <p>The payload of the message. This may be a JSON string or a Base64-encoded

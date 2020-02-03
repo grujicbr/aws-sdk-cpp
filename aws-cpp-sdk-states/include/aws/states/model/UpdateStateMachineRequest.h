@@ -17,6 +17,7 @@
 #include <aws/states/SFN_EXPORTS.h>
 #include <aws/states/SFNRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/states/model/LoggingConfiguration.h>
 #include <utility>
 
 namespace Aws
@@ -32,7 +33,7 @@ namespace Model
   {
   public:
     UpdateStateMachineRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,6 +49,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the state machine.</p>
      */
     inline const Aws::String& GetStateMachineArn() const{ return m_stateMachineArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the state machine.</p>
+     */
+    inline bool StateMachineArnHasBeenSet() const { return m_stateMachineArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the state machine.</p>
@@ -81,37 +87,58 @@ namespace Model
 
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline const Aws::String& GetDefinition() const{ return m_definition; }
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
+     */
+    inline bool DefinitionHasBeenSet() const { return m_definitionHasBeenSet; }
+
+    /**
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline void SetDefinition(const Aws::String& value) { m_definitionHasBeenSet = true; m_definition = value; }
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline void SetDefinition(Aws::String&& value) { m_definitionHasBeenSet = true; m_definition = std::move(value); }
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline void SetDefinition(const char* value) { m_definitionHasBeenSet = true; m_definition.assign(value); }
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline UpdateStateMachineRequest& WithDefinition(const Aws::String& value) { SetDefinition(value); return *this;}
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline UpdateStateMachineRequest& WithDefinition(Aws::String&& value) { SetDefinition(std::move(value)); return *this;}
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline UpdateStateMachineRequest& WithDefinition(const char* value) { SetDefinition(value); return *this;}
 
@@ -120,6 +147,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the IAM role of the state machine.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role of the state machine.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role of the state machine.</p>
@@ -151,6 +183,37 @@ namespace Model
      */
     inline UpdateStateMachineRequest& WithRoleArn(const char* value) { SetRoleArn(value); return *this;}
 
+
+    /**
+     * <p/>
+     */
+    inline const LoggingConfiguration& GetLoggingConfiguration() const{ return m_loggingConfiguration; }
+
+    /**
+     * <p/>
+     */
+    inline bool LoggingConfigurationHasBeenSet() const { return m_loggingConfigurationHasBeenSet; }
+
+    /**
+     * <p/>
+     */
+    inline void SetLoggingConfiguration(const LoggingConfiguration& value) { m_loggingConfigurationHasBeenSet = true; m_loggingConfiguration = value; }
+
+    /**
+     * <p/>
+     */
+    inline void SetLoggingConfiguration(LoggingConfiguration&& value) { m_loggingConfigurationHasBeenSet = true; m_loggingConfiguration = std::move(value); }
+
+    /**
+     * <p/>
+     */
+    inline UpdateStateMachineRequest& WithLoggingConfiguration(const LoggingConfiguration& value) { SetLoggingConfiguration(value); return *this;}
+
+    /**
+     * <p/>
+     */
+    inline UpdateStateMachineRequest& WithLoggingConfiguration(LoggingConfiguration&& value) { SetLoggingConfiguration(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_stateMachineArn;
@@ -161,6 +224,9 @@ namespace Model
 
     Aws::String m_roleArn;
     bool m_roleArnHasBeenSet;
+
+    LoggingConfiguration m_loggingConfiguration;
+    bool m_loggingConfigurationHasBeenSet;
   };
 
 } // namespace Model

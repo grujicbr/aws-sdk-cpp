@@ -28,7 +28,9 @@ SearchFacesByImageRequest::SearchFacesByImageRequest() :
     m_maxFaces(0),
     m_maxFacesHasBeenSet(false),
     m_faceMatchThreshold(0.0),
-    m_faceMatchThresholdHasBeenSet(false)
+    m_faceMatchThresholdHasBeenSet(false),
+    m_qualityFilter(QualityFilter::NOT_SET),
+    m_qualityFilterHasBeenSet(false)
 {
 }
 
@@ -60,7 +62,12 @@ Aws::String SearchFacesByImageRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_qualityFilterHasBeenSet)
+  {
+   payload.WithString("QualityFilter", QualityFilterMapper::GetNameForQualityFilter(m_qualityFilter));
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection SearchFacesByImageRequest::GetRequestSpecificHeaders() const

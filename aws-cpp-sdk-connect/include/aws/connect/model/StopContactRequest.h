@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     StopContactRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -43,94 +43,83 @@ namespace Model
 
 
     /**
-     * <p>The unique identifier of the contact to end. This is the
-     * <code>ContactId</code> value returned from the
-     * <code>StartOutboundVoiceContact</code> operation.</p>
+     * <p>The ID of the contact.</p>
      */
     inline const Aws::String& GetContactId() const{ return m_contactId; }
 
     /**
-     * <p>The unique identifier of the contact to end. This is the
-     * <code>ContactId</code> value returned from the
-     * <code>StartOutboundVoiceContact</code> operation.</p>
+     * <p>The ID of the contact.</p>
+     */
+    inline bool ContactIdHasBeenSet() const { return m_contactIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the contact.</p>
      */
     inline void SetContactId(const Aws::String& value) { m_contactIdHasBeenSet = true; m_contactId = value; }
 
     /**
-     * <p>The unique identifier of the contact to end. This is the
-     * <code>ContactId</code> value returned from the
-     * <code>StartOutboundVoiceContact</code> operation.</p>
+     * <p>The ID of the contact.</p>
      */
     inline void SetContactId(Aws::String&& value) { m_contactIdHasBeenSet = true; m_contactId = std::move(value); }
 
     /**
-     * <p>The unique identifier of the contact to end. This is the
-     * <code>ContactId</code> value returned from the
-     * <code>StartOutboundVoiceContact</code> operation.</p>
+     * <p>The ID of the contact.</p>
      */
     inline void SetContactId(const char* value) { m_contactIdHasBeenSet = true; m_contactId.assign(value); }
 
     /**
-     * <p>The unique identifier of the contact to end. This is the
-     * <code>ContactId</code> value returned from the
-     * <code>StartOutboundVoiceContact</code> operation.</p>
+     * <p>The ID of the contact.</p>
      */
     inline StopContactRequest& WithContactId(const Aws::String& value) { SetContactId(value); return *this;}
 
     /**
-     * <p>The unique identifier of the contact to end. This is the
-     * <code>ContactId</code> value returned from the
-     * <code>StartOutboundVoiceContact</code> operation.</p>
+     * <p>The ID of the contact.</p>
      */
     inline StopContactRequest& WithContactId(Aws::String&& value) { SetContactId(std::move(value)); return *this;}
 
     /**
-     * <p>The unique identifier of the contact to end. This is the
-     * <code>ContactId</code> value returned from the
-     * <code>StartOutboundVoiceContact</code> operation.</p>
+     * <p>The ID of the contact.</p>
      */
     inline StopContactRequest& WithContactId(const char* value) { SetContactId(value); return *this;}
 
 
     /**
-     * <p>The identifier of the Amazon Connect instance in which the contact is
-     * active.</p>
+     * <p>The identifier of the Amazon Connect instance.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
 
     /**
-     * <p>The identifier of the Amazon Connect instance in which the contact is
-     * active.</p>
+     * <p>The identifier of the Amazon Connect instance.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
+
+    /**
+     * <p>The identifier of the Amazon Connect instance.</p>
      */
     inline void SetInstanceId(const Aws::String& value) { m_instanceIdHasBeenSet = true; m_instanceId = value; }
 
     /**
-     * <p>The identifier of the Amazon Connect instance in which the contact is
-     * active.</p>
+     * <p>The identifier of the Amazon Connect instance.</p>
      */
     inline void SetInstanceId(Aws::String&& value) { m_instanceIdHasBeenSet = true; m_instanceId = std::move(value); }
 
     /**
-     * <p>The identifier of the Amazon Connect instance in which the contact is
-     * active.</p>
+     * <p>The identifier of the Amazon Connect instance.</p>
      */
     inline void SetInstanceId(const char* value) { m_instanceIdHasBeenSet = true; m_instanceId.assign(value); }
 
     /**
-     * <p>The identifier of the Amazon Connect instance in which the contact is
-     * active.</p>
+     * <p>The identifier of the Amazon Connect instance.</p>
      */
     inline StopContactRequest& WithInstanceId(const Aws::String& value) { SetInstanceId(value); return *this;}
 
     /**
-     * <p>The identifier of the Amazon Connect instance in which the contact is
-     * active.</p>
+     * <p>The identifier of the Amazon Connect instance.</p>
      */
     inline StopContactRequest& WithInstanceId(Aws::String&& value) { SetInstanceId(std::move(value)); return *this;}
 
     /**
-     * <p>The identifier of the Amazon Connect instance in which the contact is
-     * active.</p>
+     * <p>The identifier of the Amazon Connect instance.</p>
      */
     inline StopContactRequest& WithInstanceId(const char* value) { SetInstanceId(value); return *this;}
 

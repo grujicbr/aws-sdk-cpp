@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ParameterMapEntry();
-    ParameterMapEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParameterMapEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParameterMapEntry(Aws::Utils::Json::JsonView jsonValue);
+    ParameterMapEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * Policy. </p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p> The QuestionID from the HIT that is used to identify which question requires
+     * Mechanical Turk to score as part of the ScoreMyKnownAnswers/2011-09-01 Review
+     * Policy. </p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p> The QuestionID from the HIT that is used to identify which question requires
@@ -104,6 +112,13 @@ namespace Model
      * </p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p> The list of answers to the question specified in the MapEntry Key element.
+     * The Worker must match all values in order for the answer to be scored correctly.
+     * </p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p> The list of answers to the question specified in the MapEntry Key element.

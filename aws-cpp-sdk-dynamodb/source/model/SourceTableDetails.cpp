@@ -38,11 +38,13 @@ SourceTableDetails::SourceTableDetails() :
     m_tableCreationDateTimeHasBeenSet(false),
     m_provisionedThroughputHasBeenSet(false),
     m_itemCount(0),
-    m_itemCountHasBeenSet(false)
+    m_itemCountHasBeenSet(false),
+    m_billingMode(BillingMode::NOT_SET),
+    m_billingModeHasBeenSet(false)
 {
 }
 
-SourceTableDetails::SourceTableDetails(const JsonValue& jsonValue) : 
+SourceTableDetails::SourceTableDetails(JsonView jsonValue) : 
     m_tableNameHasBeenSet(false),
     m_tableIdHasBeenSet(false),
     m_tableArnHasBeenSet(false),
@@ -52,12 +54,14 @@ SourceTableDetails::SourceTableDetails(const JsonValue& jsonValue) :
     m_tableCreationDateTimeHasBeenSet(false),
     m_provisionedThroughputHasBeenSet(false),
     m_itemCount(0),
-    m_itemCountHasBeenSet(false)
+    m_itemCountHasBeenSet(false),
+    m_billingMode(BillingMode::NOT_SET),
+    m_billingModeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-SourceTableDetails& SourceTableDetails::operator =(const JsonValue& jsonValue)
+SourceTableDetails& SourceTableDetails::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TableName"))
   {
@@ -89,7 +93,7 @@ SourceTableDetails& SourceTableDetails::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("KeySchema"))
   {
-    Array<JsonValue> keySchemaJsonList = jsonValue.GetArray("KeySchema");
+    Array<JsonView> keySchemaJsonList = jsonValue.GetArray("KeySchema");
     for(unsigned keySchemaIndex = 0; keySchemaIndex < keySchemaJsonList.GetLength(); ++keySchemaIndex)
     {
       m_keySchema.push_back(keySchemaJsonList[keySchemaIndex].AsObject());
@@ -116,6 +120,13 @@ SourceTableDetails& SourceTableDetails::operator =(const JsonValue& jsonValue)
     m_itemCount = jsonValue.GetInt64("ItemCount");
 
     m_itemCountHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("BillingMode"))
+  {
+    m_billingMode = BillingModeMapper::GetBillingModeForName(jsonValue.GetString("BillingMode"));
+
+    m_billingModeHasBeenSet = true;
   }
 
   return *this;
@@ -175,6 +186,11 @@ JsonValue SourceTableDetails::Jsonize() const
   {
    payload.WithInt64("ItemCount", m_itemCount);
 
+  }
+
+  if(m_billingModeHasBeenSet)
+  {
+   payload.WithString("BillingMode", BillingModeMapper::GetNameForBillingMode(m_billingMode));
   }
 
   return payload;

@@ -44,6 +44,7 @@ RestoreDBInstanceFromDBSnapshotRequest::RestoreDBInstanceFromDBSnapshotRequest()
     m_storageTypeHasBeenSet(false),
     m_tdeCredentialArnHasBeenSet(false),
     m_tdeCredentialPasswordHasBeenSet(false),
+    m_vpcSecurityGroupIdsHasBeenSet(false),
     m_domainHasBeenSet(false),
     m_copyTagsToSnapshot(false),
     m_copyTagsToSnapshotHasBeenSet(false),
@@ -53,7 +54,10 @@ RestoreDBInstanceFromDBSnapshotRequest::RestoreDBInstanceFromDBSnapshotRequest()
     m_enableCloudwatchLogsExportsHasBeenSet(false),
     m_processorFeaturesHasBeenSet(false),
     m_useDefaultProcessorFeatures(false),
-    m_useDefaultProcessorFeaturesHasBeenSet(false)
+    m_useDefaultProcessorFeaturesHasBeenSet(false),
+    m_dBParameterGroupNameHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false)
 {
 }
 
@@ -156,6 +160,17 @@ Aws::String RestoreDBInstanceFromDBSnapshotRequest::SerializePayload() const
     ss << "TdeCredentialPassword=" << StringUtils::URLEncode(m_tdeCredentialPassword.c_str()) << "&";
   }
 
+  if(m_vpcSecurityGroupIdsHasBeenSet)
+  {
+    unsigned vpcSecurityGroupIdsCount = 1;
+    for(auto& item : m_vpcSecurityGroupIds)
+    {
+      ss << "VpcSecurityGroupIds.member." << vpcSecurityGroupIdsCount << "="
+          << StringUtils::URLEncode(item.c_str()) << "&";
+      vpcSecurityGroupIdsCount++;
+    }
+  }
+
   if(m_domainHasBeenSet)
   {
     ss << "Domain=" << StringUtils::URLEncode(m_domain.c_str()) << "&";
@@ -200,6 +215,16 @@ Aws::String RestoreDBInstanceFromDBSnapshotRequest::SerializePayload() const
   if(m_useDefaultProcessorFeaturesHasBeenSet)
   {
     ss << "UseDefaultProcessorFeatures=" << std::boolalpha << m_useDefaultProcessorFeatures << "&";
+  }
+
+  if(m_dBParameterGroupNameHasBeenSet)
+  {
+    ss << "DBParameterGroupName=" << StringUtils::URLEncode(m_dBParameterGroupName.c_str()) << "&";
+  }
+
+  if(m_deletionProtectionHasBeenSet)
+  {
+    ss << "DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
   }
 
   ss << "Version=2014-10-31";

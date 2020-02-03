@@ -203,53 +203,71 @@ namespace Model
 
 
     /**
-     * <p>A URL with more information about the application, for example
- the location
+     * <p>A URL with more information about the application, for example the location
      * of your GitHub repository for the application.</p>
      */
     inline const Aws::String& GetHomePageUrl() const{ return m_homePageUrl; }
 
     /**
-     * <p>A URL with more information about the application, for example
- the location
+     * <p>A URL with more information about the application, for example the location
      * of your GitHub repository for the application.</p>
      */
     inline void SetHomePageUrl(const Aws::String& value) { m_homePageUrl = value; }
 
     /**
-     * <p>A URL with more information about the application, for example
- the location
+     * <p>A URL with more information about the application, for example the location
      * of your GitHub repository for the application.</p>
      */
     inline void SetHomePageUrl(Aws::String&& value) { m_homePageUrl = std::move(value); }
 
     /**
-     * <p>A URL with more information about the application, for example
- the location
+     * <p>A URL with more information about the application, for example the location
      * of your GitHub repository for the application.</p>
      */
     inline void SetHomePageUrl(const char* value) { m_homePageUrl.assign(value); }
 
     /**
-     * <p>A URL with more information about the application, for example
- the location
+     * <p>A URL with more information about the application, for example the location
      * of your GitHub repository for the application.</p>
      */
     inline UpdateApplicationResult& WithHomePageUrl(const Aws::String& value) { SetHomePageUrl(value); return *this;}
 
     /**
-     * <p>A URL with more information about the application, for example
- the location
+     * <p>A URL with more information about the application, for example the location
      * of your GitHub repository for the application.</p>
      */
     inline UpdateApplicationResult& WithHomePageUrl(Aws::String&& value) { SetHomePageUrl(std::move(value)); return *this;}
 
     /**
-     * <p>A URL with more information about the application, for example
- the location
+     * <p>A URL with more information about the application, for example the location
      * of your GitHub repository for the application.</p>
      */
     inline UpdateApplicationResult& WithHomePageUrl(const char* value) { SetHomePageUrl(value); return *this;}
+
+
+    /**
+     * <p>Whether the author of this application has been verified. This means means
+     * that AWS has made a good faith review, as a reasonable and prudent service
+     * provider, of the information provided by the requester and has confirmed that
+     * the requester's identity is as claimed.</p>
+     */
+    inline bool GetIsVerifiedAuthor() const{ return m_isVerifiedAuthor; }
+
+    /**
+     * <p>Whether the author of this application has been verified. This means means
+     * that AWS has made a good faith review, as a reasonable and prudent service
+     * provider, of the information provided by the requester and has confirmed that
+     * the requester's identity is as claimed.</p>
+     */
+    inline void SetIsVerifiedAuthor(bool value) { m_isVerifiedAuthor = value; }
+
+    /**
+     * <p>Whether the author of this application has been verified. This means means
+     * that AWS has made a good faith review, as a reasonable and prudent service
+     * provider, of the information provided by the requester and has confirmed that
+     * the requester's identity is as claimed.</p>
+     */
+    inline UpdateApplicationResult& WithIsVerifiedAuthor(bool value) { SetIsVerifiedAuthor(value); return *this;}
 
 
     /**
@@ -475,6 +493,49 @@ namespace Model
 
 
     /**
+     * <p>The URL to the public profile of a verified author. This URL is submitted by
+     * the author.</p>
+     */
+    inline const Aws::String& GetVerifiedAuthorUrl() const{ return m_verifiedAuthorUrl; }
+
+    /**
+     * <p>The URL to the public profile of a verified author. This URL is submitted by
+     * the author.</p>
+     */
+    inline void SetVerifiedAuthorUrl(const Aws::String& value) { m_verifiedAuthorUrl = value; }
+
+    /**
+     * <p>The URL to the public profile of a verified author. This URL is submitted by
+     * the author.</p>
+     */
+    inline void SetVerifiedAuthorUrl(Aws::String&& value) { m_verifiedAuthorUrl = std::move(value); }
+
+    /**
+     * <p>The URL to the public profile of a verified author. This URL is submitted by
+     * the author.</p>
+     */
+    inline void SetVerifiedAuthorUrl(const char* value) { m_verifiedAuthorUrl.assign(value); }
+
+    /**
+     * <p>The URL to the public profile of a verified author. This URL is submitted by
+     * the author.</p>
+     */
+    inline UpdateApplicationResult& WithVerifiedAuthorUrl(const Aws::String& value) { SetVerifiedAuthorUrl(value); return *this;}
+
+    /**
+     * <p>The URL to the public profile of a verified author. This URL is submitted by
+     * the author.</p>
+     */
+    inline UpdateApplicationResult& WithVerifiedAuthorUrl(Aws::String&& value) { SetVerifiedAuthorUrl(std::move(value)); return *this;}
+
+    /**
+     * <p>The URL to the public profile of a verified author. This URL is submitted by
+     * the author.</p>
+     */
+    inline UpdateApplicationResult& WithVerifiedAuthorUrl(const char* value) { SetVerifiedAuthorUrl(value); return *this;}
+
+
+    /**
      * <p>Version information about the application.</p>
      */
     inline const Version& GetVersion() const{ return m_version; }
@@ -511,6 +572,8 @@ namespace Model
 
     Aws::String m_homePageUrl;
 
+    bool m_isVerifiedAuthor;
+
     Aws::Vector<Aws::String> m_labels;
 
     Aws::String m_licenseUrl;
@@ -520,6 +583,8 @@ namespace Model
     Aws::String m_readmeUrl;
 
     Aws::String m_spdxLicenseId;
+
+    Aws::String m_verifiedAuthorUrl;
 
     Version m_version;
   };

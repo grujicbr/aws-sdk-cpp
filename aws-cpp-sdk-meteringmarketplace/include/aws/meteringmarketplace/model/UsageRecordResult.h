@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MarketplaceMetering
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     UsageRecordResult();
-    UsageRecordResult(const Aws::Utils::Json::JsonValue& jsonValue);
-    UsageRecordResult& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UsageRecordResult(Aws::Utils::Json::JsonView jsonValue);
+    UsageRecordResult& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The UsageRecord that was part of the BatchMeterUsage request.</p>
      */
     inline const UsageRecord& GetUsageRecord() const{ return m_usageRecord; }
+
+    /**
+     * <p>The UsageRecord that was part of the BatchMeterUsage request.</p>
+     */
+    inline bool UsageRecordHasBeenSet() const { return m_usageRecordHasBeenSet; }
 
     /**
      * <p>The UsageRecord that was part of the BatchMeterUsage request.</p>
@@ -79,6 +85,11 @@ namespace Model
      * <p>The MeteringRecordId is a unique identifier for this metering event.</p>
      */
     inline const Aws::String& GetMeteringRecordId() const{ return m_meteringRecordId; }
+
+    /**
+     * <p>The MeteringRecordId is a unique identifier for this metering event.</p>
+     */
+    inline bool MeteringRecordIdHasBeenSet() const { return m_meteringRecordIdHasBeenSet; }
 
     /**
      * <p>The MeteringRecordId is a unique identifier for this metering event.</p>
@@ -123,6 +134,19 @@ namespace Model
      * time, but a different quantity.</p> </li> </ul>
      */
     inline const UsageRecordResultStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The UsageRecordResult Status indicates the status of an individual
+     * UsageRecord processed by BatchMeterUsage.</p> <ul> <li> <p> <i>Success</i>- The
+     * UsageRecord was accepted and honored by BatchMeterUsage.</p> </li> <li> <p>
+     * <i>CustomerNotSubscribed</i>- The CustomerIdentifier specified is not subscribed
+     * to your product. The UsageRecord was not honored. Future UsageRecords for this
+     * customer will fail until the customer subscribes to your product.</p> </li> <li>
+     * <p> <i>DuplicateRecord</i>- Indicates that the UsageRecord was invalid and not
+     * honored. A previously metered UsageRecord had the same customer, dimension, and
+     * time, but a different quantity.</p> </li> </ul>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The UsageRecordResult Status indicates the status of an individual

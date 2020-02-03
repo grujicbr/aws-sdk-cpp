@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Comprehend
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchDetectSyntaxItemResult();
-    BatchDetectSyntaxItemResult(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchDetectSyntaxItemResult& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchDetectSyntaxItemResult(Aws::Utils::Json::JsonView jsonValue);
+    BatchDetectSyntaxItemResult& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The zero-based index of the document in the input list.</p>
      */
     inline int GetIndex() const{ return m_index; }
+
+    /**
+     * <p>The zero-based index of the document in the input list.</p>
+     */
+    inline bool IndexHasBeenSet() const { return m_indexHasBeenSet; }
 
     /**
      * <p>The zero-based index of the document in the input list.</p>
@@ -68,6 +74,11 @@ namespace Model
      * <p>The syntax tokens for the words in the document, one token for each word.</p>
      */
     inline const Aws::Vector<SyntaxToken>& GetSyntaxTokens() const{ return m_syntaxTokens; }
+
+    /**
+     * <p>The syntax tokens for the words in the document, one token for each word.</p>
+     */
+    inline bool SyntaxTokensHasBeenSet() const { return m_syntaxTokensHasBeenSet; }
 
     /**
      * <p>The syntax tokens for the words in the document, one token for each word.</p>

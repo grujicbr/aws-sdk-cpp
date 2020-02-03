@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     SelectParameters();
-    SelectParameters(const Aws::Utils::Json::JsonValue& jsonValue);
-    SelectParameters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SelectParameters(Aws::Utils::Json::JsonView jsonValue);
+    SelectParameters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Describes the serialization format of the object.</p>
      */
     inline const InputSerialization& GetInputSerialization() const{ return m_inputSerialization; }
+
+    /**
+     * <p>Describes the serialization format of the object.</p>
+     */
+    inline bool InputSerializationHasBeenSet() const { return m_inputSerializationHasBeenSet; }
 
     /**
      * <p>Describes the serialization format of the object.</p>
@@ -84,6 +90,11 @@ namespace Model
     /**
      * <p>The type of the provided expression, for example <code>SQL</code>.</p>
      */
+    inline bool ExpressionTypeHasBeenSet() const { return m_expressionTypeHasBeenSet; }
+
+    /**
+     * <p>The type of the provided expression, for example <code>SQL</code>.</p>
+     */
     inline void SetExpressionType(const ExpressionType& value) { m_expressionTypeHasBeenSet = true; m_expressionType = value; }
 
     /**
@@ -106,6 +117,11 @@ namespace Model
      * <p>The expression that is used to select the object.</p>
      */
     inline const Aws::String& GetExpression() const{ return m_expression; }
+
+    /**
+     * <p>The expression that is used to select the object.</p>
+     */
+    inline bool ExpressionHasBeenSet() const { return m_expressionHasBeenSet; }
 
     /**
      * <p>The expression that is used to select the object.</p>
@@ -142,6 +158,11 @@ namespace Model
      * <p>Describes how the results of the select job are serialized.</p>
      */
     inline const OutputSerialization& GetOutputSerialization() const{ return m_outputSerialization; }
+
+    /**
+     * <p>Describes how the results of the select job are serialized.</p>
+     */
+    inline bool OutputSerializationHasBeenSet() const { return m_outputSerializationHasBeenSet; }
 
     /**
      * <p>Describes how the results of the select job are serialized.</p>

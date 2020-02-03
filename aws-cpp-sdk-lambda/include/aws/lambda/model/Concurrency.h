@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lambda
@@ -34,26 +35,40 @@ namespace Model
   {
   public:
     Concurrency();
-    Concurrency(const Aws::Utils::Json::JsonValue& jsonValue);
-    Concurrency& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Concurrency(Aws::Utils::Json::JsonView jsonValue);
+    Concurrency& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The number of concurrent executions reserved for this function. For more
-     * information, see <a>concurrent-executions</a>.</p>
+     * <p>The number of concurrent executions that are reserved for this function. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing
+     * Concurrency</a>.</p>
      */
     inline int GetReservedConcurrentExecutions() const{ return m_reservedConcurrentExecutions; }
 
     /**
-     * <p>The number of concurrent executions reserved for this function. For more
-     * information, see <a>concurrent-executions</a>.</p>
+     * <p>The number of concurrent executions that are reserved for this function. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing
+     * Concurrency</a>.</p>
+     */
+    inline bool ReservedConcurrentExecutionsHasBeenSet() const { return m_reservedConcurrentExecutionsHasBeenSet; }
+
+    /**
+     * <p>The number of concurrent executions that are reserved for this function. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing
+     * Concurrency</a>.</p>
      */
     inline void SetReservedConcurrentExecutions(int value) { m_reservedConcurrentExecutionsHasBeenSet = true; m_reservedConcurrentExecutions = value; }
 
     /**
-     * <p>The number of concurrent executions reserved for this function. For more
-     * information, see <a>concurrent-executions</a>.</p>
+     * <p>The number of concurrent executions that are reserved for this function. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing
+     * Concurrency</a>.</p>
      */
     inline Concurrency& WithReservedConcurrentExecutions(int value) { SetReservedConcurrentExecutions(value); return *this;}
 

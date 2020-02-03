@@ -23,8 +23,10 @@ using namespace Aws::Utils;
 GetFederationTokenRequest::GetFederationTokenRequest() : 
     m_nameHasBeenSet(false),
     m_policyHasBeenSet(false),
+    m_policyArnsHasBeenSet(false),
     m_durationSeconds(0),
-    m_durationSecondsHasBeenSet(false)
+    m_durationSecondsHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -42,9 +44,29 @@ Aws::String GetFederationTokenRequest::SerializePayload() const
     ss << "Policy=" << StringUtils::URLEncode(m_policy.c_str()) << "&";
   }
 
+  if(m_policyArnsHasBeenSet)
+  {
+    unsigned policyArnsCount = 1;
+    for(auto& item : m_policyArns)
+    {
+      item.OutputToStream(ss, "PolicyArns.member.", policyArnsCount, "");
+      policyArnsCount++;
+    }
+  }
+
   if(m_durationSecondsHasBeenSet)
   {
     ss << "DurationSeconds=" << m_durationSeconds << "&";
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+    unsigned tagsCount = 1;
+    for(auto& item : m_tags)
+    {
+      item.OutputToStream(ss, "Tags.member.", tagsCount, "");
+      tagsCount++;
+    }
   }
 
   ss << "Version=2011-06-15";

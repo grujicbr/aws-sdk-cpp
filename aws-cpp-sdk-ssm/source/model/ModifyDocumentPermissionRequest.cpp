@@ -27,7 +27,8 @@ ModifyDocumentPermissionRequest::ModifyDocumentPermissionRequest() :
     m_permissionType(DocumentPermissionType::NOT_SET),
     m_permissionTypeHasBeenSet(false),
     m_accountIdsToAddHasBeenSet(false),
-    m_accountIdsToRemoveHasBeenSet(false)
+    m_accountIdsToRemoveHasBeenSet(false),
+    m_sharedDocumentVersionHasBeenSet(false)
 {
 }
 
@@ -68,7 +69,13 @@ Aws::String ModifyDocumentPermissionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_sharedDocumentVersionHasBeenSet)
+  {
+   payload.WithString("SharedDocumentVersion", m_sharedDocumentVersion);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection ModifyDocumentPermissionRequest::GetRequestSpecificHeaders() const

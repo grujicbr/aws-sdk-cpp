@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     GlobalSecondaryIndexUpdate();
-    GlobalSecondaryIndexUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    GlobalSecondaryIndexUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GlobalSecondaryIndexUpdate(Aws::Utils::Json::JsonView jsonValue);
+    GlobalSecondaryIndexUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,12 @@ namespace Model
      * throughput settings to be applied to that index.</p>
      */
     inline const UpdateGlobalSecondaryIndexAction& GetUpdate() const{ return m_update; }
+
+    /**
+     * <p>The name of an existing global secondary index, along with new provisioned
+     * throughput settings to be applied to that index.</p>
+     */
+    inline bool UpdateHasBeenSet() const { return m_updateHasBeenSet; }
 
     /**
      * <p>The name of an existing global secondary index, along with new provisioned
@@ -99,6 +106,15 @@ namespace Model
      * </p> </li> <li> <p> <code>Projection </code> </p> </li> <li> <p>
      * <code>ProvisionedThroughput </code> </p> </li> </ul>
      */
+    inline bool CreateHasBeenSet() const { return m_createHasBeenSet; }
+
+    /**
+     * <p>The parameters required for creating a global secondary index on an existing
+     * table:</p> <ul> <li> <p> <code>IndexName </code> </p> </li> <li> <p>
+     * <code>KeySchema </code> </p> </li> <li> <p> <code>AttributeDefinitions </code>
+     * </p> </li> <li> <p> <code>Projection </code> </p> </li> <li> <p>
+     * <code>ProvisionedThroughput </code> </p> </li> </ul>
+     */
     inline void SetCreate(const CreateGlobalSecondaryIndexAction& value) { m_createHasBeenSet = true; m_create = value; }
 
     /**
@@ -133,6 +149,11 @@ namespace Model
      * <p>The name of an existing global secondary index to be removed.</p>
      */
     inline const DeleteGlobalSecondaryIndexAction& GetDelete() const{ return m_delete; }
+
+    /**
+     * <p>The name of an existing global secondary index to be removed.</p>
+     */
+    inline bool DeleteHasBeenSet() const { return m_deleteHasBeenSet; }
 
     /**
      * <p>The name of an existing global secondary index to be removed.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Order();
-    Order(const Aws::Utils::Json::JsonValue& jsonValue);
-    Order& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Order(Aws::Utils::Json::JsonView jsonValue);
+    Order& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the column.</p>
      */
     inline const Aws::String& GetColumn() const{ return m_column; }
+
+    /**
+     * <p>The name of the column.</p>
+     */
+    inline bool ColumnHasBeenSet() const { return m_columnHasBeenSet; }
 
     /**
      * <p>The name of the column.</p>
@@ -87,6 +93,12 @@ namespace Model
      * or in descending order (<code>==0</code>).</p>
      */
     inline int GetSortOrder() const{ return m_sortOrder; }
+
+    /**
+     * <p>Indicates that the column is sorted in ascending order (<code>== 1</code>),
+     * or in descending order (<code>==0</code>).</p>
+     */
+    inline bool SortOrderHasBeenSet() const { return m_sortOrderHasBeenSet; }
 
     /**
      * <p>Indicates that the column is sorted in ascending order (<code>== 1</code>),

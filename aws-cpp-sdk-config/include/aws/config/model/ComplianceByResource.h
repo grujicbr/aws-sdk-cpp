@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ComplianceByResource();
-    ComplianceByResource(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComplianceByResource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComplianceByResource(Aws::Utils::Json::JsonView jsonValue);
+    ComplianceByResource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The type of the AWS resource that was evaluated.</p>
      */
     inline const Aws::String& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The type of the AWS resource that was evaluated.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The type of the AWS resource that was evaluated.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The ID of the AWS resource that was evaluated.</p>
      */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the AWS resource that was evaluated.</p>
+     */
     inline void SetResourceId(const Aws::String& value) { m_resourceIdHasBeenSet = true; m_resourceId = value; }
 
     /**
@@ -127,6 +138,12 @@ namespace Model
      * that evaluated it.</p>
      */
     inline const Compliance& GetCompliance() const{ return m_compliance; }
+
+    /**
+     * <p>Indicates whether the AWS resource complies with all of the AWS Config rules
+     * that evaluated it.</p>
+     */
+    inline bool ComplianceHasBeenSet() const { return m_complianceHasBeenSet; }
 
     /**
      * <p>Indicates whether the AWS resource complies with all of the AWS Config rules

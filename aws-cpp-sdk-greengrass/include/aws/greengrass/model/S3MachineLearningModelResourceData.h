@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/greengrass/Greengrass_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/greengrass/model/ResourceDownloadOwnerSetting.h>
 #include <utility>
 
 namespace Aws
@@ -25,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -33,8 +35,8 @@ namespace Model
 {
 
   /**
-   * Attributes that define an S3 machine learning resource.<p><h3>See Also:</h3>  
-   * <a
+   * Attributes that define an Amazon S3 machine learning resource.<p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/S3MachineLearningModelResourceData">AWS
    * API Reference</a></p>
    */
@@ -42,8 +44,8 @@ namespace Model
   {
   public:
     S3MachineLearningModelResourceData();
-    S3MachineLearningModelResourceData(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3MachineLearningModelResourceData& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3MachineLearningModelResourceData(Aws::Utils::Json::JsonView jsonValue);
+    S3MachineLearningModelResourceData& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +53,11 @@ namespace Model
      * The absolute local path of the resource inside the Lambda environment.
      */
     inline const Aws::String& GetDestinationPath() const{ return m_destinationPath; }
+
+    /**
+     * The absolute local path of the resource inside the Lambda environment.
+     */
+    inline bool DestinationPathHasBeenSet() const { return m_destinationPathHasBeenSet; }
 
     /**
      * The absolute local path of the resource inside the Lambda environment.
@@ -83,11 +90,36 @@ namespace Model
     inline S3MachineLearningModelResourceData& WithDestinationPath(const char* value) { SetDestinationPath(value); return *this;}
 
 
+    
+    inline const ResourceDownloadOwnerSetting& GetOwnerSetting() const{ return m_ownerSetting; }
+
+    
+    inline bool OwnerSettingHasBeenSet() const { return m_ownerSettingHasBeenSet; }
+
+    
+    inline void SetOwnerSetting(const ResourceDownloadOwnerSetting& value) { m_ownerSettingHasBeenSet = true; m_ownerSetting = value; }
+
+    
+    inline void SetOwnerSetting(ResourceDownloadOwnerSetting&& value) { m_ownerSettingHasBeenSet = true; m_ownerSetting = std::move(value); }
+
+    
+    inline S3MachineLearningModelResourceData& WithOwnerSetting(const ResourceDownloadOwnerSetting& value) { SetOwnerSetting(value); return *this;}
+
+    
+    inline S3MachineLearningModelResourceData& WithOwnerSetting(ResourceDownloadOwnerSetting&& value) { SetOwnerSetting(std::move(value)); return *this;}
+
+
     /**
      * The URI of the source model in an S3 bucket. The model package must be in tar.gz
      * or .zip format.
      */
     inline const Aws::String& GetS3Uri() const{ return m_s3Uri; }
+
+    /**
+     * The URI of the source model in an S3 bucket. The model package must be in tar.gz
+     * or .zip format.
+     */
+    inline bool S3UriHasBeenSet() const { return m_s3UriHasBeenSet; }
 
     /**
      * The URI of the source model in an S3 bucket. The model package must be in tar.gz
@@ -129,6 +161,9 @@ namespace Model
 
     Aws::String m_destinationPath;
     bool m_destinationPathHasBeenSet;
+
+    ResourceDownloadOwnerSetting m_ownerSetting;
+    bool m_ownerSettingHasBeenSet;
 
     Aws::String m_s3Uri;
     bool m_s3UriHasBeenSet;

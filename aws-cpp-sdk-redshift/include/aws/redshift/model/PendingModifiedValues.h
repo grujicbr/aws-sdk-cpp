@@ -61,6 +61,12 @@ namespace Model
      * <p>The pending or in-progress change of the master user password for the
      * cluster.</p>
      */
+    inline bool MasterUserPasswordHasBeenSet() const { return m_masterUserPasswordHasBeenSet; }
+
+    /**
+     * <p>The pending or in-progress change of the master user password for the
+     * cluster.</p>
+     */
     inline void SetMasterUserPassword(const Aws::String& value) { m_masterUserPasswordHasBeenSet = true; m_masterUserPassword = value; }
 
     /**
@@ -102,6 +108,11 @@ namespace Model
     /**
      * <p>The pending or in-progress change of the cluster's node type.</p>
      */
+    inline bool NodeTypeHasBeenSet() const { return m_nodeTypeHasBeenSet; }
+
+    /**
+     * <p>The pending or in-progress change of the cluster's node type.</p>
+     */
     inline void SetNodeType(const Aws::String& value) { m_nodeTypeHasBeenSet = true; m_nodeType = value; }
 
     /**
@@ -138,6 +149,11 @@ namespace Model
     /**
      * <p>The pending or in-progress change of the number of nodes in the cluster.</p>
      */
+    inline bool NumberOfNodesHasBeenSet() const { return m_numberOfNodesHasBeenSet; }
+
+    /**
+     * <p>The pending or in-progress change of the number of nodes in the cluster.</p>
+     */
     inline void SetNumberOfNodes(int value) { m_numberOfNodesHasBeenSet = true; m_numberOfNodes = value; }
 
     /**
@@ -150,6 +166,11 @@ namespace Model
      * <p>The pending or in-progress change of the cluster type.</p>
      */
     inline const Aws::String& GetClusterType() const{ return m_clusterType; }
+
+    /**
+     * <p>The pending or in-progress change of the cluster type.</p>
+     */
+    inline bool ClusterTypeHasBeenSet() const { return m_clusterTypeHasBeenSet; }
 
     /**
      * <p>The pending or in-progress change of the cluster type.</p>
@@ -186,6 +207,11 @@ namespace Model
      * <p>The pending or in-progress change of the service version.</p>
      */
     inline const Aws::String& GetClusterVersion() const{ return m_clusterVersion; }
+
+    /**
+     * <p>The pending or in-progress change of the service version.</p>
+     */
+    inline bool ClusterVersionHasBeenSet() const { return m_clusterVersionHasBeenSet; }
 
     /**
      * <p>The pending or in-progress change of the service version.</p>
@@ -228,6 +254,12 @@ namespace Model
      * <p>The pending or in-progress change of the automated snapshot retention
      * period.</p>
      */
+    inline bool AutomatedSnapshotRetentionPeriodHasBeenSet() const { return m_automatedSnapshotRetentionPeriodHasBeenSet; }
+
+    /**
+     * <p>The pending or in-progress change of the automated snapshot retention
+     * period.</p>
+     */
     inline void SetAutomatedSnapshotRetentionPeriod(int value) { m_automatedSnapshotRetentionPeriodHasBeenSet = true; m_automatedSnapshotRetentionPeriod = value; }
 
     /**
@@ -241,6 +273,11 @@ namespace Model
      * <p>The pending or in-progress change of the new identifier for the cluster.</p>
      */
     inline const Aws::String& GetClusterIdentifier() const{ return m_clusterIdentifier; }
+
+    /**
+     * <p>The pending or in-progress change of the new identifier for the cluster.</p>
+     */
+    inline bool ClusterIdentifierHasBeenSet() const { return m_clusterIdentifierHasBeenSet; }
 
     /**
      * <p>The pending or in-progress change of the new identifier for the cluster.</p>
@@ -283,6 +320,12 @@ namespace Model
      * <p>The pending or in-progress change of the ability to connect to the cluster
      * from the public network.</p>
      */
+    inline bool PubliclyAccessibleHasBeenSet() const { return m_publiclyAccessibleHasBeenSet; }
+
+    /**
+     * <p>The pending or in-progress change of the ability to connect to the cluster
+     * from the public network.</p>
+     */
     inline void SetPubliclyAccessible(bool value) { m_publiclyAccessibleHasBeenSet = true; m_publiclyAccessible = value; }
 
     /**
@@ -296,7 +339,7 @@ namespace Model
      * <p>An option that specifies whether to create the cluster with enhanced VPC
      * routing enabled. To create a cluster that uses enhanced VPC routing, the cluster
      * must be in a VPC. For more information, see <a
-     * href="http://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
      * VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this
      * option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default:
      * false</p>
@@ -307,7 +350,18 @@ namespace Model
      * <p>An option that specifies whether to create the cluster with enhanced VPC
      * routing enabled. To create a cluster that uses enhanced VPC routing, the cluster
      * must be in a VPC. For more information, see <a
-     * href="http://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
+     * VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this
+     * option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default:
+     * false</p>
+     */
+    inline bool EnhancedVpcRoutingHasBeenSet() const { return m_enhancedVpcRoutingHasBeenSet; }
+
+    /**
+     * <p>An option that specifies whether to create the cluster with enhanced VPC
+     * routing enabled. To create a cluster that uses enhanced VPC routing, the cluster
+     * must be in a VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
      * VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this
      * option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default:
      * false</p>
@@ -318,12 +372,110 @@ namespace Model
      * <p>An option that specifies whether to create the cluster with enhanced VPC
      * routing enabled. To create a cluster that uses enhanced VPC routing, the cluster
      * must be in a VPC. For more information, see <a
-     * href="http://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
      * VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this
      * option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default:
      * false</p>
      */
     inline PendingModifiedValues& WithEnhancedVpcRouting(bool value) { SetEnhancedVpcRouting(value); return *this;}
+
+
+    /**
+     * <p>The name of the maintenance track that the cluster will change to during the
+     * next maintenance window.</p>
+     */
+    inline const Aws::String& GetMaintenanceTrackName() const{ return m_maintenanceTrackName; }
+
+    /**
+     * <p>The name of the maintenance track that the cluster will change to during the
+     * next maintenance window.</p>
+     */
+    inline bool MaintenanceTrackNameHasBeenSet() const { return m_maintenanceTrackNameHasBeenSet; }
+
+    /**
+     * <p>The name of the maintenance track that the cluster will change to during the
+     * next maintenance window.</p>
+     */
+    inline void SetMaintenanceTrackName(const Aws::String& value) { m_maintenanceTrackNameHasBeenSet = true; m_maintenanceTrackName = value; }
+
+    /**
+     * <p>The name of the maintenance track that the cluster will change to during the
+     * next maintenance window.</p>
+     */
+    inline void SetMaintenanceTrackName(Aws::String&& value) { m_maintenanceTrackNameHasBeenSet = true; m_maintenanceTrackName = std::move(value); }
+
+    /**
+     * <p>The name of the maintenance track that the cluster will change to during the
+     * next maintenance window.</p>
+     */
+    inline void SetMaintenanceTrackName(const char* value) { m_maintenanceTrackNameHasBeenSet = true; m_maintenanceTrackName.assign(value); }
+
+    /**
+     * <p>The name of the maintenance track that the cluster will change to during the
+     * next maintenance window.</p>
+     */
+    inline PendingModifiedValues& WithMaintenanceTrackName(const Aws::String& value) { SetMaintenanceTrackName(value); return *this;}
+
+    /**
+     * <p>The name of the maintenance track that the cluster will change to during the
+     * next maintenance window.</p>
+     */
+    inline PendingModifiedValues& WithMaintenanceTrackName(Aws::String&& value) { SetMaintenanceTrackName(std::move(value)); return *this;}
+
+    /**
+     * <p>The name of the maintenance track that the cluster will change to during the
+     * next maintenance window.</p>
+     */
+    inline PendingModifiedValues& WithMaintenanceTrackName(const char* value) { SetMaintenanceTrackName(value); return *this;}
+
+
+    /**
+     * <p>The encryption type for a cluster. Possible values are: KMS and None. For the
+     * China region the possible values are None, and Legacy. </p>
+     */
+    inline const Aws::String& GetEncryptionType() const{ return m_encryptionType; }
+
+    /**
+     * <p>The encryption type for a cluster. Possible values are: KMS and None. For the
+     * China region the possible values are None, and Legacy. </p>
+     */
+    inline bool EncryptionTypeHasBeenSet() const { return m_encryptionTypeHasBeenSet; }
+
+    /**
+     * <p>The encryption type for a cluster. Possible values are: KMS and None. For the
+     * China region the possible values are None, and Legacy. </p>
+     */
+    inline void SetEncryptionType(const Aws::String& value) { m_encryptionTypeHasBeenSet = true; m_encryptionType = value; }
+
+    /**
+     * <p>The encryption type for a cluster. Possible values are: KMS and None. For the
+     * China region the possible values are None, and Legacy. </p>
+     */
+    inline void SetEncryptionType(Aws::String&& value) { m_encryptionTypeHasBeenSet = true; m_encryptionType = std::move(value); }
+
+    /**
+     * <p>The encryption type for a cluster. Possible values are: KMS and None. For the
+     * China region the possible values are None, and Legacy. </p>
+     */
+    inline void SetEncryptionType(const char* value) { m_encryptionTypeHasBeenSet = true; m_encryptionType.assign(value); }
+
+    /**
+     * <p>The encryption type for a cluster. Possible values are: KMS and None. For the
+     * China region the possible values are None, and Legacy. </p>
+     */
+    inline PendingModifiedValues& WithEncryptionType(const Aws::String& value) { SetEncryptionType(value); return *this;}
+
+    /**
+     * <p>The encryption type for a cluster. Possible values are: KMS and None. For the
+     * China region the possible values are None, and Legacy. </p>
+     */
+    inline PendingModifiedValues& WithEncryptionType(Aws::String&& value) { SetEncryptionType(std::move(value)); return *this;}
+
+    /**
+     * <p>The encryption type for a cluster. Possible values are: KMS and None. For the
+     * China region the possible values are None, and Legacy. </p>
+     */
+    inline PendingModifiedValues& WithEncryptionType(const char* value) { SetEncryptionType(value); return *this;}
 
   private:
 
@@ -353,6 +505,12 @@ namespace Model
 
     bool m_enhancedVpcRouting;
     bool m_enhancedVpcRoutingHasBeenSet;
+
+    Aws::String m_maintenanceTrackName;
+    bool m_maintenanceTrackNameHasBeenSet;
+
+    Aws::String m_encryptionType;
+    bool m_encryptionTypeHasBeenSet;
   };
 
 } // namespace Model

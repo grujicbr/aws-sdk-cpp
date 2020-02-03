@@ -42,12 +42,18 @@ RestoreFromClusterSnapshotRequest::RestoreFromClusterSnapshotRequest() :
     m_preferredMaintenanceWindowHasBeenSet(false),
     m_automatedSnapshotRetentionPeriod(0),
     m_automatedSnapshotRetentionPeriodHasBeenSet(false),
+    m_manualSnapshotRetentionPeriod(0),
+    m_manualSnapshotRetentionPeriodHasBeenSet(false),
     m_kmsKeyIdHasBeenSet(false),
     m_nodeTypeHasBeenSet(false),
     m_enhancedVpcRouting(false),
     m_enhancedVpcRoutingHasBeenSet(false),
     m_additionalInfoHasBeenSet(false),
-    m_iamRolesHasBeenSet(false)
+    m_iamRolesHasBeenSet(false),
+    m_maintenanceTrackNameHasBeenSet(false),
+    m_snapshotScheduleIdentifierHasBeenSet(false),
+    m_numberOfNodes(0),
+    m_numberOfNodesHasBeenSet(false)
 {
 }
 
@@ -152,6 +158,11 @@ Aws::String RestoreFromClusterSnapshotRequest::SerializePayload() const
     ss << "AutomatedSnapshotRetentionPeriod=" << m_automatedSnapshotRetentionPeriod << "&";
   }
 
+  if(m_manualSnapshotRetentionPeriodHasBeenSet)
+  {
+    ss << "ManualSnapshotRetentionPeriod=" << m_manualSnapshotRetentionPeriod << "&";
+  }
+
   if(m_kmsKeyIdHasBeenSet)
   {
     ss << "KmsKeyId=" << StringUtils::URLEncode(m_kmsKeyId.c_str()) << "&";
@@ -181,6 +192,21 @@ Aws::String RestoreFromClusterSnapshotRequest::SerializePayload() const
           << StringUtils::URLEncode(item.c_str()) << "&";
       iamRolesCount++;
     }
+  }
+
+  if(m_maintenanceTrackNameHasBeenSet)
+  {
+    ss << "MaintenanceTrackName=" << StringUtils::URLEncode(m_maintenanceTrackName.c_str()) << "&";
+  }
+
+  if(m_snapshotScheduleIdentifierHasBeenSet)
+  {
+    ss << "SnapshotScheduleIdentifier=" << StringUtils::URLEncode(m_snapshotScheduleIdentifier.c_str()) << "&";
+  }
+
+  if(m_numberOfNodesHasBeenSet)
+  {
+    ss << "NumberOfNodes=" << m_numberOfNodes << "&";
   }
 
   ss << "Version=2012-12-01";

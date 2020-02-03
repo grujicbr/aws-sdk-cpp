@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     FailedCreateAssociation();
-    FailedCreateAssociation(const Aws::Utils::Json::JsonValue& jsonValue);
-    FailedCreateAssociation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FailedCreateAssociation(Aws::Utils::Json::JsonView jsonValue);
+    FailedCreateAssociation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The association.</p>
      */
     inline const CreateAssociationBatchRequestEntry& GetEntry() const{ return m_entry; }
+
+    /**
+     * <p>The association.</p>
+     */
+    inline bool EntryHasBeenSet() const { return m_entryHasBeenSet; }
 
     /**
      * <p>The association.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>A description of the failure.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>A description of the failure.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>A description of the failure.</p>
@@ -114,6 +125,11 @@ namespace Model
      * <p>The source of the failure.</p>
      */
     inline const Fault& GetFault() const{ return m_fault; }
+
+    /**
+     * <p>The source of the failure.</p>
+     */
+    inline bool FaultHasBeenSet() const { return m_faultHasBeenSet; }
 
     /**
      * <p>The source of the failure.</p>

@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     DocumentVersionMetadata();
-    DocumentVersionMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    DocumentVersionMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DocumentVersionMetadata(Aws::Utils::Json::JsonView jsonValue);
+    DocumentVersionMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The ID of the version.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the version.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the version.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>The name of the version.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the version.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -127,6 +138,11 @@ namespace Model
      * <p>The content type of the document.</p>
      */
     inline const Aws::String& GetContentType() const{ return m_contentType; }
+
+    /**
+     * <p>The content type of the document.</p>
+     */
+    inline bool ContentTypeHasBeenSet() const { return m_contentTypeHasBeenSet; }
 
     /**
      * <p>The content type of the document.</p>
@@ -167,6 +183,11 @@ namespace Model
     /**
      * <p>The size of the document, in bytes.</p>
      */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
+
+    /**
+     * <p>The size of the document, in bytes.</p>
+     */
     inline void SetSize(long long value) { m_sizeHasBeenSet = true; m_size = value; }
 
     /**
@@ -179,6 +200,11 @@ namespace Model
      * <p>The signature of the document.</p>
      */
     inline const Aws::String& GetSignature() const{ return m_signature; }
+
+    /**
+     * <p>The signature of the document.</p>
+     */
+    inline bool SignatureHasBeenSet() const { return m_signatureHasBeenSet; }
 
     /**
      * <p>The signature of the document.</p>
@@ -219,6 +245,11 @@ namespace Model
     /**
      * <p>The status of the document.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the document.</p>
+     */
     inline void SetStatus(const DocumentStatusType& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -241,6 +272,11 @@ namespace Model
      * <p>The timestamp when the document was first uploaded.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedTimestamp() const{ return m_createdTimestamp; }
+
+    /**
+     * <p>The timestamp when the document was first uploaded.</p>
+     */
+    inline bool CreatedTimestampHasBeenSet() const { return m_createdTimestampHasBeenSet; }
 
     /**
      * <p>The timestamp when the document was first uploaded.</p>
@@ -271,6 +307,11 @@ namespace Model
     /**
      * <p>The timestamp when the document was last uploaded.</p>
      */
+    inline bool ModifiedTimestampHasBeenSet() const { return m_modifiedTimestampHasBeenSet; }
+
+    /**
+     * <p>The timestamp when the document was last uploaded.</p>
+     */
     inline void SetModifiedTimestamp(const Aws::Utils::DateTime& value) { m_modifiedTimestampHasBeenSet = true; m_modifiedTimestamp = value; }
 
     /**
@@ -293,6 +334,11 @@ namespace Model
      * <p>The timestamp when the content of the document was originally created.</p>
      */
     inline const Aws::Utils::DateTime& GetContentCreatedTimestamp() const{ return m_contentCreatedTimestamp; }
+
+    /**
+     * <p>The timestamp when the content of the document was originally created.</p>
+     */
+    inline bool ContentCreatedTimestampHasBeenSet() const { return m_contentCreatedTimestampHasBeenSet; }
 
     /**
      * <p>The timestamp when the content of the document was originally created.</p>
@@ -323,6 +369,11 @@ namespace Model
     /**
      * <p>The timestamp when the content of the document was modified.</p>
      */
+    inline bool ContentModifiedTimestampHasBeenSet() const { return m_contentModifiedTimestampHasBeenSet; }
+
+    /**
+     * <p>The timestamp when the content of the document was modified.</p>
+     */
     inline void SetContentModifiedTimestamp(const Aws::Utils::DateTime& value) { m_contentModifiedTimestampHasBeenSet = true; m_contentModifiedTimestamp = value; }
 
     /**
@@ -345,6 +396,11 @@ namespace Model
      * <p>The ID of the creator.</p>
      */
     inline const Aws::String& GetCreatorId() const{ return m_creatorId; }
+
+    /**
+     * <p>The ID of the creator.</p>
+     */
+    inline bool CreatorIdHasBeenSet() const { return m_creatorIdHasBeenSet; }
 
     /**
      * <p>The ID of the creator.</p>
@@ -381,6 +437,11 @@ namespace Model
      * <p>The thumbnail of the document.</p>
      */
     inline const Aws::Map<DocumentThumbnailType, Aws::String>& GetThumbnail() const{ return m_thumbnail; }
+
+    /**
+     * <p>The thumbnail of the document.</p>
+     */
+    inline bool ThumbnailHasBeenSet() const { return m_thumbnailHasBeenSet; }
 
     /**
      * <p>The thumbnail of the document.</p>
@@ -437,6 +498,11 @@ namespace Model
      * <p>The source of the document.</p>
      */
     inline const Aws::Map<DocumentSourceType, Aws::String>& GetSource() const{ return m_source; }
+
+    /**
+     * <p>The source of the document.</p>
+     */
+    inline bool SourceHasBeenSet() const { return m_sourceHasBeenSet; }
 
     /**
      * <p>The source of the document.</p>

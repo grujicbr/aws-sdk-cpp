@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchGetLinkAttributesResponse();
-    BatchGetLinkAttributesResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchGetLinkAttributesResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchGetLinkAttributesResponse(Aws::Utils::Json::JsonView jsonValue);
+    BatchGetLinkAttributesResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The attributes that are associated with the typed link.</p>
      */
     inline const Aws::Vector<AttributeKeyAndValue>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The attributes that are associated with the typed link.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The attributes that are associated with the typed link.</p>

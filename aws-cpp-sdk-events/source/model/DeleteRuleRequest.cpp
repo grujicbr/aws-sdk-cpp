@@ -23,7 +23,10 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 DeleteRuleRequest::DeleteRuleRequest() : 
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_eventBusNameHasBeenSet(false),
+    m_force(false),
+    m_forceHasBeenSet(false)
 {
 }
 
@@ -37,7 +40,19 @@ Aws::String DeleteRuleRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_eventBusNameHasBeenSet)
+  {
+   payload.WithString("EventBusName", m_eventBusName);
+
+  }
+
+  if(m_forceHasBeenSet)
+  {
+   payload.WithBool("Force", m_force);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DeleteRuleRequest::GetRequestSpecificHeaders() const

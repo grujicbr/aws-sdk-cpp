@@ -48,16 +48,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -124,47 +118,32 @@ namespace Model
     typedef std::function<void(const ApplicationAutoScalingClient*, const Model::RegisterScalableTargetRequest&, const Model::RegisterScalableTargetOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RegisterScalableTargetResponseReceivedHandler;
 
   /**
-   * <p>With Application Auto Scaling, you can configure automatic scaling for your
-   * scalable resources. You can use Application Auto Scaling to accomplish the
-   * following tasks:</p> <ul> <li> <p>Define scaling policies to automatically scale
-   * your AWS or custom resources</p> </li> <li> <p>Scale your resources in response
-   * to CloudWatch alarms</p> </li> <li> <p>Schedule one-time or recurring scaling
-   * actions</p> </li> <li> <p>View the history of your scaling events</p> </li>
-   * </ul> <p>Application Auto Scaling can scale the following resources:</p> <ul>
-   * <li> <p>Amazon ECS services. For more information, see <a
-   * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-auto-scaling.html">Service
-   * Auto Scaling</a> in the <i>Amazon Elastic Container Service Developer
-   * Guide</i>.</p> </li> <li> <p>Amazon EC2 Spot fleets. For more information, see
-   * <a
-   * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/fleet-auto-scaling.html">Automatic
-   * Scaling for Spot Fleet</a> in the <i>Amazon EC2 User Guide</i>.</p> </li> <li>
-   * <p>Amazon EMR clusters. For more information, see <a
-   * href="http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-automatic-scaling.html">Using
-   * Automatic Scaling in Amazon EMR</a> in the <i>Amazon EMR Management
-   * Guide</i>.</p> </li> <li> <p>AppStream 2.0 fleets. For more information, see <a
-   * href="http://docs.aws.amazon.com/appstream2/latest/developerguide/autoscaling.html">Fleet
-   * Auto Scaling for Amazon AppStream 2.0</a> in the <i>Amazon AppStream 2.0
-   * Developer Guide</i>.</p> </li> <li> <p>Provisioned read and write capacity for
-   * Amazon DynamoDB tables and global secondary indexes. For more information, see
-   * <a
-   * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html">Managing
-   * Throughput Capacity Automatically with DynamoDB Auto Scaling</a> in the
-   * <i>Amazon DynamoDB Developer Guide</i>.</p> </li> <li> <p>Amazon Aurora
-   * Replicas. For more information, see <a
-   * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Integrating.AutoScaling.html">Using
-   * Amazon Aurora Auto Scaling with Aurora Replicas</a>.</p> </li> <li> <p>Amazon
-   * SageMaker endpoint variants. For more information, see <a
-   * href="http://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling.html">Automatically
-   * Scaling Amazon SageMaker Models</a>.</p> </li> <li> <p>Custom resources provided
-   * by your own applications or services. More information is available in our <a
-   * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub
-   * repository</a>. </p> </li> </ul> <p>To learn more about Application Auto
-   * Scaling, see the <a
-   * href="http://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application
-   * Auto Scaling User Guide</a>.</p> <p>To configure automatic scaling for multiple
-   * resources across multiple services, use AWS Auto Scaling to create a scaling
-   * plan for your application. For more information, see the <a
-   * href="http://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html">AWS
+   * <p>With Application Auto Scaling, you can configure automatic scaling for the
+   * following resources:</p> <ul> <li> <p>Amazon ECS services</p> </li> <li>
+   * <p>Amazon EC2 Spot Fleet requests</p> </li> <li> <p>Amazon EMR clusters</p>
+   * </li> <li> <p>Amazon AppStream 2.0 fleets</p> </li> <li> <p>Amazon DynamoDB
+   * tables and global secondary indexes throughput capacity</p> </li> <li> <p>Amazon
+   * Aurora Replicas</p> </li> <li> <p>Amazon SageMaker endpoint variants</p> </li>
+   * <li> <p>Custom resources provided by your own applications or services</p> </li>
+   * <li> <p>Amazon Comprehend document classification endpoints</p> </li> <li>
+   * <p>AWS Lambda function provisioned concurrency</p> </li> </ul> <p> <b>API
+   * Summary</b> </p> <p>The Application Auto Scaling service API includes three key
+   * sets of actions: </p> <ul> <li> <p>Register and manage scalable targets -
+   * Register AWS or custom resources as scalable targets (a resource that
+   * Application Auto Scaling can scale), set minimum and maximum capacity limits,
+   * and retrieve information on existing scalable targets.</p> </li> <li>
+   * <p>Configure and manage automatic scaling - Define scaling policies to
+   * dynamically scale your resources in response to CloudWatch alarms, schedule
+   * one-time or recurring scaling actions, and retrieve your recent scaling activity
+   * history.</p> </li> <li> <p>Suspend and resume scaling - Temporarily suspend and
+   * later resume automatic scaling by calling the <a>RegisterScalableTarget</a>
+   * action for any Application Auto Scaling scalable target. You can suspend and
+   * resume, individually or in combination, scale-out activities triggered by a
+   * scaling policy, scale-in activities triggered by a scaling policy, and scheduled
+   * scaling. </p> </li> </ul> <p>To learn more about Application Auto Scaling,
+   * including information about granting IAM users required permissions for
+   * Application Auto Scaling actions, see the <a
+   * href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application
    * Auto Scaling User Guide</a>.</p>
    */
   class AWS_APPLICATIONAUTOSCALING_API ApplicationAutoScalingClient : public Aws::Client::AWSJsonClient
@@ -193,26 +172,38 @@ namespace Model
 
         virtual ~ApplicationAutoScalingClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "application-autoscaling"; }
+        inline virtual const char* GetServiceClientName() const override { return "Application Auto Scaling"; }
 
 
         /**
-         * <p>Deletes the specified Application Auto Scaling scaling policy.</p>
-         * <p>Deleting a policy deletes the underlying alarm action, but does not delete
-         * the CloudWatch alarm associated with the scaling policy, even if it no longer
-         * has an associated action.</p> <p>To create a scaling policy or update an
-         * existing one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes the specified scaling policy for an Application Auto Scaling scalable
+         * target.</p> <p>Deleting a step scaling policy deletes the underlying alarm
+         * action, but does not delete the CloudWatch alarm associated with the scaling
+         * policy, even if it no longer has an associated action.</p> <p>For more
+         * information, see <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html#delete-step-scaling-policy">Delete
+         * a Step Scaling Policy</a> and <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html#delete-target-tracking-policy">Delete
+         * a Target Tracking Scaling Policy</a> in the <i>Application Auto Scaling User
+         * Guide</i>.</p> <p>To create a scaling policy or update an existing one, see
+         * <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScalingPolicy">AWS
          * API Reference</a></p>
          */
         virtual Model::DeleteScalingPolicyOutcome DeleteScalingPolicy(const Model::DeleteScalingPolicyRequest& request) const;
 
         /**
-         * <p>Deletes the specified Application Auto Scaling scaling policy.</p>
-         * <p>Deleting a policy deletes the underlying alarm action, but does not delete
-         * the CloudWatch alarm associated with the scaling policy, even if it no longer
-         * has an associated action.</p> <p>To create a scaling policy or update an
-         * existing one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes the specified scaling policy for an Application Auto Scaling scalable
+         * target.</p> <p>Deleting a step scaling policy deletes the underlying alarm
+         * action, but does not delete the CloudWatch alarm associated with the scaling
+         * policy, even if it no longer has an associated action.</p> <p>For more
+         * information, see <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html#delete-step-scaling-policy">Delete
+         * a Step Scaling Policy</a> and <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html#delete-target-tracking-policy">Delete
+         * a Target Tracking Scaling Policy</a> in the <i>Application Auto Scaling User
+         * Guide</i>.</p> <p>To create a scaling policy or update an existing one, see
+         * <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScalingPolicy">AWS
          * API Reference</a></p>
          *
@@ -221,11 +212,17 @@ namespace Model
         virtual Model::DeleteScalingPolicyOutcomeCallable DeleteScalingPolicyCallable(const Model::DeleteScalingPolicyRequest& request) const;
 
         /**
-         * <p>Deletes the specified Application Auto Scaling scaling policy.</p>
-         * <p>Deleting a policy deletes the underlying alarm action, but does not delete
-         * the CloudWatch alarm associated with the scaling policy, even if it no longer
-         * has an associated action.</p> <p>To create a scaling policy or update an
-         * existing one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes the specified scaling policy for an Application Auto Scaling scalable
+         * target.</p> <p>Deleting a step scaling policy deletes the underlying alarm
+         * action, but does not delete the CloudWatch alarm associated with the scaling
+         * policy, even if it no longer has an associated action.</p> <p>For more
+         * information, see <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html#delete-step-scaling-policy">Delete
+         * a Step Scaling Policy</a> and <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html#delete-target-tracking-policy">Delete
+         * a Target Tracking Scaling Policy</a> in the <i>Application Auto Scaling User
+         * Guide</i>.</p> <p>To create a scaling policy or update an existing one, see
+         * <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScalingPolicy">AWS
          * API Reference</a></p>
          *
@@ -234,16 +231,22 @@ namespace Model
         virtual void DeleteScalingPolicyAsync(const Model::DeleteScalingPolicyRequest& request, const DeleteScalingPolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Deletes the specified Application Auto Scaling scheduled
-         * action.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes the specified scheduled action for an Application Auto Scaling
+         * scalable target.</p> <p>For more information, see <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html#delete-scheduled-action">Delete
+         * a Scheduled Action</a> in the <i>Application Auto Scaling User
+         * Guide</i>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledAction">AWS
          * API Reference</a></p>
          */
         virtual Model::DeleteScheduledActionOutcome DeleteScheduledAction(const Model::DeleteScheduledActionRequest& request) const;
 
         /**
-         * <p>Deletes the specified Application Auto Scaling scheduled
-         * action.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes the specified scheduled action for an Application Auto Scaling
+         * scalable target.</p> <p>For more information, see <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html#delete-scheduled-action">Delete
+         * a Scheduled Action</a> in the <i>Application Auto Scaling User
+         * Guide</i>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledAction">AWS
          * API Reference</a></p>
          *
@@ -252,8 +255,11 @@ namespace Model
         virtual Model::DeleteScheduledActionOutcomeCallable DeleteScheduledActionCallable(const Model::DeleteScheduledActionRequest& request) const;
 
         /**
-         * <p>Deletes the specified Application Auto Scaling scheduled
-         * action.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes the specified scheduled action for an Application Auto Scaling
+         * scalable target.</p> <p>For more information, see <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html#delete-scheduled-action">Delete
+         * a Scheduled Action</a> in the <i>Application Auto Scaling User
+         * Guide</i>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledAction">AWS
          * API Reference</a></p>
          *
@@ -262,20 +268,20 @@ namespace Model
         virtual void DeleteScheduledActionAsync(const Model::DeleteScheduledActionRequest& request, const DeleteScheduledActionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Deregisters a scalable target.</p> <p>Deregistering a scalable target deletes
-         * the scaling policies that are associated with it.</p> <p>To create a scalable
-         * target or update an existing one, see
-         * <a>RegisterScalableTarget</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Deregisters an Application Auto Scaling scalable target.</p> <p>Deregistering
+         * a scalable target deletes the scaling policies that are associated with it.</p>
+         * <p>To create a scalable target or update an existing one, see
+         * <a>RegisterScalableTarget</a>. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeregisterScalableTarget">AWS
          * API Reference</a></p>
          */
         virtual Model::DeregisterScalableTargetOutcome DeregisterScalableTarget(const Model::DeregisterScalableTargetRequest& request) const;
 
         /**
-         * <p>Deregisters a scalable target.</p> <p>Deregistering a scalable target deletes
-         * the scaling policies that are associated with it.</p> <p>To create a scalable
-         * target or update an existing one, see
-         * <a>RegisterScalableTarget</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Deregisters an Application Auto Scaling scalable target.</p> <p>Deregistering
+         * a scalable target deletes the scaling policies that are associated with it.</p>
+         * <p>To create a scalable target or update an existing one, see
+         * <a>RegisterScalableTarget</a>. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeregisterScalableTarget">AWS
          * API Reference</a></p>
          *
@@ -284,10 +290,10 @@ namespace Model
         virtual Model::DeregisterScalableTargetOutcomeCallable DeregisterScalableTargetCallable(const Model::DeregisterScalableTargetRequest& request) const;
 
         /**
-         * <p>Deregisters a scalable target.</p> <p>Deregistering a scalable target deletes
-         * the scaling policies that are associated with it.</p> <p>To create a scalable
-         * target or update an existing one, see
-         * <a>RegisterScalableTarget</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Deregisters an Application Auto Scaling scalable target.</p> <p>Deregistering
+         * a scalable target deletes the scaling policies that are associated with it.</p>
+         * <p>To create a scalable target or update an existing one, see
+         * <a>RegisterScalableTarget</a>. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeregisterScalableTarget">AWS
          * API Reference</a></p>
          *
@@ -297,10 +303,10 @@ namespace Model
 
         /**
          * <p>Gets information about the scalable targets in the specified namespace.</p>
-         * <p>You can filter the results using the <code>ResourceIds</code> and
-         * <code>ScalableDimension</code> parameters.</p> <p>To create a scalable target or
-         * update an existing one, see <a>RegisterScalableTarget</a>. If you are no longer
-         * using a scalable target, you can deregister it using
+         * <p>You can filter the results using <code>ResourceIds</code> and
+         * <code>ScalableDimension</code>.</p> <p>To create a scalable target or update an
+         * existing one, see <a>RegisterScalableTarget</a>. If you are no longer using a
+         * scalable target, you can deregister it using
          * <a>DeregisterScalableTarget</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalableTargets">AWS
          * API Reference</a></p>
@@ -309,10 +315,10 @@ namespace Model
 
         /**
          * <p>Gets information about the scalable targets in the specified namespace.</p>
-         * <p>You can filter the results using the <code>ResourceIds</code> and
-         * <code>ScalableDimension</code> parameters.</p> <p>To create a scalable target or
-         * update an existing one, see <a>RegisterScalableTarget</a>. If you are no longer
-         * using a scalable target, you can deregister it using
+         * <p>You can filter the results using <code>ResourceIds</code> and
+         * <code>ScalableDimension</code>.</p> <p>To create a scalable target or update an
+         * existing one, see <a>RegisterScalableTarget</a>. If you are no longer using a
+         * scalable target, you can deregister it using
          * <a>DeregisterScalableTarget</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalableTargets">AWS
          * API Reference</a></p>
@@ -323,10 +329,10 @@ namespace Model
 
         /**
          * <p>Gets information about the scalable targets in the specified namespace.</p>
-         * <p>You can filter the results using the <code>ResourceIds</code> and
-         * <code>ScalableDimension</code> parameters.</p> <p>To create a scalable target or
-         * update an existing one, see <a>RegisterScalableTarget</a>. If you are no longer
-         * using a scalable target, you can deregister it using
+         * <p>You can filter the results using <code>ResourceIds</code> and
+         * <code>ScalableDimension</code>.</p> <p>To create a scalable target or update an
+         * existing one, see <a>RegisterScalableTarget</a>. If you are no longer using a
+         * scalable target, you can deregister it using
          * <a>DeregisterScalableTarget</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalableTargets">AWS
          * API Reference</a></p>
@@ -338,12 +344,11 @@ namespace Model
         /**
          * <p>Provides descriptive information about the scaling activities in the
          * specified namespace from the previous six weeks.</p> <p>You can filter the
-         * results using the <code>ResourceId</code> and <code>ScalableDimension</code>
-         * parameters.</p> <p>Scaling activities are triggered by CloudWatch alarms that
-         * are associated with scaling policies. To view the scaling policies for a service
-         * namespace, see <a>DescribeScalingPolicies</a>. To create a scaling policy or
-         * update an existing one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>  
-         * <a
+         * results using <code>ResourceId</code> and <code>ScalableDimension</code>.</p>
+         * <p>Scaling activities are triggered by CloudWatch alarms that are associated
+         * with scaling policies. To view the scaling policies for a service namespace, see
+         * <a>DescribeScalingPolicies</a>. To create a scaling policy or update an existing
+         * one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalingActivities">AWS
          * API Reference</a></p>
          */
@@ -352,12 +357,11 @@ namespace Model
         /**
          * <p>Provides descriptive information about the scaling activities in the
          * specified namespace from the previous six weeks.</p> <p>You can filter the
-         * results using the <code>ResourceId</code> and <code>ScalableDimension</code>
-         * parameters.</p> <p>Scaling activities are triggered by CloudWatch alarms that
-         * are associated with scaling policies. To view the scaling policies for a service
-         * namespace, see <a>DescribeScalingPolicies</a>. To create a scaling policy or
-         * update an existing one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>  
-         * <a
+         * results using <code>ResourceId</code> and <code>ScalableDimension</code>.</p>
+         * <p>Scaling activities are triggered by CloudWatch alarms that are associated
+         * with scaling policies. To view the scaling policies for a service namespace, see
+         * <a>DescribeScalingPolicies</a>. To create a scaling policy or update an existing
+         * one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalingActivities">AWS
          * API Reference</a></p>
          *
@@ -368,12 +372,11 @@ namespace Model
         /**
          * <p>Provides descriptive information about the scaling activities in the
          * specified namespace from the previous six weeks.</p> <p>You can filter the
-         * results using the <code>ResourceId</code> and <code>ScalableDimension</code>
-         * parameters.</p> <p>Scaling activities are triggered by CloudWatch alarms that
-         * are associated with scaling policies. To view the scaling policies for a service
-         * namespace, see <a>DescribeScalingPolicies</a>. To create a scaling policy or
-         * update an existing one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>  
-         * <a
+         * results using <code>ResourceId</code> and <code>ScalableDimension</code>.</p>
+         * <p>Scaling activities are triggered by CloudWatch alarms that are associated
+         * with scaling policies. To view the scaling policies for a service namespace, see
+         * <a>DescribeScalingPolicies</a>. To create a scaling policy or update an existing
+         * one, see <a>PutScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalingActivities">AWS
          * API Reference</a></p>
          *
@@ -382,24 +385,26 @@ namespace Model
         virtual void DescribeScalingActivitiesAsync(const Model::DescribeScalingActivitiesRequest& request, const DescribeScalingActivitiesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Describes the scaling policies for the specified service namespace.</p>
-         * <p>You can filter the results using the <code>ResourceId</code>,
-         * <code>ScalableDimension</code>, and <code>PolicyNames</code> parameters.</p>
-         * <p>To create a scaling policy or update an existing one, see
-         * <a>PutScalingPolicy</a>. If you are no longer using a scaling policy, you can
-         * delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the Application Auto Scaling scaling policies for the specified
+         * service namespace.</p> <p>You can filter the results using
+         * <code>ResourceId</code>, <code>ScalableDimension</code>, and
+         * <code>PolicyNames</code>.</p> <p>To create a scaling policy or update an
+         * existing one, see <a>PutScalingPolicy</a>. If you are no longer using a scaling
+         * policy, you can delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalingPolicies">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeScalingPoliciesOutcome DescribeScalingPolicies(const Model::DescribeScalingPoliciesRequest& request) const;
 
         /**
-         * <p>Describes the scaling policies for the specified service namespace.</p>
-         * <p>You can filter the results using the <code>ResourceId</code>,
-         * <code>ScalableDimension</code>, and <code>PolicyNames</code> parameters.</p>
-         * <p>To create a scaling policy or update an existing one, see
-         * <a>PutScalingPolicy</a>. If you are no longer using a scaling policy, you can
-         * delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the Application Auto Scaling scaling policies for the specified
+         * service namespace.</p> <p>You can filter the results using
+         * <code>ResourceId</code>, <code>ScalableDimension</code>, and
+         * <code>PolicyNames</code>.</p> <p>To create a scaling policy or update an
+         * existing one, see <a>PutScalingPolicy</a>. If you are no longer using a scaling
+         * policy, you can delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalingPolicies">AWS
          * API Reference</a></p>
          *
@@ -408,12 +413,13 @@ namespace Model
         virtual Model::DescribeScalingPoliciesOutcomeCallable DescribeScalingPoliciesCallable(const Model::DescribeScalingPoliciesRequest& request) const;
 
         /**
-         * <p>Describes the scaling policies for the specified service namespace.</p>
-         * <p>You can filter the results using the <code>ResourceId</code>,
-         * <code>ScalableDimension</code>, and <code>PolicyNames</code> parameters.</p>
-         * <p>To create a scaling policy or update an existing one, see
-         * <a>PutScalingPolicy</a>. If you are no longer using a scaling policy, you can
-         * delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the Application Auto Scaling scaling policies for the specified
+         * service namespace.</p> <p>You can filter the results using
+         * <code>ResourceId</code>, <code>ScalableDimension</code>, and
+         * <code>PolicyNames</code>.</p> <p>To create a scaling policy or update an
+         * existing one, see <a>PutScalingPolicy</a>. If you are no longer using a scaling
+         * policy, you can delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalingPolicies">AWS
          * API Reference</a></p>
          *
@@ -422,24 +428,26 @@ namespace Model
         virtual void DescribeScalingPoliciesAsync(const Model::DescribeScalingPoliciesRequest& request, const DescribeScalingPoliciesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Describes the scheduled actions for the specified service namespace.</p>
-         * <p>You can filter the results using the <code>ResourceId</code>,
-         * <code>ScalableDimension</code>, and <code>ScheduledActionNames</code>
-         * parameters.</p> <p>To create a scheduled action or update an existing one, see
-         * <a>PutScheduledAction</a>. If you are no longer using a scheduled action, you
-         * can delete it using <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the Application Auto Scaling scheduled actions for the specified
+         * service namespace.</p> <p>You can filter the results using the
+         * <code>ResourceId</code>, <code>ScalableDimension</code>, and
+         * <code>ScheduledActionNames</code> parameters.</p> <p>To create a scheduled
+         * action or update an existing one, see <a>PutScheduledAction</a>. If you are no
+         * longer using a scheduled action, you can delete it using
+         * <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActions">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeScheduledActionsOutcome DescribeScheduledActions(const Model::DescribeScheduledActionsRequest& request) const;
 
         /**
-         * <p>Describes the scheduled actions for the specified service namespace.</p>
-         * <p>You can filter the results using the <code>ResourceId</code>,
-         * <code>ScalableDimension</code>, and <code>ScheduledActionNames</code>
-         * parameters.</p> <p>To create a scheduled action or update an existing one, see
-         * <a>PutScheduledAction</a>. If you are no longer using a scheduled action, you
-         * can delete it using <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the Application Auto Scaling scheduled actions for the specified
+         * service namespace.</p> <p>You can filter the results using the
+         * <code>ResourceId</code>, <code>ScalableDimension</code>, and
+         * <code>ScheduledActionNames</code> parameters.</p> <p>To create a scheduled
+         * action or update an existing one, see <a>PutScheduledAction</a>. If you are no
+         * longer using a scheduled action, you can delete it using
+         * <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActions">AWS
          * API Reference</a></p>
          *
@@ -448,12 +456,13 @@ namespace Model
         virtual Model::DescribeScheduledActionsOutcomeCallable DescribeScheduledActionsCallable(const Model::DescribeScheduledActionsRequest& request) const;
 
         /**
-         * <p>Describes the scheduled actions for the specified service namespace.</p>
-         * <p>You can filter the results using the <code>ResourceId</code>,
-         * <code>ScalableDimension</code>, and <code>ScheduledActionNames</code>
-         * parameters.</p> <p>To create a scheduled action or update an existing one, see
-         * <a>PutScheduledAction</a>. If you are no longer using a scheduled action, you
-         * can delete it using <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the Application Auto Scaling scheduled actions for the specified
+         * service namespace.</p> <p>You can filter the results using the
+         * <code>ResourceId</code>, <code>ScalableDimension</code>, and
+         * <code>ScheduledActionNames</code> parameters.</p> <p>To create a scheduled
+         * action or update an existing one, see <a>PutScheduledAction</a>. If you are no
+         * longer using a scheduled action, you can delete it using
+         * <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActions">AWS
          * API Reference</a></p>
          *
@@ -466,12 +475,25 @@ namespace Model
          * target.</p> <p>Each scalable target is identified by a service namespace,
          * resource ID, and scalable dimension. A scaling policy applies to the scalable
          * target identified by those three attributes. You cannot create a scaling policy
-         * until you register the scalable target using <a>RegisterScalableTarget</a>.</p>
-         * <p>To update a policy, specify its policy name and the parameters that you want
-         * to change. Any parameters that you don't specify are not changed by this update
-         * request.</p> <p>You can view the scaling policies for a service namespace using
-         * <a>DescribeScalingPolicies</a>. If you are no longer using a scaling policy, you
-         * can delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * until you have registered the resource as a scalable target using
+         * <a>RegisterScalableTarget</a>.</p> <p>To update a policy, specify its policy
+         * name and the parameters that you want to change. Any parameters that you don't
+         * specify are not changed by this update request.</p> <p>You can view the scaling
+         * policies for a service namespace using <a>DescribeScalingPolicies</a>. If you
+         * are no longer using a scaling policy, you can delete it using
+         * <a>DeleteScalingPolicy</a>.</p> <p>Multiple scaling policies can be in force at
+         * the same time for the same scalable target. You can have one or more target
+         * tracking scaling policies, one or more step scaling policies, or both. However,
+         * there is a chance that multiple policies could conflict, instructing the
+         * scalable target to scale out or in at the same time. Application Auto Scaling
+         * gives precedence to the policy that provides the largest capacity for both scale
+         * out and scale in. For example, if one policy increases capacity by 3, another
+         * policy increases capacity by 200 percent, and the current capacity is 10,
+         * Application Auto Scaling uses the policy with the highest calculated capacity
+         * (200% of 10 = 20) and scales out to 30. </p> <p>Learn more about how to work
+         * with scaling policies in the <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application
+         * Auto Scaling User Guide</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScalingPolicy">AWS
          * API Reference</a></p>
          */
@@ -482,12 +504,25 @@ namespace Model
          * target.</p> <p>Each scalable target is identified by a service namespace,
          * resource ID, and scalable dimension. A scaling policy applies to the scalable
          * target identified by those three attributes. You cannot create a scaling policy
-         * until you register the scalable target using <a>RegisterScalableTarget</a>.</p>
-         * <p>To update a policy, specify its policy name and the parameters that you want
-         * to change. Any parameters that you don't specify are not changed by this update
-         * request.</p> <p>You can view the scaling policies for a service namespace using
-         * <a>DescribeScalingPolicies</a>. If you are no longer using a scaling policy, you
-         * can delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * until you have registered the resource as a scalable target using
+         * <a>RegisterScalableTarget</a>.</p> <p>To update a policy, specify its policy
+         * name and the parameters that you want to change. Any parameters that you don't
+         * specify are not changed by this update request.</p> <p>You can view the scaling
+         * policies for a service namespace using <a>DescribeScalingPolicies</a>. If you
+         * are no longer using a scaling policy, you can delete it using
+         * <a>DeleteScalingPolicy</a>.</p> <p>Multiple scaling policies can be in force at
+         * the same time for the same scalable target. You can have one or more target
+         * tracking scaling policies, one or more step scaling policies, or both. However,
+         * there is a chance that multiple policies could conflict, instructing the
+         * scalable target to scale out or in at the same time. Application Auto Scaling
+         * gives precedence to the policy that provides the largest capacity for both scale
+         * out and scale in. For example, if one policy increases capacity by 3, another
+         * policy increases capacity by 200 percent, and the current capacity is 10,
+         * Application Auto Scaling uses the policy with the highest calculated capacity
+         * (200% of 10 = 20) and scales out to 30. </p> <p>Learn more about how to work
+         * with scaling policies in the <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application
+         * Auto Scaling User Guide</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScalingPolicy">AWS
          * API Reference</a></p>
          *
@@ -500,12 +535,25 @@ namespace Model
          * target.</p> <p>Each scalable target is identified by a service namespace,
          * resource ID, and scalable dimension. A scaling policy applies to the scalable
          * target identified by those three attributes. You cannot create a scaling policy
-         * until you register the scalable target using <a>RegisterScalableTarget</a>.</p>
-         * <p>To update a policy, specify its policy name and the parameters that you want
-         * to change. Any parameters that you don't specify are not changed by this update
-         * request.</p> <p>You can view the scaling policies for a service namespace using
-         * <a>DescribeScalingPolicies</a>. If you are no longer using a scaling policy, you
-         * can delete it using <a>DeleteScalingPolicy</a>.</p><p><h3>See Also:</h3>   <a
+         * until you have registered the resource as a scalable target using
+         * <a>RegisterScalableTarget</a>.</p> <p>To update a policy, specify its policy
+         * name and the parameters that you want to change. Any parameters that you don't
+         * specify are not changed by this update request.</p> <p>You can view the scaling
+         * policies for a service namespace using <a>DescribeScalingPolicies</a>. If you
+         * are no longer using a scaling policy, you can delete it using
+         * <a>DeleteScalingPolicy</a>.</p> <p>Multiple scaling policies can be in force at
+         * the same time for the same scalable target. You can have one or more target
+         * tracking scaling policies, one or more step scaling policies, or both. However,
+         * there is a chance that multiple policies could conflict, instructing the
+         * scalable target to scale out or in at the same time. Application Auto Scaling
+         * gives precedence to the policy that provides the largest capacity for both scale
+         * out and scale in. For example, if one policy increases capacity by 3, another
+         * policy increases capacity by 200 percent, and the current capacity is 10,
+         * Application Auto Scaling uses the policy with the highest calculated capacity
+         * (200% of 10 = 20) and scales out to 30. </p> <p>Learn more about how to work
+         * with scaling policies in the <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application
+         * Auto Scaling User Guide</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScalingPolicy">AWS
          * API Reference</a></p>
          *
@@ -518,14 +566,17 @@ namespace Model
          * scalable target.</p> <p>Each scalable target is identified by a service
          * namespace, resource ID, and scalable dimension. A scheduled action applies to
          * the scalable target identified by those three attributes. You cannot create a
-         * scheduled action until you register the scalable target using
-         * <a>RegisterScalableTarget</a>.</p> <p>To update an action, specify its name and
-         * the parameters that you want to change. If you don't specify start and end
-         * times, the old values are deleted. Any other parameters that you don't specify
-         * are not changed by this update request.</p> <p>You can view the scheduled
-         * actions using <a>DescribeScheduledActions</a>. If you are no longer using a
-         * scheduled action, you can delete it using
-         * <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
+         * scheduled action until you have registered the resource as a scalable target
+         * using <a>RegisterScalableTarget</a>. </p> <p>To update an action, specify its
+         * name and the parameters that you want to change. If you don't specify start and
+         * end times, the old values are deleted. Any other parameters that you don't
+         * specify are not changed by this update request.</p> <p>You can view the
+         * scheduled actions using <a>DescribeScheduledActions</a>. If you are no longer
+         * using a scheduled action, you can delete it using
+         * <a>DeleteScheduledAction</a>.</p> <p>Learn more about how to work with scheduled
+         * actions in the <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application
+         * Auto Scaling User Guide</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledAction">AWS
          * API Reference</a></p>
          */
@@ -536,14 +587,17 @@ namespace Model
          * scalable target.</p> <p>Each scalable target is identified by a service
          * namespace, resource ID, and scalable dimension. A scheduled action applies to
          * the scalable target identified by those three attributes. You cannot create a
-         * scheduled action until you register the scalable target using
-         * <a>RegisterScalableTarget</a>.</p> <p>To update an action, specify its name and
-         * the parameters that you want to change. If you don't specify start and end
-         * times, the old values are deleted. Any other parameters that you don't specify
-         * are not changed by this update request.</p> <p>You can view the scheduled
-         * actions using <a>DescribeScheduledActions</a>. If you are no longer using a
-         * scheduled action, you can delete it using
-         * <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
+         * scheduled action until you have registered the resource as a scalable target
+         * using <a>RegisterScalableTarget</a>. </p> <p>To update an action, specify its
+         * name and the parameters that you want to change. If you don't specify start and
+         * end times, the old values are deleted. Any other parameters that you don't
+         * specify are not changed by this update request.</p> <p>You can view the
+         * scheduled actions using <a>DescribeScheduledActions</a>. If you are no longer
+         * using a scheduled action, you can delete it using
+         * <a>DeleteScheduledAction</a>.</p> <p>Learn more about how to work with scheduled
+         * actions in the <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application
+         * Auto Scaling User Guide</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledAction">AWS
          * API Reference</a></p>
          *
@@ -556,14 +610,17 @@ namespace Model
          * scalable target.</p> <p>Each scalable target is identified by a service
          * namespace, resource ID, and scalable dimension. A scheduled action applies to
          * the scalable target identified by those three attributes. You cannot create a
-         * scheduled action until you register the scalable target using
-         * <a>RegisterScalableTarget</a>.</p> <p>To update an action, specify its name and
-         * the parameters that you want to change. If you don't specify start and end
-         * times, the old values are deleted. Any other parameters that you don't specify
-         * are not changed by this update request.</p> <p>You can view the scheduled
-         * actions using <a>DescribeScheduledActions</a>. If you are no longer using a
-         * scheduled action, you can delete it using
-         * <a>DeleteScheduledAction</a>.</p><p><h3>See Also:</h3>   <a
+         * scheduled action until you have registered the resource as a scalable target
+         * using <a>RegisterScalableTarget</a>. </p> <p>To update an action, specify its
+         * name and the parameters that you want to change. If you don't specify start and
+         * end times, the old values are deleted. Any other parameters that you don't
+         * specify are not changed by this update request.</p> <p>You can view the
+         * scheduled actions using <a>DescribeScheduledActions</a>. If you are no longer
+         * using a scheduled action, you can delete it using
+         * <a>DeleteScheduledAction</a>.</p> <p>Learn more about how to work with scheduled
+         * actions in the <a
+         * href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application
+         * Auto Scaling User Guide</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledAction">AWS
          * API Reference</a></p>
          *
@@ -573,14 +630,21 @@ namespace Model
 
         /**
          * <p>Registers or updates a scalable target. A scalable target is a resource that
-         * Application Auto Scaling can scale out or scale in. After you have registered a
-         * scalable target, you can use this operation to update the minimum and maximum
-         * values for its scalable dimension.</p> <p>After you register a scalable target,
-         * you can create and apply scaling policies using <a>PutScalingPolicy</a>. You can
-         * view the scaling policies for a service namespace using
-         * <a>DescribeScalableTargets</a>. If you no longer need a scalable target, you can
-         * deregister it using <a>DeregisterScalableTarget</a>.</p><p><h3>See Also:</h3>  
-         * <a
+         * Application Auto Scaling can scale out and scale in. Scalable targets are
+         * uniquely identified by the combination of resource ID, scalable dimension, and
+         * namespace. </p> <p>When you register a new scalable target, you must specify
+         * values for minimum and maximum capacity. Application Auto Scaling will not scale
+         * capacity to values that are outside of this range. </p> <p>To update a scalable
+         * target, specify the parameter that you want to change as well as the following
+         * parameters that identify the scalable target: resource ID, scalable dimension,
+         * and namespace. Any parameters that you don't specify are not changed by this
+         * update request. </p> <p>After you register a scalable target, you do not need to
+         * register it again to use other Application Auto Scaling operations. To see which
+         * resources have been registered, use <a>DescribeScalableTargets</a>. You can also
+         * view the scaling policies for a service namespace by using
+         * <a>DescribeScalableTargets</a>. </p> <p>If you no longer need a scalable target,
+         * you can deregister it by using <a>DeregisterScalableTarget</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/RegisterScalableTarget">AWS
          * API Reference</a></p>
          */
@@ -588,14 +652,21 @@ namespace Model
 
         /**
          * <p>Registers or updates a scalable target. A scalable target is a resource that
-         * Application Auto Scaling can scale out or scale in. After you have registered a
-         * scalable target, you can use this operation to update the minimum and maximum
-         * values for its scalable dimension.</p> <p>After you register a scalable target,
-         * you can create and apply scaling policies using <a>PutScalingPolicy</a>. You can
-         * view the scaling policies for a service namespace using
-         * <a>DescribeScalableTargets</a>. If you no longer need a scalable target, you can
-         * deregister it using <a>DeregisterScalableTarget</a>.</p><p><h3>See Also:</h3>  
-         * <a
+         * Application Auto Scaling can scale out and scale in. Scalable targets are
+         * uniquely identified by the combination of resource ID, scalable dimension, and
+         * namespace. </p> <p>When you register a new scalable target, you must specify
+         * values for minimum and maximum capacity. Application Auto Scaling will not scale
+         * capacity to values that are outside of this range. </p> <p>To update a scalable
+         * target, specify the parameter that you want to change as well as the following
+         * parameters that identify the scalable target: resource ID, scalable dimension,
+         * and namespace. Any parameters that you don't specify are not changed by this
+         * update request. </p> <p>After you register a scalable target, you do not need to
+         * register it again to use other Application Auto Scaling operations. To see which
+         * resources have been registered, use <a>DescribeScalableTargets</a>. You can also
+         * view the scaling policies for a service namespace by using
+         * <a>DescribeScalableTargets</a>. </p> <p>If you no longer need a scalable target,
+         * you can deregister it by using <a>DeregisterScalableTarget</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/RegisterScalableTarget">AWS
          * API Reference</a></p>
          *
@@ -605,14 +676,21 @@ namespace Model
 
         /**
          * <p>Registers or updates a scalable target. A scalable target is a resource that
-         * Application Auto Scaling can scale out or scale in. After you have registered a
-         * scalable target, you can use this operation to update the minimum and maximum
-         * values for its scalable dimension.</p> <p>After you register a scalable target,
-         * you can create and apply scaling policies using <a>PutScalingPolicy</a>. You can
-         * view the scaling policies for a service namespace using
-         * <a>DescribeScalableTargets</a>. If you no longer need a scalable target, you can
-         * deregister it using <a>DeregisterScalableTarget</a>.</p><p><h3>See Also:</h3>  
-         * <a
+         * Application Auto Scaling can scale out and scale in. Scalable targets are
+         * uniquely identified by the combination of resource ID, scalable dimension, and
+         * namespace. </p> <p>When you register a new scalable target, you must specify
+         * values for minimum and maximum capacity. Application Auto Scaling will not scale
+         * capacity to values that are outside of this range. </p> <p>To update a scalable
+         * target, specify the parameter that you want to change as well as the following
+         * parameters that identify the scalable target: resource ID, scalable dimension,
+         * and namespace. Any parameters that you don't specify are not changed by this
+         * update request. </p> <p>After you register a scalable target, you do not need to
+         * register it again to use other Application Auto Scaling operations. To see which
+         * resources have been registered, use <a>DescribeScalableTargets</a>. You can also
+         * view the scaling policies for a service namespace by using
+         * <a>DescribeScalableTargets</a>. </p> <p>If you no longer need a scalable target,
+         * you can deregister it by using <a>DeregisterScalableTarget</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/RegisterScalableTarget">AWS
          * API Reference</a></p>
          *
@@ -621,10 +699,9 @@ namespace Model
         virtual void RegisterScalableTargetAsync(const Model::RegisterScalableTargetRequest& request, const RegisterScalableTargetResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void DeleteScalingPolicyAsyncHelper(const Model::DeleteScalingPolicyRequest& request, const DeleteScalingPolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteScheduledActionAsyncHelper(const Model::DeleteScheduledActionRequest& request, const DeleteScheduledActionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeregisterScalableTargetAsyncHelper(const Model::DeregisterScalableTargetRequest& request, const DeregisterScalableTargetResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -637,6 +714,7 @@ namespace Model
         void RegisterScalableTargetAsyncHelper(const Model::RegisterScalableTargetRequest& request, const RegisterScalableTargetResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

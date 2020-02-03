@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MachineLearning
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     RDSDatabase();
-    RDSDatabase(const Aws::Utils::Json::JsonValue& jsonValue);
-    RDSDatabase& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RDSDatabase(Aws::Utils::Json::JsonView jsonValue);
+    RDSDatabase& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ID of an RDS DB instance.</p>
      */
     inline const Aws::String& GetInstanceIdentifier() const{ return m_instanceIdentifier; }
+
+    /**
+     * <p>The ID of an RDS DB instance.</p>
+     */
+    inline bool InstanceIdentifierHasBeenSet() const { return m_instanceIdentifierHasBeenSet; }
 
     /**
      * <p>The ID of an RDS DB instance.</p>
@@ -84,6 +90,9 @@ namespace Model
 
     
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     
     inline void SetDatabaseName(const Aws::String& value) { m_databaseNameHasBeenSet = true; m_databaseName = value; }

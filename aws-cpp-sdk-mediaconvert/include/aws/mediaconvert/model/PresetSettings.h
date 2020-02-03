@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     PresetSettings();
-    PresetSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    PresetSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PresetSettings(Aws::Utils::Json::JsonView jsonValue);
+    PresetSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,13 @@ namespace Model
      * (AudioDescriptions) can contain multiple groups of encoding settings.
      */
     inline const Aws::Vector<AudioDescription>& GetAudioDescriptions() const{ return m_audioDescriptions; }
+
+    /**
+     * (AudioDescriptions) contains groups of audio encoding settings organized by
+     * audio codec. Include one instance of (AudioDescriptions) per output.
+     * (AudioDescriptions) can contain multiple groups of encoding settings.
+     */
+    inline bool AudioDescriptionsHasBeenSet() const { return m_audioDescriptionsHasBeenSet; }
 
     /**
      * (AudioDescriptions) contains groups of audio encoding settings organized by
@@ -110,6 +118,12 @@ namespace Model
      * Caption settings for this preset. There can be multiple caption settings in a
      * single output.
      */
+    inline bool CaptionDescriptionsHasBeenSet() const { return m_captionDescriptionsHasBeenSet; }
+
+    /**
+     * Caption settings for this preset. There can be multiple caption settings in a
+     * single output.
+     */
     inline void SetCaptionDescriptions(const Aws::Vector<CaptionDescriptionPreset>& value) { m_captionDescriptionsHasBeenSet = true; m_captionDescriptions = value; }
 
     /**
@@ -143,54 +157,82 @@ namespace Model
     inline PresetSettings& AddCaptionDescriptions(CaptionDescriptionPreset&& value) { m_captionDescriptionsHasBeenSet = true; m_captionDescriptions.push_back(std::move(value)); return *this; }
 
 
-    
+    /**
+     * Container specific settings.
+     */
     inline const ContainerSettings& GetContainerSettings() const{ return m_containerSettings; }
 
-    
+    /**
+     * Container specific settings.
+     */
+    inline bool ContainerSettingsHasBeenSet() const { return m_containerSettingsHasBeenSet; }
+
+    /**
+     * Container specific settings.
+     */
     inline void SetContainerSettings(const ContainerSettings& value) { m_containerSettingsHasBeenSet = true; m_containerSettings = value; }
 
-    
+    /**
+     * Container specific settings.
+     */
     inline void SetContainerSettings(ContainerSettings&& value) { m_containerSettingsHasBeenSet = true; m_containerSettings = std::move(value); }
 
-    
+    /**
+     * Container specific settings.
+     */
     inline PresetSettings& WithContainerSettings(const ContainerSettings& value) { SetContainerSettings(value); return *this;}
 
-    
+    /**
+     * Container specific settings.
+     */
     inline PresetSettings& WithContainerSettings(ContainerSettings&& value) { SetContainerSettings(std::move(value)); return *this;}
 
 
     /**
      * (VideoDescription) contains a group of video encoding settings. The specific
-     * video settings depend on the video codec you choose when you specify a value for
-     * Video codec (codec). Include one instance of (VideoDescription) per output.
+     * video settings depend on the video codec that you choose when you specify a
+     * value for Video codec (codec). Include one instance of (VideoDescription) per
+     * output.
      */
     inline const VideoDescription& GetVideoDescription() const{ return m_videoDescription; }
 
     /**
      * (VideoDescription) contains a group of video encoding settings. The specific
-     * video settings depend on the video codec you choose when you specify a value for
-     * Video codec (codec). Include one instance of (VideoDescription) per output.
+     * video settings depend on the video codec that you choose when you specify a
+     * value for Video codec (codec). Include one instance of (VideoDescription) per
+     * output.
+     */
+    inline bool VideoDescriptionHasBeenSet() const { return m_videoDescriptionHasBeenSet; }
+
+    /**
+     * (VideoDescription) contains a group of video encoding settings. The specific
+     * video settings depend on the video codec that you choose when you specify a
+     * value for Video codec (codec). Include one instance of (VideoDescription) per
+     * output.
      */
     inline void SetVideoDescription(const VideoDescription& value) { m_videoDescriptionHasBeenSet = true; m_videoDescription = value; }
 
     /**
      * (VideoDescription) contains a group of video encoding settings. The specific
-     * video settings depend on the video codec you choose when you specify a value for
-     * Video codec (codec). Include one instance of (VideoDescription) per output.
+     * video settings depend on the video codec that you choose when you specify a
+     * value for Video codec (codec). Include one instance of (VideoDescription) per
+     * output.
      */
     inline void SetVideoDescription(VideoDescription&& value) { m_videoDescriptionHasBeenSet = true; m_videoDescription = std::move(value); }
 
     /**
      * (VideoDescription) contains a group of video encoding settings. The specific
-     * video settings depend on the video codec you choose when you specify a value for
-     * Video codec (codec). Include one instance of (VideoDescription) per output.
+     * video settings depend on the video codec that you choose when you specify a
+     * value for Video codec (codec). Include one instance of (VideoDescription) per
+     * output.
      */
     inline PresetSettings& WithVideoDescription(const VideoDescription& value) { SetVideoDescription(value); return *this;}
 
     /**
      * (VideoDescription) contains a group of video encoding settings. The specific
-     * video settings depend on the video codec you choose when you specify a value for
-     * Video codec (codec). Include one instance of (VideoDescription) per output.
+     * video settings depend on the video codec that you choose when you specify a
+     * value for Video codec (codec). Include one instance of (VideoDescription) per
+     * output.
      */
     inline PresetSettings& WithVideoDescription(VideoDescription&& value) { SetVideoDescription(std::move(value)); return *this;}
 

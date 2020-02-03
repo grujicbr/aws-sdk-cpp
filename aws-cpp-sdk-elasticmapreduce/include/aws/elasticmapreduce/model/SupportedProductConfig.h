@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     SupportedProductConfig();
-    SupportedProductConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    SupportedProductConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SupportedProductConfig(Aws::Utils::Json::JsonView jsonValue);
+    SupportedProductConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the product configuration.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the product configuration.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the product configuration.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The list of user-supplied arguments.</p>
      */
     inline const Aws::Vector<Aws::String>& GetArgs() const{ return m_args; }
+
+    /**
+     * <p>The list of user-supplied arguments.</p>
+     */
+    inline bool ArgsHasBeenSet() const { return m_argsHasBeenSet; }
 
     /**
      * <p>The list of user-supplied arguments.</p>

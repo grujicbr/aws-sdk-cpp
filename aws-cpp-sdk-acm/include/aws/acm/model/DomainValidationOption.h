@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DomainValidationOption();
-    DomainValidationOption(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainValidationOption& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainValidationOption(Aws::Utils::Json::JsonView jsonValue);
+    DomainValidationOption& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A fully qualified domain name (FQDN) in the certificate request.</p>
      */
     inline const Aws::String& GetDomainName() const{ return m_domainName; }
+
+    /**
+     * <p>A fully qualified domain name (FQDN) in the certificate request.</p>
+     */
+    inline bool DomainNameHasBeenSet() const { return m_domainNameHasBeenSet; }
 
     /**
      * <p>A fully qualified domain name (FQDN) in the certificate request.</p>
@@ -97,6 +103,20 @@ namespace Model
      * </ul>
      */
     inline const Aws::String& GetValidationDomain() const{ return m_validationDomain; }
+
+    /**
+     * <p>The domain name that you want ACM to use to send you validation emails. This
+     * domain name is the suffix of the email addresses that you want ACM to use. This
+     * must be the same as the <code>DomainName</code> value or a superdomain of the
+     * <code>DomainName</code> value. For example, if you request a certificate for
+     * <code>testing.example.com</code>, you can specify <code>example.com</code> for
+     * this value. In that case, ACM sends domain validation emails to the following
+     * five addresses:</p> <ul> <li> <p>admin@example.com</p> </li> <li>
+     * <p>administrator@example.com</p> </li> <li> <p>hostmaster@example.com</p> </li>
+     * <li> <p>postmaster@example.com</p> </li> <li> <p>webmaster@example.com</p> </li>
+     * </ul>
+     */
+    inline bool ValidationDomainHasBeenSet() const { return m_validationDomainHasBeenSet; }
 
     /**
      * <p>The domain name that you want ACM to use to send you validation emails. This

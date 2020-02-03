@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -33,7 +34,9 @@ namespace Model
 {
 
   /**
-   * Custom metric dimension<p><h3>See Also:</h3>   <a
+   * <p>Specifies metric-based criteria for including or excluding endpoints from a
+   * segment. These criteria derive from custom metrics that you define for
+   * endpoints.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/MetricDimension">AWS
    * API Reference</a></p>
    */
@@ -41,59 +44,85 @@ namespace Model
   {
   public:
     MetricDimension();
-    MetricDimension(const Aws::Utils::Json::JsonValue& jsonValue);
-    MetricDimension& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MetricDimension(Aws::Utils::Json::JsonView jsonValue);
+    MetricDimension& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * GREATER_THAN | LESS_THAN | GREATER_THAN_OR_EQUAL | LESS_THAN_OR_EQUAL | EQUAL
+     * <p>The operator to use when comparing metric values. Valid values are:
+     * GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+     * EQUAL.</p>
      */
     inline const Aws::String& GetComparisonOperator() const{ return m_comparisonOperator; }
 
     /**
-     * GREATER_THAN | LESS_THAN | GREATER_THAN_OR_EQUAL | LESS_THAN_OR_EQUAL | EQUAL
+     * <p>The operator to use when comparing metric values. Valid values are:
+     * GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+     * EQUAL.</p>
+     */
+    inline bool ComparisonOperatorHasBeenSet() const { return m_comparisonOperatorHasBeenSet; }
+
+    /**
+     * <p>The operator to use when comparing metric values. Valid values are:
+     * GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+     * EQUAL.</p>
      */
     inline void SetComparisonOperator(const Aws::String& value) { m_comparisonOperatorHasBeenSet = true; m_comparisonOperator = value; }
 
     /**
-     * GREATER_THAN | LESS_THAN | GREATER_THAN_OR_EQUAL | LESS_THAN_OR_EQUAL | EQUAL
+     * <p>The operator to use when comparing metric values. Valid values are:
+     * GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+     * EQUAL.</p>
      */
     inline void SetComparisonOperator(Aws::String&& value) { m_comparisonOperatorHasBeenSet = true; m_comparisonOperator = std::move(value); }
 
     /**
-     * GREATER_THAN | LESS_THAN | GREATER_THAN_OR_EQUAL | LESS_THAN_OR_EQUAL | EQUAL
+     * <p>The operator to use when comparing metric values. Valid values are:
+     * GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+     * EQUAL.</p>
      */
     inline void SetComparisonOperator(const char* value) { m_comparisonOperatorHasBeenSet = true; m_comparisonOperator.assign(value); }
 
     /**
-     * GREATER_THAN | LESS_THAN | GREATER_THAN_OR_EQUAL | LESS_THAN_OR_EQUAL | EQUAL
+     * <p>The operator to use when comparing metric values. Valid values are:
+     * GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+     * EQUAL.</p>
      */
     inline MetricDimension& WithComparisonOperator(const Aws::String& value) { SetComparisonOperator(value); return *this;}
 
     /**
-     * GREATER_THAN | LESS_THAN | GREATER_THAN_OR_EQUAL | LESS_THAN_OR_EQUAL | EQUAL
+     * <p>The operator to use when comparing metric values. Valid values are:
+     * GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+     * EQUAL.</p>
      */
     inline MetricDimension& WithComparisonOperator(Aws::String&& value) { SetComparisonOperator(std::move(value)); return *this;}
 
     /**
-     * GREATER_THAN | LESS_THAN | GREATER_THAN_OR_EQUAL | LESS_THAN_OR_EQUAL | EQUAL
+     * <p>The operator to use when comparing metric values. Valid values are:
+     * GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+     * EQUAL.</p>
      */
     inline MetricDimension& WithComparisonOperator(const char* value) { SetComparisonOperator(value); return *this;}
 
 
     /**
-     * Value to be compared.
+     * <p>The value to compare.</p>
      */
     inline double GetValue() const{ return m_value; }
 
     /**
-     * Value to be compared.
+     * <p>The value to compare.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>The value to compare.</p>
      */
     inline void SetValue(double value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
-     * Value to be compared.
+     * <p>The value to compare.</p>
      */
     inline MetricDimension& WithValue(double value) { SetValue(value); return *this;}
 

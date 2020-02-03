@@ -34,7 +34,7 @@ namespace Model
 {
 
   /**
-   * <p>[EC2-VPC only] The ID of the prefix.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes a prefix list ID.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/PrefixListId">AWS
    * API Reference</a></p>
    */
@@ -55,6 +55,13 @@ namespace Model
      * a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description for the security group rule that references this prefix list
+     * ID.</p> <p>Constraints: Up to 255 characters in length. Allowed characters are
+     * a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description for the security group rule that references this prefix list
@@ -103,6 +110,11 @@ namespace Model
      * <p>The ID of the prefix.</p>
      */
     inline const Aws::String& GetPrefixListId() const{ return m_prefixListId; }
+
+    /**
+     * <p>The ID of the prefix.</p>
+     */
+    inline bool PrefixListIdHasBeenSet() const { return m_prefixListIdHasBeenSet; }
 
     /**
      * <p>The ID of the prefix.</p>

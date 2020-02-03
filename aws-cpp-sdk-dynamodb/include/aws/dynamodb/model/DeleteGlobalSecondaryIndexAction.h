@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DeleteGlobalSecondaryIndexAction();
-    DeleteGlobalSecondaryIndexAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeleteGlobalSecondaryIndexAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeleteGlobalSecondaryIndexAction(Aws::Utils::Json::JsonView jsonValue);
+    DeleteGlobalSecondaryIndexAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the global secondary index to be deleted.</p>
      */
     inline const Aws::String& GetIndexName() const{ return m_indexName; }
+
+    /**
+     * <p>The name of the global secondary index to be deleted.</p>
+     */
+    inline bool IndexNameHasBeenSet() const { return m_indexNameHasBeenSet; }
 
     /**
      * <p>The name of the global secondary index to be deleted.</p>

@@ -32,8 +32,10 @@ CreateElasticsearchDomainRequest::CreateElasticsearchDomainRequest() :
     m_vPCOptionsHasBeenSet(false),
     m_cognitoOptionsHasBeenSet(false),
     m_encryptionAtRestOptionsHasBeenSet(false),
+    m_nodeToNodeEncryptionOptionsHasBeenSet(false),
     m_advancedOptionsHasBeenSet(false),
-    m_logPublishingOptionsHasBeenSet(false)
+    m_logPublishingOptionsHasBeenSet(false),
+    m_domainEndpointOptionsHasBeenSet(false)
 {
 }
 
@@ -95,6 +97,12 @@ Aws::String CreateElasticsearchDomainRequest::SerializePayload() const
 
   }
 
+  if(m_nodeToNodeEncryptionOptionsHasBeenSet)
+  {
+   payload.WithObject("NodeToNodeEncryptionOptions", m_nodeToNodeEncryptionOptions.Jsonize());
+
+  }
+
   if(m_advancedOptionsHasBeenSet)
   {
    JsonValue advancedOptionsJsonMap;
@@ -117,7 +125,13 @@ Aws::String CreateElasticsearchDomainRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_domainEndpointOptionsHasBeenSet)
+  {
+   payload.WithObject("DomainEndpointOptions", m_domainEndpointOptions.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

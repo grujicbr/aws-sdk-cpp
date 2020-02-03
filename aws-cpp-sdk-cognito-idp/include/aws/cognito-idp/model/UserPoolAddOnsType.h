@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     UserPoolAddOnsType();
-    UserPoolAddOnsType(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserPoolAddOnsType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserPoolAddOnsType(Aws::Utils::Json::JsonView jsonValue);
+    UserPoolAddOnsType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The advanced security mode.</p>
      */
     inline const AdvancedSecurityModeType& GetAdvancedSecurityMode() const{ return m_advancedSecurityMode; }
+
+    /**
+     * <p>The advanced security mode.</p>
+     */
+    inline bool AdvancedSecurityModeHasBeenSet() const { return m_advancedSecurityModeHasBeenSet; }
 
     /**
      * <p>The advanced security mode.</p>

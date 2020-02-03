@@ -21,9 +21,10 @@
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/iot/model/PresignedUrlConfig.h>
 #include <aws/iot/model/JobExecutionsRolloutConfig.h>
+#include <aws/iot/model/AbortConfig.h>
 #include <aws/core/utils/DateTime.h>
 #include <aws/iot/model/JobProcessDetails.h>
-#include <aws/core/utils/memory/stl/AWSMap.h>
+#include <aws/iot/model/TimeoutConfig.h>
 #include <utility>
 
 namespace Aws
@@ -33,6 +34,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -50,8 +52,8 @@ namespace Model
   {
   public:
     Job();
-    Job(const Aws::Utils::Json::JsonValue& jsonValue);
-    Job& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Job(Aws::Utils::Json::JsonView jsonValue);
+    Job& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +62,12 @@ namespace Model
      * "arn:aws:iot:region:account:job/jobId".</p>
      */
     inline const Aws::String& GetJobArn() const{ return m_jobArn; }
+
+    /**
+     * <p>An ARN identifying the job with format
+     * "arn:aws:iot:region:account:job/jobId".</p>
+     */
+    inline bool JobArnHasBeenSet() const { return m_jobArnHasBeenSet; }
 
     /**
      * <p>An ARN identifying the job with format
@@ -102,6 +110,11 @@ namespace Model
      * <p>The unique identifier you assigned to this job when it was created.</p>
      */
     inline const Aws::String& GetJobId() const{ return m_jobId; }
+
+    /**
+     * <p>The unique identifier you assigned to this job when it was created.</p>
+     */
+    inline bool JobIdHasBeenSet() const { return m_jobIdHasBeenSet; }
 
     /**
      * <p>The unique identifier you assigned to this job when it was created.</p>
@@ -152,6 +165,16 @@ namespace Model
      * representing the device is added to a target group, even after the job was
      * completed by all things originally in the group. </p>
      */
+    inline bool TargetSelectionHasBeenSet() const { return m_targetSelectionHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the job will continue to run (CONTINUOUS), or will be
+     * complete after all those things specified as targets have completed the job
+     * (SNAPSHOT). If continuous, the job may also be run on a thing when a change is
+     * detected in a target. For example, a job will run on a device when the thing
+     * representing the device is added to a target group, even after the job was
+     * completed by all things originally in the group. </p>
+     */
     inline void SetTargetSelection(const TargetSelection& value) { m_targetSelectionHasBeenSet = true; m_targetSelection = value; }
 
     /**
@@ -187,31 +210,43 @@ namespace Model
 
     /**
      * <p>The status of the job, one of <code>IN_PROGRESS</code>,
-     * <code>CANCELED</code>, or <code>COMPLETED</code>. </p>
+     * <code>CANCELED</code>, <code>DELETION_IN_PROGRESS</code> or
+     * <code>COMPLETED</code>. </p>
      */
     inline const JobStatus& GetStatus() const{ return m_status; }
 
     /**
      * <p>The status of the job, one of <code>IN_PROGRESS</code>,
-     * <code>CANCELED</code>, or <code>COMPLETED</code>. </p>
+     * <code>CANCELED</code>, <code>DELETION_IN_PROGRESS</code> or
+     * <code>COMPLETED</code>. </p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the job, one of <code>IN_PROGRESS</code>,
+     * <code>CANCELED</code>, <code>DELETION_IN_PROGRESS</code> or
+     * <code>COMPLETED</code>. </p>
      */
     inline void SetStatus(const JobStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
      * <p>The status of the job, one of <code>IN_PROGRESS</code>,
-     * <code>CANCELED</code>, or <code>COMPLETED</code>. </p>
+     * <code>CANCELED</code>, <code>DELETION_IN_PROGRESS</code> or
+     * <code>COMPLETED</code>. </p>
      */
     inline void SetStatus(JobStatus&& value) { m_statusHasBeenSet = true; m_status = std::move(value); }
 
     /**
      * <p>The status of the job, one of <code>IN_PROGRESS</code>,
-     * <code>CANCELED</code>, or <code>COMPLETED</code>. </p>
+     * <code>CANCELED</code>, <code>DELETION_IN_PROGRESS</code> or
+     * <code>COMPLETED</code>. </p>
      */
     inline Job& WithStatus(const JobStatus& value) { SetStatus(value); return *this;}
 
     /**
      * <p>The status of the job, one of <code>IN_PROGRESS</code>,
-     * <code>CANCELED</code>, or <code>COMPLETED</code>. </p>
+     * <code>CANCELED</code>, <code>DELETION_IN_PROGRESS</code> or
+     * <code>COMPLETED</code>. </p>
      */
     inline Job& WithStatus(JobStatus&& value) { SetStatus(std::move(value)); return *this;}
 
@@ -221,6 +256,12 @@ namespace Model
      * <code>force</code> parameter set to <code>true</code>.</p>
      */
     inline bool GetForceCanceled() const{ return m_forceCanceled; }
+
+    /**
+     * <p>Will be <code>true</code> if the job was canceled with the optional
+     * <code>force</code> parameter set to <code>true</code>.</p>
+     */
+    inline bool ForceCanceledHasBeenSet() const { return m_forceCanceledHasBeenSet; }
 
     /**
      * <p>Will be <code>true</code> if the job was canceled with the optional
@@ -236,9 +277,55 @@ namespace Model
 
 
     /**
+     * <p>If the job was updated, provides the reason code for the update.</p>
+     */
+    inline const Aws::String& GetReasonCode() const{ return m_reasonCode; }
+
+    /**
+     * <p>If the job was updated, provides the reason code for the update.</p>
+     */
+    inline bool ReasonCodeHasBeenSet() const { return m_reasonCodeHasBeenSet; }
+
+    /**
+     * <p>If the job was updated, provides the reason code for the update.</p>
+     */
+    inline void SetReasonCode(const Aws::String& value) { m_reasonCodeHasBeenSet = true; m_reasonCode = value; }
+
+    /**
+     * <p>If the job was updated, provides the reason code for the update.</p>
+     */
+    inline void SetReasonCode(Aws::String&& value) { m_reasonCodeHasBeenSet = true; m_reasonCode = std::move(value); }
+
+    /**
+     * <p>If the job was updated, provides the reason code for the update.</p>
+     */
+    inline void SetReasonCode(const char* value) { m_reasonCodeHasBeenSet = true; m_reasonCode.assign(value); }
+
+    /**
+     * <p>If the job was updated, provides the reason code for the update.</p>
+     */
+    inline Job& WithReasonCode(const Aws::String& value) { SetReasonCode(value); return *this;}
+
+    /**
+     * <p>If the job was updated, provides the reason code for the update.</p>
+     */
+    inline Job& WithReasonCode(Aws::String&& value) { SetReasonCode(std::move(value)); return *this;}
+
+    /**
+     * <p>If the job was updated, provides the reason code for the update.</p>
+     */
+    inline Job& WithReasonCode(const char* value) { SetReasonCode(value); return *this;}
+
+
+    /**
      * <p>If the job was updated, describes the reason for the update.</p>
      */
     inline const Aws::String& GetComment() const{ return m_comment; }
+
+    /**
+     * <p>If the job was updated, describes the reason for the update.</p>
+     */
+    inline bool CommentHasBeenSet() const { return m_commentHasBeenSet; }
 
     /**
      * <p>If the job was updated, describes the reason for the update.</p>
@@ -275,6 +362,11 @@ namespace Model
      * <p>A list of IoT things and thing groups to which the job should be sent.</p>
      */
     inline const Aws::Vector<Aws::String>& GetTargets() const{ return m_targets; }
+
+    /**
+     * <p>A list of IoT things and thing groups to which the job should be sent.</p>
+     */
+    inline bool TargetsHasBeenSet() const { return m_targetsHasBeenSet; }
 
     /**
      * <p>A list of IoT things and thing groups to which the job should be sent.</p>
@@ -320,6 +412,11 @@ namespace Model
     /**
      * <p>A short text description of the job.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A short text description of the job.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -356,6 +453,11 @@ namespace Model
     /**
      * <p>Configuration for pre-signed S3 URLs.</p>
      */
+    inline bool PresignedUrlConfigHasBeenSet() const { return m_presignedUrlConfigHasBeenSet; }
+
+    /**
+     * <p>Configuration for pre-signed S3 URLs.</p>
+     */
     inline void SetPresignedUrlConfig(const PresignedUrlConfig& value) { m_presignedUrlConfigHasBeenSet = true; m_presignedUrlConfig = value; }
 
     /**
@@ -382,6 +484,11 @@ namespace Model
     /**
      * <p>Allows you to create a staged rollout of a job.</p>
      */
+    inline bool JobExecutionsRolloutConfigHasBeenSet() const { return m_jobExecutionsRolloutConfigHasBeenSet; }
+
+    /**
+     * <p>Allows you to create a staged rollout of a job.</p>
+     */
     inline void SetJobExecutionsRolloutConfig(const JobExecutionsRolloutConfig& value) { m_jobExecutionsRolloutConfigHasBeenSet = true; m_jobExecutionsRolloutConfig = value; }
 
     /**
@@ -401,79 +508,125 @@ namespace Model
 
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was created.</p>
+     * <p>Configuration for criteria to abort the job.</p>
+     */
+    inline const AbortConfig& GetAbortConfig() const{ return m_abortConfig; }
+
+    /**
+     * <p>Configuration for criteria to abort the job.</p>
+     */
+    inline bool AbortConfigHasBeenSet() const { return m_abortConfigHasBeenSet; }
+
+    /**
+     * <p>Configuration for criteria to abort the job.</p>
+     */
+    inline void SetAbortConfig(const AbortConfig& value) { m_abortConfigHasBeenSet = true; m_abortConfig = value; }
+
+    /**
+     * <p>Configuration for criteria to abort the job.</p>
+     */
+    inline void SetAbortConfig(AbortConfig&& value) { m_abortConfigHasBeenSet = true; m_abortConfig = std::move(value); }
+
+    /**
+     * <p>Configuration for criteria to abort the job.</p>
+     */
+    inline Job& WithAbortConfig(const AbortConfig& value) { SetAbortConfig(value); return *this;}
+
+    /**
+     * <p>Configuration for criteria to abort the job.</p>
+     */
+    inline Job& WithAbortConfig(AbortConfig&& value) { SetAbortConfig(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The time, in seconds since the epoch, when the job was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedAt() const{ return m_createdAt; }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was created.</p>
+     * <p>The time, in seconds since the epoch, when the job was created.</p>
+     */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The time, in seconds since the epoch, when the job was created.</p>
      */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was created.</p>
+     * <p>The time, in seconds since the epoch, when the job was created.</p>
      */
     inline void SetCreatedAt(Aws::Utils::DateTime&& value) { m_createdAtHasBeenSet = true; m_createdAt = std::move(value); }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was created.</p>
+     * <p>The time, in seconds since the epoch, when the job was created.</p>
      */
     inline Job& WithCreatedAt(const Aws::Utils::DateTime& value) { SetCreatedAt(value); return *this;}
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was created.</p>
+     * <p>The time, in seconds since the epoch, when the job was created.</p>
      */
     inline Job& WithCreatedAt(Aws::Utils::DateTime&& value) { SetCreatedAt(std::move(value)); return *this;}
 
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was last updated.</p>
+     * <p>The time, in seconds since the epoch, when the job was last updated.</p>
      */
     inline const Aws::Utils::DateTime& GetLastUpdatedAt() const{ return m_lastUpdatedAt; }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was last updated.</p>
+     * <p>The time, in seconds since the epoch, when the job was last updated.</p>
+     */
+    inline bool LastUpdatedAtHasBeenSet() const { return m_lastUpdatedAtHasBeenSet; }
+
+    /**
+     * <p>The time, in seconds since the epoch, when the job was last updated.</p>
      */
     inline void SetLastUpdatedAt(const Aws::Utils::DateTime& value) { m_lastUpdatedAtHasBeenSet = true; m_lastUpdatedAt = value; }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was last updated.</p>
+     * <p>The time, in seconds since the epoch, when the job was last updated.</p>
      */
     inline void SetLastUpdatedAt(Aws::Utils::DateTime&& value) { m_lastUpdatedAtHasBeenSet = true; m_lastUpdatedAt = std::move(value); }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was last updated.</p>
+     * <p>The time, in seconds since the epoch, when the job was last updated.</p>
      */
     inline Job& WithLastUpdatedAt(const Aws::Utils::DateTime& value) { SetLastUpdatedAt(value); return *this;}
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was last updated.</p>
+     * <p>The time, in seconds since the epoch, when the job was last updated.</p>
      */
     inline Job& WithLastUpdatedAt(Aws::Utils::DateTime&& value) { SetLastUpdatedAt(std::move(value)); return *this;}
 
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was completed.</p>
+     * <p>The time, in seconds since the epoch, when the job was completed.</p>
      */
     inline const Aws::Utils::DateTime& GetCompletedAt() const{ return m_completedAt; }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was completed.</p>
+     * <p>The time, in seconds since the epoch, when the job was completed.</p>
+     */
+    inline bool CompletedAtHasBeenSet() const { return m_completedAtHasBeenSet; }
+
+    /**
+     * <p>The time, in seconds since the epoch, when the job was completed.</p>
      */
     inline void SetCompletedAt(const Aws::Utils::DateTime& value) { m_completedAtHasBeenSet = true; m_completedAt = value; }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was completed.</p>
+     * <p>The time, in seconds since the epoch, when the job was completed.</p>
      */
     inline void SetCompletedAt(Aws::Utils::DateTime&& value) { m_completedAtHasBeenSet = true; m_completedAt = std::move(value); }
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was completed.</p>
+     * <p>The time, in seconds since the epoch, when the job was completed.</p>
      */
     inline Job& WithCompletedAt(const Aws::Utils::DateTime& value) { SetCompletedAt(value); return *this;}
 
     /**
-     * <p>The time, in milliseconds since the epoch, when the job was completed.</p>
+     * <p>The time, in seconds since the epoch, when the job was completed.</p>
      */
     inline Job& WithCompletedAt(Aws::Utils::DateTime&& value) { SetCompletedAt(std::move(value)); return *this;}
 
@@ -482,6 +635,11 @@ namespace Model
      * <p>Details about the job process.</p>
      */
     inline const JobProcessDetails& GetJobProcessDetails() const{ return m_jobProcessDetails; }
+
+    /**
+     * <p>Details about the job process.</p>
+     */
+    inline bool JobProcessDetailsHasBeenSet() const { return m_jobProcessDetailsHasBeenSet; }
 
     /**
      * <p>Details about the job process.</p>
@@ -505,64 +663,58 @@ namespace Model
 
 
     /**
-     * <p>The parameters specified for the job document.</p>
+     * <p>Specifies the amount of time each device has to finish its execution of the
+     * job. A timer is started when the job execution status is set to
+     * <code>IN_PROGRESS</code>. If the job execution status is not set to another
+     * terminal state before the timer expires, it will be automatically set to
+     * <code>TIMED_OUT</code>.</p>
      */
-    inline const Aws::Map<Aws::String, Aws::String>& GetDocumentParameters() const{ return m_documentParameters; }
+    inline const TimeoutConfig& GetTimeoutConfig() const{ return m_timeoutConfig; }
 
     /**
-     * <p>The parameters specified for the job document.</p>
+     * <p>Specifies the amount of time each device has to finish its execution of the
+     * job. A timer is started when the job execution status is set to
+     * <code>IN_PROGRESS</code>. If the job execution status is not set to another
+     * terminal state before the timer expires, it will be automatically set to
+     * <code>TIMED_OUT</code>.</p>
      */
-    inline void SetDocumentParameters(const Aws::Map<Aws::String, Aws::String>& value) { m_documentParametersHasBeenSet = true; m_documentParameters = value; }
+    inline bool TimeoutConfigHasBeenSet() const { return m_timeoutConfigHasBeenSet; }
 
     /**
-     * <p>The parameters specified for the job document.</p>
+     * <p>Specifies the amount of time each device has to finish its execution of the
+     * job. A timer is started when the job execution status is set to
+     * <code>IN_PROGRESS</code>. If the job execution status is not set to another
+     * terminal state before the timer expires, it will be automatically set to
+     * <code>TIMED_OUT</code>.</p>
      */
-    inline void SetDocumentParameters(Aws::Map<Aws::String, Aws::String>&& value) { m_documentParametersHasBeenSet = true; m_documentParameters = std::move(value); }
+    inline void SetTimeoutConfig(const TimeoutConfig& value) { m_timeoutConfigHasBeenSet = true; m_timeoutConfig = value; }
 
     /**
-     * <p>The parameters specified for the job document.</p>
+     * <p>Specifies the amount of time each device has to finish its execution of the
+     * job. A timer is started when the job execution status is set to
+     * <code>IN_PROGRESS</code>. If the job execution status is not set to another
+     * terminal state before the timer expires, it will be automatically set to
+     * <code>TIMED_OUT</code>.</p>
      */
-    inline Job& WithDocumentParameters(const Aws::Map<Aws::String, Aws::String>& value) { SetDocumentParameters(value); return *this;}
+    inline void SetTimeoutConfig(TimeoutConfig&& value) { m_timeoutConfigHasBeenSet = true; m_timeoutConfig = std::move(value); }
 
     /**
-     * <p>The parameters specified for the job document.</p>
+     * <p>Specifies the amount of time each device has to finish its execution of the
+     * job. A timer is started when the job execution status is set to
+     * <code>IN_PROGRESS</code>. If the job execution status is not set to another
+     * terminal state before the timer expires, it will be automatically set to
+     * <code>TIMED_OUT</code>.</p>
      */
-    inline Job& WithDocumentParameters(Aws::Map<Aws::String, Aws::String>&& value) { SetDocumentParameters(std::move(value)); return *this;}
+    inline Job& WithTimeoutConfig(const TimeoutConfig& value) { SetTimeoutConfig(value); return *this;}
 
     /**
-     * <p>The parameters specified for the job document.</p>
+     * <p>Specifies the amount of time each device has to finish its execution of the
+     * job. A timer is started when the job execution status is set to
+     * <code>IN_PROGRESS</code>. If the job execution status is not set to another
+     * terminal state before the timer expires, it will be automatically set to
+     * <code>TIMED_OUT</code>.</p>
      */
-    inline Job& AddDocumentParameters(const Aws::String& key, const Aws::String& value) { m_documentParametersHasBeenSet = true; m_documentParameters.emplace(key, value); return *this; }
-
-    /**
-     * <p>The parameters specified for the job document.</p>
-     */
-    inline Job& AddDocumentParameters(Aws::String&& key, const Aws::String& value) { m_documentParametersHasBeenSet = true; m_documentParameters.emplace(std::move(key), value); return *this; }
-
-    /**
-     * <p>The parameters specified for the job document.</p>
-     */
-    inline Job& AddDocumentParameters(const Aws::String& key, Aws::String&& value) { m_documentParametersHasBeenSet = true; m_documentParameters.emplace(key, std::move(value)); return *this; }
-
-    /**
-     * <p>The parameters specified for the job document.</p>
-     */
-    inline Job& AddDocumentParameters(Aws::String&& key, Aws::String&& value) { m_documentParametersHasBeenSet = true; m_documentParameters.emplace(std::move(key), std::move(value)); return *this; }
-
-    /**
-     * <p>The parameters specified for the job document.</p>
-     */
-    inline Job& AddDocumentParameters(const char* key, Aws::String&& value) { m_documentParametersHasBeenSet = true; m_documentParameters.emplace(key, std::move(value)); return *this; }
-
-    /**
-     * <p>The parameters specified for the job document.</p>
-     */
-    inline Job& AddDocumentParameters(Aws::String&& key, const char* value) { m_documentParametersHasBeenSet = true; m_documentParameters.emplace(std::move(key), value); return *this; }
-
-    /**
-     * <p>The parameters specified for the job document.</p>
-     */
-    inline Job& AddDocumentParameters(const char* key, const char* value) { m_documentParametersHasBeenSet = true; m_documentParameters.emplace(key, value); return *this; }
+    inline Job& WithTimeoutConfig(TimeoutConfig&& value) { SetTimeoutConfig(std::move(value)); return *this;}
 
   private:
 
@@ -581,6 +733,9 @@ namespace Model
     bool m_forceCanceled;
     bool m_forceCanceledHasBeenSet;
 
+    Aws::String m_reasonCode;
+    bool m_reasonCodeHasBeenSet;
+
     Aws::String m_comment;
     bool m_commentHasBeenSet;
 
@@ -596,6 +751,9 @@ namespace Model
     JobExecutionsRolloutConfig m_jobExecutionsRolloutConfig;
     bool m_jobExecutionsRolloutConfigHasBeenSet;
 
+    AbortConfig m_abortConfig;
+    bool m_abortConfigHasBeenSet;
+
     Aws::Utils::DateTime m_createdAt;
     bool m_createdAtHasBeenSet;
 
@@ -608,8 +766,8 @@ namespace Model
     JobProcessDetails m_jobProcessDetails;
     bool m_jobProcessDetailsHasBeenSet;
 
-    Aws::Map<Aws::String, Aws::String> m_documentParameters;
-    bool m_documentParametersHasBeenSet;
+    TimeoutConfig m_timeoutConfig;
+    bool m_timeoutConfigHasBeenSet;
   };
 
 } // namespace Model

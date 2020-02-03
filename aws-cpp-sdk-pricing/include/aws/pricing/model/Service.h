@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pricing
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Service();
-    Service(const Aws::Utils::Json::JsonValue& jsonValue);
-    Service& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Service(Aws::Utils::Json::JsonView jsonValue);
+    Service& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The code for the AWS service.</p>
      */
     inline const Aws::String& GetServiceCode() const{ return m_serviceCode; }
+
+    /**
+     * <p>The code for the AWS service.</p>
+     */
+    inline bool ServiceCodeHasBeenSet() const { return m_serviceCodeHasBeenSet; }
 
     /**
      * <p>The code for the AWS service.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The attributes that are available for this service.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAttributeNames() const{ return m_attributeNames; }
+
+    /**
+     * <p>The attributes that are available for this service.</p>
+     */
+    inline bool AttributeNamesHasBeenSet() const { return m_attributeNamesHasBeenSet; }
 
     /**
      * <p>The attributes that are available for this service.</p>

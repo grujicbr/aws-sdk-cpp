@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Batch
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     JobDependency();
-    JobDependency(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobDependency& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobDependency(Aws::Utils::Json::JsonView jsonValue);
+    JobDependency& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The job ID of the AWS Batch job associated with this dependency.</p>
      */
     inline const Aws::String& GetJobId() const{ return m_jobId; }
+
+    /**
+     * <p>The job ID of the AWS Batch job associated with this dependency.</p>
+     */
+    inline bool JobIdHasBeenSet() const { return m_jobIdHasBeenSet; }
 
     /**
      * <p>The job ID of the AWS Batch job associated with this dependency.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The type of the job dependency.</p>
      */
     inline const ArrayJobDependency& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of the job dependency.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of the job dependency.</p>

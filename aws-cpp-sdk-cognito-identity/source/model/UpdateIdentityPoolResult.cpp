@@ -27,19 +27,21 @@ using namespace Aws::Utils;
 using namespace Aws;
 
 UpdateIdentityPoolResult::UpdateIdentityPoolResult() : 
-    m_allowUnauthenticatedIdentities(false)
+    m_allowUnauthenticatedIdentities(false),
+    m_allowClassicFlow(false)
 {
 }
 
 UpdateIdentityPoolResult::UpdateIdentityPoolResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
-    m_allowUnauthenticatedIdentities(false)
+    m_allowUnauthenticatedIdentities(false),
+    m_allowClassicFlow(false)
 {
   *this = result;
 }
 
 UpdateIdentityPoolResult& UpdateIdentityPoolResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("IdentityPoolId"))
   {
     m_identityPoolId = jsonValue.GetString("IdentityPoolId");
@@ -58,9 +60,15 @@ UpdateIdentityPoolResult& UpdateIdentityPoolResult::operator =(const Aws::Amazon
 
   }
 
+  if(jsonValue.ValueExists("AllowClassicFlow"))
+  {
+    m_allowClassicFlow = jsonValue.GetBool("AllowClassicFlow");
+
+  }
+
   if(jsonValue.ValueExists("SupportedLoginProviders"))
   {
-    Aws::Map<Aws::String, JsonValue> supportedLoginProvidersJsonMap = jsonValue.GetObject("SupportedLoginProviders").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> supportedLoginProvidersJsonMap = jsonValue.GetObject("SupportedLoginProviders").GetAllObjects();
     for(auto& supportedLoginProvidersItem : supportedLoginProvidersJsonMap)
     {
       m_supportedLoginProviders[supportedLoginProvidersItem.first] = supportedLoginProvidersItem.second.AsString();
@@ -75,7 +83,7 @@ UpdateIdentityPoolResult& UpdateIdentityPoolResult::operator =(const Aws::Amazon
 
   if(jsonValue.ValueExists("OpenIdConnectProviderARNs"))
   {
-    Array<JsonValue> openIdConnectProviderARNsJsonList = jsonValue.GetArray("OpenIdConnectProviderARNs");
+    Array<JsonView> openIdConnectProviderARNsJsonList = jsonValue.GetArray("OpenIdConnectProviderARNs");
     for(unsigned openIdConnectProviderARNsIndex = 0; openIdConnectProviderARNsIndex < openIdConnectProviderARNsJsonList.GetLength(); ++openIdConnectProviderARNsIndex)
     {
       m_openIdConnectProviderARNs.push_back(openIdConnectProviderARNsJsonList[openIdConnectProviderARNsIndex].AsString());
@@ -84,7 +92,7 @@ UpdateIdentityPoolResult& UpdateIdentityPoolResult::operator =(const Aws::Amazon
 
   if(jsonValue.ValueExists("CognitoIdentityProviders"))
   {
-    Array<JsonValue> cognitoIdentityProvidersJsonList = jsonValue.GetArray("CognitoIdentityProviders");
+    Array<JsonView> cognitoIdentityProvidersJsonList = jsonValue.GetArray("CognitoIdentityProviders");
     for(unsigned cognitoIdentityProvidersIndex = 0; cognitoIdentityProvidersIndex < cognitoIdentityProvidersJsonList.GetLength(); ++cognitoIdentityProvidersIndex)
     {
       m_cognitoIdentityProviders.push_back(cognitoIdentityProvidersJsonList[cognitoIdentityProvidersIndex].AsObject());
@@ -93,10 +101,19 @@ UpdateIdentityPoolResult& UpdateIdentityPoolResult::operator =(const Aws::Amazon
 
   if(jsonValue.ValueExists("SamlProviderARNs"))
   {
-    Array<JsonValue> samlProviderARNsJsonList = jsonValue.GetArray("SamlProviderARNs");
+    Array<JsonView> samlProviderARNsJsonList = jsonValue.GetArray("SamlProviderARNs");
     for(unsigned samlProviderARNsIndex = 0; samlProviderARNsIndex < samlProviderARNsJsonList.GetLength(); ++samlProviderARNsIndex)
     {
       m_samlProviderARNs.push_back(samlProviderARNsJsonList[samlProviderARNsIndex].AsString());
+    }
+  }
+
+  if(jsonValue.ValueExists("IdentityPoolTags"))
+  {
+    Aws::Map<Aws::String, JsonView> identityPoolTagsJsonMap = jsonValue.GetObject("IdentityPoolTags").GetAllObjects();
+    for(auto& identityPoolTagsItem : identityPoolTagsJsonMap)
+    {
+      m_identityPoolTags[identityPoolTagsItem.first] = identityPoolTagsItem.second.AsString();
     }
   }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CaptionSelector();
-    CaptionSelector(const Aws::Utils::Json::JsonValue& jsonValue);
-    CaptionSelector& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CaptionSelector(Aws::Utils::Json::JsonView jsonValue);
+    CaptionSelector& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * caption track to extract from the source.
      */
     inline const Aws::String& GetLanguageCode() const{ return m_languageCode; }
+
+    /**
+     * When specified this field indicates the three letter language code of the
+     * caption track to extract from the source.
+     */
+    inline bool LanguageCodeHasBeenSet() const { return m_languageCodeHasBeenSet; }
 
     /**
      * When specified this field indicates the three letter language code of the
@@ -103,6 +110,13 @@ namespace Model
      * caption selector with one or more caption descriptions.  Names must be unique
      * within an event.
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * Name identifier for a caption selector.  This name is used to associate this
+     * caption selector with one or more caption descriptions.  Names must be unique
+     * within an event.
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -145,6 +159,11 @@ namespace Model
      * Caption selector settings.
      */
     inline const CaptionSelectorSettings& GetSelectorSettings() const{ return m_selectorSettings; }
+
+    /**
+     * Caption selector settings.
+     */
+    inline bool SelectorSettingsHasBeenSet() const { return m_selectorSettingsHasBeenSet; }
 
     /**
      * Caption selector settings.

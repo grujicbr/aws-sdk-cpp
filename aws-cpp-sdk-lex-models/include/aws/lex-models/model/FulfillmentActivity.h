@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -55,8 +56,8 @@ namespace Model
   {
   public:
     FulfillmentActivity();
-    FulfillmentActivity(const Aws::Utils::Json::JsonValue& jsonValue);
-    FulfillmentActivity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FulfillmentActivity(Aws::Utils::Json::JsonView jsonValue);
+    FulfillmentActivity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -65,6 +66,12 @@ namespace Model
      * by returning the slot data to the client application. </p>
      */
     inline const FulfillmentActivityType& GetType() const{ return m_type; }
+
+    /**
+     * <p> How the intent should be fulfilled, either by running a Lambda function or
+     * by returning the slot data to the client application. </p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p> How the intent should be fulfilled, either by running a Lambda function or
@@ -95,6 +102,11 @@ namespace Model
      * <p> A description of the Lambda function that is run to fulfill the intent. </p>
      */
     inline const CodeHook& GetCodeHook() const{ return m_codeHook; }
+
+    /**
+     * <p> A description of the Lambda function that is run to fulfill the intent. </p>
+     */
+    inline bool CodeHookHasBeenSet() const { return m_codeHookHasBeenSet; }
 
     /**
      * <p> A description of the Lambda function that is run to fulfill the intent. </p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AccessLevelFilter();
-    AccessLevelFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    AccessLevelFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AccessLevelFilter(Aws::Utils::Json::JsonView jsonValue);
+    AccessLevelFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * <code>User</code> - Filter results based on the specified user.</p> </li> </ul>
      */
     inline const AccessLevelFilterKey& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The access level.</p> <ul> <li> <p> <code>Account</code> - Filter results
+     * based on the account.</p> </li> <li> <p> <code>Role</code> - Filter results
+     * based on the federated role of the specified user.</p> </li> <li> <p>
+     * <code>User</code> - Filter results based on the specified user.</p> </li> </ul>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The access level.</p> <ul> <li> <p> <code>Account</code> - Filter results
@@ -93,6 +102,12 @@ namespace Model
      * <code>Self</code>.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The user to which the access level applies. The only supported value is
+     * <code>Self</code>.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The user to which the access level applies. The only supported value is

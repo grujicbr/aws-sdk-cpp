@@ -39,11 +39,13 @@ Slot::Slot() :
     m_priority(0),
     m_priorityHasBeenSet(false),
     m_sampleUtterancesHasBeenSet(false),
-    m_responseCardHasBeenSet(false)
+    m_responseCardHasBeenSet(false),
+    m_obfuscationSetting(ObfuscationSetting::NOT_SET),
+    m_obfuscationSettingHasBeenSet(false)
 {
 }
 
-Slot::Slot(const JsonValue& jsonValue) : 
+Slot::Slot(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_slotConstraint(SlotConstraint::NOT_SET),
@@ -54,12 +56,14 @@ Slot::Slot(const JsonValue& jsonValue) :
     m_priority(0),
     m_priorityHasBeenSet(false),
     m_sampleUtterancesHasBeenSet(false),
-    m_responseCardHasBeenSet(false)
+    m_responseCardHasBeenSet(false),
+    m_obfuscationSetting(ObfuscationSetting::NOT_SET),
+    m_obfuscationSettingHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Slot& Slot::operator =(const JsonValue& jsonValue)
+Slot& Slot::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -112,7 +116,7 @@ Slot& Slot::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("sampleUtterances"))
   {
-    Array<JsonValue> sampleUtterancesJsonList = jsonValue.GetArray("sampleUtterances");
+    Array<JsonView> sampleUtterancesJsonList = jsonValue.GetArray("sampleUtterances");
     for(unsigned sampleUtterancesIndex = 0; sampleUtterancesIndex < sampleUtterancesJsonList.GetLength(); ++sampleUtterancesIndex)
     {
       m_sampleUtterances.push_back(sampleUtterancesJsonList[sampleUtterancesIndex].AsString());
@@ -125,6 +129,13 @@ Slot& Slot::operator =(const JsonValue& jsonValue)
     m_responseCard = jsonValue.GetString("responseCard");
 
     m_responseCardHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("obfuscationSetting"))
+  {
+    m_obfuscationSetting = ObfuscationSettingMapper::GetObfuscationSettingForName(jsonValue.GetString("obfuscationSetting"));
+
+    m_obfuscationSettingHasBeenSet = true;
   }
 
   return *this;
@@ -190,6 +201,11 @@ JsonValue Slot::Jsonize() const
   {
    payload.WithString("responseCard", m_responseCard);
 
+  }
+
+  if(m_obfuscationSettingHasBeenSet)
+  {
+   payload.WithString("obfuscationSetting", ObfuscationSettingMapper::GetNameForObfuscationSetting(m_obfuscationSetting));
   }
 
   return payload;

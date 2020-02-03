@@ -42,13 +42,20 @@ Lag::Lag() :
     m_minimumLinks(0),
     m_minimumLinksHasBeenSet(false),
     m_awsDeviceHasBeenSet(false),
+    m_awsDeviceV2HasBeenSet(false),
     m_connectionsHasBeenSet(false),
     m_allowsHostedConnections(false),
-    m_allowsHostedConnectionsHasBeenSet(false)
+    m_allowsHostedConnectionsHasBeenSet(false),
+    m_jumboFrameCapable(false),
+    m_jumboFrameCapableHasBeenSet(false),
+    m_hasLogicalRedundancy(HasLogicalRedundancy::NOT_SET),
+    m_hasLogicalRedundancyHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_providerNameHasBeenSet(false)
 {
 }
 
-Lag::Lag(const JsonValue& jsonValue) : 
+Lag::Lag(JsonView jsonValue) : 
     m_connectionsBandwidthHasBeenSet(false),
     m_numberOfConnections(0),
     m_numberOfConnectionsHasBeenSet(false),
@@ -62,14 +69,21 @@ Lag::Lag(const JsonValue& jsonValue) :
     m_minimumLinks(0),
     m_minimumLinksHasBeenSet(false),
     m_awsDeviceHasBeenSet(false),
+    m_awsDeviceV2HasBeenSet(false),
     m_connectionsHasBeenSet(false),
     m_allowsHostedConnections(false),
-    m_allowsHostedConnectionsHasBeenSet(false)
+    m_allowsHostedConnectionsHasBeenSet(false),
+    m_jumboFrameCapable(false),
+    m_jumboFrameCapableHasBeenSet(false),
+    m_hasLogicalRedundancy(HasLogicalRedundancy::NOT_SET),
+    m_hasLogicalRedundancyHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_providerNameHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Lag& Lag::operator =(const JsonValue& jsonValue)
+Lag& Lag::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("connectionsBandwidth"))
   {
@@ -141,9 +155,16 @@ Lag& Lag::operator =(const JsonValue& jsonValue)
     m_awsDeviceHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("awsDeviceV2"))
+  {
+    m_awsDeviceV2 = jsonValue.GetString("awsDeviceV2");
+
+    m_awsDeviceV2HasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("connections"))
   {
-    Array<JsonValue> connectionsJsonList = jsonValue.GetArray("connections");
+    Array<JsonView> connectionsJsonList = jsonValue.GetArray("connections");
     for(unsigned connectionsIndex = 0; connectionsIndex < connectionsJsonList.GetLength(); ++connectionsIndex)
     {
       m_connections.push_back(connectionsJsonList[connectionsIndex].AsObject());
@@ -156,6 +177,37 @@ Lag& Lag::operator =(const JsonValue& jsonValue)
     m_allowsHostedConnections = jsonValue.GetBool("allowsHostedConnections");
 
     m_allowsHostedConnectionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("jumboFrameCapable"))
+  {
+    m_jumboFrameCapable = jsonValue.GetBool("jumboFrameCapable");
+
+    m_jumboFrameCapableHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("hasLogicalRedundancy"))
+  {
+    m_hasLogicalRedundancy = HasLogicalRedundancyMapper::GetHasLogicalRedundancyForName(jsonValue.GetString("hasLogicalRedundancy"));
+
+    m_hasLogicalRedundancyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("providerName"))
+  {
+    m_providerName = jsonValue.GetString("providerName");
+
+    m_providerNameHasBeenSet = true;
   }
 
   return *this;
@@ -224,6 +276,12 @@ JsonValue Lag::Jsonize() const
 
   }
 
+  if(m_awsDeviceV2HasBeenSet)
+  {
+   payload.WithString("awsDeviceV2", m_awsDeviceV2);
+
+  }
+
   if(m_connectionsHasBeenSet)
   {
    Array<JsonValue> connectionsJsonList(m_connections.size());
@@ -238,6 +296,34 @@ JsonValue Lag::Jsonize() const
   if(m_allowsHostedConnectionsHasBeenSet)
   {
    payload.WithBool("allowsHostedConnections", m_allowsHostedConnections);
+
+  }
+
+  if(m_jumboFrameCapableHasBeenSet)
+  {
+   payload.WithBool("jumboFrameCapable", m_jumboFrameCapable);
+
+  }
+
+  if(m_hasLogicalRedundancyHasBeenSet)
+  {
+   payload.WithString("hasLogicalRedundancy", HasLogicalRedundancyMapper::GetNameForHasLogicalRedundancy(m_hasLogicalRedundancy));
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_providerNameHasBeenSet)
+  {
+   payload.WithString("providerName", m_providerName);
 
   }
 

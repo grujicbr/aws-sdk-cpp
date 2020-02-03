@@ -36,7 +36,7 @@ namespace Model
   {
   public:
     DescribeDatastoreRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +52,11 @@ namespace Model
      * <p>The name of the data store</p>
      */
     inline const Aws::String& GetDatastoreName() const{ return m_datastoreName; }
+
+    /**
+     * <p>The name of the data store</p>
+     */
+    inline bool DatastoreNameHasBeenSet() const { return m_datastoreNameHasBeenSet; }
 
     /**
      * <p>The name of the data store</p>
@@ -85,17 +90,30 @@ namespace Model
 
 
     /**
-     * <p>If true, include statistics about the data store in the response.</p>
+     * <p>If true, additional statistical information about the data store is included
+     * in the response. This feature cannot be used with a data store whose S3 storage
+     * is customer-managed.</p>
      */
     inline bool GetIncludeStatistics() const{ return m_includeStatistics; }
 
     /**
-     * <p>If true, include statistics about the data store in the response.</p>
+     * <p>If true, additional statistical information about the data store is included
+     * in the response. This feature cannot be used with a data store whose S3 storage
+     * is customer-managed.</p>
+     */
+    inline bool IncludeStatisticsHasBeenSet() const { return m_includeStatisticsHasBeenSet; }
+
+    /**
+     * <p>If true, additional statistical information about the data store is included
+     * in the response. This feature cannot be used with a data store whose S3 storage
+     * is customer-managed.</p>
      */
     inline void SetIncludeStatistics(bool value) { m_includeStatisticsHasBeenSet = true; m_includeStatistics = value; }
 
     /**
-     * <p>If true, include statistics about the data store in the response.</p>
+     * <p>If true, additional statistical information about the data store is included
+     * in the response. This feature cannot be used with a data store whose S3 storage
+     * is customer-managed.</p>
      */
     inline DescribeDatastoreRequest& WithIncludeStatistics(bool value) { SetIncludeStatistics(value); return *this;}
 

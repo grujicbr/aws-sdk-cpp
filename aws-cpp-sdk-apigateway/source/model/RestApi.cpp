@@ -41,11 +41,12 @@ RestApi::RestApi() :
     m_apiKeySource(ApiKeySourceType::NOT_SET),
     m_apiKeySourceHasBeenSet(false),
     m_endpointConfigurationHasBeenSet(false),
-    m_policyHasBeenSet(false)
+    m_policyHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-RestApi::RestApi(const JsonValue& jsonValue) : 
+RestApi::RestApi(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -58,12 +59,13 @@ RestApi::RestApi(const JsonValue& jsonValue) :
     m_apiKeySource(ApiKeySourceType::NOT_SET),
     m_apiKeySourceHasBeenSet(false),
     m_endpointConfigurationHasBeenSet(false),
-    m_policyHasBeenSet(false)
+    m_policyHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-RestApi& RestApi::operator =(const JsonValue& jsonValue)
+RestApi& RestApi::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("id"))
   {
@@ -102,7 +104,7 @@ RestApi& RestApi::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("warnings"))
   {
-    Array<JsonValue> warningsJsonList = jsonValue.GetArray("warnings");
+    Array<JsonView> warningsJsonList = jsonValue.GetArray("warnings");
     for(unsigned warningsIndex = 0; warningsIndex < warningsJsonList.GetLength(); ++warningsIndex)
     {
       m_warnings.push_back(warningsJsonList[warningsIndex].AsString());
@@ -112,7 +114,7 @@ RestApi& RestApi::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("binaryMediaTypes"))
   {
-    Array<JsonValue> binaryMediaTypesJsonList = jsonValue.GetArray("binaryMediaTypes");
+    Array<JsonView> binaryMediaTypesJsonList = jsonValue.GetArray("binaryMediaTypes");
     for(unsigned binaryMediaTypesIndex = 0; binaryMediaTypesIndex < binaryMediaTypesJsonList.GetLength(); ++binaryMediaTypesIndex)
     {
       m_binaryMediaTypes.push_back(binaryMediaTypesJsonList[binaryMediaTypesIndex].AsString());
@@ -146,6 +148,16 @@ RestApi& RestApi::operator =(const JsonValue& jsonValue)
     m_policy = jsonValue.GetString("policy");
 
     m_policyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
   }
 
   return *this;
@@ -226,6 +238,17 @@ JsonValue RestApi::Jsonize() const
   if(m_policyHasBeenSet)
   {
    payload.WithString("policy", m_policy);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
 
   }
 

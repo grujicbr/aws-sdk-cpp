@@ -40,6 +40,10 @@ namespace Aws
         static const int LoadBalancerTlsCertificate_HASH = HashingUtils::HashString("LoadBalancerTlsCertificate");
         static const int Disk_HASH = HashingUtils::HashString("Disk");
         static const int DiskSnapshot_HASH = HashingUtils::HashString("DiskSnapshot");
+        static const int RelationalDatabase_HASH = HashingUtils::HashString("RelationalDatabase");
+        static const int RelationalDatabaseSnapshot_HASH = HashingUtils::HashString("RelationalDatabaseSnapshot");
+        static const int ExportSnapshotRecord_HASH = HashingUtils::HashString("ExportSnapshotRecord");
+        static const int CloudFormationStackRecord_HASH = HashingUtils::HashString("CloudFormationStackRecord");
 
 
         ResourceType GetResourceTypeForName(const Aws::String& name)
@@ -85,6 +89,22 @@ namespace Aws
           {
             return ResourceType::DiskSnapshot;
           }
+          else if (hashCode == RelationalDatabase_HASH)
+          {
+            return ResourceType::RelationalDatabase;
+          }
+          else if (hashCode == RelationalDatabaseSnapshot_HASH)
+          {
+            return ResourceType::RelationalDatabaseSnapshot;
+          }
+          else if (hashCode == ExportSnapshotRecord_HASH)
+          {
+            return ResourceType::ExportSnapshotRecord;
+          }
+          else if (hashCode == CloudFormationStackRecord_HASH)
+          {
+            return ResourceType::CloudFormationStackRecord;
+          }
           EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
           if(overflowContainer)
           {
@@ -119,6 +139,14 @@ namespace Aws
             return "Disk";
           case ResourceType::DiskSnapshot:
             return "DiskSnapshot";
+          case ResourceType::RelationalDatabase:
+            return "RelationalDatabase";
+          case ResourceType::RelationalDatabaseSnapshot:
+            return "RelationalDatabaseSnapshot";
+          case ResourceType::ExportSnapshotRecord:
+            return "ExportSnapshotRecord";
+          case ResourceType::CloudFormationStackRecord:
+            return "CloudFormationStackRecord";
           default:
             EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
             if(overflowContainer)
@@ -126,7 +154,7 @@ namespace Aws
               return overflowContainer->RetrieveOverflow(static_cast<int>(enumValue));
             }
 
-            return "";
+            return {};
           }
         }
 

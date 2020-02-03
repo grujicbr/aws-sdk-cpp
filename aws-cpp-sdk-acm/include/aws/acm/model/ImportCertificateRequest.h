@@ -18,6 +18,8 @@
 #include <aws/acm/ACMRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/Array.h>
+#include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/acm/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -33,7 +35,7 @@ namespace Model
   {
   public:
     ImportCertificateRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,7 +49,7 @@ namespace Model
 
     /**
      * <p>The <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Name (ARN)</a> of an imported certificate to replace. To import a new
      * certificate, omit this field. </p>
      */
@@ -55,7 +57,15 @@ namespace Model
 
     /**
      * <p>The <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of an imported certificate to replace. To import a new
+     * certificate, omit this field. </p>
+     */
+    inline bool CertificateArnHasBeenSet() const { return m_certificateArnHasBeenSet; }
+
+    /**
+     * <p>The <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Name (ARN)</a> of an imported certificate to replace. To import a new
      * certificate, omit this field. </p>
      */
@@ -63,7 +73,7 @@ namespace Model
 
     /**
      * <p>The <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Name (ARN)</a> of an imported certificate to replace. To import a new
      * certificate, omit this field. </p>
      */
@@ -71,7 +81,7 @@ namespace Model
 
     /**
      * <p>The <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Name (ARN)</a> of an imported certificate to replace. To import a new
      * certificate, omit this field. </p>
      */
@@ -79,7 +89,7 @@ namespace Model
 
     /**
      * <p>The <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Name (ARN)</a> of an imported certificate to replace. To import a new
      * certificate, omit this field. </p>
      */
@@ -87,7 +97,7 @@ namespace Model
 
     /**
      * <p>The <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Name (ARN)</a> of an imported certificate to replace. To import a new
      * certificate, omit this field. </p>
      */
@@ -95,7 +105,7 @@ namespace Model
 
     /**
      * <p>The <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Name (ARN)</a> of an imported certificate to replace. To import a new
      * certificate, omit this field. </p>
      */
@@ -106,6 +116,11 @@ namespace Model
      * <p>The certificate to import.</p>
      */
     inline const Aws::Utils::ByteBuffer& GetCertificate() const{ return m_certificate; }
+
+    /**
+     * <p>The certificate to import.</p>
+     */
+    inline bool CertificateHasBeenSet() const { return m_certificateHasBeenSet; }
 
     /**
      * <p>The certificate to import.</p>
@@ -131,33 +146,43 @@ namespace Model
     /**
      * <p>The private key that matches the public key in the certificate.</p>
      */
-    inline const Aws::Utils::ByteBuffer& GetPrivateKey() const{ return m_privateKey; }
+    inline const Aws::Utils::CryptoBuffer& GetPrivateKey() const{ return m_privateKey; }
 
     /**
      * <p>The private key that matches the public key in the certificate.</p>
      */
-    inline void SetPrivateKey(const Aws::Utils::ByteBuffer& value) { m_privateKeyHasBeenSet = true; m_privateKey = value; }
+    inline bool PrivateKeyHasBeenSet() const { return m_privateKeyHasBeenSet; }
 
     /**
      * <p>The private key that matches the public key in the certificate.</p>
      */
-    inline void SetPrivateKey(Aws::Utils::ByteBuffer&& value) { m_privateKeyHasBeenSet = true; m_privateKey = std::move(value); }
+    inline void SetPrivateKey(const Aws::Utils::CryptoBuffer& value) { m_privateKeyHasBeenSet = true; m_privateKey = value; }
 
     /**
      * <p>The private key that matches the public key in the certificate.</p>
      */
-    inline ImportCertificateRequest& WithPrivateKey(const Aws::Utils::ByteBuffer& value) { SetPrivateKey(value); return *this;}
+    inline void SetPrivateKey(Aws::Utils::CryptoBuffer&& value) { m_privateKeyHasBeenSet = true; m_privateKey = std::move(value); }
 
     /**
      * <p>The private key that matches the public key in the certificate.</p>
      */
-    inline ImportCertificateRequest& WithPrivateKey(Aws::Utils::ByteBuffer&& value) { SetPrivateKey(std::move(value)); return *this;}
+    inline ImportCertificateRequest& WithPrivateKey(const Aws::Utils::CryptoBuffer& value) { SetPrivateKey(value); return *this;}
+
+    /**
+     * <p>The private key that matches the public key in the certificate.</p>
+     */
+    inline ImportCertificateRequest& WithPrivateKey(Aws::Utils::CryptoBuffer&& value) { SetPrivateKey(std::move(value)); return *this;}
 
 
     /**
      * <p>The PEM encoded certificate chain.</p>
      */
     inline const Aws::Utils::ByteBuffer& GetCertificateChain() const{ return m_certificateChain; }
+
+    /**
+     * <p>The PEM encoded certificate chain.</p>
+     */
+    inline bool CertificateChainHasBeenSet() const { return m_certificateChainHasBeenSet; }
 
     /**
      * <p>The PEM encoded certificate chain.</p>
@@ -179,6 +204,55 @@ namespace Model
      */
     inline ImportCertificateRequest& WithCertificateChain(Aws::Utils::ByteBuffer&& value) { SetCertificateChain(std::move(value)); return *this;}
 
+
+    /**
+     * <p>One or more resource tags to associate with the imported certificate. </p>
+     * <p>Note: You cannot apply tags when reimporting a certificate.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>One or more resource tags to associate with the imported certificate. </p>
+     * <p>Note: You cannot apply tags when reimporting a certificate.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>One or more resource tags to associate with the imported certificate. </p>
+     * <p>Note: You cannot apply tags when reimporting a certificate.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>One or more resource tags to associate with the imported certificate. </p>
+     * <p>Note: You cannot apply tags when reimporting a certificate.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>One or more resource tags to associate with the imported certificate. </p>
+     * <p>Note: You cannot apply tags when reimporting a certificate.</p>
+     */
+    inline ImportCertificateRequest& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>One or more resource tags to associate with the imported certificate. </p>
+     * <p>Note: You cannot apply tags when reimporting a certificate.</p>
+     */
+    inline ImportCertificateRequest& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>One or more resource tags to associate with the imported certificate. </p>
+     * <p>Note: You cannot apply tags when reimporting a certificate.</p>
+     */
+    inline ImportCertificateRequest& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>One or more resource tags to associate with the imported certificate. </p>
+     * <p>Note: You cannot apply tags when reimporting a certificate.</p>
+     */
+    inline ImportCertificateRequest& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::String m_certificateArn;
@@ -187,11 +261,14 @@ namespace Model
     Aws::Utils::ByteBuffer m_certificate;
     bool m_certificateHasBeenSet;
 
-    Aws::Utils::ByteBuffer m_privateKey;
+    Aws::Utils::CryptoBuffer m_privateKey;
     bool m_privateKeyHasBeenSet;
 
     Aws::Utils::ByteBuffer m_certificateChain;
     bool m_certificateChainHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

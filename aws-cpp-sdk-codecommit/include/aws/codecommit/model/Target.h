@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Target();
-    Target(const Aws::Utils::Json::JsonValue& jsonValue);
-    Target& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Target(Aws::Utils::Json::JsonView jsonValue);
+    Target& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the repository that contains the pull request.</p>
      */
     inline const Aws::String& GetRepositoryName() const{ return m_repositoryName; }
+
+    /**
+     * <p>The name of the repository that contains the pull request.</p>
+     */
+    inline bool RepositoryNameHasBeenSet() const { return m_repositoryNameHasBeenSet; }
 
     /**
      * <p>The name of the repository that contains the pull request.</p>
@@ -93,6 +99,12 @@ namespace Model
      * <p>The branch of the repository that contains the changes for the pull request.
      * Also known as the source branch.</p>
      */
+    inline bool SourceReferenceHasBeenSet() const { return m_sourceReferenceHasBeenSet; }
+
+    /**
+     * <p>The branch of the repository that contains the changes for the pull request.
+     * Also known as the source branch.</p>
+     */
     inline void SetSourceReference(const Aws::String& value) { m_sourceReferenceHasBeenSet = true; m_sourceReference = value; }
 
     /**
@@ -127,44 +139,50 @@ namespace Model
 
 
     /**
-     * <p>The branch of the repository where the pull request changes will be merged
-     * into. Also known as the destination branch.</p>
+     * <p>The branch of the repository where the pull request changes are merged. Also
+     * known as the destination branch.</p>
      */
     inline const Aws::String& GetDestinationReference() const{ return m_destinationReference; }
 
     /**
-     * <p>The branch of the repository where the pull request changes will be merged
-     * into. Also known as the destination branch.</p>
+     * <p>The branch of the repository where the pull request changes are merged. Also
+     * known as the destination branch.</p>
+     */
+    inline bool DestinationReferenceHasBeenSet() const { return m_destinationReferenceHasBeenSet; }
+
+    /**
+     * <p>The branch of the repository where the pull request changes are merged. Also
+     * known as the destination branch.</p>
      */
     inline void SetDestinationReference(const Aws::String& value) { m_destinationReferenceHasBeenSet = true; m_destinationReference = value; }
 
     /**
-     * <p>The branch of the repository where the pull request changes will be merged
-     * into. Also known as the destination branch.</p>
+     * <p>The branch of the repository where the pull request changes are merged. Also
+     * known as the destination branch.</p>
      */
     inline void SetDestinationReference(Aws::String&& value) { m_destinationReferenceHasBeenSet = true; m_destinationReference = std::move(value); }
 
     /**
-     * <p>The branch of the repository where the pull request changes will be merged
-     * into. Also known as the destination branch.</p>
+     * <p>The branch of the repository where the pull request changes are merged. Also
+     * known as the destination branch.</p>
      */
     inline void SetDestinationReference(const char* value) { m_destinationReferenceHasBeenSet = true; m_destinationReference.assign(value); }
 
     /**
-     * <p>The branch of the repository where the pull request changes will be merged
-     * into. Also known as the destination branch.</p>
+     * <p>The branch of the repository where the pull request changes are merged. Also
+     * known as the destination branch.</p>
      */
     inline Target& WithDestinationReference(const Aws::String& value) { SetDestinationReference(value); return *this;}
 
     /**
-     * <p>The branch of the repository where the pull request changes will be merged
-     * into. Also known as the destination branch.</p>
+     * <p>The branch of the repository where the pull request changes are merged. Also
+     * known as the destination branch.</p>
      */
     inline Target& WithDestinationReference(Aws::String&& value) { SetDestinationReference(std::move(value)); return *this;}
 
     /**
-     * <p>The branch of the repository where the pull request changes will be merged
-     * into. Also known as the destination branch.</p>
+     * <p>The branch of the repository where the pull request changes are merged. Also
+     * known as the destination branch.</p>
      */
     inline Target& WithDestinationReference(const char* value) { SetDestinationReference(value); return *this;}
 

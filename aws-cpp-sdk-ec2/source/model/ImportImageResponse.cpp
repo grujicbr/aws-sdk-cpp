@@ -27,11 +27,13 @@ using namespace Aws::Utils::Logging;
 using namespace Aws::Utils;
 using namespace Aws;
 
-ImportImageResponse::ImportImageResponse()
+ImportImageResponse::ImportImageResponse() : 
+    m_encrypted(false)
 {
 }
 
-ImportImageResponse::ImportImageResponse(const Aws::AmazonWebServiceResult<XmlDocument>& result)
+ImportImageResponse::ImportImageResponse(const Aws::AmazonWebServiceResult<XmlDocument>& result) : 
+    m_encrypted(false)
 {
   *this = result;
 }
@@ -51,42 +53,52 @@ ImportImageResponse& ImportImageResponse::operator =(const Aws::AmazonWebService
     XmlNode architectureNode = resultNode.FirstChild("architecture");
     if(!architectureNode.IsNull())
     {
-      m_architecture = StringUtils::Trim(architectureNode.GetText().c_str());
+      m_architecture = Aws::Utils::Xml::DecodeEscapedXmlText(architectureNode.GetText());
     }
     XmlNode descriptionNode = resultNode.FirstChild("description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
+    }
+    XmlNode encryptedNode = resultNode.FirstChild("encrypted");
+    if(!encryptedNode.IsNull())
+    {
+      m_encrypted = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(encryptedNode.GetText()).c_str()).c_str());
     }
     XmlNode hypervisorNode = resultNode.FirstChild("hypervisor");
     if(!hypervisorNode.IsNull())
     {
-      m_hypervisor = StringUtils::Trim(hypervisorNode.GetText().c_str());
+      m_hypervisor = Aws::Utils::Xml::DecodeEscapedXmlText(hypervisorNode.GetText());
     }
     XmlNode imageIdNode = resultNode.FirstChild("imageId");
     if(!imageIdNode.IsNull())
     {
-      m_imageId = StringUtils::Trim(imageIdNode.GetText().c_str());
+      m_imageId = Aws::Utils::Xml::DecodeEscapedXmlText(imageIdNode.GetText());
     }
     XmlNode importTaskIdNode = resultNode.FirstChild("importTaskId");
     if(!importTaskIdNode.IsNull())
     {
-      m_importTaskId = StringUtils::Trim(importTaskIdNode.GetText().c_str());
+      m_importTaskId = Aws::Utils::Xml::DecodeEscapedXmlText(importTaskIdNode.GetText());
+    }
+    XmlNode kmsKeyIdNode = resultNode.FirstChild("kmsKeyId");
+    if(!kmsKeyIdNode.IsNull())
+    {
+      m_kmsKeyId = Aws::Utils::Xml::DecodeEscapedXmlText(kmsKeyIdNode.GetText());
     }
     XmlNode licenseTypeNode = resultNode.FirstChild("licenseType");
     if(!licenseTypeNode.IsNull())
     {
-      m_licenseType = StringUtils::Trim(licenseTypeNode.GetText().c_str());
+      m_licenseType = Aws::Utils::Xml::DecodeEscapedXmlText(licenseTypeNode.GetText());
     }
     XmlNode platformNode = resultNode.FirstChild("platform");
     if(!platformNode.IsNull())
     {
-      m_platform = StringUtils::Trim(platformNode.GetText().c_str());
+      m_platform = Aws::Utils::Xml::DecodeEscapedXmlText(platformNode.GetText());
     }
     XmlNode progressNode = resultNode.FirstChild("progress");
     if(!progressNode.IsNull())
     {
-      m_progress = StringUtils::Trim(progressNode.GetText().c_str());
+      m_progress = Aws::Utils::Xml::DecodeEscapedXmlText(progressNode.GetText());
     }
     XmlNode snapshotDetailsNode = resultNode.FirstChild("snapshotDetailSet");
     if(!snapshotDetailsNode.IsNull())
@@ -102,18 +114,32 @@ ImportImageResponse& ImportImageResponse::operator =(const Aws::AmazonWebService
     XmlNode statusNode = resultNode.FirstChild("status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
     }
     XmlNode statusMessageNode = resultNode.FirstChild("statusMessage");
     if(!statusMessageNode.IsNull())
     {
-      m_statusMessage = StringUtils::Trim(statusMessageNode.GetText().c_str());
+      m_statusMessage = Aws::Utils::Xml::DecodeEscapedXmlText(statusMessageNode.GetText());
+    }
+    XmlNode licenseSpecificationsNode = resultNode.FirstChild("licenseSpecifications");
+    if(!licenseSpecificationsNode.IsNull())
+    {
+      XmlNode licenseSpecificationsMember = licenseSpecificationsNode.FirstChild("item");
+      while(!licenseSpecificationsMember.IsNull())
+      {
+        m_licenseSpecifications.push_back(licenseSpecificationsMember);
+        licenseSpecificationsMember = licenseSpecificationsMember.NextNode("item");
+      }
+
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::ImportImageResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

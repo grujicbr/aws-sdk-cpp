@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Budgets
@@ -31,8 +32,10 @@ namespace Model
 {
 
   /**
-   * <p>The types of cost included in a budget, such as tax and
-   * subscriptions.</p><p><h3>See Also:</h3>   <a
+   * <p>The types of cost that are included in a <code>COST</code> budget, such as
+   * tax and subscriptions.</p> <p> <code>USAGE</code>, <code>RI_UTILIZATION</code>,
+   * and <code>RI_COVERAGE</code> budgets do not have
+   * <code>CostTypes</code>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/budgets-2016-10-20/CostTypes">AWS
    * API Reference</a></p>
    */
@@ -40,8 +43,8 @@ namespace Model
   {
   public:
     CostTypes();
-    CostTypes(const Aws::Utils::Json::JsonValue& jsonValue);
-    CostTypes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CostTypes(Aws::Utils::Json::JsonView jsonValue);
+    CostTypes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +53,12 @@ namespace Model
      * <code>true</code>.</p>
      */
     inline bool GetIncludeTax() const{ return m_includeTax; }
+
+    /**
+     * <p>Specifies whether a budget includes taxes.</p> <p>The default value is
+     * <code>true</code>.</p>
+     */
+    inline bool IncludeTaxHasBeenSet() const { return m_includeTaxHasBeenSet; }
 
     /**
      * <p>Specifies whether a budget includes taxes.</p> <p>The default value is
@@ -74,6 +83,12 @@ namespace Model
      * <p>Specifies whether a budget includes subscriptions.</p> <p>The default value
      * is <code>true</code>.</p>
      */
+    inline bool IncludeSubscriptionHasBeenSet() const { return m_includeSubscriptionHasBeenSet; }
+
+    /**
+     * <p>Specifies whether a budget includes subscriptions.</p> <p>The default value
+     * is <code>true</code>.</p>
+     */
     inline void SetIncludeSubscription(bool value) { m_includeSubscriptionHasBeenSet = true; m_includeSubscription = value; }
 
     /**
@@ -84,19 +99,25 @@ namespace Model
 
 
     /**
-     * <p>Specifies whether a budget uses blended rate.</p> <p>The default value is
+     * <p>Specifies whether a budget uses a blended rate.</p> <p>The default value is
      * <code>false</code>.</p>
      */
     inline bool GetUseBlended() const{ return m_useBlended; }
 
     /**
-     * <p>Specifies whether a budget uses blended rate.</p> <p>The default value is
+     * <p>Specifies whether a budget uses a blended rate.</p> <p>The default value is
+     * <code>false</code>.</p>
+     */
+    inline bool UseBlendedHasBeenSet() const { return m_useBlendedHasBeenSet; }
+
+    /**
+     * <p>Specifies whether a budget uses a blended rate.</p> <p>The default value is
      * <code>false</code>.</p>
      */
     inline void SetUseBlended(bool value) { m_useBlendedHasBeenSet = true; m_useBlended = value; }
 
     /**
-     * <p>Specifies whether a budget uses blended rate.</p> <p>The default value is
+     * <p>Specifies whether a budget uses a blended rate.</p> <p>The default value is
      * <code>false</code>.</p>
      */
     inline CostTypes& WithUseBlended(bool value) { SetUseBlended(value); return *this;}
@@ -107,6 +128,12 @@ namespace Model
      * <code>true</code>.</p>
      */
     inline bool GetIncludeRefund() const{ return m_includeRefund; }
+
+    /**
+     * <p>Specifies whether a budget includes refunds.</p> <p>The default value is
+     * <code>true</code>.</p>
+     */
+    inline bool IncludeRefundHasBeenSet() const { return m_includeRefundHasBeenSet; }
 
     /**
      * <p>Specifies whether a budget includes refunds.</p> <p>The default value is
@@ -131,6 +158,12 @@ namespace Model
      * <p>Specifies whether a budget includes credits.</p> <p>The default value is
      * <code>true</code>.</p>
      */
+    inline bool IncludeCreditHasBeenSet() const { return m_includeCreditHasBeenSet; }
+
+    /**
+     * <p>Specifies whether a budget includes credits.</p> <p>The default value is
+     * <code>true</code>.</p>
+     */
     inline void SetIncludeCredit(bool value) { m_includeCreditHasBeenSet = true; m_includeCredit = value; }
 
     /**
@@ -145,6 +178,12 @@ namespace Model
      * value is <code>true</code>.</p>
      */
     inline bool GetIncludeUpfront() const{ return m_includeUpfront; }
+
+    /**
+     * <p>Specifies whether a budget includes upfront RI costs.</p> <p>The default
+     * value is <code>true</code>.</p>
+     */
+    inline bool IncludeUpfrontHasBeenSet() const { return m_includeUpfrontHasBeenSet; }
 
     /**
      * <p>Specifies whether a budget includes upfront RI costs.</p> <p>The default
@@ -169,6 +208,12 @@ namespace Model
      * <p>Specifies whether a budget includes recurring fees such as monthly RI
      * fees.</p> <p>The default value is <code>true</code>.</p>
      */
+    inline bool IncludeRecurringHasBeenSet() const { return m_includeRecurringHasBeenSet; }
+
+    /**
+     * <p>Specifies whether a budget includes recurring fees such as monthly RI
+     * fees.</p> <p>The default value is <code>true</code>.</p>
+     */
     inline void SetIncludeRecurring(bool value) { m_includeRecurringHasBeenSet = true; m_includeRecurring = value; }
 
     /**
@@ -183,6 +228,12 @@ namespace Model
      * default value is <code>true</code>.</p>
      */
     inline bool GetIncludeOtherSubscription() const{ return m_includeOtherSubscription; }
+
+    /**
+     * <p>Specifies whether a budget includes non-RI subscription costs.</p> <p>The
+     * default value is <code>true</code>.</p>
+     */
+    inline bool IncludeOtherSubscriptionHasBeenSet() const { return m_includeOtherSubscriptionHasBeenSet; }
 
     /**
      * <p>Specifies whether a budget includes non-RI subscription costs.</p> <p>The
@@ -207,6 +258,12 @@ namespace Model
      * <p>Specifies whether a budget includes support subscription fees.</p> <p>The
      * default value is <code>true</code>.</p>
      */
+    inline bool IncludeSupportHasBeenSet() const { return m_includeSupportHasBeenSet; }
+
+    /**
+     * <p>Specifies whether a budget includes support subscription fees.</p> <p>The
+     * default value is <code>true</code>.</p>
+     */
     inline void SetIncludeSupport(bool value) { m_includeSupportHasBeenSet = true; m_includeSupport = value; }
 
     /**
@@ -226,6 +283,12 @@ namespace Model
      * <p>Specifies whether a budget includes discounts.</p> <p>The default value is
      * <code>true</code>.</p>
      */
+    inline bool IncludeDiscountHasBeenSet() const { return m_includeDiscountHasBeenSet; }
+
+    /**
+     * <p>Specifies whether a budget includes discounts.</p> <p>The default value is
+     * <code>true</code>.</p>
+     */
     inline void SetIncludeDiscount(bool value) { m_includeDiscountHasBeenSet = true; m_includeDiscount = value; }
 
     /**
@@ -240,6 +303,12 @@ namespace Model
      * is <code>false</code>.</p>
      */
     inline bool GetUseAmortized() const{ return m_useAmortized; }
+
+    /**
+     * <p>Specifies whether a budget uses the amortized rate.</p> <p>The default value
+     * is <code>false</code>.</p>
+     */
+    inline bool UseAmortizedHasBeenSet() const { return m_useAmortizedHasBeenSet; }
 
     /**
      * <p>Specifies whether a budget uses the amortized rate.</p> <p>The default value

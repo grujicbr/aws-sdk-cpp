@@ -157,43 +157,50 @@ namespace Model
 
     /**
      * <p>The status of the resize operation.</p> <p>Valid Values: <code>NONE</code> |
-     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> </p>
+     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> |
+     * <code>CANCELLING</code> </p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
 
     /**
      * <p>The status of the resize operation.</p> <p>Valid Values: <code>NONE</code> |
-     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> </p>
+     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> |
+     * <code>CANCELLING</code> </p>
      */
     inline void SetStatus(const Aws::String& value) { m_status = value; }
 
     /**
      * <p>The status of the resize operation.</p> <p>Valid Values: <code>NONE</code> |
-     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> </p>
+     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> |
+     * <code>CANCELLING</code> </p>
      */
     inline void SetStatus(Aws::String&& value) { m_status = std::move(value); }
 
     /**
      * <p>The status of the resize operation.</p> <p>Valid Values: <code>NONE</code> |
-     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> </p>
+     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> |
+     * <code>CANCELLING</code> </p>
      */
     inline void SetStatus(const char* value) { m_status.assign(value); }
 
     /**
      * <p>The status of the resize operation.</p> <p>Valid Values: <code>NONE</code> |
-     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> </p>
+     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> |
+     * <code>CANCELLING</code> </p>
      */
     inline DescribeResizeResult& WithStatus(const Aws::String& value) { SetStatus(value); return *this;}
 
     /**
      * <p>The status of the resize operation.</p> <p>Valid Values: <code>NONE</code> |
-     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> </p>
+     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> |
+     * <code>CANCELLING</code> </p>
      */
     inline DescribeResizeResult& WithStatus(Aws::String&& value) { SetStatus(std::move(value)); return *this;}
 
     /**
      * <p>The status of the resize operation.</p> <p>Valid Values: <code>NONE</code> |
-     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> </p>
+     * <code>IN_PROGRESS</code> | <code>FAILED</code> | <code>SUCCEEDED</code> |
+     * <code>CANCELLING</code> </p>
      */
     inline DescribeResizeResult& WithStatus(const char* value) { SetStatus(value); return *this;}
 
@@ -461,6 +468,158 @@ namespace Model
     inline DescribeResizeResult& WithEstimatedTimeToCompletionInSeconds(long long value) { SetEstimatedTimeToCompletionInSeconds(value); return *this;}
 
 
+    /**
+     * <p>An enum with possible values of <code>ClassicResize</code> and
+     * <code>ElasticResize</code>. These values describe the type of resize operation
+     * being performed. </p>
+     */
+    inline const Aws::String& GetResizeType() const{ return m_resizeType; }
+
+    /**
+     * <p>An enum with possible values of <code>ClassicResize</code> and
+     * <code>ElasticResize</code>. These values describe the type of resize operation
+     * being performed. </p>
+     */
+    inline void SetResizeType(const Aws::String& value) { m_resizeType = value; }
+
+    /**
+     * <p>An enum with possible values of <code>ClassicResize</code> and
+     * <code>ElasticResize</code>. These values describe the type of resize operation
+     * being performed. </p>
+     */
+    inline void SetResizeType(Aws::String&& value) { m_resizeType = std::move(value); }
+
+    /**
+     * <p>An enum with possible values of <code>ClassicResize</code> and
+     * <code>ElasticResize</code>. These values describe the type of resize operation
+     * being performed. </p>
+     */
+    inline void SetResizeType(const char* value) { m_resizeType.assign(value); }
+
+    /**
+     * <p>An enum with possible values of <code>ClassicResize</code> and
+     * <code>ElasticResize</code>. These values describe the type of resize operation
+     * being performed. </p>
+     */
+    inline DescribeResizeResult& WithResizeType(const Aws::String& value) { SetResizeType(value); return *this;}
+
+    /**
+     * <p>An enum with possible values of <code>ClassicResize</code> and
+     * <code>ElasticResize</code>. These values describe the type of resize operation
+     * being performed. </p>
+     */
+    inline DescribeResizeResult& WithResizeType(Aws::String&& value) { SetResizeType(std::move(value)); return *this;}
+
+    /**
+     * <p>An enum with possible values of <code>ClassicResize</code> and
+     * <code>ElasticResize</code>. These values describe the type of resize operation
+     * being performed. </p>
+     */
+    inline DescribeResizeResult& WithResizeType(const char* value) { SetResizeType(value); return *this;}
+
+
+    /**
+     * <p>An optional string to provide additional details about the resize action.</p>
+     */
+    inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>An optional string to provide additional details about the resize action.</p>
+     */
+    inline void SetMessage(const Aws::String& value) { m_message = value; }
+
+    /**
+     * <p>An optional string to provide additional details about the resize action.</p>
+     */
+    inline void SetMessage(Aws::String&& value) { m_message = std::move(value); }
+
+    /**
+     * <p>An optional string to provide additional details about the resize action.</p>
+     */
+    inline void SetMessage(const char* value) { m_message.assign(value); }
+
+    /**
+     * <p>An optional string to provide additional details about the resize action.</p>
+     */
+    inline DescribeResizeResult& WithMessage(const Aws::String& value) { SetMessage(value); return *this;}
+
+    /**
+     * <p>An optional string to provide additional details about the resize action.</p>
+     */
+    inline DescribeResizeResult& WithMessage(Aws::String&& value) { SetMessage(std::move(value)); return *this;}
+
+    /**
+     * <p>An optional string to provide additional details about the resize action.</p>
+     */
+    inline DescribeResizeResult& WithMessage(const char* value) { SetMessage(value); return *this;}
+
+
+    /**
+     * <p>The type of encryption for the cluster after the resize is complete.</p>
+     * <p>Possible values are <code>KMS</code> and <code>None</code>. In the China
+     * region possible values are: <code>Legacy</code> and <code>None</code>.</p>
+     */
+    inline const Aws::String& GetTargetEncryptionType() const{ return m_targetEncryptionType; }
+
+    /**
+     * <p>The type of encryption for the cluster after the resize is complete.</p>
+     * <p>Possible values are <code>KMS</code> and <code>None</code>. In the China
+     * region possible values are: <code>Legacy</code> and <code>None</code>.</p>
+     */
+    inline void SetTargetEncryptionType(const Aws::String& value) { m_targetEncryptionType = value; }
+
+    /**
+     * <p>The type of encryption for the cluster after the resize is complete.</p>
+     * <p>Possible values are <code>KMS</code> and <code>None</code>. In the China
+     * region possible values are: <code>Legacy</code> and <code>None</code>.</p>
+     */
+    inline void SetTargetEncryptionType(Aws::String&& value) { m_targetEncryptionType = std::move(value); }
+
+    /**
+     * <p>The type of encryption for the cluster after the resize is complete.</p>
+     * <p>Possible values are <code>KMS</code> and <code>None</code>. In the China
+     * region possible values are: <code>Legacy</code> and <code>None</code>.</p>
+     */
+    inline void SetTargetEncryptionType(const char* value) { m_targetEncryptionType.assign(value); }
+
+    /**
+     * <p>The type of encryption for the cluster after the resize is complete.</p>
+     * <p>Possible values are <code>KMS</code> and <code>None</code>. In the China
+     * region possible values are: <code>Legacy</code> and <code>None</code>.</p>
+     */
+    inline DescribeResizeResult& WithTargetEncryptionType(const Aws::String& value) { SetTargetEncryptionType(value); return *this;}
+
+    /**
+     * <p>The type of encryption for the cluster after the resize is complete.</p>
+     * <p>Possible values are <code>KMS</code> and <code>None</code>. In the China
+     * region possible values are: <code>Legacy</code> and <code>None</code>.</p>
+     */
+    inline DescribeResizeResult& WithTargetEncryptionType(Aws::String&& value) { SetTargetEncryptionType(std::move(value)); return *this;}
+
+    /**
+     * <p>The type of encryption for the cluster after the resize is complete.</p>
+     * <p>Possible values are <code>KMS</code> and <code>None</code>. In the China
+     * region possible values are: <code>Legacy</code> and <code>None</code>.</p>
+     */
+    inline DescribeResizeResult& WithTargetEncryptionType(const char* value) { SetTargetEncryptionType(value); return *this;}
+
+
+    /**
+     * <p>The percent of data transferred from source cluster to target cluster.</p>
+     */
+    inline double GetDataTransferProgressPercent() const{ return m_dataTransferProgressPercent; }
+
+    /**
+     * <p>The percent of data transferred from source cluster to target cluster.</p>
+     */
+    inline void SetDataTransferProgressPercent(double value) { m_dataTransferProgressPercent = value; }
+
+    /**
+     * <p>The percent of data transferred from source cluster to target cluster.</p>
+     */
+    inline DescribeResizeResult& WithDataTransferProgressPercent(double value) { SetDataTransferProgressPercent(value); return *this;}
+
+
     
     inline const ResponseMetadata& GetResponseMetadata() const{ return m_responseMetadata; }
 
@@ -501,6 +660,14 @@ namespace Model
     long long m_elapsedTimeInSeconds;
 
     long long m_estimatedTimeToCompletionInSeconds;
+
+    Aws::String m_resizeType;
+
+    Aws::String m_message;
+
+    Aws::String m_targetEncryptionType;
+
+    double m_dataTransferProgressPercent;
 
     ResponseMetadata m_responseMetadata;
   };

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     RegexPatternSet();
-    RegexPatternSet(const Aws::Utils::Json::JsonValue& jsonValue);
-    RegexPatternSet& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RegexPatternSet(Aws::Utils::Json::JsonView jsonValue);
+    RegexPatternSet& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +61,17 @@ namespace Model
      * <a>ListRegexPatternSets</a>.</p>
      */
     inline const Aws::String& GetRegexPatternSetId() const{ return m_regexPatternSetId; }
+
+    /**
+     * <p>The identifier for the <code>RegexPatternSet</code>. You use
+     * <code>RegexPatternSetId</code> to get information about a
+     * <code>RegexPatternSet</code>, update a <code>RegexPatternSet</code>, remove a
+     * <code>RegexPatternSet</code> from a <code>RegexMatchSet</code>, and delete a
+     * <code>RegexPatternSet</code> from AWS WAF.</p> <p> <code>RegexMatchSetId</code>
+     * is returned by <a>CreateRegexPatternSet</a> and by
+     * <a>ListRegexPatternSets</a>.</p>
+     */
+    inline bool RegexPatternSetIdHasBeenSet() const { return m_regexPatternSetIdHasBeenSet; }
 
     /**
      * <p>The identifier for the <code>RegexPatternSet</code>. You use
@@ -138,6 +150,12 @@ namespace Model
      * <p>A friendly name or description of the <a>RegexPatternSet</a>. You can't
      * change <code>Name</code> after you create a <code>RegexPatternSet</code>.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>A friendly name or description of the <a>RegexPatternSet</a>. You can't
+     * change <code>Name</code> after you create a <code>RegexPatternSet</code>.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -176,6 +194,12 @@ namespace Model
      * search for, such as <code>B[a@]dB[o0]t</code>.</p>
      */
     inline const Aws::Vector<Aws::String>& GetRegexPatternStrings() const{ return m_regexPatternStrings; }
+
+    /**
+     * <p>Specifies the regular expression (regex) patterns that you want AWS WAF to
+     * search for, such as <code>B[a@]dB[o0]t</code>.</p>
+     */
+    inline bool RegexPatternStringsHasBeenSet() const { return m_regexPatternStringsHasBeenSet; }
 
     /**
      * <p>Specifies the regular expression (regex) patterns that you want AWS WAF to

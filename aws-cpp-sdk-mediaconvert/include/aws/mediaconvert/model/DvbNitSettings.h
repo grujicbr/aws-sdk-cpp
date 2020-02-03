@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DvbNitSettings();
-    DvbNitSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    DvbNitSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DvbNitSettings(Aws::Utils::Json::JsonView jsonValue);
+    DvbNitSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * The numeric value placed in the Network Information Table (NIT).
      */
     inline int GetNetworkId() const{ return m_networkId; }
+
+    /**
+     * The numeric value placed in the Network Information Table (NIT).
+     */
+    inline bool NetworkIdHasBeenSet() const { return m_networkIdHasBeenSet; }
 
     /**
      * The numeric value placed in the Network Information Table (NIT).
@@ -68,6 +74,12 @@ namespace Model
      * Information Table. Maximum length is 256 characters.
      */
     inline const Aws::String& GetNetworkName() const{ return m_networkName; }
+
+    /**
+     * The network name text placed in the network_name_descriptor inside the Network
+     * Information Table. Maximum length is 256 characters.
+     */
+    inline bool NetworkNameHasBeenSet() const { return m_networkNameHasBeenSet; }
 
     /**
      * The network name text placed in the network_name_descriptor inside the Network
@@ -111,6 +123,12 @@ namespace Model
      * transport stream.
      */
     inline int GetNitInterval() const{ return m_nitInterval; }
+
+    /**
+     * The number of milliseconds between instances of this table in the output
+     * transport stream.
+     */
+    inline bool NitIntervalHasBeenSet() const { return m_nitIntervalHasBeenSet; }
 
     /**
      * The number of milliseconds between instances of this table in the output

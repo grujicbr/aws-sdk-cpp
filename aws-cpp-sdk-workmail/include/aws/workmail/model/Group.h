@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkMail
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Group();
-    Group(const Aws::Utils::Json::JsonValue& jsonValue);
-    Group& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Group(Aws::Utils::Json::JsonView jsonValue);
+    Group& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The identifier of the group.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The identifier of the group.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The identifier of the group.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The email of the group.</p>
      */
+    inline bool EmailHasBeenSet() const { return m_emailHasBeenSet; }
+
+    /**
+     * <p>The email of the group.</p>
+     */
     inline void SetEmail(const Aws::String& value) { m_emailHasBeenSet = true; m_email = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The name of the group.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the group.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the group.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>The state of the group, which can be ENABLED, DISABLED, or DELETED.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The state of the group, which can be ENABLED, DISABLED, or DELETED.</p>
+     */
     inline void SetState(const EntityState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -190,6 +211,11 @@ namespace Model
     /**
      * <p>The date indicating when the group was enabled for Amazon WorkMail use.</p>
      */
+    inline bool EnabledDateHasBeenSet() const { return m_enabledDateHasBeenSet; }
+
+    /**
+     * <p>The date indicating when the group was enabled for Amazon WorkMail use.</p>
+     */
     inline void SetEnabledDate(const Aws::Utils::DateTime& value) { m_enabledDateHasBeenSet = true; m_enabledDate = value; }
 
     /**
@@ -212,6 +238,11 @@ namespace Model
      * <p>The date indicating when the group was disabled from Amazon WorkMail use.</p>
      */
     inline const Aws::Utils::DateTime& GetDisabledDate() const{ return m_disabledDate; }
+
+    /**
+     * <p>The date indicating when the group was disabled from Amazon WorkMail use.</p>
+     */
+    inline bool DisabledDateHasBeenSet() const { return m_disabledDateHasBeenSet; }
 
     /**
      * <p>The date indicating when the group was disabled from Amazon WorkMail use.</p>

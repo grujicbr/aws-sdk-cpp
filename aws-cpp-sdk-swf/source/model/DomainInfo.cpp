@@ -32,20 +32,22 @@ DomainInfo::DomainInfo() :
     m_nameHasBeenSet(false),
     m_status(RegistrationStatus::NOT_SET),
     m_statusHasBeenSet(false),
-    m_descriptionHasBeenSet(false)
+    m_descriptionHasBeenSet(false),
+    m_arnHasBeenSet(false)
 {
 }
 
-DomainInfo::DomainInfo(const JsonValue& jsonValue) : 
+DomainInfo::DomainInfo(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_status(RegistrationStatus::NOT_SET),
     m_statusHasBeenSet(false),
-    m_descriptionHasBeenSet(false)
+    m_descriptionHasBeenSet(false),
+    m_arnHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DomainInfo& DomainInfo::operator =(const JsonValue& jsonValue)
+DomainInfo& DomainInfo::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -66,6 +68,13 @@ DomainInfo& DomainInfo::operator =(const JsonValue& jsonValue)
     m_description = jsonValue.GetString("description");
 
     m_descriptionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("arn"))
+  {
+    m_arn = jsonValue.GetString("arn");
+
+    m_arnHasBeenSet = true;
   }
 
   return *this;
@@ -89,6 +98,12 @@ JsonValue DomainInfo::Jsonize() const
   if(m_descriptionHasBeenSet)
   {
    payload.WithString("description", m_description);
+
+  }
+
+  if(m_arnHasBeenSet)
+  {
+   payload.WithString("arn", m_arn);
 
   }
 

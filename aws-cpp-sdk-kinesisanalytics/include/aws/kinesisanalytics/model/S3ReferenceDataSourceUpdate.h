@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     S3ReferenceDataSourceUpdate();
-    S3ReferenceDataSourceUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3ReferenceDataSourceUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3ReferenceDataSourceUpdate(Aws::Utils::Json::JsonView jsonValue);
+    S3ReferenceDataSourceUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Amazon Resource Name (ARN) of the S3 bucket.</p>
      */
     inline const Aws::String& GetBucketARNUpdate() const{ return m_bucketARNUpdate; }
+
+    /**
+     * <p>Amazon Resource Name (ARN) of the S3 bucket.</p>
+     */
+    inline bool BucketARNUpdateHasBeenSet() const { return m_bucketARNUpdateHasBeenSet; }
 
     /**
      * <p>Amazon Resource Name (ARN) of the S3 bucket.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>Object key name.</p>
      */
+    inline bool FileKeyUpdateHasBeenSet() const { return m_fileKeyUpdateHasBeenSet; }
+
+    /**
+     * <p>Object key name.</p>
+     */
     inline void SetFileKeyUpdate(const Aws::String& value) { m_fileKeyUpdateHasBeenSet = true; m_fileKeyUpdate = value; }
 
     /**
@@ -125,6 +136,12 @@ namespace Model
      * Amazon S3 object and populate the in-application.</p>
      */
     inline const Aws::String& GetReferenceRoleARNUpdate() const{ return m_referenceRoleARNUpdate; }
+
+    /**
+     * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to read the
+     * Amazon S3 object and populate the in-application.</p>
+     */
+    inline bool ReferenceRoleARNUpdateHasBeenSet() const { return m_referenceRoleARNUpdateHasBeenSet; }
 
     /**
      * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to read the

@@ -42,11 +42,15 @@ Action::Action() :
     m_cloudwatchAlarmHasBeenSet(false),
     m_elasticsearchHasBeenSet(false),
     m_salesforceHasBeenSet(false),
-    m_iotAnalyticsHasBeenSet(false)
+    m_iotAnalyticsHasBeenSet(false),
+    m_iotEventsHasBeenSet(false),
+    m_iotSiteWiseHasBeenSet(false),
+    m_stepFunctionsHasBeenSet(false),
+    m_httpHasBeenSet(false)
 {
 }
 
-Action::Action(const JsonValue& jsonValue) : 
+Action::Action(JsonView jsonValue) : 
     m_dynamoDBHasBeenSet(false),
     m_dynamoDBv2HasBeenSet(false),
     m_lambdaHasBeenSet(false),
@@ -60,12 +64,16 @@ Action::Action(const JsonValue& jsonValue) :
     m_cloudwatchAlarmHasBeenSet(false),
     m_elasticsearchHasBeenSet(false),
     m_salesforceHasBeenSet(false),
-    m_iotAnalyticsHasBeenSet(false)
+    m_iotAnalyticsHasBeenSet(false),
+    m_iotEventsHasBeenSet(false),
+    m_iotSiteWiseHasBeenSet(false),
+    m_stepFunctionsHasBeenSet(false),
+    m_httpHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Action& Action::operator =(const JsonValue& jsonValue)
+Action& Action::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("dynamoDB"))
   {
@@ -165,6 +173,34 @@ Action& Action::operator =(const JsonValue& jsonValue)
     m_iotAnalyticsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("iotEvents"))
+  {
+    m_iotEvents = jsonValue.GetObject("iotEvents");
+
+    m_iotEventsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("iotSiteWise"))
+  {
+    m_iotSiteWise = jsonValue.GetObject("iotSiteWise");
+
+    m_iotSiteWiseHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("stepFunctions"))
+  {
+    m_stepFunctions = jsonValue.GetObject("stepFunctions");
+
+    m_stepFunctionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("http"))
+  {
+    m_http = jsonValue.GetObject("http");
+
+    m_httpHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -253,6 +289,30 @@ JsonValue Action::Jsonize() const
   if(m_iotAnalyticsHasBeenSet)
   {
    payload.WithObject("iotAnalytics", m_iotAnalytics.Jsonize());
+
+  }
+
+  if(m_iotEventsHasBeenSet)
+  {
+   payload.WithObject("iotEvents", m_iotEvents.Jsonize());
+
+  }
+
+  if(m_iotSiteWiseHasBeenSet)
+  {
+   payload.WithObject("iotSiteWise", m_iotSiteWise.Jsonize());
+
+  }
+
+  if(m_stepFunctionsHasBeenSet)
+  {
+   payload.WithObject("stepFunctions", m_stepFunctions.Jsonize());
+
+  }
+
+  if(m_httpHasBeenSet)
+  {
+   payload.WithObject("http", m_http.Jsonize());
 
   }
 

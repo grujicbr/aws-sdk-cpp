@@ -31,12 +31,14 @@ namespace Model
 ContainerInstance::ContainerInstance() : 
     m_containerInstanceArnHasBeenSet(false),
     m_ec2InstanceIdHasBeenSet(false),
+    m_capacityProviderNameHasBeenSet(false),
     m_version(0),
     m_versionHasBeenSet(false),
     m_versionInfoHasBeenSet(false),
     m_remainingResourcesHasBeenSet(false),
     m_registeredResourcesHasBeenSet(false),
     m_statusHasBeenSet(false),
+    m_statusReasonHasBeenSet(false),
     m_agentConnected(false),
     m_agentConnectedHasBeenSet(false),
     m_runningTasksCount(0),
@@ -47,19 +49,22 @@ ContainerInstance::ContainerInstance() :
     m_agentUpdateStatusHasBeenSet(false),
     m_attributesHasBeenSet(false),
     m_registeredAtHasBeenSet(false),
-    m_attachmentsHasBeenSet(false)
+    m_attachmentsHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-ContainerInstance::ContainerInstance(const JsonValue& jsonValue) : 
+ContainerInstance::ContainerInstance(JsonView jsonValue) : 
     m_containerInstanceArnHasBeenSet(false),
     m_ec2InstanceIdHasBeenSet(false),
+    m_capacityProviderNameHasBeenSet(false),
     m_version(0),
     m_versionHasBeenSet(false),
     m_versionInfoHasBeenSet(false),
     m_remainingResourcesHasBeenSet(false),
     m_registeredResourcesHasBeenSet(false),
     m_statusHasBeenSet(false),
+    m_statusReasonHasBeenSet(false),
     m_agentConnected(false),
     m_agentConnectedHasBeenSet(false),
     m_runningTasksCount(0),
@@ -70,12 +75,13 @@ ContainerInstance::ContainerInstance(const JsonValue& jsonValue) :
     m_agentUpdateStatusHasBeenSet(false),
     m_attributesHasBeenSet(false),
     m_registeredAtHasBeenSet(false),
-    m_attachmentsHasBeenSet(false)
+    m_attachmentsHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ContainerInstance& ContainerInstance::operator =(const JsonValue& jsonValue)
+ContainerInstance& ContainerInstance::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("containerInstanceArn"))
   {
@@ -89,6 +95,13 @@ ContainerInstance& ContainerInstance::operator =(const JsonValue& jsonValue)
     m_ec2InstanceId = jsonValue.GetString("ec2InstanceId");
 
     m_ec2InstanceIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("capacityProviderName"))
+  {
+    m_capacityProviderName = jsonValue.GetString("capacityProviderName");
+
+    m_capacityProviderNameHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("version"))
@@ -107,7 +120,7 @@ ContainerInstance& ContainerInstance::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("remainingResources"))
   {
-    Array<JsonValue> remainingResourcesJsonList = jsonValue.GetArray("remainingResources");
+    Array<JsonView> remainingResourcesJsonList = jsonValue.GetArray("remainingResources");
     for(unsigned remainingResourcesIndex = 0; remainingResourcesIndex < remainingResourcesJsonList.GetLength(); ++remainingResourcesIndex)
     {
       m_remainingResources.push_back(remainingResourcesJsonList[remainingResourcesIndex].AsObject());
@@ -117,7 +130,7 @@ ContainerInstance& ContainerInstance::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("registeredResources"))
   {
-    Array<JsonValue> registeredResourcesJsonList = jsonValue.GetArray("registeredResources");
+    Array<JsonView> registeredResourcesJsonList = jsonValue.GetArray("registeredResources");
     for(unsigned registeredResourcesIndex = 0; registeredResourcesIndex < registeredResourcesJsonList.GetLength(); ++registeredResourcesIndex)
     {
       m_registeredResources.push_back(registeredResourcesJsonList[registeredResourcesIndex].AsObject());
@@ -130,6 +143,13 @@ ContainerInstance& ContainerInstance::operator =(const JsonValue& jsonValue)
     m_status = jsonValue.GetString("status");
 
     m_statusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("statusReason"))
+  {
+    m_statusReason = jsonValue.GetString("statusReason");
+
+    m_statusReasonHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("agentConnected"))
@@ -162,7 +182,7 @@ ContainerInstance& ContainerInstance::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("attributes"))
   {
-    Array<JsonValue> attributesJsonList = jsonValue.GetArray("attributes");
+    Array<JsonView> attributesJsonList = jsonValue.GetArray("attributes");
     for(unsigned attributesIndex = 0; attributesIndex < attributesJsonList.GetLength(); ++attributesIndex)
     {
       m_attributes.push_back(attributesJsonList[attributesIndex].AsObject());
@@ -179,12 +199,22 @@ ContainerInstance& ContainerInstance::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("attachments"))
   {
-    Array<JsonValue> attachmentsJsonList = jsonValue.GetArray("attachments");
+    Array<JsonView> attachmentsJsonList = jsonValue.GetArray("attachments");
     for(unsigned attachmentsIndex = 0; attachmentsIndex < attachmentsJsonList.GetLength(); ++attachmentsIndex)
     {
       m_attachments.push_back(attachmentsJsonList[attachmentsIndex].AsObject());
     }
     m_attachmentsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
   }
 
   return *this;
@@ -203,6 +233,12 @@ JsonValue ContainerInstance::Jsonize() const
   if(m_ec2InstanceIdHasBeenSet)
   {
    payload.WithString("ec2InstanceId", m_ec2InstanceId);
+
+  }
+
+  if(m_capacityProviderNameHasBeenSet)
+  {
+   payload.WithString("capacityProviderName", m_capacityProviderName);
 
   }
 
@@ -243,6 +279,12 @@ JsonValue ContainerInstance::Jsonize() const
   if(m_statusHasBeenSet)
   {
    payload.WithString("status", m_status);
+
+  }
+
+  if(m_statusReasonHasBeenSet)
+  {
+   payload.WithString("statusReason", m_statusReason);
 
   }
 
@@ -293,6 +335,17 @@ JsonValue ContainerInstance::Jsonize() const
      attachmentsJsonList[attachmentsIndex].AsObject(m_attachments[attachmentsIndex].Jsonize());
    }
    payload.WithArray("attachments", std::move(attachmentsJsonList));
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
 
   }
 

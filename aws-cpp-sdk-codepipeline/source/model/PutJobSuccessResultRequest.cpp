@@ -26,7 +26,8 @@ PutJobSuccessResultRequest::PutJobSuccessResultRequest() :
     m_jobIdHasBeenSet(false),
     m_currentRevisionHasBeenSet(false),
     m_continuationTokenHasBeenSet(false),
-    m_executionDetailsHasBeenSet(false)
+    m_executionDetailsHasBeenSet(false),
+    m_outputVariablesHasBeenSet(false)
 {
 }
 
@@ -58,7 +59,18 @@ Aws::String PutJobSuccessResultRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_outputVariablesHasBeenSet)
+  {
+   JsonValue outputVariablesJsonMap;
+   for(auto& outputVariablesItem : m_outputVariables)
+   {
+     outputVariablesJsonMap.WithString(outputVariablesItem.first, outputVariablesItem.second);
+   }
+   payload.WithObject("outputVariables", std::move(outputVariablesJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection PutJobSuccessResultRequest::GetRequestSpecificHeaders() const

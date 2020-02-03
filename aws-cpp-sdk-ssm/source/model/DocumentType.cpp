@@ -33,6 +33,12 @@ namespace Aws
         static const int Command_HASH = HashingUtils::HashString("Command");
         static const int Policy_HASH = HashingUtils::HashString("Policy");
         static const int Automation_HASH = HashingUtils::HashString("Automation");
+        static const int Session_HASH = HashingUtils::HashString("Session");
+        static const int Package_HASH = HashingUtils::HashString("Package");
+        static const int ApplicationConfiguration_HASH = HashingUtils::HashString("ApplicationConfiguration");
+        static const int ApplicationConfigurationSchema_HASH = HashingUtils::HashString("ApplicationConfigurationSchema");
+        static const int DeploymentStrategy_HASH = HashingUtils::HashString("DeploymentStrategy");
+        static const int ChangeCalendar_HASH = HashingUtils::HashString("ChangeCalendar");
 
 
         DocumentType GetDocumentTypeForName(const Aws::String& name)
@@ -49,6 +55,30 @@ namespace Aws
           else if (hashCode == Automation_HASH)
           {
             return DocumentType::Automation;
+          }
+          else if (hashCode == Session_HASH)
+          {
+            return DocumentType::Session;
+          }
+          else if (hashCode == Package_HASH)
+          {
+            return DocumentType::Package;
+          }
+          else if (hashCode == ApplicationConfiguration_HASH)
+          {
+            return DocumentType::ApplicationConfiguration;
+          }
+          else if (hashCode == ApplicationConfigurationSchema_HASH)
+          {
+            return DocumentType::ApplicationConfigurationSchema;
+          }
+          else if (hashCode == DeploymentStrategy_HASH)
+          {
+            return DocumentType::DeploymentStrategy;
+          }
+          else if (hashCode == ChangeCalendar_HASH)
+          {
+            return DocumentType::ChangeCalendar;
           }
           EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
           if(overflowContainer)
@@ -70,6 +100,18 @@ namespace Aws
             return "Policy";
           case DocumentType::Automation:
             return "Automation";
+          case DocumentType::Session:
+            return "Session";
+          case DocumentType::Package:
+            return "Package";
+          case DocumentType::ApplicationConfiguration:
+            return "ApplicationConfiguration";
+          case DocumentType::ApplicationConfigurationSchema:
+            return "ApplicationConfigurationSchema";
+          case DocumentType::DeploymentStrategy:
+            return "DeploymentStrategy";
+          case DocumentType::ChangeCalendar:
+            return "ChangeCalendar";
           default:
             EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
             if(overflowContainer)
@@ -77,7 +119,7 @@ namespace Aws
               return overflowContainer->RetrieveOverflow(static_cast<int>(enumValue));
             }
 
-            return "";
+            return {};
           }
         }
 

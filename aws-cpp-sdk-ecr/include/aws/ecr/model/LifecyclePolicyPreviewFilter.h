@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECR
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     LifecyclePolicyPreviewFilter();
-    LifecyclePolicyPreviewFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    LifecyclePolicyPreviewFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LifecyclePolicyPreviewFilter(Aws::Utils::Json::JsonView jsonValue);
+    LifecyclePolicyPreviewFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The tag status of the image.</p>
      */
     inline const TagStatus& GetTagStatus() const{ return m_tagStatus; }
+
+    /**
+     * <p>The tag status of the image.</p>
+     */
+    inline bool TagStatusHasBeenSet() const { return m_tagStatusHasBeenSet; }
 
     /**
      * <p>The tag status of the image.</p>

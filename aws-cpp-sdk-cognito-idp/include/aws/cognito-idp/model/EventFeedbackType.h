@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EventFeedbackType();
-    EventFeedbackType(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventFeedbackType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventFeedbackType(Aws::Utils::Json::JsonView jsonValue);
+    EventFeedbackType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The event feedback value.</p>
      */
     inline const FeedbackValueType& GetFeedbackValue() const{ return m_feedbackValue; }
+
+    /**
+     * <p>The event feedback value.</p>
+     */
+    inline bool FeedbackValueHasBeenSet() const { return m_feedbackValueHasBeenSet; }
 
     /**
      * <p>The event feedback value.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The provider.</p>
      */
     inline const Aws::String& GetProvider() const{ return m_provider; }
+
+    /**
+     * <p>The provider.</p>
+     */
+    inline bool ProviderHasBeenSet() const { return m_providerHasBeenSet; }
 
     /**
      * <p>The provider.</p>
@@ -114,6 +125,11 @@ namespace Model
      * <p>The event feedback date.</p>
      */
     inline const Aws::Utils::DateTime& GetFeedbackDate() const{ return m_feedbackDate; }
+
+    /**
+     * <p>The event feedback date.</p>
+     */
+    inline bool FeedbackDateHasBeenSet() const { return m_feedbackDateHasBeenSet; }
 
     /**
      * <p>The event feedback date.</p>

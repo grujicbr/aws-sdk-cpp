@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     UserPoolClientDescription();
-    UserPoolClientDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserPoolClientDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserPoolClientDescription(Aws::Utils::Json::JsonView jsonValue);
+    UserPoolClientDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ID of the client associated with the user pool.</p>
      */
     inline const Aws::String& GetClientId() const{ return m_clientId; }
+
+    /**
+     * <p>The ID of the client associated with the user pool.</p>
+     */
+    inline bool ClientIdHasBeenSet() const { return m_clientIdHasBeenSet; }
 
     /**
      * <p>The ID of the client associated with the user pool.</p>
@@ -92,6 +98,12 @@ namespace Model
      * <p>The user pool ID for the user pool where you want to describe the user pool
      * client.</p>
      */
+    inline bool UserPoolIdHasBeenSet() const { return m_userPoolIdHasBeenSet; }
+
+    /**
+     * <p>The user pool ID for the user pool where you want to describe the user pool
+     * client.</p>
+     */
     inline void SetUserPoolId(const Aws::String& value) { m_userPoolIdHasBeenSet = true; m_userPoolId = value; }
 
     /**
@@ -129,6 +141,11 @@ namespace Model
      * <p>The client name from the user pool client description.</p>
      */
     inline const Aws::String& GetClientName() const{ return m_clientName; }
+
+    /**
+     * <p>The client name from the user pool client description.</p>
+     */
+    inline bool ClientNameHasBeenSet() const { return m_clientNameHasBeenSet; }
 
     /**
      * <p>The client name from the user pool client description.</p>

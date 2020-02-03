@@ -40,7 +40,9 @@ RoleDetail::RoleDetail() :
     m_instanceProfileListHasBeenSet(false),
     m_rolePolicyListHasBeenSet(false),
     m_attachedManagedPoliciesHasBeenSet(false),
-    m_permissionsBoundaryHasBeenSet(false)
+    m_permissionsBoundaryHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_roleLastUsedHasBeenSet(false)
 {
 }
 
@@ -54,7 +56,9 @@ RoleDetail::RoleDetail(const XmlNode& xmlNode) :
     m_instanceProfileListHasBeenSet(false),
     m_rolePolicyListHasBeenSet(false),
     m_attachedManagedPoliciesHasBeenSet(false),
-    m_permissionsBoundaryHasBeenSet(false)
+    m_permissionsBoundaryHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_roleLastUsedHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -68,37 +72,37 @@ RoleDetail& RoleDetail::operator =(const XmlNode& xmlNode)
     XmlNode pathNode = resultNode.FirstChild("Path");
     if(!pathNode.IsNull())
     {
-      m_path = StringUtils::Trim(pathNode.GetText().c_str());
+      m_path = Aws::Utils::Xml::DecodeEscapedXmlText(pathNode.GetText());
       m_pathHasBeenSet = true;
     }
     XmlNode roleNameNode = resultNode.FirstChild("RoleName");
     if(!roleNameNode.IsNull())
     {
-      m_roleName = StringUtils::Trim(roleNameNode.GetText().c_str());
+      m_roleName = Aws::Utils::Xml::DecodeEscapedXmlText(roleNameNode.GetText());
       m_roleNameHasBeenSet = true;
     }
     XmlNode roleIdNode = resultNode.FirstChild("RoleId");
     if(!roleIdNode.IsNull())
     {
-      m_roleId = StringUtils::Trim(roleIdNode.GetText().c_str());
+      m_roleId = Aws::Utils::Xml::DecodeEscapedXmlText(roleIdNode.GetText());
       m_roleIdHasBeenSet = true;
     }
     XmlNode arnNode = resultNode.FirstChild("Arn");
     if(!arnNode.IsNull())
     {
-      m_arn = StringUtils::Trim(arnNode.GetText().c_str());
+      m_arn = Aws::Utils::Xml::DecodeEscapedXmlText(arnNode.GetText());
       m_arnHasBeenSet = true;
     }
     XmlNode createDateNode = resultNode.FirstChild("CreateDate");
     if(!createDateNode.IsNull())
     {
-      m_createDate = DateTime(StringUtils::Trim(createDateNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_createDate = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(createDateNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_createDateHasBeenSet = true;
     }
     XmlNode assumeRolePolicyDocumentNode = resultNode.FirstChild("AssumeRolePolicyDocument");
     if(!assumeRolePolicyDocumentNode.IsNull())
     {
-      m_assumeRolePolicyDocument = StringUtils::Trim(assumeRolePolicyDocumentNode.GetText().c_str());
+      m_assumeRolePolicyDocument = Aws::Utils::Xml::DecodeEscapedXmlText(assumeRolePolicyDocumentNode.GetText());
       m_assumeRolePolicyDocumentHasBeenSet = true;
     }
     XmlNode instanceProfileListNode = resultNode.FirstChild("InstanceProfileList");
@@ -142,6 +146,24 @@ RoleDetail& RoleDetail::operator =(const XmlNode& xmlNode)
     {
       m_permissionsBoundary = permissionsBoundaryNode;
       m_permissionsBoundaryHasBeenSet = true;
+    }
+    XmlNode tagsNode = resultNode.FirstChild("Tags");
+    if(!tagsNode.IsNull())
+    {
+      XmlNode tagsMember = tagsNode.FirstChild("member");
+      while(!tagsMember.IsNull())
+      {
+        m_tags.push_back(tagsMember);
+        tagsMember = tagsMember.NextNode("member");
+      }
+
+      m_tagsHasBeenSet = true;
+    }
+    XmlNode roleLastUsedNode = resultNode.FirstChild("RoleLastUsed");
+    if(!roleLastUsedNode.IsNull())
+    {
+      m_roleLastUsed = roleLastUsedNode;
+      m_roleLastUsedHasBeenSet = true;
     }
   }
 
@@ -220,6 +242,24 @@ void RoleDetail::OutputToStream(Aws::OStream& oStream, const char* location, uns
       m_permissionsBoundary.OutputToStream(oStream, permissionsBoundaryLocationAndMemberSs.str().c_str());
   }
 
+  if(m_tagsHasBeenSet)
+  {
+      unsigned tagsIdx = 1;
+      for(auto& item : m_tags)
+      {
+        Aws::StringStream tagsSs;
+        tagsSs << location << index << locationValue << ".Tags.member." << tagsIdx++;
+        item.OutputToStream(oStream, tagsSs.str().c_str());
+      }
+  }
+
+  if(m_roleLastUsedHasBeenSet)
+  {
+      Aws::StringStream roleLastUsedLocationAndMemberSs;
+      roleLastUsedLocationAndMemberSs << location << index << locationValue << ".RoleLastUsed";
+      m_roleLastUsed.OutputToStream(oStream, roleLastUsedLocationAndMemberSs.str().c_str());
+  }
+
 }
 
 void RoleDetail::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -283,6 +323,22 @@ void RoleDetail::OutputToStream(Aws::OStream& oStream, const char* location) con
       Aws::String permissionsBoundaryLocationAndMember(location);
       permissionsBoundaryLocationAndMember += ".PermissionsBoundary";
       m_permissionsBoundary.OutputToStream(oStream, permissionsBoundaryLocationAndMember.c_str());
+  }
+  if(m_tagsHasBeenSet)
+  {
+      unsigned tagsIdx = 1;
+      for(auto& item : m_tags)
+      {
+        Aws::StringStream tagsSs;
+        tagsSs << location <<  ".Tags.member." << tagsIdx++;
+        item.OutputToStream(oStream, tagsSs.str().c_str());
+      }
+  }
+  if(m_roleLastUsedHasBeenSet)
+  {
+      Aws::String roleLastUsedLocationAndMember(location);
+      roleLastUsedLocationAndMember += ".RoleLastUsed";
+      m_roleLastUsed.OutputToStream(oStream, roleLastUsedLocationAndMember.c_str());
   }
 }
 

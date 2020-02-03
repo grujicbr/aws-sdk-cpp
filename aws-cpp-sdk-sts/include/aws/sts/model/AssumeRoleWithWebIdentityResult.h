@@ -54,51 +54,41 @@ namespace Model
 
     /**
      * <p>The temporary security credentials, which include an access key ID, a secret
-     * access key, and a security token.</p> <p> <b>Note:</b> The size of the security
-     * token that STS APIs return is not fixed. We strongly recommend that you make no
-     * assumptions about the maximum size. As of this writing, the typical size is less
-     * than 4096 bytes, but that can vary. Also, future updates to AWS might require
-     * larger sizes.</p>
+     * access key, and a security token.</p> <note> <p>The size of the security token
+     * that STS API operations return is not fixed. We strongly recommend that you make
+     * no assumptions about the maximum size.</p> </note>
      */
     inline const Credentials& GetCredentials() const{ return m_credentials; }
 
     /**
      * <p>The temporary security credentials, which include an access key ID, a secret
-     * access key, and a security token.</p> <p> <b>Note:</b> The size of the security
-     * token that STS APIs return is not fixed. We strongly recommend that you make no
-     * assumptions about the maximum size. As of this writing, the typical size is less
-     * than 4096 bytes, but that can vary. Also, future updates to AWS might require
-     * larger sizes.</p>
+     * access key, and a security token.</p> <note> <p>The size of the security token
+     * that STS API operations return is not fixed. We strongly recommend that you make
+     * no assumptions about the maximum size.</p> </note>
      */
     inline void SetCredentials(const Credentials& value) { m_credentials = value; }
 
     /**
      * <p>The temporary security credentials, which include an access key ID, a secret
-     * access key, and a security token.</p> <p> <b>Note:</b> The size of the security
-     * token that STS APIs return is not fixed. We strongly recommend that you make no
-     * assumptions about the maximum size. As of this writing, the typical size is less
-     * than 4096 bytes, but that can vary. Also, future updates to AWS might require
-     * larger sizes.</p>
+     * access key, and a security token.</p> <note> <p>The size of the security token
+     * that STS API operations return is not fixed. We strongly recommend that you make
+     * no assumptions about the maximum size.</p> </note>
      */
     inline void SetCredentials(Credentials&& value) { m_credentials = std::move(value); }
 
     /**
      * <p>The temporary security credentials, which include an access key ID, a secret
-     * access key, and a security token.</p> <p> <b>Note:</b> The size of the security
-     * token that STS APIs return is not fixed. We strongly recommend that you make no
-     * assumptions about the maximum size. As of this writing, the typical size is less
-     * than 4096 bytes, but that can vary. Also, future updates to AWS might require
-     * larger sizes.</p>
+     * access key, and a security token.</p> <note> <p>The size of the security token
+     * that STS API operations return is not fixed. We strongly recommend that you make
+     * no assumptions about the maximum size.</p> </note>
      */
     inline AssumeRoleWithWebIdentityResult& WithCredentials(const Credentials& value) { SetCredentials(value); return *this;}
 
     /**
      * <p>The temporary security credentials, which include an access key ID, a secret
-     * access key, and a security token.</p> <p> <b>Note:</b> The size of the security
-     * token that STS APIs return is not fixed. We strongly recommend that you make no
-     * assumptions about the maximum size. As of this writing, the typical size is less
-     * than 4096 bytes, but that can vary. Also, future updates to AWS might require
-     * larger sizes.</p>
+     * access key, and a security token.</p> <note> <p>The size of the security token
+     * that STS API operations return is not fixed. We strongly recommend that you make
+     * no assumptions about the maximum size.</p> </note>
      */
     inline AssumeRoleWithWebIdentityResult& WithCredentials(Credentials&& value) { SetCredentials(std::move(value)); return *this;}
 
@@ -233,30 +223,33 @@ namespace Model
 
 
     /**
-     * <p>A percentage value that indicates the size of the policy in packed form. The
-     * service rejects any policy with a packed size greater than 100 percent, which
-     * means the policy exceeded the allowed space.</p>
+     * <p>A percentage value that indicates the packed size of the session policies and
+     * session tags combined passed in the request. The request fails if the packed
+     * size is greater than 100 percent, which means the policies and tags exceeded the
+     * allowed space.</p>
      */
     inline int GetPackedPolicySize() const{ return m_packedPolicySize; }
 
     /**
-     * <p>A percentage value that indicates the size of the policy in packed form. The
-     * service rejects any policy with a packed size greater than 100 percent, which
-     * means the policy exceeded the allowed space.</p>
+     * <p>A percentage value that indicates the packed size of the session policies and
+     * session tags combined passed in the request. The request fails if the packed
+     * size is greater than 100 percent, which means the policies and tags exceeded the
+     * allowed space.</p>
      */
     inline void SetPackedPolicySize(int value) { m_packedPolicySize = value; }
 
     /**
-     * <p>A percentage value that indicates the size of the policy in packed form. The
-     * service rejects any policy with a packed size greater than 100 percent, which
-     * means the policy exceeded the allowed space.</p>
+     * <p>A percentage value that indicates the packed size of the session policies and
+     * session tags combined passed in the request. The request fails if the packed
+     * size is greater than 100 percent, which means the policies and tags exceeded the
+     * allowed space.</p>
      */
     inline AssumeRoleWithWebIdentityResult& WithPackedPolicySize(int value) { SetPackedPolicySize(value); return *this;}
 
 
     /**
      * <p> The issuing authority of the web identity token presented. For OpenID
-     * Connect ID Tokens this contains the value of the <code>iss</code> field. For
+     * Connect ID tokens, this contains the value of the <code>iss</code> field. For
      * OAuth 2.0 access tokens, this contains the value of the <code>ProviderId</code>
      * parameter that was passed in the <code>AssumeRoleWithWebIdentity</code>
      * request.</p>
@@ -265,7 +258,7 @@ namespace Model
 
     /**
      * <p> The issuing authority of the web identity token presented. For OpenID
-     * Connect ID Tokens this contains the value of the <code>iss</code> field. For
+     * Connect ID tokens, this contains the value of the <code>iss</code> field. For
      * OAuth 2.0 access tokens, this contains the value of the <code>ProviderId</code>
      * parameter that was passed in the <code>AssumeRoleWithWebIdentity</code>
      * request.</p>
@@ -274,7 +267,7 @@ namespace Model
 
     /**
      * <p> The issuing authority of the web identity token presented. For OpenID
-     * Connect ID Tokens this contains the value of the <code>iss</code> field. For
+     * Connect ID tokens, this contains the value of the <code>iss</code> field. For
      * OAuth 2.0 access tokens, this contains the value of the <code>ProviderId</code>
      * parameter that was passed in the <code>AssumeRoleWithWebIdentity</code>
      * request.</p>
@@ -283,7 +276,7 @@ namespace Model
 
     /**
      * <p> The issuing authority of the web identity token presented. For OpenID
-     * Connect ID Tokens this contains the value of the <code>iss</code> field. For
+     * Connect ID tokens, this contains the value of the <code>iss</code> field. For
      * OAuth 2.0 access tokens, this contains the value of the <code>ProviderId</code>
      * parameter that was passed in the <code>AssumeRoleWithWebIdentity</code>
      * request.</p>
@@ -292,7 +285,7 @@ namespace Model
 
     /**
      * <p> The issuing authority of the web identity token presented. For OpenID
-     * Connect ID Tokens this contains the value of the <code>iss</code> field. For
+     * Connect ID tokens, this contains the value of the <code>iss</code> field. For
      * OAuth 2.0 access tokens, this contains the value of the <code>ProviderId</code>
      * parameter that was passed in the <code>AssumeRoleWithWebIdentity</code>
      * request.</p>
@@ -301,7 +294,7 @@ namespace Model
 
     /**
      * <p> The issuing authority of the web identity token presented. For OpenID
-     * Connect ID Tokens this contains the value of the <code>iss</code> field. For
+     * Connect ID tokens, this contains the value of the <code>iss</code> field. For
      * OAuth 2.0 access tokens, this contains the value of the <code>ProviderId</code>
      * parameter that was passed in the <code>AssumeRoleWithWebIdentity</code>
      * request.</p>
@@ -310,7 +303,7 @@ namespace Model
 
     /**
      * <p> The issuing authority of the web identity token presented. For OpenID
-     * Connect ID Tokens this contains the value of the <code>iss</code> field. For
+     * Connect ID tokens, this contains the value of the <code>iss</code> field. For
      * OAuth 2.0 access tokens, this contains the value of the <code>ProviderId</code>
      * parameter that was passed in the <code>AssumeRoleWithWebIdentity</code>
      * request.</p>

@@ -86,55 +86,55 @@ ScalingPolicy& ScalingPolicy::operator =(const XmlNode& xmlNode)
     XmlNode autoScalingGroupNameNode = resultNode.FirstChild("AutoScalingGroupName");
     if(!autoScalingGroupNameNode.IsNull())
     {
-      m_autoScalingGroupName = StringUtils::Trim(autoScalingGroupNameNode.GetText().c_str());
+      m_autoScalingGroupName = Aws::Utils::Xml::DecodeEscapedXmlText(autoScalingGroupNameNode.GetText());
       m_autoScalingGroupNameHasBeenSet = true;
     }
     XmlNode policyNameNode = resultNode.FirstChild("PolicyName");
     if(!policyNameNode.IsNull())
     {
-      m_policyName = StringUtils::Trim(policyNameNode.GetText().c_str());
+      m_policyName = Aws::Utils::Xml::DecodeEscapedXmlText(policyNameNode.GetText());
       m_policyNameHasBeenSet = true;
     }
     XmlNode policyARNNode = resultNode.FirstChild("PolicyARN");
     if(!policyARNNode.IsNull())
     {
-      m_policyARN = StringUtils::Trim(policyARNNode.GetText().c_str());
+      m_policyARN = Aws::Utils::Xml::DecodeEscapedXmlText(policyARNNode.GetText());
       m_policyARNHasBeenSet = true;
     }
     XmlNode policyTypeNode = resultNode.FirstChild("PolicyType");
     if(!policyTypeNode.IsNull())
     {
-      m_policyType = StringUtils::Trim(policyTypeNode.GetText().c_str());
+      m_policyType = Aws::Utils::Xml::DecodeEscapedXmlText(policyTypeNode.GetText());
       m_policyTypeHasBeenSet = true;
     }
     XmlNode adjustmentTypeNode = resultNode.FirstChild("AdjustmentType");
     if(!adjustmentTypeNode.IsNull())
     {
-      m_adjustmentType = StringUtils::Trim(adjustmentTypeNode.GetText().c_str());
+      m_adjustmentType = Aws::Utils::Xml::DecodeEscapedXmlText(adjustmentTypeNode.GetText());
       m_adjustmentTypeHasBeenSet = true;
     }
     XmlNode minAdjustmentStepNode = resultNode.FirstChild("MinAdjustmentStep");
     if(!minAdjustmentStepNode.IsNull())
     {
-      m_minAdjustmentStep = StringUtils::ConvertToInt32(StringUtils::Trim(minAdjustmentStepNode.GetText().c_str()).c_str());
+      m_minAdjustmentStep = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(minAdjustmentStepNode.GetText()).c_str()).c_str());
       m_minAdjustmentStepHasBeenSet = true;
     }
     XmlNode minAdjustmentMagnitudeNode = resultNode.FirstChild("MinAdjustmentMagnitude");
     if(!minAdjustmentMagnitudeNode.IsNull())
     {
-      m_minAdjustmentMagnitude = StringUtils::ConvertToInt32(StringUtils::Trim(minAdjustmentMagnitudeNode.GetText().c_str()).c_str());
+      m_minAdjustmentMagnitude = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(minAdjustmentMagnitudeNode.GetText()).c_str()).c_str());
       m_minAdjustmentMagnitudeHasBeenSet = true;
     }
     XmlNode scalingAdjustmentNode = resultNode.FirstChild("ScalingAdjustment");
     if(!scalingAdjustmentNode.IsNull())
     {
-      m_scalingAdjustment = StringUtils::ConvertToInt32(StringUtils::Trim(scalingAdjustmentNode.GetText().c_str()).c_str());
+      m_scalingAdjustment = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(scalingAdjustmentNode.GetText()).c_str()).c_str());
       m_scalingAdjustmentHasBeenSet = true;
     }
     XmlNode cooldownNode = resultNode.FirstChild("Cooldown");
     if(!cooldownNode.IsNull())
     {
-      m_cooldown = StringUtils::ConvertToInt32(StringUtils::Trim(cooldownNode.GetText().c_str()).c_str());
+      m_cooldown = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(cooldownNode.GetText()).c_str()).c_str());
       m_cooldownHasBeenSet = true;
     }
     XmlNode stepAdjustmentsNode = resultNode.FirstChild("StepAdjustments");
@@ -152,13 +152,13 @@ ScalingPolicy& ScalingPolicy::operator =(const XmlNode& xmlNode)
     XmlNode metricAggregationTypeNode = resultNode.FirstChild("MetricAggregationType");
     if(!metricAggregationTypeNode.IsNull())
     {
-      m_metricAggregationType = StringUtils::Trim(metricAggregationTypeNode.GetText().c_str());
+      m_metricAggregationType = Aws::Utils::Xml::DecodeEscapedXmlText(metricAggregationTypeNode.GetText());
       m_metricAggregationTypeHasBeenSet = true;
     }
     XmlNode estimatedInstanceWarmupNode = resultNode.FirstChild("EstimatedInstanceWarmup");
     if(!estimatedInstanceWarmupNode.IsNull())
     {
-      m_estimatedInstanceWarmup = StringUtils::ConvertToInt32(StringUtils::Trim(estimatedInstanceWarmupNode.GetText().c_str()).c_str());
+      m_estimatedInstanceWarmup = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(estimatedInstanceWarmupNode.GetText()).c_str()).c_str());
       m_estimatedInstanceWarmupHasBeenSet = true;
     }
     XmlNode alarmsNode = resultNode.FirstChild("Alarms");

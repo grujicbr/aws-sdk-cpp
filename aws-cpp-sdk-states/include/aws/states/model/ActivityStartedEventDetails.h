@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ActivityStartedEventDetails();
-    ActivityStartedEventDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActivityStartedEventDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActivityStartedEventDetails(Aws::Utils::Json::JsonView jsonValue);
+    ActivityStartedEventDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * by the workers when calling <a>GetActivityTask</a>.</p>
      */
     inline const Aws::String& GetWorkerName() const{ return m_workerName; }
+
+    /**
+     * <p>The name of the worker that the task is assigned to. These names are provided
+     * by the workers when calling <a>GetActivityTask</a>.</p>
+     */
+    inline bool WorkerNameHasBeenSet() const { return m_workerNameHasBeenSet; }
 
     /**
      * <p>The name of the worker that the task is assigned to. These names are provided

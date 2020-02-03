@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     FollowUpPrompt();
-    FollowUpPrompt(const Aws::Utils::Json::JsonValue& jsonValue);
-    FollowUpPrompt& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FollowUpPrompt(Aws::Utils::Json::JsonView jsonValue);
+    FollowUpPrompt& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Prompts for information from the user. </p>
      */
     inline const Prompt& GetPrompt() const{ return m_prompt; }
+
+    /**
+     * <p>Prompts for information from the user. </p>
+     */
+    inline bool PromptHasBeenSet() const { return m_promptHasBeenSet; }
 
     /**
      * <p>Prompts for information from the user. </p>
@@ -82,6 +88,13 @@ namespace Model
      * was canceled. </p>
      */
     inline const Statement& GetRejectionStatement() const{ return m_rejectionStatement; }
+
+    /**
+     * <p>If the user answers "no" to the question defined in the <code>prompt</code>
+     * field, Amazon Lex responds with this statement to acknowledge that the intent
+     * was canceled. </p>
+     */
+    inline bool RejectionStatementHasBeenSet() const { return m_rejectionStatementHasBeenSet; }
 
     /**
      * <p>If the user answers "no" to the question defined in the <code>prompt</code>

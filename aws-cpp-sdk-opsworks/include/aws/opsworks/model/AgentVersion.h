@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AgentVersion();
-    AgentVersion(const Aws::Utils::Json::JsonValue& jsonValue);
-    AgentVersion& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AgentVersion(Aws::Utils::Json::JsonView jsonValue);
+    AgentVersion& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The agent version.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The agent version.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The agent version.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The configuration manager.</p>
      */
     inline const StackConfigurationManager& GetConfigurationManager() const{ return m_configurationManager; }
+
+    /**
+     * <p>The configuration manager.</p>
+     */
+    inline bool ConfigurationManagerHasBeenSet() const { return m_configurationManagerHasBeenSet; }
 
     /**
      * <p>The configuration manager.</p>

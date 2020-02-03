@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Kinesis
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     SequenceNumberRange();
-    SequenceNumberRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    SequenceNumberRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SequenceNumberRange(Aws::Utils::Json::JsonView jsonValue);
+    SequenceNumberRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The starting sequence number for the range.</p>
      */
     inline const Aws::String& GetStartingSequenceNumber() const{ return m_startingSequenceNumber; }
+
+    /**
+     * <p>The starting sequence number for the range.</p>
+     */
+    inline bool StartingSequenceNumberHasBeenSet() const { return m_startingSequenceNumberHasBeenSet; }
 
     /**
      * <p>The starting sequence number for the range.</p>
@@ -88,6 +94,12 @@ namespace Model
      * have an ending sequence number of <code>null</code>.</p>
      */
     inline const Aws::String& GetEndingSequenceNumber() const{ return m_endingSequenceNumber; }
+
+    /**
+     * <p>The ending sequence number for the range. Shards that are in the OPEN state
+     * have an ending sequence number of <code>null</code>.</p>
+     */
+    inline bool EndingSequenceNumberHasBeenSet() const { return m_endingSequenceNumberHasBeenSet; }
 
     /**
      * <p>The ending sequence number for the range. Shards that are in the OPEN state

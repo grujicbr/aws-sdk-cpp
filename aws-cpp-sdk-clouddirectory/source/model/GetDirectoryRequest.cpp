@@ -30,7 +30,7 @@ GetDirectoryRequest::GetDirectoryRequest() :
 
 Aws::String GetDirectoryRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection GetDirectoryRequest::GetRequestSpecificHeaders() const
@@ -40,7 +40,7 @@ Aws::Http::HeaderValueCollection GetDirectoryRequest::GetRequestSpecificHeaders(
   if(m_directoryArnHasBeenSet)
   {
     ss << m_directoryArn;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-data-partition", ss.str()));
+    headers.emplace("x-amz-data-partition",  ss.str());
     ss.str("");
   }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeBuild
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EnvironmentVariable();
-    EnvironmentVariable(const Aws::Utils::Json::JsonValue& jsonValue);
-    EnvironmentVariable& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EnvironmentVariable(Aws::Utils::Json::JsonView jsonValue);
+    EnvironmentVariable& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name or key of the environment variable.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name or key of the environment variable.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name or key of the environment variable.</p>
@@ -86,63 +92,72 @@ namespace Model
 
     /**
      * <p>The value of the environment variable.</p> <important> <p>We strongly
-     * discourage using environment variables to store sensitive values, especially AWS
-     * secret key IDs and secret access keys. Environment variables can be displayed in
-     * plain text using tools such as the AWS CodeBuild console and the AWS Command
+     * discourage the use of environment variables to store sensitive values,
+     * especially AWS secret key IDs and secret access keys. Environment variables can
+     * be displayed in plain text using the AWS CodeBuild console and the AWS Command
      * Line Interface (AWS CLI).</p> </important>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
 
     /**
      * <p>The value of the environment variable.</p> <important> <p>We strongly
-     * discourage using environment variables to store sensitive values, especially AWS
-     * secret key IDs and secret access keys. Environment variables can be displayed in
-     * plain text using tools such as the AWS CodeBuild console and the AWS Command
+     * discourage the use of environment variables to store sensitive values,
+     * especially AWS secret key IDs and secret access keys. Environment variables can
+     * be displayed in plain text using the AWS CodeBuild console and the AWS Command
+     * Line Interface (AWS CLI).</p> </important>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>The value of the environment variable.</p> <important> <p>We strongly
+     * discourage the use of environment variables to store sensitive values,
+     * especially AWS secret key IDs and secret access keys. Environment variables can
+     * be displayed in plain text using the AWS CodeBuild console and the AWS Command
      * Line Interface (AWS CLI).</p> </important>
      */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
      * <p>The value of the environment variable.</p> <important> <p>We strongly
-     * discourage using environment variables to store sensitive values, especially AWS
-     * secret key IDs and secret access keys. Environment variables can be displayed in
-     * plain text using tools such as the AWS CodeBuild console and the AWS Command
+     * discourage the use of environment variables to store sensitive values,
+     * especially AWS secret key IDs and secret access keys. Environment variables can
+     * be displayed in plain text using the AWS CodeBuild console and the AWS Command
      * Line Interface (AWS CLI).</p> </important>
      */
     inline void SetValue(Aws::String&& value) { m_valueHasBeenSet = true; m_value = std::move(value); }
 
     /**
      * <p>The value of the environment variable.</p> <important> <p>We strongly
-     * discourage using environment variables to store sensitive values, especially AWS
-     * secret key IDs and secret access keys. Environment variables can be displayed in
-     * plain text using tools such as the AWS CodeBuild console and the AWS Command
+     * discourage the use of environment variables to store sensitive values,
+     * especially AWS secret key IDs and secret access keys. Environment variables can
+     * be displayed in plain text using the AWS CodeBuild console and the AWS Command
      * Line Interface (AWS CLI).</p> </important>
      */
     inline void SetValue(const char* value) { m_valueHasBeenSet = true; m_value.assign(value); }
 
     /**
      * <p>The value of the environment variable.</p> <important> <p>We strongly
-     * discourage using environment variables to store sensitive values, especially AWS
-     * secret key IDs and secret access keys. Environment variables can be displayed in
-     * plain text using tools such as the AWS CodeBuild console and the AWS Command
+     * discourage the use of environment variables to store sensitive values,
+     * especially AWS secret key IDs and secret access keys. Environment variables can
+     * be displayed in plain text using the AWS CodeBuild console and the AWS Command
      * Line Interface (AWS CLI).</p> </important>
      */
     inline EnvironmentVariable& WithValue(const Aws::String& value) { SetValue(value); return *this;}
 
     /**
      * <p>The value of the environment variable.</p> <important> <p>We strongly
-     * discourage using environment variables to store sensitive values, especially AWS
-     * secret key IDs and secret access keys. Environment variables can be displayed in
-     * plain text using tools such as the AWS CodeBuild console and the AWS Command
+     * discourage the use of environment variables to store sensitive values,
+     * especially AWS secret key IDs and secret access keys. Environment variables can
+     * be displayed in plain text using the AWS CodeBuild console and the AWS Command
      * Line Interface (AWS CLI).</p> </important>
      */
     inline EnvironmentVariable& WithValue(Aws::String&& value) { SetValue(std::move(value)); return *this;}
 
     /**
      * <p>The value of the environment variable.</p> <important> <p>We strongly
-     * discourage using environment variables to store sensitive values, especially AWS
-     * secret key IDs and secret access keys. Environment variables can be displayed in
-     * plain text using tools such as the AWS CodeBuild console and the AWS Command
+     * discourage the use of environment variables to store sensitive values,
+     * especially AWS secret key IDs and secret access keys. Environment variables can
+     * be displayed in plain text using the AWS CodeBuild console and the AWS Command
      * Line Interface (AWS CLI).</p> </important>
      */
     inline EnvironmentVariable& WithValue(const char* value) { SetValue(value); return *this;}
@@ -152,7 +167,9 @@ namespace Model
      * <p>The type of environment variable. Valid values include:</p> <ul> <li> <p>
      * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2
      * Systems Manager Parameter Store.</p> </li> <li> <p> <code>PLAINTEXT</code>: An
-     * environment variable in plaintext format.</p> </li> </ul>
+     * environment variable in plain text format. This is the default value.</p> </li>
+     * <li> <p> <code>SECRETS_MANAGER</code>: An environment variable stored in AWS
+     * Secrets Manager.</p> </li> </ul>
      */
     inline const EnvironmentVariableType& GetType() const{ return m_type; }
 
@@ -160,7 +177,19 @@ namespace Model
      * <p>The type of environment variable. Valid values include:</p> <ul> <li> <p>
      * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2
      * Systems Manager Parameter Store.</p> </li> <li> <p> <code>PLAINTEXT</code>: An
-     * environment variable in plaintext format.</p> </li> </ul>
+     * environment variable in plain text format. This is the default value.</p> </li>
+     * <li> <p> <code>SECRETS_MANAGER</code>: An environment variable stored in AWS
+     * Secrets Manager.</p> </li> </ul>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of environment variable. Valid values include:</p> <ul> <li> <p>
+     * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2
+     * Systems Manager Parameter Store.</p> </li> <li> <p> <code>PLAINTEXT</code>: An
+     * environment variable in plain text format. This is the default value.</p> </li>
+     * <li> <p> <code>SECRETS_MANAGER</code>: An environment variable stored in AWS
+     * Secrets Manager.</p> </li> </ul>
      */
     inline void SetType(const EnvironmentVariableType& value) { m_typeHasBeenSet = true; m_type = value; }
 
@@ -168,7 +197,9 @@ namespace Model
      * <p>The type of environment variable. Valid values include:</p> <ul> <li> <p>
      * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2
      * Systems Manager Parameter Store.</p> </li> <li> <p> <code>PLAINTEXT</code>: An
-     * environment variable in plaintext format.</p> </li> </ul>
+     * environment variable in plain text format. This is the default value.</p> </li>
+     * <li> <p> <code>SECRETS_MANAGER</code>: An environment variable stored in AWS
+     * Secrets Manager.</p> </li> </ul>
      */
     inline void SetType(EnvironmentVariableType&& value) { m_typeHasBeenSet = true; m_type = std::move(value); }
 
@@ -176,7 +207,9 @@ namespace Model
      * <p>The type of environment variable. Valid values include:</p> <ul> <li> <p>
      * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2
      * Systems Manager Parameter Store.</p> </li> <li> <p> <code>PLAINTEXT</code>: An
-     * environment variable in plaintext format.</p> </li> </ul>
+     * environment variable in plain text format. This is the default value.</p> </li>
+     * <li> <p> <code>SECRETS_MANAGER</code>: An environment variable stored in AWS
+     * Secrets Manager.</p> </li> </ul>
      */
     inline EnvironmentVariable& WithType(const EnvironmentVariableType& value) { SetType(value); return *this;}
 
@@ -184,7 +217,9 @@ namespace Model
      * <p>The type of environment variable. Valid values include:</p> <ul> <li> <p>
      * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2
      * Systems Manager Parameter Store.</p> </li> <li> <p> <code>PLAINTEXT</code>: An
-     * environment variable in plaintext format.</p> </li> </ul>
+     * environment variable in plain text format. This is the default value.</p> </li>
+     * <li> <p> <code>SECRETS_MANAGER</code>: An environment variable stored in AWS
+     * Secrets Manager.</p> </li> </ul>
      */
     inline EnvironmentVariable& WithType(EnvironmentVariableType&& value) { SetType(std::move(value)); return *this;}
 

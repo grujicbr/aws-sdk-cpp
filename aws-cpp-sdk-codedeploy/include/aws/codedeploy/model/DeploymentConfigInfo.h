@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     DeploymentConfigInfo();
-    DeploymentConfigInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeploymentConfigInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeploymentConfigInfo(Aws::Utils::Json::JsonView jsonValue);
+    DeploymentConfigInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The deployment configuration ID.</p>
      */
     inline const Aws::String& GetDeploymentConfigId() const{ return m_deploymentConfigId; }
+
+    /**
+     * <p>The deployment configuration ID.</p>
+     */
+    inline bool DeploymentConfigIdHasBeenSet() const { return m_deploymentConfigIdHasBeenSet; }
 
     /**
      * <p>The deployment configuration ID.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The deployment configuration name.</p>
      */
+    inline bool DeploymentConfigNameHasBeenSet() const { return m_deploymentConfigNameHasBeenSet; }
+
+    /**
+     * <p>The deployment configuration name.</p>
+     */
     inline void SetDeploymentConfigName(const Aws::String& value) { m_deploymentConfigNameHasBeenSet = true; m_deploymentConfigName = value; }
 
     /**
@@ -130,6 +141,11 @@ namespace Model
     /**
      * <p>Information about the number or percentage of minimum healthy instance.</p>
      */
+    inline bool MinimumHealthyHostsHasBeenSet() const { return m_minimumHealthyHostsHasBeenSet; }
+
+    /**
+     * <p>Information about the number or percentage of minimum healthy instance.</p>
+     */
     inline void SetMinimumHealthyHosts(const MinimumHealthyHosts& value) { m_minimumHealthyHostsHasBeenSet = true; m_minimumHealthyHosts = value; }
 
     /**
@@ -156,6 +172,11 @@ namespace Model
     /**
      * <p>The time at which the deployment configuration was created.</p>
      */
+    inline bool CreateTimeHasBeenSet() const { return m_createTimeHasBeenSet; }
+
+    /**
+     * <p>The time at which the deployment configuration was created.</p>
+     */
     inline void SetCreateTime(const Aws::Utils::DateTime& value) { m_createTimeHasBeenSet = true; m_createTime = value; }
 
     /**
@@ -175,62 +196,74 @@ namespace Model
 
 
     /**
-     * <p>The destination platform type for the deployment (<code>Lambda</code> or
-     * <code>Server</code>).</p>
+     * <p>The destination platform type for the deployment (<code>Lambda</code>,
+     * <code>Server</code>, or <code>ECS</code>).</p>
      */
     inline const ComputePlatform& GetComputePlatform() const{ return m_computePlatform; }
 
     /**
-     * <p>The destination platform type for the deployment (<code>Lambda</code> or
-     * <code>Server</code>).</p>
+     * <p>The destination platform type for the deployment (<code>Lambda</code>,
+     * <code>Server</code>, or <code>ECS</code>).</p>
+     */
+    inline bool ComputePlatformHasBeenSet() const { return m_computePlatformHasBeenSet; }
+
+    /**
+     * <p>The destination platform type for the deployment (<code>Lambda</code>,
+     * <code>Server</code>, or <code>ECS</code>).</p>
      */
     inline void SetComputePlatform(const ComputePlatform& value) { m_computePlatformHasBeenSet = true; m_computePlatform = value; }
 
     /**
-     * <p>The destination platform type for the deployment (<code>Lambda</code> or
-     * <code>Server</code>).</p>
+     * <p>The destination platform type for the deployment (<code>Lambda</code>,
+     * <code>Server</code>, or <code>ECS</code>).</p>
      */
     inline void SetComputePlatform(ComputePlatform&& value) { m_computePlatformHasBeenSet = true; m_computePlatform = std::move(value); }
 
     /**
-     * <p>The destination platform type for the deployment (<code>Lambda</code> or
-     * <code>Server</code>).</p>
+     * <p>The destination platform type for the deployment (<code>Lambda</code>,
+     * <code>Server</code>, or <code>ECS</code>).</p>
      */
     inline DeploymentConfigInfo& WithComputePlatform(const ComputePlatform& value) { SetComputePlatform(value); return *this;}
 
     /**
-     * <p>The destination platform type for the deployment (<code>Lambda</code> or
-     * <code>Server</code>).</p>
+     * <p>The destination platform type for the deployment (<code>Lambda</code>,
+     * <code>Server</code>, or <code>ECS</code>).</p>
      */
     inline DeploymentConfigInfo& WithComputePlatform(ComputePlatform&& value) { SetComputePlatform(std::move(value)); return *this;}
 
 
     /**
-     * <p>The configuration specifying how the deployment traffic will be routed. Only
+     * <p>The configuration that specifies how the deployment traffic is routed. Only
      * deployments with a Lambda compute platform can specify this.</p>
      */
     inline const TrafficRoutingConfig& GetTrafficRoutingConfig() const{ return m_trafficRoutingConfig; }
 
     /**
-     * <p>The configuration specifying how the deployment traffic will be routed. Only
+     * <p>The configuration that specifies how the deployment traffic is routed. Only
+     * deployments with a Lambda compute platform can specify this.</p>
+     */
+    inline bool TrafficRoutingConfigHasBeenSet() const { return m_trafficRoutingConfigHasBeenSet; }
+
+    /**
+     * <p>The configuration that specifies how the deployment traffic is routed. Only
      * deployments with a Lambda compute platform can specify this.</p>
      */
     inline void SetTrafficRoutingConfig(const TrafficRoutingConfig& value) { m_trafficRoutingConfigHasBeenSet = true; m_trafficRoutingConfig = value; }
 
     /**
-     * <p>The configuration specifying how the deployment traffic will be routed. Only
+     * <p>The configuration that specifies how the deployment traffic is routed. Only
      * deployments with a Lambda compute platform can specify this.</p>
      */
     inline void SetTrafficRoutingConfig(TrafficRoutingConfig&& value) { m_trafficRoutingConfigHasBeenSet = true; m_trafficRoutingConfig = std::move(value); }
 
     /**
-     * <p>The configuration specifying how the deployment traffic will be routed. Only
+     * <p>The configuration that specifies how the deployment traffic is routed. Only
      * deployments with a Lambda compute platform can specify this.</p>
      */
     inline DeploymentConfigInfo& WithTrafficRoutingConfig(const TrafficRoutingConfig& value) { SetTrafficRoutingConfig(value); return *this;}
 
     /**
-     * <p>The configuration specifying how the deployment traffic will be routed. Only
+     * <p>The configuration that specifies how the deployment traffic is routed. Only
      * deployments with a Lambda compute platform can specify this.</p>
      */
     inline DeploymentConfigInfo& WithTrafficRoutingConfig(TrafficRoutingConfig&& value) { SetTrafficRoutingConfig(std::move(value)); return *this;}

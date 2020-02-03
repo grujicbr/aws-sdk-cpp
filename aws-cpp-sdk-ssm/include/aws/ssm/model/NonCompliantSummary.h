@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     NonCompliantSummary();
-    NonCompliantSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    NonCompliantSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NonCompliantSummary(Aws::Utils::Json::JsonView jsonValue);
+    NonCompliantSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The total number of compliance items that are not compliant.</p>
      */
     inline int GetNonCompliantCount() const{ return m_nonCompliantCount; }
+
+    /**
+     * <p>The total number of compliance items that are not compliant.</p>
+     */
+    inline bool NonCompliantCountHasBeenSet() const { return m_nonCompliantCountHasBeenSet; }
 
     /**
      * <p>The total number of compliance items that are not compliant.</p>
@@ -67,6 +73,11 @@ namespace Model
      * <p>A summary of the non-compliance severity by compliance type</p>
      */
     inline const SeveritySummary& GetSeveritySummary() const{ return m_severitySummary; }
+
+    /**
+     * <p>A summary of the non-compliance severity by compliance type</p>
+     */
+    inline bool SeveritySummaryHasBeenSet() const { return m_severitySummaryHasBeenSet; }
 
     /**
      * <p>A summary of the non-compliance severity by compliance type</p>

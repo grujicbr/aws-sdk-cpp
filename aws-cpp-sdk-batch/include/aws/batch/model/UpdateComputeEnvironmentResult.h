@@ -43,73 +43,73 @@ namespace Model
 
 
     /**
-     * <p>The name of compute environment.</p>
+     * <p>The name of the compute environment.</p>
      */
     inline const Aws::String& GetComputeEnvironmentName() const{ return m_computeEnvironmentName; }
 
     /**
-     * <p>The name of compute environment.</p>
+     * <p>The name of the compute environment.</p>
      */
     inline void SetComputeEnvironmentName(const Aws::String& value) { m_computeEnvironmentName = value; }
 
     /**
-     * <p>The name of compute environment.</p>
+     * <p>The name of the compute environment.</p>
      */
     inline void SetComputeEnvironmentName(Aws::String&& value) { m_computeEnvironmentName = std::move(value); }
 
     /**
-     * <p>The name of compute environment.</p>
+     * <p>The name of the compute environment.</p>
      */
     inline void SetComputeEnvironmentName(const char* value) { m_computeEnvironmentName.assign(value); }
 
     /**
-     * <p>The name of compute environment.</p>
+     * <p>The name of the compute environment.</p>
      */
     inline UpdateComputeEnvironmentResult& WithComputeEnvironmentName(const Aws::String& value) { SetComputeEnvironmentName(value); return *this;}
 
     /**
-     * <p>The name of compute environment.</p>
+     * <p>The name of the compute environment.</p>
      */
     inline UpdateComputeEnvironmentResult& WithComputeEnvironmentName(Aws::String&& value) { SetComputeEnvironmentName(std::move(value)); return *this;}
 
     /**
-     * <p>The name of compute environment.</p>
+     * <p>The name of the compute environment.</p>
      */
     inline UpdateComputeEnvironmentResult& WithComputeEnvironmentName(const char* value) { SetComputeEnvironmentName(value); return *this;}
 
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the compute environment. </p>
+     * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
      */
     inline const Aws::String& GetComputeEnvironmentArn() const{ return m_computeEnvironmentArn; }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the compute environment. </p>
+     * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
      */
     inline void SetComputeEnvironmentArn(const Aws::String& value) { m_computeEnvironmentArn = value; }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the compute environment. </p>
+     * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
      */
     inline void SetComputeEnvironmentArn(Aws::String&& value) { m_computeEnvironmentArn = std::move(value); }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the compute environment. </p>
+     * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
      */
     inline void SetComputeEnvironmentArn(const char* value) { m_computeEnvironmentArn.assign(value); }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the compute environment. </p>
+     * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
      */
     inline UpdateComputeEnvironmentResult& WithComputeEnvironmentArn(const Aws::String& value) { SetComputeEnvironmentArn(value); return *this;}
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the compute environment. </p>
+     * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
      */
     inline UpdateComputeEnvironmentResult& WithComputeEnvironmentArn(Aws::String&& value) { SetComputeEnvironmentArn(std::move(value)); return *this;}
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the compute environment. </p>
+     * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
      */
     inline UpdateComputeEnvironmentResult& WithComputeEnvironmentArn(const char* value) { SetComputeEnvironmentArn(value); return *this;}
 

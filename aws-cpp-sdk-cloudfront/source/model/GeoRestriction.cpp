@@ -58,13 +58,13 @@ GeoRestriction& GeoRestriction::operator =(const XmlNode& xmlNode)
     XmlNode restrictionTypeNode = resultNode.FirstChild("RestrictionType");
     if(!restrictionTypeNode.IsNull())
     {
-      m_restrictionType = GeoRestrictionTypeMapper::GetGeoRestrictionTypeForName(StringUtils::Trim(restrictionTypeNode.GetText().c_str()).c_str());
+      m_restrictionType = GeoRestrictionTypeMapper::GetGeoRestrictionTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(restrictionTypeNode.GetText()).c_str()).c_str());
       m_restrictionTypeHasBeenSet = true;
     }
     XmlNode quantityNode = resultNode.FirstChild("Quantity");
     if(!quantityNode.IsNull())
     {
-      m_quantity = StringUtils::ConvertToInt32(StringUtils::Trim(quantityNode.GetText().c_str()).c_str());
+      m_quantity = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(quantityNode.GetText()).c_str()).c_str());
       m_quantityHasBeenSet = true;
     }
     XmlNode itemsNode = resultNode.FirstChild("Items");
@@ -73,7 +73,7 @@ GeoRestriction& GeoRestriction::operator =(const XmlNode& xmlNode)
       XmlNode itemsMember = itemsNode.FirstChild("Location");
       while(!itemsMember.IsNull())
       {
-        m_items.push_back(StringUtils::Trim(itemsMember.GetText().c_str()));
+        m_items.push_back(itemsMember.GetText());
         itemsMember = itemsMember.NextNode("Location");
       }
 

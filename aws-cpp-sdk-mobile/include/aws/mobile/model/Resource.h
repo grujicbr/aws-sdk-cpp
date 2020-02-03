@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Mobile
@@ -43,13 +44,16 @@ namespace Model
   {
   public:
     Resource();
-    Resource(const Aws::Utils::Json::JsonValue& jsonValue);
-    Resource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Resource(Aws::Utils::Json::JsonView jsonValue);
+    Resource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Aws::String& GetType() const{ return m_type; }
+
+    
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
@@ -74,6 +78,9 @@ namespace Model
     inline const Aws::String& GetName() const{ return m_name; }
 
     
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     
@@ -94,6 +101,9 @@ namespace Model
 
     
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
@@ -118,6 +128,9 @@ namespace Model
     inline const Aws::String& GetFeature() const{ return m_feature; }
 
     
+    inline bool FeatureHasBeenSet() const { return m_featureHasBeenSet; }
+
+    
     inline void SetFeature(const Aws::String& value) { m_featureHasBeenSet = true; m_feature = value; }
 
     
@@ -138,6 +151,9 @@ namespace Model
 
     
     inline const Aws::Map<Aws::String, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     
     inline void SetAttributes(const Aws::Map<Aws::String, Aws::String>& value) { m_attributesHasBeenSet = true; m_attributes = value; }

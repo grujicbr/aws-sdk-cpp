@@ -1,18 +1,15 @@
-
-
 # Zlib
 if(PLATFORM_ANDROID AND ANDROID_BUILD_ZLIB)
     set(BUILD_ZLIB 1)
     message(STATUS "  Building Zlib as part of AWS SDK")
 elseif(NOT PLATFORM_WINDOWS AND NOT PLATFORM_CUSTOM)
+    #If zlib is required either by openssl and curl in their linking chain, we should find it.
     include(FindZLIB)
     if(NOT ZLIB_FOUND)
         message(FATAL_ERROR "Could not find zlib")
     else()
-        message(STATUS "  Zlib include directory: ${ZLIB_INCLUDE_DIRS}")
         message(STATUS "  Zlib library: ${ZLIB_LIBRARIES}")
     endif()
-    include_directories(${ZLIB_INCLUDE_DIRS})
 endif()
 
 # Encryption control
@@ -48,8 +45,7 @@ elseif(ENABLE_OPENSSL_ENCRYPTION)
             message(STATUS "  Openssl include directory: ${OPENSSL_INCLUDE_DIR}")
             message(STATUS "  Openssl library: ${OPENSSL_LIBRARIES}")
         endif()
-
-        include_directories(${OPENSSL_INCLUDE_DIR})
+        List(APPEND EXTERNAL_DEPS_INCLUDE_DIRS ${OPENSSL_INCLUDE_DIR})
     endif()
     set(CRYPTO_LIBS ${OPENSSL_LIBRARIES} ${ZLIB_LIBRARIES})
     # ssl depends on libcrypto
@@ -89,8 +85,7 @@ if(NOT NO_HTTP_CLIENT)
                 message(STATUS "  Curl include directory: ${CURL_INCLUDE_DIRS}")
                 message(STATUS "  Curl library: ${CURL_LIBRARIES}")
             endif()
-
-            include_directories(${CURL_INCLUDE_DIRS})
+            List(APPEND EXTERNAL_DEPS_INCLUDE_DIRS ${CURL_INCLUDE_DIRS})
         endif()
 
         if(TEST_CERT_PATH)
@@ -119,9 +114,14 @@ if(NOT NO_HTTP_CLIENT)
             set(CLIENT_LIBS_ABSTRACT_NAME Wininet winhttp)
             message(STATUS "Http client: WinHttp")
         endif()
+
     else()
         message(FATAL_ERROR "No http client available for target platform and client injection not enabled (-DNO_HTTP_CLIENT=ON)")
     endif()
 else()
     message(STATUS "You will need to inject an http client implementation before making any http requests!")
+endif()
+
+if (EXTERNAL_DEPS_INCLUDE_DIRS)
+    List(REMOVE_DUPLICATES EXTERNAL_DEPS_INCLUDE_DIRS)
 endif()

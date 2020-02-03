@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Function();
-    Function(const Aws::Utils::Json::JsonValue& jsonValue);
-    Function& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Function(Aws::Utils::Json::JsonView jsonValue);
+    Function& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * The ARN of the Lambda function.
      */
     inline const Aws::String& GetFunctionArn() const{ return m_functionArn; }
+
+    /**
+     * The ARN of the Lambda function.
+     */
+    inline bool FunctionArnHasBeenSet() const { return m_functionArnHasBeenSet; }
 
     /**
      * The ARN of the Lambda function.
@@ -91,6 +97,11 @@ namespace Model
     /**
      * The configuration of the Lambda function.
      */
+    inline bool FunctionConfigurationHasBeenSet() const { return m_functionConfigurationHasBeenSet; }
+
+    /**
+     * The configuration of the Lambda function.
+     */
     inline void SetFunctionConfiguration(const FunctionConfiguration& value) { m_functionConfigurationHasBeenSet = true; m_functionConfiguration = value; }
 
     /**
@@ -110,37 +121,58 @@ namespace Model
 
 
     /**
-     * The ID of the Lambda function.
+     * A descriptive or arbitrary ID for the function. This value must be unique within
+     * the function definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline const Aws::String& GetId() const{ return m_id; }
 
     /**
-     * The ID of the Lambda function.
+     * A descriptive or arbitrary ID for the function. This value must be unique within
+     * the function definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * A descriptive or arbitrary ID for the function. This value must be unique within
+     * the function definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
 
     /**
-     * The ID of the Lambda function.
+     * A descriptive or arbitrary ID for the function. This value must be unique within
+     * the function definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
 
     /**
-     * The ID of the Lambda function.
+     * A descriptive or arbitrary ID for the function. This value must be unique within
+     * the function definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
 
     /**
-     * The ID of the Lambda function.
+     * A descriptive or arbitrary ID for the function. This value must be unique within
+     * the function definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline Function& WithId(const Aws::String& value) { SetId(value); return *this;}
 
     /**
-     * The ID of the Lambda function.
+     * A descriptive or arbitrary ID for the function. This value must be unique within
+     * the function definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline Function& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
 
     /**
-     * The ID of the Lambda function.
+     * A descriptive or arbitrary ID for the function. This value must be unique within
+     * the function definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline Function& WithId(const char* value) { SetId(value); return *this;}
 

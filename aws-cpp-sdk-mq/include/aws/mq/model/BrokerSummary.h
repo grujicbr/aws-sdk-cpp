@@ -17,6 +17,7 @@
 #include <aws/mq/MQ_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/mq/model/BrokerState.h>
+#include <aws/core/utils/DateTime.h>
 #include <aws/mq/model/DeploymentMode.h>
 #include <utility>
 
@@ -27,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MQ
@@ -43,8 +45,8 @@ namespace Model
   {
   public:
     BrokerSummary();
-    BrokerSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    BrokerSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BrokerSummary(Aws::Utils::Json::JsonView jsonValue);
+    BrokerSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +54,11 @@ namespace Model
      * The Amazon Resource Name (ARN) of the broker.
      */
     inline const Aws::String& GetBrokerArn() const{ return m_brokerArn; }
+
+    /**
+     * The Amazon Resource Name (ARN) of the broker.
+     */
+    inline bool BrokerArnHasBeenSet() const { return m_brokerArnHasBeenSet; }
 
     /**
      * The Amazon Resource Name (ARN) of the broker.
@@ -92,6 +99,11 @@ namespace Model
     /**
      * The unique ID that Amazon MQ generates for the broker.
      */
+    inline bool BrokerIdHasBeenSet() const { return m_brokerIdHasBeenSet; }
+
+    /**
+     * The unique ID that Amazon MQ generates for the broker.
+     */
     inline void SetBrokerId(const Aws::String& value) { m_brokerIdHasBeenSet = true; m_brokerId = value; }
 
     /**
@@ -127,6 +139,14 @@ namespace Model
      * characters.
      */
     inline const Aws::String& GetBrokerName() const{ return m_brokerName; }
+
+    /**
+     * The name of the broker. This value must be unique in your AWS account, 1-50
+     * characters long, must contain only letters, numbers, dashes, and underscores,
+     * and must not contain whitespaces, brackets, wildcard characters, or special
+     * characters.
+     */
+    inline bool BrokerNameHasBeenSet() const { return m_brokerNameHasBeenSet; }
 
     /**
      * The name of the broker. This value must be unique in your AWS account, 1-50
@@ -178,109 +198,135 @@ namespace Model
 
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline const BrokerState& GetBrokerState() const{ return m_brokerState; }
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
+     */
+    inline bool BrokerStateHasBeenSet() const { return m_brokerStateHasBeenSet; }
+
+    /**
+     * The status of the broker.
      */
     inline void SetBrokerState(const BrokerState& value) { m_brokerStateHasBeenSet = true; m_brokerState = value; }
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline void SetBrokerState(BrokerState&& value) { m_brokerStateHasBeenSet = true; m_brokerState = std::move(value); }
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline BrokerSummary& WithBrokerState(const BrokerState& value) { SetBrokerState(value); return *this;}
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline BrokerSummary& WithBrokerState(BrokerState&& value) { SetBrokerState(std::move(value)); return *this;}
 
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * The time when the broker was created.
+     */
+    inline const Aws::Utils::DateTime& GetCreated() const{ return m_created; }
+
+    /**
+     * The time when the broker was created.
+     */
+    inline bool CreatedHasBeenSet() const { return m_createdHasBeenSet; }
+
+    /**
+     * The time when the broker was created.
+     */
+    inline void SetCreated(const Aws::Utils::DateTime& value) { m_createdHasBeenSet = true; m_created = value; }
+
+    /**
+     * The time when the broker was created.
+     */
+    inline void SetCreated(Aws::Utils::DateTime&& value) { m_createdHasBeenSet = true; m_created = std::move(value); }
+
+    /**
+     * The time when the broker was created.
+     */
+    inline BrokerSummary& WithCreated(const Aws::Utils::DateTime& value) { SetCreated(value); return *this;}
+
+    /**
+     * The time when the broker was created.
+     */
+    inline BrokerSummary& WithCreated(Aws::Utils::DateTime&& value) { SetCreated(std::move(value)); return *this;}
+
+
+    /**
+     * Required. The deployment mode of the broker.
      */
     inline const DeploymentMode& GetDeploymentMode() const{ return m_deploymentMode; }
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * Required. The deployment mode of the broker.
+     */
+    inline bool DeploymentModeHasBeenSet() const { return m_deploymentModeHasBeenSet; }
+
+    /**
+     * Required. The deployment mode of the broker.
      */
     inline void SetDeploymentMode(const DeploymentMode& value) { m_deploymentModeHasBeenSet = true; m_deploymentMode = value; }
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * Required. The deployment mode of the broker.
      */
     inline void SetDeploymentMode(DeploymentMode&& value) { m_deploymentModeHasBeenSet = true; m_deploymentMode = std::move(value); }
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * Required. The deployment mode of the broker.
      */
     inline BrokerSummary& WithDeploymentMode(const DeploymentMode& value) { SetDeploymentMode(value); return *this;}
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * Required. The deployment mode of the broker.
      */
     inline BrokerSummary& WithDeploymentMode(DeploymentMode&& value) { SetDeploymentMode(std::move(value)); return *this;}
 
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline const Aws::String& GetHostInstanceType() const{ return m_hostInstanceType; }
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
+     */
+    inline bool HostInstanceTypeHasBeenSet() const { return m_hostInstanceTypeHasBeenSet; }
+
+    /**
+     * The broker's instance type.
      */
     inline void SetHostInstanceType(const Aws::String& value) { m_hostInstanceTypeHasBeenSet = true; m_hostInstanceType = value; }
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline void SetHostInstanceType(Aws::String&& value) { m_hostInstanceTypeHasBeenSet = true; m_hostInstanceType = std::move(value); }
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline void SetHostInstanceType(const char* value) { m_hostInstanceTypeHasBeenSet = true; m_hostInstanceType.assign(value); }
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline BrokerSummary& WithHostInstanceType(const Aws::String& value) { SetHostInstanceType(value); return *this;}
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline BrokerSummary& WithHostInstanceType(Aws::String&& value) { SetHostInstanceType(std::move(value)); return *this;}
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline BrokerSummary& WithHostInstanceType(const char* value) { SetHostInstanceType(value); return *this;}
 
@@ -297,6 +343,9 @@ namespace Model
 
     BrokerState m_brokerState;
     bool m_brokerStateHasBeenSet;
+
+    Aws::Utils::DateTime m_created;
+    bool m_createdHasBeenSet;
 
     DeploymentMode m_deploymentMode;
     bool m_deploymentModeHasBeenSet;

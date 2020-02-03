@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     EventTopic();
-    EventTopic(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventTopic& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventTopic(Aws::Utils::Json::JsonView jsonValue);
+    EventTopic& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * status messages to an SNS topic.</p>
      */
     inline const Aws::String& GetDirectoryId() const{ return m_directoryId; }
+
+    /**
+     * <p>The Directory ID of an AWS Directory Service directory that will publish
+     * status messages to an SNS topic.</p>
+     */
+    inline bool DirectoryIdHasBeenSet() const { return m_directoryIdHasBeenSet; }
 
     /**
      * <p>The Directory ID of an AWS Directory Service directory that will publish
@@ -102,6 +109,12 @@ namespace Model
      * <p>The name of an AWS SNS topic the receives status messages from the
      * directory.</p>
      */
+    inline bool TopicNameHasBeenSet() const { return m_topicNameHasBeenSet; }
+
+    /**
+     * <p>The name of an AWS SNS topic the receives status messages from the
+     * directory.</p>
+     */
     inline void SetTopicName(const Aws::String& value) { m_topicNameHasBeenSet = true; m_topicName = value; }
 
     /**
@@ -139,6 +152,11 @@ namespace Model
      * <p>The SNS topic ARN (Amazon Resource Name).</p>
      */
     inline const Aws::String& GetTopicArn() const{ return m_topicArn; }
+
+    /**
+     * <p>The SNS topic ARN (Amazon Resource Name).</p>
+     */
+    inline bool TopicArnHasBeenSet() const { return m_topicArnHasBeenSet; }
 
     /**
      * <p>The SNS topic ARN (Amazon Resource Name).</p>
@@ -181,6 +199,12 @@ namespace Model
      * <p>The date and time of when you associated your directory with the SNS
      * topic.</p>
      */
+    inline bool CreatedDateTimeHasBeenSet() const { return m_createdDateTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time of when you associated your directory with the SNS
+     * topic.</p>
+     */
     inline void SetCreatedDateTime(const Aws::Utils::DateTime& value) { m_createdDateTimeHasBeenSet = true; m_createdDateTime = value; }
 
     /**
@@ -206,6 +230,11 @@ namespace Model
      * <p>The topic registration status.</p>
      */
     inline const TopicStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The topic registration status.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The topic registration status.</p>

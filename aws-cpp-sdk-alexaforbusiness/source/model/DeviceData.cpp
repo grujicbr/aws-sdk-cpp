@@ -37,13 +37,16 @@ DeviceData::DeviceData() :
     m_macAddressHasBeenSet(false),
     m_deviceStatus(DeviceStatus::NOT_SET),
     m_deviceStatusHasBeenSet(false),
+    m_networkProfileArnHasBeenSet(false),
+    m_networkProfileNameHasBeenSet(false),
     m_roomArnHasBeenSet(false),
     m_roomNameHasBeenSet(false),
-    m_deviceStatusInfoHasBeenSet(false)
+    m_deviceStatusInfoHasBeenSet(false),
+    m_createdTimeHasBeenSet(false)
 {
 }
 
-DeviceData::DeviceData(const JsonValue& jsonValue) : 
+DeviceData::DeviceData(JsonView jsonValue) : 
     m_deviceArnHasBeenSet(false),
     m_deviceSerialNumberHasBeenSet(false),
     m_deviceTypeHasBeenSet(false),
@@ -52,14 +55,17 @@ DeviceData::DeviceData(const JsonValue& jsonValue) :
     m_macAddressHasBeenSet(false),
     m_deviceStatus(DeviceStatus::NOT_SET),
     m_deviceStatusHasBeenSet(false),
+    m_networkProfileArnHasBeenSet(false),
+    m_networkProfileNameHasBeenSet(false),
     m_roomArnHasBeenSet(false),
     m_roomNameHasBeenSet(false),
-    m_deviceStatusInfoHasBeenSet(false)
+    m_deviceStatusInfoHasBeenSet(false),
+    m_createdTimeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DeviceData& DeviceData::operator =(const JsonValue& jsonValue)
+DeviceData& DeviceData::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DeviceArn"))
   {
@@ -110,6 +116,20 @@ DeviceData& DeviceData::operator =(const JsonValue& jsonValue)
     m_deviceStatusHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("NetworkProfileArn"))
+  {
+    m_networkProfileArn = jsonValue.GetString("NetworkProfileArn");
+
+    m_networkProfileArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("NetworkProfileName"))
+  {
+    m_networkProfileName = jsonValue.GetString("NetworkProfileName");
+
+    m_networkProfileNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("RoomArn"))
   {
     m_roomArn = jsonValue.GetString("RoomArn");
@@ -129,6 +149,13 @@ DeviceData& DeviceData::operator =(const JsonValue& jsonValue)
     m_deviceStatusInfo = jsonValue.GetObject("DeviceStatusInfo");
 
     m_deviceStatusInfoHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CreatedTime"))
+  {
+    m_createdTime = jsonValue.GetDouble("CreatedTime");
+
+    m_createdTimeHasBeenSet = true;
   }
 
   return *this;
@@ -179,6 +206,18 @@ JsonValue DeviceData::Jsonize() const
    payload.WithString("DeviceStatus", DeviceStatusMapper::GetNameForDeviceStatus(m_deviceStatus));
   }
 
+  if(m_networkProfileArnHasBeenSet)
+  {
+   payload.WithString("NetworkProfileArn", m_networkProfileArn);
+
+  }
+
+  if(m_networkProfileNameHasBeenSet)
+  {
+   payload.WithString("NetworkProfileName", m_networkProfileName);
+
+  }
+
   if(m_roomArnHasBeenSet)
   {
    payload.WithString("RoomArn", m_roomArn);
@@ -195,6 +234,11 @@ JsonValue DeviceData::Jsonize() const
   {
    payload.WithObject("DeviceStatusInfo", m_deviceStatusInfo.Jsonize());
 
+  }
+
+  if(m_createdTimeHasBeenSet)
+  {
+   payload.WithDouble("CreatedTime", m_createdTime.SecondsWithMSPrecision());
   }
 
   return payload;

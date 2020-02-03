@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -36,7 +37,7 @@ namespace Model
 {
 
   /**
-   * <p>A structure used to create or updata a user-defined function.</p><p><h3>See
+   * <p>A structure used to create or update a user-defined function.</p><p><h3>See
    * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UserDefinedFunctionInput">AWS
    * API Reference</a></p>
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     UserDefinedFunctionInput();
-    UserDefinedFunctionInput(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserDefinedFunctionInput& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserDefinedFunctionInput(Aws::Utils::Json::JsonView jsonValue);
+    UserDefinedFunctionInput& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of the function.</p>
      */
     inline const Aws::String& GetFunctionName() const{ return m_functionName; }
+
+    /**
+     * <p>The name of the function.</p>
+     */
+    inline bool FunctionNameHasBeenSet() const { return m_functionNameHasBeenSet; }
 
     /**
      * <p>The name of the function.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The Java class that contains the function code.</p>
      */
+    inline bool ClassNameHasBeenSet() const { return m_classNameHasBeenSet; }
+
+    /**
+     * <p>The Java class that contains the function code.</p>
+     */
     inline void SetClassName(const Aws::String& value) { m_classNameHasBeenSet = true; m_className = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>The owner of the function.</p>
      */
     inline const Aws::String& GetOwnerName() const{ return m_ownerName; }
+
+    /**
+     * <p>The owner of the function.</p>
+     */
+    inline bool OwnerNameHasBeenSet() const { return m_ownerNameHasBeenSet; }
 
     /**
      * <p>The owner of the function.</p>
@@ -166,6 +182,11 @@ namespace Model
     /**
      * <p>The owner type.</p>
      */
+    inline bool OwnerTypeHasBeenSet() const { return m_ownerTypeHasBeenSet; }
+
+    /**
+     * <p>The owner type.</p>
+     */
     inline void SetOwnerType(const PrincipalType& value) { m_ownerTypeHasBeenSet = true; m_ownerType = value; }
 
     /**
@@ -188,6 +209,11 @@ namespace Model
      * <p>The resource URIs for the function.</p>
      */
     inline const Aws::Vector<ResourceUri>& GetResourceUris() const{ return m_resourceUris; }
+
+    /**
+     * <p>The resource URIs for the function.</p>
+     */
+    inline bool ResourceUrisHasBeenSet() const { return m_resourceUrisHasBeenSet; }
 
     /**
      * <p>The resource URIs for the function.</p>

@@ -20,13 +20,16 @@
 #include <aws/dynamodb/model/TableStatus.h>
 #include <aws/core/utils/DateTime.h>
 #include <aws/dynamodb/model/ProvisionedThroughputDescription.h>
+#include <aws/dynamodb/model/BillingModeSummary.h>
 #include <aws/dynamodb/model/StreamSpecification.h>
 #include <aws/dynamodb/model/RestoreSummary.h>
 #include <aws/dynamodb/model/SSEDescription.h>
+#include <aws/dynamodb/model/ArchivalSummary.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/KeySchemaElement.h>
 #include <aws/dynamodb/model/LocalSecondaryIndexDescription.h>
 #include <aws/dynamodb/model/GlobalSecondaryIndexDescription.h>
+#include <aws/dynamodb/model/ReplicaDescription.h>
 #include <utility>
 
 namespace Aws
@@ -36,6 +39,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -52,8 +56,8 @@ namespace Model
   {
   public:
     TableDescription();
-    TableDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    TableDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TableDescription(Aws::Utils::Json::JsonView jsonValue);
+    TableDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -66,6 +70,16 @@ namespace Model
      * </ul>
      */
     inline const Aws::Vector<AttributeDefinition>& GetAttributeDefinitions() const{ return m_attributeDefinitions; }
+
+    /**
+     * <p>An array of <code>AttributeDefinition</code> objects. Each of these objects
+     * describes one attribute in the table and index key schema.</p> <p>Each
+     * <code>AttributeDefinition</code> object in this array is composed of:</p> <ul>
+     * <li> <p> <code>AttributeName</code> - The name of the attribute.</p> </li> <li>
+     * <p> <code>AttributeType</code> - The data type for the attribute.</p> </li>
+     * </ul>
+     */
+    inline bool AttributeDefinitionsHasBeenSet() const { return m_attributeDefinitionsHasBeenSet; }
 
     /**
      * <p>An array of <code>AttributeDefinition</code> objects. Each of these objects
@@ -136,6 +150,11 @@ namespace Model
     /**
      * <p>The name of the table.</p>
      */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
+
+    /**
+     * <p>The name of the table.</p>
+     */
     inline void SetTableName(const Aws::String& value) { m_tableNameHasBeenSet = true; m_tableName = value; }
 
     /**
@@ -171,13 +190,13 @@ namespace Model
      * attribute:</p> <ul> <li> <p> <code>HASH</code> - partition key</p> </li> <li>
      * <p> <code>RANGE</code> - sort key</p> </li> </ul> <note> <p>The partition key of
      * an item is also known as its <i>hash attribute</i>. The term "hash attribute"
-     * derives from DynamoDB' usage of an internal hash function to evenly distribute
+     * derives from DynamoDB's usage of an internal hash function to evenly distribute
      * data items across partitions, based on their partition key values.</p> <p>The
      * sort key of an item is also known as its <i>range attribute</i>. The term "range
      * attribute" derives from the way DynamoDB stores items with the same partition
      * key physically close together, in sorted order by the sort key value.</p>
      * </note> </li> </ul> <p>For more information about primary keys, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
      * Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline const Aws::Vector<KeySchemaElement>& GetKeySchema() const{ return m_keySchema; }
@@ -189,13 +208,31 @@ namespace Model
      * attribute:</p> <ul> <li> <p> <code>HASH</code> - partition key</p> </li> <li>
      * <p> <code>RANGE</code> - sort key</p> </li> </ul> <note> <p>The partition key of
      * an item is also known as its <i>hash attribute</i>. The term "hash attribute"
-     * derives from DynamoDB' usage of an internal hash function to evenly distribute
+     * derives from DynamoDB's usage of an internal hash function to evenly distribute
      * data items across partitions, based on their partition key values.</p> <p>The
      * sort key of an item is also known as its <i>range attribute</i>. The term "range
      * attribute" derives from the way DynamoDB stores items with the same partition
      * key physically close together, in sorted order by the sort key value.</p>
      * </note> </li> </ul> <p>For more information about primary keys, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
+     * Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
+     */
+    inline bool KeySchemaHasBeenSet() const { return m_keySchemaHasBeenSet; }
+
+    /**
+     * <p>The primary key structure for the table. Each <code>KeySchemaElement</code>
+     * consists of:</p> <ul> <li> <p> <code>AttributeName</code> - The name of the
+     * attribute.</p> </li> <li> <p> <code>KeyType</code> - The role of the
+     * attribute:</p> <ul> <li> <p> <code>HASH</code> - partition key</p> </li> <li>
+     * <p> <code>RANGE</code> - sort key</p> </li> </ul> <note> <p>The partition key of
+     * an item is also known as its <i>hash attribute</i>. The term "hash attribute"
+     * derives from DynamoDB's usage of an internal hash function to evenly distribute
+     * data items across partitions, based on their partition key values.</p> <p>The
+     * sort key of an item is also known as its <i>range attribute</i>. The term "range
+     * attribute" derives from the way DynamoDB stores items with the same partition
+     * key physically close together, in sorted order by the sort key value.</p>
+     * </note> </li> </ul> <p>For more information about primary keys, see <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
      * Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline void SetKeySchema(const Aws::Vector<KeySchemaElement>& value) { m_keySchemaHasBeenSet = true; m_keySchema = value; }
@@ -207,13 +244,13 @@ namespace Model
      * attribute:</p> <ul> <li> <p> <code>HASH</code> - partition key</p> </li> <li>
      * <p> <code>RANGE</code> - sort key</p> </li> </ul> <note> <p>The partition key of
      * an item is also known as its <i>hash attribute</i>. The term "hash attribute"
-     * derives from DynamoDB' usage of an internal hash function to evenly distribute
+     * derives from DynamoDB's usage of an internal hash function to evenly distribute
      * data items across partitions, based on their partition key values.</p> <p>The
      * sort key of an item is also known as its <i>range attribute</i>. The term "range
      * attribute" derives from the way DynamoDB stores items with the same partition
      * key physically close together, in sorted order by the sort key value.</p>
      * </note> </li> </ul> <p>For more information about primary keys, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
      * Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline void SetKeySchema(Aws::Vector<KeySchemaElement>&& value) { m_keySchemaHasBeenSet = true; m_keySchema = std::move(value); }
@@ -225,13 +262,13 @@ namespace Model
      * attribute:</p> <ul> <li> <p> <code>HASH</code> - partition key</p> </li> <li>
      * <p> <code>RANGE</code> - sort key</p> </li> </ul> <note> <p>The partition key of
      * an item is also known as its <i>hash attribute</i>. The term "hash attribute"
-     * derives from DynamoDB' usage of an internal hash function to evenly distribute
+     * derives from DynamoDB's usage of an internal hash function to evenly distribute
      * data items across partitions, based on their partition key values.</p> <p>The
      * sort key of an item is also known as its <i>range attribute</i>. The term "range
      * attribute" derives from the way DynamoDB stores items with the same partition
      * key physically close together, in sorted order by the sort key value.</p>
      * </note> </li> </ul> <p>For more information about primary keys, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
      * Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline TableDescription& WithKeySchema(const Aws::Vector<KeySchemaElement>& value) { SetKeySchema(value); return *this;}
@@ -243,13 +280,13 @@ namespace Model
      * attribute:</p> <ul> <li> <p> <code>HASH</code> - partition key</p> </li> <li>
      * <p> <code>RANGE</code> - sort key</p> </li> </ul> <note> <p>The partition key of
      * an item is also known as its <i>hash attribute</i>. The term "hash attribute"
-     * derives from DynamoDB' usage of an internal hash function to evenly distribute
+     * derives from DynamoDB's usage of an internal hash function to evenly distribute
      * data items across partitions, based on their partition key values.</p> <p>The
      * sort key of an item is also known as its <i>range attribute</i>. The term "range
      * attribute" derives from the way DynamoDB stores items with the same partition
      * key physically close together, in sorted order by the sort key value.</p>
      * </note> </li> </ul> <p>For more information about primary keys, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
      * Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline TableDescription& WithKeySchema(Aws::Vector<KeySchemaElement>&& value) { SetKeySchema(std::move(value)); return *this;}
@@ -261,13 +298,13 @@ namespace Model
      * attribute:</p> <ul> <li> <p> <code>HASH</code> - partition key</p> </li> <li>
      * <p> <code>RANGE</code> - sort key</p> </li> </ul> <note> <p>The partition key of
      * an item is also known as its <i>hash attribute</i>. The term "hash attribute"
-     * derives from DynamoDB' usage of an internal hash function to evenly distribute
+     * derives from DynamoDB's usage of an internal hash function to evenly distribute
      * data items across partitions, based on their partition key values.</p> <p>The
      * sort key of an item is also known as its <i>range attribute</i>. The term "range
      * attribute" derives from the way DynamoDB stores items with the same partition
      * key physically close together, in sorted order by the sort key value.</p>
      * </note> </li> </ul> <p>For more information about primary keys, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
      * Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline TableDescription& AddKeySchema(const KeySchemaElement& value) { m_keySchemaHasBeenSet = true; m_keySchema.push_back(value); return *this; }
@@ -279,13 +316,13 @@ namespace Model
      * attribute:</p> <ul> <li> <p> <code>HASH</code> - partition key</p> </li> <li>
      * <p> <code>RANGE</code> - sort key</p> </li> </ul> <note> <p>The partition key of
      * an item is also known as its <i>hash attribute</i>. The term "hash attribute"
-     * derives from DynamoDB' usage of an internal hash function to evenly distribute
+     * derives from DynamoDB's usage of an internal hash function to evenly distribute
      * data items across partitions, based on their partition key values.</p> <p>The
      * sort key of an item is also known as its <i>range attribute</i>. The term "range
      * attribute" derives from the way DynamoDB stores items with the same partition
      * key physically close together, in sorted order by the sort key value.</p>
      * </note> </li> </ul> <p>For more information about primary keys, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey">Primary
      * Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline TableDescription& AddKeySchema(KeySchemaElement&& value) { m_keySchemaHasBeenSet = true; m_keySchema.push_back(std::move(value)); return *this; }
@@ -296,7 +333,14 @@ namespace Model
      * table is being created.</p> </li> <li> <p> <code>UPDATING</code> - The table is
      * being updated.</p> </li> <li> <p> <code>DELETING</code> - The table is being
      * deleted.</p> </li> <li> <p> <code>ACTIVE</code> - The table is ready for
-     * use.</p> </li> </ul>
+     * use.</p> </li> <li> <p> <code>INACCESSIBLE_ENCRYPTION_CREDENTIALS</code> - The
+     * AWS KMS key used to encrypt the table in inaccessible. Table operations may fail
+     * due to failure to use the AWS KMS key. DynamoDB will initiate the table archival
+     * process when a table's AWS KMS key remains inaccessible for more than seven
+     * days. </p> </li> <li> <p> <code>ARCHIVING</code> - The table is being archived.
+     * Operations are not allowed until archival is complete. </p> </li> <li> <p>
+     * <code>ARCHIVED</code> - The table has been archived. See the ArchivalReason for
+     * more information. </p> </li> </ul>
      */
     inline const TableStatus& GetTableStatus() const{ return m_tableStatus; }
 
@@ -305,7 +349,30 @@ namespace Model
      * table is being created.</p> </li> <li> <p> <code>UPDATING</code> - The table is
      * being updated.</p> </li> <li> <p> <code>DELETING</code> - The table is being
      * deleted.</p> </li> <li> <p> <code>ACTIVE</code> - The table is ready for
-     * use.</p> </li> </ul>
+     * use.</p> </li> <li> <p> <code>INACCESSIBLE_ENCRYPTION_CREDENTIALS</code> - The
+     * AWS KMS key used to encrypt the table in inaccessible. Table operations may fail
+     * due to failure to use the AWS KMS key. DynamoDB will initiate the table archival
+     * process when a table's AWS KMS key remains inaccessible for more than seven
+     * days. </p> </li> <li> <p> <code>ARCHIVING</code> - The table is being archived.
+     * Operations are not allowed until archival is complete. </p> </li> <li> <p>
+     * <code>ARCHIVED</code> - The table has been archived. See the ArchivalReason for
+     * more information. </p> </li> </ul>
+     */
+    inline bool TableStatusHasBeenSet() const { return m_tableStatusHasBeenSet; }
+
+    /**
+     * <p>The current state of the table:</p> <ul> <li> <p> <code>CREATING</code> - The
+     * table is being created.</p> </li> <li> <p> <code>UPDATING</code> - The table is
+     * being updated.</p> </li> <li> <p> <code>DELETING</code> - The table is being
+     * deleted.</p> </li> <li> <p> <code>ACTIVE</code> - The table is ready for
+     * use.</p> </li> <li> <p> <code>INACCESSIBLE_ENCRYPTION_CREDENTIALS</code> - The
+     * AWS KMS key used to encrypt the table in inaccessible. Table operations may fail
+     * due to failure to use the AWS KMS key. DynamoDB will initiate the table archival
+     * process when a table's AWS KMS key remains inaccessible for more than seven
+     * days. </p> </li> <li> <p> <code>ARCHIVING</code> - The table is being archived.
+     * Operations are not allowed until archival is complete. </p> </li> <li> <p>
+     * <code>ARCHIVED</code> - The table has been archived. See the ArchivalReason for
+     * more information. </p> </li> </ul>
      */
     inline void SetTableStatus(const TableStatus& value) { m_tableStatusHasBeenSet = true; m_tableStatus = value; }
 
@@ -314,7 +381,14 @@ namespace Model
      * table is being created.</p> </li> <li> <p> <code>UPDATING</code> - The table is
      * being updated.</p> </li> <li> <p> <code>DELETING</code> - The table is being
      * deleted.</p> </li> <li> <p> <code>ACTIVE</code> - The table is ready for
-     * use.</p> </li> </ul>
+     * use.</p> </li> <li> <p> <code>INACCESSIBLE_ENCRYPTION_CREDENTIALS</code> - The
+     * AWS KMS key used to encrypt the table in inaccessible. Table operations may fail
+     * due to failure to use the AWS KMS key. DynamoDB will initiate the table archival
+     * process when a table's AWS KMS key remains inaccessible for more than seven
+     * days. </p> </li> <li> <p> <code>ARCHIVING</code> - The table is being archived.
+     * Operations are not allowed until archival is complete. </p> </li> <li> <p>
+     * <code>ARCHIVED</code> - The table has been archived. See the ArchivalReason for
+     * more information. </p> </li> </ul>
      */
     inline void SetTableStatus(TableStatus&& value) { m_tableStatusHasBeenSet = true; m_tableStatus = std::move(value); }
 
@@ -323,7 +397,14 @@ namespace Model
      * table is being created.</p> </li> <li> <p> <code>UPDATING</code> - The table is
      * being updated.</p> </li> <li> <p> <code>DELETING</code> - The table is being
      * deleted.</p> </li> <li> <p> <code>ACTIVE</code> - The table is ready for
-     * use.</p> </li> </ul>
+     * use.</p> </li> <li> <p> <code>INACCESSIBLE_ENCRYPTION_CREDENTIALS</code> - The
+     * AWS KMS key used to encrypt the table in inaccessible. Table operations may fail
+     * due to failure to use the AWS KMS key. DynamoDB will initiate the table archival
+     * process when a table's AWS KMS key remains inaccessible for more than seven
+     * days. </p> </li> <li> <p> <code>ARCHIVING</code> - The table is being archived.
+     * Operations are not allowed until archival is complete. </p> </li> <li> <p>
+     * <code>ARCHIVED</code> - The table has been archived. See the ArchivalReason for
+     * more information. </p> </li> </ul>
      */
     inline TableDescription& WithTableStatus(const TableStatus& value) { SetTableStatus(value); return *this;}
 
@@ -332,7 +413,14 @@ namespace Model
      * table is being created.</p> </li> <li> <p> <code>UPDATING</code> - The table is
      * being updated.</p> </li> <li> <p> <code>DELETING</code> - The table is being
      * deleted.</p> </li> <li> <p> <code>ACTIVE</code> - The table is ready for
-     * use.</p> </li> </ul>
+     * use.</p> </li> <li> <p> <code>INACCESSIBLE_ENCRYPTION_CREDENTIALS</code> - The
+     * AWS KMS key used to encrypt the table in inaccessible. Table operations may fail
+     * due to failure to use the AWS KMS key. DynamoDB will initiate the table archival
+     * process when a table's AWS KMS key remains inaccessible for more than seven
+     * days. </p> </li> <li> <p> <code>ARCHIVING</code> - The table is being archived.
+     * Operations are not allowed until archival is complete. </p> </li> <li> <p>
+     * <code>ARCHIVED</code> - The table has been archived. See the ArchivalReason for
+     * more information. </p> </li> </ul>
      */
     inline TableDescription& WithTableStatus(TableStatus&& value) { SetTableStatus(std::move(value)); return *this;}
 
@@ -342,6 +430,12 @@ namespace Model
      * href="http://www.epochconverter.com/">UNIX epoch time</a> format.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDateTime() const{ return m_creationDateTime; }
+
+    /**
+     * <p>The date and time when the table was created, in <a
+     * href="http://www.epochconverter.com/">UNIX epoch time</a> format.</p>
+     */
+    inline bool CreationDateTimeHasBeenSet() const { return m_creationDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time when the table was created, in <a
@@ -373,6 +467,12 @@ namespace Model
      * write capacity units, along with data about increases and decreases.</p>
      */
     inline const ProvisionedThroughputDescription& GetProvisionedThroughput() const{ return m_provisionedThroughput; }
+
+    /**
+     * <p>The provisioned throughput settings for the table, consisting of read and
+     * write capacity units, along with data about increases and decreases.</p>
+     */
+    inline bool ProvisionedThroughputHasBeenSet() const { return m_provisionedThroughputHasBeenSet; }
 
     /**
      * <p>The provisioned throughput settings for the table, consisting of read and
@@ -411,6 +511,13 @@ namespace Model
      * approximately every six hours. Recent changes might not be reflected in this
      * value.</p>
      */
+    inline bool TableSizeBytesHasBeenSet() const { return m_tableSizeBytesHasBeenSet; }
+
+    /**
+     * <p>The total size of the specified table, in bytes. DynamoDB updates this value
+     * approximately every six hours. Recent changes might not be reflected in this
+     * value.</p>
+     */
     inline void SetTableSizeBytes(long long value) { m_tableSizeBytesHasBeenSet = true; m_tableSizeBytes = value; }
 
     /**
@@ -433,6 +540,13 @@ namespace Model
      * approximately every six hours. Recent changes might not be reflected in this
      * value.</p>
      */
+    inline bool ItemCountHasBeenSet() const { return m_itemCountHasBeenSet; }
+
+    /**
+     * <p>The number of items in the specified table. DynamoDB updates this value
+     * approximately every six hours. Recent changes might not be reflected in this
+     * value.</p>
+     */
     inline void SetItemCount(long long value) { m_itemCountHasBeenSet = true; m_itemCount = value; }
 
     /**
@@ -447,6 +561,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) that uniquely identifies the table.</p>
      */
     inline const Aws::String& GetTableArn() const{ return m_tableArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that uniquely identifies the table.</p>
+     */
+    inline bool TableArnHasBeenSet() const { return m_tableArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that uniquely identifies the table.</p>
@@ -487,6 +606,11 @@ namespace Model
     /**
      * <p>Unique identifier for the table for which the backup was created. </p>
      */
+    inline bool TableIdHasBeenSet() const { return m_tableIdHasBeenSet; }
+
+    /**
+     * <p>Unique identifier for the table for which the backup was created. </p>
+     */
     inline void SetTableId(const Aws::String& value) { m_tableIdHasBeenSet = true; m_tableId = value; }
 
     /**
@@ -516,6 +640,37 @@ namespace Model
 
 
     /**
+     * <p>Contains the details for the read/write capacity mode.</p>
+     */
+    inline const BillingModeSummary& GetBillingModeSummary() const{ return m_billingModeSummary; }
+
+    /**
+     * <p>Contains the details for the read/write capacity mode.</p>
+     */
+    inline bool BillingModeSummaryHasBeenSet() const { return m_billingModeSummaryHasBeenSet; }
+
+    /**
+     * <p>Contains the details for the read/write capacity mode.</p>
+     */
+    inline void SetBillingModeSummary(const BillingModeSummary& value) { m_billingModeSummaryHasBeenSet = true; m_billingModeSummary = value; }
+
+    /**
+     * <p>Contains the details for the read/write capacity mode.</p>
+     */
+    inline void SetBillingModeSummary(BillingModeSummary&& value) { m_billingModeSummaryHasBeenSet = true; m_billingModeSummary = std::move(value); }
+
+    /**
+     * <p>Contains the details for the read/write capacity mode.</p>
+     */
+    inline TableDescription& WithBillingModeSummary(const BillingModeSummary& value) { SetBillingModeSummary(value); return *this;}
+
+    /**
+     * <p>Contains the details for the read/write capacity mode.</p>
+     */
+    inline TableDescription& WithBillingModeSummary(BillingModeSummary&& value) { SetBillingModeSummary(std::move(value)); return *this;}
+
+
+    /**
      * <p>Represents one or more local secondary indexes on the table. Each index is
      * scoped to a given partition key value. Tables with one or more local secondary
      * indexes are subject to an item collection size limit, where the amount of data
@@ -531,7 +686,7 @@ namespace Model
      * <code>ProjectionType</code> - One of the following:</p> <ul> <li> <p>
      * <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the
      * index.</p> </li> <li> <p> <code>INCLUDE</code> - Only the specified table
-     * attributes are projected into the index. The list of projected attributes are in
+     * attributes are projected into the index. The list of projected attributes is in
      * <code>NonKeyAttributes</code>.</p> </li> <li> <p> <code>ALL</code> - All of the
      * table attributes are projected into the index.</p> </li> </ul> </li> <li> <p>
      * <code>NonKeyAttributes</code> - A list of one or more non-key attribute names
@@ -565,7 +720,41 @@ namespace Model
      * <code>ProjectionType</code> - One of the following:</p> <ul> <li> <p>
      * <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the
      * index.</p> </li> <li> <p> <code>INCLUDE</code> - Only the specified table
-     * attributes are projected into the index. The list of projected attributes are in
+     * attributes are projected into the index. The list of projected attributes is in
+     * <code>NonKeyAttributes</code>.</p> </li> <li> <p> <code>ALL</code> - All of the
+     * table attributes are projected into the index.</p> </li> </ul> </li> <li> <p>
+     * <code>NonKeyAttributes</code> - A list of one or more non-key attribute names
+     * that are projected into the secondary index. The total count of attributes
+     * provided in <code>NonKeyAttributes</code>, summed across all of the secondary
+     * indexes, must not exceed 20. If you project the same attribute into two
+     * different indexes, this counts as two distinct attributes when determining the
+     * total.</p> </li> </ul> </li> <li> <p> <code>IndexSizeBytes</code> - Represents
+     * the total size of the index, in bytes. DynamoDB updates this value approximately
+     * every six hours. Recent changes might not be reflected in this value.</p> </li>
+     * <li> <p> <code>ItemCount</code> - Represents the number of items in the index.
+     * DynamoDB updates this value approximately every six hours. Recent changes might
+     * not be reflected in this value.</p> </li> </ul> <p>If the table is in the
+     * <code>DELETING</code> state, no information about indexes will be returned.</p>
+     */
+    inline bool LocalSecondaryIndexesHasBeenSet() const { return m_localSecondaryIndexesHasBeenSet; }
+
+    /**
+     * <p>Represents one or more local secondary indexes on the table. Each index is
+     * scoped to a given partition key value. Tables with one or more local secondary
+     * indexes are subject to an item collection size limit, where the amount of data
+     * within a given item collection cannot exceed 10 GB. Each element is composed
+     * of:</p> <ul> <li> <p> <code>IndexName</code> - The name of the local secondary
+     * index.</p> </li> <li> <p> <code>KeySchema</code> - Specifies the complete index
+     * key schema. The attribute names in the key schema must be between 1 and 255
+     * characters (inclusive). The key schema must begin with the same partition key as
+     * the table.</p> </li> <li> <p> <code>Projection</code> - Specifies attributes
+     * that are copied (projected) from the table into the index. These are in addition
+     * to the primary key attributes and index key attributes, which are automatically
+     * projected. Each attribute specification is composed of:</p> <ul> <li> <p>
+     * <code>ProjectionType</code> - One of the following:</p> <ul> <li> <p>
+     * <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the
+     * index.</p> </li> <li> <p> <code>INCLUDE</code> - Only the specified table
+     * attributes are projected into the index. The list of projected attributes is in
      * <code>NonKeyAttributes</code>.</p> </li> <li> <p> <code>ALL</code> - All of the
      * table attributes are projected into the index.</p> </li> </ul> </li> <li> <p>
      * <code>NonKeyAttributes</code> - A list of one or more non-key attribute names
@@ -599,7 +788,7 @@ namespace Model
      * <code>ProjectionType</code> - One of the following:</p> <ul> <li> <p>
      * <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the
      * index.</p> </li> <li> <p> <code>INCLUDE</code> - Only the specified table
-     * attributes are projected into the index. The list of projected attributes are in
+     * attributes are projected into the index. The list of projected attributes is in
      * <code>NonKeyAttributes</code>.</p> </li> <li> <p> <code>ALL</code> - All of the
      * table attributes are projected into the index.</p> </li> </ul> </li> <li> <p>
      * <code>NonKeyAttributes</code> - A list of one or more non-key attribute names
@@ -633,7 +822,7 @@ namespace Model
      * <code>ProjectionType</code> - One of the following:</p> <ul> <li> <p>
      * <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the
      * index.</p> </li> <li> <p> <code>INCLUDE</code> - Only the specified table
-     * attributes are projected into the index. The list of projected attributes are in
+     * attributes are projected into the index. The list of projected attributes is in
      * <code>NonKeyAttributes</code>.</p> </li> <li> <p> <code>ALL</code> - All of the
      * table attributes are projected into the index.</p> </li> </ul> </li> <li> <p>
      * <code>NonKeyAttributes</code> - A list of one or more non-key attribute names
@@ -667,7 +856,7 @@ namespace Model
      * <code>ProjectionType</code> - One of the following:</p> <ul> <li> <p>
      * <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the
      * index.</p> </li> <li> <p> <code>INCLUDE</code> - Only the specified table
-     * attributes are projected into the index. The list of projected attributes are in
+     * attributes are projected into the index. The list of projected attributes is in
      * <code>NonKeyAttributes</code>.</p> </li> <li> <p> <code>ALL</code> - All of the
      * table attributes are projected into the index.</p> </li> </ul> </li> <li> <p>
      * <code>NonKeyAttributes</code> - A list of one or more non-key attribute names
@@ -701,7 +890,7 @@ namespace Model
      * <code>ProjectionType</code> - One of the following:</p> <ul> <li> <p>
      * <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the
      * index.</p> </li> <li> <p> <code>INCLUDE</code> - Only the specified table
-     * attributes are projected into the index. The list of projected attributes are in
+     * attributes are projected into the index. The list of projected attributes is in
      * <code>NonKeyAttributes</code>.</p> </li> <li> <p> <code>ALL</code> - All of the
      * table attributes are projected into the index.</p> </li> </ul> </li> <li> <p>
      * <code>NonKeyAttributes</code> - A list of one or more non-key attribute names
@@ -735,7 +924,7 @@ namespace Model
      * <code>ProjectionType</code> - One of the following:</p> <ul> <li> <p>
      * <code>KEYS_ONLY</code> - Only the index and primary keys are projected into the
      * index.</p> </li> <li> <p> <code>INCLUDE</code> - Only the specified table
-     * attributes are projected into the index. The list of projected attributes are in
+     * attributes are projected into the index. The list of projected attributes is in
      * <code>NonKeyAttributes</code>.</p> </li> <li> <p> <code>ALL</code> - All of the
      * table attributes are projected into the index.</p> </li> </ul> </li> <li> <p>
      * <code>NonKeyAttributes</code> - A list of one or more non-key attribute names
@@ -759,13 +948,19 @@ namespace Model
      * given partition key value. Each element is composed of:</p> <ul> <li> <p>
      * <code>Backfilling</code> - If true, then the index is currently in the
      * backfilling phase. Backfilling occurs only when a new global secondary index is
-     * added to the table; it is the process by which DynamoDB populates the new index
+     * added to the table. It is the process by which DynamoDB populates the new index
      * with data from the table. (This attribute does not appear for indexes that were
-     * created during a <code>CreateTable</code> operation.)</p> </li> <li> <p>
-     * <code>IndexName</code> - The name of the global secondary index.</p> </li> <li>
-     * <p> <code>IndexSizeBytes</code> - The total size of the global secondary index,
-     * in bytes. DynamoDB updates this value approximately every six hours. Recent
-     * changes might not be reflected in this value. </p> </li> <li> <p>
+     * created during a <code>CreateTable</code> operation.) </p> <p> You can delete an
+     * index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * true. You can't delete the index that is being created when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * false. (This attribute does not appear for indexes that were created during a
+     * <code>CreateTable</code> operation.)</p> </li> <li> <p> <code>IndexName</code> -
+     * The name of the global secondary index.</p> </li> <li> <p>
+     * <code>IndexSizeBytes</code> - The total size of the global secondary index, in
+     * bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     * might not be reflected in this value. </p> </li> <li> <p>
      * <code>IndexStatus</code> - The current status of the global secondary index:</p>
      * <ul> <li> <p> <code>CREATING</code> - The index is being created.</p> </li> <li>
      * <p> <code>UPDATING</code> - The index is being updated.</p> </li> <li> <p>
@@ -784,7 +979,7 @@ namespace Model
      * following:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - Only the index and primary
      * keys are projected into the index.</p> </li> <li> <p> <code>INCLUDE</code> -
      * Only the specified table attributes are projected into the index. The list of
-     * projected attributes are in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
+     * projected attributes is in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
      * <code>ALL</code> - All of the table attributes are projected into the index.</p>
      * </li> </ul> </li> <li> <p> <code>NonKeyAttributes</code> - A list of one or more
      * non-key attribute names that are projected into the secondary index. The total
@@ -804,13 +999,19 @@ namespace Model
      * given partition key value. Each element is composed of:</p> <ul> <li> <p>
      * <code>Backfilling</code> - If true, then the index is currently in the
      * backfilling phase. Backfilling occurs only when a new global secondary index is
-     * added to the table; it is the process by which DynamoDB populates the new index
+     * added to the table. It is the process by which DynamoDB populates the new index
      * with data from the table. (This attribute does not appear for indexes that were
-     * created during a <code>CreateTable</code> operation.)</p> </li> <li> <p>
-     * <code>IndexName</code> - The name of the global secondary index.</p> </li> <li>
-     * <p> <code>IndexSizeBytes</code> - The total size of the global secondary index,
-     * in bytes. DynamoDB updates this value approximately every six hours. Recent
-     * changes might not be reflected in this value. </p> </li> <li> <p>
+     * created during a <code>CreateTable</code> operation.) </p> <p> You can delete an
+     * index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * true. You can't delete the index that is being created when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * false. (This attribute does not appear for indexes that were created during a
+     * <code>CreateTable</code> operation.)</p> </li> <li> <p> <code>IndexName</code> -
+     * The name of the global secondary index.</p> </li> <li> <p>
+     * <code>IndexSizeBytes</code> - The total size of the global secondary index, in
+     * bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     * might not be reflected in this value. </p> </li> <li> <p>
      * <code>IndexStatus</code> - The current status of the global secondary index:</p>
      * <ul> <li> <p> <code>CREATING</code> - The index is being created.</p> </li> <li>
      * <p> <code>UPDATING</code> - The index is being updated.</p> </li> <li> <p>
@@ -829,7 +1030,58 @@ namespace Model
      * following:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - Only the index and primary
      * keys are projected into the index.</p> </li> <li> <p> <code>INCLUDE</code> -
      * Only the specified table attributes are projected into the index. The list of
-     * projected attributes are in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
+     * projected attributes is in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
+     * <code>ALL</code> - All of the table attributes are projected into the index.</p>
+     * </li> </ul> </li> <li> <p> <code>NonKeyAttributes</code> - A list of one or more
+     * non-key attribute names that are projected into the secondary index. The total
+     * count of attributes provided in <code>NonKeyAttributes</code>, summed across all
+     * of the secondary indexes, must not exceed 20. If you project the same attribute
+     * into two different indexes, this counts as two distinct attributes when
+     * determining the total.</p> </li> </ul> </li> <li> <p>
+     * <code>ProvisionedThroughput</code> - The provisioned throughput settings for the
+     * global secondary index, consisting of read and write capacity units, along with
+     * data about increases and decreases. </p> </li> </ul> <p>If the table is in the
+     * <code>DELETING</code> state, no information about indexes will be returned.</p>
+     */
+    inline bool GlobalSecondaryIndexesHasBeenSet() const { return m_globalSecondaryIndexesHasBeenSet; }
+
+    /**
+     * <p>The global secondary indexes, if any, on the table. Each index is scoped to a
+     * given partition key value. Each element is composed of:</p> <ul> <li> <p>
+     * <code>Backfilling</code> - If true, then the index is currently in the
+     * backfilling phase. Backfilling occurs only when a new global secondary index is
+     * added to the table. It is the process by which DynamoDB populates the new index
+     * with data from the table. (This attribute does not appear for indexes that were
+     * created during a <code>CreateTable</code> operation.) </p> <p> You can delete an
+     * index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * true. You can't delete the index that is being created when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * false. (This attribute does not appear for indexes that were created during a
+     * <code>CreateTable</code> operation.)</p> </li> <li> <p> <code>IndexName</code> -
+     * The name of the global secondary index.</p> </li> <li> <p>
+     * <code>IndexSizeBytes</code> - The total size of the global secondary index, in
+     * bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     * might not be reflected in this value. </p> </li> <li> <p>
+     * <code>IndexStatus</code> - The current status of the global secondary index:</p>
+     * <ul> <li> <p> <code>CREATING</code> - The index is being created.</p> </li> <li>
+     * <p> <code>UPDATING</code> - The index is being updated.</p> </li> <li> <p>
+     * <code>DELETING</code> - The index is being deleted.</p> </li> <li> <p>
+     * <code>ACTIVE</code> - The index is ready for use.</p> </li> </ul> </li> <li> <p>
+     * <code>ItemCount</code> - The number of items in the global secondary index.
+     * DynamoDB updates this value approximately every six hours. Recent changes might
+     * not be reflected in this value. </p> </li> <li> <p> <code>KeySchema</code> -
+     * Specifies the complete index key schema. The attribute names in the key schema
+     * must be between 1 and 255 characters (inclusive). The key schema must begin with
+     * the same partition key as the table.</p> </li> <li> <p> <code>Projection</code>
+     * - Specifies attributes that are copied (projected) from the table into the
+     * index. These are in addition to the primary key attributes and index key
+     * attributes, which are automatically projected. Each attribute specification is
+     * composed of:</p> <ul> <li> <p> <code>ProjectionType</code> - One of the
+     * following:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - Only the index and primary
+     * keys are projected into the index.</p> </li> <li> <p> <code>INCLUDE</code> -
+     * Only the specified table attributes are projected into the index. The list of
+     * projected attributes is in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
      * <code>ALL</code> - All of the table attributes are projected into the index.</p>
      * </li> </ul> </li> <li> <p> <code>NonKeyAttributes</code> - A list of one or more
      * non-key attribute names that are projected into the secondary index. The total
@@ -849,13 +1101,19 @@ namespace Model
      * given partition key value. Each element is composed of:</p> <ul> <li> <p>
      * <code>Backfilling</code> - If true, then the index is currently in the
      * backfilling phase. Backfilling occurs only when a new global secondary index is
-     * added to the table; it is the process by which DynamoDB populates the new index
+     * added to the table. It is the process by which DynamoDB populates the new index
      * with data from the table. (This attribute does not appear for indexes that were
-     * created during a <code>CreateTable</code> operation.)</p> </li> <li> <p>
-     * <code>IndexName</code> - The name of the global secondary index.</p> </li> <li>
-     * <p> <code>IndexSizeBytes</code> - The total size of the global secondary index,
-     * in bytes. DynamoDB updates this value approximately every six hours. Recent
-     * changes might not be reflected in this value. </p> </li> <li> <p>
+     * created during a <code>CreateTable</code> operation.) </p> <p> You can delete an
+     * index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * true. You can't delete the index that is being created when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * false. (This attribute does not appear for indexes that were created during a
+     * <code>CreateTable</code> operation.)</p> </li> <li> <p> <code>IndexName</code> -
+     * The name of the global secondary index.</p> </li> <li> <p>
+     * <code>IndexSizeBytes</code> - The total size of the global secondary index, in
+     * bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     * might not be reflected in this value. </p> </li> <li> <p>
      * <code>IndexStatus</code> - The current status of the global secondary index:</p>
      * <ul> <li> <p> <code>CREATING</code> - The index is being created.</p> </li> <li>
      * <p> <code>UPDATING</code> - The index is being updated.</p> </li> <li> <p>
@@ -874,7 +1132,7 @@ namespace Model
      * following:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - Only the index and primary
      * keys are projected into the index.</p> </li> <li> <p> <code>INCLUDE</code> -
      * Only the specified table attributes are projected into the index. The list of
-     * projected attributes are in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
+     * projected attributes is in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
      * <code>ALL</code> - All of the table attributes are projected into the index.</p>
      * </li> </ul> </li> <li> <p> <code>NonKeyAttributes</code> - A list of one or more
      * non-key attribute names that are projected into the secondary index. The total
@@ -894,13 +1152,19 @@ namespace Model
      * given partition key value. Each element is composed of:</p> <ul> <li> <p>
      * <code>Backfilling</code> - If true, then the index is currently in the
      * backfilling phase. Backfilling occurs only when a new global secondary index is
-     * added to the table; it is the process by which DynamoDB populates the new index
+     * added to the table. It is the process by which DynamoDB populates the new index
      * with data from the table. (This attribute does not appear for indexes that were
-     * created during a <code>CreateTable</code> operation.)</p> </li> <li> <p>
-     * <code>IndexName</code> - The name of the global secondary index.</p> </li> <li>
-     * <p> <code>IndexSizeBytes</code> - The total size of the global secondary index,
-     * in bytes. DynamoDB updates this value approximately every six hours. Recent
-     * changes might not be reflected in this value. </p> </li> <li> <p>
+     * created during a <code>CreateTable</code> operation.) </p> <p> You can delete an
+     * index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * true. You can't delete the index that is being created when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * false. (This attribute does not appear for indexes that were created during a
+     * <code>CreateTable</code> operation.)</p> </li> <li> <p> <code>IndexName</code> -
+     * The name of the global secondary index.</p> </li> <li> <p>
+     * <code>IndexSizeBytes</code> - The total size of the global secondary index, in
+     * bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     * might not be reflected in this value. </p> </li> <li> <p>
      * <code>IndexStatus</code> - The current status of the global secondary index:</p>
      * <ul> <li> <p> <code>CREATING</code> - The index is being created.</p> </li> <li>
      * <p> <code>UPDATING</code> - The index is being updated.</p> </li> <li> <p>
@@ -919,7 +1183,7 @@ namespace Model
      * following:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - Only the index and primary
      * keys are projected into the index.</p> </li> <li> <p> <code>INCLUDE</code> -
      * Only the specified table attributes are projected into the index. The list of
-     * projected attributes are in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
+     * projected attributes is in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
      * <code>ALL</code> - All of the table attributes are projected into the index.</p>
      * </li> </ul> </li> <li> <p> <code>NonKeyAttributes</code> - A list of one or more
      * non-key attribute names that are projected into the secondary index. The total
@@ -939,13 +1203,19 @@ namespace Model
      * given partition key value. Each element is composed of:</p> <ul> <li> <p>
      * <code>Backfilling</code> - If true, then the index is currently in the
      * backfilling phase. Backfilling occurs only when a new global secondary index is
-     * added to the table; it is the process by which DynamoDB populates the new index
+     * added to the table. It is the process by which DynamoDB populates the new index
      * with data from the table. (This attribute does not appear for indexes that were
-     * created during a <code>CreateTable</code> operation.)</p> </li> <li> <p>
-     * <code>IndexName</code> - The name of the global secondary index.</p> </li> <li>
-     * <p> <code>IndexSizeBytes</code> - The total size of the global secondary index,
-     * in bytes. DynamoDB updates this value approximately every six hours. Recent
-     * changes might not be reflected in this value. </p> </li> <li> <p>
+     * created during a <code>CreateTable</code> operation.) </p> <p> You can delete an
+     * index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * true. You can't delete the index that is being created when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * false. (This attribute does not appear for indexes that were created during a
+     * <code>CreateTable</code> operation.)</p> </li> <li> <p> <code>IndexName</code> -
+     * The name of the global secondary index.</p> </li> <li> <p>
+     * <code>IndexSizeBytes</code> - The total size of the global secondary index, in
+     * bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     * might not be reflected in this value. </p> </li> <li> <p>
      * <code>IndexStatus</code> - The current status of the global secondary index:</p>
      * <ul> <li> <p> <code>CREATING</code> - The index is being created.</p> </li> <li>
      * <p> <code>UPDATING</code> - The index is being updated.</p> </li> <li> <p>
@@ -964,7 +1234,7 @@ namespace Model
      * following:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - Only the index and primary
      * keys are projected into the index.</p> </li> <li> <p> <code>INCLUDE</code> -
      * Only the specified table attributes are projected into the index. The list of
-     * projected attributes are in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
+     * projected attributes is in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
      * <code>ALL</code> - All of the table attributes are projected into the index.</p>
      * </li> </ul> </li> <li> <p> <code>NonKeyAttributes</code> - A list of one or more
      * non-key attribute names that are projected into the secondary index. The total
@@ -984,13 +1254,19 @@ namespace Model
      * given partition key value. Each element is composed of:</p> <ul> <li> <p>
      * <code>Backfilling</code> - If true, then the index is currently in the
      * backfilling phase. Backfilling occurs only when a new global secondary index is
-     * added to the table; it is the process by which DynamoDB populates the new index
+     * added to the table. It is the process by which DynamoDB populates the new index
      * with data from the table. (This attribute does not appear for indexes that were
-     * created during a <code>CreateTable</code> operation.)</p> </li> <li> <p>
-     * <code>IndexName</code> - The name of the global secondary index.</p> </li> <li>
-     * <p> <code>IndexSizeBytes</code> - The total size of the global secondary index,
-     * in bytes. DynamoDB updates this value approximately every six hours. Recent
-     * changes might not be reflected in this value. </p> </li> <li> <p>
+     * created during a <code>CreateTable</code> operation.) </p> <p> You can delete an
+     * index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * true. You can't delete the index that is being created when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * false. (This attribute does not appear for indexes that were created during a
+     * <code>CreateTable</code> operation.)</p> </li> <li> <p> <code>IndexName</code> -
+     * The name of the global secondary index.</p> </li> <li> <p>
+     * <code>IndexSizeBytes</code> - The total size of the global secondary index, in
+     * bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     * might not be reflected in this value. </p> </li> <li> <p>
      * <code>IndexStatus</code> - The current status of the global secondary index:</p>
      * <ul> <li> <p> <code>CREATING</code> - The index is being created.</p> </li> <li>
      * <p> <code>UPDATING</code> - The index is being updated.</p> </li> <li> <p>
@@ -1009,7 +1285,7 @@ namespace Model
      * following:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - Only the index and primary
      * keys are projected into the index.</p> </li> <li> <p> <code>INCLUDE</code> -
      * Only the specified table attributes are projected into the index. The list of
-     * projected attributes are in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
+     * projected attributes is in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
      * <code>ALL</code> - All of the table attributes are projected into the index.</p>
      * </li> </ul> </li> <li> <p> <code>NonKeyAttributes</code> - A list of one or more
      * non-key attribute names that are projected into the secondary index. The total
@@ -1029,13 +1305,19 @@ namespace Model
      * given partition key value. Each element is composed of:</p> <ul> <li> <p>
      * <code>Backfilling</code> - If true, then the index is currently in the
      * backfilling phase. Backfilling occurs only when a new global secondary index is
-     * added to the table; it is the process by which DynamoDB populates the new index
+     * added to the table. It is the process by which DynamoDB populates the new index
      * with data from the table. (This attribute does not appear for indexes that were
-     * created during a <code>CreateTable</code> operation.)</p> </li> <li> <p>
-     * <code>IndexName</code> - The name of the global secondary index.</p> </li> <li>
-     * <p> <code>IndexSizeBytes</code> - The total size of the global secondary index,
-     * in bytes. DynamoDB updates this value approximately every six hours. Recent
-     * changes might not be reflected in this value. </p> </li> <li> <p>
+     * created during a <code>CreateTable</code> operation.) </p> <p> You can delete an
+     * index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * true. You can't delete the index that is being created when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is
+     * false. (This attribute does not appear for indexes that were created during a
+     * <code>CreateTable</code> operation.)</p> </li> <li> <p> <code>IndexName</code> -
+     * The name of the global secondary index.</p> </li> <li> <p>
+     * <code>IndexSizeBytes</code> - The total size of the global secondary index, in
+     * bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     * might not be reflected in this value. </p> </li> <li> <p>
      * <code>IndexStatus</code> - The current status of the global secondary index:</p>
      * <ul> <li> <p> <code>CREATING</code> - The index is being created.</p> </li> <li>
      * <p> <code>UPDATING</code> - The index is being updated.</p> </li> <li> <p>
@@ -1054,7 +1336,7 @@ namespace Model
      * following:</p> <ul> <li> <p> <code>KEYS_ONLY</code> - Only the index and primary
      * keys are projected into the index.</p> </li> <li> <p> <code>INCLUDE</code> -
      * Only the specified table attributes are projected into the index. The list of
-     * projected attributes are in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
+     * projected attributes is in <code>NonKeyAttributes</code>.</p> </li> <li> <p>
      * <code>ALL</code> - All of the table attributes are projected into the index.</p>
      * </li> </ul> </li> <li> <p> <code>NonKeyAttributes</code> - A list of one or more
      * non-key attribute names that are projected into the secondary index. The total
@@ -1074,6 +1356,11 @@ namespace Model
      * <p>The current DynamoDB Streams configuration for the table.</p>
      */
     inline const StreamSpecification& GetStreamSpecification() const{ return m_streamSpecification; }
+
+    /**
+     * <p>The current DynamoDB Streams configuration for the table.</p>
+     */
+    inline bool StreamSpecificationHasBeenSet() const { return m_streamSpecificationHasBeenSet; }
 
     /**
      * <p>The current DynamoDB Streams configuration for the table.</p>
@@ -1101,9 +1388,8 @@ namespace Model
      * <code>LatestStreamLabel</code> is not a unique identifier for the stream,
      * because it is possible that a stream from another table might have the same
      * timestamp. However, the combination of the following three elements is
-     * guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li>
-     * <p>the table name.</p> </li> <li> <p>the <code>StreamLabel</code>.</p> </li>
-     * </ul>
+     * guaranteed to be unique:</p> <ul> <li> <p>AWS customer ID</p> </li> <li>
+     * <p>Table name</p> </li> <li> <p> <code>StreamLabel</code> </p> </li> </ul>
      */
     inline const Aws::String& GetLatestStreamLabel() const{ return m_latestStreamLabel; }
 
@@ -1112,9 +1398,18 @@ namespace Model
      * <code>LatestStreamLabel</code> is not a unique identifier for the stream,
      * because it is possible that a stream from another table might have the same
      * timestamp. However, the combination of the following three elements is
-     * guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li>
-     * <p>the table name.</p> </li> <li> <p>the <code>StreamLabel</code>.</p> </li>
-     * </ul>
+     * guaranteed to be unique:</p> <ul> <li> <p>AWS customer ID</p> </li> <li>
+     * <p>Table name</p> </li> <li> <p> <code>StreamLabel</code> </p> </li> </ul>
+     */
+    inline bool LatestStreamLabelHasBeenSet() const { return m_latestStreamLabelHasBeenSet; }
+
+    /**
+     * <p>A timestamp, in ISO 8601 format, for this stream.</p> <p>Note that
+     * <code>LatestStreamLabel</code> is not a unique identifier for the stream,
+     * because it is possible that a stream from another table might have the same
+     * timestamp. However, the combination of the following three elements is
+     * guaranteed to be unique:</p> <ul> <li> <p>AWS customer ID</p> </li> <li>
+     * <p>Table name</p> </li> <li> <p> <code>StreamLabel</code> </p> </li> </ul>
      */
     inline void SetLatestStreamLabel(const Aws::String& value) { m_latestStreamLabelHasBeenSet = true; m_latestStreamLabel = value; }
 
@@ -1123,9 +1418,8 @@ namespace Model
      * <code>LatestStreamLabel</code> is not a unique identifier for the stream,
      * because it is possible that a stream from another table might have the same
      * timestamp. However, the combination of the following three elements is
-     * guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li>
-     * <p>the table name.</p> </li> <li> <p>the <code>StreamLabel</code>.</p> </li>
-     * </ul>
+     * guaranteed to be unique:</p> <ul> <li> <p>AWS customer ID</p> </li> <li>
+     * <p>Table name</p> </li> <li> <p> <code>StreamLabel</code> </p> </li> </ul>
      */
     inline void SetLatestStreamLabel(Aws::String&& value) { m_latestStreamLabelHasBeenSet = true; m_latestStreamLabel = std::move(value); }
 
@@ -1134,9 +1428,8 @@ namespace Model
      * <code>LatestStreamLabel</code> is not a unique identifier for the stream,
      * because it is possible that a stream from another table might have the same
      * timestamp. However, the combination of the following three elements is
-     * guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li>
-     * <p>the table name.</p> </li> <li> <p>the <code>StreamLabel</code>.</p> </li>
-     * </ul>
+     * guaranteed to be unique:</p> <ul> <li> <p>AWS customer ID</p> </li> <li>
+     * <p>Table name</p> </li> <li> <p> <code>StreamLabel</code> </p> </li> </ul>
      */
     inline void SetLatestStreamLabel(const char* value) { m_latestStreamLabelHasBeenSet = true; m_latestStreamLabel.assign(value); }
 
@@ -1145,9 +1438,8 @@ namespace Model
      * <code>LatestStreamLabel</code> is not a unique identifier for the stream,
      * because it is possible that a stream from another table might have the same
      * timestamp. However, the combination of the following three elements is
-     * guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li>
-     * <p>the table name.</p> </li> <li> <p>the <code>StreamLabel</code>.</p> </li>
-     * </ul>
+     * guaranteed to be unique:</p> <ul> <li> <p>AWS customer ID</p> </li> <li>
+     * <p>Table name</p> </li> <li> <p> <code>StreamLabel</code> </p> </li> </ul>
      */
     inline TableDescription& WithLatestStreamLabel(const Aws::String& value) { SetLatestStreamLabel(value); return *this;}
 
@@ -1156,9 +1448,8 @@ namespace Model
      * <code>LatestStreamLabel</code> is not a unique identifier for the stream,
      * because it is possible that a stream from another table might have the same
      * timestamp. However, the combination of the following three elements is
-     * guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li>
-     * <p>the table name.</p> </li> <li> <p>the <code>StreamLabel</code>.</p> </li>
-     * </ul>
+     * guaranteed to be unique:</p> <ul> <li> <p>AWS customer ID</p> </li> <li>
+     * <p>Table name</p> </li> <li> <p> <code>StreamLabel</code> </p> </li> </ul>
      */
     inline TableDescription& WithLatestStreamLabel(Aws::String&& value) { SetLatestStreamLabel(std::move(value)); return *this;}
 
@@ -1167,9 +1458,8 @@ namespace Model
      * <code>LatestStreamLabel</code> is not a unique identifier for the stream,
      * because it is possible that a stream from another table might have the same
      * timestamp. However, the combination of the following three elements is
-     * guaranteed to be unique:</p> <ul> <li> <p>the AWS customer ID.</p> </li> <li>
-     * <p>the table name.</p> </li> <li> <p>the <code>StreamLabel</code>.</p> </li>
-     * </ul>
+     * guaranteed to be unique:</p> <ul> <li> <p>AWS customer ID</p> </li> <li>
+     * <p>Table name</p> </li> <li> <p> <code>StreamLabel</code> </p> </li> </ul>
      */
     inline TableDescription& WithLatestStreamLabel(const char* value) { SetLatestStreamLabel(value); return *this;}
 
@@ -1179,6 +1469,12 @@ namespace Model
      * this table.</p>
      */
     inline const Aws::String& GetLatestStreamArn() const{ return m_latestStreamArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that uniquely identifies the latest stream for
+     * this table.</p>
+     */
+    inline bool LatestStreamArnHasBeenSet() const { return m_latestStreamArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that uniquely identifies the latest stream for
@@ -1218,9 +1514,112 @@ namespace Model
 
 
     /**
+     * <p>Represents the version of <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">global
+     * tables</a> in use, if the table is replicated across AWS Regions.</p>
+     */
+    inline const Aws::String& GetGlobalTableVersion() const{ return m_globalTableVersion; }
+
+    /**
+     * <p>Represents the version of <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">global
+     * tables</a> in use, if the table is replicated across AWS Regions.</p>
+     */
+    inline bool GlobalTableVersionHasBeenSet() const { return m_globalTableVersionHasBeenSet; }
+
+    /**
+     * <p>Represents the version of <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">global
+     * tables</a> in use, if the table is replicated across AWS Regions.</p>
+     */
+    inline void SetGlobalTableVersion(const Aws::String& value) { m_globalTableVersionHasBeenSet = true; m_globalTableVersion = value; }
+
+    /**
+     * <p>Represents the version of <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">global
+     * tables</a> in use, if the table is replicated across AWS Regions.</p>
+     */
+    inline void SetGlobalTableVersion(Aws::String&& value) { m_globalTableVersionHasBeenSet = true; m_globalTableVersion = std::move(value); }
+
+    /**
+     * <p>Represents the version of <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">global
+     * tables</a> in use, if the table is replicated across AWS Regions.</p>
+     */
+    inline void SetGlobalTableVersion(const char* value) { m_globalTableVersionHasBeenSet = true; m_globalTableVersion.assign(value); }
+
+    /**
+     * <p>Represents the version of <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">global
+     * tables</a> in use, if the table is replicated across AWS Regions.</p>
+     */
+    inline TableDescription& WithGlobalTableVersion(const Aws::String& value) { SetGlobalTableVersion(value); return *this;}
+
+    /**
+     * <p>Represents the version of <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">global
+     * tables</a> in use, if the table is replicated across AWS Regions.</p>
+     */
+    inline TableDescription& WithGlobalTableVersion(Aws::String&& value) { SetGlobalTableVersion(std::move(value)); return *this;}
+
+    /**
+     * <p>Represents the version of <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html">global
+     * tables</a> in use, if the table is replicated across AWS Regions.</p>
+     */
+    inline TableDescription& WithGlobalTableVersion(const char* value) { SetGlobalTableVersion(value); return *this;}
+
+
+    /**
+     * <p>Represents replicas of the table.</p>
+     */
+    inline const Aws::Vector<ReplicaDescription>& GetReplicas() const{ return m_replicas; }
+
+    /**
+     * <p>Represents replicas of the table.</p>
+     */
+    inline bool ReplicasHasBeenSet() const { return m_replicasHasBeenSet; }
+
+    /**
+     * <p>Represents replicas of the table.</p>
+     */
+    inline void SetReplicas(const Aws::Vector<ReplicaDescription>& value) { m_replicasHasBeenSet = true; m_replicas = value; }
+
+    /**
+     * <p>Represents replicas of the table.</p>
+     */
+    inline void SetReplicas(Aws::Vector<ReplicaDescription>&& value) { m_replicasHasBeenSet = true; m_replicas = std::move(value); }
+
+    /**
+     * <p>Represents replicas of the table.</p>
+     */
+    inline TableDescription& WithReplicas(const Aws::Vector<ReplicaDescription>& value) { SetReplicas(value); return *this;}
+
+    /**
+     * <p>Represents replicas of the table.</p>
+     */
+    inline TableDescription& WithReplicas(Aws::Vector<ReplicaDescription>&& value) { SetReplicas(std::move(value)); return *this;}
+
+    /**
+     * <p>Represents replicas of the table.</p>
+     */
+    inline TableDescription& AddReplicas(const ReplicaDescription& value) { m_replicasHasBeenSet = true; m_replicas.push_back(value); return *this; }
+
+    /**
+     * <p>Represents replicas of the table.</p>
+     */
+    inline TableDescription& AddReplicas(ReplicaDescription&& value) { m_replicasHasBeenSet = true; m_replicas.push_back(std::move(value)); return *this; }
+
+
+    /**
      * <p>Contains details for the restore.</p>
      */
     inline const RestoreSummary& GetRestoreSummary() const{ return m_restoreSummary; }
+
+    /**
+     * <p>Contains details for the restore.</p>
+     */
+    inline bool RestoreSummaryHasBeenSet() const { return m_restoreSummaryHasBeenSet; }
 
     /**
      * <p>Contains details for the restore.</p>
@@ -1253,6 +1652,12 @@ namespace Model
      * <p>The description of the server-side encryption status on the specified
      * table.</p>
      */
+    inline bool SSEDescriptionHasBeenSet() const { return m_sSEDescriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the server-side encryption status on the specified
+     * table.</p>
+     */
     inline void SetSSEDescription(const SSEDescription& value) { m_sSEDescriptionHasBeenSet = true; m_sSEDescription = value; }
 
     /**
@@ -1272,6 +1677,37 @@ namespace Model
      * table.</p>
      */
     inline TableDescription& WithSSEDescription(SSEDescription&& value) { SetSSEDescription(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Contains information about the table archive.</p>
+     */
+    inline const ArchivalSummary& GetArchivalSummary() const{ return m_archivalSummary; }
+
+    /**
+     * <p>Contains information about the table archive.</p>
+     */
+    inline bool ArchivalSummaryHasBeenSet() const { return m_archivalSummaryHasBeenSet; }
+
+    /**
+     * <p>Contains information about the table archive.</p>
+     */
+    inline void SetArchivalSummary(const ArchivalSummary& value) { m_archivalSummaryHasBeenSet = true; m_archivalSummary = value; }
+
+    /**
+     * <p>Contains information about the table archive.</p>
+     */
+    inline void SetArchivalSummary(ArchivalSummary&& value) { m_archivalSummaryHasBeenSet = true; m_archivalSummary = std::move(value); }
+
+    /**
+     * <p>Contains information about the table archive.</p>
+     */
+    inline TableDescription& WithArchivalSummary(const ArchivalSummary& value) { SetArchivalSummary(value); return *this;}
+
+    /**
+     * <p>Contains information about the table archive.</p>
+     */
+    inline TableDescription& WithArchivalSummary(ArchivalSummary&& value) { SetArchivalSummary(std::move(value)); return *this;}
 
   private:
 
@@ -1305,6 +1741,9 @@ namespace Model
     Aws::String m_tableId;
     bool m_tableIdHasBeenSet;
 
+    BillingModeSummary m_billingModeSummary;
+    bool m_billingModeSummaryHasBeenSet;
+
     Aws::Vector<LocalSecondaryIndexDescription> m_localSecondaryIndexes;
     bool m_localSecondaryIndexesHasBeenSet;
 
@@ -1320,11 +1759,20 @@ namespace Model
     Aws::String m_latestStreamArn;
     bool m_latestStreamArnHasBeenSet;
 
+    Aws::String m_globalTableVersion;
+    bool m_globalTableVersionHasBeenSet;
+
+    Aws::Vector<ReplicaDescription> m_replicas;
+    bool m_replicasHasBeenSet;
+
     RestoreSummary m_restoreSummary;
     bool m_restoreSummaryHasBeenSet;
 
     SSEDescription m_sSEDescription;
     bool m_sSEDescriptionHasBeenSet;
+
+    ArchivalSummary m_archivalSummary;
+    bool m_archivalSummaryHasBeenSet;
   };
 
 } // namespace Model

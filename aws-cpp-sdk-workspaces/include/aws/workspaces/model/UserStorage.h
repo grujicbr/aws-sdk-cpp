@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkSpaces
@@ -33,8 +34,8 @@ namespace Model
 {
 
   /**
-   * <p>Information about the user storage for a WorkSpace bundle.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>Describes the user storage for a WorkSpace bundle.</p><p><h3>See Also:</h3>  
+   * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UserStorage">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UserStorage();
-    UserStorage(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserStorage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserStorage(Aws::Utils::Json::JsonView jsonValue);
+    UserStorage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The size of the user storage.</p>
      */
     inline const Aws::String& GetCapacity() const{ return m_capacity; }
+
+    /**
+     * <p>The size of the user storage.</p>
+     */
+    inline bool CapacityHasBeenSet() const { return m_capacityHasBeenSet; }
 
     /**
      * <p>The size of the user storage.</p>

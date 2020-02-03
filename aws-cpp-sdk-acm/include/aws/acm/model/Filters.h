@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACM
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Filters();
-    Filters(const Aws::Utils::Json::JsonValue& jsonValue);
-    Filters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Filters(Aws::Utils::Json::JsonView jsonValue);
+    Filters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Specify one or more <a>ExtendedKeyUsage</a> extension values.</p>
      */
     inline const Aws::Vector<ExtendedKeyUsageName>& GetExtendedKeyUsage() const{ return m_extendedKeyUsage; }
+
+    /**
+     * <p>Specify one or more <a>ExtendedKeyUsage</a> extension values.</p>
+     */
+    inline bool ExtendedKeyUsageHasBeenSet() const { return m_extendedKeyUsageHasBeenSet; }
 
     /**
      * <p>Specify one or more <a>ExtendedKeyUsage</a> extension values.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>Specify one or more <a>KeyUsage</a> extension values.</p>
      */
+    inline bool KeyUsageHasBeenSet() const { return m_keyUsageHasBeenSet; }
+
+    /**
+     * <p>Specify one or more <a>KeyUsage</a> extension values.</p>
+     */
     inline void SetKeyUsage(const Aws::Vector<KeyUsageName>& value) { m_keyUsageHasBeenSet = true; m_keyUsage = value; }
 
     /**
@@ -124,36 +135,81 @@ namespace Model
 
     /**
      * <p>Specify one or more algorithms that can be used to generate key pairs.</p>
+     * <p>Default filtering returns only <code>RSA_2048</code> certificates. To return
+     * other certificate types, provide the desired type signatures in a
+     * comma-separated list. For example, <code>"keyTypes":
+     * ["RSA_2048,RSA_4096"]</code> returns both <code>RSA_2048</code> and
+     * <code>RSA_4096</code> certificates.</p>
      */
     inline const Aws::Vector<KeyAlgorithm>& GetKeyTypes() const{ return m_keyTypes; }
 
     /**
      * <p>Specify one or more algorithms that can be used to generate key pairs.</p>
+     * <p>Default filtering returns only <code>RSA_2048</code> certificates. To return
+     * other certificate types, provide the desired type signatures in a
+     * comma-separated list. For example, <code>"keyTypes":
+     * ["RSA_2048,RSA_4096"]</code> returns both <code>RSA_2048</code> and
+     * <code>RSA_4096</code> certificates.</p>
+     */
+    inline bool KeyTypesHasBeenSet() const { return m_keyTypesHasBeenSet; }
+
+    /**
+     * <p>Specify one or more algorithms that can be used to generate key pairs.</p>
+     * <p>Default filtering returns only <code>RSA_2048</code> certificates. To return
+     * other certificate types, provide the desired type signatures in a
+     * comma-separated list. For example, <code>"keyTypes":
+     * ["RSA_2048,RSA_4096"]</code> returns both <code>RSA_2048</code> and
+     * <code>RSA_4096</code> certificates.</p>
      */
     inline void SetKeyTypes(const Aws::Vector<KeyAlgorithm>& value) { m_keyTypesHasBeenSet = true; m_keyTypes = value; }
 
     /**
      * <p>Specify one or more algorithms that can be used to generate key pairs.</p>
+     * <p>Default filtering returns only <code>RSA_2048</code> certificates. To return
+     * other certificate types, provide the desired type signatures in a
+     * comma-separated list. For example, <code>"keyTypes":
+     * ["RSA_2048,RSA_4096"]</code> returns both <code>RSA_2048</code> and
+     * <code>RSA_4096</code> certificates.</p>
      */
     inline void SetKeyTypes(Aws::Vector<KeyAlgorithm>&& value) { m_keyTypesHasBeenSet = true; m_keyTypes = std::move(value); }
 
     /**
      * <p>Specify one or more algorithms that can be used to generate key pairs.</p>
+     * <p>Default filtering returns only <code>RSA_2048</code> certificates. To return
+     * other certificate types, provide the desired type signatures in a
+     * comma-separated list. For example, <code>"keyTypes":
+     * ["RSA_2048,RSA_4096"]</code> returns both <code>RSA_2048</code> and
+     * <code>RSA_4096</code> certificates.</p>
      */
     inline Filters& WithKeyTypes(const Aws::Vector<KeyAlgorithm>& value) { SetKeyTypes(value); return *this;}
 
     /**
      * <p>Specify one or more algorithms that can be used to generate key pairs.</p>
+     * <p>Default filtering returns only <code>RSA_2048</code> certificates. To return
+     * other certificate types, provide the desired type signatures in a
+     * comma-separated list. For example, <code>"keyTypes":
+     * ["RSA_2048,RSA_4096"]</code> returns both <code>RSA_2048</code> and
+     * <code>RSA_4096</code> certificates.</p>
      */
     inline Filters& WithKeyTypes(Aws::Vector<KeyAlgorithm>&& value) { SetKeyTypes(std::move(value)); return *this;}
 
     /**
      * <p>Specify one or more algorithms that can be used to generate key pairs.</p>
+     * <p>Default filtering returns only <code>RSA_2048</code> certificates. To return
+     * other certificate types, provide the desired type signatures in a
+     * comma-separated list. For example, <code>"keyTypes":
+     * ["RSA_2048,RSA_4096"]</code> returns both <code>RSA_2048</code> and
+     * <code>RSA_4096</code> certificates.</p>
      */
     inline Filters& AddKeyTypes(const KeyAlgorithm& value) { m_keyTypesHasBeenSet = true; m_keyTypes.push_back(value); return *this; }
 
     /**
      * <p>Specify one or more algorithms that can be used to generate key pairs.</p>
+     * <p>Default filtering returns only <code>RSA_2048</code> certificates. To return
+     * other certificate types, provide the desired type signatures in a
+     * comma-separated list. For example, <code>"keyTypes":
+     * ["RSA_2048,RSA_4096"]</code> returns both <code>RSA_2048</code> and
+     * <code>RSA_4096</code> certificates.</p>
      */
     inline Filters& AddKeyTypes(KeyAlgorithm&& value) { m_keyTypesHasBeenSet = true; m_keyTypes.push_back(std::move(value)); return *this; }
 

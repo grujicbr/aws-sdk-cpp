@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DataPipeline
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ValidationWarning();
-    ValidationWarning(const Aws::Utils::Json::JsonValue& jsonValue);
-    ValidationWarning& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ValidationWarning(Aws::Utils::Json::JsonView jsonValue);
+    ValidationWarning& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The identifier of the object that contains the validation warning.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The identifier of the object that contains the validation warning.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The identifier of the object that contains the validation warning.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>A description of the validation warning.</p>
      */
     inline const Aws::Vector<Aws::String>& GetWarnings() const{ return m_warnings; }
+
+    /**
+     * <p>A description of the validation warning.</p>
+     */
+    inline bool WarningsHasBeenSet() const { return m_warningsHasBeenSet; }
 
     /**
      * <p>A description of the validation warning.</p>

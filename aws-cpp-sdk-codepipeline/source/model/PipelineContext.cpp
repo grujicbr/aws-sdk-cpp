@@ -31,19 +31,23 @@ namespace Model
 PipelineContext::PipelineContext() : 
     m_pipelineNameHasBeenSet(false),
     m_stageHasBeenSet(false),
-    m_actionHasBeenSet(false)
+    m_actionHasBeenSet(false),
+    m_pipelineArnHasBeenSet(false),
+    m_pipelineExecutionIdHasBeenSet(false)
 {
 }
 
-PipelineContext::PipelineContext(const JsonValue& jsonValue) : 
+PipelineContext::PipelineContext(JsonView jsonValue) : 
     m_pipelineNameHasBeenSet(false),
     m_stageHasBeenSet(false),
-    m_actionHasBeenSet(false)
+    m_actionHasBeenSet(false),
+    m_pipelineArnHasBeenSet(false),
+    m_pipelineExecutionIdHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-PipelineContext& PipelineContext::operator =(const JsonValue& jsonValue)
+PipelineContext& PipelineContext::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("pipelineName"))
   {
@@ -64,6 +68,20 @@ PipelineContext& PipelineContext::operator =(const JsonValue& jsonValue)
     m_action = jsonValue.GetObject("action");
 
     m_actionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("pipelineArn"))
+  {
+    m_pipelineArn = jsonValue.GetString("pipelineArn");
+
+    m_pipelineArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("pipelineExecutionId"))
+  {
+    m_pipelineExecutionId = jsonValue.GetString("pipelineExecutionId");
+
+    m_pipelineExecutionIdHasBeenSet = true;
   }
 
   return *this;
@@ -88,6 +106,18 @@ JsonValue PipelineContext::Jsonize() const
   if(m_actionHasBeenSet)
   {
    payload.WithObject("action", m_action.Jsonize());
+
+  }
+
+  if(m_pipelineArnHasBeenSet)
+  {
+   payload.WithString("pipelineArn", m_pipelineArn);
+
+  }
+
+  if(m_pipelineExecutionIdHasBeenSet)
+  {
+   payload.WithString("pipelineExecutionId", m_pipelineExecutionId);
 
   }
 

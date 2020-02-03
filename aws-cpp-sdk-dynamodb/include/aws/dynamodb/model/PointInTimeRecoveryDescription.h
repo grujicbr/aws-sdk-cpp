@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PointInTimeRecoveryDescription();
-    PointInTimeRecoveryDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    PointInTimeRecoveryDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PointInTimeRecoveryDescription(Aws::Utils::Json::JsonView jsonValue);
+    PointInTimeRecoveryDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,14 @@ namespace Model
      * <code>DISABLED</code> - Point in time recovery is disabled.</p> </li> </ul>
      */
     inline const PointInTimeRecoveryStatus& GetPointInTimeRecoveryStatus() const{ return m_pointInTimeRecoveryStatus; }
+
+    /**
+     * <p>The current state of point in time recovery:</p> <ul> <li> <p>
+     * <code>ENABLING</code> - Point in time recovery is being enabled.</p> </li> <li>
+     * <p> <code>ENABLED</code> - Point in time recovery is enabled.</p> </li> <li> <p>
+     * <code>DISABLED</code> - Point in time recovery is disabled.</p> </li> </ul>
+     */
+    inline bool PointInTimeRecoveryStatusHasBeenSet() const { return m_pointInTimeRecoveryStatusHasBeenSet; }
 
     /**
      * <p>The current state of point in time recovery:</p> <ul> <li> <p>
@@ -90,32 +99,38 @@ namespace Model
 
 
     /**
-     * <p>Specifies the earliest point in time you can restore your table to. It You
-     * can restore your table to any point in time during the last 35 days. </p>
+     * <p>Specifies the earliest point in time you can restore your table to. You can
+     * restore your table to any point in time during the last 35 days. </p>
      */
     inline const Aws::Utils::DateTime& GetEarliestRestorableDateTime() const{ return m_earliestRestorableDateTime; }
 
     /**
-     * <p>Specifies the earliest point in time you can restore your table to. It You
-     * can restore your table to any point in time during the last 35 days. </p>
+     * <p>Specifies the earliest point in time you can restore your table to. You can
+     * restore your table to any point in time during the last 35 days. </p>
+     */
+    inline bool EarliestRestorableDateTimeHasBeenSet() const { return m_earliestRestorableDateTimeHasBeenSet; }
+
+    /**
+     * <p>Specifies the earliest point in time you can restore your table to. You can
+     * restore your table to any point in time during the last 35 days. </p>
      */
     inline void SetEarliestRestorableDateTime(const Aws::Utils::DateTime& value) { m_earliestRestorableDateTimeHasBeenSet = true; m_earliestRestorableDateTime = value; }
 
     /**
-     * <p>Specifies the earliest point in time you can restore your table to. It You
-     * can restore your table to any point in time during the last 35 days. </p>
+     * <p>Specifies the earliest point in time you can restore your table to. You can
+     * restore your table to any point in time during the last 35 days. </p>
      */
     inline void SetEarliestRestorableDateTime(Aws::Utils::DateTime&& value) { m_earliestRestorableDateTimeHasBeenSet = true; m_earliestRestorableDateTime = std::move(value); }
 
     /**
-     * <p>Specifies the earliest point in time you can restore your table to. It You
-     * can restore your table to any point in time during the last 35 days. </p>
+     * <p>Specifies the earliest point in time you can restore your table to. You can
+     * restore your table to any point in time during the last 35 days. </p>
      */
     inline PointInTimeRecoveryDescription& WithEarliestRestorableDateTime(const Aws::Utils::DateTime& value) { SetEarliestRestorableDateTime(value); return *this;}
 
     /**
-     * <p>Specifies the earliest point in time you can restore your table to. It You
-     * can restore your table to any point in time during the last 35 days. </p>
+     * <p>Specifies the earliest point in time you can restore your table to. You can
+     * restore your table to any point in time during the last 35 days. </p>
      */
     inline PointInTimeRecoveryDescription& WithEarliestRestorableDateTime(Aws::Utils::DateTime&& value) { SetEarliestRestorableDateTime(std::move(value)); return *this;}
 
@@ -125,6 +140,12 @@ namespace Model
      * current time. </p>
      */
     inline const Aws::Utils::DateTime& GetLatestRestorableDateTime() const{ return m_latestRestorableDateTime; }
+
+    /**
+     * <p> <code>LatestRestorableDateTime</code> is typically 5 minutes before the
+     * current time. </p>
+     */
+    inline bool LatestRestorableDateTimeHasBeenSet() const { return m_latestRestorableDateTimeHasBeenSet; }
 
     /**
      * <p> <code>LatestRestorableDateTime</code> is typically 5 minutes before the

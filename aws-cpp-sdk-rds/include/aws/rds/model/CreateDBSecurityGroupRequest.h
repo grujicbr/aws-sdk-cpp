@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     CreateDBSecurityGroupRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -55,7 +55,7 @@ namespace Model
      * <p>The name for the DB security group. This value is stored as a lowercase
      * string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers,
      * or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li>
-     * <p>Cannot end with a hyphen or contain two consecutive hyphens</p> </li> <li>
+     * <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li>
      * <p>Must not be "Default"</p> </li> </ul> <p>Example:
      * <code>mysecuritygroup</code> </p>
      */
@@ -65,7 +65,17 @@ namespace Model
      * <p>The name for the DB security group. This value is stored as a lowercase
      * string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers,
      * or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li>
-     * <p>Cannot end with a hyphen or contain two consecutive hyphens</p> </li> <li>
+     * <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li>
+     * <p>Must not be "Default"</p> </li> </ul> <p>Example:
+     * <code>mysecuritygroup</code> </p>
+     */
+    inline bool DBSecurityGroupNameHasBeenSet() const { return m_dBSecurityGroupNameHasBeenSet; }
+
+    /**
+     * <p>The name for the DB security group. This value is stored as a lowercase
+     * string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers,
+     * or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li>
+     * <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li>
      * <p>Must not be "Default"</p> </li> </ul> <p>Example:
      * <code>mysecuritygroup</code> </p>
      */
@@ -75,7 +85,7 @@ namespace Model
      * <p>The name for the DB security group. This value is stored as a lowercase
      * string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers,
      * or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li>
-     * <p>Cannot end with a hyphen or contain two consecutive hyphens</p> </li> <li>
+     * <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li>
      * <p>Must not be "Default"</p> </li> </ul> <p>Example:
      * <code>mysecuritygroup</code> </p>
      */
@@ -85,7 +95,7 @@ namespace Model
      * <p>The name for the DB security group. This value is stored as a lowercase
      * string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers,
      * or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li>
-     * <p>Cannot end with a hyphen or contain two consecutive hyphens</p> </li> <li>
+     * <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li>
      * <p>Must not be "Default"</p> </li> </ul> <p>Example:
      * <code>mysecuritygroup</code> </p>
      */
@@ -95,7 +105,7 @@ namespace Model
      * <p>The name for the DB security group. This value is stored as a lowercase
      * string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers,
      * or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li>
-     * <p>Cannot end with a hyphen or contain two consecutive hyphens</p> </li> <li>
+     * <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li>
      * <p>Must not be "Default"</p> </li> </ul> <p>Example:
      * <code>mysecuritygroup</code> </p>
      */
@@ -105,7 +115,7 @@ namespace Model
      * <p>The name for the DB security group. This value is stored as a lowercase
      * string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers,
      * or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li>
-     * <p>Cannot end with a hyphen or contain two consecutive hyphens</p> </li> <li>
+     * <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li>
      * <p>Must not be "Default"</p> </li> </ul> <p>Example:
      * <code>mysecuritygroup</code> </p>
      */
@@ -115,7 +125,7 @@ namespace Model
      * <p>The name for the DB security group. This value is stored as a lowercase
      * string.</p> <p>Constraints:</p> <ul> <li> <p>Must be 1 to 255 letters, numbers,
      * or hyphens.</p> </li> <li> <p>First character must be a letter</p> </li> <li>
-     * <p>Cannot end with a hyphen or contain two consecutive hyphens</p> </li> <li>
+     * <p>Can't end with a hyphen or contain two consecutive hyphens</p> </li> <li>
      * <p>Must not be "Default"</p> </li> </ul> <p>Example:
      * <code>mysecuritygroup</code> </p>
      */
@@ -126,6 +136,11 @@ namespace Model
      * <p>The description for the DB security group.</p>
      */
     inline const Aws::String& GetDBSecurityGroupDescription() const{ return m_dBSecurityGroupDescription; }
+
+    /**
+     * <p>The description for the DB security group.</p>
+     */
+    inline bool DBSecurityGroupDescriptionHasBeenSet() const { return m_dBSecurityGroupDescriptionHasBeenSet; }
 
     /**
      * <p>The description for the DB security group.</p>
@@ -158,25 +173,44 @@ namespace Model
     inline CreateDBSecurityGroupRequest& WithDBSecurityGroupDescription(const char* value) { SetDBSecurityGroupDescription(value); return *this;}
 
 
-    
+    /**
+     * <p>Tags to assign to the DB security group.</p>
+     */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
 
-    
+    /**
+     * <p>Tags to assign to the DB security group.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>Tags to assign to the DB security group.</p>
+     */
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
-    
+    /**
+     * <p>Tags to assign to the DB security group.</p>
+     */
     inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
 
-    
+    /**
+     * <p>Tags to assign to the DB security group.</p>
+     */
     inline CreateDBSecurityGroupRequest& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
 
-    
+    /**
+     * <p>Tags to assign to the DB security group.</p>
+     */
     inline CreateDBSecurityGroupRequest& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>Tags to assign to the DB security group.</p>
+     */
     inline CreateDBSecurityGroupRequest& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
 
-    
+    /**
+     * <p>Tags to assign to the DB security group.</p>
+     */
     inline CreateDBSecurityGroupRequest& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
 
   private:

@@ -30,7 +30,7 @@ DeleteDirectoryRequest::DeleteDirectoryRequest() :
 
 Aws::String DeleteDirectoryRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection DeleteDirectoryRequest::GetRequestSpecificHeaders() const
@@ -40,7 +40,7 @@ Aws::Http::HeaderValueCollection DeleteDirectoryRequest::GetRequestSpecificHeade
   if(m_directoryArnHasBeenSet)
   {
     ss << m_directoryArn;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-data-partition", ss.str()));
+    headers.emplace("x-amz-data-partition",  ss.str());
     ss.str("");
   }
 

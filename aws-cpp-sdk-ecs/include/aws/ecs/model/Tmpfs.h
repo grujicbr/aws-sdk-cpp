@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -43,43 +44,48 @@ namespace Model
   {
   public:
     Tmpfs();
-    Tmpfs(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tmpfs& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tmpfs(Aws::Utils::Json::JsonView jsonValue);
+    Tmpfs& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The absolute file path where the tmpfs volume will be mounted.</p>
+     * <p>The absolute file path where the tmpfs volume is to be mounted.</p>
      */
     inline const Aws::String& GetContainerPath() const{ return m_containerPath; }
 
     /**
-     * <p>The absolute file path where the tmpfs volume will be mounted.</p>
+     * <p>The absolute file path where the tmpfs volume is to be mounted.</p>
+     */
+    inline bool ContainerPathHasBeenSet() const { return m_containerPathHasBeenSet; }
+
+    /**
+     * <p>The absolute file path where the tmpfs volume is to be mounted.</p>
      */
     inline void SetContainerPath(const Aws::String& value) { m_containerPathHasBeenSet = true; m_containerPath = value; }
 
     /**
-     * <p>The absolute file path where the tmpfs volume will be mounted.</p>
+     * <p>The absolute file path where the tmpfs volume is to be mounted.</p>
      */
     inline void SetContainerPath(Aws::String&& value) { m_containerPathHasBeenSet = true; m_containerPath = std::move(value); }
 
     /**
-     * <p>The absolute file path where the tmpfs volume will be mounted.</p>
+     * <p>The absolute file path where the tmpfs volume is to be mounted.</p>
      */
     inline void SetContainerPath(const char* value) { m_containerPathHasBeenSet = true; m_containerPath.assign(value); }
 
     /**
-     * <p>The absolute file path where the tmpfs volume will be mounted.</p>
+     * <p>The absolute file path where the tmpfs volume is to be mounted.</p>
      */
     inline Tmpfs& WithContainerPath(const Aws::String& value) { SetContainerPath(value); return *this;}
 
     /**
-     * <p>The absolute file path where the tmpfs volume will be mounted.</p>
+     * <p>The absolute file path where the tmpfs volume is to be mounted.</p>
      */
     inline Tmpfs& WithContainerPath(Aws::String&& value) { SetContainerPath(std::move(value)); return *this;}
 
     /**
-     * <p>The absolute file path where the tmpfs volume will be mounted.</p>
+     * <p>The absolute file path where the tmpfs volume is to be mounted.</p>
      */
     inline Tmpfs& WithContainerPath(const char* value) { SetContainerPath(value); return *this;}
 
@@ -88,6 +94,11 @@ namespace Model
      * <p>The size (in MiB) of the tmpfs volume.</p>
      */
     inline int GetSize() const{ return m_size; }
+
+    /**
+     * <p>The size (in MiB) of the tmpfs volume.</p>
+     */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
 
     /**
      * <p>The size (in MiB) of the tmpfs volume.</p>
@@ -106,7 +117,8 @@ namespace Model
      * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
      * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
      * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
-     * | "norelatime" | "strictatime" | "nostrictatime"</code> </p>
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
      */
     inline const Aws::Vector<Aws::String>& GetMountOptions() const{ return m_mountOptions; }
 
@@ -116,7 +128,19 @@ namespace Model
      * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
      * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
      * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
-     * | "norelatime" | "strictatime" | "nostrictatime"</code> </p>
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
+     */
+    inline bool MountOptionsHasBeenSet() const { return m_mountOptionsHasBeenSet; }
+
+    /**
+     * <p>The list of tmpfs volume mount options.</p> <p>Valid values: <code>"defaults"
+     * | "ro" | "rw" | "suid" | "nosuid" | "dev" | "nodev" | "exec" | "noexec" | "sync"
+     * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
+     * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
+     * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
      */
     inline void SetMountOptions(const Aws::Vector<Aws::String>& value) { m_mountOptionsHasBeenSet = true; m_mountOptions = value; }
 
@@ -126,7 +150,8 @@ namespace Model
      * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
      * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
      * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
-     * | "norelatime" | "strictatime" | "nostrictatime"</code> </p>
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
      */
     inline void SetMountOptions(Aws::Vector<Aws::String>&& value) { m_mountOptionsHasBeenSet = true; m_mountOptions = std::move(value); }
 
@@ -136,7 +161,8 @@ namespace Model
      * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
      * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
      * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
-     * | "norelatime" | "strictatime" | "nostrictatime"</code> </p>
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
      */
     inline Tmpfs& WithMountOptions(const Aws::Vector<Aws::String>& value) { SetMountOptions(value); return *this;}
 
@@ -146,7 +172,8 @@ namespace Model
      * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
      * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
      * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
-     * | "norelatime" | "strictatime" | "nostrictatime"</code> </p>
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
      */
     inline Tmpfs& WithMountOptions(Aws::Vector<Aws::String>&& value) { SetMountOptions(std::move(value)); return *this;}
 
@@ -156,7 +183,8 @@ namespace Model
      * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
      * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
      * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
-     * | "norelatime" | "strictatime" | "nostrictatime"</code> </p>
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
      */
     inline Tmpfs& AddMountOptions(const Aws::String& value) { m_mountOptionsHasBeenSet = true; m_mountOptions.push_back(value); return *this; }
 
@@ -166,7 +194,8 @@ namespace Model
      * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
      * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
      * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
-     * | "norelatime" | "strictatime" | "nostrictatime"</code> </p>
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
      */
     inline Tmpfs& AddMountOptions(Aws::String&& value) { m_mountOptionsHasBeenSet = true; m_mountOptions.push_back(std::move(value)); return *this; }
 
@@ -176,7 +205,8 @@ namespace Model
      * | "async" | "dirsync" | "remount" | "mand" | "nomand" | "atime" | "noatime" |
      * "diratime" | "nodiratime" | "bind" | "rbind" | "unbindable" | "runbindable" |
      * "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave" | "relatime"
-     * | "norelatime" | "strictatime" | "nostrictatime"</code> </p>
+     * | "norelatime" | "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" |
+     * "nr_inodes" | "nr_blocks" | "mpol"</code> </p>
      */
     inline Tmpfs& AddMountOptions(const char* value) { m_mountOptionsHasBeenSet = true; m_mountOptions.push_back(value); return *this; }
 

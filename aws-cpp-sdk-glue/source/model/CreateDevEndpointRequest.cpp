@@ -28,10 +28,19 @@ CreateDevEndpointRequest::CreateDevEndpointRequest() :
     m_securityGroupIdsHasBeenSet(false),
     m_subnetIdHasBeenSet(false),
     m_publicKeyHasBeenSet(false),
+    m_publicKeysHasBeenSet(false),
     m_numberOfNodes(0),
     m_numberOfNodesHasBeenSet(false),
+    m_workerType(WorkerType::NOT_SET),
+    m_workerTypeHasBeenSet(false),
+    m_glueVersionHasBeenSet(false),
+    m_numberOfWorkers(0),
+    m_numberOfWorkersHasBeenSet(false),
     m_extraPythonLibsS3PathHasBeenSet(false),
-    m_extraJarsS3PathHasBeenSet(false)
+    m_extraJarsS3PathHasBeenSet(false),
+    m_securityConfigurationHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_argumentsHasBeenSet(false)
 {
 }
 
@@ -74,9 +83,37 @@ Aws::String CreateDevEndpointRequest::SerializePayload() const
 
   }
 
+  if(m_publicKeysHasBeenSet)
+  {
+   Array<JsonValue> publicKeysJsonList(m_publicKeys.size());
+   for(unsigned publicKeysIndex = 0; publicKeysIndex < publicKeysJsonList.GetLength(); ++publicKeysIndex)
+   {
+     publicKeysJsonList[publicKeysIndex].AsString(m_publicKeys[publicKeysIndex]);
+   }
+   payload.WithArray("PublicKeys", std::move(publicKeysJsonList));
+
+  }
+
   if(m_numberOfNodesHasBeenSet)
   {
    payload.WithInteger("NumberOfNodes", m_numberOfNodes);
+
+  }
+
+  if(m_workerTypeHasBeenSet)
+  {
+   payload.WithString("WorkerType", WorkerTypeMapper::GetNameForWorkerType(m_workerType));
+  }
+
+  if(m_glueVersionHasBeenSet)
+  {
+   payload.WithString("GlueVersion", m_glueVersion);
+
+  }
+
+  if(m_numberOfWorkersHasBeenSet)
+  {
+   payload.WithInteger("NumberOfWorkers", m_numberOfWorkers);
 
   }
 
@@ -92,7 +129,35 @@ Aws::String CreateDevEndpointRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_securityConfigurationHasBeenSet)
+  {
+   payload.WithString("SecurityConfiguration", m_securityConfiguration);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("Tags", std::move(tagsJsonMap));
+
+  }
+
+  if(m_argumentsHasBeenSet)
+  {
+   JsonValue argumentsJsonMap;
+   for(auto& argumentsItem : m_arguments)
+   {
+     argumentsJsonMap.WithString(argumentsItem.first, argumentsItem.second);
+   }
+   payload.WithObject("Arguments", std::move(argumentsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateDevEndpointRequest::GetRequestSpecificHeaders() const

@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     CreateLogGroupRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +49,11 @@ namespace Model
      * <p>The name of the log group.</p>
      */
     inline const Aws::String& GetLogGroupName() const{ return m_logGroupName; }
+
+    /**
+     * <p>The name of the log group.</p>
+     */
+    inline bool LogGroupNameHasBeenSet() const { return m_logGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the log group.</p>
@@ -84,7 +89,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
      * Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
      */
     inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
@@ -92,7 +97,15 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
+     * Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
      * Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
      */
     inline void SetKmsKeyId(const Aws::String& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = value; }
@@ -100,7 +113,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
      * Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
      */
     inline void SetKmsKeyId(Aws::String&& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = std::move(value); }
@@ -108,7 +121,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
      * Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
      */
     inline void SetKmsKeyId(const char* value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId.assign(value); }
@@ -116,7 +129,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
      * Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
      */
     inline CreateLogGroupRequest& WithKmsKeyId(const Aws::String& value) { SetKmsKeyId(value); return *this;}
@@ -124,7 +137,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
      * Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
      */
     inline CreateLogGroupRequest& WithKmsKeyId(Aws::String&& value) { SetKmsKeyId(std::move(value)); return *this;}
@@ -132,7 +145,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon
      * Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
      */
     inline CreateLogGroupRequest& WithKmsKeyId(const char* value) { SetKmsKeyId(value); return *this;}
@@ -142,6 +155,11 @@ namespace Model
      * <p>The key-value pairs to use for the tags.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The key-value pairs to use for the tags.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>The key-value pairs to use for the tags.</p>

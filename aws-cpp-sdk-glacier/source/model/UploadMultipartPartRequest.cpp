@@ -35,23 +35,23 @@ UploadMultipartPartRequest::UploadMultipartPartRequest() :
 }
 
 
+
 Aws::Http::HeaderValueCollection UploadMultipartPartRequest::GetRequestSpecificHeaders() const
 {
   Aws::Http::HeaderValueCollection headers;
   headers.insert(Aws::Http::HeaderValuePair("x-amz-glacier-version", "2012-06-01"));
-
   Aws::StringStream ss;
   if(m_checksumHasBeenSet)
   {
     ss << m_checksum;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-sha256-tree-hash", ss.str()));
+    headers.emplace("x-amz-sha256-tree-hash",  ss.str());
     ss.str("");
   }
 
   if(m_rangeHasBeenSet)
   {
     ss << m_range;
-    headers.insert(Aws::Http::HeaderValuePair("content-range", ss.str()));
+    headers.emplace("content-range",  ss.str());
     ss.str("");
   }
 

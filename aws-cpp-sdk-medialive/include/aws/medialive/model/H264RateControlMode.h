@@ -27,6 +27,8 @@ namespace Model
   {
     NOT_SET,
     CBR,
+    MULTIPLEX,
+    QVBR,
     VBR
   };
 

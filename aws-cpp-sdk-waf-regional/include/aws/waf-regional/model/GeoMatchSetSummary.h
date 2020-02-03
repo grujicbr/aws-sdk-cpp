@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     GeoMatchSetSummary();
-    GeoMatchSetSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    GeoMatchSetSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GeoMatchSetSummary(Aws::Utils::Json::JsonView jsonValue);
+    GeoMatchSetSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * information about an <a>GeoMatchSet</a>.</p>
      */
     inline const Aws::String& GetGeoMatchSetId() const{ return m_geoMatchSetId; }
+
+    /**
+     * <p>The <code>GeoMatchSetId</code> for an <a>GeoMatchSet</a>. You can use
+     * <code>GeoMatchSetId</code> in a <a>GetGeoMatchSet</a> request to get detailed
+     * information about an <a>GeoMatchSet</a>.</p>
+     */
+    inline bool GeoMatchSetIdHasBeenSet() const { return m_geoMatchSetIdHasBeenSet; }
 
     /**
      * <p>The <code>GeoMatchSetId</code> for an <a>GeoMatchSet</a>. You can use
@@ -102,6 +110,12 @@ namespace Model
      * the name of an <code>GeoMatchSet</code> after you create it.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>A friendly name or description of the <a>GeoMatchSet</a>. You can't change
+     * the name of an <code>GeoMatchSet</code> after you create it.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A friendly name or description of the <a>GeoMatchSet</a>. You can't change

@@ -38,11 +38,12 @@ Device::Device() :
     m_roomArnHasBeenSet(false),
     m_deviceStatus(DeviceStatus::NOT_SET),
     m_deviceStatusHasBeenSet(false),
-    m_deviceStatusInfoHasBeenSet(false)
+    m_deviceStatusInfoHasBeenSet(false),
+    m_networkProfileInfoHasBeenSet(false)
 {
 }
 
-Device::Device(const JsonValue& jsonValue) : 
+Device::Device(JsonView jsonValue) : 
     m_deviceArnHasBeenSet(false),
     m_deviceSerialNumberHasBeenSet(false),
     m_deviceTypeHasBeenSet(false),
@@ -52,12 +53,13 @@ Device::Device(const JsonValue& jsonValue) :
     m_roomArnHasBeenSet(false),
     m_deviceStatus(DeviceStatus::NOT_SET),
     m_deviceStatusHasBeenSet(false),
-    m_deviceStatusInfoHasBeenSet(false)
+    m_deviceStatusInfoHasBeenSet(false),
+    m_networkProfileInfoHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Device& Device::operator =(const JsonValue& jsonValue)
+Device& Device::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DeviceArn"))
   {
@@ -122,6 +124,13 @@ Device& Device::operator =(const JsonValue& jsonValue)
     m_deviceStatusInfoHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("NetworkProfileInfo"))
+  {
+    m_networkProfileInfo = jsonValue.GetObject("NetworkProfileInfo");
+
+    m_networkProfileInfoHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -179,6 +188,12 @@ JsonValue Device::Jsonize() const
   if(m_deviceStatusInfoHasBeenSet)
   {
    payload.WithObject("DeviceStatusInfo", m_deviceStatusInfo.Jsonize());
+
+  }
+
+  if(m_networkProfileInfoHasBeenSet)
+  {
+   payload.WithObject("NetworkProfileInfo", m_networkProfileInfo.Jsonize());
 
   }
 

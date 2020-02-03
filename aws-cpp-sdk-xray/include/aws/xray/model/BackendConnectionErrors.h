@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     BackendConnectionErrors();
-    BackendConnectionErrors(const Aws::Utils::Json::JsonValue& jsonValue);
-    BackendConnectionErrors& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BackendConnectionErrors(Aws::Utils::Json::JsonView jsonValue);
+    BackendConnectionErrors& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p/>
      */
     inline int GetTimeoutCount() const{ return m_timeoutCount; }
+
+    /**
+     * <p/>
+     */
+    inline bool TimeoutCountHasBeenSet() const { return m_timeoutCountHasBeenSet; }
 
     /**
      * <p/>
@@ -68,6 +74,11 @@ namespace Model
     /**
      * <p/>
      */
+    inline bool ConnectionRefusedCountHasBeenSet() const { return m_connectionRefusedCountHasBeenSet; }
+
+    /**
+     * <p/>
+     */
     inline void SetConnectionRefusedCount(int value) { m_connectionRefusedCountHasBeenSet = true; m_connectionRefusedCount = value; }
 
     /**
@@ -80,6 +91,11 @@ namespace Model
      * <p/>
      */
     inline int GetHTTPCode4XXCount() const{ return m_hTTPCode4XXCount; }
+
+    /**
+     * <p/>
+     */
+    inline bool HTTPCode4XXCountHasBeenSet() const { return m_hTTPCode4XXCountHasBeenSet; }
 
     /**
      * <p/>
@@ -100,6 +116,11 @@ namespace Model
     /**
      * <p/>
      */
+    inline bool HTTPCode5XXCountHasBeenSet() const { return m_hTTPCode5XXCountHasBeenSet; }
+
+    /**
+     * <p/>
+     */
     inline void SetHTTPCode5XXCount(int value) { m_hTTPCode5XXCountHasBeenSet = true; m_hTTPCode5XXCount = value; }
 
     /**
@@ -116,6 +137,11 @@ namespace Model
     /**
      * <p/>
      */
+    inline bool UnknownHostCountHasBeenSet() const { return m_unknownHostCountHasBeenSet; }
+
+    /**
+     * <p/>
+     */
     inline void SetUnknownHostCount(int value) { m_unknownHostCountHasBeenSet = true; m_unknownHostCount = value; }
 
     /**
@@ -128,6 +154,11 @@ namespace Model
      * <p/>
      */
     inline int GetOtherCount() const{ return m_otherCount; }
+
+    /**
+     * <p/>
+     */
+    inline bool OtherCountHasBeenSet() const { return m_otherCountHasBeenSet; }
 
     /**
      * <p/>

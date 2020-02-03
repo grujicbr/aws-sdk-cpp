@@ -28,10 +28,12 @@ namespace Model
     NOT_SET,
     AAC,
     MP2,
+    MP3,
     WAV,
     AIFF,
     AC3,
     EAC3,
+    EAC3_ATMOS,
     PASSTHROUGH
   };
 

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -32,7 +33,7 @@ namespace Model
 
   /**
    * <p>Represents a latitude and longitude pair, expressed in geographic coordinate
-   * system degrees (for example 47.6204, -122.3491).</p> <p>Elevation is currently
+   * system degrees (for example, 47.6204, -122.3491).</p> <p>Elevation is currently
    * not supported.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/Location">AWS
    * API Reference</a></p>
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Location();
-    Location(const Aws::Utils::Json::JsonValue& jsonValue);
-    Location& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Location(Aws::Utils::Json::JsonView jsonValue);
+    Location& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The latitude.</p>
      */
     inline double GetLatitude() const{ return m_latitude; }
+
+    /**
+     * <p>The latitude.</p>
+     */
+    inline bool LatitudeHasBeenSet() const { return m_latitudeHasBeenSet; }
 
     /**
      * <p>The latitude.</p>
@@ -66,6 +72,11 @@ namespace Model
      * <p>The longitude.</p>
      */
     inline double GetLongitude() const{ return m_longitude; }
+
+    /**
+     * <p>The longitude.</p>
+     */
+    inline bool LongitudeHasBeenSet() const { return m_longitudeHasBeenSet; }
 
     /**
      * <p>The longitude.</p>

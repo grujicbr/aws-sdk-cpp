@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     HyperParameterTuningJobObjective();
-    HyperParameterTuningJobObjective(const Aws::Utils::Json::JsonValue& jsonValue);
-    HyperParameterTuningJobObjective& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HyperParameterTuningJobObjective(Aws::Utils::Json::JsonView jsonValue);
+    HyperParameterTuningJobObjective& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Whether to minimize or maximize the objective metric.</p>
      */
     inline const HyperParameterTuningJobObjectiveType& GetType() const{ return m_type; }
+
+    /**
+     * <p>Whether to minimize or maximize the objective metric.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>Whether to minimize or maximize the objective metric.</p>
@@ -81,6 +87,11 @@ namespace Model
      * <p>The name of the metric to use for the objective metric.</p>
      */
     inline const Aws::String& GetMetricName() const{ return m_metricName; }
+
+    /**
+     * <p>The name of the metric to use for the objective metric.</p>
+     */
+    inline bool MetricNameHasBeenSet() const { return m_metricNameHasBeenSet; }
 
     /**
      * <p>The name of the metric to use for the objective metric.</p>

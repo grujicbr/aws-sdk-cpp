@@ -24,6 +24,7 @@ using namespace Aws::Utils;
 
 ListFleetsRequest::ListFleetsRequest() : 
     m_buildIdHasBeenSet(false),
+    m_scriptIdHasBeenSet(false),
     m_limit(0),
     m_limitHasBeenSet(false),
     m_nextTokenHasBeenSet(false)
@@ -40,6 +41,12 @@ Aws::String ListFleetsRequest::SerializePayload() const
 
   }
 
+  if(m_scriptIdHasBeenSet)
+  {
+   payload.WithString("ScriptId", m_scriptId);
+
+  }
+
   if(m_limitHasBeenSet)
   {
    payload.WithInteger("Limit", m_limit);
@@ -52,7 +59,7 @@ Aws::String ListFleetsRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection ListFleetsRequest::GetRequestSpecificHeaders() const

@@ -18,6 +18,7 @@
 #include <aws/servicecatalog/ServiceCatalogRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/servicecatalog/model/ProvisioningPreferences.h>
 #include <aws/servicecatalog/model/ProvisioningParameter.h>
 #include <aws/servicecatalog/model/Tag.h>
 #include <utility>
@@ -36,7 +37,7 @@ namespace Model
   {
   public:
     ProvisionProductRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +55,13 @@ namespace Model
      * Chinese</p> </li> </ul>
      */
     inline const Aws::String& GetAcceptLanguage() const{ return m_acceptLanguage; }
+
+    /**
+     * <p>The language code.</p> <ul> <li> <p> <code>en</code> - English (default)</p>
+     * </li> <li> <p> <code>jp</code> - Japanese</p> </li> <li> <p> <code>zh</code> -
+     * Chinese</p> </li> </ul>
+     */
+    inline bool AcceptLanguageHasBeenSet() const { return m_acceptLanguageHasBeenSet; }
 
     /**
      * <p>The language code.</p> <ul> <li> <p> <code>en</code> - English (default)</p>
@@ -106,6 +114,11 @@ namespace Model
     /**
      * <p>The product identifier.</p>
      */
+    inline bool ProductIdHasBeenSet() const { return m_productIdHasBeenSet; }
+
+    /**
+     * <p>The product identifier.</p>
+     */
     inline void SetProductId(const Aws::String& value) { m_productIdHasBeenSet = true; m_productId = value; }
 
     /**
@@ -138,6 +151,11 @@ namespace Model
      * <p>The identifier of the provisioning artifact.</p>
      */
     inline const Aws::String& GetProvisioningArtifactId() const{ return m_provisioningArtifactId; }
+
+    /**
+     * <p>The identifier of the provisioning artifact.</p>
+     */
+    inline bool ProvisioningArtifactIdHasBeenSet() const { return m_provisioningArtifactIdHasBeenSet; }
 
     /**
      * <p>The identifier of the provisioning artifact.</p>
@@ -176,6 +194,13 @@ namespace Model
      * paths for a product, use <a>ListLaunchPaths</a>.</p>
      */
     inline const Aws::String& GetPathId() const{ return m_pathId; }
+
+    /**
+     * <p>The path identifier of the product. This value is optional if the product has
+     * a default path, and required if the product has more than one path. To list the
+     * paths for a product, use <a>ListLaunchPaths</a>.</p>
+     */
+    inline bool PathIdHasBeenSet() const { return m_pathIdHasBeenSet; }
 
     /**
      * <p>The path identifier of the product. This value is optional if the product has
@@ -230,6 +255,12 @@ namespace Model
      * <p>A user-friendly name for the provisioned product. This value must be unique
      * for the AWS account and cannot be updated after the product is provisioned.</p>
      */
+    inline bool ProvisionedProductNameHasBeenSet() const { return m_provisionedProductNameHasBeenSet; }
+
+    /**
+     * <p>A user-friendly name for the provisioned product. This value must be unique
+     * for the AWS account and cannot be updated after the product is provisioned.</p>
+     */
     inline void SetProvisionedProductName(const Aws::String& value) { m_provisionedProductNameHasBeenSet = true; m_provisionedProductName = value; }
 
     /**
@@ -273,6 +304,12 @@ namespace Model
      * <p>Parameters specified by the administrator that are required for provisioning
      * the product.</p>
      */
+    inline bool ProvisioningParametersHasBeenSet() const { return m_provisioningParametersHasBeenSet; }
+
+    /**
+     * <p>Parameters specified by the administrator that are required for provisioning
+     * the product.</p>
+     */
     inline void SetProvisioningParameters(const Aws::Vector<ProvisioningParameter>& value) { m_provisioningParametersHasBeenSet = true; m_provisioningParameters = value; }
 
     /**
@@ -307,9 +344,51 @@ namespace Model
 
 
     /**
+     * <p>An object that contains information about the provisioning preferences for a
+     * stack set.</p>
+     */
+    inline const ProvisioningPreferences& GetProvisioningPreferences() const{ return m_provisioningPreferences; }
+
+    /**
+     * <p>An object that contains information about the provisioning preferences for a
+     * stack set.</p>
+     */
+    inline bool ProvisioningPreferencesHasBeenSet() const { return m_provisioningPreferencesHasBeenSet; }
+
+    /**
+     * <p>An object that contains information about the provisioning preferences for a
+     * stack set.</p>
+     */
+    inline void SetProvisioningPreferences(const ProvisioningPreferences& value) { m_provisioningPreferencesHasBeenSet = true; m_provisioningPreferences = value; }
+
+    /**
+     * <p>An object that contains information about the provisioning preferences for a
+     * stack set.</p>
+     */
+    inline void SetProvisioningPreferences(ProvisioningPreferences&& value) { m_provisioningPreferencesHasBeenSet = true; m_provisioningPreferences = std::move(value); }
+
+    /**
+     * <p>An object that contains information about the provisioning preferences for a
+     * stack set.</p>
+     */
+    inline ProvisionProductRequest& WithProvisioningPreferences(const ProvisioningPreferences& value) { SetProvisioningPreferences(value); return *this;}
+
+    /**
+     * <p>An object that contains information about the provisioning preferences for a
+     * stack set.</p>
+     */
+    inline ProvisionProductRequest& WithProvisioningPreferences(ProvisioningPreferences&& value) { SetProvisioningPreferences(std::move(value)); return *this;}
+
+
+    /**
      * <p>One or more tags.</p>
      */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>One or more tags.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>One or more tags.</p>
@@ -347,6 +426,12 @@ namespace Model
      * stack-related events.</p>
      */
     inline const Aws::Vector<Aws::String>& GetNotificationArns() const{ return m_notificationArns; }
+
+    /**
+     * <p>Passed to CloudFormation. The SNS topic ARNs to which to publish
+     * stack-related events.</p>
+     */
+    inline bool NotificationArnsHasBeenSet() const { return m_notificationArnsHasBeenSet; }
 
     /**
      * <p>Passed to CloudFormation. The SNS topic ARNs to which to publish
@@ -399,6 +484,11 @@ namespace Model
     /**
      * <p>An idempotency token that uniquely identifies the provisioning request.</p>
      */
+    inline bool ProvisionTokenHasBeenSet() const { return m_provisionTokenHasBeenSet; }
+
+    /**
+     * <p>An idempotency token that uniquely identifies the provisioning request.</p>
+     */
     inline void SetProvisionToken(const Aws::String& value) { m_provisionTokenHasBeenSet = true; m_provisionToken = value; }
 
     /**
@@ -445,6 +535,9 @@ namespace Model
 
     Aws::Vector<ProvisioningParameter> m_provisioningParameters;
     bool m_provisioningParametersHasBeenSet;
+
+    ProvisioningPreferences m_provisioningPreferences;
+    bool m_provisioningPreferencesHasBeenSet;
 
     Aws::Vector<Tag> m_tags;
     bool m_tagsHasBeenSet;

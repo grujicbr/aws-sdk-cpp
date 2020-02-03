@@ -25,6 +25,8 @@ using namespace Aws::Utils;
 UpdateProfileRequest::UpdateProfileRequest() : 
     m_profileArnHasBeenSet(false),
     m_profileNameHasBeenSet(false),
+    m_isDefault(false),
+    m_isDefaultHasBeenSet(false),
     m_timezoneHasBeenSet(false),
     m_addressHasBeenSet(false),
     m_distanceUnit(DistanceUnit::NOT_SET),
@@ -33,12 +35,14 @@ UpdateProfileRequest::UpdateProfileRequest() :
     m_temperatureUnitHasBeenSet(false),
     m_wakeWord(WakeWord::NOT_SET),
     m_wakeWordHasBeenSet(false),
+    m_localeHasBeenSet(false),
     m_setupModeDisabled(false),
     m_setupModeDisabledHasBeenSet(false),
     m_maxVolumeLimit(0),
     m_maxVolumeLimitHasBeenSet(false),
     m_pSTNEnabled(false),
-    m_pSTNEnabledHasBeenSet(false)
+    m_pSTNEnabledHasBeenSet(false),
+    m_meetingRoomConfigurationHasBeenSet(false)
 {
 }
 
@@ -55,6 +59,12 @@ Aws::String UpdateProfileRequest::SerializePayload() const
   if(m_profileNameHasBeenSet)
   {
    payload.WithString("ProfileName", m_profileName);
+
+  }
+
+  if(m_isDefaultHasBeenSet)
+  {
+   payload.WithBool("IsDefault", m_isDefault);
 
   }
 
@@ -85,6 +95,12 @@ Aws::String UpdateProfileRequest::SerializePayload() const
    payload.WithString("WakeWord", WakeWordMapper::GetNameForWakeWord(m_wakeWord));
   }
 
+  if(m_localeHasBeenSet)
+  {
+   payload.WithString("Locale", m_locale);
+
+  }
+
   if(m_setupModeDisabledHasBeenSet)
   {
    payload.WithBool("SetupModeDisabled", m_setupModeDisabled);
@@ -103,7 +119,13 @@ Aws::String UpdateProfileRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_meetingRoomConfigurationHasBeenSet)
+  {
+   payload.WithObject("MeetingRoomConfiguration", m_meetingRoomConfiguration.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateProfileRequest::GetRequestSpecificHeaders() const

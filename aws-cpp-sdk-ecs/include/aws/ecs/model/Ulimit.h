@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Ulimit();
-    Ulimit(const Aws::Utils::Json::JsonValue& jsonValue);
-    Ulimit& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Ulimit(Aws::Utils::Json::JsonView jsonValue);
+    Ulimit& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The <code>type</code> of the <code>ulimit</code>.</p>
      */
     inline const UlimitName& GetName() const{ return m_name; }
+
+    /**
+     * <p>The <code>type</code> of the <code>ulimit</code>.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The <code>type</code> of the <code>ulimit</code>.</p>
@@ -81,6 +87,11 @@ namespace Model
     /**
      * <p>The soft limit for the ulimit type.</p>
      */
+    inline bool SoftLimitHasBeenSet() const { return m_softLimitHasBeenSet; }
+
+    /**
+     * <p>The soft limit for the ulimit type.</p>
+     */
     inline void SetSoftLimit(int value) { m_softLimitHasBeenSet = true; m_softLimit = value; }
 
     /**
@@ -93,6 +104,11 @@ namespace Model
      * <p>The hard limit for the ulimit type.</p>
      */
     inline int GetHardLimit() const{ return m_hardLimit; }
+
+    /**
+     * <p>The hard limit for the ulimit type.</p>
+     */
+    inline bool HardLimitHasBeenSet() const { return m_hardLimitHasBeenSet; }
 
     /**
      * <p>The hard limit for the ulimit type.</p>

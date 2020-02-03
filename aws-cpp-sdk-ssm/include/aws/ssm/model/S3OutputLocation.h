@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     S3OutputLocation();
-    S3OutputLocation(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3OutputLocation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3OutputLocation(Aws::Utils::Json::JsonView jsonValue);
+    S3OutputLocation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * region.</p>
      */
     inline const Aws::String& GetOutputS3Region() const{ return m_outputS3Region; }
+
+    /**
+     * <p>(Deprecated) You can no longer specify this parameter. The system ignores it.
+     * Instead, Systems Manager automatically determines the Amazon S3 bucket
+     * region.</p>
+     */
+    inline bool OutputS3RegionHasBeenSet() const { return m_outputS3RegionHasBeenSet; }
 
     /**
      * <p>(Deprecated) You can no longer specify this parameter. The system ignores it.
@@ -105,6 +113,11 @@ namespace Model
     /**
      * <p>The name of the Amazon S3 bucket.</p>
      */
+    inline bool OutputS3BucketNameHasBeenSet() const { return m_outputS3BucketNameHasBeenSet; }
+
+    /**
+     * <p>The name of the Amazon S3 bucket.</p>
+     */
     inline void SetOutputS3BucketName(const Aws::String& value) { m_outputS3BucketNameHasBeenSet = true; m_outputS3BucketName = value; }
 
     /**
@@ -137,6 +150,11 @@ namespace Model
      * <p>The Amazon S3 bucket subfolder.</p>
      */
     inline const Aws::String& GetOutputS3KeyPrefix() const{ return m_outputS3KeyPrefix; }
+
+    /**
+     * <p>The Amazon S3 bucket subfolder.</p>
+     */
+    inline bool OutputS3KeyPrefixHasBeenSet() const { return m_outputS3KeyPrefixHasBeenSet; }
 
     /**
      * <p>The Amazon S3 bucket subfolder.</p>

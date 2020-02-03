@@ -51,18 +51,21 @@ GetConsoleScreenshotResponse& GetConsoleScreenshotResponse::operator =(const Aws
     XmlNode imageDataNode = resultNode.FirstChild("imageData");
     if(!imageDataNode.IsNull())
     {
-      m_imageData = StringUtils::Trim(imageDataNode.GetText().c_str());
+      m_imageData = Aws::Utils::Xml::DecodeEscapedXmlText(imageDataNode.GetText());
     }
     XmlNode instanceIdNode = resultNode.FirstChild("instanceId");
     if(!instanceIdNode.IsNull())
     {
-      m_instanceId = StringUtils::Trim(instanceIdNode.GetText().c_str());
+      m_instanceId = Aws::Utils::Xml::DecodeEscapedXmlText(instanceIdNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::GetConsoleScreenshotResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

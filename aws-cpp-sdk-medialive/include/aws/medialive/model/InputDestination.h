@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/medialive/MediaLive_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/medialive/model/InputDestinationVpc.h>
 #include <utility>
 
 namespace Aws
@@ -25,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -41,8 +43,8 @@ namespace Model
   {
   public:
     InputDestination();
-    InputDestination(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputDestination& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputDestination(Aws::Utils::Json::JsonView jsonValue);
+    InputDestination& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +55,14 @@ It remains fixed for the
 
      */
     inline const Aws::String& GetIp() const{ return m_ip; }
+
+    /**
+     * The system-generated static IP address of endpoint.
+It remains fixed for the
+     * lifetime of the input.
+
+     */
+    inline bool IpHasBeenSet() const { return m_ipHasBeenSet; }
 
     /**
      * The system-generated static IP address of endpoint.
@@ -111,6 +121,11 @@ It remains fixed for the
     /**
      * The port number for the input.
      */
+    inline bool PortHasBeenSet() const { return m_portHasBeenSet; }
+
+    /**
+     * The port number for the input.
+     */
     inline void SetPort(const Aws::String& value) { m_portHasBeenSet = true; m_port = value; }
 
     /**
@@ -145,6 +160,13 @@ pushed to.
 
      */
     inline const Aws::String& GetUrl() const{ return m_url; }
+
+    /**
+     * This represents the endpoint that the customer stream will be
+pushed to.
+
+     */
+    inline bool UrlHasBeenSet() const { return m_urlHasBeenSet; }
 
     /**
      * This represents the endpoint that the customer stream will be
@@ -188,6 +210,25 @@ pushed to.
      */
     inline InputDestination& WithUrl(const char* value) { SetUrl(value); return *this;}
 
+
+    
+    inline const InputDestinationVpc& GetVpc() const{ return m_vpc; }
+
+    
+    inline bool VpcHasBeenSet() const { return m_vpcHasBeenSet; }
+
+    
+    inline void SetVpc(const InputDestinationVpc& value) { m_vpcHasBeenSet = true; m_vpc = value; }
+
+    
+    inline void SetVpc(InputDestinationVpc&& value) { m_vpcHasBeenSet = true; m_vpc = std::move(value); }
+
+    
+    inline InputDestination& WithVpc(const InputDestinationVpc& value) { SetVpc(value); return *this;}
+
+    
+    inline InputDestination& WithVpc(InputDestinationVpc&& value) { SetVpc(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_ip;
@@ -198,6 +239,9 @@ pushed to.
 
     Aws::String m_url;
     bool m_urlHasBeenSet;
+
+    InputDestinationVpc m_vpc;
+    bool m_vpcHasBeenSet;
   };
 
 } // namespace Model

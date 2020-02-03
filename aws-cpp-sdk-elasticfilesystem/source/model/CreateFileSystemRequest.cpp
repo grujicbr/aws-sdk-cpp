@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 CreateFileSystemRequest::CreateFileSystemRequest() : 
-    m_creationTokenHasBeenSet(false),
+    m_creationToken(Aws::Utils::UUID::RandomUUID()),
+    m_creationTokenHasBeenSet(true),
     m_performanceMode(PerformanceMode::NOT_SET),
     m_performanceModeHasBeenSet(false),
     m_encrypted(false),
@@ -32,7 +33,8 @@ CreateFileSystemRequest::CreateFileSystemRequest() :
     m_throughputMode(ThroughputMode::NOT_SET),
     m_throughputModeHasBeenSet(false),
     m_provisionedThroughputInMibps(0.0),
-    m_provisionedThroughputInMibpsHasBeenSet(false)
+    m_provisionedThroughputInMibpsHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -74,7 +76,18 @@ Aws::String CreateFileSystemRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

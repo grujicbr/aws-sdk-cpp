@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     VPCDerivedInfo();
-    VPCDerivedInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    VPCDerivedInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VPCDerivedInfo(Aws::Utils::Json::JsonView jsonValue);
+    VPCDerivedInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,12 @@ namespace Model
      * created with VPCOptions.</p>
      */
     inline const Aws::String& GetVPCId() const{ return m_vPCId; }
+
+    /**
+     * <p>The VPC Id for the Elasticsearch domain. Exists only if the domain was
+     * created with VPCOptions.</p>
+     */
+    inline bool VPCIdHasBeenSet() const { return m_vPCIdHasBeenSet; }
 
     /**
      * <p>The VPC Id for the Elasticsearch domain. Exists only if the domain was
@@ -102,6 +109,11 @@ namespace Model
     /**
      * <p>Specifies the subnets for VPC endpoint.</p>
      */
+    inline bool SubnetIdsHasBeenSet() const { return m_subnetIdsHasBeenSet; }
+
+    /**
+     * <p>Specifies the subnets for VPC endpoint.</p>
+     */
     inline void SetSubnetIds(const Aws::Vector<Aws::String>& value) { m_subnetIdsHasBeenSet = true; m_subnetIds = value; }
 
     /**
@@ -140,6 +152,12 @@ namespace Model
      * domain was created with VPCOptions.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAvailabilityZones() const{ return m_availabilityZones; }
+
+    /**
+     * <p>The availability zones for the Elasticsearch domain. Exists only if the
+     * domain was created with VPCOptions.</p>
+     */
+    inline bool AvailabilityZonesHasBeenSet() const { return m_availabilityZonesHasBeenSet; }
 
     /**
      * <p>The availability zones for the Elasticsearch domain. Exists only if the
@@ -188,6 +206,11 @@ namespace Model
      * <p>Specifies the security groups for VPC endpoint.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSecurityGroupIds() const{ return m_securityGroupIds; }
+
+    /**
+     * <p>Specifies the security groups for VPC endpoint.</p>
+     */
+    inline bool SecurityGroupIdsHasBeenSet() const { return m_securityGroupIdsHasBeenSet; }
 
     /**
      * <p>Specifies the security groups for VPC endpoint.</p>

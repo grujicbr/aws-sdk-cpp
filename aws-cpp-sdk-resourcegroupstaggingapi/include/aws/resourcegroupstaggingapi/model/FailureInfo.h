@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ResourceGroupsTaggingAPI
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     FailureInfo();
-    FailureInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    FailureInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FailureInfo(Aws::Utils::Json::JsonView jsonValue);
+    FailureInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The HTTP status code of the common error.</p>
      */
     inline int GetStatusCode() const{ return m_statusCode; }
+
+    /**
+     * <p>The HTTP status code of the common error.</p>
+     */
+    inline bool StatusCodeHasBeenSet() const { return m_statusCodeHasBeenSet; }
 
     /**
      * <p>The HTTP status code of the common error.</p>
@@ -71,6 +77,14 @@ namespace Model
      * that you want to tag.</p>
      */
     inline const ErrorCode& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The code of the common error. Valid values include
+     * <code>InternalServiceException</code>, <code>InvalidParameterException</code>,
+     * and any valid error code returned by the AWS service that hosts the resource
+     * that you want to tag.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The code of the common error. Valid values include
@@ -109,6 +123,11 @@ namespace Model
      * <p>The message of the common error.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The message of the common error.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The message of the common error.</p>

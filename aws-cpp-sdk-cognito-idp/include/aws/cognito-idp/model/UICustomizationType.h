@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     UICustomizationType();
-    UICustomizationType(const Aws::Utils::Json::JsonValue& jsonValue);
-    UICustomizationType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UICustomizationType(Aws::Utils::Json::JsonView jsonValue);
+    UICustomizationType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The user pool ID for the user pool.</p>
      */
     inline const Aws::String& GetUserPoolId() const{ return m_userPoolId; }
+
+    /**
+     * <p>The user pool ID for the user pool.</p>
+     */
+    inline bool UserPoolIdHasBeenSet() const { return m_userPoolIdHasBeenSet; }
 
     /**
      * <p>The user pool ID for the user pool.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The client ID for the client app.</p>
      */
+    inline bool ClientIdHasBeenSet() const { return m_clientIdHasBeenSet; }
+
+    /**
+     * <p>The client ID for the client app.</p>
+     */
     inline void SetClientId(const Aws::String& value) { m_clientIdHasBeenSet = true; m_clientId = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The logo image for the UI customization.</p>
      */
     inline const Aws::String& GetImageUrl() const{ return m_imageUrl; }
+
+    /**
+     * <p>The logo image for the UI customization.</p>
+     */
+    inline bool ImageUrlHasBeenSet() const { return m_imageUrlHasBeenSet; }
 
     /**
      * <p>The logo image for the UI customization.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>The CSS values in the UI customization.</p>
      */
+    inline bool CSSHasBeenSet() const { return m_cSSHasBeenSet; }
+
+    /**
+     * <p>The CSS values in the UI customization.</p>
+     */
     inline void SetCSS(const Aws::String& value) { m_cSSHasBeenSet = true; m_cSS = value; }
 
     /**
@@ -196,6 +217,11 @@ namespace Model
      * <p>The CSS version number.</p>
      */
     inline const Aws::String& GetCSSVersion() const{ return m_cSSVersion; }
+
+    /**
+     * <p>The CSS version number.</p>
+     */
+    inline bool CSSVersionHasBeenSet() const { return m_cSSVersionHasBeenSet; }
 
     /**
      * <p>The CSS version number.</p>
@@ -236,6 +262,11 @@ namespace Model
     /**
      * <p>The last-modified date for the UI customization.</p>
      */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
+
+    /**
+     * <p>The last-modified date for the UI customization.</p>
+     */
     inline void SetLastModifiedDate(const Aws::Utils::DateTime& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = value; }
 
     /**
@@ -258,6 +289,11 @@ namespace Model
      * <p>The creation date for the UI customization.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The creation date for the UI customization.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The creation date for the UI customization.</p>

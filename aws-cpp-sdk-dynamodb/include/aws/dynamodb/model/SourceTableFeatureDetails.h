@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     SourceTableFeatureDetails();
-    SourceTableFeatureDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    SourceTableFeatureDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SourceTableFeatureDetails(Aws::Utils::Json::JsonView jsonValue);
+    SourceTableFeatureDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,13 @@ namespace Model
      * the time of backup. </p>
      */
     inline const Aws::Vector<LocalSecondaryIndexInfo>& GetLocalSecondaryIndexes() const{ return m_localSecondaryIndexes; }
+
+    /**
+     * <p>Represents the LSI properties for the table when the backup was created. It
+     * includes the IndexName, KeySchema and Projection for the LSIs on the table at
+     * the time of backup. </p>
+     */
+    inline bool LocalSecondaryIndexesHasBeenSet() const { return m_localSecondaryIndexesHasBeenSet; }
 
     /**
      * <p>Represents the LSI properties for the table when the backup was created. It
@@ -104,49 +112,56 @@ namespace Model
 
     /**
      * <p>Represents the GSI properties for the table when the backup was created. It
-     * includes the IndexName, KeySchema, Projection and ProvisionedThroughput for the
+     * includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the
      * GSIs on the table at the time of backup. </p>
      */
     inline const Aws::Vector<GlobalSecondaryIndexInfo>& GetGlobalSecondaryIndexes() const{ return m_globalSecondaryIndexes; }
 
     /**
      * <p>Represents the GSI properties for the table when the backup was created. It
-     * includes the IndexName, KeySchema, Projection and ProvisionedThroughput for the
+     * includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the
+     * GSIs on the table at the time of backup. </p>
+     */
+    inline bool GlobalSecondaryIndexesHasBeenSet() const { return m_globalSecondaryIndexesHasBeenSet; }
+
+    /**
+     * <p>Represents the GSI properties for the table when the backup was created. It
+     * includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the
      * GSIs on the table at the time of backup. </p>
      */
     inline void SetGlobalSecondaryIndexes(const Aws::Vector<GlobalSecondaryIndexInfo>& value) { m_globalSecondaryIndexesHasBeenSet = true; m_globalSecondaryIndexes = value; }
 
     /**
      * <p>Represents the GSI properties for the table when the backup was created. It
-     * includes the IndexName, KeySchema, Projection and ProvisionedThroughput for the
+     * includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the
      * GSIs on the table at the time of backup. </p>
      */
     inline void SetGlobalSecondaryIndexes(Aws::Vector<GlobalSecondaryIndexInfo>&& value) { m_globalSecondaryIndexesHasBeenSet = true; m_globalSecondaryIndexes = std::move(value); }
 
     /**
      * <p>Represents the GSI properties for the table when the backup was created. It
-     * includes the IndexName, KeySchema, Projection and ProvisionedThroughput for the
+     * includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the
      * GSIs on the table at the time of backup. </p>
      */
     inline SourceTableFeatureDetails& WithGlobalSecondaryIndexes(const Aws::Vector<GlobalSecondaryIndexInfo>& value) { SetGlobalSecondaryIndexes(value); return *this;}
 
     /**
      * <p>Represents the GSI properties for the table when the backup was created. It
-     * includes the IndexName, KeySchema, Projection and ProvisionedThroughput for the
+     * includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the
      * GSIs on the table at the time of backup. </p>
      */
     inline SourceTableFeatureDetails& WithGlobalSecondaryIndexes(Aws::Vector<GlobalSecondaryIndexInfo>&& value) { SetGlobalSecondaryIndexes(std::move(value)); return *this;}
 
     /**
      * <p>Represents the GSI properties for the table when the backup was created. It
-     * includes the IndexName, KeySchema, Projection and ProvisionedThroughput for the
+     * includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the
      * GSIs on the table at the time of backup. </p>
      */
     inline SourceTableFeatureDetails& AddGlobalSecondaryIndexes(const GlobalSecondaryIndexInfo& value) { m_globalSecondaryIndexesHasBeenSet = true; m_globalSecondaryIndexes.push_back(value); return *this; }
 
     /**
      * <p>Represents the GSI properties for the table when the backup was created. It
-     * includes the IndexName, KeySchema, Projection and ProvisionedThroughput for the
+     * includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the
      * GSIs on the table at the time of backup. </p>
      */
     inline SourceTableFeatureDetails& AddGlobalSecondaryIndexes(GlobalSecondaryIndexInfo&& value) { m_globalSecondaryIndexesHasBeenSet = true; m_globalSecondaryIndexes.push_back(std::move(value)); return *this; }
@@ -156,6 +171,11 @@ namespace Model
      * <p>Stream settings on the table when the backup was created.</p>
      */
     inline const StreamSpecification& GetStreamDescription() const{ return m_streamDescription; }
+
+    /**
+     * <p>Stream settings on the table when the backup was created.</p>
+     */
+    inline bool StreamDescriptionHasBeenSet() const { return m_streamDescriptionHasBeenSet; }
 
     /**
      * <p>Stream settings on the table when the backup was created.</p>
@@ -186,6 +206,11 @@ namespace Model
     /**
      * <p>Time to Live settings on the table when the backup was created.</p>
      */
+    inline bool TimeToLiveDescriptionHasBeenSet() const { return m_timeToLiveDescriptionHasBeenSet; }
+
+    /**
+     * <p>Time to Live settings on the table when the backup was created.</p>
+     */
     inline void SetTimeToLiveDescription(const TimeToLiveDescription& value) { m_timeToLiveDescriptionHasBeenSet = true; m_timeToLiveDescription = value; }
 
     /**
@@ -209,6 +234,12 @@ namespace Model
      * backup was created.</p>
      */
     inline const SSEDescription& GetSSEDescription() const{ return m_sSEDescription; }
+
+    /**
+     * <p>The description of the server-side encryption status on the table when the
+     * backup was created.</p>
+     */
+    inline bool SSEDescriptionHasBeenSet() const { return m_sSEDescriptionHasBeenSet; }
 
     /**
      * <p>The description of the server-side encryption status on the table when the

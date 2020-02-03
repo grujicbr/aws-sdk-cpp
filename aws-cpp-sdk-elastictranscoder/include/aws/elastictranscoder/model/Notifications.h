@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticTranscoder
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Notifications();
-    Notifications(const Aws::Utils::Json::JsonValue& jsonValue);
-    Notifications& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Notifications(Aws::Utils::Json::JsonView jsonValue);
+    Notifications& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * notify when Elastic Transcoder has started to process the job.</p>
      */
     inline const Aws::String& GetProgressing() const{ return m_progressing; }
+
+    /**
+     * <p>The Amazon Simple Notification Service (Amazon SNS) topic that you want to
+     * notify when Elastic Transcoder has started to process the job.</p>
+     */
+    inline bool ProgressingHasBeenSet() const { return m_progressingHasBeenSet; }
 
     /**
      * <p>The Amazon Simple Notification Service (Amazon SNS) topic that you want to
@@ -102,6 +109,12 @@ namespace Model
      * <p>The Amazon SNS topic that you want to notify when Elastic Transcoder has
      * finished processing the job.</p>
      */
+    inline bool CompletedHasBeenSet() const { return m_completedHasBeenSet; }
+
+    /**
+     * <p>The Amazon SNS topic that you want to notify when Elastic Transcoder has
+     * finished processing the job.</p>
+     */
     inline void SetCompleted(const Aws::String& value) { m_completedHasBeenSet = true; m_completed = value; }
 
     /**
@@ -145,6 +158,12 @@ namespace Model
      * <p>The Amazon SNS topic that you want to notify when Elastic Transcoder
      * encounters a warning condition.</p>
      */
+    inline bool WarningHasBeenSet() const { return m_warningHasBeenSet; }
+
+    /**
+     * <p>The Amazon SNS topic that you want to notify when Elastic Transcoder
+     * encounters a warning condition.</p>
+     */
     inline void SetWarning(const Aws::String& value) { m_warningHasBeenSet = true; m_warning = value; }
 
     /**
@@ -183,6 +202,12 @@ namespace Model
      * encounters an error condition.</p>
      */
     inline const Aws::String& GetError() const{ return m_error; }
+
+    /**
+     * <p>The Amazon SNS topic that you want to notify when Elastic Transcoder
+     * encounters an error condition.</p>
+     */
+    inline bool ErrorHasBeenSet() const { return m_errorHasBeenSet; }
 
     /**
      * <p>The Amazon SNS topic that you want to notify when Elastic Transcoder

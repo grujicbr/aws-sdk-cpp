@@ -25,6 +25,8 @@ using namespace Aws::Utils;
 GetServiceGraphRequest::GetServiceGraphRequest() : 
     m_startTimeHasBeenSet(false),
     m_endTimeHasBeenSet(false),
+    m_groupNameHasBeenSet(false),
+    m_groupARNHasBeenSet(false),
     m_nextTokenHasBeenSet(false)
 {
 }
@@ -43,13 +45,25 @@ Aws::String GetServiceGraphRequest::SerializePayload() const
    payload.WithDouble("EndTime", m_endTime.SecondsWithMSPrecision());
   }
 
+  if(m_groupNameHasBeenSet)
+  {
+   payload.WithString("GroupName", m_groupName);
+
+  }
+
+  if(m_groupARNHasBeenSet)
+  {
+   payload.WithString("GroupARN", m_groupARN);
+
+  }
+
   if(m_nextTokenHasBeenSet)
   {
    payload.WithString("NextToken", m_nextToken);
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

@@ -31,19 +31,21 @@ namespace Model
 Column::Column() : 
     m_nameHasBeenSet(false),
     m_typeHasBeenSet(false),
-    m_commentHasBeenSet(false)
+    m_commentHasBeenSet(false),
+    m_parametersHasBeenSet(false)
 {
 }
 
-Column::Column(const JsonValue& jsonValue) : 
+Column::Column(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_typeHasBeenSet(false),
-    m_commentHasBeenSet(false)
+    m_commentHasBeenSet(false),
+    m_parametersHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Column& Column::operator =(const JsonValue& jsonValue)
+Column& Column::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -64,6 +66,16 @@ Column& Column::operator =(const JsonValue& jsonValue)
     m_comment = jsonValue.GetString("Comment");
 
     m_commentHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Parameters"))
+  {
+    Aws::Map<Aws::String, JsonView> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
+    for(auto& parametersItem : parametersJsonMap)
+    {
+      m_parameters[parametersItem.first] = parametersItem.second.AsString();
+    }
+    m_parametersHasBeenSet = true;
   }
 
   return *this;
@@ -88,6 +100,17 @@ JsonValue Column::Jsonize() const
   if(m_commentHasBeenSet)
   {
    payload.WithString("Comment", m_comment);
+
+  }
+
+  if(m_parametersHasBeenSet)
+  {
+   JsonValue parametersJsonMap;
+   for(auto& parametersItem : m_parameters)
+   {
+     parametersJsonMap.WithString(parametersItem.first, parametersItem.second);
+   }
+   payload.WithObject("Parameters", std::move(parametersJsonMap));
 
   }
 

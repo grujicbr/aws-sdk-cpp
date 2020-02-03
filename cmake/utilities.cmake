@@ -3,34 +3,11 @@ macro(generate_pkgconfig_link_flags LIBS_LIST OUTPUT_VAR)
     foreach(LIB IN LISTS ${LIBS_LIST})
         if(${OUTPUT_VAR})
             set(${OUTPUT_VAR} "${${OUTPUT_VAR}} -l${LIB}")
-        else() 
+        else()
             set(${OUTPUT_VAR} "-l${LIB}")
         endif()
     endforeach()
 endmacro()
-
-function(copyDlls exeName)
-    if(PLATFORM_WINDOWS AND BUILD_SHARED_LIBS)
-        string(FIND ${CMAKE_GENERATOR} "Visual Studio" INDEX)
-        if(0 EQUAL INDEX)
-            foreach(arg ${ARGN})
-                add_custom_command(TARGET ${exeName}
-                    POST_BUILD
-                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                    "${CMAKE_BINARY_DIR}/${arg}/$<CONFIGURATION>/${arg}.dll"
-                    ${CMAKE_CURRENT_BINARY_DIR}/$<CONFIGURATION>/)
-            endforeach()
-        else()
-            foreach(arg ${ARGN})
-                add_custom_command(TARGET ${exeName}
-                    POST_BUILD
-                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                    "${CMAKE_BINARY_DIR}/${arg}/${arg}.dll"
-                    ${CMAKE_CURRENT_BINARY_DIR})
-            endforeach()
-        endif()
-    endif()
-endfunction()
 
 # this function is based on the unity build function described at: https://cheind.wordpress.com/2009/12/10/reducing-compilation-time-unity-builds/
 function(enable_unity_build UNITY_SUFFIX SOURCE_FILES)
@@ -56,10 +33,6 @@ endfunction(enable_unity_build)
 
 macro(setup_install)
     if(SIMPLE_INSTALL)
-        set(ALL_DEP_LIBS ${PLATFORM_DEP_LIBS_ABSTRACT_NAME} ${CLIENT_LIBS_ABSTRACT_NAME} ${CRYPTO_LIBS_ABSTRACT_NAME})
-        generate_pkgconfig_link_flags(ALL_DEP_LIBS ALL_DEP_LIBS_LINK_FLAGS)
-        set(ALL_DEP_LIBS_LINK_FLAGS "${ALL_DEP_LIBS_LINK_FLAGS}" PARENT_SCOPE)
-
         configure_file("${AWS_NATIVE_SDK_ROOT}/toolchains/pkg-config.pc.in" "${PROJECT_NAME}.pc" @ONLY)
 
         install( TARGETS ${PROJECT_NAME}
@@ -86,12 +59,6 @@ macro(setup_install)
 endmacro()
 
 macro(do_packaging)
-    if(PLATFORM_WINDOWS AND MSVC)
-        if (NOT (${PROJECT_NAME} STREQUAL "testing-resources"))
-            install (FILES nuget/${PROJECT_NAME}.autopkg DESTINATION nuget)
-        endif()
-    endif()
-
     if(SIMPLE_INSTALL)
         write_basic_package_version_file(
             "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
@@ -103,10 +70,17 @@ macro(do_packaging)
             FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-targets.cmake"
         )
 
+    if(${PROJECT_NAME} STREQUAL "aws-cpp-sdk-core")
+        configure_file(
+            "${AWS_NATIVE_SDK_ROOT}/toolchains/core-config.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
+            @ONLY)
+    else()
         configure_file(
             "${AWS_NATIVE_SDK_ROOT}/toolchains/cmakeProjectConfig.cmake"
             "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
             @ONLY)
+    endif()
 
         set(ConfigPackageLocation "${LIBRARY_DIRECTORY}/cmake/${PROJECT_NAME}")
         install(EXPORT "${PROJECT_NAME}-targets"

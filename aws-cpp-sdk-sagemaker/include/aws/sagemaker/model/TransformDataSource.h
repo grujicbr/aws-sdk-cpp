@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TransformDataSource();
-    TransformDataSource(const Aws::Utils::Json::JsonValue& jsonValue);
-    TransformDataSource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TransformDataSource(Aws::Utils::Json::JsonView jsonValue);
+    TransformDataSource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The S3 location of the data source that is associated with a channel.</p>
      */
     inline const TransformS3DataSource& GetS3DataSource() const{ return m_s3DataSource; }
+
+    /**
+     * <p>The S3 location of the data source that is associated with a channel.</p>
+     */
+    inline bool S3DataSourceHasBeenSet() const { return m_s3DataSourceHasBeenSet; }
 
     /**
      * <p>The S3 location of the data source that is associated with a channel.</p>

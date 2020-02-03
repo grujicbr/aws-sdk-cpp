@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EnabledServicePrincipal();
-    EnabledServicePrincipal(const Aws::Utils::Json::JsonValue& jsonValue);
-    EnabledServicePrincipal& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EnabledServicePrincipal(Aws::Utils::Json::JsonView jsonValue);
+    EnabledServicePrincipal& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * such as: <code> <i>servicename</i>.amazonaws.com</code>.</p>
      */
     inline const Aws::String& GetServicePrincipal() const{ return m_servicePrincipal; }
+
+    /**
+     * <p>The name of the service principal. This is typically in the form of a URL,
+     * such as: <code> <i>servicename</i>.amazonaws.com</code>.</p>
+     */
+    inline bool ServicePrincipalHasBeenSet() const { return m_servicePrincipalHasBeenSet; }
 
     /**
      * <p>The name of the service principal. This is typically in the form of a URL,
@@ -96,6 +103,12 @@ namespace Model
      * Organizations.</p>
      */
     inline const Aws::Utils::DateTime& GetDateEnabled() const{ return m_dateEnabled; }
+
+    /**
+     * <p>The date that the service principal was enabled for integration with AWS
+     * Organizations.</p>
+     */
+    inline bool DateEnabledHasBeenSet() const { return m_dateEnabledHasBeenSet; }
 
     /**
      * <p>The date that the service principal was enabled for integration with AWS

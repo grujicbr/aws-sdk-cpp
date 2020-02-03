@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DLM
@@ -43,23 +44,32 @@ namespace Model
   {
   public:
     CreateRule();
-    CreateRule(const Aws::Utils::Json::JsonValue& jsonValue);
-    CreateRule& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CreateRule(Aws::Utils::Json::JsonView jsonValue);
+    CreateRule& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The interval. The supported values are 12 and 24.</p>
+     * <p>The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12,
+     * and 24.</p>
      */
     inline int GetInterval() const{ return m_interval; }
 
     /**
-     * <p>The interval. The supported values are 12 and 24.</p>
+     * <p>The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12,
+     * and 24.</p>
+     */
+    inline bool IntervalHasBeenSet() const { return m_intervalHasBeenSet; }
+
+    /**
+     * <p>The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12,
+     * and 24.</p>
      */
     inline void SetInterval(int value) { m_intervalHasBeenSet = true; m_interval = value; }
 
     /**
-     * <p>The interval. The supported values are 12 and 24.</p>
+     * <p>The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12,
+     * and 24.</p>
      */
     inline CreateRule& WithInterval(int value) { SetInterval(value); return *this;}
 
@@ -68,6 +78,11 @@ namespace Model
      * <p>The interval unit.</p>
      */
     inline const IntervalUnitValues& GetIntervalUnit() const{ return m_intervalUnit; }
+
+    /**
+     * <p>The interval unit.</p>
+     */
+    inline bool IntervalUnitHasBeenSet() const { return m_intervalUnitHasBeenSet; }
 
     /**
      * <p>The interval unit.</p>
@@ -91,50 +106,65 @@ namespace Model
 
 
     /**
-     * <p>The time, in UTC, to start the operation.</p> <p>The operation occurs within
-     * a one-hour window following the specified time.</p>
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
      */
     inline const Aws::Vector<Aws::String>& GetTimes() const{ return m_times; }
 
     /**
-     * <p>The time, in UTC, to start the operation.</p> <p>The operation occurs within
-     * a one-hour window following the specified time.</p>
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
+     */
+    inline bool TimesHasBeenSet() const { return m_timesHasBeenSet; }
+
+    /**
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
      */
     inline void SetTimes(const Aws::Vector<Aws::String>& value) { m_timesHasBeenSet = true; m_times = value; }
 
     /**
-     * <p>The time, in UTC, to start the operation.</p> <p>The operation occurs within
-     * a one-hour window following the specified time.</p>
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
      */
     inline void SetTimes(Aws::Vector<Aws::String>&& value) { m_timesHasBeenSet = true; m_times = std::move(value); }
 
     /**
-     * <p>The time, in UTC, to start the operation.</p> <p>The operation occurs within
-     * a one-hour window following the specified time.</p>
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
      */
     inline CreateRule& WithTimes(const Aws::Vector<Aws::String>& value) { SetTimes(value); return *this;}
 
     /**
-     * <p>The time, in UTC, to start the operation.</p> <p>The operation occurs within
-     * a one-hour window following the specified time.</p>
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
      */
     inline CreateRule& WithTimes(Aws::Vector<Aws::String>&& value) { SetTimes(std::move(value)); return *this;}
 
     /**
-     * <p>The time, in UTC, to start the operation.</p> <p>The operation occurs within
-     * a one-hour window following the specified time.</p>
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
      */
     inline CreateRule& AddTimes(const Aws::String& value) { m_timesHasBeenSet = true; m_times.push_back(value); return *this; }
 
     /**
-     * <p>The time, in UTC, to start the operation.</p> <p>The operation occurs within
-     * a one-hour window following the specified time.</p>
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
      */
     inline CreateRule& AddTimes(Aws::String&& value) { m_timesHasBeenSet = true; m_times.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>The time, in UTC, to start the operation.</p> <p>The operation occurs within
-     * a one-hour window following the specified time.</p>
+     * <p>The time, in UTC, to start the operation. The supported format is hh:mm.</p>
+     * <p>The operation occurs within a one-hour window following the specified
+     * time.</p>
      */
     inline CreateRule& AddTimes(const char* value) { m_timesHasBeenSet = true; m_times.push_back(value); return *this; }
 

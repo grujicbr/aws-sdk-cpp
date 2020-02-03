@@ -52,11 +52,14 @@ Endpoint::Endpoint() :
     m_dynamoDbSettingsHasBeenSet(false),
     m_s3SettingsHasBeenSet(false),
     m_dmsTransferSettingsHasBeenSet(false),
-    m_mongoDbSettingsHasBeenSet(false)
+    m_mongoDbSettingsHasBeenSet(false),
+    m_kinesisSettingsHasBeenSet(false),
+    m_elasticsearchSettingsHasBeenSet(false),
+    m_redshiftSettingsHasBeenSet(false)
 {
 }
 
-Endpoint::Endpoint(const JsonValue& jsonValue) : 
+Endpoint::Endpoint(JsonView jsonValue) : 
     m_endpointIdentifierHasBeenSet(false),
     m_endpointType(ReplicationEndpointTypeValue::NOT_SET),
     m_endpointTypeHasBeenSet(false),
@@ -80,12 +83,15 @@ Endpoint::Endpoint(const JsonValue& jsonValue) :
     m_dynamoDbSettingsHasBeenSet(false),
     m_s3SettingsHasBeenSet(false),
     m_dmsTransferSettingsHasBeenSet(false),
-    m_mongoDbSettingsHasBeenSet(false)
+    m_mongoDbSettingsHasBeenSet(false),
+    m_kinesisSettingsHasBeenSet(false),
+    m_elasticsearchSettingsHasBeenSet(false),
+    m_redshiftSettingsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Endpoint& Endpoint::operator =(const JsonValue& jsonValue)
+Endpoint& Endpoint::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("EndpointIdentifier"))
   {
@@ -234,6 +240,27 @@ Endpoint& Endpoint::operator =(const JsonValue& jsonValue)
     m_mongoDbSettingsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("KinesisSettings"))
+  {
+    m_kinesisSettings = jsonValue.GetObject("KinesisSettings");
+
+    m_kinesisSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ElasticsearchSettings"))
+  {
+    m_elasticsearchSettings = jsonValue.GetObject("ElasticsearchSettings");
+
+    m_elasticsearchSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("RedshiftSettings"))
+  {
+    m_redshiftSettings = jsonValue.GetObject("RedshiftSettings");
+
+    m_redshiftSettingsHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -362,6 +389,24 @@ JsonValue Endpoint::Jsonize() const
   if(m_mongoDbSettingsHasBeenSet)
   {
    payload.WithObject("MongoDbSettings", m_mongoDbSettings.Jsonize());
+
+  }
+
+  if(m_kinesisSettingsHasBeenSet)
+  {
+   payload.WithObject("KinesisSettings", m_kinesisSettings.Jsonize());
+
+  }
+
+  if(m_elasticsearchSettingsHasBeenSet)
+  {
+   payload.WithObject("ElasticsearchSettings", m_elasticsearchSettings.Jsonize());
+
+  }
+
+  if(m_redshiftSettingsHasBeenSet)
+  {
+   payload.WithObject("RedshiftSettings", m_redshiftSettings.Jsonize());
 
   }
 

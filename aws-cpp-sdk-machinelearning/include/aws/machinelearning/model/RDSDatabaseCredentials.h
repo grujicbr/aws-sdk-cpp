@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MachineLearning
@@ -42,13 +43,16 @@ namespace Model
   {
   public:
     RDSDatabaseCredentials();
-    RDSDatabaseCredentials(const Aws::Utils::Json::JsonValue& jsonValue);
-    RDSDatabaseCredentials& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RDSDatabaseCredentials(Aws::Utils::Json::JsonView jsonValue);
+    RDSDatabaseCredentials& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Aws::String& GetUsername() const{ return m_username; }
+
+    
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
 
     
     inline void SetUsername(const Aws::String& value) { m_usernameHasBeenSet = true; m_username = value; }
@@ -71,6 +75,9 @@ namespace Model
 
     
     inline const Aws::String& GetPassword() const{ return m_password; }
+
+    
+    inline bool PasswordHasBeenSet() const { return m_passwordHasBeenSet; }
 
     
     inline void SetPassword(const Aws::String& value) { m_passwordHasBeenSet = true; m_password = value; }

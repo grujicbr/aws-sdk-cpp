@@ -53,47 +53,47 @@ UpdateConfigurationTemplateResult& UpdateConfigurationTemplateResult::operator =
     XmlNode solutionStackNameNode = resultNode.FirstChild("SolutionStackName");
     if(!solutionStackNameNode.IsNull())
     {
-      m_solutionStackName = StringUtils::Trim(solutionStackNameNode.GetText().c_str());
+      m_solutionStackName = Aws::Utils::Xml::DecodeEscapedXmlText(solutionStackNameNode.GetText());
     }
     XmlNode platformArnNode = resultNode.FirstChild("PlatformArn");
     if(!platformArnNode.IsNull())
     {
-      m_platformArn = StringUtils::Trim(platformArnNode.GetText().c_str());
+      m_platformArn = Aws::Utils::Xml::DecodeEscapedXmlText(platformArnNode.GetText());
     }
     XmlNode applicationNameNode = resultNode.FirstChild("ApplicationName");
     if(!applicationNameNode.IsNull())
     {
-      m_applicationName = StringUtils::Trim(applicationNameNode.GetText().c_str());
+      m_applicationName = Aws::Utils::Xml::DecodeEscapedXmlText(applicationNameNode.GetText());
     }
     XmlNode templateNameNode = resultNode.FirstChild("TemplateName");
     if(!templateNameNode.IsNull())
     {
-      m_templateName = StringUtils::Trim(templateNameNode.GetText().c_str());
+      m_templateName = Aws::Utils::Xml::DecodeEscapedXmlText(templateNameNode.GetText());
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
     }
     XmlNode environmentNameNode = resultNode.FirstChild("EnvironmentName");
     if(!environmentNameNode.IsNull())
     {
-      m_environmentName = StringUtils::Trim(environmentNameNode.GetText().c_str());
+      m_environmentName = Aws::Utils::Xml::DecodeEscapedXmlText(environmentNameNode.GetText());
     }
     XmlNode deploymentStatusNode = resultNode.FirstChild("DeploymentStatus");
     if(!deploymentStatusNode.IsNull())
     {
-      m_deploymentStatus = ConfigurationDeploymentStatusMapper::GetConfigurationDeploymentStatusForName(StringUtils::Trim(deploymentStatusNode.GetText().c_str()).c_str());
+      m_deploymentStatus = ConfigurationDeploymentStatusMapper::GetConfigurationDeploymentStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(deploymentStatusNode.GetText()).c_str()).c_str());
     }
     XmlNode dateCreatedNode = resultNode.FirstChild("DateCreated");
     if(!dateCreatedNode.IsNull())
     {
-      m_dateCreated = DateTime(StringUtils::Trim(dateCreatedNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_dateCreated = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(dateCreatedNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
     }
     XmlNode dateUpdatedNode = resultNode.FirstChild("DateUpdated");
     if(!dateUpdatedNode.IsNull())
     {
-      m_dateUpdated = DateTime(StringUtils::Trim(dateUpdatedNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_dateUpdated = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(dateUpdatedNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
     }
     XmlNode optionSettingsNode = resultNode.FirstChild("OptionSettings");
     if(!optionSettingsNode.IsNull())

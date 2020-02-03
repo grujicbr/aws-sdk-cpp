@@ -29,15 +29,13 @@ namespace Model
 {
 
 DnsConfig::DnsConfig() : 
-    m_namespaceIdHasBeenSet(false),
     m_routingPolicy(RoutingPolicy::NOT_SET),
     m_routingPolicyHasBeenSet(false),
     m_dnsRecordsHasBeenSet(false)
 {
 }
 
-DnsConfig::DnsConfig(const JsonValue& jsonValue) : 
-    m_namespaceIdHasBeenSet(false),
+DnsConfig::DnsConfig(JsonView jsonValue) : 
     m_routingPolicy(RoutingPolicy::NOT_SET),
     m_routingPolicyHasBeenSet(false),
     m_dnsRecordsHasBeenSet(false)
@@ -45,15 +43,8 @@ DnsConfig::DnsConfig(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-DnsConfig& DnsConfig::operator =(const JsonValue& jsonValue)
+DnsConfig& DnsConfig::operator =(JsonView jsonValue)
 {
-  if(jsonValue.ValueExists("NamespaceId"))
-  {
-    m_namespaceId = jsonValue.GetString("NamespaceId");
-
-    m_namespaceIdHasBeenSet = true;
-  }
-
   if(jsonValue.ValueExists("RoutingPolicy"))
   {
     m_routingPolicy = RoutingPolicyMapper::GetRoutingPolicyForName(jsonValue.GetString("RoutingPolicy"));
@@ -63,7 +54,7 @@ DnsConfig& DnsConfig::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("DnsRecords"))
   {
-    Array<JsonValue> dnsRecordsJsonList = jsonValue.GetArray("DnsRecords");
+    Array<JsonView> dnsRecordsJsonList = jsonValue.GetArray("DnsRecords");
     for(unsigned dnsRecordsIndex = 0; dnsRecordsIndex < dnsRecordsJsonList.GetLength(); ++dnsRecordsIndex)
     {
       m_dnsRecords.push_back(dnsRecordsJsonList[dnsRecordsIndex].AsObject());
@@ -77,12 +68,6 @@ DnsConfig& DnsConfig::operator =(const JsonValue& jsonValue)
 JsonValue DnsConfig::Jsonize() const
 {
   JsonValue payload;
-
-  if(m_namespaceIdHasBeenSet)
-  {
-   payload.WithString("NamespaceId", m_namespaceId);
-
-  }
 
   if(m_routingPolicyHasBeenSet)
   {

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     InputSchemaUpdate();
-    InputSchemaUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputSchemaUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputSchemaUpdate(Aws::Utils::Json::JsonView jsonValue);
+    InputSchemaUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Specifies the format of the records on the streaming source.</p>
      */
     inline const RecordFormat& GetRecordFormatUpdate() const{ return m_recordFormatUpdate; }
+
+    /**
+     * <p>Specifies the format of the records on the streaming source.</p>
+     */
+    inline bool RecordFormatUpdateHasBeenSet() const { return m_recordFormatUpdateHasBeenSet; }
 
     /**
      * <p>Specifies the format of the records on the streaming source.</p>
@@ -81,6 +87,12 @@ namespace Model
      * UTF-8.</p>
      */
     inline const Aws::String& GetRecordEncodingUpdate() const{ return m_recordEncodingUpdate; }
+
+    /**
+     * <p>Specifies the encoding of the records in the streaming source. For example,
+     * UTF-8.</p>
+     */
+    inline bool RecordEncodingUpdateHasBeenSet() const { return m_recordEncodingUpdateHasBeenSet; }
 
     /**
      * <p>Specifies the encoding of the records in the streaming source. For example,
@@ -125,6 +137,13 @@ namespace Model
      * in-application stream. </p>
      */
     inline const Aws::Vector<RecordColumn>& GetRecordColumnUpdates() const{ return m_recordColumnUpdates; }
+
+    /**
+     * <p>A list of <code>RecordColumn</code> objects. Each object describes the
+     * mapping of the streaming source element to the corresponding column in the
+     * in-application stream. </p>
+     */
+    inline bool RecordColumnUpdatesHasBeenSet() const { return m_recordColumnUpdatesHasBeenSet; }
 
     /**
      * <p>A list of <code>RecordColumn</code> objects. Each object describes the

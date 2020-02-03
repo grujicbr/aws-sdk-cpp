@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -41,11 +42,12 @@ namespace Model
   /**
    * <p>Contains information that must be exchanged to securely establish a
    * relationship between two accounts (an <i>originator</i> and a <i>recipient</i>).
-   * For example, when a master account (the originator) invites another account (the
-   * recipient) to join its organization, the two accounts exchange information as a
-   * series of handshake requests and responses.</p> <p> <b>Note:</b> Handshakes that
-   * are CANCELED, ACCEPTED, or DECLINED show up in lists for only 30 days after
-   * entering that state After that they are deleted.</p><p><h3>See Also:</h3>   <a
+   * For example, assume that a master account (the originator) invites another
+   * account (the recipient) to join its organization. In that case, the two accounts
+   * exchange information as a series of handshake requests and responses.</p> <p>
+   * <b>Note:</b> Handshakes that are CANCELED, ACCEPTED, or DECLINED show up in
+   * lists for only 30 days after entering that state. After that, they are
+   * deleted.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/organizations-2016-11-28/Handshake">AWS
    * API Reference</a></p>
    */
@@ -53,8 +55,8 @@ namespace Model
   {
   public:
     Handshake();
-    Handshake(const Aws::Utils::Json::JsonValue& jsonValue);
-    Handshake& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Handshake(Aws::Utils::Json::JsonView jsonValue);
+    Handshake& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -65,6 +67,14 @@ namespace Model
      * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier (ID) of a handshake. The originating account creates
+     * the ID when it initiates the handshake.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
+     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier (ID) of a handshake. The originating account creates
@@ -118,7 +128,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of a handshake.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -127,7 +137,16 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of a handshake.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * Formats Supported by Organizations</a> in the <i>AWS Organizations User
+     * Guide</i>.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of a handshake.</p> <p>For more information
+     * about ARNs in Organizations, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -136,7 +155,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of a handshake.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -145,7 +164,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of a handshake.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -154,7 +173,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of a handshake.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -163,7 +182,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of a handshake.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -172,7 +191,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of a handshake.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -184,6 +203,12 @@ namespace Model
      * handshake.</p>
      */
     inline const Aws::Vector<HandshakeParty>& GetParties() const{ return m_parties; }
+
+    /**
+     * <p>Information about the two accounts that are participating in the
+     * handshake.</p>
+     */
+    inline bool PartiesHasBeenSet() const { return m_partiesHasBeenSet; }
 
     /**
      * <p>Information about the two accounts that are participating in the
@@ -241,6 +266,26 @@ namespace Model
      * (15 days).</p> </li> </ul>
      */
     inline const HandshakeState& GetState() const{ return m_state; }
+
+    /**
+     * <p>The current state of the handshake. Use the state to trace the flow of the
+     * handshake through the process from its creation to its acceptance. The meaning
+     * of each of the valid values is as follows:</p> <ul> <li> <p> <b>REQUESTED</b>:
+     * This handshake was sent to multiple recipients (applicable to only some
+     * handshake types) and not all recipients have responded yet. The request stays in
+     * this state until all recipients respond.</p> </li> <li> <p> <b>OPEN</b>: This
+     * handshake was sent to multiple recipients (applicable to only some policy types)
+     * and all recipients have responded, allowing the originator to complete the
+     * handshake action.</p> </li> <li> <p> <b>CANCELED</b>: This handshake is no
+     * longer active because it was canceled by the originating account.</p> </li> <li>
+     * <p> <b>ACCEPTED</b>: This handshake is complete because it has been accepted by
+     * the recipient.</p> </li> <li> <p> <b>DECLINED</b>: This handshake is no longer
+     * active because it was declined by the recipient account.</p> </li> <li> <p>
+     * <b>EXPIRED</b>: This handshake is no longer active because the originator did
+     * not receive a response of any kind from the recipient before the expiration time
+     * (15 days).</p> </li> </ul>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The current state of the handshake. Use the state to trace the flow of the
@@ -331,6 +376,11 @@ namespace Model
     /**
      * <p>The date and time that the handshake request was made.</p>
      */
+    inline bool RequestedTimestampHasBeenSet() const { return m_requestedTimestampHasBeenSet; }
+
+    /**
+     * <p>The date and time that the handshake request was made.</p>
+     */
     inline void SetRequestedTimestamp(const Aws::Utils::DateTime& value) { m_requestedTimestampHasBeenSet = true; m_requestedTimestamp = value; }
 
     /**
@@ -355,6 +405,13 @@ namespace Model
      * handshake becomes inactive and is no longer valid.</p>
      */
     inline const Aws::Utils::DateTime& GetExpirationTimestamp() const{ return m_expirationTimestamp; }
+
+    /**
+     * <p>The date and time that the handshake expires. If the recipient of the
+     * handshake request fails to respond before the specified date and time, the
+     * handshake becomes inactive and is no longer valid.</p>
+     */
+    inline bool ExpirationTimestampHasBeenSet() const { return m_expirationTimestampHasBeenSet; }
 
     /**
      * <p>The date and time that the handshake expires. If the recipient of the
@@ -402,6 +459,24 @@ namespace Model
      * features.</p> </li> </ul>
      */
     inline const ActionType& GetAction() const{ return m_action; }
+
+    /**
+     * <p>The type of handshake, indicating what action occurs when the recipient
+     * accepts the handshake. The following handshake types are supported:</p> <ul>
+     * <li> <p> <b>INVITE</b>: This type of handshake represents a request to join an
+     * organization. It is always sent from the master account to only non-member
+     * accounts.</p> </li> <li> <p> <b>ENABLE_ALL_FEATURES</b>: This type of handshake
+     * represents a request to enable all features in an organization. It is always
+     * sent from the master account to only <i>invited</i> member accounts. Created
+     * accounts do not receive this because those accounts were created by the
+     * organization's master account and approval is inferred.</p> </li> <li> <p>
+     * <b>APPROVE_ALL_FEATURES</b>: This type of handshake is sent from the
+     * Organizations service when all member accounts have approved the
+     * <code>ENABLE_ALL_FEATURES</code> invitation. It is sent only to the master
+     * account and signals the master that it can finalize the process to enable all
+     * features.</p> </li> </ul>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>The type of handshake, indicating what action occurs when the recipient
@@ -480,6 +555,11 @@ namespace Model
      * <p>Additional information that is needed to process the handshake.</p>
      */
     inline const Aws::Vector<HandshakeResource>& GetResources() const{ return m_resources; }
+
+    /**
+     * <p>Additional information that is needed to process the handshake.</p>
+     */
+    inline bool ResourcesHasBeenSet() const { return m_resourcesHasBeenSet; }
 
     /**
      * <p>Additional information that is needed to process the handshake.</p>

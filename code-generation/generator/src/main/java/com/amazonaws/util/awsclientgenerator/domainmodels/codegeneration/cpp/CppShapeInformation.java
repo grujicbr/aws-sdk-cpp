@@ -27,6 +27,7 @@ public class CppShapeInformation {
    private final ServiceModel serviceModel;
    private final String className;
    private final String jsonType = "Aws::Utils::Json::JsonValue";
+   private final String jsonViewType = "Aws::Utils::Json::JsonView";
    private final String xmlDocType = "Aws::Utils::Xml::XmlDocument";
    private final String xmlNodeType = "Aws::Utils::Xml::XmlNode";
    private final String exportValue;
@@ -43,7 +44,7 @@ public class CppShapeInformation {
        exportValue = CppViewHelper.computeExportValue(serviceModel.getMetadata().getClassNamePrefix());
        cppType = CppViewHelper.computeCppType(shape);
        headerIncludes = CppViewHelper.computeHeaderIncludes(serviceModel.getMetadata().getProjectName(), shape);
-       sourceIncludes = CppViewHelper.computeSourceIncludes(shape);
+       sourceIncludes = CppViewHelper.computeSourceIncludes(serviceModel.getMetadata().getProjectName(), shape);
        baseClass = CppViewHelper.computeBaseClass(serviceModel.getMetadata().getClassNamePrefix(), shape);
        requestContentType = CppViewHelper.computeRequestContentType(serviceModel.getMetadata());
    }

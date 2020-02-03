@@ -32,20 +32,22 @@ ResourceDataContainer::ResourceDataContainer() :
     m_localDeviceResourceDataHasBeenSet(false),
     m_localVolumeResourceDataHasBeenSet(false),
     m_s3MachineLearningModelResourceDataHasBeenSet(false),
-    m_sageMakerMachineLearningModelResourceDataHasBeenSet(false)
+    m_sageMakerMachineLearningModelResourceDataHasBeenSet(false),
+    m_secretsManagerSecretResourceDataHasBeenSet(false)
 {
 }
 
-ResourceDataContainer::ResourceDataContainer(const JsonValue& jsonValue) : 
+ResourceDataContainer::ResourceDataContainer(JsonView jsonValue) : 
     m_localDeviceResourceDataHasBeenSet(false),
     m_localVolumeResourceDataHasBeenSet(false),
     m_s3MachineLearningModelResourceDataHasBeenSet(false),
-    m_sageMakerMachineLearningModelResourceDataHasBeenSet(false)
+    m_sageMakerMachineLearningModelResourceDataHasBeenSet(false),
+    m_secretsManagerSecretResourceDataHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ResourceDataContainer& ResourceDataContainer::operator =(const JsonValue& jsonValue)
+ResourceDataContainer& ResourceDataContainer::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("LocalDeviceResourceData"))
   {
@@ -73,6 +75,13 @@ ResourceDataContainer& ResourceDataContainer::operator =(const JsonValue& jsonVa
     m_sageMakerMachineLearningModelResourceData = jsonValue.GetObject("SageMakerMachineLearningModelResourceData");
 
     m_sageMakerMachineLearningModelResourceDataHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("SecretsManagerSecretResourceData"))
+  {
+    m_secretsManagerSecretResourceData = jsonValue.GetObject("SecretsManagerSecretResourceData");
+
+    m_secretsManagerSecretResourceDataHasBeenSet = true;
   }
 
   return *this;
@@ -103,6 +112,12 @@ JsonValue ResourceDataContainer::Jsonize() const
   if(m_sageMakerMachineLearningModelResourceDataHasBeenSet)
   {
    payload.WithObject("SageMakerMachineLearningModelResourceData", m_sageMakerMachineLearningModelResourceData.Jsonize());
+
+  }
+
+  if(m_secretsManagerSecretResourceDataHasBeenSet)
+  {
+   payload.WithObject("SecretsManagerSecretResourceData", m_secretsManagerSecretResourceData.Jsonize());
 
   }
 

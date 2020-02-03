@@ -33,21 +33,23 @@ PutEventsRequestEntry::PutEventsRequestEntry() :
     m_sourceHasBeenSet(false),
     m_resourcesHasBeenSet(false),
     m_detailTypeHasBeenSet(false),
-    m_detailHasBeenSet(false)
+    m_detailHasBeenSet(false),
+    m_eventBusNameHasBeenSet(false)
 {
 }
 
-PutEventsRequestEntry::PutEventsRequestEntry(const JsonValue& jsonValue) : 
+PutEventsRequestEntry::PutEventsRequestEntry(JsonView jsonValue) : 
     m_timeHasBeenSet(false),
     m_sourceHasBeenSet(false),
     m_resourcesHasBeenSet(false),
     m_detailTypeHasBeenSet(false),
-    m_detailHasBeenSet(false)
+    m_detailHasBeenSet(false),
+    m_eventBusNameHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-PutEventsRequestEntry& PutEventsRequestEntry::operator =(const JsonValue& jsonValue)
+PutEventsRequestEntry& PutEventsRequestEntry::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Time"))
   {
@@ -65,7 +67,7 @@ PutEventsRequestEntry& PutEventsRequestEntry::operator =(const JsonValue& jsonVa
 
   if(jsonValue.ValueExists("Resources"))
   {
-    Array<JsonValue> resourcesJsonList = jsonValue.GetArray("Resources");
+    Array<JsonView> resourcesJsonList = jsonValue.GetArray("Resources");
     for(unsigned resourcesIndex = 0; resourcesIndex < resourcesJsonList.GetLength(); ++resourcesIndex)
     {
       m_resources.push_back(resourcesJsonList[resourcesIndex].AsString());
@@ -85,6 +87,13 @@ PutEventsRequestEntry& PutEventsRequestEntry::operator =(const JsonValue& jsonVa
     m_detail = jsonValue.GetString("Detail");
 
     m_detailHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("EventBusName"))
+  {
+    m_eventBusName = jsonValue.GetString("EventBusName");
+
+    m_eventBusNameHasBeenSet = true;
   }
 
   return *this;
@@ -125,6 +134,12 @@ JsonValue PutEventsRequestEntry::Jsonize() const
   if(m_detailHasBeenSet)
   {
    payload.WithString("Detail", m_detail);
+
+  }
+
+  if(m_eventBusNameHasBeenSet)
+  {
+   payload.WithString("EventBusName", m_eventBusName);
 
   }
 

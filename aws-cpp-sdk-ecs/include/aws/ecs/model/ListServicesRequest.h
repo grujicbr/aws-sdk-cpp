@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     ListServicesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +52,13 @@ namespace Model
      * assumed.</p>
      */
     inline const Aws::String& GetCluster() const{ return m_cluster; }
+
+    /**
+     * <p>The short name or full Amazon Resource Name (ARN) of the cluster that hosts
+     * the services to list. If you do not specify a cluster, the default cluster is
+     * assumed.</p>
+     */
+    inline bool ClusterHasBeenSet() const { return m_clusterHasBeenSet; }
 
     /**
      * <p>The short name or full Amazon Resource Name (ARN) of the cluster that hosts
@@ -97,10 +104,10 @@ namespace Model
 
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListServices</code> request where <code>maxResults</code> was used and the
-     * results exceeded the value of that parameter. Pagination continues from the end
-     * of the previous results that returned the <code>nextToken</code> value.</p>
+     * <p>The <code>nextToken</code> value returned from a <code>ListServices</code>
+     * request indicating that more results are available to fulfill the request and
+     * further calls will be needed. If <code>maxResults</code> was provided, it is
+     * possible the number of results to be fewer than <code>maxResults</code>.</p>
      * <note> <p>This token should be treated as an opaque identifier that is only used
      * to retrieve the next items in a list and not for other programmatic
      * purposes.</p> </note>
@@ -108,10 +115,21 @@ namespace Model
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListServices</code> request where <code>maxResults</code> was used and the
-     * results exceeded the value of that parameter. Pagination continues from the end
-     * of the previous results that returned the <code>nextToken</code> value.</p>
+     * <p>The <code>nextToken</code> value returned from a <code>ListServices</code>
+     * request indicating that more results are available to fulfill the request and
+     * further calls will be needed. If <code>maxResults</code> was provided, it is
+     * possible the number of results to be fewer than <code>maxResults</code>.</p>
+     * <note> <p>This token should be treated as an opaque identifier that is only used
+     * to retrieve the next items in a list and not for other programmatic
+     * purposes.</p> </note>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>The <code>nextToken</code> value returned from a <code>ListServices</code>
+     * request indicating that more results are available to fulfill the request and
+     * further calls will be needed. If <code>maxResults</code> was provided, it is
+     * possible the number of results to be fewer than <code>maxResults</code>.</p>
      * <note> <p>This token should be treated as an opaque identifier that is only used
      * to retrieve the next items in a list and not for other programmatic
      * purposes.</p> </note>
@@ -119,10 +137,10 @@ namespace Model
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListServices</code> request where <code>maxResults</code> was used and the
-     * results exceeded the value of that parameter. Pagination continues from the end
-     * of the previous results that returned the <code>nextToken</code> value.</p>
+     * <p>The <code>nextToken</code> value returned from a <code>ListServices</code>
+     * request indicating that more results are available to fulfill the request and
+     * further calls will be needed. If <code>maxResults</code> was provided, it is
+     * possible the number of results to be fewer than <code>maxResults</code>.</p>
      * <note> <p>This token should be treated as an opaque identifier that is only used
      * to retrieve the next items in a list and not for other programmatic
      * purposes.</p> </note>
@@ -130,10 +148,10 @@ namespace Model
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListServices</code> request where <code>maxResults</code> was used and the
-     * results exceeded the value of that parameter. Pagination continues from the end
-     * of the previous results that returned the <code>nextToken</code> value.</p>
+     * <p>The <code>nextToken</code> value returned from a <code>ListServices</code>
+     * request indicating that more results are available to fulfill the request and
+     * further calls will be needed. If <code>maxResults</code> was provided, it is
+     * possible the number of results to be fewer than <code>maxResults</code>.</p>
      * <note> <p>This token should be treated as an opaque identifier that is only used
      * to retrieve the next items in a list and not for other programmatic
      * purposes.</p> </note>
@@ -141,10 +159,10 @@ namespace Model
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListServices</code> request where <code>maxResults</code> was used and the
-     * results exceeded the value of that parameter. Pagination continues from the end
-     * of the previous results that returned the <code>nextToken</code> value.</p>
+     * <p>The <code>nextToken</code> value returned from a <code>ListServices</code>
+     * request indicating that more results are available to fulfill the request and
+     * further calls will be needed. If <code>maxResults</code> was provided, it is
+     * possible the number of results to be fewer than <code>maxResults</code>.</p>
      * <note> <p>This token should be treated as an opaque identifier that is only used
      * to retrieve the next items in a list and not for other programmatic
      * purposes.</p> </note>
@@ -152,10 +170,10 @@ namespace Model
     inline ListServicesRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListServices</code> request where <code>maxResults</code> was used and the
-     * results exceeded the value of that parameter. Pagination continues from the end
-     * of the previous results that returned the <code>nextToken</code> value.</p>
+     * <p>The <code>nextToken</code> value returned from a <code>ListServices</code>
+     * request indicating that more results are available to fulfill the request and
+     * further calls will be needed. If <code>maxResults</code> was provided, it is
+     * possible the number of results to be fewer than <code>maxResults</code>.</p>
      * <note> <p>This token should be treated as an opaque identifier that is only used
      * to retrieve the next items in a list and not for other programmatic
      * purposes.</p> </note>
@@ -163,10 +181,10 @@ namespace Model
     inline ListServicesRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListServices</code> request where <code>maxResults</code> was used and the
-     * results exceeded the value of that parameter. Pagination continues from the end
-     * of the previous results that returned the <code>nextToken</code> value.</p>
+     * <p>The <code>nextToken</code> value returned from a <code>ListServices</code>
+     * request indicating that more results are available to fulfill the request and
+     * further calls will be needed. If <code>maxResults</code> was provided, it is
+     * possible the number of results to be fewer than <code>maxResults</code>.</p>
      * <note> <p>This token should be treated as an opaque identifier that is only used
      * to retrieve the next items in a list and not for other programmatic
      * purposes.</p> </note>
@@ -180,7 +198,7 @@ namespace Model
      * returns <code>maxResults</code> results in a single page along with a
      * <code>nextToken</code> response element. The remaining results of the initial
      * request can be seen by sending another <code>ListServices</code> request with
-     * the returned <code>nextToken</code> value. This value can be between 1 and 10.
+     * the returned <code>nextToken</code> value. This value can be between 1 and 100.
      * If this parameter is not used, then <code>ListServices</code> returns up to 10
      * results and a <code>nextToken</code> value if applicable.</p>
      */
@@ -192,7 +210,19 @@ namespace Model
      * returns <code>maxResults</code> results in a single page along with a
      * <code>nextToken</code> response element. The remaining results of the initial
      * request can be seen by sending another <code>ListServices</code> request with
-     * the returned <code>nextToken</code> value. This value can be between 1 and 10.
+     * the returned <code>nextToken</code> value. This value can be between 1 and 100.
+     * If this parameter is not used, then <code>ListServices</code> returns up to 10
+     * results and a <code>nextToken</code> value if applicable.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of service results returned by <code>ListServices</code>
+     * in paginated output. When this parameter is used, <code>ListServices</code> only
+     * returns <code>maxResults</code> results in a single page along with a
+     * <code>nextToken</code> response element. The remaining results of the initial
+     * request can be seen by sending another <code>ListServices</code> request with
+     * the returned <code>nextToken</code> value. This value can be between 1 and 100.
      * If this parameter is not used, then <code>ListServices</code> returns up to 10
      * results and a <code>nextToken</code> value if applicable.</p>
      */
@@ -204,7 +234,7 @@ namespace Model
      * returns <code>maxResults</code> results in a single page along with a
      * <code>nextToken</code> response element. The remaining results of the initial
      * request can be seen by sending another <code>ListServices</code> request with
-     * the returned <code>nextToken</code> value. This value can be between 1 and 10.
+     * the returned <code>nextToken</code> value. This value can be between 1 and 100.
      * If this parameter is not used, then <code>ListServices</code> returns up to 10
      * results and a <code>nextToken</code> value if applicable.</p>
      */
@@ -212,27 +242,32 @@ namespace Model
 
 
     /**
-     * <p>The launch type for services you want to list.</p>
+     * <p>The launch type for the services to list.</p>
      */
     inline const LaunchType& GetLaunchType() const{ return m_launchType; }
 
     /**
-     * <p>The launch type for services you want to list.</p>
+     * <p>The launch type for the services to list.</p>
+     */
+    inline bool LaunchTypeHasBeenSet() const { return m_launchTypeHasBeenSet; }
+
+    /**
+     * <p>The launch type for the services to list.</p>
      */
     inline void SetLaunchType(const LaunchType& value) { m_launchTypeHasBeenSet = true; m_launchType = value; }
 
     /**
-     * <p>The launch type for services you want to list.</p>
+     * <p>The launch type for the services to list.</p>
      */
     inline void SetLaunchType(LaunchType&& value) { m_launchTypeHasBeenSet = true; m_launchType = std::move(value); }
 
     /**
-     * <p>The launch type for services you want to list.</p>
+     * <p>The launch type for the services to list.</p>
      */
     inline ListServicesRequest& WithLaunchType(const LaunchType& value) { SetLaunchType(value); return *this;}
 
     /**
-     * <p>The launch type for services you want to list.</p>
+     * <p>The launch type for the services to list.</p>
      */
     inline ListServicesRequest& WithLaunchType(LaunchType&& value) { SetLaunchType(std::move(value)); return *this;}
 
@@ -241,6 +276,11 @@ namespace Model
      * <p>The scheduling strategy for services to list.</p>
      */
     inline const SchedulingStrategy& GetSchedulingStrategy() const{ return m_schedulingStrategy; }
+
+    /**
+     * <p>The scheduling strategy for services to list.</p>
+     */
+    inline bool SchedulingStrategyHasBeenSet() const { return m_schedulingStrategyHasBeenSet; }
 
     /**
      * <p>The scheduling strategy for services to list.</p>

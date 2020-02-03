@@ -30,6 +30,7 @@ namespace Model
 
 EmailChannelResponse::EmailChannelResponse() : 
     m_applicationIdHasBeenSet(false),
+    m_configurationSetHasBeenSet(false),
     m_creationDateHasBeenSet(false),
     m_enabled(false),
     m_enabledHasBeenSet(false),
@@ -51,8 +52,9 @@ EmailChannelResponse::EmailChannelResponse() :
 {
 }
 
-EmailChannelResponse::EmailChannelResponse(const JsonValue& jsonValue) : 
+EmailChannelResponse::EmailChannelResponse(JsonView jsonValue) : 
     m_applicationIdHasBeenSet(false),
+    m_configurationSetHasBeenSet(false),
     m_creationDateHasBeenSet(false),
     m_enabled(false),
     m_enabledHasBeenSet(false),
@@ -75,13 +77,20 @@ EmailChannelResponse::EmailChannelResponse(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-EmailChannelResponse& EmailChannelResponse::operator =(const JsonValue& jsonValue)
+EmailChannelResponse& EmailChannelResponse::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ApplicationId"))
   {
     m_applicationId = jsonValue.GetString("ApplicationId");
 
     m_applicationIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ConfigurationSet"))
+  {
+    m_configurationSet = jsonValue.GetString("ConfigurationSet");
+
+    m_configurationSetHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("CreationDate"))
@@ -185,6 +194,12 @@ JsonValue EmailChannelResponse::Jsonize() const
   if(m_applicationIdHasBeenSet)
   {
    payload.WithString("ApplicationId", m_applicationId);
+
+  }
+
+  if(m_configurationSetHasBeenSet)
+  {
+   payload.WithString("ConfigurationSet", m_configurationSet);
 
   }
 

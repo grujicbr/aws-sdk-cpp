@@ -61,11 +61,15 @@ Cluster::Cluster() :
     m_ebsRootVolumeSizeHasBeenSet(false),
     m_repoUpgradeOnBoot(RepoUpgradeOnBoot::NOT_SET),
     m_repoUpgradeOnBootHasBeenSet(false),
-    m_kerberosAttributesHasBeenSet(false)
+    m_kerberosAttributesHasBeenSet(false),
+    m_clusterArnHasBeenSet(false),
+    m_stepConcurrencyLevel(0),
+    m_stepConcurrencyLevelHasBeenSet(false),
+    m_outpostArnHasBeenSet(false)
 {
 }
 
-Cluster::Cluster(const JsonValue& jsonValue) : 
+Cluster::Cluster(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_statusHasBeenSet(false),
@@ -98,12 +102,16 @@ Cluster::Cluster(const JsonValue& jsonValue) :
     m_ebsRootVolumeSizeHasBeenSet(false),
     m_repoUpgradeOnBoot(RepoUpgradeOnBoot::NOT_SET),
     m_repoUpgradeOnBootHasBeenSet(false),
-    m_kerberosAttributesHasBeenSet(false)
+    m_kerberosAttributesHasBeenSet(false),
+    m_clusterArnHasBeenSet(false),
+    m_stepConcurrencyLevel(0),
+    m_stepConcurrencyLevelHasBeenSet(false),
+    m_outpostArnHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Cluster& Cluster::operator =(const JsonValue& jsonValue)
+Cluster& Cluster::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -191,7 +199,7 @@ Cluster& Cluster::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Applications"))
   {
-    Array<JsonValue> applicationsJsonList = jsonValue.GetArray("Applications");
+    Array<JsonView> applicationsJsonList = jsonValue.GetArray("Applications");
     for(unsigned applicationsIndex = 0; applicationsIndex < applicationsJsonList.GetLength(); ++applicationsIndex)
     {
       m_applications.push_back(applicationsJsonList[applicationsIndex].AsObject());
@@ -201,7 +209,7 @@ Cluster& Cluster::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Tags"))
   {
-    Array<JsonValue> tagsJsonList = jsonValue.GetArray("Tags");
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("Tags");
     for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
     {
       m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
@@ -232,7 +240,7 @@ Cluster& Cluster::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Configurations"))
   {
-    Array<JsonValue> configurationsJsonList = jsonValue.GetArray("Configurations");
+    Array<JsonView> configurationsJsonList = jsonValue.GetArray("Configurations");
     for(unsigned configurationsIndex = 0; configurationsIndex < configurationsJsonList.GetLength(); ++configurationsIndex)
     {
       m_configurations.push_back(configurationsJsonList[configurationsIndex].AsObject());
@@ -287,6 +295,27 @@ Cluster& Cluster::operator =(const JsonValue& jsonValue)
     m_kerberosAttributes = jsonValue.GetObject("KerberosAttributes");
 
     m_kerberosAttributesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ClusterArn"))
+  {
+    m_clusterArn = jsonValue.GetString("ClusterArn");
+
+    m_clusterArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("StepConcurrencyLevel"))
+  {
+    m_stepConcurrencyLevel = jsonValue.GetInteger("StepConcurrencyLevel");
+
+    m_stepConcurrencyLevelHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("OutpostArn"))
+  {
+    m_outpostArn = jsonValue.GetString("OutpostArn");
+
+    m_outpostArnHasBeenSet = true;
   }
 
   return *this;
@@ -455,6 +484,24 @@ JsonValue Cluster::Jsonize() const
   if(m_kerberosAttributesHasBeenSet)
   {
    payload.WithObject("KerberosAttributes", m_kerberosAttributes.Jsonize());
+
+  }
+
+  if(m_clusterArnHasBeenSet)
+  {
+   payload.WithString("ClusterArn", m_clusterArn);
+
+  }
+
+  if(m_stepConcurrencyLevelHasBeenSet)
+  {
+   payload.WithInteger("StepConcurrencyLevel", m_stepConcurrencyLevel);
+
+  }
+
+  if(m_outpostArnHasBeenSet)
+  {
+   payload.WithString("OutpostArn", m_outpostArn);
 
   }
 

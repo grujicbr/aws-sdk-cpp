@@ -38,4 +38,13 @@ public class Metadata {
     private String timestampFormat;
     private Map<String, String> additionalHeaders;
     private boolean standalone;
+    private boolean apigateway;
+    private String serviceId;
+
+    // For Host Prefix Injection
+    private boolean hasEndpointTrait;
+
+    // For Cellular Request Routing
+    private boolean hasEndpointDiscoveryTrait;
+    private String endpointOperationName;
 }

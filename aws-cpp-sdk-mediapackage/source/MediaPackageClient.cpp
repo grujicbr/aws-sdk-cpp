@@ -24,18 +24,27 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/mediapackage/MediaPackageClient.h>
 #include <aws/mediapackage/MediaPackageEndpoint.h>
 #include <aws/mediapackage/MediaPackageErrorMarshaller.h>
 #include <aws/mediapackage/model/CreateChannelRequest.h>
+#include <aws/mediapackage/model/CreateHarvestJobRequest.h>
 #include <aws/mediapackage/model/CreateOriginEndpointRequest.h>
 #include <aws/mediapackage/model/DeleteChannelRequest.h>
 #include <aws/mediapackage/model/DeleteOriginEndpointRequest.h>
 #include <aws/mediapackage/model/DescribeChannelRequest.h>
+#include <aws/mediapackage/model/DescribeHarvestJobRequest.h>
 #include <aws/mediapackage/model/DescribeOriginEndpointRequest.h>
 #include <aws/mediapackage/model/ListChannelsRequest.h>
+#include <aws/mediapackage/model/ListHarvestJobsRequest.h>
 #include <aws/mediapackage/model/ListOriginEndpointsRequest.h>
-#include <aws/mediapackage/model/RotateChannelCredentialsRequest.h>
+#include <aws/mediapackage/model/ListTagsForResourceRequest.h>
+#include <aws/mediapackage/model/RotateIngestEndpointCredentialsRequest.h>
+#include <aws/mediapackage/model/TagResourceRequest.h>
+#include <aws/mediapackage/model/UntagResourceRequest.h>
 #include <aws/mediapackage/model/UpdateChannelRequest.h>
 #include <aws/mediapackage/model/UpdateOriginEndpointRequest.h>
 
@@ -88,28 +97,36 @@ MediaPackageClient::~MediaPackageClient()
 
 void MediaPackageClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << MediaPackageEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + MediaPackageEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void MediaPackageClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
 }
 
 CreateChannelOutcome MediaPackageClient::CreateChannel(const CreateChannelRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/channels";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateChannelOutcome(CreateChannelResult(outcome.GetResult()));
@@ -138,13 +155,48 @@ void MediaPackageClient::CreateChannelAsyncHelper(const CreateChannelRequest& re
   handler(this, request, CreateChannel(request), context);
 }
 
+CreateHarvestJobOutcome MediaPackageClient::CreateHarvestJob(const CreateHarvestJobRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/harvest_jobs";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return CreateHarvestJobOutcome(CreateHarvestJobResult(outcome.GetResult()));
+  }
+  else
+  {
+    return CreateHarvestJobOutcome(outcome.GetError());
+  }
+}
+
+CreateHarvestJobOutcomeCallable MediaPackageClient::CreateHarvestJobCallable(const CreateHarvestJobRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< CreateHarvestJobOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->CreateHarvestJob(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaPackageClient::CreateHarvestJobAsync(const CreateHarvestJobRequest& request, const CreateHarvestJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->CreateHarvestJobAsyncHelper( request, handler, context ); } );
+}
+
+void MediaPackageClient::CreateHarvestJobAsyncHelper(const CreateHarvestJobRequest& request, const CreateHarvestJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, CreateHarvestJob(request), context);
+}
+
 CreateOriginEndpointOutcome MediaPackageClient::CreateOriginEndpoint(const CreateOriginEndpointRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/origin_endpoints";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateOriginEndpointOutcome(CreateOriginEndpointResult(outcome.GetResult()));
@@ -175,12 +227,17 @@ void MediaPackageClient::CreateOriginEndpointAsyncHelper(const CreateOriginEndpo
 
 DeleteChannelOutcome MediaPackageClient::DeleteChannel(const DeleteChannelRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteChannel", "Required field: Id, is not set");
+    return DeleteChannelOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/channels/";
   ss << request.GetId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteChannelOutcome(DeleteChannelResult(outcome.GetResult()));
@@ -211,12 +268,17 @@ void MediaPackageClient::DeleteChannelAsyncHelper(const DeleteChannelRequest& re
 
 DeleteOriginEndpointOutcome MediaPackageClient::DeleteOriginEndpoint(const DeleteOriginEndpointRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteOriginEndpoint", "Required field: Id, is not set");
+    return DeleteOriginEndpointOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/origin_endpoints/";
   ss << request.GetId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteOriginEndpointOutcome(DeleteOriginEndpointResult(outcome.GetResult()));
@@ -247,12 +309,17 @@ void MediaPackageClient::DeleteOriginEndpointAsyncHelper(const DeleteOriginEndpo
 
 DescribeChannelOutcome MediaPackageClient::DescribeChannel(const DescribeChannelRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeChannel", "Required field: Id, is not set");
+    return DescribeChannelOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/channels/";
   ss << request.GetId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeChannelOutcome(DescribeChannelResult(outcome.GetResult()));
@@ -281,14 +348,60 @@ void MediaPackageClient::DescribeChannelAsyncHelper(const DescribeChannelRequest
   handler(this, request, DescribeChannel(request), context);
 }
 
+DescribeHarvestJobOutcome MediaPackageClient::DescribeHarvestJob(const DescribeHarvestJobRequest& request) const
+{
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeHarvestJob", "Required field: Id, is not set");
+    return DescribeHarvestJobOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/harvest_jobs/";
+  ss << request.GetId();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeHarvestJobOutcome(DescribeHarvestJobResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeHarvestJobOutcome(outcome.GetError());
+  }
+}
+
+DescribeHarvestJobOutcomeCallable MediaPackageClient::DescribeHarvestJobCallable(const DescribeHarvestJobRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeHarvestJobOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeHarvestJob(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaPackageClient::DescribeHarvestJobAsync(const DescribeHarvestJobRequest& request, const DescribeHarvestJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeHarvestJobAsyncHelper( request, handler, context ); } );
+}
+
+void MediaPackageClient::DescribeHarvestJobAsyncHelper(const DescribeHarvestJobRequest& request, const DescribeHarvestJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeHarvestJob(request), context);
+}
+
 DescribeOriginEndpointOutcome MediaPackageClient::DescribeOriginEndpoint(const DescribeOriginEndpointRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeOriginEndpoint", "Required field: Id, is not set");
+    return DescribeOriginEndpointOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/origin_endpoints/";
   ss << request.GetId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeOriginEndpointOutcome(DescribeOriginEndpointResult(outcome.GetResult()));
@@ -319,11 +432,11 @@ void MediaPackageClient::DescribeOriginEndpointAsyncHelper(const DescribeOriginE
 
 ListChannelsOutcome MediaPackageClient::ListChannels(const ListChannelsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/channels";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListChannelsOutcome(ListChannelsResult(outcome.GetResult()));
@@ -352,13 +465,48 @@ void MediaPackageClient::ListChannelsAsyncHelper(const ListChannelsRequest& requ
   handler(this, request, ListChannels(request), context);
 }
 
+ListHarvestJobsOutcome MediaPackageClient::ListHarvestJobs(const ListHarvestJobsRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/harvest_jobs";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ListHarvestJobsOutcome(ListHarvestJobsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListHarvestJobsOutcome(outcome.GetError());
+  }
+}
+
+ListHarvestJobsOutcomeCallable MediaPackageClient::ListHarvestJobsCallable(const ListHarvestJobsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListHarvestJobsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListHarvestJobs(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaPackageClient::ListHarvestJobsAsync(const ListHarvestJobsRequest& request, const ListHarvestJobsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListHarvestJobsAsyncHelper( request, handler, context ); } );
+}
+
+void MediaPackageClient::ListHarvestJobsAsyncHelper(const ListHarvestJobsRequest& request, const ListHarvestJobsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListHarvestJobs(request), context);
+}
+
 ListOriginEndpointsOutcome MediaPackageClient::ListOriginEndpoints(const ListOriginEndpointsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/origin_endpoints";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListOriginEndpointsOutcome(ListOriginEndpointsResult(outcome.GetResult()));
@@ -387,51 +535,196 @@ void MediaPackageClient::ListOriginEndpointsAsyncHelper(const ListOriginEndpoint
   handler(this, request, ListOriginEndpoints(request), context);
 }
 
-RotateChannelCredentialsOutcome MediaPackageClient::RotateChannelCredentials(const RotateChannelCredentialsRequest& request) const
+ListTagsForResourceOutcome MediaPackageClient::ListTagsForResource(const ListTagsForResourceRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListTagsForResource", "Required field: ResourceArn, is not set");
+    return ListTagsForResourceOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
   Aws::Http::URI uri = m_uri;
-  ss << "/channels/";
-  ss << request.GetId();
-  ss << "/credentials";
+  Aws::StringStream ss;
+  ss << "/tags/";
+  ss << request.GetResourceArn();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
-    return RotateChannelCredentialsOutcome(RotateChannelCredentialsResult(outcome.GetResult()));
+    return ListTagsForResourceOutcome(ListTagsForResourceResult(outcome.GetResult()));
   }
   else
   {
-    return RotateChannelCredentialsOutcome(outcome.GetError());
+    return ListTagsForResourceOutcome(outcome.GetError());
   }
 }
 
-RotateChannelCredentialsOutcomeCallable MediaPackageClient::RotateChannelCredentialsCallable(const RotateChannelCredentialsRequest& request) const
+ListTagsForResourceOutcomeCallable MediaPackageClient::ListTagsForResourceCallable(const ListTagsForResourceRequest& request) const
 {
-  auto task = Aws::MakeShared< std::packaged_task< RotateChannelCredentialsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->RotateChannelCredentials(request); } );
+  auto task = Aws::MakeShared< std::packaged_task< ListTagsForResourceOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListTagsForResource(request); } );
   auto packagedFunction = [task]() { (*task)(); };
   m_executor->Submit(packagedFunction);
   return task->get_future();
 }
 
-void MediaPackageClient::RotateChannelCredentialsAsync(const RotateChannelCredentialsRequest& request, const RotateChannelCredentialsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+void MediaPackageClient::ListTagsForResourceAsync(const ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
 {
-  m_executor->Submit( [this, request, handler, context](){ this->RotateChannelCredentialsAsyncHelper( request, handler, context ); } );
+  m_executor->Submit( [this, request, handler, context](){ this->ListTagsForResourceAsyncHelper( request, handler, context ); } );
 }
 
-void MediaPackageClient::RotateChannelCredentialsAsyncHelper(const RotateChannelCredentialsRequest& request, const RotateChannelCredentialsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+void MediaPackageClient::ListTagsForResourceAsyncHelper(const ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
 {
-  handler(this, request, RotateChannelCredentials(request), context);
+  handler(this, request, ListTagsForResource(request), context);
+}
+
+RotateIngestEndpointCredentialsOutcome MediaPackageClient::RotateIngestEndpointCredentials(const RotateIngestEndpointCredentialsRequest& request) const
+{
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("RotateIngestEndpointCredentials", "Required field: Id, is not set");
+    return RotateIngestEndpointCredentialsOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
+  if (!request.IngestEndpointIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("RotateIngestEndpointCredentials", "Required field: IngestEndpointId, is not set");
+    return RotateIngestEndpointCredentialsOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [IngestEndpointId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/channels/";
+  ss << request.GetId();
+  ss << "/ingest_endpoints/";
+  ss << request.GetIngestEndpointId();
+  ss << "/credentials";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return RotateIngestEndpointCredentialsOutcome(RotateIngestEndpointCredentialsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return RotateIngestEndpointCredentialsOutcome(outcome.GetError());
+  }
+}
+
+RotateIngestEndpointCredentialsOutcomeCallable MediaPackageClient::RotateIngestEndpointCredentialsCallable(const RotateIngestEndpointCredentialsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< RotateIngestEndpointCredentialsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->RotateIngestEndpointCredentials(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaPackageClient::RotateIngestEndpointCredentialsAsync(const RotateIngestEndpointCredentialsRequest& request, const RotateIngestEndpointCredentialsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->RotateIngestEndpointCredentialsAsyncHelper( request, handler, context ); } );
+}
+
+void MediaPackageClient::RotateIngestEndpointCredentialsAsyncHelper(const RotateIngestEndpointCredentialsRequest& request, const RotateIngestEndpointCredentialsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, RotateIngestEndpointCredentials(request), context);
+}
+
+TagResourceOutcome MediaPackageClient::TagResource(const TagResourceRequest& request) const
+{
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("TagResource", "Required field: ResourceArn, is not set");
+    return TagResourceOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/tags/";
+  ss << request.GetResourceArn();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return TagResourceOutcome(NoResult());
+  }
+  else
+  {
+    return TagResourceOutcome(outcome.GetError());
+  }
+}
+
+TagResourceOutcomeCallable MediaPackageClient::TagResourceCallable(const TagResourceRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< TagResourceOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->TagResource(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaPackageClient::TagResourceAsync(const TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->TagResourceAsyncHelper( request, handler, context ); } );
+}
+
+void MediaPackageClient::TagResourceAsyncHelper(const TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, TagResource(request), context);
+}
+
+UntagResourceOutcome MediaPackageClient::UntagResource(const UntagResourceRequest& request) const
+{
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UntagResource", "Required field: ResourceArn, is not set");
+    return UntagResourceOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
+  if (!request.TagKeysHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UntagResource", "Required field: TagKeys, is not set");
+    return UntagResourceOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TagKeys]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/tags/";
+  ss << request.GetResourceArn();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UntagResourceOutcome(NoResult());
+  }
+  else
+  {
+    return UntagResourceOutcome(outcome.GetError());
+  }
+}
+
+UntagResourceOutcomeCallable MediaPackageClient::UntagResourceCallable(const UntagResourceRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UntagResourceOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UntagResource(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaPackageClient::UntagResourceAsync(const UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UntagResourceAsyncHelper( request, handler, context ); } );
+}
+
+void MediaPackageClient::UntagResourceAsyncHelper(const UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UntagResource(request), context);
 }
 
 UpdateChannelOutcome MediaPackageClient::UpdateChannel(const UpdateChannelRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateChannel", "Required field: Id, is not set");
+    return UpdateChannelOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/channels/";
   ss << request.GetId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateChannelOutcome(UpdateChannelResult(outcome.GetResult()));
@@ -462,12 +755,17 @@ void MediaPackageClient::UpdateChannelAsyncHelper(const UpdateChannelRequest& re
 
 UpdateOriginEndpointOutcome MediaPackageClient::UpdateOriginEndpoint(const UpdateOriginEndpointRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateOriginEndpoint", "Required field: Id, is not set");
+    return UpdateOriginEndpointOutcome(Aws::Client::AWSError<MediaPackageErrors>(MediaPackageErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/origin_endpoints/";
   ss << request.GetId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateOriginEndpointOutcome(UpdateOriginEndpointResult(outcome.GetResult()));

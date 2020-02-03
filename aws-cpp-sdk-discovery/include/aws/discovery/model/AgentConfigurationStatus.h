@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationDiscoveryService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     AgentConfigurationStatus();
-    AgentConfigurationStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    AgentConfigurationStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AgentConfigurationStatus(Aws::Utils::Json::JsonView jsonValue);
+    AgentConfigurationStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The agent/connector ID.</p>
      */
     inline const Aws::String& GetAgentId() const{ return m_agentId; }
+
+    /**
+     * <p>The agent/connector ID.</p>
+     */
+    inline bool AgentIdHasBeenSet() const { return m_agentIdHasBeenSet; }
 
     /**
      * <p>The agent/connector ID.</p>
@@ -99,6 +105,14 @@ namespace Model
      * collection operation. The agent/connector receives this command the next time it
      * polls for a new command. </p>
      */
+    inline bool OperationSucceededHasBeenSet() const { return m_operationSucceededHasBeenSet; }
+
+    /**
+     * <p>Information about the status of the <code>StartDataCollection</code> and
+     * <code>StopDataCollection</code> operations. The system has recorded the data
+     * collection operation. The agent/connector receives this command the next time it
+     * polls for a new command. </p>
+     */
     inline void SetOperationSucceeded(bool value) { m_operationSucceededHasBeenSet = true; m_operationSucceeded = value; }
 
     /**
@@ -114,6 +128,11 @@ namespace Model
      * <p>A description of the operation performed.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the operation performed.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the operation performed.</p>

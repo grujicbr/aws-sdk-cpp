@@ -51,23 +51,26 @@ GetConsoleOutputResponse& GetConsoleOutputResponse::operator =(const Aws::Amazon
     XmlNode instanceIdNode = resultNode.FirstChild("instanceId");
     if(!instanceIdNode.IsNull())
     {
-      m_instanceId = StringUtils::Trim(instanceIdNode.GetText().c_str());
+      m_instanceId = Aws::Utils::Xml::DecodeEscapedXmlText(instanceIdNode.GetText());
     }
     XmlNode outputNode = resultNode.FirstChild("output");
     if(!outputNode.IsNull())
     {
-      m_output = StringUtils::Trim(outputNode.GetText().c_str());
+      m_output = Aws::Utils::Xml::DecodeEscapedXmlText(outputNode.GetText());
     }
     XmlNode timestampNode = resultNode.FirstChild("timestamp");
     if(!timestampNode.IsNull())
     {
-      m_timestamp = DateTime(StringUtils::Trim(timestampNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_timestamp = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(timestampNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::GetConsoleOutputResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

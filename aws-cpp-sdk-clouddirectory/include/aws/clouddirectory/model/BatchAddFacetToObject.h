@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     BatchAddFacetToObject();
-    BatchAddFacetToObject(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchAddFacetToObject& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchAddFacetToObject(Aws::Utils::Json::JsonView jsonValue);
+    BatchAddFacetToObject& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Represents the facet being added to the object.</p>
      */
     inline const SchemaFacet& GetSchemaFacet() const{ return m_schemaFacet; }
+
+    /**
+     * <p>Represents the facet being added to the object.</p>
+     */
+    inline bool SchemaFacetHasBeenSet() const { return m_schemaFacetHasBeenSet; }
 
     /**
      * <p>Represents the facet being added to the object.</p>
@@ -80,6 +86,11 @@ namespace Model
      * <p>The attributes to set on the object.</p>
      */
     inline const Aws::Vector<AttributeKeyAndValue>& GetObjectAttributeList() const{ return m_objectAttributeList; }
+
+    /**
+     * <p>The attributes to set on the object.</p>
+     */
+    inline bool ObjectAttributeListHasBeenSet() const { return m_objectAttributeListHasBeenSet; }
 
     /**
      * <p>The attributes to set on the object.</p>
@@ -116,6 +127,11 @@ namespace Model
      * <p>A reference to the object being mutated.</p>
      */
     inline const ObjectReference& GetObjectReference() const{ return m_objectReference; }
+
+    /**
+     * <p>A reference to the object being mutated.</p>
+     */
+    inline bool ObjectReferenceHasBeenSet() const { return m_objectReferenceHasBeenSet; }
 
     /**
      * <p>A reference to the object being mutated.</p>

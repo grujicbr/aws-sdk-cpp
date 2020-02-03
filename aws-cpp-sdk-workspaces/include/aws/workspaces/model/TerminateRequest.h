@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkSpaces
@@ -33,7 +34,8 @@ namespace Model
 {
 
   /**
-   * <p>Information used to terminate a WorkSpace.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes the information used to terminate a WorkSpace.</p><p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/TerminateRequest">AWS
    * API Reference</a></p>
    */
@@ -41,43 +43,48 @@ namespace Model
   {
   public:
     TerminateRequest();
-    TerminateRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    TerminateRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TerminateRequest(Aws::Utils::Json::JsonView jsonValue);
+    TerminateRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The ID of the WorkSpace.</p>
+     * <p>The identifier of the WorkSpace.</p>
      */
     inline const Aws::String& GetWorkspaceId() const{ return m_workspaceId; }
 
     /**
-     * <p>The ID of the WorkSpace.</p>
+     * <p>The identifier of the WorkSpace.</p>
+     */
+    inline bool WorkspaceIdHasBeenSet() const { return m_workspaceIdHasBeenSet; }
+
+    /**
+     * <p>The identifier of the WorkSpace.</p>
      */
     inline void SetWorkspaceId(const Aws::String& value) { m_workspaceIdHasBeenSet = true; m_workspaceId = value; }
 
     /**
-     * <p>The ID of the WorkSpace.</p>
+     * <p>The identifier of the WorkSpace.</p>
      */
     inline void SetWorkspaceId(Aws::String&& value) { m_workspaceIdHasBeenSet = true; m_workspaceId = std::move(value); }
 
     /**
-     * <p>The ID of the WorkSpace.</p>
+     * <p>The identifier of the WorkSpace.</p>
      */
     inline void SetWorkspaceId(const char* value) { m_workspaceIdHasBeenSet = true; m_workspaceId.assign(value); }
 
     /**
-     * <p>The ID of the WorkSpace.</p>
+     * <p>The identifier of the WorkSpace.</p>
      */
     inline TerminateRequest& WithWorkspaceId(const Aws::String& value) { SetWorkspaceId(value); return *this;}
 
     /**
-     * <p>The ID of the WorkSpace.</p>
+     * <p>The identifier of the WorkSpace.</p>
      */
     inline TerminateRequest& WithWorkspaceId(Aws::String&& value) { SetWorkspaceId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of the WorkSpace.</p>
+     * <p>The identifier of the WorkSpace.</p>
      */
     inline TerminateRequest& WithWorkspaceId(const char* value) { SetWorkspaceId(value); return *this;}
 

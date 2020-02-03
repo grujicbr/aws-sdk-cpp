@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RulesPackage();
-    RulesPackage(const Aws::Utils::Json::JsonValue& jsonValue);
-    RulesPackage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RulesPackage(Aws::Utils::Json::JsonView jsonValue);
+    RulesPackage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ARN of the rules package.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The ARN of the rules package.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The ARN of the rules package.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The name of the rules package.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the rules package.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The version ID of the rules package.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version ID of the rules package.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version ID of the rules package.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>The provider of the rules package.</p>
      */
+    inline bool ProviderHasBeenSet() const { return m_providerHasBeenSet; }
+
+    /**
+     * <p>The provider of the rules package.</p>
+     */
     inline void SetProvider(const Aws::String& value) { m_providerHasBeenSet = true; m_provider = value; }
 
     /**
@@ -196,6 +217,11 @@ namespace Model
      * <p>The description of the rules package.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the rules package.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the rules package.</p>

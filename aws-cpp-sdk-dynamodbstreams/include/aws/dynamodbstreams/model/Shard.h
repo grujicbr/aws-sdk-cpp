@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDBStreams
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     Shard();
-    Shard(const Aws::Utils::Json::JsonValue& jsonValue);
-    Shard& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Shard(Aws::Utils::Json::JsonView jsonValue);
+    Shard& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The system-generated identifier for this shard.</p>
      */
     inline const Aws::String& GetShardId() const{ return m_shardId; }
+
+    /**
+     * <p>The system-generated identifier for this shard.</p>
+     */
+    inline bool ShardIdHasBeenSet() const { return m_shardIdHasBeenSet; }
 
     /**
      * <p>The system-generated identifier for this shard.</p>
@@ -89,6 +95,11 @@ namespace Model
     /**
      * <p>The range of possible sequence numbers for the shard.</p>
      */
+    inline bool SequenceNumberRangeHasBeenSet() const { return m_sequenceNumberRangeHasBeenSet; }
+
+    /**
+     * <p>The range of possible sequence numbers for the shard.</p>
+     */
     inline void SetSequenceNumberRange(const SequenceNumberRange& value) { m_sequenceNumberRangeHasBeenSet = true; m_sequenceNumberRange = value; }
 
     /**
@@ -111,6 +122,11 @@ namespace Model
      * <p>The shard ID of the current shard's parent.</p>
      */
     inline const Aws::String& GetParentShardId() const{ return m_parentShardId; }
+
+    /**
+     * <p>The shard ID of the current shard's parent.</p>
+     */
+    inline bool ParentShardIdHasBeenSet() const { return m_parentShardIdHasBeenSet; }
 
     /**
      * <p>The shard ID of the current shard's parent.</p>

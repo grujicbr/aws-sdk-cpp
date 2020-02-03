@@ -54,13 +54,13 @@ EbsInstanceBlockDeviceSpecification& EbsInstanceBlockDeviceSpecification::operat
     XmlNode deleteOnTerminationNode = resultNode.FirstChild("deleteOnTermination");
     if(!deleteOnTerminationNode.IsNull())
     {
-      m_deleteOnTermination = StringUtils::ConvertToBool(StringUtils::Trim(deleteOnTerminationNode.GetText().c_str()).c_str());
+      m_deleteOnTermination = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(deleteOnTerminationNode.GetText()).c_str()).c_str());
       m_deleteOnTerminationHasBeenSet = true;
     }
     XmlNode volumeIdNode = resultNode.FirstChild("volumeId");
     if(!volumeIdNode.IsNull())
     {
-      m_volumeId = StringUtils::Trim(volumeIdNode.GetText().c_str());
+      m_volumeId = Aws::Utils::Xml::DecodeEscapedXmlText(volumeIdNode.GetText());
       m_volumeIdHasBeenSet = true;
     }
   }

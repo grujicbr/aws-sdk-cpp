@@ -27,16 +27,12 @@ namespace Model
 {
 
   /**
-   * <p>Container for the parameters to the DescribeLags operation.</p><p><h3>See
-   * Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DescribeLagsRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_DIRECTCONNECT_API DescribeLagsRequest : public DirectConnectRequest
   {
   public:
     DescribeLagsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,37 +45,42 @@ namespace Model
 
 
     /**
-     * <p>The ID of the LAG.</p> <p>Example: dxlag-abc123</p> <p>Default: None</p>
+     * <p>The ID of the LAG.</p>
      */
     inline const Aws::String& GetLagId() const{ return m_lagId; }
 
     /**
-     * <p>The ID of the LAG.</p> <p>Example: dxlag-abc123</p> <p>Default: None</p>
+     * <p>The ID of the LAG.</p>
+     */
+    inline bool LagIdHasBeenSet() const { return m_lagIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the LAG.</p>
      */
     inline void SetLagId(const Aws::String& value) { m_lagIdHasBeenSet = true; m_lagId = value; }
 
     /**
-     * <p>The ID of the LAG.</p> <p>Example: dxlag-abc123</p> <p>Default: None</p>
+     * <p>The ID of the LAG.</p>
      */
     inline void SetLagId(Aws::String&& value) { m_lagIdHasBeenSet = true; m_lagId = std::move(value); }
 
     /**
-     * <p>The ID of the LAG.</p> <p>Example: dxlag-abc123</p> <p>Default: None</p>
+     * <p>The ID of the LAG.</p>
      */
     inline void SetLagId(const char* value) { m_lagIdHasBeenSet = true; m_lagId.assign(value); }
 
     /**
-     * <p>The ID of the LAG.</p> <p>Example: dxlag-abc123</p> <p>Default: None</p>
+     * <p>The ID of the LAG.</p>
      */
     inline DescribeLagsRequest& WithLagId(const Aws::String& value) { SetLagId(value); return *this;}
 
     /**
-     * <p>The ID of the LAG.</p> <p>Example: dxlag-abc123</p> <p>Default: None</p>
+     * <p>The ID of the LAG.</p>
      */
     inline DescribeLagsRequest& WithLagId(Aws::String&& value) { SetLagId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of the LAG.</p> <p>Example: dxlag-abc123</p> <p>Default: None</p>
+     * <p>The ID of the LAG.</p>
      */
     inline DescribeLagsRequest& WithLagId(const char* value) { SetLagId(value); return *this;}
 

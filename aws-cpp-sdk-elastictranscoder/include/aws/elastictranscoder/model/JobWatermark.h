@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticTranscoder
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     JobWatermark();
-    JobWatermark(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobWatermark& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobWatermark(Aws::Utils::Json::JsonView jsonValue);
+    JobWatermark& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,14 @@ namespace Model
      * Watermarks Id tells Elastic Transcoder which settings to use.</p>
      */
     inline const Aws::String& GetPresetWatermarkId() const{ return m_presetWatermarkId; }
+
+    /**
+     * <p>The ID of the watermark settings that Elastic Transcoder uses to add
+     * watermarks to the video during transcoding. The settings are in the preset
+     * specified by Preset for the current output. In that preset, the value of
+     * Watermarks Id tells Elastic Transcoder which settings to use.</p>
+     */
+    inline bool PresetWatermarkIdHasBeenSet() const { return m_presetWatermarkIdHasBeenSet; }
 
     /**
      * <p>The ID of the watermark settings that Elastic Transcoder uses to add
@@ -116,6 +125,17 @@ namespace Model
      * returns an error. </p>
      */
     inline const Aws::String& GetInputKey() const{ return m_inputKey; }
+
+    /**
+     * <p> The name of the .png or .jpg file that you want to use for the watermark. To
+     * determine which Amazon S3 bucket contains the specified file, Elastic Transcoder
+     * checks the pipeline specified by <code>Pipeline</code>; the <code>Input
+     * Bucket</code> object in that pipeline identifies the bucket.</p> <p> If the file
+     * name includes a prefix, for example, <b>logos/128x64.png</b>, include the prefix
+     * in the key. If the file isn't in the specified bucket, Elastic Transcoder
+     * returns an error. </p>
+     */
+    inline bool InputKeyHasBeenSet() const { return m_inputKeyHasBeenSet; }
 
     /**
      * <p> The name of the .png or .jpg file that you want to use for the watermark. To
@@ -189,6 +209,12 @@ namespace Model
      * your watermarks.</p>
      */
     inline const Encryption& GetEncryption() const{ return m_encryption; }
+
+    /**
+     * <p>The encryption settings, if any, that you want Elastic Transcoder to apply to
+     * your watermarks.</p>
+     */
+    inline bool EncryptionHasBeenSet() const { return m_encryptionHasBeenSet; }
 
     /**
      * <p>The encryption settings, if any, that you want Elastic Transcoder to apply to

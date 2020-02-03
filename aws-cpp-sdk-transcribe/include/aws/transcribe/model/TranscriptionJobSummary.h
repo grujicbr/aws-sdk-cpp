@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace TranscribeService
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     TranscriptionJobSummary();
-    TranscriptionJobSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    TranscriptionJobSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TranscriptionJobSummary(Aws::Utils::Json::JsonView jsonValue);
+    TranscriptionJobSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The name of the transcription job.</p>
      */
     inline const Aws::String& GetTranscriptionJobName() const{ return m_transcriptionJobName; }
+
+    /**
+     * <p>The name of the transcription job.</p>
+     */
+    inline bool TranscriptionJobNameHasBeenSet() const { return m_transcriptionJobNameHasBeenSet; }
 
     /**
      * <p>The name of the transcription job.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>A timestamp that shows when the job was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>A timestamp that shows when the job was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -114,9 +125,45 @@ namespace Model
 
 
     /**
+     * <p>A timestamp that shows when the job started processing.</p>
+     */
+    inline const Aws::Utils::DateTime& GetStartTime() const{ return m_startTime; }
+
+    /**
+     * <p>A timestamp that shows when the job started processing.</p>
+     */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
+
+    /**
+     * <p>A timestamp that shows when the job started processing.</p>
+     */
+    inline void SetStartTime(const Aws::Utils::DateTime& value) { m_startTimeHasBeenSet = true; m_startTime = value; }
+
+    /**
+     * <p>A timestamp that shows when the job started processing.</p>
+     */
+    inline void SetStartTime(Aws::Utils::DateTime&& value) { m_startTimeHasBeenSet = true; m_startTime = std::move(value); }
+
+    /**
+     * <p>A timestamp that shows when the job started processing.</p>
+     */
+    inline TranscriptionJobSummary& WithStartTime(const Aws::Utils::DateTime& value) { SetStartTime(value); return *this;}
+
+    /**
+     * <p>A timestamp that shows when the job started processing.</p>
+     */
+    inline TranscriptionJobSummary& WithStartTime(Aws::Utils::DateTime&& value) { SetStartTime(std::move(value)); return *this;}
+
+
+    /**
      * <p>A timestamp that shows when the job was completed.</p>
      */
     inline const Aws::Utils::DateTime& GetCompletionTime() const{ return m_completionTime; }
+
+    /**
+     * <p>A timestamp that shows when the job was completed.</p>
+     */
+    inline bool CompletionTimeHasBeenSet() const { return m_completionTimeHasBeenSet; }
 
     /**
      * <p>A timestamp that shows when the job was completed.</p>
@@ -147,6 +194,11 @@ namespace Model
     /**
      * <p>The language code for the input speech.</p>
      */
+    inline bool LanguageCodeHasBeenSet() const { return m_languageCodeHasBeenSet; }
+
+    /**
+     * <p>The language code for the input speech.</p>
+     */
     inline void SetLanguageCode(const LanguageCode& value) { m_languageCodeHasBeenSet = true; m_languageCode = value; }
 
     /**
@@ -171,6 +223,13 @@ namespace Model
      * get the results of the transcription.</p>
      */
     inline const TranscriptionJobStatus& GetTranscriptionJobStatus() const{ return m_transcriptionJobStatus; }
+
+    /**
+     * <p>The status of the transcription job. When the status is
+     * <code>COMPLETED</code>, use the <code>GetTranscriptionJob</code> operation to
+     * get the results of the transcription.</p>
+     */
+    inline bool TranscriptionJobStatusHasBeenSet() const { return m_transcriptionJobStatusHasBeenSet; }
 
     /**
      * <p>The status of the transcription job. When the status is
@@ -206,6 +265,12 @@ namespace Model
      * description of the error.</p>
      */
     inline const Aws::String& GetFailureReason() const{ return m_failureReason; }
+
+    /**
+     * <p>If the <code>TranscriptionJobStatus</code> field is <code>FAILED</code>, a
+     * description of the error.</p>
+     */
+    inline bool FailureReasonHasBeenSet() const { return m_failureReasonHasBeenSet; }
 
     /**
      * <p>If the <code>TranscriptionJobStatus</code> field is <code>FAILED</code>, a
@@ -266,6 +331,18 @@ namespace Model
      * <code>GetTranscriptionJob</code> response's <code>TranscriptFileUri</code>
      * field.</p>
      */
+    inline bool OutputLocationTypeHasBeenSet() const { return m_outputLocationTypeHasBeenSet; }
+
+    /**
+     * <p>Indicates the location of the output of the transcription job.</p> <p>If the
+     * value is <code>CUSTOMER_BUCKET</code> then the location is the S3 bucket
+     * specified in the <code>outputBucketName</code> field when the transcription job
+     * was started with the <code>StartTranscriptionJob</code> operation.</p> <p>If the
+     * value is <code>SERVICE_BUCKET</code> then the output is stored by Amazon
+     * Transcribe and can be retrieved using the URI in the
+     * <code>GetTranscriptionJob</code> response's <code>TranscriptFileUri</code>
+     * field.</p>
+     */
     inline void SetOutputLocationType(const OutputLocationType& value) { m_outputLocationTypeHasBeenSet = true; m_outputLocationType = value; }
 
     /**
@@ -311,6 +388,9 @@ namespace Model
 
     Aws::Utils::DateTime m_creationTime;
     bool m_creationTimeHasBeenSet;
+
+    Aws::Utils::DateTime m_startTime;
+    bool m_startTimeHasBeenSet;
 
     Aws::Utils::DateTime m_completionTime;
     bool m_completionTimeHasBeenSet;

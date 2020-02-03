@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     UserMetadata();
-    UserMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserMetadata(Aws::Utils::Json::JsonView jsonValue);
+    UserMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ID of the user.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the user.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the user.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The name of the user.</p>
      */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
+
+    /**
+     * <p>The name of the user.</p>
+     */
     inline void SetUsername(const Aws::String& value) { m_usernameHasBeenSet = true; m_username = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The given name of the user before a rename operation.</p>
      */
     inline const Aws::String& GetGivenName() const{ return m_givenName; }
+
+    /**
+     * <p>The given name of the user before a rename operation.</p>
+     */
+    inline bool GivenNameHasBeenSet() const { return m_givenNameHasBeenSet; }
 
     /**
      * <p>The given name of the user before a rename operation.</p>
@@ -162,6 +178,11 @@ namespace Model
     /**
      * <p>The surname of the user.</p>
      */
+    inline bool SurnameHasBeenSet() const { return m_surnameHasBeenSet; }
+
+    /**
+     * <p>The surname of the user.</p>
+     */
     inline void SetSurname(const Aws::String& value) { m_surnameHasBeenSet = true; m_surname = value; }
 
     /**
@@ -194,6 +215,11 @@ namespace Model
      * <p>The email address of the user.</p>
      */
     inline const Aws::String& GetEmailAddress() const{ return m_emailAddress; }
+
+    /**
+     * <p>The email address of the user.</p>
+     */
+    inline bool EmailAddressHasBeenSet() const { return m_emailAddressHasBeenSet; }
 
     /**
      * <p>The email address of the user.</p>

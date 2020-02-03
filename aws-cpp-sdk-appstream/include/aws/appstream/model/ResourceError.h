@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ResourceError();
-    ResourceError(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceError& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceError(Aws::Utils::Json::JsonView jsonValue);
+    ResourceError& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The error code.</p>
      */
     inline const FleetErrorCode& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The error code.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The error code.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The error message.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The error message.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The error message.</p>
@@ -114,6 +125,11 @@ namespace Model
      * <p>The time the error occurred.</p>
      */
     inline const Aws::Utils::DateTime& GetErrorTimestamp() const{ return m_errorTimestamp; }
+
+    /**
+     * <p>The time the error occurred.</p>
+     */
+    inline bool ErrorTimestampHasBeenSet() const { return m_errorTimestampHasBeenSet; }
 
     /**
      * <p>The time the error occurred.</p>

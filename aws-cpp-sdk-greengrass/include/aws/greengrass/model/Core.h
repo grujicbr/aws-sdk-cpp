@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Core();
-    Core(const Aws::Utils::Json::JsonValue& jsonValue);
-    Core& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Core(Aws::Utils::Json::JsonView jsonValue);
+    Core& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * The ARN of the certificate associated with the core.
      */
     inline const Aws::String& GetCertificateArn() const{ return m_certificateArn; }
+
+    /**
+     * The ARN of the certificate associated with the core.
+     */
+    inline bool CertificateArnHasBeenSet() const { return m_certificateArnHasBeenSet; }
 
     /**
      * The ARN of the certificate associated with the core.
@@ -83,37 +89,58 @@ namespace Model
 
 
     /**
-     * The ID of the core.
+     * A descriptive or arbitrary ID for the core. This value must be unique within the
+     * core definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline const Aws::String& GetId() const{ return m_id; }
 
     /**
-     * The ID of the core.
+     * A descriptive or arbitrary ID for the core. This value must be unique within the
+     * core definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * A descriptive or arbitrary ID for the core. This value must be unique within the
+     * core definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
 
     /**
-     * The ID of the core.
+     * A descriptive or arbitrary ID for the core. This value must be unique within the
+     * core definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
 
     /**
-     * The ID of the core.
+     * A descriptive or arbitrary ID for the core. This value must be unique within the
+     * core definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
 
     /**
-     * The ID of the core.
+     * A descriptive or arbitrary ID for the core. This value must be unique within the
+     * core definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline Core& WithId(const Aws::String& value) { SetId(value); return *this;}
 
     /**
-     * The ID of the core.
+     * A descriptive or arbitrary ID for the core. This value must be unique within the
+     * core definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline Core& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
 
     /**
-     * The ID of the core.
+     * A descriptive or arbitrary ID for the core. This value must be unique within the
+     * core definition version. Max length is 128 characters with pattern
+     * ''[a-zA-Z0-9:_-]+''.
      */
     inline Core& WithId(const char* value) { SetId(value); return *this;}
 
@@ -122,6 +149,11 @@ namespace Model
      * If true, the core's local shadow is automatically synced with the cloud.
      */
     inline bool GetSyncShadow() const{ return m_syncShadow; }
+
+    /**
+     * If true, the core's local shadow is automatically synced with the cloud.
+     */
+    inline bool SyncShadowHasBeenSet() const { return m_syncShadowHasBeenSet; }
 
     /**
      * If true, the core's local shadow is automatically synced with the cloud.
@@ -138,6 +170,11 @@ namespace Model
      * The ARN of the thing which is the core.
      */
     inline const Aws::String& GetThingArn() const{ return m_thingArn; }
+
+    /**
+     * The ARN of the thing which is the core.
+     */
+    inline bool ThingArnHasBeenSet() const { return m_thingArnHasBeenSet; }
 
     /**
      * The ARN of the thing which is the core.

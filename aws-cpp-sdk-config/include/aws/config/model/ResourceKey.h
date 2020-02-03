@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ResourceKey();
-    ResourceKey(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceKey& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceKey(Aws::Utils::Json::JsonView jsonValue);
+    ResourceKey& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The resource type.</p>
      */
     inline const ResourceType& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The resource type.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The resource type.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The ID of the resource (for example., sg-xxxxxx). </p>
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
+
+    /**
+     * <p>The ID of the resource (for example., sg-xxxxxx). </p>
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
 
     /**
      * <p>The ID of the resource (for example., sg-xxxxxx). </p>

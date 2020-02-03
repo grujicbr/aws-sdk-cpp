@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ProductViewAggregationValue();
-    ProductViewAggregationValue(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProductViewAggregationValue& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProductViewAggregationValue(Aws::Utils::Json::JsonView jsonValue);
+    ProductViewAggregationValue& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The value of the product view aggregation.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of the product view aggregation.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of the product view aggregation.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>An approximate count of the products that match the value.</p>
      */
     inline int GetApproximateCount() const{ return m_approximateCount; }
+
+    /**
+     * <p>An approximate count of the products that match the value.</p>
+     */
+    inline bool ApproximateCountHasBeenSet() const { return m_approximateCountHasBeenSet; }
 
     /**
      * <p>An approximate count of the products that match the value.</p>

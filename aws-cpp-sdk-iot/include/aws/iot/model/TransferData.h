@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     TransferData();
-    TransferData(const Aws::Utils::Json::JsonValue& jsonValue);
-    TransferData& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TransferData(Aws::Utils::Json::JsonView jsonValue);
+    TransferData& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The transfer message.</p>
      */
     inline const Aws::String& GetTransferMessage() const{ return m_transferMessage; }
+
+    /**
+     * <p>The transfer message.</p>
+     */
+    inline bool TransferMessageHasBeenSet() const { return m_transferMessageHasBeenSet; }
 
     /**
      * <p>The transfer message.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The reason why the transfer was rejected.</p>
      */
+    inline bool RejectReasonHasBeenSet() const { return m_rejectReasonHasBeenSet; }
+
+    /**
+     * <p>The reason why the transfer was rejected.</p>
+     */
     inline void SetRejectReason(const Aws::String& value) { m_rejectReasonHasBeenSet = true; m_rejectReason = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
     /**
      * <p>The date the transfer took place.</p>
      */
+    inline bool TransferDateHasBeenSet() const { return m_transferDateHasBeenSet; }
+
+    /**
+     * <p>The date the transfer took place.</p>
+     */
     inline void SetTransferDate(const Aws::Utils::DateTime& value) { m_transferDateHasBeenSet = true; m_transferDate = value; }
 
     /**
@@ -154,6 +170,11 @@ namespace Model
     /**
      * <p>The date the transfer was accepted.</p>
      */
+    inline bool AcceptDateHasBeenSet() const { return m_acceptDateHasBeenSet; }
+
+    /**
+     * <p>The date the transfer was accepted.</p>
+     */
     inline void SetAcceptDate(const Aws::Utils::DateTime& value) { m_acceptDateHasBeenSet = true; m_acceptDate = value; }
 
     /**
@@ -176,6 +197,11 @@ namespace Model
      * <p>The date the transfer was rejected.</p>
      */
     inline const Aws::Utils::DateTime& GetRejectDate() const{ return m_rejectDate; }
+
+    /**
+     * <p>The date the transfer was rejected.</p>
+     */
+    inline bool RejectDateHasBeenSet() const { return m_rejectDateHasBeenSet; }
 
     /**
      * <p>The date the transfer was rejected.</p>

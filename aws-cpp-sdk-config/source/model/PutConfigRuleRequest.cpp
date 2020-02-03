@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 PutConfigRuleRequest::PutConfigRuleRequest() : 
-    m_configRuleHasBeenSet(false)
+    m_configRuleHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -37,7 +38,18 @@ Aws::String PutConfigRuleRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection PutConfigRuleRequest::GetRequestSpecificHeaders() const

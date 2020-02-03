@@ -33,8 +33,8 @@ namespace Model
 {
 
   /**
-   * <p>Container for filter information of selection of KMS Encrypted S3
-   * objects.</p><p><h3>See Also:</h3>   <a
+   * <p>A container for filter information for the selection of S3 objects encrypted
+   * with AWS KMS.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SseKmsEncryptedObjects">AWS
    * API Reference</a></p>
    */
@@ -49,32 +49,44 @@ namespace Model
 
 
     /**
-     * <p>The replication for KMS encrypted S3 objects is disabled if status is not
-     * Enabled.</p>
+     * <p>Specifies whether Amazon S3 replicates objects created with server-side
+     * encryption using a customer master key (CMK) stored in AWS Key Management
+     * Service.</p>
      */
     inline const SseKmsEncryptedObjectsStatus& GetStatus() const{ return m_status; }
 
     /**
-     * <p>The replication for KMS encrypted S3 objects is disabled if status is not
-     * Enabled.</p>
+     * <p>Specifies whether Amazon S3 replicates objects created with server-side
+     * encryption using a customer master key (CMK) stored in AWS Key Management
+     * Service.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>Specifies whether Amazon S3 replicates objects created with server-side
+     * encryption using a customer master key (CMK) stored in AWS Key Management
+     * Service.</p>
      */
     inline void SetStatus(const SseKmsEncryptedObjectsStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
-     * <p>The replication for KMS encrypted S3 objects is disabled if status is not
-     * Enabled.</p>
+     * <p>Specifies whether Amazon S3 replicates objects created with server-side
+     * encryption using a customer master key (CMK) stored in AWS Key Management
+     * Service.</p>
      */
     inline void SetStatus(SseKmsEncryptedObjectsStatus&& value) { m_statusHasBeenSet = true; m_status = std::move(value); }
 
     /**
-     * <p>The replication for KMS encrypted S3 objects is disabled if status is not
-     * Enabled.</p>
+     * <p>Specifies whether Amazon S3 replicates objects created with server-side
+     * encryption using a customer master key (CMK) stored in AWS Key Management
+     * Service.</p>
      */
     inline SseKmsEncryptedObjects& WithStatus(const SseKmsEncryptedObjectsStatus& value) { SetStatus(value); return *this;}
 
     /**
-     * <p>The replication for KMS encrypted S3 objects is disabled if status is not
-     * Enabled.</p>
+     * <p>Specifies whether Amazon S3 replicates objects created with server-side
+     * encryption using a customer master key (CMK) stored in AWS Key Management
+     * Service.</p>
      */
     inline SseKmsEncryptedObjects& WithStatus(SseKmsEncryptedObjectsStatus&& value) { SetStatus(std::move(value)); return *this;}
 

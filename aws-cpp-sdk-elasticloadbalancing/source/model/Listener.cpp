@@ -62,31 +62,31 @@ Listener& Listener::operator =(const XmlNode& xmlNode)
     XmlNode protocolNode = resultNode.FirstChild("Protocol");
     if(!protocolNode.IsNull())
     {
-      m_protocol = StringUtils::Trim(protocolNode.GetText().c_str());
+      m_protocol = Aws::Utils::Xml::DecodeEscapedXmlText(protocolNode.GetText());
       m_protocolHasBeenSet = true;
     }
     XmlNode loadBalancerPortNode = resultNode.FirstChild("LoadBalancerPort");
     if(!loadBalancerPortNode.IsNull())
     {
-      m_loadBalancerPort = StringUtils::ConvertToInt32(StringUtils::Trim(loadBalancerPortNode.GetText().c_str()).c_str());
+      m_loadBalancerPort = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(loadBalancerPortNode.GetText()).c_str()).c_str());
       m_loadBalancerPortHasBeenSet = true;
     }
     XmlNode instanceProtocolNode = resultNode.FirstChild("InstanceProtocol");
     if(!instanceProtocolNode.IsNull())
     {
-      m_instanceProtocol = StringUtils::Trim(instanceProtocolNode.GetText().c_str());
+      m_instanceProtocol = Aws::Utils::Xml::DecodeEscapedXmlText(instanceProtocolNode.GetText());
       m_instanceProtocolHasBeenSet = true;
     }
     XmlNode instancePortNode = resultNode.FirstChild("InstancePort");
     if(!instancePortNode.IsNull())
     {
-      m_instancePort = StringUtils::ConvertToInt32(StringUtils::Trim(instancePortNode.GetText().c_str()).c_str());
+      m_instancePort = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(instancePortNode.GetText()).c_str()).c_str());
       m_instancePortHasBeenSet = true;
     }
     XmlNode sSLCertificateIdNode = resultNode.FirstChild("SSLCertificateId");
     if(!sSLCertificateIdNode.IsNull())
     {
-      m_sSLCertificateId = StringUtils::Trim(sSLCertificateIdNode.GetText().c_str());
+      m_sSLCertificateId = Aws::Utils::Xml::DecodeEscapedXmlText(sSLCertificateIdNode.GetText());
       m_sSLCertificateIdHasBeenSet = true;
     }
   }

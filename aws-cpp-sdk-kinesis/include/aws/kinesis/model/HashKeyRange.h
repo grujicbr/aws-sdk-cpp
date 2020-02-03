@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Kinesis
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     HashKeyRange();
-    HashKeyRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    HashKeyRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HashKeyRange(Aws::Utils::Json::JsonView jsonValue);
+    HashKeyRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The starting hash key of the hash key range.</p>
      */
     inline const Aws::String& GetStartingHashKey() const{ return m_startingHashKey; }
+
+    /**
+     * <p>The starting hash key of the hash key range.</p>
+     */
+    inline bool StartingHashKeyHasBeenSet() const { return m_startingHashKeyHasBeenSet; }
 
     /**
      * <p>The starting hash key of the hash key range.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The ending hash key of the hash key range.</p>
      */
     inline const Aws::String& GetEndingHashKey() const{ return m_endingHashKey; }
+
+    /**
+     * <p>The ending hash key of the hash key range.</p>
+     */
+    inline bool EndingHashKeyHasBeenSet() const { return m_endingHashKeyHasBeenSet; }
 
     /**
      * <p>The ending hash key of the hash key range.</p>

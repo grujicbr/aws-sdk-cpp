@@ -30,6 +30,8 @@ UpdateProvisionedProductRequest::UpdateProvisionedProductRequest() :
     m_provisioningArtifactIdHasBeenSet(false),
     m_pathIdHasBeenSet(false),
     m_provisioningParametersHasBeenSet(false),
+    m_provisioningPreferencesHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_updateToken(Aws::Utils::UUID::RandomUUID()),
     m_updateTokenHasBeenSet(true)
 {
@@ -86,13 +88,30 @@ Aws::String UpdateProvisionedProductRequest::SerializePayload() const
 
   }
 
+  if(m_provisioningPreferencesHasBeenSet)
+  {
+   payload.WithObject("ProvisioningPreferences", m_provisioningPreferences.Jsonize());
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
   if(m_updateTokenHasBeenSet)
   {
    payload.WithString("UpdateToken", m_updateToken);
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateProvisionedProductRequest::GetRequestSpecificHeaders() const

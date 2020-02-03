@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchAttachToIndex();
-    BatchAttachToIndex(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchAttachToIndex& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchAttachToIndex(Aws::Utils::Json::JsonView jsonValue);
+    BatchAttachToIndex& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A reference to the index that you are attaching the object to.</p>
      */
     inline const ObjectReference& GetIndexReference() const{ return m_indexReference; }
+
+    /**
+     * <p>A reference to the index that you are attaching the object to.</p>
+     */
+    inline bool IndexReferenceHasBeenSet() const { return m_indexReferenceHasBeenSet; }
 
     /**
      * <p>A reference to the index that you are attaching the object to.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>A reference to the object that you are attaching to the index.</p>
      */
     inline const ObjectReference& GetTargetReference() const{ return m_targetReference; }
+
+    /**
+     * <p>A reference to the object that you are attaching to the index.</p>
+     */
+    inline bool TargetReferenceHasBeenSet() const { return m_targetReferenceHasBeenSet; }
 
     /**
      * <p>A reference to the object that you are attaching to the index.</p>

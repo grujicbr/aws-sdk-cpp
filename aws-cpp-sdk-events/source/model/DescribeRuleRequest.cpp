@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 DescribeRuleRequest::DescribeRuleRequest() : 
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_eventBusNameHasBeenSet(false)
 {
 }
 
@@ -37,7 +38,13 @@ Aws::String DescribeRuleRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_eventBusNameHasBeenSet)
+  {
+   payload.WithString("EventBusName", m_eventBusName);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DescribeRuleRequest::GetRequestSpecificHeaders() const

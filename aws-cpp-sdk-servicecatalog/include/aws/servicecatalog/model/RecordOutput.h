@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RecordOutput();
-    RecordOutput(const Aws::Utils::Json::JsonValue& jsonValue);
-    RecordOutput& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RecordOutput(Aws::Utils::Json::JsonView jsonValue);
+    RecordOutput& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The output key.</p>
      */
     inline const Aws::String& GetOutputKey() const{ return m_outputKey; }
+
+    /**
+     * <p>The output key.</p>
+     */
+    inline bool OutputKeyHasBeenSet() const { return m_outputKeyHasBeenSet; }
 
     /**
      * <p>The output key.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The output value.</p>
      */
+    inline bool OutputValueHasBeenSet() const { return m_outputValueHasBeenSet; }
+
+    /**
+     * <p>The output value.</p>
+     */
     inline void SetOutputValue(const Aws::String& value) { m_outputValueHasBeenSet = true; m_outputValue = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The description of the output.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the output.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the output.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     MaintenanceWindowTaskParameterValueExpression();
-    MaintenanceWindowTaskParameterValueExpression(const Aws::Utils::Json::JsonValue& jsonValue);
-    MaintenanceWindowTaskParameterValueExpression& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MaintenanceWindowTaskParameterValueExpression(Aws::Utils::Json::JsonView jsonValue);
+    MaintenanceWindowTaskParameterValueExpression& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * in length.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>This field contains an array of 0 or more strings, each 1 to 255 characters
+     * in length.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>This field contains an array of 0 or more strings, each 1 to 255 characters

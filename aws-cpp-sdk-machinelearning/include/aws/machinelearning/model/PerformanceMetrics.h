@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MachineLearning
@@ -53,13 +54,16 @@ namespace Model
   {
   public:
     PerformanceMetrics();
-    PerformanceMetrics(const Aws::Utils::Json::JsonValue& jsonValue);
-    PerformanceMetrics& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PerformanceMetrics(Aws::Utils::Json::JsonView jsonValue);
+    PerformanceMetrics& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Aws::Map<Aws::String, Aws::String>& GetProperties() const{ return m_properties; }
+
+    
+    inline bool PropertiesHasBeenSet() const { return m_propertiesHasBeenSet; }
 
     
     inline void SetProperties(const Aws::Map<Aws::String, Aws::String>& value) { m_propertiesHasBeenSet = true; m_properties = value; }

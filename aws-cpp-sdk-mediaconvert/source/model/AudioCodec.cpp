@@ -32,10 +32,12 @@ namespace Aws
 
         static const int AAC_HASH = HashingUtils::HashString("AAC");
         static const int MP2_HASH = HashingUtils::HashString("MP2");
+        static const int MP3_HASH = HashingUtils::HashString("MP3");
         static const int WAV_HASH = HashingUtils::HashString("WAV");
         static const int AIFF_HASH = HashingUtils::HashString("AIFF");
         static const int AC3_HASH = HashingUtils::HashString("AC3");
         static const int EAC3_HASH = HashingUtils::HashString("EAC3");
+        static const int EAC3_ATMOS_HASH = HashingUtils::HashString("EAC3_ATMOS");
         static const int PASSTHROUGH_HASH = HashingUtils::HashString("PASSTHROUGH");
 
 
@@ -49,6 +51,10 @@ namespace Aws
           else if (hashCode == MP2_HASH)
           {
             return AudioCodec::MP2;
+          }
+          else if (hashCode == MP3_HASH)
+          {
+            return AudioCodec::MP3;
           }
           else if (hashCode == WAV_HASH)
           {
@@ -65,6 +71,10 @@ namespace Aws
           else if (hashCode == EAC3_HASH)
           {
             return AudioCodec::EAC3;
+          }
+          else if (hashCode == EAC3_ATMOS_HASH)
+          {
+            return AudioCodec::EAC3_ATMOS;
           }
           else if (hashCode == PASSTHROUGH_HASH)
           {
@@ -88,6 +98,8 @@ namespace Aws
             return "AAC";
           case AudioCodec::MP2:
             return "MP2";
+          case AudioCodec::MP3:
+            return "MP3";
           case AudioCodec::WAV:
             return "WAV";
           case AudioCodec::AIFF:
@@ -96,6 +108,8 @@ namespace Aws
             return "AC3";
           case AudioCodec::EAC3:
             return "EAC3";
+          case AudioCodec::EAC3_ATMOS:
+            return "EAC3_ATMOS";
           case AudioCodec::PASSTHROUGH:
             return "PASSTHROUGH";
           default:
@@ -105,7 +119,7 @@ namespace Aws
               return overflowContainer->RetrieveOverflow(static_cast<int>(enumValue));
             }
 
-            return "";
+            return {};
           }
         }
 

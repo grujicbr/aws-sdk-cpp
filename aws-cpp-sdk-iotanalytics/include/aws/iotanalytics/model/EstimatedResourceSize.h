@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     EstimatedResourceSize();
-    EstimatedResourceSize(const Aws::Utils::Json::JsonValue& jsonValue);
-    EstimatedResourceSize& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EstimatedResourceSize(Aws::Utils::Json::JsonView jsonValue);
+    EstimatedResourceSize& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The estimated size of the resource in bytes.</p>
      */
     inline double GetEstimatedSizeInBytes() const{ return m_estimatedSizeInBytes; }
+
+    /**
+     * <p>The estimated size of the resource in bytes.</p>
+     */
+    inline bool EstimatedSizeInBytesHasBeenSet() const { return m_estimatedSizeInBytesHasBeenSet; }
 
     /**
      * <p>The estimated size of the resource in bytes.</p>
@@ -66,6 +72,11 @@ namespace Model
      * <p>The time when the estimate of the size of the resource was made.</p>
      */
     inline const Aws::Utils::DateTime& GetEstimatedOn() const{ return m_estimatedOn; }
+
+    /**
+     * <p>The time when the estimate of the size of the resource was made.</p>
+     */
+    inline bool EstimatedOnHasBeenSet() const { return m_estimatedOnHasBeenSet; }
 
     /**
      * <p>The time when the estimate of the size of the resource was made.</p>

@@ -51,13 +51,16 @@ DeleteNatGatewayResponse& DeleteNatGatewayResponse::operator =(const Aws::Amazon
     XmlNode natGatewayIdNode = resultNode.FirstChild("natGatewayId");
     if(!natGatewayIdNode.IsNull())
     {
-      m_natGatewayId = StringUtils::Trim(natGatewayIdNode.GetText().c_str());
+      m_natGatewayId = Aws::Utils::Xml::DecodeEscapedXmlText(natGatewayIdNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::DeleteNatGatewayResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

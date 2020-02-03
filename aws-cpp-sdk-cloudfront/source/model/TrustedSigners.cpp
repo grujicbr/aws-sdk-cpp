@@ -58,13 +58,13 @@ TrustedSigners& TrustedSigners::operator =(const XmlNode& xmlNode)
     XmlNode enabledNode = resultNode.FirstChild("Enabled");
     if(!enabledNode.IsNull())
     {
-      m_enabled = StringUtils::ConvertToBool(StringUtils::Trim(enabledNode.GetText().c_str()).c_str());
+      m_enabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(enabledNode.GetText()).c_str()).c_str());
       m_enabledHasBeenSet = true;
     }
     XmlNode quantityNode = resultNode.FirstChild("Quantity");
     if(!quantityNode.IsNull())
     {
-      m_quantity = StringUtils::ConvertToInt32(StringUtils::Trim(quantityNode.GetText().c_str()).c_str());
+      m_quantity = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(quantityNode.GetText()).c_str()).c_str());
       m_quantityHasBeenSet = true;
     }
     XmlNode itemsNode = resultNode.FirstChild("Items");
@@ -73,7 +73,7 @@ TrustedSigners& TrustedSigners::operator =(const XmlNode& xmlNode)
       XmlNode itemsMember = itemsNode.FirstChild("AwsAccountNumber");
       while(!itemsMember.IsNull())
       {
-        m_items.push_back(StringUtils::Trim(itemsMember.GetText().c_str()));
+        m_items.push_back(itemsMember.GetText());
         itemsMember = itemsMember.NextNode("AwsAccountNumber");
       }
 

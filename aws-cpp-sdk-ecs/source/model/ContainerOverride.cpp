@@ -37,11 +37,12 @@ ContainerOverride::ContainerOverride() :
     m_memory(0),
     m_memoryHasBeenSet(false),
     m_memoryReservation(0),
-    m_memoryReservationHasBeenSet(false)
+    m_memoryReservationHasBeenSet(false),
+    m_resourceRequirementsHasBeenSet(false)
 {
 }
 
-ContainerOverride::ContainerOverride(const JsonValue& jsonValue) : 
+ContainerOverride::ContainerOverride(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_commandHasBeenSet(false),
     m_environmentHasBeenSet(false),
@@ -50,12 +51,13 @@ ContainerOverride::ContainerOverride(const JsonValue& jsonValue) :
     m_memory(0),
     m_memoryHasBeenSet(false),
     m_memoryReservation(0),
-    m_memoryReservationHasBeenSet(false)
+    m_memoryReservationHasBeenSet(false),
+    m_resourceRequirementsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ContainerOverride& ContainerOverride::operator =(const JsonValue& jsonValue)
+ContainerOverride& ContainerOverride::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -66,7 +68,7 @@ ContainerOverride& ContainerOverride::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("command"))
   {
-    Array<JsonValue> commandJsonList = jsonValue.GetArray("command");
+    Array<JsonView> commandJsonList = jsonValue.GetArray("command");
     for(unsigned commandIndex = 0; commandIndex < commandJsonList.GetLength(); ++commandIndex)
     {
       m_command.push_back(commandJsonList[commandIndex].AsString());
@@ -76,7 +78,7 @@ ContainerOverride& ContainerOverride::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("environment"))
   {
-    Array<JsonValue> environmentJsonList = jsonValue.GetArray("environment");
+    Array<JsonView> environmentJsonList = jsonValue.GetArray("environment");
     for(unsigned environmentIndex = 0; environmentIndex < environmentJsonList.GetLength(); ++environmentIndex)
     {
       m_environment.push_back(environmentJsonList[environmentIndex].AsObject());
@@ -103,6 +105,16 @@ ContainerOverride& ContainerOverride::operator =(const JsonValue& jsonValue)
     m_memoryReservation = jsonValue.GetInteger("memoryReservation");
 
     m_memoryReservationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("resourceRequirements"))
+  {
+    Array<JsonView> resourceRequirementsJsonList = jsonValue.GetArray("resourceRequirements");
+    for(unsigned resourceRequirementsIndex = 0; resourceRequirementsIndex < resourceRequirementsJsonList.GetLength(); ++resourceRequirementsIndex)
+    {
+      m_resourceRequirements.push_back(resourceRequirementsJsonList[resourceRequirementsIndex].AsObject());
+    }
+    m_resourceRequirementsHasBeenSet = true;
   }
 
   return *this;
@@ -155,6 +167,17 @@ JsonValue ContainerOverride::Jsonize() const
   if(m_memoryReservationHasBeenSet)
   {
    payload.WithInteger("memoryReservation", m_memoryReservation);
+
+  }
+
+  if(m_resourceRequirementsHasBeenSet)
+  {
+   Array<JsonValue> resourceRequirementsJsonList(m_resourceRequirements.size());
+   for(unsigned resourceRequirementsIndex = 0; resourceRequirementsIndex < resourceRequirementsJsonList.GetLength(); ++resourceRequirementsIndex)
+   {
+     resourceRequirementsJsonList[resourceRequirementsIndex].AsObject(m_resourceRequirements[resourceRequirementsIndex].Jsonize());
+   }
+   payload.WithArray("resourceRequirements", std::move(resourceRequirementsJsonList));
 
   }
 

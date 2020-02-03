@@ -16,6 +16,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 #if ($rootNamespace != "Aws")
@@ -27,8 +28,14 @@ namespace ${serviceNamespace}
 {
 namespace Model
 {
-#set($jsonRef = "${typeInfo.jsonType}&")
 #set($classNameRef = "${typeInfo.className}&")
+#foreach($entry in $shape.members.entrySet())##Forward declaration for classes whose headers could not be included in this file.
+#if($entry.value.shape.isMutuallyReferencedWith($shape))
+  class $entry.value.shape.name;
+#elseif($entry.value.shape.list && $entry.value.shape.listMember.shape.isListMemberAndMutuallyReferencedWith($shape))
+  class $entry.value.shape.listMember.shape.name;
+#end
+#end
 
 #if($shape.documentation)
   /**
@@ -39,8 +46,8 @@ namespace Model
   {
   public:
     ${typeInfo.className}();
-    ${typeInfo.className}(const ${jsonRef} jsonValue);
-    ${classNameRef} operator=(const ${jsonRef} jsonValue);
+    ${typeInfo.className}(${typeInfo.jsonViewType} jsonValue);
+    ${classNameRef} operator=(${typeInfo.jsonViewType} jsonValue);
     ${typeInfo.jsonType} Jsonize() const;
 
 #set($useRequiredField = true)

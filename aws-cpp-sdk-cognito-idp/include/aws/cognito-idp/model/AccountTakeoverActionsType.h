@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     AccountTakeoverActionsType();
-    AccountTakeoverActionsType(const Aws::Utils::Json::JsonValue& jsonValue);
-    AccountTakeoverActionsType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AccountTakeoverActionsType(Aws::Utils::Json::JsonView jsonValue);
+    AccountTakeoverActionsType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>Action to take for a low risk.</p>
      */
     inline const AccountTakeoverActionType& GetLowAction() const{ return m_lowAction; }
+
+    /**
+     * <p>Action to take for a low risk.</p>
+     */
+    inline bool LowActionHasBeenSet() const { return m_lowActionHasBeenSet; }
 
     /**
      * <p>Action to take for a low risk.</p>
@@ -80,6 +86,11 @@ namespace Model
     /**
      * <p>Action to take for a medium risk.</p>
      */
+    inline bool MediumActionHasBeenSet() const { return m_mediumActionHasBeenSet; }
+
+    /**
+     * <p>Action to take for a medium risk.</p>
+     */
     inline void SetMediumAction(const AccountTakeoverActionType& value) { m_mediumActionHasBeenSet = true; m_mediumAction = value; }
 
     /**
@@ -102,6 +113,11 @@ namespace Model
      * <p>Action to take for a high risk.</p>
      */
     inline const AccountTakeoverActionType& GetHighAction() const{ return m_highAction; }
+
+    /**
+     * <p>Action to take for a high risk.</p>
+     */
+    inline bool HighActionHasBeenSet() const { return m_highActionHasBeenSet; }
 
     /**
      * <p>Action to take for a high risk.</p>

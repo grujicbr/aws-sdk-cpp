@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     AssessmentTarget();
-    AssessmentTarget(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssessmentTarget& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssessmentTarget(Aws::Utils::Json::JsonView jsonValue);
+    AssessmentTarget& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The ARN that specifies the Amazon Inspector assessment target.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The ARN that specifies the Amazon Inspector assessment target.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The ARN that specifies the Amazon Inspector assessment target.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The name of the Amazon Inspector assessment target.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the Amazon Inspector assessment target.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -126,6 +137,12 @@ namespace Model
      * assessment target.</p>
      */
     inline const Aws::String& GetResourceGroupArn() const{ return m_resourceGroupArn; }
+
+    /**
+     * <p>The ARN that specifies the resource group that is associated with the
+     * assessment target.</p>
+     */
+    inline bool ResourceGroupArnHasBeenSet() const { return m_resourceGroupArnHasBeenSet; }
 
     /**
      * <p>The ARN that specifies the resource group that is associated with the
@@ -172,6 +189,11 @@ namespace Model
     /**
      * <p>The time at which the assessment target is created.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The time at which the assessment target is created.</p>
+     */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -194,6 +216,11 @@ namespace Model
      * <p>The time at which <a>UpdateAssessmentTarget</a> is called.</p>
      */
     inline const Aws::Utils::DateTime& GetUpdatedAt() const{ return m_updatedAt; }
+
+    /**
+     * <p>The time at which <a>UpdateAssessmentTarget</a> is called.</p>
+     */
+    inline bool UpdatedAtHasBeenSet() const { return m_updatedAtHasBeenSet; }
 
     /**
      * <p>The time at which <a>UpdateAssessmentTarget</a> is called.</p>

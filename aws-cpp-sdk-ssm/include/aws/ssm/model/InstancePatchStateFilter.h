@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     InstancePatchStateFilter();
-    InstancePatchStateFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstancePatchStateFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstancePatchStateFilter(Aws::Utils::Json::JsonView jsonValue);
+    InstancePatchStateFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * InstalledOtherCount, MissingCount and NotApplicableCount.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The key for the filter. Supported values are FailedCount, InstalledCount,
+     * InstalledOtherCount, MissingCount and NotApplicableCount.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The key for the filter. Supported values are FailedCount, InstalledCount,
@@ -100,6 +107,11 @@ namespace Model
     /**
      * <p>The value for the filter, must be an integer greater than or equal to 0.</p>
      */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
+
+    /**
+     * <p>The value for the filter, must be an integer greater than or equal to 0.</p>
+     */
     inline void SetValues(const Aws::Vector<Aws::String>& value) { m_valuesHasBeenSet = true; m_values = value; }
 
     /**
@@ -138,6 +150,12 @@ namespace Model
      * NotEqual, LessThan or GreaterThan.</p>
      */
     inline const InstancePatchStateOperatorType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of comparison that should be performed for the value: Equal,
+     * NotEqual, LessThan or GreaterThan.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of comparison that should be performed for the value: Equal,

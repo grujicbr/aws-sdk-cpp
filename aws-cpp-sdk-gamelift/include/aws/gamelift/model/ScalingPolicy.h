@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace GameLift
@@ -40,12 +41,11 @@ namespace Model
 
   /**
    * <p>Rule that controls how a fleet is scaled. Scaling policies are uniquely
-   * identified by the combination of name and fleet ID.</p> <p>Operations related to
-   * fleet capacity scaling include:</p> <ul> <li> <p> <a>DescribeFleetCapacity</a>
-   * </p> </li> <li> <p> <a>UpdateFleetCapacity</a> </p> </li> <li> <p>
-   * <a>DescribeEC2InstanceLimits</a> </p> </li> <li> <p>Manage scaling policies:</p>
-   * <ul> <li> <p> <a>PutScalingPolicy</a> (auto-scaling)</p> </li> <li> <p>
-   * <a>DescribeScalingPolicies</a> (auto-scaling)</p> </li> <li> <p>
+   * identified by the combination of name and fleet ID.</p> <ul> <li> <p>
+   * <a>DescribeFleetCapacity</a> </p> </li> <li> <p> <a>UpdateFleetCapacity</a> </p>
+   * </li> <li> <p> <a>DescribeEC2InstanceLimits</a> </p> </li> <li> <p>Manage
+   * scaling policies:</p> <ul> <li> <p> <a>PutScalingPolicy</a> (auto-scaling)</p>
+   * </li> <li> <p> <a>DescribeScalingPolicies</a> (auto-scaling)</p> </li> <li> <p>
    * <a>DeleteScalingPolicy</a> (auto-scaling)</p> </li> </ul> </li> <li> <p>Manage
    * fleet actions:</p> <ul> <li> <p> <a>StartFleetActions</a> </p> </li> <li> <p>
    * <a>StopFleetActions</a> </p> </li> </ul> </li> </ul><p><h3>See Also:</h3>   <a
@@ -56,92 +56,104 @@ namespace Model
   {
   public:
     ScalingPolicy();
-    ScalingPolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    ScalingPolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ScalingPolicy(Aws::Utils::Json::JsonView jsonValue);
+    ScalingPolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>Unique identifier for a fleet that is associated with this scaling
+     * <p>A unique identifier for a fleet that is associated with this scaling
      * policy.</p>
      */
     inline const Aws::String& GetFleetId() const{ return m_fleetId; }
 
     /**
-     * <p>Unique identifier for a fleet that is associated with this scaling
+     * <p>A unique identifier for a fleet that is associated with this scaling
+     * policy.</p>
+     */
+    inline bool FleetIdHasBeenSet() const { return m_fleetIdHasBeenSet; }
+
+    /**
+     * <p>A unique identifier for a fleet that is associated with this scaling
      * policy.</p>
      */
     inline void SetFleetId(const Aws::String& value) { m_fleetIdHasBeenSet = true; m_fleetId = value; }
 
     /**
-     * <p>Unique identifier for a fleet that is associated with this scaling
+     * <p>A unique identifier for a fleet that is associated with this scaling
      * policy.</p>
      */
     inline void SetFleetId(Aws::String&& value) { m_fleetIdHasBeenSet = true; m_fleetId = std::move(value); }
 
     /**
-     * <p>Unique identifier for a fleet that is associated with this scaling
+     * <p>A unique identifier for a fleet that is associated with this scaling
      * policy.</p>
      */
     inline void SetFleetId(const char* value) { m_fleetIdHasBeenSet = true; m_fleetId.assign(value); }
 
     /**
-     * <p>Unique identifier for a fleet that is associated with this scaling
+     * <p>A unique identifier for a fleet that is associated with this scaling
      * policy.</p>
      */
     inline ScalingPolicy& WithFleetId(const Aws::String& value) { SetFleetId(value); return *this;}
 
     /**
-     * <p>Unique identifier for a fleet that is associated with this scaling
+     * <p>A unique identifier for a fleet that is associated with this scaling
      * policy.</p>
      */
     inline ScalingPolicy& WithFleetId(Aws::String&& value) { SetFleetId(std::move(value)); return *this;}
 
     /**
-     * <p>Unique identifier for a fleet that is associated with this scaling
+     * <p>A unique identifier for a fleet that is associated with this scaling
      * policy.</p>
      */
     inline ScalingPolicy& WithFleetId(const char* value) { SetFleetId(value); return *this;}
 
 
     /**
-     * <p>Descriptive label that is associated with a scaling policy. Policy names do
+     * <p>A descriptive label that is associated with a scaling policy. Policy names do
      * not need to be unique.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
-     * <p>Descriptive label that is associated with a scaling policy. Policy names do
+     * <p>A descriptive label that is associated with a scaling policy. Policy names do
+     * not need to be unique.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>A descriptive label that is associated with a scaling policy. Policy names do
      * not need to be unique.</p>
      */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
-     * <p>Descriptive label that is associated with a scaling policy. Policy names do
+     * <p>A descriptive label that is associated with a scaling policy. Policy names do
      * not need to be unique.</p>
      */
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
     /**
-     * <p>Descriptive label that is associated with a scaling policy. Policy names do
+     * <p>A descriptive label that is associated with a scaling policy. Policy names do
      * not need to be unique.</p>
      */
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
     /**
-     * <p>Descriptive label that is associated with a scaling policy. Policy names do
+     * <p>A descriptive label that is associated with a scaling policy. Policy names do
      * not need to be unique.</p>
      */
     inline ScalingPolicy& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
-     * <p>Descriptive label that is associated with a scaling policy. Policy names do
+     * <p>A descriptive label that is associated with a scaling policy. Policy names do
      * not need to be unique.</p>
      */
     inline ScalingPolicy& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
-     * <p>Descriptive label that is associated with a scaling policy. Policy names do
+     * <p>A descriptive label that is associated with a scaling policy. Policy names do
      * not need to be unique.</p>
      */
     inline ScalingPolicy& WithName(const char* value) { SetName(value); return *this;}
@@ -164,6 +176,24 @@ namespace Model
      * </ul>
      */
     inline const ScalingStatusType& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>Current status of the scaling policy. The scaling policy can be in force only
+     * when in an <code>ACTIVE</code> status. Scaling policies can be suspended for
+     * individual fleets (see <a>StopFleetActions</a>; if suspended for a fleet, the
+     * policy status does not change. View a fleet's stopped actions by calling
+     * <a>DescribeFleetCapacity</a>.</p> <ul> <li> <p> <b>ACTIVE</b> -- The scaling
+     * policy can be used for auto-scaling a fleet.</p> </li> <li> <p>
+     * <b>UPDATE_REQUESTED</b> -- A request to update the scaling policy has been
+     * received.</p> </li> <li> <p> <b>UPDATING</b> -- A change is being made to the
+     * scaling policy.</p> </li> <li> <p> <b>DELETE_REQUESTED</b> -- A request to
+     * delete the scaling policy has been received.</p> </li> <li> <p> <b>DELETING</b>
+     * -- The scaling policy is being deleted.</p> </li> <li> <p> <b>DELETED</b> -- The
+     * scaling policy has been deleted.</p> </li> <li> <p> <b>ERROR</b> -- An error
+     * occurred in creating the policy. It should be removed and recreated.</p> </li>
+     * </ul>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>Current status of the scaling policy. The scaling policy can be in force only
@@ -246,6 +276,11 @@ namespace Model
     /**
      * <p>Amount of adjustment to make, based on the scaling adjustment type.</p>
      */
+    inline bool ScalingAdjustmentHasBeenSet() const { return m_scalingAdjustmentHasBeenSet; }
+
+    /**
+     * <p>Amount of adjustment to make, based on the scaling adjustment type.</p>
+     */
     inline void SetScalingAdjustment(int value) { m_scalingAdjustmentHasBeenSet = true; m_scalingAdjustment = value; }
 
     /**
@@ -255,7 +290,7 @@ namespace Model
 
 
     /**
-     * <p>Type of adjustment to make to a fleet's instance count (see
+     * <p>The type of adjustment to make to a fleet's instance count (see
      * <a>FleetCapacity</a>):</p> <ul> <li> <p> <b>ChangeInCapacity</b> -- add (or
      * subtract) the scaling adjustment value from the current instance count. Positive
      * values scale up while negative values scale down.</p> </li> <li> <p>
@@ -267,7 +302,19 @@ namespace Model
     inline const ScalingAdjustmentType& GetScalingAdjustmentType() const{ return m_scalingAdjustmentType; }
 
     /**
-     * <p>Type of adjustment to make to a fleet's instance count (see
+     * <p>The type of adjustment to make to a fleet's instance count (see
+     * <a>FleetCapacity</a>):</p> <ul> <li> <p> <b>ChangeInCapacity</b> -- add (or
+     * subtract) the scaling adjustment value from the current instance count. Positive
+     * values scale up while negative values scale down.</p> </li> <li> <p>
+     * <b>ExactCapacity</b> -- set the instance count to the scaling adjustment
+     * value.</p> </li> <li> <p> <b>PercentChangeInCapacity</b> -- increase or reduce
+     * the current instance count by the scaling adjustment, read as a percentage.
+     * Positive values scale up while negative values scale down.</p> </li> </ul>
+     */
+    inline bool ScalingAdjustmentTypeHasBeenSet() const { return m_scalingAdjustmentTypeHasBeenSet; }
+
+    /**
+     * <p>The type of adjustment to make to a fleet's instance count (see
      * <a>FleetCapacity</a>):</p> <ul> <li> <p> <b>ChangeInCapacity</b> -- add (or
      * subtract) the scaling adjustment value from the current instance count. Positive
      * values scale up while negative values scale down.</p> </li> <li> <p>
@@ -279,7 +326,7 @@ namespace Model
     inline void SetScalingAdjustmentType(const ScalingAdjustmentType& value) { m_scalingAdjustmentTypeHasBeenSet = true; m_scalingAdjustmentType = value; }
 
     /**
-     * <p>Type of adjustment to make to a fleet's instance count (see
+     * <p>The type of adjustment to make to a fleet's instance count (see
      * <a>FleetCapacity</a>):</p> <ul> <li> <p> <b>ChangeInCapacity</b> -- add (or
      * subtract) the scaling adjustment value from the current instance count. Positive
      * values scale up while negative values scale down.</p> </li> <li> <p>
@@ -291,7 +338,7 @@ namespace Model
     inline void SetScalingAdjustmentType(ScalingAdjustmentType&& value) { m_scalingAdjustmentTypeHasBeenSet = true; m_scalingAdjustmentType = std::move(value); }
 
     /**
-     * <p>Type of adjustment to make to a fleet's instance count (see
+     * <p>The type of adjustment to make to a fleet's instance count (see
      * <a>FleetCapacity</a>):</p> <ul> <li> <p> <b>ChangeInCapacity</b> -- add (or
      * subtract) the scaling adjustment value from the current instance count. Positive
      * values scale up while negative values scale down.</p> </li> <li> <p>
@@ -303,7 +350,7 @@ namespace Model
     inline ScalingPolicy& WithScalingAdjustmentType(const ScalingAdjustmentType& value) { SetScalingAdjustmentType(value); return *this;}
 
     /**
-     * <p>Type of adjustment to make to a fleet's instance count (see
+     * <p>The type of adjustment to make to a fleet's instance count (see
      * <a>FleetCapacity</a>):</p> <ul> <li> <p> <b>ChangeInCapacity</b> -- add (or
      * subtract) the scaling adjustment value from the current instance count. Positive
      * values scale up while negative values scale down.</p> </li> <li> <p>
@@ -320,6 +367,12 @@ namespace Model
      * value.</p>
      */
     inline const ComparisonOperatorType& GetComparisonOperator() const{ return m_comparisonOperator; }
+
+    /**
+     * <p>Comparison operator to use when measuring a metric against the threshold
+     * value.</p>
+     */
+    inline bool ComparisonOperatorHasBeenSet() const { return m_comparisonOperatorHasBeenSet; }
 
     /**
      * <p>Comparison operator to use when measuring a metric against the threshold
@@ -354,6 +407,11 @@ namespace Model
     /**
      * <p>Metric value used to trigger a scaling event.</p>
      */
+    inline bool ThresholdHasBeenSet() const { return m_thresholdHasBeenSet; }
+
+    /**
+     * <p>Metric value used to trigger a scaling event.</p>
+     */
     inline void SetThreshold(double value) { m_thresholdHasBeenSet = true; m_threshold = value; }
 
     /**
@@ -372,6 +430,12 @@ namespace Model
      * <p>Length of time (in minutes) the metric must be at or beyond the threshold
      * before a scaling event is triggered.</p>
      */
+    inline bool EvaluationPeriodsHasBeenSet() const { return m_evaluationPeriodsHasBeenSet; }
+
+    /**
+     * <p>Length of time (in minutes) the metric must be at or beyond the threshold
+     * before a scaling event is triggered.</p>
+     */
     inline void SetEvaluationPeriods(int value) { m_evaluationPeriodsHasBeenSet = true; m_evaluationPeriods = value; }
 
     /**
@@ -384,7 +448,7 @@ namespace Model
     /**
      * <p>Name of the Amazon GameLift-defined metric that is used to trigger a scaling
      * adjustment. For detailed descriptions of fleet metrics, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
      * Amazon GameLift with Amazon CloudWatch</a>. </p> <ul> <li> <p>
      * <b>ActivatingGameSessions</b> -- Game sessions in the process of being
      * created.</p> </li> <li> <p> <b>ActiveGameSessions</b> -- Game sessions that are
@@ -414,7 +478,37 @@ namespace Model
     /**
      * <p>Name of the Amazon GameLift-defined metric that is used to trigger a scaling
      * adjustment. For detailed descriptions of fleet metrics, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
+     * Amazon GameLift with Amazon CloudWatch</a>. </p> <ul> <li> <p>
+     * <b>ActivatingGameSessions</b> -- Game sessions in the process of being
+     * created.</p> </li> <li> <p> <b>ActiveGameSessions</b> -- Game sessions that are
+     * currently running.</p> </li> <li> <p> <b>ActiveInstances</b> -- Fleet instances
+     * that are currently running at least one game session.</p> </li> <li> <p>
+     * <b>AvailableGameSessions</b> -- Additional game sessions that fleet could host
+     * simultaneously, given current capacity.</p> </li> <li> <p>
+     * <b>AvailablePlayerSessions</b> -- Empty player slots in currently active game
+     * sessions. This includes game sessions that are not currently accepting players.
+     * Reserved player slots are not included.</p> </li> <li> <p>
+     * <b>CurrentPlayerSessions</b> -- Player slots in active game sessions that are
+     * being used by a player or are reserved for a player. </p> </li> <li> <p>
+     * <b>IdleInstances</b> -- Active instances that are currently hosting zero game
+     * sessions. </p> </li> <li> <p> <b>PercentAvailableGameSessions</b> -- Unused
+     * percentage of the total number of game sessions that a fleet could host
+     * simultaneously, given current capacity. Use this metric for a target-based
+     * scaling policy.</p> </li> <li> <p> <b>PercentIdleInstances</b> -- Percentage of
+     * the total number of active instances that are hosting zero game sessions.</p>
+     * </li> <li> <p> <b>QueueDepth</b> -- Pending game session placement requests, in
+     * any queue, where the current fleet is the top-priority destination.</p> </li>
+     * <li> <p> <b>WaitTime</b> -- Current wait time for pending game session placement
+     * requests, in any queue, where the current fleet is the top-priority destination.
+     * </p> </li> </ul>
+     */
+    inline bool MetricNameHasBeenSet() const { return m_metricNameHasBeenSet; }
+
+    /**
+     * <p>Name of the Amazon GameLift-defined metric that is used to trigger a scaling
+     * adjustment. For detailed descriptions of fleet metrics, see <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
      * Amazon GameLift with Amazon CloudWatch</a>. </p> <ul> <li> <p>
      * <b>ActivatingGameSessions</b> -- Game sessions in the process of being
      * created.</p> </li> <li> <p> <b>ActiveGameSessions</b> -- Game sessions that are
@@ -444,7 +538,7 @@ namespace Model
     /**
      * <p>Name of the Amazon GameLift-defined metric that is used to trigger a scaling
      * adjustment. For detailed descriptions of fleet metrics, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
      * Amazon GameLift with Amazon CloudWatch</a>. </p> <ul> <li> <p>
      * <b>ActivatingGameSessions</b> -- Game sessions in the process of being
      * created.</p> </li> <li> <p> <b>ActiveGameSessions</b> -- Game sessions that are
@@ -474,7 +568,7 @@ namespace Model
     /**
      * <p>Name of the Amazon GameLift-defined metric that is used to trigger a scaling
      * adjustment. For detailed descriptions of fleet metrics, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
      * Amazon GameLift with Amazon CloudWatch</a>. </p> <ul> <li> <p>
      * <b>ActivatingGameSessions</b> -- Game sessions in the process of being
      * created.</p> </li> <li> <p> <b>ActiveGameSessions</b> -- Game sessions that are
@@ -504,7 +598,7 @@ namespace Model
     /**
      * <p>Name of the Amazon GameLift-defined metric that is used to trigger a scaling
      * adjustment. For detailed descriptions of fleet metrics, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html">Monitor
      * Amazon GameLift with Amazon CloudWatch</a>. </p> <ul> <li> <p>
      * <b>ActivatingGameSessions</b> -- Game sessions in the process of being
      * created.</p> </li> <li> <p> <b>ActiveGameSessions</b> -- Game sessions that are
@@ -533,7 +627,7 @@ namespace Model
 
 
     /**
-     * <p>Type of scaling policy to create. For a target-based policy, set the
+     * <p>The type of scaling policy to create. For a target-based policy, set the
      * parameter <i>MetricName</i> to 'PercentAvailableGameSessions' and specify a
      * <i>TargetConfiguration</i>. For a rule-based policy set the following
      * parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
@@ -543,7 +637,17 @@ namespace Model
     inline const PolicyType& GetPolicyType() const{ return m_policyType; }
 
     /**
-     * <p>Type of scaling policy to create. For a target-based policy, set the
+     * <p>The type of scaling policy to create. For a target-based policy, set the
+     * parameter <i>MetricName</i> to 'PercentAvailableGameSessions' and specify a
+     * <i>TargetConfiguration</i>. For a rule-based policy set the following
+     * parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
+     * <i>EvaluationPeriods</i>, <i>ScalingAdjustmentType</i>, and
+     * <i>ScalingAdjustment</i>.</p>
+     */
+    inline bool PolicyTypeHasBeenSet() const { return m_policyTypeHasBeenSet; }
+
+    /**
+     * <p>The type of scaling policy to create. For a target-based policy, set the
      * parameter <i>MetricName</i> to 'PercentAvailableGameSessions' and specify a
      * <i>TargetConfiguration</i>. For a rule-based policy set the following
      * parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
@@ -553,7 +657,7 @@ namespace Model
     inline void SetPolicyType(const PolicyType& value) { m_policyTypeHasBeenSet = true; m_policyType = value; }
 
     /**
-     * <p>Type of scaling policy to create. For a target-based policy, set the
+     * <p>The type of scaling policy to create. For a target-based policy, set the
      * parameter <i>MetricName</i> to 'PercentAvailableGameSessions' and specify a
      * <i>TargetConfiguration</i>. For a rule-based policy set the following
      * parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
@@ -563,7 +667,7 @@ namespace Model
     inline void SetPolicyType(PolicyType&& value) { m_policyTypeHasBeenSet = true; m_policyType = std::move(value); }
 
     /**
-     * <p>Type of scaling policy to create. For a target-based policy, set the
+     * <p>The type of scaling policy to create. For a target-based policy, set the
      * parameter <i>MetricName</i> to 'PercentAvailableGameSessions' and specify a
      * <i>TargetConfiguration</i>. For a rule-based policy set the following
      * parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
@@ -573,7 +677,7 @@ namespace Model
     inline ScalingPolicy& WithPolicyType(const PolicyType& value) { SetPolicyType(value); return *this;}
 
     /**
-     * <p>Type of scaling policy to create. For a target-based policy, set the
+     * <p>The type of scaling policy to create. For a target-based policy, set the
      * parameter <i>MetricName</i> to 'PercentAvailableGameSessions' and specify a
      * <i>TargetConfiguration</i>. For a rule-based policy set the following
      * parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
@@ -584,27 +688,32 @@ namespace Model
 
 
     /**
-     * <p>Object that contains settings for a target-based scaling policy.</p>
+     * <p>The settings for a target-based scaling policy.</p>
      */
     inline const TargetConfiguration& GetTargetConfiguration() const{ return m_targetConfiguration; }
 
     /**
-     * <p>Object that contains settings for a target-based scaling policy.</p>
+     * <p>The settings for a target-based scaling policy.</p>
+     */
+    inline bool TargetConfigurationHasBeenSet() const { return m_targetConfigurationHasBeenSet; }
+
+    /**
+     * <p>The settings for a target-based scaling policy.</p>
      */
     inline void SetTargetConfiguration(const TargetConfiguration& value) { m_targetConfigurationHasBeenSet = true; m_targetConfiguration = value; }
 
     /**
-     * <p>Object that contains settings for a target-based scaling policy.</p>
+     * <p>The settings for a target-based scaling policy.</p>
      */
     inline void SetTargetConfiguration(TargetConfiguration&& value) { m_targetConfigurationHasBeenSet = true; m_targetConfiguration = std::move(value); }
 
     /**
-     * <p>Object that contains settings for a target-based scaling policy.</p>
+     * <p>The settings for a target-based scaling policy.</p>
      */
     inline ScalingPolicy& WithTargetConfiguration(const TargetConfiguration& value) { SetTargetConfiguration(value); return *this;}
 
     /**
-     * <p>Object that contains settings for a target-based scaling policy.</p>
+     * <p>The settings for a target-based scaling policy.</p>
      */
     inline ScalingPolicy& WithTargetConfiguration(TargetConfiguration&& value) { SetTargetConfiguration(std::move(value)); return *this;}
 

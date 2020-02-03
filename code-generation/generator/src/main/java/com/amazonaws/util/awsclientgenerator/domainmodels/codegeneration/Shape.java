@@ -39,7 +39,7 @@ public class Shape {
     private String documentation;
     private String locationName;
     private String payload;
-    private String xmlNamespace;
+    private XmlNamespace xmlNamespace;
     private boolean isRequest;
     private boolean isResult;
     private boolean isReferenced;
@@ -49,6 +49,10 @@ public class Shape {
     private boolean signBody;
     private String signerName;
     private String timestampFormat;
+    private boolean eventStream;
+    private boolean event;
+    private boolean exception;
+    private boolean sensitive;
 
     public boolean isMap() {
         return "map".equals(type.toLowerCase());
@@ -94,10 +98,12 @@ public class Shape {
     }
 
     public boolean hasHeaderMembers() {
+      if (members == null) return false;
       return members.values().parallelStream().anyMatch(member -> member.isUsedForHeader());
     }
 
     public boolean hasStatusCodeMembers() {
+      if (members == null) return false;
       return members.values().parallelStream().anyMatch(member -> member.isUsedForHttpStatusCode());
     }
 
@@ -108,16 +114,33 @@ public class Shape {
     }
 
     public boolean hasPayloadMembers() {
-       return members.values().parallelStream().anyMatch(member -> !member.isUsedForHttpStatusCode() && !member.isUsedForHeader()
+        if (members == null) return false;
+        return members.values().parallelStream().anyMatch(member -> !member.isUsedForHttpStatusCode() && !member.isUsedForHeader()
                && !member.isStreaming() && !member.isUsedForUri() && !member.isUsedForQueryString());
     }
 
     public boolean hasQueryStringMembers() {
+        if (members == null) return false;
         return members.values().parallelStream().anyMatch(member -> member.getLocation() != null && member.getLocation().equalsIgnoreCase("querystring"));
     }
 
     public boolean hasBlobMembers() {
+        if (members == null) return false;
         return members.values().parallelStream().anyMatch(member -> member.getShape().isBlob());
+    }
+
+    public boolean hasEventStreamMembers() {
+        if (members == null) return false;
+        return members.values().parallelStream().anyMatch(member -> member.getShape().isEventStream());
+    }
+
+    public boolean hasEventPayloadMembers() {
+        if (members == null) return false;
+        return members.values().parallelStream().anyMatch(member -> member.isEventPayload());
+    }
+
+    public boolean hasAccountIdMembers() {
+        return members.keySet().stream().anyMatch(key -> key.equals("AccountId"));
     }
 
     public ShapeMember getMemberByLocationName(String locationName) {
@@ -166,5 +189,27 @@ public class Shape {
       }
 
       return "null";
+    }
+
+    public boolean hasNestedEventPayloadMembers() {
+        if (members == null) return false;
+        // some shapes have a circular graph (e.g. cost-explorer service)
+        // so we can't simply call hasNestedEventPayloadMembers recursively
+        return members.values().parallelStream().anyMatch(member -> member.isEventPayload() || member.shape.hasEventPayloadMembers());
+    }
+
+    // Some shapes are mutually referenced with each other, e.g. Statement and NotStatement in wafv2.
+    public boolean isMutuallyReferencedWith(Shape shape) {
+        if (shape == null || shape.members == null || members == null || !isStructure() || !shape.isStructure() || name.equals(shape.getName())) return false;
+        return members.values().parallelStream().anyMatch(member -> member.getShape().getName().equals(shape.getName()))
+            && shape.getMembers().values().parallelStream().anyMatch(member -> member.getShape().getName().equals(name));
+    }
+
+    // e.g. "StructValue" has a list of "Value"s as its member, and "StructValue" itself is a member of "Value".
+    // Then "Value".isListMemberAndMutuallyReferencedWith("StructValue") = true
+    public boolean isListMemberAndMutuallyReferencedWith(Shape shape) {
+        if (shape == null || shape.members == null || members == null || !isStructure() || !shape.isStructure() || name.equals(shape.getName())) return false;
+        return members.values().parallelStream().anyMatch(member -> member.getShape().getName().equals(shape.getName()))
+            && shape.getMembers().values().parallelStream().anyMatch(member -> member.getShape().isList() && member.getShape().getListMember().getShape().getName().equals(name));
     }
 }

@@ -31,21 +31,21 @@ namespace Model
 Invitation::Invitation() : 
     m_accountIdHasBeenSet(false),
     m_invitationIdHasBeenSet(false),
-    m_invitedAtHasBeenSet(false),
-    m_relationshipStatusHasBeenSet(false)
+    m_relationshipStatusHasBeenSet(false),
+    m_invitedAtHasBeenSet(false)
 {
 }
 
-Invitation::Invitation(const JsonValue& jsonValue) : 
+Invitation::Invitation(JsonView jsonValue) : 
     m_accountIdHasBeenSet(false),
     m_invitationIdHasBeenSet(false),
-    m_invitedAtHasBeenSet(false),
-    m_relationshipStatusHasBeenSet(false)
+    m_relationshipStatusHasBeenSet(false),
+    m_invitedAtHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Invitation& Invitation::operator =(const JsonValue& jsonValue)
+Invitation& Invitation::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("accountId"))
   {
@@ -61,18 +61,18 @@ Invitation& Invitation::operator =(const JsonValue& jsonValue)
     m_invitationIdHasBeenSet = true;
   }
 
-  if(jsonValue.ValueExists("invitedAt"))
-  {
-    m_invitedAt = jsonValue.GetString("invitedAt");
-
-    m_invitedAtHasBeenSet = true;
-  }
-
   if(jsonValue.ValueExists("relationshipStatus"))
   {
     m_relationshipStatus = jsonValue.GetString("relationshipStatus");
 
     m_relationshipStatusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("invitedAt"))
+  {
+    m_invitedAt = jsonValue.GetString("invitedAt");
+
+    m_invitedAtHasBeenSet = true;
   }
 
   return *this;
@@ -94,15 +94,15 @@ JsonValue Invitation::Jsonize() const
 
   }
 
-  if(m_invitedAtHasBeenSet)
-  {
-   payload.WithString("invitedAt", m_invitedAt);
-
-  }
-
   if(m_relationshipStatusHasBeenSet)
   {
    payload.WithString("relationshipStatus", m_relationshipStatus);
+
+  }
+
+  if(m_invitedAtHasBeenSet)
+  {
+   payload.WithString("invitedAt", m_invitedAt);
 
   }
 

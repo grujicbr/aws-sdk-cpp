@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AutoScalingPlans
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TagFilter();
-    TagFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    TagFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TagFilter(Aws::Utils::Json::JsonView jsonValue);
+    TagFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The tag key.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The tag key.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The tag key.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The tag values (0 to 20).</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>The tag values (0 to 20).</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>The tag values (0 to 20).</p>

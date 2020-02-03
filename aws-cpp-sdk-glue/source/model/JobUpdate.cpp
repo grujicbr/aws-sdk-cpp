@@ -38,15 +38,21 @@ JobUpdate::JobUpdate() :
     m_connectionsHasBeenSet(false),
     m_maxRetries(0),
     m_maxRetriesHasBeenSet(false),
-    m_allocatedCapacity(0),
-    m_allocatedCapacityHasBeenSet(false),
     m_timeout(0),
     m_timeoutHasBeenSet(false),
-    m_notificationPropertyHasBeenSet(false)
+    m_maxCapacity(0.0),
+    m_maxCapacityHasBeenSet(false),
+    m_workerType(WorkerType::NOT_SET),
+    m_workerTypeHasBeenSet(false),
+    m_numberOfWorkers(0),
+    m_numberOfWorkersHasBeenSet(false),
+    m_securityConfigurationHasBeenSet(false),
+    m_notificationPropertyHasBeenSet(false),
+    m_glueVersionHasBeenSet(false)
 {
 }
 
-JobUpdate::JobUpdate(const JsonValue& jsonValue) : 
+JobUpdate::JobUpdate(JsonView jsonValue) : 
     m_descriptionHasBeenSet(false),
     m_logUriHasBeenSet(false),
     m_roleHasBeenSet(false),
@@ -56,16 +62,22 @@ JobUpdate::JobUpdate(const JsonValue& jsonValue) :
     m_connectionsHasBeenSet(false),
     m_maxRetries(0),
     m_maxRetriesHasBeenSet(false),
-    m_allocatedCapacity(0),
-    m_allocatedCapacityHasBeenSet(false),
     m_timeout(0),
     m_timeoutHasBeenSet(false),
-    m_notificationPropertyHasBeenSet(false)
+    m_maxCapacity(0.0),
+    m_maxCapacityHasBeenSet(false),
+    m_workerType(WorkerType::NOT_SET),
+    m_workerTypeHasBeenSet(false),
+    m_numberOfWorkers(0),
+    m_numberOfWorkersHasBeenSet(false),
+    m_securityConfigurationHasBeenSet(false),
+    m_notificationPropertyHasBeenSet(false),
+    m_glueVersionHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-JobUpdate& JobUpdate::operator =(const JsonValue& jsonValue)
+JobUpdate& JobUpdate::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Description"))
   {
@@ -104,7 +116,7 @@ JobUpdate& JobUpdate::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("DefaultArguments"))
   {
-    Aws::Map<Aws::String, JsonValue> defaultArgumentsJsonMap = jsonValue.GetObject("DefaultArguments").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> defaultArgumentsJsonMap = jsonValue.GetObject("DefaultArguments").GetAllObjects();
     for(auto& defaultArgumentsItem : defaultArgumentsJsonMap)
     {
       m_defaultArguments[defaultArgumentsItem.first] = defaultArgumentsItem.second.AsString();
@@ -126,13 +138,6 @@ JobUpdate& JobUpdate::operator =(const JsonValue& jsonValue)
     m_maxRetriesHasBeenSet = true;
   }
 
-  if(jsonValue.ValueExists("AllocatedCapacity"))
-  {
-    m_allocatedCapacity = jsonValue.GetInteger("AllocatedCapacity");
-
-    m_allocatedCapacityHasBeenSet = true;
-  }
-
   if(jsonValue.ValueExists("Timeout"))
   {
     m_timeout = jsonValue.GetInteger("Timeout");
@@ -140,11 +145,46 @@ JobUpdate& JobUpdate::operator =(const JsonValue& jsonValue)
     m_timeoutHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("MaxCapacity"))
+  {
+    m_maxCapacity = jsonValue.GetDouble("MaxCapacity");
+
+    m_maxCapacityHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WorkerType"))
+  {
+    m_workerType = WorkerTypeMapper::GetWorkerTypeForName(jsonValue.GetString("WorkerType"));
+
+    m_workerTypeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("NumberOfWorkers"))
+  {
+    m_numberOfWorkers = jsonValue.GetInteger("NumberOfWorkers");
+
+    m_numberOfWorkersHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("SecurityConfiguration"))
+  {
+    m_securityConfiguration = jsonValue.GetString("SecurityConfiguration");
+
+    m_securityConfigurationHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("NotificationProperty"))
   {
     m_notificationProperty = jsonValue.GetObject("NotificationProperty");
 
     m_notificationPropertyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("GlueVersion"))
+  {
+    m_glueVersion = jsonValue.GetString("GlueVersion");
+
+    m_glueVersionHasBeenSet = true;
   }
 
   return *this;
@@ -207,21 +247,44 @@ JsonValue JobUpdate::Jsonize() const
 
   }
 
-  if(m_allocatedCapacityHasBeenSet)
-  {
-   payload.WithInteger("AllocatedCapacity", m_allocatedCapacity);
-
-  }
-
   if(m_timeoutHasBeenSet)
   {
    payload.WithInteger("Timeout", m_timeout);
 
   }
 
+  if(m_maxCapacityHasBeenSet)
+  {
+   payload.WithDouble("MaxCapacity", m_maxCapacity);
+
+  }
+
+  if(m_workerTypeHasBeenSet)
+  {
+   payload.WithString("WorkerType", WorkerTypeMapper::GetNameForWorkerType(m_workerType));
+  }
+
+  if(m_numberOfWorkersHasBeenSet)
+  {
+   payload.WithInteger("NumberOfWorkers", m_numberOfWorkers);
+
+  }
+
+  if(m_securityConfigurationHasBeenSet)
+  {
+   payload.WithString("SecurityConfiguration", m_securityConfiguration);
+
+  }
+
   if(m_notificationPropertyHasBeenSet)
   {
    payload.WithObject("NotificationProperty", m_notificationProperty.Jsonize());
+
+  }
+
+  if(m_glueVersionHasBeenSet)
+  {
+   payload.WithString("GlueVersion", m_glueVersion);
 
   }
 

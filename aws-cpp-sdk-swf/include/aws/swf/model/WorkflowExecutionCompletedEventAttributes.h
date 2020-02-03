@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     WorkflowExecutionCompletedEventAttributes();
-    WorkflowExecutionCompletedEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkflowExecutionCompletedEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkflowExecutionCompletedEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    WorkflowExecutionCompletedEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The result produced by the workflow execution upon successful completion.</p>
      */
     inline const Aws::String& GetResult() const{ return m_result; }
+
+    /**
+     * <p>The result produced by the workflow execution upon successful completion.</p>
+     */
+    inline bool ResultHasBeenSet() const { return m_resultHasBeenSet; }
 
     /**
      * <p>The result produced by the workflow execution upon successful completion.</p>
@@ -91,6 +97,15 @@ namespace Model
      * event.</p>
      */
     inline long long GetDecisionTaskCompletedEventId() const{ return m_decisionTaskCompletedEventId; }
+
+    /**
+     * <p>The ID of the <code>DecisionTaskCompleted</code> event corresponding to the
+     * decision task that resulted in the <code>CompleteWorkflowExecution</code>
+     * decision to complete this execution. This information can be useful for
+     * diagnosing problems by tracing back the chain of events leading up to this
+     * event.</p>
+     */
+    inline bool DecisionTaskCompletedEventIdHasBeenSet() const { return m_decisionTaskCompletedEventIdHasBeenSet; }
 
     /**
      * <p>The ID of the <code>DecisionTaskCompleted</code> event corresponding to the

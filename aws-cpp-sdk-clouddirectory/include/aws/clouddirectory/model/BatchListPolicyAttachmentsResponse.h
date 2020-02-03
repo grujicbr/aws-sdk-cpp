@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchListPolicyAttachmentsResponse();
-    BatchListPolicyAttachmentsResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchListPolicyAttachmentsResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchListPolicyAttachmentsResponse(Aws::Utils::Json::JsonView jsonValue);
+    BatchListPolicyAttachmentsResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A list of <code>ObjectIdentifiers</code> to which the policy is attached.</p>
      */
     inline const Aws::Vector<Aws::String>& GetObjectIdentifiers() const{ return m_objectIdentifiers; }
+
+    /**
+     * <p>A list of <code>ObjectIdentifiers</code> to which the policy is attached.</p>
+     */
+    inline bool ObjectIdentifiersHasBeenSet() const { return m_objectIdentifiersHasBeenSet; }
 
     /**
      * <p>A list of <code>ObjectIdentifiers</code> to which the policy is attached.</p>
@@ -93,6 +99,11 @@ namespace Model
      * <p>The pagination token.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The pagination token.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The pagination token.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Filter();
-    Filter(const Aws::Utils::Json::JsonValue& jsonValue);
-    Filter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Filter(Aws::Utils::Json::JsonView jsonValue);
+    Filter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The key of a filter.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The key of a filter.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The key of a filter.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The values of a filter.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>The values of a filter.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>The values of a filter.</p>

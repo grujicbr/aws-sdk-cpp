@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     ErrorStatistics();
-    ErrorStatistics(const Aws::Utils::Json::JsonValue& jsonValue);
-    ErrorStatistics& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ErrorStatistics(Aws::Utils::Json::JsonView jsonValue);
+    ErrorStatistics& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The number of requests that failed with a 419 throttling status code.</p>
      */
     inline long long GetThrottleCount() const{ return m_throttleCount; }
+
+    /**
+     * <p>The number of requests that failed with a 419 throttling status code.</p>
+     */
+    inline bool ThrottleCountHasBeenSet() const { return m_throttleCountHasBeenSet; }
 
     /**
      * <p>The number of requests that failed with a 419 throttling status code.</p>
@@ -71,6 +77,12 @@ namespace Model
      * <p>The number of requests that failed with untracked 4xx Client Error status
      * codes.</p>
      */
+    inline bool OtherCountHasBeenSet() const { return m_otherCountHasBeenSet; }
+
+    /**
+     * <p>The number of requests that failed with untracked 4xx Client Error status
+     * codes.</p>
+     */
     inline void SetOtherCount(long long value) { m_otherCountHasBeenSet = true; m_otherCount = value; }
 
     /**
@@ -85,6 +97,12 @@ namespace Model
      * code.</p>
      */
     inline long long GetTotalCount() const{ return m_totalCount; }
+
+    /**
+     * <p>The total number of requests that failed with a 4xx Client Error status
+     * code.</p>
+     */
+    inline bool TotalCountHasBeenSet() const { return m_totalCountHasBeenSet; }
 
     /**
      * <p>The total number of requests that failed with a 4xx Client Error status

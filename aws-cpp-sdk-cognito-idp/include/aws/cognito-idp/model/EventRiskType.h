@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     EventRiskType();
-    EventRiskType(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventRiskType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventRiskType(Aws::Utils::Json::JsonView jsonValue);
+    EventRiskType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The risk decision.</p>
      */
     inline const RiskDecisionType& GetRiskDecision() const{ return m_riskDecision; }
+
+    /**
+     * <p>The risk decision.</p>
+     */
+    inline bool RiskDecisionHasBeenSet() const { return m_riskDecisionHasBeenSet; }
 
     /**
      * <p>The risk decision.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The risk level.</p>
      */
     inline const RiskLevelType& GetRiskLevel() const{ return m_riskLevel; }
+
+    /**
+     * <p>The risk level.</p>
+     */
+    inline bool RiskLevelHasBeenSet() const { return m_riskLevelHasBeenSet; }
 
     /**
      * <p>The risk level.</p>

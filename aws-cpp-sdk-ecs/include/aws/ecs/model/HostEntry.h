@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     HostEntry();
-    HostEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    HostEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HostEntry(Aws::Utils::Json::JsonView jsonValue);
+    HostEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The hostname to use in the <code>/etc/hosts</code> entry.</p>
      */
     inline const Aws::String& GetHostname() const{ return m_hostname; }
+
+    /**
+     * <p>The hostname to use in the <code>/etc/hosts</code> entry.</p>
+     */
+    inline bool HostnameHasBeenSet() const { return m_hostnameHasBeenSet; }
 
     /**
      * <p>The hostname to use in the <code>/etc/hosts</code> entry.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The IP address to use in the <code>/etc/hosts</code> entry.</p>
      */
     inline const Aws::String& GetIpAddress() const{ return m_ipAddress; }
+
+    /**
+     * <p>The IP address to use in the <code>/etc/hosts</code> entry.</p>
+     */
+    inline bool IpAddressHasBeenSet() const { return m_ipAddressHasBeenSet; }
 
     /**
      * <p>The IP address to use in the <code>/etc/hosts</code> entry.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeBuild
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     BuildNotDeleted();
-    BuildNotDeleted(const Aws::Utils::Json::JsonValue& jsonValue);
-    BuildNotDeleted& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BuildNotDeleted(Aws::Utils::Json::JsonView jsonValue);
+    BuildNotDeleted& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID of the build that could not be successfully deleted.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the build that could not be successfully deleted.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the build that could not be successfully deleted.</p>
@@ -88,6 +94,12 @@ namespace Model
      * deleted.</p>
      */
     inline const Aws::String& GetStatusCode() const{ return m_statusCode; }
+
+    /**
+     * <p>Additional information about the build that could not be successfully
+     * deleted.</p>
+     */
+    inline bool StatusCodeHasBeenSet() const { return m_statusCodeHasBeenSet; }
 
     /**
      * <p>Additional information about the build that could not be successfully

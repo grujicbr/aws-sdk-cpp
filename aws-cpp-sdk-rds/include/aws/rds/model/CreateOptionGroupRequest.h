@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     CreateOptionGroupRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,8 +54,8 @@ namespace Model
     /**
      * <p>Specifies the name of the option group to be created.</p> <p>Constraints:</p>
      * <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens</p> </li> <li>
-     * <p>First character must be a letter</p> </li> <li> <p>Cannot end with a hyphen
-     * or contain two consecutive hyphens</p> </li> </ul> <p>Example:
+     * <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or
+     * contain two consecutive hyphens</p> </li> </ul> <p>Example:
      * <code>myoptiongroup</code> </p>
      */
     inline const Aws::String& GetOptionGroupName() const{ return m_optionGroupName; }
@@ -63,8 +63,17 @@ namespace Model
     /**
      * <p>Specifies the name of the option group to be created.</p> <p>Constraints:</p>
      * <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens</p> </li> <li>
-     * <p>First character must be a letter</p> </li> <li> <p>Cannot end with a hyphen
-     * or contain two consecutive hyphens</p> </li> </ul> <p>Example:
+     * <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or
+     * contain two consecutive hyphens</p> </li> </ul> <p>Example:
+     * <code>myoptiongroup</code> </p>
+     */
+    inline bool OptionGroupNameHasBeenSet() const { return m_optionGroupNameHasBeenSet; }
+
+    /**
+     * <p>Specifies the name of the option group to be created.</p> <p>Constraints:</p>
+     * <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens</p> </li> <li>
+     * <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or
+     * contain two consecutive hyphens</p> </li> </ul> <p>Example:
      * <code>myoptiongroup</code> </p>
      */
     inline void SetOptionGroupName(const Aws::String& value) { m_optionGroupNameHasBeenSet = true; m_optionGroupName = value; }
@@ -72,8 +81,8 @@ namespace Model
     /**
      * <p>Specifies the name of the option group to be created.</p> <p>Constraints:</p>
      * <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens</p> </li> <li>
-     * <p>First character must be a letter</p> </li> <li> <p>Cannot end with a hyphen
-     * or contain two consecutive hyphens</p> </li> </ul> <p>Example:
+     * <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or
+     * contain two consecutive hyphens</p> </li> </ul> <p>Example:
      * <code>myoptiongroup</code> </p>
      */
     inline void SetOptionGroupName(Aws::String&& value) { m_optionGroupNameHasBeenSet = true; m_optionGroupName = std::move(value); }
@@ -81,8 +90,8 @@ namespace Model
     /**
      * <p>Specifies the name of the option group to be created.</p> <p>Constraints:</p>
      * <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens</p> </li> <li>
-     * <p>First character must be a letter</p> </li> <li> <p>Cannot end with a hyphen
-     * or contain two consecutive hyphens</p> </li> </ul> <p>Example:
+     * <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or
+     * contain two consecutive hyphens</p> </li> </ul> <p>Example:
      * <code>myoptiongroup</code> </p>
      */
     inline void SetOptionGroupName(const char* value) { m_optionGroupNameHasBeenSet = true; m_optionGroupName.assign(value); }
@@ -90,8 +99,8 @@ namespace Model
     /**
      * <p>Specifies the name of the option group to be created.</p> <p>Constraints:</p>
      * <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens</p> </li> <li>
-     * <p>First character must be a letter</p> </li> <li> <p>Cannot end with a hyphen
-     * or contain two consecutive hyphens</p> </li> </ul> <p>Example:
+     * <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or
+     * contain two consecutive hyphens</p> </li> </ul> <p>Example:
      * <code>myoptiongroup</code> </p>
      */
     inline CreateOptionGroupRequest& WithOptionGroupName(const Aws::String& value) { SetOptionGroupName(value); return *this;}
@@ -99,8 +108,8 @@ namespace Model
     /**
      * <p>Specifies the name of the option group to be created.</p> <p>Constraints:</p>
      * <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens</p> </li> <li>
-     * <p>First character must be a letter</p> </li> <li> <p>Cannot end with a hyphen
-     * or contain two consecutive hyphens</p> </li> </ul> <p>Example:
+     * <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or
+     * contain two consecutive hyphens</p> </li> </ul> <p>Example:
      * <code>myoptiongroup</code> </p>
      */
     inline CreateOptionGroupRequest& WithOptionGroupName(Aws::String&& value) { SetOptionGroupName(std::move(value)); return *this;}
@@ -108,8 +117,8 @@ namespace Model
     /**
      * <p>Specifies the name of the option group to be created.</p> <p>Constraints:</p>
      * <ul> <li> <p>Must be 1 to 255 letters, numbers, or hyphens</p> </li> <li>
-     * <p>First character must be a letter</p> </li> <li> <p>Cannot end with a hyphen
-     * or contain two consecutive hyphens</p> </li> </ul> <p>Example:
+     * <p>First character must be a letter</p> </li> <li> <p>Can't end with a hyphen or
+     * contain two consecutive hyphens</p> </li> </ul> <p>Example:
      * <code>myoptiongroup</code> </p>
      */
     inline CreateOptionGroupRequest& WithOptionGroupName(const char* value) { SetOptionGroupName(value); return *this;}
@@ -120,6 +129,12 @@ namespace Model
      * with.</p>
      */
     inline const Aws::String& GetEngineName() const{ return m_engineName; }
+
+    /**
+     * <p>Specifies the name of the engine that this option group should be associated
+     * with.</p>
+     */
+    inline bool EngineNameHasBeenSet() const { return m_engineNameHasBeenSet; }
 
     /**
      * <p>Specifies the name of the engine that this option group should be associated
@@ -168,6 +183,12 @@ namespace Model
      * <p>Specifies the major version of the engine that this option group should be
      * associated with.</p>
      */
+    inline bool MajorEngineVersionHasBeenSet() const { return m_majorEngineVersionHasBeenSet; }
+
+    /**
+     * <p>Specifies the major version of the engine that this option group should be
+     * associated with.</p>
+     */
     inline void SetMajorEngineVersion(const Aws::String& value) { m_majorEngineVersionHasBeenSet = true; m_majorEngineVersion = value; }
 
     /**
@@ -209,6 +230,11 @@ namespace Model
     /**
      * <p>The description of the option group.</p>
      */
+    inline bool OptionGroupDescriptionHasBeenSet() const { return m_optionGroupDescriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the option group.</p>
+     */
     inline void SetOptionGroupDescription(const Aws::String& value) { m_optionGroupDescriptionHasBeenSet = true; m_optionGroupDescription = value; }
 
     /**
@@ -237,25 +263,44 @@ namespace Model
     inline CreateOptionGroupRequest& WithOptionGroupDescription(const char* value) { SetOptionGroupDescription(value); return *this;}
 
 
-    
+    /**
+     * <p>Tags to assign to the option group.</p>
+     */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
 
-    
+    /**
+     * <p>Tags to assign to the option group.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>Tags to assign to the option group.</p>
+     */
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
-    
+    /**
+     * <p>Tags to assign to the option group.</p>
+     */
     inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
 
-    
+    /**
+     * <p>Tags to assign to the option group.</p>
+     */
     inline CreateOptionGroupRequest& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
 
-    
+    /**
+     * <p>Tags to assign to the option group.</p>
+     */
     inline CreateOptionGroupRequest& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>Tags to assign to the option group.</p>
+     */
     inline CreateOptionGroupRequest& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
 
-    
+    /**
+     * <p>Tags to assign to the option group.</p>
+     */
     inline CreateOptionGroupRequest& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
 
   private:

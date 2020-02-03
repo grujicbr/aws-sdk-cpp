@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     ImagePermissions();
-    ImagePermissions(const Aws::Utils::Json::JsonValue& jsonValue);
-    ImagePermissions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ImagePermissions(Aws::Utils::Json::JsonView jsonValue);
+    ImagePermissions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p>Indicates whether the image can be used for a fleet.</p>
      */
     inline bool GetAllowFleet() const{ return m_allowFleet; }
+
+    /**
+     * <p>Indicates whether the image can be used for a fleet.</p>
+     */
+    inline bool AllowFleetHasBeenSet() const { return m_allowFleetHasBeenSet; }
 
     /**
      * <p>Indicates whether the image can be used for a fleet.</p>
@@ -64,6 +70,11 @@ namespace Model
      * <p>Indicates whether the image can be used for an image builder.</p>
      */
     inline bool GetAllowImageBuilder() const{ return m_allowImageBuilder; }
+
+    /**
+     * <p>Indicates whether the image can be used for an image builder.</p>
+     */
+    inline bool AllowImageBuilderHasBeenSet() const { return m_allowImageBuilderHasBeenSet; }
 
     /**
      * <p>Indicates whether the image can be used for an image builder.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     EvaluationResultIdentifier();
-    EvaluationResultIdentifier(const Aws::Utils::Json::JsonValue& jsonValue);
-    EvaluationResultIdentifier& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EvaluationResultIdentifier(Aws::Utils::Json::JsonView jsonValue);
+    EvaluationResultIdentifier& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * the type and ID of the evaluated resource.</p>
      */
     inline const EvaluationResultQualifier& GetEvaluationResultQualifier() const{ return m_evaluationResultQualifier; }
+
+    /**
+     * <p>Identifies an AWS Config rule used to evaluate an AWS resource, and provides
+     * the type and ID of the evaluated resource.</p>
+     */
+    inline bool EvaluationResultQualifierHasBeenSet() const { return m_evaluationResultQualifierHasBeenSet; }
 
     /**
      * <p>Identifies an AWS Config rule used to evaluate an AWS resource, and provides
@@ -85,6 +92,14 @@ namespace Model
      * snapshot, depending on which event triggered the evaluation.</p>
      */
     inline const Aws::Utils::DateTime& GetOrderingTimestamp() const{ return m_orderingTimestamp; }
+
+    /**
+     * <p>The time of the event that triggered the evaluation of your AWS resources.
+     * The time can indicate when AWS Config delivered a configuration item change
+     * notification, or it can indicate when AWS Config delivered the configuration
+     * snapshot, depending on which event triggered the evaluation.</p>
+     */
+    inline bool OrderingTimestampHasBeenSet() const { return m_orderingTimestampHasBeenSet; }
 
     /**
      * <p>The time of the event that triggered the evaluation of your AWS resources.

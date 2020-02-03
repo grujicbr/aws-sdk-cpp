@@ -43,11 +43,15 @@ WorkspaceDirectory::WorkspaceDirectory() :
     m_state(WorkspaceDirectoryState::NOT_SET),
     m_stateHasBeenSet(false),
     m_workspaceCreationPropertiesHasBeenSet(false),
-    m_ipGroupIdsHasBeenSet(false)
+    m_ipGroupIdsHasBeenSet(false),
+    m_workspaceAccessPropertiesHasBeenSet(false),
+    m_tenancy(Tenancy::NOT_SET),
+    m_tenancyHasBeenSet(false),
+    m_selfservicePermissionsHasBeenSet(false)
 {
 }
 
-WorkspaceDirectory::WorkspaceDirectory(const JsonValue& jsonValue) : 
+WorkspaceDirectory::WorkspaceDirectory(JsonView jsonValue) : 
     m_directoryIdHasBeenSet(false),
     m_aliasHasBeenSet(false),
     m_directoryNameHasBeenSet(false),
@@ -62,12 +66,16 @@ WorkspaceDirectory::WorkspaceDirectory(const JsonValue& jsonValue) :
     m_state(WorkspaceDirectoryState::NOT_SET),
     m_stateHasBeenSet(false),
     m_workspaceCreationPropertiesHasBeenSet(false),
-    m_ipGroupIdsHasBeenSet(false)
+    m_ipGroupIdsHasBeenSet(false),
+    m_workspaceAccessPropertiesHasBeenSet(false),
+    m_tenancy(Tenancy::NOT_SET),
+    m_tenancyHasBeenSet(false),
+    m_selfservicePermissionsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-WorkspaceDirectory& WorkspaceDirectory::operator =(const JsonValue& jsonValue)
+WorkspaceDirectory& WorkspaceDirectory::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DirectoryId"))
   {
@@ -99,7 +107,7 @@ WorkspaceDirectory& WorkspaceDirectory::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("SubnetIds"))
   {
-    Array<JsonValue> subnetIdsJsonList = jsonValue.GetArray("SubnetIds");
+    Array<JsonView> subnetIdsJsonList = jsonValue.GetArray("SubnetIds");
     for(unsigned subnetIdsIndex = 0; subnetIdsIndex < subnetIdsJsonList.GetLength(); ++subnetIdsIndex)
     {
       m_subnetIds.push_back(subnetIdsJsonList[subnetIdsIndex].AsString());
@@ -109,7 +117,7 @@ WorkspaceDirectory& WorkspaceDirectory::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("DnsIpAddresses"))
   {
-    Array<JsonValue> dnsIpAddressesJsonList = jsonValue.GetArray("DnsIpAddresses");
+    Array<JsonView> dnsIpAddressesJsonList = jsonValue.GetArray("DnsIpAddresses");
     for(unsigned dnsIpAddressesIndex = 0; dnsIpAddressesIndex < dnsIpAddressesJsonList.GetLength(); ++dnsIpAddressesIndex)
     {
       m_dnsIpAddresses.push_back(dnsIpAddressesJsonList[dnsIpAddressesIndex].AsString());
@@ -161,12 +169,33 @@ WorkspaceDirectory& WorkspaceDirectory::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("ipGroupIds"))
   {
-    Array<JsonValue> ipGroupIdsJsonList = jsonValue.GetArray("ipGroupIds");
+    Array<JsonView> ipGroupIdsJsonList = jsonValue.GetArray("ipGroupIds");
     for(unsigned ipGroupIdsIndex = 0; ipGroupIdsIndex < ipGroupIdsJsonList.GetLength(); ++ipGroupIdsIndex)
     {
       m_ipGroupIds.push_back(ipGroupIdsJsonList[ipGroupIdsIndex].AsString());
     }
     m_ipGroupIdsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WorkspaceAccessProperties"))
+  {
+    m_workspaceAccessProperties = jsonValue.GetObject("WorkspaceAccessProperties");
+
+    m_workspaceAccessPropertiesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Tenancy"))
+  {
+    m_tenancy = TenancyMapper::GetTenancyForName(jsonValue.GetString("Tenancy"));
+
+    m_tenancyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("SelfservicePermissions"))
+  {
+    m_selfservicePermissions = jsonValue.GetObject("SelfservicePermissions");
+
+    m_selfservicePermissionsHasBeenSet = true;
   }
 
   return *this;
@@ -264,6 +293,23 @@ JsonValue WorkspaceDirectory::Jsonize() const
      ipGroupIdsJsonList[ipGroupIdsIndex].AsString(m_ipGroupIds[ipGroupIdsIndex]);
    }
    payload.WithArray("ipGroupIds", std::move(ipGroupIdsJsonList));
+
+  }
+
+  if(m_workspaceAccessPropertiesHasBeenSet)
+  {
+   payload.WithObject("WorkspaceAccessProperties", m_workspaceAccessProperties.Jsonize());
+
+  }
+
+  if(m_tenancyHasBeenSet)
+  {
+   payload.WithString("Tenancy", TenancyMapper::GetNameForTenancy(m_tenancy));
+  }
+
+  if(m_selfservicePermissionsHasBeenSet)
+  {
+   payload.WithObject("SelfservicePermissions", m_selfservicePermissions.Jsonize());
 
   }
 

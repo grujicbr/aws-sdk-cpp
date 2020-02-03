@@ -64,31 +64,31 @@ ApplicationDescription& ApplicationDescription::operator =(const XmlNode& xmlNod
     XmlNode applicationArnNode = resultNode.FirstChild("ApplicationArn");
     if(!applicationArnNode.IsNull())
     {
-      m_applicationArn = StringUtils::Trim(applicationArnNode.GetText().c_str());
+      m_applicationArn = Aws::Utils::Xml::DecodeEscapedXmlText(applicationArnNode.GetText());
       m_applicationArnHasBeenSet = true;
     }
     XmlNode applicationNameNode = resultNode.FirstChild("ApplicationName");
     if(!applicationNameNode.IsNull())
     {
-      m_applicationName = StringUtils::Trim(applicationNameNode.GetText().c_str());
+      m_applicationName = Aws::Utils::Xml::DecodeEscapedXmlText(applicationNameNode.GetText());
       m_applicationNameHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode dateCreatedNode = resultNode.FirstChild("DateCreated");
     if(!dateCreatedNode.IsNull())
     {
-      m_dateCreated = DateTime(StringUtils::Trim(dateCreatedNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_dateCreated = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(dateCreatedNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_dateCreatedHasBeenSet = true;
     }
     XmlNode dateUpdatedNode = resultNode.FirstChild("DateUpdated");
     if(!dateUpdatedNode.IsNull())
     {
-      m_dateUpdated = DateTime(StringUtils::Trim(dateUpdatedNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_dateUpdated = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(dateUpdatedNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_dateUpdatedHasBeenSet = true;
     }
     XmlNode versionsNode = resultNode.FirstChild("Versions");
@@ -97,7 +97,7 @@ ApplicationDescription& ApplicationDescription::operator =(const XmlNode& xmlNod
       XmlNode versionsMember = versionsNode.FirstChild("member");
       while(!versionsMember.IsNull())
       {
-        m_versions.push_back(StringUtils::Trim(versionsMember.GetText().c_str()));
+        m_versions.push_back(versionsMember.GetText());
         versionsMember = versionsMember.NextNode("member");
       }
 
@@ -109,7 +109,7 @@ ApplicationDescription& ApplicationDescription::operator =(const XmlNode& xmlNod
       XmlNode configurationTemplatesMember = configurationTemplatesNode.FirstChild("member");
       while(!configurationTemplatesMember.IsNull())
       {
-        m_configurationTemplates.push_back(StringUtils::Trim(configurationTemplatesMember.GetText().c_str()));
+        m_configurationTemplates.push_back(configurationTemplatesMember.GetText());
         configurationTemplatesMember = configurationTemplatesMember.NextNode("member");
       }
 

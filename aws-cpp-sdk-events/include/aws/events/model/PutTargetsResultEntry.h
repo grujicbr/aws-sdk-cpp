@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchEvents
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PutTargetsResultEntry();
-    PutTargetsResultEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    PutTargetsResultEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PutTargetsResultEntry(Aws::Utils::Json::JsonView jsonValue);
+    PutTargetsResultEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID of the target.</p>
      */
     inline const Aws::String& GetTargetId() const{ return m_targetId; }
+
+    /**
+     * <p>The ID of the target.</p>
+     */
+    inline bool TargetIdHasBeenSet() const { return m_targetIdHasBeenSet; }
 
     /**
      * <p>The ID of the target.</p>
@@ -89,6 +95,13 @@ namespace Model
      * same time.</p>
      */
     inline const Aws::String& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The error code that indicates why the target addition failed. If the value is
+     * <code>ConcurrentModificationException</code>, too many requests were made at the
+     * same time.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The error code that indicates why the target addition failed. If the value is
@@ -137,6 +150,11 @@ namespace Model
      * <p>The error message that explains why the target addition failed.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The error message that explains why the target addition failed.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The error message that explains why the target addition failed.</p>

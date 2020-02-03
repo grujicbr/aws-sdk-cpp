@@ -32,7 +32,8 @@ RegisterScalableTargetRequest::RegisterScalableTargetRequest() :
     m_minCapacityHasBeenSet(false),
     m_maxCapacity(0),
     m_maxCapacityHasBeenSet(false),
-    m_roleARNHasBeenSet(false)
+    m_roleARNHasBeenSet(false),
+    m_suspendedStateHasBeenSet(false)
 {
 }
 
@@ -74,7 +75,13 @@ Aws::String RegisterScalableTargetRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_suspendedStateHasBeenSet)
+  {
+   payload.WithObject("SuspendedState", m_suspendedState.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection RegisterScalableTargetRequest::GetRequestSpecificHeaders() const

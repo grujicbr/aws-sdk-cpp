@@ -38,7 +38,10 @@ UpdateFleetRequest::UpdateFleetRequest() :
     m_enableDefaultInternetAccess(false),
     m_enableDefaultInternetAccessHasBeenSet(false),
     m_domainJoinInfoHasBeenSet(false),
-    m_attributesToDeleteHasBeenSet(false)
+    m_idleDisconnectTimeoutInSeconds(0),
+    m_idleDisconnectTimeoutInSecondsHasBeenSet(false),
+    m_attributesToDeleteHasBeenSet(false),
+    m_iamRoleArnHasBeenSet(false)
 {
 }
 
@@ -118,6 +121,12 @@ Aws::String UpdateFleetRequest::SerializePayload() const
 
   }
 
+  if(m_idleDisconnectTimeoutInSecondsHasBeenSet)
+  {
+   payload.WithInteger("IdleDisconnectTimeoutInSeconds", m_idleDisconnectTimeoutInSeconds);
+
+  }
+
   if(m_attributesToDeleteHasBeenSet)
   {
    Array<JsonValue> attributesToDeleteJsonList(m_attributesToDelete.size());
@@ -129,7 +138,13 @@ Aws::String UpdateFleetRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_iamRoleArnHasBeenSet)
+  {
+   payload.WithString("IamRoleArn", m_iamRoleArn);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateFleetRequest::GetRequestSpecificHeaders() const

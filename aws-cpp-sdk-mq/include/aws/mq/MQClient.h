@@ -27,17 +27,21 @@
 #include <aws/mq/model/DeleteBrokerResult.h>
 #include <aws/mq/model/DeleteUserResult.h>
 #include <aws/mq/model/DescribeBrokerResult.h>
+#include <aws/mq/model/DescribeBrokerEngineTypesResult.h>
+#include <aws/mq/model/DescribeBrokerInstanceOptionsResult.h>
 #include <aws/mq/model/DescribeConfigurationResult.h>
 #include <aws/mq/model/DescribeConfigurationRevisionResult.h>
 #include <aws/mq/model/DescribeUserResult.h>
 #include <aws/mq/model/ListBrokersResult.h>
 #include <aws/mq/model/ListConfigurationRevisionsResult.h>
 #include <aws/mq/model/ListConfigurationsResult.h>
+#include <aws/mq/model/ListTagsResult.h>
 #include <aws/mq/model/ListUsersResult.h>
 #include <aws/mq/model/RebootBrokerResult.h>
 #include <aws/mq/model/UpdateBrokerResult.h>
 #include <aws/mq/model/UpdateConfigurationResult.h>
 #include <aws/mq/model/UpdateUserResult.h>
+#include <aws/core/NoResult.h>
 #include <aws/core/client/AsyncCallerContext.h>
 #include <aws/core/http/HttpTypes.h>
 #include <future>
@@ -55,16 +59,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -85,16 +83,21 @@ namespace Model
 {
         class CreateBrokerRequest;
         class CreateConfigurationRequest;
+        class CreateTagsRequest;
         class CreateUserRequest;
         class DeleteBrokerRequest;
+        class DeleteTagsRequest;
         class DeleteUserRequest;
         class DescribeBrokerRequest;
+        class DescribeBrokerEngineTypesRequest;
+        class DescribeBrokerInstanceOptionsRequest;
         class DescribeConfigurationRequest;
         class DescribeConfigurationRevisionRequest;
         class DescribeUserRequest;
         class ListBrokersRequest;
         class ListConfigurationRevisionsRequest;
         class ListConfigurationsRequest;
+        class ListTagsRequest;
         class ListUsersRequest;
         class RebootBrokerRequest;
         class UpdateBrokerRequest;
@@ -103,16 +106,21 @@ namespace Model
 
         typedef Aws::Utils::Outcome<CreateBrokerResult, Aws::Client::AWSError<MQErrors>> CreateBrokerOutcome;
         typedef Aws::Utils::Outcome<CreateConfigurationResult, Aws::Client::AWSError<MQErrors>> CreateConfigurationOutcome;
+        typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<MQErrors>> CreateTagsOutcome;
         typedef Aws::Utils::Outcome<CreateUserResult, Aws::Client::AWSError<MQErrors>> CreateUserOutcome;
         typedef Aws::Utils::Outcome<DeleteBrokerResult, Aws::Client::AWSError<MQErrors>> DeleteBrokerOutcome;
+        typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<MQErrors>> DeleteTagsOutcome;
         typedef Aws::Utils::Outcome<DeleteUserResult, Aws::Client::AWSError<MQErrors>> DeleteUserOutcome;
         typedef Aws::Utils::Outcome<DescribeBrokerResult, Aws::Client::AWSError<MQErrors>> DescribeBrokerOutcome;
+        typedef Aws::Utils::Outcome<DescribeBrokerEngineTypesResult, Aws::Client::AWSError<MQErrors>> DescribeBrokerEngineTypesOutcome;
+        typedef Aws::Utils::Outcome<DescribeBrokerInstanceOptionsResult, Aws::Client::AWSError<MQErrors>> DescribeBrokerInstanceOptionsOutcome;
         typedef Aws::Utils::Outcome<DescribeConfigurationResult, Aws::Client::AWSError<MQErrors>> DescribeConfigurationOutcome;
         typedef Aws::Utils::Outcome<DescribeConfigurationRevisionResult, Aws::Client::AWSError<MQErrors>> DescribeConfigurationRevisionOutcome;
         typedef Aws::Utils::Outcome<DescribeUserResult, Aws::Client::AWSError<MQErrors>> DescribeUserOutcome;
         typedef Aws::Utils::Outcome<ListBrokersResult, Aws::Client::AWSError<MQErrors>> ListBrokersOutcome;
         typedef Aws::Utils::Outcome<ListConfigurationRevisionsResult, Aws::Client::AWSError<MQErrors>> ListConfigurationRevisionsOutcome;
         typedef Aws::Utils::Outcome<ListConfigurationsResult, Aws::Client::AWSError<MQErrors>> ListConfigurationsOutcome;
+        typedef Aws::Utils::Outcome<ListTagsResult, Aws::Client::AWSError<MQErrors>> ListTagsOutcome;
         typedef Aws::Utils::Outcome<ListUsersResult, Aws::Client::AWSError<MQErrors>> ListUsersOutcome;
         typedef Aws::Utils::Outcome<RebootBrokerResult, Aws::Client::AWSError<MQErrors>> RebootBrokerOutcome;
         typedef Aws::Utils::Outcome<UpdateBrokerResult, Aws::Client::AWSError<MQErrors>> UpdateBrokerOutcome;
@@ -121,16 +129,21 @@ namespace Model
 
         typedef std::future<CreateBrokerOutcome> CreateBrokerOutcomeCallable;
         typedef std::future<CreateConfigurationOutcome> CreateConfigurationOutcomeCallable;
+        typedef std::future<CreateTagsOutcome> CreateTagsOutcomeCallable;
         typedef std::future<CreateUserOutcome> CreateUserOutcomeCallable;
         typedef std::future<DeleteBrokerOutcome> DeleteBrokerOutcomeCallable;
+        typedef std::future<DeleteTagsOutcome> DeleteTagsOutcomeCallable;
         typedef std::future<DeleteUserOutcome> DeleteUserOutcomeCallable;
         typedef std::future<DescribeBrokerOutcome> DescribeBrokerOutcomeCallable;
+        typedef std::future<DescribeBrokerEngineTypesOutcome> DescribeBrokerEngineTypesOutcomeCallable;
+        typedef std::future<DescribeBrokerInstanceOptionsOutcome> DescribeBrokerInstanceOptionsOutcomeCallable;
         typedef std::future<DescribeConfigurationOutcome> DescribeConfigurationOutcomeCallable;
         typedef std::future<DescribeConfigurationRevisionOutcome> DescribeConfigurationRevisionOutcomeCallable;
         typedef std::future<DescribeUserOutcome> DescribeUserOutcomeCallable;
         typedef std::future<ListBrokersOutcome> ListBrokersOutcomeCallable;
         typedef std::future<ListConfigurationRevisionsOutcome> ListConfigurationRevisionsOutcomeCallable;
         typedef std::future<ListConfigurationsOutcome> ListConfigurationsOutcomeCallable;
+        typedef std::future<ListTagsOutcome> ListTagsOutcomeCallable;
         typedef std::future<ListUsersOutcome> ListUsersOutcomeCallable;
         typedef std::future<RebootBrokerOutcome> RebootBrokerOutcomeCallable;
         typedef std::future<UpdateBrokerOutcome> UpdateBrokerOutcomeCallable;
@@ -142,16 +155,21 @@ namespace Model
 
     typedef std::function<void(const MQClient*, const Model::CreateBrokerRequest&, const Model::CreateBrokerOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateBrokerResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::CreateConfigurationRequest&, const Model::CreateConfigurationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateConfigurationResponseReceivedHandler;
+    typedef std::function<void(const MQClient*, const Model::CreateTagsRequest&, const Model::CreateTagsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateTagsResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::CreateUserRequest&, const Model::CreateUserOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateUserResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::DeleteBrokerRequest&, const Model::DeleteBrokerOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DeleteBrokerResponseReceivedHandler;
+    typedef std::function<void(const MQClient*, const Model::DeleteTagsRequest&, const Model::DeleteTagsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DeleteTagsResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::DeleteUserRequest&, const Model::DeleteUserOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DeleteUserResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::DescribeBrokerRequest&, const Model::DescribeBrokerOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeBrokerResponseReceivedHandler;
+    typedef std::function<void(const MQClient*, const Model::DescribeBrokerEngineTypesRequest&, const Model::DescribeBrokerEngineTypesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeBrokerEngineTypesResponseReceivedHandler;
+    typedef std::function<void(const MQClient*, const Model::DescribeBrokerInstanceOptionsRequest&, const Model::DescribeBrokerInstanceOptionsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeBrokerInstanceOptionsResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::DescribeConfigurationRequest&, const Model::DescribeConfigurationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeConfigurationResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::DescribeConfigurationRevisionRequest&, const Model::DescribeConfigurationRevisionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeConfigurationRevisionResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::DescribeUserRequest&, const Model::DescribeUserOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeUserResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::ListBrokersRequest&, const Model::ListBrokersOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListBrokersResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::ListConfigurationRevisionsRequest&, const Model::ListConfigurationRevisionsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListConfigurationRevisionsResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::ListConfigurationsRequest&, const Model::ListConfigurationsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListConfigurationsResponseReceivedHandler;
+    typedef std::function<void(const MQClient*, const Model::ListTagsRequest&, const Model::ListTagsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListTagsResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::ListUsersRequest&, const Model::ListUsersOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListUsersResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::RebootBrokerRequest&, const Model::RebootBrokerOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RebootBrokerResponseReceivedHandler;
     typedef std::function<void(const MQClient*, const Model::UpdateBrokerRequest&, const Model::UpdateBrokerOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateBrokerResponseReceivedHandler;
@@ -220,9 +238,8 @@ namespace Model
 
         /**
          * Creates a new configuration for the specified configuration name. Amazon MQ uses
-         * the default configuration (the engine type and version). Note: If the
-         * configuration name already exists, Amazon MQ doesn't create a
-         * configuration.<p><h3>See Also:</h3>   <a
+         * the default configuration (the engine type and version).<p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration">AWS
          * API Reference</a></p>
          */
@@ -230,9 +247,8 @@ namespace Model
 
         /**
          * Creates a new configuration for the specified configuration name. Amazon MQ uses
-         * the default configuration (the engine type and version). Note: If the
-         * configuration name already exists, Amazon MQ doesn't create a
-         * configuration.<p><h3>See Also:</h3>   <a
+         * the default configuration (the engine type and version).<p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration">AWS
          * API Reference</a></p>
          *
@@ -242,15 +258,39 @@ namespace Model
 
         /**
          * Creates a new configuration for the specified configuration name. Amazon MQ uses
-         * the default configuration (the engine type and version). Note: If the
-         * configuration name already exists, Amazon MQ doesn't create a
-         * configuration.<p><h3>See Also:</h3>   <a
+         * the default configuration (the engine type and version).<p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration">AWS
          * API Reference</a></p>
          *
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void CreateConfigurationAsync(const Model::CreateConfigurationRequest& request, const CreateConfigurationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * Add a tag to a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateTags">AWS API
+         * Reference</a></p>
+         */
+        virtual Model::CreateTagsOutcome CreateTags(const Model::CreateTagsRequest& request) const;
+
+        /**
+         * Add a tag to a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateTags">AWS API
+         * Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::CreateTagsOutcomeCallable CreateTagsCallable(const Model::CreateTagsRequest& request) const;
+
+        /**
+         * Add a tag to a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateTags">AWS API
+         * Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void CreateTagsAsync(const Model::CreateTagsRequest& request, const CreateTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * Creates an ActiveMQ user.<p><h3>See Also:</h3>   <a
@@ -303,6 +343,31 @@ namespace Model
         virtual void DeleteBrokerAsync(const Model::DeleteBrokerRequest& request, const DeleteBrokerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * Removes a tag from a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteTags">AWS API
+         * Reference</a></p>
+         */
+        virtual Model::DeleteTagsOutcome DeleteTags(const Model::DeleteTagsRequest& request) const;
+
+        /**
+         * Removes a tag from a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteTags">AWS API
+         * Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DeleteTagsOutcomeCallable DeleteTagsCallable(const Model::DeleteTagsRequest& request) const;
+
+        /**
+         * Removes a tag from a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteTags">AWS API
+         * Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DeleteTagsAsync(const Model::DeleteTagsRequest& request, const DeleteTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * Deletes an ActiveMQ user.<p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUser">AWS API
          * Reference</a></p>
@@ -351,6 +416,56 @@ namespace Model
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void DescribeBrokerAsync(const Model::DescribeBrokerRequest& request, const DescribeBrokerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * Describe available engine types and versions.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerEngineTypes">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeBrokerEngineTypesOutcome DescribeBrokerEngineTypes(const Model::DescribeBrokerEngineTypesRequest& request) const;
+
+        /**
+         * Describe available engine types and versions.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerEngineTypes">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeBrokerEngineTypesOutcomeCallable DescribeBrokerEngineTypesCallable(const Model::DescribeBrokerEngineTypesRequest& request) const;
+
+        /**
+         * Describe available engine types and versions.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerEngineTypes">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeBrokerEngineTypesAsync(const Model::DescribeBrokerEngineTypesRequest& request, const DescribeBrokerEngineTypesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * Describe available broker instance options.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerInstanceOptions">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeBrokerInstanceOptionsOutcome DescribeBrokerInstanceOptions(const Model::DescribeBrokerInstanceOptionsRequest& request) const;
+
+        /**
+         * Describe available broker instance options.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerInstanceOptions">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeBrokerInstanceOptionsOutcomeCallable DescribeBrokerInstanceOptionsCallable(const Model::DescribeBrokerInstanceOptionsRequest& request) const;
+
+        /**
+         * Describe available broker instance options.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerInstanceOptions">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeBrokerInstanceOptionsAsync(const Model::DescribeBrokerInstanceOptionsRequest& request, const DescribeBrokerInstanceOptionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * Returns information about the specified configuration.<p><h3>See Also:</h3>   <a
@@ -509,6 +624,31 @@ namespace Model
         virtual void ListConfigurationsAsync(const Model::ListConfigurationsRequest& request, const ListConfigurationsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * Lists tags for a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListTags">AWS API
+         * Reference</a></p>
+         */
+        virtual Model::ListTagsOutcome ListTags(const Model::ListTagsRequest& request) const;
+
+        /**
+         * Lists tags for a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListTags">AWS API
+         * Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ListTagsOutcomeCallable ListTagsCallable(const Model::ListTagsRequest& request) const;
+
+        /**
+         * Lists tags for a resource.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListTags">AWS API
+         * Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ListTagsAsync(const Model::ListTagsRequest& request, const ListTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * Returns a list of all ActiveMQ users.<p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsers">AWS API
          * Reference</a></p>
@@ -634,22 +774,26 @@ namespace Model
         virtual void UpdateUserAsync(const Model::UpdateUserRequest& request, const UpdateUserResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void CreateBrokerAsyncHelper(const Model::CreateBrokerRequest& request, const CreateBrokerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateConfigurationAsyncHelper(const Model::CreateConfigurationRequest& request, const CreateConfigurationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void CreateTagsAsyncHelper(const Model::CreateTagsRequest& request, const CreateTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateUserAsyncHelper(const Model::CreateUserRequest& request, const CreateUserResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteBrokerAsyncHelper(const Model::DeleteBrokerRequest& request, const DeleteBrokerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DeleteTagsAsyncHelper(const Model::DeleteTagsRequest& request, const DeleteTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteUserAsyncHelper(const Model::DeleteUserRequest& request, const DeleteUserResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeBrokerAsyncHelper(const Model::DescribeBrokerRequest& request, const DescribeBrokerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeBrokerEngineTypesAsyncHelper(const Model::DescribeBrokerEngineTypesRequest& request, const DescribeBrokerEngineTypesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeBrokerInstanceOptionsAsyncHelper(const Model::DescribeBrokerInstanceOptionsRequest& request, const DescribeBrokerInstanceOptionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeConfigurationAsyncHelper(const Model::DescribeConfigurationRequest& request, const DescribeConfigurationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeConfigurationRevisionAsyncHelper(const Model::DescribeConfigurationRevisionRequest& request, const DescribeConfigurationRevisionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeUserAsyncHelper(const Model::DescribeUserRequest& request, const DescribeUserResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListBrokersAsyncHelper(const Model::ListBrokersRequest& request, const ListBrokersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListConfigurationRevisionsAsyncHelper(const Model::ListConfigurationRevisionsRequest& request, const ListConfigurationRevisionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListConfigurationsAsyncHelper(const Model::ListConfigurationsRequest& request, const ListConfigurationsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ListTagsAsyncHelper(const Model::ListTagsRequest& request, const ListTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListUsersAsyncHelper(const Model::ListUsersRequest& request, const ListUsersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void RebootBrokerAsyncHelper(const Model::RebootBrokerRequest& request, const RebootBrokerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateBrokerAsyncHelper(const Model::UpdateBrokerRequest& request, const UpdateBrokerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -657,6 +801,7 @@ namespace Model
         void UpdateUserAsyncHelper(const Model::UpdateUserRequest& request, const UpdateUserResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

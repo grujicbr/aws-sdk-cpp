@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     KinesisFirehoseOutput();
-    KinesisFirehoseOutput(const Aws::Utils::Json::JsonValue& jsonValue);
-    KinesisFirehoseOutput& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KinesisFirehoseOutput(Aws::Utils::Json::JsonView jsonValue);
+    KinesisFirehoseOutput& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * to.</p>
      */
     inline const Aws::String& GetResourceARN() const{ return m_resourceARN; }
+
+    /**
+     * <p>ARN of the destination Amazon Kinesis Firehose delivery stream to write
+     * to.</p>
+     */
+    inline bool ResourceARNHasBeenSet() const { return m_resourceARNHasBeenSet; }
 
     /**
      * <p>ARN of the destination Amazon Kinesis Firehose delivery stream to write
@@ -98,6 +105,13 @@ namespace Model
      * to this role.</p>
      */
     inline const Aws::String& GetRoleARN() const{ return m_roleARN; }
+
+    /**
+     * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to write to the
+     * destination stream on your behalf. You need to grant the necessary permissions
+     * to this role.</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
 
     /**
      * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to write to the

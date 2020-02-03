@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     MongoDbSettings();
-    MongoDbSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    MongoDbSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MongoDbSettings(Aws::Utils::Json::JsonView jsonValue);
+    MongoDbSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The user name you use to access the MongoDB source endpoint. </p>
      */
     inline const Aws::String& GetUsername() const{ return m_username; }
+
+    /**
+     * <p>The user name you use to access the MongoDB source endpoint. </p>
+     */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
 
     /**
      * <p>The user name you use to access the MongoDB source endpoint. </p>
@@ -90,6 +96,12 @@ namespace Model
      * endpoint. </p>
      */
     inline const Aws::String& GetPassword() const{ return m_password; }
+
+    /**
+     * <p> The password for the user account you use to access the MongoDB source
+     * endpoint. </p>
+     */
+    inline bool PasswordHasBeenSet() const { return m_passwordHasBeenSet; }
 
     /**
      * <p> The password for the user account you use to access the MongoDB source
@@ -136,6 +148,11 @@ namespace Model
     /**
      * <p> The name of the server on the MongoDB source endpoint. </p>
      */
+    inline bool ServerNameHasBeenSet() const { return m_serverNameHasBeenSet; }
+
+    /**
+     * <p> The name of the server on the MongoDB source endpoint. </p>
+     */
     inline void SetServerName(const Aws::String& value) { m_serverNameHasBeenSet = true; m_serverName = value; }
 
     /**
@@ -172,6 +189,11 @@ namespace Model
     /**
      * <p> The port value for the MongoDB source endpoint. </p>
      */
+    inline bool PortHasBeenSet() const { return m_portHasBeenSet; }
+
+    /**
+     * <p> The port value for the MongoDB source endpoint. </p>
+     */
     inline void SetPort(int value) { m_portHasBeenSet = true; m_port = value; }
 
     /**
@@ -184,6 +206,11 @@ namespace Model
      * <p> The database name on the MongoDB source endpoint. </p>
      */
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    /**
+     * <p> The database name on the MongoDB source endpoint. </p>
+     */
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     /**
      * <p> The database name on the MongoDB source endpoint. </p>
@@ -228,6 +255,13 @@ namespace Model
      * <p>Valid values: NO, PASSWORD </p> <p>When NO is selected, user name and
      * password parameters are not used and can be empty. </p>
      */
+    inline bool AuthTypeHasBeenSet() const { return m_authTypeHasBeenSet; }
+
+    /**
+     * <p> The authentication type you use to access the MongoDB source endpoint.</p>
+     * <p>Valid values: NO, PASSWORD </p> <p>When NO is selected, user name and
+     * password parameters are not used and can be empty. </p>
+     */
     inline void SetAuthType(const AuthTypeValue& value) { m_authTypeHasBeenSet = true; m_authType = value; }
 
     /**
@@ -256,7 +290,7 @@ namespace Model
      * <p> The authentication mechanism you use to access the MongoDB source
      * endpoint.</p> <p>Valid values: DEFAULT, MONGODB_CR, SCRAM_SHA_1 </p> <p>DEFAULT
      * – For MongoDB version 2.x, use MONGODB_CR. For MongoDB version 3.x, use
-     * SCRAM_SHA_1. This attribute is not used when authType=No.</p>
+     * SCRAM_SHA_1. This setting is not used when authType=No.</p>
      */
     inline const AuthMechanismValue& GetAuthMechanism() const{ return m_authMechanism; }
 
@@ -264,7 +298,15 @@ namespace Model
      * <p> The authentication mechanism you use to access the MongoDB source
      * endpoint.</p> <p>Valid values: DEFAULT, MONGODB_CR, SCRAM_SHA_1 </p> <p>DEFAULT
      * – For MongoDB version 2.x, use MONGODB_CR. For MongoDB version 3.x, use
-     * SCRAM_SHA_1. This attribute is not used when authType=No.</p>
+     * SCRAM_SHA_1. This setting is not used when authType=No.</p>
+     */
+    inline bool AuthMechanismHasBeenSet() const { return m_authMechanismHasBeenSet; }
+
+    /**
+     * <p> The authentication mechanism you use to access the MongoDB source
+     * endpoint.</p> <p>Valid values: DEFAULT, MONGODB_CR, SCRAM_SHA_1 </p> <p>DEFAULT
+     * – For MongoDB version 2.x, use MONGODB_CR. For MongoDB version 3.x, use
+     * SCRAM_SHA_1. This setting is not used when authType=No.</p>
      */
     inline void SetAuthMechanism(const AuthMechanismValue& value) { m_authMechanismHasBeenSet = true; m_authMechanism = value; }
 
@@ -272,7 +314,7 @@ namespace Model
      * <p> The authentication mechanism you use to access the MongoDB source
      * endpoint.</p> <p>Valid values: DEFAULT, MONGODB_CR, SCRAM_SHA_1 </p> <p>DEFAULT
      * – For MongoDB version 2.x, use MONGODB_CR. For MongoDB version 3.x, use
-     * SCRAM_SHA_1. This attribute is not used when authType=No.</p>
+     * SCRAM_SHA_1. This setting is not used when authType=No.</p>
      */
     inline void SetAuthMechanism(AuthMechanismValue&& value) { m_authMechanismHasBeenSet = true; m_authMechanism = std::move(value); }
 
@@ -280,7 +322,7 @@ namespace Model
      * <p> The authentication mechanism you use to access the MongoDB source
      * endpoint.</p> <p>Valid values: DEFAULT, MONGODB_CR, SCRAM_SHA_1 </p> <p>DEFAULT
      * – For MongoDB version 2.x, use MONGODB_CR. For MongoDB version 3.x, use
-     * SCRAM_SHA_1. This attribute is not used when authType=No.</p>
+     * SCRAM_SHA_1. This setting is not used when authType=No.</p>
      */
     inline MongoDbSettings& WithAuthMechanism(const AuthMechanismValue& value) { SetAuthMechanism(value); return *this;}
 
@@ -288,7 +330,7 @@ namespace Model
      * <p> The authentication mechanism you use to access the MongoDB source
      * endpoint.</p> <p>Valid values: DEFAULT, MONGODB_CR, SCRAM_SHA_1 </p> <p>DEFAULT
      * – For MongoDB version 2.x, use MONGODB_CR. For MongoDB version 3.x, use
-     * SCRAM_SHA_1. This attribute is not used when authType=No.</p>
+     * SCRAM_SHA_1. This setting is not used when authType=No.</p>
      */
     inline MongoDbSettings& WithAuthMechanism(AuthMechanismValue&& value) { SetAuthMechanism(std::move(value)); return *this;}
 
@@ -299,6 +341,13 @@ namespace Model
      * table mode.</p>
      */
     inline const NestingLevelValue& GetNestingLevel() const{ return m_nestingLevel; }
+
+    /**
+     * <p> Specifies either document or table mode. </p> <p>Valid values: NONE, ONE</p>
+     * <p>Default value is NONE. Specify NONE to use document mode. Specify ONE to use
+     * table mode.</p>
+     */
+    inline bool NestingLevelHasBeenSet() const { return m_nestingLevelHasBeenSet; }
 
     /**
      * <p> Specifies either document or table mode. </p> <p>Valid values: NONE, ONE</p>
@@ -330,43 +379,49 @@ namespace Model
 
 
     /**
-     * <p> Specifies the document ID. Use this attribute when <code>NestingLevel</code>
+     * <p> Specifies the document ID. Use this setting when <code>NestingLevel</code>
      * is set to NONE. </p> <p>Default value is false. </p>
      */
     inline const Aws::String& GetExtractDocId() const{ return m_extractDocId; }
 
     /**
-     * <p> Specifies the document ID. Use this attribute when <code>NestingLevel</code>
+     * <p> Specifies the document ID. Use this setting when <code>NestingLevel</code>
+     * is set to NONE. </p> <p>Default value is false. </p>
+     */
+    inline bool ExtractDocIdHasBeenSet() const { return m_extractDocIdHasBeenSet; }
+
+    /**
+     * <p> Specifies the document ID. Use this setting when <code>NestingLevel</code>
      * is set to NONE. </p> <p>Default value is false. </p>
      */
     inline void SetExtractDocId(const Aws::String& value) { m_extractDocIdHasBeenSet = true; m_extractDocId = value; }
 
     /**
-     * <p> Specifies the document ID. Use this attribute when <code>NestingLevel</code>
+     * <p> Specifies the document ID. Use this setting when <code>NestingLevel</code>
      * is set to NONE. </p> <p>Default value is false. </p>
      */
     inline void SetExtractDocId(Aws::String&& value) { m_extractDocIdHasBeenSet = true; m_extractDocId = std::move(value); }
 
     /**
-     * <p> Specifies the document ID. Use this attribute when <code>NestingLevel</code>
+     * <p> Specifies the document ID. Use this setting when <code>NestingLevel</code>
      * is set to NONE. </p> <p>Default value is false. </p>
      */
     inline void SetExtractDocId(const char* value) { m_extractDocIdHasBeenSet = true; m_extractDocId.assign(value); }
 
     /**
-     * <p> Specifies the document ID. Use this attribute when <code>NestingLevel</code>
+     * <p> Specifies the document ID. Use this setting when <code>NestingLevel</code>
      * is set to NONE. </p> <p>Default value is false. </p>
      */
     inline MongoDbSettings& WithExtractDocId(const Aws::String& value) { SetExtractDocId(value); return *this;}
 
     /**
-     * <p> Specifies the document ID. Use this attribute when <code>NestingLevel</code>
+     * <p> Specifies the document ID. Use this setting when <code>NestingLevel</code>
      * is set to NONE. </p> <p>Default value is false. </p>
      */
     inline MongoDbSettings& WithExtractDocId(Aws::String&& value) { SetExtractDocId(std::move(value)); return *this;}
 
     /**
-     * <p> Specifies the document ID. Use this attribute when <code>NestingLevel</code>
+     * <p> Specifies the document ID. Use this setting when <code>NestingLevel</code>
      * is set to NONE. </p> <p>Default value is false. </p>
      */
     inline MongoDbSettings& WithExtractDocId(const char* value) { SetExtractDocId(value); return *this;}
@@ -374,157 +429,179 @@ namespace Model
 
     /**
      * <p> Indicates the number of documents to preview to determine the document
-     * organization. Use this attribute when <code>NestingLevel</code> is set to ONE.
+     * organization. Use this setting when <code>NestingLevel</code> is set to ONE.
      * </p> <p>Must be a positive value greater than 0. Default value is 1000.</p>
      */
     inline const Aws::String& GetDocsToInvestigate() const{ return m_docsToInvestigate; }
 
     /**
      * <p> Indicates the number of documents to preview to determine the document
-     * organization. Use this attribute when <code>NestingLevel</code> is set to ONE.
+     * organization. Use this setting when <code>NestingLevel</code> is set to ONE.
+     * </p> <p>Must be a positive value greater than 0. Default value is 1000.</p>
+     */
+    inline bool DocsToInvestigateHasBeenSet() const { return m_docsToInvestigateHasBeenSet; }
+
+    /**
+     * <p> Indicates the number of documents to preview to determine the document
+     * organization. Use this setting when <code>NestingLevel</code> is set to ONE.
      * </p> <p>Must be a positive value greater than 0. Default value is 1000.</p>
      */
     inline void SetDocsToInvestigate(const Aws::String& value) { m_docsToInvestigateHasBeenSet = true; m_docsToInvestigate = value; }
 
     /**
      * <p> Indicates the number of documents to preview to determine the document
-     * organization. Use this attribute when <code>NestingLevel</code> is set to ONE.
+     * organization. Use this setting when <code>NestingLevel</code> is set to ONE.
      * </p> <p>Must be a positive value greater than 0. Default value is 1000.</p>
      */
     inline void SetDocsToInvestigate(Aws::String&& value) { m_docsToInvestigateHasBeenSet = true; m_docsToInvestigate = std::move(value); }
 
     /**
      * <p> Indicates the number of documents to preview to determine the document
-     * organization. Use this attribute when <code>NestingLevel</code> is set to ONE.
+     * organization. Use this setting when <code>NestingLevel</code> is set to ONE.
      * </p> <p>Must be a positive value greater than 0. Default value is 1000.</p>
      */
     inline void SetDocsToInvestigate(const char* value) { m_docsToInvestigateHasBeenSet = true; m_docsToInvestigate.assign(value); }
 
     /**
      * <p> Indicates the number of documents to preview to determine the document
-     * organization. Use this attribute when <code>NestingLevel</code> is set to ONE.
+     * organization. Use this setting when <code>NestingLevel</code> is set to ONE.
      * </p> <p>Must be a positive value greater than 0. Default value is 1000.</p>
      */
     inline MongoDbSettings& WithDocsToInvestigate(const Aws::String& value) { SetDocsToInvestigate(value); return *this;}
 
     /**
      * <p> Indicates the number of documents to preview to determine the document
-     * organization. Use this attribute when <code>NestingLevel</code> is set to ONE.
+     * organization. Use this setting when <code>NestingLevel</code> is set to ONE.
      * </p> <p>Must be a positive value greater than 0. Default value is 1000.</p>
      */
     inline MongoDbSettings& WithDocsToInvestigate(Aws::String&& value) { SetDocsToInvestigate(std::move(value)); return *this;}
 
     /**
      * <p> Indicates the number of documents to preview to determine the document
-     * organization. Use this attribute when <code>NestingLevel</code> is set to ONE.
+     * organization. Use this setting when <code>NestingLevel</code> is set to ONE.
      * </p> <p>Must be a positive value greater than 0. Default value is 1000.</p>
      */
     inline MongoDbSettings& WithDocsToInvestigate(const char* value) { SetDocsToInvestigate(value); return *this;}
 
 
     /**
-     * <p> The MongoDB database name. This attribute is not used when
+     * <p> The MongoDB database name. This setting is not used when
      * <code>authType=NO</code>. </p> <p>The default is admin.</p>
      */
     inline const Aws::String& GetAuthSource() const{ return m_authSource; }
 
     /**
-     * <p> The MongoDB database name. This attribute is not used when
+     * <p> The MongoDB database name. This setting is not used when
+     * <code>authType=NO</code>. </p> <p>The default is admin.</p>
+     */
+    inline bool AuthSourceHasBeenSet() const { return m_authSourceHasBeenSet; }
+
+    /**
+     * <p> The MongoDB database name. This setting is not used when
      * <code>authType=NO</code>. </p> <p>The default is admin.</p>
      */
     inline void SetAuthSource(const Aws::String& value) { m_authSourceHasBeenSet = true; m_authSource = value; }
 
     /**
-     * <p> The MongoDB database name. This attribute is not used when
+     * <p> The MongoDB database name. This setting is not used when
      * <code>authType=NO</code>. </p> <p>The default is admin.</p>
      */
     inline void SetAuthSource(Aws::String&& value) { m_authSourceHasBeenSet = true; m_authSource = std::move(value); }
 
     /**
-     * <p> The MongoDB database name. This attribute is not used when
+     * <p> The MongoDB database name. This setting is not used when
      * <code>authType=NO</code>. </p> <p>The default is admin.</p>
      */
     inline void SetAuthSource(const char* value) { m_authSourceHasBeenSet = true; m_authSource.assign(value); }
 
     /**
-     * <p> The MongoDB database name. This attribute is not used when
+     * <p> The MongoDB database name. This setting is not used when
      * <code>authType=NO</code>. </p> <p>The default is admin.</p>
      */
     inline MongoDbSettings& WithAuthSource(const Aws::String& value) { SetAuthSource(value); return *this;}
 
     /**
-     * <p> The MongoDB database name. This attribute is not used when
+     * <p> The MongoDB database name. This setting is not used when
      * <code>authType=NO</code>. </p> <p>The default is admin.</p>
      */
     inline MongoDbSettings& WithAuthSource(Aws::String&& value) { SetAuthSource(std::move(value)); return *this;}
 
     /**
-     * <p> The MongoDB database name. This attribute is not used when
+     * <p> The MongoDB database name. This setting is not used when
      * <code>authType=NO</code>. </p> <p>The default is admin.</p>
      */
     inline MongoDbSettings& WithAuthSource(const char* value) { SetAuthSource(value); return *this;}
 
 
     /**
-     * <p> The KMS key identifier that will be used to encrypt the connection
-     * parameters. If you do not specify a value for the KmsKeyId parameter, then AWS
-     * DMS will use your default encryption key. AWS KMS creates the default encryption
-     * key for your AWS account. Your AWS account has a different default encryption
-     * key for each AWS region. </p>
+     * <p>The AWS KMS key identifier that is used to encrypt the content on the
+     * replication instance. If you don't specify a value for the <code>KmsKeyId</code>
+     * parameter, then AWS DMS uses your default encryption key. AWS KMS creates the
+     * default encryption key for your AWS account. Your AWS account has a different
+     * default encryption key for each AWS Region.</p>
      */
     inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
 
     /**
-     * <p> The KMS key identifier that will be used to encrypt the connection
-     * parameters. If you do not specify a value for the KmsKeyId parameter, then AWS
-     * DMS will use your default encryption key. AWS KMS creates the default encryption
-     * key for your AWS account. Your AWS account has a different default encryption
-     * key for each AWS region. </p>
+     * <p>The AWS KMS key identifier that is used to encrypt the content on the
+     * replication instance. If you don't specify a value for the <code>KmsKeyId</code>
+     * parameter, then AWS DMS uses your default encryption key. AWS KMS creates the
+     * default encryption key for your AWS account. Your AWS account has a different
+     * default encryption key for each AWS Region.</p>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
+
+    /**
+     * <p>The AWS KMS key identifier that is used to encrypt the content on the
+     * replication instance. If you don't specify a value for the <code>KmsKeyId</code>
+     * parameter, then AWS DMS uses your default encryption key. AWS KMS creates the
+     * default encryption key for your AWS account. Your AWS account has a different
+     * default encryption key for each AWS Region.</p>
      */
     inline void SetKmsKeyId(const Aws::String& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = value; }
 
     /**
-     * <p> The KMS key identifier that will be used to encrypt the connection
-     * parameters. If you do not specify a value for the KmsKeyId parameter, then AWS
-     * DMS will use your default encryption key. AWS KMS creates the default encryption
-     * key for your AWS account. Your AWS account has a different default encryption
-     * key for each AWS region. </p>
+     * <p>The AWS KMS key identifier that is used to encrypt the content on the
+     * replication instance. If you don't specify a value for the <code>KmsKeyId</code>
+     * parameter, then AWS DMS uses your default encryption key. AWS KMS creates the
+     * default encryption key for your AWS account. Your AWS account has a different
+     * default encryption key for each AWS Region.</p>
      */
     inline void SetKmsKeyId(Aws::String&& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = std::move(value); }
 
     /**
-     * <p> The KMS key identifier that will be used to encrypt the connection
-     * parameters. If you do not specify a value for the KmsKeyId parameter, then AWS
-     * DMS will use your default encryption key. AWS KMS creates the default encryption
-     * key for your AWS account. Your AWS account has a different default encryption
-     * key for each AWS region. </p>
+     * <p>The AWS KMS key identifier that is used to encrypt the content on the
+     * replication instance. If you don't specify a value for the <code>KmsKeyId</code>
+     * parameter, then AWS DMS uses your default encryption key. AWS KMS creates the
+     * default encryption key for your AWS account. Your AWS account has a different
+     * default encryption key for each AWS Region.</p>
      */
     inline void SetKmsKeyId(const char* value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId.assign(value); }
 
     /**
-     * <p> The KMS key identifier that will be used to encrypt the connection
-     * parameters. If you do not specify a value for the KmsKeyId parameter, then AWS
-     * DMS will use your default encryption key. AWS KMS creates the default encryption
-     * key for your AWS account. Your AWS account has a different default encryption
-     * key for each AWS region. </p>
+     * <p>The AWS KMS key identifier that is used to encrypt the content on the
+     * replication instance. If you don't specify a value for the <code>KmsKeyId</code>
+     * parameter, then AWS DMS uses your default encryption key. AWS KMS creates the
+     * default encryption key for your AWS account. Your AWS account has a different
+     * default encryption key for each AWS Region.</p>
      */
     inline MongoDbSettings& WithKmsKeyId(const Aws::String& value) { SetKmsKeyId(value); return *this;}
 
     /**
-     * <p> The KMS key identifier that will be used to encrypt the connection
-     * parameters. If you do not specify a value for the KmsKeyId parameter, then AWS
-     * DMS will use your default encryption key. AWS KMS creates the default encryption
-     * key for your AWS account. Your AWS account has a different default encryption
-     * key for each AWS region. </p>
+     * <p>The AWS KMS key identifier that is used to encrypt the content on the
+     * replication instance. If you don't specify a value for the <code>KmsKeyId</code>
+     * parameter, then AWS DMS uses your default encryption key. AWS KMS creates the
+     * default encryption key for your AWS account. Your AWS account has a different
+     * default encryption key for each AWS Region.</p>
      */
     inline MongoDbSettings& WithKmsKeyId(Aws::String&& value) { SetKmsKeyId(std::move(value)); return *this;}
 
     /**
-     * <p> The KMS key identifier that will be used to encrypt the connection
-     * parameters. If you do not specify a value for the KmsKeyId parameter, then AWS
-     * DMS will use your default encryption key. AWS KMS creates the default encryption
-     * key for your AWS account. Your AWS account has a different default encryption
-     * key for each AWS region. </p>
+     * <p>The AWS KMS key identifier that is used to encrypt the content on the
+     * replication instance. If you don't specify a value for the <code>KmsKeyId</code>
+     * parameter, then AWS DMS uses your default encryption key. AWS KMS creates the
+     * default encryption key for your AWS account. Your AWS account has a different
+     * default encryption key for each AWS Region.</p>
      */
     inline MongoDbSettings& WithKmsKeyId(const char* value) { SetKmsKeyId(value); return *this;}
 

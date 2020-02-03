@@ -29,36 +29,53 @@ namespace Model
 {
 
 JobTemplate::JobTemplate() : 
+    m_accelerationSettingsHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_categoryHasBeenSet(false),
     m_createdAtHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_lastUpdatedHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_priority(0),
+    m_priorityHasBeenSet(false),
     m_queueHasBeenSet(false),
     m_settingsHasBeenSet(false),
+    m_statusUpdateInterval(StatusUpdateInterval::NOT_SET),
+    m_statusUpdateIntervalHasBeenSet(false),
     m_type(Type::NOT_SET),
     m_typeHasBeenSet(false)
 {
 }
 
-JobTemplate::JobTemplate(const JsonValue& jsonValue) : 
+JobTemplate::JobTemplate(JsonView jsonValue) : 
+    m_accelerationSettingsHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_categoryHasBeenSet(false),
     m_createdAtHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_lastUpdatedHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_priority(0),
+    m_priorityHasBeenSet(false),
     m_queueHasBeenSet(false),
     m_settingsHasBeenSet(false),
+    m_statusUpdateInterval(StatusUpdateInterval::NOT_SET),
+    m_statusUpdateIntervalHasBeenSet(false),
     m_type(Type::NOT_SET),
     m_typeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-JobTemplate& JobTemplate::operator =(const JsonValue& jsonValue)
+JobTemplate& JobTemplate::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("accelerationSettings"))
+  {
+    m_accelerationSettings = jsonValue.GetObject("accelerationSettings");
+
+    m_accelerationSettingsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("arn"))
   {
     m_arn = jsonValue.GetString("arn");
@@ -75,7 +92,7 @@ JobTemplate& JobTemplate::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("createdAt"))
   {
-    m_createdAt = jsonValue.GetString("createdAt");
+    m_createdAt = jsonValue.GetDouble("createdAt");
 
     m_createdAtHasBeenSet = true;
   }
@@ -89,7 +106,7 @@ JobTemplate& JobTemplate::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("lastUpdated"))
   {
-    m_lastUpdated = jsonValue.GetString("lastUpdated");
+    m_lastUpdated = jsonValue.GetDouble("lastUpdated");
 
     m_lastUpdatedHasBeenSet = true;
   }
@@ -99,6 +116,13 @@ JobTemplate& JobTemplate::operator =(const JsonValue& jsonValue)
     m_name = jsonValue.GetString("name");
 
     m_nameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("priority"))
+  {
+    m_priority = jsonValue.GetInteger("priority");
+
+    m_priorityHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("queue"))
@@ -115,6 +139,13 @@ JobTemplate& JobTemplate::operator =(const JsonValue& jsonValue)
     m_settingsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("statusUpdateInterval"))
+  {
+    m_statusUpdateInterval = StatusUpdateIntervalMapper::GetStatusUpdateIntervalForName(jsonValue.GetString("statusUpdateInterval"));
+
+    m_statusUpdateIntervalHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("type"))
   {
     m_type = TypeMapper::GetTypeForName(jsonValue.GetString("type"));
@@ -128,6 +159,12 @@ JobTemplate& JobTemplate::operator =(const JsonValue& jsonValue)
 JsonValue JobTemplate::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_accelerationSettingsHasBeenSet)
+  {
+   payload.WithObject("accelerationSettings", m_accelerationSettings.Jsonize());
+
+  }
 
   if(m_arnHasBeenSet)
   {
@@ -163,6 +200,12 @@ JsonValue JobTemplate::Jsonize() const
 
   }
 
+  if(m_priorityHasBeenSet)
+  {
+   payload.WithInteger("priority", m_priority);
+
+  }
+
   if(m_queueHasBeenSet)
   {
    payload.WithString("queue", m_queue);
@@ -173,6 +216,11 @@ JsonValue JobTemplate::Jsonize() const
   {
    payload.WithObject("settings", m_settings.Jsonize());
 
+  }
+
+  if(m_statusUpdateIntervalHasBeenSet)
+  {
+   payload.WithString("statusUpdateInterval", StatusUpdateIntervalMapper::GetNameForStatusUpdateInterval(m_statusUpdateInterval));
   }
 
   if(m_typeHasBeenSet)

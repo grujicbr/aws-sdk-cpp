@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MQ
@@ -42,38 +43,38 @@ namespace Model
   {
   public:
     UserSummary();
-    UserSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserSummary(Aws::Utils::Json::JsonView jsonValue);
+    UserSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * The type of change pending for the ActiveMQ user. Possible values: CREATE,
-     * UPDATE, DELETE
+     * The type of change pending for the ActiveMQ user.
      */
     inline const ChangeType& GetPendingChange() const{ return m_pendingChange; }
 
     /**
-     * The type of change pending for the ActiveMQ user. Possible values: CREATE,
-     * UPDATE, DELETE
+     * The type of change pending for the ActiveMQ user.
+     */
+    inline bool PendingChangeHasBeenSet() const { return m_pendingChangeHasBeenSet; }
+
+    /**
+     * The type of change pending for the ActiveMQ user.
      */
     inline void SetPendingChange(const ChangeType& value) { m_pendingChangeHasBeenSet = true; m_pendingChange = value; }
 
     /**
-     * The type of change pending for the ActiveMQ user. Possible values: CREATE,
-     * UPDATE, DELETE
+     * The type of change pending for the ActiveMQ user.
      */
     inline void SetPendingChange(ChangeType&& value) { m_pendingChangeHasBeenSet = true; m_pendingChange = std::move(value); }
 
     /**
-     * The type of change pending for the ActiveMQ user. Possible values: CREATE,
-     * UPDATE, DELETE
+     * The type of change pending for the ActiveMQ user.
      */
     inline UserSummary& WithPendingChange(const ChangeType& value) { SetPendingChange(value); return *this;}
 
     /**
-     * The type of change pending for the ActiveMQ user. Possible values: CREATE,
-     * UPDATE, DELETE
+     * The type of change pending for the ActiveMQ user.
      */
     inline UserSummary& WithPendingChange(ChangeType&& value) { SetPendingChange(std::move(value)); return *this;}
 
@@ -84,6 +85,13 @@ namespace Model
      * This value must be 2-100 characters long.
      */
     inline const Aws::String& GetUsername() const{ return m_username; }
+
+    /**
+     * Required. The username of the ActiveMQ user. This value can contain only
+     * alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~).
+     * This value must be 2-100 characters long.
+     */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
 
     /**
      * Required. The username of the ActiveMQ user. This value can contain only

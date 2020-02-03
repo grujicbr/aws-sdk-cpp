@@ -30,9 +30,11 @@ namespace Model
 
 MaintenanceWindowRunCommandParameters::MaintenanceWindowRunCommandParameters() : 
     m_commentHasBeenSet(false),
+    m_cloudWatchOutputConfigHasBeenSet(false),
     m_documentHashHasBeenSet(false),
     m_documentHashType(DocumentHashType::NOT_SET),
     m_documentHashTypeHasBeenSet(false),
+    m_documentVersionHasBeenSet(false),
     m_notificationConfigHasBeenSet(false),
     m_outputS3BucketNameHasBeenSet(false),
     m_outputS3KeyPrefixHasBeenSet(false),
@@ -43,11 +45,13 @@ MaintenanceWindowRunCommandParameters::MaintenanceWindowRunCommandParameters() :
 {
 }
 
-MaintenanceWindowRunCommandParameters::MaintenanceWindowRunCommandParameters(const JsonValue& jsonValue) : 
+MaintenanceWindowRunCommandParameters::MaintenanceWindowRunCommandParameters(JsonView jsonValue) : 
     m_commentHasBeenSet(false),
+    m_cloudWatchOutputConfigHasBeenSet(false),
     m_documentHashHasBeenSet(false),
     m_documentHashType(DocumentHashType::NOT_SET),
     m_documentHashTypeHasBeenSet(false),
+    m_documentVersionHasBeenSet(false),
     m_notificationConfigHasBeenSet(false),
     m_outputS3BucketNameHasBeenSet(false),
     m_outputS3KeyPrefixHasBeenSet(false),
@@ -59,13 +63,20 @@ MaintenanceWindowRunCommandParameters::MaintenanceWindowRunCommandParameters(con
   *this = jsonValue;
 }
 
-MaintenanceWindowRunCommandParameters& MaintenanceWindowRunCommandParameters::operator =(const JsonValue& jsonValue)
+MaintenanceWindowRunCommandParameters& MaintenanceWindowRunCommandParameters::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Comment"))
   {
     m_comment = jsonValue.GetString("Comment");
 
     m_commentHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CloudWatchOutputConfig"))
+  {
+    m_cloudWatchOutputConfig = jsonValue.GetObject("CloudWatchOutputConfig");
+
+    m_cloudWatchOutputConfigHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("DocumentHash"))
@@ -80,6 +91,13 @@ MaintenanceWindowRunCommandParameters& MaintenanceWindowRunCommandParameters::op
     m_documentHashType = DocumentHashTypeMapper::GetDocumentHashTypeForName(jsonValue.GetString("DocumentHashType"));
 
     m_documentHashTypeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("DocumentVersion"))
+  {
+    m_documentVersion = jsonValue.GetString("DocumentVersion");
+
+    m_documentVersionHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("NotificationConfig"))
@@ -105,10 +123,10 @@ MaintenanceWindowRunCommandParameters& MaintenanceWindowRunCommandParameters::op
 
   if(jsonValue.ValueExists("Parameters"))
   {
-    Aws::Map<Aws::String, JsonValue> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
     for(auto& parametersItem : parametersJsonMap)
     {
-      Array<JsonValue> parameterValueListJsonList = parametersItem.second.AsArray();
+      Array<JsonView> parameterValueListJsonList = parametersItem.second.AsArray();
       Aws::Vector<Aws::String> parameterValueListList;
       parameterValueListList.reserve((size_t)parameterValueListJsonList.GetLength());
       for(unsigned parameterValueListIndex = 0; parameterValueListIndex < parameterValueListJsonList.GetLength(); ++parameterValueListIndex)
@@ -147,6 +165,12 @@ JsonValue MaintenanceWindowRunCommandParameters::Jsonize() const
 
   }
 
+  if(m_cloudWatchOutputConfigHasBeenSet)
+  {
+   payload.WithObject("CloudWatchOutputConfig", m_cloudWatchOutputConfig.Jsonize());
+
+  }
+
   if(m_documentHashHasBeenSet)
   {
    payload.WithString("DocumentHash", m_documentHash);
@@ -156,6 +180,12 @@ JsonValue MaintenanceWindowRunCommandParameters::Jsonize() const
   if(m_documentHashTypeHasBeenSet)
   {
    payload.WithString("DocumentHashType", DocumentHashTypeMapper::GetNameForDocumentHashType(m_documentHashType));
+  }
+
+  if(m_documentVersionHasBeenSet)
+  {
+   payload.WithString("DocumentVersion", m_documentVersion);
+
   }
 
   if(m_notificationConfigHasBeenSet)

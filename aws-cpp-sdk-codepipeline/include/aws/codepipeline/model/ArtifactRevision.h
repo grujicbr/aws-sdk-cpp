@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -42,50 +43,56 @@ namespace Model
   {
   public:
     ArtifactRevision();
-    ArtifactRevision(const Aws::Utils::Json::JsonValue& jsonValue);
-    ArtifactRevision& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ArtifactRevision(Aws::Utils::Json::JsonView jsonValue);
+    ArtifactRevision& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>The name of an artifact. This name might be system-generated, such as
-     * "MyApp", or might be defined by the user when an action is created.</p>
+     * "MyApp", or defined by the user when an action is created.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
      * <p>The name of an artifact. This name might be system-generated, such as
-     * "MyApp", or might be defined by the user when an action is created.</p>
+     * "MyApp", or defined by the user when an action is created.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of an artifact. This name might be system-generated, such as
+     * "MyApp", or defined by the user when an action is created.</p>
      */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
      * <p>The name of an artifact. This name might be system-generated, such as
-     * "MyApp", or might be defined by the user when an action is created.</p>
+     * "MyApp", or defined by the user when an action is created.</p>
      */
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
     /**
      * <p>The name of an artifact. This name might be system-generated, such as
-     * "MyApp", or might be defined by the user when an action is created.</p>
+     * "MyApp", or defined by the user when an action is created.</p>
      */
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
     /**
      * <p>The name of an artifact. This name might be system-generated, such as
-     * "MyApp", or might be defined by the user when an action is created.</p>
+     * "MyApp", or defined by the user when an action is created.</p>
      */
     inline ArtifactRevision& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
      * <p>The name of an artifact. This name might be system-generated, such as
-     * "MyApp", or might be defined by the user when an action is created.</p>
+     * "MyApp", or defined by the user when an action is created.</p>
      */
     inline ArtifactRevision& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
      * <p>The name of an artifact. This name might be system-generated, such as
-     * "MyApp", or might be defined by the user when an action is created.</p>
+     * "MyApp", or defined by the user when an action is created.</p>
      */
     inline ArtifactRevision& WithName(const char* value) { SetName(value); return *this;}
 
@@ -94,6 +101,11 @@ namespace Model
      * <p>The revision ID of the artifact.</p>
      */
     inline const Aws::String& GetRevisionId() const{ return m_revisionId; }
+
+    /**
+     * <p>The revision ID of the artifact.</p>
+     */
+    inline bool RevisionIdHasBeenSet() const { return m_revisionIdHasBeenSet; }
 
     /**
      * <p>The revision ID of the artifact.</p>
@@ -131,6 +143,12 @@ namespace Model
      * artifacts stored in Amazon S3 buckets, the ETag value.</p>
      */
     inline const Aws::String& GetRevisionChangeIdentifier() const{ return m_revisionChangeIdentifier; }
+
+    /**
+     * <p>An additional identifier for a revision, such as a commit date or, for
+     * artifacts stored in Amazon S3 buckets, the ETag value.</p>
+     */
+    inline bool RevisionChangeIdentifierHasBeenSet() const { return m_revisionChangeIdentifierHasBeenSet; }
 
     /**
      * <p>An additional identifier for a revision, such as a commit date or, for
@@ -177,6 +195,15 @@ namespace Model
      * metadata.</p>
      */
     inline const Aws::String& GetRevisionSummary() const{ return m_revisionSummary; }
+
+    /**
+     * <p>Summary information about the most recent revision of the artifact. For
+     * GitHub and AWS CodeCommit repositories, the commit message. For Amazon S3
+     * buckets or actions, the user-provided content of a
+     * <code>codepipeline-artifact-revision-summary</code> key specified in the object
+     * metadata.</p>
+     */
+    inline bool RevisionSummaryHasBeenSet() const { return m_revisionSummaryHasBeenSet; }
 
     /**
      * <p>Summary information about the most recent revision of the artifact. For
@@ -243,6 +270,12 @@ namespace Model
      * <p>The date and time when the most recent revision of the artifact was created,
      * in timestamp format.</p>
      */
+    inline bool CreatedHasBeenSet() const { return m_createdHasBeenSet; }
+
+    /**
+     * <p>The date and time when the most recent revision of the artifact was created,
+     * in timestamp format.</p>
+     */
     inline void SetCreated(const Aws::Utils::DateTime& value) { m_createdHasBeenSet = true; m_created = value; }
 
     /**
@@ -270,6 +303,13 @@ namespace Model
      * page.</p>
      */
     inline const Aws::String& GetRevisionUrl() const{ return m_revisionUrl; }
+
+    /**
+     * <p>The commit ID for the artifact revision. For artifacts stored in GitHub or
+     * AWS CodeCommit repositories, the commit ID is linked to a commit details
+     * page.</p>
+     */
+    inline bool RevisionUrlHasBeenSet() const { return m_revisionUrlHasBeenSet; }
 
     /**
      * <p>The commit ID for the artifact revision. For artifacts stored in GitHub or

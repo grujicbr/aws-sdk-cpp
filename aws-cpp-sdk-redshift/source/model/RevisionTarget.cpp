@@ -54,19 +54,19 @@ RevisionTarget& RevisionTarget::operator =(const XmlNode& xmlNode)
     XmlNode databaseRevisionNode = resultNode.FirstChild("DatabaseRevision");
     if(!databaseRevisionNode.IsNull())
     {
-      m_databaseRevision = StringUtils::Trim(databaseRevisionNode.GetText().c_str());
+      m_databaseRevision = Aws::Utils::Xml::DecodeEscapedXmlText(databaseRevisionNode.GetText());
       m_databaseRevisionHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode databaseRevisionReleaseDateNode = resultNode.FirstChild("DatabaseRevisionReleaseDate");
     if(!databaseRevisionReleaseDateNode.IsNull())
     {
-      m_databaseRevisionReleaseDate = DateTime(StringUtils::Trim(databaseRevisionReleaseDateNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_databaseRevisionReleaseDate = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(databaseRevisionReleaseDateNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_databaseRevisionReleaseDateHasBeenSet = true;
     }
   }

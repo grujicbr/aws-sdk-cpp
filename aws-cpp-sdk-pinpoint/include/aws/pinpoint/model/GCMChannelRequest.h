@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -33,7 +34,10 @@ namespace Model
 {
 
   /**
-   * Google Cloud Messaging credentials<p><h3>See Also:</h3>   <a
+   * <p>Specifies the status and settings of the GCM channel for an application. This
+   * channel enables Amazon Pinpoint to send push notifications through the Firebase
+   * Cloud Messaging (FCM), formerly Google Cloud Messaging (GCM),
+   * service.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GCMChannelRequest">AWS
    * API Reference</a></p>
    */
@@ -41,59 +45,77 @@ namespace Model
   {
   public:
     GCMChannelRequest();
-    GCMChannelRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    GCMChannelRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GCMChannelRequest(Aws::Utils::Json::JsonView jsonValue);
+    GCMChannelRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * Platform credential API key from Google.
+     * <p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>,
+     * that you received from Google to communicate with Google services.</p>
      */
     inline const Aws::String& GetApiKey() const{ return m_apiKey; }
 
     /**
-     * Platform credential API key from Google.
+     * <p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>,
+     * that you received from Google to communicate with Google services.</p>
+     */
+    inline bool ApiKeyHasBeenSet() const { return m_apiKeyHasBeenSet; }
+
+    /**
+     * <p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>,
+     * that you received from Google to communicate with Google services.</p>
      */
     inline void SetApiKey(const Aws::String& value) { m_apiKeyHasBeenSet = true; m_apiKey = value; }
 
     /**
-     * Platform credential API key from Google.
+     * <p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>,
+     * that you received from Google to communicate with Google services.</p>
      */
     inline void SetApiKey(Aws::String&& value) { m_apiKeyHasBeenSet = true; m_apiKey = std::move(value); }
 
     /**
-     * Platform credential API key from Google.
+     * <p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>,
+     * that you received from Google to communicate with Google services.</p>
      */
     inline void SetApiKey(const char* value) { m_apiKeyHasBeenSet = true; m_apiKey.assign(value); }
 
     /**
-     * Platform credential API key from Google.
+     * <p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>,
+     * that you received from Google to communicate with Google services.</p>
      */
     inline GCMChannelRequest& WithApiKey(const Aws::String& value) { SetApiKey(value); return *this;}
 
     /**
-     * Platform credential API key from Google.
+     * <p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>,
+     * that you received from Google to communicate with Google services.</p>
      */
     inline GCMChannelRequest& WithApiKey(Aws::String&& value) { SetApiKey(std::move(value)); return *this;}
 
     /**
-     * Platform credential API key from Google.
+     * <p>The Web API Key, also referred to as an <i>API_KEY</i> or <i>server key</i>,
+     * that you received from Google to communicate with Google services.</p>
      */
     inline GCMChannelRequest& WithApiKey(const char* value) { SetApiKey(value); return *this;}
 
 
     /**
-     * If the channel is enabled for sending messages.
+     * <p>Specifies whether to enable the GCM channel for the application.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
 
     /**
-     * If the channel is enabled for sending messages.
+     * <p>Specifies whether to enable the GCM channel for the application.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
+
+    /**
+     * <p>Specifies whether to enable the GCM channel for the application.</p>
      */
     inline void SetEnabled(bool value) { m_enabledHasBeenSet = true; m_enabled = value; }
 
     /**
-     * If the channel is enabled for sending messages.
+     * <p>Specifies whether to enable the GCM channel for the application.</p>
      */
     inline GCMChannelRequest& WithEnabled(bool value) { SetEnabled(value); return *this;}
 

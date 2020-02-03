@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Device();
-    Device(const Aws::Utils::Json::JsonValue& jsonValue);
-    Device& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Device(Aws::Utils::Json::JsonView jsonValue);
+    Device& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The path for the device on the host container instance.</p>
      */
     inline const Aws::String& GetHostPath() const{ return m_hostPath; }
+
+    /**
+     * <p>The path for the device on the host container instance.</p>
+     */
+    inline bool HostPathHasBeenSet() const { return m_hostPathHasBeenSet; }
 
     /**
      * <p>The path for the device on the host container instance.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The path inside the container at which to expose the host device.</p>
      */
+    inline bool ContainerPathHasBeenSet() const { return m_containerPathHasBeenSet; }
+
+    /**
+     * <p>The path inside the container at which to expose the host device.</p>
+     */
     inline void SetContainerPath(const Aws::String& value) { m_containerPathHasBeenSet = true; m_containerPath = value; }
 
     /**
@@ -127,6 +138,13 @@ namespace Model
      * <code>write</code>, and <code>mknod</code> for the device.</p>
      */
     inline const Aws::Vector<DeviceCgroupPermission>& GetPermissions() const{ return m_permissions; }
+
+    /**
+     * <p>The explicit permissions to provide to the container for the device. By
+     * default, the container has permissions for <code>read</code>,
+     * <code>write</code>, and <code>mknod</code> for the device.</p>
+     */
+    inline bool PermissionsHasBeenSet() const { return m_permissionsHasBeenSet; }
 
     /**
      * <p>The explicit permissions to provide to the container for the device. By

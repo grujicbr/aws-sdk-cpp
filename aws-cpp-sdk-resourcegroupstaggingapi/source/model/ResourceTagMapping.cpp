@@ -30,18 +30,20 @@ namespace Model
 
 ResourceTagMapping::ResourceTagMapping() : 
     m_resourceARNHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_complianceDetailsHasBeenSet(false)
 {
 }
 
-ResourceTagMapping::ResourceTagMapping(const JsonValue& jsonValue) : 
+ResourceTagMapping::ResourceTagMapping(JsonView jsonValue) : 
     m_resourceARNHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_complianceDetailsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ResourceTagMapping& ResourceTagMapping::operator =(const JsonValue& jsonValue)
+ResourceTagMapping& ResourceTagMapping::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ResourceARN"))
   {
@@ -52,12 +54,19 @@ ResourceTagMapping& ResourceTagMapping::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Tags"))
   {
-    Array<JsonValue> tagsJsonList = jsonValue.GetArray("Tags");
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("Tags");
     for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
     {
       m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
     }
     m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ComplianceDetails"))
+  {
+    m_complianceDetails = jsonValue.GetObject("ComplianceDetails");
+
+    m_complianceDetailsHasBeenSet = true;
   }
 
   return *this;
@@ -81,6 +90,12 @@ JsonValue ResourceTagMapping::Jsonize() const
      tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
    }
    payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_complianceDetailsHasBeenSet)
+  {
+   payload.WithObject("ComplianceDetails", m_complianceDetails.Jsonize());
 
   }
 

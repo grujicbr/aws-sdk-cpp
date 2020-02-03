@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Patch();
-    Patch(const Aws::Utils::Json::JsonValue& jsonValue);
-    Patch& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Patch(Aws::Utils::Json::JsonView jsonValue);
+    Patch& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * ID).</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the patch (this is different than the Microsoft Knowledge Base
+     * ID).</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the patch (this is different than the Microsoft Knowledge Base
@@ -98,6 +105,11 @@ namespace Model
     /**
      * <p>The date the patch was released.</p>
      */
+    inline bool ReleaseDateHasBeenSet() const { return m_releaseDateHasBeenSet; }
+
+    /**
+     * <p>The date the patch was released.</p>
+     */
     inline void SetReleaseDate(const Aws::Utils::DateTime& value) { m_releaseDateHasBeenSet = true; m_releaseDate = value; }
 
     /**
@@ -120,6 +132,11 @@ namespace Model
      * <p>The title of the patch.</p>
      */
     inline const Aws::String& GetTitle() const{ return m_title; }
+
+    /**
+     * <p>The title of the patch.</p>
+     */
+    inline bool TitleHasBeenSet() const { return m_titleHasBeenSet; }
 
     /**
      * <p>The title of the patch.</p>
@@ -160,6 +177,11 @@ namespace Model
     /**
      * <p>The description of the patch.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the patch.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -192,6 +214,11 @@ namespace Model
      * <p>The URL where more information can be obtained about the patch.</p>
      */
     inline const Aws::String& GetContentUrl() const{ return m_contentUrl; }
+
+    /**
+     * <p>The URL where more information can be obtained about the patch.</p>
+     */
+    inline bool ContentUrlHasBeenSet() const { return m_contentUrlHasBeenSet; }
 
     /**
      * <p>The URL where more information can be obtained about the patch.</p>
@@ -232,6 +259,11 @@ namespace Model
     /**
      * <p>The name of the vendor providing the patch.</p>
      */
+    inline bool VendorHasBeenSet() const { return m_vendorHasBeenSet; }
+
+    /**
+     * <p>The name of the vendor providing the patch.</p>
+     */
     inline void SetVendor(const Aws::String& value) { m_vendorHasBeenSet = true; m_vendor = value; }
 
     /**
@@ -264,6 +296,11 @@ namespace Model
      * <p>The product family the patch is applicable for (for example, Windows).</p>
      */
     inline const Aws::String& GetProductFamily() const{ return m_productFamily; }
+
+    /**
+     * <p>The product family the patch is applicable for (for example, Windows).</p>
+     */
+    inline bool ProductFamilyHasBeenSet() const { return m_productFamilyHasBeenSet; }
 
     /**
      * <p>The product family the patch is applicable for (for example, Windows).</p>
@@ -301,6 +338,12 @@ namespace Model
      * WindowsServer2016).</p>
      */
     inline const Aws::String& GetProduct() const{ return m_product; }
+
+    /**
+     * <p>The specific product the patch is applicable for (for example,
+     * WindowsServer2016).</p>
+     */
+    inline bool ProductHasBeenSet() const { return m_productHasBeenSet; }
 
     /**
      * <p>The specific product the patch is applicable for (for example,
@@ -349,6 +392,12 @@ namespace Model
      * <p>The classification of the patch (for example, SecurityUpdates, Updates,
      * CriticalUpdates).</p>
      */
+    inline bool ClassificationHasBeenSet() const { return m_classificationHasBeenSet; }
+
+    /**
+     * <p>The classification of the patch (for example, SecurityUpdates, Updates,
+     * CriticalUpdates).</p>
+     */
     inline void SetClassification(const Aws::String& value) { m_classificationHasBeenSet = true; m_classification = value; }
 
     /**
@@ -390,6 +439,11 @@ namespace Model
     /**
      * <p>The severity of the patch (for example Critical, Important, Moderate).</p>
      */
+    inline bool MsrcSeverityHasBeenSet() const { return m_msrcSeverityHasBeenSet; }
+
+    /**
+     * <p>The severity of the patch (for example Critical, Important, Moderate).</p>
+     */
     inline void SetMsrcSeverity(const Aws::String& value) { m_msrcSeverityHasBeenSet = true; m_msrcSeverity = value; }
 
     /**
@@ -422,6 +476,11 @@ namespace Model
      * <p>The Microsoft Knowledge Base ID of the patch.</p>
      */
     inline const Aws::String& GetKbNumber() const{ return m_kbNumber; }
+
+    /**
+     * <p>The Microsoft Knowledge Base ID of the patch.</p>
+     */
+    inline bool KbNumberHasBeenSet() const { return m_kbNumberHasBeenSet; }
 
     /**
      * <p>The Microsoft Knowledge Base ID of the patch.</p>
@@ -462,6 +521,11 @@ namespace Model
     /**
      * <p>The ID of the MSRC bulletin the patch is related to.</p>
      */
+    inline bool MsrcNumberHasBeenSet() const { return m_msrcNumberHasBeenSet; }
+
+    /**
+     * <p>The ID of the MSRC bulletin the patch is related to.</p>
+     */
     inline void SetMsrcNumber(const Aws::String& value) { m_msrcNumberHasBeenSet = true; m_msrcNumber = value; }
 
     /**
@@ -494,6 +558,11 @@ namespace Model
      * <p>The language of the patch if it's language-specific.</p>
      */
     inline const Aws::String& GetLanguage() const{ return m_language; }
+
+    /**
+     * <p>The language of the patch if it's language-specific.</p>
+     */
+    inline bool LanguageHasBeenSet() const { return m_languageHasBeenSet; }
 
     /**
      * <p>The language of the patch if it's language-specific.</p>

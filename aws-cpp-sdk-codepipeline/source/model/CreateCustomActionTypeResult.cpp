@@ -37,11 +37,20 @@ CreateCustomActionTypeResult::CreateCustomActionTypeResult(const Aws::AmazonWebS
 
 CreateCustomActionTypeResult& CreateCustomActionTypeResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("actionType"))
   {
     m_actionType = jsonValue.GetObject("actionType");
 
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
   }
 
 

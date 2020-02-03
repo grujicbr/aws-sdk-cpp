@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -31,7 +32,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for DvbSubSourceSettings<p><h3>See Also:</h3>   <a
+   * Dvb Sub Source Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbSubSourceSettings">AWS
    * API Reference</a></p>
    */
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     DvbSubSourceSettings();
-    DvbSubSourceSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    DvbSubSourceSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DvbSubSourceSettings(Aws::Utils::Json::JsonView jsonValue);
+    DvbSubSourceSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,13 @@ namespace Model
      * regardless of selectors.
      */
     inline int GetPid() const{ return m_pid; }
+
+    /**
+     * When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source
+     * content. Unused for DVB-Sub passthrough. All DVB-Sub content is passed through,
+     * regardless of selectors.
+     */
+    inline bool PidHasBeenSet() const { return m_pidHasBeenSet; }
 
     /**
      * When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source

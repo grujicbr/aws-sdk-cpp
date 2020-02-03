@@ -28,7 +28,10 @@ namespace Model
     NOT_SET,
     HTTP,
     HTTPS,
-    TCP
+    TCP,
+    TLS,
+    UDP,
+    TCP_UDP
   };
 
 namespace ProtocolEnumMapper

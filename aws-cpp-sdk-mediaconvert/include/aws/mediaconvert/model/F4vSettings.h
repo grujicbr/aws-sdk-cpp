@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -41,24 +42,51 @@ namespace Model
   {
   public:
     F4vSettings();
-    F4vSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    F4vSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    F4vSettings(Aws::Utils::Json::JsonView jsonValue);
+    F4vSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
-    
+    /**
+     * If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the beginning of
+     * the archive as required for progressive downloading. Otherwise it is placed
+     * normally at the end.
+     */
     inline const F4vMoovPlacement& GetMoovPlacement() const{ return m_moovPlacement; }
 
-    
+    /**
+     * If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the beginning of
+     * the archive as required for progressive downloading. Otherwise it is placed
+     * normally at the end.
+     */
+    inline bool MoovPlacementHasBeenSet() const { return m_moovPlacementHasBeenSet; }
+
+    /**
+     * If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the beginning of
+     * the archive as required for progressive downloading. Otherwise it is placed
+     * normally at the end.
+     */
     inline void SetMoovPlacement(const F4vMoovPlacement& value) { m_moovPlacementHasBeenSet = true; m_moovPlacement = value; }
 
-    
+    /**
+     * If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the beginning of
+     * the archive as required for progressive downloading. Otherwise it is placed
+     * normally at the end.
+     */
     inline void SetMoovPlacement(F4vMoovPlacement&& value) { m_moovPlacementHasBeenSet = true; m_moovPlacement = std::move(value); }
 
-    
+    /**
+     * If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the beginning of
+     * the archive as required for progressive downloading. Otherwise it is placed
+     * normally at the end.
+     */
     inline F4vSettings& WithMoovPlacement(const F4vMoovPlacement& value) { SetMoovPlacement(value); return *this;}
 
-    
+    /**
+     * If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the beginning of
+     * the archive as required for progressive downloading. Otherwise it is placed
+     * normally at the end.
+     */
     inline F4vSettings& WithMoovPlacement(F4vMoovPlacement&& value) { SetMoovPlacement(std::move(value)); return *this;}
 
   private:

@@ -35,7 +35,9 @@ UpdateTrailRequest::UpdateTrailRequest() :
     m_enableLogFileValidationHasBeenSet(false),
     m_cloudWatchLogsLogGroupArnHasBeenSet(false),
     m_cloudWatchLogsRoleArnHasBeenSet(false),
-    m_kmsKeyIdHasBeenSet(false)
+    m_kmsKeyIdHasBeenSet(false),
+    m_isOrganizationTrail(false),
+    m_isOrganizationTrailHasBeenSet(false)
 {
 }
 
@@ -103,7 +105,13 @@ Aws::String UpdateTrailRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_isOrganizationTrailHasBeenSet)
+  {
+   payload.WithBool("IsOrganizationTrail", m_isOrganizationTrail);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateTrailRequest::GetRequestSpecificHeaders() const

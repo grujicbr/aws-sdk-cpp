@@ -46,17 +46,17 @@ TestDNSAnswerResult& TestDNSAnswerResult::operator =(const Aws::AmazonWebService
     XmlNode nameserverNode = resultNode.FirstChild("Nameserver");
     if(!nameserverNode.IsNull())
     {
-      m_nameserver = StringUtils::Trim(nameserverNode.GetText().c_str());
+      m_nameserver = Aws::Utils::Xml::DecodeEscapedXmlText(nameserverNode.GetText());
     }
     XmlNode recordNameNode = resultNode.FirstChild("RecordName");
     if(!recordNameNode.IsNull())
     {
-      m_recordName = StringUtils::Trim(recordNameNode.GetText().c_str());
+      m_recordName = Aws::Utils::Xml::DecodeEscapedXmlText(recordNameNode.GetText());
     }
     XmlNode recordTypeNode = resultNode.FirstChild("RecordType");
     if(!recordTypeNode.IsNull())
     {
-      m_recordType = RRTypeMapper::GetRRTypeForName(StringUtils::Trim(recordTypeNode.GetText().c_str()).c_str());
+      m_recordType = RRTypeMapper::GetRRTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(recordTypeNode.GetText()).c_str()).c_str());
     }
     XmlNode recordDataNode = resultNode.FirstChild("RecordData");
     if(!recordDataNode.IsNull())
@@ -64,7 +64,7 @@ TestDNSAnswerResult& TestDNSAnswerResult::operator =(const Aws::AmazonWebService
       XmlNode recordDataMember = recordDataNode.FirstChild("RecordDataEntry");
       while(!recordDataMember.IsNull())
       {
-        m_recordData.push_back(StringUtils::Trim(recordDataMember.GetText().c_str()));
+        m_recordData.push_back(recordDataMember.GetText());
         recordDataMember = recordDataMember.NextNode("RecordDataEntry");
       }
 
@@ -72,12 +72,12 @@ TestDNSAnswerResult& TestDNSAnswerResult::operator =(const Aws::AmazonWebService
     XmlNode responseCodeNode = resultNode.FirstChild("ResponseCode");
     if(!responseCodeNode.IsNull())
     {
-      m_responseCode = StringUtils::Trim(responseCodeNode.GetText().c_str());
+      m_responseCode = Aws::Utils::Xml::DecodeEscapedXmlText(responseCodeNode.GetText());
     }
     XmlNode protocolNode = resultNode.FirstChild("Protocol");
     if(!protocolNode.IsNull())
     {
-      m_protocol = StringUtils::Trim(protocolNode.GetText().c_str());
+      m_protocol = Aws::Utils::Xml::DecodeEscapedXmlText(protocolNode.GetText());
     }
   }
 

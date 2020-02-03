@@ -51,13 +51,16 @@ ReplaceNetworkAclAssociationResponse& ReplaceNetworkAclAssociationResponse::oper
     XmlNode newAssociationIdNode = resultNode.FirstChild("newAssociationId");
     if(!newAssociationIdNode.IsNull())
     {
-      m_newAssociationId = StringUtils::Trim(newAssociationIdNode.GetText().c_str());
+      m_newAssociationId = Aws::Utils::Xml::DecodeEscapedXmlText(newAssociationIdNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::ReplaceNetworkAclAssociationResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

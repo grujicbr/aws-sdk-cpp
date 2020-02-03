@@ -1,12 +1,12 @@
 /*
   * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  * 
+  *
   * Licensed under the Apache License, Version 2.0 (the "License").
   * You may not use this file except in compliance with the License.
   * A copy of the License is located at
-  * 
+  *
   *  http://aws.amazon.com/apache2.0
-  * 
+  *
   * or in the "license" file accompanying this file. This file is distributed
   * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
   * express or implied. See the License for the specific language governing
@@ -99,25 +99,26 @@ void WinSyncHttpClient::AddHeadersToRequest(const HttpRequest& request, void* hH
 bool WinSyncHttpClient::StreamPayloadToRequest(const HttpRequest& request, void* hHttpRequest, Aws::Utils::RateLimits::RateLimiterInterface* writeLimiter) const
 {
     bool success = true;
+    bool isChunked = request.HasTransferEncoding() && request.GetTransferEncoding() == Aws::Http::CHUNKED_VALUE;
     auto payloadStream = request.GetContentBody();
     if(payloadStream)
     {
+        uint64_t bytesWritten;
         auto startingPos = payloadStream->tellg();
-
         char streamBuffer[ HTTP_REQUEST_WRITE_BUFFER_LENGTH ];
         bool done = false;
         while(success && !done)
-        {            
+        {
             payloadStream->read(streamBuffer, HTTP_REQUEST_WRITE_BUFFER_LENGTH);
             std::streamsize bytesRead = payloadStream->gcount();
             success = !payloadStream->bad();
-            
-            uint64_t bytesWritten = 0;
+
+            bytesWritten = 0;
             if (bytesRead > 0)
             {
-                bytesWritten = DoWriteData(hHttpRequest, streamBuffer, bytesRead);
+                bytesWritten = DoWriteData(hHttpRequest, streamBuffer, bytesRead, isChunked);
                 if (!bytesWritten)
-                {                    
+                {
                     success = false;
                 }
                 else if(writeLimiter)
@@ -133,12 +134,25 @@ bool WinSyncHttpClient::StreamPayloadToRequest(const HttpRequest& request, void*
             }
 
             if(!payloadStream->good())
-            {                
+            {
                 done = true;
-            }           
+            }
 
             success = success && ContinueRequest(request) && IsRequestProcessingEnabled();
-        }        
+        }
+
+        if (success && isChunked)
+        {
+            bytesWritten = FinalizeWriteData(hHttpRequest);
+            if (!bytesWritten)
+            {
+                success = false;
+            }
+            else if (writeLimiter)
+            {
+                writeLimiter->ApplyAndPayForCost(bytesWritten);
+            }
+        }
 
         payloadStream->clear();
         payloadStream->seekg(startingPos, payloadStream->beg);
@@ -166,13 +180,13 @@ void WinSyncHttpClient::LogRequestInternalFailure() const
         error,
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
         messageBuffer,
-        WINDOWS_ERROR_MESSAGE_BUFFER_SIZE, 
+        WINDOWS_ERROR_MESSAGE_BUFFER_SIZE,
         nullptr);
     AWS_LOGSTREAM_WARN(GetLogTag(), "Send request failed: " << messageBuffer);
 
 }
 
-void WinSyncHttpClient::BuildSuccessResponse(const Aws::Http::HttpRequest& request, std::shared_ptr<HttpResponse>& response, void* hHttpRequest, Aws::Utils::RateLimits::RateLimiterInterface* readLimiter) const
+bool WinSyncHttpClient::BuildSuccessResponse(const Aws::Http::HttpRequest& request, std::shared_ptr<HttpResponse>& response, void* hHttpRequest, Aws::Utils::RateLimits::RateLimiterInterface* readLimiter) const
 {
     Aws::StringStream ss;
     uint64_t read = 0;
@@ -200,8 +214,8 @@ void WinSyncHttpClient::BuildSuccessResponse(const Aws::Http::HttpRequest& reque
         char body[1024];
         uint64_t bodySize = sizeof(body);
         int64_t numBytesResponseReceived = 0;
-        read = 0;    
-        
+        read = 0;
+
         bool success = ContinueRequest(request);
 
         while (DoReadData(hHttpRequest, body, bodySize, read) && read > 0 && success)
@@ -224,7 +238,7 @@ void WinSyncHttpClient::BuildSuccessResponse(const Aws::Http::HttpRequest& reque
             success = success && ContinueRequest(request) && IsRequestProcessingEnabled();
         }
 
-        if (response->HasHeader(Aws::Http::CONTENT_LENGTH_HEADER))
+        if (success && response->HasHeader(Aws::Http::CONTENT_LENGTH_HEADER))
         {
             const Aws::String& contentLength = response->GetHeader(Aws::Http::CONTENT_LENGTH_HEADER);
             AWS_LOGSTREAM_TRACE(GetLogTag(), "Response content-length header: " << contentLength);
@@ -232,27 +246,29 @@ void WinSyncHttpClient::BuildSuccessResponse(const Aws::Http::HttpRequest& reque
             if (StringUtils::ConvertToInt64(contentLength.c_str()) != numBytesResponseReceived)
             {
                 success = false;
+                response->SetClientErrorType(CoreErrors::NETWORK_CONNECTION);
+                response->SetClientErrorMessage("Response body length doesn't match the content-length header.");
                 AWS_LOGSTREAM_ERROR(GetLogTag(), "Response body length doesn't match the content-length header.");
             }
         }
 
         if(!success)
         {
-            return;
+            return false;
         }
     }
 
     //go ahead and flush the response body.
     response->GetResponseBody().flush();
 
-    return;
+    return true;
 }
 
 std::shared_ptr<HttpResponse> WinSyncHttpClient::MakeRequest(HttpRequest& request,
 	Aws::Utils::RateLimits::RateLimiterInterface* readLimiter,
 	Aws::Utils::RateLimits::RateLimiterInterface* writeLimiter) const
 {
-	std::shared_ptr<HttpResponse> response = Aws::MakeShared<Standard::StandardHttpResponse>(CLASS_TAG, request); 
+	std::shared_ptr<HttpResponse> response = Aws::MakeShared<Standard::StandardHttpResponse>(CLASS_TAG, request);
 	MakeRequestInternal(request, response, readLimiter, writeLimiter);
 	return response;
 }
@@ -278,42 +294,39 @@ void WinSyncHttpClient::MakeRequestInternal(HttpRequest& request,
     AWS_LOGSTREAM_TRACE(GetLogTag(), "Making " << HttpMethodMapper::GetNameForHttpMethod(request.GetMethod()) <<
 			" request to uri " << uriRef.GetURIString(true));
 
-    bool success = IsRequestProcessingEnabled();
-
+    bool success = false;
     void* connection = nullptr;
     void* hHttpRequest = nullptr;
 
-    if(success)
+    if(IsRequestProcessingEnabled())
     {
         if (writeLimiter != nullptr)
         {
             writeLimiter->ApplyAndPayForCost(request.GetSize());
         }
 
-        connection = m_connectionPoolMgr->AquireConnectionForHost(uriRef.GetAuthority(), uriRef.GetPort());
+        connection = m_connectionPoolMgr->AcquireConnectionForHost(uriRef.GetAuthority(), uriRef.GetPort());
         AWS_LOGSTREAM_DEBUG(GetLogTag(), "Acquired connection " << connection);
 
         hHttpRequest = AllocateWindowsHttpRequest(request, connection);
 
         AddHeadersToRequest(request, hHttpRequest);
-        success = DoSendRequest(hHttpRequest);
+        if (DoSendRequest(hHttpRequest) && StreamPayloadToRequest(request, hHttpRequest, writeLimiter))
+        {
+            success = BuildSuccessResponse(request, response, hHttpRequest, readLimiter);
+        }
+        else
+        {
+            response->SetClientErrorType(CoreErrors::NETWORK_CONNECTION);
+            response->SetClientErrorMessage("Encountered network error when sending http request");
+        }
     }
 
-    if(success)
+    if (!success && !IsRequestProcessingEnabled() || !ContinueRequest(request))
     {
-        success = StreamPayloadToRequest(request, hHttpRequest, writeLimiter);
-    }
-
-    if(success)
-    {
-        BuildSuccessResponse(request, response, hHttpRequest, readLimiter);
-    }
-    
-    if ((!success || response == nullptr) && !IsRequestProcessingEnabled() || !ContinueRequest(request))
-    {
-        AWS_LOGSTREAM_INFO(GetLogTag(), "Request cancelled by client controller");
-        response = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(GetLogTag(), request);
-        response->SetResponseCode(Http::HttpResponseCode::NO_RESPONSE);
+        response->SetClientErrorType(CoreErrors::USER_CANCELLED);
+        response->SetClientErrorMessage("Request processing disabled or continuation cancelled by user's continuation handler.");
+        response->SetResponseCode(Aws::Http::HttpResponseCode::NO_RESPONSE);
     }
     else if(!success)
     {

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -50,8 +51,8 @@ namespace Model
   {
   public:
     TypedLinkSpecifier();
-    TypedLinkSpecifier(const Aws::Utils::Json::JsonValue& jsonValue);
-    TypedLinkSpecifier& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TypedLinkSpecifier(Aws::Utils::Json::JsonView jsonValue);
+    TypedLinkSpecifier& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +60,11 @@ namespace Model
      * <p>Identifies the typed link facet that is associated with the typed link.</p>
      */
     inline const TypedLinkSchemaAndFacetName& GetTypedLinkFacet() const{ return m_typedLinkFacet; }
+
+    /**
+     * <p>Identifies the typed link facet that is associated with the typed link.</p>
+     */
+    inline bool TypedLinkFacetHasBeenSet() const { return m_typedLinkFacetHasBeenSet; }
 
     /**
      * <p>Identifies the typed link facet that is associated with the typed link.</p>
@@ -89,6 +95,11 @@ namespace Model
     /**
      * <p>Identifies the source object that the typed link will attach to.</p>
      */
+    inline bool SourceObjectReferenceHasBeenSet() const { return m_sourceObjectReferenceHasBeenSet; }
+
+    /**
+     * <p>Identifies the source object that the typed link will attach to.</p>
+     */
     inline void SetSourceObjectReference(const ObjectReference& value) { m_sourceObjectReferenceHasBeenSet = true; m_sourceObjectReference = value; }
 
     /**
@@ -115,6 +126,11 @@ namespace Model
     /**
      * <p>Identifies the target object that the typed link will attach to.</p>
      */
+    inline bool TargetObjectReferenceHasBeenSet() const { return m_targetObjectReferenceHasBeenSet; }
+
+    /**
+     * <p>Identifies the target object that the typed link will attach to.</p>
+     */
     inline void SetTargetObjectReference(const ObjectReference& value) { m_targetObjectReferenceHasBeenSet = true; m_targetObjectReference = value; }
 
     /**
@@ -137,6 +153,11 @@ namespace Model
      * <p>Identifies the attribute value to update.</p>
      */
     inline const Aws::Vector<AttributeNameAndValue>& GetIdentityAttributeValues() const{ return m_identityAttributeValues; }
+
+    /**
+     * <p>Identifies the attribute value to update.</p>
+     */
+    inline bool IdentityAttributeValuesHasBeenSet() const { return m_identityAttributeValuesHasBeenSet; }
 
     /**
      * <p>Identifies the attribute value to update.</p>

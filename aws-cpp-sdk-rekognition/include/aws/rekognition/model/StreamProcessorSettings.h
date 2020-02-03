@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     StreamProcessorSettings();
-    StreamProcessorSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamProcessorSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamProcessorSettings(Aws::Utils::Json::JsonView jsonValue);
+    StreamProcessorSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Face search settings to use on a streaming video. </p>
      */
     inline const FaceSearchSettings& GetFaceSearch() const{ return m_faceSearch; }
+
+    /**
+     * <p>Face search settings to use on a streaming video. </p>
+     */
+    inline bool FaceSearchHasBeenSet() const { return m_faceSearchHasBeenSet; }
 
     /**
      * <p>Face search settings to use on a streaming video. </p>

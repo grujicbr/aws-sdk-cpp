@@ -37,7 +37,7 @@ TranslateTextResult::TranslateTextResult(const Aws::AmazonWebServiceResult<JsonV
 
 TranslateTextResult& TranslateTextResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("TranslatedText"))
   {
     m_translatedText = jsonValue.GetString("TranslatedText");
@@ -54,6 +54,15 @@ TranslateTextResult& TranslateTextResult::operator =(const Aws::AmazonWebService
   {
     m_targetLanguageCode = jsonValue.GetString("TargetLanguageCode");
 
+  }
+
+  if(jsonValue.ValueExists("AppliedTerminologies"))
+  {
+    Array<JsonView> appliedTerminologiesJsonList = jsonValue.GetArray("AppliedTerminologies");
+    for(unsigned appliedTerminologiesIndex = 0; appliedTerminologiesIndex < appliedTerminologiesJsonList.GetLength(); ++appliedTerminologiesIndex)
+    {
+      m_appliedTerminologies.push_back(appliedTerminologiesJsonList[appliedTerminologiesIndex].AsObject());
+    }
   }
 
 

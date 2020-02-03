@@ -32,7 +32,11 @@ namespace Model
     ETag,
     IsMultipartUploaded,
     ReplicationStatus,
-    EncryptionStatus
+    EncryptionStatus,
+    ObjectLockRetainUntilDate,
+    ObjectLockMode,
+    ObjectLockLegalHoldStatus,
+    IntelligentTieringAccessTier
   };
 
 namespace InventoryOptionalFieldMapper

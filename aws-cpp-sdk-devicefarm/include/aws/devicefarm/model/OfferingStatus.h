@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     OfferingStatus();
-    OfferingStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    OfferingStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OfferingStatus(Aws::Utils::Json::JsonView jsonValue);
+    OfferingStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The type specified for the offering status.</p>
      */
     inline const OfferingTransactionType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type specified for the offering status.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type specified for the offering status.</p>
@@ -82,6 +88,11 @@ namespace Model
     /**
      * <p>Represents the metadata of an offering status.</p>
      */
+    inline bool OfferingHasBeenSet() const { return m_offeringHasBeenSet; }
+
+    /**
+     * <p>Represents the metadata of an offering status.</p>
+     */
     inline void SetOffering(const Offering& value) { m_offeringHasBeenSet = true; m_offering = value; }
 
     /**
@@ -108,6 +119,11 @@ namespace Model
     /**
      * <p>The number of available devices in the offering.</p>
      */
+    inline bool QuantityHasBeenSet() const { return m_quantityHasBeenSet; }
+
+    /**
+     * <p>The number of available devices in the offering.</p>
+     */
     inline void SetQuantity(int value) { m_quantityHasBeenSet = true; m_quantity = value; }
 
     /**
@@ -120,6 +136,11 @@ namespace Model
      * <p>The date on which the offering is effective.</p>
      */
     inline const Aws::Utils::DateTime& GetEffectiveOn() const{ return m_effectiveOn; }
+
+    /**
+     * <p>The date on which the offering is effective.</p>
+     */
+    inline bool EffectiveOnHasBeenSet() const { return m_effectiveOnHasBeenSet; }
 
     /**
      * <p>The date on which the offering is effective.</p>

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TimeBasedCanary();
-    TimeBasedCanary(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimeBasedCanary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimeBasedCanary(Aws::Utils::Json::JsonView jsonValue);
+    TimeBasedCanary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * <code>TimeBasedCanary</code> deployment.</p>
      */
     inline int GetCanaryPercentage() const{ return m_canaryPercentage; }
+
+    /**
+     * <p>The percentage of traffic to shift in the first increment of a
+     * <code>TimeBasedCanary</code> deployment.</p>
+     */
+    inline bool CanaryPercentageHasBeenSet() const { return m_canaryPercentageHasBeenSet; }
 
     /**
      * <p>The percentage of traffic to shift in the first increment of a
@@ -70,6 +77,12 @@ namespace Model
      * <code>TimeBasedCanary</code> deployment.</p>
      */
     inline int GetCanaryInterval() const{ return m_canaryInterval; }
+
+    /**
+     * <p>The number of minutes between the first and second traffic shifts of a
+     * <code>TimeBasedCanary</code> deployment.</p>
+     */
+    inline bool CanaryIntervalHasBeenSet() const { return m_canaryIntervalHasBeenSet; }
 
     /**
      * <p>The number of minutes between the first and second traffic shifts of a

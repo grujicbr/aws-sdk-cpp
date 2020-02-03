@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BuiltinSlotTypeMetadata();
-    BuiltinSlotTypeMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    BuiltinSlotTypeMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BuiltinSlotTypeMetadata(Aws::Utils::Json::JsonView jsonValue);
+    BuiltinSlotTypeMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,14 @@ namespace Model
      * Type Reference</a> in the <i>Alexa Skills Kit</i>.</p>
      */
     inline const Aws::String& GetSignature() const{ return m_signature; }
+
+    /**
+     * <p>A unique identifier for the built-in slot type. To find the signature for a
+     * slot type, see <a
+     * href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference">Slot
+     * Type Reference</a> in the <i>Alexa Skills Kit</i>.</p>
+     */
+    inline bool SignatureHasBeenSet() const { return m_signatureHasBeenSet; }
 
     /**
      * <p>A unique identifier for the built-in slot type. To find the signature for a
@@ -110,6 +119,11 @@ namespace Model
      * <p>A list of target locales for the slot. </p>
      */
     inline const Aws::Vector<Locale>& GetSupportedLocales() const{ return m_supportedLocales; }
+
+    /**
+     * <p>A list of target locales for the slot. </p>
+     */
+    inline bool SupportedLocalesHasBeenSet() const { return m_supportedLocalesHasBeenSet; }
 
     /**
      * <p>A list of target locales for the slot. </p>

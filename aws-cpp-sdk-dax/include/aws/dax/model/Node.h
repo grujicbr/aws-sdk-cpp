@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Node();
-    Node(const Aws::Utils::Json::JsonValue& jsonValue);
-    Node& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Node(Aws::Utils::Json::JsonView jsonValue);
+    Node& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A system-generated identifier for the node.</p>
      */
     inline const Aws::String& GetNodeId() const{ return m_nodeId; }
+
+    /**
+     * <p>A system-generated identifier for the node.</p>
+     */
+    inline bool NodeIdHasBeenSet() const { return m_nodeIdHasBeenSet; }
 
     /**
      * <p>A system-generated identifier for the node.</p>
@@ -98,6 +104,14 @@ namespace Model
      * alternative to allowing DAX client software to intelligently route requests and
      * responses to nodes in the DAX cluster.</p>
      */
+    inline bool EndpointHasBeenSet() const { return m_endpointHasBeenSet; }
+
+    /**
+     * <p>The endpoint for the node, consisting of a DNS name and a port number. Client
+     * applications can connect directly to a node endpoint, if desired (as an
+     * alternative to allowing DAX client software to intelligently route requests and
+     * responses to nodes in the DAX cluster.</p>
+     */
     inline void SetEndpoint(const Endpoint& value) { m_endpointHasBeenSet = true; m_endpoint = value; }
 
     /**
@@ -133,6 +147,11 @@ namespace Model
     /**
      * <p>The date and time (in UNIX epoch format) when the node was launched.</p>
      */
+    inline bool NodeCreateTimeHasBeenSet() const { return m_nodeCreateTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time (in UNIX epoch format) when the node was launched.</p>
+     */
     inline void SetNodeCreateTime(const Aws::Utils::DateTime& value) { m_nodeCreateTimeHasBeenSet = true; m_nodeCreateTime = value; }
 
     /**
@@ -155,6 +174,11 @@ namespace Model
      * <p>The Availability Zone (AZ) in which the node has been deployed.</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
+
+    /**
+     * <p>The Availability Zone (AZ) in which the node has been deployed.</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
 
     /**
      * <p>The Availability Zone (AZ) in which the node has been deployed.</p>
@@ -195,6 +219,11 @@ namespace Model
     /**
      * <p>The current status of the node. For example: <code>available</code>.</p>
      */
+    inline bool NodeStatusHasBeenSet() const { return m_nodeStatusHasBeenSet; }
+
+    /**
+     * <p>The current status of the node. For example: <code>available</code>.</p>
+     */
     inline void SetNodeStatus(const Aws::String& value) { m_nodeStatusHasBeenSet = true; m_nodeStatus = value; }
 
     /**
@@ -228,6 +257,12 @@ namespace Model
      * <code>in-sync</code>.</p>
      */
     inline const Aws::String& GetParameterGroupStatus() const{ return m_parameterGroupStatus; }
+
+    /**
+     * <p>The status of the parameter group associated with this node. For example,
+     * <code>in-sync</code>.</p>
+     */
+    inline bool ParameterGroupStatusHasBeenSet() const { return m_parameterGroupStatusHasBeenSet; }
 
     /**
      * <p>The status of the parameter group associated with this node. For example,

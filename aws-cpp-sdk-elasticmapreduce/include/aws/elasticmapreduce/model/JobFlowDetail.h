@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     JobFlowDetail();
-    JobFlowDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobFlowDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobFlowDetail(Aws::Utils::Json::JsonView jsonValue);
+    JobFlowDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The job flow identifier.</p>
      */
     inline const Aws::String& GetJobFlowId() const{ return m_jobFlowId; }
+
+    /**
+     * <p>The job flow identifier.</p>
+     */
+    inline bool JobFlowIdHasBeenSet() const { return m_jobFlowIdHasBeenSet; }
 
     /**
      * <p>The job flow identifier.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>The name of the job flow.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the job flow.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
      * <p>The location in Amazon S3 where log files for the job are stored.</p>
      */
     inline const Aws::String& GetLogUri() const{ return m_logUri; }
+
+    /**
+     * <p>The location in Amazon S3 where log files for the job are stored.</p>
+     */
+    inline bool LogUriHasBeenSet() const { return m_logUriHasBeenSet; }
 
     /**
      * <p>The location in Amazon S3 where log files for the job are stored.</p>
@@ -166,6 +182,13 @@ namespace Model
      * <code>CustomAmiID</code>.</p>
      */
     inline const Aws::String& GetAmiVersion() const{ return m_amiVersion; }
+
+    /**
+     * <p>Applies only to Amazon EMR AMI versions 3.x and 2.x. For Amazon EMR releases
+     * 4.0 and later, <code>ReleaseLabel</code> is used. To specify a custom AMI, use
+     * <code>CustomAmiID</code>.</p>
+     */
+    inline bool AmiVersionHasBeenSet() const { return m_amiVersionHasBeenSet; }
 
     /**
      * <p>Applies only to Amazon EMR AMI versions 3.x and 2.x. For Amazon EMR releases
@@ -218,6 +241,11 @@ namespace Model
     /**
      * <p>Describes the execution status of the job flow.</p>
      */
+    inline bool ExecutionStatusDetailHasBeenSet() const { return m_executionStatusDetailHasBeenSet; }
+
+    /**
+     * <p>Describes the execution status of the job flow.</p>
+     */
     inline void SetExecutionStatusDetail(const JobFlowExecutionStatusDetail& value) { m_executionStatusDetailHasBeenSet = true; m_executionStatusDetail = value; }
 
     /**
@@ -244,6 +272,11 @@ namespace Model
     /**
      * <p>Describes the Amazon EC2 instances of the job flow.</p>
      */
+    inline bool InstancesHasBeenSet() const { return m_instancesHasBeenSet; }
+
+    /**
+     * <p>Describes the Amazon EC2 instances of the job flow.</p>
+     */
     inline void SetInstances(const JobFlowInstancesDetail& value) { m_instancesHasBeenSet = true; m_instances = value; }
 
     /**
@@ -266,6 +299,11 @@ namespace Model
      * <p>A list of steps run by the job flow.</p>
      */
     inline const Aws::Vector<StepDetail>& GetSteps() const{ return m_steps; }
+
+    /**
+     * <p>A list of steps run by the job flow.</p>
+     */
+    inline bool StepsHasBeenSet() const { return m_stepsHasBeenSet; }
 
     /**
      * <p>A list of steps run by the job flow.</p>
@@ -306,6 +344,11 @@ namespace Model
     /**
      * <p>A list of the bootstrap actions run by the job flow.</p>
      */
+    inline bool BootstrapActionsHasBeenSet() const { return m_bootstrapActionsHasBeenSet; }
+
+    /**
+     * <p>A list of the bootstrap actions run by the job flow.</p>
+     */
     inline void SetBootstrapActions(const Aws::Vector<BootstrapActionDetail>& value) { m_bootstrapActionsHasBeenSet = true; m_bootstrapActions = value; }
 
     /**
@@ -340,6 +383,13 @@ namespace Model
      * empty.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSupportedProducts() const{ return m_supportedProducts; }
+
+    /**
+     * <p>A list of strings set by third party software when the job flow is launched.
+     * If you are not using third party software to manage the job flow this value is
+     * empty.</p>
+     */
+    inline bool SupportedProductsHasBeenSet() const { return m_supportedProductsHasBeenSet; }
 
     /**
      * <p>A list of strings set by third party software when the job flow is launched.
@@ -392,32 +442,54 @@ namespace Model
 
 
     /**
-     * <p>Specifies whether the cluster is visible to all IAM users of the AWS account
-     * associated with the cluster. If this value is set to <code>true</code>, all IAM
-     * users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only
-     * the IAM user that created the cluster can view and manage it. This value can be
-     * changed using the <a>SetVisibleToAllUsers</a> action.</p>
+     * <p>Indicates whether the cluster is visible to all IAM users of the AWS account
+     * associated with the cluster. The default value, <code>true</code>, indicates
+     * that all IAM users in the AWS account can perform cluster actions if they have
+     * the proper IAM policy permissions. If this value is <code>false</code>, only the
+     * IAM user that created the cluster can perform actions. This value can be changed
+     * on a running cluster by using the <a>SetVisibleToAllUsers</a> action. You can
+     * override the default value of <code>true</code> when you create a cluster by
+     * using the <code>VisibleToAllUsers</code> parameter of the
+     * <code>RunJobFlow</code> action.</p>
      */
     inline bool GetVisibleToAllUsers() const{ return m_visibleToAllUsers; }
 
     /**
-     * <p>Specifies whether the cluster is visible to all IAM users of the AWS account
-     * associated with the cluster. If this value is set to <code>true</code>, all IAM
-     * users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only
-     * the IAM user that created the cluster can view and manage it. This value can be
-     * changed using the <a>SetVisibleToAllUsers</a> action.</p>
+     * <p>Indicates whether the cluster is visible to all IAM users of the AWS account
+     * associated with the cluster. The default value, <code>true</code>, indicates
+     * that all IAM users in the AWS account can perform cluster actions if they have
+     * the proper IAM policy permissions. If this value is <code>false</code>, only the
+     * IAM user that created the cluster can perform actions. This value can be changed
+     * on a running cluster by using the <a>SetVisibleToAllUsers</a> action. You can
+     * override the default value of <code>true</code> when you create a cluster by
+     * using the <code>VisibleToAllUsers</code> parameter of the
+     * <code>RunJobFlow</code> action.</p>
+     */
+    inline bool VisibleToAllUsersHasBeenSet() const { return m_visibleToAllUsersHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the cluster is visible to all IAM users of the AWS account
+     * associated with the cluster. The default value, <code>true</code>, indicates
+     * that all IAM users in the AWS account can perform cluster actions if they have
+     * the proper IAM policy permissions. If this value is <code>false</code>, only the
+     * IAM user that created the cluster can perform actions. This value can be changed
+     * on a running cluster by using the <a>SetVisibleToAllUsers</a> action. You can
+     * override the default value of <code>true</code> when you create a cluster by
+     * using the <code>VisibleToAllUsers</code> parameter of the
+     * <code>RunJobFlow</code> action.</p>
      */
     inline void SetVisibleToAllUsers(bool value) { m_visibleToAllUsersHasBeenSet = true; m_visibleToAllUsers = value; }
 
     /**
-     * <p>Specifies whether the cluster is visible to all IAM users of the AWS account
-     * associated with the cluster. If this value is set to <code>true</code>, all IAM
-     * users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only
-     * the IAM user that created the cluster can view and manage it. This value can be
-     * changed using the <a>SetVisibleToAllUsers</a> action.</p>
+     * <p>Indicates whether the cluster is visible to all IAM users of the AWS account
+     * associated with the cluster. The default value, <code>true</code>, indicates
+     * that all IAM users in the AWS account can perform cluster actions if they have
+     * the proper IAM policy permissions. If this value is <code>false</code>, only the
+     * IAM user that created the cluster can perform actions. This value can be changed
+     * on a running cluster by using the <a>SetVisibleToAllUsers</a> action. You can
+     * override the default value of <code>true</code> when you create a cluster by
+     * using the <code>VisibleToAllUsers</code> parameter of the
+     * <code>RunJobFlow</code> action.</p>
      */
     inline JobFlowDetail& WithVisibleToAllUsers(bool value) { SetVisibleToAllUsers(value); return *this;}
 
@@ -427,6 +499,12 @@ namespace Model
      * instances of the job flow assume this role.</p>
      */
     inline const Aws::String& GetJobFlowRole() const{ return m_jobFlowRole; }
+
+    /**
+     * <p>The IAM role that was specified when the job flow was launched. The EC2
+     * instances of the job flow assume this role.</p>
+     */
+    inline bool JobFlowRoleHasBeenSet() const { return m_jobFlowRoleHasBeenSet; }
 
     /**
      * <p>The IAM role that was specified when the job flow was launched. The EC2
@@ -475,6 +553,12 @@ namespace Model
      * <p>The IAM role that will be assumed by the Amazon EMR service to access AWS
      * resources on your behalf.</p>
      */
+    inline bool ServiceRoleHasBeenSet() const { return m_serviceRoleHasBeenSet; }
+
+    /**
+     * <p>The IAM role that will be assumed by the Amazon EMR service to access AWS
+     * resources on your behalf.</p>
+     */
     inline void SetServiceRole(const Aws::String& value) { m_serviceRoleHasBeenSet = true; m_serviceRole = value; }
 
     /**
@@ -515,6 +599,14 @@ namespace Model
      * terminate EC2 instances in an instance group.</p>
      */
     inline const Aws::String& GetAutoScalingRole() const{ return m_autoScalingRole; }
+
+    /**
+     * <p>An IAM role for automatic scaling policies. The default role is
+     * <code>EMR_AutoScaling_DefaultRole</code>. The IAM role provides a way for the
+     * automatic scaling feature to get the required permissions it needs to launch and
+     * terminate EC2 instances in an instance group.</p>
+     */
+    inline bool AutoScalingRoleHasBeenSet() const { return m_autoScalingRoleHasBeenSet; }
 
     /**
      * <p>An IAM role for automatic scaling policies. The default role is
@@ -581,6 +673,23 @@ namespace Model
      * Amazon EMR earlier than 5.1.0.</p>
      */
     inline const ScaleDownBehavior& GetScaleDownBehavior() const{ return m_scaleDownBehavior; }
+
+    /**
+     * <p>The way that individual Amazon EC2 instances terminate when an automatic
+     * scale-in activity occurs or an instance group is resized.
+     * <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates
+     * nodes at the instance-hour boundary, regardless of when the request to terminate
+     * the instance was submitted. This option is only available with Amazon EMR 5.1.0
+     * and later and is the default for clusters created using that version.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists
+     * and drains tasks from nodes before terminating the Amazon EC2 instances,
+     * regardless of the instance-hour boundary. With either behavior, Amazon EMR
+     * removes the least active nodes first and blocks instance termination if it could
+     * lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available
+     * only in Amazon EMR version 4.1.0 and later, and is the default for versions of
+     * Amazon EMR earlier than 5.1.0.</p>
+     */
+    inline bool ScaleDownBehaviorHasBeenSet() const { return m_scaleDownBehaviorHasBeenSet; }
 
     /**
      * <p>The way that individual Amazon EC2 instances terminate when an automatic

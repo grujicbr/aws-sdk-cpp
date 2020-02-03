@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UploadListElement();
-    UploadListElement(const Aws::Utils::Json::JsonValue& jsonValue);
-    UploadListElement& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UploadListElement(Aws::Utils::Json::JsonView jsonValue);
+    UploadListElement& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID of a multipart upload.</p>
      */
     inline const Aws::String& GetMultipartUploadId() const{ return m_multipartUploadId; }
+
+    /**
+     * <p>The ID of a multipart upload.</p>
+     */
+    inline bool MultipartUploadIdHasBeenSet() const { return m_multipartUploadIdHasBeenSet; }
 
     /**
      * <p>The ID of a multipart upload.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the vault that contains the archive.</p>
      */
+    inline bool VaultARNHasBeenSet() const { return m_vaultARNHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the vault that contains the archive.</p>
+     */
     inline void SetVaultARN(const Aws::String& value) { m_vaultARNHasBeenSet = true; m_vaultARN = value; }
 
     /**
@@ -124,6 +135,12 @@ namespace Model
      * Upload request.</p>
      */
     inline const Aws::String& GetArchiveDescription() const{ return m_archiveDescription; }
+
+    /**
+     * <p>The description of the archive that was specified in the Initiate Multipart
+     * Upload request.</p>
+     */
+    inline bool ArchiveDescriptionHasBeenSet() const { return m_archiveDescriptionHasBeenSet; }
 
     /**
      * <p>The description of the archive that was specified in the Initiate Multipart
@@ -174,6 +191,13 @@ namespace Model
      * This is the size of all the parts in the upload except the last part, which may
      * be smaller than this size.</p>
      */
+    inline bool PartSizeInBytesHasBeenSet() const { return m_partSizeInBytesHasBeenSet; }
+
+    /**
+     * <p>The part size, in bytes, specified in the Initiate Multipart Upload request.
+     * This is the size of all the parts in the upload except the last part, which may
+     * be smaller than this size.</p>
+     */
     inline void SetPartSizeInBytes(long long value) { m_partSizeInBytesHasBeenSet = true; m_partSizeInBytes = value; }
 
     /**
@@ -188,6 +212,11 @@ namespace Model
      * <p>The UTC time at which the multipart upload was initiated.</p>
      */
     inline const Aws::String& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The UTC time at which the multipart upload was initiated.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The UTC time at which the multipart upload was initiated.</p>

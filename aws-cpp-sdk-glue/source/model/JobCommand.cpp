@@ -30,18 +30,20 @@ namespace Model
 
 JobCommand::JobCommand() : 
     m_nameHasBeenSet(false),
-    m_scriptLocationHasBeenSet(false)
+    m_scriptLocationHasBeenSet(false),
+    m_pythonVersionHasBeenSet(false)
 {
 }
 
-JobCommand::JobCommand(const JsonValue& jsonValue) : 
+JobCommand::JobCommand(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
-    m_scriptLocationHasBeenSet(false)
+    m_scriptLocationHasBeenSet(false),
+    m_pythonVersionHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-JobCommand& JobCommand::operator =(const JsonValue& jsonValue)
+JobCommand& JobCommand::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -55,6 +57,13 @@ JobCommand& JobCommand::operator =(const JsonValue& jsonValue)
     m_scriptLocation = jsonValue.GetString("ScriptLocation");
 
     m_scriptLocationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("PythonVersion"))
+  {
+    m_pythonVersion = jsonValue.GetString("PythonVersion");
+
+    m_pythonVersionHasBeenSet = true;
   }
 
   return *this;
@@ -73,6 +82,12 @@ JsonValue JobCommand::Jsonize() const
   if(m_scriptLocationHasBeenSet)
   {
    payload.WithString("ScriptLocation", m_scriptLocation);
+
+  }
+
+  if(m_pythonVersionHasBeenSet)
+  {
+   payload.WithString("PythonVersion", m_pythonVersion);
 
   }
 

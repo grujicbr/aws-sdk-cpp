@@ -29,6 +29,7 @@ namespace Model
 {
 
 GroupVersion::GroupVersion() : 
+    m_connectorDefinitionVersionArnHasBeenSet(false),
     m_coreDefinitionVersionArnHasBeenSet(false),
     m_deviceDefinitionVersionArnHasBeenSet(false),
     m_functionDefinitionVersionArnHasBeenSet(false),
@@ -38,7 +39,8 @@ GroupVersion::GroupVersion() :
 {
 }
 
-GroupVersion::GroupVersion(const JsonValue& jsonValue) : 
+GroupVersion::GroupVersion(JsonView jsonValue) : 
+    m_connectorDefinitionVersionArnHasBeenSet(false),
     m_coreDefinitionVersionArnHasBeenSet(false),
     m_deviceDefinitionVersionArnHasBeenSet(false),
     m_functionDefinitionVersionArnHasBeenSet(false),
@@ -49,8 +51,15 @@ GroupVersion::GroupVersion(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-GroupVersion& GroupVersion::operator =(const JsonValue& jsonValue)
+GroupVersion& GroupVersion::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("ConnectorDefinitionVersionArn"))
+  {
+    m_connectorDefinitionVersionArn = jsonValue.GetString("ConnectorDefinitionVersionArn");
+
+    m_connectorDefinitionVersionArnHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("CoreDefinitionVersionArn"))
   {
     m_coreDefinitionVersionArn = jsonValue.GetString("CoreDefinitionVersionArn");
@@ -99,6 +108,12 @@ GroupVersion& GroupVersion::operator =(const JsonValue& jsonValue)
 JsonValue GroupVersion::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_connectorDefinitionVersionArnHasBeenSet)
+  {
+   payload.WithString("ConnectorDefinitionVersionArn", m_connectorDefinitionVersionArn);
+
+  }
 
   if(m_coreDefinitionVersionArnHasBeenSet)
   {

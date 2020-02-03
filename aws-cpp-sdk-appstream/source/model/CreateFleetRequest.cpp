@@ -39,7 +39,11 @@ CreateFleetRequest::CreateFleetRequest() :
     m_displayNameHasBeenSet(false),
     m_enableDefaultInternetAccess(false),
     m_enableDefaultInternetAccessHasBeenSet(false),
-    m_domainJoinInfoHasBeenSet(false)
+    m_domainJoinInfoHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_idleDisconnectTimeoutInSeconds(0),
+    m_idleDisconnectTimeoutInSecondsHasBeenSet(false),
+    m_iamRoleArnHasBeenSet(false)
 {
 }
 
@@ -124,7 +128,30 @@ Aws::String CreateFleetRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("Tags", std::move(tagsJsonMap));
+
+  }
+
+  if(m_idleDisconnectTimeoutInSecondsHasBeenSet)
+  {
+   payload.WithInteger("IdleDisconnectTimeoutInSeconds", m_idleDisconnectTimeoutInSeconds);
+
+  }
+
+  if(m_iamRoleArnHasBeenSet)
+  {
+   payload.WithString("IamRoleArn", m_iamRoleArn);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateFleetRequest::GetRequestSpecificHeaders() const

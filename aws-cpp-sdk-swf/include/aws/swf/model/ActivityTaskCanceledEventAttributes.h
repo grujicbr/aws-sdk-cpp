@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ActivityTaskCanceledEventAttributes();
-    ActivityTaskCanceledEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActivityTaskCanceledEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActivityTaskCanceledEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    ActivityTaskCanceledEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Details of the cancellation.</p>
      */
     inline const Aws::String& GetDetails() const{ return m_details; }
+
+    /**
+     * <p>Details of the cancellation.</p>
+     */
+    inline bool DetailsHasBeenSet() const { return m_detailsHasBeenSet; }
 
     /**
      * <p>Details of the cancellation.</p>
@@ -95,6 +101,13 @@ namespace Model
      * this activity task was scheduled. This information can be useful for diagnosing
      * problems by tracing back the chain of events leading up to this event.</p>
      */
+    inline bool ScheduledEventIdHasBeenSet() const { return m_scheduledEventIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the <code>ActivityTaskScheduled</code> event that was recorded when
+     * this activity task was scheduled. This information can be useful for diagnosing
+     * problems by tracing back the chain of events leading up to this event.</p>
+     */
     inline void SetScheduledEventId(long long value) { m_scheduledEventIdHasBeenSet = true; m_scheduledEventId = value; }
 
     /**
@@ -111,6 +124,13 @@ namespace Model
      * problems by tracing back the chain of events leading up to this event.</p>
      */
     inline long long GetStartedEventId() const{ return m_startedEventId; }
+
+    /**
+     * <p>The ID of the <code>ActivityTaskStarted</code> event recorded when this
+     * activity task was started. This information can be useful for diagnosing
+     * problems by tracing back the chain of events leading up to this event.</p>
+     */
+    inline bool StartedEventIdHasBeenSet() const { return m_startedEventIdHasBeenSet; }
 
     /**
      * <p>The ID of the <code>ActivityTaskStarted</code> event recorded when this
@@ -134,6 +154,14 @@ namespace Model
      * event.</p>
      */
     inline long long GetLatestCancelRequestedEventId() const{ return m_latestCancelRequestedEventId; }
+
+    /**
+     * <p>If set, contains the ID of the last <code>ActivityTaskCancelRequested</code>
+     * event recorded for this activity task. This information can be useful for
+     * diagnosing problems by tracing back the chain of events leading up to this
+     * event.</p>
+     */
+    inline bool LatestCancelRequestedEventIdHasBeenSet() const { return m_latestCancelRequestedEventIdHasBeenSet; }
 
     /**
      * <p>If set, contains the ID of the last <code>ActivityTaskCancelRequested</code>

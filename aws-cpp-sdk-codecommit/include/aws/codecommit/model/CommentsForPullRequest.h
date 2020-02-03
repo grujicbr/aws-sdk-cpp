@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     CommentsForPullRequest();
-    CommentsForPullRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    CommentsForPullRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CommentsForPullRequest(Aws::Utils::Json::JsonView jsonValue);
+    CommentsForPullRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The system-generated ID of the pull request.</p>
      */
     inline const Aws::String& GetPullRequestId() const{ return m_pullRequestId; }
+
+    /**
+     * <p>The system-generated ID of the pull request.</p>
+     */
+    inline bool PullRequestIdHasBeenSet() const { return m_pullRequestIdHasBeenSet; }
 
     /**
      * <p>The system-generated ID of the pull request.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The name of the repository that contains the pull request.</p>
      */
+    inline bool RepositoryNameHasBeenSet() const { return m_repositoryNameHasBeenSet; }
+
+    /**
+     * <p>The name of the repository that contains the pull request.</p>
+     */
     inline void SetRepositoryName(const Aws::String& value) { m_repositoryNameHasBeenSet = true; m_repositoryName = value; }
 
     /**
@@ -124,99 +135,113 @@ namespace Model
 
     /**
      * <p>The full commit ID of the commit that was the tip of the destination branch
-     * when the pull request was created. This commit will be superceded by the after
-     * commit in the source branch when and if you merge the source branch into the
+     * when the pull request was created. This commit is superceded by the after commit
+     * in the source branch when and if you merge the source branch into the
      * destination branch.</p>
      */
     inline const Aws::String& GetBeforeCommitId() const{ return m_beforeCommitId; }
 
     /**
      * <p>The full commit ID of the commit that was the tip of the destination branch
-     * when the pull request was created. This commit will be superceded by the after
-     * commit in the source branch when and if you merge the source branch into the
+     * when the pull request was created. This commit is superceded by the after commit
+     * in the source branch when and if you merge the source branch into the
+     * destination branch.</p>
+     */
+    inline bool BeforeCommitIdHasBeenSet() const { return m_beforeCommitIdHasBeenSet; }
+
+    /**
+     * <p>The full commit ID of the commit that was the tip of the destination branch
+     * when the pull request was created. This commit is superceded by the after commit
+     * in the source branch when and if you merge the source branch into the
      * destination branch.</p>
      */
     inline void SetBeforeCommitId(const Aws::String& value) { m_beforeCommitIdHasBeenSet = true; m_beforeCommitId = value; }
 
     /**
      * <p>The full commit ID of the commit that was the tip of the destination branch
-     * when the pull request was created. This commit will be superceded by the after
-     * commit in the source branch when and if you merge the source branch into the
+     * when the pull request was created. This commit is superceded by the after commit
+     * in the source branch when and if you merge the source branch into the
      * destination branch.</p>
      */
     inline void SetBeforeCommitId(Aws::String&& value) { m_beforeCommitIdHasBeenSet = true; m_beforeCommitId = std::move(value); }
 
     /**
      * <p>The full commit ID of the commit that was the tip of the destination branch
-     * when the pull request was created. This commit will be superceded by the after
-     * commit in the source branch when and if you merge the source branch into the
+     * when the pull request was created. This commit is superceded by the after commit
+     * in the source branch when and if you merge the source branch into the
      * destination branch.</p>
      */
     inline void SetBeforeCommitId(const char* value) { m_beforeCommitIdHasBeenSet = true; m_beforeCommitId.assign(value); }
 
     /**
      * <p>The full commit ID of the commit that was the tip of the destination branch
-     * when the pull request was created. This commit will be superceded by the after
-     * commit in the source branch when and if you merge the source branch into the
+     * when the pull request was created. This commit is superceded by the after commit
+     * in the source branch when and if you merge the source branch into the
      * destination branch.</p>
      */
     inline CommentsForPullRequest& WithBeforeCommitId(const Aws::String& value) { SetBeforeCommitId(value); return *this;}
 
     /**
      * <p>The full commit ID of the commit that was the tip of the destination branch
-     * when the pull request was created. This commit will be superceded by the after
-     * commit in the source branch when and if you merge the source branch into the
+     * when the pull request was created. This commit is superceded by the after commit
+     * in the source branch when and if you merge the source branch into the
      * destination branch.</p>
      */
     inline CommentsForPullRequest& WithBeforeCommitId(Aws::String&& value) { SetBeforeCommitId(std::move(value)); return *this;}
 
     /**
      * <p>The full commit ID of the commit that was the tip of the destination branch
-     * when the pull request was created. This commit will be superceded by the after
-     * commit in the source branch when and if you merge the source branch into the
+     * when the pull request was created. This commit is superceded by the after commit
+     * in the source branch when and if you merge the source branch into the
      * destination branch.</p>
      */
     inline CommentsForPullRequest& WithBeforeCommitId(const char* value) { SetBeforeCommitId(value); return *this;}
 
 
     /**
-     * <p>he full commit ID of the commit that was the tip of the source branch at the
+     * <p>The full commit ID of the commit that was the tip of the source branch at the
      * time the comment was made. </p>
      */
     inline const Aws::String& GetAfterCommitId() const{ return m_afterCommitId; }
 
     /**
-     * <p>he full commit ID of the commit that was the tip of the source branch at the
+     * <p>The full commit ID of the commit that was the tip of the source branch at the
+     * time the comment was made. </p>
+     */
+    inline bool AfterCommitIdHasBeenSet() const { return m_afterCommitIdHasBeenSet; }
+
+    /**
+     * <p>The full commit ID of the commit that was the tip of the source branch at the
      * time the comment was made. </p>
      */
     inline void SetAfterCommitId(const Aws::String& value) { m_afterCommitIdHasBeenSet = true; m_afterCommitId = value; }
 
     /**
-     * <p>he full commit ID of the commit that was the tip of the source branch at the
+     * <p>The full commit ID of the commit that was the tip of the source branch at the
      * time the comment was made. </p>
      */
     inline void SetAfterCommitId(Aws::String&& value) { m_afterCommitIdHasBeenSet = true; m_afterCommitId = std::move(value); }
 
     /**
-     * <p>he full commit ID of the commit that was the tip of the source branch at the
+     * <p>The full commit ID of the commit that was the tip of the source branch at the
      * time the comment was made. </p>
      */
     inline void SetAfterCommitId(const char* value) { m_afterCommitIdHasBeenSet = true; m_afterCommitId.assign(value); }
 
     /**
-     * <p>he full commit ID of the commit that was the tip of the source branch at the
+     * <p>The full commit ID of the commit that was the tip of the source branch at the
      * time the comment was made. </p>
      */
     inline CommentsForPullRequest& WithAfterCommitId(const Aws::String& value) { SetAfterCommitId(value); return *this;}
 
     /**
-     * <p>he full commit ID of the commit that was the tip of the source branch at the
+     * <p>The full commit ID of the commit that was the tip of the source branch at the
      * time the comment was made. </p>
      */
     inline CommentsForPullRequest& WithAfterCommitId(Aws::String&& value) { SetAfterCommitId(std::move(value)); return *this;}
 
     /**
-     * <p>he full commit ID of the commit that was the tip of the source branch at the
+     * <p>The full commit ID of the commit that was the tip of the source branch at the
      * time the comment was made. </p>
      */
     inline CommentsForPullRequest& WithAfterCommitId(const char* value) { SetAfterCommitId(value); return *this;}
@@ -227,6 +252,12 @@ namespace Model
      * commit.</p>
      */
     inline const Aws::String& GetBeforeBlobId() const{ return m_beforeBlobId; }
+
+    /**
+     * <p>The full blob ID of the file on which you want to comment on the destination
+     * commit.</p>
+     */
+    inline bool BeforeBlobIdHasBeenSet() const { return m_beforeBlobIdHasBeenSet; }
 
     /**
      * <p>The full blob ID of the file on which you want to comment on the destination
@@ -275,6 +306,12 @@ namespace Model
      * <p>The full blob ID of the file on which you want to comment on the source
      * commit.</p>
      */
+    inline bool AfterBlobIdHasBeenSet() const { return m_afterBlobIdHasBeenSet; }
+
+    /**
+     * <p>The full blob ID of the file on which you want to comment on the source
+     * commit.</p>
+     */
     inline void SetAfterBlobId(const Aws::String& value) { m_afterBlobIdHasBeenSet = true; m_afterBlobId = value; }
 
     /**
@@ -311,35 +348,42 @@ namespace Model
     /**
      * <p>Location information about the comment on the pull request, including the
      * file name, line number, and whether the version of the file where the comment
-     * was made is 'BEFORE' (destination branch) or 'AFTER' (source branch).</p>
+     * was made is BEFORE (destination branch) or AFTER (source branch).</p>
      */
     inline const Location& GetLocation() const{ return m_location; }
 
     /**
      * <p>Location information about the comment on the pull request, including the
      * file name, line number, and whether the version of the file where the comment
-     * was made is 'BEFORE' (destination branch) or 'AFTER' (source branch).</p>
+     * was made is BEFORE (destination branch) or AFTER (source branch).</p>
+     */
+    inline bool LocationHasBeenSet() const { return m_locationHasBeenSet; }
+
+    /**
+     * <p>Location information about the comment on the pull request, including the
+     * file name, line number, and whether the version of the file where the comment
+     * was made is BEFORE (destination branch) or AFTER (source branch).</p>
      */
     inline void SetLocation(const Location& value) { m_locationHasBeenSet = true; m_location = value; }
 
     /**
      * <p>Location information about the comment on the pull request, including the
      * file name, line number, and whether the version of the file where the comment
-     * was made is 'BEFORE' (destination branch) or 'AFTER' (source branch).</p>
+     * was made is BEFORE (destination branch) or AFTER (source branch).</p>
      */
     inline void SetLocation(Location&& value) { m_locationHasBeenSet = true; m_location = std::move(value); }
 
     /**
      * <p>Location information about the comment on the pull request, including the
      * file name, line number, and whether the version of the file where the comment
-     * was made is 'BEFORE' (destination branch) or 'AFTER' (source branch).</p>
+     * was made is BEFORE (destination branch) or AFTER (source branch).</p>
      */
     inline CommentsForPullRequest& WithLocation(const Location& value) { SetLocation(value); return *this;}
 
     /**
      * <p>Location information about the comment on the pull request, including the
      * file name, line number, and whether the version of the file where the comment
-     * was made is 'BEFORE' (destination branch) or 'AFTER' (source branch).</p>
+     * was made is BEFORE (destination branch) or AFTER (source branch).</p>
      */
     inline CommentsForPullRequest& WithLocation(Location&& value) { SetLocation(std::move(value)); return *this;}
 
@@ -349,6 +393,12 @@ namespace Model
      * comment on the pull request.</p>
      */
     inline const Aws::Vector<Comment>& GetComments() const{ return m_comments; }
+
+    /**
+     * <p>An array of comment objects. Each comment object contains information about a
+     * comment on the pull request.</p>
+     */
+    inline bool CommentsHasBeenSet() const { return m_commentsHasBeenSet; }
 
     /**
      * <p>An array of comment objects. Each comment object contains information about a

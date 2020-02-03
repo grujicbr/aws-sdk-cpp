@@ -28,7 +28,8 @@ CreateNamedQueryRequest::CreateNamedQueryRequest() :
     m_databaseHasBeenSet(false),
     m_queryStringHasBeenSet(false),
     m_clientRequestToken(Aws::Utils::UUID::RandomUUID()),
-    m_clientRequestTokenHasBeenSet(true)
+    m_clientRequestTokenHasBeenSet(true),
+    m_workGroupHasBeenSet(false)
 {
 }
 
@@ -66,7 +67,13 @@ Aws::String CreateNamedQueryRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_workGroupHasBeenSet)
+  {
+   payload.WithString("WorkGroup", m_workGroup);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateNamedQueryRequest::GetRequestSpecificHeaders() const

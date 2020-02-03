@@ -32,28 +32,38 @@ CreateAssociationBatchRequestEntry::CreateAssociationBatchRequestEntry() :
     m_nameHasBeenSet(false),
     m_instanceIdHasBeenSet(false),
     m_parametersHasBeenSet(false),
+    m_automationTargetParameterNameHasBeenSet(false),
     m_documentVersionHasBeenSet(false),
     m_targetsHasBeenSet(false),
     m_scheduleExpressionHasBeenSet(false),
     m_outputLocationHasBeenSet(false),
-    m_associationNameHasBeenSet(false)
+    m_associationNameHasBeenSet(false),
+    m_maxErrorsHasBeenSet(false),
+    m_maxConcurrencyHasBeenSet(false),
+    m_complianceSeverity(AssociationComplianceSeverity::NOT_SET),
+    m_complianceSeverityHasBeenSet(false)
 {
 }
 
-CreateAssociationBatchRequestEntry::CreateAssociationBatchRequestEntry(const JsonValue& jsonValue) : 
+CreateAssociationBatchRequestEntry::CreateAssociationBatchRequestEntry(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_instanceIdHasBeenSet(false),
     m_parametersHasBeenSet(false),
+    m_automationTargetParameterNameHasBeenSet(false),
     m_documentVersionHasBeenSet(false),
     m_targetsHasBeenSet(false),
     m_scheduleExpressionHasBeenSet(false),
     m_outputLocationHasBeenSet(false),
-    m_associationNameHasBeenSet(false)
+    m_associationNameHasBeenSet(false),
+    m_maxErrorsHasBeenSet(false),
+    m_maxConcurrencyHasBeenSet(false),
+    m_complianceSeverity(AssociationComplianceSeverity::NOT_SET),
+    m_complianceSeverityHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-CreateAssociationBatchRequestEntry& CreateAssociationBatchRequestEntry::operator =(const JsonValue& jsonValue)
+CreateAssociationBatchRequestEntry& CreateAssociationBatchRequestEntry::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -71,10 +81,10 @@ CreateAssociationBatchRequestEntry& CreateAssociationBatchRequestEntry::operator
 
   if(jsonValue.ValueExists("Parameters"))
   {
-    Aws::Map<Aws::String, JsonValue> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
     for(auto& parametersItem : parametersJsonMap)
     {
-      Array<JsonValue> parameterValueListJsonList = parametersItem.second.AsArray();
+      Array<JsonView> parameterValueListJsonList = parametersItem.second.AsArray();
       Aws::Vector<Aws::String> parameterValueListList;
       parameterValueListList.reserve((size_t)parameterValueListJsonList.GetLength());
       for(unsigned parameterValueListIndex = 0; parameterValueListIndex < parameterValueListJsonList.GetLength(); ++parameterValueListIndex)
@@ -86,6 +96,13 @@ CreateAssociationBatchRequestEntry& CreateAssociationBatchRequestEntry::operator
     m_parametersHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("AutomationTargetParameterName"))
+  {
+    m_automationTargetParameterName = jsonValue.GetString("AutomationTargetParameterName");
+
+    m_automationTargetParameterNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("DocumentVersion"))
   {
     m_documentVersion = jsonValue.GetString("DocumentVersion");
@@ -95,7 +112,7 @@ CreateAssociationBatchRequestEntry& CreateAssociationBatchRequestEntry::operator
 
   if(jsonValue.ValueExists("Targets"))
   {
-    Array<JsonValue> targetsJsonList = jsonValue.GetArray("Targets");
+    Array<JsonView> targetsJsonList = jsonValue.GetArray("Targets");
     for(unsigned targetsIndex = 0; targetsIndex < targetsJsonList.GetLength(); ++targetsIndex)
     {
       m_targets.push_back(targetsJsonList[targetsIndex].AsObject());
@@ -122,6 +139,27 @@ CreateAssociationBatchRequestEntry& CreateAssociationBatchRequestEntry::operator
     m_associationName = jsonValue.GetString("AssociationName");
 
     m_associationNameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("MaxErrors"))
+  {
+    m_maxErrors = jsonValue.GetString("MaxErrors");
+
+    m_maxErrorsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("MaxConcurrency"))
+  {
+    m_maxConcurrency = jsonValue.GetString("MaxConcurrency");
+
+    m_maxConcurrencyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ComplianceSeverity"))
+  {
+    m_complianceSeverity = AssociationComplianceSeverityMapper::GetAssociationComplianceSeverityForName(jsonValue.GetString("ComplianceSeverity"));
+
+    m_complianceSeverityHasBeenSet = true;
   }
 
   return *this;
@@ -159,6 +197,12 @@ JsonValue CreateAssociationBatchRequestEntry::Jsonize() const
 
   }
 
+  if(m_automationTargetParameterNameHasBeenSet)
+  {
+   payload.WithString("AutomationTargetParameterName", m_automationTargetParameterName);
+
+  }
+
   if(m_documentVersionHasBeenSet)
   {
    payload.WithString("DocumentVersion", m_documentVersion);
@@ -192,6 +236,23 @@ JsonValue CreateAssociationBatchRequestEntry::Jsonize() const
   {
    payload.WithString("AssociationName", m_associationName);
 
+  }
+
+  if(m_maxErrorsHasBeenSet)
+  {
+   payload.WithString("MaxErrors", m_maxErrors);
+
+  }
+
+  if(m_maxConcurrencyHasBeenSet)
+  {
+   payload.WithString("MaxConcurrency", m_maxConcurrency);
+
+  }
+
+  if(m_complianceSeverityHasBeenSet)
+  {
+   payload.WithString("ComplianceSeverity", AssociationComplianceSeverityMapper::GetNameForAssociationComplianceSeverity(m_complianceSeverity));
   }
 
   return payload;

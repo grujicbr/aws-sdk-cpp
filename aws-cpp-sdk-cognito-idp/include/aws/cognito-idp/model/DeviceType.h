@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     DeviceType();
-    DeviceType(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceType(Aws::Utils::Json::JsonView jsonValue);
+    DeviceType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The device key.</p>
      */
     inline const Aws::String& GetDeviceKey() const{ return m_deviceKey; }
+
+    /**
+     * <p>The device key.</p>
+     */
+    inline bool DeviceKeyHasBeenSet() const { return m_deviceKeyHasBeenSet; }
 
     /**
      * <p>The device key.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The device attributes.</p>
      */
+    inline bool DeviceAttributesHasBeenSet() const { return m_deviceAttributesHasBeenSet; }
+
+    /**
+     * <p>The device attributes.</p>
+     */
     inline void SetDeviceAttributes(const Aws::Vector<AttributeType>& value) { m_deviceAttributesHasBeenSet = true; m_deviceAttributes = value; }
 
     /**
@@ -129,6 +140,11 @@ namespace Model
     /**
      * <p>The creation date of the device.</p>
      */
+    inline bool DeviceCreateDateHasBeenSet() const { return m_deviceCreateDateHasBeenSet; }
+
+    /**
+     * <p>The creation date of the device.</p>
+     */
     inline void SetDeviceCreateDate(const Aws::Utils::DateTime& value) { m_deviceCreateDateHasBeenSet = true; m_deviceCreateDate = value; }
 
     /**
@@ -155,6 +171,11 @@ namespace Model
     /**
      * <p>The last modified date of the device.</p>
      */
+    inline bool DeviceLastModifiedDateHasBeenSet() const { return m_deviceLastModifiedDateHasBeenSet; }
+
+    /**
+     * <p>The last modified date of the device.</p>
+     */
     inline void SetDeviceLastModifiedDate(const Aws::Utils::DateTime& value) { m_deviceLastModifiedDateHasBeenSet = true; m_deviceLastModifiedDate = value; }
 
     /**
@@ -177,6 +198,11 @@ namespace Model
      * <p>The date in which the device was last authenticated.</p>
      */
     inline const Aws::Utils::DateTime& GetDeviceLastAuthenticatedDate() const{ return m_deviceLastAuthenticatedDate; }
+
+    /**
+     * <p>The date in which the device was last authenticated.</p>
+     */
+    inline bool DeviceLastAuthenticatedDateHasBeenSet() const { return m_deviceLastAuthenticatedDateHasBeenSet; }
 
     /**
      * <p>The date in which the device was last authenticated.</p>

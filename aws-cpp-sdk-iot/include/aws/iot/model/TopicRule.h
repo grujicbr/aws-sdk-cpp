@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     TopicRule();
-    TopicRule(const Aws::Utils::Json::JsonValue& jsonValue);
-    TopicRule& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TopicRule(Aws::Utils::Json::JsonView jsonValue);
+    TopicRule& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the rule.</p>
      */
     inline const Aws::String& GetRuleName() const{ return m_ruleName; }
+
+    /**
+     * <p>The name of the rule.</p>
+     */
+    inline bool RuleNameHasBeenSet() const { return m_ruleNameHasBeenSet; }
 
     /**
      * <p>The name of the rule.</p>
@@ -90,6 +96,12 @@ namespace Model
      * multiple lines, be sure to escape the newline characters.</p>
      */
     inline const Aws::String& GetSql() const{ return m_sql; }
+
+    /**
+     * <p>The SQL statement used to query the topic. When using a SQL query with
+     * multiple lines, be sure to escape the newline characters.</p>
+     */
+    inline bool SqlHasBeenSet() const { return m_sqlHasBeenSet; }
 
     /**
      * <p>The SQL statement used to query the topic. When using a SQL query with
@@ -136,6 +148,11 @@ namespace Model
     /**
      * <p>The description of the rule.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the rule.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -172,6 +189,11 @@ namespace Model
     /**
      * <p>The date and time the rule was created.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The date and time the rule was created.</p>
+     */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -194,6 +216,11 @@ namespace Model
      * <p>The actions associated with the rule.</p>
      */
     inline const Aws::Vector<Action>& GetActions() const{ return m_actions; }
+
+    /**
+     * <p>The actions associated with the rule.</p>
+     */
+    inline bool ActionsHasBeenSet() const { return m_actionsHasBeenSet; }
 
     /**
      * <p>The actions associated with the rule.</p>
@@ -234,6 +261,11 @@ namespace Model
     /**
      * <p>Specifies whether the rule is disabled.</p>
      */
+    inline bool RuleDisabledHasBeenSet() const { return m_ruleDisabledHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the rule is disabled.</p>
+     */
     inline void SetRuleDisabled(bool value) { m_ruleDisabledHasBeenSet = true; m_ruleDisabled = value; }
 
     /**
@@ -246,6 +278,11 @@ namespace Model
      * <p>The version of the SQL rules engine to use when evaluating the rule.</p>
      */
     inline const Aws::String& GetAwsIotSqlVersion() const{ return m_awsIotSqlVersion; }
+
+    /**
+     * <p>The version of the SQL rules engine to use when evaluating the rule.</p>
+     */
+    inline bool AwsIotSqlVersionHasBeenSet() const { return m_awsIotSqlVersionHasBeenSet; }
 
     /**
      * <p>The version of the SQL rules engine to use when evaluating the rule.</p>
@@ -282,6 +319,11 @@ namespace Model
      * <p>The action to perform when an error occurs.</p>
      */
     inline const Action& GetErrorAction() const{ return m_errorAction; }
+
+    /**
+     * <p>The action to perform when an error occurs.</p>
+     */
+    inline bool ErrorActionHasBeenSet() const { return m_errorActionHasBeenSet; }
 
     /**
      * <p>The action to perform when an error occurs.</p>

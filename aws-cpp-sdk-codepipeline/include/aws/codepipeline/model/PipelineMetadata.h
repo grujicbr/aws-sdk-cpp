@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PipelineMetadata();
-    PipelineMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    PipelineMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PipelineMetadata(Aws::Utils::Json::JsonView jsonValue);
+    PipelineMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the pipeline.</p>
      */
     inline const Aws::String& GetPipelineArn() const{ return m_pipelineArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the pipeline.</p>
+     */
+    inline bool PipelineArnHasBeenSet() const { return m_pipelineArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the pipeline.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The date and time the pipeline was created, in timestamp format.</p>
      */
+    inline bool CreatedHasBeenSet() const { return m_createdHasBeenSet; }
+
+    /**
+     * <p>The date and time the pipeline was created, in timestamp format.</p>
+     */
     inline void SetCreated(const Aws::Utils::DateTime& value) { m_createdHasBeenSet = true; m_created = value; }
 
     /**
@@ -113,6 +124,11 @@ namespace Model
      * <p>The date and time the pipeline was last updated, in timestamp format.</p>
      */
     inline const Aws::Utils::DateTime& GetUpdated() const{ return m_updated; }
+
+    /**
+     * <p>The date and time the pipeline was last updated, in timestamp format.</p>
+     */
+    inline bool UpdatedHasBeenSet() const { return m_updatedHasBeenSet; }
 
     /**
      * <p>The date and time the pipeline was last updated, in timestamp format.</p>

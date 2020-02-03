@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ComplianceExecutionSummary();
-    ComplianceExecutionSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComplianceExecutionSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComplianceExecutionSummary(Aws::Utils::Json::JsonView jsonValue);
+    ComplianceExecutionSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * following format: yyyy-MM-dd'T'HH:mm:ss'Z'.</p>
      */
     inline const Aws::Utils::DateTime& GetExecutionTime() const{ return m_executionTime; }
+
+    /**
+     * <p>The time the execution ran as a datetime object that is saved in the
+     * following format: yyyy-MM-dd'T'HH:mm:ss'Z'.</p>
+     */
+    inline bool ExecutionTimeHasBeenSet() const { return m_executionTimeHasBeenSet; }
 
     /**
      * <p>The time the execution ran as a datetime object that is saved in the
@@ -87,6 +94,13 @@ namespace Model
      * in subsequent calls.</p>
      */
     inline const Aws::String& GetExecutionId() const{ return m_executionId; }
+
+    /**
+     * <p>An ID created by the system when <code>PutComplianceItems</code> was called.
+     * For example, <code>CommandID</code> is a valid execution ID. You can use this ID
+     * in subsequent calls.</p>
+     */
+    inline bool ExecutionIdHasBeenSet() const { return m_executionIdHasBeenSet; }
 
     /**
      * <p>An ID created by the system when <code>PutComplianceItems</code> was called.
@@ -136,6 +150,12 @@ namespace Model
      * type.</p>
      */
     inline const Aws::String& GetExecutionType() const{ return m_executionType; }
+
+    /**
+     * <p>The type of execution. For example, <code>Command</code> is a valid execution
+     * type.</p>
+     */
+    inline bool ExecutionTypeHasBeenSet() const { return m_executionTypeHasBeenSet; }
 
     /**
      * <p>The type of execution. For example, <code>Command</code> is a valid execution

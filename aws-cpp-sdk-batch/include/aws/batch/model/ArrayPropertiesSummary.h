@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Batch
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     ArrayPropertiesSummary();
-    ArrayPropertiesSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ArrayPropertiesSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ArrayPropertiesSummary(Aws::Utils::Json::JsonView jsonValue);
+    ArrayPropertiesSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * jobs.</p>
      */
     inline int GetSize() const{ return m_size; }
+
+    /**
+     * <p>The size of the array job. This parameter is returned for parent array
+     * jobs.</p>
+     */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
 
     /**
      * <p>The size of the array job. This parameter is returned for parent array
@@ -69,6 +76,12 @@ namespace Model
      * parameter is returned for children of array jobs.</p>
      */
     inline int GetIndex() const{ return m_index; }
+
+    /**
+     * <p>The job index within the array that is associated with this job. This
+     * parameter is returned for children of array jobs.</p>
+     */
+    inline bool IndexHasBeenSet() const { return m_indexHasBeenSet; }
 
     /**
      * <p>The job index within the array that is associated with this job. This

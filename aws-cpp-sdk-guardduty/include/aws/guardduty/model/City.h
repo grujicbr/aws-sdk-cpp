@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace GuardDuty
@@ -33,7 +34,8 @@ namespace Model
 {
 
   /**
-   * City information of the remote IP address.<p><h3>See Also:</h3>   <a
+   * <p>Contains information about the city associated with the IP
+   * address.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/City">AWS API
    * Reference</a></p>
    */
@@ -41,43 +43,48 @@ namespace Model
   {
   public:
     City();
-    City(const Aws::Utils::Json::JsonValue& jsonValue);
-    City& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    City(Aws::Utils::Json::JsonView jsonValue);
+    City& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * City name of the remote IP address.
+     * <p>City name of the remote IP address.</p>
      */
     inline const Aws::String& GetCityName() const{ return m_cityName; }
 
     /**
-     * City name of the remote IP address.
+     * <p>City name of the remote IP address.</p>
+     */
+    inline bool CityNameHasBeenSet() const { return m_cityNameHasBeenSet; }
+
+    /**
+     * <p>City name of the remote IP address.</p>
      */
     inline void SetCityName(const Aws::String& value) { m_cityNameHasBeenSet = true; m_cityName = value; }
 
     /**
-     * City name of the remote IP address.
+     * <p>City name of the remote IP address.</p>
      */
     inline void SetCityName(Aws::String&& value) { m_cityNameHasBeenSet = true; m_cityName = std::move(value); }
 
     /**
-     * City name of the remote IP address.
+     * <p>City name of the remote IP address.</p>
      */
     inline void SetCityName(const char* value) { m_cityNameHasBeenSet = true; m_cityName.assign(value); }
 
     /**
-     * City name of the remote IP address.
+     * <p>City name of the remote IP address.</p>
      */
     inline City& WithCityName(const Aws::String& value) { SetCityName(value); return *this;}
 
     /**
-     * City name of the remote IP address.
+     * <p>City name of the remote IP address.</p>
      */
     inline City& WithCityName(Aws::String&& value) { SetCityName(std::move(value)); return *this;}
 
     /**
-     * City name of the remote IP address.
+     * <p>City name of the remote IP address.</p>
      */
     inline City& WithCityName(const char* value) { SetCityName(value); return *this;}
 

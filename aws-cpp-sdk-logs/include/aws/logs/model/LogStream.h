@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LogStream();
-    LogStream(const Aws::Utils::Json::JsonValue& jsonValue);
-    LogStream& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LogStream(Aws::Utils::Json::JsonView jsonValue);
+    LogStream& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the log stream.</p>
      */
     inline const Aws::String& GetLogStreamName() const{ return m_logStreamName; }
+
+    /**
+     * <p>The name of the log stream.</p>
+     */
+    inline bool LogStreamNameHasBeenSet() const { return m_logStreamNameHasBeenSet; }
 
     /**
      * <p>The name of the log stream.</p>
@@ -93,6 +99,12 @@ namespace Model
      * <p>The creation time of the stream, expressed as the number of milliseconds
      * after Jan 1, 1970 00:00:00 UTC.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>The creation time of the stream, expressed as the number of milliseconds
+     * after Jan 1, 1970 00:00:00 UTC.</p>
+     */
     inline void SetCreationTime(long long value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -112,6 +124,12 @@ namespace Model
      * <p>The time of the first event, expressed as the number of milliseconds after
      * Jan 1, 1970 00:00:00 UTC.</p>
      */
+    inline bool FirstEventTimestampHasBeenSet() const { return m_firstEventTimestampHasBeenSet; }
+
+    /**
+     * <p>The time of the first event, expressed as the number of milliseconds after
+     * Jan 1, 1970 00:00:00 UTC.</p>
+     */
     inline void SetFirstEventTimestamp(long long value) { m_firstEventTimestampHasBeenSet = true; m_firstEventTimestamp = value; }
 
     /**
@@ -122,29 +140,38 @@ namespace Model
 
 
     /**
-     * <p> the time of the most recent log event in the log stream in CloudWatch Logs.
+     * <p>The time of the most recent log event in the log stream in CloudWatch Logs.
      * This number is expressed as the number of milliseconds after Jan 1, 1970
-     * 00:00:00 UTC. lastEventTime updates on an eventual consistency basis. It
-     * typically updates in less than an hour from ingestion, but may take longer in
-     * some rare situations.</p>
+     * 00:00:00 UTC. The <code>lastEventTime</code> value updates on an eventual
+     * consistency basis. It typically updates in less than an hour from ingestion, but
+     * may take longer in some rare situations.</p>
      */
     inline long long GetLastEventTimestamp() const{ return m_lastEventTimestamp; }
 
     /**
-     * <p> the time of the most recent log event in the log stream in CloudWatch Logs.
+     * <p>The time of the most recent log event in the log stream in CloudWatch Logs.
      * This number is expressed as the number of milliseconds after Jan 1, 1970
-     * 00:00:00 UTC. lastEventTime updates on an eventual consistency basis. It
-     * typically updates in less than an hour from ingestion, but may take longer in
-     * some rare situations.</p>
+     * 00:00:00 UTC. The <code>lastEventTime</code> value updates on an eventual
+     * consistency basis. It typically updates in less than an hour from ingestion, but
+     * may take longer in some rare situations.</p>
+     */
+    inline bool LastEventTimestampHasBeenSet() const { return m_lastEventTimestampHasBeenSet; }
+
+    /**
+     * <p>The time of the most recent log event in the log stream in CloudWatch Logs.
+     * This number is expressed as the number of milliseconds after Jan 1, 1970
+     * 00:00:00 UTC. The <code>lastEventTime</code> value updates on an eventual
+     * consistency basis. It typically updates in less than an hour from ingestion, but
+     * may take longer in some rare situations.</p>
      */
     inline void SetLastEventTimestamp(long long value) { m_lastEventTimestampHasBeenSet = true; m_lastEventTimestamp = value; }
 
     /**
-     * <p> the time of the most recent log event in the log stream in CloudWatch Logs.
+     * <p>The time of the most recent log event in the log stream in CloudWatch Logs.
      * This number is expressed as the number of milliseconds after Jan 1, 1970
-     * 00:00:00 UTC. lastEventTime updates on an eventual consistency basis. It
-     * typically updates in less than an hour from ingestion, but may take longer in
-     * some rare situations.</p>
+     * 00:00:00 UTC. The <code>lastEventTime</code> value updates on an eventual
+     * consistency basis. It typically updates in less than an hour from ingestion, but
+     * may take longer in some rare situations.</p>
      */
     inline LogStream& WithLastEventTimestamp(long long value) { SetLastEventTimestamp(value); return *this;}
 
@@ -154,6 +181,12 @@ namespace Model
      * 00:00:00 UTC.</p>
      */
     inline long long GetLastIngestionTime() const{ return m_lastIngestionTime; }
+
+    /**
+     * <p>The ingestion time, expressed as the number of milliseconds after Jan 1, 1970
+     * 00:00:00 UTC.</p>
+     */
+    inline bool LastIngestionTimeHasBeenSet() const { return m_lastIngestionTimeHasBeenSet; }
 
     /**
      * <p>The ingestion time, expressed as the number of milliseconds after Jan 1, 1970
@@ -172,6 +205,11 @@ namespace Model
      * <p>The sequence token.</p>
      */
     inline const Aws::String& GetUploadSequenceToken() const{ return m_uploadSequenceToken; }
+
+    /**
+     * <p>The sequence token.</p>
+     */
+    inline bool UploadSequenceTokenHasBeenSet() const { return m_uploadSequenceTokenHasBeenSet; }
 
     /**
      * <p>The sequence token.</p>
@@ -212,6 +250,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the log stream.</p>
      */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the log stream.</p>
+     */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
@@ -239,22 +282,6 @@ namespace Model
      */
     inline LogStream& WithArn(const char* value) { SetArn(value); return *this;}
 
-
-    /**
-     * <p>The number of bytes stored.</p>
-     */
-    inline long long GetStoredBytes() const{ return m_storedBytes; }
-
-    /**
-     * <p>The number of bytes stored.</p>
-     */
-    inline void SetStoredBytes(long long value) { m_storedBytesHasBeenSet = true; m_storedBytes = value; }
-
-    /**
-     * <p>The number of bytes stored.</p>
-     */
-    inline LogStream& WithStoredBytes(long long value) { SetStoredBytes(value); return *this;}
-
   private:
 
     Aws::String m_logStreamName;
@@ -277,9 +304,6 @@ namespace Model
 
     Aws::String m_arn;
     bool m_arnHasBeenSet;
-
-    long long m_storedBytes;
-    bool m_storedBytesHasBeenSet;
   };
 
 } // namespace Model

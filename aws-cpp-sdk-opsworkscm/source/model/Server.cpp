@@ -36,6 +36,7 @@ Server::Server() :
     m_serverNameHasBeenSet(false),
     m_createdAtHasBeenSet(false),
     m_cloudFormationStackArnHasBeenSet(false),
+    m_customDomainHasBeenSet(false),
     m_disableAutomatedBackup(false),
     m_disableAutomatedBackupHasBeenSet(false),
     m_endpointHasBeenSet(false),
@@ -60,7 +61,7 @@ Server::Server() :
 {
 }
 
-Server::Server(const JsonValue& jsonValue) : 
+Server::Server(JsonView jsonValue) : 
     m_associatePublicIpAddress(false),
     m_associatePublicIpAddressHasBeenSet(false),
     m_backupRetentionCount(0),
@@ -68,6 +69,7 @@ Server::Server(const JsonValue& jsonValue) :
     m_serverNameHasBeenSet(false),
     m_createdAtHasBeenSet(false),
     m_cloudFormationStackArnHasBeenSet(false),
+    m_customDomainHasBeenSet(false),
     m_disableAutomatedBackup(false),
     m_disableAutomatedBackupHasBeenSet(false),
     m_endpointHasBeenSet(false),
@@ -93,7 +95,7 @@ Server::Server(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Server& Server::operator =(const JsonValue& jsonValue)
+Server& Server::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("AssociatePublicIpAddress"))
   {
@@ -130,6 +132,13 @@ Server& Server::operator =(const JsonValue& jsonValue)
     m_cloudFormationStackArnHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("CustomDomain"))
+  {
+    m_customDomain = jsonValue.GetString("CustomDomain");
+
+    m_customDomainHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("DisableAutomatedBackup"))
   {
     m_disableAutomatedBackup = jsonValue.GetBool("DisableAutomatedBackup");
@@ -160,7 +169,7 @@ Server& Server::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("EngineAttributes"))
   {
-    Array<JsonValue> engineAttributesJsonList = jsonValue.GetArray("EngineAttributes");
+    Array<JsonView> engineAttributesJsonList = jsonValue.GetArray("EngineAttributes");
     for(unsigned engineAttributesIndex = 0; engineAttributesIndex < engineAttributesJsonList.GetLength(); ++engineAttributesIndex)
     {
       m_engineAttributes.push_back(engineAttributesJsonList[engineAttributesIndex].AsObject());
@@ -219,7 +228,7 @@ Server& Server::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("SecurityGroupIds"))
   {
-    Array<JsonValue> securityGroupIdsJsonList = jsonValue.GetArray("SecurityGroupIds");
+    Array<JsonView> securityGroupIdsJsonList = jsonValue.GetArray("SecurityGroupIds");
     for(unsigned securityGroupIdsIndex = 0; securityGroupIdsIndex < securityGroupIdsJsonList.GetLength(); ++securityGroupIdsIndex)
     {
       m_securityGroupIds.push_back(securityGroupIdsJsonList[securityGroupIdsIndex].AsString());
@@ -250,7 +259,7 @@ Server& Server::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("SubnetIds"))
   {
-    Array<JsonValue> subnetIdsJsonList = jsonValue.GetArray("SubnetIds");
+    Array<JsonView> subnetIdsJsonList = jsonValue.GetArray("SubnetIds");
     for(unsigned subnetIdsIndex = 0; subnetIdsIndex < subnetIdsJsonList.GetLength(); ++subnetIdsIndex)
     {
       m_subnetIds.push_back(subnetIdsJsonList[subnetIdsIndex].AsString());
@@ -298,6 +307,12 @@ JsonValue Server::Jsonize() const
   if(m_cloudFormationStackArnHasBeenSet)
   {
    payload.WithString("CloudFormationStackArn", m_cloudFormationStackArn);
+
+  }
+
+  if(m_customDomainHasBeenSet)
+  {
+   payload.WithString("CustomDomain", m_customDomain);
 
   }
 

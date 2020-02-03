@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TagOptionDetail();
-    TagOptionDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    TagOptionDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TagOptionDetail(Aws::Utils::Json::JsonView jsonValue);
+    TagOptionDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The TagOption key.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The TagOption key.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The TagOption key.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The TagOption value.</p>
      */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>The TagOption value.</p>
+     */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
     /**
      * <p>The TagOption active state.</p>
      */
+    inline bool ActiveHasBeenSet() const { return m_activeHasBeenSet; }
+
+    /**
+     * <p>The TagOption active state.</p>
+     */
     inline void SetActive(bool value) { m_activeHasBeenSet = true; m_active = value; }
 
     /**
@@ -138,6 +154,11 @@ namespace Model
      * <p>The TagOption identifier.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The TagOption identifier.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The TagOption identifier.</p>

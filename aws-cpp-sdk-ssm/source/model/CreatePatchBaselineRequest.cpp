@@ -34,10 +34,13 @@ CreatePatchBaselineRequest::CreatePatchBaselineRequest() :
     m_approvedPatchesEnableNonSecurity(false),
     m_approvedPatchesEnableNonSecurityHasBeenSet(false),
     m_rejectedPatchesHasBeenSet(false),
+    m_rejectedPatchesAction(PatchAction::NOT_SET),
+    m_rejectedPatchesActionHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_sourcesHasBeenSet(false),
     m_clientToken(Aws::Utils::UUID::RandomUUID()),
-    m_clientTokenHasBeenSet(true)
+    m_clientTokenHasBeenSet(true),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -101,6 +104,11 @@ Aws::String CreatePatchBaselineRequest::SerializePayload() const
 
   }
 
+  if(m_rejectedPatchesActionHasBeenSet)
+  {
+   payload.WithString("RejectedPatchesAction", PatchActionMapper::GetNameForPatchAction(m_rejectedPatchesAction));
+  }
+
   if(m_descriptionHasBeenSet)
   {
    payload.WithString("Description", m_description);
@@ -124,7 +132,18 @@ Aws::String CreatePatchBaselineRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreatePatchBaselineRequest::GetRequestSpecificHeaders() const

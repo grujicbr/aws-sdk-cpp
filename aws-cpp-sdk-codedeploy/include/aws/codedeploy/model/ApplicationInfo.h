@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ApplicationInfo();
-    ApplicationInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    ApplicationInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ApplicationInfo(Aws::Utils::Json::JsonView jsonValue);
+    ApplicationInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The application ID.</p>
      */
     inline const Aws::String& GetApplicationId() const{ return m_applicationId; }
+
+    /**
+     * <p>The application ID.</p>
+     */
+    inline bool ApplicationIdHasBeenSet() const { return m_applicationIdHasBeenSet; }
 
     /**
      * <p>The application ID.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The application name.</p>
      */
+    inline bool ApplicationNameHasBeenSet() const { return m_applicationNameHasBeenSet; }
+
+    /**
+     * <p>The application name.</p>
+     */
     inline void SetApplicationName(const Aws::String& value) { m_applicationNameHasBeenSet = true; m_applicationName = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
     /**
      * <p>The time at which the application was created.</p>
      */
+    inline bool CreateTimeHasBeenSet() const { return m_createTimeHasBeenSet; }
+
+    /**
+     * <p>The time at which the application was created.</p>
+     */
     inline void SetCreateTime(const Aws::Utils::DateTime& value) { m_createTimeHasBeenSet = true; m_createTime = value; }
 
     /**
@@ -147,20 +163,26 @@ namespace Model
 
 
     /**
-     * <p>True if the user has authenticated with GitHub for the specified application;
-     * otherwise, false.</p>
+     * <p>True if the user has authenticated with GitHub for the specified application.
+     * Otherwise, false.</p>
      */
     inline bool GetLinkedToGitHub() const{ return m_linkedToGitHub; }
 
     /**
-     * <p>True if the user has authenticated with GitHub for the specified application;
-     * otherwise, false.</p>
+     * <p>True if the user has authenticated with GitHub for the specified application.
+     * Otherwise, false.</p>
+     */
+    inline bool LinkedToGitHubHasBeenSet() const { return m_linkedToGitHubHasBeenSet; }
+
+    /**
+     * <p>True if the user has authenticated with GitHub for the specified application.
+     * Otherwise, false.</p>
      */
     inline void SetLinkedToGitHub(bool value) { m_linkedToGitHubHasBeenSet = true; m_linkedToGitHub = value; }
 
     /**
-     * <p>True if the user has authenticated with GitHub for the specified application;
-     * otherwise, false.</p>
+     * <p>True if the user has authenticated with GitHub for the specified application.
+     * Otherwise, false.</p>
      */
     inline ApplicationInfo& WithLinkedToGitHub(bool value) { SetLinkedToGitHub(value); return *this;}
 
@@ -169,6 +191,11 @@ namespace Model
      * <p>The name for a connection to a GitHub account.</p>
      */
     inline const Aws::String& GetGitHubAccountName() const{ return m_gitHubAccountName; }
+
+    /**
+     * <p>The name for a connection to a GitHub account.</p>
+     */
+    inline bool GitHubAccountNameHasBeenSet() const { return m_gitHubAccountNameHasBeenSet; }
 
     /**
      * <p>The name for a connection to a GitHub account.</p>
@@ -206,6 +233,12 @@ namespace Model
      * (<code>Lambda</code> or <code>Server</code>).</p>
      */
     inline const ComputePlatform& GetComputePlatform() const{ return m_computePlatform; }
+
+    /**
+     * <p>The destination platform type for deployment of the application
+     * (<code>Lambda</code> or <code>Server</code>).</p>
+     */
+    inline bool ComputePlatformHasBeenSet() const { return m_computePlatformHasBeenSet; }
 
     /**
      * <p>The destination platform type for deployment of the application

@@ -36,11 +36,12 @@ Domain::Domain() :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_domainEntriesHasBeenSet(false)
 {
 }
 
-Domain::Domain(const JsonValue& jsonValue) : 
+Domain::Domain(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_supportCodeHasBeenSet(false),
@@ -48,12 +49,13 @@ Domain::Domain(const JsonValue& jsonValue) :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_domainEntriesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Domain& Domain::operator =(const JsonValue& jsonValue)
+Domain& Domain::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -97,9 +99,19 @@ Domain& Domain::operator =(const JsonValue& jsonValue)
     m_resourceTypeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("domainEntries"))
   {
-    Array<JsonValue> domainEntriesJsonList = jsonValue.GetArray("domainEntries");
+    Array<JsonView> domainEntriesJsonList = jsonValue.GetArray("domainEntries");
     for(unsigned domainEntriesIndex = 0; domainEntriesIndex < domainEntriesJsonList.GetLength(); ++domainEntriesIndex)
     {
       m_domainEntries.push_back(domainEntriesJsonList[domainEntriesIndex].AsObject());
@@ -146,6 +158,17 @@ JsonValue Domain::Jsonize() const
   if(m_resourceTypeHasBeenSet)
   {
    payload.WithString("resourceType", ResourceTypeMapper::GetNameForResourceType(m_resourceType));
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
   }
 
   if(m_domainEntriesHasBeenSet)

@@ -19,6 +19,7 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/cognito-idp/model/AnalyticsConfigurationType.h>
+#include <aws/cognito-idp/model/PreventUserExistenceErrorTypes.h>
 #include <aws/cognito-idp/model/ExplicitAuthFlowsType.h>
 #include <aws/cognito-idp/model/OAuthFlowType.h>
 #include <utility>
@@ -40,7 +41,7 @@ namespace Model
   {
   public:
     UpdateUserPoolClientRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -57,6 +58,12 @@ namespace Model
      * client.</p>
      */
     inline const Aws::String& GetUserPoolId() const{ return m_userPoolId; }
+
+    /**
+     * <p>The user pool ID for the user pool where you want to update the user pool
+     * client.</p>
+     */
+    inline bool UserPoolIdHasBeenSet() const { return m_userPoolIdHasBeenSet; }
 
     /**
      * <p>The user pool ID for the user pool where you want to update the user pool
@@ -103,6 +110,11 @@ namespace Model
     /**
      * <p>The ID of the client associated with the user pool.</p>
      */
+    inline bool ClientIdHasBeenSet() const { return m_clientIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the client associated with the user pool.</p>
+     */
     inline void SetClientId(const Aws::String& value) { m_clientIdHasBeenSet = true; m_clientId = value; }
 
     /**
@@ -135,6 +147,11 @@ namespace Model
      * <p>The client name from the update user pool client request.</p>
      */
     inline const Aws::String& GetClientName() const{ return m_clientName; }
+
+    /**
+     * <p>The client name from the update user pool client request.</p>
+     */
+    inline bool ClientNameHasBeenSet() const { return m_clientNameHasBeenSet; }
 
     /**
      * <p>The client name from the update user pool client request.</p>
@@ -177,6 +194,12 @@ namespace Model
      * <p>The time limit, in days, after which the refresh token is no longer valid and
      * cannot be used.</p>
      */
+    inline bool RefreshTokenValidityHasBeenSet() const { return m_refreshTokenValidityHasBeenSet; }
+
+    /**
+     * <p>The time limit, in days, after which the refresh token is no longer valid and
+     * cannot be used.</p>
+     */
     inline void SetRefreshTokenValidity(int value) { m_refreshTokenValidityHasBeenSet = true; m_refreshTokenValidity = value; }
 
     /**
@@ -190,6 +213,11 @@ namespace Model
      * <p>The read-only attributes of the user pool.</p>
      */
     inline const Aws::Vector<Aws::String>& GetReadAttributes() const{ return m_readAttributes; }
+
+    /**
+     * <p>The read-only attributes of the user pool.</p>
+     */
+    inline bool ReadAttributesHasBeenSet() const { return m_readAttributesHasBeenSet; }
 
     /**
      * <p>The read-only attributes of the user pool.</p>
@@ -235,6 +263,11 @@ namespace Model
     /**
      * <p>The writeable attributes of the user pool.</p>
      */
+    inline bool WriteAttributesHasBeenSet() const { return m_writeAttributesHasBeenSet; }
+
+    /**
+     * <p>The writeable attributes of the user pool.</p>
+     */
     inline void SetWriteAttributes(const Aws::Vector<Aws::String>& value) { m_writeAttributesHasBeenSet = true; m_writeAttributes = value; }
 
     /**
@@ -269,37 +302,170 @@ namespace Model
 
 
     /**
-     * <p>Explicit authentication flows.</p>
+     * <p>The authentication flows that are supported by the user pool clients. Flow
+     * names without the <code>ALLOW_</code> prefix are deprecated in favor of new
+     * names with the <code>ALLOW_</code> prefix. Note that values with
+     * <code>ALLOW_</code> prefix cannot be used along with values without
+     * <code>ALLOW_</code> prefix.</p> <p>Valid values include:</p> <ul> <li> <p>
+     * <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password
+     * authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces
+     * the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow,
+     * Cognito receives the password in the request instead of using the SRP (Secure
+     * Remote Password protocol) protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p>
+     * </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based
+     * authentication. In this flow, Cognito receives the password in the request
+     * instead of using the SRP protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP based authentication.</p> </li>
+     * <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh
+     * tokens.</p> </li> </ul>
      */
     inline const Aws::Vector<ExplicitAuthFlowsType>& GetExplicitAuthFlows() const{ return m_explicitAuthFlows; }
 
     /**
-     * <p>Explicit authentication flows.</p>
+     * <p>The authentication flows that are supported by the user pool clients. Flow
+     * names without the <code>ALLOW_</code> prefix are deprecated in favor of new
+     * names with the <code>ALLOW_</code> prefix. Note that values with
+     * <code>ALLOW_</code> prefix cannot be used along with values without
+     * <code>ALLOW_</code> prefix.</p> <p>Valid values include:</p> <ul> <li> <p>
+     * <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password
+     * authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces
+     * the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow,
+     * Cognito receives the password in the request instead of using the SRP (Secure
+     * Remote Password protocol) protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p>
+     * </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based
+     * authentication. In this flow, Cognito receives the password in the request
+     * instead of using the SRP protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP based authentication.</p> </li>
+     * <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh
+     * tokens.</p> </li> </ul>
+     */
+    inline bool ExplicitAuthFlowsHasBeenSet() const { return m_explicitAuthFlowsHasBeenSet; }
+
+    /**
+     * <p>The authentication flows that are supported by the user pool clients. Flow
+     * names without the <code>ALLOW_</code> prefix are deprecated in favor of new
+     * names with the <code>ALLOW_</code> prefix. Note that values with
+     * <code>ALLOW_</code> prefix cannot be used along with values without
+     * <code>ALLOW_</code> prefix.</p> <p>Valid values include:</p> <ul> <li> <p>
+     * <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password
+     * authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces
+     * the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow,
+     * Cognito receives the password in the request instead of using the SRP (Secure
+     * Remote Password protocol) protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p>
+     * </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based
+     * authentication. In this flow, Cognito receives the password in the request
+     * instead of using the SRP protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP based authentication.</p> </li>
+     * <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh
+     * tokens.</p> </li> </ul>
      */
     inline void SetExplicitAuthFlows(const Aws::Vector<ExplicitAuthFlowsType>& value) { m_explicitAuthFlowsHasBeenSet = true; m_explicitAuthFlows = value; }
 
     /**
-     * <p>Explicit authentication flows.</p>
+     * <p>The authentication flows that are supported by the user pool clients. Flow
+     * names without the <code>ALLOW_</code> prefix are deprecated in favor of new
+     * names with the <code>ALLOW_</code> prefix. Note that values with
+     * <code>ALLOW_</code> prefix cannot be used along with values without
+     * <code>ALLOW_</code> prefix.</p> <p>Valid values include:</p> <ul> <li> <p>
+     * <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password
+     * authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces
+     * the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow,
+     * Cognito receives the password in the request instead of using the SRP (Secure
+     * Remote Password protocol) protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p>
+     * </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based
+     * authentication. In this flow, Cognito receives the password in the request
+     * instead of using the SRP protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP based authentication.</p> </li>
+     * <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh
+     * tokens.</p> </li> </ul>
      */
     inline void SetExplicitAuthFlows(Aws::Vector<ExplicitAuthFlowsType>&& value) { m_explicitAuthFlowsHasBeenSet = true; m_explicitAuthFlows = std::move(value); }
 
     /**
-     * <p>Explicit authentication flows.</p>
+     * <p>The authentication flows that are supported by the user pool clients. Flow
+     * names without the <code>ALLOW_</code> prefix are deprecated in favor of new
+     * names with the <code>ALLOW_</code> prefix. Note that values with
+     * <code>ALLOW_</code> prefix cannot be used along with values without
+     * <code>ALLOW_</code> prefix.</p> <p>Valid values include:</p> <ul> <li> <p>
+     * <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password
+     * authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces
+     * the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow,
+     * Cognito receives the password in the request instead of using the SRP (Secure
+     * Remote Password protocol) protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p>
+     * </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based
+     * authentication. In this flow, Cognito receives the password in the request
+     * instead of using the SRP protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP based authentication.</p> </li>
+     * <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh
+     * tokens.</p> </li> </ul>
      */
     inline UpdateUserPoolClientRequest& WithExplicitAuthFlows(const Aws::Vector<ExplicitAuthFlowsType>& value) { SetExplicitAuthFlows(value); return *this;}
 
     /**
-     * <p>Explicit authentication flows.</p>
+     * <p>The authentication flows that are supported by the user pool clients. Flow
+     * names without the <code>ALLOW_</code> prefix are deprecated in favor of new
+     * names with the <code>ALLOW_</code> prefix. Note that values with
+     * <code>ALLOW_</code> prefix cannot be used along with values without
+     * <code>ALLOW_</code> prefix.</p> <p>Valid values include:</p> <ul> <li> <p>
+     * <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password
+     * authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces
+     * the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow,
+     * Cognito receives the password in the request instead of using the SRP (Secure
+     * Remote Password protocol) protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p>
+     * </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based
+     * authentication. In this flow, Cognito receives the password in the request
+     * instead of using the SRP protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP based authentication.</p> </li>
+     * <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh
+     * tokens.</p> </li> </ul>
      */
     inline UpdateUserPoolClientRequest& WithExplicitAuthFlows(Aws::Vector<ExplicitAuthFlowsType>&& value) { SetExplicitAuthFlows(std::move(value)); return *this;}
 
     /**
-     * <p>Explicit authentication flows.</p>
+     * <p>The authentication flows that are supported by the user pool clients. Flow
+     * names without the <code>ALLOW_</code> prefix are deprecated in favor of new
+     * names with the <code>ALLOW_</code> prefix. Note that values with
+     * <code>ALLOW_</code> prefix cannot be used along with values without
+     * <code>ALLOW_</code> prefix.</p> <p>Valid values include:</p> <ul> <li> <p>
+     * <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password
+     * authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces
+     * the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow,
+     * Cognito receives the password in the request instead of using the SRP (Secure
+     * Remote Password protocol) protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p>
+     * </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based
+     * authentication. In this flow, Cognito receives the password in the request
+     * instead of using the SRP protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP based authentication.</p> </li>
+     * <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh
+     * tokens.</p> </li> </ul>
      */
     inline UpdateUserPoolClientRequest& AddExplicitAuthFlows(const ExplicitAuthFlowsType& value) { m_explicitAuthFlowsHasBeenSet = true; m_explicitAuthFlows.push_back(value); return *this; }
 
     /**
-     * <p>Explicit authentication flows.</p>
+     * <p>The authentication flows that are supported by the user pool clients. Flow
+     * names without the <code>ALLOW_</code> prefix are deprecated in favor of new
+     * names with the <code>ALLOW_</code> prefix. Note that values with
+     * <code>ALLOW_</code> prefix cannot be used along with values without
+     * <code>ALLOW_</code> prefix.</p> <p>Valid values include:</p> <ul> <li> <p>
+     * <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password
+     * authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces
+     * the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow,
+     * Cognito receives the password in the request instead of using the SRP (Secure
+     * Remote Password protocol) protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p>
+     * </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based
+     * authentication. In this flow, Cognito receives the password in the request
+     * instead of using the SRP protocol to verify passwords.</p> </li> <li> <p>
+     * <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP based authentication.</p> </li>
+     * <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh
+     * tokens.</p> </li> </ul>
      */
     inline UpdateUserPoolClientRequest& AddExplicitAuthFlows(ExplicitAuthFlowsType&& value) { m_explicitAuthFlowsHasBeenSet = true; m_explicitAuthFlows.push_back(std::move(value)); return *this; }
 
@@ -309,6 +475,12 @@ namespace Model
      * this client.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSupportedIdentityProviders() const{ return m_supportedIdentityProviders; }
+
+    /**
+     * <p>A list of provider names for the identity providers that are supported on
+     * this client.</p>
+     */
+    inline bool SupportedIdentityProvidersHasBeenSet() const { return m_supportedIdentityProvidersHasBeenSet; }
 
     /**
      * <p>A list of provider names for the identity providers that are supported on
@@ -356,88 +528,108 @@ namespace Model
     /**
      * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline const Aws::Vector<Aws::String>& GetCallbackURLs() const{ return m_callbackURLs; }
 
     /**
      * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
+     */
+    inline bool CallbackURLsHasBeenSet() const { return m_callbackURLsHasBeenSet; }
+
+    /**
+     * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
+     * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
+     * fragment component.</p> </li> </ul> <p>See <a
+     * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline void SetCallbackURLs(const Aws::Vector<Aws::String>& value) { m_callbackURLsHasBeenSet = true; m_callbackURLs = value; }
 
     /**
      * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline void SetCallbackURLs(Aws::Vector<Aws::String>&& value) { m_callbackURLsHasBeenSet = true; m_callbackURLs = std::move(value); }
 
     /**
      * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& WithCallbackURLs(const Aws::Vector<Aws::String>& value) { SetCallbackURLs(value); return *this;}
 
     /**
      * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& WithCallbackURLs(Aws::Vector<Aws::String>&& value) { SetCallbackURLs(std::move(value)); return *this;}
 
     /**
      * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& AddCallbackURLs(const Aws::String& value) { m_callbackURLsHasBeenSet = true; m_callbackURLs.push_back(value); return *this; }
 
     /**
      * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& AddCallbackURLs(Aws::String&& value) { m_callbackURLsHasBeenSet = true; m_callbackURLs.push_back(std::move(value)); return *this; }
 
     /**
      * <p>A list of allowed redirect (callback) URLs for the identity providers.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& AddCallbackURLs(const char* value) { m_callbackURLsHasBeenSet = true; m_callbackURLs.push_back(value); return *this; }
 
@@ -446,6 +638,11 @@ namespace Model
      * <p>A list of allowed logout URLs for the identity providers.</p>
      */
     inline const Aws::Vector<Aws::String>& GetLogoutURLs() const{ return m_logoutURLs; }
+
+    /**
+     * <p>A list of allowed logout URLs for the identity providers.</p>
+     */
+    inline bool LogoutURLsHasBeenSet() const { return m_logoutURLsHasBeenSet; }
 
     /**
      * <p>A list of allowed logout URLs for the identity providers.</p>
@@ -486,77 +683,96 @@ namespace Model
     /**
      * <p>The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline const Aws::String& GetDefaultRedirectURI() const{ return m_defaultRedirectURI; }
 
     /**
      * <p>The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
+     */
+    inline bool DefaultRedirectURIHasBeenSet() const { return m_defaultRedirectURIHasBeenSet; }
+
+    /**
+     * <p>The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
+     * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
+     * fragment component.</p> </li> </ul> <p>See <a
+     * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline void SetDefaultRedirectURI(const Aws::String& value) { m_defaultRedirectURIHasBeenSet = true; m_defaultRedirectURI = value; }
 
     /**
      * <p>The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline void SetDefaultRedirectURI(Aws::String&& value) { m_defaultRedirectURIHasBeenSet = true; m_defaultRedirectURI = std::move(value); }
 
     /**
      * <p>The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline void SetDefaultRedirectURI(const char* value) { m_defaultRedirectURIHasBeenSet = true; m_defaultRedirectURI.assign(value); }
 
     /**
      * <p>The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& WithDefaultRedirectURI(const Aws::String& value) { SetDefaultRedirectURI(value); return *this;}
 
     /**
      * <p>The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& WithDefaultRedirectURI(Aws::String&& value) { SetDefaultRedirectURI(std::move(value)); return *this;}
 
     /**
      * <p>The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
      * <p>A redirect URI must:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li>
-     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not use HTTP
-     * without TLS (i.e. use HTTPS instead of HTTP).</p> </li> <li> <p>Not include a
+     * <p>Be registered with the authorization server.</p> </li> <li> <p>Not include a
      * fragment component.</p> </li> </ul> <p>See <a
      * href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection
-     * Endpoint</a>.</p>
+     * Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for
+     * http://localhost for testing purposes only.</p> <p>App callback URLs such as
+     * myapp://example are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& WithDefaultRedirectURI(const char* value) { SetDefaultRedirectURI(value); return *this;}
 
@@ -564,63 +780,56 @@ namespace Model
     /**
      * <p>Set to <code>code</code> to initiate a code grant flow, which provides an
      * authorization code as the response. This code can be exchanged for access tokens
-     * with the token endpoint.</p> <p>Set to <code>token</code> to specify that the
-     * client should get the access token (and, optionally, ID token, based on scopes)
-     * directly.</p>
+     * with the token endpoint.</p>
      */
     inline const Aws::Vector<OAuthFlowType>& GetAllowedOAuthFlows() const{ return m_allowedOAuthFlows; }
 
     /**
      * <p>Set to <code>code</code> to initiate a code grant flow, which provides an
      * authorization code as the response. This code can be exchanged for access tokens
-     * with the token endpoint.</p> <p>Set to <code>token</code> to specify that the
-     * client should get the access token (and, optionally, ID token, based on scopes)
-     * directly.</p>
+     * with the token endpoint.</p>
+     */
+    inline bool AllowedOAuthFlowsHasBeenSet() const { return m_allowedOAuthFlowsHasBeenSet; }
+
+    /**
+     * <p>Set to <code>code</code> to initiate a code grant flow, which provides an
+     * authorization code as the response. This code can be exchanged for access tokens
+     * with the token endpoint.</p>
      */
     inline void SetAllowedOAuthFlows(const Aws::Vector<OAuthFlowType>& value) { m_allowedOAuthFlowsHasBeenSet = true; m_allowedOAuthFlows = value; }
 
     /**
      * <p>Set to <code>code</code> to initiate a code grant flow, which provides an
      * authorization code as the response. This code can be exchanged for access tokens
-     * with the token endpoint.</p> <p>Set to <code>token</code> to specify that the
-     * client should get the access token (and, optionally, ID token, based on scopes)
-     * directly.</p>
+     * with the token endpoint.</p>
      */
     inline void SetAllowedOAuthFlows(Aws::Vector<OAuthFlowType>&& value) { m_allowedOAuthFlowsHasBeenSet = true; m_allowedOAuthFlows = std::move(value); }
 
     /**
      * <p>Set to <code>code</code> to initiate a code grant flow, which provides an
      * authorization code as the response. This code can be exchanged for access tokens
-     * with the token endpoint.</p> <p>Set to <code>token</code> to specify that the
-     * client should get the access token (and, optionally, ID token, based on scopes)
-     * directly.</p>
+     * with the token endpoint.</p>
      */
     inline UpdateUserPoolClientRequest& WithAllowedOAuthFlows(const Aws::Vector<OAuthFlowType>& value) { SetAllowedOAuthFlows(value); return *this;}
 
     /**
      * <p>Set to <code>code</code> to initiate a code grant flow, which provides an
      * authorization code as the response. This code can be exchanged for access tokens
-     * with the token endpoint.</p> <p>Set to <code>token</code> to specify that the
-     * client should get the access token (and, optionally, ID token, based on scopes)
-     * directly.</p>
+     * with the token endpoint.</p>
      */
     inline UpdateUserPoolClientRequest& WithAllowedOAuthFlows(Aws::Vector<OAuthFlowType>&& value) { SetAllowedOAuthFlows(std::move(value)); return *this;}
 
     /**
      * <p>Set to <code>code</code> to initiate a code grant flow, which provides an
      * authorization code as the response. This code can be exchanged for access tokens
-     * with the token endpoint.</p> <p>Set to <code>token</code> to specify that the
-     * client should get the access token (and, optionally, ID token, based on scopes)
-     * directly.</p>
+     * with the token endpoint.</p>
      */
     inline UpdateUserPoolClientRequest& AddAllowedOAuthFlows(const OAuthFlowType& value) { m_allowedOAuthFlowsHasBeenSet = true; m_allowedOAuthFlows.push_back(value); return *this; }
 
     /**
      * <p>Set to <code>code</code> to initiate a code grant flow, which provides an
      * authorization code as the response. This code can be exchanged for access tokens
-     * with the token endpoint.</p> <p>Set to <code>token</code> to specify that the
-     * client should get the access token (and, optionally, ID token, based on scopes)
-     * directly.</p>
+     * with the token endpoint.</p>
      */
     inline UpdateUserPoolClientRequest& AddAllowedOAuthFlows(OAuthFlowType&& value) { m_allowedOAuthFlowsHasBeenSet = true; m_allowedOAuthFlows.push_back(std::move(value)); return *this; }
 
@@ -628,56 +837,72 @@ namespace Model
     /**
      * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
      * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
-     * <code>"Cognito"</code>.</p>
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAllowedOAuthScopes() const{ return m_allowedOAuthScopes; }
 
     /**
      * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
      * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
-     * <code>"Cognito"</code>.</p>
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
+     */
+    inline bool AllowedOAuthScopesHasBeenSet() const { return m_allowedOAuthScopesHasBeenSet; }
+
+    /**
+     * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
+     * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
      */
     inline void SetAllowedOAuthScopes(const Aws::Vector<Aws::String>& value) { m_allowedOAuthScopesHasBeenSet = true; m_allowedOAuthScopes = value; }
 
     /**
      * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
      * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
-     * <code>"Cognito"</code>.</p>
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
      */
     inline void SetAllowedOAuthScopes(Aws::Vector<Aws::String>&& value) { m_allowedOAuthScopesHasBeenSet = true; m_allowedOAuthScopes = std::move(value); }
 
     /**
      * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
      * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
-     * <code>"Cognito"</code>.</p>
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& WithAllowedOAuthScopes(const Aws::Vector<Aws::String>& value) { SetAllowedOAuthScopes(value); return *this;}
 
     /**
      * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
      * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
-     * <code>"Cognito"</code>.</p>
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& WithAllowedOAuthScopes(Aws::Vector<Aws::String>&& value) { SetAllowedOAuthScopes(std::move(value)); return *this;}
 
     /**
      * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
      * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
-     * <code>"Cognito"</code>.</p>
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& AddAllowedOAuthScopes(const Aws::String& value) { m_allowedOAuthScopesHasBeenSet = true; m_allowedOAuthScopes.push_back(value); return *this; }
 
     /**
      * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
      * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
-     * <code>"Cognito"</code>.</p>
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& AddAllowedOAuthScopes(Aws::String&& value) { m_allowedOAuthScopesHasBeenSet = true; m_allowedOAuthScopes.push_back(std::move(value)); return *this; }
 
     /**
      * <p>A list of allowed <code>OAuth</code> scopes. Currently supported values are
      * <code>"phone"</code>, <code>"email"</code>, <code>"openid"</code>, and
-     * <code>"Cognito"</code>.</p>
+     * <code>"Cognito"</code>. In addition to these values, custom scopes created in
+     * Resource Servers are also supported.</p>
      */
     inline UpdateUserPoolClientRequest& AddAllowedOAuthScopes(const char* value) { m_allowedOAuthScopesHasBeenSet = true; m_allowedOAuthScopes.push_back(value); return *this; }
 
@@ -687,6 +912,12 @@ namespace Model
      * interacting with Cognito user pools.</p>
      */
     inline bool GetAllowedOAuthFlowsUserPoolClient() const{ return m_allowedOAuthFlowsUserPoolClient; }
+
+    /**
+     * <p>Set to TRUE if the client is allowed to follow the OAuth protocol when
+     * interacting with Cognito user pools.</p>
+     */
+    inline bool AllowedOAuthFlowsUserPoolClientHasBeenSet() const { return m_allowedOAuthFlowsUserPoolClientHasBeenSet; }
 
     /**
      * <p>Set to TRUE if the client is allowed to follow the OAuth protocol when
@@ -711,6 +942,12 @@ namespace Model
      * <p>The Amazon Pinpoint analytics configuration for collecting metrics for this
      * user pool.</p>
      */
+    inline bool AnalyticsConfigurationHasBeenSet() const { return m_analyticsConfigurationHasBeenSet; }
+
+    /**
+     * <p>The Amazon Pinpoint analytics configuration for collecting metrics for this
+     * user pool.</p>
+     */
     inline void SetAnalyticsConfiguration(const AnalyticsConfigurationType& value) { m_analyticsConfigurationHasBeenSet = true; m_analyticsConfiguration = value; }
 
     /**
@@ -730,6 +967,157 @@ namespace Model
      * user pool.</p>
      */
     inline UpdateUserPoolClientRequest& WithAnalyticsConfiguration(AnalyticsConfigurationType&& value) { SetAnalyticsConfiguration(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Use this setting to choose which errors and responses are returned by Cognito
+     * APIs during authentication, account confirmation, and password recovery when the
+     * user does not exist in the user pool. When set to <code>ENABLED</code> and the
+     * user does not exist, authentication returns an error indicating either the
+     * username or password was incorrect, and account confirmation and password
+     * recovery return a response indicating a code was sent to a simulated
+     * destination. When set to <code>LEGACY</code>, those APIs will return a
+     * <code>UserNotFoundException</code> exception if the user does not exist in the
+     * user pool.</p> <p>Valid values include:</p> <ul> <li> <p> <code>ENABLED</code> -
+     * This prevents user existence-related errors.</p> </li> <li> <p>
+     * <code>LEGACY</code> - This represents the old behavior of Cognito where user
+     * existence related errors are not prevented.</p> </li> </ul> <p>This setting
+     * affects the behavior of following APIs:</p> <ul> <li> <p>
+     * <a>AdminInitiateAuth</a> </p> </li> <li> <p> <a>AdminRespondToAuthChallenge</a>
+     * </p> </li> <li> <p> <a>InitiateAuth</a> </p> </li> <li> <p>
+     * <a>RespondToAuthChallenge</a> </p> </li> <li> <p> <a>ForgotPassword</a> </p>
+     * </li> <li> <p> <a>ConfirmForgotPassword</a> </p> </li> <li> <p>
+     * <a>ConfirmSignUp</a> </p> </li> <li> <p> <a>ResendConfirmationCode</a> </p>
+     * </li> </ul> <note> <p>After January 1st 2020, the value of
+     * <code>PreventUserExistenceErrors</code> will default to <code>ENABLED</code> for
+     * newly created user pool clients if no value is provided.</p> </note>
+     */
+    inline const PreventUserExistenceErrorTypes& GetPreventUserExistenceErrors() const{ return m_preventUserExistenceErrors; }
+
+    /**
+     * <p>Use this setting to choose which errors and responses are returned by Cognito
+     * APIs during authentication, account confirmation, and password recovery when the
+     * user does not exist in the user pool. When set to <code>ENABLED</code> and the
+     * user does not exist, authentication returns an error indicating either the
+     * username or password was incorrect, and account confirmation and password
+     * recovery return a response indicating a code was sent to a simulated
+     * destination. When set to <code>LEGACY</code>, those APIs will return a
+     * <code>UserNotFoundException</code> exception if the user does not exist in the
+     * user pool.</p> <p>Valid values include:</p> <ul> <li> <p> <code>ENABLED</code> -
+     * This prevents user existence-related errors.</p> </li> <li> <p>
+     * <code>LEGACY</code> - This represents the old behavior of Cognito where user
+     * existence related errors are not prevented.</p> </li> </ul> <p>This setting
+     * affects the behavior of following APIs:</p> <ul> <li> <p>
+     * <a>AdminInitiateAuth</a> </p> </li> <li> <p> <a>AdminRespondToAuthChallenge</a>
+     * </p> </li> <li> <p> <a>InitiateAuth</a> </p> </li> <li> <p>
+     * <a>RespondToAuthChallenge</a> </p> </li> <li> <p> <a>ForgotPassword</a> </p>
+     * </li> <li> <p> <a>ConfirmForgotPassword</a> </p> </li> <li> <p>
+     * <a>ConfirmSignUp</a> </p> </li> <li> <p> <a>ResendConfirmationCode</a> </p>
+     * </li> </ul> <note> <p>After January 1st 2020, the value of
+     * <code>PreventUserExistenceErrors</code> will default to <code>ENABLED</code> for
+     * newly created user pool clients if no value is provided.</p> </note>
+     */
+    inline bool PreventUserExistenceErrorsHasBeenSet() const { return m_preventUserExistenceErrorsHasBeenSet; }
+
+    /**
+     * <p>Use this setting to choose which errors and responses are returned by Cognito
+     * APIs during authentication, account confirmation, and password recovery when the
+     * user does not exist in the user pool. When set to <code>ENABLED</code> and the
+     * user does not exist, authentication returns an error indicating either the
+     * username or password was incorrect, and account confirmation and password
+     * recovery return a response indicating a code was sent to a simulated
+     * destination. When set to <code>LEGACY</code>, those APIs will return a
+     * <code>UserNotFoundException</code> exception if the user does not exist in the
+     * user pool.</p> <p>Valid values include:</p> <ul> <li> <p> <code>ENABLED</code> -
+     * This prevents user existence-related errors.</p> </li> <li> <p>
+     * <code>LEGACY</code> - This represents the old behavior of Cognito where user
+     * existence related errors are not prevented.</p> </li> </ul> <p>This setting
+     * affects the behavior of following APIs:</p> <ul> <li> <p>
+     * <a>AdminInitiateAuth</a> </p> </li> <li> <p> <a>AdminRespondToAuthChallenge</a>
+     * </p> </li> <li> <p> <a>InitiateAuth</a> </p> </li> <li> <p>
+     * <a>RespondToAuthChallenge</a> </p> </li> <li> <p> <a>ForgotPassword</a> </p>
+     * </li> <li> <p> <a>ConfirmForgotPassword</a> </p> </li> <li> <p>
+     * <a>ConfirmSignUp</a> </p> </li> <li> <p> <a>ResendConfirmationCode</a> </p>
+     * </li> </ul> <note> <p>After January 1st 2020, the value of
+     * <code>PreventUserExistenceErrors</code> will default to <code>ENABLED</code> for
+     * newly created user pool clients if no value is provided.</p> </note>
+     */
+    inline void SetPreventUserExistenceErrors(const PreventUserExistenceErrorTypes& value) { m_preventUserExistenceErrorsHasBeenSet = true; m_preventUserExistenceErrors = value; }
+
+    /**
+     * <p>Use this setting to choose which errors and responses are returned by Cognito
+     * APIs during authentication, account confirmation, and password recovery when the
+     * user does not exist in the user pool. When set to <code>ENABLED</code> and the
+     * user does not exist, authentication returns an error indicating either the
+     * username or password was incorrect, and account confirmation and password
+     * recovery return a response indicating a code was sent to a simulated
+     * destination. When set to <code>LEGACY</code>, those APIs will return a
+     * <code>UserNotFoundException</code> exception if the user does not exist in the
+     * user pool.</p> <p>Valid values include:</p> <ul> <li> <p> <code>ENABLED</code> -
+     * This prevents user existence-related errors.</p> </li> <li> <p>
+     * <code>LEGACY</code> - This represents the old behavior of Cognito where user
+     * existence related errors are not prevented.</p> </li> </ul> <p>This setting
+     * affects the behavior of following APIs:</p> <ul> <li> <p>
+     * <a>AdminInitiateAuth</a> </p> </li> <li> <p> <a>AdminRespondToAuthChallenge</a>
+     * </p> </li> <li> <p> <a>InitiateAuth</a> </p> </li> <li> <p>
+     * <a>RespondToAuthChallenge</a> </p> </li> <li> <p> <a>ForgotPassword</a> </p>
+     * </li> <li> <p> <a>ConfirmForgotPassword</a> </p> </li> <li> <p>
+     * <a>ConfirmSignUp</a> </p> </li> <li> <p> <a>ResendConfirmationCode</a> </p>
+     * </li> </ul> <note> <p>After January 1st 2020, the value of
+     * <code>PreventUserExistenceErrors</code> will default to <code>ENABLED</code> for
+     * newly created user pool clients if no value is provided.</p> </note>
+     */
+    inline void SetPreventUserExistenceErrors(PreventUserExistenceErrorTypes&& value) { m_preventUserExistenceErrorsHasBeenSet = true; m_preventUserExistenceErrors = std::move(value); }
+
+    /**
+     * <p>Use this setting to choose which errors and responses are returned by Cognito
+     * APIs during authentication, account confirmation, and password recovery when the
+     * user does not exist in the user pool. When set to <code>ENABLED</code> and the
+     * user does not exist, authentication returns an error indicating either the
+     * username or password was incorrect, and account confirmation and password
+     * recovery return a response indicating a code was sent to a simulated
+     * destination. When set to <code>LEGACY</code>, those APIs will return a
+     * <code>UserNotFoundException</code> exception if the user does not exist in the
+     * user pool.</p> <p>Valid values include:</p> <ul> <li> <p> <code>ENABLED</code> -
+     * This prevents user existence-related errors.</p> </li> <li> <p>
+     * <code>LEGACY</code> - This represents the old behavior of Cognito where user
+     * existence related errors are not prevented.</p> </li> </ul> <p>This setting
+     * affects the behavior of following APIs:</p> <ul> <li> <p>
+     * <a>AdminInitiateAuth</a> </p> </li> <li> <p> <a>AdminRespondToAuthChallenge</a>
+     * </p> </li> <li> <p> <a>InitiateAuth</a> </p> </li> <li> <p>
+     * <a>RespondToAuthChallenge</a> </p> </li> <li> <p> <a>ForgotPassword</a> </p>
+     * </li> <li> <p> <a>ConfirmForgotPassword</a> </p> </li> <li> <p>
+     * <a>ConfirmSignUp</a> </p> </li> <li> <p> <a>ResendConfirmationCode</a> </p>
+     * </li> </ul> <note> <p>After January 1st 2020, the value of
+     * <code>PreventUserExistenceErrors</code> will default to <code>ENABLED</code> for
+     * newly created user pool clients if no value is provided.</p> </note>
+     */
+    inline UpdateUserPoolClientRequest& WithPreventUserExistenceErrors(const PreventUserExistenceErrorTypes& value) { SetPreventUserExistenceErrors(value); return *this;}
+
+    /**
+     * <p>Use this setting to choose which errors and responses are returned by Cognito
+     * APIs during authentication, account confirmation, and password recovery when the
+     * user does not exist in the user pool. When set to <code>ENABLED</code> and the
+     * user does not exist, authentication returns an error indicating either the
+     * username or password was incorrect, and account confirmation and password
+     * recovery return a response indicating a code was sent to a simulated
+     * destination. When set to <code>LEGACY</code>, those APIs will return a
+     * <code>UserNotFoundException</code> exception if the user does not exist in the
+     * user pool.</p> <p>Valid values include:</p> <ul> <li> <p> <code>ENABLED</code> -
+     * This prevents user existence-related errors.</p> </li> <li> <p>
+     * <code>LEGACY</code> - This represents the old behavior of Cognito where user
+     * existence related errors are not prevented.</p> </li> </ul> <p>This setting
+     * affects the behavior of following APIs:</p> <ul> <li> <p>
+     * <a>AdminInitiateAuth</a> </p> </li> <li> <p> <a>AdminRespondToAuthChallenge</a>
+     * </p> </li> <li> <p> <a>InitiateAuth</a> </p> </li> <li> <p>
+     * <a>RespondToAuthChallenge</a> </p> </li> <li> <p> <a>ForgotPassword</a> </p>
+     * </li> <li> <p> <a>ConfirmForgotPassword</a> </p> </li> <li> <p>
+     * <a>ConfirmSignUp</a> </p> </li> <li> <p> <a>ResendConfirmationCode</a> </p>
+     * </li> </ul> <note> <p>After January 1st 2020, the value of
+     * <code>PreventUserExistenceErrors</code> will default to <code>ENABLED</code> for
+     * newly created user pool clients if no value is provided.</p> </note>
+     */
+    inline UpdateUserPoolClientRequest& WithPreventUserExistenceErrors(PreventUserExistenceErrorTypes&& value) { SetPreventUserExistenceErrors(std::move(value)); return *this;}
 
   private:
 
@@ -777,6 +1165,9 @@ namespace Model
 
     AnalyticsConfigurationType m_analyticsConfiguration;
     bool m_analyticsConfigurationHasBeenSet;
+
+    PreventUserExistenceErrorTypes m_preventUserExistenceErrors;
+    bool m_preventUserExistenceErrorsHasBeenSet;
   };
 
 } // namespace Model

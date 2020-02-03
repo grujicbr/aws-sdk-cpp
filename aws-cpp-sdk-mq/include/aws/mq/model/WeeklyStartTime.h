@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MQ
@@ -43,38 +44,38 @@ namespace Model
   {
   public:
     WeeklyStartTime();
-    WeeklyStartTime(const Aws::Utils::Json::JsonValue& jsonValue);
-    WeeklyStartTime& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WeeklyStartTime(Aws::Utils::Json::JsonView jsonValue);
+    WeeklyStartTime& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * Required. The day of the week. Possible values: MONDAY, TUESDAY, WEDNESDAY,
-     * THURSDAY, FRIDAY, SATURDAY, SUNDAY
+     * Required. The day of the week.
      */
     inline const DayOfWeek& GetDayOfWeek() const{ return m_dayOfWeek; }
 
     /**
-     * Required. The day of the week. Possible values: MONDAY, TUESDAY, WEDNESDAY,
-     * THURSDAY, FRIDAY, SATURDAY, SUNDAY
+     * Required. The day of the week.
+     */
+    inline bool DayOfWeekHasBeenSet() const { return m_dayOfWeekHasBeenSet; }
+
+    /**
+     * Required. The day of the week.
      */
     inline void SetDayOfWeek(const DayOfWeek& value) { m_dayOfWeekHasBeenSet = true; m_dayOfWeek = value; }
 
     /**
-     * Required. The day of the week. Possible values: MONDAY, TUESDAY, WEDNESDAY,
-     * THURSDAY, FRIDAY, SATURDAY, SUNDAY
+     * Required. The day of the week.
      */
     inline void SetDayOfWeek(DayOfWeek&& value) { m_dayOfWeekHasBeenSet = true; m_dayOfWeek = std::move(value); }
 
     /**
-     * Required. The day of the week. Possible values: MONDAY, TUESDAY, WEDNESDAY,
-     * THURSDAY, FRIDAY, SATURDAY, SUNDAY
+     * Required. The day of the week.
      */
     inline WeeklyStartTime& WithDayOfWeek(const DayOfWeek& value) { SetDayOfWeek(value); return *this;}
 
     /**
-     * Required. The day of the week. Possible values: MONDAY, TUESDAY, WEDNESDAY,
-     * THURSDAY, FRIDAY, SATURDAY, SUNDAY
+     * Required. The day of the week.
      */
     inline WeeklyStartTime& WithDayOfWeek(DayOfWeek&& value) { SetDayOfWeek(std::move(value)); return *this;}
 
@@ -83,6 +84,11 @@ namespace Model
      * Required. The time, in 24-hour format.
      */
     inline const Aws::String& GetTimeOfDay() const{ return m_timeOfDay; }
+
+    /**
+     * Required. The time, in 24-hour format.
+     */
+    inline bool TimeOfDayHasBeenSet() const { return m_timeOfDayHasBeenSet; }
 
     /**
      * Required. The time, in 24-hour format.
@@ -120,6 +126,12 @@ namespace Model
      * offset format.
      */
     inline const Aws::String& GetTimeZone() const{ return m_timeZone; }
+
+    /**
+     * The time zone, UTC by default, in either the Country/City format, or the UTC
+     * offset format.
+     */
+    inline bool TimeZoneHasBeenSet() const { return m_timeZoneHasBeenSet; }
 
     /**
      * The time zone, UTC by default, in either the Country/City format, or the UTC

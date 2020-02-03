@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -36,7 +37,7 @@ namespace Model
 
   /**
    * <p>Provides information about a celebrity recognized by the
-   * operation.</p><p><h3>See Also:</h3>   <a
+   * <a>RecognizeCelebrities</a> operation.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/Celebrity">AWS
    * API Reference</a></p>
    */
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Celebrity();
-    Celebrity(const Aws::Utils::Json::JsonValue& jsonValue);
-    Celebrity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Celebrity(Aws::Utils::Json::JsonView jsonValue);
+    Celebrity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * there is no additional information about the celebrity, this list is empty.</p>
      */
     inline const Aws::Vector<Aws::String>& GetUrls() const{ return m_urls; }
+
+    /**
+     * <p>An array of URLs pointing to additional information about the celebrity. If
+     * there is no additional information about the celebrity, this list is empty.</p>
+     */
+    inline bool UrlsHasBeenSet() const { return m_urlsHasBeenSet; }
 
     /**
      * <p>An array of URLs pointing to additional information about the celebrity. If
@@ -106,6 +113,11 @@ namespace Model
     /**
      * <p>The name of the celebrity.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the celebrity.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -138,6 +150,11 @@ namespace Model
      * <p>A unique identifier for the celebrity. </p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>A unique identifier for the celebrity. </p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>A unique identifier for the celebrity. </p>
@@ -180,6 +197,12 @@ namespace Model
      * <p>Provides information about the celebrity's face, such as its location on the
      * image.</p>
      */
+    inline bool FaceHasBeenSet() const { return m_faceHasBeenSet; }
+
+    /**
+     * <p>Provides information about the celebrity's face, such as its location on the
+     * image.</p>
+     */
     inline void SetFace(const ComparedFace& value) { m_faceHasBeenSet = true; m_face = value; }
 
     /**
@@ -202,20 +225,26 @@ namespace Model
 
 
     /**
-     * <p>The confidence, in percentage, that Rekognition has that the recognized face
-     * is the celebrity.</p>
+     * <p>The confidence, in percentage, that Amazon Rekognition has that the
+     * recognized face is the celebrity.</p>
      */
     inline double GetMatchConfidence() const{ return m_matchConfidence; }
 
     /**
-     * <p>The confidence, in percentage, that Rekognition has that the recognized face
-     * is the celebrity.</p>
+     * <p>The confidence, in percentage, that Amazon Rekognition has that the
+     * recognized face is the celebrity.</p>
+     */
+    inline bool MatchConfidenceHasBeenSet() const { return m_matchConfidenceHasBeenSet; }
+
+    /**
+     * <p>The confidence, in percentage, that Amazon Rekognition has that the
+     * recognized face is the celebrity.</p>
      */
     inline void SetMatchConfidence(double value) { m_matchConfidenceHasBeenSet = true; m_matchConfidence = value; }
 
     /**
-     * <p>The confidence, in percentage, that Rekognition has that the recognized face
-     * is the celebrity.</p>
+     * <p>The confidence, in percentage, that Amazon Rekognition has that the
+     * recognized face is the celebrity.</p>
      */
     inline Celebrity& WithMatchConfidence(double value) { SetMatchConfidence(value); return *this;}
 

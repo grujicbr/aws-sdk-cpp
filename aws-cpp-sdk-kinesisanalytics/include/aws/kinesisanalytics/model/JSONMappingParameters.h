@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     JSONMappingParameters();
-    JSONMappingParameters(const Aws::Utils::Json::JsonValue& jsonValue);
-    JSONMappingParameters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JSONMappingParameters(Aws::Utils::Json::JsonView jsonValue);
+    JSONMappingParameters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Path to the top-level parent that contains the records.</p>
      */
     inline const Aws::String& GetRecordRowPath() const{ return m_recordRowPath; }
+
+    /**
+     * <p>Path to the top-level parent that contains the records.</p>
+     */
+    inline bool RecordRowPathHasBeenSet() const { return m_recordRowPathHasBeenSet; }
 
     /**
      * <p>Path to the top-level parent that contains the records.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     PatchSource();
-    PatchSource(const Aws::Utils::Json::JsonValue& jsonValue);
-    PatchSource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PatchSource(Aws::Utils::Json::JsonView jsonValue);
+    PatchSource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name specified to identify the patch source.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name specified to identify the patch source.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name specified to identify the patch source.</p>
@@ -91,6 +97,13 @@ namespace Model
      * For lists of supported product values, see <a>PatchFilter</a>.</p>
      */
     inline const Aws::Vector<Aws::String>& GetProducts() const{ return m_products; }
+
+    /**
+     * <p>The specific operating system versions a patch repository applies to, such as
+     * "Ubuntu16.04", "AmazonLinux2016.09", "RedhatEnterpriseLinux7.2" or "Suse12.7".
+     * For lists of supported product values, see <a>PatchFilter</a>.</p>
+     */
+    inline bool ProductsHasBeenSet() const { return m_productsHasBeenSet; }
 
     /**
      * <p>The specific operating system versions a patch repository applies to, such as
@@ -144,57 +157,65 @@ namespace Model
 
     /**
      * <p>The value of the yum repo configuration. For example:</p> <p>
-     * <code>cachedir=/var/cache/yum/$basesearch</code> </p> <p>
-     * <code>$releasever</code> </p> <p> <code>keepcache=0</code> </p> <p>
-     * <code>debuglevel=2</code> </p>
+     * <code>[main]</code> </p> <p>
+     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code> </p> <p>
+     * <code>keepcache=0</code> </p> <p> <code>debuglevel=2</code> </p>
      */
     inline const Aws::String& GetConfiguration() const{ return m_configuration; }
 
     /**
      * <p>The value of the yum repo configuration. For example:</p> <p>
-     * <code>cachedir=/var/cache/yum/$basesearch</code> </p> <p>
-     * <code>$releasever</code> </p> <p> <code>keepcache=0</code> </p> <p>
-     * <code>debuglevel=2</code> </p>
+     * <code>[main]</code> </p> <p>
+     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code> </p> <p>
+     * <code>keepcache=0</code> </p> <p> <code>debuglevel=2</code> </p>
+     */
+    inline bool ConfigurationHasBeenSet() const { return m_configurationHasBeenSet; }
+
+    /**
+     * <p>The value of the yum repo configuration. For example:</p> <p>
+     * <code>[main]</code> </p> <p>
+     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code> </p> <p>
+     * <code>keepcache=0</code> </p> <p> <code>debuglevel=2</code> </p>
      */
     inline void SetConfiguration(const Aws::String& value) { m_configurationHasBeenSet = true; m_configuration = value; }
 
     /**
      * <p>The value of the yum repo configuration. For example:</p> <p>
-     * <code>cachedir=/var/cache/yum/$basesearch</code> </p> <p>
-     * <code>$releasever</code> </p> <p> <code>keepcache=0</code> </p> <p>
-     * <code>debuglevel=2</code> </p>
+     * <code>[main]</code> </p> <p>
+     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code> </p> <p>
+     * <code>keepcache=0</code> </p> <p> <code>debuglevel=2</code> </p>
      */
     inline void SetConfiguration(Aws::String&& value) { m_configurationHasBeenSet = true; m_configuration = std::move(value); }
 
     /**
      * <p>The value of the yum repo configuration. For example:</p> <p>
-     * <code>cachedir=/var/cache/yum/$basesearch</code> </p> <p>
-     * <code>$releasever</code> </p> <p> <code>keepcache=0</code> </p> <p>
-     * <code>debuglevel=2</code> </p>
+     * <code>[main]</code> </p> <p>
+     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code> </p> <p>
+     * <code>keepcache=0</code> </p> <p> <code>debuglevel=2</code> </p>
      */
     inline void SetConfiguration(const char* value) { m_configurationHasBeenSet = true; m_configuration.assign(value); }
 
     /**
      * <p>The value of the yum repo configuration. For example:</p> <p>
-     * <code>cachedir=/var/cache/yum/$basesearch</code> </p> <p>
-     * <code>$releasever</code> </p> <p> <code>keepcache=0</code> </p> <p>
-     * <code>debuglevel=2</code> </p>
+     * <code>[main]</code> </p> <p>
+     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code> </p> <p>
+     * <code>keepcache=0</code> </p> <p> <code>debuglevel=2</code> </p>
      */
     inline PatchSource& WithConfiguration(const Aws::String& value) { SetConfiguration(value); return *this;}
 
     /**
      * <p>The value of the yum repo configuration. For example:</p> <p>
-     * <code>cachedir=/var/cache/yum/$basesearch</code> </p> <p>
-     * <code>$releasever</code> </p> <p> <code>keepcache=0</code> </p> <p>
-     * <code>debuglevel=2</code> </p>
+     * <code>[main]</code> </p> <p>
+     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code> </p> <p>
+     * <code>keepcache=0</code> </p> <p> <code>debuglevel=2</code> </p>
      */
     inline PatchSource& WithConfiguration(Aws::String&& value) { SetConfiguration(std::move(value)); return *this;}
 
     /**
      * <p>The value of the yum repo configuration. For example:</p> <p>
-     * <code>cachedir=/var/cache/yum/$basesearch</code> </p> <p>
-     * <code>$releasever</code> </p> <p> <code>keepcache=0</code> </p> <p>
-     * <code>debuglevel=2</code> </p>
+     * <code>[main]</code> </p> <p>
+     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code> </p> <p>
+     * <code>keepcache=0</code> </p> <p> <code>debuglevel=2</code> </p>
      */
     inline PatchSource& WithConfiguration(const char* value) { SetConfiguration(value); return *this;}
 

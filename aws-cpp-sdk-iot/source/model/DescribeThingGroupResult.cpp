@@ -27,19 +27,21 @@ using namespace Aws::Utils;
 using namespace Aws;
 
 DescribeThingGroupResult::DescribeThingGroupResult() : 
-    m_version(0)
+    m_version(0),
+    m_status(DynamicGroupStatus::NOT_SET)
 {
 }
 
 DescribeThingGroupResult::DescribeThingGroupResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
-    m_version(0)
+    m_version(0),
+    m_status(DynamicGroupStatus::NOT_SET)
 {
   *this = result;
 }
 
 DescribeThingGroupResult& DescribeThingGroupResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("thingGroupName"))
   {
     m_thingGroupName = jsonValue.GetString("thingGroupName");
@@ -73,6 +75,30 @@ DescribeThingGroupResult& DescribeThingGroupResult::operator =(const Aws::Amazon
   if(jsonValue.ValueExists("thingGroupMetadata"))
   {
     m_thingGroupMetadata = jsonValue.GetObject("thingGroupMetadata");
+
+  }
+
+  if(jsonValue.ValueExists("indexName"))
+  {
+    m_indexName = jsonValue.GetString("indexName");
+
+  }
+
+  if(jsonValue.ValueExists("queryString"))
+  {
+    m_queryString = jsonValue.GetString("queryString");
+
+  }
+
+  if(jsonValue.ValueExists("queryVersion"))
+  {
+    m_queryVersion = jsonValue.GetString("queryVersion");
+
+  }
+
+  if(jsonValue.ValueExists("status"))
+  {
+    m_status = DynamicGroupStatusMapper::GetDynamicGroupStatusForName(jsonValue.GetString("status"));
 
   }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     EffectivePatch();
-    EffectivePatch(const Aws::Utils::Json::JsonValue& jsonValue);
-    EffectivePatch& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EffectivePatch(Aws::Utils::Json::JsonView jsonValue);
+    EffectivePatch& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,13 @@ namespace Model
      * about the patch.</p>
      */
     inline const Patch& GetPatch() const{ return m_patch; }
+
+    /**
+     * <p>Provides metadata for a patch, including information such as the KB ID,
+     * severity, classification and a URL for where more information can be obtained
+     * about the patch.</p>
+     */
+    inline bool PatchHasBeenSet() const { return m_patchHasBeenSet; }
 
     /**
      * <p>Provides metadata for a patch, including information such as the KB ID,
@@ -94,6 +102,14 @@ namespace Model
      * be approved.</p>
      */
     inline const PatchStatus& GetPatchStatus() const{ return m_patchStatus; }
+
+    /**
+     * <p>The status of the patch in a patch baseline. This includes information about
+     * whether the patch is currently approved, due to be approved by a rule,
+     * explicitly approved, or explicitly rejected and the date the patch was or will
+     * be approved.</p>
+     */
+    inline bool PatchStatusHasBeenSet() const { return m_patchStatusHasBeenSet; }
 
     /**
      * <p>The status of the patch in a patch baseline. This includes information about

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ProcessingConfiguration();
-    ProcessingConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProcessingConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProcessingConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    ProcessingConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Enables or disables data processing.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Enables or disables data processing.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Enables or disables data processing.</p>
@@ -67,6 +73,11 @@ namespace Model
      * <p>The data processors.</p>
      */
     inline const Aws::Vector<Processor>& GetProcessors() const{ return m_processors; }
+
+    /**
+     * <p>The data processors.</p>
+     */
+    inline bool ProcessorsHasBeenSet() const { return m_processorsHasBeenSet; }
 
     /**
      * <p>The data processors.</p>

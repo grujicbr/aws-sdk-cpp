@@ -31,6 +31,7 @@ namespace Model
 CampaignResponse::CampaignResponse() : 
     m_additionalTreatmentsHasBeenSet(false),
     m_applicationIdHasBeenSet(false),
+    m_arnHasBeenSet(false),
     m_creationDateHasBeenSet(false),
     m_defaultStateHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -49,6 +50,8 @@ CampaignResponse::CampaignResponse() :
     m_segmentVersion(0),
     m_segmentVersionHasBeenSet(false),
     m_stateHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_templateConfigurationHasBeenSet(false),
     m_treatmentDescriptionHasBeenSet(false),
     m_treatmentNameHasBeenSet(false),
     m_version(0),
@@ -56,9 +59,10 @@ CampaignResponse::CampaignResponse() :
 {
 }
 
-CampaignResponse::CampaignResponse(const JsonValue& jsonValue) : 
+CampaignResponse::CampaignResponse(JsonView jsonValue) : 
     m_additionalTreatmentsHasBeenSet(false),
     m_applicationIdHasBeenSet(false),
+    m_arnHasBeenSet(false),
     m_creationDateHasBeenSet(false),
     m_defaultStateHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -77,6 +81,8 @@ CampaignResponse::CampaignResponse(const JsonValue& jsonValue) :
     m_segmentVersion(0),
     m_segmentVersionHasBeenSet(false),
     m_stateHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_templateConfigurationHasBeenSet(false),
     m_treatmentDescriptionHasBeenSet(false),
     m_treatmentNameHasBeenSet(false),
     m_version(0),
@@ -85,11 +91,11 @@ CampaignResponse::CampaignResponse(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-CampaignResponse& CampaignResponse::operator =(const JsonValue& jsonValue)
+CampaignResponse& CampaignResponse::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("AdditionalTreatments"))
   {
-    Array<JsonValue> additionalTreatmentsJsonList = jsonValue.GetArray("AdditionalTreatments");
+    Array<JsonView> additionalTreatmentsJsonList = jsonValue.GetArray("AdditionalTreatments");
     for(unsigned additionalTreatmentsIndex = 0; additionalTreatmentsIndex < additionalTreatmentsJsonList.GetLength(); ++additionalTreatmentsIndex)
     {
       m_additionalTreatments.push_back(additionalTreatmentsJsonList[additionalTreatmentsIndex].AsObject());
@@ -102,6 +108,13 @@ CampaignResponse& CampaignResponse::operator =(const JsonValue& jsonValue)
     m_applicationId = jsonValue.GetString("ApplicationId");
 
     m_applicationIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Arn"))
+  {
+    m_arn = jsonValue.GetString("Arn");
+
+    m_arnHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("CreationDate"))
@@ -209,6 +222,23 @@ CampaignResponse& CampaignResponse::operator =(const JsonValue& jsonValue)
     m_stateHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("TemplateConfiguration"))
+  {
+    m_templateConfiguration = jsonValue.GetObject("TemplateConfiguration");
+
+    m_templateConfigurationHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("TreatmentDescription"))
   {
     m_treatmentDescription = jsonValue.GetString("TreatmentDescription");
@@ -251,6 +281,12 @@ JsonValue CampaignResponse::Jsonize() const
   if(m_applicationIdHasBeenSet)
   {
    payload.WithString("ApplicationId", m_applicationId);
+
+  }
+
+  if(m_arnHasBeenSet)
+  {
+   payload.WithString("Arn", m_arn);
 
   }
 
@@ -341,6 +377,23 @@ JsonValue CampaignResponse::Jsonize() const
   if(m_stateHasBeenSet)
   {
    payload.WithObject("State", m_state.Jsonize());
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
+  }
+
+  if(m_templateConfigurationHasBeenSet)
+  {
+   payload.WithObject("TemplateConfiguration", m_templateConfiguration.Jsonize());
 
   }
 

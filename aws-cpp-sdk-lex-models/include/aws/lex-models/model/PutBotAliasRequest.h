@@ -17,6 +17,7 @@
 #include <aws/lex-models/LexModelBuildingService_EXPORTS.h>
 #include <aws/lex-models/LexModelBuildingServiceRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/lex-models/model/ConversationLogsRequest.h>
 #include <utility>
 
 namespace Aws
@@ -32,7 +33,7 @@ namespace Model
   {
   public:
     PutBotAliasRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,6 +47,11 @@ namespace Model
      * <p>The name of the alias. The name is <i>not</i> case sensitive.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the alias. The name is <i>not</i> case sensitive.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the alias. The name is <i>not</i> case sensitive.</p>
@@ -86,6 +92,11 @@ namespace Model
     /**
      * <p>A description of the alias.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A description of the alias.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
     /**
      * <p>The version of the bot.</p>
      */
+    inline bool BotVersionHasBeenSet() const { return m_botVersionHasBeenSet; }
+
+    /**
+     * <p>The version of the bot.</p>
+     */
     inline void SetBotVersion(const Aws::String& value) { m_botVersionHasBeenSet = true; m_botVersion = value; }
 
     /**
@@ -154,6 +170,11 @@ namespace Model
      * <p>The name of the bot.</p>
      */
     inline const Aws::String& GetBotName() const{ return m_botName; }
+
+    /**
+     * <p>The name of the bot.</p>
+     */
+    inline bool BotNameHasBeenSet() const { return m_botNameHasBeenSet; }
 
     /**
      * <p>The name of the bot.</p>
@@ -197,6 +218,18 @@ namespace Model
      * get a <code>PreconditionFailedException</code> exception.</p>
      */
     inline const Aws::String& GetChecksum() const{ return m_checksum; }
+
+    /**
+     * <p>Identifies a specific revision of the <code>$LATEST</code> version.</p>
+     * <p>When you create a new bot alias, leave the <code>checksum</code> field blank.
+     * If you specify a checksum you get a <code>BadRequestException</code>
+     * exception.</p> <p>When you want to update a bot alias, set the
+     * <code>checksum</code> field to the checksum of the most recent revision of the
+     * <code>$LATEST</code> version. If you don't specify the <code> checksum</code>
+     * field, or if the checksum does not match the <code>$LATEST</code> version, you
+     * get a <code>PreconditionFailedException</code> exception.</p>
+     */
+    inline bool ChecksumHasBeenSet() const { return m_checksumHasBeenSet; }
 
     /**
      * <p>Identifies a specific revision of the <code>$LATEST</code> version.</p>
@@ -270,6 +303,37 @@ namespace Model
      */
     inline PutBotAliasRequest& WithChecksum(const char* value) { SetChecksum(value); return *this;}
 
+
+    /**
+     * <p>Settings for conversation logs for the alias.</p>
+     */
+    inline const ConversationLogsRequest& GetConversationLogs() const{ return m_conversationLogs; }
+
+    /**
+     * <p>Settings for conversation logs for the alias.</p>
+     */
+    inline bool ConversationLogsHasBeenSet() const { return m_conversationLogsHasBeenSet; }
+
+    /**
+     * <p>Settings for conversation logs for the alias.</p>
+     */
+    inline void SetConversationLogs(const ConversationLogsRequest& value) { m_conversationLogsHasBeenSet = true; m_conversationLogs = value; }
+
+    /**
+     * <p>Settings for conversation logs for the alias.</p>
+     */
+    inline void SetConversationLogs(ConversationLogsRequest&& value) { m_conversationLogsHasBeenSet = true; m_conversationLogs = std::move(value); }
+
+    /**
+     * <p>Settings for conversation logs for the alias.</p>
+     */
+    inline PutBotAliasRequest& WithConversationLogs(const ConversationLogsRequest& value) { SetConversationLogs(value); return *this;}
+
+    /**
+     * <p>Settings for conversation logs for the alias.</p>
+     */
+    inline PutBotAliasRequest& WithConversationLogs(ConversationLogsRequest&& value) { SetConversationLogs(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_name;
@@ -286,6 +350,9 @@ namespace Model
 
     Aws::String m_checksum;
     bool m_checksumHasBeenSet;
+
+    ConversationLogsRequest m_conversationLogs;
+    bool m_conversationLogsHasBeenSet;
   };
 
 } // namespace Model

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     RecordTag();
-    RecordTag(const Aws::Utils::Json::JsonValue& jsonValue);
-    RecordTag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RecordTag(Aws::Utils::Json::JsonView jsonValue);
+    RecordTag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The key for this tag.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The key for this tag.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The key for this tag.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The value for this tag.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value for this tag.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value for this tag.</p>

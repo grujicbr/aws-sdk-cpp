@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     LambdaResource();
-    LambdaResource(const Aws::Utils::Json::JsonValue& jsonValue);
-    LambdaResource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LambdaResource(Aws::Utils::Json::JsonView jsonValue);
+    LambdaResource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * triggered by PUT object actions on the associated local Amazon S3 resource.</p>
      */
     inline const Aws::String& GetLambdaArn() const{ return m_lambdaArn; }
+
+    /**
+     * <p>An Amazon Resource Name (ARN) that represents an AWS Lambda function to be
+     * triggered by PUT object actions on the associated local Amazon S3 resource.</p>
+     */
+    inline bool LambdaArnHasBeenSet() const { return m_lambdaArnHasBeenSet; }
 
     /**
      * <p>An Amazon Resource Name (ARN) that represents an AWS Lambda function to be
@@ -96,6 +103,12 @@ namespace Model
      * <a>LambdaResource</a> objects associated with this job.</p>
      */
     inline const Aws::Vector<EventTriggerDefinition>& GetEventTriggers() const{ return m_eventTriggers; }
+
+    /**
+     * <p>The array of ARNs for <a>S3Resource</a> objects to trigger the
+     * <a>LambdaResource</a> objects associated with this job.</p>
+     */
+    inline bool EventTriggersHasBeenSet() const { return m_eventTriggersHasBeenSet; }
 
     /**
      * <p>The array of ARNs for <a>S3Resource</a> objects to trigger the

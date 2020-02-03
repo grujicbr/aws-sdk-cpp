@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 DetectModerationLabelsRequest::DetectModerationLabelsRequest() : 
     m_imageHasBeenSet(false),
     m_minConfidence(0.0),
-    m_minConfidenceHasBeenSet(false)
+    m_minConfidenceHasBeenSet(false),
+    m_humanLoopConfigHasBeenSet(false)
 {
 }
 
@@ -45,7 +46,13 @@ Aws::String DetectModerationLabelsRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_humanLoopConfigHasBeenSet)
+  {
+   payload.WithObject("HumanLoopConfig", m_humanLoopConfig.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DetectModerationLabelsRequest::GetRequestSpecificHeaders() const

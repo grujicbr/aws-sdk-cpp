@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CloudWatchLogsConfiguration();
-    CloudWatchLogsConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    CloudWatchLogsConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CloudWatchLogsConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    CloudWatchLogsConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Whether CloudWatch Logs is enabled for a layer.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Whether CloudWatch Logs is enabled for a layer.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Whether CloudWatch Logs is enabled for a layer.</p>
@@ -68,6 +74,11 @@ namespace Model
      * <p>A list of configuration options for CloudWatch Logs.</p>
      */
     inline const Aws::Vector<CloudWatchLogsLogStream>& GetLogStreams() const{ return m_logStreams; }
+
+    /**
+     * <p>A list of configuration options for CloudWatch Logs.</p>
+     */
+    inline bool LogStreamsHasBeenSet() const { return m_logStreamsHasBeenSet; }
 
     /**
      * <p>A list of configuration options for CloudWatch Logs.</p>

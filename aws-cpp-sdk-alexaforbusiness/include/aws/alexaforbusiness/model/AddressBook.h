@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     AddressBook();
-    AddressBook(const Aws::Utils::Json::JsonValue& jsonValue);
-    AddressBook& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AddressBook(Aws::Utils::Json::JsonView jsonValue);
+    AddressBook& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ARN of the address book.</p>
      */
     inline const Aws::String& GetAddressBookArn() const{ return m_addressBookArn; }
+
+    /**
+     * <p>The ARN of the address book.</p>
+     */
+    inline bool AddressBookArnHasBeenSet() const { return m_addressBookArnHasBeenSet; }
 
     /**
      * <p>The ARN of the address book.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The name of the address book.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the address book.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The description of the address book.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the address book.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the address book.</p>

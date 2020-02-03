@@ -19,6 +19,7 @@
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/apigateway/model/ThrottleSettings.h>
 #include <aws/apigateway/model/QuotaSettings.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <aws/apigateway/model/ApiStage.h>
 #include <utility>
 
@@ -29,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -42,7 +44,7 @@ namespace Model
    * usage plan, you associate an API by specifying the API's Id and a stage name of
    * the specified API. You add plan customers by adding API keys to the plan. </p>
    * </div> <div class="seeAlso"> <a
-   * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html">Create
+   * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html">Create
    * and Use Usage Plans</a> </div><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/UsagePlan">AWS
    * API Reference</a></p>
@@ -51,8 +53,8 @@ namespace Model
   {
   public:
     UsagePlan();
-    UsagePlan(const Aws::Utils::Json::JsonValue& jsonValue);
-    UsagePlan& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UsagePlan(Aws::Utils::Json::JsonView jsonValue);
+    UsagePlan& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +62,11 @@ namespace Model
      * <p>The identifier of a <a>UsagePlan</a> resource.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The identifier of a <a>UsagePlan</a> resource.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The identifier of a <a>UsagePlan</a> resource.</p>
@@ -100,6 +107,11 @@ namespace Model
     /**
      * <p>The name of a usage plan.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of a usage plan.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -132,6 +144,11 @@ namespace Model
      * <p>The description of a usage plan.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of a usage plan.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of a usage plan.</p>
@@ -172,6 +189,11 @@ namespace Model
     /**
      * <p>The associated API stages of a usage plan.</p>
      */
+    inline bool ApiStagesHasBeenSet() const { return m_apiStagesHasBeenSet; }
+
+    /**
+     * <p>The associated API stages of a usage plan.</p>
+     */
     inline void SetApiStages(const Aws::Vector<ApiStage>& value) { m_apiStagesHasBeenSet = true; m_apiStages = value; }
 
     /**
@@ -208,6 +230,11 @@ namespace Model
     /**
      * <p>The request throttle limits of a usage plan.</p>
      */
+    inline bool ThrottleHasBeenSet() const { return m_throttleHasBeenSet; }
+
+    /**
+     * <p>The request throttle limits of a usage plan.</p>
+     */
     inline void SetThrottle(const ThrottleSettings& value) { m_throttleHasBeenSet = true; m_throttle = value; }
 
     /**
@@ -230,6 +257,11 @@ namespace Model
      * <p>The maximum number of permitted requests per a given unit time interval.</p>
      */
     inline const QuotaSettings& GetQuota() const{ return m_quota; }
+
+    /**
+     * <p>The maximum number of permitted requests per a given unit time interval.</p>
+     */
+    inline bool QuotaHasBeenSet() const { return m_quotaHasBeenSet; }
 
     /**
      * <p>The maximum number of permitted requests per a given unit time interval.</p>
@@ -257,6 +289,12 @@ namespace Model
      * SaaS product on AWS Marketplace.</p>
      */
     inline const Aws::String& GetProductCode() const{ return m_productCode; }
+
+    /**
+     * <p>The AWS Markeplace product identifier to associate with the usage plan as a
+     * SaaS product on AWS Marketplace.</p>
+     */
+    inline bool ProductCodeHasBeenSet() const { return m_productCodeHasBeenSet; }
 
     /**
      * <p>The AWS Markeplace product identifier to associate with the usage plan as a
@@ -294,6 +332,85 @@ namespace Model
      */
     inline UsagePlan& WithProductCode(const char* value) { SetProductCode(value); return *this;}
 
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline UsagePlan& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
   private:
 
     Aws::String m_id;
@@ -316,6 +433,9 @@ namespace Model
 
     Aws::String m_productCode;
     bool m_productCodeHasBeenSet;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

@@ -28,25 +28,40 @@ namespace EKS
 namespace EKSErrorMapper
 {
 
+static const int CLIENT_HASH = HashingUtils::HashString("ClientException");
+static const int NOT_FOUND_HASH = HashingUtils::HashString("NotFoundException");
 static const int INVALID_PARAMETER_HASH = HashingUtils::HashString("InvalidParameterException");
 static const int RESOURCE_LIMIT_EXCEEDED_HASH = HashingUtils::HashString("ResourceLimitExceededException");
+static const int UNSUPPORTED_AVAILABILITY_ZONE_HASH = HashingUtils::HashString("UnsupportedAvailabilityZoneException");
 static const int SERVER_HASH = HashingUtils::HashString("ServerException");
 static const int RESOURCE_IN_USE_HASH = HashingUtils::HashString("ResourceInUseException");
-static const int UNSUPPORTED_AVAILABILITY_ZONE_HASH = HashingUtils::HashString("UnsupportedAvailabilityZoneException");
-static const int CLIENT_HASH = HashingUtils::HashString("ClientException");
+static const int BAD_REQUEST_HASH = HashingUtils::HashString("BadRequestException");
+static const int INVALID_REQUEST_HASH = HashingUtils::HashString("InvalidRequestException");
 
 
 AWSError<CoreErrors> GetErrorForName(const char* errorName)
 {
   int hashCode = HashingUtils::HashString(errorName);
 
-  if (hashCode == INVALID_PARAMETER_HASH)
+  if (hashCode == CLIENT_HASH)
+  {
+    return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::CLIENT), false);
+  }
+  else if (hashCode == NOT_FOUND_HASH)
+  {
+    return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::NOT_FOUND), false);
+  }
+  else if (hashCode == INVALID_PARAMETER_HASH)
   {
     return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::INVALID_PARAMETER), false);
   }
   else if (hashCode == RESOURCE_LIMIT_EXCEEDED_HASH)
   {
     return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::RESOURCE_LIMIT_EXCEEDED), false);
+  }
+  else if (hashCode == UNSUPPORTED_AVAILABILITY_ZONE_HASH)
+  {
+    return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::UNSUPPORTED_AVAILABILITY_ZONE), false);
   }
   else if (hashCode == SERVER_HASH)
   {
@@ -56,13 +71,13 @@ AWSError<CoreErrors> GetErrorForName(const char* errorName)
   {
     return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::RESOURCE_IN_USE), false);
   }
-  else if (hashCode == UNSUPPORTED_AVAILABILITY_ZONE_HASH)
+  else if (hashCode == BAD_REQUEST_HASH)
   {
-    return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::UNSUPPORTED_AVAILABILITY_ZONE), false);
+    return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::BAD_REQUEST), false);
   }
-  else if (hashCode == CLIENT_HASH)
+  else if (hashCode == INVALID_REQUEST_HASH)
   {
-    return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::CLIENT), false);
+    return AWSError<CoreErrors>(static_cast<CoreErrors>(EKSErrors::INVALID_REQUEST), false);
   }
   return AWSError<CoreErrors>(CoreErrors::UNKNOWN, false);
 }

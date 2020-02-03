@@ -52,13 +52,13 @@ SourceSecurityGroup& SourceSecurityGroup::operator =(const XmlNode& xmlNode)
     XmlNode ownerAliasNode = resultNode.FirstChild("OwnerAlias");
     if(!ownerAliasNode.IsNull())
     {
-      m_ownerAlias = StringUtils::Trim(ownerAliasNode.GetText().c_str());
+      m_ownerAlias = Aws::Utils::Xml::DecodeEscapedXmlText(ownerAliasNode.GetText());
       m_ownerAliasHasBeenSet = true;
     }
     XmlNode groupNameNode = resultNode.FirstChild("GroupName");
     if(!groupNameNode.IsNull())
     {
-      m_groupName = StringUtils::Trim(groupNameNode.GetText().c_str());
+      m_groupName = Aws::Utils::Xml::DecodeEscapedXmlText(groupNameNode.GetText());
       m_groupNameHasBeenSet = true;
     }
   }

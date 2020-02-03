@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     BuiltinIntentSlot();
-    BuiltinIntentSlot(const Aws::Utils::Json::JsonValue& jsonValue);
-    BuiltinIntentSlot& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BuiltinIntentSlot(Aws::Utils::Json::JsonView jsonValue);
+    BuiltinIntentSlot& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>A list of the slots defined for the intent.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>A list of the slots defined for the intent.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A list of the slots defined for the intent.</p>

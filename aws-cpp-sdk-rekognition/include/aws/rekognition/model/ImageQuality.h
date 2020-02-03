@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     ImageQuality();
-    ImageQuality(const Aws::Utils::Json::JsonValue& jsonValue);
-    ImageQuality& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ImageQuality(Aws::Utils::Json::JsonView jsonValue);
+    ImageQuality& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,13 @@ namespace Model
      * image.</p>
      */
     inline double GetBrightness() const{ return m_brightness; }
+
+    /**
+     * <p>Value representing brightness of the face. The service returns a value
+     * between 0 and 100 (inclusive). A higher value indicates a brighter face
+     * image.</p>
+     */
+    inline bool BrightnessHasBeenSet() const { return m_brightnessHasBeenSet; }
 
     /**
      * <p>Value representing brightness of the face. The service returns a value
@@ -72,6 +80,12 @@ namespace Model
      * 0 and 100 (inclusive). A higher value indicates a sharper face image.</p>
      */
     inline double GetSharpness() const{ return m_sharpness; }
+
+    /**
+     * <p>Value representing sharpness of the face. The service returns a value between
+     * 0 and 100 (inclusive). A higher value indicates a sharper face image.</p>
+     */
+    inline bool SharpnessHasBeenSet() const { return m_sharpnessHasBeenSet; }
 
     /**
      * <p>Value representing sharpness of the face. The service returns a value between

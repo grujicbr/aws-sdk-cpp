@@ -35,7 +35,11 @@ namespace Model
     LoadBalancer,
     LoadBalancerTlsCertificate,
     Disk,
-    DiskSnapshot
+    DiskSnapshot,
+    RelationalDatabase,
+    RelationalDatabaseSnapshot,
+    ExportSnapshotRecord,
+    CloudFormationStackRecord
   };
 
 namespace ResourceTypeMapper

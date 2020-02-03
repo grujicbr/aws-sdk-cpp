@@ -47,7 +47,7 @@ Aws::String PutBucketRequestPaymentRequest::SerializePayload() const
     return payloadDoc.ConvertToString();
   }
 
-  return "";
+  return {};
 }
 
 void PutBucketRequestPaymentRequest::AddQueryStringParameters(URI& uri) const
@@ -79,7 +79,7 @@ Aws::Http::HeaderValueCollection PutBucketRequestPaymentRequest::GetRequestSpeci
   if(m_contentMD5HasBeenSet)
   {
     ss << m_contentMD5;
-    headers.insert(Aws::Http::HeaderValuePair("content-md5", ss.str()));
+    headers.emplace("content-md5",  ss.str());
     ss.str("");
   }
 

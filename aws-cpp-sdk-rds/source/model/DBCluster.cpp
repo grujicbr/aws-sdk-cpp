@@ -46,6 +46,7 @@ DBCluster::DBCluster() :
     m_earliestRestorableTimeHasBeenSet(false),
     m_endpointHasBeenSet(false),
     m_readerEndpointHasBeenSet(false),
+    m_customEndpointsHasBeenSet(false),
     m_multiAZ(false),
     m_multiAZHasBeenSet(false),
     m_engineHasBeenSet(false),
@@ -77,7 +78,25 @@ DBCluster::DBCluster() :
     m_backtrackWindowHasBeenSet(false),
     m_backtrackConsumedChangeRecords(0),
     m_backtrackConsumedChangeRecordsHasBeenSet(false),
-    m_enabledCloudwatchLogsExportsHasBeenSet(false)
+    m_enabledCloudwatchLogsExportsHasBeenSet(false),
+    m_capacity(0),
+    m_capacityHasBeenSet(false),
+    m_engineModeHasBeenSet(false),
+    m_scalingConfigurationInfoHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false),
+    m_httpEndpointEnabled(false),
+    m_httpEndpointEnabledHasBeenSet(false),
+    m_activityStreamMode(ActivityStreamMode::NOT_SET),
+    m_activityStreamModeHasBeenSet(false),
+    m_activityStreamStatus(ActivityStreamStatus::NOT_SET),
+    m_activityStreamStatusHasBeenSet(false),
+    m_activityStreamKmsKeyIdHasBeenSet(false),
+    m_activityStreamKinesisStreamNameHasBeenSet(false),
+    m_copyTagsToSnapshot(false),
+    m_copyTagsToSnapshotHasBeenSet(false),
+    m_crossAccountClone(false),
+    m_crossAccountCloneHasBeenSet(false)
 {
 }
 
@@ -97,6 +116,7 @@ DBCluster::DBCluster(const XmlNode& xmlNode) :
     m_earliestRestorableTimeHasBeenSet(false),
     m_endpointHasBeenSet(false),
     m_readerEndpointHasBeenSet(false),
+    m_customEndpointsHasBeenSet(false),
     m_multiAZ(false),
     m_multiAZHasBeenSet(false),
     m_engineHasBeenSet(false),
@@ -128,7 +148,25 @@ DBCluster::DBCluster(const XmlNode& xmlNode) :
     m_backtrackWindowHasBeenSet(false),
     m_backtrackConsumedChangeRecords(0),
     m_backtrackConsumedChangeRecordsHasBeenSet(false),
-    m_enabledCloudwatchLogsExportsHasBeenSet(false)
+    m_enabledCloudwatchLogsExportsHasBeenSet(false),
+    m_capacity(0),
+    m_capacityHasBeenSet(false),
+    m_engineModeHasBeenSet(false),
+    m_scalingConfigurationInfoHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false),
+    m_httpEndpointEnabled(false),
+    m_httpEndpointEnabledHasBeenSet(false),
+    m_activityStreamMode(ActivityStreamMode::NOT_SET),
+    m_activityStreamModeHasBeenSet(false),
+    m_activityStreamStatus(ActivityStreamStatus::NOT_SET),
+    m_activityStreamStatusHasBeenSet(false),
+    m_activityStreamKmsKeyIdHasBeenSet(false),
+    m_activityStreamKinesisStreamNameHasBeenSet(false),
+    m_copyTagsToSnapshot(false),
+    m_copyTagsToSnapshotHasBeenSet(false),
+    m_crossAccountClone(false),
+    m_crossAccountCloneHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -142,7 +180,7 @@ DBCluster& DBCluster::operator =(const XmlNode& xmlNode)
     XmlNode allocatedStorageNode = resultNode.FirstChild("AllocatedStorage");
     if(!allocatedStorageNode.IsNull())
     {
-      m_allocatedStorage = StringUtils::ConvertToInt32(StringUtils::Trim(allocatedStorageNode.GetText().c_str()).c_str());
+      m_allocatedStorage = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(allocatedStorageNode.GetText()).c_str()).c_str());
       m_allocatedStorageHasBeenSet = true;
     }
     XmlNode availabilityZonesNode = resultNode.FirstChild("AvailabilityZones");
@@ -151,7 +189,7 @@ DBCluster& DBCluster::operator =(const XmlNode& xmlNode)
       XmlNode availabilityZonesMember = availabilityZonesNode.FirstChild("AvailabilityZone");
       while(!availabilityZonesMember.IsNull())
       {
-        m_availabilityZones.push_back(StringUtils::Trim(availabilityZonesMember.GetText().c_str()));
+        m_availabilityZones.push_back(availabilityZonesMember.GetText());
         availabilityZonesMember = availabilityZonesMember.NextNode("AvailabilityZone");
       }
 
@@ -160,103 +198,115 @@ DBCluster& DBCluster::operator =(const XmlNode& xmlNode)
     XmlNode backupRetentionPeriodNode = resultNode.FirstChild("BackupRetentionPeriod");
     if(!backupRetentionPeriodNode.IsNull())
     {
-      m_backupRetentionPeriod = StringUtils::ConvertToInt32(StringUtils::Trim(backupRetentionPeriodNode.GetText().c_str()).c_str());
+      m_backupRetentionPeriod = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(backupRetentionPeriodNode.GetText()).c_str()).c_str());
       m_backupRetentionPeriodHasBeenSet = true;
     }
     XmlNode characterSetNameNode = resultNode.FirstChild("CharacterSetName");
     if(!characterSetNameNode.IsNull())
     {
-      m_characterSetName = StringUtils::Trim(characterSetNameNode.GetText().c_str());
+      m_characterSetName = Aws::Utils::Xml::DecodeEscapedXmlText(characterSetNameNode.GetText());
       m_characterSetNameHasBeenSet = true;
     }
     XmlNode databaseNameNode = resultNode.FirstChild("DatabaseName");
     if(!databaseNameNode.IsNull())
     {
-      m_databaseName = StringUtils::Trim(databaseNameNode.GetText().c_str());
+      m_databaseName = Aws::Utils::Xml::DecodeEscapedXmlText(databaseNameNode.GetText());
       m_databaseNameHasBeenSet = true;
     }
     XmlNode dBClusterIdentifierNode = resultNode.FirstChild("DBClusterIdentifier");
     if(!dBClusterIdentifierNode.IsNull())
     {
-      m_dBClusterIdentifier = StringUtils::Trim(dBClusterIdentifierNode.GetText().c_str());
+      m_dBClusterIdentifier = Aws::Utils::Xml::DecodeEscapedXmlText(dBClusterIdentifierNode.GetText());
       m_dBClusterIdentifierHasBeenSet = true;
     }
     XmlNode dBClusterParameterGroupNode = resultNode.FirstChild("DBClusterParameterGroup");
     if(!dBClusterParameterGroupNode.IsNull())
     {
-      m_dBClusterParameterGroup = StringUtils::Trim(dBClusterParameterGroupNode.GetText().c_str());
+      m_dBClusterParameterGroup = Aws::Utils::Xml::DecodeEscapedXmlText(dBClusterParameterGroupNode.GetText());
       m_dBClusterParameterGroupHasBeenSet = true;
     }
     XmlNode dBSubnetGroupNode = resultNode.FirstChild("DBSubnetGroup");
     if(!dBSubnetGroupNode.IsNull())
     {
-      m_dBSubnetGroup = StringUtils::Trim(dBSubnetGroupNode.GetText().c_str());
+      m_dBSubnetGroup = Aws::Utils::Xml::DecodeEscapedXmlText(dBSubnetGroupNode.GetText());
       m_dBSubnetGroupHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode percentProgressNode = resultNode.FirstChild("PercentProgress");
     if(!percentProgressNode.IsNull())
     {
-      m_percentProgress = StringUtils::Trim(percentProgressNode.GetText().c_str());
+      m_percentProgress = Aws::Utils::Xml::DecodeEscapedXmlText(percentProgressNode.GetText());
       m_percentProgressHasBeenSet = true;
     }
     XmlNode earliestRestorableTimeNode = resultNode.FirstChild("EarliestRestorableTime");
     if(!earliestRestorableTimeNode.IsNull())
     {
-      m_earliestRestorableTime = DateTime(StringUtils::Trim(earliestRestorableTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_earliestRestorableTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(earliestRestorableTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_earliestRestorableTimeHasBeenSet = true;
     }
     XmlNode endpointNode = resultNode.FirstChild("Endpoint");
     if(!endpointNode.IsNull())
     {
-      m_endpoint = StringUtils::Trim(endpointNode.GetText().c_str());
+      m_endpoint = Aws::Utils::Xml::DecodeEscapedXmlText(endpointNode.GetText());
       m_endpointHasBeenSet = true;
     }
     XmlNode readerEndpointNode = resultNode.FirstChild("ReaderEndpoint");
     if(!readerEndpointNode.IsNull())
     {
-      m_readerEndpoint = StringUtils::Trim(readerEndpointNode.GetText().c_str());
+      m_readerEndpoint = Aws::Utils::Xml::DecodeEscapedXmlText(readerEndpointNode.GetText());
       m_readerEndpointHasBeenSet = true;
+    }
+    XmlNode customEndpointsNode = resultNode.FirstChild("CustomEndpoints");
+    if(!customEndpointsNode.IsNull())
+    {
+      XmlNode customEndpointsMember = customEndpointsNode.FirstChild("member");
+      while(!customEndpointsMember.IsNull())
+      {
+        m_customEndpoints.push_back(customEndpointsMember.GetText());
+        customEndpointsMember = customEndpointsMember.NextNode("member");
+      }
+
+      m_customEndpointsHasBeenSet = true;
     }
     XmlNode multiAZNode = resultNode.FirstChild("MultiAZ");
     if(!multiAZNode.IsNull())
     {
-      m_multiAZ = StringUtils::ConvertToBool(StringUtils::Trim(multiAZNode.GetText().c_str()).c_str());
+      m_multiAZ = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(multiAZNode.GetText()).c_str()).c_str());
       m_multiAZHasBeenSet = true;
     }
     XmlNode engineNode = resultNode.FirstChild("Engine");
     if(!engineNode.IsNull())
     {
-      m_engine = StringUtils::Trim(engineNode.GetText().c_str());
+      m_engine = Aws::Utils::Xml::DecodeEscapedXmlText(engineNode.GetText());
       m_engineHasBeenSet = true;
     }
     XmlNode engineVersionNode = resultNode.FirstChild("EngineVersion");
     if(!engineVersionNode.IsNull())
     {
-      m_engineVersion = StringUtils::Trim(engineVersionNode.GetText().c_str());
+      m_engineVersion = Aws::Utils::Xml::DecodeEscapedXmlText(engineVersionNode.GetText());
       m_engineVersionHasBeenSet = true;
     }
     XmlNode latestRestorableTimeNode = resultNode.FirstChild("LatestRestorableTime");
     if(!latestRestorableTimeNode.IsNull())
     {
-      m_latestRestorableTime = DateTime(StringUtils::Trim(latestRestorableTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_latestRestorableTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(latestRestorableTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_latestRestorableTimeHasBeenSet = true;
     }
     XmlNode portNode = resultNode.FirstChild("Port");
     if(!portNode.IsNull())
     {
-      m_port = StringUtils::ConvertToInt32(StringUtils::Trim(portNode.GetText().c_str()).c_str());
+      m_port = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(portNode.GetText()).c_str()).c_str());
       m_portHasBeenSet = true;
     }
     XmlNode masterUsernameNode = resultNode.FirstChild("MasterUsername");
     if(!masterUsernameNode.IsNull())
     {
-      m_masterUsername = StringUtils::Trim(masterUsernameNode.GetText().c_str());
+      m_masterUsername = Aws::Utils::Xml::DecodeEscapedXmlText(masterUsernameNode.GetText());
       m_masterUsernameHasBeenSet = true;
     }
     XmlNode dBClusterOptionGroupMembershipsNode = resultNode.FirstChild("DBClusterOptionGroupMemberships");
@@ -274,19 +324,19 @@ DBCluster& DBCluster::operator =(const XmlNode& xmlNode)
     XmlNode preferredBackupWindowNode = resultNode.FirstChild("PreferredBackupWindow");
     if(!preferredBackupWindowNode.IsNull())
     {
-      m_preferredBackupWindow = StringUtils::Trim(preferredBackupWindowNode.GetText().c_str());
+      m_preferredBackupWindow = Aws::Utils::Xml::DecodeEscapedXmlText(preferredBackupWindowNode.GetText());
       m_preferredBackupWindowHasBeenSet = true;
     }
     XmlNode preferredMaintenanceWindowNode = resultNode.FirstChild("PreferredMaintenanceWindow");
     if(!preferredMaintenanceWindowNode.IsNull())
     {
-      m_preferredMaintenanceWindow = StringUtils::Trim(preferredMaintenanceWindowNode.GetText().c_str());
+      m_preferredMaintenanceWindow = Aws::Utils::Xml::DecodeEscapedXmlText(preferredMaintenanceWindowNode.GetText());
       m_preferredMaintenanceWindowHasBeenSet = true;
     }
     XmlNode replicationSourceIdentifierNode = resultNode.FirstChild("ReplicationSourceIdentifier");
     if(!replicationSourceIdentifierNode.IsNull())
     {
-      m_replicationSourceIdentifier = StringUtils::Trim(replicationSourceIdentifierNode.GetText().c_str());
+      m_replicationSourceIdentifier = Aws::Utils::Xml::DecodeEscapedXmlText(replicationSourceIdentifierNode.GetText());
       m_replicationSourceIdentifierHasBeenSet = true;
     }
     XmlNode readReplicaIdentifiersNode = resultNode.FirstChild("ReadReplicaIdentifiers");
@@ -295,7 +345,7 @@ DBCluster& DBCluster::operator =(const XmlNode& xmlNode)
       XmlNode readReplicaIdentifiersMember = readReplicaIdentifiersNode.FirstChild("ReadReplicaIdentifier");
       while(!readReplicaIdentifiersMember.IsNull())
       {
-        m_readReplicaIdentifiers.push_back(StringUtils::Trim(readReplicaIdentifiersMember.GetText().c_str()));
+        m_readReplicaIdentifiers.push_back(readReplicaIdentifiersMember.GetText());
         readReplicaIdentifiersMember = readReplicaIdentifiersMember.NextNode("ReadReplicaIdentifier");
       }
 
@@ -328,31 +378,31 @@ DBCluster& DBCluster::operator =(const XmlNode& xmlNode)
     XmlNode hostedZoneIdNode = resultNode.FirstChild("HostedZoneId");
     if(!hostedZoneIdNode.IsNull())
     {
-      m_hostedZoneId = StringUtils::Trim(hostedZoneIdNode.GetText().c_str());
+      m_hostedZoneId = Aws::Utils::Xml::DecodeEscapedXmlText(hostedZoneIdNode.GetText());
       m_hostedZoneIdHasBeenSet = true;
     }
     XmlNode storageEncryptedNode = resultNode.FirstChild("StorageEncrypted");
     if(!storageEncryptedNode.IsNull())
     {
-      m_storageEncrypted = StringUtils::ConvertToBool(StringUtils::Trim(storageEncryptedNode.GetText().c_str()).c_str());
+      m_storageEncrypted = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(storageEncryptedNode.GetText()).c_str()).c_str());
       m_storageEncryptedHasBeenSet = true;
     }
     XmlNode kmsKeyIdNode = resultNode.FirstChild("KmsKeyId");
     if(!kmsKeyIdNode.IsNull())
     {
-      m_kmsKeyId = StringUtils::Trim(kmsKeyIdNode.GetText().c_str());
+      m_kmsKeyId = Aws::Utils::Xml::DecodeEscapedXmlText(kmsKeyIdNode.GetText());
       m_kmsKeyIdHasBeenSet = true;
     }
     XmlNode dbClusterResourceIdNode = resultNode.FirstChild("DbClusterResourceId");
     if(!dbClusterResourceIdNode.IsNull())
     {
-      m_dbClusterResourceId = StringUtils::Trim(dbClusterResourceIdNode.GetText().c_str());
+      m_dbClusterResourceId = Aws::Utils::Xml::DecodeEscapedXmlText(dbClusterResourceIdNode.GetText());
       m_dbClusterResourceIdHasBeenSet = true;
     }
     XmlNode dBClusterArnNode = resultNode.FirstChild("DBClusterArn");
     if(!dBClusterArnNode.IsNull())
     {
-      m_dBClusterArn = StringUtils::Trim(dBClusterArnNode.GetText().c_str());
+      m_dBClusterArn = Aws::Utils::Xml::DecodeEscapedXmlText(dBClusterArnNode.GetText());
       m_dBClusterArnHasBeenSet = true;
     }
     XmlNode associatedRolesNode = resultNode.FirstChild("AssociatedRoles");
@@ -370,37 +420,37 @@ DBCluster& DBCluster::operator =(const XmlNode& xmlNode)
     XmlNode iAMDatabaseAuthenticationEnabledNode = resultNode.FirstChild("IAMDatabaseAuthenticationEnabled");
     if(!iAMDatabaseAuthenticationEnabledNode.IsNull())
     {
-      m_iAMDatabaseAuthenticationEnabled = StringUtils::ConvertToBool(StringUtils::Trim(iAMDatabaseAuthenticationEnabledNode.GetText().c_str()).c_str());
+      m_iAMDatabaseAuthenticationEnabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(iAMDatabaseAuthenticationEnabledNode.GetText()).c_str()).c_str());
       m_iAMDatabaseAuthenticationEnabledHasBeenSet = true;
     }
     XmlNode cloneGroupIdNode = resultNode.FirstChild("CloneGroupId");
     if(!cloneGroupIdNode.IsNull())
     {
-      m_cloneGroupId = StringUtils::Trim(cloneGroupIdNode.GetText().c_str());
+      m_cloneGroupId = Aws::Utils::Xml::DecodeEscapedXmlText(cloneGroupIdNode.GetText());
       m_cloneGroupIdHasBeenSet = true;
     }
     XmlNode clusterCreateTimeNode = resultNode.FirstChild("ClusterCreateTime");
     if(!clusterCreateTimeNode.IsNull())
     {
-      m_clusterCreateTime = DateTime(StringUtils::Trim(clusterCreateTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_clusterCreateTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(clusterCreateTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_clusterCreateTimeHasBeenSet = true;
     }
     XmlNode earliestBacktrackTimeNode = resultNode.FirstChild("EarliestBacktrackTime");
     if(!earliestBacktrackTimeNode.IsNull())
     {
-      m_earliestBacktrackTime = DateTime(StringUtils::Trim(earliestBacktrackTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_earliestBacktrackTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(earliestBacktrackTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_earliestBacktrackTimeHasBeenSet = true;
     }
     XmlNode backtrackWindowNode = resultNode.FirstChild("BacktrackWindow");
     if(!backtrackWindowNode.IsNull())
     {
-      m_backtrackWindow = StringUtils::ConvertToInt64(StringUtils::Trim(backtrackWindowNode.GetText().c_str()).c_str());
+      m_backtrackWindow = StringUtils::ConvertToInt64(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(backtrackWindowNode.GetText()).c_str()).c_str());
       m_backtrackWindowHasBeenSet = true;
     }
     XmlNode backtrackConsumedChangeRecordsNode = resultNode.FirstChild("BacktrackConsumedChangeRecords");
     if(!backtrackConsumedChangeRecordsNode.IsNull())
     {
-      m_backtrackConsumedChangeRecords = StringUtils::ConvertToInt64(StringUtils::Trim(backtrackConsumedChangeRecordsNode.GetText().c_str()).c_str());
+      m_backtrackConsumedChangeRecords = StringUtils::ConvertToInt64(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(backtrackConsumedChangeRecordsNode.GetText()).c_str()).c_str());
       m_backtrackConsumedChangeRecordsHasBeenSet = true;
     }
     XmlNode enabledCloudwatchLogsExportsNode = resultNode.FirstChild("EnabledCloudwatchLogsExports");
@@ -409,11 +459,77 @@ DBCluster& DBCluster::operator =(const XmlNode& xmlNode)
       XmlNode enabledCloudwatchLogsExportsMember = enabledCloudwatchLogsExportsNode.FirstChild("member");
       while(!enabledCloudwatchLogsExportsMember.IsNull())
       {
-        m_enabledCloudwatchLogsExports.push_back(StringUtils::Trim(enabledCloudwatchLogsExportsMember.GetText().c_str()));
+        m_enabledCloudwatchLogsExports.push_back(enabledCloudwatchLogsExportsMember.GetText());
         enabledCloudwatchLogsExportsMember = enabledCloudwatchLogsExportsMember.NextNode("member");
       }
 
       m_enabledCloudwatchLogsExportsHasBeenSet = true;
+    }
+    XmlNode capacityNode = resultNode.FirstChild("Capacity");
+    if(!capacityNode.IsNull())
+    {
+      m_capacity = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(capacityNode.GetText()).c_str()).c_str());
+      m_capacityHasBeenSet = true;
+    }
+    XmlNode engineModeNode = resultNode.FirstChild("EngineMode");
+    if(!engineModeNode.IsNull())
+    {
+      m_engineMode = Aws::Utils::Xml::DecodeEscapedXmlText(engineModeNode.GetText());
+      m_engineModeHasBeenSet = true;
+    }
+    XmlNode scalingConfigurationInfoNode = resultNode.FirstChild("ScalingConfigurationInfo");
+    if(!scalingConfigurationInfoNode.IsNull())
+    {
+      m_scalingConfigurationInfo = scalingConfigurationInfoNode;
+      m_scalingConfigurationInfoHasBeenSet = true;
+    }
+    XmlNode deletionProtectionNode = resultNode.FirstChild("DeletionProtection");
+    if(!deletionProtectionNode.IsNull())
+    {
+      m_deletionProtection = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(deletionProtectionNode.GetText()).c_str()).c_str());
+      m_deletionProtectionHasBeenSet = true;
+    }
+    XmlNode httpEndpointEnabledNode = resultNode.FirstChild("HttpEndpointEnabled");
+    if(!httpEndpointEnabledNode.IsNull())
+    {
+      m_httpEndpointEnabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(httpEndpointEnabledNode.GetText()).c_str()).c_str());
+      m_httpEndpointEnabledHasBeenSet = true;
+    }
+    XmlNode activityStreamModeNode = resultNode.FirstChild("ActivityStreamMode");
+    if(!activityStreamModeNode.IsNull())
+    {
+      m_activityStreamMode = ActivityStreamModeMapper::GetActivityStreamModeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(activityStreamModeNode.GetText()).c_str()).c_str());
+      m_activityStreamModeHasBeenSet = true;
+    }
+    XmlNode activityStreamStatusNode = resultNode.FirstChild("ActivityStreamStatus");
+    if(!activityStreamStatusNode.IsNull())
+    {
+      m_activityStreamStatus = ActivityStreamStatusMapper::GetActivityStreamStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(activityStreamStatusNode.GetText()).c_str()).c_str());
+      m_activityStreamStatusHasBeenSet = true;
+    }
+    XmlNode activityStreamKmsKeyIdNode = resultNode.FirstChild("ActivityStreamKmsKeyId");
+    if(!activityStreamKmsKeyIdNode.IsNull())
+    {
+      m_activityStreamKmsKeyId = Aws::Utils::Xml::DecodeEscapedXmlText(activityStreamKmsKeyIdNode.GetText());
+      m_activityStreamKmsKeyIdHasBeenSet = true;
+    }
+    XmlNode activityStreamKinesisStreamNameNode = resultNode.FirstChild("ActivityStreamKinesisStreamName");
+    if(!activityStreamKinesisStreamNameNode.IsNull())
+    {
+      m_activityStreamKinesisStreamName = Aws::Utils::Xml::DecodeEscapedXmlText(activityStreamKinesisStreamNameNode.GetText());
+      m_activityStreamKinesisStreamNameHasBeenSet = true;
+    }
+    XmlNode copyTagsToSnapshotNode = resultNode.FirstChild("CopyTagsToSnapshot");
+    if(!copyTagsToSnapshotNode.IsNull())
+    {
+      m_copyTagsToSnapshot = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(copyTagsToSnapshotNode.GetText()).c_str()).c_str());
+      m_copyTagsToSnapshotHasBeenSet = true;
+    }
+    XmlNode crossAccountCloneNode = resultNode.FirstChild("CrossAccountClone");
+    if(!crossAccountCloneNode.IsNull())
+    {
+      m_crossAccountClone = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(crossAccountCloneNode.GetText()).c_str()).c_str());
+      m_crossAccountCloneHasBeenSet = true;
     }
   }
 
@@ -489,6 +605,15 @@ void DBCluster::OutputToStream(Aws::OStream& oStream, const char* location, unsi
   if(m_readerEndpointHasBeenSet)
   {
       oStream << location << index << locationValue << ".ReaderEndpoint=" << StringUtils::URLEncode(m_readerEndpoint.c_str()) << "&";
+  }
+
+  if(m_customEndpointsHasBeenSet)
+  {
+      unsigned customEndpointsIdx = 1;
+      for(auto& item : m_customEndpoints)
+      {
+        oStream << location << index << locationValue << ".CustomEndpoints.member." << customEndpointsIdx++ << "=" << StringUtils::URLEncode(item.c_str()) << "&";
+      }
   }
 
   if(m_multiAZHasBeenSet)
@@ -653,6 +778,63 @@ void DBCluster::OutputToStream(Aws::OStream& oStream, const char* location, unsi
       }
   }
 
+  if(m_capacityHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".Capacity=" << m_capacity << "&";
+  }
+
+  if(m_engineModeHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".EngineMode=" << StringUtils::URLEncode(m_engineMode.c_str()) << "&";
+  }
+
+  if(m_scalingConfigurationInfoHasBeenSet)
+  {
+      Aws::StringStream scalingConfigurationInfoLocationAndMemberSs;
+      scalingConfigurationInfoLocationAndMemberSs << location << index << locationValue << ".ScalingConfigurationInfo";
+      m_scalingConfigurationInfo.OutputToStream(oStream, scalingConfigurationInfoLocationAndMemberSs.str().c_str());
+  }
+
+  if(m_deletionProtectionHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
+  }
+
+  if(m_httpEndpointEnabledHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".HttpEndpointEnabled=" << std::boolalpha << m_httpEndpointEnabled << "&";
+  }
+
+  if(m_activityStreamModeHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".ActivityStreamMode=" << ActivityStreamModeMapper::GetNameForActivityStreamMode(m_activityStreamMode) << "&";
+  }
+
+  if(m_activityStreamStatusHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".ActivityStreamStatus=" << ActivityStreamStatusMapper::GetNameForActivityStreamStatus(m_activityStreamStatus) << "&";
+  }
+
+  if(m_activityStreamKmsKeyIdHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".ActivityStreamKmsKeyId=" << StringUtils::URLEncode(m_activityStreamKmsKeyId.c_str()) << "&";
+  }
+
+  if(m_activityStreamKinesisStreamNameHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".ActivityStreamKinesisStreamName=" << StringUtils::URLEncode(m_activityStreamKinesisStreamName.c_str()) << "&";
+  }
+
+  if(m_copyTagsToSnapshotHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".CopyTagsToSnapshot=" << std::boolalpha << m_copyTagsToSnapshot << "&";
+  }
+
+  if(m_crossAccountCloneHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".CrossAccountClone=" << std::boolalpha << m_crossAccountClone << "&";
+  }
+
 }
 
 void DBCluster::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -712,6 +894,14 @@ void DBCluster::OutputToStream(Aws::OStream& oStream, const char* location) cons
   if(m_readerEndpointHasBeenSet)
   {
       oStream << location << ".ReaderEndpoint=" << StringUtils::URLEncode(m_readerEndpoint.c_str()) << "&";
+  }
+  if(m_customEndpointsHasBeenSet)
+  {
+      unsigned customEndpointsIdx = 1;
+      for(auto& item : m_customEndpoints)
+      {
+        oStream << location << ".CustomEndpoints.member." << customEndpointsIdx++ << "=" << StringUtils::URLEncode(item.c_str()) << "&";
+      }
   }
   if(m_multiAZHasBeenSet)
   {
@@ -848,6 +1038,52 @@ void DBCluster::OutputToStream(Aws::OStream& oStream, const char* location) cons
       {
         oStream << location << ".EnabledCloudwatchLogsExports.member." << enabledCloudwatchLogsExportsIdx++ << "=" << StringUtils::URLEncode(item.c_str()) << "&";
       }
+  }
+  if(m_capacityHasBeenSet)
+  {
+      oStream << location << ".Capacity=" << m_capacity << "&";
+  }
+  if(m_engineModeHasBeenSet)
+  {
+      oStream << location << ".EngineMode=" << StringUtils::URLEncode(m_engineMode.c_str()) << "&";
+  }
+  if(m_scalingConfigurationInfoHasBeenSet)
+  {
+      Aws::String scalingConfigurationInfoLocationAndMember(location);
+      scalingConfigurationInfoLocationAndMember += ".ScalingConfigurationInfo";
+      m_scalingConfigurationInfo.OutputToStream(oStream, scalingConfigurationInfoLocationAndMember.c_str());
+  }
+  if(m_deletionProtectionHasBeenSet)
+  {
+      oStream << location << ".DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
+  }
+  if(m_httpEndpointEnabledHasBeenSet)
+  {
+      oStream << location << ".HttpEndpointEnabled=" << std::boolalpha << m_httpEndpointEnabled << "&";
+  }
+  if(m_activityStreamModeHasBeenSet)
+  {
+      oStream << location << ".ActivityStreamMode=" << ActivityStreamModeMapper::GetNameForActivityStreamMode(m_activityStreamMode) << "&";
+  }
+  if(m_activityStreamStatusHasBeenSet)
+  {
+      oStream << location << ".ActivityStreamStatus=" << ActivityStreamStatusMapper::GetNameForActivityStreamStatus(m_activityStreamStatus) << "&";
+  }
+  if(m_activityStreamKmsKeyIdHasBeenSet)
+  {
+      oStream << location << ".ActivityStreamKmsKeyId=" << StringUtils::URLEncode(m_activityStreamKmsKeyId.c_str()) << "&";
+  }
+  if(m_activityStreamKinesisStreamNameHasBeenSet)
+  {
+      oStream << location << ".ActivityStreamKinesisStreamName=" << StringUtils::URLEncode(m_activityStreamKinesisStreamName.c_str()) << "&";
+  }
+  if(m_copyTagsToSnapshotHasBeenSet)
+  {
+      oStream << location << ".CopyTagsToSnapshot=" << std::boolalpha << m_copyTagsToSnapshot << "&";
+  }
+  if(m_crossAccountCloneHasBeenSet)
+  {
+      oStream << location << ".CrossAccountClone=" << std::boolalpha << m_crossAccountClone << "&";
   }
 }
 

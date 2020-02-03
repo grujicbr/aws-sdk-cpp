@@ -27,7 +27,13 @@ CreateDiskFromSnapshotRequest::CreateDiskFromSnapshotRequest() :
     m_diskSnapshotNameHasBeenSet(false),
     m_availabilityZoneHasBeenSet(false),
     m_sizeInGb(0),
-    m_sizeInGbHasBeenSet(false)
+    m_sizeInGbHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_addOnsHasBeenSet(false),
+    m_sourceDiskNameHasBeenSet(false),
+    m_restoreDateHasBeenSet(false),
+    m_useLatestRestorableAutoSnapshot(false),
+    m_useLatestRestorableAutoSnapshotHasBeenSet(false)
 {
 }
 
@@ -59,7 +65,47 @@ Aws::String CreateDiskFromSnapshotRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_addOnsHasBeenSet)
+  {
+   Array<JsonValue> addOnsJsonList(m_addOns.size());
+   for(unsigned addOnsIndex = 0; addOnsIndex < addOnsJsonList.GetLength(); ++addOnsIndex)
+   {
+     addOnsJsonList[addOnsIndex].AsObject(m_addOns[addOnsIndex].Jsonize());
+   }
+   payload.WithArray("addOns", std::move(addOnsJsonList));
+
+  }
+
+  if(m_sourceDiskNameHasBeenSet)
+  {
+   payload.WithString("sourceDiskName", m_sourceDiskName);
+
+  }
+
+  if(m_restoreDateHasBeenSet)
+  {
+   payload.WithString("restoreDate", m_restoreDate);
+
+  }
+
+  if(m_useLatestRestorableAutoSnapshotHasBeenSet)
+  {
+   payload.WithBool("useLatestRestorableAutoSnapshot", m_useLatestRestorableAutoSnapshot);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateDiskFromSnapshotRequest::GetRequestSpecificHeaders() const

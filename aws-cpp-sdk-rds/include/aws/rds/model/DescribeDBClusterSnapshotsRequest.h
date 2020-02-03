@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     DescribeDBClusterSnapshotsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,7 +54,7 @@ namespace Model
     /**
      * <p>The ID of the DB cluster to retrieve the list of DB cluster snapshots for.
      * This parameter can't be used in conjunction with the
-     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter isn't
      * case-sensitive. </p> <p>Constraints:</p> <ul> <li> <p>If supplied, must match
      * the identifier of an existing DBCluster.</p> </li> </ul>
      */
@@ -63,7 +63,16 @@ namespace Model
     /**
      * <p>The ID of the DB cluster to retrieve the list of DB cluster snapshots for.
      * This parameter can't be used in conjunction with the
-     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter isn't
+     * case-sensitive. </p> <p>Constraints:</p> <ul> <li> <p>If supplied, must match
+     * the identifier of an existing DBCluster.</p> </li> </ul>
+     */
+    inline bool DBClusterIdentifierHasBeenSet() const { return m_dBClusterIdentifierHasBeenSet; }
+
+    /**
+     * <p>The ID of the DB cluster to retrieve the list of DB cluster snapshots for.
+     * This parameter can't be used in conjunction with the
+     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter isn't
      * case-sensitive. </p> <p>Constraints:</p> <ul> <li> <p>If supplied, must match
      * the identifier of an existing DBCluster.</p> </li> </ul>
      */
@@ -72,7 +81,7 @@ namespace Model
     /**
      * <p>The ID of the DB cluster to retrieve the list of DB cluster snapshots for.
      * This parameter can't be used in conjunction with the
-     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter isn't
      * case-sensitive. </p> <p>Constraints:</p> <ul> <li> <p>If supplied, must match
      * the identifier of an existing DBCluster.</p> </li> </ul>
      */
@@ -81,7 +90,7 @@ namespace Model
     /**
      * <p>The ID of the DB cluster to retrieve the list of DB cluster snapshots for.
      * This parameter can't be used in conjunction with the
-     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter isn't
      * case-sensitive. </p> <p>Constraints:</p> <ul> <li> <p>If supplied, must match
      * the identifier of an existing DBCluster.</p> </li> </ul>
      */
@@ -90,7 +99,7 @@ namespace Model
     /**
      * <p>The ID of the DB cluster to retrieve the list of DB cluster snapshots for.
      * This parameter can't be used in conjunction with the
-     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter isn't
      * case-sensitive. </p> <p>Constraints:</p> <ul> <li> <p>If supplied, must match
      * the identifier of an existing DBCluster.</p> </li> </ul>
      */
@@ -99,7 +108,7 @@ namespace Model
     /**
      * <p>The ID of the DB cluster to retrieve the list of DB cluster snapshots for.
      * This parameter can't be used in conjunction with the
-     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter isn't
      * case-sensitive. </p> <p>Constraints:</p> <ul> <li> <p>If supplied, must match
      * the identifier of an existing DBCluster.</p> </li> </ul>
      */
@@ -108,7 +117,7 @@ namespace Model
     /**
      * <p>The ID of the DB cluster to retrieve the list of DB cluster snapshots for.
      * This parameter can't be used in conjunction with the
-     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     * <code>DBClusterSnapshotIdentifier</code> parameter. This parameter isn't
      * case-sensitive. </p> <p>Constraints:</p> <ul> <li> <p>If supplied, must match
      * the identifier of an existing DBCluster.</p> </li> </ul>
      */
@@ -124,6 +133,16 @@ namespace Model
      * <code>SnapshotType</code> parameter must also be specified.</p> </li> </ul>
      */
     inline const Aws::String& GetDBClusterSnapshotIdentifier() const{ return m_dBClusterSnapshotIdentifier; }
+
+    /**
+     * <p>A specific DB cluster snapshot identifier to describe. This parameter can't
+     * be used in conjunction with the <code>DBClusterIdentifier</code> parameter. This
+     * value is stored as a lowercase string. </p> <p>Constraints:</p> <ul> <li> <p>If
+     * supplied, must match the identifier of an existing DBClusterSnapshot.</p> </li>
+     * <li> <p>If this identifier is for an automated snapshot, the
+     * <code>SnapshotType</code> parameter must also be specified.</p> </li> </ul>
+     */
+    inline bool DBClusterSnapshotIdentifierHasBeenSet() const { return m_dBClusterSnapshotIdentifierHasBeenSet; }
 
     /**
      * <p>A specific DB cluster snapshot identifier to describe. This parameter can't
@@ -197,10 +216,9 @@ namespace Model
      * cluster snapshots that have been marked as public.</p> </li> </ul> <p>If you
      * don't specify a <code>SnapshotType</code> value, then both automated and manual
      * DB cluster snapshots are returned. You can include shared DB cluster snapshots
-     * with these results by setting the <code>IncludeShared</code> parameter to
-     * <code>true</code>. You can include public DB cluster snapshots with these
-     * results by setting the <code>IncludePublic</code> parameter to
-     * <code>true</code>.</p> <p>The <code>IncludeShared</code> and
+     * with these results by enabling the <code>IncludeShared</code> parameter. You can
+     * include public DB cluster snapshots with these results by enabling the
+     * <code>IncludePublic</code> parameter.</p> <p>The <code>IncludeShared</code> and
      * <code>IncludePublic</code> parameters don't apply for <code>SnapshotType</code>
      * values of <code>manual</code> or <code>automated</code>. The
      * <code>IncludePublic</code> parameter doesn't apply when
@@ -221,10 +239,32 @@ namespace Model
      * cluster snapshots that have been marked as public.</p> </li> </ul> <p>If you
      * don't specify a <code>SnapshotType</code> value, then both automated and manual
      * DB cluster snapshots are returned. You can include shared DB cluster snapshots
-     * with these results by setting the <code>IncludeShared</code> parameter to
-     * <code>true</code>. You can include public DB cluster snapshots with these
-     * results by setting the <code>IncludePublic</code> parameter to
-     * <code>true</code>.</p> <p>The <code>IncludeShared</code> and
+     * with these results by enabling the <code>IncludeShared</code> parameter. You can
+     * include public DB cluster snapshots with these results by enabling the
+     * <code>IncludePublic</code> parameter.</p> <p>The <code>IncludeShared</code> and
+     * <code>IncludePublic</code> parameters don't apply for <code>SnapshotType</code>
+     * values of <code>manual</code> or <code>automated</code>. The
+     * <code>IncludePublic</code> parameter doesn't apply when
+     * <code>SnapshotType</code> is set to <code>shared</code>. The
+     * <code>IncludeShared</code> parameter doesn't apply when
+     * <code>SnapshotType</code> is set to <code>public</code>.</p>
+     */
+    inline bool SnapshotTypeHasBeenSet() const { return m_snapshotTypeHasBeenSet; }
+
+    /**
+     * <p>The type of DB cluster snapshots to be returned. You can specify one of the
+     * following values:</p> <ul> <li> <p> <code>automated</code> - Return all DB
+     * cluster snapshots that have been automatically taken by Amazon RDS for my AWS
+     * account.</p> </li> <li> <p> <code>manual</code> - Return all DB cluster
+     * snapshots that have been taken by my AWS account.</p> </li> <li> <p>
+     * <code>shared</code> - Return all manual DB cluster snapshots that have been
+     * shared to my AWS account.</p> </li> <li> <p> <code>public</code> - Return all DB
+     * cluster snapshots that have been marked as public.</p> </li> </ul> <p>If you
+     * don't specify a <code>SnapshotType</code> value, then both automated and manual
+     * DB cluster snapshots are returned. You can include shared DB cluster snapshots
+     * with these results by enabling the <code>IncludeShared</code> parameter. You can
+     * include public DB cluster snapshots with these results by enabling the
+     * <code>IncludePublic</code> parameter.</p> <p>The <code>IncludeShared</code> and
      * <code>IncludePublic</code> parameters don't apply for <code>SnapshotType</code>
      * values of <code>manual</code> or <code>automated</code>. The
      * <code>IncludePublic</code> parameter doesn't apply when
@@ -245,10 +285,9 @@ namespace Model
      * cluster snapshots that have been marked as public.</p> </li> </ul> <p>If you
      * don't specify a <code>SnapshotType</code> value, then both automated and manual
      * DB cluster snapshots are returned. You can include shared DB cluster snapshots
-     * with these results by setting the <code>IncludeShared</code> parameter to
-     * <code>true</code>. You can include public DB cluster snapshots with these
-     * results by setting the <code>IncludePublic</code> parameter to
-     * <code>true</code>.</p> <p>The <code>IncludeShared</code> and
+     * with these results by enabling the <code>IncludeShared</code> parameter. You can
+     * include public DB cluster snapshots with these results by enabling the
+     * <code>IncludePublic</code> parameter.</p> <p>The <code>IncludeShared</code> and
      * <code>IncludePublic</code> parameters don't apply for <code>SnapshotType</code>
      * values of <code>manual</code> or <code>automated</code>. The
      * <code>IncludePublic</code> parameter doesn't apply when
@@ -269,10 +308,9 @@ namespace Model
      * cluster snapshots that have been marked as public.</p> </li> </ul> <p>If you
      * don't specify a <code>SnapshotType</code> value, then both automated and manual
      * DB cluster snapshots are returned. You can include shared DB cluster snapshots
-     * with these results by setting the <code>IncludeShared</code> parameter to
-     * <code>true</code>. You can include public DB cluster snapshots with these
-     * results by setting the <code>IncludePublic</code> parameter to
-     * <code>true</code>.</p> <p>The <code>IncludeShared</code> and
+     * with these results by enabling the <code>IncludeShared</code> parameter. You can
+     * include public DB cluster snapshots with these results by enabling the
+     * <code>IncludePublic</code> parameter.</p> <p>The <code>IncludeShared</code> and
      * <code>IncludePublic</code> parameters don't apply for <code>SnapshotType</code>
      * values of <code>manual</code> or <code>automated</code>. The
      * <code>IncludePublic</code> parameter doesn't apply when
@@ -293,10 +331,9 @@ namespace Model
      * cluster snapshots that have been marked as public.</p> </li> </ul> <p>If you
      * don't specify a <code>SnapshotType</code> value, then both automated and manual
      * DB cluster snapshots are returned. You can include shared DB cluster snapshots
-     * with these results by setting the <code>IncludeShared</code> parameter to
-     * <code>true</code>. You can include public DB cluster snapshots with these
-     * results by setting the <code>IncludePublic</code> parameter to
-     * <code>true</code>.</p> <p>The <code>IncludeShared</code> and
+     * with these results by enabling the <code>IncludeShared</code> parameter. You can
+     * include public DB cluster snapshots with these results by enabling the
+     * <code>IncludePublic</code> parameter.</p> <p>The <code>IncludeShared</code> and
      * <code>IncludePublic</code> parameters don't apply for <code>SnapshotType</code>
      * values of <code>manual</code> or <code>automated</code>. The
      * <code>IncludePublic</code> parameter doesn't apply when
@@ -317,10 +354,9 @@ namespace Model
      * cluster snapshots that have been marked as public.</p> </li> </ul> <p>If you
      * don't specify a <code>SnapshotType</code> value, then both automated and manual
      * DB cluster snapshots are returned. You can include shared DB cluster snapshots
-     * with these results by setting the <code>IncludeShared</code> parameter to
-     * <code>true</code>. You can include public DB cluster snapshots with these
-     * results by setting the <code>IncludePublic</code> parameter to
-     * <code>true</code>.</p> <p>The <code>IncludeShared</code> and
+     * with these results by enabling the <code>IncludeShared</code> parameter. You can
+     * include public DB cluster snapshots with these results by enabling the
+     * <code>IncludePublic</code> parameter.</p> <p>The <code>IncludeShared</code> and
      * <code>IncludePublic</code> parameters don't apply for <code>SnapshotType</code>
      * values of <code>manual</code> or <code>automated</code>. The
      * <code>IncludePublic</code> parameter doesn't apply when
@@ -341,10 +377,9 @@ namespace Model
      * cluster snapshots that have been marked as public.</p> </li> </ul> <p>If you
      * don't specify a <code>SnapshotType</code> value, then both automated and manual
      * DB cluster snapshots are returned. You can include shared DB cluster snapshots
-     * with these results by setting the <code>IncludeShared</code> parameter to
-     * <code>true</code>. You can include public DB cluster snapshots with these
-     * results by setting the <code>IncludePublic</code> parameter to
-     * <code>true</code>.</p> <p>The <code>IncludeShared</code> and
+     * with these results by enabling the <code>IncludeShared</code> parameter. You can
+     * include public DB cluster snapshots with these results by enabling the
+     * <code>IncludePublic</code> parameter.</p> <p>The <code>IncludeShared</code> and
      * <code>IncludePublic</code> parameters don't apply for <code>SnapshotType</code>
      * values of <code>manual</code> or <code>automated</code>. The
      * <code>IncludePublic</code> parameter doesn't apply when
@@ -356,37 +391,90 @@ namespace Model
 
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>A filter that specifies one or more DB cluster snapshots to describe.</p>
+     * <p>Supported filters:</p> <ul> <li> <p> <code>db-cluster-id</code> - Accepts DB
+     * cluster identifiers and DB cluster Amazon Resource Names (ARNs).</p> </li> <li>
+     * <p> <code>db-cluster-snapshot-id</code> - Accepts DB cluster snapshot
+     * identifiers.</p> </li> <li> <p> <code>snapshot-type</code> - Accepts types of DB
+     * cluster snapshots.</p> </li> <li> <p> <code>engine</code> - Accepts names of
+     * database engines.</p> </li> </ul>
      */
     inline const Aws::Vector<Filter>& GetFilters() const{ return m_filters; }
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>A filter that specifies one or more DB cluster snapshots to describe.</p>
+     * <p>Supported filters:</p> <ul> <li> <p> <code>db-cluster-id</code> - Accepts DB
+     * cluster identifiers and DB cluster Amazon Resource Names (ARNs).</p> </li> <li>
+     * <p> <code>db-cluster-snapshot-id</code> - Accepts DB cluster snapshot
+     * identifiers.</p> </li> <li> <p> <code>snapshot-type</code> - Accepts types of DB
+     * cluster snapshots.</p> </li> <li> <p> <code>engine</code> - Accepts names of
+     * database engines.</p> </li> </ul>
+     */
+    inline bool FiltersHasBeenSet() const { return m_filtersHasBeenSet; }
+
+    /**
+     * <p>A filter that specifies one or more DB cluster snapshots to describe.</p>
+     * <p>Supported filters:</p> <ul> <li> <p> <code>db-cluster-id</code> - Accepts DB
+     * cluster identifiers and DB cluster Amazon Resource Names (ARNs).</p> </li> <li>
+     * <p> <code>db-cluster-snapshot-id</code> - Accepts DB cluster snapshot
+     * identifiers.</p> </li> <li> <p> <code>snapshot-type</code> - Accepts types of DB
+     * cluster snapshots.</p> </li> <li> <p> <code>engine</code> - Accepts names of
+     * database engines.</p> </li> </ul>
      */
     inline void SetFilters(const Aws::Vector<Filter>& value) { m_filtersHasBeenSet = true; m_filters = value; }
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>A filter that specifies one or more DB cluster snapshots to describe.</p>
+     * <p>Supported filters:</p> <ul> <li> <p> <code>db-cluster-id</code> - Accepts DB
+     * cluster identifiers and DB cluster Amazon Resource Names (ARNs).</p> </li> <li>
+     * <p> <code>db-cluster-snapshot-id</code> - Accepts DB cluster snapshot
+     * identifiers.</p> </li> <li> <p> <code>snapshot-type</code> - Accepts types of DB
+     * cluster snapshots.</p> </li> <li> <p> <code>engine</code> - Accepts names of
+     * database engines.</p> </li> </ul>
      */
     inline void SetFilters(Aws::Vector<Filter>&& value) { m_filtersHasBeenSet = true; m_filters = std::move(value); }
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>A filter that specifies one or more DB cluster snapshots to describe.</p>
+     * <p>Supported filters:</p> <ul> <li> <p> <code>db-cluster-id</code> - Accepts DB
+     * cluster identifiers and DB cluster Amazon Resource Names (ARNs).</p> </li> <li>
+     * <p> <code>db-cluster-snapshot-id</code> - Accepts DB cluster snapshot
+     * identifiers.</p> </li> <li> <p> <code>snapshot-type</code> - Accepts types of DB
+     * cluster snapshots.</p> </li> <li> <p> <code>engine</code> - Accepts names of
+     * database engines.</p> </li> </ul>
      */
     inline DescribeDBClusterSnapshotsRequest& WithFilters(const Aws::Vector<Filter>& value) { SetFilters(value); return *this;}
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>A filter that specifies one or more DB cluster snapshots to describe.</p>
+     * <p>Supported filters:</p> <ul> <li> <p> <code>db-cluster-id</code> - Accepts DB
+     * cluster identifiers and DB cluster Amazon Resource Names (ARNs).</p> </li> <li>
+     * <p> <code>db-cluster-snapshot-id</code> - Accepts DB cluster snapshot
+     * identifiers.</p> </li> <li> <p> <code>snapshot-type</code> - Accepts types of DB
+     * cluster snapshots.</p> </li> <li> <p> <code>engine</code> - Accepts names of
+     * database engines.</p> </li> </ul>
      */
     inline DescribeDBClusterSnapshotsRequest& WithFilters(Aws::Vector<Filter>&& value) { SetFilters(std::move(value)); return *this;}
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>A filter that specifies one or more DB cluster snapshots to describe.</p>
+     * <p>Supported filters:</p> <ul> <li> <p> <code>db-cluster-id</code> - Accepts DB
+     * cluster identifiers and DB cluster Amazon Resource Names (ARNs).</p> </li> <li>
+     * <p> <code>db-cluster-snapshot-id</code> - Accepts DB cluster snapshot
+     * identifiers.</p> </li> <li> <p> <code>snapshot-type</code> - Accepts types of DB
+     * cluster snapshots.</p> </li> <li> <p> <code>engine</code> - Accepts names of
+     * database engines.</p> </li> </ul>
      */
     inline DescribeDBClusterSnapshotsRequest& AddFilters(const Filter& value) { m_filtersHasBeenSet = true; m_filters.push_back(value); return *this; }
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>A filter that specifies one or more DB cluster snapshots to describe.</p>
+     * <p>Supported filters:</p> <ul> <li> <p> <code>db-cluster-id</code> - Accepts DB
+     * cluster identifiers and DB cluster Amazon Resource Names (ARNs).</p> </li> <li>
+     * <p> <code>db-cluster-snapshot-id</code> - Accepts DB cluster snapshot
+     * identifiers.</p> </li> <li> <p> <code>snapshot-type</code> - Accepts types of DB
+     * cluster snapshots.</p> </li> <li> <p> <code>engine</code> - Accepts names of
+     * database engines.</p> </li> </ul>
      */
     inline DescribeDBClusterSnapshotsRequest& AddFilters(Filter&& value) { m_filtersHasBeenSet = true; m_filters.push_back(std::move(value)); return *this; }
 
@@ -394,24 +482,32 @@ namespace Model
     /**
      * <p>The maximum number of records to include in the response. If more records
      * exist than the specified <code>MaxRecords</code> value, a pagination token
-     * called a marker is included in the response so that the remaining results can be
-     * retrieved. </p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
+     * called a marker is included in the response so you can retrieve the remaining
+     * results. </p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
      */
     inline int GetMaxRecords() const{ return m_maxRecords; }
 
     /**
      * <p>The maximum number of records to include in the response. If more records
      * exist than the specified <code>MaxRecords</code> value, a pagination token
-     * called a marker is included in the response so that the remaining results can be
-     * retrieved. </p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
+     * called a marker is included in the response so you can retrieve the remaining
+     * results. </p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
+     */
+    inline bool MaxRecordsHasBeenSet() const { return m_maxRecordsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of records to include in the response. If more records
+     * exist than the specified <code>MaxRecords</code> value, a pagination token
+     * called a marker is included in the response so you can retrieve the remaining
+     * results. </p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
      */
     inline void SetMaxRecords(int value) { m_maxRecordsHasBeenSet = true; m_maxRecords = value; }
 
     /**
      * <p>The maximum number of records to include in the response. If more records
      * exist than the specified <code>MaxRecords</code> value, a pagination token
-     * called a marker is included in the response so that the remaining results can be
-     * retrieved. </p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
+     * called a marker is included in the response so you can retrieve the remaining
+     * results. </p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
      */
     inline DescribeDBClusterSnapshotsRequest& WithMaxRecords(int value) { SetMaxRecords(value); return *this;}
 
@@ -423,6 +519,14 @@ namespace Model
      * by <code>MaxRecords</code>. </p>
      */
     inline const Aws::String& GetMarker() const{ return m_marker; }
+
+    /**
+     * <p>An optional pagination token provided by a previous
+     * <code>DescribeDBClusterSnapshots</code> request. If this parameter is specified,
+     * the response includes only records beyond the marker, up to the value specified
+     * by <code>MaxRecords</code>. </p>
+     */
+    inline bool MarkerHasBeenSet() const { return m_markerHasBeenSet; }
 
     /**
      * <p>An optional pagination token provided by a previous
@@ -474,57 +578,75 @@ namespace Model
 
 
     /**
-     * <p>True to include shared manual DB cluster snapshots from other AWS accounts
-     * that this AWS account has been given permission to copy or restore, and
-     * otherwise false. The default is <code>false</code>.</p> <p>You can give an AWS
-     * account permission to restore a manual DB cluster snapshot from another AWS
-     * account by the <a>ModifyDBClusterSnapshotAttribute</a> API action.</p>
+     * <p>A value that indicates whether to include shared manual DB cluster snapshots
+     * from other AWS accounts that this AWS account has been given permission to copy
+     * or restore. By default, these snapshots are not included.</p> <p>You can give an
+     * AWS account permission to restore a manual DB cluster snapshot from another AWS
+     * account by the <code>ModifyDBClusterSnapshotAttribute</code> API action.</p>
      */
     inline bool GetIncludeShared() const{ return m_includeShared; }
 
     /**
-     * <p>True to include shared manual DB cluster snapshots from other AWS accounts
-     * that this AWS account has been given permission to copy or restore, and
-     * otherwise false. The default is <code>false</code>.</p> <p>You can give an AWS
-     * account permission to restore a manual DB cluster snapshot from another AWS
-     * account by the <a>ModifyDBClusterSnapshotAttribute</a> API action.</p>
+     * <p>A value that indicates whether to include shared manual DB cluster snapshots
+     * from other AWS accounts that this AWS account has been given permission to copy
+     * or restore. By default, these snapshots are not included.</p> <p>You can give an
+     * AWS account permission to restore a manual DB cluster snapshot from another AWS
+     * account by the <code>ModifyDBClusterSnapshotAttribute</code> API action.</p>
+     */
+    inline bool IncludeSharedHasBeenSet() const { return m_includeSharedHasBeenSet; }
+
+    /**
+     * <p>A value that indicates whether to include shared manual DB cluster snapshots
+     * from other AWS accounts that this AWS account has been given permission to copy
+     * or restore. By default, these snapshots are not included.</p> <p>You can give an
+     * AWS account permission to restore a manual DB cluster snapshot from another AWS
+     * account by the <code>ModifyDBClusterSnapshotAttribute</code> API action.</p>
      */
     inline void SetIncludeShared(bool value) { m_includeSharedHasBeenSet = true; m_includeShared = value; }
 
     /**
-     * <p>True to include shared manual DB cluster snapshots from other AWS accounts
-     * that this AWS account has been given permission to copy or restore, and
-     * otherwise false. The default is <code>false</code>.</p> <p>You can give an AWS
-     * account permission to restore a manual DB cluster snapshot from another AWS
-     * account by the <a>ModifyDBClusterSnapshotAttribute</a> API action.</p>
+     * <p>A value that indicates whether to include shared manual DB cluster snapshots
+     * from other AWS accounts that this AWS account has been given permission to copy
+     * or restore. By default, these snapshots are not included.</p> <p>You can give an
+     * AWS account permission to restore a manual DB cluster snapshot from another AWS
+     * account by the <code>ModifyDBClusterSnapshotAttribute</code> API action.</p>
      */
     inline DescribeDBClusterSnapshotsRequest& WithIncludeShared(bool value) { SetIncludeShared(value); return *this;}
 
 
     /**
-     * <p>True to include manual DB cluster snapshots that are public and can be copied
-     * or restored by any AWS account, and otherwise false. The default is
-     * <code>false</code>. The default is false.</p> <p>You can share a manual DB
-     * cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a>
-     * API action.</p>
+     * <p>A value that indicates whether to include manual DB cluster snapshots that
+     * are public and can be copied or restored by any AWS account. By default, the
+     * public snapshots are not included.</p> <p>You can share a manual DB cluster
+     * snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
+     * action.</p>
      */
     inline bool GetIncludePublic() const{ return m_includePublic; }
 
     /**
-     * <p>True to include manual DB cluster snapshots that are public and can be copied
-     * or restored by any AWS account, and otherwise false. The default is
-     * <code>false</code>. The default is false.</p> <p>You can share a manual DB
-     * cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a>
-     * API action.</p>
+     * <p>A value that indicates whether to include manual DB cluster snapshots that
+     * are public and can be copied or restored by any AWS account. By default, the
+     * public snapshots are not included.</p> <p>You can share a manual DB cluster
+     * snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
+     * action.</p>
+     */
+    inline bool IncludePublicHasBeenSet() const { return m_includePublicHasBeenSet; }
+
+    /**
+     * <p>A value that indicates whether to include manual DB cluster snapshots that
+     * are public and can be copied or restored by any AWS account. By default, the
+     * public snapshots are not included.</p> <p>You can share a manual DB cluster
+     * snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
+     * action.</p>
      */
     inline void SetIncludePublic(bool value) { m_includePublicHasBeenSet = true; m_includePublic = value; }
 
     /**
-     * <p>True to include manual DB cluster snapshots that are public and can be copied
-     * or restored by any AWS account, and otherwise false. The default is
-     * <code>false</code>. The default is false.</p> <p>You can share a manual DB
-     * cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a>
-     * API action.</p>
+     * <p>A value that indicates whether to include manual DB cluster snapshots that
+     * are public and can be copied or restored by any AWS account. By default, the
+     * public snapshots are not included.</p> <p>You can share a manual DB cluster
+     * snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
+     * action.</p>
      */
     inline DescribeDBClusterSnapshotsRequest& WithIncludePublic(bool value) { SetIncludePublic(value); return *this;}
 

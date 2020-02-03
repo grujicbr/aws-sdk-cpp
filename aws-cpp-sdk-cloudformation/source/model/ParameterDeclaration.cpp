@@ -62,31 +62,31 @@ ParameterDeclaration& ParameterDeclaration::operator =(const XmlNode& xmlNode)
     XmlNode parameterKeyNode = resultNode.FirstChild("ParameterKey");
     if(!parameterKeyNode.IsNull())
     {
-      m_parameterKey = StringUtils::Trim(parameterKeyNode.GetText().c_str());
+      m_parameterKey = Aws::Utils::Xml::DecodeEscapedXmlText(parameterKeyNode.GetText());
       m_parameterKeyHasBeenSet = true;
     }
     XmlNode defaultValueNode = resultNode.FirstChild("DefaultValue");
     if(!defaultValueNode.IsNull())
     {
-      m_defaultValue = StringUtils::Trim(defaultValueNode.GetText().c_str());
+      m_defaultValue = Aws::Utils::Xml::DecodeEscapedXmlText(defaultValueNode.GetText());
       m_defaultValueHasBeenSet = true;
     }
     XmlNode parameterTypeNode = resultNode.FirstChild("ParameterType");
     if(!parameterTypeNode.IsNull())
     {
-      m_parameterType = StringUtils::Trim(parameterTypeNode.GetText().c_str());
+      m_parameterType = Aws::Utils::Xml::DecodeEscapedXmlText(parameterTypeNode.GetText());
       m_parameterTypeHasBeenSet = true;
     }
     XmlNode noEchoNode = resultNode.FirstChild("NoEcho");
     if(!noEchoNode.IsNull())
     {
-      m_noEcho = StringUtils::ConvertToBool(StringUtils::Trim(noEchoNode.GetText().c_str()).c_str());
+      m_noEcho = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(noEchoNode.GetText()).c_str()).c_str());
       m_noEchoHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode parameterConstraintsNode = resultNode.FirstChild("ParameterConstraints");

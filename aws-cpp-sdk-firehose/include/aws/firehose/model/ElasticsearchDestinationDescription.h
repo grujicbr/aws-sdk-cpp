@@ -32,6 +32,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     ElasticsearchDestinationDescription();
-    ElasticsearchDestinationDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    ElasticsearchDestinationDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ElasticsearchDestinationDescription(Aws::Utils::Json::JsonView jsonValue);
+    ElasticsearchDestinationDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +61,14 @@ namespace Model
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
      */
     inline const Aws::String& GetRoleARN() const{ return m_roleARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the AWS credentials. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the AWS credentials. For more information,
@@ -113,57 +122,142 @@ namespace Model
     /**
      * <p>The ARN of the Amazon ES domain. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Kinesis Data
+     * Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to
+     * send data to Amazon ES.</p>
      */
     inline const Aws::String& GetDomainARN() const{ return m_domainARN; }
 
     /**
      * <p>The ARN of the Amazon ES domain. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Kinesis Data
+     * Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to
+     * send data to Amazon ES.</p>
+     */
+    inline bool DomainARNHasBeenSet() const { return m_domainARNHasBeenSet; }
+
+    /**
+     * <p>The ARN of the Amazon ES domain. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Kinesis Data
+     * Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to
+     * send data to Amazon ES.</p>
      */
     inline void SetDomainARN(const Aws::String& value) { m_domainARNHasBeenSet = true; m_domainARN = value; }
 
     /**
      * <p>The ARN of the Amazon ES domain. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Kinesis Data
+     * Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to
+     * send data to Amazon ES.</p>
      */
     inline void SetDomainARN(Aws::String&& value) { m_domainARNHasBeenSet = true; m_domainARN = std::move(value); }
 
     /**
      * <p>The ARN of the Amazon ES domain. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Kinesis Data
+     * Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to
+     * send data to Amazon ES.</p>
      */
     inline void SetDomainARN(const char* value) { m_domainARNHasBeenSet = true; m_domainARN.assign(value); }
 
     /**
      * <p>The ARN of the Amazon ES domain. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Kinesis Data
+     * Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to
+     * send data to Amazon ES.</p>
      */
     inline ElasticsearchDestinationDescription& WithDomainARN(const Aws::String& value) { SetDomainARN(value); return *this;}
 
     /**
      * <p>The ARN of the Amazon ES domain. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Kinesis Data
+     * Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to
+     * send data to Amazon ES.</p>
      */
     inline ElasticsearchDestinationDescription& WithDomainARN(Aws::String&& value) { SetDomainARN(std::move(value)); return *this;}
 
     /**
      * <p>The ARN of the Amazon ES domain. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Kinesis Data
+     * Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to
+     * send data to Amazon ES.</p>
      */
     inline ElasticsearchDestinationDescription& WithDomainARN(const char* value) { SetDomainARN(value); return *this;}
+
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Kinesis Data
+     * Firehose uses either this <code>ClusterEndpoint</code> or the
+     * <code>DomainARN</code> field to send data to Amazon ES.</p>
+     */
+    inline const Aws::String& GetClusterEndpoint() const{ return m_clusterEndpoint; }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Kinesis Data
+     * Firehose uses either this <code>ClusterEndpoint</code> or the
+     * <code>DomainARN</code> field to send data to Amazon ES.</p>
+     */
+    inline bool ClusterEndpointHasBeenSet() const { return m_clusterEndpointHasBeenSet; }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Kinesis Data
+     * Firehose uses either this <code>ClusterEndpoint</code> or the
+     * <code>DomainARN</code> field to send data to Amazon ES.</p>
+     */
+    inline void SetClusterEndpoint(const Aws::String& value) { m_clusterEndpointHasBeenSet = true; m_clusterEndpoint = value; }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Kinesis Data
+     * Firehose uses either this <code>ClusterEndpoint</code> or the
+     * <code>DomainARN</code> field to send data to Amazon ES.</p>
+     */
+    inline void SetClusterEndpoint(Aws::String&& value) { m_clusterEndpointHasBeenSet = true; m_clusterEndpoint = std::move(value); }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Kinesis Data
+     * Firehose uses either this <code>ClusterEndpoint</code> or the
+     * <code>DomainARN</code> field to send data to Amazon ES.</p>
+     */
+    inline void SetClusterEndpoint(const char* value) { m_clusterEndpointHasBeenSet = true; m_clusterEndpoint.assign(value); }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Kinesis Data
+     * Firehose uses either this <code>ClusterEndpoint</code> or the
+     * <code>DomainARN</code> field to send data to Amazon ES.</p>
+     */
+    inline ElasticsearchDestinationDescription& WithClusterEndpoint(const Aws::String& value) { SetClusterEndpoint(value); return *this;}
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Kinesis Data
+     * Firehose uses either this <code>ClusterEndpoint</code> or the
+     * <code>DomainARN</code> field to send data to Amazon ES.</p>
+     */
+    inline ElasticsearchDestinationDescription& WithClusterEndpoint(Aws::String&& value) { SetClusterEndpoint(std::move(value)); return *this;}
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Kinesis Data
+     * Firehose uses either this <code>ClusterEndpoint</code> or the
+     * <code>DomainARN</code> field to send data to Amazon ES.</p>
+     */
+    inline ElasticsearchDestinationDescription& WithClusterEndpoint(const char* value) { SetClusterEndpoint(value); return *this;}
 
 
     /**
      * <p>The Elasticsearch index name.</p>
      */
     inline const Aws::String& GetIndexName() const{ return m_indexName; }
+
+    /**
+     * <p>The Elasticsearch index name.</p>
+     */
+    inline bool IndexNameHasBeenSet() const { return m_indexNameHasBeenSet; }
 
     /**
      * <p>The Elasticsearch index name.</p>
@@ -197,37 +291,50 @@ namespace Model
 
 
     /**
-     * <p>The Elasticsearch type name.</p>
+     * <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower
+     * versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
      */
     inline const Aws::String& GetTypeName() const{ return m_typeName; }
 
     /**
-     * <p>The Elasticsearch type name.</p>
+     * <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower
+     * versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
+     */
+    inline bool TypeNameHasBeenSet() const { return m_typeNameHasBeenSet; }
+
+    /**
+     * <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower
+     * versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
      */
     inline void SetTypeName(const Aws::String& value) { m_typeNameHasBeenSet = true; m_typeName = value; }
 
     /**
-     * <p>The Elasticsearch type name.</p>
+     * <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower
+     * versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
      */
     inline void SetTypeName(Aws::String&& value) { m_typeNameHasBeenSet = true; m_typeName = std::move(value); }
 
     /**
-     * <p>The Elasticsearch type name.</p>
+     * <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower
+     * versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
      */
     inline void SetTypeName(const char* value) { m_typeNameHasBeenSet = true; m_typeName.assign(value); }
 
     /**
-     * <p>The Elasticsearch type name.</p>
+     * <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower
+     * versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
      */
     inline ElasticsearchDestinationDescription& WithTypeName(const Aws::String& value) { SetTypeName(value); return *this;}
 
     /**
-     * <p>The Elasticsearch type name.</p>
+     * <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower
+     * versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
      */
     inline ElasticsearchDestinationDescription& WithTypeName(Aws::String&& value) { SetTypeName(std::move(value)); return *this;}
 
     /**
-     * <p>The Elasticsearch type name.</p>
+     * <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower
+     * versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
      */
     inline ElasticsearchDestinationDescription& WithTypeName(const char* value) { SetTypeName(value); return *this;}
 
@@ -236,6 +343,11 @@ namespace Model
      * <p>The Elasticsearch index rotation period</p>
      */
     inline const ElasticsearchIndexRotationPeriod& GetIndexRotationPeriod() const{ return m_indexRotationPeriod; }
+
+    /**
+     * <p>The Elasticsearch index rotation period</p>
+     */
+    inline bool IndexRotationPeriodHasBeenSet() const { return m_indexRotationPeriodHasBeenSet; }
 
     /**
      * <p>The Elasticsearch index rotation period</p>
@@ -266,6 +378,11 @@ namespace Model
     /**
      * <p>The buffering options.</p>
      */
+    inline bool BufferingHintsHasBeenSet() const { return m_bufferingHintsHasBeenSet; }
+
+    /**
+     * <p>The buffering options.</p>
+     */
     inline void SetBufferingHints(const ElasticsearchBufferingHints& value) { m_bufferingHintsHasBeenSet = true; m_bufferingHints = value; }
 
     /**
@@ -288,6 +405,11 @@ namespace Model
      * <p>The Amazon ES retry options.</p>
      */
     inline const ElasticsearchRetryOptions& GetRetryOptions() const{ return m_retryOptions; }
+
+    /**
+     * <p>The Amazon ES retry options.</p>
+     */
+    inline bool RetryOptionsHasBeenSet() const { return m_retryOptionsHasBeenSet; }
 
     /**
      * <p>The Amazon ES retry options.</p>
@@ -318,6 +440,11 @@ namespace Model
     /**
      * <p>The Amazon S3 backup mode.</p>
      */
+    inline bool S3BackupModeHasBeenSet() const { return m_s3BackupModeHasBeenSet; }
+
+    /**
+     * <p>The Amazon S3 backup mode.</p>
+     */
     inline void SetS3BackupMode(const ElasticsearchS3BackupMode& value) { m_s3BackupModeHasBeenSet = true; m_s3BackupMode = value; }
 
     /**
@@ -340,6 +467,11 @@ namespace Model
      * <p>The Amazon S3 destination.</p>
      */
     inline const S3DestinationDescription& GetS3DestinationDescription() const{ return m_s3DestinationDescription; }
+
+    /**
+     * <p>The Amazon S3 destination.</p>
+     */
+    inline bool S3DestinationDescriptionHasBeenSet() const { return m_s3DestinationDescriptionHasBeenSet; }
 
     /**
      * <p>The Amazon S3 destination.</p>
@@ -370,6 +502,11 @@ namespace Model
     /**
      * <p>The data processing configuration.</p>
      */
+    inline bool ProcessingConfigurationHasBeenSet() const { return m_processingConfigurationHasBeenSet; }
+
+    /**
+     * <p>The data processing configuration.</p>
+     */
     inline void SetProcessingConfiguration(const ProcessingConfiguration& value) { m_processingConfigurationHasBeenSet = true; m_processingConfiguration = value; }
 
     /**
@@ -392,6 +529,11 @@ namespace Model
      * <p>The Amazon CloudWatch logging options.</p>
      */
     inline const CloudWatchLoggingOptions& GetCloudWatchLoggingOptions() const{ return m_cloudWatchLoggingOptions; }
+
+    /**
+     * <p>The Amazon CloudWatch logging options.</p>
+     */
+    inline bool CloudWatchLoggingOptionsHasBeenSet() const { return m_cloudWatchLoggingOptionsHasBeenSet; }
 
     /**
      * <p>The Amazon CloudWatch logging options.</p>
@@ -420,6 +562,9 @@ namespace Model
 
     Aws::String m_domainARN;
     bool m_domainARNHasBeenSet;
+
+    Aws::String m_clusterEndpoint;
+    bool m_clusterEndpointHasBeenSet;
 
     Aws::String m_indexName;
     bool m_indexNameHasBeenSet;

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeStar
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TeamMember();
-    TeamMember(const Aws::Utils::Json::JsonValue& jsonValue);
-    TeamMember& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TeamMember(Aws::Utils::Json::JsonView jsonValue);
+    TeamMember& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the user in IAM.</p>
      */
     inline const Aws::String& GetUserArn() const{ return m_userArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the user in IAM.</p>
+     */
+    inline bool UserArnHasBeenSet() const { return m_userArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the user in IAM.</p>
@@ -89,6 +95,14 @@ namespace Model
      * with Teams</a> in the <i>AWS CodeStar User Guide</i>. </p>
      */
     inline const Aws::String& GetProjectRole() const{ return m_projectRole; }
+
+    /**
+     * <p>The role assigned to the user in the project. Project roles have different
+     * levels of access. For more information, see <a
+     * href="http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html">Working
+     * with Teams</a> in the <i>AWS CodeStar User Guide</i>. </p>
+     */
+    inline bool ProjectRoleHasBeenSet() const { return m_projectRoleHasBeenSet; }
 
     /**
      * <p>The role assigned to the user in the project. Project roles have different
@@ -144,6 +158,12 @@ namespace Model
      * public/private key pair.</p>
      */
     inline bool GetRemoteAccessAllowed() const{ return m_remoteAccessAllowed; }
+
+    /**
+     * <p>Whether the user is allowed to remotely access project resources using an SSH
+     * public/private key pair.</p>
+     */
+    inline bool RemoteAccessAllowedHasBeenSet() const { return m_remoteAccessAllowedHasBeenSet; }
 
     /**
      * <p>Whether the user is allowed to remotely access project resources using an SSH

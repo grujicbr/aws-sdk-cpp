@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CategoricalParameterRange();
-    CategoricalParameterRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    CategoricalParameterRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CategoricalParameterRange(Aws::Utils::Json::JsonView jsonValue);
+    CategoricalParameterRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the categorical hyperparameter to tune.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the categorical hyperparameter to tune.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the categorical hyperparameter to tune.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>A list of the categories for the hyperparameter.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>A list of the categories for the hyperparameter.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>A list of the categories for the hyperparameter.</p>

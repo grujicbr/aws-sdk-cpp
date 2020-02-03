@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     StepStatus();
-    StepStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    StepStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StepStatus(Aws::Utils::Json::JsonView jsonValue);
+    StepStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The execution state of the cluster step.</p>
      */
     inline const StepState& GetState() const{ return m_state; }
+
+    /**
+     * <p>The execution state of the cluster step.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The execution state of the cluster step.</p>
@@ -80,6 +86,11 @@ namespace Model
      * <p>The reason for the step execution status change.</p>
      */
     inline const StepStateChangeReason& GetStateChangeReason() const{ return m_stateChangeReason; }
+
+    /**
+     * <p>The reason for the step execution status change.</p>
+     */
+    inline bool StateChangeReasonHasBeenSet() const { return m_stateChangeReasonHasBeenSet; }
 
     /**
      * <p>The reason for the step execution status change.</p>
@@ -112,6 +123,12 @@ namespace Model
      * <p>The details for the step failure including reason, message, and log file path
      * where the root cause was identified.</p>
      */
+    inline bool FailureDetailsHasBeenSet() const { return m_failureDetailsHasBeenSet; }
+
+    /**
+     * <p>The details for the step failure including reason, message, and log file path
+     * where the root cause was identified.</p>
+     */
     inline void SetFailureDetails(const FailureDetails& value) { m_failureDetailsHasBeenSet = true; m_failureDetails = value; }
 
     /**
@@ -137,6 +154,11 @@ namespace Model
      * <p>The timeline of the cluster step status over time.</p>
      */
     inline const StepTimeline& GetTimeline() const{ return m_timeline; }
+
+    /**
+     * <p>The timeline of the cluster step status over time.</p>
+     */
+    inline bool TimelineHasBeenSet() const { return m_timelineHasBeenSet; }
 
     /**
      * <p>The timeline of the cluster step status over time.</p>

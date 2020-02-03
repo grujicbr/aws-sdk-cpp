@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     LoadBalancerTlsCertificateDomainValidationRecord();
-    LoadBalancerTlsCertificateDomainValidationRecord(const Aws::Utils::Json::JsonValue& jsonValue);
-    LoadBalancerTlsCertificateDomainValidationRecord& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LoadBalancerTlsCertificateDomainValidationRecord(Aws::Utils::Json::JsonView jsonValue);
+    LoadBalancerTlsCertificateDomainValidationRecord& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * <code>example.com</code>.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>A fully qualified domain name in the certificate. For example,
+     * <code>example.com</code>.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A fully qualified domain name in the certificate. For example,
@@ -101,6 +108,12 @@ namespace Model
      * <p>The type of validation record. For example, <code>CNAME</code> for domain
      * validation.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of validation record. For example, <code>CNAME</code> for domain
+     * validation.</p>
+     */
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -142,6 +155,11 @@ namespace Model
     /**
      * <p>The value for that type.</p>
      */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>The value for that type.</p>
+     */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
@@ -178,6 +196,11 @@ namespace Model
     /**
      * <p>The validation status. Valid values are listed below.</p>
      */
+    inline bool ValidationStatusHasBeenSet() const { return m_validationStatusHasBeenSet; }
+
+    /**
+     * <p>The validation status. Valid values are listed below.</p>
+     */
     inline void SetValidationStatus(const LoadBalancerTlsCertificateDomainStatus& value) { m_validationStatusHasBeenSet = true; m_validationStatus = value; }
 
     /**
@@ -200,6 +223,11 @@ namespace Model
      * <p>The domain name against which your SSL/TLS certificate was validated.</p>
      */
     inline const Aws::String& GetDomainName() const{ return m_domainName; }
+
+    /**
+     * <p>The domain name against which your SSL/TLS certificate was validated.</p>
+     */
+    inline bool DomainNameHasBeenSet() const { return m_domainNameHasBeenSet; }
 
     /**
      * <p>The domain name against which your SSL/TLS certificate was validated.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ErrorInfo();
-    ErrorInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    ErrorInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ErrorInfo(Aws::Utils::Json::JsonView jsonValue);
+    ErrorInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The error code.</p>
      */
     inline const Aws::String& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The error code.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The error code.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The error message.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The error message.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The error message.</p>

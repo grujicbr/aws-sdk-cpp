@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TimerStartedEventAttributes();
-    TimerStartedEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimerStartedEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimerStartedEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    TimerStartedEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The unique ID of the timer that was started.</p>
      */
     inline const Aws::String& GetTimerId() const{ return m_timerId; }
+
+    /**
+     * <p>The unique ID of the timer that was started.</p>
+     */
+    inline bool TimerIdHasBeenSet() const { return m_timerIdHasBeenSet; }
 
     /**
      * <p>The unique ID of the timer that was started.</p>
@@ -88,6 +94,12 @@ namespace Model
      * workflow tasks.</p>
      */
     inline const Aws::String& GetControl() const{ return m_control; }
+
+    /**
+     * <p>Data attached to the event that can be used by the decider in subsequent
+     * workflow tasks.</p>
+     */
+    inline bool ControlHasBeenSet() const { return m_controlHasBeenSet; }
 
     /**
      * <p>Data attached to the event that can be used by the decider in subsequent
@@ -136,6 +148,12 @@ namespace Model
      * <p>The duration of time after which the timer fires.</p> <p>The duration is
      * specified in seconds, an integer greater than or equal to <code>0</code>.</p>
      */
+    inline bool StartToFireTimeoutHasBeenSet() const { return m_startToFireTimeoutHasBeenSet; }
+
+    /**
+     * <p>The duration of time after which the timer fires.</p> <p>The duration is
+     * specified in seconds, an integer greater than or equal to <code>0</code>.</p>
+     */
     inline void SetStartToFireTimeout(const Aws::String& value) { m_startToFireTimeoutHasBeenSet = true; m_startToFireTimeout = value; }
 
     /**
@@ -176,6 +194,14 @@ namespace Model
      * back the chain of events leading up to this event.</p>
      */
     inline long long GetDecisionTaskCompletedEventId() const{ return m_decisionTaskCompletedEventId; }
+
+    /**
+     * <p>The ID of the <code>DecisionTaskCompleted</code> event corresponding to the
+     * decision task that resulted in the <code>StartTimer</code> decision for this
+     * activity task. This information can be useful for diagnosing problems by tracing
+     * back the chain of events leading up to this event.</p>
+     */
+    inline bool DecisionTaskCompletedEventIdHasBeenSet() const { return m_decisionTaskCompletedEventIdHasBeenSet; }
 
     /**
      * <p>The ID of the <code>DecisionTaskCompleted</code> event corresponding to the

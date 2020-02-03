@@ -36,11 +36,13 @@ ProvisioningArtifactDetail::ProvisioningArtifactDetail() :
     m_typeHasBeenSet(false),
     m_createdTimeHasBeenSet(false),
     m_active(false),
-    m_activeHasBeenSet(false)
+    m_activeHasBeenSet(false),
+    m_guidance(ProvisioningArtifactGuidance::NOT_SET),
+    m_guidanceHasBeenSet(false)
 {
 }
 
-ProvisioningArtifactDetail::ProvisioningArtifactDetail(const JsonValue& jsonValue) : 
+ProvisioningArtifactDetail::ProvisioningArtifactDetail(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -48,12 +50,14 @@ ProvisioningArtifactDetail::ProvisioningArtifactDetail(const JsonValue& jsonValu
     m_typeHasBeenSet(false),
     m_createdTimeHasBeenSet(false),
     m_active(false),
-    m_activeHasBeenSet(false)
+    m_activeHasBeenSet(false),
+    m_guidance(ProvisioningArtifactGuidance::NOT_SET),
+    m_guidanceHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ProvisioningArtifactDetail& ProvisioningArtifactDetail::operator =(const JsonValue& jsonValue)
+ProvisioningArtifactDetail& ProvisioningArtifactDetail::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -97,6 +101,13 @@ ProvisioningArtifactDetail& ProvisioningArtifactDetail::operator =(const JsonVal
     m_activeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("Guidance"))
+  {
+    m_guidance = ProvisioningArtifactGuidanceMapper::GetProvisioningArtifactGuidanceForName(jsonValue.GetString("Guidance"));
+
+    m_guidanceHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -136,6 +147,11 @@ JsonValue ProvisioningArtifactDetail::Jsonize() const
   {
    payload.WithBool("Active", m_active);
 
+  }
+
+  if(m_guidanceHasBeenSet)
+  {
+   payload.WithString("Guidance", ProvisioningArtifactGuidanceMapper::GetNameForProvisioningArtifactGuidance(m_guidance));
   }
 
   return payload;

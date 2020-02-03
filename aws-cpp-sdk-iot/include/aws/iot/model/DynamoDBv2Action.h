@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     DynamoDBv2Action();
-    DynamoDBv2Action(const Aws::Utils::Json::JsonValue& jsonValue);
-    DynamoDBv2Action& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DynamoDBv2Action(Aws::Utils::Json::JsonView jsonValue);
+    DynamoDBv2Action& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The ARN of the IAM role that grants access to the DynamoDB table.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The ARN of the IAM role that grants access to the DynamoDB table.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The ARN of the IAM role that grants access to the DynamoDB table.</p>
@@ -93,6 +99,15 @@ namespace Model
      * database.</p>
      */
     inline const PutItemInput& GetPutItem() const{ return m_putItem; }
+
+    /**
+     * <p>Specifies the DynamoDB table to which the message data will be written. For
+     * example:</p> <p> <code>{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role"
+     * "putItem": { "tableName": "my-table" } } }</code> </p> <p>Each attribute in the
+     * message payload will be written to a separate column in the DynamoDB
+     * database.</p>
+     */
+    inline bool PutItemHasBeenSet() const { return m_putItemHasBeenSet; }
 
     /**
      * <p>Specifies the DynamoDB table to which the message data will be written. For

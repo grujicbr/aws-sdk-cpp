@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 CreateAliasRequest::CreateAliasRequest() : 
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
-    m_routingStrategyHasBeenSet(false)
+    m_routingStrategyHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -51,7 +52,18 @@ Aws::String CreateAliasRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateAliasRequest::GetRequestSpecificHeaders() const

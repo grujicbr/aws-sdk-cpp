@@ -40,11 +40,11 @@ namespace Model
    * <code>ChangeMessageVisibilityBatchRequestEntry.n</code>, where <code>n</code> is
    * an integer value starting with <code>1</code>. For example, a parameter list for
    * this action might look like this:</p> </important> <p>
-   * <code>&amp;amp;ChangeMessageVisibilityBatchRequestEntry.1.Id=change_visibility_msg_2</code>
+   * <code>&amp;ChangeMessageVisibilityBatchRequestEntry.1.Id=change_visibility_msg_2</code>
    * </p> <p>
-   * <code>&amp;amp;ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle=&lt;replaceable&gt;Your_Receipt_Handle&lt;/replaceable&gt;</code>
+   * <code>&amp;ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle=your_receipt_handle</code>
    * </p> <p>
-   * <code>&amp;amp;ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout=45</code>
+   * <code>&amp;ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout=45</code>
    * </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ChangeMessageVisibilityBatchRequestEntry">AWS
    * API Reference</a></p>
@@ -66,6 +66,13 @@ namespace Model
      * within a request</p> </note>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>An identifier for this particular receipt handle used to communicate the
+     * result.</p> <note> <p>The <code>Id</code>s of a batch request need to be unique
+     * within a request</p> </note>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>An identifier for this particular receipt handle used to communicate the
@@ -118,6 +125,11 @@ namespace Model
     /**
      * <p>A receipt handle.</p>
      */
+    inline bool ReceiptHandleHasBeenSet() const { return m_receiptHandleHasBeenSet; }
+
+    /**
+     * <p>A receipt handle.</p>
+     */
     inline void SetReceiptHandle(const Aws::String& value) { m_receiptHandleHasBeenSet = true; m_receiptHandle = value; }
 
     /**
@@ -150,6 +162,11 @@ namespace Model
      * <p>The new value (in seconds) for the message's visibility timeout.</p>
      */
     inline int GetVisibilityTimeout() const{ return m_visibilityTimeout; }
+
+    /**
+     * <p>The new value (in seconds) for the message's visibility timeout.</p>
+     */
+    inline bool VisibilityTimeoutHasBeenSet() const { return m_visibilityTimeoutHasBeenSet; }
 
     /**
      * <p>The new value (in seconds) for the message's visibility timeout.</p>

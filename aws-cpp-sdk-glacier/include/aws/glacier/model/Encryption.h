@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Encryption();
-    Encryption(const Aws::Utils::Json::JsonValue& jsonValue);
-    Encryption& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Encryption(Aws::Utils::Json::JsonView jsonValue);
+    Encryption& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * S3, for example <code>AES256</code> or <code>aws:kms</code>.</p>
      */
     inline const EncryptionType& GetEncryptionType() const{ return m_encryptionType; }
+
+    /**
+     * <p>The server-side encryption algorithm used when storing job results in Amazon
+     * S3, for example <code>AES256</code> or <code>aws:kms</code>.</p>
+     */
+    inline bool EncryptionTypeHasBeenSet() const { return m_encryptionTypeHasBeenSet; }
 
     /**
      * <p>The server-side encryption algorithm used when storing job results in Amazon
@@ -85,6 +92,13 @@ namespace Model
      * (SSL) or Signature Version 4. </p>
      */
     inline const Aws::String& GetKMSKeyId() const{ return m_kMSKeyId; }
+
+    /**
+     * <p>The AWS KMS key ID to use for object encryption. All GET and PUT requests for
+     * an object protected by AWS KMS fail if not made by using Secure Sockets Layer
+     * (SSL) or Signature Version 4. </p>
+     */
+    inline bool KMSKeyIdHasBeenSet() const { return m_kMSKeyIdHasBeenSet; }
 
     /**
      * <p>The AWS KMS key ID to use for object encryption. All GET and PUT requests for
@@ -134,6 +148,12 @@ namespace Model
      * value to specify the encryption context for the job results.</p>
      */
     inline const Aws::String& GetKMSContext() const{ return m_kMSContext; }
+
+    /**
+     * <p>Optional. If the encryption type is <code>aws:kms</code>, you can use this
+     * value to specify the encryption context for the job results.</p>
+     */
+    inline bool KMSContextHasBeenSet() const { return m_kMSContextHasBeenSet; }
 
     /**
      * <p>Optional. If the encryption type is <code>aws:kms</code>, you can use this

@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetLogEventsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,6 +48,11 @@ namespace Model
      * <p>The name of the log group.</p>
      */
     inline const Aws::String& GetLogGroupName() const{ return m_logGroupName; }
+
+    /**
+     * <p>The name of the log group.</p>
+     */
+    inline bool LogGroupNameHasBeenSet() const { return m_logGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the log group.</p>
@@ -88,6 +93,11 @@ namespace Model
     /**
      * <p>The name of the log stream.</p>
      */
+    inline bool LogStreamNameHasBeenSet() const { return m_logStreamNameHasBeenSet; }
+
+    /**
+     * <p>The name of the log stream.</p>
+     */
     inline void SetLogStreamName(const Aws::String& value) { m_logStreamNameHasBeenSet = true; m_logStreamName = value; }
 
     /**
@@ -118,21 +128,32 @@ namespace Model
 
     /**
      * <p>The start of the time range, expressed as the number of milliseconds after
-     * Jan 1, 1970 00:00:00 UTC. Events with a time stamp earlier than this time are
+     * Jan 1, 1970 00:00:00 UTC. Events with a timestamp equal to this time or later
+     * than this time are included. Events with a timestamp earlier than this time are
      * not included.</p>
      */
     inline long long GetStartTime() const{ return m_startTime; }
 
     /**
      * <p>The start of the time range, expressed as the number of milliseconds after
-     * Jan 1, 1970 00:00:00 UTC. Events with a time stamp earlier than this time are
+     * Jan 1, 1970 00:00:00 UTC. Events with a timestamp equal to this time or later
+     * than this time are included. Events with a timestamp earlier than this time are
+     * not included.</p>
+     */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
+
+    /**
+     * <p>The start of the time range, expressed as the number of milliseconds after
+     * Jan 1, 1970 00:00:00 UTC. Events with a timestamp equal to this time or later
+     * than this time are included. Events with a timestamp earlier than this time are
      * not included.</p>
      */
     inline void SetStartTime(long long value) { m_startTimeHasBeenSet = true; m_startTime = value; }
 
     /**
      * <p>The start of the time range, expressed as the number of milliseconds after
-     * Jan 1, 1970 00:00:00 UTC. Events with a time stamp earlier than this time are
+     * Jan 1, 1970 00:00:00 UTC. Events with a timestamp equal to this time or later
+     * than this time are included. Events with a timestamp earlier than this time are
      * not included.</p>
      */
     inline GetLogEventsRequest& WithStartTime(long long value) { SetStartTime(value); return *this;}
@@ -140,65 +161,86 @@ namespace Model
 
     /**
      * <p>The end of the time range, expressed as the number of milliseconds after Jan
-     * 1, 1970 00:00:00 UTC. Events with a time stamp later than this time are not
-     * included.</p>
+     * 1, 1970 00:00:00 UTC. Events with a timestamp equal to or later than this time
+     * are not included.</p>
      */
     inline long long GetEndTime() const{ return m_endTime; }
 
     /**
      * <p>The end of the time range, expressed as the number of milliseconds after Jan
-     * 1, 1970 00:00:00 UTC. Events with a time stamp later than this time are not
-     * included.</p>
+     * 1, 1970 00:00:00 UTC. Events with a timestamp equal to or later than this time
+     * are not included.</p>
+     */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
+
+    /**
+     * <p>The end of the time range, expressed as the number of milliseconds after Jan
+     * 1, 1970 00:00:00 UTC. Events with a timestamp equal to or later than this time
+     * are not included.</p>
      */
     inline void SetEndTime(long long value) { m_endTimeHasBeenSet = true; m_endTime = value; }
 
     /**
      * <p>The end of the time range, expressed as the number of milliseconds after Jan
-     * 1, 1970 00:00:00 UTC. Events with a time stamp later than this time are not
-     * included.</p>
+     * 1, 1970 00:00:00 UTC. Events with a timestamp equal to or later than this time
+     * are not included.</p>
      */
     inline GetLogEventsRequest& WithEndTime(long long value) { SetEndTime(value); return *this;}
 
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
-     * a previous call.)</p>
+     * a previous call.)</p> <p>Using this token works only when you specify
+     * <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
-     * a previous call.)</p>
+     * a previous call.)</p> <p>Using this token works only when you specify
+     * <code>true</code> for <code>startFromHead</code>.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>The token for the next set of items to return. (You received this token from
+     * a previous call.)</p> <p>Using this token works only when you specify
+     * <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
-     * a previous call.)</p>
+     * a previous call.)</p> <p>Using this token works only when you specify
+     * <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
-     * a previous call.)</p>
+     * a previous call.)</p> <p>Using this token works only when you specify
+     * <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
-     * a previous call.)</p>
+     * a previous call.)</p> <p>Using this token works only when you specify
+     * <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline GetLogEventsRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
-     * a previous call.)</p>
+     * a previous call.)</p> <p>Using this token works only when you specify
+     * <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline GetLogEventsRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
-     * a previous call.)</p>
+     * a previous call.)</p> <p>Using this token works only when you specify
+     * <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline GetLogEventsRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
@@ -209,6 +251,13 @@ namespace Model
      * 10,000 log events.</p>
      */
     inline int GetLimit() const{ return m_limit; }
+
+    /**
+     * <p>The maximum number of log events returned. If you don't specify a value, the
+     * maximum is as many log events as can fit in a response size of 1 MB, up to
+     * 10,000 log events.</p>
+     */
+    inline bool LimitHasBeenSet() const { return m_limitHasBeenSet; }
 
     /**
      * <p>The maximum number of log events returned. If you don't specify a value, the
@@ -228,21 +277,32 @@ namespace Model
     /**
      * <p>If the value is true, the earliest log events are returned first. If the
      * value is false, the latest log events are returned first. The default value is
-     * false.</p>
+     * false.</p> <p>If you are using <code>nextToken</code> in this operation, you
+     * must specify <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline bool GetStartFromHead() const{ return m_startFromHead; }
 
     /**
      * <p>If the value is true, the earliest log events are returned first. If the
      * value is false, the latest log events are returned first. The default value is
-     * false.</p>
+     * false.</p> <p>If you are using <code>nextToken</code> in this operation, you
+     * must specify <code>true</code> for <code>startFromHead</code>.</p>
+     */
+    inline bool StartFromHeadHasBeenSet() const { return m_startFromHeadHasBeenSet; }
+
+    /**
+     * <p>If the value is true, the earliest log events are returned first. If the
+     * value is false, the latest log events are returned first. The default value is
+     * false.</p> <p>If you are using <code>nextToken</code> in this operation, you
+     * must specify <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline void SetStartFromHead(bool value) { m_startFromHeadHasBeenSet = true; m_startFromHead = value; }
 
     /**
      * <p>If the value is true, the earliest log events are returned first. If the
      * value is false, the latest log events are returned first. The default value is
-     * false.</p>
+     * false.</p> <p>If you are using <code>nextToken</code> in this operation, you
+     * must specify <code>true</code> for <code>startFromHead</code>.</p>
      */
     inline GetLogEventsRequest& WithStartFromHead(bool value) { SetStartFromHead(value); return *this;}
 

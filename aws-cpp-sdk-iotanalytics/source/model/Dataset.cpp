@@ -33,27 +33,33 @@ Dataset::Dataset() :
     m_arnHasBeenSet(false),
     m_actionsHasBeenSet(false),
     m_triggersHasBeenSet(false),
+    m_contentDeliveryRulesHasBeenSet(false),
     m_status(DatasetStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
-    m_lastUpdateTimeHasBeenSet(false)
+    m_lastUpdateTimeHasBeenSet(false),
+    m_retentionPeriodHasBeenSet(false),
+    m_versioningConfigurationHasBeenSet(false)
 {
 }
 
-Dataset::Dataset(const JsonValue& jsonValue) : 
+Dataset::Dataset(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_actionsHasBeenSet(false),
     m_triggersHasBeenSet(false),
+    m_contentDeliveryRulesHasBeenSet(false),
     m_status(DatasetStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
-    m_lastUpdateTimeHasBeenSet(false)
+    m_lastUpdateTimeHasBeenSet(false),
+    m_retentionPeriodHasBeenSet(false),
+    m_versioningConfigurationHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Dataset& Dataset::operator =(const JsonValue& jsonValue)
+Dataset& Dataset::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -71,7 +77,7 @@ Dataset& Dataset::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("actions"))
   {
-    Array<JsonValue> actionsJsonList = jsonValue.GetArray("actions");
+    Array<JsonView> actionsJsonList = jsonValue.GetArray("actions");
     for(unsigned actionsIndex = 0; actionsIndex < actionsJsonList.GetLength(); ++actionsIndex)
     {
       m_actions.push_back(actionsJsonList[actionsIndex].AsObject());
@@ -81,12 +87,22 @@ Dataset& Dataset::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("triggers"))
   {
-    Array<JsonValue> triggersJsonList = jsonValue.GetArray("triggers");
+    Array<JsonView> triggersJsonList = jsonValue.GetArray("triggers");
     for(unsigned triggersIndex = 0; triggersIndex < triggersJsonList.GetLength(); ++triggersIndex)
     {
       m_triggers.push_back(triggersJsonList[triggersIndex].AsObject());
     }
     m_triggersHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("contentDeliveryRules"))
+  {
+    Array<JsonView> contentDeliveryRulesJsonList = jsonValue.GetArray("contentDeliveryRules");
+    for(unsigned contentDeliveryRulesIndex = 0; contentDeliveryRulesIndex < contentDeliveryRulesJsonList.GetLength(); ++contentDeliveryRulesIndex)
+    {
+      m_contentDeliveryRules.push_back(contentDeliveryRulesJsonList[contentDeliveryRulesIndex].AsObject());
+    }
+    m_contentDeliveryRulesHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("status"))
@@ -108,6 +124,20 @@ Dataset& Dataset::operator =(const JsonValue& jsonValue)
     m_lastUpdateTime = jsonValue.GetDouble("lastUpdateTime");
 
     m_lastUpdateTimeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("retentionPeriod"))
+  {
+    m_retentionPeriod = jsonValue.GetObject("retentionPeriod");
+
+    m_retentionPeriodHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("versioningConfiguration"))
+  {
+    m_versioningConfiguration = jsonValue.GetObject("versioningConfiguration");
+
+    m_versioningConfigurationHasBeenSet = true;
   }
 
   return *this;
@@ -151,6 +181,17 @@ JsonValue Dataset::Jsonize() const
 
   }
 
+  if(m_contentDeliveryRulesHasBeenSet)
+  {
+   Array<JsonValue> contentDeliveryRulesJsonList(m_contentDeliveryRules.size());
+   for(unsigned contentDeliveryRulesIndex = 0; contentDeliveryRulesIndex < contentDeliveryRulesJsonList.GetLength(); ++contentDeliveryRulesIndex)
+   {
+     contentDeliveryRulesJsonList[contentDeliveryRulesIndex].AsObject(m_contentDeliveryRules[contentDeliveryRulesIndex].Jsonize());
+   }
+   payload.WithArray("contentDeliveryRules", std::move(contentDeliveryRulesJsonList));
+
+  }
+
   if(m_statusHasBeenSet)
   {
    payload.WithString("status", DatasetStatusMapper::GetNameForDatasetStatus(m_status));
@@ -164,6 +205,18 @@ JsonValue Dataset::Jsonize() const
   if(m_lastUpdateTimeHasBeenSet)
   {
    payload.WithDouble("lastUpdateTime", m_lastUpdateTime.SecondsWithMSPrecision());
+  }
+
+  if(m_retentionPeriodHasBeenSet)
+  {
+   payload.WithObject("retentionPeriod", m_retentionPeriod.Jsonize());
+
+  }
+
+  if(m_versioningConfigurationHasBeenSet)
+  {
+   payload.WithObject("versioningConfiguration", m_versioningConfiguration.Jsonize());
+
   }
 
   return payload;

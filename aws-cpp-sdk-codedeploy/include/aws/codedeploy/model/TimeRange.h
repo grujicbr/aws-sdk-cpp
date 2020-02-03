@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TimeRange();
-    TimeRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimeRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimeRange(Aws::Utils::Json::JsonView jsonValue);
+    TimeRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * start time open-ended.</p> </note>
      */
     inline const Aws::Utils::DateTime& GetStart() const{ return m_start; }
+
+    /**
+     * <p>The start time of the time range.</p> <note> <p>Specify null to leave the
+     * start time open-ended.</p> </note>
+     */
+    inline bool StartHasBeenSet() const { return m_startHasBeenSet; }
 
     /**
      * <p>The start time of the time range.</p> <note> <p>Specify null to leave the
@@ -82,6 +89,12 @@ namespace Model
      * time open-ended.</p> </note>
      */
     inline const Aws::Utils::DateTime& GetEnd() const{ return m_end; }
+
+    /**
+     * <p>The end time of the time range.</p> <note> <p>Specify null to leave the end
+     * time open-ended.</p> </note>
+     */
+    inline bool EndHasBeenSet() const { return m_endHasBeenSet; }
 
     /**
      * <p>The end time of the time range.</p> <note> <p>Specify null to leave the end

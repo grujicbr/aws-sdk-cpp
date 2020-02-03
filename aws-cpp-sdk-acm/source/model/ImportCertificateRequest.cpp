@@ -27,7 +27,8 @@ ImportCertificateRequest::ImportCertificateRequest() :
     m_certificateArnHasBeenSet(false),
     m_certificateHasBeenSet(false),
     m_privateKeyHasBeenSet(false),
-    m_certificateChainHasBeenSet(false)
+    m_certificateChainHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -56,7 +57,18 @@ Aws::String ImportCertificateRequest::SerializePayload() const
    payload.WithString("CertificateChain", HashingUtils::Base64Encode(m_certificateChain));
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection ImportCertificateRequest::GetRequestSpecificHeaders() const

@@ -60,13 +60,13 @@ ServerCertificate& ServerCertificate::operator =(const XmlNode& xmlNode)
     XmlNode certificateBodyNode = resultNode.FirstChild("CertificateBody");
     if(!certificateBodyNode.IsNull())
     {
-      m_certificateBody = StringUtils::Trim(certificateBodyNode.GetText().c_str());
+      m_certificateBody = Aws::Utils::Xml::DecodeEscapedXmlText(certificateBodyNode.GetText());
       m_certificateBodyHasBeenSet = true;
     }
     XmlNode certificateChainNode = resultNode.FirstChild("CertificateChain");
     if(!certificateChainNode.IsNull())
     {
-      m_certificateChain = StringUtils::Trim(certificateChainNode.GetText().c_str());
+      m_certificateChain = Aws::Utils::Xml::DecodeEscapedXmlText(certificateChainNode.GetText());
       m_certificateChainHasBeenSet = true;
     }
   }

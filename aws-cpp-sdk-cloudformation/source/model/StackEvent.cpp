@@ -72,67 +72,67 @@ StackEvent& StackEvent::operator =(const XmlNode& xmlNode)
     XmlNode stackIdNode = resultNode.FirstChild("StackId");
     if(!stackIdNode.IsNull())
     {
-      m_stackId = StringUtils::Trim(stackIdNode.GetText().c_str());
+      m_stackId = Aws::Utils::Xml::DecodeEscapedXmlText(stackIdNode.GetText());
       m_stackIdHasBeenSet = true;
     }
     XmlNode eventIdNode = resultNode.FirstChild("EventId");
     if(!eventIdNode.IsNull())
     {
-      m_eventId = StringUtils::Trim(eventIdNode.GetText().c_str());
+      m_eventId = Aws::Utils::Xml::DecodeEscapedXmlText(eventIdNode.GetText());
       m_eventIdHasBeenSet = true;
     }
     XmlNode stackNameNode = resultNode.FirstChild("StackName");
     if(!stackNameNode.IsNull())
     {
-      m_stackName = StringUtils::Trim(stackNameNode.GetText().c_str());
+      m_stackName = Aws::Utils::Xml::DecodeEscapedXmlText(stackNameNode.GetText());
       m_stackNameHasBeenSet = true;
     }
     XmlNode logicalResourceIdNode = resultNode.FirstChild("LogicalResourceId");
     if(!logicalResourceIdNode.IsNull())
     {
-      m_logicalResourceId = StringUtils::Trim(logicalResourceIdNode.GetText().c_str());
+      m_logicalResourceId = Aws::Utils::Xml::DecodeEscapedXmlText(logicalResourceIdNode.GetText());
       m_logicalResourceIdHasBeenSet = true;
     }
     XmlNode physicalResourceIdNode = resultNode.FirstChild("PhysicalResourceId");
     if(!physicalResourceIdNode.IsNull())
     {
-      m_physicalResourceId = StringUtils::Trim(physicalResourceIdNode.GetText().c_str());
+      m_physicalResourceId = Aws::Utils::Xml::DecodeEscapedXmlText(physicalResourceIdNode.GetText());
       m_physicalResourceIdHasBeenSet = true;
     }
     XmlNode resourceTypeNode = resultNode.FirstChild("ResourceType");
     if(!resourceTypeNode.IsNull())
     {
-      m_resourceType = StringUtils::Trim(resourceTypeNode.GetText().c_str());
+      m_resourceType = Aws::Utils::Xml::DecodeEscapedXmlText(resourceTypeNode.GetText());
       m_resourceTypeHasBeenSet = true;
     }
     XmlNode timestampNode = resultNode.FirstChild("Timestamp");
     if(!timestampNode.IsNull())
     {
-      m_timestamp = DateTime(StringUtils::Trim(timestampNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_timestamp = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(timestampNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_timestampHasBeenSet = true;
     }
     XmlNode resourceStatusNode = resultNode.FirstChild("ResourceStatus");
     if(!resourceStatusNode.IsNull())
     {
-      m_resourceStatus = ResourceStatusMapper::GetResourceStatusForName(StringUtils::Trim(resourceStatusNode.GetText().c_str()).c_str());
+      m_resourceStatus = ResourceStatusMapper::GetResourceStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(resourceStatusNode.GetText()).c_str()).c_str());
       m_resourceStatusHasBeenSet = true;
     }
     XmlNode resourceStatusReasonNode = resultNode.FirstChild("ResourceStatusReason");
     if(!resourceStatusReasonNode.IsNull())
     {
-      m_resourceStatusReason = StringUtils::Trim(resourceStatusReasonNode.GetText().c_str());
+      m_resourceStatusReason = Aws::Utils::Xml::DecodeEscapedXmlText(resourceStatusReasonNode.GetText());
       m_resourceStatusReasonHasBeenSet = true;
     }
     XmlNode resourcePropertiesNode = resultNode.FirstChild("ResourceProperties");
     if(!resourcePropertiesNode.IsNull())
     {
-      m_resourceProperties = StringUtils::Trim(resourcePropertiesNode.GetText().c_str());
+      m_resourceProperties = Aws::Utils::Xml::DecodeEscapedXmlText(resourcePropertiesNode.GetText());
       m_resourcePropertiesHasBeenSet = true;
     }
     XmlNode clientRequestTokenNode = resultNode.FirstChild("ClientRequestToken");
     if(!clientRequestTokenNode.IsNull())
     {
-      m_clientRequestToken = StringUtils::Trim(clientRequestTokenNode.GetText().c_str());
+      m_clientRequestToken = Aws::Utils::Xml::DecodeEscapedXmlText(clientRequestTokenNode.GetText());
       m_clientRequestTokenHasBeenSet = true;
     }
   }

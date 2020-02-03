@@ -27,16 +27,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for AssociateRouteTable.</p><p><h3>See Also:</h3>  
-   * <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AssociateRouteTableRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API AssociateRouteTableRequest : public EC2Request
   {
   public:
     AssociateRouteTableRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -64,6 +60,14 @@ namespace Model
      * required permissions, the error response is <code>DryRunOperation</code>.
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
     inline void SetDryRun(bool value) { m_dryRunHasBeenSet = true; m_dryRun = value; }
 
     /**
@@ -79,6 +83,11 @@ namespace Model
      * <p>The ID of the route table.</p>
      */
     inline const Aws::String& GetRouteTableId() const{ return m_routeTableId; }
+
+    /**
+     * <p>The ID of the route table.</p>
+     */
+    inline bool RouteTableIdHasBeenSet() const { return m_routeTableIdHasBeenSet; }
 
     /**
      * <p>The ID of the route table.</p>
@@ -119,6 +128,11 @@ namespace Model
     /**
      * <p>The ID of the subnet.</p>
      */
+    inline bool SubnetIdHasBeenSet() const { return m_subnetIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the subnet.</p>
+     */
     inline void SetSubnetId(const Aws::String& value) { m_subnetIdHasBeenSet = true; m_subnetId = value; }
 
     /**
@@ -146,6 +160,47 @@ namespace Model
      */
     inline AssociateRouteTableRequest& WithSubnetId(const char* value) { SetSubnetId(value); return *this;}
 
+
+    /**
+     * <p>The ID of the internet gateway or virtual private gateway.</p>
+     */
+    inline const Aws::String& GetGatewayId() const{ return m_gatewayId; }
+
+    /**
+     * <p>The ID of the internet gateway or virtual private gateway.</p>
+     */
+    inline bool GatewayIdHasBeenSet() const { return m_gatewayIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the internet gateway or virtual private gateway.</p>
+     */
+    inline void SetGatewayId(const Aws::String& value) { m_gatewayIdHasBeenSet = true; m_gatewayId = value; }
+
+    /**
+     * <p>The ID of the internet gateway or virtual private gateway.</p>
+     */
+    inline void SetGatewayId(Aws::String&& value) { m_gatewayIdHasBeenSet = true; m_gatewayId = std::move(value); }
+
+    /**
+     * <p>The ID of the internet gateway or virtual private gateway.</p>
+     */
+    inline void SetGatewayId(const char* value) { m_gatewayIdHasBeenSet = true; m_gatewayId.assign(value); }
+
+    /**
+     * <p>The ID of the internet gateway or virtual private gateway.</p>
+     */
+    inline AssociateRouteTableRequest& WithGatewayId(const Aws::String& value) { SetGatewayId(value); return *this;}
+
+    /**
+     * <p>The ID of the internet gateway or virtual private gateway.</p>
+     */
+    inline AssociateRouteTableRequest& WithGatewayId(Aws::String&& value) { SetGatewayId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the internet gateway or virtual private gateway.</p>
+     */
+    inline AssociateRouteTableRequest& WithGatewayId(const char* value) { SetGatewayId(value); return *this;}
+
   private:
 
     bool m_dryRun;
@@ -156,6 +211,9 @@ namespace Model
 
     Aws::String m_subnetId;
     bool m_subnetIdHasBeenSet;
+
+    Aws::String m_gatewayId;
+    bool m_gatewayIdHasBeenSet;
   };
 
 } // namespace Model

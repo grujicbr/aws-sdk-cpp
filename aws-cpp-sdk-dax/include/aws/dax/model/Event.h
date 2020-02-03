@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Event();
-    Event(const Aws::Utils::Json::JsonValue& jsonValue);
-    Event& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Event(Aws::Utils::Json::JsonView jsonValue);
+    Event& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * level, the source would be the node ID.</p>
      */
     inline const Aws::String& GetSourceName() const{ return m_sourceName; }
+
+    /**
+     * <p>The source of the event. For example, if the event occurred at the node
+     * level, the source would be the node ID.</p>
+     */
+    inline bool SourceNameHasBeenSet() const { return m_sourceNameHasBeenSet; }
 
     /**
      * <p>The source of the event. For example, if the event occurred at the node
@@ -103,6 +110,12 @@ namespace Model
      * <p>Specifies the origin of this event - a cluster, a parameter group, a node ID,
      * etc.</p>
      */
+    inline bool SourceTypeHasBeenSet() const { return m_sourceTypeHasBeenSet; }
+
+    /**
+     * <p>Specifies the origin of this event - a cluster, a parameter group, a node ID,
+     * etc.</p>
+     */
     inline void SetSourceType(const SourceType& value) { m_sourceTypeHasBeenSet = true; m_sourceType = value; }
 
     /**
@@ -128,6 +141,11 @@ namespace Model
      * <p>A user-defined message associated with the event.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>A user-defined message associated with the event.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>A user-defined message associated with the event.</p>
@@ -164,6 +182,11 @@ namespace Model
      * <p>The date and time when the event occurred.</p>
      */
     inline const Aws::Utils::DateTime& GetDate() const{ return m_date; }
+
+    /**
+     * <p>The date and time when the event occurred.</p>
+     */
+    inline bool DateHasBeenSet() const { return m_dateHasBeenSet; }
 
     /**
      * <p>The date and time when the event occurred.</p>

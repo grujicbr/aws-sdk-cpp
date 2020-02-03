@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT1ClickProjects
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     PlacementTemplate();
-    PlacementTemplate(const Aws::Utils::Json::JsonValue& jsonValue);
-    PlacementTemplate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PlacementTemplate(Aws::Utils::Json::JsonView jsonValue);
+    PlacementTemplate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * using this template.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetDefaultAttributes() const{ return m_defaultAttributes; }
+
+    /**
+     * <p>The default attributes (key/value pairs) to be applied to all placements
+     * using this template.</p>
+     */
+    inline bool DefaultAttributesHasBeenSet() const { return m_defaultAttributesHasBeenSet; }
 
     /**
      * <p>The default attributes (key/value pairs) to be applied to all placements
@@ -127,6 +134,12 @@ namespace Model
      * (<a>PlacementTemplate</a>) template.</p>
      */
     inline const Aws::Map<Aws::String, DeviceTemplate>& GetDeviceTemplates() const{ return m_deviceTemplates; }
+
+    /**
+     * <p>An object specifying the <a>DeviceTemplate</a> for all placements using this
+     * (<a>PlacementTemplate</a>) template.</p>
+     */
+    inline bool DeviceTemplatesHasBeenSet() const { return m_deviceTemplatesHasBeenSet; }
 
     /**
      * <p>An object specifying the <a>DeviceTemplate</a> for all placements using this

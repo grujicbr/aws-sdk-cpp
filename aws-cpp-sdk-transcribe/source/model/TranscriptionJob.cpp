@@ -40,14 +40,16 @@ TranscriptionJob::TranscriptionJob() :
     m_mediaFormatHasBeenSet(false),
     m_mediaHasBeenSet(false),
     m_transcriptHasBeenSet(false),
+    m_startTimeHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_completionTimeHasBeenSet(false),
     m_failureReasonHasBeenSet(false),
-    m_settingsHasBeenSet(false)
+    m_settingsHasBeenSet(false),
+    m_jobExecutionSettingsHasBeenSet(false)
 {
 }
 
-TranscriptionJob::TranscriptionJob(const JsonValue& jsonValue) : 
+TranscriptionJob::TranscriptionJob(JsonView jsonValue) : 
     m_transcriptionJobNameHasBeenSet(false),
     m_transcriptionJobStatus(TranscriptionJobStatus::NOT_SET),
     m_transcriptionJobStatusHasBeenSet(false),
@@ -59,15 +61,17 @@ TranscriptionJob::TranscriptionJob(const JsonValue& jsonValue) :
     m_mediaFormatHasBeenSet(false),
     m_mediaHasBeenSet(false),
     m_transcriptHasBeenSet(false),
+    m_startTimeHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_completionTimeHasBeenSet(false),
     m_failureReasonHasBeenSet(false),
-    m_settingsHasBeenSet(false)
+    m_settingsHasBeenSet(false),
+    m_jobExecutionSettingsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-TranscriptionJob& TranscriptionJob::operator =(const JsonValue& jsonValue)
+TranscriptionJob& TranscriptionJob::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TranscriptionJobName"))
   {
@@ -118,6 +122,13 @@ TranscriptionJob& TranscriptionJob::operator =(const JsonValue& jsonValue)
     m_transcriptHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("StartTime"))
+  {
+    m_startTime = jsonValue.GetDouble("StartTime");
+
+    m_startTimeHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("CreationTime"))
   {
     m_creationTime = jsonValue.GetDouble("CreationTime");
@@ -144,6 +155,13 @@ TranscriptionJob& TranscriptionJob::operator =(const JsonValue& jsonValue)
     m_settings = jsonValue.GetObject("Settings");
 
     m_settingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("JobExecutionSettings"))
+  {
+    m_jobExecutionSettings = jsonValue.GetObject("JobExecutionSettings");
+
+    m_jobExecutionSettingsHasBeenSet = true;
   }
 
   return *this;
@@ -192,6 +210,11 @@ JsonValue TranscriptionJob::Jsonize() const
 
   }
 
+  if(m_startTimeHasBeenSet)
+  {
+   payload.WithDouble("StartTime", m_startTime.SecondsWithMSPrecision());
+  }
+
   if(m_creationTimeHasBeenSet)
   {
    payload.WithDouble("CreationTime", m_creationTime.SecondsWithMSPrecision());
@@ -211,6 +234,12 @@ JsonValue TranscriptionJob::Jsonize() const
   if(m_settingsHasBeenSet)
   {
    payload.WithObject("Settings", m_settings.Jsonize());
+
+  }
+
+  if(m_jobExecutionSettingsHasBeenSet)
+  {
+   payload.WithObject("JobExecutionSettings", m_jobExecutionSettings.Jsonize());
 
   }
 

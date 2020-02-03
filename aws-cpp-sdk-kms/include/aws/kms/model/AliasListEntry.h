@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KMS
@@ -41,43 +42,56 @@ namespace Model
   {
   public:
     AliasListEntry();
-    AliasListEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    AliasListEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AliasListEntry(Aws::Utils::Json::JsonView jsonValue);
+    AliasListEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>String that contains the alias.</p>
+     * <p>String that contains the alias. This value begins with
+     * <code>alias/</code>.</p>
      */
     inline const Aws::String& GetAliasName() const{ return m_aliasName; }
 
     /**
-     * <p>String that contains the alias.</p>
+     * <p>String that contains the alias. This value begins with
+     * <code>alias/</code>.</p>
+     */
+    inline bool AliasNameHasBeenSet() const { return m_aliasNameHasBeenSet; }
+
+    /**
+     * <p>String that contains the alias. This value begins with
+     * <code>alias/</code>.</p>
      */
     inline void SetAliasName(const Aws::String& value) { m_aliasNameHasBeenSet = true; m_aliasName = value; }
 
     /**
-     * <p>String that contains the alias.</p>
+     * <p>String that contains the alias. This value begins with
+     * <code>alias/</code>.</p>
      */
     inline void SetAliasName(Aws::String&& value) { m_aliasNameHasBeenSet = true; m_aliasName = std::move(value); }
 
     /**
-     * <p>String that contains the alias.</p>
+     * <p>String that contains the alias. This value begins with
+     * <code>alias/</code>.</p>
      */
     inline void SetAliasName(const char* value) { m_aliasNameHasBeenSet = true; m_aliasName.assign(value); }
 
     /**
-     * <p>String that contains the alias.</p>
+     * <p>String that contains the alias. This value begins with
+     * <code>alias/</code>.</p>
      */
     inline AliasListEntry& WithAliasName(const Aws::String& value) { SetAliasName(value); return *this;}
 
     /**
-     * <p>String that contains the alias.</p>
+     * <p>String that contains the alias. This value begins with
+     * <code>alias/</code>.</p>
      */
     inline AliasListEntry& WithAliasName(Aws::String&& value) { SetAliasName(std::move(value)); return *this;}
 
     /**
-     * <p>String that contains the alias.</p>
+     * <p>String that contains the alias. This value begins with
+     * <code>alias/</code>.</p>
      */
     inline AliasListEntry& WithAliasName(const char* value) { SetAliasName(value); return *this;}
 
@@ -86,6 +100,11 @@ namespace Model
      * <p>String that contains the key ARN.</p>
      */
     inline const Aws::String& GetAliasArn() const{ return m_aliasArn; }
+
+    /**
+     * <p>String that contains the key ARN.</p>
+     */
+    inline bool AliasArnHasBeenSet() const { return m_aliasArnHasBeenSet; }
 
     /**
      * <p>String that contains the key ARN.</p>
@@ -122,6 +141,11 @@ namespace Model
      * <p>String that contains the key identifier referred to by the alias.</p>
      */
     inline const Aws::String& GetTargetKeyId() const{ return m_targetKeyId; }
+
+    /**
+     * <p>String that contains the key identifier referred to by the alias.</p>
+     */
+    inline bool TargetKeyIdHasBeenSet() const { return m_targetKeyIdHasBeenSet; }
 
     /**
      * <p>String that contains the key identifier referred to by the alias.</p>

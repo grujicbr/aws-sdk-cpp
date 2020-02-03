@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     OutputFormatConfiguration();
-    OutputFormatConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    OutputFormatConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OutputFormatConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    OutputFormatConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * Parquet SerDe. If both are non-null, the server rejects the request.</p>
      */
     inline const Serializer& GetSerializer() const{ return m_serializer; }
+
+    /**
+     * <p>Specifies which serializer to use. You can choose either the ORC SerDe or the
+     * Parquet SerDe. If both are non-null, the server rejects the request.</p>
+     */
+    inline bool SerializerHasBeenSet() const { return m_serializerHasBeenSet; }
 
     /**
      * <p>Specifies which serializer to use. You can choose either the ORC SerDe or the

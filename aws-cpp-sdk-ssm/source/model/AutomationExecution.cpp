@@ -50,14 +50,17 @@ AutomationExecution::AutomationExecution() :
     m_currentActionHasBeenSet(false),
     m_targetParameterNameHasBeenSet(false),
     m_targetsHasBeenSet(false),
+    m_targetMapsHasBeenSet(false),
     m_resolvedTargetsHasBeenSet(false),
     m_maxConcurrencyHasBeenSet(false),
     m_maxErrorsHasBeenSet(false),
-    m_targetHasBeenSet(false)
+    m_targetHasBeenSet(false),
+    m_targetLocationsHasBeenSet(false),
+    m_progressCountersHasBeenSet(false)
 {
 }
 
-AutomationExecution::AutomationExecution(const JsonValue& jsonValue) : 
+AutomationExecution::AutomationExecution(JsonView jsonValue) : 
     m_automationExecutionIdHasBeenSet(false),
     m_documentNameHasBeenSet(false),
     m_documentVersionHasBeenSet(false),
@@ -79,15 +82,18 @@ AutomationExecution::AutomationExecution(const JsonValue& jsonValue) :
     m_currentActionHasBeenSet(false),
     m_targetParameterNameHasBeenSet(false),
     m_targetsHasBeenSet(false),
+    m_targetMapsHasBeenSet(false),
     m_resolvedTargetsHasBeenSet(false),
     m_maxConcurrencyHasBeenSet(false),
     m_maxErrorsHasBeenSet(false),
-    m_targetHasBeenSet(false)
+    m_targetHasBeenSet(false),
+    m_targetLocationsHasBeenSet(false),
+    m_progressCountersHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-AutomationExecution& AutomationExecution::operator =(const JsonValue& jsonValue)
+AutomationExecution& AutomationExecution::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("AutomationExecutionId"))
   {
@@ -133,7 +139,7 @@ AutomationExecution& AutomationExecution::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("StepExecutions"))
   {
-    Array<JsonValue> stepExecutionsJsonList = jsonValue.GetArray("StepExecutions");
+    Array<JsonView> stepExecutionsJsonList = jsonValue.GetArray("StepExecutions");
     for(unsigned stepExecutionsIndex = 0; stepExecutionsIndex < stepExecutionsJsonList.GetLength(); ++stepExecutionsIndex)
     {
       m_stepExecutions.push_back(stepExecutionsJsonList[stepExecutionsIndex].AsObject());
@@ -150,10 +156,10 @@ AutomationExecution& AutomationExecution::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Parameters"))
   {
-    Aws::Map<Aws::String, JsonValue> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
     for(auto& parametersItem : parametersJsonMap)
     {
-      Array<JsonValue> automationParameterValueListJsonList = parametersItem.second.AsArray();
+      Array<JsonView> automationParameterValueListJsonList = parametersItem.second.AsArray();
       Aws::Vector<Aws::String> automationParameterValueListList;
       automationParameterValueListList.reserve((size_t)automationParameterValueListJsonList.GetLength());
       for(unsigned automationParameterValueListIndex = 0; automationParameterValueListIndex < automationParameterValueListJsonList.GetLength(); ++automationParameterValueListIndex)
@@ -167,10 +173,10 @@ AutomationExecution& AutomationExecution::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Outputs"))
   {
-    Aws::Map<Aws::String, JsonValue> outputsJsonMap = jsonValue.GetObject("Outputs").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> outputsJsonMap = jsonValue.GetObject("Outputs").GetAllObjects();
     for(auto& outputsItem : outputsJsonMap)
     {
-      Array<JsonValue> automationParameterValueListJsonList = outputsItem.second.AsArray();
+      Array<JsonView> automationParameterValueListJsonList = outputsItem.second.AsArray();
       Aws::Vector<Aws::String> automationParameterValueListList;
       automationParameterValueListList.reserve((size_t)automationParameterValueListJsonList.GetLength());
       for(unsigned automationParameterValueListIndex = 0; automationParameterValueListIndex < automationParameterValueListJsonList.GetLength(); ++automationParameterValueListIndex)
@@ -233,12 +239,35 @@ AutomationExecution& AutomationExecution::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Targets"))
   {
-    Array<JsonValue> targetsJsonList = jsonValue.GetArray("Targets");
+    Array<JsonView> targetsJsonList = jsonValue.GetArray("Targets");
     for(unsigned targetsIndex = 0; targetsIndex < targetsJsonList.GetLength(); ++targetsIndex)
     {
       m_targets.push_back(targetsJsonList[targetsIndex].AsObject());
     }
     m_targetsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("TargetMaps"))
+  {
+    Array<JsonView> targetMapsJsonList = jsonValue.GetArray("TargetMaps");
+    for(unsigned targetMapsIndex = 0; targetMapsIndex < targetMapsJsonList.GetLength(); ++targetMapsIndex)
+    {
+      Aws::Map<Aws::String, JsonView> targetMapJsonMap = targetMapsJsonList[targetMapsIndex].GetAllObjects();
+      Aws::Map<Aws::String, Aws::Vector<Aws::String>> targetMapMap;
+      for(auto& targetMapItem : targetMapJsonMap)
+      {
+        Array<JsonView> targetMapValueListJsonList = targetMapItem.second.AsArray();
+        Aws::Vector<Aws::String> targetMapValueListList;
+        targetMapValueListList.reserve((size_t)targetMapValueListJsonList.GetLength());
+        for(unsigned targetMapValueListIndex = 0; targetMapValueListIndex < targetMapValueListJsonList.GetLength(); ++targetMapValueListIndex)
+        {
+          targetMapValueListList.push_back(targetMapValueListJsonList[targetMapValueListIndex].AsString());
+        }
+        targetMapMap[targetMapItem.first] = std::move(targetMapValueListList);
+      }
+      m_targetMaps.push_back(std::move(targetMapMap));
+    }
+    m_targetMapsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("ResolvedTargets"))
@@ -267,6 +296,23 @@ AutomationExecution& AutomationExecution::operator =(const JsonValue& jsonValue)
     m_target = jsonValue.GetString("Target");
 
     m_targetHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("TargetLocations"))
+  {
+    Array<JsonView> targetLocationsJsonList = jsonValue.GetArray("TargetLocations");
+    for(unsigned targetLocationsIndex = 0; targetLocationsIndex < targetLocationsJsonList.GetLength(); ++targetLocationsIndex)
+    {
+      m_targetLocations.push_back(targetLocationsJsonList[targetLocationsIndex].AsObject());
+    }
+    m_targetLocationsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ProgressCounters"))
+  {
+    m_progressCounters = jsonValue.GetObject("ProgressCounters");
+
+    m_progressCountersHasBeenSet = true;
   }
 
   return *this;
@@ -410,6 +456,27 @@ JsonValue AutomationExecution::Jsonize() const
 
   }
 
+  if(m_targetMapsHasBeenSet)
+  {
+   Array<JsonValue> targetMapsJsonList(m_targetMaps.size());
+   for(unsigned targetMapsIndex = 0; targetMapsIndex < targetMapsJsonList.GetLength(); ++targetMapsIndex)
+   {
+     JsonValue targetMapJsonMap;
+     for(auto& targetMapItem : m_targetMaps[targetMapsIndex])
+     {
+       Array<JsonValue> targetMapValueListJsonList(targetMapItem.second.size());
+       for(unsigned targetMapValueListIndex = 0; targetMapValueListIndex < targetMapValueListJsonList.GetLength(); ++targetMapValueListIndex)
+       {
+         targetMapValueListJsonList[targetMapValueListIndex].AsString(targetMapItem.second[targetMapValueListIndex]);
+       }
+       targetMapJsonMap.WithArray(targetMapItem.first, std::move(targetMapValueListJsonList));
+     }
+     targetMapsJsonList[targetMapsIndex].AsObject(std::move(targetMapJsonMap));
+   }
+   payload.WithArray("TargetMaps", std::move(targetMapsJsonList));
+
+  }
+
   if(m_resolvedTargetsHasBeenSet)
   {
    payload.WithObject("ResolvedTargets", m_resolvedTargets.Jsonize());
@@ -431,6 +498,23 @@ JsonValue AutomationExecution::Jsonize() const
   if(m_targetHasBeenSet)
   {
    payload.WithString("Target", m_target);
+
+  }
+
+  if(m_targetLocationsHasBeenSet)
+  {
+   Array<JsonValue> targetLocationsJsonList(m_targetLocations.size());
+   for(unsigned targetLocationsIndex = 0; targetLocationsIndex < targetLocationsJsonList.GetLength(); ++targetLocationsIndex)
+   {
+     targetLocationsJsonList[targetLocationsIndex].AsObject(m_targetLocations[targetLocationsIndex].Jsonize());
+   }
+   payload.WithArray("TargetLocations", std::move(targetLocationsJsonList));
+
+  }
+
+  if(m_progressCountersHasBeenSet)
+  {
+   payload.WithObject("ProgressCounters", m_progressCounters.Jsonize());
 
   }
 

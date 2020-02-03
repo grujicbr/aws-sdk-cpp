@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationDiscoveryService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AgentNetworkInfo();
-    AgentNetworkInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    AgentNetworkInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AgentNetworkInfo(Aws::Utils::Json::JsonView jsonValue);
+    AgentNetworkInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The IP address for the host where the agent/connector resides.</p>
      */
     inline const Aws::String& GetIpAddress() const{ return m_ipAddress; }
+
+    /**
+     * <p>The IP address for the host where the agent/connector resides.</p>
+     */
+    inline bool IpAddressHasBeenSet() const { return m_ipAddressHasBeenSet; }
 
     /**
      * <p>The IP address for the host where the agent/connector resides.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The MAC address for the host where the agent/connector resides.</p>
      */
     inline const Aws::String& GetMacAddress() const{ return m_macAddress; }
+
+    /**
+     * <p>The MAC address for the host where the agent/connector resides.</p>
+     */
+    inline bool MacAddressHasBeenSet() const { return m_macAddressHasBeenSet; }
 
     /**
      * <p>The MAC address for the host where the agent/connector resides.</p>

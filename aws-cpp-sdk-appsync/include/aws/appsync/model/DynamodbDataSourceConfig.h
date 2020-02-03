@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/appsync/AppSync_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/appsync/model/DeltaSyncConfig.h>
 #include <utility>
 
 namespace Aws
@@ -25,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppSync
@@ -33,7 +35,8 @@ namespace Model
 {
 
   /**
-   * <p>Describes a DynamoDB data source configuration.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes an Amazon DynamoDB data source configuration.</p><p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DynamodbDataSourceConfig">AWS
    * API Reference</a></p>
    */
@@ -41,8 +44,8 @@ namespace Model
   {
   public:
     DynamodbDataSourceConfig();
-    DynamodbDataSourceConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    DynamodbDataSourceConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DynamodbDataSourceConfig(Aws::Utils::Json::JsonView jsonValue);
+    DynamodbDataSourceConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +53,11 @@ namespace Model
      * <p>The table name.</p>
      */
     inline const Aws::String& GetTableName() const{ return m_tableName; }
+
+    /**
+     * <p>The table name.</p>
+     */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
 
     /**
      * <p>The table name.</p>
@@ -83,37 +91,42 @@ namespace Model
 
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline const Aws::String& GetAwsRegion() const{ return m_awsRegion; }
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
+     */
+    inline bool AwsRegionHasBeenSet() const { return m_awsRegionHasBeenSet; }
+
+    /**
+     * <p>The AWS Region.</p>
      */
     inline void SetAwsRegion(const Aws::String& value) { m_awsRegionHasBeenSet = true; m_awsRegion = value; }
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline void SetAwsRegion(Aws::String&& value) { m_awsRegionHasBeenSet = true; m_awsRegion = std::move(value); }
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline void SetAwsRegion(const char* value) { m_awsRegionHasBeenSet = true; m_awsRegion.assign(value); }
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline DynamodbDataSourceConfig& WithAwsRegion(const Aws::String& value) { SetAwsRegion(value); return *this;}
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline DynamodbDataSourceConfig& WithAwsRegion(Aws::String&& value) { SetAwsRegion(std::move(value)); return *this;}
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline DynamodbDataSourceConfig& WithAwsRegion(const char* value) { SetAwsRegion(value); return *this;}
 
@@ -126,12 +139,73 @@ namespace Model
     /**
      * <p>Set to TRUE to use Amazon Cognito credentials with this data source.</p>
      */
+    inline bool UseCallerCredentialsHasBeenSet() const { return m_useCallerCredentialsHasBeenSet; }
+
+    /**
+     * <p>Set to TRUE to use Amazon Cognito credentials with this data source.</p>
+     */
     inline void SetUseCallerCredentials(bool value) { m_useCallerCredentialsHasBeenSet = true; m_useCallerCredentials = value; }
 
     /**
      * <p>Set to TRUE to use Amazon Cognito credentials with this data source.</p>
      */
     inline DynamodbDataSourceConfig& WithUseCallerCredentials(bool value) { SetUseCallerCredentials(value); return *this;}
+
+
+    /**
+     * <p>The <code>DeltaSyncConfig</code> for a versioned datasource.</p>
+     */
+    inline const DeltaSyncConfig& GetDeltaSyncConfig() const{ return m_deltaSyncConfig; }
+
+    /**
+     * <p>The <code>DeltaSyncConfig</code> for a versioned datasource.</p>
+     */
+    inline bool DeltaSyncConfigHasBeenSet() const { return m_deltaSyncConfigHasBeenSet; }
+
+    /**
+     * <p>The <code>DeltaSyncConfig</code> for a versioned datasource.</p>
+     */
+    inline void SetDeltaSyncConfig(const DeltaSyncConfig& value) { m_deltaSyncConfigHasBeenSet = true; m_deltaSyncConfig = value; }
+
+    /**
+     * <p>The <code>DeltaSyncConfig</code> for a versioned datasource.</p>
+     */
+    inline void SetDeltaSyncConfig(DeltaSyncConfig&& value) { m_deltaSyncConfigHasBeenSet = true; m_deltaSyncConfig = std::move(value); }
+
+    /**
+     * <p>The <code>DeltaSyncConfig</code> for a versioned datasource.</p>
+     */
+    inline DynamodbDataSourceConfig& WithDeltaSyncConfig(const DeltaSyncConfig& value) { SetDeltaSyncConfig(value); return *this;}
+
+    /**
+     * <p>The <code>DeltaSyncConfig</code> for a versioned datasource.</p>
+     */
+    inline DynamodbDataSourceConfig& WithDeltaSyncConfig(DeltaSyncConfig&& value) { SetDeltaSyncConfig(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Set to TRUE to use Conflict Detection and Resolution with this data
+     * source.</p>
+     */
+    inline bool GetVersioned() const{ return m_versioned; }
+
+    /**
+     * <p>Set to TRUE to use Conflict Detection and Resolution with this data
+     * source.</p>
+     */
+    inline bool VersionedHasBeenSet() const { return m_versionedHasBeenSet; }
+
+    /**
+     * <p>Set to TRUE to use Conflict Detection and Resolution with this data
+     * source.</p>
+     */
+    inline void SetVersioned(bool value) { m_versionedHasBeenSet = true; m_versioned = value; }
+
+    /**
+     * <p>Set to TRUE to use Conflict Detection and Resolution with this data
+     * source.</p>
+     */
+    inline DynamodbDataSourceConfig& WithVersioned(bool value) { SetVersioned(value); return *this;}
 
   private:
 
@@ -143,6 +217,12 @@ namespace Model
 
     bool m_useCallerCredentials;
     bool m_useCallerCredentialsHasBeenSet;
+
+    DeltaSyncConfig m_deltaSyncConfig;
+    bool m_deltaSyncConfigHasBeenSet;
+
+    bool m_versioned;
+    bool m_versionedHasBeenSet;
   };
 
 } // namespace Model

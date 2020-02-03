@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaPackage
@@ -43,13 +44,16 @@ namespace Model
   {
   public:
     MssPackage();
-    MssPackage(const Aws::Utils::Json::JsonValue& jsonValue);
-    MssPackage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MssPackage(Aws::Utils::Json::JsonView jsonValue);
+    MssPackage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const MssEncryption& GetEncryption() const{ return m_encryption; }
+
+    
+    inline bool EncryptionHasBeenSet() const { return m_encryptionHasBeenSet; }
 
     
     inline void SetEncryption(const MssEncryption& value) { m_encryptionHasBeenSet = true; m_encryption = value; }
@@ -72,6 +76,11 @@ namespace Model
     /**
      * The time window (in seconds) contained in each manifest.
      */
+    inline bool ManifestWindowSecondsHasBeenSet() const { return m_manifestWindowSecondsHasBeenSet; }
+
+    /**
+     * The time window (in seconds) contained in each manifest.
+     */
     inline void SetManifestWindowSeconds(int value) { m_manifestWindowSecondsHasBeenSet = true; m_manifestWindowSeconds = value; }
 
     /**
@@ -88,6 +97,11 @@ namespace Model
     /**
      * The duration (in seconds) of each segment.
      */
+    inline bool SegmentDurationSecondsHasBeenSet() const { return m_segmentDurationSecondsHasBeenSet; }
+
+    /**
+     * The duration (in seconds) of each segment.
+     */
     inline void SetSegmentDurationSeconds(int value) { m_segmentDurationSecondsHasBeenSet = true; m_segmentDurationSeconds = value; }
 
     /**
@@ -98,6 +112,9 @@ namespace Model
 
     
     inline const StreamSelection& GetStreamSelection() const{ return m_streamSelection; }
+
+    
+    inline bool StreamSelectionHasBeenSet() const { return m_streamSelectionHasBeenSet; }
 
     
     inline void SetStreamSelection(const StreamSelection& value) { m_streamSelectionHasBeenSet = true; m_streamSelection = value; }

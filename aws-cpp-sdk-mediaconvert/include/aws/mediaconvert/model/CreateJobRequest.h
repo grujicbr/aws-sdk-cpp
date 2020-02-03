@@ -16,8 +16,12 @@
 #pragma once
 #include <aws/mediaconvert/MediaConvert_EXPORTS.h>
 #include <aws/mediaconvert/MediaConvertRequest.h>
+#include <aws/mediaconvert/model/AccelerationSettings.h>
+#include <aws/mediaconvert/model/BillingTagsSource.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/mediaconvert/model/JobSettings.h>
+#include <aws/mediaconvert/model/SimulateReservedQueue.h>
+#include <aws/mediaconvert/model/StatusUpdateInterval.h>
 #include <aws/core/utils/memory/stl/AWSMap.h>
 #include <utility>
 #include <aws/core/utils/UUID.h>
@@ -35,7 +39,7 @@ namespace Model
   {
   public:
     CreateJobRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,9 +50,118 @@ namespace Model
 
 
     /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline const AccelerationSettings& GetAccelerationSettings() const{ return m_accelerationSettings; }
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline bool AccelerationSettingsHasBeenSet() const { return m_accelerationSettingsHasBeenSet; }
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline void SetAccelerationSettings(const AccelerationSettings& value) { m_accelerationSettingsHasBeenSet = true; m_accelerationSettings = value; }
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline void SetAccelerationSettings(AccelerationSettings&& value) { m_accelerationSettingsHasBeenSet = true; m_accelerationSettings = std::move(value); }
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline CreateJobRequest& WithAccelerationSettings(const AccelerationSettings& value) { SetAccelerationSettings(value); return *this;}
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline CreateJobRequest& WithAccelerationSettings(AccelerationSettings&& value) { SetAccelerationSettings(std::move(value)); return *this;}
+
+
+    /**
+     * Optional. Choose a tag type that AWS Billing and Cost Management will use to
+     * sort your AWS Elemental MediaConvert costs on any billing report that you set
+     * up. Any transcoding outputs that don't have an associated tag will appear in
+     * your billing report unsorted. If you don't choose a valid value for this field,
+     * your job outputs will appear on the billing report unsorted.
+     */
+    inline const BillingTagsSource& GetBillingTagsSource() const{ return m_billingTagsSource; }
+
+    /**
+     * Optional. Choose a tag type that AWS Billing and Cost Management will use to
+     * sort your AWS Elemental MediaConvert costs on any billing report that you set
+     * up. Any transcoding outputs that don't have an associated tag will appear in
+     * your billing report unsorted. If you don't choose a valid value for this field,
+     * your job outputs will appear on the billing report unsorted.
+     */
+    inline bool BillingTagsSourceHasBeenSet() const { return m_billingTagsSourceHasBeenSet; }
+
+    /**
+     * Optional. Choose a tag type that AWS Billing and Cost Management will use to
+     * sort your AWS Elemental MediaConvert costs on any billing report that you set
+     * up. Any transcoding outputs that don't have an associated tag will appear in
+     * your billing report unsorted. If you don't choose a valid value for this field,
+     * your job outputs will appear on the billing report unsorted.
+     */
+    inline void SetBillingTagsSource(const BillingTagsSource& value) { m_billingTagsSourceHasBeenSet = true; m_billingTagsSource = value; }
+
+    /**
+     * Optional. Choose a tag type that AWS Billing and Cost Management will use to
+     * sort your AWS Elemental MediaConvert costs on any billing report that you set
+     * up. Any transcoding outputs that don't have an associated tag will appear in
+     * your billing report unsorted. If you don't choose a valid value for this field,
+     * your job outputs will appear on the billing report unsorted.
+     */
+    inline void SetBillingTagsSource(BillingTagsSource&& value) { m_billingTagsSourceHasBeenSet = true; m_billingTagsSource = std::move(value); }
+
+    /**
+     * Optional. Choose a tag type that AWS Billing and Cost Management will use to
+     * sort your AWS Elemental MediaConvert costs on any billing report that you set
+     * up. Any transcoding outputs that don't have an associated tag will appear in
+     * your billing report unsorted. If you don't choose a valid value for this field,
+     * your job outputs will appear on the billing report unsorted.
+     */
+    inline CreateJobRequest& WithBillingTagsSource(const BillingTagsSource& value) { SetBillingTagsSource(value); return *this;}
+
+    /**
+     * Optional. Choose a tag type that AWS Billing and Cost Management will use to
+     * sort your AWS Elemental MediaConvert costs on any billing report that you set
+     * up. Any transcoding outputs that don't have an associated tag will appear in
+     * your billing report unsorted. If you don't choose a valid value for this field,
+     * your job outputs will appear on the billing report unsorted.
+     */
+    inline CreateJobRequest& WithBillingTagsSource(BillingTagsSource&& value) { SetBillingTagsSource(std::move(value)); return *this;}
+
+
+    /**
      * Idempotency token for CreateJob operation.
      */
     inline const Aws::String& GetClientRequestToken() const{ return m_clientRequestToken; }
+
+    /**
+     * Idempotency token for CreateJob operation.
+     */
+    inline bool ClientRequestTokenHasBeenSet() const { return m_clientRequestTokenHasBeenSet; }
 
     /**
      * Idempotency token for CreateJob operation.
@@ -91,6 +204,12 @@ namespace Model
      * When you create a job, you can either specify a job template or specify the
      * transcoding settings individually
      */
+    inline bool JobTemplateHasBeenSet() const { return m_jobTemplateHasBeenSet; }
+
+    /**
+     * When you create a job, you can either specify a job template or specify the
+     * transcoding settings individually
+     */
     inline void SetJobTemplate(const Aws::String& value) { m_jobTemplateHasBeenSet = true; m_jobTemplate = value; }
 
     /**
@@ -125,12 +244,53 @@ namespace Model
 
 
     /**
+     * Specify the relative priority for this job. In any given queue, the service
+     * begins processing the job with the highest value first. When more than one job
+     * has the same priority, the service begins processing the job that you submitted
+     * first. If you don't specify a priority, the service uses the default value 0.
+     */
+    inline int GetPriority() const{ return m_priority; }
+
+    /**
+     * Specify the relative priority for this job. In any given queue, the service
+     * begins processing the job with the highest value first. When more than one job
+     * has the same priority, the service begins processing the job that you submitted
+     * first. If you don't specify a priority, the service uses the default value 0.
+     */
+    inline bool PriorityHasBeenSet() const { return m_priorityHasBeenSet; }
+
+    /**
+     * Specify the relative priority for this job. In any given queue, the service
+     * begins processing the job with the highest value first. When more than one job
+     * has the same priority, the service begins processing the job that you submitted
+     * first. If you don't specify a priority, the service uses the default value 0.
+     */
+    inline void SetPriority(int value) { m_priorityHasBeenSet = true; m_priority = value; }
+
+    /**
+     * Specify the relative priority for this job. In any given queue, the service
+     * begins processing the job with the highest value first. When more than one job
+     * has the same priority, the service begins processing the job that you submitted
+     * first. If you don't specify a priority, the service uses the default value 0.
+     */
+    inline CreateJobRequest& WithPriority(int value) { SetPriority(value); return *this;}
+
+
+    /**
      * Optional. When you create a job, you can specify a queue to send it to. If you
      * don't specify, the job will go to the default queue. For more about queues, see
      * the User Guide topic at
      * http://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html.
      */
     inline const Aws::String& GetQueue() const{ return m_queue; }
+
+    /**
+     * Optional. When you create a job, you can specify a queue to send it to. If you
+     * don't specify, the job will go to the default queue. For more about queues, see
+     * the User Guide topic at
+     * http://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html.
+     */
+    inline bool QueueHasBeenSet() const { return m_queueHasBeenSet; }
 
     /**
      * Optional. When you create a job, you can specify a queue to send it to. If you
@@ -193,6 +353,13 @@ namespace Model
      * permissions, see the User Guide topic at the User Guide at
      * http://docs.aws.amazon.com/mediaconvert/latest/ug/iam-role.html.
      */
+    inline bool RoleHasBeenSet() const { return m_roleHasBeenSet; }
+
+    /**
+     * Required. The IAM role you use for creating this job. For details about
+     * permissions, see the User Guide topic at the User Guide at
+     * http://docs.aws.amazon.com/mediaconvert/latest/ug/iam-role.html.
+     */
     inline void SetRole(const Aws::String& value) { m_roleHasBeenSet = true; m_role = value; }
 
     /**
@@ -231,20 +398,212 @@ namespace Model
     inline CreateJobRequest& WithRole(const char* value) { SetRole(value); return *this;}
 
 
-    
+    /**
+     * JobSettings contains all the transcode settings for a job.
+     */
     inline const JobSettings& GetSettings() const{ return m_settings; }
 
-    
+    /**
+     * JobSettings contains all the transcode settings for a job.
+     */
+    inline bool SettingsHasBeenSet() const { return m_settingsHasBeenSet; }
+
+    /**
+     * JobSettings contains all the transcode settings for a job.
+     */
     inline void SetSettings(const JobSettings& value) { m_settingsHasBeenSet = true; m_settings = value; }
 
-    
+    /**
+     * JobSettings contains all the transcode settings for a job.
+     */
     inline void SetSettings(JobSettings&& value) { m_settingsHasBeenSet = true; m_settings = std::move(value); }
 
-    
+    /**
+     * JobSettings contains all the transcode settings for a job.
+     */
     inline CreateJobRequest& WithSettings(const JobSettings& value) { SetSettings(value); return *this;}
 
-    
+    /**
+     * JobSettings contains all the transcode settings for a job.
+     */
     inline CreateJobRequest& WithSettings(JobSettings&& value) { SetSettings(std::move(value)); return *this;}
+
+
+    /**
+     * Enable this setting when you run a test job to estimate how many reserved
+     * transcoding slots (RTS) you need. When this is enabled, MediaConvert runs your
+     * job from an on-demand queue with similar performance to what you will see with
+     * one RTS in a reserved queue. This setting is disabled by default.
+     */
+    inline const SimulateReservedQueue& GetSimulateReservedQueue() const{ return m_simulateReservedQueue; }
+
+    /**
+     * Enable this setting when you run a test job to estimate how many reserved
+     * transcoding slots (RTS) you need. When this is enabled, MediaConvert runs your
+     * job from an on-demand queue with similar performance to what you will see with
+     * one RTS in a reserved queue. This setting is disabled by default.
+     */
+    inline bool SimulateReservedQueueHasBeenSet() const { return m_simulateReservedQueueHasBeenSet; }
+
+    /**
+     * Enable this setting when you run a test job to estimate how many reserved
+     * transcoding slots (RTS) you need. When this is enabled, MediaConvert runs your
+     * job from an on-demand queue with similar performance to what you will see with
+     * one RTS in a reserved queue. This setting is disabled by default.
+     */
+    inline void SetSimulateReservedQueue(const SimulateReservedQueue& value) { m_simulateReservedQueueHasBeenSet = true; m_simulateReservedQueue = value; }
+
+    /**
+     * Enable this setting when you run a test job to estimate how many reserved
+     * transcoding slots (RTS) you need. When this is enabled, MediaConvert runs your
+     * job from an on-demand queue with similar performance to what you will see with
+     * one RTS in a reserved queue. This setting is disabled by default.
+     */
+    inline void SetSimulateReservedQueue(SimulateReservedQueue&& value) { m_simulateReservedQueueHasBeenSet = true; m_simulateReservedQueue = std::move(value); }
+
+    /**
+     * Enable this setting when you run a test job to estimate how many reserved
+     * transcoding slots (RTS) you need. When this is enabled, MediaConvert runs your
+     * job from an on-demand queue with similar performance to what you will see with
+     * one RTS in a reserved queue. This setting is disabled by default.
+     */
+    inline CreateJobRequest& WithSimulateReservedQueue(const SimulateReservedQueue& value) { SetSimulateReservedQueue(value); return *this;}
+
+    /**
+     * Enable this setting when you run a test job to estimate how many reserved
+     * transcoding slots (RTS) you need. When this is enabled, MediaConvert runs your
+     * job from an on-demand queue with similar performance to what you will see with
+     * one RTS in a reserved queue. This setting is disabled by default.
+     */
+    inline CreateJobRequest& WithSimulateReservedQueue(SimulateReservedQueue&& value) { SetSimulateReservedQueue(std::move(value)); return *this;}
+
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline const StatusUpdateInterval& GetStatusUpdateInterval() const{ return m_statusUpdateInterval; }
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline bool StatusUpdateIntervalHasBeenSet() const { return m_statusUpdateIntervalHasBeenSet; }
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline void SetStatusUpdateInterval(const StatusUpdateInterval& value) { m_statusUpdateIntervalHasBeenSet = true; m_statusUpdateInterval = value; }
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline void SetStatusUpdateInterval(StatusUpdateInterval&& value) { m_statusUpdateIntervalHasBeenSet = true; m_statusUpdateInterval = std::move(value); }
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline CreateJobRequest& WithStatusUpdateInterval(const StatusUpdateInterval& value) { SetStatusUpdateInterval(value); return *this;}
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline CreateJobRequest& WithStatusUpdateInterval(StatusUpdateInterval&& value) { SetStatusUpdateInterval(std::move(value)); return *this;}
+
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * The tags that you want to add to the resource. You can tag resources with a
+     * key-value pair or with only a key.
+     */
+    inline CreateJobRequest& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
 
 
     /**
@@ -252,6 +611,12 @@ namespace Model
      * specify metadata in key/value pairs.
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetUserMetadata() const{ return m_userMetadata; }
+
+    /**
+     * User-defined metadata that you want to associate with an MediaConvert job. You
+     * specify metadata in key/value pairs.
+     */
+    inline bool UserMetadataHasBeenSet() const { return m_userMetadataHasBeenSet; }
 
     /**
      * User-defined metadata that you want to associate with an MediaConvert job. You
@@ -321,11 +686,20 @@ namespace Model
 
   private:
 
+    AccelerationSettings m_accelerationSettings;
+    bool m_accelerationSettingsHasBeenSet;
+
+    BillingTagsSource m_billingTagsSource;
+    bool m_billingTagsSourceHasBeenSet;
+
     Aws::String m_clientRequestToken;
     bool m_clientRequestTokenHasBeenSet;
 
     Aws::String m_jobTemplate;
     bool m_jobTemplateHasBeenSet;
+
+    int m_priority;
+    bool m_priorityHasBeenSet;
 
     Aws::String m_queue;
     bool m_queueHasBeenSet;
@@ -335,6 +709,15 @@ namespace Model
 
     JobSettings m_settings;
     bool m_settingsHasBeenSet;
+
+    SimulateReservedQueue m_simulateReservedQueue;
+    bool m_simulateReservedQueueHasBeenSet;
+
+    StatusUpdateInterval m_statusUpdateInterval;
+    bool m_statusUpdateIntervalHasBeenSet;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
+    bool m_tagsHasBeenSet;
 
     Aws::Map<Aws::String, Aws::String> m_userMetadata;
     bool m_userMetadataHasBeenSet;

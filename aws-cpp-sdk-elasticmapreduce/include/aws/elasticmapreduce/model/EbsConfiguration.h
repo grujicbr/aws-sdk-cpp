@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EbsConfiguration();
-    EbsConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    EbsConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EbsConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    EbsConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * instance.</p>
      */
     inline const Aws::Vector<EbsBlockDeviceConfig>& GetEbsBlockDeviceConfigs() const{ return m_ebsBlockDeviceConfigs; }
+
+    /**
+     * <p>An array of Amazon EBS volume specifications attached to a cluster
+     * instance.</p>
+     */
+    inline bool EbsBlockDeviceConfigsHasBeenSet() const { return m_ebsBlockDeviceConfigsHasBeenSet; }
 
     /**
      * <p>An array of Amazon EBS volume specifications attached to a cluster
@@ -95,6 +102,11 @@ namespace Model
      * <p>Indicates whether an Amazon EBS volume is EBS-optimized.</p>
      */
     inline bool GetEbsOptimized() const{ return m_ebsOptimized; }
+
+    /**
+     * <p>Indicates whether an Amazon EBS volume is EBS-optimized.</p>
+     */
+    inline bool EbsOptimizedHasBeenSet() const { return m_ebsOptimizedHasBeenSet; }
 
     /**
      * <p>Indicates whether an Amazon EBS volume is EBS-optimized.</p>

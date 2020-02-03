@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Batch
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     JobTimeout();
-    JobTimeout(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobTimeout& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobTimeout(Aws::Utils::Json::JsonView jsonValue);
+    JobTimeout& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,13 @@ namespace Model
      * they have not finished.</p>
      */
     inline int GetAttemptDurationSeconds() const{ return m_attemptDurationSeconds; }
+
+    /**
+     * <p>The time duration in seconds (measured from the job attempt's
+     * <code>startedAt</code> timestamp) after which AWS Batch terminates your jobs if
+     * they have not finished.</p>
+     */
+    inline bool AttemptDurationSecondsHasBeenSet() const { return m_attemptDurationSecondsHasBeenSet; }
 
     /**
      * <p>The time duration in seconds (measured from the job attempt's

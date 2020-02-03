@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PolicyVersion();
-    PolicyVersion(const Aws::Utils::Json::JsonValue& jsonValue);
-    PolicyVersion& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PolicyVersion(Aws::Utils::Json::JsonView jsonValue);
+    PolicyVersion& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The policy version ID.</p>
      */
     inline const Aws::String& GetVersionId() const{ return m_versionId; }
+
+    /**
+     * <p>The policy version ID.</p>
+     */
+    inline bool VersionIdHasBeenSet() const { return m_versionIdHasBeenSet; }
 
     /**
      * <p>The policy version ID.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>Specifies whether the policy version is the default.</p>
      */
+    inline bool IsDefaultVersionHasBeenSet() const { return m_isDefaultVersionHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the policy version is the default.</p>
+     */
     inline void SetIsDefaultVersion(bool value) { m_isDefaultVersionHasBeenSet = true; m_isDefaultVersion = value; }
 
     /**
@@ -103,6 +114,11 @@ namespace Model
      * <p>The date and time the policy was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreateDate() const{ return m_createDate; }
+
+    /**
+     * <p>The date and time the policy was created.</p>
+     */
+    inline bool CreateDateHasBeenSet() const { return m_createDateHasBeenSet; }
 
     /**
      * <p>The date and time the policy was created.</p>

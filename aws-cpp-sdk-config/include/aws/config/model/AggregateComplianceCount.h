@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AggregateComplianceCount();
-    AggregateComplianceCount(const Aws::Utils::Json::JsonValue& jsonValue);
-    AggregateComplianceCount& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AggregateComplianceCount(Aws::Utils::Json::JsonView jsonValue);
+    AggregateComplianceCount& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The 12-digit account ID or region based on the GroupByKey value.</p>
      */
     inline const Aws::String& GetGroupName() const{ return m_groupName; }
+
+    /**
+     * <p>The 12-digit account ID or region based on the GroupByKey value.</p>
+     */
+    inline bool GroupNameHasBeenSet() const { return m_groupNameHasBeenSet; }
 
     /**
      * <p>The 12-digit account ID or region based on the GroupByKey value.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The number of compliant and noncompliant AWS Config rules.</p>
      */
     inline const ComplianceSummary& GetComplianceSummary() const{ return m_complianceSummary; }
+
+    /**
+     * <p>The number of compliant and noncompliant AWS Config rules.</p>
+     */
+    inline bool ComplianceSummaryHasBeenSet() const { return m_complianceSummaryHasBeenSet; }
 
     /**
      * <p>The number of compliant and noncompliant AWS Config rules.</p>

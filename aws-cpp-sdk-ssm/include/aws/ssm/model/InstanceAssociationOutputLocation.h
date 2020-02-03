@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     InstanceAssociationOutputLocation();
-    InstanceAssociationOutputLocation(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceAssociationOutputLocation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceAssociationOutputLocation(Aws::Utils::Json::JsonView jsonValue);
+    InstanceAssociationOutputLocation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>An Amazon S3 bucket where you want to store the results of this request.</p>
      */
     inline const S3OutputLocation& GetS3Location() const{ return m_s3Location; }
+
+    /**
+     * <p>An Amazon S3 bucket where you want to store the results of this request.</p>
+     */
+    inline bool S3LocationHasBeenSet() const { return m_s3LocationHasBeenSet; }
 
     /**
      * <p>An Amazon S3 bucket where you want to store the results of this request.</p>

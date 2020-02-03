@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     DomainController();
-    DomainController(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainController& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainController(Aws::Utils::Json::JsonView jsonValue);
+    DomainController& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Identifier of the directory where the domain controller resides.</p>
      */
     inline const Aws::String& GetDirectoryId() const{ return m_directoryId; }
+
+    /**
+     * <p>Identifier of the directory where the domain controller resides.</p>
+     */
+    inline bool DirectoryIdHasBeenSet() const { return m_directoryIdHasBeenSet; }
 
     /**
      * <p>Identifier of the directory where the domain controller resides.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>Identifies a specific domain controller in the directory.</p>
      */
+    inline bool DomainControllerIdHasBeenSet() const { return m_domainControllerIdHasBeenSet; }
+
+    /**
+     * <p>Identifies a specific domain controller in the directory.</p>
+     */
     inline void SetDomainControllerId(const Aws::String& value) { m_domainControllerIdHasBeenSet = true; m_domainControllerId = value; }
 
     /**
@@ -125,6 +136,11 @@ namespace Model
      * <p>The IP address of the domain controller.</p>
      */
     inline const Aws::String& GetDnsIpAddr() const{ return m_dnsIpAddr; }
+
+    /**
+     * <p>The IP address of the domain controller.</p>
+     */
+    inline bool DnsIpAddrHasBeenSet() const { return m_dnsIpAddrHasBeenSet; }
 
     /**
      * <p>The IP address of the domain controller.</p>
@@ -165,6 +181,11 @@ namespace Model
     /**
      * <p>The identifier of the VPC that contains the domain controller.</p>
      */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
+
+    /**
+     * <p>The identifier of the VPC that contains the domain controller.</p>
+     */
     inline void SetVpcId(const Aws::String& value) { m_vpcIdHasBeenSet = true; m_vpcId = value; }
 
     /**
@@ -197,6 +218,11 @@ namespace Model
      * <p>Identifier of the subnet in the VPC that contains the domain controller.</p>
      */
     inline const Aws::String& GetSubnetId() const{ return m_subnetId; }
+
+    /**
+     * <p>Identifier of the subnet in the VPC that contains the domain controller.</p>
+     */
+    inline bool SubnetIdHasBeenSet() const { return m_subnetIdHasBeenSet; }
 
     /**
      * <p>Identifier of the subnet in the VPC that contains the domain controller.</p>
@@ -237,6 +263,11 @@ namespace Model
     /**
      * <p>The Availability Zone where the domain controller is located.</p>
      */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The Availability Zone where the domain controller is located.</p>
+     */
     inline void SetAvailabilityZone(const Aws::String& value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone = value; }
 
     /**
@@ -273,6 +304,11 @@ namespace Model
     /**
      * <p>The status of the domain controller.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the domain controller.</p>
+     */
     inline void SetStatus(const DomainControllerStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -295,6 +331,11 @@ namespace Model
      * <p>A description of the domain controller state.</p>
      */
     inline const Aws::String& GetStatusReason() const{ return m_statusReason; }
+
+    /**
+     * <p>A description of the domain controller state.</p>
+     */
+    inline bool StatusReasonHasBeenSet() const { return m_statusReasonHasBeenSet; }
 
     /**
      * <p>A description of the domain controller state.</p>
@@ -335,6 +376,11 @@ namespace Model
     /**
      * <p>Specifies when the domain controller was created.</p>
      */
+    inline bool LaunchTimeHasBeenSet() const { return m_launchTimeHasBeenSet; }
+
+    /**
+     * <p>Specifies when the domain controller was created.</p>
+     */
     inline void SetLaunchTime(const Aws::Utils::DateTime& value) { m_launchTimeHasBeenSet = true; m_launchTime = value; }
 
     /**
@@ -357,6 +403,11 @@ namespace Model
      * <p>The date and time that the status was last updated.</p>
      */
     inline const Aws::Utils::DateTime& GetStatusLastUpdatedDateTime() const{ return m_statusLastUpdatedDateTime; }
+
+    /**
+     * <p>The date and time that the status was last updated.</p>
+     */
+    inline bool StatusLastUpdatedDateTimeHasBeenSet() const { return m_statusLastUpdatedDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time that the status was last updated.</p>

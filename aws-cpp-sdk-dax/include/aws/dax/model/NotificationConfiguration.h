@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     NotificationConfiguration();
-    NotificationConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    NotificationConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NotificationConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    NotificationConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) that identifies the topic. </p>
      */
     inline const Aws::String& GetTopicArn() const{ return m_topicArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that identifies the topic. </p>
+     */
+    inline bool TopicArnHasBeenSet() const { return m_topicArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that identifies the topic. </p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The current state of the topic.</p>
      */
     inline const Aws::String& GetTopicStatus() const{ return m_topicStatus; }
+
+    /**
+     * <p>The current state of the topic.</p>
+     */
+    inline bool TopicStatusHasBeenSet() const { return m_topicStatusHasBeenSet; }
 
     /**
      * <p>The current state of the topic.</p>

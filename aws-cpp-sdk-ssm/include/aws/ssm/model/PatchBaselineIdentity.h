@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PatchBaselineIdentity();
-    PatchBaselineIdentity(const Aws::Utils::Json::JsonValue& jsonValue);
-    PatchBaselineIdentity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PatchBaselineIdentity(Aws::Utils::Json::JsonView jsonValue);
+    PatchBaselineIdentity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ID of the patch baseline.</p>
      */
     inline const Aws::String& GetBaselineId() const{ return m_baselineId; }
+
+    /**
+     * <p>The ID of the patch baseline.</p>
+     */
+    inline bool BaselineIdHasBeenSet() const { return m_baselineIdHasBeenSet; }
 
     /**
      * <p>The ID of the patch baseline.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The name of the patch baseline.</p>
      */
     inline const Aws::String& GetBaselineName() const{ return m_baselineName; }
+
+    /**
+     * <p>The name of the patch baseline.</p>
+     */
+    inline bool BaselineNameHasBeenSet() const { return m_baselineNameHasBeenSet; }
 
     /**
      * <p>The name of the patch baseline.</p>
@@ -130,6 +141,12 @@ namespace Model
      * <p>Defines the operating system the patch baseline applies to. The Default value
      * is WINDOWS. </p>
      */
+    inline bool OperatingSystemHasBeenSet() const { return m_operatingSystemHasBeenSet; }
+
+    /**
+     * <p>Defines the operating system the patch baseline applies to. The Default value
+     * is WINDOWS. </p>
+     */
     inline void SetOperatingSystem(const OperatingSystem& value) { m_operatingSystemHasBeenSet = true; m_operatingSystem = value; }
 
     /**
@@ -155,6 +172,11 @@ namespace Model
      * <p>The description of the patch baseline.</p>
      */
     inline const Aws::String& GetBaselineDescription() const{ return m_baselineDescription; }
+
+    /**
+     * <p>The description of the patch baseline.</p>
+     */
+    inline bool BaselineDescriptionHasBeenSet() const { return m_baselineDescriptionHasBeenSet; }
 
     /**
      * <p>The description of the patch baseline.</p>
@@ -193,6 +215,13 @@ namespace Model
      * patch baseline for each operating system.</p>
      */
     inline bool GetDefaultBaseline() const{ return m_defaultBaseline; }
+
+    /**
+     * <p>Whether this is the default baseline. Note that Systems Manager supports
+     * creating multiple default patch baselines. For example, you can create a default
+     * patch baseline for each operating system.</p>
+     */
+    inline bool DefaultBaselineHasBeenSet() const { return m_defaultBaselineHasBeenSet; }
 
     /**
      * <p>Whether this is the default baseline. Note that Systems Manager supports

@@ -48,13 +48,17 @@ SMBFileShareInfo::SMBFileShareInfo() :
     m_guessMIMETypeEnabledHasBeenSet(false),
     m_requesterPays(false),
     m_requesterPaysHasBeenSet(false),
+    m_sMBACLEnabled(false),
+    m_sMBACLEnabledHasBeenSet(false),
+    m_adminUserListHasBeenSet(false),
     m_validUserListHasBeenSet(false),
     m_invalidUserListHasBeenSet(false),
-    m_authenticationHasBeenSet(false)
+    m_authenticationHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-SMBFileShareInfo::SMBFileShareInfo(const JsonValue& jsonValue) : 
+SMBFileShareInfo::SMBFileShareInfo(JsonView jsonValue) : 
     m_fileShareARNHasBeenSet(false),
     m_fileShareIdHasBeenSet(false),
     m_fileShareStatusHasBeenSet(false),
@@ -74,14 +78,18 @@ SMBFileShareInfo::SMBFileShareInfo(const JsonValue& jsonValue) :
     m_guessMIMETypeEnabledHasBeenSet(false),
     m_requesterPays(false),
     m_requesterPaysHasBeenSet(false),
+    m_sMBACLEnabled(false),
+    m_sMBACLEnabledHasBeenSet(false),
+    m_adminUserListHasBeenSet(false),
     m_validUserListHasBeenSet(false),
     m_invalidUserListHasBeenSet(false),
-    m_authenticationHasBeenSet(false)
+    m_authenticationHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-SMBFileShareInfo& SMBFileShareInfo::operator =(const JsonValue& jsonValue)
+SMBFileShareInfo& SMBFileShareInfo::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("FileShareARN"))
   {
@@ -181,9 +189,26 @@ SMBFileShareInfo& SMBFileShareInfo::operator =(const JsonValue& jsonValue)
     m_requesterPaysHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("SMBACLEnabled"))
+  {
+    m_sMBACLEnabled = jsonValue.GetBool("SMBACLEnabled");
+
+    m_sMBACLEnabledHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("AdminUserList"))
+  {
+    Array<JsonView> adminUserListJsonList = jsonValue.GetArray("AdminUserList");
+    for(unsigned adminUserListIndex = 0; adminUserListIndex < adminUserListJsonList.GetLength(); ++adminUserListIndex)
+    {
+      m_adminUserList.push_back(adminUserListJsonList[adminUserListIndex].AsString());
+    }
+    m_adminUserListHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ValidUserList"))
   {
-    Array<JsonValue> validUserListJsonList = jsonValue.GetArray("ValidUserList");
+    Array<JsonView> validUserListJsonList = jsonValue.GetArray("ValidUserList");
     for(unsigned validUserListIndex = 0; validUserListIndex < validUserListJsonList.GetLength(); ++validUserListIndex)
     {
       m_validUserList.push_back(validUserListJsonList[validUserListIndex].AsString());
@@ -193,7 +218,7 @@ SMBFileShareInfo& SMBFileShareInfo::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("InvalidUserList"))
   {
-    Array<JsonValue> invalidUserListJsonList = jsonValue.GetArray("InvalidUserList");
+    Array<JsonView> invalidUserListJsonList = jsonValue.GetArray("InvalidUserList");
     for(unsigned invalidUserListIndex = 0; invalidUserListIndex < invalidUserListJsonList.GetLength(); ++invalidUserListIndex)
     {
       m_invalidUserList.push_back(invalidUserListJsonList[invalidUserListIndex].AsString());
@@ -206,6 +231,16 @@ SMBFileShareInfo& SMBFileShareInfo::operator =(const JsonValue& jsonValue)
     m_authentication = jsonValue.GetString("Authentication");
 
     m_authenticationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("Tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
   }
 
   return *this;
@@ -298,6 +333,23 @@ JsonValue SMBFileShareInfo::Jsonize() const
 
   }
 
+  if(m_sMBACLEnabledHasBeenSet)
+  {
+   payload.WithBool("SMBACLEnabled", m_sMBACLEnabled);
+
+  }
+
+  if(m_adminUserListHasBeenSet)
+  {
+   Array<JsonValue> adminUserListJsonList(m_adminUserList.size());
+   for(unsigned adminUserListIndex = 0; adminUserListIndex < adminUserListJsonList.GetLength(); ++adminUserListIndex)
+   {
+     adminUserListJsonList[adminUserListIndex].AsString(m_adminUserList[adminUserListIndex]);
+   }
+   payload.WithArray("AdminUserList", std::move(adminUserListJsonList));
+
+  }
+
   if(m_validUserListHasBeenSet)
   {
    Array<JsonValue> validUserListJsonList(m_validUserList.size());
@@ -323,6 +375,17 @@ JsonValue SMBFileShareInfo::Jsonize() const
   if(m_authenticationHasBeenSet)
   {
    payload.WithString("Authentication", m_authentication);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
 
   }
 

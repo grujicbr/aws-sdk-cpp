@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TapeRecoveryPointInfo();
-    TapeRecoveryPointInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    TapeRecoveryPointInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TapeRecoveryPointInfo(Aws::Utils::Json::JsonView jsonValue);
+    TapeRecoveryPointInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the virtual tape.</p>
      */
     inline const Aws::String& GetTapeARN() const{ return m_tapeARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the virtual tape.</p>
+     */
+    inline bool TapeARNHasBeenSet() const { return m_tapeARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the virtual tape.</p>
@@ -95,6 +101,13 @@ namespace Model
      * later recovery.</p> <p>The default time stamp format of the tape recovery point
      * time is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.</p>
      */
+    inline bool TapeRecoveryPointTimeHasBeenSet() const { return m_tapeRecoveryPointTimeHasBeenSet; }
+
+    /**
+     * <p>The time when the point-in-time view of the virtual tape was replicated for
+     * later recovery.</p> <p>The default time stamp format of the tape recovery point
+     * time is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.</p>
+     */
     inline void SetTapeRecoveryPointTime(const Aws::Utils::DateTime& value) { m_tapeRecoveryPointTimeHasBeenSet = true; m_tapeRecoveryPointTime = value; }
 
     /**
@@ -127,6 +140,11 @@ namespace Model
     /**
      * <p>The size, in bytes, of the virtual tapes to recover.</p>
      */
+    inline bool TapeSizeInBytesHasBeenSet() const { return m_tapeSizeInBytesHasBeenSet; }
+
+    /**
+     * <p>The size, in bytes, of the virtual tapes to recover.</p>
+     */
     inline void SetTapeSizeInBytes(long long value) { m_tapeSizeInBytesHasBeenSet = true; m_tapeSizeInBytes = value; }
 
     /**
@@ -135,25 +153,44 @@ namespace Model
     inline TapeRecoveryPointInfo& WithTapeSizeInBytes(long long value) { SetTapeSizeInBytes(value); return *this;}
 
 
-    
+    /**
+     * <p>The status of the virtual tapes.</p>
+     */
     inline const Aws::String& GetTapeStatus() const{ return m_tapeStatus; }
 
-    
+    /**
+     * <p>The status of the virtual tapes.</p>
+     */
+    inline bool TapeStatusHasBeenSet() const { return m_tapeStatusHasBeenSet; }
+
+    /**
+     * <p>The status of the virtual tapes.</p>
+     */
     inline void SetTapeStatus(const Aws::String& value) { m_tapeStatusHasBeenSet = true; m_tapeStatus = value; }
 
-    
+    /**
+     * <p>The status of the virtual tapes.</p>
+     */
     inline void SetTapeStatus(Aws::String&& value) { m_tapeStatusHasBeenSet = true; m_tapeStatus = std::move(value); }
 
-    
+    /**
+     * <p>The status of the virtual tapes.</p>
+     */
     inline void SetTapeStatus(const char* value) { m_tapeStatusHasBeenSet = true; m_tapeStatus.assign(value); }
 
-    
+    /**
+     * <p>The status of the virtual tapes.</p>
+     */
     inline TapeRecoveryPointInfo& WithTapeStatus(const Aws::String& value) { SetTapeStatus(value); return *this;}
 
-    
+    /**
+     * <p>The status of the virtual tapes.</p>
+     */
     inline TapeRecoveryPointInfo& WithTapeStatus(Aws::String&& value) { SetTapeStatus(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>The status of the virtual tapes.</p>
+     */
     inline TapeRecoveryPointInfo& WithTapeStatus(const char* value) { SetTapeStatus(value); return *this;}
 
   private:

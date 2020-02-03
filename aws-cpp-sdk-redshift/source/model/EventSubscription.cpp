@@ -72,37 +72,37 @@ EventSubscription& EventSubscription::operator =(const XmlNode& xmlNode)
     XmlNode customerAwsIdNode = resultNode.FirstChild("CustomerAwsId");
     if(!customerAwsIdNode.IsNull())
     {
-      m_customerAwsId = StringUtils::Trim(customerAwsIdNode.GetText().c_str());
+      m_customerAwsId = Aws::Utils::Xml::DecodeEscapedXmlText(customerAwsIdNode.GetText());
       m_customerAwsIdHasBeenSet = true;
     }
     XmlNode custSubscriptionIdNode = resultNode.FirstChild("CustSubscriptionId");
     if(!custSubscriptionIdNode.IsNull())
     {
-      m_custSubscriptionId = StringUtils::Trim(custSubscriptionIdNode.GetText().c_str());
+      m_custSubscriptionId = Aws::Utils::Xml::DecodeEscapedXmlText(custSubscriptionIdNode.GetText());
       m_custSubscriptionIdHasBeenSet = true;
     }
     XmlNode snsTopicArnNode = resultNode.FirstChild("SnsTopicArn");
     if(!snsTopicArnNode.IsNull())
     {
-      m_snsTopicArn = StringUtils::Trim(snsTopicArnNode.GetText().c_str());
+      m_snsTopicArn = Aws::Utils::Xml::DecodeEscapedXmlText(snsTopicArnNode.GetText());
       m_snsTopicArnHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode subscriptionCreationTimeNode = resultNode.FirstChild("SubscriptionCreationTime");
     if(!subscriptionCreationTimeNode.IsNull())
     {
-      m_subscriptionCreationTime = DateTime(StringUtils::Trim(subscriptionCreationTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_subscriptionCreationTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(subscriptionCreationTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_subscriptionCreationTimeHasBeenSet = true;
     }
     XmlNode sourceTypeNode = resultNode.FirstChild("SourceType");
     if(!sourceTypeNode.IsNull())
     {
-      m_sourceType = StringUtils::Trim(sourceTypeNode.GetText().c_str());
+      m_sourceType = Aws::Utils::Xml::DecodeEscapedXmlText(sourceTypeNode.GetText());
       m_sourceTypeHasBeenSet = true;
     }
     XmlNode sourceIdsListNode = resultNode.FirstChild("SourceIdsList");
@@ -111,7 +111,7 @@ EventSubscription& EventSubscription::operator =(const XmlNode& xmlNode)
       XmlNode sourceIdsListMember = sourceIdsListNode.FirstChild("SourceId");
       while(!sourceIdsListMember.IsNull())
       {
-        m_sourceIdsList.push_back(StringUtils::Trim(sourceIdsListMember.GetText().c_str()));
+        m_sourceIdsList.push_back(sourceIdsListMember.GetText());
         sourceIdsListMember = sourceIdsListMember.NextNode("SourceId");
       }
 
@@ -123,7 +123,7 @@ EventSubscription& EventSubscription::operator =(const XmlNode& xmlNode)
       XmlNode eventCategoriesListMember = eventCategoriesListNode.FirstChild("EventCategory");
       while(!eventCategoriesListMember.IsNull())
       {
-        m_eventCategoriesList.push_back(StringUtils::Trim(eventCategoriesListMember.GetText().c_str()));
+        m_eventCategoriesList.push_back(eventCategoriesListMember.GetText());
         eventCategoriesListMember = eventCategoriesListMember.NextNode("EventCategory");
       }
 
@@ -132,13 +132,13 @@ EventSubscription& EventSubscription::operator =(const XmlNode& xmlNode)
     XmlNode severityNode = resultNode.FirstChild("Severity");
     if(!severityNode.IsNull())
     {
-      m_severity = StringUtils::Trim(severityNode.GetText().c_str());
+      m_severity = Aws::Utils::Xml::DecodeEscapedXmlText(severityNode.GetText());
       m_severityHasBeenSet = true;
     }
     XmlNode enabledNode = resultNode.FirstChild("Enabled");
     if(!enabledNode.IsNull())
     {
-      m_enabled = StringUtils::ConvertToBool(StringUtils::Trim(enabledNode.GetText().c_str()).c_str());
+      m_enabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(enabledNode.GetText()).c_str()).c_str());
       m_enabledHasBeenSet = true;
     }
     XmlNode tagsNode = resultNode.FirstChild("Tags");

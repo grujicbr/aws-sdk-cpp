@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -34,7 +35,10 @@ namespace Model
 {
 
   /**
-   * Settings for File-based Captions in Source<p><h3>See Also:</h3>   <a
+   * If your input captions are SCC, SMI, SRT, STL, TTML, or IMSC 1.1 in an xml file,
+   * specify the URI of the input caption source file. If your caption source is IMSC
+   * in an IMF package, use TrackSourceSettings instead of
+   * FileSoureSettings.<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/FileSourceSettings">AWS
    * API Reference</a></p>
    */
@@ -42,66 +46,111 @@ namespace Model
   {
   public:
     FileSourceSettings();
-    FileSourceSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    FileSourceSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FileSourceSettings(Aws::Utils::Json::JsonView jsonValue);
+    FileSourceSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
-    
+    /**
+     * Specify whether this set of input captions appears in your outputs in both 608
+     * and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the
+     * captions data in two ways: it passes the 608 data through using the 608
+     * compatibility bytes fields of the 708 wrapper, and it also translates the 608
+     * data into 708.
+     */
     inline const FileSourceConvert608To708& GetConvert608To708() const{ return m_convert608To708; }
 
-    
+    /**
+     * Specify whether this set of input captions appears in your outputs in both 608
+     * and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the
+     * captions data in two ways: it passes the 608 data through using the 608
+     * compatibility bytes fields of the 708 wrapper, and it also translates the 608
+     * data into 708.
+     */
+    inline bool Convert608To708HasBeenSet() const { return m_convert608To708HasBeenSet; }
+
+    /**
+     * Specify whether this set of input captions appears in your outputs in both 608
+     * and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the
+     * captions data in two ways: it passes the 608 data through using the 608
+     * compatibility bytes fields of the 708 wrapper, and it also translates the 608
+     * data into 708.
+     */
     inline void SetConvert608To708(const FileSourceConvert608To708& value) { m_convert608To708HasBeenSet = true; m_convert608To708 = value; }
 
-    
+    /**
+     * Specify whether this set of input captions appears in your outputs in both 608
+     * and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the
+     * captions data in two ways: it passes the 608 data through using the 608
+     * compatibility bytes fields of the 708 wrapper, and it also translates the 608
+     * data into 708.
+     */
     inline void SetConvert608To708(FileSourceConvert608To708&& value) { m_convert608To708HasBeenSet = true; m_convert608To708 = std::move(value); }
 
-    
+    /**
+     * Specify whether this set of input captions appears in your outputs in both 608
+     * and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the
+     * captions data in two ways: it passes the 608 data through using the 608
+     * compatibility bytes fields of the 708 wrapper, and it also translates the 608
+     * data into 708.
+     */
     inline FileSourceSettings& WithConvert608To708(const FileSourceConvert608To708& value) { SetConvert608To708(value); return *this;}
 
-    
+    /**
+     * Specify whether this set of input captions appears in your outputs in both 608
+     * and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the
+     * captions data in two ways: it passes the 608 data through using the 608
+     * compatibility bytes fields of the 708 wrapper, and it also translates the 608
+     * data into 708.
+     */
     inline FileSourceSettings& WithConvert608To708(FileSourceConvert608To708&& value) { SetConvert608To708(std::move(value)); return *this;}
 
 
     /**
      * External caption file used for loading captions. Accepted file extensions are
-     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', and 'smi'.
+     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
      */
     inline const Aws::String& GetSourceFile() const{ return m_sourceFile; }
 
     /**
      * External caption file used for loading captions. Accepted file extensions are
-     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', and 'smi'.
+     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
+     */
+    inline bool SourceFileHasBeenSet() const { return m_sourceFileHasBeenSet; }
+
+    /**
+     * External caption file used for loading captions. Accepted file extensions are
+     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
      */
     inline void SetSourceFile(const Aws::String& value) { m_sourceFileHasBeenSet = true; m_sourceFile = value; }
 
     /**
      * External caption file used for loading captions. Accepted file extensions are
-     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', and 'smi'.
+     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
      */
     inline void SetSourceFile(Aws::String&& value) { m_sourceFileHasBeenSet = true; m_sourceFile = std::move(value); }
 
     /**
      * External caption file used for loading captions. Accepted file extensions are
-     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', and 'smi'.
+     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
      */
     inline void SetSourceFile(const char* value) { m_sourceFileHasBeenSet = true; m_sourceFile.assign(value); }
 
     /**
      * External caption file used for loading captions. Accepted file extensions are
-     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', and 'smi'.
+     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
      */
     inline FileSourceSettings& WithSourceFile(const Aws::String& value) { SetSourceFile(value); return *this;}
 
     /**
      * External caption file used for loading captions. Accepted file extensions are
-     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', and 'smi'.
+     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
      */
     inline FileSourceSettings& WithSourceFile(Aws::String&& value) { SetSourceFile(std::move(value)); return *this;}
 
     /**
      * External caption file used for loading captions. Accepted file extensions are
-     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', and 'smi'.
+     * 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
      */
     inline FileSourceSettings& WithSourceFile(const char* value) { SetSourceFile(value); return *this;}
 
@@ -110,6 +159,11 @@ namespace Model
      * Specifies a time delta in seconds to offset the captions from the source file.
      */
     inline int GetTimeDelta() const{ return m_timeDelta; }
+
+    /**
+     * Specifies a time delta in seconds to offset the captions from the source file.
+     */
+    inline bool TimeDeltaHasBeenSet() const { return m_timeDeltaHasBeenSet; }
 
     /**
      * Specifies a time delta in seconds to offset the captions from the source file.

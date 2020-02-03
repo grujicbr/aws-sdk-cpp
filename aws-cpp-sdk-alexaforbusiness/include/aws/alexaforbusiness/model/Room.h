@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Room();
-    Room(const Aws::Utils::Json::JsonValue& jsonValue);
-    Room& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Room(Aws::Utils::Json::JsonView jsonValue);
+    Room& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ARN of a room.</p>
      */
     inline const Aws::String& GetRoomArn() const{ return m_roomArn; }
+
+    /**
+     * <p>The ARN of a room.</p>
+     */
+    inline bool RoomArnHasBeenSet() const { return m_roomArnHasBeenSet; }
 
     /**
      * <p>The ARN of a room.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The name of a room.</p>
      */
+    inline bool RoomNameHasBeenSet() const { return m_roomNameHasBeenSet; }
+
+    /**
+     * <p>The name of a room.</p>
+     */
     inline void SetRoomName(const Aws::String& value) { m_roomNameHasBeenSet = true; m_roomName = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The description of a room.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of a room.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of a room.</p>
@@ -162,6 +178,11 @@ namespace Model
     /**
      * <p>The provider calendar ARN of a room.</p>
      */
+    inline bool ProviderCalendarIdHasBeenSet() const { return m_providerCalendarIdHasBeenSet; }
+
+    /**
+     * <p>The provider calendar ARN of a room.</p>
+     */
     inline void SetProviderCalendarId(const Aws::String& value) { m_providerCalendarIdHasBeenSet = true; m_providerCalendarId = value; }
 
     /**
@@ -194,6 +215,11 @@ namespace Model
      * <p>The profile ARN of a room.</p>
      */
     inline const Aws::String& GetProfileArn() const{ return m_profileArn; }
+
+    /**
+     * <p>The profile ARN of a room.</p>
+     */
+    inline bool ProfileArnHasBeenSet() const { return m_profileArnHasBeenSet; }
 
     /**
      * <p>The profile ARN of a room.</p>

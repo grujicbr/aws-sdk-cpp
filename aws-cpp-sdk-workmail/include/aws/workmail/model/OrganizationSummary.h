@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkMail
@@ -33,8 +34,7 @@ namespace Model
 {
 
   /**
-   * <p>The brief overview associated with an organization.</p><p><h3>See Also:</h3> 
-   * <a
+   * <p>The representation of an organization.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/workmail-2017-10-01/OrganizationSummary">AWS
    * API Reference</a></p>
    */
@@ -42,8 +42,8 @@ namespace Model
   {
   public:
     OrganizationSummary();
-    OrganizationSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    OrganizationSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OrganizationSummary(Aws::Utils::Json::JsonView jsonValue);
+    OrganizationSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +51,11 @@ namespace Model
      * <p>The identifier associated with the organization.</p>
      */
     inline const Aws::String& GetOrganizationId() const{ return m_organizationId; }
+
+    /**
+     * <p>The identifier associated with the organization.</p>
+     */
+    inline bool OrganizationIdHasBeenSet() const { return m_organizationIdHasBeenSet; }
 
     /**
      * <p>The identifier associated with the organization.</p>
@@ -91,6 +96,11 @@ namespace Model
     /**
      * <p>The alias associated with the organization.</p>
      */
+    inline bool AliasHasBeenSet() const { return m_aliasHasBeenSet; }
+
+    /**
+     * <p>The alias associated with the organization.</p>
+     */
     inline void SetAlias(const Aws::String& value) { m_aliasHasBeenSet = true; m_alias = value; }
 
     /**
@@ -125,6 +135,13 @@ namespace Model
      * insight or solutions regarding unexpected behavior.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The error message associated with the organization. It is only present if
+     * unexpected behavior has occurred with regards to the organization. It provides
+     * insight or solutions regarding unexpected behavior.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The error message associated with the organization. It is only present if
@@ -173,6 +190,11 @@ namespace Model
      * <p>The state associated with the organization.</p>
      */
     inline const Aws::String& GetState() const{ return m_state; }
+
+    /**
+     * <p>The state associated with the organization.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The state associated with the organization.</p>

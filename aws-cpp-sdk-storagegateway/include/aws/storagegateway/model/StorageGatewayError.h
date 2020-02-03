@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     StorageGatewayError();
-    StorageGatewayError(const Aws::Utils::Json::JsonValue& jsonValue);
-    StorageGatewayError& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StorageGatewayError(Aws::Utils::Json::JsonView jsonValue);
+    StorageGatewayError& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Additional information about the error.</p>
      */
     inline const ErrorCode& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>Additional information about the error.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>Additional information about the error.</p>
@@ -80,6 +86,11 @@ namespace Model
      * <p>Human-readable text that provides detail about the error that occurred.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetErrorDetails() const{ return m_errorDetails; }
+
+    /**
+     * <p>Human-readable text that provides detail about the error that occurred.</p>
+     */
+    inline bool ErrorDetailsHasBeenSet() const { return m_errorDetailsHasBeenSet; }
 
     /**
      * <p>Human-readable text that provides detail about the error that occurred.</p>

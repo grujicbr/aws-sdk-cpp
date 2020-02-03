@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ServiceError();
-    ServiceError(const Aws::Utils::Json::JsonValue& jsonValue);
-    ServiceError& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ServiceError(Aws::Utils::Json::JsonView jsonValue);
+    ServiceError& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The error ID.</p>
      */
     inline const Aws::String& GetServiceErrorId() const{ return m_serviceErrorId; }
+
+    /**
+     * <p>The error ID.</p>
+     */
+    inline bool ServiceErrorIdHasBeenSet() const { return m_serviceErrorIdHasBeenSet; }
 
     /**
      * <p>The error ID.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The stack ID.</p>
      */
+    inline bool StackIdHasBeenSet() const { return m_stackIdHasBeenSet; }
+
+    /**
+     * <p>The stack ID.</p>
+     */
     inline void SetStackId(const Aws::String& value) { m_stackIdHasBeenSet = true; m_stackId = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The instance ID.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The instance ID.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The instance ID.</p>
@@ -162,6 +178,11 @@ namespace Model
     /**
      * <p>The error type.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The error type.</p>
+     */
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -198,6 +219,11 @@ namespace Model
     /**
      * <p>A message that describes the error.</p>
      */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
+
+    /**
+     * <p>A message that describes the error.</p>
+     */
     inline void SetMessage(const Aws::String& value) { m_messageHasBeenSet = true; m_message = value; }
 
     /**
@@ -230,6 +256,11 @@ namespace Model
      * <p>When the error occurred.</p>
      */
     inline const Aws::String& GetCreatedAt() const{ return m_createdAt; }
+
+    /**
+     * <p>When the error occurred.</p>
+     */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
 
     /**
      * <p>When the error occurred.</p>

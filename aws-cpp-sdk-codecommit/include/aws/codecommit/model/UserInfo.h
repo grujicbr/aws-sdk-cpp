@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UserInfo();
-    UserInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserInfo(Aws::Utils::Json::JsonView jsonValue);
+    UserInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the user who made the specified commit.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the user who made the specified commit.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the user who made the specified commit.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The email address associated with the user who made the commit, if any.</p>
      */
+    inline bool EmailHasBeenSet() const { return m_emailHasBeenSet; }
+
+    /**
+     * <p>The email address associated with the user who made the commit, if any.</p>
+     */
     inline void SetEmail(const Aws::String& value) { m_emailHasBeenSet = true; m_email = value; }
 
     /**
@@ -124,6 +135,12 @@ namespace Model
      * offset.</p>
      */
     inline const Aws::String& GetDate() const{ return m_date; }
+
+    /**
+     * <p>The date when the specified commit was commited, in timestamp format with GMT
+     * offset.</p>
+     */
+    inline bool DateHasBeenSet() const { return m_dateHasBeenSet; }
 
     /**
      * <p>The date when the specified commit was commited, in timestamp format with GMT

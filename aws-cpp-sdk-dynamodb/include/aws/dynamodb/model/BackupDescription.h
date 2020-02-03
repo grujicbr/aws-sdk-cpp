@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BackupDescription();
-    BackupDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    BackupDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BackupDescription(Aws::Utils::Json::JsonView jsonValue);
+    BackupDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Contains the details of the backup created for the table. </p>
      */
     inline const BackupDetails& GetBackupDetails() const{ return m_backupDetails; }
+
+    /**
+     * <p>Contains the details of the backup created for the table. </p>
+     */
+    inline bool BackupDetailsHasBeenSet() const { return m_backupDetailsHasBeenSet; }
 
     /**
      * <p>Contains the details of the backup created for the table. </p>
@@ -83,6 +89,11 @@ namespace Model
     /**
      * <p>Contains the details of the table when the backup was created. </p>
      */
+    inline bool SourceTableDetailsHasBeenSet() const { return m_sourceTableDetailsHasBeenSet; }
+
+    /**
+     * <p>Contains the details of the table when the backup was created. </p>
+     */
     inline void SetSourceTableDetails(const SourceTableDetails& value) { m_sourceTableDetailsHasBeenSet = true; m_sourceTableDetails = value; }
 
     /**
@@ -106,6 +117,12 @@ namespace Model
      * created. For example, LSIs, GSIs, streams, TTL.</p>
      */
     inline const SourceTableFeatureDetails& GetSourceTableFeatureDetails() const{ return m_sourceTableFeatureDetails; }
+
+    /**
+     * <p>Contains the details of the features enabled on the table when the backup was
+     * created. For example, LSIs, GSIs, streams, TTL.</p>
+     */
+    inline bool SourceTableFeatureDetailsHasBeenSet() const { return m_sourceTableFeatureDetailsHasBeenSet; }
 
     /**
      * <p>Contains the details of the features enabled on the table when the backup was

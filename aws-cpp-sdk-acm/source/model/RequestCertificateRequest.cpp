@@ -30,7 +30,8 @@ RequestCertificateRequest::RequestCertificateRequest() :
     m_idempotencyTokenHasBeenSet(false),
     m_domainValidationOptionsHasBeenSet(false),
     m_optionsHasBeenSet(false),
-    m_certificateAuthorityArnHasBeenSet(false)
+    m_certificateAuthorityArnHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -89,7 +90,18 @@ Aws::String RequestCertificateRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection RequestCertificateRequest::GetRequestSpecificHeaders() const

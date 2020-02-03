@@ -23,8 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 StartMonitoringMembersRequest::StartMonitoringMembersRequest() : 
-    m_accountIdsHasBeenSet(false),
-    m_detectorIdHasBeenSet(false)
+    m_detectorIdHasBeenSet(false),
+    m_accountIdsHasBeenSet(false)
 {
 }
 
@@ -43,7 +43,7 @@ Aws::String StartMonitoringMembersRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

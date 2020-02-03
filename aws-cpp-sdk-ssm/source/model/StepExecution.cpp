@@ -53,11 +53,13 @@ StepExecution::StepExecution() :
     m_nextStepHasBeenSet(false),
     m_isCritical(false),
     m_isCriticalHasBeenSet(false),
-    m_validNextStepsHasBeenSet(false)
+    m_validNextStepsHasBeenSet(false),
+    m_targetsHasBeenSet(false),
+    m_targetLocationHasBeenSet(false)
 {
 }
 
-StepExecution::StepExecution(const JsonValue& jsonValue) : 
+StepExecution::StepExecution(JsonView jsonValue) : 
     m_stepNameHasBeenSet(false),
     m_actionHasBeenSet(false),
     m_timeoutSeconds(0),
@@ -82,12 +84,14 @@ StepExecution::StepExecution(const JsonValue& jsonValue) :
     m_nextStepHasBeenSet(false),
     m_isCritical(false),
     m_isCriticalHasBeenSet(false),
-    m_validNextStepsHasBeenSet(false)
+    m_validNextStepsHasBeenSet(false),
+    m_targetsHasBeenSet(false),
+    m_targetLocationHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-StepExecution& StepExecution::operator =(const JsonValue& jsonValue)
+StepExecution& StepExecution::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("StepName"))
   {
@@ -154,7 +158,7 @@ StepExecution& StepExecution::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Inputs"))
   {
-    Aws::Map<Aws::String, JsonValue> inputsJsonMap = jsonValue.GetObject("Inputs").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> inputsJsonMap = jsonValue.GetObject("Inputs").GetAllObjects();
     for(auto& inputsItem : inputsJsonMap)
     {
       m_inputs[inputsItem.first] = inputsItem.second.AsString();
@@ -164,10 +168,10 @@ StepExecution& StepExecution::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Outputs"))
   {
-    Aws::Map<Aws::String, JsonValue> outputsJsonMap = jsonValue.GetObject("Outputs").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> outputsJsonMap = jsonValue.GetObject("Outputs").GetAllObjects();
     for(auto& outputsItem : outputsJsonMap)
     {
-      Array<JsonValue> automationParameterValueListJsonList = outputsItem.second.AsArray();
+      Array<JsonView> automationParameterValueListJsonList = outputsItem.second.AsArray();
       Aws::Vector<Aws::String> automationParameterValueListList;
       automationParameterValueListList.reserve((size_t)automationParameterValueListJsonList.GetLength());
       for(unsigned automationParameterValueListIndex = 0; automationParameterValueListIndex < automationParameterValueListJsonList.GetLength(); ++automationParameterValueListIndex)
@@ -209,10 +213,10 @@ StepExecution& StepExecution::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("OverriddenParameters"))
   {
-    Aws::Map<Aws::String, JsonValue> overriddenParametersJsonMap = jsonValue.GetObject("OverriddenParameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> overriddenParametersJsonMap = jsonValue.GetObject("OverriddenParameters").GetAllObjects();
     for(auto& overriddenParametersItem : overriddenParametersJsonMap)
     {
-      Array<JsonValue> automationParameterValueListJsonList = overriddenParametersItem.second.AsArray();
+      Array<JsonView> automationParameterValueListJsonList = overriddenParametersItem.second.AsArray();
       Aws::Vector<Aws::String> automationParameterValueListList;
       automationParameterValueListList.reserve((size_t)automationParameterValueListJsonList.GetLength());
       for(unsigned automationParameterValueListIndex = 0; automationParameterValueListIndex < automationParameterValueListJsonList.GetLength(); ++automationParameterValueListIndex)
@@ -247,12 +251,29 @@ StepExecution& StepExecution::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("ValidNextSteps"))
   {
-    Array<JsonValue> validNextStepsJsonList = jsonValue.GetArray("ValidNextSteps");
+    Array<JsonView> validNextStepsJsonList = jsonValue.GetArray("ValidNextSteps");
     for(unsigned validNextStepsIndex = 0; validNextStepsIndex < validNextStepsJsonList.GetLength(); ++validNextStepsIndex)
     {
       m_validNextSteps.push_back(validNextStepsJsonList[validNextStepsIndex].AsString());
     }
     m_validNextStepsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Targets"))
+  {
+    Array<JsonView> targetsJsonList = jsonValue.GetArray("Targets");
+    for(unsigned targetsIndex = 0; targetsIndex < targetsJsonList.GetLength(); ++targetsIndex)
+    {
+      m_targets.push_back(targetsJsonList[targetsIndex].AsObject());
+    }
+    m_targetsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("TargetLocation"))
+  {
+    m_targetLocation = jsonValue.GetObject("TargetLocation");
+
+    m_targetLocationHasBeenSet = true;
   }
 
   return *this;
@@ -406,6 +427,23 @@ JsonValue StepExecution::Jsonize() const
      validNextStepsJsonList[validNextStepsIndex].AsString(m_validNextSteps[validNextStepsIndex]);
    }
    payload.WithArray("ValidNextSteps", std::move(validNextStepsJsonList));
+
+  }
+
+  if(m_targetsHasBeenSet)
+  {
+   Array<JsonValue> targetsJsonList(m_targets.size());
+   for(unsigned targetsIndex = 0; targetsIndex < targetsJsonList.GetLength(); ++targetsIndex)
+   {
+     targetsJsonList[targetsIndex].AsObject(m_targets[targetsIndex].Jsonize());
+   }
+   payload.WithArray("Targets", std::move(targetsJsonList));
+
+  }
+
+  if(m_targetLocationHasBeenSet)
+  {
+   payload.WithObject("TargetLocation", m_targetLocation.Jsonize());
 
   }
 

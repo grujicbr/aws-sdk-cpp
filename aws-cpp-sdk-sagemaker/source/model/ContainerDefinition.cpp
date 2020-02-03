@@ -31,21 +31,27 @@ namespace Model
 ContainerDefinition::ContainerDefinition() : 
     m_containerHostnameHasBeenSet(false),
     m_imageHasBeenSet(false),
+    m_mode(ContainerMode::NOT_SET),
+    m_modeHasBeenSet(false),
     m_modelDataUrlHasBeenSet(false),
-    m_environmentHasBeenSet(false)
+    m_environmentHasBeenSet(false),
+    m_modelPackageNameHasBeenSet(false)
 {
 }
 
-ContainerDefinition::ContainerDefinition(const JsonValue& jsonValue) : 
+ContainerDefinition::ContainerDefinition(JsonView jsonValue) : 
     m_containerHostnameHasBeenSet(false),
     m_imageHasBeenSet(false),
+    m_mode(ContainerMode::NOT_SET),
+    m_modeHasBeenSet(false),
     m_modelDataUrlHasBeenSet(false),
-    m_environmentHasBeenSet(false)
+    m_environmentHasBeenSet(false),
+    m_modelPackageNameHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ContainerDefinition& ContainerDefinition::operator =(const JsonValue& jsonValue)
+ContainerDefinition& ContainerDefinition::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ContainerHostname"))
   {
@@ -61,6 +67,13 @@ ContainerDefinition& ContainerDefinition::operator =(const JsonValue& jsonValue)
     m_imageHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("Mode"))
+  {
+    m_mode = ContainerModeMapper::GetContainerModeForName(jsonValue.GetString("Mode"));
+
+    m_modeHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ModelDataUrl"))
   {
     m_modelDataUrl = jsonValue.GetString("ModelDataUrl");
@@ -70,12 +83,19 @@ ContainerDefinition& ContainerDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Environment"))
   {
-    Aws::Map<Aws::String, JsonValue> environmentJsonMap = jsonValue.GetObject("Environment").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> environmentJsonMap = jsonValue.GetObject("Environment").GetAllObjects();
     for(auto& environmentItem : environmentJsonMap)
     {
       m_environment[environmentItem.first] = environmentItem.second.AsString();
     }
     m_environmentHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ModelPackageName"))
+  {
+    m_modelPackageName = jsonValue.GetString("ModelPackageName");
+
+    m_modelPackageNameHasBeenSet = true;
   }
 
   return *this;
@@ -97,6 +117,11 @@ JsonValue ContainerDefinition::Jsonize() const
 
   }
 
+  if(m_modeHasBeenSet)
+  {
+   payload.WithString("Mode", ContainerModeMapper::GetNameForContainerMode(m_mode));
+  }
+
   if(m_modelDataUrlHasBeenSet)
   {
    payload.WithString("ModelDataUrl", m_modelDataUrl);
@@ -111,6 +136,12 @@ JsonValue ContainerDefinition::Jsonize() const
      environmentJsonMap.WithString(environmentItem.first, environmentItem.second);
    }
    payload.WithObject("Environment", std::move(environmentJsonMap));
+
+  }
+
+  if(m_modelPackageNameHasBeenSet)
+  {
+   payload.WithString("ModelPackageName", m_modelPackageName);
 
   }
 

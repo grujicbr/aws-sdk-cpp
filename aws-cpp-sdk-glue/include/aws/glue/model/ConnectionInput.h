@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -38,8 +39,8 @@ namespace Model
 {
 
   /**
-   * <p>A structure used to specify a connection to create or update.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>A structure that is used to specify a connection to create or
+   * update.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ConnectionInput">AWS
    * API Reference</a></p>
    */
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     ConnectionInput();
-    ConnectionInput(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConnectionInput& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConnectionInput(Aws::Utils::Json::JsonView jsonValue);
+    ConnectionInput& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The name of the connection.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the connection.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the connection.</p>
@@ -89,37 +95,42 @@ namespace Model
 
 
     /**
-     * <p>Description of the connection.</p>
+     * <p>The description of the connection.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
 
     /**
-     * <p>Description of the connection.</p>
+     * <p>The description of the connection.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the connection.</p>
      */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
-     * <p>Description of the connection.</p>
+     * <p>The description of the connection.</p>
      */
     inline void SetDescription(Aws::String&& value) { m_descriptionHasBeenSet = true; m_description = std::move(value); }
 
     /**
-     * <p>Description of the connection.</p>
+     * <p>The description of the connection.</p>
      */
     inline void SetDescription(const char* value) { m_descriptionHasBeenSet = true; m_description.assign(value); }
 
     /**
-     * <p>Description of the connection.</p>
+     * <p>The description of the connection.</p>
      */
     inline ConnectionInput& WithDescription(const Aws::String& value) { SetDescription(value); return *this;}
 
     /**
-     * <p>Description of the connection.</p>
+     * <p>The description of the connection.</p>
      */
     inline ConnectionInput& WithDescription(Aws::String&& value) { SetDescription(std::move(value)); return *this;}
 
     /**
-     * <p>Description of the connection.</p>
+     * <p>The description of the connection.</p>
      */
     inline ConnectionInput& WithDescription(const char* value) { SetDescription(value); return *this;}
 
@@ -129,6 +140,12 @@ namespace Model
      * supported.</p>
      */
     inline const ConnectionType& GetConnectionType() const{ return m_connectionType; }
+
+    /**
+     * <p>The type of the connection. Currently, only JDBC is supported; SFTP is not
+     * supported.</p>
+     */
+    inline bool ConnectionTypeHasBeenSet() const { return m_connectionTypeHasBeenSet; }
 
     /**
      * <p>The type of the connection. Currently, only JDBC is supported; SFTP is not
@@ -159,6 +176,11 @@ namespace Model
      * <p>A list of criteria that can be used in selecting this connection.</p>
      */
     inline const Aws::Vector<Aws::String>& GetMatchCriteria() const{ return m_matchCriteria; }
+
+    /**
+     * <p>A list of criteria that can be used in selecting this connection.</p>
+     */
+    inline bool MatchCriteriaHasBeenSet() const { return m_matchCriteriaHasBeenSet; }
 
     /**
      * <p>A list of criteria that can be used in selecting this connection.</p>
@@ -197,88 +219,105 @@ namespace Model
 
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline const Aws::Map<ConnectionPropertyKey, Aws::String>& GetConnectionProperties() const{ return m_connectionProperties; }
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
+     */
+    inline bool ConnectionPropertiesHasBeenSet() const { return m_connectionPropertiesHasBeenSet; }
+
+    /**
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline void SetConnectionProperties(const Aws::Map<ConnectionPropertyKey, Aws::String>& value) { m_connectionPropertiesHasBeenSet = true; m_connectionProperties = value; }
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline void SetConnectionProperties(Aws::Map<ConnectionPropertyKey, Aws::String>&& value) { m_connectionPropertiesHasBeenSet = true; m_connectionProperties = std::move(value); }
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline ConnectionInput& WithConnectionProperties(const Aws::Map<ConnectionPropertyKey, Aws::String>& value) { SetConnectionProperties(value); return *this;}
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline ConnectionInput& WithConnectionProperties(Aws::Map<ConnectionPropertyKey, Aws::String>&& value) { SetConnectionProperties(std::move(value)); return *this;}
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline ConnectionInput& AddConnectionProperties(const ConnectionPropertyKey& key, const Aws::String& value) { m_connectionPropertiesHasBeenSet = true; m_connectionProperties.emplace(key, value); return *this; }
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline ConnectionInput& AddConnectionProperties(ConnectionPropertyKey&& key, const Aws::String& value) { m_connectionPropertiesHasBeenSet = true; m_connectionProperties.emplace(std::move(key), value); return *this; }
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline ConnectionInput& AddConnectionProperties(const ConnectionPropertyKey& key, Aws::String&& value) { m_connectionPropertiesHasBeenSet = true; m_connectionProperties.emplace(key, std::move(value)); return *this; }
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline ConnectionInput& AddConnectionProperties(ConnectionPropertyKey&& key, Aws::String&& value) { m_connectionPropertiesHasBeenSet = true; m_connectionProperties.emplace(std::move(key), std::move(value)); return *this; }
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline ConnectionInput& AddConnectionProperties(ConnectionPropertyKey&& key, const char* value) { m_connectionPropertiesHasBeenSet = true; m_connectionProperties.emplace(std::move(key), value); return *this; }
 
     /**
-     * <p>A list of key-value pairs used as parameters for this connection.</p>
+     * <p>These key-value pairs define parameters for the connection.</p>
      */
     inline ConnectionInput& AddConnectionProperties(const ConnectionPropertyKey& key, const char* value) { m_connectionPropertiesHasBeenSet = true; m_connectionProperties.emplace(key, value); return *this; }
 
 
     /**
-     * <p>A map of physical connection requirements, such as VPC and SecurityGroup,
-     * needed for making this connection successfully.</p>
+     * <p>A map of physical connection requirements, such as virtual private cloud
+     * (VPC) and <code>SecurityGroup</code>, that are needed to successfully make this
+     * connection.</p>
      */
     inline const PhysicalConnectionRequirements& GetPhysicalConnectionRequirements() const{ return m_physicalConnectionRequirements; }
 
     /**
-     * <p>A map of physical connection requirements, such as VPC and SecurityGroup,
-     * needed for making this connection successfully.</p>
+     * <p>A map of physical connection requirements, such as virtual private cloud
+     * (VPC) and <code>SecurityGroup</code>, that are needed to successfully make this
+     * connection.</p>
+     */
+    inline bool PhysicalConnectionRequirementsHasBeenSet() const { return m_physicalConnectionRequirementsHasBeenSet; }
+
+    /**
+     * <p>A map of physical connection requirements, such as virtual private cloud
+     * (VPC) and <code>SecurityGroup</code>, that are needed to successfully make this
+     * connection.</p>
      */
     inline void SetPhysicalConnectionRequirements(const PhysicalConnectionRequirements& value) { m_physicalConnectionRequirementsHasBeenSet = true; m_physicalConnectionRequirements = value; }
 
     /**
-     * <p>A map of physical connection requirements, such as VPC and SecurityGroup,
-     * needed for making this connection successfully.</p>
+     * <p>A map of physical connection requirements, such as virtual private cloud
+     * (VPC) and <code>SecurityGroup</code>, that are needed to successfully make this
+     * connection.</p>
      */
     inline void SetPhysicalConnectionRequirements(PhysicalConnectionRequirements&& value) { m_physicalConnectionRequirementsHasBeenSet = true; m_physicalConnectionRequirements = std::move(value); }
 
     /**
-     * <p>A map of physical connection requirements, such as VPC and SecurityGroup,
-     * needed for making this connection successfully.</p>
+     * <p>A map of physical connection requirements, such as virtual private cloud
+     * (VPC) and <code>SecurityGroup</code>, that are needed to successfully make this
+     * connection.</p>
      */
     inline ConnectionInput& WithPhysicalConnectionRequirements(const PhysicalConnectionRequirements& value) { SetPhysicalConnectionRequirements(value); return *this;}
 
     /**
-     * <p>A map of physical connection requirements, such as VPC and SecurityGroup,
-     * needed for making this connection successfully.</p>
+     * <p>A map of physical connection requirements, such as virtual private cloud
+     * (VPC) and <code>SecurityGroup</code>, that are needed to successfully make this
+     * connection.</p>
      */
     inline ConnectionInput& WithPhysicalConnectionRequirements(PhysicalConnectionRequirements&& value) { SetPhysicalConnectionRequirements(std::move(value)); return *this;}
 

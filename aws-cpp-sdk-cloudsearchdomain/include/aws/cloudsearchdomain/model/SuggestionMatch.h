@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudSearchDomain
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     SuggestionMatch();
-    SuggestionMatch(const Aws::Utils::Json::JsonValue& jsonValue);
-    SuggestionMatch& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SuggestionMatch(Aws::Utils::Json::JsonView jsonValue);
+    SuggestionMatch& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * <code>SuggestRequest</code>. </p>
      */
     inline const Aws::String& GetSuggestion() const{ return m_suggestion; }
+
+    /**
+     * <p>The string that matches the query string specified in the
+     * <code>SuggestRequest</code>. </p>
+     */
+    inline bool SuggestionHasBeenSet() const { return m_suggestionHasBeenSet; }
 
     /**
      * <p>The string that matches the query string specified in the
@@ -98,6 +105,11 @@ namespace Model
     /**
      * <p>The relevance score of a suggested match.</p>
      */
+    inline bool ScoreHasBeenSet() const { return m_scoreHasBeenSet; }
+
+    /**
+     * <p>The relevance score of a suggested match.</p>
+     */
     inline void SetScore(long long value) { m_scoreHasBeenSet = true; m_score = value; }
 
     /**
@@ -110,6 +122,11 @@ namespace Model
      * <p>The document ID of the suggested document.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The document ID of the suggested document.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The document ID of the suggested document.</p>

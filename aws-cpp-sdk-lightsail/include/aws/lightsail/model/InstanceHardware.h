@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     InstanceHardware();
-    InstanceHardware(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceHardware& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceHardware(Aws::Utils::Json::JsonView jsonValue);
+    InstanceHardware& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The number of vCPUs the instance has.</p>
      */
     inline int GetCpuCount() const{ return m_cpuCount; }
+
+    /**
+     * <p>The number of vCPUs the instance has.</p>
+     */
+    inline bool CpuCountHasBeenSet() const { return m_cpuCountHasBeenSet; }
 
     /**
      * <p>The number of vCPUs the instance has.</p>
@@ -67,6 +73,11 @@ namespace Model
      * <p>The disks attached to the instance.</p>
      */
     inline const Aws::Vector<Disk>& GetDisks() const{ return m_disks; }
+
+    /**
+     * <p>The disks attached to the instance.</p>
+     */
+    inline bool DisksHasBeenSet() const { return m_disksHasBeenSet; }
 
     /**
      * <p>The disks attached to the instance.</p>
@@ -103,6 +114,11 @@ namespace Model
      * <p>The amount of RAM in GB on the instance (e.g., <code>1.0</code>).</p>
      */
     inline double GetRamSizeInGb() const{ return m_ramSizeInGb; }
+
+    /**
+     * <p>The amount of RAM in GB on the instance (e.g., <code>1.0</code>).</p>
+     */
+    inline bool RamSizeInGbHasBeenSet() const { return m_ramSizeInGbHasBeenSet; }
 
     /**
      * <p>The amount of RAM in GB on the instance (e.g., <code>1.0</code>).</p>

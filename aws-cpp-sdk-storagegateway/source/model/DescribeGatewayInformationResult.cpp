@@ -26,18 +26,20 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-DescribeGatewayInformationResult::DescribeGatewayInformationResult()
+DescribeGatewayInformationResult::DescribeGatewayInformationResult() : 
+    m_hostEnvironment(HostEnvironment::NOT_SET)
 {
 }
 
-DescribeGatewayInformationResult::DescribeGatewayInformationResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+DescribeGatewayInformationResult::DescribeGatewayInformationResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_hostEnvironment(HostEnvironment::NOT_SET)
 {
   *this = result;
 }
 
 DescribeGatewayInformationResult& DescribeGatewayInformationResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("GatewayARN"))
   {
     m_gatewayARN = jsonValue.GetString("GatewayARN");
@@ -70,7 +72,7 @@ DescribeGatewayInformationResult& DescribeGatewayInformationResult::operator =(c
 
   if(jsonValue.ValueExists("GatewayNetworkInterfaces"))
   {
-    Array<JsonValue> gatewayNetworkInterfacesJsonList = jsonValue.GetArray("GatewayNetworkInterfaces");
+    Array<JsonView> gatewayNetworkInterfacesJsonList = jsonValue.GetArray("GatewayNetworkInterfaces");
     for(unsigned gatewayNetworkInterfacesIndex = 0; gatewayNetworkInterfacesIndex < gatewayNetworkInterfacesJsonList.GetLength(); ++gatewayNetworkInterfacesIndex)
     {
       m_gatewayNetworkInterfaces.push_back(gatewayNetworkInterfacesJsonList[gatewayNetworkInterfacesIndex].AsObject());
@@ -92,6 +94,45 @@ DescribeGatewayInformationResult& DescribeGatewayInformationResult::operator =(c
   if(jsonValue.ValueExists("LastSoftwareUpdate"))
   {
     m_lastSoftwareUpdate = jsonValue.GetString("LastSoftwareUpdate");
+
+  }
+
+  if(jsonValue.ValueExists("Ec2InstanceId"))
+  {
+    m_ec2InstanceId = jsonValue.GetString("Ec2InstanceId");
+
+  }
+
+  if(jsonValue.ValueExists("Ec2InstanceRegion"))
+  {
+    m_ec2InstanceRegion = jsonValue.GetString("Ec2InstanceRegion");
+
+  }
+
+  if(jsonValue.ValueExists("Tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("Tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+  }
+
+  if(jsonValue.ValueExists("VPCEndpoint"))
+  {
+    m_vPCEndpoint = jsonValue.GetString("VPCEndpoint");
+
+  }
+
+  if(jsonValue.ValueExists("CloudWatchLogGroupARN"))
+  {
+    m_cloudWatchLogGroupARN = jsonValue.GetString("CloudWatchLogGroupARN");
+
+  }
+
+  if(jsonValue.ValueExists("HostEnvironment"))
+  {
+    m_hostEnvironment = HostEnvironmentMapper::GetHostEnvironmentForName(jsonValue.GetString("HostEnvironment"));
 
   }
 

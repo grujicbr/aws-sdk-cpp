@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DataPipeline
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ParameterObject();
-    ParameterObject(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParameterObject& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParameterObject(Aws::Utils::Json::JsonView jsonValue);
+    ParameterObject& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ID of the parameter object. </p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the parameter object. </p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the parameter object. </p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The attributes of the parameter object.</p>
      */
     inline const Aws::Vector<ParameterAttribute>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The attributes of the parameter object.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The attributes of the parameter object.</p>

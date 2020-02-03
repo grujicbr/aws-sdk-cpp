@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     ExecutionProperty();
-    ExecutionProperty(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExecutionProperty& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExecutionProperty(Aws::Utils::Json::JsonView jsonValue);
+    ExecutionProperty& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,13 @@ namespace Model
      * specify is controlled by a service limit.</p>
      */
     inline int GetMaxConcurrentRuns() const{ return m_maxConcurrentRuns; }
+
+    /**
+     * <p>The maximum number of concurrent runs allowed for the job. The default is 1.
+     * An error is returned when this threshold is reached. The maximum value you can
+     * specify is controlled by a service limit.</p>
+     */
+    inline bool MaxConcurrentRunsHasBeenSet() const { return m_maxConcurrentRunsHasBeenSet; }
 
     /**
      * <p>The maximum number of concurrent runs allowed for the job. The default is 1.

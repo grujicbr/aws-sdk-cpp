@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     SnsAction();
-    SnsAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    SnsAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SnsAction(Aws::Utils::Json::JsonView jsonValue);
+    SnsAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ARN of the SNS topic.</p>
      */
     inline const Aws::String& GetTargetArn() const{ return m_targetArn; }
+
+    /**
+     * <p>The ARN of the SNS topic.</p>
+     */
+    inline bool TargetArnHasBeenSet() const { return m_targetArnHasBeenSet; }
 
     /**
      * <p>The ARN of the SNS topic.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The ARN of the IAM role that grants access.</p>
      */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the IAM role that grants access.</p>
+     */
     inline void SetRoleArn(const Aws::String& value) { m_roleArnHasBeenSet = true; m_roleArn = value; }
 
     /**
@@ -126,7 +137,7 @@ namespace Model
      * setting to determine if the payload should be parsed and relevant
      * platform-specific bits of the payload should be extracted. To read more about
      * SNS message formats, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/json-formats.html">http://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
+     * href="https://docs.aws.amazon.com/sns/latest/dg/json-formats.html">https://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
      * refer to their official documentation.</p>
      */
     inline const MessageFormat& GetMessageFormat() const{ return m_messageFormat; }
@@ -137,7 +148,18 @@ namespace Model
      * setting to determine if the payload should be parsed and relevant
      * platform-specific bits of the payload should be extracted. To read more about
      * SNS message formats, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/json-formats.html">http://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
+     * href="https://docs.aws.amazon.com/sns/latest/dg/json-formats.html">https://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
+     * refer to their official documentation.</p>
+     */
+    inline bool MessageFormatHasBeenSet() const { return m_messageFormatHasBeenSet; }
+
+    /**
+     * <p>(Optional) The message format of the message to publish. Accepted values are
+     * "JSON" and "RAW". The default value of the attribute is "RAW". SNS uses this
+     * setting to determine if the payload should be parsed and relevant
+     * platform-specific bits of the payload should be extracted. To read more about
+     * SNS message formats, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/json-formats.html">https://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
      * refer to their official documentation.</p>
      */
     inline void SetMessageFormat(const MessageFormat& value) { m_messageFormatHasBeenSet = true; m_messageFormat = value; }
@@ -148,7 +170,7 @@ namespace Model
      * setting to determine if the payload should be parsed and relevant
      * platform-specific bits of the payload should be extracted. To read more about
      * SNS message formats, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/json-formats.html">http://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
+     * href="https://docs.aws.amazon.com/sns/latest/dg/json-formats.html">https://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
      * refer to their official documentation.</p>
      */
     inline void SetMessageFormat(MessageFormat&& value) { m_messageFormatHasBeenSet = true; m_messageFormat = std::move(value); }
@@ -159,7 +181,7 @@ namespace Model
      * setting to determine if the payload should be parsed and relevant
      * platform-specific bits of the payload should be extracted. To read more about
      * SNS message formats, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/json-formats.html">http://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
+     * href="https://docs.aws.amazon.com/sns/latest/dg/json-formats.html">https://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
      * refer to their official documentation.</p>
      */
     inline SnsAction& WithMessageFormat(const MessageFormat& value) { SetMessageFormat(value); return *this;}
@@ -170,7 +192,7 @@ namespace Model
      * setting to determine if the payload should be parsed and relevant
      * platform-specific bits of the payload should be extracted. To read more about
      * SNS message formats, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/json-formats.html">http://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
+     * href="https://docs.aws.amazon.com/sns/latest/dg/json-formats.html">https://docs.aws.amazon.com/sns/latest/dg/json-formats.html</a>
      * refer to their official documentation.</p>
      */
     inline SnsAction& WithMessageFormat(MessageFormat&& value) { SetMessageFormat(std::move(value)); return *this;}

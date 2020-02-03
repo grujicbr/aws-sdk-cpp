@@ -29,6 +29,8 @@ namespace Model
 {
 
 ReservationResourceSpecification::ReservationResourceSpecification() : 
+    m_channelClass(ChannelClass::NOT_SET),
+    m_channelClassHasBeenSet(false),
     m_codec(ReservationCodec::NOT_SET),
     m_codecHasBeenSet(false),
     m_maximumBitrate(ReservationMaximumBitrate::NOT_SET),
@@ -46,7 +48,9 @@ ReservationResourceSpecification::ReservationResourceSpecification() :
 {
 }
 
-ReservationResourceSpecification::ReservationResourceSpecification(const JsonValue& jsonValue) : 
+ReservationResourceSpecification::ReservationResourceSpecification(JsonView jsonValue) : 
+    m_channelClass(ChannelClass::NOT_SET),
+    m_channelClassHasBeenSet(false),
     m_codec(ReservationCodec::NOT_SET),
     m_codecHasBeenSet(false),
     m_maximumBitrate(ReservationMaximumBitrate::NOT_SET),
@@ -65,8 +69,15 @@ ReservationResourceSpecification::ReservationResourceSpecification(const JsonVal
   *this = jsonValue;
 }
 
-ReservationResourceSpecification& ReservationResourceSpecification::operator =(const JsonValue& jsonValue)
+ReservationResourceSpecification& ReservationResourceSpecification::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("channelClass"))
+  {
+    m_channelClass = ChannelClassMapper::GetChannelClassForName(jsonValue.GetString("channelClass"));
+
+    m_channelClassHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("codec"))
   {
     m_codec = ReservationCodecMapper::GetReservationCodecForName(jsonValue.GetString("codec"));
@@ -122,6 +133,11 @@ ReservationResourceSpecification& ReservationResourceSpecification::operator =(c
 JsonValue ReservationResourceSpecification::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_channelClassHasBeenSet)
+  {
+   payload.WithString("channelClass", ChannelClassMapper::GetNameForChannelClass(m_channelClass));
+  }
 
   if(m_codecHasBeenSet)
   {

@@ -34,23 +34,23 @@ UploadArchiveRequest::UploadArchiveRequest() :
 }
 
 
+
 Aws::Http::HeaderValueCollection UploadArchiveRequest::GetRequestSpecificHeaders() const
 {
   Aws::Http::HeaderValueCollection headers;
   headers.insert(Aws::Http::HeaderValuePair("x-amz-glacier-version", "2012-06-01"));
-
   Aws::StringStream ss;
   if(m_archiveDescriptionHasBeenSet)
   {
     ss << m_archiveDescription;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-archive-description", ss.str()));
+    headers.emplace("x-amz-archive-description",  ss.str());
     ss.str("");
   }
 
   if(m_checksumHasBeenSet)
   {
     ss << m_checksum;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-sha256-tree-hash", ss.str()));
+    headers.emplace("x-amz-sha256-tree-hash",  ss.str());
     ss.str("");
   }
 

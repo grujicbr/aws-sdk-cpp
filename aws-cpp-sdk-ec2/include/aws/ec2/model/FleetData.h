@@ -25,8 +25,11 @@
 #include <aws/ec2/model/TargetCapacitySpecification.h>
 #include <aws/ec2/model/FleetType.h>
 #include <aws/ec2/model/SpotOptions.h>
+#include <aws/ec2/model/OnDemandOptions.h>
 #include <aws/ec2/model/FleetLaunchTemplateConfig.h>
 #include <aws/ec2/model/Tag.h>
+#include <aws/ec2/model/DescribeFleetError.h>
+#include <aws/ec2/model/DescribeFleetsInstances.h>
 #include <utility>
 
 namespace Aws
@@ -77,6 +80,16 @@ namespace Model
      * size of the EC2 Fleet is decreased, the status is
      * <code>pending_termination</code> while instances are terminating.</p>
      */
+    inline bool ActivityStatusHasBeenSet() const { return m_activityStatusHasBeenSet; }
+
+    /**
+     * <p>The progress of the EC2 Fleet. If there is an error, the status is
+     * <code>error</code>. After all requests are placed, the status is
+     * <code>pending_fulfillment</code>. If the size of the EC2 Fleet is equal to or
+     * greater than its target capacity, the status is <code>fulfilled</code>. If the
+     * size of the EC2 Fleet is decreased, the status is
+     * <code>pending_termination</code> while instances are terminating.</p>
+     */
     inline void SetActivityStatus(const FleetActivityStatus& value) { m_activityStatusHasBeenSet = true; m_activityStatus = value; }
 
     /**
@@ -118,6 +131,11 @@ namespace Model
     /**
      * <p>The creation date and time of the EC2 Fleet.</p>
      */
+    inline bool CreateTimeHasBeenSet() const { return m_createTimeHasBeenSet; }
+
+    /**
+     * <p>The creation date and time of the EC2 Fleet.</p>
+     */
     inline void SetCreateTime(const Aws::Utils::DateTime& value) { m_createTimeHasBeenSet = true; m_createTime = value; }
 
     /**
@@ -140,6 +158,11 @@ namespace Model
      * <p>The ID of the EC2 Fleet.</p>
      */
     inline const Aws::String& GetFleetId() const{ return m_fleetId; }
+
+    /**
+     * <p>The ID of the EC2 Fleet.</p>
+     */
+    inline bool FleetIdHasBeenSet() const { return m_fleetIdHasBeenSet; }
 
     /**
      * <p>The ID of the EC2 Fleet.</p>
@@ -180,6 +203,11 @@ namespace Model
     /**
      * <p>The state of the EC2 Fleet.</p>
      */
+    inline bool FleetStateHasBeenSet() const { return m_fleetStateHasBeenSet; }
+
+    /**
+     * <p>The state of the EC2 Fleet.</p>
+     */
     inline void SetFleetState(const FleetStateCode& value) { m_fleetStateHasBeenSet = true; m_fleetState = value; }
 
     /**
@@ -199,57 +227,65 @@ namespace Model
 
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure the idempotency of
-     * the request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>
      */
     inline const Aws::String& GetClientToken() const{ return m_clientToken; }
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure the idempotency of
-     * the request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * Idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>
+     */
+    inline bool ClientTokenHasBeenSet() const { return m_clientTokenHasBeenSet; }
+
+    /**
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>
      */
     inline void SetClientToken(const Aws::String& value) { m_clientTokenHasBeenSet = true; m_clientToken = value; }
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure the idempotency of
-     * the request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>
      */
     inline void SetClientToken(Aws::String&& value) { m_clientTokenHasBeenSet = true; m_clientToken = std::move(value); }
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure the idempotency of
-     * the request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>
      */
     inline void SetClientToken(const char* value) { m_clientTokenHasBeenSet = true; m_clientToken.assign(value); }
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure the idempotency of
-     * the request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>
      */
     inline FleetData& WithClientToken(const Aws::String& value) { SetClientToken(value); return *this;}
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure the idempotency of
-     * the request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>
      */
     inline FleetData& WithClientToken(Aws::String&& value) { SetClientToken(std::move(value)); return *this;}
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure the idempotency of
-     * the request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.</p> <p>Constraints: Maximum 64 ASCII characters</p>
      */
     inline FleetData& WithClientToken(const char* value) { SetClientToken(value); return *this;}
@@ -261,6 +297,13 @@ namespace Model
      * Fleet.</p>
      */
     inline const FleetExcessCapacityTerminationPolicy& GetExcessCapacityTerminationPolicy() const{ return m_excessCapacityTerminationPolicy; }
+
+    /**
+     * <p>Indicates whether running instances should be terminated if the target
+     * capacity of the EC2 Fleet is decreased below the current size of the EC2
+     * Fleet.</p>
+     */
+    inline bool ExcessCapacityTerminationPolicyHasBeenSet() const { return m_excessCapacityTerminationPolicyHasBeenSet; }
 
     /**
      * <p>Indicates whether running instances should be terminated if the target
@@ -301,6 +344,12 @@ namespace Model
      * <p>The number of units fulfilled by this request compared to the set target
      * capacity.</p>
      */
+    inline bool FulfilledCapacityHasBeenSet() const { return m_fulfilledCapacityHasBeenSet; }
+
+    /**
+     * <p>The number of units fulfilled by this request compared to the set target
+     * capacity.</p>
+     */
     inline void SetFulfilledCapacity(double value) { m_fulfilledCapacityHasBeenSet = true; m_fulfilledCapacity = value; }
 
     /**
@@ -320,6 +369,12 @@ namespace Model
      * <p>The number of units fulfilled by this request compared to the set target
      * On-Demand capacity.</p>
      */
+    inline bool FulfilledOnDemandCapacityHasBeenSet() const { return m_fulfilledOnDemandCapacityHasBeenSet; }
+
+    /**
+     * <p>The number of units fulfilled by this request compared to the set target
+     * On-Demand capacity.</p>
+     */
     inline void SetFulfilledOnDemandCapacity(double value) { m_fulfilledOnDemandCapacityHasBeenSet = true; m_fulfilledOnDemandCapacity = value; }
 
     /**
@@ -333,6 +388,11 @@ namespace Model
      * <p>The launch template and overrides.</p>
      */
     inline const Aws::Vector<FleetLaunchTemplateConfig>& GetLaunchTemplateConfigs() const{ return m_launchTemplateConfigs; }
+
+    /**
+     * <p>The launch template and overrides.</p>
+     */
+    inline bool LaunchTemplateConfigsHasBeenSet() const { return m_launchTemplateConfigsHasBeenSet; }
 
     /**
      * <p>The launch template and overrides.</p>
@@ -381,6 +441,15 @@ namespace Model
      * <code>maintain</code>, you can specify a target capacity of 0 and add capacity
      * later.</p>
      */
+    inline bool TargetCapacitySpecificationHasBeenSet() const { return m_targetCapacitySpecificationHasBeenSet; }
+
+    /**
+     * <p>The number of units to request. You can choose to set the target capacity in
+     * terms of instances or a performance characteristic that is important to your
+     * application workload, such as vCPUs, memory, or I/O. If the request type is
+     * <code>maintain</code>, you can specify a target capacity of 0 and add capacity
+     * later.</p>
+     */
     inline void SetTargetCapacitySpecification(const TargetCapacitySpecification& value) { m_targetCapacitySpecificationHasBeenSet = true; m_targetCapacitySpecification = value; }
 
     /**
@@ -421,6 +490,12 @@ namespace Model
      * <p>Indicates whether running instances should be terminated when the EC2 Fleet
      * expires. </p>
      */
+    inline bool TerminateInstancesWithExpirationHasBeenSet() const { return m_terminateInstancesWithExpirationHasBeenSet; }
+
+    /**
+     * <p>Indicates whether running instances should be terminated when the EC2 Fleet
+     * expires. </p>
+     */
     inline void SetTerminateInstancesWithExpiration(bool value) { m_terminateInstancesWithExpirationHasBeenSet = true; m_terminateInstancesWithExpiration = value; }
 
     /**
@@ -435,7 +510,7 @@ namespace Model
      * <code>requests</code> the target capacity, or also attempts to
      * <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet
      * only places the required requests; it does not attempt to replenish instances if
-     * capacity is diminished, and does not submit requests in alternative capacity
+     * capacity is diminished, and it does not submit requests in alternative capacity
      * pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also
      * automatically replenishes any interrupted Spot Instances. Default:
@@ -448,7 +523,20 @@ namespace Model
      * <code>requests</code> the target capacity, or also attempts to
      * <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet
      * only places the required requests; it does not attempt to replenish instances if
-     * capacity is diminished, and does not submit requests in alternative capacity
+     * capacity is diminished, and it does not submit requests in alternative capacity
+     * pools if capacity is unavailable. To maintain a certain target capacity, EC2
+     * Fleet places the required requests to meet this target capacity. It also
+     * automatically replenishes any interrupted Spot Instances. Default:
+     * <code>maintain</code>.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of request. Indicates whether the EC2 Fleet only
+     * <code>requests</code> the target capacity, or also attempts to
+     * <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet
+     * only places the required requests; it does not attempt to replenish instances if
+     * capacity is diminished, and it does not submit requests in alternative capacity
      * pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also
      * automatically replenishes any interrupted Spot Instances. Default:
@@ -461,7 +549,7 @@ namespace Model
      * <code>requests</code> the target capacity, or also attempts to
      * <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet
      * only places the required requests; it does not attempt to replenish instances if
-     * capacity is diminished, and does not submit requests in alternative capacity
+     * capacity is diminished, and it does not submit requests in alternative capacity
      * pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also
      * automatically replenishes any interrupted Spot Instances. Default:
@@ -474,7 +562,7 @@ namespace Model
      * <code>requests</code> the target capacity, or also attempts to
      * <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet
      * only places the required requests; it does not attempt to replenish instances if
-     * capacity is diminished, and does not submit requests in alternative capacity
+     * capacity is diminished, and it does not submit requests in alternative capacity
      * pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also
      * automatically replenishes any interrupted Spot Instances. Default:
@@ -487,7 +575,7 @@ namespace Model
      * <code>requests</code> the target capacity, or also attempts to
      * <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet
      * only places the required requests; it does not attempt to replenish instances if
-     * capacity is diminished, and does not submit requests in alternative capacity
+     * capacity is diminished, and it does not submit requests in alternative capacity
      * pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also
      * automatically replenishes any interrupted Spot Instances. Default:
@@ -502,6 +590,13 @@ namespace Model
      * to start fulfilling the request immediately. </p>
      */
     inline const Aws::Utils::DateTime& GetValidFrom() const{ return m_validFrom; }
+
+    /**
+     * <p>The start date and time of the request, in UTC format (for example,
+     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). The default is
+     * to start fulfilling the request immediately. </p>
+     */
+    inline bool ValidFromHasBeenSet() const { return m_validFromHasBeenSet; }
 
     /**
      * <p>The start date and time of the request, in UTC format (for example,
@@ -546,6 +641,14 @@ namespace Model
      * no new instance requests are placed or able to fulfill the request. The default
      * end date is 7 days from the current date. </p>
      */
+    inline bool ValidUntilHasBeenSet() const { return m_validUntilHasBeenSet; }
+
+    /**
+     * <p>The end date and time of the request, in UTC format (for example,
+     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). At this point,
+     * no new instance requests are placed or able to fulfill the request. The default
+     * end date is 7 days from the current date. </p>
+     */
     inline void SetValidUntil(const Aws::Utils::DateTime& value) { m_validUntilHasBeenSet = true; m_validUntil = value; }
 
     /**
@@ -581,6 +684,11 @@ namespace Model
     /**
      * <p>Indicates whether EC2 Fleet should replace unhealthy instances.</p>
      */
+    inline bool ReplaceUnhealthyInstancesHasBeenSet() const { return m_replaceUnhealthyInstancesHasBeenSet; }
+
+    /**
+     * <p>Indicates whether EC2 Fleet should replace unhealthy instances.</p>
+     */
     inline void SetReplaceUnhealthyInstances(bool value) { m_replaceUnhealthyInstancesHasBeenSet = true; m_replaceUnhealthyInstances = value; }
 
     /**
@@ -593,6 +701,11 @@ namespace Model
      * <p>The configuration of Spot Instances in an EC2 Fleet.</p>
      */
     inline const SpotOptions& GetSpotOptions() const{ return m_spotOptions; }
+
+    /**
+     * <p>The configuration of Spot Instances in an EC2 Fleet.</p>
+     */
+    inline bool SpotOptionsHasBeenSet() const { return m_spotOptionsHasBeenSet; }
 
     /**
      * <p>The configuration of Spot Instances in an EC2 Fleet.</p>
@@ -616,9 +729,45 @@ namespace Model
 
 
     /**
+     * <p>The allocation strategy of On-Demand Instances in an EC2 Fleet.</p>
+     */
+    inline const OnDemandOptions& GetOnDemandOptions() const{ return m_onDemandOptions; }
+
+    /**
+     * <p>The allocation strategy of On-Demand Instances in an EC2 Fleet.</p>
+     */
+    inline bool OnDemandOptionsHasBeenSet() const { return m_onDemandOptionsHasBeenSet; }
+
+    /**
+     * <p>The allocation strategy of On-Demand Instances in an EC2 Fleet.</p>
+     */
+    inline void SetOnDemandOptions(const OnDemandOptions& value) { m_onDemandOptionsHasBeenSet = true; m_onDemandOptions = value; }
+
+    /**
+     * <p>The allocation strategy of On-Demand Instances in an EC2 Fleet.</p>
+     */
+    inline void SetOnDemandOptions(OnDemandOptions&& value) { m_onDemandOptionsHasBeenSet = true; m_onDemandOptions = std::move(value); }
+
+    /**
+     * <p>The allocation strategy of On-Demand Instances in an EC2 Fleet.</p>
+     */
+    inline FleetData& WithOnDemandOptions(const OnDemandOptions& value) { SetOnDemandOptions(value); return *this;}
+
+    /**
+     * <p>The allocation strategy of On-Demand Instances in an EC2 Fleet.</p>
+     */
+    inline FleetData& WithOnDemandOptions(OnDemandOptions&& value) { SetOnDemandOptions(std::move(value)); return *this;}
+
+
+    /**
      * <p>The tags for an EC2 Fleet resource.</p>
      */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tags for an EC2 Fleet resource.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>The tags for an EC2 Fleet resource.</p>
@@ -649,6 +798,104 @@ namespace Model
      * <p>The tags for an EC2 Fleet resource.</p>
      */
     inline FleetData& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>Information about the instances that could not be launched by the fleet.
+     * Valid only when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline const Aws::Vector<DescribeFleetError>& GetErrors() const{ return m_errors; }
+
+    /**
+     * <p>Information about the instances that could not be launched by the fleet.
+     * Valid only when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline bool ErrorsHasBeenSet() const { return m_errorsHasBeenSet; }
+
+    /**
+     * <p>Information about the instances that could not be launched by the fleet.
+     * Valid only when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline void SetErrors(const Aws::Vector<DescribeFleetError>& value) { m_errorsHasBeenSet = true; m_errors = value; }
+
+    /**
+     * <p>Information about the instances that could not be launched by the fleet.
+     * Valid only when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline void SetErrors(Aws::Vector<DescribeFleetError>&& value) { m_errorsHasBeenSet = true; m_errors = std::move(value); }
+
+    /**
+     * <p>Information about the instances that could not be launched by the fleet.
+     * Valid only when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline FleetData& WithErrors(const Aws::Vector<DescribeFleetError>& value) { SetErrors(value); return *this;}
+
+    /**
+     * <p>Information about the instances that could not be launched by the fleet.
+     * Valid only when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline FleetData& WithErrors(Aws::Vector<DescribeFleetError>&& value) { SetErrors(std::move(value)); return *this;}
+
+    /**
+     * <p>Information about the instances that could not be launched by the fleet.
+     * Valid only when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline FleetData& AddErrors(const DescribeFleetError& value) { m_errorsHasBeenSet = true; m_errors.push_back(value); return *this; }
+
+    /**
+     * <p>Information about the instances that could not be launched by the fleet.
+     * Valid only when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline FleetData& AddErrors(DescribeFleetError&& value) { m_errorsHasBeenSet = true; m_errors.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>Information about the instances that were launched by the fleet. Valid only
+     * when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline const Aws::Vector<DescribeFleetsInstances>& GetInstances() const{ return m_instances; }
+
+    /**
+     * <p>Information about the instances that were launched by the fleet. Valid only
+     * when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline bool InstancesHasBeenSet() const { return m_instancesHasBeenSet; }
+
+    /**
+     * <p>Information about the instances that were launched by the fleet. Valid only
+     * when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline void SetInstances(const Aws::Vector<DescribeFleetsInstances>& value) { m_instancesHasBeenSet = true; m_instances = value; }
+
+    /**
+     * <p>Information about the instances that were launched by the fleet. Valid only
+     * when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline void SetInstances(Aws::Vector<DescribeFleetsInstances>&& value) { m_instancesHasBeenSet = true; m_instances = std::move(value); }
+
+    /**
+     * <p>Information about the instances that were launched by the fleet. Valid only
+     * when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline FleetData& WithInstances(const Aws::Vector<DescribeFleetsInstances>& value) { SetInstances(value); return *this;}
+
+    /**
+     * <p>Information about the instances that were launched by the fleet. Valid only
+     * when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline FleetData& WithInstances(Aws::Vector<DescribeFleetsInstances>&& value) { SetInstances(std::move(value)); return *this;}
+
+    /**
+     * <p>Information about the instances that were launched by the fleet. Valid only
+     * when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline FleetData& AddInstances(const DescribeFleetsInstances& value) { m_instancesHasBeenSet = true; m_instances.push_back(value); return *this; }
+
+    /**
+     * <p>Information about the instances that were launched by the fleet. Valid only
+     * when <b>Type</b> is set to <code>instant</code>.</p>
+     */
+    inline FleetData& AddInstances(DescribeFleetsInstances&& value) { m_instancesHasBeenSet = true; m_instances.push_back(std::move(value)); return *this; }
 
   private:
 
@@ -700,8 +947,17 @@ namespace Model
     SpotOptions m_spotOptions;
     bool m_spotOptionsHasBeenSet;
 
+    OnDemandOptions m_onDemandOptions;
+    bool m_onDemandOptionsHasBeenSet;
+
     Aws::Vector<Tag> m_tags;
     bool m_tagsHasBeenSet;
+
+    Aws::Vector<DescribeFleetError> m_errors;
+    bool m_errorsHasBeenSet;
+
+    Aws::Vector<DescribeFleetsInstances> m_instances;
+    bool m_instancesHasBeenSet;
   };
 
 } // namespace Model

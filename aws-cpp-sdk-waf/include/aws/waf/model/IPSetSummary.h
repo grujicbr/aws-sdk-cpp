@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     IPSetSummary();
-    IPSetSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    IPSetSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IPSetSummary(Aws::Utils::Json::JsonView jsonValue);
+    IPSetSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * about an <a>IPSet</a>.</p>
      */
     inline const Aws::String& GetIPSetId() const{ return m_iPSetId; }
+
+    /**
+     * <p>The <code>IPSetId</code> for an <a>IPSet</a>. You can use
+     * <code>IPSetId</code> in a <a>GetIPSet</a> request to get detailed information
+     * about an <a>IPSet</a>.</p>
+     */
+    inline bool IPSetIdHasBeenSet() const { return m_iPSetIdHasBeenSet; }
 
     /**
      * <p>The <code>IPSetId</code> for an <a>IPSet</a>. You can use
@@ -102,6 +110,12 @@ namespace Model
      * of an <code>IPSet</code> after you create it.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>A friendly name or description of the <a>IPSet</a>. You can't change the name
+     * of an <code>IPSet</code> after you create it.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A friendly name or description of the <a>IPSet</a>. You can't change the name

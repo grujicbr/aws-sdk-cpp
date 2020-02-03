@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Pipeline();
-    Pipeline(const Aws::Utils::Json::JsonValue& jsonValue);
-    Pipeline& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Pipeline(Aws::Utils::Json::JsonView jsonValue);
+    Pipeline& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of the pipeline.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the pipeline.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the pipeline.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The ARN of the pipeline.</p>
      */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the pipeline.</p>
+     */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>The activities that perform transformations on the messages.</p>
      */
     inline const Aws::Vector<PipelineActivity>& GetActivities() const{ return m_activities; }
+
+    /**
+     * <p>The activities that perform transformations on the messages.</p>
+     */
+    inline bool ActivitiesHasBeenSet() const { return m_activitiesHasBeenSet; }
 
     /**
      * <p>The activities that perform transformations on the messages.</p>
@@ -166,6 +182,11 @@ namespace Model
     /**
      * <p>A summary of information about the pipeline reprocessing.</p>
      */
+    inline bool ReprocessingSummariesHasBeenSet() const { return m_reprocessingSummariesHasBeenSet; }
+
+    /**
+     * <p>A summary of information about the pipeline reprocessing.</p>
+     */
     inline void SetReprocessingSummaries(const Aws::Vector<ReprocessingSummary>& value) { m_reprocessingSummariesHasBeenSet = true; m_reprocessingSummaries = value; }
 
     /**
@@ -202,6 +223,11 @@ namespace Model
     /**
      * <p>When the pipeline was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>When the pipeline was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -224,6 +250,11 @@ namespace Model
      * <p>The last time the pipeline was updated.</p>
      */
     inline const Aws::Utils::DateTime& GetLastUpdateTime() const{ return m_lastUpdateTime; }
+
+    /**
+     * <p>The last time the pipeline was updated.</p>
+     */
+    inline bool LastUpdateTimeHasBeenSet() const { return m_lastUpdateTimeHasBeenSet; }
 
     /**
      * <p>The last time the pipeline was updated.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace PI
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ResponsePartitionKey();
-    ResponsePartitionKey(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResponsePartitionKey& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResponsePartitionKey(Aws::Utils::Json::JsonView jsonValue);
+    ResponsePartitionKey& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>A dimension map that contains the dimension(s) for this partition.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetDimensions() const{ return m_dimensions; }
+
+    /**
+     * <p>A dimension map that contains the dimension(s) for this partition.</p>
+     */
+    inline bool DimensionsHasBeenSet() const { return m_dimensionsHasBeenSet; }
 
     /**
      * <p>A dimension map that contains the dimension(s) for this partition.</p>

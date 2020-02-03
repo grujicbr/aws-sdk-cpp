@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ElasticsearchAction();
-    ElasticsearchAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    ElasticsearchAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ElasticsearchAction(Aws::Utils::Json::JsonView jsonValue);
+    ElasticsearchAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The IAM role ARN that has access to Elasticsearch.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The IAM role ARN that has access to Elasticsearch.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The IAM role ARN that has access to Elasticsearch.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The endpoint of your Elasticsearch domain.</p>
      */
+    inline bool EndpointHasBeenSet() const { return m_endpointHasBeenSet; }
+
+    /**
+     * <p>The endpoint of your Elasticsearch domain.</p>
+     */
     inline void SetEndpoint(const Aws::String& value) { m_endpointHasBeenSet = true; m_endpoint = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The Elasticsearch index where you want to store your data.</p>
      */
     inline const Aws::String& GetIndex() const{ return m_index; }
+
+    /**
+     * <p>The Elasticsearch index where you want to store your data.</p>
+     */
+    inline bool IndexHasBeenSet() const { return m_indexHasBeenSet; }
 
     /**
      * <p>The Elasticsearch index where you want to store your data.</p>
@@ -163,6 +179,11 @@ namespace Model
     /**
      * <p>The type of document you are storing.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of document you are storing.</p>
+     */
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -195,6 +216,11 @@ namespace Model
      * <p>The unique identifier for the document you are storing.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier for the document you are storing.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier for the document you are storing.</p>

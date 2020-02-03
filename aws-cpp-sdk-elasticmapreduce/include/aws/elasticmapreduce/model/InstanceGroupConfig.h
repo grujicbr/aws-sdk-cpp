@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     InstanceGroupConfig();
-    InstanceGroupConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceGroupConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceGroupConfig(Aws::Utils::Json::JsonView jsonValue);
+    InstanceGroupConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>Friendly name given to the instance group.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>Friendly name given to the instance group.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>Friendly name given to the instance group.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>Market type of the EC2 instances used to create a cluster node.</p>
      */
+    inline bool MarketHasBeenSet() const { return m_marketHasBeenSet; }
+
+    /**
+     * <p>Market type of the EC2 instances used to create a cluster node.</p>
+     */
     inline void SetMarket(const MarketType& value) { m_marketHasBeenSet = true; m_market = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
     /**
      * <p>The role of the instance group in the cluster.</p>
      */
+    inline bool InstanceRoleHasBeenSet() const { return m_instanceRoleHasBeenSet; }
+
+    /**
+     * <p>The role of the instance group in the cluster.</p>
+     */
     inline void SetInstanceRole(const InstanceRoleType& value) { m_instanceRoleHasBeenSet = true; m_instanceRole = value; }
 
     /**
@@ -141,65 +157,66 @@ namespace Model
 
 
     /**
-     * <p>The maximum Spot price your are willing to pay for EC2 instances.</p> <p>An
-     * optional, nullable field that applies if the <code>MarketType</code> for the
-     * instance group is specified as <code>SPOT</code>. Specify the maximum spot price
-     * in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum
-     * Spot price is set equal to the On-Demand price.</p>
+     * <p>The bid price for each EC2 Spot instance type as defined by
+     * <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code>
+     * nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.</p>
      */
     inline const Aws::String& GetBidPrice() const{ return m_bidPrice; }
 
     /**
-     * <p>The maximum Spot price your are willing to pay for EC2 instances.</p> <p>An
-     * optional, nullable field that applies if the <code>MarketType</code> for the
-     * instance group is specified as <code>SPOT</code>. Specify the maximum spot price
-     * in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum
-     * Spot price is set equal to the On-Demand price.</p>
+     * <p>The bid price for each EC2 Spot instance type as defined by
+     * <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code>
+     * nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.</p>
+     */
+    inline bool BidPriceHasBeenSet() const { return m_bidPriceHasBeenSet; }
+
+    /**
+     * <p>The bid price for each EC2 Spot instance type as defined by
+     * <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code>
+     * nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.</p>
      */
     inline void SetBidPrice(const Aws::String& value) { m_bidPriceHasBeenSet = true; m_bidPrice = value; }
 
     /**
-     * <p>The maximum Spot price your are willing to pay for EC2 instances.</p> <p>An
-     * optional, nullable field that applies if the <code>MarketType</code> for the
-     * instance group is specified as <code>SPOT</code>. Specify the maximum spot price
-     * in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum
-     * Spot price is set equal to the On-Demand price.</p>
+     * <p>The bid price for each EC2 Spot instance type as defined by
+     * <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code>
+     * nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.</p>
      */
     inline void SetBidPrice(Aws::String&& value) { m_bidPriceHasBeenSet = true; m_bidPrice = std::move(value); }
 
     /**
-     * <p>The maximum Spot price your are willing to pay for EC2 instances.</p> <p>An
-     * optional, nullable field that applies if the <code>MarketType</code> for the
-     * instance group is specified as <code>SPOT</code>. Specify the maximum spot price
-     * in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum
-     * Spot price is set equal to the On-Demand price.</p>
+     * <p>The bid price for each EC2 Spot instance type as defined by
+     * <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code>
+     * nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.</p>
      */
     inline void SetBidPrice(const char* value) { m_bidPriceHasBeenSet = true; m_bidPrice.assign(value); }
 
     /**
-     * <p>The maximum Spot price your are willing to pay for EC2 instances.</p> <p>An
-     * optional, nullable field that applies if the <code>MarketType</code> for the
-     * instance group is specified as <code>SPOT</code>. Specify the maximum spot price
-     * in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum
-     * Spot price is set equal to the On-Demand price.</p>
+     * <p>The bid price for each EC2 Spot instance type as defined by
+     * <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code>
+     * nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.</p>
      */
     inline InstanceGroupConfig& WithBidPrice(const Aws::String& value) { SetBidPrice(value); return *this;}
 
     /**
-     * <p>The maximum Spot price your are willing to pay for EC2 instances.</p> <p>An
-     * optional, nullable field that applies if the <code>MarketType</code> for the
-     * instance group is specified as <code>SPOT</code>. Specify the maximum spot price
-     * in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum
-     * Spot price is set equal to the On-Demand price.</p>
+     * <p>The bid price for each EC2 Spot instance type as defined by
+     * <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code>
+     * nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.</p>
      */
     inline InstanceGroupConfig& WithBidPrice(Aws::String&& value) { SetBidPrice(std::move(value)); return *this;}
 
     /**
-     * <p>The maximum Spot price your are willing to pay for EC2 instances.</p> <p>An
-     * optional, nullable field that applies if the <code>MarketType</code> for the
-     * instance group is specified as <code>SPOT</code>. Specify the maximum spot price
-     * in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum
-     * Spot price is set equal to the On-Demand price.</p>
+     * <p>The bid price for each EC2 Spot instance type as defined by
+     * <code>InstanceType</code>. Expressed in USD. If neither <code>BidPrice</code>
+     * nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.</p>
      */
     inline InstanceGroupConfig& WithBidPrice(const char* value) { SetBidPrice(value); return *this;}
 
@@ -208,6 +225,11 @@ namespace Model
      * <p>The EC2 instance type for all instances in the instance group.</p>
      */
     inline const Aws::String& GetInstanceType() const{ return m_instanceType; }
+
+    /**
+     * <p>The EC2 instance type for all instances in the instance group.</p>
+     */
+    inline bool InstanceTypeHasBeenSet() const { return m_instanceTypeHasBeenSet; }
 
     /**
      * <p>The EC2 instance type for all instances in the instance group.</p>
@@ -248,6 +270,11 @@ namespace Model
     /**
      * <p>Target number of instances for the instance group.</p>
      */
+    inline bool InstanceCountHasBeenSet() const { return m_instanceCountHasBeenSet; }
+
+    /**
+     * <p>Target number of instances for the instance group.</p>
+     */
     inline void SetInstanceCount(int value) { m_instanceCountHasBeenSet = true; m_instanceCount = value; }
 
     /**
@@ -262,6 +289,13 @@ namespace Model
      * separate configuration for each instance group (master, core, and task).</p>
      */
     inline const Aws::Vector<Configuration>& GetConfigurations() const{ return m_configurations; }
+
+    /**
+     * <note> <p>Amazon EMR releases 4.x or later.</p> </note> <p>The list of
+     * configurations supplied for an EMR cluster instance group. You can specify a
+     * separate configuration for each instance group (master, core, and task).</p>
+     */
+    inline bool ConfigurationsHasBeenSet() const { return m_configurationsHasBeenSet; }
 
     /**
      * <note> <p>Amazon EMR releases 4.x or later.</p> </note> <p>The list of
@@ -316,6 +350,12 @@ namespace Model
      * <p>EBS configurations that will be attached to each EC2 instance in the instance
      * group.</p>
      */
+    inline bool EbsConfigurationHasBeenSet() const { return m_ebsConfigurationHasBeenSet; }
+
+    /**
+     * <p>EBS configurations that will be attached to each EC2 instance in the instance
+     * group.</p>
+     */
     inline void SetEbsConfiguration(const EbsConfiguration& value) { m_ebsConfigurationHasBeenSet = true; m_ebsConfiguration = value; }
 
     /**
@@ -344,6 +384,14 @@ namespace Model
      * a CloudWatch metric. See <a>PutAutoScalingPolicy</a>.</p>
      */
     inline const AutoScalingPolicy& GetAutoScalingPolicy() const{ return m_autoScalingPolicy; }
+
+    /**
+     * <p>An automatic scaling policy for a core instance group or task instance group
+     * in an Amazon EMR cluster. The automatic scaling policy defines how an instance
+     * group dynamically adds and terminates EC2 instances in response to the value of
+     * a CloudWatch metric. See <a>PutAutoScalingPolicy</a>.</p>
+     */
+    inline bool AutoScalingPolicyHasBeenSet() const { return m_autoScalingPolicyHasBeenSet; }
 
     /**
      * <p>An automatic scaling policy for a core instance group or task instance group

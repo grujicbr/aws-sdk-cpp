@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -42,79 +43,97 @@ namespace Model
   {
   public:
     RestoreSummary();
-    RestoreSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    RestoreSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RestoreSummary(Aws::Utils::Json::JsonView jsonValue);
+    RestoreSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>ARN of the backup from which the table was restored.</p>
+     * <p>The Amazon Resource Name (ARN) of the backup from which the table was
+     * restored.</p>
      */
     inline const Aws::String& GetSourceBackupArn() const{ return m_sourceBackupArn; }
 
     /**
-     * <p>ARN of the backup from which the table was restored.</p>
+     * <p>The Amazon Resource Name (ARN) of the backup from which the table was
+     * restored.</p>
+     */
+    inline bool SourceBackupArnHasBeenSet() const { return m_sourceBackupArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the backup from which the table was
+     * restored.</p>
      */
     inline void SetSourceBackupArn(const Aws::String& value) { m_sourceBackupArnHasBeenSet = true; m_sourceBackupArn = value; }
 
     /**
-     * <p>ARN of the backup from which the table was restored.</p>
+     * <p>The Amazon Resource Name (ARN) of the backup from which the table was
+     * restored.</p>
      */
     inline void SetSourceBackupArn(Aws::String&& value) { m_sourceBackupArnHasBeenSet = true; m_sourceBackupArn = std::move(value); }
 
     /**
-     * <p>ARN of the backup from which the table was restored.</p>
+     * <p>The Amazon Resource Name (ARN) of the backup from which the table was
+     * restored.</p>
      */
     inline void SetSourceBackupArn(const char* value) { m_sourceBackupArnHasBeenSet = true; m_sourceBackupArn.assign(value); }
 
     /**
-     * <p>ARN of the backup from which the table was restored.</p>
+     * <p>The Amazon Resource Name (ARN) of the backup from which the table was
+     * restored.</p>
      */
     inline RestoreSummary& WithSourceBackupArn(const Aws::String& value) { SetSourceBackupArn(value); return *this;}
 
     /**
-     * <p>ARN of the backup from which the table was restored.</p>
+     * <p>The Amazon Resource Name (ARN) of the backup from which the table was
+     * restored.</p>
      */
     inline RestoreSummary& WithSourceBackupArn(Aws::String&& value) { SetSourceBackupArn(std::move(value)); return *this;}
 
     /**
-     * <p>ARN of the backup from which the table was restored.</p>
+     * <p>The Amazon Resource Name (ARN) of the backup from which the table was
+     * restored.</p>
      */
     inline RestoreSummary& WithSourceBackupArn(const char* value) { SetSourceBackupArn(value); return *this;}
 
 
     /**
-     * <p>ARN of the source table of the backup that is being restored.</p>
+     * <p>The ARN of the source table of the backup that is being restored.</p>
      */
     inline const Aws::String& GetSourceTableArn() const{ return m_sourceTableArn; }
 
     /**
-     * <p>ARN of the source table of the backup that is being restored.</p>
+     * <p>The ARN of the source table of the backup that is being restored.</p>
+     */
+    inline bool SourceTableArnHasBeenSet() const { return m_sourceTableArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the source table of the backup that is being restored.</p>
      */
     inline void SetSourceTableArn(const Aws::String& value) { m_sourceTableArnHasBeenSet = true; m_sourceTableArn = value; }
 
     /**
-     * <p>ARN of the source table of the backup that is being restored.</p>
+     * <p>The ARN of the source table of the backup that is being restored.</p>
      */
     inline void SetSourceTableArn(Aws::String&& value) { m_sourceTableArnHasBeenSet = true; m_sourceTableArn = std::move(value); }
 
     /**
-     * <p>ARN of the source table of the backup that is being restored.</p>
+     * <p>The ARN of the source table of the backup that is being restored.</p>
      */
     inline void SetSourceTableArn(const char* value) { m_sourceTableArnHasBeenSet = true; m_sourceTableArn.assign(value); }
 
     /**
-     * <p>ARN of the source table of the backup that is being restored.</p>
+     * <p>The ARN of the source table of the backup that is being restored.</p>
      */
     inline RestoreSummary& WithSourceTableArn(const Aws::String& value) { SetSourceTableArn(value); return *this;}
 
     /**
-     * <p>ARN of the source table of the backup that is being restored.</p>
+     * <p>The ARN of the source table of the backup that is being restored.</p>
      */
     inline RestoreSummary& WithSourceTableArn(Aws::String&& value) { SetSourceTableArn(std::move(value)); return *this;}
 
     /**
-     * <p>ARN of the source table of the backup that is being restored.</p>
+     * <p>The ARN of the source table of the backup that is being restored.</p>
      */
     inline RestoreSummary& WithSourceTableArn(const char* value) { SetSourceTableArn(value); return *this;}
 
@@ -123,6 +142,11 @@ namespace Model
      * <p>Point in time or source backup time.</p>
      */
     inline const Aws::Utils::DateTime& GetRestoreDateTime() const{ return m_restoreDateTime; }
+
+    /**
+     * <p>Point in time or source backup time.</p>
+     */
+    inline bool RestoreDateTimeHasBeenSet() const { return m_restoreDateTimeHasBeenSet; }
 
     /**
      * <p>Point in time or source backup time.</p>
@@ -149,6 +173,11 @@ namespace Model
      * <p>Indicates if a restore is in progress or not.</p>
      */
     inline bool GetRestoreInProgress() const{ return m_restoreInProgress; }
+
+    /**
+     * <p>Indicates if a restore is in progress or not.</p>
+     */
+    inline bool RestoreInProgressHasBeenSet() const { return m_restoreInProgressHasBeenSet; }
 
     /**
      * <p>Indicates if a restore is in progress or not.</p>

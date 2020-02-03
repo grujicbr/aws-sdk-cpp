@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     CreateGroupRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,7 +47,7 @@ namespace Model
     /**
      * <p>The name of the group, which is the identifier of the group in other
      * operations. A resource group name cannot be updated after it is created. A
-     * resource group name can have a maximum of 127 characters, including letters,
+     * resource group name can have a maximum of 128 characters, including letters,
      * numbers, hyphens, dots, and underscores. The name cannot start with
      * <code>AWS</code> or <code>aws</code>; these are reserved. A resource group name
      * must be unique within your account.</p>
@@ -57,7 +57,17 @@ namespace Model
     /**
      * <p>The name of the group, which is the identifier of the group in other
      * operations. A resource group name cannot be updated after it is created. A
-     * resource group name can have a maximum of 127 characters, including letters,
+     * resource group name can have a maximum of 128 characters, including letters,
+     * numbers, hyphens, dots, and underscores. The name cannot start with
+     * <code>AWS</code> or <code>aws</code>; these are reserved. A resource group name
+     * must be unique within your account.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the group, which is the identifier of the group in other
+     * operations. A resource group name cannot be updated after it is created. A
+     * resource group name can have a maximum of 128 characters, including letters,
      * numbers, hyphens, dots, and underscores. The name cannot start with
      * <code>AWS</code> or <code>aws</code>; these are reserved. A resource group name
      * must be unique within your account.</p>
@@ -67,7 +77,7 @@ namespace Model
     /**
      * <p>The name of the group, which is the identifier of the group in other
      * operations. A resource group name cannot be updated after it is created. A
-     * resource group name can have a maximum of 127 characters, including letters,
+     * resource group name can have a maximum of 128 characters, including letters,
      * numbers, hyphens, dots, and underscores. The name cannot start with
      * <code>AWS</code> or <code>aws</code>; these are reserved. A resource group name
      * must be unique within your account.</p>
@@ -77,7 +87,7 @@ namespace Model
     /**
      * <p>The name of the group, which is the identifier of the group in other
      * operations. A resource group name cannot be updated after it is created. A
-     * resource group name can have a maximum of 127 characters, including letters,
+     * resource group name can have a maximum of 128 characters, including letters,
      * numbers, hyphens, dots, and underscores. The name cannot start with
      * <code>AWS</code> or <code>aws</code>; these are reserved. A resource group name
      * must be unique within your account.</p>
@@ -87,7 +97,7 @@ namespace Model
     /**
      * <p>The name of the group, which is the identifier of the group in other
      * operations. A resource group name cannot be updated after it is created. A
-     * resource group name can have a maximum of 127 characters, including letters,
+     * resource group name can have a maximum of 128 characters, including letters,
      * numbers, hyphens, dots, and underscores. The name cannot start with
      * <code>AWS</code> or <code>aws</code>; these are reserved. A resource group name
      * must be unique within your account.</p>
@@ -97,7 +107,7 @@ namespace Model
     /**
      * <p>The name of the group, which is the identifier of the group in other
      * operations. A resource group name cannot be updated after it is created. A
-     * resource group name can have a maximum of 127 characters, including letters,
+     * resource group name can have a maximum of 128 characters, including letters,
      * numbers, hyphens, dots, and underscores. The name cannot start with
      * <code>AWS</code> or <code>aws</code>; these are reserved. A resource group name
      * must be unique within your account.</p>
@@ -107,7 +117,7 @@ namespace Model
     /**
      * <p>The name of the group, which is the identifier of the group in other
      * operations. A resource group name cannot be updated after it is created. A
-     * resource group name can have a maximum of 127 characters, including letters,
+     * resource group name can have a maximum of 128 characters, including letters,
      * numbers, hyphens, dots, and underscores. The name cannot start with
      * <code>AWS</code> or <code>aws</code>; these are reserved. A resource group name
      * must be unique within your account.</p>
@@ -121,6 +131,13 @@ namespace Model
      * spaces.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the resource group. Descriptions can have a maximum of 511
+     * characters, including letters, numbers, hyphens, underscores, punctuation, and
+     * spaces.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the resource group. Descriptions can have a maximum of 511
@@ -175,6 +192,12 @@ namespace Model
      * <p>The resource query that determines which AWS resources are members of this
      * group.</p>
      */
+    inline bool ResourceQueryHasBeenSet() const { return m_resourceQueryHasBeenSet; }
+
+    /**
+     * <p>The resource query that determines which AWS resources are members of this
+     * group.</p>
+     */
     inline void SetResourceQuery(const ResourceQuery& value) { m_resourceQueryHasBeenSet = true; m_resourceQuery = value; }
 
     /**
@@ -198,85 +221,92 @@ namespace Model
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags to add to the group. A tag is a string-to-string map of key-value
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
 
     /**
      * <p>The tags to add to the group. A tag is a string-to-string map of key-value
-     * pairs. Tag keys can have a maximum character length of 127 characters, and tag
-     * values can have a maximum length of 255 characters.</p>
+     * pairs. Tag keys can have a maximum character length of 128 characters, and tag
+     * values can have a maximum length of 256 characters.</p>
      */
     inline CreateGroupRequest& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
 

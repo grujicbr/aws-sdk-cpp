@@ -52,13 +52,13 @@ LoadBalancerAttribute& LoadBalancerAttribute::operator =(const XmlNode& xmlNode)
     XmlNode keyNode = resultNode.FirstChild("Key");
     if(!keyNode.IsNull())
     {
-      m_key = StringUtils::Trim(keyNode.GetText().c_str());
+      m_key = Aws::Utils::Xml::DecodeEscapedXmlText(keyNode.GetText());
       m_keyHasBeenSet = true;
     }
     XmlNode valueNode = resultNode.FirstChild("Value");
     if(!valueNode.IsNull())
     {
-      m_value = StringUtils::Trim(valueNode.GetText().c_str());
+      m_value = Aws::Utils::Xml::DecodeEscapedXmlText(valueNode.GetText());
       m_valueHasBeenSet = true;
     }
   }

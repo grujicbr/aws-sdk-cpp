@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Shield
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     SummarizedCounter();
-    SummarizedCounter(const Aws::Utils::Json::JsonValue& jsonValue);
-    SummarizedCounter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SummarizedCounter(Aws::Utils::Json::JsonView jsonValue);
+    SummarizedCounter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The counter name.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The counter name.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The counter name.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The maximum value of the counter for a specified time period.</p>
      */
+    inline bool MaxHasBeenSet() const { return m_maxHasBeenSet; }
+
+    /**
+     * <p>The maximum value of the counter for a specified time period.</p>
+     */
     inline void SetMax(double value) { m_maxHasBeenSet = true; m_max = value; }
 
     /**
@@ -102,6 +113,11 @@ namespace Model
      * <p>The average value of the counter for a specified time period.</p>
      */
     inline double GetAverage() const{ return m_average; }
+
+    /**
+     * <p>The average value of the counter for a specified time period.</p>
+     */
+    inline bool AverageHasBeenSet() const { return m_averageHasBeenSet; }
 
     /**
      * <p>The average value of the counter for a specified time period.</p>
@@ -122,6 +138,11 @@ namespace Model
     /**
      * <p>The total of counter values for a specified time period.</p>
      */
+    inline bool SumHasBeenSet() const { return m_sumHasBeenSet; }
+
+    /**
+     * <p>The total of counter values for a specified time period.</p>
+     */
     inline void SetSum(double value) { m_sumHasBeenSet = true; m_sum = value; }
 
     /**
@@ -138,6 +159,11 @@ namespace Model
     /**
      * <p>The number of counters for a specified time period.</p>
      */
+    inline bool NHasBeenSet() const { return m_nHasBeenSet; }
+
+    /**
+     * <p>The number of counters for a specified time period.</p>
+     */
     inline void SetN(int value) { m_nHasBeenSet = true; m_n = value; }
 
     /**
@@ -150,6 +176,11 @@ namespace Model
      * <p>The unit of the counters.</p>
      */
     inline const Aws::String& GetUnit() const{ return m_unit; }
+
+    /**
+     * <p>The unit of the counters.</p>
+     */
+    inline bool UnitHasBeenSet() const { return m_unitHasBeenSet; }
 
     /**
      * <p>The unit of the counters.</p>

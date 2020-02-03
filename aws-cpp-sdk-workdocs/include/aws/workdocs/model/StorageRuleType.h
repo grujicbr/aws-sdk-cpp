@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     StorageRuleType();
-    StorageRuleType(const Aws::Utils::Json::JsonValue& jsonValue);
-    StorageRuleType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StorageRuleType(Aws::Utils::Json::JsonView jsonValue);
+    StorageRuleType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The amount of storage allocated, in bytes.</p>
      */
     inline long long GetStorageAllocatedInBytes() const{ return m_storageAllocatedInBytes; }
+
+    /**
+     * <p>The amount of storage allocated, in bytes.</p>
+     */
+    inline bool StorageAllocatedInBytesHasBeenSet() const { return m_storageAllocatedInBytesHasBeenSet; }
 
     /**
      * <p>The amount of storage allocated, in bytes.</p>
@@ -66,6 +72,11 @@ namespace Model
      * <p>The type of storage.</p>
      */
     inline const StorageType& GetStorageType() const{ return m_storageType; }
+
+    /**
+     * <p>The type of storage.</p>
+     */
+    inline bool StorageTypeHasBeenSet() const { return m_storageTypeHasBeenSet; }
 
     /**
      * <p>The type of storage.</p>

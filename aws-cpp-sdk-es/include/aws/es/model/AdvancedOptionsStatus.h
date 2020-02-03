@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -54,8 +55,8 @@ namespace Model
   {
   public:
     AdvancedOptionsStatus();
-    AdvancedOptionsStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    AdvancedOptionsStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AdvancedOptionsStatus(Aws::Utils::Json::JsonView jsonValue);
+    AdvancedOptionsStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -64,6 +65,12 @@ namespace Model
      * domain.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetOptions() const{ return m_options; }
+
+    /**
+     * <p> Specifies the status of advanced options for the specified Elasticsearch
+     * domain.</p>
+     */
+    inline bool OptionsHasBeenSet() const { return m_optionsHasBeenSet; }
 
     /**
      * <p> Specifies the status of advanced options for the specified Elasticsearch
@@ -137,6 +144,12 @@ namespace Model
      * the specified Elasticsearch domain.</p>
      */
     inline const OptionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p> Specifies the status of <code>OptionStatus</code> for advanced options for
+     * the specified Elasticsearch domain.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p> Specifies the status of <code>OptionStatus</code> for advanced options for

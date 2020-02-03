@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     FailureDetails();
-    FailureDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    FailureDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FailureDetails(Aws::Utils::Json::JsonView jsonValue);
+    FailureDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * PostVerification.</p>
      */
     inline const Aws::String& GetFailureStage() const{ return m_failureStage; }
+
+    /**
+     * <p>The stage of the Automation execution when the failure occurred. The stages
+     * include the following: InputValidation, PreVerification, Invocation,
+     * PostVerification.</p>
+     */
+    inline bool FailureStageHasBeenSet() const { return m_failureStageHasBeenSet; }
 
     /**
      * <p>The stage of the Automation execution when the failure occurred. The stages
@@ -108,6 +116,12 @@ namespace Model
      * <p>The type of Automation failure. Failure types include the following: Action,
      * Permission, Throttling, Verification, Internal.</p>
      */
+    inline bool FailureTypeHasBeenSet() const { return m_failureTypeHasBeenSet; }
+
+    /**
+     * <p>The type of Automation failure. Failure types include the following: Action,
+     * Permission, Throttling, Verification, Internal.</p>
+     */
     inline void SetFailureType(const Aws::String& value) { m_failureTypeHasBeenSet = true; m_failureType = value; }
 
     /**
@@ -145,6 +159,11 @@ namespace Model
      * <p>Detailed information about the Automation step failure.</p>
      */
     inline const Aws::Map<Aws::String, Aws::Vector<Aws::String>>& GetDetails() const{ return m_details; }
+
+    /**
+     * <p>Detailed information about the Automation step failure.</p>
+     */
+    inline bool DetailsHasBeenSet() const { return m_detailsHasBeenSet; }
 
     /**
      * <p>Detailed information about the Automation step failure.</p>

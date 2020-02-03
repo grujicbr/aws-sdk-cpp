@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ClusterStatus();
-    ClusterStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    ClusterStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ClusterStatus(Aws::Utils::Json::JsonView jsonValue);
+    ClusterStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The current state of the cluster.</p>
      */
     inline const ClusterState& GetState() const{ return m_state; }
+
+    /**
+     * <p>The current state of the cluster.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The current state of the cluster.</p>
@@ -82,6 +88,11 @@ namespace Model
     /**
      * <p>The reason for the cluster status change.</p>
      */
+    inline bool StateChangeReasonHasBeenSet() const { return m_stateChangeReasonHasBeenSet; }
+
+    /**
+     * <p>The reason for the cluster status change.</p>
+     */
     inline void SetStateChangeReason(const ClusterStateChangeReason& value) { m_stateChangeReasonHasBeenSet = true; m_stateChangeReason = value; }
 
     /**
@@ -105,6 +116,12 @@ namespace Model
      * cluster.</p>
      */
     inline const ClusterTimeline& GetTimeline() const{ return m_timeline; }
+
+    /**
+     * <p>A timeline that represents the status of a cluster over the lifetime of the
+     * cluster.</p>
+     */
+    inline bool TimelineHasBeenSet() const { return m_timelineHasBeenSet; }
 
     /**
      * <p>A timeline that represents the status of a cluster over the lifetime of the

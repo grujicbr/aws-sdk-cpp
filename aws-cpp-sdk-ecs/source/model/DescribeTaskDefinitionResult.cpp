@@ -37,11 +37,20 @@ DescribeTaskDefinitionResult::DescribeTaskDefinitionResult(const Aws::AmazonWebS
 
 DescribeTaskDefinitionResult& DescribeTaskDefinitionResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("taskDefinition"))
   {
     m_taskDefinition = jsonValue.GetObject("taskDefinition");
 
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
   }
 
 

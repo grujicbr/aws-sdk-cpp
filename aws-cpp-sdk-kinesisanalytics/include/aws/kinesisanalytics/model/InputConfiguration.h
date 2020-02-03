@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -44,50 +45,64 @@ namespace Model
   {
   public:
     InputConfiguration();
-    InputConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    InputConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>Input source ID. You can get this ID by calling the
-     * <a>DescribeApplication</a> operation.</p>
+     * <p>Input source ID. You can get this ID by calling the <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a>
+     * operation.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
 
     /**
-     * <p>Input source ID. You can get this ID by calling the
-     * <a>DescribeApplication</a> operation.</p>
+     * <p>Input source ID. You can get this ID by calling the <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a>
+     * operation.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * <p>Input source ID. You can get this ID by calling the <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a>
+     * operation.</p>
      */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
 
     /**
-     * <p>Input source ID. You can get this ID by calling the
-     * <a>DescribeApplication</a> operation.</p>
+     * <p>Input source ID. You can get this ID by calling the <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a>
+     * operation.</p>
      */
     inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
 
     /**
-     * <p>Input source ID. You can get this ID by calling the
-     * <a>DescribeApplication</a> operation.</p>
+     * <p>Input source ID. You can get this ID by calling the <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a>
+     * operation.</p>
      */
     inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
 
     /**
-     * <p>Input source ID. You can get this ID by calling the
-     * <a>DescribeApplication</a> operation.</p>
+     * <p>Input source ID. You can get this ID by calling the <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a>
+     * operation.</p>
      */
     inline InputConfiguration& WithId(const Aws::String& value) { SetId(value); return *this;}
 
     /**
-     * <p>Input source ID. You can get this ID by calling the
-     * <a>DescribeApplication</a> operation.</p>
+     * <p>Input source ID. You can get this ID by calling the <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a>
+     * operation.</p>
      */
     inline InputConfiguration& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
 
     /**
-     * <p>Input source ID. You can get this ID by calling the
-     * <a>DescribeApplication</a> operation.</p>
+     * <p>Input source ID. You can get this ID by calling the <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html">DescribeApplication</a>
+     * operation.</p>
      */
     inline InputConfiguration& WithId(const char* value) { SetId(value); return *this;}
 
@@ -97,6 +112,12 @@ namespace Model
      * streaming source.</p>
      */
     inline const InputStartingPositionConfiguration& GetInputStartingPositionConfiguration() const{ return m_inputStartingPositionConfiguration; }
+
+    /**
+     * <p>Point at which you want the application to start processing records from the
+     * streaming source.</p>
+     */
+    inline bool InputStartingPositionConfigurationHasBeenSet() const { return m_inputStartingPositionConfigurationHasBeenSet; }
 
     /**
      * <p>Point at which you want the application to start processing records from the

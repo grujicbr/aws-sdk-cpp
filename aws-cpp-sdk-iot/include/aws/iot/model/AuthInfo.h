@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AuthInfo();
-    AuthInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    AuthInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AuthInfo(Aws::Utils::Json::JsonView jsonValue);
+    AuthInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The type of action for which the principal is being authorized.</p>
      */
     inline const ActionType& GetActionType() const{ return m_actionType; }
+
+    /**
+     * <p>The type of action for which the principal is being authorized.</p>
+     */
+    inline bool ActionTypeHasBeenSet() const { return m_actionTypeHasBeenSet; }
 
     /**
      * <p>The type of action for which the principal is being authorized.</p>
@@ -79,6 +85,12 @@ namespace Model
      * specified action.</p>
      */
     inline const Aws::Vector<Aws::String>& GetResources() const{ return m_resources; }
+
+    /**
+     * <p>The resources for which the principal is being authorized to perform the
+     * specified action.</p>
+     */
+    inline bool ResourcesHasBeenSet() const { return m_resourcesHasBeenSet; }
 
     /**
      * <p>The resources for which the principal is being authorized to perform the

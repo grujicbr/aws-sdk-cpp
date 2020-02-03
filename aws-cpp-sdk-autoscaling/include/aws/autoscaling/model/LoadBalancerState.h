@@ -39,10 +39,11 @@ namespace Model
    * <code>InService</code>.</p> <p>If you attach a load balancer to an existing Auto
    * Scaling group, the initial state is <code>Adding</code>. The state transitions
    * to <code>Added</code> after all instances in the group are registered with the
-   * load balancer. If ELB health checks are enabled for the load balancer, the state
-   * transitions to <code>InService</code> after at least one instance in the group
-   * passes the health check. If EC2 health checks are enabled instead, the load
-   * balancer remains in the <code>Added</code> state.</p><p><h3>See Also:</h3>   <a
+   * load balancer. If Elastic Load Balancing health checks are enabled for the load
+   * balancer, the state transitions to <code>InService</code> after at least one
+   * instance in the group passes the health check. If EC2 health checks are enabled
+   * instead, the load balancer remains in the <code>Added</code>
+   * state.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LoadBalancerState">AWS
    * API Reference</a></p>
    */
@@ -61,6 +62,11 @@ namespace Model
      * <p>The name of the load balancer.</p>
      */
     inline const Aws::String& GetLoadBalancerName() const{ return m_loadBalancerName; }
+
+    /**
+     * <p>The name of the load balancer.</p>
+     */
+    inline bool LoadBalancerNameHasBeenSet() const { return m_loadBalancerNameHasBeenSet; }
 
     /**
      * <p>The name of the load balancer.</p>
@@ -106,6 +112,20 @@ namespace Model
      * instances in the group are deregistered from the load balancer.</p> </li> </ul>
      */
     inline const Aws::String& GetState() const{ return m_state; }
+
+    /**
+     * <p>One of the following load balancer states:</p> <ul> <li> <p>
+     * <code>Adding</code> - The instances in the group are being registered with the
+     * load balancer.</p> </li> <li> <p> <code>Added</code> - All instances in the
+     * group are registered with the load balancer.</p> </li> <li> <p>
+     * <code>InService</code> - At least one instance in the group passed an ELB health
+     * check.</p> </li> <li> <p> <code>Removing</code> - The instances in the group are
+     * being deregistered from the load balancer. If connection draining is enabled,
+     * Elastic Load Balancing waits for in-flight requests to complete before
+     * deregistering the instances.</p> </li> <li> <p> <code>Removed</code> - All
+     * instances in the group are deregistered from the load balancer.</p> </li> </ul>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>One of the following load balancer states:</p> <ul> <li> <p>

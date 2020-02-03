@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DataPipeline
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     PipelineObject();
-    PipelineObject(const Aws::Utils::Json::JsonValue& jsonValue);
-    PipelineObject& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PipelineObject(Aws::Utils::Json::JsonView jsonValue);
+    PipelineObject& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The ID of the object.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the object.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the object.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The name of the object.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the object.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>Key-value pairs that define the properties of the object.</p>
      */
     inline const Aws::Vector<Field>& GetFields() const{ return m_fields; }
+
+    /**
+     * <p>Key-value pairs that define the properties of the object.</p>
+     */
+    inline bool FieldsHasBeenSet() const { return m_fieldsHasBeenSet; }
 
     /**
      * <p>Key-value pairs that define the properties of the object.</p>

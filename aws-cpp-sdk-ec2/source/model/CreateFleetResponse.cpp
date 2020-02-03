@@ -51,13 +51,38 @@ CreateFleetResponse& CreateFleetResponse::operator =(const Aws::AmazonWebService
     XmlNode fleetIdNode = resultNode.FirstChild("fleetId");
     if(!fleetIdNode.IsNull())
     {
-      m_fleetId = StringUtils::Trim(fleetIdNode.GetText().c_str());
+      m_fleetId = Aws::Utils::Xml::DecodeEscapedXmlText(fleetIdNode.GetText());
+    }
+    XmlNode errorsNode = resultNode.FirstChild("errorSet");
+    if(!errorsNode.IsNull())
+    {
+      XmlNode errorsMember = errorsNode.FirstChild("item");
+      while(!errorsMember.IsNull())
+      {
+        m_errors.push_back(errorsMember);
+        errorsMember = errorsMember.NextNode("item");
+      }
+
+    }
+    XmlNode instancesNode = resultNode.FirstChild("fleetInstanceSet");
+    if(!instancesNode.IsNull())
+    {
+      XmlNode instancesMember = instancesNode.FirstChild("item");
+      while(!instancesMember.IsNull())
+      {
+        m_instances.push_back(instancesMember);
+        instancesMember = instancesMember.NextNode("item");
+      }
+
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::CreateFleetResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

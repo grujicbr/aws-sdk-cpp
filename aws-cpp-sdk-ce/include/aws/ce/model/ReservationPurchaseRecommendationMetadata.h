@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CostExplorer
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ReservationPurchaseRecommendationMetadata();
-    ReservationPurchaseRecommendationMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReservationPurchaseRecommendationMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReservationPurchaseRecommendationMetadata(Aws::Utils::Json::JsonView jsonValue);
+    ReservationPurchaseRecommendationMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID for this specific recommendation.</p>
      */
     inline const Aws::String& GetRecommendationId() const{ return m_recommendationId; }
+
+    /**
+     * <p>The ID for this specific recommendation.</p>
+     */
+    inline bool RecommendationIdHasBeenSet() const { return m_recommendationIdHasBeenSet; }
 
     /**
      * <p>The ID for this specific recommendation.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The time stamp for when AWS made this recommendation.</p>
      */
     inline const Aws::String& GetGenerationTimestamp() const{ return m_generationTimestamp; }
+
+    /**
+     * <p>The time stamp for when AWS made this recommendation.</p>
+     */
+    inline bool GenerationTimestampHasBeenSet() const { return m_generationTimestampHasBeenSet; }
 
     /**
      * <p>The time stamp for when AWS made this recommendation.</p>

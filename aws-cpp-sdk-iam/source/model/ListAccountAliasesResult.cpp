@@ -56,7 +56,7 @@ ListAccountAliasesResult& ListAccountAliasesResult::operator =(const Aws::Amazon
       XmlNode accountAliasesMember = accountAliasesNode.FirstChild("member");
       while(!accountAliasesMember.IsNull())
       {
-        m_accountAliases.push_back(StringUtils::Trim(accountAliasesMember.GetText().c_str()));
+        m_accountAliases.push_back(accountAliasesMember.GetText());
         accountAliasesMember = accountAliasesMember.NextNode("member");
       }
 
@@ -64,12 +64,12 @@ ListAccountAliasesResult& ListAccountAliasesResult::operator =(const Aws::Amazon
     XmlNode isTruncatedNode = resultNode.FirstChild("IsTruncated");
     if(!isTruncatedNode.IsNull())
     {
-      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(isTruncatedNode.GetText().c_str()).c_str());
+      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isTruncatedNode.GetText()).c_str()).c_str());
     }
     XmlNode markerNode = resultNode.FirstChild("Marker");
     if(!markerNode.IsNull())
     {
-      m_marker = StringUtils::Trim(markerNode.GetText().c_str());
+      m_marker = Aws::Utils::Xml::DecodeEscapedXmlText(markerNode.GetText());
     }
   }
 

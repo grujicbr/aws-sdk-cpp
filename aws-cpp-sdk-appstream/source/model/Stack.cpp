@@ -38,11 +38,14 @@ Stack::Stack() :
     m_redirectURLHasBeenSet(false),
     m_feedbackURLHasBeenSet(false),
     m_stackErrorsHasBeenSet(false),
-    m_userSettingsHasBeenSet(false)
+    m_userSettingsHasBeenSet(false),
+    m_applicationSettingsHasBeenSet(false),
+    m_accessEndpointsHasBeenSet(false),
+    m_embedHostDomainsHasBeenSet(false)
 {
 }
 
-Stack::Stack(const JsonValue& jsonValue) : 
+Stack::Stack(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -52,12 +55,15 @@ Stack::Stack(const JsonValue& jsonValue) :
     m_redirectURLHasBeenSet(false),
     m_feedbackURLHasBeenSet(false),
     m_stackErrorsHasBeenSet(false),
-    m_userSettingsHasBeenSet(false)
+    m_userSettingsHasBeenSet(false),
+    m_applicationSettingsHasBeenSet(false),
+    m_accessEndpointsHasBeenSet(false),
+    m_embedHostDomainsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Stack& Stack::operator =(const JsonValue& jsonValue)
+Stack& Stack::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Arn"))
   {
@@ -96,7 +102,7 @@ Stack& Stack::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("StorageConnectors"))
   {
-    Array<JsonValue> storageConnectorsJsonList = jsonValue.GetArray("StorageConnectors");
+    Array<JsonView> storageConnectorsJsonList = jsonValue.GetArray("StorageConnectors");
     for(unsigned storageConnectorsIndex = 0; storageConnectorsIndex < storageConnectorsJsonList.GetLength(); ++storageConnectorsIndex)
     {
       m_storageConnectors.push_back(storageConnectorsJsonList[storageConnectorsIndex].AsObject());
@@ -120,7 +126,7 @@ Stack& Stack::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("StackErrors"))
   {
-    Array<JsonValue> stackErrorsJsonList = jsonValue.GetArray("StackErrors");
+    Array<JsonView> stackErrorsJsonList = jsonValue.GetArray("StackErrors");
     for(unsigned stackErrorsIndex = 0; stackErrorsIndex < stackErrorsJsonList.GetLength(); ++stackErrorsIndex)
     {
       m_stackErrors.push_back(stackErrorsJsonList[stackErrorsIndex].AsObject());
@@ -130,12 +136,39 @@ Stack& Stack::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("UserSettings"))
   {
-    Array<JsonValue> userSettingsJsonList = jsonValue.GetArray("UserSettings");
+    Array<JsonView> userSettingsJsonList = jsonValue.GetArray("UserSettings");
     for(unsigned userSettingsIndex = 0; userSettingsIndex < userSettingsJsonList.GetLength(); ++userSettingsIndex)
     {
       m_userSettings.push_back(userSettingsJsonList[userSettingsIndex].AsObject());
     }
     m_userSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ApplicationSettings"))
+  {
+    m_applicationSettings = jsonValue.GetObject("ApplicationSettings");
+
+    m_applicationSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("AccessEndpoints"))
+  {
+    Array<JsonView> accessEndpointsJsonList = jsonValue.GetArray("AccessEndpoints");
+    for(unsigned accessEndpointsIndex = 0; accessEndpointsIndex < accessEndpointsJsonList.GetLength(); ++accessEndpointsIndex)
+    {
+      m_accessEndpoints.push_back(accessEndpointsJsonList[accessEndpointsIndex].AsObject());
+    }
+    m_accessEndpointsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("EmbedHostDomains"))
+  {
+    Array<JsonView> embedHostDomainsJsonList = jsonValue.GetArray("EmbedHostDomains");
+    for(unsigned embedHostDomainsIndex = 0; embedHostDomainsIndex < embedHostDomainsJsonList.GetLength(); ++embedHostDomainsIndex)
+    {
+      m_embedHostDomains.push_back(embedHostDomainsJsonList[embedHostDomainsIndex].AsString());
+    }
+    m_embedHostDomainsHasBeenSet = true;
   }
 
   return *this;
@@ -216,6 +249,34 @@ JsonValue Stack::Jsonize() const
      userSettingsJsonList[userSettingsIndex].AsObject(m_userSettings[userSettingsIndex].Jsonize());
    }
    payload.WithArray("UserSettings", std::move(userSettingsJsonList));
+
+  }
+
+  if(m_applicationSettingsHasBeenSet)
+  {
+   payload.WithObject("ApplicationSettings", m_applicationSettings.Jsonize());
+
+  }
+
+  if(m_accessEndpointsHasBeenSet)
+  {
+   Array<JsonValue> accessEndpointsJsonList(m_accessEndpoints.size());
+   for(unsigned accessEndpointsIndex = 0; accessEndpointsIndex < accessEndpointsJsonList.GetLength(); ++accessEndpointsIndex)
+   {
+     accessEndpointsJsonList[accessEndpointsIndex].AsObject(m_accessEndpoints[accessEndpointsIndex].Jsonize());
+   }
+   payload.WithArray("AccessEndpoints", std::move(accessEndpointsJsonList));
+
+  }
+
+  if(m_embedHostDomainsHasBeenSet)
+  {
+   Array<JsonValue> embedHostDomainsJsonList(m_embedHostDomains.size());
+   for(unsigned embedHostDomainsIndex = 0; embedHostDomainsIndex < embedHostDomainsJsonList.GetLength(); ++embedHostDomainsIndex)
+   {
+     embedHostDomainsJsonList[embedHostDomainsIndex].AsString(m_embedHostDomains[embedHostDomainsIndex]);
+   }
+   payload.WithArray("EmbedHostDomains", std::move(embedHostDomainsJsonList));
 
   }
 

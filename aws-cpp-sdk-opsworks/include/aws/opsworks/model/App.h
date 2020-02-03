@@ -33,6 +33,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -49,8 +50,8 @@ namespace Model
   {
   public:
     App();
-    App(const Aws::Utils::Json::JsonValue& jsonValue);
-    App& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    App(Aws::Utils::Json::JsonView jsonValue);
+    App& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,11 @@ namespace Model
      * <p>The app ID.</p>
      */
     inline const Aws::String& GetAppId() const{ return m_appId; }
+
+    /**
+     * <p>The app ID.</p>
+     */
+    inline bool AppIdHasBeenSet() const { return m_appIdHasBeenSet; }
 
     /**
      * <p>The app ID.</p>
@@ -98,6 +104,11 @@ namespace Model
     /**
      * <p>The app stack ID.</p>
      */
+    inline bool StackIdHasBeenSet() const { return m_stackIdHasBeenSet; }
+
+    /**
+     * <p>The app stack ID.</p>
+     */
     inline void SetStackId(const Aws::String& value) { m_stackIdHasBeenSet = true; m_stackId = value; }
 
     /**
@@ -130,6 +141,11 @@ namespace Model
      * <p>The app's short name.</p>
      */
     inline const Aws::String& GetShortname() const{ return m_shortname; }
+
+    /**
+     * <p>The app's short name.</p>
+     */
+    inline bool ShortnameHasBeenSet() const { return m_shortnameHasBeenSet; }
 
     /**
      * <p>The app's short name.</p>
@@ -170,6 +186,11 @@ namespace Model
     /**
      * <p>The app name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The app name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -202,6 +223,11 @@ namespace Model
      * <p>A description of the app.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the app.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the app.</p>
@@ -242,6 +268,11 @@ namespace Model
     /**
      * <p>The app's data sources.</p>
      */
+    inline bool DataSourcesHasBeenSet() const { return m_dataSourcesHasBeenSet; }
+
+    /**
+     * <p>The app's data sources.</p>
+     */
     inline void SetDataSources(const Aws::Vector<DataSource>& value) { m_dataSourcesHasBeenSet = true; m_dataSources = value; }
 
     /**
@@ -278,6 +309,11 @@ namespace Model
     /**
      * <p>The app type.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The app type.</p>
+     */
     inline void SetType(const AppType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -300,6 +336,11 @@ namespace Model
      * <p>A <code>Source</code> object that describes the app repository.</p>
      */
     inline const Source& GetAppSource() const{ return m_appSource; }
+
+    /**
+     * <p>A <code>Source</code> object that describes the app repository.</p>
+     */
+    inline bool AppSourceHasBeenSet() const { return m_appSourceHasBeenSet; }
 
     /**
      * <p>A <code>Source</code> object that describes the app repository.</p>
@@ -327,6 +368,12 @@ namespace Model
      * example: <code>'www.example.com, example.com'</code> </p>
      */
     inline const Aws::Vector<Aws::String>& GetDomains() const{ return m_domains; }
+
+    /**
+     * <p>The app vhost settings with multiple domains separated by commas. For
+     * example: <code>'www.example.com, example.com'</code> </p>
+     */
+    inline bool DomainsHasBeenSet() const { return m_domainsHasBeenSet; }
 
     /**
      * <p>The app vhost settings with multiple domains separated by commas. For
@@ -379,6 +426,11 @@ namespace Model
     /**
      * <p>Whether to enable SSL for the app.</p>
      */
+    inline bool EnableSslHasBeenSet() const { return m_enableSslHasBeenSet; }
+
+    /**
+     * <p>Whether to enable SSL for the app.</p>
+     */
     inline void SetEnableSsl(bool value) { m_enableSslHasBeenSet = true; m_enableSsl = value; }
 
     /**
@@ -391,6 +443,11 @@ namespace Model
      * <p>An <code>SslConfiguration</code> object with the SSL configuration.</p>
      */
     inline const SslConfiguration& GetSslConfiguration() const{ return m_sslConfiguration; }
+
+    /**
+     * <p>An <code>SslConfiguration</code> object with the SSL configuration.</p>
+     */
+    inline bool SslConfigurationHasBeenSet() const { return m_sslConfigurationHasBeenSet; }
 
     /**
      * <p>An <code>SslConfiguration</code> object with the SSL configuration.</p>
@@ -417,6 +474,11 @@ namespace Model
      * <p>The stack attributes.</p>
      */
     inline const Aws::Map<AppAttributesKeys, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The stack attributes.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The stack attributes.</p>
@@ -477,6 +539,11 @@ namespace Model
     /**
      * <p>When the app was created.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>When the app was created.</p>
+     */
     inline void SetCreatedAt(const Aws::String& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -510,13 +577,13 @@ namespace Model
      * variables to be associated with the app. After you deploy the app, these
      * variables are defined on the associated app server instances. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
      * Environment Variables</a>. </p> <note> <p>There is no specific limit on the
      * number of environment variables. However, the size of the associated data
      * structure - which includes the variable names, values, and protected flag values
-     * - cannot exceed 10 KB (10240 Bytes). This limit should accommodate most if not
-     * all use cases, but if you do exceed it, you will cause an exception (API) with
-     * an "Environment: is too large (maximum is 10KB)" message.</p> </note>
+     * - cannot exceed 20 KB. This limit should accommodate most if not all use cases,
+     * but if you do exceed it, you will cause an exception (API) with an "Environment:
+     * is too large (maximum is 20 KB)" message.</p> </note>
      */
     inline const Aws::Vector<EnvironmentVariable>& GetEnvironment() const{ return m_environment; }
 
@@ -525,13 +592,28 @@ namespace Model
      * variables to be associated with the app. After you deploy the app, these
      * variables are defined on the associated app server instances. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
      * Environment Variables</a>. </p> <note> <p>There is no specific limit on the
      * number of environment variables. However, the size of the associated data
      * structure - which includes the variable names, values, and protected flag values
-     * - cannot exceed 10 KB (10240 Bytes). This limit should accommodate most if not
-     * all use cases, but if you do exceed it, you will cause an exception (API) with
-     * an "Environment: is too large (maximum is 10KB)" message.</p> </note>
+     * - cannot exceed 20 KB. This limit should accommodate most if not all use cases,
+     * but if you do exceed it, you will cause an exception (API) with an "Environment:
+     * is too large (maximum is 20 KB)" message.</p> </note>
+     */
+    inline bool EnvironmentHasBeenSet() const { return m_environmentHasBeenSet; }
+
+    /**
+     * <p>An array of <code>EnvironmentVariable</code> objects that specify environment
+     * variables to be associated with the app. After you deploy the app, these
+     * variables are defined on the associated app server instances. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
+     * Environment Variables</a>. </p> <note> <p>There is no specific limit on the
+     * number of environment variables. However, the size of the associated data
+     * structure - which includes the variable names, values, and protected flag values
+     * - cannot exceed 20 KB. This limit should accommodate most if not all use cases,
+     * but if you do exceed it, you will cause an exception (API) with an "Environment:
+     * is too large (maximum is 20 KB)" message.</p> </note>
      */
     inline void SetEnvironment(const Aws::Vector<EnvironmentVariable>& value) { m_environmentHasBeenSet = true; m_environment = value; }
 
@@ -540,13 +622,13 @@ namespace Model
      * variables to be associated with the app. After you deploy the app, these
      * variables are defined on the associated app server instances. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
      * Environment Variables</a>. </p> <note> <p>There is no specific limit on the
      * number of environment variables. However, the size of the associated data
      * structure - which includes the variable names, values, and protected flag values
-     * - cannot exceed 10 KB (10240 Bytes). This limit should accommodate most if not
-     * all use cases, but if you do exceed it, you will cause an exception (API) with
-     * an "Environment: is too large (maximum is 10KB)" message.</p> </note>
+     * - cannot exceed 20 KB. This limit should accommodate most if not all use cases,
+     * but if you do exceed it, you will cause an exception (API) with an "Environment:
+     * is too large (maximum is 20 KB)" message.</p> </note>
      */
     inline void SetEnvironment(Aws::Vector<EnvironmentVariable>&& value) { m_environmentHasBeenSet = true; m_environment = std::move(value); }
 
@@ -555,13 +637,13 @@ namespace Model
      * variables to be associated with the app. After you deploy the app, these
      * variables are defined on the associated app server instances. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
      * Environment Variables</a>. </p> <note> <p>There is no specific limit on the
      * number of environment variables. However, the size of the associated data
      * structure - which includes the variable names, values, and protected flag values
-     * - cannot exceed 10 KB (10240 Bytes). This limit should accommodate most if not
-     * all use cases, but if you do exceed it, you will cause an exception (API) with
-     * an "Environment: is too large (maximum is 10KB)" message.</p> </note>
+     * - cannot exceed 20 KB. This limit should accommodate most if not all use cases,
+     * but if you do exceed it, you will cause an exception (API) with an "Environment:
+     * is too large (maximum is 20 KB)" message.</p> </note>
      */
     inline App& WithEnvironment(const Aws::Vector<EnvironmentVariable>& value) { SetEnvironment(value); return *this;}
 
@@ -570,13 +652,13 @@ namespace Model
      * variables to be associated with the app. After you deploy the app, these
      * variables are defined on the associated app server instances. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
      * Environment Variables</a>. </p> <note> <p>There is no specific limit on the
      * number of environment variables. However, the size of the associated data
      * structure - which includes the variable names, values, and protected flag values
-     * - cannot exceed 10 KB (10240 Bytes). This limit should accommodate most if not
-     * all use cases, but if you do exceed it, you will cause an exception (API) with
-     * an "Environment: is too large (maximum is 10KB)" message.</p> </note>
+     * - cannot exceed 20 KB. This limit should accommodate most if not all use cases,
+     * but if you do exceed it, you will cause an exception (API) with an "Environment:
+     * is too large (maximum is 20 KB)" message.</p> </note>
      */
     inline App& WithEnvironment(Aws::Vector<EnvironmentVariable>&& value) { SetEnvironment(std::move(value)); return *this;}
 
@@ -585,13 +667,13 @@ namespace Model
      * variables to be associated with the app. After you deploy the app, these
      * variables are defined on the associated app server instances. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
      * Environment Variables</a>. </p> <note> <p>There is no specific limit on the
      * number of environment variables. However, the size of the associated data
      * structure - which includes the variable names, values, and protected flag values
-     * - cannot exceed 10 KB (10240 Bytes). This limit should accommodate most if not
-     * all use cases, but if you do exceed it, you will cause an exception (API) with
-     * an "Environment: is too large (maximum is 10KB)" message.</p> </note>
+     * - cannot exceed 20 KB. This limit should accommodate most if not all use cases,
+     * but if you do exceed it, you will cause an exception (API) with an "Environment:
+     * is too large (maximum is 20 KB)" message.</p> </note>
      */
     inline App& AddEnvironment(const EnvironmentVariable& value) { m_environmentHasBeenSet = true; m_environment.push_back(value); return *this; }
 
@@ -600,13 +682,13 @@ namespace Model
      * variables to be associated with the app. After you deploy the app, these
      * variables are defined on the associated app server instances. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment">
      * Environment Variables</a>. </p> <note> <p>There is no specific limit on the
      * number of environment variables. However, the size of the associated data
      * structure - which includes the variable names, values, and protected flag values
-     * - cannot exceed 10 KB (10240 Bytes). This limit should accommodate most if not
-     * all use cases, but if you do exceed it, you will cause an exception (API) with
-     * an "Environment: is too large (maximum is 10KB)" message.</p> </note>
+     * - cannot exceed 20 KB. This limit should accommodate most if not all use cases,
+     * but if you do exceed it, you will cause an exception (API) with an "Environment:
+     * is too large (maximum is 20 KB)" message.</p> </note>
      */
     inline App& AddEnvironment(EnvironmentVariable&& value) { m_environmentHasBeenSet = true; m_environment.push_back(std::move(value)); return *this; }
 

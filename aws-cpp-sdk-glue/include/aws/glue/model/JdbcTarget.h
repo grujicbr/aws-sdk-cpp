@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     JdbcTarget();
-    JdbcTarget(const Aws::Utils::Json::JsonValue& jsonValue);
-    JdbcTarget& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JdbcTarget(Aws::Utils::Json::JsonView jsonValue);
+    JdbcTarget& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the connection to use to connect to the JDBC target.</p>
      */
     inline const Aws::String& GetConnectionName() const{ return m_connectionName; }
+
+    /**
+     * <p>The name of the connection to use to connect to the JDBC target.</p>
+     */
+    inline bool ConnectionNameHasBeenSet() const { return m_connectionNameHasBeenSet; }
 
     /**
      * <p>The name of the connection to use to connect to the JDBC target.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The path of the JDBC target.</p>
      */
+    inline bool PathHasBeenSet() const { return m_pathHasBeenSet; }
+
+    /**
+     * <p>The path of the JDBC target.</p>
+     */
     inline void SetPath(const Aws::String& value) { m_pathHasBeenSet = true; m_path = value; }
 
     /**
@@ -125,6 +136,13 @@ namespace Model
      * Tables with a Crawler</a>.</p>
      */
     inline const Aws::Vector<Aws::String>& GetExclusions() const{ return m_exclusions; }
+
+    /**
+     * <p>A list of glob patterns used to exclude from the crawl. For more information,
+     * see <a href="http://docs.aws.amazon.com/glue/latest/dg/add-crawler.html">Catalog
+     * Tables with a Crawler</a>.</p>
+     */
+    inline bool ExclusionsHasBeenSet() const { return m_exclusionsHasBeenSet; }
 
     /**
      * <p>A list of glob patterns used to exclude from the crawl. For more information,

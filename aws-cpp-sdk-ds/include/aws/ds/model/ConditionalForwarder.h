@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ConditionalForwarder();
-    ConditionalForwarder(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConditionalForwarder& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConditionalForwarder(Aws::Utils::Json::JsonView jsonValue);
+    ConditionalForwarder& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * the conditional forwarder.</p>
      */
     inline const Aws::String& GetRemoteDomainName() const{ return m_remoteDomainName; }
+
+    /**
+     * <p>The fully qualified domain name (FQDN) of the remote domains pointed to by
+     * the conditional forwarder.</p>
+     */
+    inline bool RemoteDomainNameHasBeenSet() const { return m_remoteDomainNameHasBeenSet; }
 
     /**
      * <p>The fully qualified domain name (FQDN) of the remote domains pointed to by
@@ -99,6 +106,13 @@ namespace Model
      * to.</p>
      */
     inline const Aws::Vector<Aws::String>& GetDnsIpAddrs() const{ return m_dnsIpAddrs; }
+
+    /**
+     * <p>The IP addresses of the remote DNS server associated with RemoteDomainName.
+     * This is the IP address of the DNS server that your conditional forwarder points
+     * to.</p>
+     */
+    inline bool DnsIpAddrsHasBeenSet() const { return m_dnsIpAddrsHasBeenSet; }
 
     /**
      * <p>The IP addresses of the remote DNS server associated with RemoteDomainName.
@@ -156,6 +170,13 @@ namespace Model
      * the domain controllers for your AWS directory.</p>
      */
     inline const ReplicationScope& GetReplicationScope() const{ return m_replicationScope; }
+
+    /**
+     * <p>The replication scope of the conditional forwarder. The only allowed value is
+     * <code>Domain</code>, which will replicate the conditional forwarder to all of
+     * the domain controllers for your AWS directory.</p>
+     */
+    inline bool ReplicationScopeHasBeenSet() const { return m_replicationScopeHasBeenSet; }
 
     /**
      * <p>The replication scope of the conditional forwarder. The only allowed value is

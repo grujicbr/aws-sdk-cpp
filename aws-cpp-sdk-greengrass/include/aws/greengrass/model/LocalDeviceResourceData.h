@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LocalDeviceResourceData();
-    LocalDeviceResourceData(const Aws::Utils::Json::JsonValue& jsonValue);
-    LocalDeviceResourceData& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LocalDeviceResourceData(Aws::Utils::Json::JsonView jsonValue);
+    LocalDeviceResourceData& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * Group/owner related settings for local resources.
      */
     inline const GroupOwnerSetting& GetGroupOwnerSetting() const{ return m_groupOwnerSetting; }
+
+    /**
+     * Group/owner related settings for local resources.
+     */
+    inline bool GroupOwnerSettingHasBeenSet() const { return m_groupOwnerSettingHasBeenSet; }
 
     /**
      * Group/owner related settings for local resources.
@@ -78,6 +84,12 @@ namespace Model
      * resource can refer only to a character device or block device under ''/dev''.
      */
     inline const Aws::String& GetSourcePath() const{ return m_sourcePath; }
+
+    /**
+     * The local absolute path of the device resource. The source path for a device
+     * resource can refer only to a character device or block device under ''/dev''.
+     */
+    inline bool SourcePathHasBeenSet() const { return m_sourcePathHasBeenSet; }
 
     /**
      * The local absolute path of the device resource. The source path for a device

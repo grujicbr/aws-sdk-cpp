@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ChannelStatistics();
-    ChannelStatistics(const Aws::Utils::Json::JsonValue& jsonValue);
-    ChannelStatistics& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ChannelStatistics(Aws::Utils::Json::JsonView jsonValue);
+    ChannelStatistics& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The estimated size of the channel.</p>
      */
     inline const EstimatedResourceSize& GetSize() const{ return m_size; }
+
+    /**
+     * <p>The estimated size of the channel.</p>
+     */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
 
     /**
      * <p>The estimated size of the channel.</p>

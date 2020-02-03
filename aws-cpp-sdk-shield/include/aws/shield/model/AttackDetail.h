@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Shield
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     AttackDetail();
-    AttackDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    AttackDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AttackDetail(Aws::Utils::Json::JsonView jsonValue);
+    AttackDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The unique identifier (ID) of the attack.</p>
      */
     inline const Aws::String& GetAttackId() const{ return m_attackId; }
+
+    /**
+     * <p>The unique identifier (ID) of the attack.</p>
+     */
+    inline bool AttackIdHasBeenSet() const { return m_attackIdHasBeenSet; }
 
     /**
      * <p>The unique identifier (ID) of the attack.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>The ARN (Amazon Resource Name) of the resource that was attacked.</p>
      */
+    inline bool ResourceArnHasBeenSet() const { return m_resourceArnHasBeenSet; }
+
+    /**
+     * <p>The ARN (Amazon Resource Name) of the resource that was attacked.</p>
+     */
     inline void SetResourceArn(const Aws::String& value) { m_resourceArnHasBeenSet = true; m_resourceArn = value; }
 
     /**
@@ -129,6 +140,12 @@ namespace Model
      * example, IP address or URL.</p>
      */
     inline const Aws::Vector<SubResourceSummary>& GetSubResources() const{ return m_subResources; }
+
+    /**
+     * <p>If applicable, additional detail about the resource being attacked, for
+     * example, IP address or URL.</p>
+     */
+    inline bool SubResourcesHasBeenSet() const { return m_subResourcesHasBeenSet; }
 
     /**
      * <p>If applicable, additional detail about the resource being attacked, for
@@ -179,6 +196,13 @@ namespace Model
      * see <a
      * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
      */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
+
+    /**
+     * <p>The time the attack started, in Unix time in seconds. For more information
+     * see <a
+     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
+     */
     inline void SetStartTime(const Aws::Utils::DateTime& value) { m_startTimeHasBeenSet = true; m_startTime = value; }
 
     /**
@@ -215,6 +239,13 @@ namespace Model
      * <a
      * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
      */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
+
+    /**
+     * <p>The time the attack ended, in Unix time in seconds. For more information see
+     * <a
+     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
+     */
     inline void SetEndTime(const Aws::Utils::DateTime& value) { m_endTimeHasBeenSet = true; m_endTime = value; }
 
     /**
@@ -243,6 +274,11 @@ namespace Model
      * <p>List of counters that describe the attack for the specified time period.</p>
      */
     inline const Aws::Vector<SummarizedCounter>& GetAttackCounters() const{ return m_attackCounters; }
+
+    /**
+     * <p>List of counters that describe the attack for the specified time period.</p>
+     */
+    inline bool AttackCountersHasBeenSet() const { return m_attackCountersHasBeenSet; }
 
     /**
      * <p>List of counters that describe the attack for the specified time period.</p>
@@ -283,6 +319,11 @@ namespace Model
     /**
      * <p>The array of <a>AttackProperty</a> objects.</p>
      */
+    inline bool AttackPropertiesHasBeenSet() const { return m_attackPropertiesHasBeenSet; }
+
+    /**
+     * <p>The array of <a>AttackProperty</a> objects.</p>
+     */
     inline void SetAttackProperties(const Aws::Vector<AttackProperty>& value) { m_attackPropertiesHasBeenSet = true; m_attackProperties = value; }
 
     /**
@@ -315,6 +356,11 @@ namespace Model
      * <p>List of mitigation actions taken for the attack.</p>
      */
     inline const Aws::Vector<Mitigation>& GetMitigations() const{ return m_mitigations; }
+
+    /**
+     * <p>List of mitigation actions taken for the attack.</p>
+     */
+    inline bool MitigationsHasBeenSet() const { return m_mitigationsHasBeenSet; }
 
     /**
      * <p>List of mitigation actions taken for the attack.</p>

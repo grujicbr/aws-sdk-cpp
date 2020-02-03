@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudHSMV2
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Tag();
-    Tag(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tag(Aws::Utils::Json::JsonView jsonValue);
+    Tag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The key of the tag.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The key of the tag.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The key of the tag.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The value of the tag.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of the tag.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of the tag.</p>

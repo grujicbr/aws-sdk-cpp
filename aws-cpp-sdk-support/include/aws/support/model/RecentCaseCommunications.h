@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     RecentCaseCommunications();
-    RecentCaseCommunications(const Aws::Utils::Json::JsonValue& jsonValue);
-    RecentCaseCommunications& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RecentCaseCommunications(Aws::Utils::Json::JsonView jsonValue);
+    RecentCaseCommunications& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The five most recent communications associated with the case.</p>
      */
     inline const Aws::Vector<Communication>& GetCommunications() const{ return m_communications; }
+
+    /**
+     * <p>The five most recent communications associated with the case.</p>
+     */
+    inline bool CommunicationsHasBeenSet() const { return m_communicationsHasBeenSet; }
 
     /**
      * <p>The five most recent communications associated with the case.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>A resumption point for pagination.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>A resumption point for pagination.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>A resumption point for pagination.</p>

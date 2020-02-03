@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -36,8 +37,8 @@ namespace Model
   {
   public:
     DomainInfo();
-    DomainInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainInfo(Aws::Utils::Json::JsonView jsonValue);
+    DomainInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -45,6 +46,11 @@ namespace Model
      * <p> Specifies the <code>DomainName</code>.</p>
      */
     inline const Aws::String& GetDomainName() const{ return m_domainName; }
+
+    /**
+     * <p> Specifies the <code>DomainName</code>.</p>
+     */
+    inline bool DomainNameHasBeenSet() const { return m_domainNameHasBeenSet; }
 
     /**
      * <p> Specifies the <code>DomainName</code>.</p>

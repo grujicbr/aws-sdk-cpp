@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT1ClickDevicesService
@@ -36,8 +37,8 @@ namespace Model
   {
   public:
     DeviceMethod();
-    DeviceMethod(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceMethod& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceMethod(Aws::Utils::Json::JsonView jsonValue);
+    DeviceMethod& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -45,6 +46,11 @@ namespace Model
      * <p>The type of the device, such as "button".</p>
      */
     inline const Aws::String& GetDeviceType() const{ return m_deviceType; }
+
+    /**
+     * <p>The type of the device, such as "button".</p>
+     */
+    inline bool DeviceTypeHasBeenSet() const { return m_deviceTypeHasBeenSet; }
 
     /**
      * <p>The type of the device, such as "button".</p>
@@ -81,6 +87,11 @@ namespace Model
      * <p>The name of the method applicable to the deviceType.</p>
      */
     inline const Aws::String& GetMethodName() const{ return m_methodName; }
+
+    /**
+     * <p>The name of the method applicable to the deviceType.</p>
+     */
+    inline bool MethodNameHasBeenSet() const { return m_methodNameHasBeenSet; }
 
     /**
      * <p>The name of the method applicable to the deviceType.</p>

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -31,8 +32,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for TeletextDestinationSettings<p><h3>See Also:</h3>  
-   * <a
+   * Teletext Destination Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TeletextDestinationSettings">AWS
    * API Reference</a></p>
    */
@@ -40,8 +40,8 @@ namespace Model
   {
   public:
     TeletextDestinationSettings();
-    TeletextDestinationSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    TeletextDestinationSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TeletextDestinationSettings(Aws::Utils::Json::JsonView jsonValue);
+    TeletextDestinationSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
   };

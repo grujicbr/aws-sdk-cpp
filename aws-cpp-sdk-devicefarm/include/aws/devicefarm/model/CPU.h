@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -33,9 +34,8 @@ namespace Model
 {
 
   /**
-   * <p>Represents the amount of CPU that an app is using on a physical device.</p>
-   * <p>Note that this does not represent system-wide CPU usage.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>Represents the amount of CPU that an app is using on a physical device. Does
+   * not represent system-wide CPU usage.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/CPU">AWS API
    * Reference</a></p>
    */
@@ -43,8 +43,8 @@ namespace Model
   {
   public:
     CPU();
-    CPU(const Aws::Utils::Json::JsonValue& jsonValue);
-    CPU& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CPU(Aws::Utils::Json::JsonView jsonValue);
+    CPU& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +52,11 @@ namespace Model
      * <p>The CPU's frequency.</p>
      */
     inline const Aws::String& GetFrequency() const{ return m_frequency; }
+
+    /**
+     * <p>The CPU's frequency.</p>
+     */
+    inline bool FrequencyHasBeenSet() const { return m_frequencyHasBeenSet; }
 
     /**
      * <p>The CPU's frequency.</p>
@@ -85,37 +90,42 @@ namespace Model
 
 
     /**
-     * <p>The CPU's architecture, for example x86 or ARM.</p>
+     * <p>The CPU's architecture (for example, x86 or ARM).</p>
      */
     inline const Aws::String& GetArchitecture() const{ return m_architecture; }
 
     /**
-     * <p>The CPU's architecture, for example x86 or ARM.</p>
+     * <p>The CPU's architecture (for example, x86 or ARM).</p>
+     */
+    inline bool ArchitectureHasBeenSet() const { return m_architectureHasBeenSet; }
+
+    /**
+     * <p>The CPU's architecture (for example, x86 or ARM).</p>
      */
     inline void SetArchitecture(const Aws::String& value) { m_architectureHasBeenSet = true; m_architecture = value; }
 
     /**
-     * <p>The CPU's architecture, for example x86 or ARM.</p>
+     * <p>The CPU's architecture (for example, x86 or ARM).</p>
      */
     inline void SetArchitecture(Aws::String&& value) { m_architectureHasBeenSet = true; m_architecture = std::move(value); }
 
     /**
-     * <p>The CPU's architecture, for example x86 or ARM.</p>
+     * <p>The CPU's architecture (for example, x86 or ARM).</p>
      */
     inline void SetArchitecture(const char* value) { m_architectureHasBeenSet = true; m_architecture.assign(value); }
 
     /**
-     * <p>The CPU's architecture, for example x86 or ARM.</p>
+     * <p>The CPU's architecture (for example, x86 or ARM).</p>
      */
     inline CPU& WithArchitecture(const Aws::String& value) { SetArchitecture(value); return *this;}
 
     /**
-     * <p>The CPU's architecture, for example x86 or ARM.</p>
+     * <p>The CPU's architecture (for example, x86 or ARM).</p>
      */
     inline CPU& WithArchitecture(Aws::String&& value) { SetArchitecture(std::move(value)); return *this;}
 
     /**
-     * <p>The CPU's architecture, for example x86 or ARM.</p>
+     * <p>The CPU's architecture (for example, x86 or ARM).</p>
      */
     inline CPU& WithArchitecture(const char* value) { SetArchitecture(value); return *this;}
 
@@ -125,6 +135,12 @@ namespace Model
      * 1.2 GHz CPU is expressed as 1200000000.</p>
      */
     inline double GetClock() const{ return m_clock; }
+
+    /**
+     * <p>The clock speed of the device's CPU, expressed in hertz (Hz). For example, a
+     * 1.2 GHz CPU is expressed as 1200000000.</p>
+     */
+    inline bool ClockHasBeenSet() const { return m_clockHasBeenSet; }
 
     /**
      * <p>The clock speed of the device's CPU, expressed in hertz (Hz). For example, a

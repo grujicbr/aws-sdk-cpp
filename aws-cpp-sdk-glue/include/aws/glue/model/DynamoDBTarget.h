@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * <p>Specifies a DynamoDB table to crawl.</p><p><h3>See Also:</h3>   <a
+   * <p>Specifies an Amazon DynamoDB table to crawl.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DynamoDBTarget">AWS
    * API Reference</a></p>
    */
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DynamoDBTarget();
-    DynamoDBTarget(const Aws::Utils::Json::JsonValue& jsonValue);
-    DynamoDBTarget& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DynamoDBTarget(Aws::Utils::Json::JsonView jsonValue);
+    DynamoDBTarget& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the DynamoDB table to crawl.</p>
      */
     inline const Aws::String& GetPath() const{ return m_path; }
+
+    /**
+     * <p>The name of the DynamoDB table to crawl.</p>
+     */
+    inline bool PathHasBeenSet() const { return m_pathHasBeenSet; }
 
     /**
      * <p>The name of the DynamoDB table to crawl.</p>

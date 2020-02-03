@@ -29,23 +29,32 @@ namespace Model
 {
 
 OutputDataConfig::OutputDataConfig() : 
-    m_s3UriHasBeenSet(false)
+    m_s3UriHasBeenSet(false),
+    m_kmsKeyIdHasBeenSet(false)
 {
 }
 
-OutputDataConfig::OutputDataConfig(const JsonValue& jsonValue) : 
-    m_s3UriHasBeenSet(false)
+OutputDataConfig::OutputDataConfig(JsonView jsonValue) : 
+    m_s3UriHasBeenSet(false),
+    m_kmsKeyIdHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-OutputDataConfig& OutputDataConfig::operator =(const JsonValue& jsonValue)
+OutputDataConfig& OutputDataConfig::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("S3Uri"))
   {
     m_s3Uri = jsonValue.GetString("S3Uri");
 
     m_s3UriHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("KmsKeyId"))
+  {
+    m_kmsKeyId = jsonValue.GetString("KmsKeyId");
+
+    m_kmsKeyIdHasBeenSet = true;
   }
 
   return *this;
@@ -58,6 +67,12 @@ JsonValue OutputDataConfig::Jsonize() const
   if(m_s3UriHasBeenSet)
   {
    payload.WithString("S3Uri", m_s3Uri);
+
+  }
+
+  if(m_kmsKeyIdHasBeenSet)
+  {
+   payload.WithString("KmsKeyId", m_kmsKeyId);
 
   }
 

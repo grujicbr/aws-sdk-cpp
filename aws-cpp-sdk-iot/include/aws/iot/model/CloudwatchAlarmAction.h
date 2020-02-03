@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CloudwatchAlarmAction();
-    CloudwatchAlarmAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    CloudwatchAlarmAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CloudwatchAlarmAction(Aws::Utils::Json::JsonView jsonValue);
+    CloudwatchAlarmAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The IAM role that allows access to the CloudWatch alarm.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The IAM role that allows access to the CloudWatch alarm.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The IAM role that allows access to the CloudWatch alarm.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The CloudWatch alarm name.</p>
      */
+    inline bool AlarmNameHasBeenSet() const { return m_alarmNameHasBeenSet; }
+
+    /**
+     * <p>The CloudWatch alarm name.</p>
+     */
     inline void SetAlarmName(const Aws::String& value) { m_alarmNameHasBeenSet = true; m_alarmName = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The reason for the alarm change.</p>
      */
     inline const Aws::String& GetStateReason() const{ return m_stateReason; }
+
+    /**
+     * <p>The reason for the alarm change.</p>
+     */
+    inline bool StateReasonHasBeenSet() const { return m_stateReasonHasBeenSet; }
 
     /**
      * <p>The reason for the alarm change.</p>
@@ -160,6 +176,12 @@ namespace Model
      * INSUFFICIENT_DATA.</p>
      */
     inline const Aws::String& GetStateValue() const{ return m_stateValue; }
+
+    /**
+     * <p>The value of the alarm state. Acceptable values are: OK, ALARM,
+     * INSUFFICIENT_DATA.</p>
+     */
+    inline bool StateValueHasBeenSet() const { return m_stateValueHasBeenSet; }
 
     /**
      * <p>The value of the alarm state. Acceptable values are: OK, ALARM,

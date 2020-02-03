@@ -15,32 +15,26 @@
 
 #define AWS_DISABLE_DEPRECATION
 #include <aws/external/gtest.h>
-#include <aws/core/client/AWSClient.h>
-#include <aws/core/client/AWSError.h>
-#include <aws/core/client/ClientConfiguration.h>
-#include <aws/core/client/DefaultRetryStrategy.h>
-#include <aws/core/AmazonWebServiceRequest.h>
-#include <aws/core/auth/AWSAuthSigner.h>
-#include <aws/core/auth/AWSCredentialsProvider.h>
 #include <aws/core/http/standard/StandardHttpRequest.h>
 #include <aws/core/http/standard/StandardHttpResponse.h>
 #include <aws/core/http/HttpClientFactory.h>
-#include <aws/core/utils/memory/stl/AWSAllocator.h>
-#include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/HashingUtils.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/core/Globals.h>
 #include <aws/testing/mocks/http/MockHttpClient.h>
 #include <aws/core/utils/EnumParseOverflowContainer.h>
+#include <aws/testing/mocks/aws/client/MockAWSClient.h>
+#include <aws/testing/platform/PlatformTesting.h>
+#include <aws/core/platform/FileSystem.h>
+#include <aws/core/auth/AWSCredentialsProvider.h>
+#include <aws/core/platform/Environment.h>
+#include <fstream>
+#include <thread>
 
-using namespace Aws::Client;
-using namespace Aws::Http::Standard;
-using namespace Aws::Http;
-using namespace Aws;
 using Aws::Utils::DateTime;
 using Aws::Utils::DateFormat;
 
-const char* ALLOCATION_TAG = "AWSClientTest";
+static const char ALLOCATION_TAG[] = "AWSClientTest";
 
 class AccessViolatingAWSClient : public AWSClient
 {
@@ -65,87 +59,6 @@ protected:
     }
 };
 
- 
-class AmazonWebServiceRequestMock : public AmazonWebServiceRequest
-{
-public:
-    AmazonWebServiceRequestMock() : m_shouldComputeMd5(false) { }
-    std::shared_ptr<Aws::IOStream> GetBody() const override { return m_body; }
-    void SetBody(const std::shared_ptr<Aws::IOStream>& body) { m_body = body; }
-    HeaderValueCollection GetHeaders() const override { return m_headers; }
-    void SetHeaders(const HeaderValueCollection& value) { m_headers = value; }
-    bool ShouldComputeContentMd5() const override { return m_shouldComputeMd5; }
-    void SetComputeContentMd5(bool value) { m_shouldComputeMd5 = value; }
-    virtual const char* GetServiceRequestName() const override { return "AmazonWebServiceRequestMock"; }
-
-private:
-    std::shared_ptr<Aws::IOStream> m_body;
-    HeaderValueCollection m_headers;
-    bool m_shouldComputeMd5;
-};
-
-class CountedRetryStrategy : public DefaultRetryStrategy
-{
-public:
-    CountedRetryStrategy() : m_attemptedRetries(0) {}
-    bool ShouldRetry(const AWSError<CoreErrors>& error, long attemptedRetries) const override
-    {
-        if(DefaultRetryStrategy::ShouldRetry(error, attemptedRetries)) 
-        {
-            m_attemptedRetries = attemptedRetries + 1;
-            return true;
-        }
-        return false;
-    }
-    int GetAttemptedRetriesCount() { return m_attemptedRetries; }
-    void ResetAttemptedRetriesCount() { m_attemptedRetries = 0; }
-private:
-    mutable int m_attemptedRetries;
-};
-
-class MockAWSClient : AWSClient
-{
-    using DateTime = Aws::Utils::DateTime;
-    using DateFormat = Aws::Utils::DateFormat;
-
-public:
-    MockAWSClient(const ClientConfiguration& config) : AWSClient(config, 
-            Aws::MakeShared<AWSAuthV4Signer>(ALLOCATION_TAG, 
-                Aws::MakeShared<Aws::Auth::SimpleAWSCredentialsProvider>(ALLOCATION_TAG, "AKIDEXAMPLE", 
-                    "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY"), "service", "us-east-1"), nullptr) , 
-        m_countedRetryStrategy(std::static_pointer_cast<CountedRetryStrategy>(config.retryStrategy)) { }
-
-    Aws::Client::HttpResponseOutcome MakeRequest(const AmazonWebServiceRequest& request)
-    {
-        m_countedRetryStrategy->ResetAttemptedRetriesCount();
-        const URI uri("domain.com/something");
-        const auto method = HttpMethod::HTTP_GET;
-        HttpResponseOutcome httpOutcome(AWSClient::AttemptExhaustively(uri, request, method, Aws::Auth::SIGV4_SIGNER));
-        return httpOutcome;
-    }
-
-    int GetRequestAttemptedRetries()
-    {
-        return m_countedRetryStrategy->GetAttemptedRetriesCount();
-    }
-
-protected:
-    std::shared_ptr<CountedRetryStrategy> m_countedRetryStrategy;
-    AWSError<CoreErrors> BuildAWSError(const std::shared_ptr<HttpResponse>& response) const override
-    {
-        if (!response)
-        {
-            auto err = AWSError<CoreErrors>(CoreErrors::NETWORK_CONNECTION, "", "Unable to connect to endpoint", true);
-            err.SetResponseCode(HttpResponseCode::INTERNAL_SERVER_ERROR);
-            return err;
-        }
-        auto err = AWSError<CoreErrors>(CoreErrors::INVALID_ACTION, false);
-        err.SetResponseHeaders(response->GetHeaders());
-        err.SetResponseCode(response->GetResponseCode());
-        return err;
-    }
-};
-
 class AWSClientTestSuite : public ::testing::Test
 {
 protected:
@@ -158,7 +71,7 @@ protected:
         ClientConfiguration config;
         config.scheme = Scheme::HTTP;
         config.connectTimeoutMs = 30000;
-        config.requestTimeoutMs = 30000;           
+        config.requestTimeoutMs = 30000;
         auto countedRetryStrategy = Aws::MakeShared<CountedRetryStrategy>(ALLOCATION_TAG);
         config.retryStrategy = std::static_pointer_cast<DefaultRetryStrategy>(countedRetryStrategy);
 
@@ -181,9 +94,9 @@ protected:
 
     void QueueMockResponse(HttpResponseCode code, const HeaderValueCollection& headers)
     {
-        auto httpRequest = CreateHttpRequest(URI("http://www.uri.com/path/to/res"), 
+        auto httpRequest = CreateHttpRequest(URI("http://www.uri.com/path/to/res"),
                 HttpMethod::HTTP_GET, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
-        auto httpResponse = Aws::MakeShared<StandardHttpResponse>(ALLOCATION_TAG, *httpRequest);
+        auto httpResponse = Aws::MakeShared<StandardHttpResponse>(ALLOCATION_TAG, httpRequest);
         httpResponse->SetResponseCode(code);
         httpResponse->GetResponseBody() << "";
         for(auto&& header : headers)
@@ -192,6 +105,31 @@ protected:
         }
         mockHttpClient->AddResponseToReturn(httpResponse);
     }
+};
+
+class AWSConfigTestSuite : public ::testing::Test
+{
+protected:
+    Aws::String m_storedAwsConfigFileEnvVar;
+
+    void SetUp()
+    {
+        m_storedAwsConfigFileEnvVar = Aws::Environment::GetEnv("AWS_CONFIG_FILE");
+        auto profileDirectory = Aws::Auth::ProfileConfigFileAWSCredentialsProvider::GetProfileDirectory();
+        Aws::FileSystem::CreateDirectoryIfNotExists(profileDirectory.c_str());
+    }
+
+    void TearDown()
+    {
+        if(m_storedAwsConfigFileEnvVar.empty())
+        {
+            Aws::Environment::UnSetEnv("AWS_CONFIG_FILE");
+        }
+        else
+        {
+            Aws::Environment::SetEnv("AWS_CONFIG_FILE", m_storedAwsConfigFileEnvVar.c_str(), 1/*override*/);
+        }
+     }
 };
 
 TEST_F(AWSClientTestSuite, TestClockSkewOutsideAcceptableRange)
@@ -245,13 +183,13 @@ TEST_F(AWSClientTestSuite, TestClockSkewConsecutiveRequests)
     outcome = client->MakeRequest(request);
     ASSERT_FALSE(outcome.IsSuccess()); // should _not_ attempt to adjust clock skew and retry the request.
     ASSERT_EQ(HttpResponseCode::FORBIDDEN, outcome.GetError().GetResponseCode());
-    ASSERT_EQ(0, client->GetRequestAttemptedRetries()); 
+    ASSERT_EQ(0, client->GetRequestAttemptedRetries());
 }
 
 TEST_F(AWSClientTestSuite, TestClockChangesAfterSkewHasBeenSet)
 {
-    // after making a request with a skewed clock, the client adjusts for the client's clock skew. However, 
-    // later the client's clock is corrected via NTP for example or skewed even further. 
+    // after making a request with a skewed clock, the client adjusts for the client's clock skew. However,
+    // later the client's clock is corrected via NTP for example or skewed even further.
     // The skew should reflect the clock's changes.
 
     // make an initial request so that a skew adjustment is set
@@ -272,7 +210,7 @@ TEST_F(AWSClientTestSuite, TestClockChangesAfterSkewHasBeenSet)
     QueueMockResponse(HttpResponseCode::FORBIDDEN, responseHeaders);
     QueueMockResponse(HttpResponseCode::FORBIDDEN, responseHeaders);
     outcome = client->MakeRequest(request);
-    ASSERT_FALSE(outcome.IsSuccess()); 
+    ASSERT_FALSE(outcome.IsSuccess());
     ASSERT_EQ(1, client->GetRequestAttemptedRetries());
 
     // make another request with the clock in sync with the server
@@ -281,7 +219,7 @@ TEST_F(AWSClientTestSuite, TestClockChangesAfterSkewHasBeenSet)
     QueueMockResponse(HttpResponseCode::FORBIDDEN, responseHeaders);
     QueueMockResponse(HttpResponseCode::FORBIDDEN, responseHeaders);
     outcome = client->MakeRequest(request);
-    ASSERT_FALSE(outcome.IsSuccess()); 
+    ASSERT_FALSE(outcome.IsSuccess());
     ASSERT_EQ(1, client->GetRequestAttemptedRetries());
 }
 
@@ -334,7 +272,7 @@ TEST(AWSClientTest, TestBuildHttpRequestWithHeadersOnly)
     ASSERT_EQ("testValue2", finalHeaders["test2"]);
     ASSERT_EQ("www.uri.com", finalHeaders[Http::HOST_HEADER]);
     ASSERT_FALSE(finalHeaders[Http::USER_AGENT_HEADER].empty());
-	}
+}
 
 TEST(AWSClientTest, TestBuildHttpRequestWithHeadersAndBody)
 {
@@ -376,7 +314,7 @@ TEST(AWSClientTest, TestBuildHttpRequestWithHeadersAndBody)
 
     Aws::StringStream contentLengthExpected;
     contentLengthExpected << ss->str().length();
-    ASSERT_EQ(contentLengthExpected.str(), finalHeaders[Http::CONTENT_LENGTH_HEADER]);  
+    ASSERT_EQ(contentLengthExpected.str(), finalHeaders[Http::CONTENT_LENGTH_HEADER]);
 }
 
 TEST(AWSClientTest, TestHostHeaderWithNonStandardHttpPort)
@@ -420,3 +358,63 @@ TEST(AWSClientTest, TestOverflowContainer)
     ASSERT_STREQ(enumValue, container->RetrieveOverflow(hashcode).c_str());
 }
 
+TEST_F(AWSConfigTestSuite, TestClientConfigurationWithNonExistentProfile)
+{
+    // create a config file with profile named Dijkstra
+    Aws::StringStream ss;
+    ss << Aws::Auth::GetConfigProfileFilename() + "_blah" << std::this_thread::get_id();
+    Aws::String configFileName = ss.str();
+    Aws::Environment::SetEnv("AWS_CONFIG_FILE", configFileName.c_str(), 1/*overwrite*/);
+
+    Aws::OFStream configFileNew(configFileName.c_str(), Aws::OFStream::out | Aws::OFStream::trunc);
+    configFileNew << "[Dijkstra]" << std::endl;
+    configFileNew << "region = " << Aws::Region::US_WEST_2 << std::endl;
+
+    configFileNew.flush();
+    configFileNew.close();
+    Aws::Config::ReloadCachedConfigFile();
+
+    Aws::Client::ClientConfiguration config("Edsger");
+    EXPECT_EQ(Aws::Region::US_EAST_1, config.region);
+    EXPECT_STREQ("default", config.profileName.c_str());
+
+    // cleanup
+    Aws::Environment::UnSetEnv("AWS_CONFIG_FILE");
+    Aws::FileSystem::RemoveFileIfExists(configFileName.c_str());
+}
+
+TEST_F(AWSConfigTestSuite, TestClientConfigurationWithNonExistentConfigFile)
+{
+    Aws::Environment::SetEnv("AWS_CONFIG_FILE", "WhatAreTheChances", 1/*overwrite*/);
+    Aws::Config::ReloadCachedConfigFile();
+
+    Aws::Client::ClientConfiguration config("default");
+    EXPECT_EQ(Aws::Region::US_EAST_1, config.region);
+    EXPECT_STREQ("default", config.profileName.c_str());
+    Aws::Environment::UnSetEnv("AWS_CONFIG_FILE");
+}
+
+TEST_F(AWSConfigTestSuite, TestClientConfigurationSetsRegionToProfile)
+{
+    // create a config file with profile named Dijkstra
+    Aws::StringStream ss;
+    ss << Aws::Auth::GetConfigProfileFilename() + "_blah" << std::this_thread::get_id();
+    Aws::String configFileName = ss.str();
+    Aws::Environment::SetEnv("AWS_CONFIG_FILE", configFileName.c_str(), 1/*overwrite*/);
+
+    Aws::OFStream configFileNew(configFileName.c_str(), Aws::OFStream::out | Aws::OFStream::trunc);
+    configFileNew << "[Dijkstra]" << std::endl;
+    configFileNew << "region = " << Aws::Region::US_WEST_2 << std::endl;
+
+    configFileNew.flush();
+    configFileNew.close();
+    Aws::Config::ReloadCachedConfigFile();
+
+    Aws::Client::ClientConfiguration config("Dijkstra");
+    EXPECT_EQ(Aws::Region::US_WEST_2, config.region);
+    EXPECT_STREQ("Dijkstra", config.profileName.c_str());
+
+    // cleanup
+    Aws::Environment::UnSetEnv("AWS_CONFIG_FILE");
+    Aws::FileSystem::RemoveFileIfExists(configFileName.c_str());
+}

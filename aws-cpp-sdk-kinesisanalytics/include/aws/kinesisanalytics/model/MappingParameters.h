@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     MappingParameters();
-    MappingParameters(const Aws::Utils::Json::JsonValue& jsonValue);
-    MappingParameters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MappingParameters(Aws::Utils::Json::JsonView jsonValue);
+    MappingParameters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * streaming source.</p>
      */
     inline const JSONMappingParameters& GetJSONMappingParameters() const{ return m_jSONMappingParameters; }
+
+    /**
+     * <p>Provides additional mapping information when JSON is the record format on the
+     * streaming source.</p>
+     */
+    inline bool JSONMappingParametersHasBeenSet() const { return m_jSONMappingParametersHasBeenSet; }
 
     /**
      * <p>Provides additional mapping information when JSON is the record format on the
@@ -86,6 +93,12 @@ namespace Model
      * delimiters (for example, CSV).</p>
      */
     inline const CSVMappingParameters& GetCSVMappingParameters() const{ return m_cSVMappingParameters; }
+
+    /**
+     * <p>Provides additional mapping information when the record format uses
+     * delimiters (for example, CSV).</p>
+     */
+    inline bool CSVMappingParametersHasBeenSet() const { return m_cSVMappingParametersHasBeenSet; }
 
     /**
      * <p>Provides additional mapping information when the record format uses

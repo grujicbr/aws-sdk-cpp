@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -36,7 +37,7 @@ namespace Model
    * <p>Contains the <code>PolicyType</code>, <code>PolicyId</code>, and the
    * <code>ObjectIdentifier</code> to which it is attached. For more information, see
    * <a
-   * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_key_concepts.html#policies">Policies</a>.</p><p><h3>See
+   * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies">Policies</a>.</p><p><h3>See
    * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/PolicyAttachment">AWS
    * API Reference</a></p>
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     PolicyAttachment();
-    PolicyAttachment(const Aws::Utils::Json::JsonValue& jsonValue);
-    PolicyAttachment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PolicyAttachment(Aws::Utils::Json::JsonView jsonValue);
+    PolicyAttachment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The ID of <code>PolicyAttachment</code>.</p>
      */
     inline const Aws::String& GetPolicyId() const{ return m_policyId; }
+
+    /**
+     * <p>The ID of <code>PolicyAttachment</code>.</p>
+     */
+    inline bool PolicyIdHasBeenSet() const { return m_policyIdHasBeenSet; }
 
     /**
      * <p>The ID of <code>PolicyAttachment</code>.</p>
@@ -91,6 +97,12 @@ namespace Model
      * <code>PolicyAttachment</code>.</p>
      */
     inline const Aws::String& GetObjectIdentifier() const{ return m_objectIdentifier; }
+
+    /**
+     * <p>The <code>ObjectIdentifier</code> that is associated with
+     * <code>PolicyAttachment</code>.</p>
+     */
+    inline bool ObjectIdentifierHasBeenSet() const { return m_objectIdentifierHasBeenSet; }
 
     /**
      * <p>The <code>ObjectIdentifier</code> that is associated with
@@ -134,6 +146,12 @@ namespace Model
      * <code>PolicyAttachment</code>.</p>
      */
     inline const Aws::String& GetPolicyType() const{ return m_policyType; }
+
+    /**
+     * <p>The type of policy that can be associated with
+     * <code>PolicyAttachment</code>.</p>
+     */
+    inline bool PolicyTypeHasBeenSet() const { return m_policyTypeHasBeenSet; }
 
     /**
      * <p>The type of policy that can be associated with

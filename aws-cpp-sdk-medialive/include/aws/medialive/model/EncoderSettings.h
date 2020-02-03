@@ -20,6 +20,7 @@
 #include <aws/medialive/model/AvailConfiguration.h>
 #include <aws/medialive/model/BlackoutSlate.h>
 #include <aws/medialive/model/GlobalConfiguration.h>
+#include <aws/medialive/model/NielsenConfiguration.h>
 #include <aws/medialive/model/TimecodeConfig.h>
 #include <aws/medialive/model/AudioDescription.h>
 #include <aws/medialive/model/CaptionDescription.h>
@@ -34,6 +35,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -42,7 +44,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for EncoderSettings<p><h3>See Also:</h3>   <a
+   * Encoder Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EncoderSettings">AWS
    * API Reference</a></p>
    */
@@ -50,13 +52,16 @@ namespace Model
   {
   public:
     EncoderSettings();
-    EncoderSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    EncoderSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EncoderSettings(Aws::Utils::Json::JsonView jsonValue);
+    EncoderSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Aws::Vector<AudioDescription>& GetAudioDescriptions() const{ return m_audioDescriptions; }
+
+    
+    inline bool AudioDescriptionsHasBeenSet() const { return m_audioDescriptionsHasBeenSet; }
 
     
     inline void SetAudioDescriptions(const Aws::Vector<AudioDescription>& value) { m_audioDescriptionsHasBeenSet = true; m_audioDescriptions = value; }
@@ -81,6 +86,11 @@ namespace Model
      * Settings for ad avail blanking.
      */
     inline const AvailBlanking& GetAvailBlanking() const{ return m_availBlanking; }
+
+    /**
+     * Settings for ad avail blanking.
+     */
+    inline bool AvailBlankingHasBeenSet() const { return m_availBlankingHasBeenSet; }
 
     /**
      * Settings for ad avail blanking.
@@ -111,6 +121,11 @@ namespace Model
     /**
      * Event-wide configuration settings for ad avail insertion.
      */
+    inline bool AvailConfigurationHasBeenSet() const { return m_availConfigurationHasBeenSet; }
+
+    /**
+     * Event-wide configuration settings for ad avail insertion.
+     */
     inline void SetAvailConfiguration(const AvailConfiguration& value) { m_availConfigurationHasBeenSet = true; m_availConfiguration = value; }
 
     /**
@@ -137,6 +152,11 @@ namespace Model
     /**
      * Settings for blackout slate.
      */
+    inline bool BlackoutSlateHasBeenSet() const { return m_blackoutSlateHasBeenSet; }
+
+    /**
+     * Settings for blackout slate.
+     */
     inline void SetBlackoutSlate(const BlackoutSlate& value) { m_blackoutSlateHasBeenSet = true; m_blackoutSlate = value; }
 
     /**
@@ -159,6 +179,11 @@ namespace Model
      * Settings for caption decriptions
      */
     inline const Aws::Vector<CaptionDescription>& GetCaptionDescriptions() const{ return m_captionDescriptions; }
+
+    /**
+     * Settings for caption decriptions
+     */
+    inline bool CaptionDescriptionsHasBeenSet() const { return m_captionDescriptionsHasBeenSet; }
 
     /**
      * Settings for caption decriptions
@@ -199,6 +224,11 @@ namespace Model
     /**
      * Configuration settings that apply to the event as a whole.
      */
+    inline bool GlobalConfigurationHasBeenSet() const { return m_globalConfigurationHasBeenSet; }
+
+    /**
+     * Configuration settings that apply to the event as a whole.
+     */
     inline void SetGlobalConfiguration(const GlobalConfiguration& value) { m_globalConfigurationHasBeenSet = true; m_globalConfiguration = value; }
 
     /**
@@ -217,8 +247,42 @@ namespace Model
     inline EncoderSettings& WithGlobalConfiguration(GlobalConfiguration&& value) { SetGlobalConfiguration(std::move(value)); return *this;}
 
 
+    /**
+     * Nielsen configuration settings.
+     */
+    inline const NielsenConfiguration& GetNielsenConfiguration() const{ return m_nielsenConfiguration; }
+
+    /**
+     * Nielsen configuration settings.
+     */
+    inline bool NielsenConfigurationHasBeenSet() const { return m_nielsenConfigurationHasBeenSet; }
+
+    /**
+     * Nielsen configuration settings.
+     */
+    inline void SetNielsenConfiguration(const NielsenConfiguration& value) { m_nielsenConfigurationHasBeenSet = true; m_nielsenConfiguration = value; }
+
+    /**
+     * Nielsen configuration settings.
+     */
+    inline void SetNielsenConfiguration(NielsenConfiguration&& value) { m_nielsenConfigurationHasBeenSet = true; m_nielsenConfiguration = std::move(value); }
+
+    /**
+     * Nielsen configuration settings.
+     */
+    inline EncoderSettings& WithNielsenConfiguration(const NielsenConfiguration& value) { SetNielsenConfiguration(value); return *this;}
+
+    /**
+     * Nielsen configuration settings.
+     */
+    inline EncoderSettings& WithNielsenConfiguration(NielsenConfiguration&& value) { SetNielsenConfiguration(std::move(value)); return *this;}
+
+
     
     inline const Aws::Vector<OutputGroup>& GetOutputGroups() const{ return m_outputGroups; }
+
+    
+    inline bool OutputGroupsHasBeenSet() const { return m_outputGroupsHasBeenSet; }
 
     
     inline void SetOutputGroups(const Aws::Vector<OutputGroup>& value) { m_outputGroupsHasBeenSet = true; m_outputGroups = value; }
@@ -247,6 +311,11 @@ namespace Model
     /**
      * Contains settings used to acquire and adjust timecode information from inputs.
      */
+    inline bool TimecodeConfigHasBeenSet() const { return m_timecodeConfigHasBeenSet; }
+
+    /**
+     * Contains settings used to acquire and adjust timecode information from inputs.
+     */
     inline void SetTimecodeConfig(const TimecodeConfig& value) { m_timecodeConfigHasBeenSet = true; m_timecodeConfig = value; }
 
     /**
@@ -267,6 +336,9 @@ namespace Model
 
     
     inline const Aws::Vector<VideoDescription>& GetVideoDescriptions() const{ return m_videoDescriptions; }
+
+    
+    inline bool VideoDescriptionsHasBeenSet() const { return m_videoDescriptionsHasBeenSet; }
 
     
     inline void SetVideoDescriptions(const Aws::Vector<VideoDescription>& value) { m_videoDescriptionsHasBeenSet = true; m_videoDescriptions = value; }
@@ -305,6 +377,9 @@ namespace Model
 
     GlobalConfiguration m_globalConfiguration;
     bool m_globalConfigurationHasBeenSet;
+
+    NielsenConfiguration m_nielsenConfiguration;
+    bool m_nielsenConfigurationHasBeenSet;
 
     Aws::Vector<OutputGroup> m_outputGroups;
     bool m_outputGroupsHasBeenSet;

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     AvailBlanking();
-    AvailBlanking(const Aws::Utils::Json::JsonValue& jsonValue);
-    AvailBlanking& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AvailBlanking(Aws::Utils::Json::JsonView jsonValue);
+    AvailBlanking& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * are supported.
      */
     inline const Aws::String& GetAvailBlankingImage() const{ return m_availBlankingImage; }
+
+    /**
+     * Blanking image to be used. Leave empty for solid black. Only bmp and png images
+     * are supported.
+     */
+    inline bool AvailBlankingImageHasBeenSet() const { return m_availBlankingImageHasBeenSet; }
 
     /**
      * Blanking image to be used. Leave empty for solid black. Only bmp and png images

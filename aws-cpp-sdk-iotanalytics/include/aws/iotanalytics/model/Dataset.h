@@ -19,8 +19,11 @@
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/iotanalytics/model/DatasetStatus.h>
 #include <aws/core/utils/DateTime.h>
+#include <aws/iotanalytics/model/RetentionPeriod.h>
+#include <aws/iotanalytics/model/VersioningConfiguration.h>
 #include <aws/iotanalytics/model/DatasetAction.h>
 #include <aws/iotanalytics/model/DatasetTrigger.h>
+#include <aws/iotanalytics/model/DatasetContentDeliveryRule.h>
 #include <utility>
 
 namespace Aws
@@ -30,6 +33,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -46,8 +50,8 @@ namespace Model
   {
   public:
     Dataset();
-    Dataset(const Aws::Utils::Json::JsonValue& jsonValue);
-    Dataset& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Dataset(Aws::Utils::Json::JsonView jsonValue);
+    Dataset& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +59,11 @@ namespace Model
      * <p>The name of the data set.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the data set.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the data set.</p>
@@ -95,6 +104,11 @@ namespace Model
     /**
      * <p>The ARN of the data set.</p>
      */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the data set.</p>
+     */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
@@ -124,37 +138,50 @@ namespace Model
 
 
     /**
-     * <p>The "DatasetAction" objects that create the data set.</p>
+     * <p>The "DatasetAction" objects that automatically create the data set
+     * contents.</p>
      */
     inline const Aws::Vector<DatasetAction>& GetActions() const{ return m_actions; }
 
     /**
-     * <p>The "DatasetAction" objects that create the data set.</p>
+     * <p>The "DatasetAction" objects that automatically create the data set
+     * contents.</p>
+     */
+    inline bool ActionsHasBeenSet() const { return m_actionsHasBeenSet; }
+
+    /**
+     * <p>The "DatasetAction" objects that automatically create the data set
+     * contents.</p>
      */
     inline void SetActions(const Aws::Vector<DatasetAction>& value) { m_actionsHasBeenSet = true; m_actions = value; }
 
     /**
-     * <p>The "DatasetAction" objects that create the data set.</p>
+     * <p>The "DatasetAction" objects that automatically create the data set
+     * contents.</p>
      */
     inline void SetActions(Aws::Vector<DatasetAction>&& value) { m_actionsHasBeenSet = true; m_actions = std::move(value); }
 
     /**
-     * <p>The "DatasetAction" objects that create the data set.</p>
+     * <p>The "DatasetAction" objects that automatically create the data set
+     * contents.</p>
      */
     inline Dataset& WithActions(const Aws::Vector<DatasetAction>& value) { SetActions(value); return *this;}
 
     /**
-     * <p>The "DatasetAction" objects that create the data set.</p>
+     * <p>The "DatasetAction" objects that automatically create the data set
+     * contents.</p>
      */
     inline Dataset& WithActions(Aws::Vector<DatasetAction>&& value) { SetActions(std::move(value)); return *this;}
 
     /**
-     * <p>The "DatasetAction" objects that create the data set.</p>
+     * <p>The "DatasetAction" objects that automatically create the data set
+     * contents.</p>
      */
     inline Dataset& AddActions(const DatasetAction& value) { m_actionsHasBeenSet = true; m_actions.push_back(value); return *this; }
 
     /**
-     * <p>The "DatasetAction" objects that create the data set.</p>
+     * <p>The "DatasetAction" objects that automatically create the data set
+     * contents.</p>
      */
     inline Dataset& AddActions(DatasetAction&& value) { m_actionsHasBeenSet = true; m_actions.push_back(std::move(value)); return *this; }
 
@@ -164,6 +191,12 @@ namespace Model
      * updated.</p>
      */
     inline const Aws::Vector<DatasetTrigger>& GetTriggers() const{ return m_triggers; }
+
+    /**
+     * <p>The "DatasetTrigger" objects that specify when the data set is automatically
+     * updated.</p>
+     */
+    inline bool TriggersHasBeenSet() const { return m_triggersHasBeenSet; }
 
     /**
      * <p>The "DatasetTrigger" objects that specify when the data set is automatically
@@ -203,9 +236,63 @@ namespace Model
 
 
     /**
+     * <p>When data set contents are created they are delivered to destinations
+     * specified here.</p>
+     */
+    inline const Aws::Vector<DatasetContentDeliveryRule>& GetContentDeliveryRules() const{ return m_contentDeliveryRules; }
+
+    /**
+     * <p>When data set contents are created they are delivered to destinations
+     * specified here.</p>
+     */
+    inline bool ContentDeliveryRulesHasBeenSet() const { return m_contentDeliveryRulesHasBeenSet; }
+
+    /**
+     * <p>When data set contents are created they are delivered to destinations
+     * specified here.</p>
+     */
+    inline void SetContentDeliveryRules(const Aws::Vector<DatasetContentDeliveryRule>& value) { m_contentDeliveryRulesHasBeenSet = true; m_contentDeliveryRules = value; }
+
+    /**
+     * <p>When data set contents are created they are delivered to destinations
+     * specified here.</p>
+     */
+    inline void SetContentDeliveryRules(Aws::Vector<DatasetContentDeliveryRule>&& value) { m_contentDeliveryRulesHasBeenSet = true; m_contentDeliveryRules = std::move(value); }
+
+    /**
+     * <p>When data set contents are created they are delivered to destinations
+     * specified here.</p>
+     */
+    inline Dataset& WithContentDeliveryRules(const Aws::Vector<DatasetContentDeliveryRule>& value) { SetContentDeliveryRules(value); return *this;}
+
+    /**
+     * <p>When data set contents are created they are delivered to destinations
+     * specified here.</p>
+     */
+    inline Dataset& WithContentDeliveryRules(Aws::Vector<DatasetContentDeliveryRule>&& value) { SetContentDeliveryRules(std::move(value)); return *this;}
+
+    /**
+     * <p>When data set contents are created they are delivered to destinations
+     * specified here.</p>
+     */
+    inline Dataset& AddContentDeliveryRules(const DatasetContentDeliveryRule& value) { m_contentDeliveryRulesHasBeenSet = true; m_contentDeliveryRules.push_back(value); return *this; }
+
+    /**
+     * <p>When data set contents are created they are delivered to destinations
+     * specified here.</p>
+     */
+    inline Dataset& AddContentDeliveryRules(DatasetContentDeliveryRule&& value) { m_contentDeliveryRulesHasBeenSet = true; m_contentDeliveryRules.push_back(std::move(value)); return *this; }
+
+
+    /**
      * <p>The status of the data set.</p>
      */
     inline const DatasetStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the data set.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the data set.</p>
@@ -236,6 +323,11 @@ namespace Model
     /**
      * <p>When the data set was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>When the data set was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -262,6 +354,11 @@ namespace Model
     /**
      * <p>The last time the data set was updated.</p>
      */
+    inline bool LastUpdateTimeHasBeenSet() const { return m_lastUpdateTimeHasBeenSet; }
+
+    /**
+     * <p>The last time the data set was updated.</p>
+     */
     inline void SetLastUpdateTime(const Aws::Utils::DateTime& value) { m_lastUpdateTimeHasBeenSet = true; m_lastUpdateTime = value; }
 
     /**
@@ -279,6 +376,92 @@ namespace Model
      */
     inline Dataset& WithLastUpdateTime(Aws::Utils::DateTime&& value) { SetLastUpdateTime(std::move(value)); return *this;}
 
+
+    /**
+     * <p>[Optional] How long, in days, message data is kept for the data set.</p>
+     */
+    inline const RetentionPeriod& GetRetentionPeriod() const{ return m_retentionPeriod; }
+
+    /**
+     * <p>[Optional] How long, in days, message data is kept for the data set.</p>
+     */
+    inline bool RetentionPeriodHasBeenSet() const { return m_retentionPeriodHasBeenSet; }
+
+    /**
+     * <p>[Optional] How long, in days, message data is kept for the data set.</p>
+     */
+    inline void SetRetentionPeriod(const RetentionPeriod& value) { m_retentionPeriodHasBeenSet = true; m_retentionPeriod = value; }
+
+    /**
+     * <p>[Optional] How long, in days, message data is kept for the data set.</p>
+     */
+    inline void SetRetentionPeriod(RetentionPeriod&& value) { m_retentionPeriodHasBeenSet = true; m_retentionPeriod = std::move(value); }
+
+    /**
+     * <p>[Optional] How long, in days, message data is kept for the data set.</p>
+     */
+    inline Dataset& WithRetentionPeriod(const RetentionPeriod& value) { SetRetentionPeriod(value); return *this;}
+
+    /**
+     * <p>[Optional] How long, in days, message data is kept for the data set.</p>
+     */
+    inline Dataset& WithRetentionPeriod(RetentionPeriod&& value) { SetRetentionPeriod(std::move(value)); return *this;}
+
+
+    /**
+     * <p>[Optional] How many versions of data set contents are kept. If not specified
+     * or set to null, only the latest version plus the latest succeeded version (if
+     * they are different) are kept for the time period specified by the
+     * "retentionPeriod" parameter. (For more information, see
+     * https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions)</p>
+     */
+    inline const VersioningConfiguration& GetVersioningConfiguration() const{ return m_versioningConfiguration; }
+
+    /**
+     * <p>[Optional] How many versions of data set contents are kept. If not specified
+     * or set to null, only the latest version plus the latest succeeded version (if
+     * they are different) are kept for the time period specified by the
+     * "retentionPeriod" parameter. (For more information, see
+     * https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions)</p>
+     */
+    inline bool VersioningConfigurationHasBeenSet() const { return m_versioningConfigurationHasBeenSet; }
+
+    /**
+     * <p>[Optional] How many versions of data set contents are kept. If not specified
+     * or set to null, only the latest version plus the latest succeeded version (if
+     * they are different) are kept for the time period specified by the
+     * "retentionPeriod" parameter. (For more information, see
+     * https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions)</p>
+     */
+    inline void SetVersioningConfiguration(const VersioningConfiguration& value) { m_versioningConfigurationHasBeenSet = true; m_versioningConfiguration = value; }
+
+    /**
+     * <p>[Optional] How many versions of data set contents are kept. If not specified
+     * or set to null, only the latest version plus the latest succeeded version (if
+     * they are different) are kept for the time period specified by the
+     * "retentionPeriod" parameter. (For more information, see
+     * https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions)</p>
+     */
+    inline void SetVersioningConfiguration(VersioningConfiguration&& value) { m_versioningConfigurationHasBeenSet = true; m_versioningConfiguration = std::move(value); }
+
+    /**
+     * <p>[Optional] How many versions of data set contents are kept. If not specified
+     * or set to null, only the latest version plus the latest succeeded version (if
+     * they are different) are kept for the time period specified by the
+     * "retentionPeriod" parameter. (For more information, see
+     * https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions)</p>
+     */
+    inline Dataset& WithVersioningConfiguration(const VersioningConfiguration& value) { SetVersioningConfiguration(value); return *this;}
+
+    /**
+     * <p>[Optional] How many versions of data set contents are kept. If not specified
+     * or set to null, only the latest version plus the latest succeeded version (if
+     * they are different) are kept for the time period specified by the
+     * "retentionPeriod" parameter. (For more information, see
+     * https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions)</p>
+     */
+    inline Dataset& WithVersioningConfiguration(VersioningConfiguration&& value) { SetVersioningConfiguration(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_name;
@@ -293,6 +476,9 @@ namespace Model
     Aws::Vector<DatasetTrigger> m_triggers;
     bool m_triggersHasBeenSet;
 
+    Aws::Vector<DatasetContentDeliveryRule> m_contentDeliveryRules;
+    bool m_contentDeliveryRulesHasBeenSet;
+
     DatasetStatus m_status;
     bool m_statusHasBeenSet;
 
@@ -301,6 +487,12 @@ namespace Model
 
     Aws::Utils::DateTime m_lastUpdateTime;
     bool m_lastUpdateTimeHasBeenSet;
+
+    RetentionPeriod m_retentionPeriod;
+    bool m_retentionPeriodHasBeenSet;
+
+    VersioningConfiguration m_versioningConfiguration;
+    bool m_versioningConfigurationHasBeenSet;
   };
 
 } // namespace Model

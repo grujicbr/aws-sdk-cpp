@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Timing();
-    Timing(const Aws::Utils::Json::JsonValue& jsonValue);
-    Timing& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Timing(Aws::Utils::Json::JsonView jsonValue);
+    Timing& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * The time, in Unix epoch format, that the transcoding job finished
      */
     inline const Aws::Utils::DateTime& GetFinishTime() const{ return m_finishTime; }
+
+    /**
+     * The time, in Unix epoch format, that the transcoding job finished
+     */
+    inline bool FinishTimeHasBeenSet() const { return m_finishTimeHasBeenSet; }
 
     /**
      * The time, in Unix epoch format, that the transcoding job finished
@@ -81,6 +87,11 @@ namespace Model
     /**
      * The time, in Unix epoch format, that transcoding for the job began.
      */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
+
+    /**
+     * The time, in Unix epoch format, that transcoding for the job began.
+     */
     inline void SetStartTime(const Aws::Utils::DateTime& value) { m_startTimeHasBeenSet = true; m_startTime = value; }
 
     /**
@@ -103,6 +114,11 @@ namespace Model
      * The time, in Unix epoch format, that you submitted the job.
      */
     inline const Aws::Utils::DateTime& GetSubmitTime() const{ return m_submitTime; }
+
+    /**
+     * The time, in Unix epoch format, that you submitted the job.
+     */
+    inline bool SubmitTimeHasBeenSet() const { return m_submitTimeHasBeenSet; }
 
     /**
      * The time, in Unix epoch format, that you submitted the job.

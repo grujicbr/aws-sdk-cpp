@@ -32,6 +32,9 @@ Container::Container() :
     m_containerArnHasBeenSet(false),
     m_taskArnHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_imageHasBeenSet(false),
+    m_imageDigestHasBeenSet(false),
+    m_runtimeIdHasBeenSet(false),
     m_lastStatusHasBeenSet(false),
     m_exitCode(0),
     m_exitCodeHasBeenSet(false),
@@ -39,14 +42,21 @@ Container::Container() :
     m_networkBindingsHasBeenSet(false),
     m_networkInterfacesHasBeenSet(false),
     m_healthStatus(HealthStatus::NOT_SET),
-    m_healthStatusHasBeenSet(false)
+    m_healthStatusHasBeenSet(false),
+    m_cpuHasBeenSet(false),
+    m_memoryHasBeenSet(false),
+    m_memoryReservationHasBeenSet(false),
+    m_gpuIdsHasBeenSet(false)
 {
 }
 
-Container::Container(const JsonValue& jsonValue) : 
+Container::Container(JsonView jsonValue) : 
     m_containerArnHasBeenSet(false),
     m_taskArnHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_imageHasBeenSet(false),
+    m_imageDigestHasBeenSet(false),
+    m_runtimeIdHasBeenSet(false),
     m_lastStatusHasBeenSet(false),
     m_exitCode(0),
     m_exitCodeHasBeenSet(false),
@@ -54,12 +64,16 @@ Container::Container(const JsonValue& jsonValue) :
     m_networkBindingsHasBeenSet(false),
     m_networkInterfacesHasBeenSet(false),
     m_healthStatus(HealthStatus::NOT_SET),
-    m_healthStatusHasBeenSet(false)
+    m_healthStatusHasBeenSet(false),
+    m_cpuHasBeenSet(false),
+    m_memoryHasBeenSet(false),
+    m_memoryReservationHasBeenSet(false),
+    m_gpuIdsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Container& Container::operator =(const JsonValue& jsonValue)
+Container& Container::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("containerArn"))
   {
@@ -80,6 +94,27 @@ Container& Container::operator =(const JsonValue& jsonValue)
     m_name = jsonValue.GetString("name");
 
     m_nameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("image"))
+  {
+    m_image = jsonValue.GetString("image");
+
+    m_imageHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("imageDigest"))
+  {
+    m_imageDigest = jsonValue.GetString("imageDigest");
+
+    m_imageDigestHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("runtimeId"))
+  {
+    m_runtimeId = jsonValue.GetString("runtimeId");
+
+    m_runtimeIdHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("lastStatus"))
@@ -105,7 +140,7 @@ Container& Container::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("networkBindings"))
   {
-    Array<JsonValue> networkBindingsJsonList = jsonValue.GetArray("networkBindings");
+    Array<JsonView> networkBindingsJsonList = jsonValue.GetArray("networkBindings");
     for(unsigned networkBindingsIndex = 0; networkBindingsIndex < networkBindingsJsonList.GetLength(); ++networkBindingsIndex)
     {
       m_networkBindings.push_back(networkBindingsJsonList[networkBindingsIndex].AsObject());
@@ -115,7 +150,7 @@ Container& Container::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("networkInterfaces"))
   {
-    Array<JsonValue> networkInterfacesJsonList = jsonValue.GetArray("networkInterfaces");
+    Array<JsonView> networkInterfacesJsonList = jsonValue.GetArray("networkInterfaces");
     for(unsigned networkInterfacesIndex = 0; networkInterfacesIndex < networkInterfacesJsonList.GetLength(); ++networkInterfacesIndex)
     {
       m_networkInterfaces.push_back(networkInterfacesJsonList[networkInterfacesIndex].AsObject());
@@ -128,6 +163,37 @@ Container& Container::operator =(const JsonValue& jsonValue)
     m_healthStatus = HealthStatusMapper::GetHealthStatusForName(jsonValue.GetString("healthStatus"));
 
     m_healthStatusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("cpu"))
+  {
+    m_cpu = jsonValue.GetString("cpu");
+
+    m_cpuHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("memory"))
+  {
+    m_memory = jsonValue.GetString("memory");
+
+    m_memoryHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("memoryReservation"))
+  {
+    m_memoryReservation = jsonValue.GetString("memoryReservation");
+
+    m_memoryReservationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("gpuIds"))
+  {
+    Array<JsonView> gpuIdsJsonList = jsonValue.GetArray("gpuIds");
+    for(unsigned gpuIdsIndex = 0; gpuIdsIndex < gpuIdsJsonList.GetLength(); ++gpuIdsIndex)
+    {
+      m_gpuIds.push_back(gpuIdsJsonList[gpuIdsIndex].AsString());
+    }
+    m_gpuIdsHasBeenSet = true;
   }
 
   return *this;
@@ -152,6 +218,24 @@ JsonValue Container::Jsonize() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("name", m_name);
+
+  }
+
+  if(m_imageHasBeenSet)
+  {
+   payload.WithString("image", m_image);
+
+  }
+
+  if(m_imageDigestHasBeenSet)
+  {
+   payload.WithString("imageDigest", m_imageDigest);
+
+  }
+
+  if(m_runtimeIdHasBeenSet)
+  {
+   payload.WithString("runtimeId", m_runtimeId);
 
   }
 
@@ -198,6 +282,35 @@ JsonValue Container::Jsonize() const
   if(m_healthStatusHasBeenSet)
   {
    payload.WithString("healthStatus", HealthStatusMapper::GetNameForHealthStatus(m_healthStatus));
+  }
+
+  if(m_cpuHasBeenSet)
+  {
+   payload.WithString("cpu", m_cpu);
+
+  }
+
+  if(m_memoryHasBeenSet)
+  {
+   payload.WithString("memory", m_memory);
+
+  }
+
+  if(m_memoryReservationHasBeenSet)
+  {
+   payload.WithString("memoryReservation", m_memoryReservation);
+
+  }
+
+  if(m_gpuIdsHasBeenSet)
+  {
+   Array<JsonValue> gpuIdsJsonList(m_gpuIds.size());
+   for(unsigned gpuIdsIndex = 0; gpuIdsIndex < gpuIdsJsonList.GetLength(); ++gpuIdsIndex)
+   {
+     gpuIdsJsonList[gpuIdsIndex].AsString(m_gpuIds[gpuIdsIndex]);
+   }
+   payload.WithArray("gpuIds", std::move(gpuIdsJsonList));
+
   }
 
   return payload;

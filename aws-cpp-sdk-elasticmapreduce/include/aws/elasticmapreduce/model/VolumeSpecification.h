@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     VolumeSpecification();
-    VolumeSpecification(const Aws::Utils::Json::JsonValue& jsonValue);
-    VolumeSpecification& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VolumeSpecification(Aws::Utils::Json::JsonView jsonValue);
+    VolumeSpecification& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The volume type. Volume types supported are gp2, io1, standard.</p>
      */
     inline const Aws::String& GetVolumeType() const{ return m_volumeType; }
+
+    /**
+     * <p>The volume type. Volume types supported are gp2, io1, standard.</p>
+     */
+    inline bool VolumeTypeHasBeenSet() const { return m_volumeTypeHasBeenSet; }
 
     /**
      * <p>The volume type. Volume types supported are gp2, io1, standard.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The number of I/O operations per second (IOPS) that the volume supports.</p>
      */
+    inline bool IopsHasBeenSet() const { return m_iopsHasBeenSet; }
+
+    /**
+     * <p>The number of I/O operations per second (IOPS) that the volume supports.</p>
+     */
     inline void SetIops(int value) { m_iopsHasBeenSet = true; m_iops = value; }
 
     /**
@@ -105,6 +116,12 @@ namespace Model
      * the volume type is EBS-optimized, the minimum value is 10.</p>
      */
     inline int GetSizeInGB() const{ return m_sizeInGB; }
+
+    /**
+     * <p>The volume size, in gibibytes (GiB). This can be a number from 1 - 1024. If
+     * the volume type is EBS-optimized, the minimum value is 10.</p>
+     */
+    inline bool SizeInGBHasBeenSet() const { return m_sizeInGBHasBeenSet; }
 
     /**
      * <p>The volume size, in gibibytes (GiB). This can be a number from 1 - 1024. If

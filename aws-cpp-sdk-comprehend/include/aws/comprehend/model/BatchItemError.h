@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Comprehend
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchItemError();
-    BatchItemError(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchItemError& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchItemError(Aws::Utils::Json::JsonView jsonValue);
+    BatchItemError& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The zero-based index of the document in the input list.</p>
      */
     inline int GetIndex() const{ return m_index; }
+
+    /**
+     * <p>The zero-based index of the document in the input list.</p>
+     */
+    inline bool IndexHasBeenSet() const { return m_indexHasBeenSet; }
 
     /**
      * <p>The zero-based index of the document in the input list.</p>
@@ -68,6 +74,11 @@ namespace Model
      * <p>The numeric error code of the error.</p>
      */
     inline const Aws::String& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The numeric error code of the error.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The numeric error code of the error.</p>
@@ -104,6 +115,11 @@ namespace Model
      * <p>A text description of the error.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>A text description of the error.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>A text description of the error.</p>

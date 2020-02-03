@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Kinesis
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PutRecordsRequestEntry();
-    PutRecordsRequestEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    PutRecordsRequestEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PutRecordsRequestEntry(Aws::Utils::Json::JsonView jsonValue);
+    PutRecordsRequestEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,14 @@ namespace Model
      * size (1 MB).</p>
      */
     inline const Aws::Utils::ByteBuffer& GetData() const{ return m_data; }
+
+    /**
+     * <p>The data blob to put into the record, which is base64-encoded when the blob
+     * is serialized. When the data blob (the payload before base64-encoding) is added
+     * to the partition key size, the total size must not exceed the maximum record
+     * size (1 MB).</p>
+     */
+    inline bool DataHasBeenSet() const { return m_dataHasBeenSet; }
 
     /**
      * <p>The data blob to put into the record, which is base64-encoded when the blob
@@ -94,6 +103,12 @@ namespace Model
      * assigned to by overriding the partition key hash.</p>
      */
     inline const Aws::String& GetExplicitHashKey() const{ return m_explicitHashKey; }
+
+    /**
+     * <p>The hash value used to determine explicitly the shard that the data record is
+     * assigned to by overriding the partition key hash.</p>
+     */
+    inline bool ExplicitHashKeyHasBeenSet() const { return m_explicitHashKeyHasBeenSet; }
 
     /**
      * <p>The hash value used to determine explicitly the shard that the data record is
@@ -143,6 +158,18 @@ namespace Model
      * the same shard within the stream.</p>
      */
     inline const Aws::String& GetPartitionKey() const{ return m_partitionKey; }
+
+    /**
+     * <p>Determines which shard in the stream the data record is assigned to.
+     * Partition keys are Unicode strings with a maximum length limit of 256 characters
+     * for each key. Amazon Kinesis Data Streams uses the partition key as input to a
+     * hash function that maps the partition key and associated data to a specific
+     * shard. Specifically, an MD5 hash function is used to map partition keys to
+     * 128-bit integer values and to map associated data records to shards. As a result
+     * of this hashing mechanism, all data records with the same partition key map to
+     * the same shard within the stream.</p>
+     */
+    inline bool PartitionKeyHasBeenSet() const { return m_partitionKeyHasBeenSet; }
 
     /**
      * <p>Determines which shard in the stream the data record is assigned to.

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -56,8 +57,8 @@ namespace Model
   {
   public:
     JobLogs();
-    JobLogs(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobLogs& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobLogs(Aws::Utils::Json::JsonView jsonValue);
+    JobLogs& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -66,6 +67,12 @@ namespace Model
      * located.</p>
      */
     inline const Aws::String& GetJobCompletionReportURI() const{ return m_jobCompletionReportURI; }
+
+    /**
+     * <p>A link to an Amazon S3 presigned URL where the job completion report is
+     * located.</p>
+     */
+    inline bool JobCompletionReportURIHasBeenSet() const { return m_jobCompletionReportURIHasBeenSet; }
 
     /**
      * <p>A link to an Amazon S3 presigned URL where the job completion report is
@@ -114,6 +121,12 @@ namespace Model
      * <p>A link to an Amazon S3 presigned URL where the job success log is
      * located.</p>
      */
+    inline bool JobSuccessLogURIHasBeenSet() const { return m_jobSuccessLogURIHasBeenSet; }
+
+    /**
+     * <p>A link to an Amazon S3 presigned URL where the job success log is
+     * located.</p>
+     */
     inline void SetJobSuccessLogURI(const Aws::String& value) { m_jobSuccessLogURIHasBeenSet = true; m_jobSuccessLogURI = value; }
 
     /**
@@ -152,6 +165,12 @@ namespace Model
      * located.</p>
      */
     inline const Aws::String& GetJobFailureLogURI() const{ return m_jobFailureLogURI; }
+
+    /**
+     * <p>A link to an Amazon S3 presigned URL where the job failure log is
+     * located.</p>
+     */
+    inline bool JobFailureLogURIHasBeenSet() const { return m_jobFailureLogURIHasBeenSet; }
 
     /**
      * <p>A link to an Amazon S3 presigned URL where the job failure log is

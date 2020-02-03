@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudTrail
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Tag();
-    Tag(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tag(Aws::Utils::Json::JsonView jsonValue);
+    Tag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * applies.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The key in a key-value pair. The key must be must be no longer than 128
+     * Unicode characters. The key must be unique for the resource to which it
+     * applies.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The key in a key-value pair. The key must be must be no longer than 128
@@ -102,6 +110,12 @@ namespace Model
      * Unicode characters.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value in a key-value pair of a tag. The value must be no longer than 256
+     * Unicode characters.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value in a key-value pair of a tag. The value must be no longer than 256

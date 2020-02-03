@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     TrustedAdvisorCheckSummary();
-    TrustedAdvisorCheckSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrustedAdvisorCheckSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrustedAdvisorCheckSummary(Aws::Utils::Json::JsonView jsonValue);
+    TrustedAdvisorCheckSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The unique identifier for the Trusted Advisor check.</p>
      */
     inline const Aws::String& GetCheckId() const{ return m_checkId; }
+
+    /**
+     * <p>The unique identifier for the Trusted Advisor check.</p>
+     */
+    inline bool CheckIdHasBeenSet() const { return m_checkIdHasBeenSet; }
 
     /**
      * <p>The unique identifier for the Trusted Advisor check.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The time of the last refresh of the check.</p>
      */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
+
+    /**
+     * <p>The time of the last refresh of the check.</p>
+     */
     inline void SetTimestamp(const Aws::String& value) { m_timestampHasBeenSet = true; m_timestamp = value; }
 
     /**
@@ -126,6 +137,12 @@ namespace Model
      * (red), or "not_available".</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The alert status of the check: "ok" (green), "warning" (yellow), "error"
+     * (red), or "not_available".</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The alert status of the check: "ok" (green), "warning" (yellow), "error"
@@ -172,6 +189,11 @@ namespace Model
     /**
      * <p>Specifies whether the Trusted Advisor check has flagged resources.</p>
      */
+    inline bool HasFlaggedResourcesHasBeenSet() const { return m_hasFlaggedResourcesHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the Trusted Advisor check has flagged resources.</p>
+     */
     inline void SetHasFlaggedResources(bool value) { m_hasFlaggedResourcesHasBeenSet = true; m_hasFlaggedResources = value; }
 
     /**
@@ -182,6 +204,9 @@ namespace Model
 
     
     inline const TrustedAdvisorResourcesSummary& GetResourcesSummary() const{ return m_resourcesSummary; }
+
+    
+    inline bool ResourcesSummaryHasBeenSet() const { return m_resourcesSummaryHasBeenSet; }
 
     
     inline void SetResourcesSummary(const TrustedAdvisorResourcesSummary& value) { m_resourcesSummaryHasBeenSet = true; m_resourcesSummary = value; }
@@ -201,6 +226,12 @@ namespace Model
      * Optimizing is the only category that is currently supported.</p>
      */
     inline const TrustedAdvisorCategorySpecificSummary& GetCategorySpecificSummary() const{ return m_categorySpecificSummary; }
+
+    /**
+     * <p>Summary information that relates to the category of the check. Cost
+     * Optimizing is the only category that is currently supported.</p>
+     */
+    inline bool CategorySpecificSummaryHasBeenSet() const { return m_categorySpecificSummaryHasBeenSet; }
 
     /**
      * <p>Summary information that relates to the category of the check. Cost

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DataPipeline
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Selector();
-    Selector(const Aws::Utils::Json::JsonValue& jsonValue);
-    Selector& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Selector(Aws::Utils::Json::JsonView jsonValue);
+    Selector& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,14 @@ namespace Model
      * condition fails.</p>
      */
     inline const Aws::String& GetFieldName() const{ return m_fieldName; }
+
+    /**
+     * <p>The name of the field that the operator will be applied to. The field name is
+     * the "key" portion of the field definition in the pipeline definition syntax that
+     * is used by the AWS Data Pipeline API. If the field is not set on the object, the
+     * condition fails.</p>
+     */
+    inline bool FieldNameHasBeenSet() const { return m_fieldNameHasBeenSet; }
 
     /**
      * <p>The name of the field that the operator will be applied to. The field name is
@@ -107,6 +116,9 @@ namespace Model
 
     
     inline const Operator& GetOperator() const{ return m_operator; }
+
+    
+    inline bool OperatorHasBeenSet() const { return m_operatorHasBeenSet; }
 
     
     inline void SetOperator(const Operator& value) { m_operatorHasBeenSet = true; m_operator = value; }

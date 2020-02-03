@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     CelebrityDetail();
-    CelebrityDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    CelebrityDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CelebrityDetail(Aws::Utils::Json::JsonView jsonValue);
+    CelebrityDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>An array of URLs pointing to additional celebrity information. </p>
      */
     inline const Aws::Vector<Aws::String>& GetUrls() const{ return m_urls; }
+
+    /**
+     * <p>An array of URLs pointing to additional celebrity information. </p>
+     */
+    inline bool UrlsHasBeenSet() const { return m_urlsHasBeenSet; }
 
     /**
      * <p>An array of URLs pointing to additional celebrity information. </p>
@@ -98,6 +104,11 @@ namespace Model
     /**
      * <p>The name of the celebrity.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the celebrity.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -130,6 +141,11 @@ namespace Model
      * <p>The unique identifier for the celebrity. </p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier for the celebrity. </p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier for the celebrity. </p>
@@ -172,6 +188,12 @@ namespace Model
      * <p>The confidence, in percentage, that Amazon Rekognition has that the
      * recognized face is the celebrity. </p>
      */
+    inline bool ConfidenceHasBeenSet() const { return m_confidenceHasBeenSet; }
+
+    /**
+     * <p>The confidence, in percentage, that Amazon Rekognition has that the
+     * recognized face is the celebrity. </p>
+     */
     inline void SetConfidence(double value) { m_confidenceHasBeenSet = true; m_confidence = value; }
 
     /**
@@ -185,6 +207,11 @@ namespace Model
      * <p>Bounding box around the body of a celebrity.</p>
      */
     inline const BoundingBox& GetBoundingBox() const{ return m_boundingBox; }
+
+    /**
+     * <p>Bounding box around the body of a celebrity.</p>
+     */
+    inline bool BoundingBoxHasBeenSet() const { return m_boundingBoxHasBeenSet; }
 
     /**
      * <p>Bounding box around the body of a celebrity.</p>
@@ -211,6 +238,11 @@ namespace Model
      * <p>Face details for the recognized celebrity.</p>
      */
     inline const FaceDetail& GetFace() const{ return m_face; }
+
+    /**
+     * <p>Face details for the recognized celebrity.</p>
+     */
+    inline bool FaceHasBeenSet() const { return m_faceHasBeenSet; }
 
     /**
      * <p>Face details for the recognized celebrity.</p>

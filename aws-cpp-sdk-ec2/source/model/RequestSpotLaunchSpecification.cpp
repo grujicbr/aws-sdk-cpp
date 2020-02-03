@@ -87,7 +87,7 @@ RequestSpotLaunchSpecification& RequestSpotLaunchSpecification::operator =(const
       XmlNode securityGroupIdsMember = securityGroupIdsNode.FirstChild("item");
       while(!securityGroupIdsMember.IsNull())
       {
-        m_securityGroupIds.push_back(StringUtils::Trim(securityGroupIdsMember.GetText().c_str()));
+        m_securityGroupIds.push_back(securityGroupIdsMember.GetText());
         securityGroupIdsMember = securityGroupIdsMember.NextNode("item");
       }
 
@@ -99,7 +99,7 @@ RequestSpotLaunchSpecification& RequestSpotLaunchSpecification::operator =(const
       XmlNode securityGroupsMember = securityGroupsNode.FirstChild("item");
       while(!securityGroupsMember.IsNull())
       {
-        m_securityGroups.push_back(StringUtils::Trim(securityGroupsMember.GetText().c_str()));
+        m_securityGroups.push_back(securityGroupsMember.GetText());
         securityGroupsMember = securityGroupsMember.NextNode("item");
       }
 
@@ -108,7 +108,7 @@ RequestSpotLaunchSpecification& RequestSpotLaunchSpecification::operator =(const
     XmlNode addressingTypeNode = resultNode.FirstChild("addressingType");
     if(!addressingTypeNode.IsNull())
     {
-      m_addressingType = StringUtils::Trim(addressingTypeNode.GetText().c_str());
+      m_addressingType = Aws::Utils::Xml::DecodeEscapedXmlText(addressingTypeNode.GetText());
       m_addressingTypeHasBeenSet = true;
     }
     XmlNode blockDeviceMappingsNode = resultNode.FirstChild("blockDeviceMapping");
@@ -126,7 +126,7 @@ RequestSpotLaunchSpecification& RequestSpotLaunchSpecification::operator =(const
     XmlNode ebsOptimizedNode = resultNode.FirstChild("ebsOptimized");
     if(!ebsOptimizedNode.IsNull())
     {
-      m_ebsOptimized = StringUtils::ConvertToBool(StringUtils::Trim(ebsOptimizedNode.GetText().c_str()).c_str());
+      m_ebsOptimized = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(ebsOptimizedNode.GetText()).c_str()).c_str());
       m_ebsOptimizedHasBeenSet = true;
     }
     XmlNode iamInstanceProfileNode = resultNode.FirstChild("iamInstanceProfile");
@@ -138,25 +138,25 @@ RequestSpotLaunchSpecification& RequestSpotLaunchSpecification::operator =(const
     XmlNode imageIdNode = resultNode.FirstChild("imageId");
     if(!imageIdNode.IsNull())
     {
-      m_imageId = StringUtils::Trim(imageIdNode.GetText().c_str());
+      m_imageId = Aws::Utils::Xml::DecodeEscapedXmlText(imageIdNode.GetText());
       m_imageIdHasBeenSet = true;
     }
     XmlNode instanceTypeNode = resultNode.FirstChild("instanceType");
     if(!instanceTypeNode.IsNull())
     {
-      m_instanceType = InstanceTypeMapper::GetInstanceTypeForName(StringUtils::Trim(instanceTypeNode.GetText().c_str()).c_str());
+      m_instanceType = InstanceTypeMapper::GetInstanceTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(instanceTypeNode.GetText()).c_str()).c_str());
       m_instanceTypeHasBeenSet = true;
     }
     XmlNode kernelIdNode = resultNode.FirstChild("kernelId");
     if(!kernelIdNode.IsNull())
     {
-      m_kernelId = StringUtils::Trim(kernelIdNode.GetText().c_str());
+      m_kernelId = Aws::Utils::Xml::DecodeEscapedXmlText(kernelIdNode.GetText());
       m_kernelIdHasBeenSet = true;
     }
     XmlNode keyNameNode = resultNode.FirstChild("keyName");
     if(!keyNameNode.IsNull())
     {
-      m_keyName = StringUtils::Trim(keyNameNode.GetText().c_str());
+      m_keyName = Aws::Utils::Xml::DecodeEscapedXmlText(keyNameNode.GetText());
       m_keyNameHasBeenSet = true;
     }
     XmlNode monitoringNode = resultNode.FirstChild("monitoring");
@@ -186,19 +186,19 @@ RequestSpotLaunchSpecification& RequestSpotLaunchSpecification::operator =(const
     XmlNode ramdiskIdNode = resultNode.FirstChild("ramdiskId");
     if(!ramdiskIdNode.IsNull())
     {
-      m_ramdiskId = StringUtils::Trim(ramdiskIdNode.GetText().c_str());
+      m_ramdiskId = Aws::Utils::Xml::DecodeEscapedXmlText(ramdiskIdNode.GetText());
       m_ramdiskIdHasBeenSet = true;
     }
     XmlNode subnetIdNode = resultNode.FirstChild("subnetId");
     if(!subnetIdNode.IsNull())
     {
-      m_subnetId = StringUtils::Trim(subnetIdNode.GetText().c_str());
+      m_subnetId = Aws::Utils::Xml::DecodeEscapedXmlText(subnetIdNode.GetText());
       m_subnetIdHasBeenSet = true;
     }
     XmlNode userDataNode = resultNode.FirstChild("userData");
     if(!userDataNode.IsNull())
     {
-      m_userData = StringUtils::Trim(userDataNode.GetText().c_str());
+      m_userData = Aws::Utils::Xml::DecodeEscapedXmlText(userDataNode.GetText());
       m_userDataHasBeenSet = true;
     }
   }

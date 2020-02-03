@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudSearchDomain
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     SearchStatus();
-    SearchStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    SearchStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SearchStatus(Aws::Utils::Json::JsonView jsonValue);
+    SearchStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>How long it took to process the request, in milliseconds.</p>
      */
     inline long long GetTimems() const{ return m_timems; }
+
+    /**
+     * <p>How long it took to process the request, in milliseconds.</p>
+     */
+    inline bool TimemsHasBeenSet() const { return m_timemsHasBeenSet; }
 
     /**
      * <p>How long it took to process the request, in milliseconds.</p>
@@ -67,6 +73,11 @@ namespace Model
      * <p>The encrypted resource ID for the request.</p>
      */
     inline const Aws::String& GetRid() const{ return m_rid; }
+
+    /**
+     * <p>The encrypted resource ID for the request.</p>
+     */
+    inline bool RidHasBeenSet() const { return m_ridHasBeenSet; }
 
     /**
      * <p>The encrypted resource ID for the request.</p>

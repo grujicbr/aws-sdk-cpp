@@ -30,24 +30,33 @@ namespace Model
 
 JobExecutionsRolloutConfig::JobExecutionsRolloutConfig() : 
     m_maximumPerMinute(0),
-    m_maximumPerMinuteHasBeenSet(false)
+    m_maximumPerMinuteHasBeenSet(false),
+    m_exponentialRateHasBeenSet(false)
 {
 }
 
-JobExecutionsRolloutConfig::JobExecutionsRolloutConfig(const JsonValue& jsonValue) : 
+JobExecutionsRolloutConfig::JobExecutionsRolloutConfig(JsonView jsonValue) : 
     m_maximumPerMinute(0),
-    m_maximumPerMinuteHasBeenSet(false)
+    m_maximumPerMinuteHasBeenSet(false),
+    m_exponentialRateHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-JobExecutionsRolloutConfig& JobExecutionsRolloutConfig::operator =(const JsonValue& jsonValue)
+JobExecutionsRolloutConfig& JobExecutionsRolloutConfig::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("maximumPerMinute"))
   {
     m_maximumPerMinute = jsonValue.GetInteger("maximumPerMinute");
 
     m_maximumPerMinuteHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("exponentialRate"))
+  {
+    m_exponentialRate = jsonValue.GetObject("exponentialRate");
+
+    m_exponentialRateHasBeenSet = true;
   }
 
   return *this;
@@ -60,6 +69,12 @@ JsonValue JobExecutionsRolloutConfig::Jsonize() const
   if(m_maximumPerMinuteHasBeenSet)
   {
    payload.WithInteger("maximumPerMinute", m_maximumPerMinute);
+
+  }
+
+  if(m_exponentialRateHasBeenSet)
+  {
+   payload.WithObject("exponentialRate", m_exponentialRate.Jsonize());
 
   }
 

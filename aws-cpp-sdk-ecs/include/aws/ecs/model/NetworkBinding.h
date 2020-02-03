@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     NetworkBinding();
-    NetworkBinding(const Aws::Utils::Json::JsonValue& jsonValue);
-    NetworkBinding& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NetworkBinding(Aws::Utils::Json::JsonView jsonValue);
+    NetworkBinding& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The IP address that the container is bound to on the container instance.</p>
      */
     inline const Aws::String& GetBindIP() const{ return m_bindIP; }
+
+    /**
+     * <p>The IP address that the container is bound to on the container instance.</p>
+     */
+    inline bool BindIPHasBeenSet() const { return m_bindIPHasBeenSet; }
 
     /**
      * <p>The IP address that the container is bound to on the container instance.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>The port number on the container that is used with the network binding.</p>
      */
+    inline bool ContainerPortHasBeenSet() const { return m_containerPortHasBeenSet; }
+
+    /**
+     * <p>The port number on the container that is used with the network binding.</p>
+     */
     inline void SetContainerPort(int value) { m_containerPortHasBeenSet = true; m_containerPort = value; }
 
     /**
@@ -111,6 +122,11 @@ namespace Model
     /**
      * <p>The port number on the host that is used with the network binding.</p>
      */
+    inline bool HostPortHasBeenSet() const { return m_hostPortHasBeenSet; }
+
+    /**
+     * <p>The port number on the host that is used with the network binding.</p>
+     */
     inline void SetHostPort(int value) { m_hostPortHasBeenSet = true; m_hostPort = value; }
 
     /**
@@ -123,6 +139,11 @@ namespace Model
      * <p>The protocol used for the network binding.</p>
      */
     inline const TransportProtocol& GetProtocol() const{ return m_protocol; }
+
+    /**
+     * <p>The protocol used for the network binding.</p>
+     */
+    inline bool ProtocolHasBeenSet() const { return m_protocolHasBeenSet; }
 
     /**
      * <p>The protocol used for the network binding.</p>

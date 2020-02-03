@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TimeBasedLinear();
-    TimeBasedLinear(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimeBasedLinear& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimeBasedLinear(Aws::Utils::Json::JsonView jsonValue);
+    TimeBasedLinear& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * <code>TimeBasedLinear</code> deployment.</p>
      */
     inline int GetLinearPercentage() const{ return m_linearPercentage; }
+
+    /**
+     * <p>The percentage of traffic that is shifted at the start of each increment of a
+     * <code>TimeBasedLinear</code> deployment.</p>
+     */
+    inline bool LinearPercentageHasBeenSet() const { return m_linearPercentageHasBeenSet; }
 
     /**
      * <p>The percentage of traffic that is shifted at the start of each increment of a
@@ -71,6 +78,12 @@ namespace Model
      * <code>TimeBasedLinear</code> deployment.</p>
      */
     inline int GetLinearInterval() const{ return m_linearInterval; }
+
+    /**
+     * <p>The number of minutes between each incremental traffic shift of a
+     * <code>TimeBasedLinear</code> deployment.</p>
+     */
+    inline bool LinearIntervalHasBeenSet() const { return m_linearIntervalHasBeenSet; }
 
     /**
      * <p>The number of minutes between each incremental traffic shift of a

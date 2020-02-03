@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Resource();
-    Resource(const Aws::Utils::Json::JsonValue& jsonValue);
-    Resource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Resource(Aws::Utils::Json::JsonView jsonValue);
+    Resource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * <code>PORTS</code>, <code>PORTS_UDP</code>, or a user-defined resource.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the resource, such as <code>CPU</code>, <code>MEMORY</code>,
+     * <code>PORTS</code>, <code>PORTS_UDP</code>, or a user-defined resource.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the resource, such as <code>CPU</code>, <code>MEMORY</code>,
@@ -101,6 +108,12 @@ namespace Model
      * <p>The type of the resource, such as <code>INTEGER</code>, <code>DOUBLE</code>,
      * <code>LONG</code>, or <code>STRINGSET</code>.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of the resource, such as <code>INTEGER</code>, <code>DOUBLE</code>,
+     * <code>LONG</code>, or <code>STRINGSET</code>.</p>
+     */
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -144,6 +157,12 @@ namespace Model
      * <p>When the <code>doubleValue</code> type is set, the value of the resource must
      * be a double precision floating-point type.</p>
      */
+    inline bool DoubleValueHasBeenSet() const { return m_doubleValueHasBeenSet; }
+
+    /**
+     * <p>When the <code>doubleValue</code> type is set, the value of the resource must
+     * be a double precision floating-point type.</p>
+     */
     inline void SetDoubleValue(double value) { m_doubleValueHasBeenSet = true; m_doubleValue = value; }
 
     /**
@@ -158,6 +177,12 @@ namespace Model
      * be an extended precision floating-point type.</p>
      */
     inline long long GetLongValue() const{ return m_longValue; }
+
+    /**
+     * <p>When the <code>longValue</code> type is set, the value of the resource must
+     * be an extended precision floating-point type.</p>
+     */
+    inline bool LongValueHasBeenSet() const { return m_longValueHasBeenSet; }
 
     /**
      * <p>When the <code>longValue</code> type is set, the value of the resource must
@@ -182,6 +207,12 @@ namespace Model
      * <p>When the <code>integerValue</code> type is set, the value of the resource
      * must be an integer.</p>
      */
+    inline bool IntegerValueHasBeenSet() const { return m_integerValueHasBeenSet; }
+
+    /**
+     * <p>When the <code>integerValue</code> type is set, the value of the resource
+     * must be an integer.</p>
+     */
     inline void SetIntegerValue(int value) { m_integerValueHasBeenSet = true; m_integerValue = value; }
 
     /**
@@ -196,6 +227,12 @@ namespace Model
      * must be a string type.</p>
      */
     inline const Aws::Vector<Aws::String>& GetStringSetValue() const{ return m_stringSetValue; }
+
+    /**
+     * <p>When the <code>stringSetValue</code> type is set, the value of the resource
+     * must be a string type.</p>
+     */
+    inline bool StringSetValueHasBeenSet() const { return m_stringSetValueHasBeenSet; }
 
     /**
      * <p>When the <code>stringSetValue</code> type is set, the value of the resource

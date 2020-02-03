@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     ThrottleSettings();
-    ThrottleSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    ThrottleSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ThrottleSettings(Aws::Utils::Json::JsonView jsonValue);
+    ThrottleSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,13 @@ namespace Model
      * its full capacity.</p>
      */
     inline int GetBurstLimit() const{ return m_burstLimit; }
+
+    /**
+     * <p>The API request burst limit, the maximum rate limit over a time ranging from
+     * one to a few seconds, depending upon whether the underlying token bucket is at
+     * its full capacity.</p>
+     */
+    inline bool BurstLimitHasBeenSet() const { return m_burstLimitHasBeenSet; }
 
     /**
      * <p>The API request burst limit, the maximum rate limit over a time ranging from
@@ -70,6 +78,11 @@ namespace Model
      * <p>The API request steady-state rate limit.</p>
      */
     inline double GetRateLimit() const{ return m_rateLimit; }
+
+    /**
+     * <p>The API request steady-state rate limit.</p>
+     */
+    inline bool RateLimitHasBeenSet() const { return m_rateLimitHasBeenSet; }
 
     /**
      * <p>The API request steady-state rate limit.</p>

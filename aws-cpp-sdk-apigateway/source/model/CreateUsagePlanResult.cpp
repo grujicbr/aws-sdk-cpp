@@ -37,7 +37,7 @@ CreateUsagePlanResult::CreateUsagePlanResult(const Aws::AmazonWebServiceResult<J
 
 CreateUsagePlanResult& CreateUsagePlanResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("id"))
   {
     m_id = jsonValue.GetString("id");
@@ -58,7 +58,7 @@ CreateUsagePlanResult& CreateUsagePlanResult::operator =(const Aws::AmazonWebSer
 
   if(jsonValue.ValueExists("apiStages"))
   {
-    Array<JsonValue> apiStagesJsonList = jsonValue.GetArray("apiStages");
+    Array<JsonView> apiStagesJsonList = jsonValue.GetArray("apiStages");
     for(unsigned apiStagesIndex = 0; apiStagesIndex < apiStagesJsonList.GetLength(); ++apiStagesIndex)
     {
       m_apiStages.push_back(apiStagesJsonList[apiStagesIndex].AsObject());
@@ -81,6 +81,15 @@ CreateUsagePlanResult& CreateUsagePlanResult::operator =(const Aws::AmazonWebSer
   {
     m_productCode = jsonValue.GetString("productCode");
 
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
   }
 
 

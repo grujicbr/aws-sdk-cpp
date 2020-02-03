@@ -36,11 +36,12 @@ KeyPair::KeyPair() :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_fingerprintHasBeenSet(false)
 {
 }
 
-KeyPair::KeyPair(const JsonValue& jsonValue) : 
+KeyPair::KeyPair(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_supportCodeHasBeenSet(false),
@@ -48,12 +49,13 @@ KeyPair::KeyPair(const JsonValue& jsonValue) :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_fingerprintHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-KeyPair& KeyPair::operator =(const JsonValue& jsonValue)
+KeyPair& KeyPair::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -95,6 +97,16 @@ KeyPair& KeyPair::operator =(const JsonValue& jsonValue)
     m_resourceType = ResourceTypeMapper::GetResourceTypeForName(jsonValue.GetString("resourceType"));
 
     m_resourceTypeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("fingerprint"))
@@ -143,6 +155,17 @@ JsonValue KeyPair::Jsonize() const
   if(m_resourceTypeHasBeenSet)
   {
    payload.WithString("resourceType", ResourceTypeMapper::GetNameForResourceType(m_resourceType));
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
   }
 
   if(m_fingerprintHasBeenSet)

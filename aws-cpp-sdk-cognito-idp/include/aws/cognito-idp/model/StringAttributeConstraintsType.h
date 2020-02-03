@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     StringAttributeConstraintsType();
-    StringAttributeConstraintsType(const Aws::Utils::Json::JsonValue& jsonValue);
-    StringAttributeConstraintsType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StringAttributeConstraintsType(Aws::Utils::Json::JsonView jsonValue);
+    StringAttributeConstraintsType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The minimum length.</p>
      */
     inline const Aws::String& GetMinLength() const{ return m_minLength; }
+
+    /**
+     * <p>The minimum length.</p>
+     */
+    inline bool MinLengthHasBeenSet() const { return m_minLengthHasBeenSet; }
 
     /**
      * <p>The minimum length.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The maximum length.</p>
      */
     inline const Aws::String& GetMaxLength() const{ return m_maxLength; }
+
+    /**
+     * <p>The maximum length.</p>
+     */
+    inline bool MaxLengthHasBeenSet() const { return m_maxLengthHasBeenSet; }
 
     /**
      * <p>The maximum length.</p>

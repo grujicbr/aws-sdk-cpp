@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     ComplianceContributorCount();
-    ComplianceContributorCount(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComplianceContributorCount& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComplianceContributorCount(Aws::Utils::Json::JsonView jsonValue);
+    ComplianceContributorCount& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * compliance of the item.</p>
      */
     inline int GetCappedCount() const{ return m_cappedCount; }
+
+    /**
+     * <p>The number of AWS resources or AWS Config rules responsible for the current
+     * compliance of the item.</p>
+     */
+    inline bool CappedCountHasBeenSet() const { return m_cappedCountHasBeenSet; }
 
     /**
      * <p>The number of AWS resources or AWS Config rules responsible for the current
@@ -68,6 +75,11 @@ namespace Model
      * <p>Indicates whether the maximum count is reached.</p>
      */
     inline bool GetCapExceeded() const{ return m_capExceeded; }
+
+    /**
+     * <p>Indicates whether the maximum count is reached.</p>
+     */
+    inline bool CapExceededHasBeenSet() const { return m_capExceededHasBeenSet; }
 
     /**
      * <p>Indicates whether the maximum count is reached.</p>

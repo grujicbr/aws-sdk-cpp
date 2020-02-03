@@ -29,23 +29,32 @@ namespace Model
 {
 
 ActionContext::ActionContext() : 
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_actionExecutionIdHasBeenSet(false)
 {
 }
 
-ActionContext::ActionContext(const JsonValue& jsonValue) : 
-    m_nameHasBeenSet(false)
+ActionContext::ActionContext(JsonView jsonValue) : 
+    m_nameHasBeenSet(false),
+    m_actionExecutionIdHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ActionContext& ActionContext::operator =(const JsonValue& jsonValue)
+ActionContext& ActionContext::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
     m_name = jsonValue.GetString("name");
 
     m_nameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("actionExecutionId"))
+  {
+    m_actionExecutionId = jsonValue.GetString("actionExecutionId");
+
+    m_actionExecutionIdHasBeenSet = true;
   }
 
   return *this;
@@ -58,6 +67,12 @@ JsonValue ActionContext::Jsonize() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("name", m_name);
+
+  }
+
+  if(m_actionExecutionIdHasBeenSet)
+  {
+   payload.WithString("actionExecutionId", m_actionExecutionId);
 
   }
 

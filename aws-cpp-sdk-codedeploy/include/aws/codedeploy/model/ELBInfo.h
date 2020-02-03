@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -43,71 +44,80 @@ namespace Model
   {
   public:
     ELBInfo();
-    ELBInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    ELBInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ELBInfo(Aws::Utils::Json::JsonView jsonValue);
+    ELBInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>For blue/green deployments, the name of the load balancer that will be used
-     * to route traffic from original instances to replacement instances in a
-     * blue/green deployment. For in-place deployments, the name of the load balancer
-     * that instances are deregistered from so they are not serving traffic during a
-     * deployment, and then re-registered with after the deployment completes.</p>
+     * <p>For blue/green deployments, the name of the load balancer that is used to
+     * route traffic from original instances to replacement instances in a blue/green
+     * deployment. For in-place deployments, the name of the load balancer that
+     * instances are deregistered from so they are not serving traffic during a
+     * deployment, and then re-registered with after the deployment is complete.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
-     * <p>For blue/green deployments, the name of the load balancer that will be used
-     * to route traffic from original instances to replacement instances in a
-     * blue/green deployment. For in-place deployments, the name of the load balancer
-     * that instances are deregistered from so they are not serving traffic during a
-     * deployment, and then re-registered with after the deployment completes.</p>
+     * <p>For blue/green deployments, the name of the load balancer that is used to
+     * route traffic from original instances to replacement instances in a blue/green
+     * deployment. For in-place deployments, the name of the load balancer that
+     * instances are deregistered from so they are not serving traffic during a
+     * deployment, and then re-registered with after the deployment is complete.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>For blue/green deployments, the name of the load balancer that is used to
+     * route traffic from original instances to replacement instances in a blue/green
+     * deployment. For in-place deployments, the name of the load balancer that
+     * instances are deregistered from so they are not serving traffic during a
+     * deployment, and then re-registered with after the deployment is complete.</p>
      */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
-     * <p>For blue/green deployments, the name of the load balancer that will be used
-     * to route traffic from original instances to replacement instances in a
-     * blue/green deployment. For in-place deployments, the name of the load balancer
-     * that instances are deregistered from so they are not serving traffic during a
-     * deployment, and then re-registered with after the deployment completes.</p>
+     * <p>For blue/green deployments, the name of the load balancer that is used to
+     * route traffic from original instances to replacement instances in a blue/green
+     * deployment. For in-place deployments, the name of the load balancer that
+     * instances are deregistered from so they are not serving traffic during a
+     * deployment, and then re-registered with after the deployment is complete.</p>
      */
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
     /**
-     * <p>For blue/green deployments, the name of the load balancer that will be used
-     * to route traffic from original instances to replacement instances in a
-     * blue/green deployment. For in-place deployments, the name of the load balancer
-     * that instances are deregistered from so they are not serving traffic during a
-     * deployment, and then re-registered with after the deployment completes.</p>
+     * <p>For blue/green deployments, the name of the load balancer that is used to
+     * route traffic from original instances to replacement instances in a blue/green
+     * deployment. For in-place deployments, the name of the load balancer that
+     * instances are deregistered from so they are not serving traffic during a
+     * deployment, and then re-registered with after the deployment is complete.</p>
      */
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
     /**
-     * <p>For blue/green deployments, the name of the load balancer that will be used
-     * to route traffic from original instances to replacement instances in a
-     * blue/green deployment. For in-place deployments, the name of the load balancer
-     * that instances are deregistered from so they are not serving traffic during a
-     * deployment, and then re-registered with after the deployment completes.</p>
+     * <p>For blue/green deployments, the name of the load balancer that is used to
+     * route traffic from original instances to replacement instances in a blue/green
+     * deployment. For in-place deployments, the name of the load balancer that
+     * instances are deregistered from so they are not serving traffic during a
+     * deployment, and then re-registered with after the deployment is complete.</p>
      */
     inline ELBInfo& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
-     * <p>For blue/green deployments, the name of the load balancer that will be used
-     * to route traffic from original instances to replacement instances in a
-     * blue/green deployment. For in-place deployments, the name of the load balancer
-     * that instances are deregistered from so they are not serving traffic during a
-     * deployment, and then re-registered with after the deployment completes.</p>
+     * <p>For blue/green deployments, the name of the load balancer that is used to
+     * route traffic from original instances to replacement instances in a blue/green
+     * deployment. For in-place deployments, the name of the load balancer that
+     * instances are deregistered from so they are not serving traffic during a
+     * deployment, and then re-registered with after the deployment is complete.</p>
      */
     inline ELBInfo& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
-     * <p>For blue/green deployments, the name of the load balancer that will be used
-     * to route traffic from original instances to replacement instances in a
-     * blue/green deployment. For in-place deployments, the name of the load balancer
-     * that instances are deregistered from so they are not serving traffic during a
-     * deployment, and then re-registered with after the deployment completes.</p>
+     * <p>For blue/green deployments, the name of the load balancer that is used to
+     * route traffic from original instances to replacement instances in a blue/green
+     * deployment. For in-place deployments, the name of the load balancer that
+     * instances are deregistered from so they are not serving traffic during a
+     * deployment, and then re-registered with after the deployment is complete.</p>
      */
     inline ELBInfo& WithName(const char* value) { SetName(value); return *this;}
 

@@ -19,6 +19,8 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/ds/model/DirectorySize.h>
 #include <aws/ds/model/DirectoryVpcSettings.h>
+#include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/ds/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -38,7 +40,7 @@ namespace Model
   {
   public:
     CreateDirectoryRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -55,6 +57,12 @@ namespace Model
      * <code>corp.example.com</code>.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The fully qualified name for the directory, such as
+     * <code>corp.example.com</code>.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The fully qualified name for the directory, such as
@@ -94,123 +102,156 @@ namespace Model
 
 
     /**
-     * <p>The short name of the directory, such as <code>CORP</code>.</p>
+     * <p>The NetBIOS name of the directory, such as <code>CORP</code>.</p>
      */
     inline const Aws::String& GetShortName() const{ return m_shortName; }
 
     /**
-     * <p>The short name of the directory, such as <code>CORP</code>.</p>
+     * <p>The NetBIOS name of the directory, such as <code>CORP</code>.</p>
+     */
+    inline bool ShortNameHasBeenSet() const { return m_shortNameHasBeenSet; }
+
+    /**
+     * <p>The NetBIOS name of the directory, such as <code>CORP</code>.</p>
      */
     inline void SetShortName(const Aws::String& value) { m_shortNameHasBeenSet = true; m_shortName = value; }
 
     /**
-     * <p>The short name of the directory, such as <code>CORP</code>.</p>
+     * <p>The NetBIOS name of the directory, such as <code>CORP</code>.</p>
      */
     inline void SetShortName(Aws::String&& value) { m_shortNameHasBeenSet = true; m_shortName = std::move(value); }
 
     /**
-     * <p>The short name of the directory, such as <code>CORP</code>.</p>
+     * <p>The NetBIOS name of the directory, such as <code>CORP</code>.</p>
      */
     inline void SetShortName(const char* value) { m_shortNameHasBeenSet = true; m_shortName.assign(value); }
 
     /**
-     * <p>The short name of the directory, such as <code>CORP</code>.</p>
+     * <p>The NetBIOS name of the directory, such as <code>CORP</code>.</p>
      */
     inline CreateDirectoryRequest& WithShortName(const Aws::String& value) { SetShortName(value); return *this;}
 
     /**
-     * <p>The short name of the directory, such as <code>CORP</code>.</p>
+     * <p>The NetBIOS name of the directory, such as <code>CORP</code>.</p>
      */
     inline CreateDirectoryRequest& WithShortName(Aws::String&& value) { SetShortName(std::move(value)); return *this;}
 
     /**
-     * <p>The short name of the directory, such as <code>CORP</code>.</p>
+     * <p>The NetBIOS name of the directory, such as <code>CORP</code>.</p>
      */
     inline CreateDirectoryRequest& WithShortName(const char* value) { SetShortName(value); return *this;}
 
 
     /**
      * <p>The password for the directory administrator. The directory creation process
-     * creates a directory administrator account with the username
-     * <code>Administrator</code> and this password.</p>
+     * creates a directory administrator account with the user name
+     * <code>Administrator</code> and this password.</p> <p>If you need to change the
+     * password for the administrator account, you can use the <a>ResetUserPassword</a>
+     * API call.</p>
      */
     inline const Aws::String& GetPassword() const{ return m_password; }
 
     /**
      * <p>The password for the directory administrator. The directory creation process
-     * creates a directory administrator account with the username
-     * <code>Administrator</code> and this password.</p>
+     * creates a directory administrator account with the user name
+     * <code>Administrator</code> and this password.</p> <p>If you need to change the
+     * password for the administrator account, you can use the <a>ResetUserPassword</a>
+     * API call.</p>
+     */
+    inline bool PasswordHasBeenSet() const { return m_passwordHasBeenSet; }
+
+    /**
+     * <p>The password for the directory administrator. The directory creation process
+     * creates a directory administrator account with the user name
+     * <code>Administrator</code> and this password.</p> <p>If you need to change the
+     * password for the administrator account, you can use the <a>ResetUserPassword</a>
+     * API call.</p>
      */
     inline void SetPassword(const Aws::String& value) { m_passwordHasBeenSet = true; m_password = value; }
 
     /**
      * <p>The password for the directory administrator. The directory creation process
-     * creates a directory administrator account with the username
-     * <code>Administrator</code> and this password.</p>
+     * creates a directory administrator account with the user name
+     * <code>Administrator</code> and this password.</p> <p>If you need to change the
+     * password for the administrator account, you can use the <a>ResetUserPassword</a>
+     * API call.</p>
      */
     inline void SetPassword(Aws::String&& value) { m_passwordHasBeenSet = true; m_password = std::move(value); }
 
     /**
      * <p>The password for the directory administrator. The directory creation process
-     * creates a directory administrator account with the username
-     * <code>Administrator</code> and this password.</p>
+     * creates a directory administrator account with the user name
+     * <code>Administrator</code> and this password.</p> <p>If you need to change the
+     * password for the administrator account, you can use the <a>ResetUserPassword</a>
+     * API call.</p>
      */
     inline void SetPassword(const char* value) { m_passwordHasBeenSet = true; m_password.assign(value); }
 
     /**
      * <p>The password for the directory administrator. The directory creation process
-     * creates a directory administrator account with the username
-     * <code>Administrator</code> and this password.</p>
+     * creates a directory administrator account with the user name
+     * <code>Administrator</code> and this password.</p> <p>If you need to change the
+     * password for the administrator account, you can use the <a>ResetUserPassword</a>
+     * API call.</p>
      */
     inline CreateDirectoryRequest& WithPassword(const Aws::String& value) { SetPassword(value); return *this;}
 
     /**
      * <p>The password for the directory administrator. The directory creation process
-     * creates a directory administrator account with the username
-     * <code>Administrator</code> and this password.</p>
+     * creates a directory administrator account with the user name
+     * <code>Administrator</code> and this password.</p> <p>If you need to change the
+     * password for the administrator account, you can use the <a>ResetUserPassword</a>
+     * API call.</p>
      */
     inline CreateDirectoryRequest& WithPassword(Aws::String&& value) { SetPassword(std::move(value)); return *this;}
 
     /**
      * <p>The password for the directory administrator. The directory creation process
-     * creates a directory administrator account with the username
-     * <code>Administrator</code> and this password.</p>
+     * creates a directory administrator account with the user name
+     * <code>Administrator</code> and this password.</p> <p>If you need to change the
+     * password for the administrator account, you can use the <a>ResetUserPassword</a>
+     * API call.</p>
      */
     inline CreateDirectoryRequest& WithPassword(const char* value) { SetPassword(value); return *this;}
 
 
     /**
-     * <p>A textual description for the directory.</p>
+     * <p>A description for the directory.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
 
     /**
-     * <p>A textual description for the directory.</p>
+     * <p>A description for the directory.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A description for the directory.</p>
      */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
-     * <p>A textual description for the directory.</p>
+     * <p>A description for the directory.</p>
      */
     inline void SetDescription(Aws::String&& value) { m_descriptionHasBeenSet = true; m_description = std::move(value); }
 
     /**
-     * <p>A textual description for the directory.</p>
+     * <p>A description for the directory.</p>
      */
     inline void SetDescription(const char* value) { m_descriptionHasBeenSet = true; m_description.assign(value); }
 
     /**
-     * <p>A textual description for the directory.</p>
+     * <p>A description for the directory.</p>
      */
     inline CreateDirectoryRequest& WithDescription(const Aws::String& value) { SetDescription(value); return *this;}
 
     /**
-     * <p>A textual description for the directory.</p>
+     * <p>A description for the directory.</p>
      */
     inline CreateDirectoryRequest& WithDescription(Aws::String&& value) { SetDescription(std::move(value)); return *this;}
 
     /**
-     * <p>A textual description for the directory.</p>
+     * <p>A description for the directory.</p>
      */
     inline CreateDirectoryRequest& WithDescription(const char* value) { SetDescription(value); return *this;}
 
@@ -219,6 +260,11 @@ namespace Model
      * <p>The size of the directory.</p>
      */
     inline const DirectorySize& GetSize() const{ return m_size; }
+
+    /**
+     * <p>The size of the directory.</p>
+     */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
 
     /**
      * <p>The size of the directory.</p>
@@ -251,6 +297,12 @@ namespace Model
      * <p>A <a>DirectoryVpcSettings</a> object that contains additional information for
      * the operation.</p>
      */
+    inline bool VpcSettingsHasBeenSet() const { return m_vpcSettingsHasBeenSet; }
+
+    /**
+     * <p>A <a>DirectoryVpcSettings</a> object that contains additional information for
+     * the operation.</p>
+     */
     inline void SetVpcSettings(const DirectoryVpcSettings& value) { m_vpcSettingsHasBeenSet = true; m_vpcSettings = value; }
 
     /**
@@ -271,6 +323,47 @@ namespace Model
      */
     inline CreateDirectoryRequest& WithVpcSettings(DirectoryVpcSettings&& value) { SetVpcSettings(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The tags to be assigned to the Simple AD directory.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tags to be assigned to the Simple AD directory.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags to be assigned to the Simple AD directory.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The tags to be assigned to the Simple AD directory.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The tags to be assigned to the Simple AD directory.</p>
+     */
+    inline CreateDirectoryRequest& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tags to be assigned to the Simple AD directory.</p>
+     */
+    inline CreateDirectoryRequest& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tags to be assigned to the Simple AD directory.</p>
+     */
+    inline CreateDirectoryRequest& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>The tags to be assigned to the Simple AD directory.</p>
+     */
+    inline CreateDirectoryRequest& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::String m_name;
@@ -290,6 +383,9 @@ namespace Model
 
     DirectoryVpcSettings m_vpcSettings;
     bool m_vpcSettingsHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

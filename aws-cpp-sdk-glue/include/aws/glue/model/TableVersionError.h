@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TableVersionError();
-    TableVersionError(const Aws::Utils::Json::JsonValue& jsonValue);
-    TableVersionError& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TableVersionError(Aws::Utils::Json::JsonView jsonValue);
+    TableVersionError& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the table in question.</p>
      */
     inline const Aws::String& GetTableName() const{ return m_tableName; }
+
+    /**
+     * <p>The name of the table in question.</p>
+     */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
 
     /**
      * <p>The name of the table in question.</p>
@@ -84,63 +90,81 @@ namespace Model
 
 
     /**
-     * <p>The ID value of the version in question.</p>
+     * <p>The ID value of the version in question. A <code>VersionID</code> is a string
+     * representation of an integer. Each version is incremented by 1.</p>
      */
     inline const Aws::String& GetVersionId() const{ return m_versionId; }
 
     /**
-     * <p>The ID value of the version in question.</p>
+     * <p>The ID value of the version in question. A <code>VersionID</code> is a string
+     * representation of an integer. Each version is incremented by 1.</p>
+     */
+    inline bool VersionIdHasBeenSet() const { return m_versionIdHasBeenSet; }
+
+    /**
+     * <p>The ID value of the version in question. A <code>VersionID</code> is a string
+     * representation of an integer. Each version is incremented by 1.</p>
      */
     inline void SetVersionId(const Aws::String& value) { m_versionIdHasBeenSet = true; m_versionId = value; }
 
     /**
-     * <p>The ID value of the version in question.</p>
+     * <p>The ID value of the version in question. A <code>VersionID</code> is a string
+     * representation of an integer. Each version is incremented by 1.</p>
      */
     inline void SetVersionId(Aws::String&& value) { m_versionIdHasBeenSet = true; m_versionId = std::move(value); }
 
     /**
-     * <p>The ID value of the version in question.</p>
+     * <p>The ID value of the version in question. A <code>VersionID</code> is a string
+     * representation of an integer. Each version is incremented by 1.</p>
      */
     inline void SetVersionId(const char* value) { m_versionIdHasBeenSet = true; m_versionId.assign(value); }
 
     /**
-     * <p>The ID value of the version in question.</p>
+     * <p>The ID value of the version in question. A <code>VersionID</code> is a string
+     * representation of an integer. Each version is incremented by 1.</p>
      */
     inline TableVersionError& WithVersionId(const Aws::String& value) { SetVersionId(value); return *this;}
 
     /**
-     * <p>The ID value of the version in question.</p>
+     * <p>The ID value of the version in question. A <code>VersionID</code> is a string
+     * representation of an integer. Each version is incremented by 1.</p>
      */
     inline TableVersionError& WithVersionId(Aws::String&& value) { SetVersionId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID value of the version in question.</p>
+     * <p>The ID value of the version in question. A <code>VersionID</code> is a string
+     * representation of an integer. Each version is incremented by 1.</p>
      */
     inline TableVersionError& WithVersionId(const char* value) { SetVersionId(value); return *this;}
 
 
     /**
-     * <p>Detail about the error.</p>
+     * <p>The details about the error.</p>
      */
     inline const ErrorDetail& GetErrorDetail() const{ return m_errorDetail; }
 
     /**
-     * <p>Detail about the error.</p>
+     * <p>The details about the error.</p>
+     */
+    inline bool ErrorDetailHasBeenSet() const { return m_errorDetailHasBeenSet; }
+
+    /**
+     * <p>The details about the error.</p>
      */
     inline void SetErrorDetail(const ErrorDetail& value) { m_errorDetailHasBeenSet = true; m_errorDetail = value; }
 
     /**
-     * <p>Detail about the error.</p>
+     * <p>The details about the error.</p>
      */
     inline void SetErrorDetail(ErrorDetail&& value) { m_errorDetailHasBeenSet = true; m_errorDetail = std::move(value); }
 
     /**
-     * <p>Detail about the error.</p>
+     * <p>The details about the error.</p>
      */
     inline TableVersionError& WithErrorDetail(const ErrorDetail& value) { SetErrorDetail(value); return *this;}
 
     /**
-     * <p>Detail about the error.</p>
+     * <p>The details about the error.</p>
      */
     inline TableVersionError& WithErrorDetail(ErrorDetail&& value) { SetErrorDetail(std::move(value)); return *this;}
 

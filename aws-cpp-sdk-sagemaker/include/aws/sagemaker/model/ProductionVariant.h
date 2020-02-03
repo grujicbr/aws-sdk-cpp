@@ -17,6 +17,7 @@
 #include <aws/sagemaker/SageMaker_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/sagemaker/model/ProductionVariantInstanceType.h>
+#include <aws/sagemaker/model/ProductionVariantAcceleratorType.h>
 #include <utility>
 
 namespace Aws
@@ -26,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -45,8 +47,8 @@ namespace Model
   {
   public:
     ProductionVariant();
-    ProductionVariant(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProductionVariant& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProductionVariant(Aws::Utils::Json::JsonView jsonValue);
+    ProductionVariant& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +56,11 @@ namespace Model
      * <p>The name of the production variant.</p>
      */
     inline const Aws::String& GetVariantName() const{ return m_variantName; }
+
+    /**
+     * <p>The name of the production variant.</p>
+     */
+    inline bool VariantNameHasBeenSet() const { return m_variantNameHasBeenSet; }
 
     /**
      * <p>The name of the production variant.</p>
@@ -91,6 +98,12 @@ namespace Model
      * specified when creating the model.</p>
      */
     inline const Aws::String& GetModelName() const{ return m_modelName; }
+
+    /**
+     * <p>The name of the model that you want to host. This is the name that you
+     * specified when creating the model.</p>
+     */
+    inline bool ModelNameHasBeenSet() const { return m_modelNameHasBeenSet; }
 
     /**
      * <p>The name of the model that you want to host. This is the name that you
@@ -137,6 +150,11 @@ namespace Model
     /**
      * <p>Number of instances to launch initially.</p>
      */
+    inline bool InitialInstanceCountHasBeenSet() const { return m_initialInstanceCountHasBeenSet; }
+
+    /**
+     * <p>Number of instances to launch initially.</p>
+     */
     inline void SetInitialInstanceCount(int value) { m_initialInstanceCountHasBeenSet = true; m_initialInstanceCount = value; }
 
     /**
@@ -149,6 +167,11 @@ namespace Model
      * <p>The ML compute instance type.</p>
      */
     inline const ProductionVariantInstanceType& GetInstanceType() const{ return m_instanceType; }
+
+    /**
+     * <p>The ML compute instance type.</p>
+     */
+    inline bool InstanceTypeHasBeenSet() const { return m_instanceTypeHasBeenSet; }
 
     /**
      * <p>The ML compute instance type.</p>
@@ -187,6 +210,15 @@ namespace Model
      * <code>VariantWeight</code> values across all ProductionVariants. If unspecified,
      * it defaults to 1.0. </p>
      */
+    inline bool InitialVariantWeightHasBeenSet() const { return m_initialVariantWeightHasBeenSet; }
+
+    /**
+     * <p>Determines initial traffic distribution among all of the models that you
+     * specify in the endpoint configuration. The traffic to a production variant is
+     * determined by the ratio of the <code>VariantWeight</code> to the sum of all
+     * <code>VariantWeight</code> values across all ProductionVariants. If unspecified,
+     * it defaults to 1.0. </p>
+     */
     inline void SetInitialVariantWeight(double value) { m_initialVariantWeightHasBeenSet = true; m_initialVariantWeight = value; }
 
     /**
@@ -197,6 +229,61 @@ namespace Model
      * it defaults to 1.0. </p>
      */
     inline ProductionVariant& WithInitialVariantWeight(double value) { SetInitialVariantWeight(value); return *this;}
+
+
+    /**
+     * <p>The size of the Elastic Inference (EI) instance to use for the production
+     * variant. EI instances provide on-demand GPU computing for inference. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
+     * Inference in Amazon SageMaker</a>.</p>
+     */
+    inline const ProductionVariantAcceleratorType& GetAcceleratorType() const{ return m_acceleratorType; }
+
+    /**
+     * <p>The size of the Elastic Inference (EI) instance to use for the production
+     * variant. EI instances provide on-demand GPU computing for inference. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
+     * Inference in Amazon SageMaker</a>.</p>
+     */
+    inline bool AcceleratorTypeHasBeenSet() const { return m_acceleratorTypeHasBeenSet; }
+
+    /**
+     * <p>The size of the Elastic Inference (EI) instance to use for the production
+     * variant. EI instances provide on-demand GPU computing for inference. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
+     * Inference in Amazon SageMaker</a>.</p>
+     */
+    inline void SetAcceleratorType(const ProductionVariantAcceleratorType& value) { m_acceleratorTypeHasBeenSet = true; m_acceleratorType = value; }
+
+    /**
+     * <p>The size of the Elastic Inference (EI) instance to use for the production
+     * variant. EI instances provide on-demand GPU computing for inference. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
+     * Inference in Amazon SageMaker</a>.</p>
+     */
+    inline void SetAcceleratorType(ProductionVariantAcceleratorType&& value) { m_acceleratorTypeHasBeenSet = true; m_acceleratorType = std::move(value); }
+
+    /**
+     * <p>The size of the Elastic Inference (EI) instance to use for the production
+     * variant. EI instances provide on-demand GPU computing for inference. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
+     * Inference in Amazon SageMaker</a>.</p>
+     */
+    inline ProductionVariant& WithAcceleratorType(const ProductionVariantAcceleratorType& value) { SetAcceleratorType(value); return *this;}
+
+    /**
+     * <p>The size of the Elastic Inference (EI) instance to use for the production
+     * variant. EI instances provide on-demand GPU computing for inference. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
+     * Inference in Amazon SageMaker</a>.</p>
+     */
+    inline ProductionVariant& WithAcceleratorType(ProductionVariantAcceleratorType&& value) { SetAcceleratorType(std::move(value)); return *this;}
 
   private:
 
@@ -214,6 +301,9 @@ namespace Model
 
     double m_initialVariantWeight;
     bool m_initialVariantWeightHasBeenSet;
+
+    ProductionVariantAcceleratorType m_acceleratorType;
+    bool m_acceleratorTypeHasBeenSet;
   };
 
 } // namespace Model

@@ -31,6 +31,8 @@ namespace Aws
       {
 
         static const int CBR_HASH = HashingUtils::HashString("CBR");
+        static const int MULTIPLEX_HASH = HashingUtils::HashString("MULTIPLEX");
+        static const int QVBR_HASH = HashingUtils::HashString("QVBR");
         static const int VBR_HASH = HashingUtils::HashString("VBR");
 
 
@@ -40,6 +42,14 @@ namespace Aws
           if (hashCode == CBR_HASH)
           {
             return H264RateControlMode::CBR;
+          }
+          else if (hashCode == MULTIPLEX_HASH)
+          {
+            return H264RateControlMode::MULTIPLEX;
+          }
+          else if (hashCode == QVBR_HASH)
+          {
+            return H264RateControlMode::QVBR;
           }
           else if (hashCode == VBR_HASH)
           {
@@ -61,6 +71,10 @@ namespace Aws
           {
           case H264RateControlMode::CBR:
             return "CBR";
+          case H264RateControlMode::MULTIPLEX:
+            return "MULTIPLEX";
+          case H264RateControlMode::QVBR:
+            return "QVBR";
           case H264RateControlMode::VBR:
             return "VBR";
           default:
@@ -70,7 +84,7 @@ namespace Aws
               return overflowContainer->RetrieveOverflow(static_cast<int>(enumValue));
             }
 
-            return "";
+            return {};
           }
         }
 

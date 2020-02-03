@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     NodeTypeSpecificValue();
-    NodeTypeSpecificValue(const Aws::Utils::Json::JsonValue& jsonValue);
-    NodeTypeSpecificValue& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NodeTypeSpecificValue(Aws::Utils::Json::JsonView jsonValue);
+    NodeTypeSpecificValue& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>A node type to which the parameter value applies.</p>
      */
     inline const Aws::String& GetNodeType() const{ return m_nodeType; }
+
+    /**
+     * <p>A node type to which the parameter value applies.</p>
+     */
+    inline bool NodeTypeHasBeenSet() const { return m_nodeTypeHasBeenSet; }
 
     /**
      * <p>A node type to which the parameter value applies.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The parameter value for this node type.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The parameter value for this node type.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The parameter value for this node type.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     BranchInfo();
-    BranchInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    BranchInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BranchInfo(Aws::Utils::Json::JsonView jsonValue);
+    BranchInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the branch.</p>
      */
     inline const Aws::String& GetBranchName() const{ return m_branchName; }
+
+    /**
+     * <p>The name of the branch.</p>
+     */
+    inline bool BranchNameHasBeenSet() const { return m_branchNameHasBeenSet; }
 
     /**
      * <p>The name of the branch.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The ID of the last commit made to the branch.</p>
      */
     inline const Aws::String& GetCommitId() const{ return m_commitId; }
+
+    /**
+     * <p>The ID of the last commit made to the branch.</p>
+     */
+    inline bool CommitIdHasBeenSet() const { return m_commitIdHasBeenSet; }
 
     /**
      * <p>The ID of the last commit made to the branch.</p>

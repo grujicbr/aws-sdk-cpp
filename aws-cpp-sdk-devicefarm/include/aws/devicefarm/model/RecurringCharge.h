@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -34,8 +35,8 @@ namespace Model
 {
 
   /**
-   * <p>Specifies whether charges for devices will be recurring.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>Specifies whether charges for devices are recurring.</p><p><h3>See Also:</h3>
+   * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/RecurringCharge">AWS
    * API Reference</a></p>
    */
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RecurringCharge();
-    RecurringCharge(const Aws::Utils::Json::JsonValue& jsonValue);
-    RecurringCharge& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RecurringCharge(Aws::Utils::Json::JsonView jsonValue);
+    RecurringCharge& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The cost of the recurring charge.</p>
      */
     inline const MonetaryAmount& GetCost() const{ return m_cost; }
+
+    /**
+     * <p>The cost of the recurring charge.</p>
+     */
+    inline bool CostHasBeenSet() const { return m_costHasBeenSet; }
 
     /**
      * <p>The cost of the recurring charge.</p>
@@ -75,27 +81,32 @@ namespace Model
 
 
     /**
-     * <p>The frequency in which charges will recur.</p>
+     * <p>The frequency in which charges recur.</p>
      */
     inline const RecurringChargeFrequency& GetFrequency() const{ return m_frequency; }
 
     /**
-     * <p>The frequency in which charges will recur.</p>
+     * <p>The frequency in which charges recur.</p>
+     */
+    inline bool FrequencyHasBeenSet() const { return m_frequencyHasBeenSet; }
+
+    /**
+     * <p>The frequency in which charges recur.</p>
      */
     inline void SetFrequency(const RecurringChargeFrequency& value) { m_frequencyHasBeenSet = true; m_frequency = value; }
 
     /**
-     * <p>The frequency in which charges will recur.</p>
+     * <p>The frequency in which charges recur.</p>
      */
     inline void SetFrequency(RecurringChargeFrequency&& value) { m_frequencyHasBeenSet = true; m_frequency = std::move(value); }
 
     /**
-     * <p>The frequency in which charges will recur.</p>
+     * <p>The frequency in which charges recur.</p>
      */
     inline RecurringCharge& WithFrequency(const RecurringChargeFrequency& value) { SetFrequency(value); return *this;}
 
     /**
-     * <p>The frequency in which charges will recur.</p>
+     * <p>The frequency in which charges recur.</p>
      */
     inline RecurringCharge& WithFrequency(RecurringChargeFrequency&& value) { SetFrequency(std::move(value)); return *this;}
 

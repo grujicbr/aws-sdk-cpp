@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/codecommit/CodeCommit_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/codecommit/model/MergeOptionTypeEnum.h>
 #include <utility>
 
 namespace Aws
@@ -25,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -43,8 +45,8 @@ namespace Model
   {
   public:
     MergeMetadata();
-    MergeMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    MergeMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MergeMetadata(Aws::Utils::Json::JsonView jsonValue);
+    MergeMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +54,11 @@ namespace Model
      * <p>A Boolean value indicating whether the merge has been made.</p>
      */
     inline bool GetIsMerged() const{ return m_isMerged; }
+
+    /**
+     * <p>A Boolean value indicating whether the merge has been made.</p>
+     */
+    inline bool IsMergedHasBeenSet() const { return m_isMergedHasBeenSet; }
 
     /**
      * <p>A Boolean value indicating whether the merge has been made.</p>
@@ -68,6 +75,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the user who merged the branches.</p>
      */
     inline const Aws::String& GetMergedBy() const{ return m_mergedBy; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the user who merged the branches.</p>
+     */
+    inline bool MergedByHasBeenSet() const { return m_mergedByHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the user who merged the branches.</p>
@@ -99,6 +111,78 @@ namespace Model
      */
     inline MergeMetadata& WithMergedBy(const char* value) { SetMergedBy(value); return *this;}
 
+
+    /**
+     * <p>The commit ID for the merge commit, if any.</p>
+     */
+    inline const Aws::String& GetMergeCommitId() const{ return m_mergeCommitId; }
+
+    /**
+     * <p>The commit ID for the merge commit, if any.</p>
+     */
+    inline bool MergeCommitIdHasBeenSet() const { return m_mergeCommitIdHasBeenSet; }
+
+    /**
+     * <p>The commit ID for the merge commit, if any.</p>
+     */
+    inline void SetMergeCommitId(const Aws::String& value) { m_mergeCommitIdHasBeenSet = true; m_mergeCommitId = value; }
+
+    /**
+     * <p>The commit ID for the merge commit, if any.</p>
+     */
+    inline void SetMergeCommitId(Aws::String&& value) { m_mergeCommitIdHasBeenSet = true; m_mergeCommitId = std::move(value); }
+
+    /**
+     * <p>The commit ID for the merge commit, if any.</p>
+     */
+    inline void SetMergeCommitId(const char* value) { m_mergeCommitIdHasBeenSet = true; m_mergeCommitId.assign(value); }
+
+    /**
+     * <p>The commit ID for the merge commit, if any.</p>
+     */
+    inline MergeMetadata& WithMergeCommitId(const Aws::String& value) { SetMergeCommitId(value); return *this;}
+
+    /**
+     * <p>The commit ID for the merge commit, if any.</p>
+     */
+    inline MergeMetadata& WithMergeCommitId(Aws::String&& value) { SetMergeCommitId(std::move(value)); return *this;}
+
+    /**
+     * <p>The commit ID for the merge commit, if any.</p>
+     */
+    inline MergeMetadata& WithMergeCommitId(const char* value) { SetMergeCommitId(value); return *this;}
+
+
+    /**
+     * <p>The merge strategy used in the merge.</p>
+     */
+    inline const MergeOptionTypeEnum& GetMergeOption() const{ return m_mergeOption; }
+
+    /**
+     * <p>The merge strategy used in the merge.</p>
+     */
+    inline bool MergeOptionHasBeenSet() const { return m_mergeOptionHasBeenSet; }
+
+    /**
+     * <p>The merge strategy used in the merge.</p>
+     */
+    inline void SetMergeOption(const MergeOptionTypeEnum& value) { m_mergeOptionHasBeenSet = true; m_mergeOption = value; }
+
+    /**
+     * <p>The merge strategy used in the merge.</p>
+     */
+    inline void SetMergeOption(MergeOptionTypeEnum&& value) { m_mergeOptionHasBeenSet = true; m_mergeOption = std::move(value); }
+
+    /**
+     * <p>The merge strategy used in the merge.</p>
+     */
+    inline MergeMetadata& WithMergeOption(const MergeOptionTypeEnum& value) { SetMergeOption(value); return *this;}
+
+    /**
+     * <p>The merge strategy used in the merge.</p>
+     */
+    inline MergeMetadata& WithMergeOption(MergeOptionTypeEnum&& value) { SetMergeOption(std::move(value)); return *this;}
+
   private:
 
     bool m_isMerged;
@@ -106,6 +190,12 @@ namespace Model
 
     Aws::String m_mergedBy;
     bool m_mergedByHasBeenSet;
+
+    Aws::String m_mergeCommitId;
+    bool m_mergeCommitIdHasBeenSet;
+
+    MergeOptionTypeEnum m_mergeOption;
+    bool m_mergeOptionHasBeenSet;
   };
 
 } // namespace Model

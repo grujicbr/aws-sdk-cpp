@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 PutWebhookRequest::PutWebhookRequest() : 
-    m_webhookHasBeenSet(false)
+    m_webhookHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -37,7 +38,18 @@ Aws::String PutWebhookRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection PutWebhookRequest::GetRequestSpecificHeaders() const

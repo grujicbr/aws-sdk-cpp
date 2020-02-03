@@ -36,7 +36,7 @@ namespace Model
   {
   public:
     UpdateRepositoryNameRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,37 +49,42 @@ namespace Model
 
 
     /**
-     * <p>The existing name of the repository.</p>
+     * <p>The current name of the repository.</p>
      */
     inline const Aws::String& GetOldName() const{ return m_oldName; }
 
     /**
-     * <p>The existing name of the repository.</p>
+     * <p>The current name of the repository.</p>
+     */
+    inline bool OldNameHasBeenSet() const { return m_oldNameHasBeenSet; }
+
+    /**
+     * <p>The current name of the repository.</p>
      */
     inline void SetOldName(const Aws::String& value) { m_oldNameHasBeenSet = true; m_oldName = value; }
 
     /**
-     * <p>The existing name of the repository.</p>
+     * <p>The current name of the repository.</p>
      */
     inline void SetOldName(Aws::String&& value) { m_oldNameHasBeenSet = true; m_oldName = std::move(value); }
 
     /**
-     * <p>The existing name of the repository.</p>
+     * <p>The current name of the repository.</p>
      */
     inline void SetOldName(const char* value) { m_oldNameHasBeenSet = true; m_oldName.assign(value); }
 
     /**
-     * <p>The existing name of the repository.</p>
+     * <p>The current name of the repository.</p>
      */
     inline UpdateRepositoryNameRequest& WithOldName(const Aws::String& value) { SetOldName(value); return *this;}
 
     /**
-     * <p>The existing name of the repository.</p>
+     * <p>The current name of the repository.</p>
      */
     inline UpdateRepositoryNameRequest& WithOldName(Aws::String&& value) { SetOldName(std::move(value)); return *this;}
 
     /**
-     * <p>The existing name of the repository.</p>
+     * <p>The current name of the repository.</p>
      */
     inline UpdateRepositoryNameRequest& WithOldName(const char* value) { SetOldName(value); return *this;}
 
@@ -88,6 +93,11 @@ namespace Model
      * <p>The new name for the repository.</p>
      */
     inline const Aws::String& GetNewName() const{ return m_newName; }
+
+    /**
+     * <p>The new name for the repository.</p>
+     */
+    inline bool NewNameHasBeenSet() const { return m_newNameHasBeenSet; }
 
     /**
      * <p>The new name for the repository.</p>

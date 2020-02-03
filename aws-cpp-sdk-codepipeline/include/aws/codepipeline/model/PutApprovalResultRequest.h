@@ -28,8 +28,8 @@ namespace Model
 {
 
   /**
-   * <p>Represents the input of a PutApprovalResult action.</p><p><h3>See Also:</h3> 
-   * <a
+   * <p>Represents the input of a <code>PutApprovalResult</code>
+   * action.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResultInput">AWS
    * API Reference</a></p>
    */
@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     PutApprovalResultRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -53,6 +53,11 @@ namespace Model
      * <p>The name of the pipeline that contains the action. </p>
      */
     inline const Aws::String& GetPipelineName() const{ return m_pipelineName; }
+
+    /**
+     * <p>The name of the pipeline that contains the action. </p>
+     */
+    inline bool PipelineNameHasBeenSet() const { return m_pipelineNameHasBeenSet; }
 
     /**
      * <p>The name of the pipeline that contains the action. </p>
@@ -93,6 +98,11 @@ namespace Model
     /**
      * <p>The name of the stage that contains the action.</p>
      */
+    inline bool StageNameHasBeenSet() const { return m_stageNameHasBeenSet; }
+
+    /**
+     * <p>The name of the stage that contains the action.</p>
+     */
     inline void SetStageName(const Aws::String& value) { m_stageNameHasBeenSet = true; m_stageName = value; }
 
     /**
@@ -125,6 +135,11 @@ namespace Model
      * <p>The name of the action for which approval is requested.</p>
      */
     inline const Aws::String& GetActionName() const{ return m_actionName; }
+
+    /**
+     * <p>The name of the action for which approval is requested.</p>
+     */
+    inline bool ActionNameHasBeenSet() const { return m_actionNameHasBeenSet; }
 
     /**
      * <p>The name of the action for which approval is requested.</p>
@@ -165,6 +180,11 @@ namespace Model
     /**
      * <p>Represents information about the result of the approval request.</p>
      */
+    inline bool ResultHasBeenSet() const { return m_resultHasBeenSet; }
+
+    /**
+     * <p>Represents information about the result of the approval request.</p>
+     */
     inline void SetResult(const ApprovalResult& value) { m_resultHasBeenSet = true; m_result = value; }
 
     /**
@@ -186,7 +206,7 @@ namespace Model
     /**
      * <p>The system-generated token used to identify a unique approval request. The
      * token for each open approval request can be obtained using the
-     * <a>GetPipelineState</a> action and is used to validate that the approval request
+     * <a>GetPipelineState</a> action. It is used to validate that the approval request
      * corresponding to this token is still valid.</p>
      */
     inline const Aws::String& GetToken() const{ return m_token; }
@@ -194,7 +214,15 @@ namespace Model
     /**
      * <p>The system-generated token used to identify a unique approval request. The
      * token for each open approval request can be obtained using the
-     * <a>GetPipelineState</a> action and is used to validate that the approval request
+     * <a>GetPipelineState</a> action. It is used to validate that the approval request
+     * corresponding to this token is still valid.</p>
+     */
+    inline bool TokenHasBeenSet() const { return m_tokenHasBeenSet; }
+
+    /**
+     * <p>The system-generated token used to identify a unique approval request. The
+     * token for each open approval request can be obtained using the
+     * <a>GetPipelineState</a> action. It is used to validate that the approval request
      * corresponding to this token is still valid.</p>
      */
     inline void SetToken(const Aws::String& value) { m_tokenHasBeenSet = true; m_token = value; }
@@ -202,7 +230,7 @@ namespace Model
     /**
      * <p>The system-generated token used to identify a unique approval request. The
      * token for each open approval request can be obtained using the
-     * <a>GetPipelineState</a> action and is used to validate that the approval request
+     * <a>GetPipelineState</a> action. It is used to validate that the approval request
      * corresponding to this token is still valid.</p>
      */
     inline void SetToken(Aws::String&& value) { m_tokenHasBeenSet = true; m_token = std::move(value); }
@@ -210,7 +238,7 @@ namespace Model
     /**
      * <p>The system-generated token used to identify a unique approval request. The
      * token for each open approval request can be obtained using the
-     * <a>GetPipelineState</a> action and is used to validate that the approval request
+     * <a>GetPipelineState</a> action. It is used to validate that the approval request
      * corresponding to this token is still valid.</p>
      */
     inline void SetToken(const char* value) { m_tokenHasBeenSet = true; m_token.assign(value); }
@@ -218,7 +246,7 @@ namespace Model
     /**
      * <p>The system-generated token used to identify a unique approval request. The
      * token for each open approval request can be obtained using the
-     * <a>GetPipelineState</a> action and is used to validate that the approval request
+     * <a>GetPipelineState</a> action. It is used to validate that the approval request
      * corresponding to this token is still valid.</p>
      */
     inline PutApprovalResultRequest& WithToken(const Aws::String& value) { SetToken(value); return *this;}
@@ -226,7 +254,7 @@ namespace Model
     /**
      * <p>The system-generated token used to identify a unique approval request. The
      * token for each open approval request can be obtained using the
-     * <a>GetPipelineState</a> action and is used to validate that the approval request
+     * <a>GetPipelineState</a> action. It is used to validate that the approval request
      * corresponding to this token is still valid.</p>
      */
     inline PutApprovalResultRequest& WithToken(Aws::String&& value) { SetToken(std::move(value)); return *this;}
@@ -234,7 +262,7 @@ namespace Model
     /**
      * <p>The system-generated token used to identify a unique approval request. The
      * token for each open approval request can be obtained using the
-     * <a>GetPipelineState</a> action and is used to validate that the approval request
+     * <a>GetPipelineState</a> action. It is used to validate that the approval request
      * corresponding to this token is still valid.</p>
      */
     inline PutApprovalResultRequest& WithToken(const char* value) { SetToken(value); return *this;}

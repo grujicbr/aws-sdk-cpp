@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     Prompt();
-    Prompt(const Aws::Utils::Json::JsonValue& jsonValue);
-    Prompt& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Prompt(Aws::Utils::Json::JsonView jsonValue);
+    Prompt& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,13 @@ namespace Model
      * Language (SSML).</p>
      */
     inline const Aws::Vector<Message>& GetMessages() const{ return m_messages; }
+
+    /**
+     * <p>An array of objects, each of which provides a message string and its type.
+     * You can specify the message string in plain text or in Speech Synthesis Markup
+     * Language (SSML).</p>
+     */
+    inline bool MessagesHasBeenSet() const { return m_messagesHasBeenSet; }
 
     /**
      * <p>An array of objects, each of which provides a message string and its type.
@@ -110,6 +118,11 @@ namespace Model
     /**
      * <p>The number of times to prompt the user for information.</p>
      */
+    inline bool MaxAttemptsHasBeenSet() const { return m_maxAttemptsHasBeenSet; }
+
+    /**
+     * <p>The number of times to prompt the user for information.</p>
+     */
     inline void SetMaxAttempts(int value) { m_maxAttemptsHasBeenSet = true; m_maxAttempts = value; }
 
     /**
@@ -125,6 +138,14 @@ namespace Model
      * <a>ex-resp-card</a>. </p>
      */
     inline const Aws::String& GetResponseCard() const{ return m_responseCard; }
+
+    /**
+     * <p>A response card. Amazon Lex uses this prompt at runtime, in the
+     * <code>PostText</code> API response. It substitutes session attributes and slot
+     * values for placeholders in the response card. For more information, see
+     * <a>ex-resp-card</a>. </p>
+     */
+    inline bool ResponseCardHasBeenSet() const { return m_responseCardHasBeenSet; }
 
     /**
      * <p>A response card. Amazon Lex uses this prompt at runtime, in the

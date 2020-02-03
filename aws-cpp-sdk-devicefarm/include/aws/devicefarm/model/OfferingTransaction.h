@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     OfferingTransaction();
-    OfferingTransaction(const Aws::Utils::Json::JsonValue& jsonValue);
-    OfferingTransaction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OfferingTransaction(Aws::Utils::Json::JsonView jsonValue);
+    OfferingTransaction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The status of an offering transaction.</p>
      */
     inline const OfferingStatus& GetOfferingStatus() const{ return m_offeringStatus; }
+
+    /**
+     * <p>The status of an offering transaction.</p>
+     */
+    inline bool OfferingStatusHasBeenSet() const { return m_offeringStatusHasBeenSet; }
 
     /**
      * <p>The status of an offering transaction.</p>
@@ -80,6 +86,11 @@ namespace Model
      * <p>The transaction ID of the offering transaction.</p>
      */
     inline const Aws::String& GetTransactionId() const{ return m_transactionId; }
+
+    /**
+     * <p>The transaction ID of the offering transaction.</p>
+     */
+    inline bool TransactionIdHasBeenSet() const { return m_transactionIdHasBeenSet; }
 
     /**
      * <p>The transaction ID of the offering transaction.</p>
@@ -120,6 +131,11 @@ namespace Model
     /**
      * <p>The ID that corresponds to a device offering promotion.</p>
      */
+    inline bool OfferingPromotionIdHasBeenSet() const { return m_offeringPromotionIdHasBeenSet; }
+
+    /**
+     * <p>The ID that corresponds to a device offering promotion.</p>
+     */
     inline void SetOfferingPromotionId(const Aws::String& value) { m_offeringPromotionIdHasBeenSet = true; m_offeringPromotionId = value; }
 
     /**
@@ -156,6 +172,11 @@ namespace Model
     /**
      * <p>The date on which an offering transaction was created.</p>
      */
+    inline bool CreatedOnHasBeenSet() const { return m_createdOnHasBeenSet; }
+
+    /**
+     * <p>The date on which an offering transaction was created.</p>
+     */
     inline void SetCreatedOn(const Aws::Utils::DateTime& value) { m_createdOnHasBeenSet = true; m_createdOn = value; }
 
     /**
@@ -178,6 +199,11 @@ namespace Model
      * <p>The cost of an offering transaction.</p>
      */
     inline const MonetaryAmount& GetCost() const{ return m_cost; }
+
+    /**
+     * <p>The cost of an offering transaction.</p>
+     */
+    inline bool CostHasBeenSet() const { return m_costHasBeenSet; }
 
     /**
      * <p>The cost of an offering transaction.</p>

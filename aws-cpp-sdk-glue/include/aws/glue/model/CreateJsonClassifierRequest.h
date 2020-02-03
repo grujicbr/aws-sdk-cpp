@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CreateJsonClassifierRequest();
-    CreateJsonClassifierRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    CreateJsonClassifierRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CreateJsonClassifierRequest(Aws::Utils::Json::JsonView jsonValue);
+    CreateJsonClassifierRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the classifier.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the classifier.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the classifier.</p>
@@ -85,7 +91,8 @@ namespace Model
 
     /**
      * <p>A <code>JsonPath</code> string defining the JSON data for the classifier to
-     * classify. AWS Glue supports a subset of JsonPath, as described in <a
+     * classify. AWS Glue supports a subset of <code>JsonPath</code>, as described in
+     * <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json">Writing
      * JsonPath Custom Classifiers</a>.</p>
      */
@@ -93,7 +100,17 @@ namespace Model
 
     /**
      * <p>A <code>JsonPath</code> string defining the JSON data for the classifier to
-     * classify. AWS Glue supports a subset of JsonPath, as described in <a
+     * classify. AWS Glue supports a subset of <code>JsonPath</code>, as described in
+     * <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json">Writing
+     * JsonPath Custom Classifiers</a>.</p>
+     */
+    inline bool JsonPathHasBeenSet() const { return m_jsonPathHasBeenSet; }
+
+    /**
+     * <p>A <code>JsonPath</code> string defining the JSON data for the classifier to
+     * classify. AWS Glue supports a subset of <code>JsonPath</code>, as described in
+     * <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json">Writing
      * JsonPath Custom Classifiers</a>.</p>
      */
@@ -101,7 +118,8 @@ namespace Model
 
     /**
      * <p>A <code>JsonPath</code> string defining the JSON data for the classifier to
-     * classify. AWS Glue supports a subset of JsonPath, as described in <a
+     * classify. AWS Glue supports a subset of <code>JsonPath</code>, as described in
+     * <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json">Writing
      * JsonPath Custom Classifiers</a>.</p>
      */
@@ -109,7 +127,8 @@ namespace Model
 
     /**
      * <p>A <code>JsonPath</code> string defining the JSON data for the classifier to
-     * classify. AWS Glue supports a subset of JsonPath, as described in <a
+     * classify. AWS Glue supports a subset of <code>JsonPath</code>, as described in
+     * <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json">Writing
      * JsonPath Custom Classifiers</a>.</p>
      */
@@ -117,7 +136,8 @@ namespace Model
 
     /**
      * <p>A <code>JsonPath</code> string defining the JSON data for the classifier to
-     * classify. AWS Glue supports a subset of JsonPath, as described in <a
+     * classify. AWS Glue supports a subset of <code>JsonPath</code>, as described in
+     * <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json">Writing
      * JsonPath Custom Classifiers</a>.</p>
      */
@@ -125,7 +145,8 @@ namespace Model
 
     /**
      * <p>A <code>JsonPath</code> string defining the JSON data for the classifier to
-     * classify. AWS Glue supports a subset of JsonPath, as described in <a
+     * classify. AWS Glue supports a subset of <code>JsonPath</code>, as described in
+     * <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json">Writing
      * JsonPath Custom Classifiers</a>.</p>
      */
@@ -133,7 +154,8 @@ namespace Model
 
     /**
      * <p>A <code>JsonPath</code> string defining the JSON data for the classifier to
-     * classify. AWS Glue supports a subset of JsonPath, as described in <a
+     * classify. AWS Glue supports a subset of <code>JsonPath</code>, as described in
+     * <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json">Writing
      * JsonPath Custom Classifiers</a>.</p>
      */

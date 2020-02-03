@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Macie
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     S3ResourceClassificationUpdate();
-    S3ResourceClassificationUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3ResourceClassificationUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3ResourceClassificationUpdate(Aws::Utils::Json::JsonView jsonValue);
+    S3ResourceClassificationUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the S3 bucket whose classification types you want to update.</p>
      */
     inline const Aws::String& GetBucketName() const{ return m_bucketName; }
+
+    /**
+     * <p>The name of the S3 bucket whose classification types you want to update.</p>
+     */
+    inline bool BucketNameHasBeenSet() const { return m_bucketNameHasBeenSet; }
 
     /**
      * <p>The name of the S3 bucket whose classification types you want to update.</p>
@@ -90,6 +96,12 @@ namespace Model
      * update.</p>
      */
     inline const Aws::String& GetPrefix() const{ return m_prefix; }
+
+    /**
+     * <p>The prefix of the S3 bucket whose classification types you want to
+     * update.</p>
+     */
+    inline bool PrefixHasBeenSet() const { return m_prefixHasBeenSet; }
 
     /**
      * <p>The prefix of the S3 bucket whose classification types you want to
@@ -133,6 +145,12 @@ namespace Model
      * with Amazon Macie. </p>
      */
     inline const ClassificationTypeUpdate& GetClassificationTypeUpdate() const{ return m_classificationTypeUpdate; }
+
+    /**
+     * <p>The classification type that you want to update for the resource associated
+     * with Amazon Macie. </p>
+     */
+    inline bool ClassificationTypeUpdateHasBeenSet() const { return m_classificationTypeUpdateHasBeenSet; }
 
     /**
      * <p>The classification type that you want to update for the resource associated

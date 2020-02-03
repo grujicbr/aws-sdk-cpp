@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     InstanceTimeline();
-    InstanceTimeline(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceTimeline& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceTimeline(Aws::Utils::Json::JsonView jsonValue);
+    InstanceTimeline& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The creation date and time of the instance.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDateTime() const{ return m_creationDateTime; }
+
+    /**
+     * <p>The creation date and time of the instance.</p>
+     */
+    inline bool CreationDateTimeHasBeenSet() const { return m_creationDateTimeHasBeenSet; }
 
     /**
      * <p>The creation date and time of the instance.</p>
@@ -80,6 +86,11 @@ namespace Model
     /**
      * <p>The date and time when the instance was ready to perform tasks.</p>
      */
+    inline bool ReadyDateTimeHasBeenSet() const { return m_readyDateTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time when the instance was ready to perform tasks.</p>
+     */
     inline void SetReadyDateTime(const Aws::Utils::DateTime& value) { m_readyDateTimeHasBeenSet = true; m_readyDateTime = value; }
 
     /**
@@ -102,6 +113,11 @@ namespace Model
      * <p>The date and time when the instance was terminated.</p>
      */
     inline const Aws::Utils::DateTime& GetEndDateTime() const{ return m_endDateTime; }
+
+    /**
+     * <p>The date and time when the instance was terminated.</p>
+     */
+    inline bool EndDateTimeHasBeenSet() const { return m_endDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time when the instance was terminated.</p>

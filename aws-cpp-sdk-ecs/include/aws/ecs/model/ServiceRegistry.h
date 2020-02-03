@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -41,85 +42,92 @@ namespace Model
   {
   public:
     ServiceRegistry();
-    ServiceRegistry(const Aws::Utils::Json::JsonValue& jsonValue);
-    ServiceRegistry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ServiceRegistry(Aws::Utils::Json::JsonView jsonValue);
+    ServiceRegistry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>The Amazon Resource Name (ARN) of the service registry. The currently
-     * supported service registry is Amazon Route 53 Auto Naming. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_autonaming_Service.html">Service</a>.</p>
+     * supported service registry is AWS Cloud Map. For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>
      */
     inline const Aws::String& GetRegistryArn() const{ return m_registryArn; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the service registry. The currently
-     * supported service registry is Amazon Route 53 Auto Naming. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_autonaming_Service.html">Service</a>.</p>
+     * supported service registry is AWS Cloud Map. For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>
+     */
+    inline bool RegistryArnHasBeenSet() const { return m_registryArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the service registry. The currently
+     * supported service registry is AWS Cloud Map. For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>
      */
     inline void SetRegistryArn(const Aws::String& value) { m_registryArnHasBeenSet = true; m_registryArn = value; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the service registry. The currently
-     * supported service registry is Amazon Route 53 Auto Naming. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_autonaming_Service.html">Service</a>.</p>
+     * supported service registry is AWS Cloud Map. For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>
      */
     inline void SetRegistryArn(Aws::String&& value) { m_registryArnHasBeenSet = true; m_registryArn = std::move(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the service registry. The currently
-     * supported service registry is Amazon Route 53 Auto Naming. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_autonaming_Service.html">Service</a>.</p>
+     * supported service registry is AWS Cloud Map. For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>
      */
     inline void SetRegistryArn(const char* value) { m_registryArnHasBeenSet = true; m_registryArn.assign(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the service registry. The currently
-     * supported service registry is Amazon Route 53 Auto Naming. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_autonaming_Service.html">Service</a>.</p>
+     * supported service registry is AWS Cloud Map. For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>
      */
     inline ServiceRegistry& WithRegistryArn(const Aws::String& value) { SetRegistryArn(value); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) of the service registry. The currently
-     * supported service registry is Amazon Route 53 Auto Naming. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_autonaming_Service.html">Service</a>.</p>
+     * supported service registry is AWS Cloud Map. For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>
      */
     inline ServiceRegistry& WithRegistryArn(Aws::String&& value) { SetRegistryArn(std::move(value)); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) of the service registry. The currently
-     * supported service registry is Amazon Route 53 Auto Naming. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_autonaming_Service.html">Service</a>.</p>
+     * supported service registry is AWS Cloud Map. For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.</p>
      */
     inline ServiceRegistry& WithRegistryArn(const char* value) { SetRegistryArn(value); return *this;}
 
 
     /**
      * <p>The port value used if your service discovery service specified an SRV
-     * record. This field is required if both the <code>awsvpc</code> network mode and
+     * record. This field may be used if both the <code>awsvpc</code> network mode and
      * SRV records are used.</p>
      */
     inline int GetPort() const{ return m_port; }
 
     /**
      * <p>The port value used if your service discovery service specified an SRV
-     * record. This field is required if both the <code>awsvpc</code> network mode and
+     * record. This field may be used if both the <code>awsvpc</code> network mode and
+     * SRV records are used.</p>
+     */
+    inline bool PortHasBeenSet() const { return m_portHasBeenSet; }
+
+    /**
+     * <p>The port value used if your service discovery service specified an SRV
+     * record. This field may be used if both the <code>awsvpc</code> network mode and
      * SRV records are used.</p>
      */
     inline void SetPort(int value) { m_portHasBeenSet = true; m_port = value; }
 
     /**
      * <p>The port value used if your service discovery service specified an SRV
-     * record. This field is required if both the <code>awsvpc</code> network mode and
+     * record. This field may be used if both the <code>awsvpc</code> network mode and
      * SRV records are used.</p>
      */
     inline ServiceRegistry& WithPort(int value) { SetPort(value); return *this;}
@@ -137,6 +145,19 @@ namespace Model
      * <code>port</code> value, but not both.</p>
      */
     inline const Aws::String& GetContainerName() const{ return m_containerName; }
+
+    /**
+     * <p>The container name value, already specified in the task definition, to be
+     * used for your service discovery service. If the task definition that your
+     * service task specifies uses the <code>bridge</code> or <code>host</code> network
+     * mode, you must specify a <code>containerName</code> and
+     * <code>containerPort</code> combination from the task definition. If the task
+     * definition that your service task specifies uses the <code>awsvpc</code> network
+     * mode and a type SRV DNS record is used, you must specify either a
+     * <code>containerName</code> and <code>containerPort</code> combination or a
+     * <code>port</code> value, but not both.</p>
+     */
+    inline bool ContainerNameHasBeenSet() const { return m_containerNameHasBeenSet; }
 
     /**
      * <p>The container name value, already specified in the task definition, to be
@@ -228,6 +249,18 @@ namespace Model
      * combination or a <code>port</code> value, but not both.</p>
      */
     inline int GetContainerPort() const{ return m_containerPort; }
+
+    /**
+     * <p>The port value, already specified in the task definition, to be used for your
+     * service discovery service. If the task definition your service task specifies
+     * uses the <code>bridge</code> or <code>host</code> network mode, you must specify
+     * a <code>containerName</code> and <code>containerPort</code> combination from the
+     * task definition. If the task definition your service task specifies uses the
+     * <code>awsvpc</code> network mode and a type SRV DNS record is used, you must
+     * specify either a <code>containerName</code> and <code>containerPort</code>
+     * combination or a <code>port</code> value, but not both.</p>
+     */
+    inline bool ContainerPortHasBeenSet() const { return m_containerPortHasBeenSet; }
 
     /**
      * <p>The port value, already specified in the task definition, to be used for your

@@ -34,11 +34,14 @@
 #include <aws/states/model/ListActivitiesResult.h>
 #include <aws/states/model/ListExecutionsResult.h>
 #include <aws/states/model/ListStateMachinesResult.h>
+#include <aws/states/model/ListTagsForResourceResult.h>
 #include <aws/states/model/SendTaskFailureResult.h>
 #include <aws/states/model/SendTaskHeartbeatResult.h>
 #include <aws/states/model/SendTaskSuccessResult.h>
 #include <aws/states/model/StartExecutionResult.h>
 #include <aws/states/model/StopExecutionResult.h>
+#include <aws/states/model/TagResourceResult.h>
+#include <aws/states/model/UntagResourceResult.h>
 #include <aws/states/model/UpdateStateMachineResult.h>
 #include <aws/core/client/AsyncCallerContext.h>
 #include <aws/core/http/HttpTypes.h>
@@ -57,16 +60,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -98,11 +95,14 @@ namespace Model
         class ListActivitiesRequest;
         class ListExecutionsRequest;
         class ListStateMachinesRequest;
+        class ListTagsForResourceRequest;
         class SendTaskFailureRequest;
         class SendTaskHeartbeatRequest;
         class SendTaskSuccessRequest;
         class StartExecutionRequest;
         class StopExecutionRequest;
+        class TagResourceRequest;
+        class UntagResourceRequest;
         class UpdateStateMachineRequest;
 
         typedef Aws::Utils::Outcome<CreateActivityResult, Aws::Client::AWSError<SFNErrors>> CreateActivityOutcome;
@@ -118,11 +118,14 @@ namespace Model
         typedef Aws::Utils::Outcome<ListActivitiesResult, Aws::Client::AWSError<SFNErrors>> ListActivitiesOutcome;
         typedef Aws::Utils::Outcome<ListExecutionsResult, Aws::Client::AWSError<SFNErrors>> ListExecutionsOutcome;
         typedef Aws::Utils::Outcome<ListStateMachinesResult, Aws::Client::AWSError<SFNErrors>> ListStateMachinesOutcome;
+        typedef Aws::Utils::Outcome<ListTagsForResourceResult, Aws::Client::AWSError<SFNErrors>> ListTagsForResourceOutcome;
         typedef Aws::Utils::Outcome<SendTaskFailureResult, Aws::Client::AWSError<SFNErrors>> SendTaskFailureOutcome;
         typedef Aws::Utils::Outcome<SendTaskHeartbeatResult, Aws::Client::AWSError<SFNErrors>> SendTaskHeartbeatOutcome;
         typedef Aws::Utils::Outcome<SendTaskSuccessResult, Aws::Client::AWSError<SFNErrors>> SendTaskSuccessOutcome;
         typedef Aws::Utils::Outcome<StartExecutionResult, Aws::Client::AWSError<SFNErrors>> StartExecutionOutcome;
         typedef Aws::Utils::Outcome<StopExecutionResult, Aws::Client::AWSError<SFNErrors>> StopExecutionOutcome;
+        typedef Aws::Utils::Outcome<TagResourceResult, Aws::Client::AWSError<SFNErrors>> TagResourceOutcome;
+        typedef Aws::Utils::Outcome<UntagResourceResult, Aws::Client::AWSError<SFNErrors>> UntagResourceOutcome;
         typedef Aws::Utils::Outcome<UpdateStateMachineResult, Aws::Client::AWSError<SFNErrors>> UpdateStateMachineOutcome;
 
         typedef std::future<CreateActivityOutcome> CreateActivityOutcomeCallable;
@@ -138,11 +141,14 @@ namespace Model
         typedef std::future<ListActivitiesOutcome> ListActivitiesOutcomeCallable;
         typedef std::future<ListExecutionsOutcome> ListExecutionsOutcomeCallable;
         typedef std::future<ListStateMachinesOutcome> ListStateMachinesOutcomeCallable;
+        typedef std::future<ListTagsForResourceOutcome> ListTagsForResourceOutcomeCallable;
         typedef std::future<SendTaskFailureOutcome> SendTaskFailureOutcomeCallable;
         typedef std::future<SendTaskHeartbeatOutcome> SendTaskHeartbeatOutcomeCallable;
         typedef std::future<SendTaskSuccessOutcome> SendTaskSuccessOutcomeCallable;
         typedef std::future<StartExecutionOutcome> StartExecutionOutcomeCallable;
         typedef std::future<StopExecutionOutcome> StopExecutionOutcomeCallable;
+        typedef std::future<TagResourceOutcome> TagResourceOutcomeCallable;
+        typedef std::future<UntagResourceOutcome> UntagResourceOutcomeCallable;
         typedef std::future<UpdateStateMachineOutcome> UpdateStateMachineOutcomeCallable;
 } // namespace Model
 
@@ -161,11 +167,14 @@ namespace Model
     typedef std::function<void(const SFNClient*, const Model::ListActivitiesRequest&, const Model::ListActivitiesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListActivitiesResponseReceivedHandler;
     typedef std::function<void(const SFNClient*, const Model::ListExecutionsRequest&, const Model::ListExecutionsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListExecutionsResponseReceivedHandler;
     typedef std::function<void(const SFNClient*, const Model::ListStateMachinesRequest&, const Model::ListStateMachinesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListStateMachinesResponseReceivedHandler;
+    typedef std::function<void(const SFNClient*, const Model::ListTagsForResourceRequest&, const Model::ListTagsForResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListTagsForResourceResponseReceivedHandler;
     typedef std::function<void(const SFNClient*, const Model::SendTaskFailureRequest&, const Model::SendTaskFailureOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SendTaskFailureResponseReceivedHandler;
     typedef std::function<void(const SFNClient*, const Model::SendTaskHeartbeatRequest&, const Model::SendTaskHeartbeatOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SendTaskHeartbeatResponseReceivedHandler;
     typedef std::function<void(const SFNClient*, const Model::SendTaskSuccessRequest&, const Model::SendTaskSuccessOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SendTaskSuccessResponseReceivedHandler;
     typedef std::function<void(const SFNClient*, const Model::StartExecutionRequest&, const Model::StartExecutionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StartExecutionResponseReceivedHandler;
     typedef std::function<void(const SFNClient*, const Model::StopExecutionRequest&, const Model::StopExecutionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StopExecutionResponseReceivedHandler;
+    typedef std::function<void(const SFNClient*, const Model::TagResourceRequest&, const Model::TagResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > TagResourceResponseReceivedHandler;
+    typedef std::function<void(const SFNClient*, const Model::UntagResourceRequest&, const Model::UntagResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UntagResourceResponseReceivedHandler;
     typedef std::function<void(const SFNClient*, const Model::UpdateStateMachineRequest&, const Model::UpdateStateMachineOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateStateMachineResponseReceivedHandler;
 
   /**
@@ -184,8 +193,8 @@ namespace Model
    * servers, or any system that has access to AWS. You can access and use Step
    * Functions using the console, the AWS SDKs, or an HTTP API. For more information
    * about Step Functions, see the <i> <a
-   * href="http://docs.aws.amazon.com/step-functions/latest/dg/welcome.html">AWS Step
-   * Functions Developer Guide</a> </i>.</p>
+   * href="https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html">AWS
+   * Step Functions Developer Guide</a> </i>.</p>
    */
   class AWS_SFN_API SFNClient : public Aws::Client::AWSJsonClient
   {
@@ -213,30 +222,46 @@ namespace Model
 
         virtual ~SFNClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "states"; }
+        inline virtual const char* GetServiceClientName() const override { return "SFN"; }
 
 
         /**
-         * <p>Creates an activity. An activity is a task which you write in any programming
-         * language and host on any machine which has access to AWS Step Functions.
+         * <p>Creates an activity. An activity is a task that you write in any programming
+         * language and host on any machine that has access to AWS Step Functions.
          * Activities must poll Step Functions using the <code>GetActivityTask</code> API
          * action and respond using <code>SendTask*</code> API actions. This function lets
          * Step Functions know the existence of your activity and returns an identifier for
-         * use in a state machine and when polling from the activity.</p><p><h3>See
-         * Also:</h3>   <a
+         * use in a state machine and when polling from the activity.</p> <note> <p>This
+         * operation is eventually consistent. The results are best effort and may not
+         * reflect very recent updates and changes.</p> </note> <note> <p>
+         * <code>CreateActivity</code> is an idempotent API. Subsequent requests won’t
+         * create a duplicate resource if it was already created.
+         * <code>CreateActivity</code>'s idempotency check is based on the activity
+         * <code>name</code>. If a following request has different <code>tags</code>
+         * values, Step Functions will ignore these differences and treat it as an
+         * idempotent request of the previous. In this case, <code>tags</code> will not be
+         * updated, even if they are different.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/CreateActivity">AWS
          * API Reference</a></p>
          */
         virtual Model::CreateActivityOutcome CreateActivity(const Model::CreateActivityRequest& request) const;
 
         /**
-         * <p>Creates an activity. An activity is a task which you write in any programming
-         * language and host on any machine which has access to AWS Step Functions.
+         * <p>Creates an activity. An activity is a task that you write in any programming
+         * language and host on any machine that has access to AWS Step Functions.
          * Activities must poll Step Functions using the <code>GetActivityTask</code> API
          * action and respond using <code>SendTask*</code> API actions. This function lets
          * Step Functions know the existence of your activity and returns an identifier for
-         * use in a state machine and when polling from the activity.</p><p><h3>See
-         * Also:</h3>   <a
+         * use in a state machine and when polling from the activity.</p> <note> <p>This
+         * operation is eventually consistent. The results are best effort and may not
+         * reflect very recent updates and changes.</p> </note> <note> <p>
+         * <code>CreateActivity</code> is an idempotent API. Subsequent requests won’t
+         * create a duplicate resource if it was already created.
+         * <code>CreateActivity</code>'s idempotency check is based on the activity
+         * <code>name</code>. If a following request has different <code>tags</code>
+         * values, Step Functions will ignore these differences and treat it as an
+         * idempotent request of the previous. In this case, <code>tags</code> will not be
+         * updated, even if they are different.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/CreateActivity">AWS
          * API Reference</a></p>
          *
@@ -245,13 +270,21 @@ namespace Model
         virtual Model::CreateActivityOutcomeCallable CreateActivityCallable(const Model::CreateActivityRequest& request) const;
 
         /**
-         * <p>Creates an activity. An activity is a task which you write in any programming
-         * language and host on any machine which has access to AWS Step Functions.
+         * <p>Creates an activity. An activity is a task that you write in any programming
+         * language and host on any machine that has access to AWS Step Functions.
          * Activities must poll Step Functions using the <code>GetActivityTask</code> API
          * action and respond using <code>SendTask*</code> API actions. This function lets
          * Step Functions know the existence of your activity and returns an identifier for
-         * use in a state machine and when polling from the activity.</p><p><h3>See
-         * Also:</h3>   <a
+         * use in a state machine and when polling from the activity.</p> <note> <p>This
+         * operation is eventually consistent. The results are best effort and may not
+         * reflect very recent updates and changes.</p> </note> <note> <p>
+         * <code>CreateActivity</code> is an idempotent API. Subsequent requests won’t
+         * create a duplicate resource if it was already created.
+         * <code>CreateActivity</code>'s idempotency check is based on the activity
+         * <code>name</code>. If a following request has different <code>tags</code>
+         * values, Step Functions will ignore these differences and treat it as an
+         * idempotent request of the previous. In this case, <code>tags</code> will not be
+         * updated, even if they are different.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/CreateActivity">AWS
          * API Reference</a></p>
          *
@@ -264,7 +297,16 @@ namespace Model
          * that can do work (<code>Task</code> states), determine to which states to
          * transition next (<code>Choice</code> states), stop an execution with an error
          * (<code>Fail</code> states), and so on. State machines are specified using a
-         * JSON-based, structured language.</p><p><h3>See Also:</h3>   <a
+         * JSON-based, structured language.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note> <note> <p> <code>CreateStateMachine</code> is an
+         * idempotent API. Subsequent requests won’t create a duplicate resource if it was
+         * already created. <code>CreateStateMachine</code>'s idempotency check is based on
+         * the state machine <code>name</code> and <code>definition</code>. If a following
+         * request has a different <code>roleArn</code> or <code>tags</code>, Step
+         * Functions will ignore these differences and treat it as an idempotent request of
+         * the previous. In this case, <code>roleArn</code> and <code>tags</code> will not
+         * be updated, even if they are different.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/CreateStateMachine">AWS
          * API Reference</a></p>
          */
@@ -275,7 +317,16 @@ namespace Model
          * that can do work (<code>Task</code> states), determine to which states to
          * transition next (<code>Choice</code> states), stop an execution with an error
          * (<code>Fail</code> states), and so on. State machines are specified using a
-         * JSON-based, structured language.</p><p><h3>See Also:</h3>   <a
+         * JSON-based, structured language.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note> <note> <p> <code>CreateStateMachine</code> is an
+         * idempotent API. Subsequent requests won’t create a duplicate resource if it was
+         * already created. <code>CreateStateMachine</code>'s idempotency check is based on
+         * the state machine <code>name</code> and <code>definition</code>. If a following
+         * request has a different <code>roleArn</code> or <code>tags</code>, Step
+         * Functions will ignore these differences and treat it as an idempotent request of
+         * the previous. In this case, <code>roleArn</code> and <code>tags</code> will not
+         * be updated, even if they are different.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/CreateStateMachine">AWS
          * API Reference</a></p>
          *
@@ -288,7 +339,16 @@ namespace Model
          * that can do work (<code>Task</code> states), determine to which states to
          * transition next (<code>Choice</code> states), stop an execution with an error
          * (<code>Fail</code> states), and so on. State machines are specified using a
-         * JSON-based, structured language.</p><p><h3>See Also:</h3>   <a
+         * JSON-based, structured language.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note> <note> <p> <code>CreateStateMachine</code> is an
+         * idempotent API. Subsequent requests won’t create a duplicate resource if it was
+         * already created. <code>CreateStateMachine</code>'s idempotency check is based on
+         * the state machine <code>name</code> and <code>definition</code>. If a following
+         * request has a different <code>roleArn</code> or <code>tags</code>, Step
+         * Functions will ignore these differences and treat it as an idempotent request of
+         * the previous. In this case, <code>roleArn</code> and <code>tags</code> will not
+         * be updated, even if they are different.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/CreateStateMachine">AWS
          * API Reference</a></p>
          *
@@ -359,14 +419,18 @@ namespace Model
         virtual void DeleteStateMachineAsync(const Model::DeleteStateMachineRequest& request, const DeleteStateMachineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Describes an activity.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes an activity.</p> <note> <p>This operation is eventually consistent.
+         * The results are best effort and may not reflect very recent updates and
+         * changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeActivity">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeActivityOutcome DescribeActivity(const Model::DescribeActivityRequest& request) const;
 
         /**
-         * <p>Describes an activity.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes an activity.</p> <note> <p>This operation is eventually consistent.
+         * The results are best effort and may not reflect very recent updates and
+         * changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeActivity">AWS
          * API Reference</a></p>
          *
@@ -375,7 +439,9 @@ namespace Model
         virtual Model::DescribeActivityOutcomeCallable DescribeActivityCallable(const Model::DescribeActivityRequest& request) const;
 
         /**
-         * <p>Describes an activity.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes an activity.</p> <note> <p>This operation is eventually consistent.
+         * The results are best effort and may not reflect very recent updates and
+         * changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeActivity">AWS
          * API Reference</a></p>
          *
@@ -384,14 +450,18 @@ namespace Model
         virtual void DescribeActivityAsync(const Model::DescribeActivityRequest& request, const DescribeActivityResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Describes an execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes an execution.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeExecution">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeExecutionOutcome DescribeExecution(const Model::DescribeExecutionRequest& request) const;
 
         /**
-         * <p>Describes an execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes an execution.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeExecution">AWS
          * API Reference</a></p>
          *
@@ -400,7 +470,9 @@ namespace Model
         virtual Model::DescribeExecutionOutcomeCallable DescribeExecutionCallable(const Model::DescribeExecutionRequest& request) const;
 
         /**
-         * <p>Describes an execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes an execution.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeExecution">AWS
          * API Reference</a></p>
          *
@@ -409,14 +481,18 @@ namespace Model
         virtual void DescribeExecutionAsync(const Model::DescribeExecutionRequest& request, const DescribeExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Describes a state machine.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes a state machine.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachine">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeStateMachineOutcome DescribeStateMachine(const Model::DescribeStateMachineRequest& request) const;
 
         /**
-         * <p>Describes a state machine.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes a state machine.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachine">AWS
          * API Reference</a></p>
          *
@@ -425,7 +501,9 @@ namespace Model
         virtual Model::DescribeStateMachineOutcomeCallable DescribeStateMachineCallable(const Model::DescribeStateMachineRequest& request) const;
 
         /**
-         * <p>Describes a state machine.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes a state machine.</p> <note> <p>This operation is eventually
+         * consistent. The results are best effort and may not reflect very recent updates
+         * and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachine">AWS
          * API Reference</a></p>
          *
@@ -434,16 +512,20 @@ namespace Model
         virtual void DescribeStateMachineAsync(const Model::DescribeStateMachineRequest& request, const DescribeStateMachineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Describes the state machine associated with a specific
-         * execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the state machine associated with a specific execution.</p> <note>
+         * <p>This operation is eventually consistent. The results are best effort and may
+         * not reflect very recent updates and changes.</p> </note><p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecution">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeStateMachineForExecutionOutcome DescribeStateMachineForExecution(const Model::DescribeStateMachineForExecutionRequest& request) const;
 
         /**
-         * <p>Describes the state machine associated with a specific
-         * execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the state machine associated with a specific execution.</p> <note>
+         * <p>This operation is eventually consistent. The results are best effort and may
+         * not reflect very recent updates and changes.</p> </note><p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecution">AWS
          * API Reference</a></p>
          *
@@ -452,8 +534,10 @@ namespace Model
         virtual Model::DescribeStateMachineForExecutionOutcomeCallable DescribeStateMachineForExecutionCallable(const Model::DescribeStateMachineForExecutionRequest& request) const;
 
         /**
-         * <p>Describes the state machine associated with a specific
-         * execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes the state machine associated with a specific execution.</p> <note>
+         * <p>This operation is eventually consistent. The results are best effort and may
+         * not reflect very recent updates and changes.</p> </note><p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecution">AWS
          * API Reference</a></p>
          *
@@ -470,8 +554,11 @@ namespace Model
          * is 60 seconds. If no task is available within 60 seconds, the poll returns a
          * <code>taskToken</code> with a null string.</p> <important> <p>Workers should set
          * their client side socket timeout to at least 65 seconds (5 seconds higher than
-         * the maximum time the service may hold the poll request).</p>
-         * </important><p><h3>See Also:</h3>   <a
+         * the maximum time the service may hold the poll request).</p> <p>Polling with
+         * <code>GetActivityTask</code> can cause latency in some implementations. See <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/bp-activity-pollers.html">Avoid
+         * Latency When Polling for Activity Tasks</a> in the Step Functions Developer
+         * Guide.</p> </important><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/GetActivityTask">AWS
          * API Reference</a></p>
          */
@@ -486,8 +573,11 @@ namespace Model
          * is 60 seconds. If no task is available within 60 seconds, the poll returns a
          * <code>taskToken</code> with a null string.</p> <important> <p>Workers should set
          * their client side socket timeout to at least 65 seconds (5 seconds higher than
-         * the maximum time the service may hold the poll request).</p>
-         * </important><p><h3>See Also:</h3>   <a
+         * the maximum time the service may hold the poll request).</p> <p>Polling with
+         * <code>GetActivityTask</code> can cause latency in some implementations. See <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/bp-activity-pollers.html">Avoid
+         * Latency When Polling for Activity Tasks</a> in the Step Functions Developer
+         * Guide.</p> </important><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/GetActivityTask">AWS
          * API Reference</a></p>
          *
@@ -504,8 +594,11 @@ namespace Model
          * is 60 seconds. If no task is available within 60 seconds, the poll returns a
          * <code>taskToken</code> with a null string.</p> <important> <p>Workers should set
          * their client side socket timeout to at least 65 seconds (5 seconds higher than
-         * the maximum time the service may hold the poll request).</p>
-         * </important><p><h3>See Also:</h3>   <a
+         * the maximum time the service may hold the poll request).</p> <p>Polling with
+         * <code>GetActivityTask</code> can cause latency in some implementations. See <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/bp-activity-pollers.html">Avoid
+         * Latency When Polling for Activity Tasks</a> in the Step Functions Developer
+         * Guide.</p> </important><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/GetActivityTask">AWS
          * API Reference</a></p>
          *
@@ -517,11 +610,12 @@ namespace Model
          * <p>Returns the history of the specified execution as a list of events. By
          * default, the results are returned in ascending order of the
          * <code>timeStamp</code> of the events. Use the <code>reverseOrder</code>
-         * parameter to get the latest events first.</p> <p>If a <code>nextToken</code> is
-         * returned by a previous call, there are more results available. To retrieve the
-         * next page of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * parameter to get the latest events first.</p> <p>If <code>nextToken</code> is
+         * returned, there are more results available. The value of <code>nextToken</code>
+         * is a unique pagination token for each page. Make the call again using the
+         * returned token to retrieve the next page. Keep all other arguments unchanged.
+         * Each pagination token expires after 24 hours. Using an expired pagination token
+         * will return an <i>HTTP 400 InvalidToken</i> error.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/GetExecutionHistory">AWS
          * API Reference</a></p>
          */
@@ -531,11 +625,12 @@ namespace Model
          * <p>Returns the history of the specified execution as a list of events. By
          * default, the results are returned in ascending order of the
          * <code>timeStamp</code> of the events. Use the <code>reverseOrder</code>
-         * parameter to get the latest events first.</p> <p>If a <code>nextToken</code> is
-         * returned by a previous call, there are more results available. To retrieve the
-         * next page of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * parameter to get the latest events first.</p> <p>If <code>nextToken</code> is
+         * returned, there are more results available. The value of <code>nextToken</code>
+         * is a unique pagination token for each page. Make the call again using the
+         * returned token to retrieve the next page. Keep all other arguments unchanged.
+         * Each pagination token expires after 24 hours. Using an expired pagination token
+         * will return an <i>HTTP 400 InvalidToken</i> error.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/GetExecutionHistory">AWS
          * API Reference</a></p>
          *
@@ -547,11 +642,12 @@ namespace Model
          * <p>Returns the history of the specified execution as a list of events. By
          * default, the results are returned in ascending order of the
          * <code>timeStamp</code> of the events. Use the <code>reverseOrder</code>
-         * parameter to get the latest events first.</p> <p>If a <code>nextToken</code> is
-         * returned by a previous call, there are more results available. To retrieve the
-         * next page of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * parameter to get the latest events first.</p> <p>If <code>nextToken</code> is
+         * returned, there are more results available. The value of <code>nextToken</code>
+         * is a unique pagination token for each page. Make the call again using the
+         * returned token to retrieve the next page. Keep all other arguments unchanged.
+         * Each pagination token expires after 24 hours. Using an expired pagination token
+         * will return an <i>HTTP 400 InvalidToken</i> error.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/GetExecutionHistory">AWS
          * API Reference</a></p>
          *
@@ -560,22 +656,28 @@ namespace Model
         virtual void GetExecutionHistoryAsync(const Model::GetExecutionHistoryRequest& request, const GetExecutionHistoryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the existing activities.</p> <p>If a <code>nextToken</code> is returned
-         * by a previous call, there are more results available. To retrieve the next page
-         * of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Lists the existing activities.</p> <p>If <code>nextToken</code> is returned,
+         * there are more results available. The value of <code>nextToken</code> is a
+         * unique pagination token for each page. Make the call again using the returned
+         * token to retrieve the next page. Keep all other arguments unchanged. Each
+         * pagination token expires after 24 hours. Using an expired pagination token will
+         * return an <i>HTTP 400 InvalidToken</i> error.</p> <note> <p>This operation is
+         * eventually consistent. The results are best effort and may not reflect very
+         * recent updates and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListActivities">AWS
          * API Reference</a></p>
          */
         virtual Model::ListActivitiesOutcome ListActivities(const Model::ListActivitiesRequest& request) const;
 
         /**
-         * <p>Lists the existing activities.</p> <p>If a <code>nextToken</code> is returned
-         * by a previous call, there are more results available. To retrieve the next page
-         * of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Lists the existing activities.</p> <p>If <code>nextToken</code> is returned,
+         * there are more results available. The value of <code>nextToken</code> is a
+         * unique pagination token for each page. Make the call again using the returned
+         * token to retrieve the next page. Keep all other arguments unchanged. Each
+         * pagination token expires after 24 hours. Using an expired pagination token will
+         * return an <i>HTTP 400 InvalidToken</i> error.</p> <note> <p>This operation is
+         * eventually consistent. The results are best effort and may not reflect very
+         * recent updates and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListActivities">AWS
          * API Reference</a></p>
          *
@@ -584,11 +686,14 @@ namespace Model
         virtual Model::ListActivitiesOutcomeCallable ListActivitiesCallable(const Model::ListActivitiesRequest& request) const;
 
         /**
-         * <p>Lists the existing activities.</p> <p>If a <code>nextToken</code> is returned
-         * by a previous call, there are more results available. To retrieve the next page
-         * of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Lists the existing activities.</p> <p>If <code>nextToken</code> is returned,
+         * there are more results available. The value of <code>nextToken</code> is a
+         * unique pagination token for each page. Make the call again using the returned
+         * token to retrieve the next page. Keep all other arguments unchanged. Each
+         * pagination token expires after 24 hours. Using an expired pagination token will
+         * return an <i>HTTP 400 InvalidToken</i> error.</p> <note> <p>This operation is
+         * eventually consistent. The results are best effort and may not reflect very
+         * recent updates and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListActivities">AWS
          * API Reference</a></p>
          *
@@ -597,22 +702,32 @@ namespace Model
         virtual void ListActivitiesAsync(const Model::ListActivitiesRequest& request, const ListActivitiesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the executions of a state machine that meet the filtering criteria.</p>
-         * <p>If a <code>nextToken</code> is returned by a previous call, there are more
-         * results available. To retrieve the next page of results, make the call again
-         * using the returned token in <code>nextToken</code>. Keep all other arguments
-         * unchanged.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the executions of a state machine that meet the filtering criteria.
+         * Results are sorted by time, with the most recent execution first.</p> <p>If
+         * <code>nextToken</code> is returned, there are more results available. The value
+         * of <code>nextToken</code> is a unique pagination token for each page. Make the
+         * call again using the returned token to retrieve the next page. Keep all other
+         * arguments unchanged. Each pagination token expires after 24 hours. Using an
+         * expired pagination token will return an <i>HTTP 400 InvalidToken</i> error.</p>
+         * <note> <p>This operation is eventually consistent. The results are best effort
+         * and may not reflect very recent updates and changes.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListExecutions">AWS
          * API Reference</a></p>
          */
         virtual Model::ListExecutionsOutcome ListExecutions(const Model::ListExecutionsRequest& request) const;
 
         /**
-         * <p>Lists the executions of a state machine that meet the filtering criteria.</p>
-         * <p>If a <code>nextToken</code> is returned by a previous call, there are more
-         * results available. To retrieve the next page of results, make the call again
-         * using the returned token in <code>nextToken</code>. Keep all other arguments
-         * unchanged.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the executions of a state machine that meet the filtering criteria.
+         * Results are sorted by time, with the most recent execution first.</p> <p>If
+         * <code>nextToken</code> is returned, there are more results available. The value
+         * of <code>nextToken</code> is a unique pagination token for each page. Make the
+         * call again using the returned token to retrieve the next page. Keep all other
+         * arguments unchanged. Each pagination token expires after 24 hours. Using an
+         * expired pagination token will return an <i>HTTP 400 InvalidToken</i> error.</p>
+         * <note> <p>This operation is eventually consistent. The results are best effort
+         * and may not reflect very recent updates and changes.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListExecutions">AWS
          * API Reference</a></p>
          *
@@ -621,11 +736,16 @@ namespace Model
         virtual Model::ListExecutionsOutcomeCallable ListExecutionsCallable(const Model::ListExecutionsRequest& request) const;
 
         /**
-         * <p>Lists the executions of a state machine that meet the filtering criteria.</p>
-         * <p>If a <code>nextToken</code> is returned by a previous call, there are more
-         * results available. To retrieve the next page of results, make the call again
-         * using the returned token in <code>nextToken</code>. Keep all other arguments
-         * unchanged.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the executions of a state machine that meet the filtering criteria.
+         * Results are sorted by time, with the most recent execution first.</p> <p>If
+         * <code>nextToken</code> is returned, there are more results available. The value
+         * of <code>nextToken</code> is a unique pagination token for each page. Make the
+         * call again using the returned token to retrieve the next page. Keep all other
+         * arguments unchanged. Each pagination token expires after 24 hours. Using an
+         * expired pagination token will return an <i>HTTP 400 InvalidToken</i> error.</p>
+         * <note> <p>This operation is eventually consistent. The results are best effort
+         * and may not reflect very recent updates and changes.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListExecutions">AWS
          * API Reference</a></p>
          *
@@ -634,22 +754,28 @@ namespace Model
         virtual void ListExecutionsAsync(const Model::ListExecutionsRequest& request, const ListExecutionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the existing state machines.</p> <p>If a <code>nextToken</code> is
-         * returned by a previous call, there are more results available. To retrieve the
-         * next page of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Lists the existing state machines.</p> <p>If <code>nextToken</code> is
+         * returned, there are more results available. The value of <code>nextToken</code>
+         * is a unique pagination token for each page. Make the call again using the
+         * returned token to retrieve the next page. Keep all other arguments unchanged.
+         * Each pagination token expires after 24 hours. Using an expired pagination token
+         * will return an <i>HTTP 400 InvalidToken</i> error.</p> <note> <p>This operation
+         * is eventually consistent. The results are best effort and may not reflect very
+         * recent updates and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListStateMachines">AWS
          * API Reference</a></p>
          */
         virtual Model::ListStateMachinesOutcome ListStateMachines(const Model::ListStateMachinesRequest& request) const;
 
         /**
-         * <p>Lists the existing state machines.</p> <p>If a <code>nextToken</code> is
-         * returned by a previous call, there are more results available. To retrieve the
-         * next page of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Lists the existing state machines.</p> <p>If <code>nextToken</code> is
+         * returned, there are more results available. The value of <code>nextToken</code>
+         * is a unique pagination token for each page. Make the call again using the
+         * returned token to retrieve the next page. Keep all other arguments unchanged.
+         * Each pagination token expires after 24 hours. Using an expired pagination token
+         * will return an <i>HTTP 400 InvalidToken</i> error.</p> <note> <p>This operation
+         * is eventually consistent. The results are best effort and may not reflect very
+         * recent updates and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListStateMachines">AWS
          * API Reference</a></p>
          *
@@ -658,11 +784,14 @@ namespace Model
         virtual Model::ListStateMachinesOutcomeCallable ListStateMachinesCallable(const Model::ListStateMachinesRequest& request) const;
 
         /**
-         * <p>Lists the existing state machines.</p> <p>If a <code>nextToken</code> is
-         * returned by a previous call, there are more results available. To retrieve the
-         * next page of results, make the call again using the returned token in
-         * <code>nextToken</code>. Keep all other arguments unchanged.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Lists the existing state machines.</p> <p>If <code>nextToken</code> is
+         * returned, there are more results available. The value of <code>nextToken</code>
+         * is a unique pagination token for each page. Make the call again using the
+         * returned token to retrieve the next page. Keep all other arguments unchanged.
+         * Each pagination token expires after 24 hours. Using an expired pagination token
+         * will return an <i>HTTP 400 InvalidToken</i> error.</p> <note> <p>This operation
+         * is eventually consistent. The results are best effort and may not reflect very
+         * recent updates and changes.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListStateMachines">AWS
          * API Reference</a></p>
          *
@@ -671,16 +800,51 @@ namespace Model
         virtual void ListStateMachinesAsync(const Model::ListStateMachinesRequest& request, const ListStateMachinesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Used by workers to report that the task identified by the
-         * <code>taskToken</code> failed.</p><p><h3>See Also:</h3>   <a
+         * <p>List tags for a given resource.</p> <p>Tags may only contain Unicode letters,
+         * digits, white space, or these symbols: <code>_ . : / = + -
+         * @</code>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListTagsForResource">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::ListTagsForResourceOutcome ListTagsForResource(const Model::ListTagsForResourceRequest& request) const;
+
+        /**
+         * <p>List tags for a given resource.</p> <p>Tags may only contain Unicode letters,
+         * digits, white space, or these symbols: <code>_ . : / = + -
+         * @</code>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListTagsForResource">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ListTagsForResourceOutcomeCallable ListTagsForResourceCallable(const Model::ListTagsForResourceRequest& request) const;
+
+        /**
+         * <p>List tags for a given resource.</p> <p>Tags may only contain Unicode letters,
+         * digits, white space, or these symbols: <code>_ . : / = + -
+         * @</code>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ListTagsForResource">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ListTagsForResourceAsync(const Model::ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report that the task identified by the <code>taskToken</code>
+         * failed.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskFailure">AWS
          * API Reference</a></p>
          */
         virtual Model::SendTaskFailureOutcome SendTaskFailure(const Model::SendTaskFailureRequest& request) const;
 
         /**
-         * <p>Used by workers to report that the task identified by the
-         * <code>taskToken</code> failed.</p><p><h3>See Also:</h3>   <a
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report that the task identified by the <code>taskToken</code>
+         * failed.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskFailure">AWS
          * API Reference</a></p>
          *
@@ -689,8 +853,10 @@ namespace Model
         virtual Model::SendTaskFailureOutcomeCallable SendTaskFailureCallable(const Model::SendTaskFailureRequest& request) const;
 
         /**
-         * <p>Used by workers to report that the task identified by the
-         * <code>taskToken</code> failed.</p><p><h3>See Also:</h3>   <a
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report that the task identified by the <code>taskToken</code>
+         * failed.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskFailure">AWS
          * API Reference</a></p>
          *
@@ -699,34 +865,48 @@ namespace Model
         virtual void SendTaskFailureAsync(const Model::SendTaskFailureRequest& request, const SendTaskFailureResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Used by workers to report to the service that the task represented by the
-         * specified <code>taskToken</code> is still making progress. This action resets
-         * the <code>Heartbeat</code> clock. The <code>Heartbeat</code> threshold is
-         * specified in the state machine's Amazon States Language definition. This action
-         * does not in itself create an event in the execution history. However, if the
-         * task times out, the execution history contains an <code>ActivityTimedOut</code>
-         * event.</p> <note> <p>The <code>Timeout</code> of a task, defined in the state
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report to Step Functions that the task represented by the specified
+         * <code>taskToken</code> is still making progress. This action resets the
+         * <code>Heartbeat</code> clock. The <code>Heartbeat</code> threshold is specified
+         * in the state machine's Amazon States Language definition
+         * (<code>HeartbeatSeconds</code>). This action does not in itself create an event
+         * in the execution history. However, if the task times out, the execution history
+         * contains an <code>ActivityTimedOut</code> entry for activities, or a
+         * <code>TaskTimedOut</code> entry for for tasks using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync">job
+         * run</a> or <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern.</p> <note> <p>The <code>Timeout</code> of a task, defined in the state
          * machine's Amazon States Language definition, is its maximum allowed duration,
-         * regardless of the number of <a>SendTaskHeartbeat</a> requests received.</p>
-         * </note> <note> <p>This operation is only useful for long-lived tasks to report
-         * the liveliness of the task.</p> </note><p><h3>See Also:</h3>   <a
+         * regardless of the number of <a>SendTaskHeartbeat</a> requests received. Use
+         * <code>HeartbeatSeconds</code> to configure the timeout interval for
+         * heartbeats.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskHeartbeat">AWS
          * API Reference</a></p>
          */
         virtual Model::SendTaskHeartbeatOutcome SendTaskHeartbeat(const Model::SendTaskHeartbeatRequest& request) const;
 
         /**
-         * <p>Used by workers to report to the service that the task represented by the
-         * specified <code>taskToken</code> is still making progress. This action resets
-         * the <code>Heartbeat</code> clock. The <code>Heartbeat</code> threshold is
-         * specified in the state machine's Amazon States Language definition. This action
-         * does not in itself create an event in the execution history. However, if the
-         * task times out, the execution history contains an <code>ActivityTimedOut</code>
-         * event.</p> <note> <p>The <code>Timeout</code> of a task, defined in the state
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report to Step Functions that the task represented by the specified
+         * <code>taskToken</code> is still making progress. This action resets the
+         * <code>Heartbeat</code> clock. The <code>Heartbeat</code> threshold is specified
+         * in the state machine's Amazon States Language definition
+         * (<code>HeartbeatSeconds</code>). This action does not in itself create an event
+         * in the execution history. However, if the task times out, the execution history
+         * contains an <code>ActivityTimedOut</code> entry for activities, or a
+         * <code>TaskTimedOut</code> entry for for tasks using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync">job
+         * run</a> or <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern.</p> <note> <p>The <code>Timeout</code> of a task, defined in the state
          * machine's Amazon States Language definition, is its maximum allowed duration,
-         * regardless of the number of <a>SendTaskHeartbeat</a> requests received.</p>
-         * </note> <note> <p>This operation is only useful for long-lived tasks to report
-         * the liveliness of the task.</p> </note><p><h3>See Also:</h3>   <a
+         * regardless of the number of <a>SendTaskHeartbeat</a> requests received. Use
+         * <code>HeartbeatSeconds</code> to configure the timeout interval for
+         * heartbeats.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskHeartbeat">AWS
          * API Reference</a></p>
          *
@@ -735,17 +915,24 @@ namespace Model
         virtual Model::SendTaskHeartbeatOutcomeCallable SendTaskHeartbeatCallable(const Model::SendTaskHeartbeatRequest& request) const;
 
         /**
-         * <p>Used by workers to report to the service that the task represented by the
-         * specified <code>taskToken</code> is still making progress. This action resets
-         * the <code>Heartbeat</code> clock. The <code>Heartbeat</code> threshold is
-         * specified in the state machine's Amazon States Language definition. This action
-         * does not in itself create an event in the execution history. However, if the
-         * task times out, the execution history contains an <code>ActivityTimedOut</code>
-         * event.</p> <note> <p>The <code>Timeout</code> of a task, defined in the state
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report to Step Functions that the task represented by the specified
+         * <code>taskToken</code> is still making progress. This action resets the
+         * <code>Heartbeat</code> clock. The <code>Heartbeat</code> threshold is specified
+         * in the state machine's Amazon States Language definition
+         * (<code>HeartbeatSeconds</code>). This action does not in itself create an event
+         * in the execution history. However, if the task times out, the execution history
+         * contains an <code>ActivityTimedOut</code> entry for activities, or a
+         * <code>TaskTimedOut</code> entry for for tasks using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync">job
+         * run</a> or <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern.</p> <note> <p>The <code>Timeout</code> of a task, defined in the state
          * machine's Amazon States Language definition, is its maximum allowed duration,
-         * regardless of the number of <a>SendTaskHeartbeat</a> requests received.</p>
-         * </note> <note> <p>This operation is only useful for long-lived tasks to report
-         * the liveliness of the task.</p> </note><p><h3>See Also:</h3>   <a
+         * regardless of the number of <a>SendTaskHeartbeat</a> requests received. Use
+         * <code>HeartbeatSeconds</code> to configure the timeout interval for
+         * heartbeats.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskHeartbeat">AWS
          * API Reference</a></p>
          *
@@ -754,16 +941,20 @@ namespace Model
         virtual void SendTaskHeartbeatAsync(const Model::SendTaskHeartbeatRequest& request, const SendTaskHeartbeatResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Used by workers to report that the task identified by the
-         * <code>taskToken</code> completed successfully.</p><p><h3>See Also:</h3>   <a
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report that the task identified by the <code>taskToken</code>
+         * completed successfully.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskSuccess">AWS
          * API Reference</a></p>
          */
         virtual Model::SendTaskSuccessOutcome SendTaskSuccess(const Model::SendTaskSuccessRequest& request) const;
 
         /**
-         * <p>Used by workers to report that the task identified by the
-         * <code>taskToken</code> completed successfully.</p><p><h3>See Also:</h3>   <a
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report that the task identified by the <code>taskToken</code>
+         * completed successfully.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskSuccess">AWS
          * API Reference</a></p>
          *
@@ -772,8 +963,10 @@ namespace Model
         virtual Model::SendTaskSuccessOutcomeCallable SendTaskSuccessCallable(const Model::SendTaskSuccessRequest& request) const;
 
         /**
-         * <p>Used by workers to report that the task identified by the
-         * <code>taskToken</code> completed successfully.</p><p><h3>See Also:</h3>   <a
+         * <p>Used by activity workers and task states using the <a
+         * href="https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token">callback</a>
+         * pattern to report that the task identified by the <code>taskToken</code>
+         * completed successfully.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/SendTaskSuccess">AWS
          * API Reference</a></p>
          *
@@ -782,14 +975,24 @@ namespace Model
         virtual void SendTaskSuccessAsync(const Model::SendTaskSuccessRequest& request, const SendTaskSuccessResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Starts a state machine execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Starts a state machine execution.</p> <note> <p> <code>StartExecution</code>
+         * is idempotent. If <code>StartExecution</code> is called with the same name and
+         * input as a running execution, the call will succeed and return the same response
+         * as the original request. If the execution is closed or if the input is
+         * different, it will return a 400 <code>ExecutionAlreadyExists</code> error. Names
+         * can be reused after 90 days. </p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StartExecution">AWS
          * API Reference</a></p>
          */
         virtual Model::StartExecutionOutcome StartExecution(const Model::StartExecutionRequest& request) const;
 
         /**
-         * <p>Starts a state machine execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Starts a state machine execution.</p> <note> <p> <code>StartExecution</code>
+         * is idempotent. If <code>StartExecution</code> is called with the same name and
+         * input as a running execution, the call will succeed and return the same response
+         * as the original request. If the execution is closed or if the input is
+         * different, it will return a 400 <code>ExecutionAlreadyExists</code> error. Names
+         * can be reused after 90 days. </p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StartExecution">AWS
          * API Reference</a></p>
          *
@@ -798,7 +1001,12 @@ namespace Model
         virtual Model::StartExecutionOutcomeCallable StartExecutionCallable(const Model::StartExecutionRequest& request) const;
 
         /**
-         * <p>Starts a state machine execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Starts a state machine execution.</p> <note> <p> <code>StartExecution</code>
+         * is idempotent. If <code>StartExecution</code> is called with the same name and
+         * input as a running execution, the call will succeed and return the same response
+         * as the original request. If the execution is closed or if the input is
+         * different, it will return a 400 <code>ExecutionAlreadyExists</code> error. Names
+         * can be reused after 90 days. </p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StartExecution">AWS
          * API Reference</a></p>
          *
@@ -832,16 +1040,90 @@ namespace Model
         virtual void StopExecutionAsync(const Model::StopExecutionRequest& request, const StopExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Add a tag to a Step Functions resource.</p> <p>An array of key-value pairs.
+         * For more information, see <a
+         * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+         * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
+         * Guide</i>, and <a
+         * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling
+         * Access Using IAM Tags</a>.</p> <p>Tags may only contain Unicode letters, digits,
+         * white space, or these symbols: <code>_ . : / = + - @</code>.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/TagResource">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::TagResourceOutcome TagResource(const Model::TagResourceRequest& request) const;
+
+        /**
+         * <p>Add a tag to a Step Functions resource.</p> <p>An array of key-value pairs.
+         * For more information, see <a
+         * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+         * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
+         * Guide</i>, and <a
+         * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling
+         * Access Using IAM Tags</a>.</p> <p>Tags may only contain Unicode letters, digits,
+         * white space, or these symbols: <code>_ . : / = + - @</code>.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/TagResource">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::TagResourceOutcomeCallable TagResourceCallable(const Model::TagResourceRequest& request) const;
+
+        /**
+         * <p>Add a tag to a Step Functions resource.</p> <p>An array of key-value pairs.
+         * For more information, see <a
+         * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+         * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
+         * Guide</i>, and <a
+         * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling
+         * Access Using IAM Tags</a>.</p> <p>Tags may only contain Unicode letters, digits,
+         * white space, or these symbols: <code>_ . : / = + - @</code>.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/TagResource">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void TagResourceAsync(const Model::TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Remove a tag from a Step Functions resource</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UntagResource">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::UntagResourceOutcome UntagResource(const Model::UntagResourceRequest& request) const;
+
+        /**
+         * <p>Remove a tag from a Step Functions resource</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UntagResource">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::UntagResourceOutcomeCallable UntagResourceCallable(const Model::UntagResourceRequest& request) const;
+
+        /**
+         * <p>Remove a tag from a Step Functions resource</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UntagResource">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void UntagResourceAsync(const Model::UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Updates an existing state machine by modifying its <code>definition</code>
          * and/or <code>roleArn</code>. Running executions will continue to use the
-         * previous <code>definition</code> and <code>roleArn</code>.</p> <note> <p>All
+         * previous <code>definition</code> and <code>roleArn</code>. You must include at
+         * least one of <code>definition</code> or <code>roleArn</code> or you will receive
+         * a <code>MissingRequiredParameter</code> error.</p> <note> <p>All
          * <code>StartExecution</code> calls within a few seconds will use the updated
          * <code>definition</code> and <code>roleArn</code>. Executions started immediately
          * after calling <code>UpdateStateMachine</code> may use the previous state machine
-         * <code>definition</code> and <code>roleArn</code>. You must include at least one
-         * of <code>definition</code> or <code>roleArn</code> or you will receive a
-         * <code>MissingRequiredParameter</code> error.</p> </note><p><h3>See Also:</h3>  
-         * <a
+         * <code>definition</code> and <code>roleArn</code>. </p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachine">AWS
          * API Reference</a></p>
          */
@@ -850,14 +1132,14 @@ namespace Model
         /**
          * <p>Updates an existing state machine by modifying its <code>definition</code>
          * and/or <code>roleArn</code>. Running executions will continue to use the
-         * previous <code>definition</code> and <code>roleArn</code>.</p> <note> <p>All
+         * previous <code>definition</code> and <code>roleArn</code>. You must include at
+         * least one of <code>definition</code> or <code>roleArn</code> or you will receive
+         * a <code>MissingRequiredParameter</code> error.</p> <note> <p>All
          * <code>StartExecution</code> calls within a few seconds will use the updated
          * <code>definition</code> and <code>roleArn</code>. Executions started immediately
          * after calling <code>UpdateStateMachine</code> may use the previous state machine
-         * <code>definition</code> and <code>roleArn</code>. You must include at least one
-         * of <code>definition</code> or <code>roleArn</code> or you will receive a
-         * <code>MissingRequiredParameter</code> error.</p> </note><p><h3>See Also:</h3>  
-         * <a
+         * <code>definition</code> and <code>roleArn</code>. </p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachine">AWS
          * API Reference</a></p>
          *
@@ -868,14 +1150,14 @@ namespace Model
         /**
          * <p>Updates an existing state machine by modifying its <code>definition</code>
          * and/or <code>roleArn</code>. Running executions will continue to use the
-         * previous <code>definition</code> and <code>roleArn</code>.</p> <note> <p>All
+         * previous <code>definition</code> and <code>roleArn</code>. You must include at
+         * least one of <code>definition</code> or <code>roleArn</code> or you will receive
+         * a <code>MissingRequiredParameter</code> error.</p> <note> <p>All
          * <code>StartExecution</code> calls within a few seconds will use the updated
          * <code>definition</code> and <code>roleArn</code>. Executions started immediately
          * after calling <code>UpdateStateMachine</code> may use the previous state machine
-         * <code>definition</code> and <code>roleArn</code>. You must include at least one
-         * of <code>definition</code> or <code>roleArn</code> or you will receive a
-         * <code>MissingRequiredParameter</code> error.</p> </note><p><h3>See Also:</h3>  
-         * <a
+         * <code>definition</code> and <code>roleArn</code>. </p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachine">AWS
          * API Reference</a></p>
          *
@@ -884,10 +1166,9 @@ namespace Model
         virtual void UpdateStateMachineAsync(const Model::UpdateStateMachineRequest& request, const UpdateStateMachineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void CreateActivityAsyncHelper(const Model::CreateActivityRequest& request, const CreateActivityResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateStateMachineAsyncHelper(const Model::CreateStateMachineRequest& request, const CreateStateMachineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteActivityAsyncHelper(const Model::DeleteActivityRequest& request, const DeleteActivityResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -901,14 +1182,18 @@ namespace Model
         void ListActivitiesAsyncHelper(const Model::ListActivitiesRequest& request, const ListActivitiesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListExecutionsAsyncHelper(const Model::ListExecutionsRequest& request, const ListExecutionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListStateMachinesAsyncHelper(const Model::ListStateMachinesRequest& request, const ListStateMachinesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ListTagsForResourceAsyncHelper(const Model::ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void SendTaskFailureAsyncHelper(const Model::SendTaskFailureRequest& request, const SendTaskFailureResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void SendTaskHeartbeatAsyncHelper(const Model::SendTaskHeartbeatRequest& request, const SendTaskHeartbeatResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void SendTaskSuccessAsyncHelper(const Model::SendTaskSuccessRequest& request, const SendTaskSuccessResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void StartExecutionAsyncHelper(const Model::StartExecutionRequest& request, const StartExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void StopExecutionAsyncHelper(const Model::StopExecutionRequest& request, const StopExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void TagResourceAsyncHelper(const Model::TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void UntagResourceAsyncHelper(const Model::UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateStateMachineAsyncHelper(const Model::UpdateStateMachineRequest& request, const UpdateStateMachineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

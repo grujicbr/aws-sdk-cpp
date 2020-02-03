@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ContainerStateChange();
-    ContainerStateChange(const Aws::Utils::Json::JsonValue& jsonValue);
-    ContainerStateChange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ContainerStateChange(Aws::Utils::Json::JsonView jsonValue);
+    ContainerStateChange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the container.</p>
      */
     inline const Aws::String& GetContainerName() const{ return m_containerName; }
+
+    /**
+     * <p>The name of the container.</p>
+     */
+    inline bool ContainerNameHasBeenSet() const { return m_containerNameHasBeenSet; }
 
     /**
      * <p>The name of the container.</p>
@@ -86,10 +92,98 @@ namespace Model
 
 
     /**
+     * <p>The container image SHA 256 digest.</p>
+     */
+    inline const Aws::String& GetImageDigest() const{ return m_imageDigest; }
+
+    /**
+     * <p>The container image SHA 256 digest.</p>
+     */
+    inline bool ImageDigestHasBeenSet() const { return m_imageDigestHasBeenSet; }
+
+    /**
+     * <p>The container image SHA 256 digest.</p>
+     */
+    inline void SetImageDigest(const Aws::String& value) { m_imageDigestHasBeenSet = true; m_imageDigest = value; }
+
+    /**
+     * <p>The container image SHA 256 digest.</p>
+     */
+    inline void SetImageDigest(Aws::String&& value) { m_imageDigestHasBeenSet = true; m_imageDigest = std::move(value); }
+
+    /**
+     * <p>The container image SHA 256 digest.</p>
+     */
+    inline void SetImageDigest(const char* value) { m_imageDigestHasBeenSet = true; m_imageDigest.assign(value); }
+
+    /**
+     * <p>The container image SHA 256 digest.</p>
+     */
+    inline ContainerStateChange& WithImageDigest(const Aws::String& value) { SetImageDigest(value); return *this;}
+
+    /**
+     * <p>The container image SHA 256 digest.</p>
+     */
+    inline ContainerStateChange& WithImageDigest(Aws::String&& value) { SetImageDigest(std::move(value)); return *this;}
+
+    /**
+     * <p>The container image SHA 256 digest.</p>
+     */
+    inline ContainerStateChange& WithImageDigest(const char* value) { SetImageDigest(value); return *this;}
+
+
+    /**
+     * <p>The ID of the Docker container.</p>
+     */
+    inline const Aws::String& GetRuntimeId() const{ return m_runtimeId; }
+
+    /**
+     * <p>The ID of the Docker container.</p>
+     */
+    inline bool RuntimeIdHasBeenSet() const { return m_runtimeIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Docker container.</p>
+     */
+    inline void SetRuntimeId(const Aws::String& value) { m_runtimeIdHasBeenSet = true; m_runtimeId = value; }
+
+    /**
+     * <p>The ID of the Docker container.</p>
+     */
+    inline void SetRuntimeId(Aws::String&& value) { m_runtimeIdHasBeenSet = true; m_runtimeId = std::move(value); }
+
+    /**
+     * <p>The ID of the Docker container.</p>
+     */
+    inline void SetRuntimeId(const char* value) { m_runtimeIdHasBeenSet = true; m_runtimeId.assign(value); }
+
+    /**
+     * <p>The ID of the Docker container.</p>
+     */
+    inline ContainerStateChange& WithRuntimeId(const Aws::String& value) { SetRuntimeId(value); return *this;}
+
+    /**
+     * <p>The ID of the Docker container.</p>
+     */
+    inline ContainerStateChange& WithRuntimeId(Aws::String&& value) { SetRuntimeId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the Docker container.</p>
+     */
+    inline ContainerStateChange& WithRuntimeId(const char* value) { SetRuntimeId(value); return *this;}
+
+
+    /**
      * <p>The exit code for the container, if the state change is a result of the
      * container exiting.</p>
      */
     inline int GetExitCode() const{ return m_exitCode; }
+
+    /**
+     * <p>The exit code for the container, if the state change is a result of the
+     * container exiting.</p>
+     */
+    inline bool ExitCodeHasBeenSet() const { return m_exitCodeHasBeenSet; }
 
     /**
      * <p>The exit code for the container, if the state change is a result of the
@@ -108,6 +202,11 @@ namespace Model
      * <p>Any network bindings associated with the container.</p>
      */
     inline const Aws::Vector<NetworkBinding>& GetNetworkBindings() const{ return m_networkBindings; }
+
+    /**
+     * <p>Any network bindings associated with the container.</p>
+     */
+    inline bool NetworkBindingsHasBeenSet() const { return m_networkBindingsHasBeenSet; }
 
     /**
      * <p>Any network bindings associated with the container.</p>
@@ -148,6 +247,11 @@ namespace Model
     /**
      * <p>The reason for the state change.</p>
      */
+    inline bool ReasonHasBeenSet() const { return m_reasonHasBeenSet; }
+
+    /**
+     * <p>The reason for the state change.</p>
+     */
     inline void SetReason(const Aws::String& value) { m_reasonHasBeenSet = true; m_reason = value; }
 
     /**
@@ -184,6 +288,11 @@ namespace Model
     /**
      * <p>The status of the container.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the container.</p>
+     */
     inline void SetStatus(const Aws::String& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -215,6 +324,12 @@ namespace Model
 
     Aws::String m_containerName;
     bool m_containerNameHasBeenSet;
+
+    Aws::String m_imageDigest;
+    bool m_imageDigestHasBeenSet;
+
+    Aws::String m_runtimeId;
+    bool m_runtimeIdHasBeenSet;
 
     int m_exitCode;
     bool m_exitCodeHasBeenSet;

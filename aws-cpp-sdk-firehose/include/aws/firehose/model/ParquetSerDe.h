@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ParquetSerDe();
-    ParquetSerDe(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParquetSerDe& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParquetSerDe(Aws::Utils::Json::JsonView jsonValue);
+    ParquetSerDe& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,14 @@ namespace Model
      * padding calculations.</p>
      */
     inline int GetBlockSizeBytes() const{ return m_blockSizeBytes; }
+
+    /**
+     * <p>The Hadoop Distributed File System (HDFS) block size. This is useful if you
+     * intend to copy the data from Amazon S3 to HDFS before querying. The default is
+     * 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose uses this value for
+     * padding calculations.</p>
+     */
+    inline bool BlockSizeBytesHasBeenSet() const { return m_blockSizeBytesHasBeenSet; }
 
     /**
      * <p>The Hadoop Distributed File System (HDFS) block size. This is useful if you
@@ -87,6 +96,13 @@ namespace Model
      * conceptually an indivisible unit (in terms of compression and encoding). The
      * minimum value is 64 KiB and the default is 1 MiB.</p>
      */
+    inline bool PageSizeBytesHasBeenSet() const { return m_pageSizeBytesHasBeenSet; }
+
+    /**
+     * <p>The Parquet page size. Column chunks are divided into pages. A page is
+     * conceptually an indivisible unit (in terms of compression and encoding). The
+     * minimum value is 64 KiB and the default is 1 MiB.</p>
+     */
     inline void SetPageSizeBytes(int value) { m_pageSizeBytesHasBeenSet = true; m_pageSizeBytes = value; }
 
     /**
@@ -101,7 +117,7 @@ namespace Model
      * <p>The compression code to use over data blocks. The possible values are
      * <code>UNCOMPRESSED</code>, <code>SNAPPY</code>, and <code>GZIP</code>, with the
      * default being <code>SNAPPY</code>. Use <code>SNAPPY</code> for higher
-     * decompression speed. Use <code>GZIP</code> if the compression ration is more
+     * decompression speed. Use <code>GZIP</code> if the compression ratio is more
      * important than speed.</p>
      */
     inline const ParquetCompression& GetCompression() const{ return m_compression; }
@@ -110,7 +126,16 @@ namespace Model
      * <p>The compression code to use over data blocks. The possible values are
      * <code>UNCOMPRESSED</code>, <code>SNAPPY</code>, and <code>GZIP</code>, with the
      * default being <code>SNAPPY</code>. Use <code>SNAPPY</code> for higher
-     * decompression speed. Use <code>GZIP</code> if the compression ration is more
+     * decompression speed. Use <code>GZIP</code> if the compression ratio is more
+     * important than speed.</p>
+     */
+    inline bool CompressionHasBeenSet() const { return m_compressionHasBeenSet; }
+
+    /**
+     * <p>The compression code to use over data blocks. The possible values are
+     * <code>UNCOMPRESSED</code>, <code>SNAPPY</code>, and <code>GZIP</code>, with the
+     * default being <code>SNAPPY</code>. Use <code>SNAPPY</code> for higher
+     * decompression speed. Use <code>GZIP</code> if the compression ratio is more
      * important than speed.</p>
      */
     inline void SetCompression(const ParquetCompression& value) { m_compressionHasBeenSet = true; m_compression = value; }
@@ -119,7 +144,7 @@ namespace Model
      * <p>The compression code to use over data blocks. The possible values are
      * <code>UNCOMPRESSED</code>, <code>SNAPPY</code>, and <code>GZIP</code>, with the
      * default being <code>SNAPPY</code>. Use <code>SNAPPY</code> for higher
-     * decompression speed. Use <code>GZIP</code> if the compression ration is more
+     * decompression speed. Use <code>GZIP</code> if the compression ratio is more
      * important than speed.</p>
      */
     inline void SetCompression(ParquetCompression&& value) { m_compressionHasBeenSet = true; m_compression = std::move(value); }
@@ -128,7 +153,7 @@ namespace Model
      * <p>The compression code to use over data blocks. The possible values are
      * <code>UNCOMPRESSED</code>, <code>SNAPPY</code>, and <code>GZIP</code>, with the
      * default being <code>SNAPPY</code>. Use <code>SNAPPY</code> for higher
-     * decompression speed. Use <code>GZIP</code> if the compression ration is more
+     * decompression speed. Use <code>GZIP</code> if the compression ratio is more
      * important than speed.</p>
      */
     inline ParquetSerDe& WithCompression(const ParquetCompression& value) { SetCompression(value); return *this;}
@@ -137,7 +162,7 @@ namespace Model
      * <p>The compression code to use over data blocks. The possible values are
      * <code>UNCOMPRESSED</code>, <code>SNAPPY</code>, and <code>GZIP</code>, with the
      * default being <code>SNAPPY</code>. Use <code>SNAPPY</code> for higher
-     * decompression speed. Use <code>GZIP</code> if the compression ration is more
+     * decompression speed. Use <code>GZIP</code> if the compression ratio is more
      * important than speed.</p>
      */
     inline ParquetSerDe& WithCompression(ParquetCompression&& value) { SetCompression(std::move(value)); return *this;}
@@ -147,6 +172,11 @@ namespace Model
      * <p>Indicates whether to enable dictionary compression.</p>
      */
     inline bool GetEnableDictionaryCompression() const{ return m_enableDictionaryCompression; }
+
+    /**
+     * <p>Indicates whether to enable dictionary compression.</p>
+     */
+    inline bool EnableDictionaryCompressionHasBeenSet() const { return m_enableDictionaryCompressionHasBeenSet; }
 
     /**
      * <p>Indicates whether to enable dictionary compression.</p>
@@ -169,6 +199,12 @@ namespace Model
      * <p>The maximum amount of padding to apply. This is useful if you intend to copy
      * the data from Amazon S3 to HDFS before querying. The default is 0.</p>
      */
+    inline bool MaxPaddingBytesHasBeenSet() const { return m_maxPaddingBytesHasBeenSet; }
+
+    /**
+     * <p>The maximum amount of padding to apply. This is useful if you intend to copy
+     * the data from Amazon S3 to HDFS before querying. The default is 0.</p>
+     */
     inline void SetMaxPaddingBytes(int value) { m_maxPaddingBytesHasBeenSet = true; m_maxPaddingBytes = value; }
 
     /**
@@ -183,6 +219,12 @@ namespace Model
      * <code>V1</code> and <code>V2</code>. The default is <code>V1</code>.</p>
      */
     inline const ParquetWriterVersion& GetWriterVersion() const{ return m_writerVersion; }
+
+    /**
+     * <p>Indicates the version of row format to output. The possible values are
+     * <code>V1</code> and <code>V2</code>. The default is <code>V1</code>.</p>
+     */
+    inline bool WriterVersionHasBeenSet() const { return m_writerVersionHasBeenSet; }
 
     /**
      * <p>Indicates the version of row format to output. The possible values are

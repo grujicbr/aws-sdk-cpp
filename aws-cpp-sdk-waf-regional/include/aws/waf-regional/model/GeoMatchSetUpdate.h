@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     GeoMatchSetUpdate();
-    GeoMatchSetUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    GeoMatchSetUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GeoMatchSetUpdate(Aws::Utils::Json::JsonView jsonValue);
+    GeoMatchSetUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * <a>UpdateGeoMatchSet</a>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specifies whether to insert or delete a country with
+     * <a>UpdateGeoMatchSet</a>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specifies whether to insert or delete a country with
@@ -84,6 +91,12 @@ namespace Model
      * for.</p>
      */
     inline const GeoMatchConstraint& GetGeoMatchConstraint() const{ return m_geoMatchConstraint; }
+
+    /**
+     * <p>The country from which web requests originate that you want AWS WAF to search
+     * for.</p>
+     */
+    inline bool GeoMatchConstraintHasBeenSet() const { return m_geoMatchConstraintHasBeenSet; }
 
     /**
      * <p>The country from which web requests originate that you want AWS WAF to search

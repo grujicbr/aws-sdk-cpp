@@ -23,8 +23,10 @@
 #include <aws/es/model/VPCDerivedInfoStatus.h>
 #include <aws/es/model/CognitoOptionsStatus.h>
 #include <aws/es/model/EncryptionAtRestOptionsStatus.h>
+#include <aws/es/model/NodeToNodeEncryptionOptionsStatus.h>
 #include <aws/es/model/AdvancedOptionsStatus.h>
 #include <aws/es/model/LogPublishingOptionsStatus.h>
+#include <aws/es/model/DomainEndpointOptionsStatus.h>
 #include <utility>
 
 namespace Aws
@@ -34,6 +36,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -50,8 +53,8 @@ namespace Model
   {
   public:
     ElasticsearchDomainConfig();
-    ElasticsearchDomainConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    ElasticsearchDomainConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ElasticsearchDomainConfig(Aws::Utils::Json::JsonView jsonValue);
+    ElasticsearchDomainConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +62,11 @@ namespace Model
      * <p>String of format X.Y to specify version for the Elasticsearch domain.</p>
      */
     inline const ElasticsearchVersionStatus& GetElasticsearchVersion() const{ return m_elasticsearchVersion; }
+
+    /**
+     * <p>String of format X.Y to specify version for the Elasticsearch domain.</p>
+     */
+    inline bool ElasticsearchVersionHasBeenSet() const { return m_elasticsearchVersionHasBeenSet; }
 
     /**
      * <p>String of format X.Y to specify version for the Elasticsearch domain.</p>
@@ -86,6 +94,12 @@ namespace Model
      * domain.</p>
      */
     inline const ElasticsearchClusterConfigStatus& GetElasticsearchClusterConfig() const{ return m_elasticsearchClusterConfig; }
+
+    /**
+     * <p>Specifies the <code>ElasticsearchClusterConfig</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline bool ElasticsearchClusterConfigHasBeenSet() const { return m_elasticsearchClusterConfigHasBeenSet; }
 
     /**
      * <p>Specifies the <code>ElasticsearchClusterConfig</code> for the Elasticsearch
@@ -120,6 +134,11 @@ namespace Model
     /**
      * <p>Specifies the <code>EBSOptions</code> for the Elasticsearch domain.</p>
      */
+    inline bool EBSOptionsHasBeenSet() const { return m_eBSOptionsHasBeenSet; }
+
+    /**
+     * <p>Specifies the <code>EBSOptions</code> for the Elasticsearch domain.</p>
+     */
     inline void SetEBSOptions(const EBSOptionsStatus& value) { m_eBSOptionsHasBeenSet = true; m_eBSOptions = value; }
 
     /**
@@ -142,6 +161,11 @@ namespace Model
      * <p>IAM access policy as a JSON-formatted string.</p>
      */
     inline const AccessPoliciesStatus& GetAccessPolicies() const{ return m_accessPolicies; }
+
+    /**
+     * <p>IAM access policy as a JSON-formatted string.</p>
+     */
+    inline bool AccessPoliciesHasBeenSet() const { return m_accessPoliciesHasBeenSet; }
 
     /**
      * <p>IAM access policy as a JSON-formatted string.</p>
@@ -172,6 +196,11 @@ namespace Model
     /**
      * <p>Specifies the <code>SnapshotOptions</code> for the Elasticsearch domain.</p>
      */
+    inline bool SnapshotOptionsHasBeenSet() const { return m_snapshotOptionsHasBeenSet; }
+
+    /**
+     * <p>Specifies the <code>SnapshotOptions</code> for the Elasticsearch domain.</p>
+     */
     inline void SetSnapshotOptions(const SnapshotOptionsStatus& value) { m_snapshotOptionsHasBeenSet = true; m_snapshotOptions = value; }
 
     /**
@@ -197,6 +226,14 @@ namespace Model
      * target="_blank">VPC Endpoints for Amazon Elasticsearch Service Domains</a>.</p>
      */
     inline const VPCDerivedInfoStatus& GetVPCOptions() const{ return m_vPCOptions; }
+
+    /**
+     * <p>The <code>VPCOptions</code> for the specified domain. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html"
+     * target="_blank">VPC Endpoints for Amazon Elasticsearch Service Domains</a>.</p>
+     */
+    inline bool VPCOptionsHasBeenSet() const { return m_vPCOptionsHasBeenSet; }
 
     /**
      * <p>The <code>VPCOptions</code> for the specified domain. For more information,
@@ -245,6 +282,14 @@ namespace Model
      * href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html"
      * target="_blank">Amazon Cognito Authentication for Kibana</a>.</p>
      */
+    inline bool CognitoOptionsHasBeenSet() const { return m_cognitoOptionsHasBeenSet; }
+
+    /**
+     * <p>The <code>CognitoOptions</code> for the specified domain. For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html"
+     * target="_blank">Amazon Cognito Authentication for Kibana</a>.</p>
+     */
     inline void SetCognitoOptions(const CognitoOptionsStatus& value) { m_cognitoOptionsHasBeenSet = true; m_cognitoOptions = value; }
 
     /**
@@ -282,6 +327,12 @@ namespace Model
      * <p>Specifies the <code>EncryptionAtRestOptions</code> for the Elasticsearch
      * domain.</p>
      */
+    inline bool EncryptionAtRestOptionsHasBeenSet() const { return m_encryptionAtRestOptionsHasBeenSet; }
+
+    /**
+     * <p>Specifies the <code>EncryptionAtRestOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
     inline void SetEncryptionAtRestOptions(const EncryptionAtRestOptionsStatus& value) { m_encryptionAtRestOptionsHasBeenSet = true; m_encryptionAtRestOptions = value; }
 
     /**
@@ -304,11 +355,55 @@ namespace Model
 
 
     /**
+     * <p>Specifies the <code>NodeToNodeEncryptionOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline const NodeToNodeEncryptionOptionsStatus& GetNodeToNodeEncryptionOptions() const{ return m_nodeToNodeEncryptionOptions; }
+
+    /**
+     * <p>Specifies the <code>NodeToNodeEncryptionOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline bool NodeToNodeEncryptionOptionsHasBeenSet() const { return m_nodeToNodeEncryptionOptionsHasBeenSet; }
+
+    /**
+     * <p>Specifies the <code>NodeToNodeEncryptionOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline void SetNodeToNodeEncryptionOptions(const NodeToNodeEncryptionOptionsStatus& value) { m_nodeToNodeEncryptionOptionsHasBeenSet = true; m_nodeToNodeEncryptionOptions = value; }
+
+    /**
+     * <p>Specifies the <code>NodeToNodeEncryptionOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline void SetNodeToNodeEncryptionOptions(NodeToNodeEncryptionOptionsStatus&& value) { m_nodeToNodeEncryptionOptionsHasBeenSet = true; m_nodeToNodeEncryptionOptions = std::move(value); }
+
+    /**
+     * <p>Specifies the <code>NodeToNodeEncryptionOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline ElasticsearchDomainConfig& WithNodeToNodeEncryptionOptions(const NodeToNodeEncryptionOptionsStatus& value) { SetNodeToNodeEncryptionOptions(value); return *this;}
+
+    /**
+     * <p>Specifies the <code>NodeToNodeEncryptionOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline ElasticsearchDomainConfig& WithNodeToNodeEncryptionOptions(NodeToNodeEncryptionOptionsStatus&& value) { SetNodeToNodeEncryptionOptions(std::move(value)); return *this;}
+
+
+    /**
      * <p>Specifies the <code>AdvancedOptions</code> for the domain. See <a
      * href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options"
      * target="_blank">Configuring Advanced Options</a> for more information.</p>
      */
     inline const AdvancedOptionsStatus& GetAdvancedOptions() const{ return m_advancedOptions; }
+
+    /**
+     * <p>Specifies the <code>AdvancedOptions</code> for the domain. See <a
+     * href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options"
+     * target="_blank">Configuring Advanced Options</a> for more information.</p>
+     */
+    inline bool AdvancedOptionsHasBeenSet() const { return m_advancedOptionsHasBeenSet; }
 
     /**
      * <p>Specifies the <code>AdvancedOptions</code> for the domain. See <a
@@ -347,6 +442,11 @@ namespace Model
     /**
      * <p>Log publishing options for the given domain.</p>
      */
+    inline bool LogPublishingOptionsHasBeenSet() const { return m_logPublishingOptionsHasBeenSet; }
+
+    /**
+     * <p>Log publishing options for the given domain.</p>
+     */
     inline void SetLogPublishingOptions(const LogPublishingOptionsStatus& value) { m_logPublishingOptionsHasBeenSet = true; m_logPublishingOptions = value; }
 
     /**
@@ -363,6 +463,43 @@ namespace Model
      * <p>Log publishing options for the given domain.</p>
      */
     inline ElasticsearchDomainConfig& WithLogPublishingOptions(LogPublishingOptionsStatus&& value) { SetLogPublishingOptions(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Specifies the <code>DomainEndpointOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline const DomainEndpointOptionsStatus& GetDomainEndpointOptions() const{ return m_domainEndpointOptions; }
+
+    /**
+     * <p>Specifies the <code>DomainEndpointOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline bool DomainEndpointOptionsHasBeenSet() const { return m_domainEndpointOptionsHasBeenSet; }
+
+    /**
+     * <p>Specifies the <code>DomainEndpointOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline void SetDomainEndpointOptions(const DomainEndpointOptionsStatus& value) { m_domainEndpointOptionsHasBeenSet = true; m_domainEndpointOptions = value; }
+
+    /**
+     * <p>Specifies the <code>DomainEndpointOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline void SetDomainEndpointOptions(DomainEndpointOptionsStatus&& value) { m_domainEndpointOptionsHasBeenSet = true; m_domainEndpointOptions = std::move(value); }
+
+    /**
+     * <p>Specifies the <code>DomainEndpointOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline ElasticsearchDomainConfig& WithDomainEndpointOptions(const DomainEndpointOptionsStatus& value) { SetDomainEndpointOptions(value); return *this;}
+
+    /**
+     * <p>Specifies the <code>DomainEndpointOptions</code> for the Elasticsearch
+     * domain.</p>
+     */
+    inline ElasticsearchDomainConfig& WithDomainEndpointOptions(DomainEndpointOptionsStatus&& value) { SetDomainEndpointOptions(std::move(value)); return *this;}
 
   private:
 
@@ -390,11 +527,17 @@ namespace Model
     EncryptionAtRestOptionsStatus m_encryptionAtRestOptions;
     bool m_encryptionAtRestOptionsHasBeenSet;
 
+    NodeToNodeEncryptionOptionsStatus m_nodeToNodeEncryptionOptions;
+    bool m_nodeToNodeEncryptionOptionsHasBeenSet;
+
     AdvancedOptionsStatus m_advancedOptions;
     bool m_advancedOptionsHasBeenSet;
 
     LogPublishingOptionsStatus m_logPublishingOptions;
     bool m_logPublishingOptionsHasBeenSet;
+
+    DomainEndpointOptionsStatus m_domainEndpointOptions;
+    bool m_domainEndpointOptionsHasBeenSet;
   };
 
 } // namespace Model

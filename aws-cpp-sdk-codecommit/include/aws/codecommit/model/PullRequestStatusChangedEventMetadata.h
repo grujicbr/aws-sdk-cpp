@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PullRequestStatusChangedEventMetadata();
-    PullRequestStatusChangedEventMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    PullRequestStatusChangedEventMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PullRequestStatusChangedEventMetadata(Aws::Utils::Json::JsonView jsonValue);
+    PullRequestStatusChangedEventMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The changed status of the pull request.</p>
      */
     inline const PullRequestStatusEnum& GetPullRequestStatus() const{ return m_pullRequestStatus; }
+
+    /**
+     * <p>The changed status of the pull request.</p>
+     */
+    inline bool PullRequestStatusHasBeenSet() const { return m_pullRequestStatusHasBeenSet; }
 
     /**
      * <p>The changed status of the pull request.</p>

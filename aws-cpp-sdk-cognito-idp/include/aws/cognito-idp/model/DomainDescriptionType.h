@@ -17,6 +17,7 @@
 #include <aws/cognito-idp/CognitoIdentityProvider_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/cognito-idp/model/DomainStatusType.h>
+#include <aws/cognito-idp/model/CustomDomainConfigType.h>
 #include <utility>
 
 namespace Aws
@@ -26,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +44,8 @@ namespace Model
   {
   public:
     DomainDescriptionType();
-    DomainDescriptionType(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainDescriptionType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainDescriptionType(Aws::Utils::Json::JsonView jsonValue);
+    DomainDescriptionType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +53,11 @@ namespace Model
      * <p>The user pool ID.</p>
      */
     inline const Aws::String& GetUserPoolId() const{ return m_userPoolId; }
+
+    /**
+     * <p>The user pool ID.</p>
+     */
+    inline bool UserPoolIdHasBeenSet() const { return m_userPoolIdHasBeenSet; }
 
     /**
      * <p>The user pool ID.</p>
@@ -91,6 +98,11 @@ namespace Model
     /**
      * <p>The AWS account ID for the user pool owner.</p>
      */
+    inline bool AWSAccountIdHasBeenSet() const { return m_aWSAccountIdHasBeenSet; }
+
+    /**
+     * <p>The AWS account ID for the user pool owner.</p>
+     */
     inline void SetAWSAccountId(const Aws::String& value) { m_aWSAccountIdHasBeenSet = true; m_aWSAccountId = value; }
 
     /**
@@ -123,6 +135,11 @@ namespace Model
      * <p>The domain string.</p>
      */
     inline const Aws::String& GetDomain() const{ return m_domain; }
+
+    /**
+     * <p>The domain string.</p>
+     */
+    inline bool DomainHasBeenSet() const { return m_domainHasBeenSet; }
 
     /**
      * <p>The domain string.</p>
@@ -163,6 +180,11 @@ namespace Model
     /**
      * <p>The S3 bucket where the static files for this domain are stored.</p>
      */
+    inline bool S3BucketHasBeenSet() const { return m_s3BucketHasBeenSet; }
+
+    /**
+     * <p>The S3 bucket where the static files for this domain are stored.</p>
+     */
     inline void SetS3Bucket(const Aws::String& value) { m_s3BucketHasBeenSet = true; m_s3Bucket = value; }
 
     /**
@@ -195,6 +217,11 @@ namespace Model
      * <p>The ARN of the CloudFront distribution.</p>
      */
     inline const Aws::String& GetCloudFrontDistribution() const{ return m_cloudFrontDistribution; }
+
+    /**
+     * <p>The ARN of the CloudFront distribution.</p>
+     */
+    inline bool CloudFrontDistributionHasBeenSet() const { return m_cloudFrontDistributionHasBeenSet; }
 
     /**
      * <p>The ARN of the CloudFront distribution.</p>
@@ -235,6 +262,11 @@ namespace Model
     /**
      * <p>The app version.</p>
      */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
+
+    /**
+     * <p>The app version.</p>
+     */
     inline void SetVersion(const Aws::String& value) { m_versionHasBeenSet = true; m_version = value; }
 
     /**
@@ -271,6 +303,11 @@ namespace Model
     /**
      * <p>The domain status.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The domain status.</p>
+     */
     inline void SetStatus(const DomainStatusType& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -287,6 +324,43 @@ namespace Model
      * <p>The domain status.</p>
      */
     inline DomainDescriptionType& WithStatus(DomainStatusType&& value) { SetStatus(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The configuration for a custom domain that hosts the sign-up and sign-in
+     * webpages for your application.</p>
+     */
+    inline const CustomDomainConfigType& GetCustomDomainConfig() const{ return m_customDomainConfig; }
+
+    /**
+     * <p>The configuration for a custom domain that hosts the sign-up and sign-in
+     * webpages for your application.</p>
+     */
+    inline bool CustomDomainConfigHasBeenSet() const { return m_customDomainConfigHasBeenSet; }
+
+    /**
+     * <p>The configuration for a custom domain that hosts the sign-up and sign-in
+     * webpages for your application.</p>
+     */
+    inline void SetCustomDomainConfig(const CustomDomainConfigType& value) { m_customDomainConfigHasBeenSet = true; m_customDomainConfig = value; }
+
+    /**
+     * <p>The configuration for a custom domain that hosts the sign-up and sign-in
+     * webpages for your application.</p>
+     */
+    inline void SetCustomDomainConfig(CustomDomainConfigType&& value) { m_customDomainConfigHasBeenSet = true; m_customDomainConfig = std::move(value); }
+
+    /**
+     * <p>The configuration for a custom domain that hosts the sign-up and sign-in
+     * webpages for your application.</p>
+     */
+    inline DomainDescriptionType& WithCustomDomainConfig(const CustomDomainConfigType& value) { SetCustomDomainConfig(value); return *this;}
+
+    /**
+     * <p>The configuration for a custom domain that hosts the sign-up and sign-in
+     * webpages for your application.</p>
+     */
+    inline DomainDescriptionType& WithCustomDomainConfig(CustomDomainConfigType&& value) { SetCustomDomainConfig(std::move(value)); return *this;}
 
   private:
 
@@ -310,6 +384,9 @@ namespace Model
 
     DomainStatusType m_status;
     bool m_statusHasBeenSet;
+
+    CustomDomainConfigType m_customDomainConfig;
+    bool m_customDomainConfigHasBeenSet;
   };
 
 } // namespace Model

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkMail
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     BookingOptions();
-    BookingOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    BookingOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BookingOptions(Aws::Utils::Json::JsonView jsonValue);
+    BookingOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * delegates must be associated to the resource.</p>
      */
     inline bool GetAutoAcceptRequests() const{ return m_autoAcceptRequests; }
+
+    /**
+     * <p>The resource's ability to automatically reply to requests. If disabled,
+     * delegates must be associated to the resource.</p>
+     */
+    inline bool AutoAcceptRequestsHasBeenSet() const { return m_autoAcceptRequestsHasBeenSet; }
 
     /**
      * <p>The resource's ability to automatically reply to requests. If disabled,
@@ -72,6 +79,11 @@ namespace Model
     /**
      * <p>The resource's ability to automatically decline any recurring requests.</p>
      */
+    inline bool AutoDeclineRecurringRequestsHasBeenSet() const { return m_autoDeclineRecurringRequestsHasBeenSet; }
+
+    /**
+     * <p>The resource's ability to automatically decline any recurring requests.</p>
+     */
     inline void SetAutoDeclineRecurringRequests(bool value) { m_autoDeclineRecurringRequestsHasBeenSet = true; m_autoDeclineRecurringRequests = value; }
 
     /**
@@ -84,6 +96,11 @@ namespace Model
      * <p>The resource's ability to automatically decline any conflicting requests.</p>
      */
     inline bool GetAutoDeclineConflictingRequests() const{ return m_autoDeclineConflictingRequests; }
+
+    /**
+     * <p>The resource's ability to automatically decline any conflicting requests.</p>
+     */
+    inline bool AutoDeclineConflictingRequestsHasBeenSet() const { return m_autoDeclineConflictingRequestsHasBeenSet; }
 
     /**
      * <p>The resource's ability to automatically decline any conflicting requests.</p>

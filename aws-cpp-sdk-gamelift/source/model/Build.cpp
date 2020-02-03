@@ -30,6 +30,7 @@ namespace Model
 
 Build::Build() : 
     m_buildIdHasBeenSet(false),
+    m_buildArnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_versionHasBeenSet(false),
     m_status(BuildStatus::NOT_SET),
@@ -42,8 +43,9 @@ Build::Build() :
 {
 }
 
-Build::Build(const JsonValue& jsonValue) : 
+Build::Build(JsonView jsonValue) : 
     m_buildIdHasBeenSet(false),
+    m_buildArnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_versionHasBeenSet(false),
     m_status(BuildStatus::NOT_SET),
@@ -57,13 +59,20 @@ Build::Build(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Build& Build::operator =(const JsonValue& jsonValue)
+Build& Build::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("BuildId"))
   {
     m_buildId = jsonValue.GetString("BuildId");
 
     m_buildIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("BuildArn"))
+  {
+    m_buildArn = jsonValue.GetString("BuildArn");
+
+    m_buildArnHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("Name"))
@@ -118,6 +127,12 @@ JsonValue Build::Jsonize() const
   if(m_buildIdHasBeenSet)
   {
    payload.WithString("BuildId", m_buildId);
+
+  }
+
+  if(m_buildArnHasBeenSet)
+  {
+   payload.WithString("BuildArn", m_buildArn);
 
   }
 

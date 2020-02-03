@@ -35,6 +35,8 @@ CreateClusterRequest::CreateClusterRequest() :
     m_clusterParameterGroupNameHasBeenSet(false),
     m_automatedSnapshotRetentionPeriod(0),
     m_automatedSnapshotRetentionPeriodHasBeenSet(false),
+    m_manualSnapshotRetentionPeriod(0),
+    m_manualSnapshotRetentionPeriodHasBeenSet(false),
     m_port(0),
     m_portHasBeenSet(false),
     m_clusterVersionHasBeenSet(false),
@@ -54,7 +56,9 @@ CreateClusterRequest::CreateClusterRequest() :
     m_enhancedVpcRouting(false),
     m_enhancedVpcRoutingHasBeenSet(false),
     m_additionalInfoHasBeenSet(false),
-    m_iamRolesHasBeenSet(false)
+    m_iamRolesHasBeenSet(false),
+    m_maintenanceTrackNameHasBeenSet(false),
+    m_snapshotScheduleIdentifierHasBeenSet(false)
 {
 }
 
@@ -139,6 +143,11 @@ Aws::String CreateClusterRequest::SerializePayload() const
     ss << "AutomatedSnapshotRetentionPeriod=" << m_automatedSnapshotRetentionPeriod << "&";
   }
 
+  if(m_manualSnapshotRetentionPeriodHasBeenSet)
+  {
+    ss << "ManualSnapshotRetentionPeriod=" << m_manualSnapshotRetentionPeriod << "&";
+  }
+
   if(m_portHasBeenSet)
   {
     ss << "Port=" << m_port << "&";
@@ -218,6 +227,16 @@ Aws::String CreateClusterRequest::SerializePayload() const
           << StringUtils::URLEncode(item.c_str()) << "&";
       iamRolesCount++;
     }
+  }
+
+  if(m_maintenanceTrackNameHasBeenSet)
+  {
+    ss << "MaintenanceTrackName=" << StringUtils::URLEncode(m_maintenanceTrackName.c_str()) << "&";
+  }
+
+  if(m_snapshotScheduleIdentifierHasBeenSet)
+  {
+    ss << "SnapshotScheduleIdentifier=" << StringUtils::URLEncode(m_snapshotScheduleIdentifier.c_str()) << "&";
   }
 
   ss << "Version=2012-12-01";

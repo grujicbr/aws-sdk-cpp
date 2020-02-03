@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     DurationRange();
-    DurationRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    DurationRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DurationRange(Aws::Utils::Json::JsonView jsonValue);
+    DurationRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The minimum value of the duration range. Must be greater than zero.</p>
      */
     inline int GetMinSeconds() const{ return m_minSeconds; }
+
+    /**
+     * <p>The minimum value of the duration range. Must be greater than zero.</p>
+     */
+    inline bool MinSecondsHasBeenSet() const { return m_minSecondsHasBeenSet; }
 
     /**
      * <p>The minimum value of the duration range. Must be greater than zero.</p>
@@ -66,6 +72,12 @@ namespace Model
      * seconds (1 week).</p>
      */
     inline int GetMaxSeconds() const{ return m_maxSeconds; }
+
+    /**
+     * <p>The maximum value of the duration range. Must be less than or equal to 604800
+     * seconds (1 week).</p>
+     */
+    inline bool MaxSecondsHasBeenSet() const { return m_maxSecondsHasBeenSet; }
 
     /**
      * <p>The maximum value of the duration range. Must be less than or equal to 604800

@@ -41,11 +41,15 @@ ReportDefinition::ReportDefinition() :
     m_s3PrefixHasBeenSet(false),
     m_s3Region(AWSRegion::NOT_SET),
     m_s3RegionHasBeenSet(false),
-    m_additionalArtifactsHasBeenSet(false)
+    m_additionalArtifactsHasBeenSet(false),
+    m_refreshClosedReports(false),
+    m_refreshClosedReportsHasBeenSet(false),
+    m_reportVersioning(ReportVersioning::NOT_SET),
+    m_reportVersioningHasBeenSet(false)
 {
 }
 
-ReportDefinition::ReportDefinition(const JsonValue& jsonValue) : 
+ReportDefinition::ReportDefinition(JsonView jsonValue) : 
     m_reportNameHasBeenSet(false),
     m_timeUnit(TimeUnit::NOT_SET),
     m_timeUnitHasBeenSet(false),
@@ -58,12 +62,16 @@ ReportDefinition::ReportDefinition(const JsonValue& jsonValue) :
     m_s3PrefixHasBeenSet(false),
     m_s3Region(AWSRegion::NOT_SET),
     m_s3RegionHasBeenSet(false),
-    m_additionalArtifactsHasBeenSet(false)
+    m_additionalArtifactsHasBeenSet(false),
+    m_refreshClosedReports(false),
+    m_refreshClosedReportsHasBeenSet(false),
+    m_reportVersioning(ReportVersioning::NOT_SET),
+    m_reportVersioningHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ReportDefinition& ReportDefinition::operator =(const JsonValue& jsonValue)
+ReportDefinition& ReportDefinition::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ReportName"))
   {
@@ -95,7 +103,7 @@ ReportDefinition& ReportDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("AdditionalSchemaElements"))
   {
-    Array<JsonValue> additionalSchemaElementsJsonList = jsonValue.GetArray("AdditionalSchemaElements");
+    Array<JsonView> additionalSchemaElementsJsonList = jsonValue.GetArray("AdditionalSchemaElements");
     for(unsigned additionalSchemaElementsIndex = 0; additionalSchemaElementsIndex < additionalSchemaElementsJsonList.GetLength(); ++additionalSchemaElementsIndex)
     {
       m_additionalSchemaElements.push_back(SchemaElementMapper::GetSchemaElementForName(additionalSchemaElementsJsonList[additionalSchemaElementsIndex].AsString()));
@@ -126,12 +134,26 @@ ReportDefinition& ReportDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("AdditionalArtifacts"))
   {
-    Array<JsonValue> additionalArtifactsJsonList = jsonValue.GetArray("AdditionalArtifacts");
+    Array<JsonView> additionalArtifactsJsonList = jsonValue.GetArray("AdditionalArtifacts");
     for(unsigned additionalArtifactsIndex = 0; additionalArtifactsIndex < additionalArtifactsJsonList.GetLength(); ++additionalArtifactsIndex)
     {
       m_additionalArtifacts.push_back(AdditionalArtifactMapper::GetAdditionalArtifactForName(additionalArtifactsJsonList[additionalArtifactsIndex].AsString()));
     }
     m_additionalArtifactsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("RefreshClosedReports"))
+  {
+    m_refreshClosedReports = jsonValue.GetBool("RefreshClosedReports");
+
+    m_refreshClosedReportsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ReportVersioning"))
+  {
+    m_reportVersioning = ReportVersioningMapper::GetReportVersioningForName(jsonValue.GetString("ReportVersioning"));
+
+    m_reportVersioningHasBeenSet = true;
   }
 
   return *this;
@@ -199,6 +221,17 @@ JsonValue ReportDefinition::Jsonize() const
    }
    payload.WithArray("AdditionalArtifacts", std::move(additionalArtifactsJsonList));
 
+  }
+
+  if(m_refreshClosedReportsHasBeenSet)
+  {
+   payload.WithBool("RefreshClosedReports", m_refreshClosedReports);
+
+  }
+
+  if(m_reportVersioningHasBeenSet)
+  {
+   payload.WithString("ReportVersioning", ReportVersioningMapper::GetNameForReportVersioning(m_reportVersioning));
   }
 
   return payload;

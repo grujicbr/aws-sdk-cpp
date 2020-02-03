@@ -28,15 +28,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for AllocateAddress.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AllocateAddressRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API AllocateAddressRequest : public EC2Request
   {
   public:
     AllocateAddressRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -55,6 +52,12 @@ namespace Model
      * VPC.</p> <p>Default: The address is for use with instances in EC2-Classic.</p>
      */
     inline const DomainType& GetDomain() const{ return m_domain; }
+
+    /**
+     * <p>Set to <code>vpc</code> to allocate the address for use with instances in a
+     * VPC.</p> <p>Default: The address is for use with instances in EC2-Classic.</p>
+     */
+    inline bool DomainHasBeenSet() const { return m_domainHasBeenSet; }
 
     /**
      * <p>Set to <code>vpc</code> to allocate the address for use with instances in a
@@ -82,39 +85,271 @@ namespace Model
 
 
     /**
-     * <p>[EC2-VPC] The Elastic IP address to recover.</p>
+     * <p>[EC2-VPC] The Elastic IP address to recover or an IPv4 address from an
+     * address pool.</p>
      */
     inline const Aws::String& GetAddress() const{ return m_address; }
 
     /**
-     * <p>[EC2-VPC] The Elastic IP address to recover.</p>
+     * <p>[EC2-VPC] The Elastic IP address to recover or an IPv4 address from an
+     * address pool.</p>
+     */
+    inline bool AddressHasBeenSet() const { return m_addressHasBeenSet; }
+
+    /**
+     * <p>[EC2-VPC] The Elastic IP address to recover or an IPv4 address from an
+     * address pool.</p>
      */
     inline void SetAddress(const Aws::String& value) { m_addressHasBeenSet = true; m_address = value; }
 
     /**
-     * <p>[EC2-VPC] The Elastic IP address to recover.</p>
+     * <p>[EC2-VPC] The Elastic IP address to recover or an IPv4 address from an
+     * address pool.</p>
      */
     inline void SetAddress(Aws::String&& value) { m_addressHasBeenSet = true; m_address = std::move(value); }
 
     /**
-     * <p>[EC2-VPC] The Elastic IP address to recover.</p>
+     * <p>[EC2-VPC] The Elastic IP address to recover or an IPv4 address from an
+     * address pool.</p>
      */
     inline void SetAddress(const char* value) { m_addressHasBeenSet = true; m_address.assign(value); }
 
     /**
-     * <p>[EC2-VPC] The Elastic IP address to recover.</p>
+     * <p>[EC2-VPC] The Elastic IP address to recover or an IPv4 address from an
+     * address pool.</p>
      */
     inline AllocateAddressRequest& WithAddress(const Aws::String& value) { SetAddress(value); return *this;}
 
     /**
-     * <p>[EC2-VPC] The Elastic IP address to recover.</p>
+     * <p>[EC2-VPC] The Elastic IP address to recover or an IPv4 address from an
+     * address pool.</p>
      */
     inline AllocateAddressRequest& WithAddress(Aws::String&& value) { SetAddress(std::move(value)); return *this;}
 
     /**
-     * <p>[EC2-VPC] The Elastic IP address to recover.</p>
+     * <p>[EC2-VPC] The Elastic IP address to recover or an IPv4 address from an
+     * address pool.</p>
      */
     inline AllocateAddressRequest& WithAddress(const char* value) { SetAddress(value); return *this;}
+
+
+    /**
+     * <p>The ID of an address pool that you own. Use this parameter to let Amazon EC2
+     * select an address from the address pool. To specify a specific address from the
+     * address pool, use the <code>Address</code> parameter instead.</p>
+     */
+    inline const Aws::String& GetPublicIpv4Pool() const{ return m_publicIpv4Pool; }
+
+    /**
+     * <p>The ID of an address pool that you own. Use this parameter to let Amazon EC2
+     * select an address from the address pool. To specify a specific address from the
+     * address pool, use the <code>Address</code> parameter instead.</p>
+     */
+    inline bool PublicIpv4PoolHasBeenSet() const { return m_publicIpv4PoolHasBeenSet; }
+
+    /**
+     * <p>The ID of an address pool that you own. Use this parameter to let Amazon EC2
+     * select an address from the address pool. To specify a specific address from the
+     * address pool, use the <code>Address</code> parameter instead.</p>
+     */
+    inline void SetPublicIpv4Pool(const Aws::String& value) { m_publicIpv4PoolHasBeenSet = true; m_publicIpv4Pool = value; }
+
+    /**
+     * <p>The ID of an address pool that you own. Use this parameter to let Amazon EC2
+     * select an address from the address pool. To specify a specific address from the
+     * address pool, use the <code>Address</code> parameter instead.</p>
+     */
+    inline void SetPublicIpv4Pool(Aws::String&& value) { m_publicIpv4PoolHasBeenSet = true; m_publicIpv4Pool = std::move(value); }
+
+    /**
+     * <p>The ID of an address pool that you own. Use this parameter to let Amazon EC2
+     * select an address from the address pool. To specify a specific address from the
+     * address pool, use the <code>Address</code> parameter instead.</p>
+     */
+    inline void SetPublicIpv4Pool(const char* value) { m_publicIpv4PoolHasBeenSet = true; m_publicIpv4Pool.assign(value); }
+
+    /**
+     * <p>The ID of an address pool that you own. Use this parameter to let Amazon EC2
+     * select an address from the address pool. To specify a specific address from the
+     * address pool, use the <code>Address</code> parameter instead.</p>
+     */
+    inline AllocateAddressRequest& WithPublicIpv4Pool(const Aws::String& value) { SetPublicIpv4Pool(value); return *this;}
+
+    /**
+     * <p>The ID of an address pool that you own. Use this parameter to let Amazon EC2
+     * select an address from the address pool. To specify a specific address from the
+     * address pool, use the <code>Address</code> parameter instead.</p>
+     */
+    inline AllocateAddressRequest& WithPublicIpv4Pool(Aws::String&& value) { SetPublicIpv4Pool(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of an address pool that you own. Use this parameter to let Amazon EC2
+     * select an address from the address pool. To specify a specific address from the
+     * address pool, use the <code>Address</code> parameter instead.</p>
+     */
+    inline AllocateAddressRequest& WithPublicIpv4Pool(const char* value) { SetPublicIpv4Pool(value); return *this;}
+
+
+    /**
+     * <p>The location from which the IP address is advertised. Use this parameter to
+     * limit the address to this location.</p> <p>Use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html">DescribeVpcs</a>
+     * to view the network border groups.</p> <note> <p>You cannot use a network border
+     * group with EC2 Classic. If you attempt this operation on EC2 classic, you will
+     * receive an <code>InvalidParameterCombination</code> error. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline const Aws::String& GetNetworkBorderGroup() const{ return m_networkBorderGroup; }
+
+    /**
+     * <p>The location from which the IP address is advertised. Use this parameter to
+     * limit the address to this location.</p> <p>Use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html">DescribeVpcs</a>
+     * to view the network border groups.</p> <note> <p>You cannot use a network border
+     * group with EC2 Classic. If you attempt this operation on EC2 classic, you will
+     * receive an <code>InvalidParameterCombination</code> error. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline bool NetworkBorderGroupHasBeenSet() const { return m_networkBorderGroupHasBeenSet; }
+
+    /**
+     * <p>The location from which the IP address is advertised. Use this parameter to
+     * limit the address to this location.</p> <p>Use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html">DescribeVpcs</a>
+     * to view the network border groups.</p> <note> <p>You cannot use a network border
+     * group with EC2 Classic. If you attempt this operation on EC2 classic, you will
+     * receive an <code>InvalidParameterCombination</code> error. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline void SetNetworkBorderGroup(const Aws::String& value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup = value; }
+
+    /**
+     * <p>The location from which the IP address is advertised. Use this parameter to
+     * limit the address to this location.</p> <p>Use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html">DescribeVpcs</a>
+     * to view the network border groups.</p> <note> <p>You cannot use a network border
+     * group with EC2 Classic. If you attempt this operation on EC2 classic, you will
+     * receive an <code>InvalidParameterCombination</code> error. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline void SetNetworkBorderGroup(Aws::String&& value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup = std::move(value); }
+
+    /**
+     * <p>The location from which the IP address is advertised. Use this parameter to
+     * limit the address to this location.</p> <p>Use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html">DescribeVpcs</a>
+     * to view the network border groups.</p> <note> <p>You cannot use a network border
+     * group with EC2 Classic. If you attempt this operation on EC2 classic, you will
+     * receive an <code>InvalidParameterCombination</code> error. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline void SetNetworkBorderGroup(const char* value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup.assign(value); }
+
+    /**
+     * <p>The location from which the IP address is advertised. Use this parameter to
+     * limit the address to this location.</p> <p>Use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html">DescribeVpcs</a>
+     * to view the network border groups.</p> <note> <p>You cannot use a network border
+     * group with EC2 Classic. If you attempt this operation on EC2 classic, you will
+     * receive an <code>InvalidParameterCombination</code> error. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline AllocateAddressRequest& WithNetworkBorderGroup(const Aws::String& value) { SetNetworkBorderGroup(value); return *this;}
+
+    /**
+     * <p>The location from which the IP address is advertised. Use this parameter to
+     * limit the address to this location.</p> <p>Use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html">DescribeVpcs</a>
+     * to view the network border groups.</p> <note> <p>You cannot use a network border
+     * group with EC2 Classic. If you attempt this operation on EC2 classic, you will
+     * receive an <code>InvalidParameterCombination</code> error. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline AllocateAddressRequest& WithNetworkBorderGroup(Aws::String&& value) { SetNetworkBorderGroup(std::move(value)); return *this;}
+
+    /**
+     * <p>The location from which the IP address is advertised. Use this parameter to
+     * limit the address to this location.</p> <p>Use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeVpcs.html">DescribeVpcs</a>
+     * to view the network border groups.</p> <note> <p>You cannot use a network border
+     * group with EC2 Classic. If you attempt this operation on EC2 classic, you will
+     * receive an <code>InvalidParameterCombination</code> error. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline AllocateAddressRequest& WithNetworkBorderGroup(const char* value) { SetNetworkBorderGroup(value); return *this;}
+
+
+    /**
+     * <p>The ID of a customer-owned address pool. Use this parameter to let Amazon EC2
+     * select an address from the address pool. Alternatively, specify a specific
+     * address from the address pool.</p>
+     */
+    inline const Aws::String& GetCustomerOwnedIpv4Pool() const{ return m_customerOwnedIpv4Pool; }
+
+    /**
+     * <p>The ID of a customer-owned address pool. Use this parameter to let Amazon EC2
+     * select an address from the address pool. Alternatively, specify a specific
+     * address from the address pool.</p>
+     */
+    inline bool CustomerOwnedIpv4PoolHasBeenSet() const { return m_customerOwnedIpv4PoolHasBeenSet; }
+
+    /**
+     * <p>The ID of a customer-owned address pool. Use this parameter to let Amazon EC2
+     * select an address from the address pool. Alternatively, specify a specific
+     * address from the address pool.</p>
+     */
+    inline void SetCustomerOwnedIpv4Pool(const Aws::String& value) { m_customerOwnedIpv4PoolHasBeenSet = true; m_customerOwnedIpv4Pool = value; }
+
+    /**
+     * <p>The ID of a customer-owned address pool. Use this parameter to let Amazon EC2
+     * select an address from the address pool. Alternatively, specify a specific
+     * address from the address pool.</p>
+     */
+    inline void SetCustomerOwnedIpv4Pool(Aws::String&& value) { m_customerOwnedIpv4PoolHasBeenSet = true; m_customerOwnedIpv4Pool = std::move(value); }
+
+    /**
+     * <p>The ID of a customer-owned address pool. Use this parameter to let Amazon EC2
+     * select an address from the address pool. Alternatively, specify a specific
+     * address from the address pool.</p>
+     */
+    inline void SetCustomerOwnedIpv4Pool(const char* value) { m_customerOwnedIpv4PoolHasBeenSet = true; m_customerOwnedIpv4Pool.assign(value); }
+
+    /**
+     * <p>The ID of a customer-owned address pool. Use this parameter to let Amazon EC2
+     * select an address from the address pool. Alternatively, specify a specific
+     * address from the address pool.</p>
+     */
+    inline AllocateAddressRequest& WithCustomerOwnedIpv4Pool(const Aws::String& value) { SetCustomerOwnedIpv4Pool(value); return *this;}
+
+    /**
+     * <p>The ID of a customer-owned address pool. Use this parameter to let Amazon EC2
+     * select an address from the address pool. Alternatively, specify a specific
+     * address from the address pool.</p>
+     */
+    inline AllocateAddressRequest& WithCustomerOwnedIpv4Pool(Aws::String&& value) { SetCustomerOwnedIpv4Pool(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of a customer-owned address pool. Use this parameter to let Amazon EC2
+     * select an address from the address pool. Alternatively, specify a specific
+     * address from the address pool.</p>
+     */
+    inline AllocateAddressRequest& WithCustomerOwnedIpv4Pool(const char* value) { SetCustomerOwnedIpv4Pool(value); return *this;}
 
 
     /**
@@ -124,6 +359,14 @@ namespace Model
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
     inline bool GetDryRun() const{ return m_dryRun; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
 
     /**
      * <p>Checks whether you have the required permissions for the action, without
@@ -148,6 +391,15 @@ namespace Model
 
     Aws::String m_address;
     bool m_addressHasBeenSet;
+
+    Aws::String m_publicIpv4Pool;
+    bool m_publicIpv4PoolHasBeenSet;
+
+    Aws::String m_networkBorderGroup;
+    bool m_networkBorderGroupHasBeenSet;
+
+    Aws::String m_customerOwnedIpv4Pool;
+    bool m_customerOwnedIpv4PoolHasBeenSet;
 
     bool m_dryRun;
     bool m_dryRunHasBeenSet;

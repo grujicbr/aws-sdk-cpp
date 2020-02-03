@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACM
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ExtendedKeyUsage();
-    ExtendedKeyUsage(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExtendedKeyUsage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExtendedKeyUsage(Aws::Utils::Json::JsonView jsonValue);
+    ExtendedKeyUsage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of an Extended Key Usage value.</p>
      */
     inline const ExtendedKeyUsageName& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of an Extended Key Usage value.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of an Extended Key Usage value.</p>
@@ -91,6 +97,22 @@ namespace Model
      * <code>1.3.6.1.5.5.7.3.7 (IPSEC_USER)</code> </p> </li> </ul>
      */
     inline const Aws::String& GetOID() const{ return m_oID; }
+
+    /**
+     * <p>An object identifier (OID) for the extension value. OIDs are strings of
+     * numbers separated by periods. The following OIDs are defined in RFC 3280 and RFC
+     * 5280. </p> <ul> <li> <p> <code>1.3.6.1.5.5.7.3.1
+     * (TLS_WEB_SERVER_AUTHENTICATION)</code> </p> </li> <li> <p>
+     * <code>1.3.6.1.5.5.7.3.2 (TLS_WEB_CLIENT_AUTHENTICATION)</code> </p> </li> <li>
+     * <p> <code>1.3.6.1.5.5.7.3.3 (CODE_SIGNING)</code> </p> </li> <li> <p>
+     * <code>1.3.6.1.5.5.7.3.4 (EMAIL_PROTECTION)</code> </p> </li> <li> <p>
+     * <code>1.3.6.1.5.5.7.3.8 (TIME_STAMPING)</code> </p> </li> <li> <p>
+     * <code>1.3.6.1.5.5.7.3.9 (OCSP_SIGNING)</code> </p> </li> <li> <p>
+     * <code>1.3.6.1.5.5.7.3.5 (IPSEC_END_SYSTEM)</code> </p> </li> <li> <p>
+     * <code>1.3.6.1.5.5.7.3.6 (IPSEC_TUNNEL)</code> </p> </li> <li> <p>
+     * <code>1.3.6.1.5.5.7.3.7 (IPSEC_USER)</code> </p> </li> </ul>
+     */
+    inline bool OIDHasBeenSet() const { return m_oIDHasBeenSet; }
 
     /**
      * <p>An object identifier (OID) for the extension value. OIDs are strings of

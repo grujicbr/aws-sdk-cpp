@@ -36,11 +36,13 @@ Notification::Notification() :
     m_threshold(0.0),
     m_thresholdHasBeenSet(false),
     m_thresholdType(ThresholdType::NOT_SET),
-    m_thresholdTypeHasBeenSet(false)
+    m_thresholdTypeHasBeenSet(false),
+    m_notificationState(NotificationState::NOT_SET),
+    m_notificationStateHasBeenSet(false)
 {
 }
 
-Notification::Notification(const JsonValue& jsonValue) : 
+Notification::Notification(JsonView jsonValue) : 
     m_notificationType(NotificationType::NOT_SET),
     m_notificationTypeHasBeenSet(false),
     m_comparisonOperator(ComparisonOperator::NOT_SET),
@@ -48,12 +50,14 @@ Notification::Notification(const JsonValue& jsonValue) :
     m_threshold(0.0),
     m_thresholdHasBeenSet(false),
     m_thresholdType(ThresholdType::NOT_SET),
-    m_thresholdTypeHasBeenSet(false)
+    m_thresholdTypeHasBeenSet(false),
+    m_notificationState(NotificationState::NOT_SET),
+    m_notificationStateHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Notification& Notification::operator =(const JsonValue& jsonValue)
+Notification& Notification::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("NotificationType"))
   {
@@ -83,6 +87,13 @@ Notification& Notification::operator =(const JsonValue& jsonValue)
     m_thresholdTypeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("NotificationState"))
+  {
+    m_notificationState = NotificationStateMapper::GetNotificationStateForName(jsonValue.GetString("NotificationState"));
+
+    m_notificationStateHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -109,6 +120,11 @@ JsonValue Notification::Jsonize() const
   if(m_thresholdTypeHasBeenSet)
   {
    payload.WithString("ThresholdType", ThresholdTypeMapper::GetNameForThresholdType(m_thresholdType));
+  }
+
+  if(m_notificationStateHasBeenSet)
+  {
+   payload.WithString("NotificationState", NotificationStateMapper::GetNameForNotificationState(m_notificationState));
   }
 
   return payload;

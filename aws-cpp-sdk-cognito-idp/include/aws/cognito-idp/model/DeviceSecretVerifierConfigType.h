@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DeviceSecretVerifierConfigType();
-    DeviceSecretVerifierConfigType(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceSecretVerifierConfigType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceSecretVerifierConfigType(Aws::Utils::Json::JsonView jsonValue);
+    DeviceSecretVerifierConfigType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The password verifier.</p>
      */
     inline const Aws::String& GetPasswordVerifier() const{ return m_passwordVerifier; }
+
+    /**
+     * <p>The password verifier.</p>
+     */
+    inline bool PasswordVerifierHasBeenSet() const { return m_passwordVerifierHasBeenSet; }
 
     /**
      * <p>The password verifier.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The salt.</p>
      */
     inline const Aws::String& GetSalt() const{ return m_salt; }
+
+    /**
+     * <p>The salt.</p>
+     */
+    inline bool SaltHasBeenSet() const { return m_saltHasBeenSet; }
 
     /**
      * <p>The salt.</p>

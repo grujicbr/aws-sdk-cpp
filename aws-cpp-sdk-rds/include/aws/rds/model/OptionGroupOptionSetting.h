@@ -17,6 +17,8 @@
 #include <aws/rds/RDS_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSStreamFwd.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/rds/model/MinimumEngineVersionPerAllowedValue.h>
 #include <utility>
 
 namespace Aws
@@ -59,6 +61,11 @@ namespace Model
     /**
      * <p>The name of the option group option.</p>
      */
+    inline bool SettingNameHasBeenSet() const { return m_settingNameHasBeenSet; }
+
+    /**
+     * <p>The name of the option group option.</p>
+     */
     inline void SetSettingName(const Aws::String& value) { m_settingNameHasBeenSet = true; m_settingName = value; }
 
     /**
@@ -91,6 +98,11 @@ namespace Model
      * <p>The description of the option group option.</p>
      */
     inline const Aws::String& GetSettingDescription() const{ return m_settingDescription; }
+
+    /**
+     * <p>The description of the option group option.</p>
+     */
+    inline bool SettingDescriptionHasBeenSet() const { return m_settingDescriptionHasBeenSet; }
 
     /**
      * <p>The description of the option group option.</p>
@@ -131,6 +143,11 @@ namespace Model
     /**
      * <p>The default value for the option group option.</p>
      */
+    inline bool DefaultValueHasBeenSet() const { return m_defaultValueHasBeenSet; }
+
+    /**
+     * <p>The default value for the option group option.</p>
+     */
     inline void SetDefaultValue(const Aws::String& value) { m_defaultValueHasBeenSet = true; m_defaultValue = value; }
 
     /**
@@ -167,6 +184,11 @@ namespace Model
     /**
      * <p>The DB engine specific parameter type for the option group option.</p>
      */
+    inline bool ApplyTypeHasBeenSet() const { return m_applyTypeHasBeenSet; }
+
+    /**
+     * <p>The DB engine specific parameter type for the option group option.</p>
+     */
     inline void SetApplyType(const Aws::String& value) { m_applyTypeHasBeenSet = true; m_applyType = value; }
 
     /**
@@ -199,6 +221,11 @@ namespace Model
      * <p>Indicates the acceptable values for the option group option.</p>
      */
     inline const Aws::String& GetAllowedValues() const{ return m_allowedValues; }
+
+    /**
+     * <p>Indicates the acceptable values for the option group option.</p>
+     */
+    inline bool AllowedValuesHasBeenSet() const { return m_allowedValuesHasBeenSet; }
 
     /**
      * <p>Indicates the acceptable values for the option group option.</p>
@@ -241,6 +268,12 @@ namespace Model
      * <p>Boolean value where true indicates that this option group option can be
      * changed from the default value.</p>
      */
+    inline bool IsModifiableHasBeenSet() const { return m_isModifiableHasBeenSet; }
+
+    /**
+     * <p>Boolean value where true indicates that this option group option can be
+     * changed from the default value.</p>
+     */
     inline void SetIsModifiable(bool value) { m_isModifiableHasBeenSet = true; m_isModifiable = value; }
 
     /**
@@ -248,6 +281,80 @@ namespace Model
      * changed from the default value.</p>
      */
     inline OptionGroupOptionSetting& WithIsModifiable(bool value) { SetIsModifiable(value); return *this;}
+
+
+    /**
+     * <p>Boolean value where true indicates that a value must be specified for this
+     * option setting of the option group option.</p>
+     */
+    inline bool GetIsRequired() const{ return m_isRequired; }
+
+    /**
+     * <p>Boolean value where true indicates that a value must be specified for this
+     * option setting of the option group option.</p>
+     */
+    inline bool IsRequiredHasBeenSet() const { return m_isRequiredHasBeenSet; }
+
+    /**
+     * <p>Boolean value where true indicates that a value must be specified for this
+     * option setting of the option group option.</p>
+     */
+    inline void SetIsRequired(bool value) { m_isRequiredHasBeenSet = true; m_isRequired = value; }
+
+    /**
+     * <p>Boolean value where true indicates that a value must be specified for this
+     * option setting of the option group option.</p>
+     */
+    inline OptionGroupOptionSetting& WithIsRequired(bool value) { SetIsRequired(value); return *this;}
+
+
+    /**
+     * <p>The minimum DB engine version required for the corresponding allowed value
+     * for this option setting.</p>
+     */
+    inline const Aws::Vector<MinimumEngineVersionPerAllowedValue>& GetMinimumEngineVersionPerAllowedValue() const{ return m_minimumEngineVersionPerAllowedValue; }
+
+    /**
+     * <p>The minimum DB engine version required for the corresponding allowed value
+     * for this option setting.</p>
+     */
+    inline bool MinimumEngineVersionPerAllowedValueHasBeenSet() const { return m_minimumEngineVersionPerAllowedValueHasBeenSet; }
+
+    /**
+     * <p>The minimum DB engine version required for the corresponding allowed value
+     * for this option setting.</p>
+     */
+    inline void SetMinimumEngineVersionPerAllowedValue(const Aws::Vector<MinimumEngineVersionPerAllowedValue>& value) { m_minimumEngineVersionPerAllowedValueHasBeenSet = true; m_minimumEngineVersionPerAllowedValue = value; }
+
+    /**
+     * <p>The minimum DB engine version required for the corresponding allowed value
+     * for this option setting.</p>
+     */
+    inline void SetMinimumEngineVersionPerAllowedValue(Aws::Vector<MinimumEngineVersionPerAllowedValue>&& value) { m_minimumEngineVersionPerAllowedValueHasBeenSet = true; m_minimumEngineVersionPerAllowedValue = std::move(value); }
+
+    /**
+     * <p>The minimum DB engine version required for the corresponding allowed value
+     * for this option setting.</p>
+     */
+    inline OptionGroupOptionSetting& WithMinimumEngineVersionPerAllowedValue(const Aws::Vector<MinimumEngineVersionPerAllowedValue>& value) { SetMinimumEngineVersionPerAllowedValue(value); return *this;}
+
+    /**
+     * <p>The minimum DB engine version required for the corresponding allowed value
+     * for this option setting.</p>
+     */
+    inline OptionGroupOptionSetting& WithMinimumEngineVersionPerAllowedValue(Aws::Vector<MinimumEngineVersionPerAllowedValue>&& value) { SetMinimumEngineVersionPerAllowedValue(std::move(value)); return *this;}
+
+    /**
+     * <p>The minimum DB engine version required for the corresponding allowed value
+     * for this option setting.</p>
+     */
+    inline OptionGroupOptionSetting& AddMinimumEngineVersionPerAllowedValue(const MinimumEngineVersionPerAllowedValue& value) { m_minimumEngineVersionPerAllowedValueHasBeenSet = true; m_minimumEngineVersionPerAllowedValue.push_back(value); return *this; }
+
+    /**
+     * <p>The minimum DB engine version required for the corresponding allowed value
+     * for this option setting.</p>
+     */
+    inline OptionGroupOptionSetting& AddMinimumEngineVersionPerAllowedValue(MinimumEngineVersionPerAllowedValue&& value) { m_minimumEngineVersionPerAllowedValueHasBeenSet = true; m_minimumEngineVersionPerAllowedValue.push_back(std::move(value)); return *this; }
 
   private:
 
@@ -268,6 +375,12 @@ namespace Model
 
     bool m_isModifiable;
     bool m_isModifiableHasBeenSet;
+
+    bool m_isRequired;
+    bool m_isRequiredHasBeenSet;
+
+    Aws::Vector<MinimumEngineVersionPerAllowedValue> m_minimumEngineVersionPerAllowedValue;
+    bool m_minimumEngineVersionPerAllowedValueHasBeenSet;
   };
 
 } // namespace Model

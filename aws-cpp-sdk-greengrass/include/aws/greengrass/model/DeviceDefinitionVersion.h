@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DeviceDefinitionVersion();
-    DeviceDefinitionVersion(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceDefinitionVersion& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceDefinitionVersion(Aws::Utils::Json::JsonView jsonValue);
+    DeviceDefinitionVersion& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * A list of devices in the definition version.
      */
     inline const Aws::Vector<Device>& GetDevices() const{ return m_devices; }
+
+    /**
+     * A list of devices in the definition version.
+     */
+    inline bool DevicesHasBeenSet() const { return m_devicesHasBeenSet; }
 
     /**
      * A list of devices in the definition version.

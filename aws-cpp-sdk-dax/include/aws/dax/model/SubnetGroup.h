@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     SubnetGroup();
-    SubnetGroup(const Aws::Utils::Json::JsonValue& jsonValue);
-    SubnetGroup& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SubnetGroup(Aws::Utils::Json::JsonView jsonValue);
+    SubnetGroup& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of the subnet group.</p>
      */
     inline const Aws::String& GetSubnetGroupName() const{ return m_subnetGroupName; }
+
+    /**
+     * <p>The name of the subnet group.</p>
+     */
+    inline bool SubnetGroupNameHasBeenSet() const { return m_subnetGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the subnet group.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The description of the subnet group.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the subnet group.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -130,6 +141,11 @@ namespace Model
     /**
      * <p>The Amazon Virtual Private Cloud identifier (VPC ID) of the subnet group.</p>
      */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
+
+    /**
+     * <p>The Amazon Virtual Private Cloud identifier (VPC ID) of the subnet group.</p>
+     */
     inline void SetVpcId(const Aws::String& value) { m_vpcIdHasBeenSet = true; m_vpcId = value; }
 
     /**
@@ -162,6 +178,11 @@ namespace Model
      * <p>A list of subnets associated with the subnet group. </p>
      */
     inline const Aws::Vector<Subnet>& GetSubnets() const{ return m_subnets; }
+
+    /**
+     * <p>A list of subnets associated with the subnet group. </p>
+     */
+    inline bool SubnetsHasBeenSet() const { return m_subnetsHasBeenSet; }
 
     /**
      * <p>A list of subnets associated with the subnet group. </p>

@@ -24,6 +24,7 @@ using namespace Aws::Utils;
 
 GetDocumentRequest::GetDocumentRequest() : 
     m_nameHasBeenSet(false),
+    m_versionNameHasBeenSet(false),
     m_documentVersionHasBeenSet(false),
     m_documentFormat(DocumentFormat::NOT_SET),
     m_documentFormatHasBeenSet(false)
@@ -40,6 +41,12 @@ Aws::String GetDocumentRequest::SerializePayload() const
 
   }
 
+  if(m_versionNameHasBeenSet)
+  {
+   payload.WithString("VersionName", m_versionName);
+
+  }
+
   if(m_documentVersionHasBeenSet)
   {
    payload.WithString("DocumentVersion", m_documentVersion);
@@ -51,7 +58,7 @@ Aws::String GetDocumentRequest::SerializePayload() const
    payload.WithString("DocumentFormat", DocumentFormatMapper::GetNameForDocumentFormat(m_documentFormat));
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection GetDocumentRequest::GetRequestSpecificHeaders() const

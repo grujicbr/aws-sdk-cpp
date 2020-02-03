@@ -24,17 +24,23 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/cloudhsmv2/CloudHSMV2Client.h>
 #include <aws/cloudhsmv2/CloudHSMV2Endpoint.h>
 #include <aws/cloudhsmv2/CloudHSMV2ErrorMarshaller.h>
+#include <aws/cloudhsmv2/model/CopyBackupToRegionRequest.h>
 #include <aws/cloudhsmv2/model/CreateClusterRequest.h>
 #include <aws/cloudhsmv2/model/CreateHsmRequest.h>
+#include <aws/cloudhsmv2/model/DeleteBackupRequest.h>
 #include <aws/cloudhsmv2/model/DeleteClusterRequest.h>
 #include <aws/cloudhsmv2/model/DeleteHsmRequest.h>
 #include <aws/cloudhsmv2/model/DescribeBackupsRequest.h>
 #include <aws/cloudhsmv2/model/DescribeClustersRequest.h>
 #include <aws/cloudhsmv2/model/InitializeClusterRequest.h>
 #include <aws/cloudhsmv2/model/ListTagsRequest.h>
+#include <aws/cloudhsmv2/model/RestoreBackupRequest.h>
 #include <aws/cloudhsmv2/model/TagResourceRequest.h>
 #include <aws/cloudhsmv2/model/UntagResourceRequest.h>
 
@@ -87,28 +93,71 @@ CloudHSMV2Client::~CloudHSMV2Client()
 
 void CloudHSMV2Client::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << CloudHSMV2Endpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + CloudHSMV2Endpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void CloudHSMV2Client::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
+}
+
+CopyBackupToRegionOutcome CloudHSMV2Client::CopyBackupToRegion(const CopyBackupToRegionRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return CopyBackupToRegionOutcome(CopyBackupToRegionResult(outcome.GetResult()));
+  }
+  else
+  {
+    return CopyBackupToRegionOutcome(outcome.GetError());
+  }
+}
+
+CopyBackupToRegionOutcomeCallable CloudHSMV2Client::CopyBackupToRegionCallable(const CopyBackupToRegionRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< CopyBackupToRegionOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->CopyBackupToRegion(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudHSMV2Client::CopyBackupToRegionAsync(const CopyBackupToRegionRequest& request, const CopyBackupToRegionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->CopyBackupToRegionAsyncHelper( request, handler, context ); } );
+}
+
+void CloudHSMV2Client::CopyBackupToRegionAsyncHelper(const CopyBackupToRegionRequest& request, const CopyBackupToRegionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, CopyBackupToRegion(request), context);
 }
 
 CreateClusterOutcome CloudHSMV2Client::CreateCluster(const CreateClusterRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateClusterOutcome(CreateClusterResult(outcome.GetResult()));
@@ -139,11 +188,11 @@ void CloudHSMV2Client::CreateClusterAsyncHelper(const CreateClusterRequest& requ
 
 CreateHsmOutcome CloudHSMV2Client::CreateHsm(const CreateHsmRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateHsmOutcome(CreateHsmResult(outcome.GetResult()));
@@ -172,13 +221,48 @@ void CloudHSMV2Client::CreateHsmAsyncHelper(const CreateHsmRequest& request, con
   handler(this, request, CreateHsm(request), context);
 }
 
-DeleteClusterOutcome CloudHSMV2Client::DeleteCluster(const DeleteClusterRequest& request) const
+DeleteBackupOutcome CloudHSMV2Client::DeleteBackup(const DeleteBackupRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DeleteBackupOutcome(DeleteBackupResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DeleteBackupOutcome(outcome.GetError());
+  }
+}
+
+DeleteBackupOutcomeCallable CloudHSMV2Client::DeleteBackupCallable(const DeleteBackupRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DeleteBackupOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DeleteBackup(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudHSMV2Client::DeleteBackupAsync(const DeleteBackupRequest& request, const DeleteBackupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DeleteBackupAsyncHelper( request, handler, context ); } );
+}
+
+void CloudHSMV2Client::DeleteBackupAsyncHelper(const DeleteBackupRequest& request, const DeleteBackupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DeleteBackup(request), context);
+}
+
+DeleteClusterOutcome CloudHSMV2Client::DeleteCluster(const DeleteClusterRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteClusterOutcome(DeleteClusterResult(outcome.GetResult()));
@@ -209,11 +293,11 @@ void CloudHSMV2Client::DeleteClusterAsyncHelper(const DeleteClusterRequest& requ
 
 DeleteHsmOutcome CloudHSMV2Client::DeleteHsm(const DeleteHsmRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteHsmOutcome(DeleteHsmResult(outcome.GetResult()));
@@ -244,11 +328,11 @@ void CloudHSMV2Client::DeleteHsmAsyncHelper(const DeleteHsmRequest& request, con
 
 DescribeBackupsOutcome CloudHSMV2Client::DescribeBackups(const DescribeBackupsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeBackupsOutcome(DescribeBackupsResult(outcome.GetResult()));
@@ -279,11 +363,11 @@ void CloudHSMV2Client::DescribeBackupsAsyncHelper(const DescribeBackupsRequest& 
 
 DescribeClustersOutcome CloudHSMV2Client::DescribeClusters(const DescribeClustersRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeClustersOutcome(DescribeClustersResult(outcome.GetResult()));
@@ -314,11 +398,11 @@ void CloudHSMV2Client::DescribeClustersAsyncHelper(const DescribeClustersRequest
 
 InitializeClusterOutcome CloudHSMV2Client::InitializeCluster(const InitializeClusterRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return InitializeClusterOutcome(InitializeClusterResult(outcome.GetResult()));
@@ -349,11 +433,11 @@ void CloudHSMV2Client::InitializeClusterAsyncHelper(const InitializeClusterReque
 
 ListTagsOutcome CloudHSMV2Client::ListTags(const ListTagsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListTagsOutcome(ListTagsResult(outcome.GetResult()));
@@ -382,13 +466,48 @@ void CloudHSMV2Client::ListTagsAsyncHelper(const ListTagsRequest& request, const
   handler(this, request, ListTags(request), context);
 }
 
-TagResourceOutcome CloudHSMV2Client::TagResource(const TagResourceRequest& request) const
+RestoreBackupOutcome CloudHSMV2Client::RestoreBackup(const RestoreBackupRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return RestoreBackupOutcome(RestoreBackupResult(outcome.GetResult()));
+  }
+  else
+  {
+    return RestoreBackupOutcome(outcome.GetError());
+  }
+}
+
+RestoreBackupOutcomeCallable CloudHSMV2Client::RestoreBackupCallable(const RestoreBackupRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< RestoreBackupOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->RestoreBackup(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudHSMV2Client::RestoreBackupAsync(const RestoreBackupRequest& request, const RestoreBackupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->RestoreBackupAsyncHelper( request, handler, context ); } );
+}
+
+void CloudHSMV2Client::RestoreBackupAsyncHelper(const RestoreBackupRequest& request, const RestoreBackupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, RestoreBackup(request), context);
+}
+
+TagResourceOutcome CloudHSMV2Client::TagResource(const TagResourceRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return TagResourceOutcome(TagResourceResult(outcome.GetResult()));
@@ -419,11 +538,11 @@ void CloudHSMV2Client::TagResourceAsyncHelper(const TagResourceRequest& request,
 
 UntagResourceOutcome CloudHSMV2Client::UntagResource(const UntagResourceRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UntagResourceOutcome(UntagResourceResult(outcome.GetResult()));

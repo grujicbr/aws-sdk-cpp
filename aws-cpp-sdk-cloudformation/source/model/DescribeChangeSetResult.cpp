@@ -55,27 +55,27 @@ DescribeChangeSetResult& DescribeChangeSetResult::operator =(const Aws::AmazonWe
     XmlNode changeSetNameNode = resultNode.FirstChild("ChangeSetName");
     if(!changeSetNameNode.IsNull())
     {
-      m_changeSetName = StringUtils::Trim(changeSetNameNode.GetText().c_str());
+      m_changeSetName = Aws::Utils::Xml::DecodeEscapedXmlText(changeSetNameNode.GetText());
     }
     XmlNode changeSetIdNode = resultNode.FirstChild("ChangeSetId");
     if(!changeSetIdNode.IsNull())
     {
-      m_changeSetId = StringUtils::Trim(changeSetIdNode.GetText().c_str());
+      m_changeSetId = Aws::Utils::Xml::DecodeEscapedXmlText(changeSetIdNode.GetText());
     }
     XmlNode stackIdNode = resultNode.FirstChild("StackId");
     if(!stackIdNode.IsNull())
     {
-      m_stackId = StringUtils::Trim(stackIdNode.GetText().c_str());
+      m_stackId = Aws::Utils::Xml::DecodeEscapedXmlText(stackIdNode.GetText());
     }
     XmlNode stackNameNode = resultNode.FirstChild("StackName");
     if(!stackNameNode.IsNull())
     {
-      m_stackName = StringUtils::Trim(stackNameNode.GetText().c_str());
+      m_stackName = Aws::Utils::Xml::DecodeEscapedXmlText(stackNameNode.GetText());
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
     }
     XmlNode parametersNode = resultNode.FirstChild("Parameters");
     if(!parametersNode.IsNull())
@@ -91,22 +91,22 @@ DescribeChangeSetResult& DescribeChangeSetResult::operator =(const Aws::AmazonWe
     XmlNode creationTimeNode = resultNode.FirstChild("CreationTime");
     if(!creationTimeNode.IsNull())
     {
-      m_creationTime = DateTime(StringUtils::Trim(creationTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_creationTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(creationTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
     }
     XmlNode executionStatusNode = resultNode.FirstChild("ExecutionStatus");
     if(!executionStatusNode.IsNull())
     {
-      m_executionStatus = ExecutionStatusMapper::GetExecutionStatusForName(StringUtils::Trim(executionStatusNode.GetText().c_str()).c_str());
+      m_executionStatus = ExecutionStatusMapper::GetExecutionStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(executionStatusNode.GetText()).c_str()).c_str());
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = ChangeSetStatusMapper::GetChangeSetStatusForName(StringUtils::Trim(statusNode.GetText().c_str()).c_str());
+      m_status = ChangeSetStatusMapper::GetChangeSetStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText()).c_str()).c_str());
     }
     XmlNode statusReasonNode = resultNode.FirstChild("StatusReason");
     if(!statusReasonNode.IsNull())
     {
-      m_statusReason = StringUtils::Trim(statusReasonNode.GetText().c_str());
+      m_statusReason = Aws::Utils::Xml::DecodeEscapedXmlText(statusReasonNode.GetText());
     }
     XmlNode notificationARNsNode = resultNode.FirstChild("NotificationARNs");
     if(!notificationARNsNode.IsNull())
@@ -114,7 +114,7 @@ DescribeChangeSetResult& DescribeChangeSetResult::operator =(const Aws::AmazonWe
       XmlNode notificationARNsMember = notificationARNsNode.FirstChild("member");
       while(!notificationARNsMember.IsNull())
       {
-        m_notificationARNs.push_back(StringUtils::Trim(notificationARNsMember.GetText().c_str()));
+        m_notificationARNs.push_back(notificationARNsMember.GetText());
         notificationARNsMember = notificationARNsMember.NextNode("member");
       }
 
@@ -160,7 +160,7 @@ DescribeChangeSetResult& DescribeChangeSetResult::operator =(const Aws::AmazonWe
     XmlNode nextTokenNode = resultNode.FirstChild("NextToken");
     if(!nextTokenNode.IsNull())
     {
-      m_nextToken = StringUtils::Trim(nextTokenNode.GetText().c_str());
+      m_nextToken = Aws::Utils::Xml::DecodeEscapedXmlText(nextTokenNode.GetText());
     }
   }
 

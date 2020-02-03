@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     HistogramEntry();
-    HistogramEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    HistogramEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HistogramEntry(Aws::Utils::Json::JsonView jsonValue);
+    HistogramEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The value of the entry.</p>
      */
     inline double GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of the entry.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of the entry.</p>
@@ -66,6 +72,11 @@ namespace Model
      * <p>The prevalence of the entry.</p>
      */
     inline int GetCount() const{ return m_count; }
+
+    /**
+     * <p>The prevalence of the entry.</p>
+     */
+    inline bool CountHasBeenSet() const { return m_countHasBeenSet; }
 
     /**
      * <p>The prevalence of the entry.</p>

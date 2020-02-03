@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ThingGroupProperties();
-    ThingGroupProperties(const Aws::Utils::Json::JsonValue& jsonValue);
-    ThingGroupProperties& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ThingGroupProperties(Aws::Utils::Json::JsonView jsonValue);
+    ThingGroupProperties& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The thing group description.</p>
      */
     inline const Aws::String& GetThingGroupDescription() const{ return m_thingGroupDescription; }
+
+    /**
+     * <p>The thing group description.</p>
+     */
+    inline bool ThingGroupDescriptionHasBeenSet() const { return m_thingGroupDescriptionHasBeenSet; }
 
     /**
      * <p>The thing group description.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The thing group attributes in JSON format.</p>
      */
     inline const AttributePayload& GetAttributePayload() const{ return m_attributePayload; }
+
+    /**
+     * <p>The thing group attributes in JSON format.</p>
+     */
+    inline bool AttributePayloadHasBeenSet() const { return m_attributePayloadHasBeenSet; }
 
     /**
      * <p>The thing group attributes in JSON format.</p>

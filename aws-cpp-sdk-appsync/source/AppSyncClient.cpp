@@ -24,20 +24,30 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/appsync/AppSyncClient.h>
 #include <aws/appsync/AppSyncEndpoint.h>
 #include <aws/appsync/AppSyncErrorMarshaller.h>
+#include <aws/appsync/model/CreateApiCacheRequest.h>
 #include <aws/appsync/model/CreateApiKeyRequest.h>
 #include <aws/appsync/model/CreateDataSourceRequest.h>
+#include <aws/appsync/model/CreateFunctionRequest.h>
 #include <aws/appsync/model/CreateGraphqlApiRequest.h>
 #include <aws/appsync/model/CreateResolverRequest.h>
 #include <aws/appsync/model/CreateTypeRequest.h>
+#include <aws/appsync/model/DeleteApiCacheRequest.h>
 #include <aws/appsync/model/DeleteApiKeyRequest.h>
 #include <aws/appsync/model/DeleteDataSourceRequest.h>
+#include <aws/appsync/model/DeleteFunctionRequest.h>
 #include <aws/appsync/model/DeleteGraphqlApiRequest.h>
 #include <aws/appsync/model/DeleteResolverRequest.h>
 #include <aws/appsync/model/DeleteTypeRequest.h>
+#include <aws/appsync/model/FlushApiCacheRequest.h>
+#include <aws/appsync/model/GetApiCacheRequest.h>
 #include <aws/appsync/model/GetDataSourceRequest.h>
+#include <aws/appsync/model/GetFunctionRequest.h>
 #include <aws/appsync/model/GetGraphqlApiRequest.h>
 #include <aws/appsync/model/GetIntrospectionSchemaRequest.h>
 #include <aws/appsync/model/GetResolverRequest.h>
@@ -45,12 +55,19 @@
 #include <aws/appsync/model/GetTypeRequest.h>
 #include <aws/appsync/model/ListApiKeysRequest.h>
 #include <aws/appsync/model/ListDataSourcesRequest.h>
+#include <aws/appsync/model/ListFunctionsRequest.h>
 #include <aws/appsync/model/ListGraphqlApisRequest.h>
 #include <aws/appsync/model/ListResolversRequest.h>
+#include <aws/appsync/model/ListResolversByFunctionRequest.h>
+#include <aws/appsync/model/ListTagsForResourceRequest.h>
 #include <aws/appsync/model/ListTypesRequest.h>
 #include <aws/appsync/model/StartSchemaCreationRequest.h>
+#include <aws/appsync/model/TagResourceRequest.h>
+#include <aws/appsync/model/UntagResourceRequest.h>
+#include <aws/appsync/model/UpdateApiCacheRequest.h>
 #include <aws/appsync/model/UpdateApiKeyRequest.h>
 #include <aws/appsync/model/UpdateDataSourceRequest.h>
+#include <aws/appsync/model/UpdateFunctionRequest.h>
 #include <aws/appsync/model/UpdateGraphqlApiRequest.h>
 #include <aws/appsync/model/UpdateResolverRequest.h>
 #include <aws/appsync/model/UpdateTypeRequest.h>
@@ -104,30 +121,85 @@ AppSyncClient::~AppSyncClient()
 
 void AppSyncClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << AppSyncEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + AppSyncEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void AppSyncClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
+}
+
+CreateApiCacheOutcome AppSyncClient::CreateApiCache(const CreateApiCacheRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateApiCache", "Required field: ApiId, is not set");
+    return CreateApiCacheOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/ApiCaches";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return CreateApiCacheOutcome(CreateApiCacheResult(outcome.GetResult()));
+  }
+  else
+  {
+    return CreateApiCacheOutcome(outcome.GetError());
+  }
+}
+
+CreateApiCacheOutcomeCallable AppSyncClient::CreateApiCacheCallable(const CreateApiCacheRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< CreateApiCacheOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->CreateApiCache(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::CreateApiCacheAsync(const CreateApiCacheRequest& request, const CreateApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->CreateApiCacheAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::CreateApiCacheAsyncHelper(const CreateApiCacheRequest& request, const CreateApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, CreateApiCache(request), context);
 }
 
 CreateApiKeyOutcome AppSyncClient::CreateApiKey(const CreateApiKeyRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateApiKey", "Required field: ApiId, is not set");
+    return CreateApiKeyOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/apikeys";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateApiKeyOutcome(CreateApiKeyResult(outcome.GetResult()));
@@ -158,13 +230,18 @@ void AppSyncClient::CreateApiKeyAsyncHelper(const CreateApiKeyRequest& request, 
 
 CreateDataSourceOutcome AppSyncClient::CreateDataSource(const CreateDataSourceRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateDataSource", "Required field: ApiId, is not set");
+    return CreateDataSourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/datasources";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateDataSourceOutcome(CreateDataSourceResult(outcome.GetResult()));
@@ -193,13 +270,55 @@ void AppSyncClient::CreateDataSourceAsyncHelper(const CreateDataSourceRequest& r
   handler(this, request, CreateDataSource(request), context);
 }
 
+CreateFunctionOutcome AppSyncClient::CreateFunction(const CreateFunctionRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateFunction", "Required field: ApiId, is not set");
+    return CreateFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/functions";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return CreateFunctionOutcome(CreateFunctionResult(outcome.GetResult()));
+  }
+  else
+  {
+    return CreateFunctionOutcome(outcome.GetError());
+  }
+}
+
+CreateFunctionOutcomeCallable AppSyncClient::CreateFunctionCallable(const CreateFunctionRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< CreateFunctionOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->CreateFunction(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::CreateFunctionAsync(const CreateFunctionRequest& request, const CreateFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->CreateFunctionAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::CreateFunctionAsyncHelper(const CreateFunctionRequest& request, const CreateFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, CreateFunction(request), context);
+}
+
 CreateGraphqlApiOutcome AppSyncClient::CreateGraphqlApi(const CreateGraphqlApiRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateGraphqlApiOutcome(CreateGraphqlApiResult(outcome.GetResult()));
@@ -230,15 +349,25 @@ void AppSyncClient::CreateGraphqlApiAsyncHelper(const CreateGraphqlApiRequest& r
 
 CreateResolverOutcome AppSyncClient::CreateResolver(const CreateResolverRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateResolver", "Required field: ApiId, is not set");
+    return CreateResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.TypeNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateResolver", "Required field: TypeName, is not set");
+    return CreateResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TypeName]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types/";
   ss << request.GetTypeName();
   ss << "/resolvers";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateResolverOutcome(CreateResolverResult(outcome.GetResult()));
@@ -269,13 +398,18 @@ void AppSyncClient::CreateResolverAsyncHelper(const CreateResolverRequest& reque
 
 CreateTypeOutcome AppSyncClient::CreateType(const CreateTypeRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateType", "Required field: ApiId, is not set");
+    return CreateTypeOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateTypeOutcome(CreateTypeResult(outcome.GetResult()));
@@ -304,16 +438,68 @@ void AppSyncClient::CreateTypeAsyncHelper(const CreateTypeRequest& request, cons
   handler(this, request, CreateType(request), context);
 }
 
+DeleteApiCacheOutcome AppSyncClient::DeleteApiCache(const DeleteApiCacheRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteApiCache", "Required field: ApiId, is not set");
+    return DeleteApiCacheOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/ApiCaches";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DeleteApiCacheOutcome(DeleteApiCacheResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DeleteApiCacheOutcome(outcome.GetError());
+  }
+}
+
+DeleteApiCacheOutcomeCallable AppSyncClient::DeleteApiCacheCallable(const DeleteApiCacheRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DeleteApiCacheOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DeleteApiCache(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::DeleteApiCacheAsync(const DeleteApiCacheRequest& request, const DeleteApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DeleteApiCacheAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::DeleteApiCacheAsyncHelper(const DeleteApiCacheRequest& request, const DeleteApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DeleteApiCache(request), context);
+}
+
 DeleteApiKeyOutcome AppSyncClient::DeleteApiKey(const DeleteApiKeyRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteApiKey", "Required field: ApiId, is not set");
+    return DeleteApiKeyOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteApiKey", "Required field: Id, is not set");
+    return DeleteApiKeyOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/apikeys/";
   ss << request.GetId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteApiKeyOutcome(DeleteApiKeyResult(outcome.GetResult()));
@@ -344,14 +530,24 @@ void AppSyncClient::DeleteApiKeyAsyncHelper(const DeleteApiKeyRequest& request, 
 
 DeleteDataSourceOutcome AppSyncClient::DeleteDataSource(const DeleteDataSourceRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteDataSource", "Required field: ApiId, is not set");
+    return DeleteDataSourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.NameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteDataSource", "Required field: Name, is not set");
+    return DeleteDataSourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Name]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/datasources/";
   ss << request.GetName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteDataSourceOutcome(DeleteDataSourceResult(outcome.GetResult()));
@@ -380,14 +576,67 @@ void AppSyncClient::DeleteDataSourceAsyncHelper(const DeleteDataSourceRequest& r
   handler(this, request, DeleteDataSource(request), context);
 }
 
+DeleteFunctionOutcome AppSyncClient::DeleteFunction(const DeleteFunctionRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteFunction", "Required field: ApiId, is not set");
+    return DeleteFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.FunctionIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteFunction", "Required field: FunctionId, is not set");
+    return DeleteFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [FunctionId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/functions/";
+  ss << request.GetFunctionId();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DeleteFunctionOutcome(DeleteFunctionResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DeleteFunctionOutcome(outcome.GetError());
+  }
+}
+
+DeleteFunctionOutcomeCallable AppSyncClient::DeleteFunctionCallable(const DeleteFunctionRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DeleteFunctionOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DeleteFunction(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::DeleteFunctionAsync(const DeleteFunctionRequest& request, const DeleteFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DeleteFunctionAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::DeleteFunctionAsyncHelper(const DeleteFunctionRequest& request, const DeleteFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DeleteFunction(request), context);
+}
+
 DeleteGraphqlApiOutcome AppSyncClient::DeleteGraphqlApi(const DeleteGraphqlApiRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteGraphqlApi", "Required field: ApiId, is not set");
+    return DeleteGraphqlApiOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteGraphqlApiOutcome(DeleteGraphqlApiResult(outcome.GetResult()));
@@ -418,8 +667,23 @@ void AppSyncClient::DeleteGraphqlApiAsyncHelper(const DeleteGraphqlApiRequest& r
 
 DeleteResolverOutcome AppSyncClient::DeleteResolver(const DeleteResolverRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteResolver", "Required field: ApiId, is not set");
+    return DeleteResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.TypeNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteResolver", "Required field: TypeName, is not set");
+    return DeleteResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TypeName]", false));
+  }
+  if (!request.FieldNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteResolver", "Required field: FieldName, is not set");
+    return DeleteResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [FieldName]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types/";
@@ -427,7 +691,7 @@ DeleteResolverOutcome AppSyncClient::DeleteResolver(const DeleteResolverRequest&
   ss << "/resolvers/";
   ss << request.GetFieldName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteResolverOutcome(DeleteResolverResult(outcome.GetResult()));
@@ -458,14 +722,24 @@ void AppSyncClient::DeleteResolverAsyncHelper(const DeleteResolverRequest& reque
 
 DeleteTypeOutcome AppSyncClient::DeleteType(const DeleteTypeRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteType", "Required field: ApiId, is not set");
+    return DeleteTypeOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.TypeNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteType", "Required field: TypeName, is not set");
+    return DeleteTypeOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TypeName]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types/";
   ss << request.GetTypeName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteTypeOutcome(DeleteTypeResult(outcome.GetResult()));
@@ -494,16 +768,110 @@ void AppSyncClient::DeleteTypeAsyncHelper(const DeleteTypeRequest& request, cons
   handler(this, request, DeleteType(request), context);
 }
 
+FlushApiCacheOutcome AppSyncClient::FlushApiCache(const FlushApiCacheRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("FlushApiCache", "Required field: ApiId, is not set");
+    return FlushApiCacheOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/FlushCache";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return FlushApiCacheOutcome(FlushApiCacheResult(outcome.GetResult()));
+  }
+  else
+  {
+    return FlushApiCacheOutcome(outcome.GetError());
+  }
+}
+
+FlushApiCacheOutcomeCallable AppSyncClient::FlushApiCacheCallable(const FlushApiCacheRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< FlushApiCacheOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->FlushApiCache(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::FlushApiCacheAsync(const FlushApiCacheRequest& request, const FlushApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->FlushApiCacheAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::FlushApiCacheAsyncHelper(const FlushApiCacheRequest& request, const FlushApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, FlushApiCache(request), context);
+}
+
+GetApiCacheOutcome AppSyncClient::GetApiCache(const GetApiCacheRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetApiCache", "Required field: ApiId, is not set");
+    return GetApiCacheOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/ApiCaches";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return GetApiCacheOutcome(GetApiCacheResult(outcome.GetResult()));
+  }
+  else
+  {
+    return GetApiCacheOutcome(outcome.GetError());
+  }
+}
+
+GetApiCacheOutcomeCallable AppSyncClient::GetApiCacheCallable(const GetApiCacheRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< GetApiCacheOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->GetApiCache(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::GetApiCacheAsync(const GetApiCacheRequest& request, const GetApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->GetApiCacheAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::GetApiCacheAsyncHelper(const GetApiCacheRequest& request, const GetApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, GetApiCache(request), context);
+}
+
 GetDataSourceOutcome AppSyncClient::GetDataSource(const GetDataSourceRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetDataSource", "Required field: ApiId, is not set");
+    return GetDataSourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.NameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetDataSource", "Required field: Name, is not set");
+    return GetDataSourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Name]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/datasources/";
   ss << request.GetName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetDataSourceOutcome(GetDataSourceResult(outcome.GetResult()));
@@ -532,14 +900,67 @@ void AppSyncClient::GetDataSourceAsyncHelper(const GetDataSourceRequest& request
   handler(this, request, GetDataSource(request), context);
 }
 
+GetFunctionOutcome AppSyncClient::GetFunction(const GetFunctionRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetFunction", "Required field: ApiId, is not set");
+    return GetFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.FunctionIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetFunction", "Required field: FunctionId, is not set");
+    return GetFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [FunctionId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/functions/";
+  ss << request.GetFunctionId();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return GetFunctionOutcome(GetFunctionResult(outcome.GetResult()));
+  }
+  else
+  {
+    return GetFunctionOutcome(outcome.GetError());
+  }
+}
+
+GetFunctionOutcomeCallable AppSyncClient::GetFunctionCallable(const GetFunctionRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< GetFunctionOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->GetFunction(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::GetFunctionAsync(const GetFunctionRequest& request, const GetFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->GetFunctionAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::GetFunctionAsyncHelper(const GetFunctionRequest& request, const GetFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, GetFunction(request), context);
+}
+
 GetGraphqlApiOutcome AppSyncClient::GetGraphqlApi(const GetGraphqlApiRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetGraphqlApi", "Required field: ApiId, is not set");
+    return GetGraphqlApiOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetGraphqlApiOutcome(GetGraphqlApiResult(outcome.GetResult()));
@@ -570,13 +991,23 @@ void AppSyncClient::GetGraphqlApiAsyncHelper(const GetGraphqlApiRequest& request
 
 GetIntrospectionSchemaOutcome AppSyncClient::GetIntrospectionSchema(const GetIntrospectionSchemaRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetIntrospectionSchema", "Required field: ApiId, is not set");
+    return GetIntrospectionSchemaOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.FormatHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetIntrospectionSchema", "Required field: Format, is not set");
+    return GetIntrospectionSchemaOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Format]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/schema";
   uri.SetPath(uri.GetPath() + ss.str());
-  StreamOutcome outcome = MakeRequestWithUnparsedResponse(uri, request, HttpMethod::HTTP_GET);
+  StreamOutcome outcome = MakeRequestWithUnparsedResponse(uri, request, Aws::Http::HttpMethod::HTTP_GET);
   if(outcome.IsSuccess())
   {
     return GetIntrospectionSchemaOutcome(GetIntrospectionSchemaResult(outcome.GetResultWithOwnership()));
@@ -607,8 +1038,23 @@ void AppSyncClient::GetIntrospectionSchemaAsyncHelper(const GetIntrospectionSche
 
 GetResolverOutcome AppSyncClient::GetResolver(const GetResolverRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetResolver", "Required field: ApiId, is not set");
+    return GetResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.TypeNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetResolver", "Required field: TypeName, is not set");
+    return GetResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TypeName]", false));
+  }
+  if (!request.FieldNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetResolver", "Required field: FieldName, is not set");
+    return GetResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [FieldName]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types/";
@@ -616,7 +1062,7 @@ GetResolverOutcome AppSyncClient::GetResolver(const GetResolverRequest& request)
   ss << "/resolvers/";
   ss << request.GetFieldName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetResolverOutcome(GetResolverResult(outcome.GetResult()));
@@ -647,13 +1093,18 @@ void AppSyncClient::GetResolverAsyncHelper(const GetResolverRequest& request, co
 
 GetSchemaCreationStatusOutcome AppSyncClient::GetSchemaCreationStatus(const GetSchemaCreationStatusRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetSchemaCreationStatus", "Required field: ApiId, is not set");
+    return GetSchemaCreationStatusOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/schemacreation";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetSchemaCreationStatusOutcome(GetSchemaCreationStatusResult(outcome.GetResult()));
@@ -684,14 +1135,29 @@ void AppSyncClient::GetSchemaCreationStatusAsyncHelper(const GetSchemaCreationSt
 
 GetTypeOutcome AppSyncClient::GetType(const GetTypeRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetType", "Required field: ApiId, is not set");
+    return GetTypeOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.TypeNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetType", "Required field: TypeName, is not set");
+    return GetTypeOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TypeName]", false));
+  }
+  if (!request.FormatHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetType", "Required field: Format, is not set");
+    return GetTypeOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Format]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types/";
   ss << request.GetTypeName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetTypeOutcome(GetTypeResult(outcome.GetResult()));
@@ -722,13 +1188,18 @@ void AppSyncClient::GetTypeAsyncHelper(const GetTypeRequest& request, const GetT
 
 ListApiKeysOutcome AppSyncClient::ListApiKeys(const ListApiKeysRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListApiKeys", "Required field: ApiId, is not set");
+    return ListApiKeysOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/apikeys";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListApiKeysOutcome(ListApiKeysResult(outcome.GetResult()));
@@ -759,13 +1230,18 @@ void AppSyncClient::ListApiKeysAsyncHelper(const ListApiKeysRequest& request, co
 
 ListDataSourcesOutcome AppSyncClient::ListDataSources(const ListDataSourcesRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListDataSources", "Required field: ApiId, is not set");
+    return ListDataSourcesOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/datasources";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListDataSourcesOutcome(ListDataSourcesResult(outcome.GetResult()));
@@ -794,13 +1270,55 @@ void AppSyncClient::ListDataSourcesAsyncHelper(const ListDataSourcesRequest& req
   handler(this, request, ListDataSources(request), context);
 }
 
+ListFunctionsOutcome AppSyncClient::ListFunctions(const ListFunctionsRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListFunctions", "Required field: ApiId, is not set");
+    return ListFunctionsOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/functions";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ListFunctionsOutcome(ListFunctionsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListFunctionsOutcome(outcome.GetError());
+  }
+}
+
+ListFunctionsOutcomeCallable AppSyncClient::ListFunctionsCallable(const ListFunctionsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListFunctionsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListFunctions(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::ListFunctionsAsync(const ListFunctionsRequest& request, const ListFunctionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListFunctionsAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::ListFunctionsAsyncHelper(const ListFunctionsRequest& request, const ListFunctionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListFunctions(request), context);
+}
+
 ListGraphqlApisOutcome AppSyncClient::ListGraphqlApis(const ListGraphqlApisRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListGraphqlApisOutcome(ListGraphqlApisResult(outcome.GetResult()));
@@ -831,15 +1349,25 @@ void AppSyncClient::ListGraphqlApisAsyncHelper(const ListGraphqlApisRequest& req
 
 ListResolversOutcome AppSyncClient::ListResolvers(const ListResolversRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListResolvers", "Required field: ApiId, is not set");
+    return ListResolversOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.TypeNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListResolvers", "Required field: TypeName, is not set");
+    return ListResolversOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TypeName]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types/";
   ss << request.GetTypeName();
   ss << "/resolvers";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListResolversOutcome(ListResolversResult(outcome.GetResult()));
@@ -868,15 +1396,115 @@ void AppSyncClient::ListResolversAsyncHelper(const ListResolversRequest& request
   handler(this, request, ListResolvers(request), context);
 }
 
+ListResolversByFunctionOutcome AppSyncClient::ListResolversByFunction(const ListResolversByFunctionRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListResolversByFunction", "Required field: ApiId, is not set");
+    return ListResolversByFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.FunctionIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListResolversByFunction", "Required field: FunctionId, is not set");
+    return ListResolversByFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [FunctionId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/functions/";
+  ss << request.GetFunctionId();
+  ss << "/resolvers";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ListResolversByFunctionOutcome(ListResolversByFunctionResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListResolversByFunctionOutcome(outcome.GetError());
+  }
+}
+
+ListResolversByFunctionOutcomeCallable AppSyncClient::ListResolversByFunctionCallable(const ListResolversByFunctionRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListResolversByFunctionOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListResolversByFunction(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::ListResolversByFunctionAsync(const ListResolversByFunctionRequest& request, const ListResolversByFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListResolversByFunctionAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::ListResolversByFunctionAsyncHelper(const ListResolversByFunctionRequest& request, const ListResolversByFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListResolversByFunction(request), context);
+}
+
+ListTagsForResourceOutcome AppSyncClient::ListTagsForResource(const ListTagsForResourceRequest& request) const
+{
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListTagsForResource", "Required field: ResourceArn, is not set");
+    return ListTagsForResourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/tags/";
+  ss << request.GetResourceArn();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ListTagsForResourceOutcome(ListTagsForResourceResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListTagsForResourceOutcome(outcome.GetError());
+  }
+}
+
+ListTagsForResourceOutcomeCallable AppSyncClient::ListTagsForResourceCallable(const ListTagsForResourceRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListTagsForResourceOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListTagsForResource(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::ListTagsForResourceAsync(const ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListTagsForResourceAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::ListTagsForResourceAsyncHelper(const ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListTagsForResource(request), context);
+}
+
 ListTypesOutcome AppSyncClient::ListTypes(const ListTypesRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListTypes", "Required field: ApiId, is not set");
+    return ListTypesOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.FormatHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListTypes", "Required field: Format, is not set");
+    return ListTypesOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Format]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListTypesOutcome(ListTypesResult(outcome.GetResult()));
@@ -907,13 +1535,18 @@ void AppSyncClient::ListTypesAsyncHelper(const ListTypesRequest& request, const 
 
 StartSchemaCreationOutcome AppSyncClient::StartSchemaCreation(const StartSchemaCreationRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("StartSchemaCreation", "Required field: ApiId, is not set");
+    return StartSchemaCreationOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/schemacreation";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return StartSchemaCreationOutcome(StartSchemaCreationResult(outcome.GetResult()));
@@ -942,16 +1575,155 @@ void AppSyncClient::StartSchemaCreationAsyncHelper(const StartSchemaCreationRequ
   handler(this, request, StartSchemaCreation(request), context);
 }
 
+TagResourceOutcome AppSyncClient::TagResource(const TagResourceRequest& request) const
+{
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("TagResource", "Required field: ResourceArn, is not set");
+    return TagResourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/tags/";
+  ss << request.GetResourceArn();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return TagResourceOutcome(TagResourceResult(outcome.GetResult()));
+  }
+  else
+  {
+    return TagResourceOutcome(outcome.GetError());
+  }
+}
+
+TagResourceOutcomeCallable AppSyncClient::TagResourceCallable(const TagResourceRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< TagResourceOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->TagResource(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::TagResourceAsync(const TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->TagResourceAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::TagResourceAsyncHelper(const TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, TagResource(request), context);
+}
+
+UntagResourceOutcome AppSyncClient::UntagResource(const UntagResourceRequest& request) const
+{
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UntagResource", "Required field: ResourceArn, is not set");
+    return UntagResourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
+  if (!request.TagKeysHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UntagResource", "Required field: TagKeys, is not set");
+    return UntagResourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TagKeys]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/tags/";
+  ss << request.GetResourceArn();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UntagResourceOutcome(UntagResourceResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UntagResourceOutcome(outcome.GetError());
+  }
+}
+
+UntagResourceOutcomeCallable AppSyncClient::UntagResourceCallable(const UntagResourceRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UntagResourceOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UntagResource(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::UntagResourceAsync(const UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UntagResourceAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::UntagResourceAsyncHelper(const UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UntagResource(request), context);
+}
+
+UpdateApiCacheOutcome AppSyncClient::UpdateApiCache(const UpdateApiCacheRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateApiCache", "Required field: ApiId, is not set");
+    return UpdateApiCacheOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/ApiCaches/update";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UpdateApiCacheOutcome(UpdateApiCacheResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UpdateApiCacheOutcome(outcome.GetError());
+  }
+}
+
+UpdateApiCacheOutcomeCallable AppSyncClient::UpdateApiCacheCallable(const UpdateApiCacheRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UpdateApiCacheOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UpdateApiCache(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::UpdateApiCacheAsync(const UpdateApiCacheRequest& request, const UpdateApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UpdateApiCacheAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::UpdateApiCacheAsyncHelper(const UpdateApiCacheRequest& request, const UpdateApiCacheResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UpdateApiCache(request), context);
+}
+
 UpdateApiKeyOutcome AppSyncClient::UpdateApiKey(const UpdateApiKeyRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateApiKey", "Required field: ApiId, is not set");
+    return UpdateApiKeyOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.IdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateApiKey", "Required field: Id, is not set");
+    return UpdateApiKeyOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Id]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/apikeys/";
   ss << request.GetId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateApiKeyOutcome(UpdateApiKeyResult(outcome.GetResult()));
@@ -982,14 +1754,24 @@ void AppSyncClient::UpdateApiKeyAsyncHelper(const UpdateApiKeyRequest& request, 
 
 UpdateDataSourceOutcome AppSyncClient::UpdateDataSource(const UpdateDataSourceRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateDataSource", "Required field: ApiId, is not set");
+    return UpdateDataSourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.NameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateDataSource", "Required field: Name, is not set");
+    return UpdateDataSourceOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Name]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/datasources/";
   ss << request.GetName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateDataSourceOutcome(UpdateDataSourceResult(outcome.GetResult()));
@@ -1018,14 +1800,67 @@ void AppSyncClient::UpdateDataSourceAsyncHelper(const UpdateDataSourceRequest& r
   handler(this, request, UpdateDataSource(request), context);
 }
 
+UpdateFunctionOutcome AppSyncClient::UpdateFunction(const UpdateFunctionRequest& request) const
+{
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateFunction", "Required field: ApiId, is not set");
+    return UpdateFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.FunctionIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateFunction", "Required field: FunctionId, is not set");
+    return UpdateFunctionOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [FunctionId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/v1/apis/";
+  ss << request.GetApiId();
+  ss << "/functions/";
+  ss << request.GetFunctionId();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UpdateFunctionOutcome(UpdateFunctionResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UpdateFunctionOutcome(outcome.GetError());
+  }
+}
+
+UpdateFunctionOutcomeCallable AppSyncClient::UpdateFunctionCallable(const UpdateFunctionRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UpdateFunctionOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UpdateFunction(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void AppSyncClient::UpdateFunctionAsync(const UpdateFunctionRequest& request, const UpdateFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UpdateFunctionAsyncHelper( request, handler, context ); } );
+}
+
+void AppSyncClient::UpdateFunctionAsyncHelper(const UpdateFunctionRequest& request, const UpdateFunctionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UpdateFunction(request), context);
+}
+
 UpdateGraphqlApiOutcome AppSyncClient::UpdateGraphqlApi(const UpdateGraphqlApiRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateGraphqlApi", "Required field: ApiId, is not set");
+    return UpdateGraphqlApiOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateGraphqlApiOutcome(UpdateGraphqlApiResult(outcome.GetResult()));
@@ -1056,8 +1891,23 @@ void AppSyncClient::UpdateGraphqlApiAsyncHelper(const UpdateGraphqlApiRequest& r
 
 UpdateResolverOutcome AppSyncClient::UpdateResolver(const UpdateResolverRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateResolver", "Required field: ApiId, is not set");
+    return UpdateResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.TypeNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateResolver", "Required field: TypeName, is not set");
+    return UpdateResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TypeName]", false));
+  }
+  if (!request.FieldNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateResolver", "Required field: FieldName, is not set");
+    return UpdateResolverOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [FieldName]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types/";
@@ -1065,7 +1915,7 @@ UpdateResolverOutcome AppSyncClient::UpdateResolver(const UpdateResolverRequest&
   ss << "/resolvers/";
   ss << request.GetFieldName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateResolverOutcome(UpdateResolverResult(outcome.GetResult()));
@@ -1096,14 +1946,24 @@ void AppSyncClient::UpdateResolverAsyncHelper(const UpdateResolverRequest& reque
 
 UpdateTypeOutcome AppSyncClient::UpdateType(const UpdateTypeRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ApiIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateType", "Required field: ApiId, is not set");
+    return UpdateTypeOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ApiId]", false));
+  }
+  if (!request.TypeNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateType", "Required field: TypeName, is not set");
+    return UpdateTypeOutcome(Aws::Client::AWSError<AppSyncErrors>(AppSyncErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TypeName]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/apis/";
   ss << request.GetApiId();
   ss << "/types/";
   ss << request.GetTypeName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateTypeOutcome(UpdateTypeResult(outcome.GetResult()));

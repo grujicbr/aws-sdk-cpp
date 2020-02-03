@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     EbsVolume();
-    EbsVolume(const Aws::Utils::Json::JsonValue& jsonValue);
-    EbsVolume& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EbsVolume(Aws::Utils::Json::JsonView jsonValue);
+    EbsVolume& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The device name that is exposed to the instance, such as /dev/sdh.</p>
      */
     inline const Aws::String& GetDevice() const{ return m_device; }
+
+    /**
+     * <p>The device name that is exposed to the instance, such as /dev/sdh.</p>
+     */
+    inline bool DeviceHasBeenSet() const { return m_deviceHasBeenSet; }
 
     /**
      * <p>The device name that is exposed to the instance, such as /dev/sdh.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The volume identifier of the EBS volume.</p>
      */
     inline const Aws::String& GetVolumeId() const{ return m_volumeId; }
+
+    /**
+     * <p>The volume identifier of the EBS volume.</p>
+     */
+    inline bool VolumeIdHasBeenSet() const { return m_volumeIdHasBeenSet; }
 
     /**
      * <p>The volume identifier of the EBS volume.</p>

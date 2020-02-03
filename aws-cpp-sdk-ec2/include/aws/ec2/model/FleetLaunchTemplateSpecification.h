@@ -59,6 +59,12 @@ namespace Model
      * <p>The ID of the launch template. You must specify either a template ID or a
      * template name.</p>
      */
+    inline bool LaunchTemplateIdHasBeenSet() const { return m_launchTemplateIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the launch template. You must specify either a template ID or a
+     * template name.</p>
+     */
     inline void SetLaunchTemplateId(const Aws::String& value) { m_launchTemplateIdHasBeenSet = true; m_launchTemplateId = value; }
 
     /**
@@ -102,6 +108,12 @@ namespace Model
      * <p>The name of the launch template. You must specify either a template name or a
      * template ID.</p>
      */
+    inline bool LaunchTemplateNameHasBeenSet() const { return m_launchTemplateNameHasBeenSet; }
+
+    /**
+     * <p>The name of the launch template. You must specify either a template name or a
+     * template ID.</p>
+     */
     inline void SetLaunchTemplateName(const Aws::String& value) { m_launchTemplateNameHasBeenSet = true; m_launchTemplateName = value; }
 
     /**
@@ -136,44 +148,50 @@ namespace Model
 
 
     /**
-     * <p>The version number. By default, the default version of the launch template is
-     * used.</p>
+     * <p>The version number of the launch template. You must specify a version
+     * number.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
 
     /**
-     * <p>The version number. By default, the default version of the launch template is
-     * used.</p>
+     * <p>The version number of the launch template. You must specify a version
+     * number.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
+
+    /**
+     * <p>The version number of the launch template. You must specify a version
+     * number.</p>
      */
     inline void SetVersion(const Aws::String& value) { m_versionHasBeenSet = true; m_version = value; }
 
     /**
-     * <p>The version number. By default, the default version of the launch template is
-     * used.</p>
+     * <p>The version number of the launch template. You must specify a version
+     * number.</p>
      */
     inline void SetVersion(Aws::String&& value) { m_versionHasBeenSet = true; m_version = std::move(value); }
 
     /**
-     * <p>The version number. By default, the default version of the launch template is
-     * used.</p>
+     * <p>The version number of the launch template. You must specify a version
+     * number.</p>
      */
     inline void SetVersion(const char* value) { m_versionHasBeenSet = true; m_version.assign(value); }
 
     /**
-     * <p>The version number. By default, the default version of the launch template is
-     * used.</p>
+     * <p>The version number of the launch template. You must specify a version
+     * number.</p>
      */
     inline FleetLaunchTemplateSpecification& WithVersion(const Aws::String& value) { SetVersion(value); return *this;}
 
     /**
-     * <p>The version number. By default, the default version of the launch template is
-     * used.</p>
+     * <p>The version number of the launch template. You must specify a version
+     * number.</p>
      */
     inline FleetLaunchTemplateSpecification& WithVersion(Aws::String&& value) { SetVersion(std::move(value)); return *this;}
 
     /**
-     * <p>The version number. By default, the default version of the launch template is
-     * used.</p>
+     * <p>The version number of the launch template. You must specify a version
+     * number.</p>
      */
     inline FleetLaunchTemplateSpecification& WithVersion(const char* value) { SetVersion(value); return *this;}
 

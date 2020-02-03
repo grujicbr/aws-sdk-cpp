@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     AgentFilter();
-    AgentFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    AgentFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AgentFilter(Aws::Utils::Json::JsonView jsonValue);
+    AgentFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * <b>UNHEALTHY</b>.</p>
      */
     inline const Aws::Vector<AgentHealth>& GetAgentHealths() const{ return m_agentHealths; }
+
+    /**
+     * <p>The current health state of the agent. Values can be set to <b>HEALTHY</b> or
+     * <b>UNHEALTHY</b>.</p>
+     */
+    inline bool AgentHealthsHasBeenSet() const { return m_agentHealthsHasBeenSet; }
 
     /**
      * <p>The current health state of the agent. Values can be set to <b>HEALTHY</b> or
@@ -99,6 +106,13 @@ namespace Model
      * <b>UNKNOWN</b>. </p>
      */
     inline const Aws::Vector<AgentHealthCode>& GetAgentHealthCodes() const{ return m_agentHealthCodes; }
+
+    /**
+     * <p>The detailed health state of the agent. Values can be set to <b>IDLE</b>,
+     * <b>RUNNING</b>, <b>SHUTDOWN</b>, <b>UNHEALTHY</b>, <b>THROTTLED</b>, and
+     * <b>UNKNOWN</b>. </p>
+     */
+    inline bool AgentHealthCodesHasBeenSet() const { return m_agentHealthCodesHasBeenSet; }
 
     /**
      * <p>The detailed health state of the agent. Values can be set to <b>IDLE</b>,

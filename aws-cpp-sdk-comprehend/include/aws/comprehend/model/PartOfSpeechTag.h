@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Comprehend
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     PartOfSpeechTag();
-    PartOfSpeechTag(const Aws::Utils::Json::JsonValue& jsonValue);
-    PartOfSpeechTag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PartOfSpeechTag(Aws::Utils::Json::JsonView jsonValue);
+    PartOfSpeechTag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Identifies the part of speech that the token represents.</p>
      */
     inline const PartOfSpeechTagType& GetTag() const{ return m_tag; }
+
+    /**
+     * <p>Identifies the part of speech that the token represents.</p>
+     */
+    inline bool TagHasBeenSet() const { return m_tagHasBeenSet; }
 
     /**
      * <p>Identifies the part of speech that the token represents.</p>
@@ -80,6 +86,12 @@ namespace Model
      * correctly identified.</p>
      */
     inline double GetScore() const{ return m_score; }
+
+    /**
+     * <p>The confidence that Amazon Comprehend has that the part of speech was
+     * correctly identified.</p>
+     */
+    inline bool ScoreHasBeenSet() const { return m_scoreHasBeenSet; }
 
     /**
      * <p>The confidence that Amazon Comprehend has that the part of speech was

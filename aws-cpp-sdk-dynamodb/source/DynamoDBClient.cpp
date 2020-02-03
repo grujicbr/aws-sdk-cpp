@@ -24,6 +24,9 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/DynamoDBEndpoint.h>
 #include <aws/dynamodb/DynamoDBErrorMarshaller.h>
@@ -37,13 +40,17 @@
 #include <aws/dynamodb/model/DeleteTableRequest.h>
 #include <aws/dynamodb/model/DescribeBackupRequest.h>
 #include <aws/dynamodb/model/DescribeContinuousBackupsRequest.h>
+#include <aws/dynamodb/model/DescribeContributorInsightsRequest.h>
+#include <aws/dynamodb/model/DescribeEndpointsRequest.h>
 #include <aws/dynamodb/model/DescribeGlobalTableRequest.h>
 #include <aws/dynamodb/model/DescribeGlobalTableSettingsRequest.h>
 #include <aws/dynamodb/model/DescribeLimitsRequest.h>
 #include <aws/dynamodb/model/DescribeTableRequest.h>
+#include <aws/dynamodb/model/DescribeTableReplicaAutoScalingRequest.h>
 #include <aws/dynamodb/model/DescribeTimeToLiveRequest.h>
 #include <aws/dynamodb/model/GetItemRequest.h>
 #include <aws/dynamodb/model/ListBackupsRequest.h>
+#include <aws/dynamodb/model/ListContributorInsightsRequest.h>
 #include <aws/dynamodb/model/ListGlobalTablesRequest.h>
 #include <aws/dynamodb/model/ListTablesRequest.h>
 #include <aws/dynamodb/model/ListTagsOfResourceRequest.h>
@@ -53,12 +60,16 @@
 #include <aws/dynamodb/model/RestoreTableToPointInTimeRequest.h>
 #include <aws/dynamodb/model/ScanRequest.h>
 #include <aws/dynamodb/model/TagResourceRequest.h>
+#include <aws/dynamodb/model/TransactGetItemsRequest.h>
+#include <aws/dynamodb/model/TransactWriteItemsRequest.h>
 #include <aws/dynamodb/model/UntagResourceRequest.h>
 #include <aws/dynamodb/model/UpdateContinuousBackupsRequest.h>
+#include <aws/dynamodb/model/UpdateContributorInsightsRequest.h>
 #include <aws/dynamodb/model/UpdateGlobalTableRequest.h>
 #include <aws/dynamodb/model/UpdateGlobalTableSettingsRequest.h>
 #include <aws/dynamodb/model/UpdateItemRequest.h>
 #include <aws/dynamodb/model/UpdateTableRequest.h>
+#include <aws/dynamodb/model/UpdateTableReplicaAutoScalingRequest.h>
 #include <aws/dynamodb/model/UpdateTimeToLiveRequest.h>
 
 using namespace Aws;
@@ -110,28 +121,72 @@ DynamoDBClient::~DynamoDBClient()
 
 void DynamoDBClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << DynamoDBEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + DynamoDBEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+  if (!config.endpointOverride.empty())
+  {
+    m_enableEndpointDiscovery = false;
+  }
+  else
+  {
+    m_enableEndpointDiscovery = config.enableEndpointDiscovery;
+  }
+}
 
-  m_uri = ss.str();
+void DynamoDBClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
+  m_enableEndpointDiscovery = false;
 }
 
 BatchGetItemOutcome DynamoDBClient::BatchGetItem(const BatchGetItemRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("BatchGetItem", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("BatchGetItem", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("BatchGetItem", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("BatchGetItem", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return BatchGetItemOutcome(BatchGetItemResult(outcome.GetResult()));
@@ -162,11 +217,38 @@ void DynamoDBClient::BatchGetItemAsyncHelper(const BatchGetItemRequest& request,
 
 BatchWriteItemOutcome DynamoDBClient::BatchWriteItem(const BatchWriteItemRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("BatchWriteItem", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("BatchWriteItem", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("BatchWriteItem", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("BatchWriteItem", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return BatchWriteItemOutcome(BatchWriteItemResult(outcome.GetResult()));
@@ -197,11 +279,38 @@ void DynamoDBClient::BatchWriteItemAsyncHelper(const BatchWriteItemRequest& requ
 
 CreateBackupOutcome DynamoDBClient::CreateBackup(const CreateBackupRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("CreateBackup", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("CreateBackup", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("CreateBackup", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("CreateBackup", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateBackupOutcome(CreateBackupResult(outcome.GetResult()));
@@ -232,11 +341,38 @@ void DynamoDBClient::CreateBackupAsyncHelper(const CreateBackupRequest& request,
 
 CreateGlobalTableOutcome DynamoDBClient::CreateGlobalTable(const CreateGlobalTableRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("CreateGlobalTable", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("CreateGlobalTable", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("CreateGlobalTable", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("CreateGlobalTable", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateGlobalTableOutcome(CreateGlobalTableResult(outcome.GetResult()));
@@ -267,11 +403,38 @@ void DynamoDBClient::CreateGlobalTableAsyncHelper(const CreateGlobalTableRequest
 
 CreateTableOutcome DynamoDBClient::CreateTable(const CreateTableRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("CreateTable", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("CreateTable", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("CreateTable", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("CreateTable", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateTableOutcome(CreateTableResult(outcome.GetResult()));
@@ -302,11 +465,38 @@ void DynamoDBClient::CreateTableAsyncHelper(const CreateTableRequest& request, c
 
 DeleteBackupOutcome DynamoDBClient::DeleteBackup(const DeleteBackupRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DeleteBackup", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DeleteBackup", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DeleteBackup", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DeleteBackup", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteBackupOutcome(DeleteBackupResult(outcome.GetResult()));
@@ -337,11 +527,38 @@ void DynamoDBClient::DeleteBackupAsyncHelper(const DeleteBackupRequest& request,
 
 DeleteItemOutcome DynamoDBClient::DeleteItem(const DeleteItemRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DeleteItem", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DeleteItem", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DeleteItem", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DeleteItem", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteItemOutcome(DeleteItemResult(outcome.GetResult()));
@@ -372,11 +589,38 @@ void DynamoDBClient::DeleteItemAsyncHelper(const DeleteItemRequest& request, con
 
 DeleteTableOutcome DynamoDBClient::DeleteTable(const DeleteTableRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DeleteTable", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DeleteTable", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DeleteTable", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DeleteTable", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteTableOutcome(DeleteTableResult(outcome.GetResult()));
@@ -407,11 +651,38 @@ void DynamoDBClient::DeleteTableAsyncHelper(const DeleteTableRequest& request, c
 
 DescribeBackupOutcome DynamoDBClient::DescribeBackup(const DescribeBackupRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DescribeBackup", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DescribeBackup", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DescribeBackup", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DescribeBackup", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeBackupOutcome(DescribeBackupResult(outcome.GetResult()));
@@ -442,11 +713,38 @@ void DynamoDBClient::DescribeBackupAsyncHelper(const DescribeBackupRequest& requ
 
 DescribeContinuousBackupsOutcome DynamoDBClient::DescribeContinuousBackups(const DescribeContinuousBackupsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DescribeContinuousBackups", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DescribeContinuousBackups", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DescribeContinuousBackups", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DescribeContinuousBackups", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeContinuousBackupsOutcome(DescribeContinuousBackupsResult(outcome.GetResult()));
@@ -475,13 +773,110 @@ void DynamoDBClient::DescribeContinuousBackupsAsyncHelper(const DescribeContinuo
   handler(this, request, DescribeContinuousBackups(request), context);
 }
 
-DescribeGlobalTableOutcome DynamoDBClient::DescribeGlobalTable(const DescribeGlobalTableRequest& request) const
+DescribeContributorInsightsOutcome DynamoDBClient::DescribeContributorInsights(const DescribeContributorInsightsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeContributorInsightsOutcome(DescribeContributorInsightsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeContributorInsightsOutcome(outcome.GetError());
+  }
+}
+
+DescribeContributorInsightsOutcomeCallable DynamoDBClient::DescribeContributorInsightsCallable(const DescribeContributorInsightsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeContributorInsightsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeContributorInsights(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void DynamoDBClient::DescribeContributorInsightsAsync(const DescribeContributorInsightsRequest& request, const DescribeContributorInsightsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeContributorInsightsAsyncHelper( request, handler, context ); } );
+}
+
+void DynamoDBClient::DescribeContributorInsightsAsyncHelper(const DescribeContributorInsightsRequest& request, const DescribeContributorInsightsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeContributorInsights(request), context);
+}
+
+DescribeEndpointsOutcome DynamoDBClient::DescribeEndpoints(const DescribeEndpointsRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeEndpointsOutcome(DescribeEndpointsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeEndpointsOutcome(outcome.GetError());
+  }
+}
+
+DescribeEndpointsOutcomeCallable DynamoDBClient::DescribeEndpointsCallable(const DescribeEndpointsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeEndpointsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeEndpoints(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void DynamoDBClient::DescribeEndpointsAsync(const DescribeEndpointsRequest& request, const DescribeEndpointsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeEndpointsAsyncHelper( request, handler, context ); } );
+}
+
+void DynamoDBClient::DescribeEndpointsAsyncHelper(const DescribeEndpointsRequest& request, const DescribeEndpointsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeEndpoints(request), context);
+}
+
+DescribeGlobalTableOutcome DynamoDBClient::DescribeGlobalTable(const DescribeGlobalTableRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DescribeGlobalTable", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DescribeGlobalTable", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DescribeGlobalTable", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DescribeGlobalTable", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeGlobalTableOutcome(DescribeGlobalTableResult(outcome.GetResult()));
@@ -512,11 +907,38 @@ void DynamoDBClient::DescribeGlobalTableAsyncHelper(const DescribeGlobalTableReq
 
 DescribeGlobalTableSettingsOutcome DynamoDBClient::DescribeGlobalTableSettings(const DescribeGlobalTableSettingsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DescribeGlobalTableSettings", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DescribeGlobalTableSettings", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DescribeGlobalTableSettings", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DescribeGlobalTableSettings", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeGlobalTableSettingsOutcome(DescribeGlobalTableSettingsResult(outcome.GetResult()));
@@ -547,11 +969,38 @@ void DynamoDBClient::DescribeGlobalTableSettingsAsyncHelper(const DescribeGlobal
 
 DescribeLimitsOutcome DynamoDBClient::DescribeLimits(const DescribeLimitsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DescribeLimits", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DescribeLimits", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DescribeLimits", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DescribeLimits", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeLimitsOutcome(DescribeLimitsResult(outcome.GetResult()));
@@ -582,11 +1031,38 @@ void DynamoDBClient::DescribeLimitsAsyncHelper(const DescribeLimitsRequest& requ
 
 DescribeTableOutcome DynamoDBClient::DescribeTable(const DescribeTableRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DescribeTable", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DescribeTable", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DescribeTable", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DescribeTable", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeTableOutcome(DescribeTableResult(outcome.GetResult()));
@@ -615,13 +1091,75 @@ void DynamoDBClient::DescribeTableAsyncHelper(const DescribeTableRequest& reques
   handler(this, request, DescribeTable(request), context);
 }
 
-DescribeTimeToLiveOutcome DynamoDBClient::DescribeTimeToLive(const DescribeTimeToLiveRequest& request) const
+DescribeTableReplicaAutoScalingOutcome DynamoDBClient::DescribeTableReplicaAutoScaling(const DescribeTableReplicaAutoScalingRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeTableReplicaAutoScalingOutcome(DescribeTableReplicaAutoScalingResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeTableReplicaAutoScalingOutcome(outcome.GetError());
+  }
+}
+
+DescribeTableReplicaAutoScalingOutcomeCallable DynamoDBClient::DescribeTableReplicaAutoScalingCallable(const DescribeTableReplicaAutoScalingRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeTableReplicaAutoScalingOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeTableReplicaAutoScaling(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void DynamoDBClient::DescribeTableReplicaAutoScalingAsync(const DescribeTableReplicaAutoScalingRequest& request, const DescribeTableReplicaAutoScalingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeTableReplicaAutoScalingAsyncHelper( request, handler, context ); } );
+}
+
+void DynamoDBClient::DescribeTableReplicaAutoScalingAsyncHelper(const DescribeTableReplicaAutoScalingRequest& request, const DescribeTableReplicaAutoScalingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeTableReplicaAutoScaling(request), context);
+}
+
+DescribeTimeToLiveOutcome DynamoDBClient::DescribeTimeToLive(const DescribeTimeToLiveRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("DescribeTimeToLive", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("DescribeTimeToLive", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("DescribeTimeToLive", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("DescribeTimeToLive", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeTimeToLiveOutcome(DescribeTimeToLiveResult(outcome.GetResult()));
@@ -652,11 +1190,38 @@ void DynamoDBClient::DescribeTimeToLiveAsyncHelper(const DescribeTimeToLiveReque
 
 GetItemOutcome DynamoDBClient::GetItem(const GetItemRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("GetItem", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("GetItem", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("GetItem", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("GetItem", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetItemOutcome(GetItemResult(outcome.GetResult()));
@@ -687,11 +1252,38 @@ void DynamoDBClient::GetItemAsyncHelper(const GetItemRequest& request, const Get
 
 ListBackupsOutcome DynamoDBClient::ListBackups(const ListBackupsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("ListBackups", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("ListBackups", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("ListBackups", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("ListBackups", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListBackupsOutcome(ListBackupsResult(outcome.GetResult()));
@@ -720,13 +1312,75 @@ void DynamoDBClient::ListBackupsAsyncHelper(const ListBackupsRequest& request, c
   handler(this, request, ListBackups(request), context);
 }
 
-ListGlobalTablesOutcome DynamoDBClient::ListGlobalTables(const ListGlobalTablesRequest& request) const
+ListContributorInsightsOutcome DynamoDBClient::ListContributorInsights(const ListContributorInsightsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ListContributorInsightsOutcome(ListContributorInsightsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListContributorInsightsOutcome(outcome.GetError());
+  }
+}
+
+ListContributorInsightsOutcomeCallable DynamoDBClient::ListContributorInsightsCallable(const ListContributorInsightsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListContributorInsightsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListContributorInsights(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void DynamoDBClient::ListContributorInsightsAsync(const ListContributorInsightsRequest& request, const ListContributorInsightsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListContributorInsightsAsyncHelper( request, handler, context ); } );
+}
+
+void DynamoDBClient::ListContributorInsightsAsyncHelper(const ListContributorInsightsRequest& request, const ListContributorInsightsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListContributorInsights(request), context);
+}
+
+ListGlobalTablesOutcome DynamoDBClient::ListGlobalTables(const ListGlobalTablesRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("ListGlobalTables", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("ListGlobalTables", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("ListGlobalTables", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("ListGlobalTables", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListGlobalTablesOutcome(ListGlobalTablesResult(outcome.GetResult()));
@@ -757,11 +1411,38 @@ void DynamoDBClient::ListGlobalTablesAsyncHelper(const ListGlobalTablesRequest& 
 
 ListTablesOutcome DynamoDBClient::ListTables(const ListTablesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("ListTables", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("ListTables", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("ListTables", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("ListTables", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListTablesOutcome(ListTablesResult(outcome.GetResult()));
@@ -792,11 +1473,38 @@ void DynamoDBClient::ListTablesAsyncHelper(const ListTablesRequest& request, con
 
 ListTagsOfResourceOutcome DynamoDBClient::ListTagsOfResource(const ListTagsOfResourceRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("ListTagsOfResource", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("ListTagsOfResource", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("ListTagsOfResource", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("ListTagsOfResource", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListTagsOfResourceOutcome(ListTagsOfResourceResult(outcome.GetResult()));
@@ -827,11 +1535,38 @@ void DynamoDBClient::ListTagsOfResourceAsyncHelper(const ListTagsOfResourceReque
 
 PutItemOutcome DynamoDBClient::PutItem(const PutItemRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("PutItem", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("PutItem", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("PutItem", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("PutItem", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return PutItemOutcome(PutItemResult(outcome.GetResult()));
@@ -862,11 +1597,38 @@ void DynamoDBClient::PutItemAsyncHelper(const PutItemRequest& request, const Put
 
 QueryOutcome DynamoDBClient::Query(const QueryRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("Query", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("Query", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("Query", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("Query", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return QueryOutcome(QueryResult(outcome.GetResult()));
@@ -897,11 +1659,38 @@ void DynamoDBClient::QueryAsyncHelper(const QueryRequest& request, const QueryRe
 
 RestoreTableFromBackupOutcome DynamoDBClient::RestoreTableFromBackup(const RestoreTableFromBackupRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("RestoreTableFromBackup", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("RestoreTableFromBackup", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("RestoreTableFromBackup", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("RestoreTableFromBackup", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return RestoreTableFromBackupOutcome(RestoreTableFromBackupResult(outcome.GetResult()));
@@ -932,11 +1721,38 @@ void DynamoDBClient::RestoreTableFromBackupAsyncHelper(const RestoreTableFromBac
 
 RestoreTableToPointInTimeOutcome DynamoDBClient::RestoreTableToPointInTime(const RestoreTableToPointInTimeRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("RestoreTableToPointInTime", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("RestoreTableToPointInTime", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("RestoreTableToPointInTime", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("RestoreTableToPointInTime", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return RestoreTableToPointInTimeOutcome(RestoreTableToPointInTimeResult(outcome.GetResult()));
@@ -967,11 +1783,38 @@ void DynamoDBClient::RestoreTableToPointInTimeAsyncHelper(const RestoreTableToPo
 
 ScanOutcome DynamoDBClient::Scan(const ScanRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("Scan", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("Scan", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("Scan", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("Scan", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ScanOutcome(ScanResult(outcome.GetResult()));
@@ -1002,11 +1845,38 @@ void DynamoDBClient::ScanAsyncHelper(const ScanRequest& request, const ScanRespo
 
 TagResourceOutcome DynamoDBClient::TagResource(const TagResourceRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("TagResource", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("TagResource", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("TagResource", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("TagResource", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return TagResourceOutcome(NoResult());
@@ -1035,13 +1905,164 @@ void DynamoDBClient::TagResourceAsyncHelper(const TagResourceRequest& request, c
   handler(this, request, TagResource(request), context);
 }
 
-UntagResourceOutcome DynamoDBClient::UntagResource(const UntagResourceRequest& request) const
+TransactGetItemsOutcome DynamoDBClient::TransactGetItems(const TransactGetItemsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("TransactGetItems", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("TransactGetItems", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("TransactGetItems", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("TransactGetItems", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return TransactGetItemsOutcome(TransactGetItemsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return TransactGetItemsOutcome(outcome.GetError());
+  }
+}
+
+TransactGetItemsOutcomeCallable DynamoDBClient::TransactGetItemsCallable(const TransactGetItemsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< TransactGetItemsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->TransactGetItems(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void DynamoDBClient::TransactGetItemsAsync(const TransactGetItemsRequest& request, const TransactGetItemsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->TransactGetItemsAsyncHelper( request, handler, context ); } );
+}
+
+void DynamoDBClient::TransactGetItemsAsyncHelper(const TransactGetItemsRequest& request, const TransactGetItemsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, TransactGetItems(request), context);
+}
+
+TransactWriteItemsOutcome DynamoDBClient::TransactWriteItems(const TransactWriteItemsRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("TransactWriteItems", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("TransactWriteItems", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("TransactWriteItems", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("TransactWriteItems", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return TransactWriteItemsOutcome(TransactWriteItemsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return TransactWriteItemsOutcome(outcome.GetError());
+  }
+}
+
+TransactWriteItemsOutcomeCallable DynamoDBClient::TransactWriteItemsCallable(const TransactWriteItemsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< TransactWriteItemsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->TransactWriteItems(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void DynamoDBClient::TransactWriteItemsAsync(const TransactWriteItemsRequest& request, const TransactWriteItemsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->TransactWriteItemsAsyncHelper( request, handler, context ); } );
+}
+
+void DynamoDBClient::TransactWriteItemsAsyncHelper(const TransactWriteItemsRequest& request, const TransactWriteItemsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, TransactWriteItems(request), context);
+}
+
+UntagResourceOutcome DynamoDBClient::UntagResource(const UntagResourceRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("UntagResource", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("UntagResource", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("UntagResource", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("UntagResource", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UntagResourceOutcome(NoResult());
@@ -1072,11 +2093,38 @@ void DynamoDBClient::UntagResourceAsyncHelper(const UntagResourceRequest& reques
 
 UpdateContinuousBackupsOutcome DynamoDBClient::UpdateContinuousBackups(const UpdateContinuousBackupsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("UpdateContinuousBackups", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("UpdateContinuousBackups", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("UpdateContinuousBackups", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("UpdateContinuousBackups", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateContinuousBackupsOutcome(UpdateContinuousBackupsResult(outcome.GetResult()));
@@ -1105,13 +2153,75 @@ void DynamoDBClient::UpdateContinuousBackupsAsyncHelper(const UpdateContinuousBa
   handler(this, request, UpdateContinuousBackups(request), context);
 }
 
-UpdateGlobalTableOutcome DynamoDBClient::UpdateGlobalTable(const UpdateGlobalTableRequest& request) const
+UpdateContributorInsightsOutcome DynamoDBClient::UpdateContributorInsights(const UpdateContributorInsightsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UpdateContributorInsightsOutcome(UpdateContributorInsightsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UpdateContributorInsightsOutcome(outcome.GetError());
+  }
+}
+
+UpdateContributorInsightsOutcomeCallable DynamoDBClient::UpdateContributorInsightsCallable(const UpdateContributorInsightsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UpdateContributorInsightsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UpdateContributorInsights(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void DynamoDBClient::UpdateContributorInsightsAsync(const UpdateContributorInsightsRequest& request, const UpdateContributorInsightsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UpdateContributorInsightsAsyncHelper( request, handler, context ); } );
+}
+
+void DynamoDBClient::UpdateContributorInsightsAsyncHelper(const UpdateContributorInsightsRequest& request, const UpdateContributorInsightsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UpdateContributorInsights(request), context);
+}
+
+UpdateGlobalTableOutcome DynamoDBClient::UpdateGlobalTable(const UpdateGlobalTableRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("UpdateGlobalTable", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("UpdateGlobalTable", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("UpdateGlobalTable", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("UpdateGlobalTable", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateGlobalTableOutcome(UpdateGlobalTableResult(outcome.GetResult()));
@@ -1142,11 +2252,38 @@ void DynamoDBClient::UpdateGlobalTableAsyncHelper(const UpdateGlobalTableRequest
 
 UpdateGlobalTableSettingsOutcome DynamoDBClient::UpdateGlobalTableSettings(const UpdateGlobalTableSettingsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("UpdateGlobalTableSettings", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("UpdateGlobalTableSettings", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("UpdateGlobalTableSettings", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("UpdateGlobalTableSettings", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateGlobalTableSettingsOutcome(UpdateGlobalTableSettingsResult(outcome.GetResult()));
@@ -1177,11 +2314,38 @@ void DynamoDBClient::UpdateGlobalTableSettingsAsyncHelper(const UpdateGlobalTabl
 
 UpdateItemOutcome DynamoDBClient::UpdateItem(const UpdateItemRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("UpdateItem", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("UpdateItem", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("UpdateItem", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("UpdateItem", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateItemOutcome(UpdateItemResult(outcome.GetResult()));
@@ -1212,11 +2376,38 @@ void DynamoDBClient::UpdateItemAsyncHelper(const UpdateItemRequest& request, con
 
 UpdateTableOutcome DynamoDBClient::UpdateTable(const UpdateTableRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("UpdateTable", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("UpdateTable", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("UpdateTable", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("UpdateTable", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateTableOutcome(UpdateTableResult(outcome.GetResult()));
@@ -1245,13 +2436,75 @@ void DynamoDBClient::UpdateTableAsyncHelper(const UpdateTableRequest& request, c
   handler(this, request, UpdateTable(request), context);
 }
 
-UpdateTimeToLiveOutcome DynamoDBClient::UpdateTimeToLive(const UpdateTimeToLiveRequest& request) const
+UpdateTableReplicaAutoScalingOutcome DynamoDBClient::UpdateTableReplicaAutoScaling(const UpdateTableReplicaAutoScalingRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UpdateTableReplicaAutoScalingOutcome(UpdateTableReplicaAutoScalingResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UpdateTableReplicaAutoScalingOutcome(outcome.GetError());
+  }
+}
+
+UpdateTableReplicaAutoScalingOutcomeCallable DynamoDBClient::UpdateTableReplicaAutoScalingCallable(const UpdateTableReplicaAutoScalingRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UpdateTableReplicaAutoScalingOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UpdateTableReplicaAutoScaling(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void DynamoDBClient::UpdateTableReplicaAutoScalingAsync(const UpdateTableReplicaAutoScalingRequest& request, const UpdateTableReplicaAutoScalingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UpdateTableReplicaAutoScalingAsyncHelper( request, handler, context ); } );
+}
+
+void DynamoDBClient::UpdateTableReplicaAutoScalingAsyncHelper(const UpdateTableReplicaAutoScalingRequest& request, const UpdateTableReplicaAutoScalingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UpdateTableReplicaAutoScaling(request), context);
+}
+
+UpdateTimeToLiveOutcome DynamoDBClient::UpdateTimeToLive(const UpdateTimeToLiveRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  if (m_enableEndpointDiscovery)
+  {
+    Aws::String endpointKey = "Shared";
+    Aws::String endpoint;
+    if (m_endpointsCache.Get(endpointKey, endpoint))
+    {
+      AWS_LOGSTREAM_TRACE("UpdateTimeToLive", "Making request to cached endpoint: " << endpoint);
+      uri = endpoint;
+    }
+    else
+    {
+      AWS_LOGSTREAM_TRACE("UpdateTimeToLive", "Endpoint discovery is enabled and there is no usable endpoint in cache. Discovering endpoints from service...");
+      DescribeEndpointsRequest endpointRequest;
+      auto endpointOutcome = DescribeEndpoints(endpointRequest);
+      if (endpointOutcome.IsSuccess() && !endpointOutcome.GetResult().GetEndpoints().empty())
+      {
+        const auto& item = endpointOutcome.GetResult().GetEndpoints()[0];
+        m_endpointsCache.Put(endpointKey, item.GetAddress(), std::chrono::minutes(item.GetCachePeriodInMinutes()));
+        uri = item.GetAddress();
+        AWS_LOGSTREAM_TRACE("UpdateTimeToLive", "Endpoints cache updated. Address: " << item.GetAddress() << ". Valid in: " << item.GetCachePeriodInMinutes() << " minutes. Making request to newly discovered endpoint.");
+      }
+      else
+      {
+        AWS_LOGSTREAM_ERROR("UpdateTimeToLive", "Failed to discover endpoints " << endpointOutcome.GetError() << "\n Endpoint discovery is not required for this operation, falling back to the regional endpoint.");
+      }
+    }
+  }
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateTimeToLiveOutcome(UpdateTimeToLiveResult(outcome.GetResult()));

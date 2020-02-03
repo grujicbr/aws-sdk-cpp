@@ -28,15 +28,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for StopInstances.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/StopInstancesRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API StopInstancesRequest : public EC2Request
   {
   public:
     StopInstancesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,44 +48,90 @@ namespace Model
   public:
 
     /**
-     * <p>One or more instance IDs.</p>
+     * <p>The IDs of the instances.</p>
      */
     inline const Aws::Vector<Aws::String>& GetInstanceIds() const{ return m_instanceIds; }
 
     /**
-     * <p>One or more instance IDs.</p>
+     * <p>The IDs of the instances.</p>
+     */
+    inline bool InstanceIdsHasBeenSet() const { return m_instanceIdsHasBeenSet; }
+
+    /**
+     * <p>The IDs of the instances.</p>
      */
     inline void SetInstanceIds(const Aws::Vector<Aws::String>& value) { m_instanceIdsHasBeenSet = true; m_instanceIds = value; }
 
     /**
-     * <p>One or more instance IDs.</p>
+     * <p>The IDs of the instances.</p>
      */
     inline void SetInstanceIds(Aws::Vector<Aws::String>&& value) { m_instanceIdsHasBeenSet = true; m_instanceIds = std::move(value); }
 
     /**
-     * <p>One or more instance IDs.</p>
+     * <p>The IDs of the instances.</p>
      */
     inline StopInstancesRequest& WithInstanceIds(const Aws::Vector<Aws::String>& value) { SetInstanceIds(value); return *this;}
 
     /**
-     * <p>One or more instance IDs.</p>
+     * <p>The IDs of the instances.</p>
      */
     inline StopInstancesRequest& WithInstanceIds(Aws::Vector<Aws::String>&& value) { SetInstanceIds(std::move(value)); return *this;}
 
     /**
-     * <p>One or more instance IDs.</p>
+     * <p>The IDs of the instances.</p>
      */
     inline StopInstancesRequest& AddInstanceIds(const Aws::String& value) { m_instanceIdsHasBeenSet = true; m_instanceIds.push_back(value); return *this; }
 
     /**
-     * <p>One or more instance IDs.</p>
+     * <p>The IDs of the instances.</p>
      */
     inline StopInstancesRequest& AddInstanceIds(Aws::String&& value) { m_instanceIdsHasBeenSet = true; m_instanceIds.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>One or more instance IDs.</p>
+     * <p>The IDs of the instances.</p>
      */
     inline StopInstancesRequest& AddInstanceIds(const char* value) { m_instanceIdsHasBeenSet = true; m_instanceIds.push_back(value); return *this; }
+
+
+    /**
+     * <p>Hibernates the instance if the instance was enabled for hibernation at
+     * launch. If the instance cannot hibernate successfully, a normal shutdown occurs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>
+     * Default: <code>false</code> </p>
+     */
+    inline bool GetHibernate() const{ return m_hibernate; }
+
+    /**
+     * <p>Hibernates the instance if the instance was enabled for hibernation at
+     * launch. If the instance cannot hibernate successfully, a normal shutdown occurs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>
+     * Default: <code>false</code> </p>
+     */
+    inline bool HibernateHasBeenSet() const { return m_hibernateHasBeenSet; }
+
+    /**
+     * <p>Hibernates the instance if the instance was enabled for hibernation at
+     * launch. If the instance cannot hibernate successfully, a normal shutdown occurs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>
+     * Default: <code>false</code> </p>
+     */
+    inline void SetHibernate(bool value) { m_hibernateHasBeenSet = true; m_hibernate = value; }
+
+    /**
+     * <p>Hibernates the instance if the instance was enabled for hibernation at
+     * launch. If the instance cannot hibernate successfully, a normal shutdown occurs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>
+     * Default: <code>false</code> </p>
+     */
+    inline StopInstancesRequest& WithHibernate(bool value) { SetHibernate(value); return *this;}
 
 
     /**
@@ -98,6 +141,14 @@ namespace Model
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
     inline bool GetDryRun() const{ return m_dryRun; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
 
     /**
      * <p>Checks whether you have the required permissions for the action, without
@@ -130,6 +181,14 @@ namespace Model
      * must perform file system check and repair procedures. This option is not
      * recommended for Windows instances.</p> <p>Default: <code>false</code> </p>
      */
+    inline bool ForceHasBeenSet() const { return m_forceHasBeenSet; }
+
+    /**
+     * <p>Forces the instances to stop. The instances do not have an opportunity to
+     * flush file system caches or file system metadata. If you use this option, you
+     * must perform file system check and repair procedures. This option is not
+     * recommended for Windows instances.</p> <p>Default: <code>false</code> </p>
+     */
     inline void SetForce(bool value) { m_forceHasBeenSet = true; m_force = value; }
 
     /**
@@ -144,6 +203,9 @@ namespace Model
 
     Aws::Vector<Aws::String> m_instanceIds;
     bool m_instanceIdsHasBeenSet;
+
+    bool m_hibernate;
+    bool m_hibernateHasBeenSet;
 
     bool m_dryRun;
     bool m_dryRunHasBeenSet;

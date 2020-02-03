@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationDiscoveryService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ConfigurationTag();
-    ConfigurationTag(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConfigurationTag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConfigurationTag(Aws::Utils::Json::JsonView jsonValue);
+    ConfigurationTag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>A type of IT asset to tag.</p>
      */
     inline const ConfigurationItemType& GetConfigurationType() const{ return m_configurationType; }
+
+    /**
+     * <p>A type of IT asset to tag.</p>
+     */
+    inline bool ConfigurationTypeHasBeenSet() const { return m_configurationTypeHasBeenSet; }
 
     /**
      * <p>A type of IT asset to tag.</p>
@@ -80,6 +86,12 @@ namespace Model
      * values.</p>
      */
     inline const Aws::String& GetConfigurationId() const{ return m_configurationId; }
+
+    /**
+     * <p>The configuration ID for the item to tag. You can specify a list of keys and
+     * values.</p>
+     */
+    inline bool ConfigurationIdHasBeenSet() const { return m_configurationIdHasBeenSet; }
 
     /**
      * <p>The configuration ID for the item to tag. You can specify a list of keys and
@@ -126,6 +138,11 @@ namespace Model
     /**
      * <p>A type of tag on which to filter. For example, <i>serverType</i>.</p>
      */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
+
+    /**
+     * <p>A type of tag on which to filter. For example, <i>serverType</i>.</p>
+     */
     inline void SetKey(const Aws::String& value) { m_keyHasBeenSet = true; m_key = value; }
 
     /**
@@ -159,6 +176,12 @@ namespace Model
      * = web server</i>.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>A value on which to filter. For example <i>key = serverType</i> and <i>value
+     * = web server</i>.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>A value on which to filter. For example <i>key = serverType</i> and <i>value
@@ -202,6 +225,12 @@ namespace Model
      * (UTC).</p>
      */
     inline const Aws::Utils::DateTime& GetTimeOfCreation() const{ return m_timeOfCreation; }
+
+    /**
+     * <p>The time the configuration tag was created in Coordinated Universal Time
+     * (UTC).</p>
+     */
+    inline bool TimeOfCreationHasBeenSet() const { return m_timeOfCreationHasBeenSet; }
 
     /**
      * <p>The time the configuration tag was created in Coordinated Universal Time

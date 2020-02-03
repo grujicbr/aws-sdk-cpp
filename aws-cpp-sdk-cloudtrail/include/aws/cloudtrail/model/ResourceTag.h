@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudTrail
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ResourceTag();
-    ResourceTag(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceTag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceTag(Aws::Utils::Json::JsonView jsonValue);
+    ResourceTag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Specifies the ARN of the resource.</p>
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
+
+    /**
+     * <p>Specifies the ARN of the resource.</p>
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
 
     /**
      * <p>Specifies the ARN of the resource.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>A list of tags.</p>
      */
     inline const Aws::Vector<Tag>& GetTagsList() const{ return m_tagsList; }
+
+    /**
+     * <p>A list of tags.</p>
+     */
+    inline bool TagsListHasBeenSet() const { return m_tagsListHasBeenSet; }
 
     /**
      * <p>A list of tags.</p>

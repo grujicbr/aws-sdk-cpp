@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     PostCommentForPullRequestRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +51,12 @@ namespace Model
      * <a>ListPullRequests</a>.</p>
      */
     inline const Aws::String& GetPullRequestId() const{ return m_pullRequestId; }
+
+    /**
+     * <p>The system-generated ID of the pull request. To get this ID, use
+     * <a>ListPullRequests</a>.</p>
+     */
+    inline bool PullRequestIdHasBeenSet() const { return m_pullRequestIdHasBeenSet; }
 
     /**
      * <p>The system-generated ID of the pull request. To get this ID, use
@@ -99,6 +105,12 @@ namespace Model
      * <p>The name of the repository where you want to post a comment on a pull
      * request.</p>
      */
+    inline bool RepositoryNameHasBeenSet() const { return m_repositoryNameHasBeenSet; }
+
+    /**
+     * <p>The name of the repository where you want to post a comment on a pull
+     * request.</p>
+     */
     inline void SetRepositoryName(const Aws::String& value) { m_repositoryNameHasBeenSet = true; m_repositoryName = value; }
 
     /**
@@ -137,6 +149,12 @@ namespace Model
      * of the branch at the time the pull request was created.</p>
      */
     inline const Aws::String& GetBeforeCommitId() const{ return m_beforeCommitId; }
+
+    /**
+     * <p>The full commit ID of the commit in the destination branch that was the tip
+     * of the branch at the time the pull request was created.</p>
+     */
+    inline bool BeforeCommitIdHasBeenSet() const { return m_beforeCommitIdHasBeenSet; }
 
     /**
      * <p>The full commit ID of the commit in the destination branch that was the tip
@@ -185,6 +203,12 @@ namespace Model
      * <p>The full commit ID of the commit in the source branch that is the current tip
      * of the branch for the pull request when you post the comment.</p>
      */
+    inline bool AfterCommitIdHasBeenSet() const { return m_afterCommitIdHasBeenSet; }
+
+    /**
+     * <p>The full commit ID of the commit in the source branch that is the current tip
+     * of the branch for the pull request when you post the comment.</p>
+     */
     inline void SetAfterCommitId(const Aws::String& value) { m_afterCommitIdHasBeenSet = true; m_afterCommitId = value; }
 
     /**
@@ -220,41 +244,43 @@ namespace Model
 
     /**
      * <p>The location of the change where you want to post your comment. If no
-     * location is provided, the comment will be posted as a general comment on the
-     * pull request difference between the before commit ID and the after commit
-     * ID.</p>
+     * location is provided, the comment is posted as a general comment on the pull
+     * request difference between the before commit ID and the after commit ID.</p>
      */
     inline const Location& GetLocation() const{ return m_location; }
 
     /**
      * <p>The location of the change where you want to post your comment. If no
-     * location is provided, the comment will be posted as a general comment on the
-     * pull request difference between the before commit ID and the after commit
-     * ID.</p>
+     * location is provided, the comment is posted as a general comment on the pull
+     * request difference between the before commit ID and the after commit ID.</p>
+     */
+    inline bool LocationHasBeenSet() const { return m_locationHasBeenSet; }
+
+    /**
+     * <p>The location of the change where you want to post your comment. If no
+     * location is provided, the comment is posted as a general comment on the pull
+     * request difference between the before commit ID and the after commit ID.</p>
      */
     inline void SetLocation(const Location& value) { m_locationHasBeenSet = true; m_location = value; }
 
     /**
      * <p>The location of the change where you want to post your comment. If no
-     * location is provided, the comment will be posted as a general comment on the
-     * pull request difference between the before commit ID and the after commit
-     * ID.</p>
+     * location is provided, the comment is posted as a general comment on the pull
+     * request difference between the before commit ID and the after commit ID.</p>
      */
     inline void SetLocation(Location&& value) { m_locationHasBeenSet = true; m_location = std::move(value); }
 
     /**
      * <p>The location of the change where you want to post your comment. If no
-     * location is provided, the comment will be posted as a general comment on the
-     * pull request difference between the before commit ID and the after commit
-     * ID.</p>
+     * location is provided, the comment is posted as a general comment on the pull
+     * request difference between the before commit ID and the after commit ID.</p>
      */
     inline PostCommentForPullRequestRequest& WithLocation(const Location& value) { SetLocation(value); return *this;}
 
     /**
      * <p>The location of the change where you want to post your comment. If no
-     * location is provided, the comment will be posted as a general comment on the
-     * pull request difference between the before commit ID and the after commit
-     * ID.</p>
+     * location is provided, the comment is posted as a general comment on the pull
+     * request difference between the before commit ID and the after commit ID.</p>
      */
     inline PostCommentForPullRequestRequest& WithLocation(Location&& value) { SetLocation(std::move(value)); return *this;}
 
@@ -263,6 +289,11 @@ namespace Model
      * <p>The content of your comment on the change.</p>
      */
     inline const Aws::String& GetContent() const{ return m_content; }
+
+    /**
+     * <p>The content of your comment on the change.</p>
+     */
+    inline bool ContentHasBeenSet() const { return m_contentHasBeenSet; }
 
     /**
      * <p>The content of your comment on the change.</p>
@@ -296,58 +327,66 @@ namespace Model
 
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline const Aws::String& GetClientRequestToken() const{ return m_clientRequestToken; }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     */
+    inline bool ClientRequestTokenHasBeenSet() const { return m_clientRequestTokenHasBeenSet; }
+
+    /**
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline void SetClientRequestToken(const Aws::String& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = value; }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline void SetClientRequestToken(Aws::String&& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = std::move(value); }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline void SetClientRequestToken(const char* value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken.assign(value); }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline PostCommentForPullRequestRequest& WithClientRequestToken(const Aws::String& value) { SetClientRequestToken(value); return *this;}
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline PostCommentForPullRequestRequest& WithClientRequestToken(Aws::String&& value) { SetClientRequestToken(std::move(value)); return *this;}
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline PostCommentForPullRequestRequest& WithClientRequestToken(const char* value) { SetClientRequestToken(value); return *this;}
 

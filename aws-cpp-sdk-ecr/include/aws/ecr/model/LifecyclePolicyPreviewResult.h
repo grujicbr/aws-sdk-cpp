@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECR
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     LifecyclePolicyPreviewResult();
-    LifecyclePolicyPreviewResult(const Aws::Utils::Json::JsonValue& jsonValue);
-    LifecyclePolicyPreviewResult& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LifecyclePolicyPreviewResult(Aws::Utils::Json::JsonView jsonValue);
+    LifecyclePolicyPreviewResult& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The list of tags associated with this image.</p>
      */
     inline const Aws::Vector<Aws::String>& GetImageTags() const{ return m_imageTags; }
+
+    /**
+     * <p>The list of tags associated with this image.</p>
+     */
+    inline bool ImageTagsHasBeenSet() const { return m_imageTagsHasBeenSet; }
 
     /**
      * <p>The list of tags associated with this image.</p>
@@ -98,6 +104,11 @@ namespace Model
     /**
      * <p>The <code>sha256</code> digest of the image manifest.</p>
      */
+    inline bool ImageDigestHasBeenSet() const { return m_imageDigestHasBeenSet; }
+
+    /**
+     * <p>The <code>sha256</code> digest of the image manifest.</p>
+     */
     inline void SetImageDigest(const Aws::String& value) { m_imageDigestHasBeenSet = true; m_imageDigest = value; }
 
     /**
@@ -136,6 +147,12 @@ namespace Model
      * <p>The date and time, expressed in standard JavaScript date format, at which the
      * current image was pushed to the repository.</p>
      */
+    inline bool ImagePushedAtHasBeenSet() const { return m_imagePushedAtHasBeenSet; }
+
+    /**
+     * <p>The date and time, expressed in standard JavaScript date format, at which the
+     * current image was pushed to the repository.</p>
+     */
     inline void SetImagePushedAt(const Aws::Utils::DateTime& value) { m_imagePushedAtHasBeenSet = true; m_imagePushedAt = value; }
 
     /**
@@ -165,6 +182,11 @@ namespace Model
     /**
      * <p>The type of action to be taken.</p>
      */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
+
+    /**
+     * <p>The type of action to be taken.</p>
+     */
     inline void SetAction(const LifecyclePolicyRuleAction& value) { m_actionHasBeenSet = true; m_action = value; }
 
     /**
@@ -187,6 +209,11 @@ namespace Model
      * <p>The priority of the applied rule.</p>
      */
     inline int GetAppliedRulePriority() const{ return m_appliedRulePriority; }
+
+    /**
+     * <p>The priority of the applied rule.</p>
+     */
+    inline bool AppliedRulePriorityHasBeenSet() const { return m_appliedRulePriorityHasBeenSet; }
 
     /**
      * <p>The priority of the applied rule.</p>

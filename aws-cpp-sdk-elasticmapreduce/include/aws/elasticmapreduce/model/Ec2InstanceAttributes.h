@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Ec2InstanceAttributes();
-    Ec2InstanceAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    Ec2InstanceAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Ec2InstanceAttributes(Aws::Utils::Json::JsonView jsonValue);
+    Ec2InstanceAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * master node as a user named "hadoop".</p>
      */
     inline const Aws::String& GetEc2KeyName() const{ return m_ec2KeyName; }
+
+    /**
+     * <p>The name of the Amazon EC2 key pair to use when connecting with SSH into the
+     * master node as a user named "hadoop".</p>
+     */
+    inline bool Ec2KeyNameHasBeenSet() const { return m_ec2KeyNameHasBeenSet; }
 
     /**
      * <p>The name of the Amazon EC2 key pair to use when connecting with SSH into the
@@ -93,72 +100,58 @@ namespace Model
 
 
     /**
-     * <p>To launch the cluster in Amazon VPC, set this parameter to the identifier of
-     * the Amazon VPC subnet where you want the cluster to launch. If you do not
-     * specify this value, the cluster is launched in the normal AWS cloud, outside of
-     * a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge
-     * instance type for nodes of a cluster launched in a VPC.</p>
+     * <p>Set this parameter to the identifier of the Amazon VPC subnet where you want
+     * the cluster to launch. If you do not specify this value, and your account
+     * supports EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline const Aws::String& GetEc2SubnetId() const{ return m_ec2SubnetId; }
 
     /**
-     * <p>To launch the cluster in Amazon VPC, set this parameter to the identifier of
-     * the Amazon VPC subnet where you want the cluster to launch. If you do not
-     * specify this value, the cluster is launched in the normal AWS cloud, outside of
-     * a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge
-     * instance type for nodes of a cluster launched in a VPC.</p>
+     * <p>Set this parameter to the identifier of the Amazon VPC subnet where you want
+     * the cluster to launch. If you do not specify this value, and your account
+     * supports EC2-Classic, the cluster launches in EC2-Classic.</p>
+     */
+    inline bool Ec2SubnetIdHasBeenSet() const { return m_ec2SubnetIdHasBeenSet; }
+
+    /**
+     * <p>Set this parameter to the identifier of the Amazon VPC subnet where you want
+     * the cluster to launch. If you do not specify this value, and your account
+     * supports EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline void SetEc2SubnetId(const Aws::String& value) { m_ec2SubnetIdHasBeenSet = true; m_ec2SubnetId = value; }
 
     /**
-     * <p>To launch the cluster in Amazon VPC, set this parameter to the identifier of
-     * the Amazon VPC subnet where you want the cluster to launch. If you do not
-     * specify this value, the cluster is launched in the normal AWS cloud, outside of
-     * a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge
-     * instance type for nodes of a cluster launched in a VPC.</p>
+     * <p>Set this parameter to the identifier of the Amazon VPC subnet where you want
+     * the cluster to launch. If you do not specify this value, and your account
+     * supports EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline void SetEc2SubnetId(Aws::String&& value) { m_ec2SubnetIdHasBeenSet = true; m_ec2SubnetId = std::move(value); }
 
     /**
-     * <p>To launch the cluster in Amazon VPC, set this parameter to the identifier of
-     * the Amazon VPC subnet where you want the cluster to launch. If you do not
-     * specify this value, the cluster is launched in the normal AWS cloud, outside of
-     * a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge
-     * instance type for nodes of a cluster launched in a VPC.</p>
+     * <p>Set this parameter to the identifier of the Amazon VPC subnet where you want
+     * the cluster to launch. If you do not specify this value, and your account
+     * supports EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline void SetEc2SubnetId(const char* value) { m_ec2SubnetIdHasBeenSet = true; m_ec2SubnetId.assign(value); }
 
     /**
-     * <p>To launch the cluster in Amazon VPC, set this parameter to the identifier of
-     * the Amazon VPC subnet where you want the cluster to launch. If you do not
-     * specify this value, the cluster is launched in the normal AWS cloud, outside of
-     * a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge
-     * instance type for nodes of a cluster launched in a VPC.</p>
+     * <p>Set this parameter to the identifier of the Amazon VPC subnet where you want
+     * the cluster to launch. If you do not specify this value, and your account
+     * supports EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline Ec2InstanceAttributes& WithEc2SubnetId(const Aws::String& value) { SetEc2SubnetId(value); return *this;}
 
     /**
-     * <p>To launch the cluster in Amazon VPC, set this parameter to the identifier of
-     * the Amazon VPC subnet where you want the cluster to launch. If you do not
-     * specify this value, the cluster is launched in the normal AWS cloud, outside of
-     * a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge
-     * instance type for nodes of a cluster launched in a VPC.</p>
+     * <p>Set this parameter to the identifier of the Amazon VPC subnet where you want
+     * the cluster to launch. If you do not specify this value, and your account
+     * supports EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline Ec2InstanceAttributes& WithEc2SubnetId(Aws::String&& value) { SetEc2SubnetId(std::move(value)); return *this;}
 
     /**
-     * <p>To launch the cluster in Amazon VPC, set this parameter to the identifier of
-     * the Amazon VPC subnet where you want the cluster to launch. If you do not
-     * specify this value, the cluster is launched in the normal AWS cloud, outside of
-     * a VPC.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus, you cannot specify the cc1.4xlarge
-     * instance type for nodes of a cluster launched in a VPC.</p>
+     * <p>Set this parameter to the identifier of the Amazon VPC subnet where you want
+     * the cluster to launch. If you do not specify this value, and your account
+     * supports EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline Ec2InstanceAttributes& WithEc2SubnetId(const char* value) { SetEc2SubnetId(value); return *this;}
 
@@ -169,7 +162,7 @@ namespace Model
      * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
      * the EC2 subnet with the best fit from among the list of
      * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
-     * within that Subnet. If this value is not specified, and the account and region
+     * within that Subnet. If this value is not specified, and the account and Region
      * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
      * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
      * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
@@ -184,7 +177,22 @@ namespace Model
      * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
      * the EC2 subnet with the best fit from among the list of
      * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
-     * within that Subnet. If this value is not specified, and the account and region
+     * within that Subnet. If this value is not specified, and the account and Region
+     * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
+     * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
+     * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
+     * chooses the subnet for you. <code>RequestedEc2SubnetIDs</code> and
+     * <code>RequestedEc2AvailabilityZones</code> cannot be specified together.</p>
+     */
+    inline bool RequestedEc2SubnetIdsHasBeenSet() const { return m_requestedEc2SubnetIdsHasBeenSet; }
+
+    /**
+     * <p>Applies to clusters configured with the instance fleets option. Specifies the
+     * unique identifier of one or more Amazon EC2 subnets in which to launch EC2
+     * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
+     * the EC2 subnet with the best fit from among the list of
+     * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
+     * within that Subnet. If this value is not specified, and the account and Region
      * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
      * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
      * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
@@ -199,7 +207,7 @@ namespace Model
      * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
      * the EC2 subnet with the best fit from among the list of
      * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
-     * within that Subnet. If this value is not specified, and the account and region
+     * within that Subnet. If this value is not specified, and the account and Region
      * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
      * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
      * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
@@ -214,7 +222,7 @@ namespace Model
      * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
      * the EC2 subnet with the best fit from among the list of
      * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
-     * within that Subnet. If this value is not specified, and the account and region
+     * within that Subnet. If this value is not specified, and the account and Region
      * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
      * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
      * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
@@ -229,7 +237,7 @@ namespace Model
      * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
      * the EC2 subnet with the best fit from among the list of
      * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
-     * within that Subnet. If this value is not specified, and the account and region
+     * within that Subnet. If this value is not specified, and the account and Region
      * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
      * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
      * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
@@ -244,7 +252,7 @@ namespace Model
      * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
      * the EC2 subnet with the best fit from among the list of
      * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
-     * within that Subnet. If this value is not specified, and the account and region
+     * within that Subnet. If this value is not specified, and the account and Region
      * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
      * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
      * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
@@ -259,7 +267,7 @@ namespace Model
      * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
      * the EC2 subnet with the best fit from among the list of
      * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
-     * within that Subnet. If this value is not specified, and the account and region
+     * within that Subnet. If this value is not specified, and the account and Region
      * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
      * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
      * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
@@ -274,7 +282,7 @@ namespace Model
      * cluster instances. Subnets must exist within the same VPC. Amazon EMR chooses
      * the EC2 subnet with the best fit from among the list of
      * <code>RequestedEc2SubnetIds</code>, and then launches all cluster instances
-     * within that Subnet. If this value is not specified, and the account and region
+     * within that Subnet. If this value is not specified, and the account and Region
      * support EC2-Classic networks, the cluster launches instances in the EC2-Classic
      * network and uses <code>RequestedEc2AvailabilityZones</code> instead of this
      * setting. If EC2-Classic is not supported, and no Subnet is specified, Amazon EMR
@@ -288,6 +296,11 @@ namespace Model
      * <p>The Availability Zone in which the cluster will run. </p>
      */
     inline const Aws::String& GetEc2AvailabilityZone() const{ return m_ec2AvailabilityZone; }
+
+    /**
+     * <p>The Availability Zone in which the cluster will run. </p>
+     */
+    inline bool Ec2AvailabilityZoneHasBeenSet() const { return m_ec2AvailabilityZoneHasBeenSet; }
 
     /**
      * <p>The Availability Zone in which the cluster will run. </p>
@@ -332,6 +345,19 @@ namespace Model
      * <code>RequestedEc2AvailabilityZones</code> cannot be specified together.</p>
      */
     inline const Aws::Vector<Aws::String>& GetRequestedEc2AvailabilityZones() const{ return m_requestedEc2AvailabilityZones; }
+
+    /**
+     * <p>Applies to clusters configured with the instance fleets option. Specifies one
+     * or more Availability Zones in which to launch EC2 cluster instances when the
+     * EC2-Classic network configuration is supported. Amazon EMR chooses the
+     * Availability Zone with the best fit from among the list of
+     * <code>RequestedEc2AvailabilityZones</code>, and then launches all cluster
+     * instances within that Availability Zone. If you do not specify this value,
+     * Amazon EMR chooses the Availability Zone for you.
+     * <code>RequestedEc2SubnetIDs</code> and
+     * <code>RequestedEc2AvailabilityZones</code> cannot be specified together.</p>
+     */
+    inline bool RequestedEc2AvailabilityZonesHasBeenSet() const { return m_requestedEc2AvailabilityZonesHasBeenSet; }
 
     /**
      * <p>Applies to clusters configured with the instance fleets option. Specifies one
@@ -435,6 +461,12 @@ namespace Model
      * <p>The IAM role that was specified when the cluster was launched. The EC2
      * instances of the cluster assume this role.</p>
      */
+    inline bool IamInstanceProfileHasBeenSet() const { return m_iamInstanceProfileHasBeenSet; }
+
+    /**
+     * <p>The IAM role that was specified when the cluster was launched. The EC2
+     * instances of the cluster assume this role.</p>
+     */
     inline void SetIamInstanceProfile(const Aws::String& value) { m_iamInstanceProfileHasBeenSet = true; m_iamInstanceProfile = value; }
 
     /**
@@ -476,6 +508,11 @@ namespace Model
     /**
      * <p>The identifier of the Amazon EC2 security group for the master node.</p>
      */
+    inline bool EmrManagedMasterSecurityGroupHasBeenSet() const { return m_emrManagedMasterSecurityGroupHasBeenSet; }
+
+    /**
+     * <p>The identifier of the Amazon EC2 security group for the master node.</p>
+     */
     inline void SetEmrManagedMasterSecurityGroup(const Aws::String& value) { m_emrManagedMasterSecurityGroupHasBeenSet = true; m_emrManagedMasterSecurityGroup = value; }
 
     /**
@@ -505,37 +542,50 @@ namespace Model
 
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline const Aws::String& GetEmrManagedSlaveSecurityGroup() const{ return m_emrManagedSlaveSecurityGroup; }
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
+     */
+    inline bool EmrManagedSlaveSecurityGroupHasBeenSet() const { return m_emrManagedSlaveSecurityGroupHasBeenSet; }
+
+    /**
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline void SetEmrManagedSlaveSecurityGroup(const Aws::String& value) { m_emrManagedSlaveSecurityGroupHasBeenSet = true; m_emrManagedSlaveSecurityGroup = value; }
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline void SetEmrManagedSlaveSecurityGroup(Aws::String&& value) { m_emrManagedSlaveSecurityGroupHasBeenSet = true; m_emrManagedSlaveSecurityGroup = std::move(value); }
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline void SetEmrManagedSlaveSecurityGroup(const char* value) { m_emrManagedSlaveSecurityGroupHasBeenSet = true; m_emrManagedSlaveSecurityGroup.assign(value); }
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline Ec2InstanceAttributes& WithEmrManagedSlaveSecurityGroup(const Aws::String& value) { SetEmrManagedSlaveSecurityGroup(value); return *this;}
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline Ec2InstanceAttributes& WithEmrManagedSlaveSecurityGroup(Aws::String&& value) { SetEmrManagedSlaveSecurityGroup(std::move(value)); return *this;}
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline Ec2InstanceAttributes& WithEmrManagedSlaveSecurityGroup(const char* value) { SetEmrManagedSlaveSecurityGroup(value); return *this;}
 
@@ -545,6 +595,12 @@ namespace Model
      * access clusters in VPC private subnets.</p>
      */
     inline const Aws::String& GetServiceAccessSecurityGroup() const{ return m_serviceAccessSecurityGroup; }
+
+    /**
+     * <p>The identifier of the Amazon EC2 security group for the Amazon EMR service to
+     * access clusters in VPC private subnets.</p>
+     */
+    inline bool ServiceAccessSecurityGroupHasBeenSet() const { return m_serviceAccessSecurityGroupHasBeenSet; }
 
     /**
      * <p>The identifier of the Amazon EC2 security group for the Amazon EMR service to
@@ -591,6 +647,11 @@ namespace Model
     /**
      * <p>A list of additional Amazon EC2 security group IDs for the master node.</p>
      */
+    inline bool AdditionalMasterSecurityGroupsHasBeenSet() const { return m_additionalMasterSecurityGroupsHasBeenSet; }
+
+    /**
+     * <p>A list of additional Amazon EC2 security group IDs for the master node.</p>
+     */
     inline void SetAdditionalMasterSecurityGroups(const Aws::Vector<Aws::String>& value) { m_additionalMasterSecurityGroupsHasBeenSet = true; m_additionalMasterSecurityGroups = value; }
 
     /**
@@ -625,42 +686,56 @@ namespace Model
 
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAdditionalSlaveSecurityGroups() const{ return m_additionalSlaveSecurityGroups; }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
+     */
+    inline bool AdditionalSlaveSecurityGroupsHasBeenSet() const { return m_additionalSlaveSecurityGroupsHasBeenSet; }
+
+    /**
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline void SetAdditionalSlaveSecurityGroups(const Aws::Vector<Aws::String>& value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups = value; }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline void SetAdditionalSlaveSecurityGroups(Aws::Vector<Aws::String>&& value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups = std::move(value); }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline Ec2InstanceAttributes& WithAdditionalSlaveSecurityGroups(const Aws::Vector<Aws::String>& value) { SetAdditionalSlaveSecurityGroups(value); return *this;}
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline Ec2InstanceAttributes& WithAdditionalSlaveSecurityGroups(Aws::Vector<Aws::String>&& value) { SetAdditionalSlaveSecurityGroups(std::move(value)); return *this;}
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline Ec2InstanceAttributes& AddAdditionalSlaveSecurityGroups(const Aws::String& value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups.push_back(value); return *this; }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline Ec2InstanceAttributes& AddAdditionalSlaveSecurityGroups(Aws::String&& value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline Ec2InstanceAttributes& AddAdditionalSlaveSecurityGroups(const char* value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups.push_back(value); return *this; }
 

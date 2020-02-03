@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -42,43 +43,48 @@ namespace Model
   {
   public:
     ErrorDetails();
-    ErrorDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    ErrorDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ErrorDetails(Aws::Utils::Json::JsonView jsonValue);
+    ErrorDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The system ID or error number code of the error.</p>
+     * <p>The system ID or number code of the error.</p>
      */
     inline const Aws::String& GetCode() const{ return m_code; }
 
     /**
-     * <p>The system ID or error number code of the error.</p>
+     * <p>The system ID or number code of the error.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
+
+    /**
+     * <p>The system ID or number code of the error.</p>
      */
     inline void SetCode(const Aws::String& value) { m_codeHasBeenSet = true; m_code = value; }
 
     /**
-     * <p>The system ID or error number code of the error.</p>
+     * <p>The system ID or number code of the error.</p>
      */
     inline void SetCode(Aws::String&& value) { m_codeHasBeenSet = true; m_code = std::move(value); }
 
     /**
-     * <p>The system ID or error number code of the error.</p>
+     * <p>The system ID or number code of the error.</p>
      */
     inline void SetCode(const char* value) { m_codeHasBeenSet = true; m_code.assign(value); }
 
     /**
-     * <p>The system ID or error number code of the error.</p>
+     * <p>The system ID or number code of the error.</p>
      */
     inline ErrorDetails& WithCode(const Aws::String& value) { SetCode(value); return *this;}
 
     /**
-     * <p>The system ID or error number code of the error.</p>
+     * <p>The system ID or number code of the error.</p>
      */
     inline ErrorDetails& WithCode(Aws::String&& value) { SetCode(std::move(value)); return *this;}
 
     /**
-     * <p>The system ID or error number code of the error.</p>
+     * <p>The system ID or number code of the error.</p>
      */
     inline ErrorDetails& WithCode(const char* value) { SetCode(value); return *this;}
 
@@ -87,6 +93,11 @@ namespace Model
      * <p>The text of the error message.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The text of the error message.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The text of the error message.</p>

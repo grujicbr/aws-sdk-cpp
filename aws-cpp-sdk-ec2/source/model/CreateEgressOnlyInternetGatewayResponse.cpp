@@ -51,7 +51,7 @@ CreateEgressOnlyInternetGatewayResponse& CreateEgressOnlyInternetGatewayResponse
     XmlNode clientTokenNode = resultNode.FirstChild("clientToken");
     if(!clientTokenNode.IsNull())
     {
-      m_clientToken = StringUtils::Trim(clientTokenNode.GetText().c_str());
+      m_clientToken = Aws::Utils::Xml::DecodeEscapedXmlText(clientTokenNode.GetText());
     }
     XmlNode egressOnlyInternetGatewayNode = resultNode.FirstChild("egressOnlyInternetGateway");
     if(!egressOnlyInternetGatewayNode.IsNull())
@@ -61,8 +61,11 @@ CreateEgressOnlyInternetGatewayResponse& CreateEgressOnlyInternetGatewayResponse
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::CreateEgressOnlyInternetGatewayResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

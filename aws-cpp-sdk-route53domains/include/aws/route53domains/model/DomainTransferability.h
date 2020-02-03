@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Route53Domains
@@ -42,13 +43,16 @@ namespace Model
   {
   public:
     DomainTransferability();
-    DomainTransferability(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainTransferability& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainTransferability(Aws::Utils::Json::JsonView jsonValue);
+    DomainTransferability& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Transferable& GetTransferable() const{ return m_transferable; }
+
+    
+    inline bool TransferableHasBeenSet() const { return m_transferableHasBeenSet; }
 
     
     inline void SetTransferable(const Transferable& value) { m_transferableHasBeenSet = true; m_transferable = value; }

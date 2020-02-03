@@ -34,10 +34,12 @@ CreateDBInstanceReadReplicaRequest::CreateDBInstanceReadReplicaRequest() :
     m_iops(0),
     m_iopsHasBeenSet(false),
     m_optionGroupNameHasBeenSet(false),
+    m_dBParameterGroupNameHasBeenSet(false),
     m_publiclyAccessible(false),
     m_publiclyAccessibleHasBeenSet(false),
     m_tagsHasBeenSet(false),
     m_dBSubnetGroupNameHasBeenSet(false),
+    m_vpcSecurityGroupIdsHasBeenSet(false),
     m_storageTypeHasBeenSet(false),
     m_copyTagsToSnapshot(false),
     m_copyTagsToSnapshotHasBeenSet(false),
@@ -56,7 +58,11 @@ CreateDBInstanceReadReplicaRequest::CreateDBInstanceReadReplicaRequest() :
     m_enableCloudwatchLogsExportsHasBeenSet(false),
     m_processorFeaturesHasBeenSet(false),
     m_useDefaultProcessorFeatures(false),
-    m_useDefaultProcessorFeaturesHasBeenSet(false)
+    m_useDefaultProcessorFeaturesHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false),
+    m_domainHasBeenSet(false),
+    m_domainIAMRoleNameHasBeenSet(false)
 {
 }
 
@@ -109,6 +115,11 @@ Aws::String CreateDBInstanceReadReplicaRequest::SerializePayload() const
     ss << "OptionGroupName=" << StringUtils::URLEncode(m_optionGroupName.c_str()) << "&";
   }
 
+  if(m_dBParameterGroupNameHasBeenSet)
+  {
+    ss << "DBParameterGroupName=" << StringUtils::URLEncode(m_dBParameterGroupName.c_str()) << "&";
+  }
+
   if(m_publiclyAccessibleHasBeenSet)
   {
     ss << "PubliclyAccessible=" << std::boolalpha << m_publiclyAccessible << "&";
@@ -127,6 +138,17 @@ Aws::String CreateDBInstanceReadReplicaRequest::SerializePayload() const
   if(m_dBSubnetGroupNameHasBeenSet)
   {
     ss << "DBSubnetGroupName=" << StringUtils::URLEncode(m_dBSubnetGroupName.c_str()) << "&";
+  }
+
+  if(m_vpcSecurityGroupIdsHasBeenSet)
+  {
+    unsigned vpcSecurityGroupIdsCount = 1;
+    for(auto& item : m_vpcSecurityGroupIds)
+    {
+      ss << "VpcSecurityGroupIds.member." << vpcSecurityGroupIdsCount << "="
+          << StringUtils::URLEncode(item.c_str()) << "&";
+      vpcSecurityGroupIdsCount++;
+    }
   }
 
   if(m_storageTypeHasBeenSet)
@@ -203,6 +225,21 @@ Aws::String CreateDBInstanceReadReplicaRequest::SerializePayload() const
   if(m_useDefaultProcessorFeaturesHasBeenSet)
   {
     ss << "UseDefaultProcessorFeatures=" << std::boolalpha << m_useDefaultProcessorFeatures << "&";
+  }
+
+  if(m_deletionProtectionHasBeenSet)
+  {
+    ss << "DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
+  }
+
+  if(m_domainHasBeenSet)
+  {
+    ss << "Domain=" << StringUtils::URLEncode(m_domain.c_str()) << "&";
+  }
+
+  if(m_domainIAMRoleNameHasBeenSet)
+  {
+    ss << "DomainIAMRoleName=" << StringUtils::URLEncode(m_domainIAMRoleName.c_str()) << "&";
   }
 
   ss << "Version=2014-10-31";

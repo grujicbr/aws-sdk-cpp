@@ -29,7 +29,9 @@ UpdateProvisioningArtifactRequest::UpdateProvisioningArtifactRequest() :
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_active(false),
-    m_activeHasBeenSet(false)
+    m_activeHasBeenSet(false),
+    m_guidance(ProvisioningArtifactGuidance::NOT_SET),
+    m_guidanceHasBeenSet(false)
 {
 }
 
@@ -73,7 +75,12 @@ Aws::String UpdateProvisioningArtifactRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_guidanceHasBeenSet)
+  {
+   payload.WithString("Guidance", ProvisioningArtifactGuidanceMapper::GetNameForProvisioningArtifactGuidance(m_guidance));
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateProvisioningArtifactRequest::GetRequestSpecificHeaders() const

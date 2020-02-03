@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     InspectorServiceAttributes();
-    InspectorServiceAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    InspectorServiceAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InspectorServiceAttributes(Aws::Utils::Json::JsonView jsonValue);
+    InspectorServiceAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The schema version of this data type.</p>
      */
     inline int GetSchemaVersion() const{ return m_schemaVersion; }
+
+    /**
+     * <p>The schema version of this data type.</p>
+     */
+    inline bool SchemaVersionHasBeenSet() const { return m_schemaVersionHasBeenSet; }
 
     /**
      * <p>The schema version of this data type.</p>
@@ -67,6 +73,11 @@ namespace Model
      * <p>The ARN of the assessment run during which the finding is generated.</p>
      */
     inline const Aws::String& GetAssessmentRunArn() const{ return m_assessmentRunArn; }
+
+    /**
+     * <p>The ARN of the assessment run during which the finding is generated.</p>
+     */
+    inline bool AssessmentRunArnHasBeenSet() const { return m_assessmentRunArnHasBeenSet; }
 
     /**
      * <p>The ARN of the assessment run during which the finding is generated.</p>
@@ -103,6 +114,11 @@ namespace Model
      * <p>The ARN of the rules package that is used to generate the finding.</p>
      */
     inline const Aws::String& GetRulesPackageArn() const{ return m_rulesPackageArn; }
+
+    /**
+     * <p>The ARN of the rules package that is used to generate the finding.</p>
+     */
+    inline bool RulesPackageArnHasBeenSet() const { return m_rulesPackageArnHasBeenSet; }
 
     /**
      * <p>The ARN of the rules package that is used to generate the finding.</p>

@@ -39,7 +39,7 @@ CreateApiKeyResult::CreateApiKeyResult(const Aws::AmazonWebServiceResult<JsonVal
 
 CreateApiKeyResult& CreateApiKeyResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("id"))
   {
     m_id = jsonValue.GetString("id");
@@ -90,10 +90,19 @@ CreateApiKeyResult& CreateApiKeyResult::operator =(const Aws::AmazonWebServiceRe
 
   if(jsonValue.ValueExists("stageKeys"))
   {
-    Array<JsonValue> stageKeysJsonList = jsonValue.GetArray("stageKeys");
+    Array<JsonView> stageKeysJsonList = jsonValue.GetArray("stageKeys");
     for(unsigned stageKeysIndex = 0; stageKeysIndex < stageKeysJsonList.GetLength(); ++stageKeysIndex)
     {
       m_stageKeys.push_back(stageKeysJsonList[stageKeysIndex].AsString());
+    }
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
     }
   }
 

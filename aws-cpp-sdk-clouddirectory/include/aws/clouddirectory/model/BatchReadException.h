@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchReadException();
-    BatchReadException(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchReadException& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchReadException(Aws::Utils::Json::JsonView jsonValue);
+    BatchReadException& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A type of exception, such as <code>InvalidArnException</code>.</p>
      */
     inline const BatchReadExceptionType& GetType() const{ return m_type; }
+
+    /**
+     * <p>A type of exception, such as <code>InvalidArnException</code>.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>A type of exception, such as <code>InvalidArnException</code>.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>An exception message that is associated with the failure.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>An exception message that is associated with the failure.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>An exception message that is associated with the failure.</p>

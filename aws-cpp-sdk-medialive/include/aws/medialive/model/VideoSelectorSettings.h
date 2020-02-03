@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for VideoSelectorSettings<p><h3>See Also:</h3>   <a
+   * Video Selector Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelectorSettings">AWS
    * API Reference</a></p>
    */
@@ -42,13 +43,16 @@ namespace Model
   {
   public:
     VideoSelectorSettings();
-    VideoSelectorSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    VideoSelectorSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VideoSelectorSettings(Aws::Utils::Json::JsonView jsonValue);
+    VideoSelectorSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const VideoSelectorPid& GetVideoSelectorPid() const{ return m_videoSelectorPid; }
+
+    
+    inline bool VideoSelectorPidHasBeenSet() const { return m_videoSelectorPidHasBeenSet; }
 
     
     inline void SetVideoSelectorPid(const VideoSelectorPid& value) { m_videoSelectorPidHasBeenSet = true; m_videoSelectorPid = value; }
@@ -65,6 +69,9 @@ namespace Model
 
     
     inline const VideoSelectorProgramId& GetVideoSelectorProgramId() const{ return m_videoSelectorProgramId; }
+
+    
+    inline bool VideoSelectorProgramIdHasBeenSet() const { return m_videoSelectorProgramIdHasBeenSet; }
 
     
     inline void SetVideoSelectorProgramId(const VideoSelectorProgramId& value) { m_videoSelectorProgramIdHasBeenSet = true; m_videoSelectorProgramId = value; }

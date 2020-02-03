@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     S3ReferenceDataSourceDescription();
-    S3ReferenceDataSourceDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3ReferenceDataSourceDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3ReferenceDataSourceDescription(Aws::Utils::Json::JsonView jsonValue);
+    S3ReferenceDataSourceDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Amazon Resource Name (ARN) of the S3 bucket.</p>
      */
     inline const Aws::String& GetBucketARN() const{ return m_bucketARN; }
+
+    /**
+     * <p>Amazon Resource Name (ARN) of the S3 bucket.</p>
+     */
+    inline bool BucketARNHasBeenSet() const { return m_bucketARNHasBeenSet; }
 
     /**
      * <p>Amazon Resource Name (ARN) of the S3 bucket.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>Amazon S3 object key name.</p>
      */
+    inline bool FileKeyHasBeenSet() const { return m_fileKeyHasBeenSet; }
+
+    /**
+     * <p>Amazon S3 object key name.</p>
+     */
     inline void SetFileKey(const Aws::String& value) { m_fileKeyHasBeenSet = true; m_fileKey = value; }
 
     /**
@@ -125,6 +136,13 @@ namespace Model
      * table.</p>
      */
     inline const Aws::String& GetReferenceRoleARN() const{ return m_referenceRoleARN; }
+
+    /**
+     * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to read the
+     * Amazon S3 object on your behalf to populate the in-application reference
+     * table.</p>
+     */
+    inline bool ReferenceRoleARNHasBeenSet() const { return m_referenceRoleARNHasBeenSet; }
 
     /**
      * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to read the

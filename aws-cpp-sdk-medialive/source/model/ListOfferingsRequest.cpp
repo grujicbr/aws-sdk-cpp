@@ -26,8 +26,10 @@ using namespace Aws::Utils;
 using namespace Aws::Http;
 
 ListOfferingsRequest::ListOfferingsRequest() : 
+    m_channelClassHasBeenSet(false),
     m_channelConfigurationHasBeenSet(false),
     m_codecHasBeenSet(false),
+    m_durationHasBeenSet(false),
     m_maxResults(0),
     m_maxResultsHasBeenSet(false),
     m_maximumBitrateHasBeenSet(false),
@@ -42,12 +44,19 @@ ListOfferingsRequest::ListOfferingsRequest() :
 
 Aws::String ListOfferingsRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 void ListOfferingsRequest::AddQueryStringParameters(URI& uri) const
 {
     Aws::StringStream ss;
+    if(m_channelClassHasBeenSet)
+    {
+      ss << m_channelClass;
+      uri.AddQueryStringParameter("channelClass", ss.str());
+      ss.str("");
+    }
+
     if(m_channelConfigurationHasBeenSet)
     {
       ss << m_channelConfiguration;
@@ -59,6 +68,13 @@ void ListOfferingsRequest::AddQueryStringParameters(URI& uri) const
     {
       ss << m_codec;
       uri.AddQueryStringParameter("codec", ss.str());
+      ss.str("");
+    }
+
+    if(m_durationHasBeenSet)
+    {
+      ss << m_duration;
+      uri.AddQueryStringParameter("duration", ss.str());
       ss.str("");
     }
 

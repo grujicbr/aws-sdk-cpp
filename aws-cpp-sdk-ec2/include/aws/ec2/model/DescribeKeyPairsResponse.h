@@ -36,11 +36,6 @@ namespace EC2
 {
 namespace Model
 {
-  /**
-   * <p>Contains the output of DescribeKeyPairs.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeKeyPairsResult">AWS
-   * API Reference</a></p>
-   */
   class AWS_EC2_API DescribeKeyPairsResponse
   {
   public:
@@ -50,37 +45,37 @@ namespace Model
 
 
     /**
-     * <p>Information about one or more key pairs.</p>
+     * <p>Information about the key pairs.</p>
      */
     inline const Aws::Vector<KeyPairInfo>& GetKeyPairs() const{ return m_keyPairs; }
 
     /**
-     * <p>Information about one or more key pairs.</p>
+     * <p>Information about the key pairs.</p>
      */
     inline void SetKeyPairs(const Aws::Vector<KeyPairInfo>& value) { m_keyPairs = value; }
 
     /**
-     * <p>Information about one or more key pairs.</p>
+     * <p>Information about the key pairs.</p>
      */
     inline void SetKeyPairs(Aws::Vector<KeyPairInfo>&& value) { m_keyPairs = std::move(value); }
 
     /**
-     * <p>Information about one or more key pairs.</p>
+     * <p>Information about the key pairs.</p>
      */
     inline DescribeKeyPairsResponse& WithKeyPairs(const Aws::Vector<KeyPairInfo>& value) { SetKeyPairs(value); return *this;}
 
     /**
-     * <p>Information about one or more key pairs.</p>
+     * <p>Information about the key pairs.</p>
      */
     inline DescribeKeyPairsResponse& WithKeyPairs(Aws::Vector<KeyPairInfo>&& value) { SetKeyPairs(std::move(value)); return *this;}
 
     /**
-     * <p>Information about one or more key pairs.</p>
+     * <p>Information about the key pairs.</p>
      */
     inline DescribeKeyPairsResponse& AddKeyPairs(const KeyPairInfo& value) { m_keyPairs.push_back(value); return *this; }
 
     /**
-     * <p>Information about one or more key pairs.</p>
+     * <p>Information about the key pairs.</p>
      */
     inline DescribeKeyPairsResponse& AddKeyPairs(KeyPairInfo&& value) { m_keyPairs.push_back(std::move(value)); return *this; }
 

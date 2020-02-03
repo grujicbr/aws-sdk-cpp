@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     SqsAction();
-    SqsAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    SqsAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SqsAction(Aws::Utils::Json::JsonView jsonValue);
+    SqsAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ARN of the IAM role that grants access.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The ARN of the IAM role that grants access.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The ARN of the IAM role that grants access.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The URL of the Amazon SQS queue.</p>
      */
+    inline bool QueueUrlHasBeenSet() const { return m_queueUrlHasBeenSet; }
+
+    /**
+     * <p>The URL of the Amazon SQS queue.</p>
+     */
     inline void SetQueueUrl(const Aws::String& value) { m_queueUrlHasBeenSet = true; m_queueUrl = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>Specifies whether to use Base64 encoding.</p>
      */
     inline bool GetUseBase64() const{ return m_useBase64; }
+
+    /**
+     * <p>Specifies whether to use Base64 encoding.</p>
+     */
+    inline bool UseBase64HasBeenSet() const { return m_useBase64HasBeenSet; }
 
     /**
      * <p>Specifies whether to use Base64 encoding.</p>

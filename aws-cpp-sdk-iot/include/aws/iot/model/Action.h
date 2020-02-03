@@ -29,6 +29,10 @@
 #include <aws/iot/model/ElasticsearchAction.h>
 #include <aws/iot/model/SalesforceAction.h>
 #include <aws/iot/model/IotAnalyticsAction.h>
+#include <aws/iot/model/IotEventsAction.h>
+#include <aws/iot/model/IotSiteWiseAction.h>
+#include <aws/iot/model/StepFunctionsAction.h>
+#include <aws/iot/model/HttpAction.h>
 #include <utility>
 
 namespace Aws
@@ -38,6 +42,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -54,8 +59,8 @@ namespace Model
   {
   public:
     Action();
-    Action(const Aws::Utils::Json::JsonValue& jsonValue);
-    Action& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Action(Aws::Utils::Json::JsonView jsonValue);
+    Action& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -63,6 +68,11 @@ namespace Model
      * <p>Write to a DynamoDB table.</p>
      */
     inline const DynamoDBAction& GetDynamoDB() const{ return m_dynamoDB; }
+
+    /**
+     * <p>Write to a DynamoDB table.</p>
+     */
+    inline bool DynamoDBHasBeenSet() const { return m_dynamoDBHasBeenSet; }
 
     /**
      * <p>Write to a DynamoDB table.</p>
@@ -91,6 +101,13 @@ namespace Model
      * DynamoDB column.</p>
      */
     inline const DynamoDBv2Action& GetDynamoDBv2() const{ return m_dynamoDBv2; }
+
+    /**
+     * <p>Write to a DynamoDB table. This is a new version of the DynamoDB action. It
+     * allows you to write each attribute in an MQTT message payload into a separate
+     * DynamoDB column.</p>
+     */
+    inline bool DynamoDBv2HasBeenSet() const { return m_dynamoDBv2HasBeenSet; }
 
     /**
      * <p>Write to a DynamoDB table. This is a new version of the DynamoDB action. It
@@ -129,6 +146,11 @@ namespace Model
     /**
      * <p>Invoke a Lambda function.</p>
      */
+    inline bool LambdaHasBeenSet() const { return m_lambdaHasBeenSet; }
+
+    /**
+     * <p>Invoke a Lambda function.</p>
+     */
     inline void SetLambda(const LambdaAction& value) { m_lambdaHasBeenSet = true; m_lambda = value; }
 
     /**
@@ -151,6 +173,11 @@ namespace Model
      * <p>Publish to an Amazon SNS topic.</p>
      */
     inline const SnsAction& GetSns() const{ return m_sns; }
+
+    /**
+     * <p>Publish to an Amazon SNS topic.</p>
+     */
+    inline bool SnsHasBeenSet() const { return m_snsHasBeenSet; }
 
     /**
      * <p>Publish to an Amazon SNS topic.</p>
@@ -181,6 +208,11 @@ namespace Model
     /**
      * <p>Publish to an Amazon SQS queue.</p>
      */
+    inline bool SqsHasBeenSet() const { return m_sqsHasBeenSet; }
+
+    /**
+     * <p>Publish to an Amazon SQS queue.</p>
+     */
     inline void SetSqs(const SqsAction& value) { m_sqsHasBeenSet = true; m_sqs = value; }
 
     /**
@@ -203,6 +235,11 @@ namespace Model
      * <p>Write data to an Amazon Kinesis stream.</p>
      */
     inline const KinesisAction& GetKinesis() const{ return m_kinesis; }
+
+    /**
+     * <p>Write data to an Amazon Kinesis stream.</p>
+     */
+    inline bool KinesisHasBeenSet() const { return m_kinesisHasBeenSet; }
 
     /**
      * <p>Write data to an Amazon Kinesis stream.</p>
@@ -233,6 +270,11 @@ namespace Model
     /**
      * <p>Publish to another MQTT topic.</p>
      */
+    inline bool RepublishHasBeenSet() const { return m_republishHasBeenSet; }
+
+    /**
+     * <p>Publish to another MQTT topic.</p>
+     */
     inline void SetRepublish(const RepublishAction& value) { m_republishHasBeenSet = true; m_republish = value; }
 
     /**
@@ -255,6 +297,11 @@ namespace Model
      * <p>Write to an Amazon S3 bucket.</p>
      */
     inline const S3Action& GetS3() const{ return m_s3; }
+
+    /**
+     * <p>Write to an Amazon S3 bucket.</p>
+     */
+    inline bool S3HasBeenSet() const { return m_s3HasBeenSet; }
 
     /**
      * <p>Write to an Amazon S3 bucket.</p>
@@ -285,6 +332,11 @@ namespace Model
     /**
      * <p>Write to an Amazon Kinesis Firehose stream.</p>
      */
+    inline bool FirehoseHasBeenSet() const { return m_firehoseHasBeenSet; }
+
+    /**
+     * <p>Write to an Amazon Kinesis Firehose stream.</p>
+     */
     inline void SetFirehose(const FirehoseAction& value) { m_firehoseHasBeenSet = true; m_firehose = value; }
 
     /**
@@ -307,6 +359,11 @@ namespace Model
      * <p>Capture a CloudWatch metric.</p>
      */
     inline const CloudwatchMetricAction& GetCloudwatchMetric() const{ return m_cloudwatchMetric; }
+
+    /**
+     * <p>Capture a CloudWatch metric.</p>
+     */
+    inline bool CloudwatchMetricHasBeenSet() const { return m_cloudwatchMetricHasBeenSet; }
 
     /**
      * <p>Capture a CloudWatch metric.</p>
@@ -337,6 +394,11 @@ namespace Model
     /**
      * <p>Change the state of a CloudWatch alarm.</p>
      */
+    inline bool CloudwatchAlarmHasBeenSet() const { return m_cloudwatchAlarmHasBeenSet; }
+
+    /**
+     * <p>Change the state of a CloudWatch alarm.</p>
+     */
     inline void SetCloudwatchAlarm(const CloudwatchAlarmAction& value) { m_cloudwatchAlarmHasBeenSet = true; m_cloudwatchAlarm = value; }
 
     /**
@@ -359,6 +421,11 @@ namespace Model
      * <p>Write data to an Amazon Elasticsearch Service domain.</p>
      */
     inline const ElasticsearchAction& GetElasticsearch() const{ return m_elasticsearch; }
+
+    /**
+     * <p>Write data to an Amazon Elasticsearch Service domain.</p>
+     */
+    inline bool ElasticsearchHasBeenSet() const { return m_elasticsearchHasBeenSet; }
 
     /**
      * <p>Write data to an Amazon Elasticsearch Service domain.</p>
@@ -389,6 +456,11 @@ namespace Model
     /**
      * <p>Send a message to a Salesforce IoT Cloud Input Stream.</p>
      */
+    inline bool SalesforceHasBeenSet() const { return m_salesforceHasBeenSet; }
+
+    /**
+     * <p>Send a message to a Salesforce IoT Cloud Input Stream.</p>
+     */
     inline void SetSalesforce(const SalesforceAction& value) { m_salesforceHasBeenSet = true; m_salesforce = value; }
 
     /**
@@ -415,6 +487,11 @@ namespace Model
     /**
      * <p>Sends message data to an AWS IoT Analytics channel.</p>
      */
+    inline bool IotAnalyticsHasBeenSet() const { return m_iotAnalyticsHasBeenSet; }
+
+    /**
+     * <p>Sends message data to an AWS IoT Analytics channel.</p>
+     */
     inline void SetIotAnalytics(const IotAnalyticsAction& value) { m_iotAnalyticsHasBeenSet = true; m_iotAnalytics = value; }
 
     /**
@@ -431,6 +508,136 @@ namespace Model
      * <p>Sends message data to an AWS IoT Analytics channel.</p>
      */
     inline Action& WithIotAnalytics(IotAnalyticsAction&& value) { SetIotAnalytics(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Sends an input to an AWS IoT Events detector.</p>
+     */
+    inline const IotEventsAction& GetIotEvents() const{ return m_iotEvents; }
+
+    /**
+     * <p>Sends an input to an AWS IoT Events detector.</p>
+     */
+    inline bool IotEventsHasBeenSet() const { return m_iotEventsHasBeenSet; }
+
+    /**
+     * <p>Sends an input to an AWS IoT Events detector.</p>
+     */
+    inline void SetIotEvents(const IotEventsAction& value) { m_iotEventsHasBeenSet = true; m_iotEvents = value; }
+
+    /**
+     * <p>Sends an input to an AWS IoT Events detector.</p>
+     */
+    inline void SetIotEvents(IotEventsAction&& value) { m_iotEventsHasBeenSet = true; m_iotEvents = std::move(value); }
+
+    /**
+     * <p>Sends an input to an AWS IoT Events detector.</p>
+     */
+    inline Action& WithIotEvents(const IotEventsAction& value) { SetIotEvents(value); return *this;}
+
+    /**
+     * <p>Sends an input to an AWS IoT Events detector.</p>
+     */
+    inline Action& WithIotEvents(IotEventsAction&& value) { SetIotEvents(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Sends data from the MQTT message that triggered the rule to AWS IoT SiteWise
+     * asset properties.</p>
+     */
+    inline const IotSiteWiseAction& GetIotSiteWise() const{ return m_iotSiteWise; }
+
+    /**
+     * <p>Sends data from the MQTT message that triggered the rule to AWS IoT SiteWise
+     * asset properties.</p>
+     */
+    inline bool IotSiteWiseHasBeenSet() const { return m_iotSiteWiseHasBeenSet; }
+
+    /**
+     * <p>Sends data from the MQTT message that triggered the rule to AWS IoT SiteWise
+     * asset properties.</p>
+     */
+    inline void SetIotSiteWise(const IotSiteWiseAction& value) { m_iotSiteWiseHasBeenSet = true; m_iotSiteWise = value; }
+
+    /**
+     * <p>Sends data from the MQTT message that triggered the rule to AWS IoT SiteWise
+     * asset properties.</p>
+     */
+    inline void SetIotSiteWise(IotSiteWiseAction&& value) { m_iotSiteWiseHasBeenSet = true; m_iotSiteWise = std::move(value); }
+
+    /**
+     * <p>Sends data from the MQTT message that triggered the rule to AWS IoT SiteWise
+     * asset properties.</p>
+     */
+    inline Action& WithIotSiteWise(const IotSiteWiseAction& value) { SetIotSiteWise(value); return *this;}
+
+    /**
+     * <p>Sends data from the MQTT message that triggered the rule to AWS IoT SiteWise
+     * asset properties.</p>
+     */
+    inline Action& WithIotSiteWise(IotSiteWiseAction&& value) { SetIotSiteWise(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Starts execution of a Step Functions state machine.</p>
+     */
+    inline const StepFunctionsAction& GetStepFunctions() const{ return m_stepFunctions; }
+
+    /**
+     * <p>Starts execution of a Step Functions state machine.</p>
+     */
+    inline bool StepFunctionsHasBeenSet() const { return m_stepFunctionsHasBeenSet; }
+
+    /**
+     * <p>Starts execution of a Step Functions state machine.</p>
+     */
+    inline void SetStepFunctions(const StepFunctionsAction& value) { m_stepFunctionsHasBeenSet = true; m_stepFunctions = value; }
+
+    /**
+     * <p>Starts execution of a Step Functions state machine.</p>
+     */
+    inline void SetStepFunctions(StepFunctionsAction&& value) { m_stepFunctionsHasBeenSet = true; m_stepFunctions = std::move(value); }
+
+    /**
+     * <p>Starts execution of a Step Functions state machine.</p>
+     */
+    inline Action& WithStepFunctions(const StepFunctionsAction& value) { SetStepFunctions(value); return *this;}
+
+    /**
+     * <p>Starts execution of a Step Functions state machine.</p>
+     */
+    inline Action& WithStepFunctions(StepFunctionsAction&& value) { SetStepFunctions(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Send data to an HTTPS endpoint.</p>
+     */
+    inline const HttpAction& GetHttp() const{ return m_http; }
+
+    /**
+     * <p>Send data to an HTTPS endpoint.</p>
+     */
+    inline bool HttpHasBeenSet() const { return m_httpHasBeenSet; }
+
+    /**
+     * <p>Send data to an HTTPS endpoint.</p>
+     */
+    inline void SetHttp(const HttpAction& value) { m_httpHasBeenSet = true; m_http = value; }
+
+    /**
+     * <p>Send data to an HTTPS endpoint.</p>
+     */
+    inline void SetHttp(HttpAction&& value) { m_httpHasBeenSet = true; m_http = std::move(value); }
+
+    /**
+     * <p>Send data to an HTTPS endpoint.</p>
+     */
+    inline Action& WithHttp(const HttpAction& value) { SetHttp(value); return *this;}
+
+    /**
+     * <p>Send data to an HTTPS endpoint.</p>
+     */
+    inline Action& WithHttp(HttpAction&& value) { SetHttp(std::move(value)); return *this;}
 
   private:
 
@@ -475,6 +682,18 @@ namespace Model
 
     IotAnalyticsAction m_iotAnalytics;
     bool m_iotAnalyticsHasBeenSet;
+
+    IotEventsAction m_iotEvents;
+    bool m_iotEventsHasBeenSet;
+
+    IotSiteWiseAction m_iotSiteWise;
+    bool m_iotSiteWiseHasBeenSet;
+
+    StepFunctionsAction m_stepFunctions;
+    bool m_stepFunctionsHasBeenSet;
+
+    HttpAction m_http;
+    bool m_httpHasBeenSet;
   };
 
 } // namespace Model

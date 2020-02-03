@@ -25,8 +25,12 @@ using namespace Aws::Utils;
 PutPlaybackConfigurationRequest::PutPlaybackConfigurationRequest() : 
     m_adDecisionServerUrlHasBeenSet(false),
     m_cdnConfigurationHasBeenSet(false),
+    m_dashConfigurationHasBeenSet(false),
+    m_livePreRollConfigurationHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_slateAdUrlHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_transcodeProfileNameHasBeenSet(false),
     m_videoContentSourceUrlHasBeenSet(false)
 {
 }
@@ -47,6 +51,18 @@ Aws::String PutPlaybackConfigurationRequest::SerializePayload() const
 
   }
 
+  if(m_dashConfigurationHasBeenSet)
+  {
+   payload.WithObject("DashConfiguration", m_dashConfiguration.Jsonize());
+
+  }
+
+  if(m_livePreRollConfigurationHasBeenSet)
+  {
+   payload.WithObject("LivePreRollConfiguration", m_livePreRollConfiguration.Jsonize());
+
+  }
+
   if(m_nameHasBeenSet)
   {
    payload.WithString("Name", m_name);
@@ -59,13 +75,30 @@ Aws::String PutPlaybackConfigurationRequest::SerializePayload() const
 
   }
 
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
+  }
+
+  if(m_transcodeProfileNameHasBeenSet)
+  {
+   payload.WithString("TranscodeProfileName", m_transcodeProfileName);
+
+  }
+
   if(m_videoContentSourceUrlHasBeenSet)
   {
    payload.WithString("VideoContentSourceUrl", m_videoContentSourceUrl);
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

@@ -1,19 +1,35 @@
 #
 # Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License.
 # A copy of the License is located at
-# 
+#
 #  http://aws.amazon.com/apache2.0
-# 
+#
 # or in the "license" file accompanying this file. This file is distributed
 # on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 #
 
-cmake_minimum_required (VERSION 2.8.12)
+cmake_minimum_required (VERSION 3.1)
+if(POLICY CMP0028)
+    cmake_policy(SET CMP0028 NEW)
+endif()
+if(POLICY CMP0048)
+    cmake_policy(SET CMP0048 NEW)
+endif()
+if(POLICY CMP0054)
+    cmake_policy(SET CMP0054 NEW)
+endif()
+if(POLICY CMP0056)
+    cmake_policy(SET CMP0056 NEW)
+endif()
+if(POLICY CMP0057)
+    cmake_policy(SET CMP0057 NEW) # support IN_LIST
+endif()
+
 
 # 3.0 or higher is strongly suggested; build settings (target_compile_options/etc...) sometimes do not get propagated properly under certain conditions prior to this version
 # Making this a hard requirement is potentially disruptive to existing customers who aren't affected by the bad behavior though, so just warn for now
@@ -23,11 +39,11 @@ endif()
 
 get_filename_component(AWS_NATIVE_SDK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}" ABSOLUTE)
 
-# git is required for Android builds and optional for all other platforms
+# git is required for Android builds and building third-party dependencies
 find_package(Git)
 
 # Cmake invocation variables:
-#   CUSTOM_MEMORY_MANAGEMENT - if set to 1, generates the sdk project files with custom memory management enabled, otherwise disables it
+#   CUSTOM_MEMORY_MANAGEMENT - if set to ON, generates the sdk project files with custom memory management enabled, otherwise disables it
 #   BUILD_ONLY - only build project identified by this variable, a semi-colon delimited list, if this is set we will build only the projects listed. Core will always be built as will its unit tests.
 #                    Also if a high level client is specified then we will build its dependencies as well. If a project has tests, the tests will be built.
 #   REGENERATE_CLIENTS - all clients being built on this run will be regenerated from the api definitions, this option involves some setup of python, java 8, jdk 1.8, and maven
@@ -42,7 +58,6 @@ option(ENABLE_UNITY_BUILD "If enabled, the SDK will be built using a single unif
 option(MINIMIZE_SIZE "If enabled, the SDK will be built via a unity aggregation process that results in smaller static libraries; additionally, release binaries will favor size optimizations over speed" OFF)
 option(BUILD_SHARED_LIBS "If enabled, all aws sdk libraries will be build as shared objects; otherwise all Aws libraries will be built as static objects" ON)
 option(FORCE_SHARED_CRT "If enabled, will unconditionally link the standard libraries in dynamically, otherwise the standard library will be linked in based on the BUILD_SHARED_LIBS setting" ON)
-option(DISABLE_ANDROID_STANDALONE_BUILD "If enabled, the android build will not attempt to generate a standalone toolchain and instead rely on externally passed cmake parameters to specify the complete build environment.  The included toolchain file is still used." OFF)
 option(SIMPLE_INSTALL "If enabled, removes all the additional indirection (platform/cpu/config) in the bin and lib directories on the install step" ON)
 option(NO_HTTP_CLIENT "If enabled, no platform-default http client will be included in the library.  For the library to be used you will need to provide your own platform-specific implementation" OFF)
 option(NO_ENCRYPTION "If enabled, no platform-default encryption will be included in the library.  For the library to be used you will need to provide your own platform-specific implementations" OFF)
@@ -56,10 +71,42 @@ option(ANDROID_BUILD_ZLIB "When building for Android, should Zlib be built as we
 option(FORCE_CURL "Forces usage of the Curl client rather than the default OS-specific api" OFF)
 option(ENABLE_ADDRESS_SANITIZER "Flags to enable/disable Address Sanitizer for gcc or clang" OFF)
 option(BYPASS_DEFAULT_PROXY "Bypass the machine's default proxy settings when using IXmlHttpRequest2" ON)
-
+option(BUILD_DEPS "Build third-party dependencies" ON)
+option(ENABLE_CURL_LOGGING "If enabled, Curl's internal log will be piped to SDK's logger" OFF)
+option(ENABLE_HTTP_CLIENT_TESTING "If enabled, corresponding http client test suites will be built and run" OFF)
+option(ENABLE_VIRTUAL_OPERATIONS "This option usually works with REGENERATE_CLIENTS. \
+                                If enabled when doing code generation, operation related functions in service clients will be marked as virtual. \
+                                If disabled when doing code generation, virtual will not be added to operation functions and service client class will be marked as final. \
+                                If disabled, SDK will add compiler flags '-ffunction-sections -fdata-sections' for gcc and clang when compiling. \
+                                You can utilize this feature to work with your linker to reduce binary size of your application on Unix platforms when doing static linking in Release mode." ON)
 
 set(BUILD_ONLY "" CACHE STRING "A semi-colon delimited list of the projects to build")
 set(CPP_STANDARD "11" CACHE STRING "Flag to upgrade the C++ standard used. The default is 11. The minimum is 11.")
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+#From https://stackoverflow.com/questions/18968979/how-to-get-colorized-output-with-cmake
+if(NOT WIN32)
+  string(ASCII 27 Esc)
+  set(ColourReset "${Esc}[m")
+  set(ColourBold  "${Esc}[1m")
+  set(Red         "${Esc}[31m")
+  set(Green       "${Esc}[32m")
+  set(Yellow      "${Esc}[33m")
+  set(Blue        "${Esc}[34m")
+  set(Magenta     "${Esc}[35m")
+  set(Cyan        "${Esc}[36m")
+  set(White       "${Esc}[37m")
+  set(BoldRed     "${Esc}[1;31m")
+  set(BoldGreen   "${Esc}[1;32m")
+  set(BoldYellow  "${Esc}[1;33m")
+  set(BoldBlue    "${Esc}[1;34m")
+  set(BoldMagenta "${Esc}[1;35m")
+  set(BoldCyan    "${Esc}[1;36m")
+  set(BoldWhite   "${Esc}[1;37m")
+endif()
 
 # backwards compatibility with old command line params
 if("${STATIC_LINKING}" STREQUAL "1")
@@ -73,7 +120,7 @@ endif()
 
 set(PYTHON_CMD "python")
 
-# CMAKE_MODULE_PATH is a CMAKE variable. It contains a list of paths 
+# CMAKE_MODULE_PATH is a CMAKE variable. It contains a list of paths
 # which could be used to search CMAKE modules by "include()" or "find_package()", but the default value is empty.
 # Add cmake dir to search list
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
@@ -81,6 +128,12 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 # include() will "load and run" cmake script
 include(resolve_platform)
 include(CMakePackageConfigHelpers)
+
+if (REGENERATE_CLIENTS AND NOT ENABLE_VIRTUAL_OPERATIONS)
+    if (PLATFORM_LINUX OR PLATFORM_APPLE)
+        Message(STATUS "${BoldYellow}You are regenerating service client's source code and is turning ENABLE_VIRTUAL_OPERATIONS off. If you are targeting smaller binary size, read description string of ENABLE_VIRTUAL_OPERATIONS.${ColourReset}")
+    endif()
+endif()
 
 # use response files to prevent command-line-too-big errors for large libraries like iam
 set(CMAKE_CXX_USE_RESPONSE_FILE_FOR_OBJECTS 1)
@@ -93,19 +146,100 @@ endif()
 
 include(initialize_project_version)
 
-if(POLICY CMP0028)
-    cmake_policy(SET CMP0028 NEW)
-endif()
-if(POLICY CMP0048)
-    cmake_policy(SET CMP0048 NEW)
-endif()
-if(POLICY CMP0054)
-    cmake_policy(SET CMP0054 NEW)
-endif()
-if(POLICY CMP0056)
-    cmake_policy(SET CMP0056 NEW)
+if (BUILD_SHARED_LIBS OR FORCE_SHARED_CRT)
+    set(STATIC_CRT OFF)
+else()
+    set(STATIC_CRT ON)
 endif()
 
+# Add Linker search paths to RPATH so as to fix the problem where some linkers can't find cross-compiled depenpent libraries in customer paths when linking executables.
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
+
+# build third-party targets
+if (BUILD_DEPS)
+    # If building third party dependencies, we will move them to the same directory where SDK has been installed during installation.
+    # Therefore, we should set rpath to $ORIGIN to let SDK find these third party dependencies.
+    # Otherwise, customers are responsible for handling the linkage to these libraries.
+    set(CMAKE_INSTALL_RPATH "$ORIGIN")
+    set(AWS_DEPS_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/.deps)
+    if (NOT DEFINED AWS_DEPS_INSTALL_DIR)
+        if (DEFINED CMAKE_INSTALL_PREFIX)
+            set(AWS_DEPS_INSTALL_DIR ${CMAKE_INSTALL_PREFIX} CACHE STRING "A string describes the path where 3rd-party dependencies will be or have been installed")
+        else()
+            set(AWS_DEPS_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/.deps/install CACHE STRING "A string describes the path where 3rd-party dependencies will be or have been installed")
+        endif()
+    endif()
+    if (NOT CMAKE_GENERATOR_PLATFORM STREQUAL "")
+        set(GEN_PLATFORM_ARG "-A${CMAKE_GENERATOR_PLATFORM}")
+    endif()
+    file(MAKE_DIRECTORY ${AWS_DEPS_BUILD_DIR})
+    if(TARGET_ARCH STREQUAL "ANDROID")
+        execute_process(
+            COMMAND ${CMAKE_COMMAND} -G ${CMAKE_GENERATOR}
+            -DTARGET_ARCH=${TARGET_ARCH}
+            -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
+            -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=${CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION}
+            -DANDROID_NATIVE_API_LEVEL=${ANDROID_NATIVE_API_LEVEL}
+            -DANDROID_ABI=${ANDROID_ABI}
+            -DANDROID_TOOLCHAIN=${ANDROID_TOOLCHAIN}
+            -DANDROID_STL=${ANDROID_STL}
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+            -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
+            -DCMAKE_INSTALL_PREFIX=${AWS_DEPS_INSTALL_DIR}
+            -DGIT_EXECUTABLE=${GIT_EXECUTABLE}
+            ${GEN_PLATFORM_ARG}
+            ${CMAKE_CURRENT_SOURCE_DIR}/third-party
+            WORKING_DIRECTORY ${AWS_DEPS_BUILD_DIR}
+            RESULT_VARIABLE BUILD_3P_EXIT_CODE)
+    elseif(TARGET_ARCH STREQUAL "APPLE" AND DEFINED CMAKE_OSX_ARCHITECTURES AND NOT CMAKE_OSX_ARCHITECTURES STREQUAL "")
+        message("Cross compiling third-party dependencies for architecture ${CMAKE_OSX_ARCHITECTURES}")
+        execute_process(
+            COMMAND ${CMAKE_COMMAND} -G ${CMAKE_GENERATOR}
+            -DTARGET_ARCH=${TARGET_ARCH}
+            -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+            -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
+            -DCMAKE_INSTALL_PREFIX=${AWS_DEPS_INSTALL_DIR}
+            -DCMAKE_OSX_SYSROOT=${CMAKE_OSX_SYSROOT}
+            -DCMAKE_OSX_ARCHITECTURES=${CMAKE_OSX_ARCHITECTURES}
+            -DCMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}
+            -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
+            -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/bin
+            ${GEN_PLATFORM_ARG}
+            ${CMAKE_CURRENT_SOURCE_DIR}/third-party
+            WORKING_DIRECTORY ${AWS_DEPS_BUILD_DIR}
+            RESULT_VARIABLE BUILD_3P_EXIT_CODE)
+    else()
+        execute_process(
+            COMMAND ${CMAKE_COMMAND} -G ${CMAKE_GENERATOR}
+            -DTARGET_ARCH=${TARGET_ARCH}
+            -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+            -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
+            -DSTATIC_CRT=${STATIC_CRT}
+            -DCMAKE_INSTALL_PREFIX=${AWS_DEPS_INSTALL_DIR}
+            -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/bin
+            ${GEN_PLATFORM_ARG}
+            ${CMAKE_CURRENT_SOURCE_DIR}/third-party
+            WORKING_DIRECTORY ${AWS_DEPS_BUILD_DIR}
+            RESULT_VARIABLE BUILD_3P_EXIT_CODE)
+    endif()
+
+    if (NOT ${BUILD_3P_EXIT_CODE} EQUAL 0)
+        message(FATAL_ERROR "Failed to configure third-party libraries.")
+    endif()
+    execute_process(COMMAND ${CMAKE_COMMAND} --build ${AWS_DEPS_BUILD_DIR} --config ${CMAKE_BUILD_TYPE}
+        RESULT_VARIABLE BUILD_3P_EXIT_CODE)
+
+    if (NOT ${BUILD_3P_EXIT_CODE} EQUAL 0)
+        message(FATAL_ERROR "Failed to build third-party libraries.")
+    endif()
+    message(STATUS "Third-party dependencies are installed at: ${AWS_DEPS_INSTALL_DIR}")
+    list(APPEND CMAKE_PREFIX_PATH "${AWS_DEPS_INSTALL_DIR}")
+endif()
+set(THIRD_PARTY_LIBS "aws-c-event-stream;aws-checksums;aws-c-common")
+
+# build the sdk targets
 project("aws-cpp-sdk-all" VERSION "${PROJECT_VERSION}" LANGUAGES CXX)
 
 # http client, encryption, zlib
@@ -180,6 +314,18 @@ endif()
 
 if (ENABLE_ADDRESS_SANITIZER)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g -fno-omit-frame-pointer")
+endif()
+
+include(CheckCXXSymbolExists)
+
+check_cxx_symbol_exists("pathconf" "unistd.h" HAS_PATHCONF)
+if (HAS_PATHCONF)
+    add_definitions(-DHAS_PATHCONF)
+endif()
+
+check_cxx_symbol_exists("umask" "sys/stat.h" HAS_UMASK)
+if (HAS_UMASK)
+    add_definitions(-DHAS_UMASK)
 endif()
 
 add_sdks()

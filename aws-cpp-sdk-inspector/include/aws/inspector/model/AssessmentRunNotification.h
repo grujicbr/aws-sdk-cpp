@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     AssessmentRunNotification();
-    AssessmentRunNotification(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssessmentRunNotification& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssessmentRunNotification(Aws::Utils::Json::JsonView jsonValue);
+    AssessmentRunNotification& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The date of the notification.</p>
      */
     inline const Aws::Utils::DateTime& GetDate() const{ return m_date; }
+
+    /**
+     * <p>The date of the notification.</p>
+     */
+    inline bool DateHasBeenSet() const { return m_dateHasBeenSet; }
 
     /**
      * <p>The date of the notification.</p>
@@ -84,6 +90,11 @@ namespace Model
     /**
      * <p>The event for which a notification is sent.</p>
      */
+    inline bool EventHasBeenSet() const { return m_eventHasBeenSet; }
+
+    /**
+     * <p>The event for which a notification is sent.</p>
+     */
     inline void SetEvent(const InspectorEvent& value) { m_eventHasBeenSet = true; m_event = value; }
 
     /**
@@ -106,6 +117,11 @@ namespace Model
      * <p>The message included in the notification.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The message included in the notification.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The message included in the notification.</p>
@@ -148,6 +164,12 @@ namespace Model
      * <p>The Boolean value that specifies whether the notification represents an
      * error.</p>
      */
+    inline bool ErrorHasBeenSet() const { return m_errorHasBeenSet; }
+
+    /**
+     * <p>The Boolean value that specifies whether the notification represents an
+     * error.</p>
+     */
     inline void SetError(bool value) { m_errorHasBeenSet = true; m_error = value; }
 
     /**
@@ -161,6 +183,11 @@ namespace Model
      * <p>The SNS topic to which the SNS notification is sent.</p>
      */
     inline const Aws::String& GetSnsTopicArn() const{ return m_snsTopicArn; }
+
+    /**
+     * <p>The SNS topic to which the SNS notification is sent.</p>
+     */
+    inline bool SnsTopicArnHasBeenSet() const { return m_snsTopicArnHasBeenSet; }
 
     /**
      * <p>The SNS topic to which the SNS notification is sent.</p>
@@ -197,6 +224,11 @@ namespace Model
      * <p>The status code of the SNS notification.</p>
      */
     inline const AssessmentRunNotificationSnsStatusCode& GetSnsPublishStatusCode() const{ return m_snsPublishStatusCode; }
+
+    /**
+     * <p>The status code of the SNS notification.</p>
+     */
+    inline bool SnsPublishStatusCodeHasBeenSet() const { return m_snsPublishStatusCodeHasBeenSet; }
 
     /**
      * <p>The status code of the SNS notification.</p>

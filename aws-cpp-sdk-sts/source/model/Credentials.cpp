@@ -56,25 +56,25 @@ Credentials& Credentials::operator =(const XmlNode& xmlNode)
     XmlNode accessKeyIdNode = resultNode.FirstChild("AccessKeyId");
     if(!accessKeyIdNode.IsNull())
     {
-      m_accessKeyId = StringUtils::Trim(accessKeyIdNode.GetText().c_str());
+      m_accessKeyId = Aws::Utils::Xml::DecodeEscapedXmlText(accessKeyIdNode.GetText());
       m_accessKeyIdHasBeenSet = true;
     }
     XmlNode secretAccessKeyNode = resultNode.FirstChild("SecretAccessKey");
     if(!secretAccessKeyNode.IsNull())
     {
-      m_secretAccessKey = StringUtils::Trim(secretAccessKeyNode.GetText().c_str());
+      m_secretAccessKey = Aws::Utils::Xml::DecodeEscapedXmlText(secretAccessKeyNode.GetText());
       m_secretAccessKeyHasBeenSet = true;
     }
     XmlNode sessionTokenNode = resultNode.FirstChild("SessionToken");
     if(!sessionTokenNode.IsNull())
     {
-      m_sessionToken = StringUtils::Trim(sessionTokenNode.GetText().c_str());
+      m_sessionToken = Aws::Utils::Xml::DecodeEscapedXmlText(sessionTokenNode.GetText());
       m_sessionTokenHasBeenSet = true;
     }
     XmlNode expirationNode = resultNode.FirstChild("Expiration");
     if(!expirationNode.IsNull())
     {
-      m_expiration = DateTime(StringUtils::Trim(expirationNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_expiration = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(expirationNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_expirationHasBeenSet = true;
     }
   }

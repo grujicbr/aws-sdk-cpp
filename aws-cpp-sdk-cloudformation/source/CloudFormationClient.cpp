@@ -24,6 +24,9 @@
 #include <aws/core/utils/xml/XmlSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/cloudformation/CloudFormationClient.h>
 #include <aws/cloudformation/CloudFormationEndpoint.h>
 #include <aws/cloudformation/CloudFormationErrorMarshaller.h>
@@ -37,15 +40,23 @@
 #include <aws/cloudformation/model/DeleteStackRequest.h>
 #include <aws/cloudformation/model/DeleteStackInstancesRequest.h>
 #include <aws/cloudformation/model/DeleteStackSetRequest.h>
+#include <aws/cloudformation/model/DeregisterTypeRequest.h>
 #include <aws/cloudformation/model/DescribeAccountLimitsRequest.h>
 #include <aws/cloudformation/model/DescribeChangeSetRequest.h>
+#include <aws/cloudformation/model/DescribeStackDriftDetectionStatusRequest.h>
 #include <aws/cloudformation/model/DescribeStackEventsRequest.h>
 #include <aws/cloudformation/model/DescribeStackInstanceRequest.h>
 #include <aws/cloudformation/model/DescribeStackResourceRequest.h>
+#include <aws/cloudformation/model/DescribeStackResourceDriftsRequest.h>
 #include <aws/cloudformation/model/DescribeStackResourcesRequest.h>
 #include <aws/cloudformation/model/DescribeStackSetRequest.h>
 #include <aws/cloudformation/model/DescribeStackSetOperationRequest.h>
 #include <aws/cloudformation/model/DescribeStacksRequest.h>
+#include <aws/cloudformation/model/DescribeTypeRequest.h>
+#include <aws/cloudformation/model/DescribeTypeRegistrationRequest.h>
+#include <aws/cloudformation/model/DetectStackDriftRequest.h>
+#include <aws/cloudformation/model/DetectStackResourceDriftRequest.h>
+#include <aws/cloudformation/model/DetectStackSetDriftRequest.h>
 #include <aws/cloudformation/model/EstimateTemplateCostRequest.h>
 #include <aws/cloudformation/model/ExecuteChangeSetRequest.h>
 #include <aws/cloudformation/model/GetStackPolicyRequest.h>
@@ -60,7 +71,13 @@
 #include <aws/cloudformation/model/ListStackSetOperationsRequest.h>
 #include <aws/cloudformation/model/ListStackSetsRequest.h>
 #include <aws/cloudformation/model/ListStacksRequest.h>
+#include <aws/cloudformation/model/ListTypeRegistrationsRequest.h>
+#include <aws/cloudformation/model/ListTypeVersionsRequest.h>
+#include <aws/cloudformation/model/ListTypesRequest.h>
+#include <aws/cloudformation/model/RecordHandlerProgressRequest.h>
+#include <aws/cloudformation/model/RegisterTypeRequest.h>
 #include <aws/cloudformation/model/SetStackPolicyRequest.h>
+#include <aws/cloudformation/model/SetTypeDefaultVersionRequest.h>
 #include <aws/cloudformation/model/SignalResourceRequest.h>
 #include <aws/cloudformation/model/StopStackSetOperationRequest.h>
 #include <aws/cloudformation/model/UpdateStackRequest.h>
@@ -119,19 +136,27 @@ CloudFormationClient::~CloudFormationClient()
 
 void CloudFormationClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << CloudFormationEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + CloudFormationEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void CloudFormationClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
 }
 
 Aws::String CloudFormationClient::ConvertRequestToPresignedUrl(const AmazonSerializableWebServiceRequest& requestToConvert, const char* region) const
@@ -141,16 +166,16 @@ Aws::String CloudFormationClient::ConvertRequestToPresignedUrl(const AmazonSeria
   ss << "?" << requestToConvert.SerializePayload();
 
   URI uri(ss.str());
-  return GeneratePresignedUrl(uri, HttpMethod::HTTP_GET, region, 3600);
+  return GeneratePresignedUrl(uri, Aws::Http::HttpMethod::HTTP_GET, region, 3600);
 }
 
 CancelUpdateStackOutcome CloudFormationClient::CancelUpdateStack(const CancelUpdateStackRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return CancelUpdateStackOutcome(NoResult());
@@ -181,11 +206,11 @@ void CloudFormationClient::CancelUpdateStackAsyncHelper(const CancelUpdateStackR
 
 ContinueUpdateRollbackOutcome CloudFormationClient::ContinueUpdateRollback(const ContinueUpdateRollbackRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ContinueUpdateRollbackOutcome(ContinueUpdateRollbackResult(outcome.GetResult()));
@@ -216,11 +241,11 @@ void CloudFormationClient::ContinueUpdateRollbackAsyncHelper(const ContinueUpdat
 
 CreateChangeSetOutcome CloudFormationClient::CreateChangeSet(const CreateChangeSetRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return CreateChangeSetOutcome(CreateChangeSetResult(outcome.GetResult()));
@@ -251,11 +276,11 @@ void CloudFormationClient::CreateChangeSetAsyncHelper(const CreateChangeSetReque
 
 CreateStackOutcome CloudFormationClient::CreateStack(const CreateStackRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return CreateStackOutcome(CreateStackResult(outcome.GetResult()));
@@ -286,11 +311,11 @@ void CloudFormationClient::CreateStackAsyncHelper(const CreateStackRequest& requ
 
 CreateStackInstancesOutcome CloudFormationClient::CreateStackInstances(const CreateStackInstancesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return CreateStackInstancesOutcome(CreateStackInstancesResult(outcome.GetResult()));
@@ -321,11 +346,11 @@ void CloudFormationClient::CreateStackInstancesAsyncHelper(const CreateStackInst
 
 CreateStackSetOutcome CloudFormationClient::CreateStackSet(const CreateStackSetRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return CreateStackSetOutcome(CreateStackSetResult(outcome.GetResult()));
@@ -356,11 +381,11 @@ void CloudFormationClient::CreateStackSetAsyncHelper(const CreateStackSetRequest
 
 DeleteChangeSetOutcome CloudFormationClient::DeleteChangeSet(const DeleteChangeSetRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DeleteChangeSetOutcome(DeleteChangeSetResult(outcome.GetResult()));
@@ -391,11 +416,11 @@ void CloudFormationClient::DeleteChangeSetAsyncHelper(const DeleteChangeSetReque
 
 DeleteStackOutcome CloudFormationClient::DeleteStack(const DeleteStackRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DeleteStackOutcome(NoResult());
@@ -426,11 +451,11 @@ void CloudFormationClient::DeleteStackAsyncHelper(const DeleteStackRequest& requ
 
 DeleteStackInstancesOutcome CloudFormationClient::DeleteStackInstances(const DeleteStackInstancesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DeleteStackInstancesOutcome(DeleteStackInstancesResult(outcome.GetResult()));
@@ -461,11 +486,11 @@ void CloudFormationClient::DeleteStackInstancesAsyncHelper(const DeleteStackInst
 
 DeleteStackSetOutcome CloudFormationClient::DeleteStackSet(const DeleteStackSetRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DeleteStackSetOutcome(DeleteStackSetResult(outcome.GetResult()));
@@ -494,13 +519,48 @@ void CloudFormationClient::DeleteStackSetAsyncHelper(const DeleteStackSetRequest
   handler(this, request, DeleteStackSet(request), context);
 }
 
-DescribeAccountLimitsOutcome CloudFormationClient::DescribeAccountLimits(const DescribeAccountLimitsRequest& request) const
+DeregisterTypeOutcome CloudFormationClient::DeregisterType(const DeregisterTypeRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return DeregisterTypeOutcome(DeregisterTypeResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DeregisterTypeOutcome(outcome.GetError());
+  }
+}
+
+DeregisterTypeOutcomeCallable CloudFormationClient::DeregisterTypeCallable(const DeregisterTypeRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DeregisterTypeOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DeregisterType(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::DeregisterTypeAsync(const DeregisterTypeRequest& request, const DeregisterTypeResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DeregisterTypeAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::DeregisterTypeAsyncHelper(const DeregisterTypeRequest& request, const DeregisterTypeResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DeregisterType(request), context);
+}
+
+DescribeAccountLimitsOutcome CloudFormationClient::DescribeAccountLimits(const DescribeAccountLimitsRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeAccountLimitsOutcome(DescribeAccountLimitsResult(outcome.GetResult()));
@@ -531,11 +591,11 @@ void CloudFormationClient::DescribeAccountLimitsAsyncHelper(const DescribeAccoun
 
 DescribeChangeSetOutcome CloudFormationClient::DescribeChangeSet(const DescribeChangeSetRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeChangeSetOutcome(DescribeChangeSetResult(outcome.GetResult()));
@@ -564,13 +624,48 @@ void CloudFormationClient::DescribeChangeSetAsyncHelper(const DescribeChangeSetR
   handler(this, request, DescribeChangeSet(request), context);
 }
 
-DescribeStackEventsOutcome CloudFormationClient::DescribeStackEvents(const DescribeStackEventsRequest& request) const
+DescribeStackDriftDetectionStatusOutcome CloudFormationClient::DescribeStackDriftDetectionStatus(const DescribeStackDriftDetectionStatusRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return DescribeStackDriftDetectionStatusOutcome(DescribeStackDriftDetectionStatusResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeStackDriftDetectionStatusOutcome(outcome.GetError());
+  }
+}
+
+DescribeStackDriftDetectionStatusOutcomeCallable CloudFormationClient::DescribeStackDriftDetectionStatusCallable(const DescribeStackDriftDetectionStatusRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeStackDriftDetectionStatusOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeStackDriftDetectionStatus(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::DescribeStackDriftDetectionStatusAsync(const DescribeStackDriftDetectionStatusRequest& request, const DescribeStackDriftDetectionStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeStackDriftDetectionStatusAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::DescribeStackDriftDetectionStatusAsyncHelper(const DescribeStackDriftDetectionStatusRequest& request, const DescribeStackDriftDetectionStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeStackDriftDetectionStatus(request), context);
+}
+
+DescribeStackEventsOutcome CloudFormationClient::DescribeStackEvents(const DescribeStackEventsRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeStackEventsOutcome(DescribeStackEventsResult(outcome.GetResult()));
@@ -601,11 +696,11 @@ void CloudFormationClient::DescribeStackEventsAsyncHelper(const DescribeStackEve
 
 DescribeStackInstanceOutcome CloudFormationClient::DescribeStackInstance(const DescribeStackInstanceRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeStackInstanceOutcome(DescribeStackInstanceResult(outcome.GetResult()));
@@ -636,11 +731,11 @@ void CloudFormationClient::DescribeStackInstanceAsyncHelper(const DescribeStackI
 
 DescribeStackResourceOutcome CloudFormationClient::DescribeStackResource(const DescribeStackResourceRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeStackResourceOutcome(DescribeStackResourceResult(outcome.GetResult()));
@@ -669,13 +764,48 @@ void CloudFormationClient::DescribeStackResourceAsyncHelper(const DescribeStackR
   handler(this, request, DescribeStackResource(request), context);
 }
 
-DescribeStackResourcesOutcome CloudFormationClient::DescribeStackResources(const DescribeStackResourcesRequest& request) const
+DescribeStackResourceDriftsOutcome CloudFormationClient::DescribeStackResourceDrifts(const DescribeStackResourceDriftsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return DescribeStackResourceDriftsOutcome(DescribeStackResourceDriftsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeStackResourceDriftsOutcome(outcome.GetError());
+  }
+}
+
+DescribeStackResourceDriftsOutcomeCallable CloudFormationClient::DescribeStackResourceDriftsCallable(const DescribeStackResourceDriftsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeStackResourceDriftsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeStackResourceDrifts(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::DescribeStackResourceDriftsAsync(const DescribeStackResourceDriftsRequest& request, const DescribeStackResourceDriftsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeStackResourceDriftsAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::DescribeStackResourceDriftsAsyncHelper(const DescribeStackResourceDriftsRequest& request, const DescribeStackResourceDriftsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeStackResourceDrifts(request), context);
+}
+
+DescribeStackResourcesOutcome CloudFormationClient::DescribeStackResources(const DescribeStackResourcesRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeStackResourcesOutcome(DescribeStackResourcesResult(outcome.GetResult()));
@@ -706,11 +836,11 @@ void CloudFormationClient::DescribeStackResourcesAsyncHelper(const DescribeStack
 
 DescribeStackSetOutcome CloudFormationClient::DescribeStackSet(const DescribeStackSetRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeStackSetOutcome(DescribeStackSetResult(outcome.GetResult()));
@@ -741,11 +871,11 @@ void CloudFormationClient::DescribeStackSetAsyncHelper(const DescribeStackSetReq
 
 DescribeStackSetOperationOutcome CloudFormationClient::DescribeStackSetOperation(const DescribeStackSetOperationRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeStackSetOperationOutcome(DescribeStackSetOperationResult(outcome.GetResult()));
@@ -776,11 +906,11 @@ void CloudFormationClient::DescribeStackSetOperationAsyncHelper(const DescribeSt
 
 DescribeStacksOutcome CloudFormationClient::DescribeStacks(const DescribeStacksRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DescribeStacksOutcome(DescribeStacksResult(outcome.GetResult()));
@@ -809,13 +939,188 @@ void CloudFormationClient::DescribeStacksAsyncHelper(const DescribeStacksRequest
   handler(this, request, DescribeStacks(request), context);
 }
 
-EstimateTemplateCostOutcome CloudFormationClient::EstimateTemplateCost(const EstimateTemplateCostRequest& request) const
+DescribeTypeOutcome CloudFormationClient::DescribeType(const DescribeTypeRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return DescribeTypeOutcome(DescribeTypeResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeTypeOutcome(outcome.GetError());
+  }
+}
+
+DescribeTypeOutcomeCallable CloudFormationClient::DescribeTypeCallable(const DescribeTypeRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeTypeOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeType(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::DescribeTypeAsync(const DescribeTypeRequest& request, const DescribeTypeResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeTypeAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::DescribeTypeAsyncHelper(const DescribeTypeRequest& request, const DescribeTypeResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeType(request), context);
+}
+
+DescribeTypeRegistrationOutcome CloudFormationClient::DescribeTypeRegistration(const DescribeTypeRegistrationRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return DescribeTypeRegistrationOutcome(DescribeTypeRegistrationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeTypeRegistrationOutcome(outcome.GetError());
+  }
+}
+
+DescribeTypeRegistrationOutcomeCallable CloudFormationClient::DescribeTypeRegistrationCallable(const DescribeTypeRegistrationRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeTypeRegistrationOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeTypeRegistration(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::DescribeTypeRegistrationAsync(const DescribeTypeRegistrationRequest& request, const DescribeTypeRegistrationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeTypeRegistrationAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::DescribeTypeRegistrationAsyncHelper(const DescribeTypeRegistrationRequest& request, const DescribeTypeRegistrationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeTypeRegistration(request), context);
+}
+
+DetectStackDriftOutcome CloudFormationClient::DetectStackDrift(const DetectStackDriftRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return DetectStackDriftOutcome(DetectStackDriftResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DetectStackDriftOutcome(outcome.GetError());
+  }
+}
+
+DetectStackDriftOutcomeCallable CloudFormationClient::DetectStackDriftCallable(const DetectStackDriftRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DetectStackDriftOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DetectStackDrift(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::DetectStackDriftAsync(const DetectStackDriftRequest& request, const DetectStackDriftResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DetectStackDriftAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::DetectStackDriftAsyncHelper(const DetectStackDriftRequest& request, const DetectStackDriftResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DetectStackDrift(request), context);
+}
+
+DetectStackResourceDriftOutcome CloudFormationClient::DetectStackResourceDrift(const DetectStackResourceDriftRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return DetectStackResourceDriftOutcome(DetectStackResourceDriftResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DetectStackResourceDriftOutcome(outcome.GetError());
+  }
+}
+
+DetectStackResourceDriftOutcomeCallable CloudFormationClient::DetectStackResourceDriftCallable(const DetectStackResourceDriftRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DetectStackResourceDriftOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DetectStackResourceDrift(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::DetectStackResourceDriftAsync(const DetectStackResourceDriftRequest& request, const DetectStackResourceDriftResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DetectStackResourceDriftAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::DetectStackResourceDriftAsyncHelper(const DetectStackResourceDriftRequest& request, const DetectStackResourceDriftResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DetectStackResourceDrift(request), context);
+}
+
+DetectStackSetDriftOutcome CloudFormationClient::DetectStackSetDrift(const DetectStackSetDriftRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return DetectStackSetDriftOutcome(DetectStackSetDriftResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DetectStackSetDriftOutcome(outcome.GetError());
+  }
+}
+
+DetectStackSetDriftOutcomeCallable CloudFormationClient::DetectStackSetDriftCallable(const DetectStackSetDriftRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DetectStackSetDriftOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DetectStackSetDrift(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::DetectStackSetDriftAsync(const DetectStackSetDriftRequest& request, const DetectStackSetDriftResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DetectStackSetDriftAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::DetectStackSetDriftAsyncHelper(const DetectStackSetDriftRequest& request, const DetectStackSetDriftResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DetectStackSetDrift(request), context);
+}
+
+EstimateTemplateCostOutcome CloudFormationClient::EstimateTemplateCost(const EstimateTemplateCostRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return EstimateTemplateCostOutcome(EstimateTemplateCostResult(outcome.GetResult()));
@@ -846,11 +1151,11 @@ void CloudFormationClient::EstimateTemplateCostAsyncHelper(const EstimateTemplat
 
 ExecuteChangeSetOutcome CloudFormationClient::ExecuteChangeSet(const ExecuteChangeSetRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ExecuteChangeSetOutcome(ExecuteChangeSetResult(outcome.GetResult()));
@@ -881,11 +1186,11 @@ void CloudFormationClient::ExecuteChangeSetAsyncHelper(const ExecuteChangeSetReq
 
 GetStackPolicyOutcome CloudFormationClient::GetStackPolicy(const GetStackPolicyRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return GetStackPolicyOutcome(GetStackPolicyResult(outcome.GetResult()));
@@ -916,11 +1221,11 @@ void CloudFormationClient::GetStackPolicyAsyncHelper(const GetStackPolicyRequest
 
 GetTemplateOutcome CloudFormationClient::GetTemplate(const GetTemplateRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return GetTemplateOutcome(GetTemplateResult(outcome.GetResult()));
@@ -951,11 +1256,11 @@ void CloudFormationClient::GetTemplateAsyncHelper(const GetTemplateRequest& requ
 
 GetTemplateSummaryOutcome CloudFormationClient::GetTemplateSummary(const GetTemplateSummaryRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return GetTemplateSummaryOutcome(GetTemplateSummaryResult(outcome.GetResult()));
@@ -986,11 +1291,11 @@ void CloudFormationClient::GetTemplateSummaryAsyncHelper(const GetTemplateSummar
 
 ListChangeSetsOutcome CloudFormationClient::ListChangeSets(const ListChangeSetsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListChangeSetsOutcome(ListChangeSetsResult(outcome.GetResult()));
@@ -1021,11 +1326,11 @@ void CloudFormationClient::ListChangeSetsAsyncHelper(const ListChangeSetsRequest
 
 ListExportsOutcome CloudFormationClient::ListExports(const ListExportsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListExportsOutcome(ListExportsResult(outcome.GetResult()));
@@ -1056,11 +1361,11 @@ void CloudFormationClient::ListExportsAsyncHelper(const ListExportsRequest& requ
 
 ListImportsOutcome CloudFormationClient::ListImports(const ListImportsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListImportsOutcome(ListImportsResult(outcome.GetResult()));
@@ -1091,11 +1396,11 @@ void CloudFormationClient::ListImportsAsyncHelper(const ListImportsRequest& requ
 
 ListStackInstancesOutcome CloudFormationClient::ListStackInstances(const ListStackInstancesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListStackInstancesOutcome(ListStackInstancesResult(outcome.GetResult()));
@@ -1126,11 +1431,11 @@ void CloudFormationClient::ListStackInstancesAsyncHelper(const ListStackInstance
 
 ListStackResourcesOutcome CloudFormationClient::ListStackResources(const ListStackResourcesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListStackResourcesOutcome(ListStackResourcesResult(outcome.GetResult()));
@@ -1161,11 +1466,11 @@ void CloudFormationClient::ListStackResourcesAsyncHelper(const ListStackResource
 
 ListStackSetOperationResultsOutcome CloudFormationClient::ListStackSetOperationResults(const ListStackSetOperationResultsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListStackSetOperationResultsOutcome(ListStackSetOperationResultsResult(outcome.GetResult()));
@@ -1196,11 +1501,11 @@ void CloudFormationClient::ListStackSetOperationResultsAsyncHelper(const ListSta
 
 ListStackSetOperationsOutcome CloudFormationClient::ListStackSetOperations(const ListStackSetOperationsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListStackSetOperationsOutcome(ListStackSetOperationsResult(outcome.GetResult()));
@@ -1231,11 +1536,11 @@ void CloudFormationClient::ListStackSetOperationsAsyncHelper(const ListStackSetO
 
 ListStackSetsOutcome CloudFormationClient::ListStackSets(const ListStackSetsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListStackSetsOutcome(ListStackSetsResult(outcome.GetResult()));
@@ -1266,11 +1571,11 @@ void CloudFormationClient::ListStackSetsAsyncHelper(const ListStackSetsRequest& 
 
 ListStacksOutcome CloudFormationClient::ListStacks(const ListStacksRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ListStacksOutcome(ListStacksResult(outcome.GetResult()));
@@ -1299,13 +1604,188 @@ void CloudFormationClient::ListStacksAsyncHelper(const ListStacksRequest& reques
   handler(this, request, ListStacks(request), context);
 }
 
-SetStackPolicyOutcome CloudFormationClient::SetStackPolicy(const SetStackPolicyRequest& request) const
+ListTypeRegistrationsOutcome CloudFormationClient::ListTypeRegistrations(const ListTypeRegistrationsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return ListTypeRegistrationsOutcome(ListTypeRegistrationsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListTypeRegistrationsOutcome(outcome.GetError());
+  }
+}
+
+ListTypeRegistrationsOutcomeCallable CloudFormationClient::ListTypeRegistrationsCallable(const ListTypeRegistrationsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListTypeRegistrationsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListTypeRegistrations(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::ListTypeRegistrationsAsync(const ListTypeRegistrationsRequest& request, const ListTypeRegistrationsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListTypeRegistrationsAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::ListTypeRegistrationsAsyncHelper(const ListTypeRegistrationsRequest& request, const ListTypeRegistrationsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListTypeRegistrations(request), context);
+}
+
+ListTypeVersionsOutcome CloudFormationClient::ListTypeVersions(const ListTypeVersionsRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return ListTypeVersionsOutcome(ListTypeVersionsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListTypeVersionsOutcome(outcome.GetError());
+  }
+}
+
+ListTypeVersionsOutcomeCallable CloudFormationClient::ListTypeVersionsCallable(const ListTypeVersionsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListTypeVersionsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListTypeVersions(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::ListTypeVersionsAsync(const ListTypeVersionsRequest& request, const ListTypeVersionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListTypeVersionsAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::ListTypeVersionsAsyncHelper(const ListTypeVersionsRequest& request, const ListTypeVersionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListTypeVersions(request), context);
+}
+
+ListTypesOutcome CloudFormationClient::ListTypes(const ListTypesRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return ListTypesOutcome(ListTypesResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListTypesOutcome(outcome.GetError());
+  }
+}
+
+ListTypesOutcomeCallable CloudFormationClient::ListTypesCallable(const ListTypesRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListTypesOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListTypes(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::ListTypesAsync(const ListTypesRequest& request, const ListTypesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListTypesAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::ListTypesAsyncHelper(const ListTypesRequest& request, const ListTypesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListTypes(request), context);
+}
+
+RecordHandlerProgressOutcome CloudFormationClient::RecordHandlerProgress(const RecordHandlerProgressRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return RecordHandlerProgressOutcome(RecordHandlerProgressResult(outcome.GetResult()));
+  }
+  else
+  {
+    return RecordHandlerProgressOutcome(outcome.GetError());
+  }
+}
+
+RecordHandlerProgressOutcomeCallable CloudFormationClient::RecordHandlerProgressCallable(const RecordHandlerProgressRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< RecordHandlerProgressOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->RecordHandlerProgress(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::RecordHandlerProgressAsync(const RecordHandlerProgressRequest& request, const RecordHandlerProgressResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->RecordHandlerProgressAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::RecordHandlerProgressAsyncHelper(const RecordHandlerProgressRequest& request, const RecordHandlerProgressResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, RecordHandlerProgress(request), context);
+}
+
+RegisterTypeOutcome CloudFormationClient::RegisterType(const RegisterTypeRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return RegisterTypeOutcome(RegisterTypeResult(outcome.GetResult()));
+  }
+  else
+  {
+    return RegisterTypeOutcome(outcome.GetError());
+  }
+}
+
+RegisterTypeOutcomeCallable CloudFormationClient::RegisterTypeCallable(const RegisterTypeRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< RegisterTypeOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->RegisterType(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::RegisterTypeAsync(const RegisterTypeRequest& request, const RegisterTypeResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->RegisterTypeAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::RegisterTypeAsyncHelper(const RegisterTypeRequest& request, const RegisterTypeResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, RegisterType(request), context);
+}
+
+SetStackPolicyOutcome CloudFormationClient::SetStackPolicy(const SetStackPolicyRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return SetStackPolicyOutcome(NoResult());
@@ -1334,13 +1814,48 @@ void CloudFormationClient::SetStackPolicyAsyncHelper(const SetStackPolicyRequest
   handler(this, request, SetStackPolicy(request), context);
 }
 
-SignalResourceOutcome CloudFormationClient::SignalResource(const SignalResourceRequest& request) const
+SetTypeDefaultVersionOutcome CloudFormationClient::SetTypeDefaultVersion(const SetTypeDefaultVersionRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return SetTypeDefaultVersionOutcome(SetTypeDefaultVersionResult(outcome.GetResult()));
+  }
+  else
+  {
+    return SetTypeDefaultVersionOutcome(outcome.GetError());
+  }
+}
+
+SetTypeDefaultVersionOutcomeCallable CloudFormationClient::SetTypeDefaultVersionCallable(const SetTypeDefaultVersionRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< SetTypeDefaultVersionOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->SetTypeDefaultVersion(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CloudFormationClient::SetTypeDefaultVersionAsync(const SetTypeDefaultVersionRequest& request, const SetTypeDefaultVersionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->SetTypeDefaultVersionAsyncHelper( request, handler, context ); } );
+}
+
+void CloudFormationClient::SetTypeDefaultVersionAsyncHelper(const SetTypeDefaultVersionRequest& request, const SetTypeDefaultVersionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, SetTypeDefaultVersion(request), context);
+}
+
+SignalResourceOutcome CloudFormationClient::SignalResource(const SignalResourceRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return SignalResourceOutcome(NoResult());
@@ -1371,11 +1886,11 @@ void CloudFormationClient::SignalResourceAsyncHelper(const SignalResourceRequest
 
 StopStackSetOperationOutcome CloudFormationClient::StopStackSetOperation(const StopStackSetOperationRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return StopStackSetOperationOutcome(StopStackSetOperationResult(outcome.GetResult()));
@@ -1406,11 +1921,11 @@ void CloudFormationClient::StopStackSetOperationAsyncHelper(const StopStackSetOp
 
 UpdateStackOutcome CloudFormationClient::UpdateStack(const UpdateStackRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return UpdateStackOutcome(UpdateStackResult(outcome.GetResult()));
@@ -1441,11 +1956,11 @@ void CloudFormationClient::UpdateStackAsyncHelper(const UpdateStackRequest& requ
 
 UpdateStackInstancesOutcome CloudFormationClient::UpdateStackInstances(const UpdateStackInstancesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return UpdateStackInstancesOutcome(UpdateStackInstancesResult(outcome.GetResult()));
@@ -1476,11 +1991,11 @@ void CloudFormationClient::UpdateStackInstancesAsyncHelper(const UpdateStackInst
 
 UpdateStackSetOutcome CloudFormationClient::UpdateStackSet(const UpdateStackSetRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return UpdateStackSetOutcome(UpdateStackSetResult(outcome.GetResult()));
@@ -1511,11 +2026,11 @@ void CloudFormationClient::UpdateStackSetAsyncHelper(const UpdateStackSetRequest
 
 UpdateTerminationProtectionOutcome CloudFormationClient::UpdateTerminationProtection(const UpdateTerminationProtectionRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return UpdateTerminationProtectionOutcome(UpdateTerminationProtectionResult(outcome.GetResult()));
@@ -1546,11 +2061,11 @@ void CloudFormationClient::UpdateTerminationProtectionAsyncHelper(const UpdateTe
 
 ValidateTemplateOutcome CloudFormationClient::ValidateTemplate(const ValidateTemplateRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return ValidateTemplateOutcome(ValidateTemplateResult(outcome.GetResult()));

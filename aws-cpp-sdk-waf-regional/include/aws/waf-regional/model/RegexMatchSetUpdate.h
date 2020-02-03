@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     RegexMatchSetUpdate();
-    RegexMatchSetUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    RegexMatchSetUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RegexMatchSetUpdate(Aws::Utils::Json::JsonView jsonValue);
+    RegexMatchSetUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Specifies whether to insert or delete a <a>RegexMatchTuple</a>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specifies whether to insert or delete a <a>RegexMatchTuple</a>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specifies whether to insert or delete a <a>RegexMatchTuple</a>.</p>
@@ -84,6 +90,16 @@ namespace Model
      * <code>RegexMatchSet</code>.</p>
      */
     inline const RegexMatchTuple& GetRegexMatchTuple() const{ return m_regexMatchTuple; }
+
+    /**
+     * <p>Information about the part of a web request that you want AWS WAF to inspect
+     * and the identifier of the regular expression (regex) pattern that you want AWS
+     * WAF to search for. If you specify <code>DELETE</code> for the value of
+     * <code>Action</code>, the <code>RegexMatchTuple</code> values must exactly match
+     * the values in the <code>RegexMatchTuple</code> that you want to delete from the
+     * <code>RegexMatchSet</code>.</p>
+     */
+    inline bool RegexMatchTupleHasBeenSet() const { return m_regexMatchTupleHasBeenSet; }
 
     /**
      * <p>Information about the part of a web request that you want AWS WAF to inspect

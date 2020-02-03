@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorksCM
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     AccountAttribute();
-    AccountAttribute(const Aws::Utils::Json::JsonValue& jsonValue);
-    AccountAttribute& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AccountAttribute(Aws::Utils::Json::JsonView jsonValue);
+    AccountAttribute& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,16 @@ namespace Model
      * backups saved. </p> </li> </ul>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p> The attribute name. The following are supported attribute names. </p> <ul>
+     * <li> <p> <i>ServerLimit:</i> The number of current servers/maximum number of
+     * servers allowed. By default, you can have a maximum of 10 servers. </p> </li>
+     * <li> <p> <i>ManualBackupLimit:</i> The number of current manual backups/maximum
+     * number of backups allowed. By default, you can have a maximum of 50 manual
+     * backups saved. </p> </li> </ul>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p> The attribute name. The following are supported attribute names. </p> <ul>
@@ -125,6 +136,11 @@ namespace Model
     /**
      * <p> The maximum allowed value. </p>
      */
+    inline bool MaximumHasBeenSet() const { return m_maximumHasBeenSet; }
+
+    /**
+     * <p> The maximum allowed value. </p>
+     */
     inline void SetMaximum(int value) { m_maximumHasBeenSet = true; m_maximum = value; }
 
     /**
@@ -138,6 +154,12 @@ namespace Model
      * with the account. </p>
      */
     inline int GetUsed() const{ return m_used; }
+
+    /**
+     * <p> The current usage, such as the current number of servers that are associated
+     * with the account. </p>
+     */
+    inline bool UsedHasBeenSet() const { return m_usedHasBeenSet; }
 
     /**
      * <p> The current usage, such as the current number of servers that are associated

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     EncryptionAtRestOptions();
-    EncryptionAtRestOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    EncryptionAtRestOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EncryptionAtRestOptions(Aws::Utils::Json::JsonView jsonValue);
+    EncryptionAtRestOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>Specifies the option to enable Encryption At Rest.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Specifies the option to enable Encryption At Rest.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Specifies the option to enable Encryption At Rest.</p>
@@ -66,6 +72,11 @@ namespace Model
      * <p> Specifies the KMS Key ID for Encryption At Rest options.</p>
      */
     inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
+
+    /**
+     * <p> Specifies the KMS Key ID for Encryption At Rest options.</p>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
 
     /**
      * <p> Specifies the KMS Key ID for Encryption At Rest options.</p>

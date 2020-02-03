@@ -31,29 +31,29 @@ namespace Model
 Expression::Expression() : 
     m_orHasBeenSet(false),
     m_andHasBeenSet(false),
-    m_not(1),
     m_notHasBeenSet(false),
     m_dimensionsHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_costCategoriesHasBeenSet(false)
 {
 }
 
-Expression::Expression(const JsonValue& jsonValue) : 
+Expression::Expression(JsonView jsonValue) : 
     m_orHasBeenSet(false),
     m_andHasBeenSet(false),
-    m_not(1),
     m_notHasBeenSet(false),
     m_dimensionsHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_costCategoriesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Expression& Expression::operator =(const JsonValue& jsonValue)
+Expression& Expression::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Or"))
   {
-    Array<JsonValue> orJsonList = jsonValue.GetArray("Or");
+    Array<JsonView> orJsonList = jsonValue.GetArray("Or");
     for(unsigned orIndex = 0; orIndex < orJsonList.GetLength(); ++orIndex)
     {
       m_or.push_back(orJsonList[orIndex].AsObject());
@@ -63,7 +63,7 @@ Expression& Expression::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("And"))
   {
-    Array<JsonValue> andJsonList = jsonValue.GetArray("And");
+    Array<JsonView> andJsonList = jsonValue.GetArray("And");
     for(unsigned andIndex = 0; andIndex < andJsonList.GetLength(); ++andIndex)
     {
       m_and.push_back(andJsonList[andIndex].AsObject());
@@ -73,6 +73,7 @@ Expression& Expression::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Not"))
   {
+    m_not.resize(1);
     m_not[0] = jsonValue.GetObject("Not");
 
     m_notHasBeenSet = true;
@@ -90,6 +91,13 @@ Expression& Expression::operator =(const JsonValue& jsonValue)
     m_tags = jsonValue.GetObject("Tags");
 
     m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CostCategories"))
+  {
+    m_costCategories = jsonValue.GetObject("CostCategories");
+
+    m_costCategoriesHasBeenSet = true;
   }
 
   return *this;
@@ -136,6 +144,12 @@ JsonValue Expression::Jsonize() const
   if(m_tagsHasBeenSet)
   {
    payload.WithObject("Tags", m_tags.Jsonize());
+
+  }
+
+  if(m_costCategoriesHasBeenSet)
+  {
+   payload.WithObject("CostCategories", m_costCategories.Jsonize());
 
   }
 

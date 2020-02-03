@@ -42,7 +42,9 @@ ModifyReplicationGroupRequest::ModifyReplicationGroupRequest() :
     m_snapshotRetentionLimitHasBeenSet(false),
     m_snapshotWindowHasBeenSet(false),
     m_cacheNodeTypeHasBeenSet(false),
-    m_nodeGroupIdHasBeenSet(false)
+    m_authTokenHasBeenSet(false),
+    m_authTokenUpdateStrategy(AuthTokenUpdateStrategyType::NOT_SET),
+    m_authTokenUpdateStrategyHasBeenSet(false)
 {
 }
 
@@ -147,9 +149,14 @@ Aws::String ModifyReplicationGroupRequest::SerializePayload() const
     ss << "CacheNodeType=" << StringUtils::URLEncode(m_cacheNodeType.c_str()) << "&";
   }
 
-  if(m_nodeGroupIdHasBeenSet)
+  if(m_authTokenHasBeenSet)
   {
-    ss << "NodeGroupId=" << StringUtils::URLEncode(m_nodeGroupId.c_str()) << "&";
+    ss << "AuthToken=" << StringUtils::URLEncode(m_authToken.c_str()) << "&";
+  }
+
+  if(m_authTokenUpdateStrategyHasBeenSet)
+  {
+    ss << "AuthTokenUpdateStrategy=" << AuthTokenUpdateStrategyTypeMapper::GetNameForAuthTokenUpdateStrategyType(m_authTokenUpdateStrategy) << "&";
   }
 
   ss << "Version=2015-02-02";

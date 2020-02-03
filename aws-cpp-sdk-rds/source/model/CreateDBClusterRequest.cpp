@@ -49,7 +49,16 @@ CreateDBClusterRequest::CreateDBClusterRequest() :
     m_enableIAMDatabaseAuthenticationHasBeenSet(false),
     m_backtrackWindow(0),
     m_backtrackWindowHasBeenSet(false),
-    m_enableCloudwatchLogsExportsHasBeenSet(false)
+    m_enableCloudwatchLogsExportsHasBeenSet(false),
+    m_engineModeHasBeenSet(false),
+    m_scalingConfigurationHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false),
+    m_globalClusterIdentifierHasBeenSet(false),
+    m_enableHttpEndpoint(false),
+    m_enableHttpEndpointHasBeenSet(false),
+    m_copyTagsToSnapshot(false),
+    m_copyTagsToSnapshotHasBeenSet(false)
 {
 }
 
@@ -198,6 +207,36 @@ Aws::String CreateDBClusterRequest::SerializePayload() const
           << StringUtils::URLEncode(item.c_str()) << "&";
       enableCloudwatchLogsExportsCount++;
     }
+  }
+
+  if(m_engineModeHasBeenSet)
+  {
+    ss << "EngineMode=" << StringUtils::URLEncode(m_engineMode.c_str()) << "&";
+  }
+
+  if(m_scalingConfigurationHasBeenSet)
+  {
+    m_scalingConfiguration.OutputToStream(ss, "ScalingConfiguration");
+  }
+
+  if(m_deletionProtectionHasBeenSet)
+  {
+    ss << "DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
+  }
+
+  if(m_globalClusterIdentifierHasBeenSet)
+  {
+    ss << "GlobalClusterIdentifier=" << StringUtils::URLEncode(m_globalClusterIdentifier.c_str()) << "&";
+  }
+
+  if(m_enableHttpEndpointHasBeenSet)
+  {
+    ss << "EnableHttpEndpoint=" << std::boolalpha << m_enableHttpEndpoint << "&";
+  }
+
+  if(m_copyTagsToSnapshotHasBeenSet)
+  {
+    ss << "CopyTagsToSnapshot=" << std::boolalpha << m_copyTagsToSnapshot << "&";
   }
 
   ss << "Version=2014-10-31";

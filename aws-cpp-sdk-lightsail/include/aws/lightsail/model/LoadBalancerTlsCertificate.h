@@ -19,11 +19,12 @@
 #include <aws/core/utils/DateTime.h>
 #include <aws/lightsail/model/ResourceLocation.h>
 #include <aws/lightsail/model/ResourceType.h>
-#include <aws/lightsail/model/LoadBalancerTlsCertificateStatus.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/lightsail/model/LoadBalancerTlsCertificateStatus.h>
 #include <aws/lightsail/model/LoadBalancerTlsCertificateFailureReason.h>
 #include <aws/lightsail/model/LoadBalancerTlsCertificateRenewalSummary.h>
 #include <aws/lightsail/model/LoadBalancerTlsCertificateRevocationReason.h>
+#include <aws/lightsail/model/Tag.h>
 #include <aws/lightsail/model/LoadBalancerTlsCertificateDomainValidationRecord.h>
 #include <utility>
 
@@ -34,6 +35,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -51,8 +53,8 @@ namespace Model
   {
   public:
     LoadBalancerTlsCertificate();
-    LoadBalancerTlsCertificate(const Aws::Utils::Json::JsonValue& jsonValue);
-    LoadBalancerTlsCertificate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LoadBalancerTlsCertificate(Aws::Utils::Json::JsonView jsonValue);
+    LoadBalancerTlsCertificate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +62,11 @@ namespace Model
      * <p>The name of the SSL/TLS certificate (e.g., <code>my-certificate</code>).</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the SSL/TLS certificate (e.g., <code>my-certificate</code>).</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the SSL/TLS certificate (e.g., <code>my-certificate</code>).</p>
@@ -100,6 +107,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the SSL/TLS certificate.</p>
      */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the SSL/TLS certificate.</p>
+     */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
@@ -134,6 +146,13 @@ namespace Model
      * enables our support team to look up your Lightsail information more easily.</p>
      */
     inline const Aws::String& GetSupportCode() const{ return m_supportCode; }
+
+    /**
+     * <p>The support code. Include this code in your email to support when you have
+     * questions about your Lightsail load balancer or SSL/TLS certificate. This code
+     * enables our support team to look up your Lightsail information more easily.</p>
+     */
+    inline bool SupportCodeHasBeenSet() const { return m_supportCodeHasBeenSet; }
 
     /**
      * <p>The support code. Include this code in your email to support when you have
@@ -186,6 +205,11 @@ namespace Model
     /**
      * <p>The time when you created your SSL/TLS certificate.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The time when you created your SSL/TLS certificate.</p>
+     */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -208,6 +232,11 @@ namespace Model
      * <p>The AWS Region and Availability Zone where you created your certificate.</p>
      */
     inline const ResourceLocation& GetLocation() const{ return m_location; }
+
+    /**
+     * <p>The AWS Region and Availability Zone where you created your certificate.</p>
+     */
+    inline bool LocationHasBeenSet() const { return m_locationHasBeenSet; }
 
     /**
      * <p>The AWS Region and Availability Zone where you created your certificate.</p>
@@ -246,6 +275,23 @@ namespace Model
      * <code>DiskSnapshot</code> </b> - A block storage disk snapshot</p> </li> </ul>
      */
     inline const ResourceType& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The resource type (e.g., <code>LoadBalancerTlsCertificate</code>).</p> <ul>
+     * <li> <p> <b> <code>Instance</code> </b> - A Lightsail instance (a virtual
+     * private server)</p> </li> <li> <p> <b> <code>StaticIp</code> </b> - A static IP
+     * address</p> </li> <li> <p> <b> <code>KeyPair</code> </b> - The key pair used to
+     * connect to a Lightsail instance</p> </li> <li> <p> <b>
+     * <code>InstanceSnapshot</code> </b> - A Lightsail instance snapshot</p> </li>
+     * <li> <p> <b> <code>Domain</code> </b> - A DNS zone</p> </li> <li> <p> <b>
+     * <code>PeeredVpc</code> </b> - A peered VPC</p> </li> <li> <p> <b>
+     * <code>LoadBalancer</code> </b> - A Lightsail load balancer</p> </li> <li> <p>
+     * <b> <code>LoadBalancerTlsCertificate</code> </b> - An SSL/TLS certificate
+     * associated with a Lightsail load balancer</p> </li> <li> <p> <b>
+     * <code>Disk</code> </b> - A Lightsail block storage disk</p> </li> <li> <p> <b>
+     * <code>DiskSnapshot</code> </b> - A block storage disk snapshot</p> </li> </ul>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The resource type (e.g., <code>LoadBalancerTlsCertificate</code>).</p> <ul>
@@ -317,9 +363,79 @@ namespace Model
 
 
     /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline LoadBalancerTlsCertificate& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline LoadBalancerTlsCertificate& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline LoadBalancerTlsCertificate& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline LoadBalancerTlsCertificate& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
      * <p>The load balancer name where your SSL/TLS certificate is attached.</p>
      */
     inline const Aws::String& GetLoadBalancerName() const{ return m_loadBalancerName; }
+
+    /**
+     * <p>The load balancer name where your SSL/TLS certificate is attached.</p>
+     */
+    inline bool LoadBalancerNameHasBeenSet() const { return m_loadBalancerNameHasBeenSet; }
 
     /**
      * <p>The load balancer name where your SSL/TLS certificate is attached.</p>
@@ -362,6 +478,12 @@ namespace Model
      * <p>When <code>true</code>, the SSL/TLS certificate is attached to the Lightsail
      * load balancer.</p>
      */
+    inline bool IsAttachedHasBeenSet() const { return m_isAttachedHasBeenSet; }
+
+    /**
+     * <p>When <code>true</code>, the SSL/TLS certificate is attached to the Lightsail
+     * load balancer.</p>
+     */
     inline void SetIsAttached(bool value) { m_isAttachedHasBeenSet = true; m_isAttached = value; }
 
     /**
@@ -375,6 +497,11 @@ namespace Model
      * <p>The status of the SSL/TLS certificate. Valid values are below.</p>
      */
     inline const LoadBalancerTlsCertificateStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the SSL/TLS certificate. Valid values are below.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the SSL/TLS certificate. Valid values are below.</p>
@@ -401,6 +528,11 @@ namespace Model
      * <p>The domain name for your SSL/TLS certificate.</p>
      */
     inline const Aws::String& GetDomainName() const{ return m_domainName; }
+
+    /**
+     * <p>The domain name for your SSL/TLS certificate.</p>
+     */
+    inline bool DomainNameHasBeenSet() const { return m_domainNameHasBeenSet; }
 
     /**
      * <p>The domain name for your SSL/TLS certificate.</p>
@@ -438,6 +570,12 @@ namespace Model
      * describing the records.</p>
      */
     inline const Aws::Vector<LoadBalancerTlsCertificateDomainValidationRecord>& GetDomainValidationRecords() const{ return m_domainValidationRecords; }
+
+    /**
+     * <p>An array of LoadBalancerTlsCertificateDomainValidationRecord objects
+     * describing the records.</p>
+     */
+    inline bool DomainValidationRecordsHasBeenSet() const { return m_domainValidationRecordsHasBeenSet; }
 
     /**
      * <p>An array of LoadBalancerTlsCertificateDomainValidationRecord objects
@@ -484,6 +622,11 @@ namespace Model
     /**
      * <p>The reason for the SSL/TLS certificate validation failure.</p>
      */
+    inline bool FailureReasonHasBeenSet() const { return m_failureReasonHasBeenSet; }
+
+    /**
+     * <p>The reason for the SSL/TLS certificate validation failure.</p>
+     */
     inline void SetFailureReason(const LoadBalancerTlsCertificateFailureReason& value) { m_failureReasonHasBeenSet = true; m_failureReason = value; }
 
     /**
@@ -510,6 +653,11 @@ namespace Model
     /**
      * <p>The time when the SSL/TLS certificate was issued.</p>
      */
+    inline bool IssuedAtHasBeenSet() const { return m_issuedAtHasBeenSet; }
+
+    /**
+     * <p>The time when the SSL/TLS certificate was issued.</p>
+     */
     inline void SetIssuedAt(const Aws::Utils::DateTime& value) { m_issuedAtHasBeenSet = true; m_issuedAt = value; }
 
     /**
@@ -532,6 +680,11 @@ namespace Model
      * <p>The issuer of the certificate.</p>
      */
     inline const Aws::String& GetIssuer() const{ return m_issuer; }
+
+    /**
+     * <p>The issuer of the certificate.</p>
+     */
+    inline bool IssuerHasBeenSet() const { return m_issuerHasBeenSet; }
 
     /**
      * <p>The issuer of the certificate.</p>
@@ -569,6 +722,12 @@ namespace Model
      * key).</p>
      */
     inline const Aws::String& GetKeyAlgorithm() const{ return m_keyAlgorithm; }
+
+    /**
+     * <p>The algorithm that was used to generate the key pair (the public and private
+     * key).</p>
+     */
+    inline bool KeyAlgorithmHasBeenSet() const { return m_keyAlgorithmHasBeenSet; }
 
     /**
      * <p>The algorithm that was used to generate the key pair (the public and private
@@ -615,6 +774,11 @@ namespace Model
     /**
      * <p>The timestamp when the SSL/TLS certificate expires.</p>
      */
+    inline bool NotAfterHasBeenSet() const { return m_notAfterHasBeenSet; }
+
+    /**
+     * <p>The timestamp when the SSL/TLS certificate expires.</p>
+     */
     inline void SetNotAfter(const Aws::Utils::DateTime& value) { m_notAfterHasBeenSet = true; m_notAfter = value; }
 
     /**
@@ -637,6 +801,11 @@ namespace Model
      * <p>The timestamp when the SSL/TLS certificate is first valid.</p>
      */
     inline const Aws::Utils::DateTime& GetNotBefore() const{ return m_notBefore; }
+
+    /**
+     * <p>The timestamp when the SSL/TLS certificate is first valid.</p>
+     */
+    inline bool NotBeforeHasBeenSet() const { return m_notBeforeHasBeenSet; }
 
     /**
      * <p>The timestamp when the SSL/TLS certificate is first valid.</p>
@@ -664,6 +833,12 @@ namespace Model
      * renewal for the certificate.</p>
      */
     inline const LoadBalancerTlsCertificateRenewalSummary& GetRenewalSummary() const{ return m_renewalSummary; }
+
+    /**
+     * <p>An object containing information about the status of Lightsail's managed
+     * renewal for the certificate.</p>
+     */
+    inline bool RenewalSummaryHasBeenSet() const { return m_renewalSummaryHasBeenSet; }
 
     /**
      * <p>An object containing information about the status of Lightsail's managed
@@ -698,6 +873,11 @@ namespace Model
     /**
      * <p>The reason the certificate was revoked. Valid values are below.</p>
      */
+    inline bool RevocationReasonHasBeenSet() const { return m_revocationReasonHasBeenSet; }
+
+    /**
+     * <p>The reason the certificate was revoked. Valid values are below.</p>
+     */
     inline void SetRevocationReason(const LoadBalancerTlsCertificateRevocationReason& value) { m_revocationReasonHasBeenSet = true; m_revocationReason = value; }
 
     /**
@@ -724,6 +904,11 @@ namespace Model
     /**
      * <p>The timestamp when the SSL/TLS certificate was revoked.</p>
      */
+    inline bool RevokedAtHasBeenSet() const { return m_revokedAtHasBeenSet; }
+
+    /**
+     * <p>The timestamp when the SSL/TLS certificate was revoked.</p>
+     */
     inline void SetRevokedAt(const Aws::Utils::DateTime& value) { m_revokedAtHasBeenSet = true; m_revokedAt = value; }
 
     /**
@@ -746,6 +931,11 @@ namespace Model
      * <p>The serial number of the certificate.</p>
      */
     inline const Aws::String& GetSerial() const{ return m_serial; }
+
+    /**
+     * <p>The serial number of the certificate.</p>
+     */
+    inline bool SerialHasBeenSet() const { return m_serialHasBeenSet; }
 
     /**
      * <p>The serial number of the certificate.</p>
@@ -786,6 +976,11 @@ namespace Model
     /**
      * <p>The algorithm that was used to sign the certificate.</p>
      */
+    inline bool SignatureAlgorithmHasBeenSet() const { return m_signatureAlgorithmHasBeenSet; }
+
+    /**
+     * <p>The algorithm that was used to sign the certificate.</p>
+     */
     inline void SetSignatureAlgorithm(const Aws::String& value) { m_signatureAlgorithmHasBeenSet = true; m_signatureAlgorithm = value; }
 
     /**
@@ -819,6 +1014,12 @@ namespace Model
      * the certificate.</p>
      */
     inline const Aws::String& GetSubject() const{ return m_subject; }
+
+    /**
+     * <p>The name of the entity that is associated with the public key contained in
+     * the certificate.</p>
+     */
+    inline bool SubjectHasBeenSet() const { return m_subjectHasBeenSet; }
 
     /**
      * <p>The name of the entity that is associated with the public key contained in
@@ -866,6 +1067,16 @@ namespace Model
      * <code>www.example.com</code>, or <code>m.example.com</code>.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSubjectAlternativeNames() const{ return m_subjectAlternativeNames; }
+
+    /**
+     * <p>One or more domains or subdomains included in the certificate. This list
+     * contains the domain names that are bound to the public key that is contained in
+     * the certificate. The subject alternative names include the canonical domain name
+     * (CNAME) of the certificate and additional domain names that can be used to
+     * connect to the website, such as <code>example.com</code>,
+     * <code>www.example.com</code>, or <code>m.example.com</code>.</p>
+     */
+    inline bool SubjectAlternativeNamesHasBeenSet() const { return m_subjectAlternativeNamesHasBeenSet; }
 
     /**
      * <p>One or more domains or subdomains included in the certificate. This list
@@ -956,6 +1167,9 @@ namespace Model
 
     ResourceType m_resourceType;
     bool m_resourceTypeHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
 
     Aws::String m_loadBalancerName;
     bool m_loadBalancerNameHasBeenSet;

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ReviewPolicy();
-    ReviewPolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReviewPolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReviewPolicy(Aws::Utils::Json::JsonView jsonValue);
+    ReviewPolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * ScoreMyKnownAnswers/2011-09-01 </p>
      */
     inline const Aws::String& GetPolicyName() const{ return m_policyName; }
+
+    /**
+     * <p> Name of a Review Policy: SimplePlurality/2011-09-01 or
+     * ScoreMyKnownAnswers/2011-09-01 </p>
+     */
+    inline bool PolicyNameHasBeenSet() const { return m_policyNameHasBeenSet; }
 
     /**
      * <p> Name of a Review Policy: SimplePlurality/2011-09-01 or
@@ -96,6 +103,11 @@ namespace Model
      * <p>Name of the parameter from the Review policy.</p>
      */
     inline const Aws::Vector<PolicyParameter>& GetParameters() const{ return m_parameters; }
+
+    /**
+     * <p>Name of the parameter from the Review policy.</p>
+     */
+    inline bool ParametersHasBeenSet() const { return m_parametersHasBeenSet; }
 
     /**
      * <p>Name of the parameter from the Review policy.</p>

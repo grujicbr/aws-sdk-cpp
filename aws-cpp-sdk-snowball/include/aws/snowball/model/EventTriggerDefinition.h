@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     EventTriggerDefinition();
-    EventTriggerDefinition(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventTriggerDefinition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventTriggerDefinition(Aws::Utils::Json::JsonView jsonValue);
+    EventTriggerDefinition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * AWS Lambda function's event trigger associated with this job.</p>
      */
     inline const Aws::String& GetEventResourceARN() const{ return m_eventResourceARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for any local Amazon S3 resource that is an
+     * AWS Lambda function's event trigger associated with this job.</p>
+     */
+    inline bool EventResourceARNHasBeenSet() const { return m_eventResourceARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) for any local Amazon S3 resource that is an

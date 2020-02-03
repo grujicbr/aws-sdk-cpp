@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchReadOperationResponse();
-    BatchReadOperationResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchReadOperationResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchReadOperationResponse(Aws::Utils::Json::JsonView jsonValue);
+    BatchReadOperationResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Identifies which operation in a batch has succeeded.</p>
      */
     inline const BatchReadSuccessfulResponse& GetSuccessfulResponse() const{ return m_successfulResponse; }
+
+    /**
+     * <p>Identifies which operation in a batch has succeeded.</p>
+     */
+    inline bool SuccessfulResponseHasBeenSet() const { return m_successfulResponseHasBeenSet; }
 
     /**
      * <p>Identifies which operation in a batch has succeeded.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>Identifies which operation in a batch has failed.</p>
      */
     inline const BatchReadException& GetExceptionResponse() const{ return m_exceptionResponse; }
+
+    /**
+     * <p>Identifies which operation in a batch has failed.</p>
+     */
+    inline bool ExceptionResponseHasBeenSet() const { return m_exceptionResponseHasBeenSet; }
 
     /**
      * <p>Identifies which operation in a batch has failed.</p>

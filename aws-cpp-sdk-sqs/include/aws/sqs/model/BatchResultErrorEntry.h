@@ -34,9 +34,8 @@ namespace Model
 {
 
   /**
-   * <p>This is used in the responses of batch API to give a detailed description of
-   * the result of an action on each entry in the request.</p><p><h3>See Also:</h3>  
-   * <a
+   * <p>Gives a detailed description of the result of an action on each entry in the
+   * request.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/BatchResultErrorEntry">AWS
    * API Reference</a></p>
    */
@@ -55,6 +54,11 @@ namespace Model
      * <p>The <code>Id</code> of an entry in a batch request.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The <code>Id</code> of an entry in a batch request.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The <code>Id</code> of an entry in a batch request.</p>
@@ -88,17 +92,22 @@ namespace Model
 
 
     /**
-     * <p>Specifies whether the error happened due to the sender's fault.</p>
+     * <p>Specifies whether the error happened due to the producer.</p>
      */
     inline bool GetSenderFault() const{ return m_senderFault; }
 
     /**
-     * <p>Specifies whether the error happened due to the sender's fault.</p>
+     * <p>Specifies whether the error happened due to the producer.</p>
+     */
+    inline bool SenderFaultHasBeenSet() const { return m_senderFaultHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the error happened due to the producer.</p>
      */
     inline void SetSenderFault(bool value) { m_senderFaultHasBeenSet = true; m_senderFault = value; }
 
     /**
-     * <p>Specifies whether the error happened due to the sender's fault.</p>
+     * <p>Specifies whether the error happened due to the producer.</p>
      */
     inline BatchResultErrorEntry& WithSenderFault(bool value) { SetSenderFault(value); return *this;}
 
@@ -107,6 +116,11 @@ namespace Model
      * <p>An error code representing why the action failed on this entry.</p>
      */
     inline const Aws::String& GetCode() const{ return m_code; }
+
+    /**
+     * <p>An error code representing why the action failed on this entry.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>An error code representing why the action failed on this entry.</p>
@@ -143,6 +157,11 @@ namespace Model
      * <p>A message explaining why the action failed on this entry.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>A message explaining why the action failed on this entry.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>A message explaining why the action failed on this entry.</p>

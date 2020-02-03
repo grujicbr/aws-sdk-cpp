@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/ec2/EC2_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/ec2/model/RouteTableAssociationState.h>
 #include <aws/ec2/model/ResponseMetadata.h>
 #include <utility>
 
@@ -35,11 +36,6 @@ namespace EC2
 {
 namespace Model
 {
-  /**
-   * <p>Contains the output of AssociateRouteTable.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AssociateRouteTableResult">AWS
-   * API Reference</a></p>
-   */
   class AWS_EC2_API AssociateRouteTableResponse
   {
   public:
@@ -49,39 +45,72 @@ namespace Model
 
 
     /**
-     * <p>The route table association ID (needed to disassociate the route table).</p>
+     * <p>The route table association ID. This ID is required for disassociating the
+     * route table.</p>
      */
     inline const Aws::String& GetAssociationId() const{ return m_associationId; }
 
     /**
-     * <p>The route table association ID (needed to disassociate the route table).</p>
+     * <p>The route table association ID. This ID is required for disassociating the
+     * route table.</p>
      */
     inline void SetAssociationId(const Aws::String& value) { m_associationId = value; }
 
     /**
-     * <p>The route table association ID (needed to disassociate the route table).</p>
+     * <p>The route table association ID. This ID is required for disassociating the
+     * route table.</p>
      */
     inline void SetAssociationId(Aws::String&& value) { m_associationId = std::move(value); }
 
     /**
-     * <p>The route table association ID (needed to disassociate the route table).</p>
+     * <p>The route table association ID. This ID is required for disassociating the
+     * route table.</p>
      */
     inline void SetAssociationId(const char* value) { m_associationId.assign(value); }
 
     /**
-     * <p>The route table association ID (needed to disassociate the route table).</p>
+     * <p>The route table association ID. This ID is required for disassociating the
+     * route table.</p>
      */
     inline AssociateRouteTableResponse& WithAssociationId(const Aws::String& value) { SetAssociationId(value); return *this;}
 
     /**
-     * <p>The route table association ID (needed to disassociate the route table).</p>
+     * <p>The route table association ID. This ID is required for disassociating the
+     * route table.</p>
      */
     inline AssociateRouteTableResponse& WithAssociationId(Aws::String&& value) { SetAssociationId(std::move(value)); return *this;}
 
     /**
-     * <p>The route table association ID (needed to disassociate the route table).</p>
+     * <p>The route table association ID. This ID is required for disassociating the
+     * route table.</p>
      */
     inline AssociateRouteTableResponse& WithAssociationId(const char* value) { SetAssociationId(value); return *this;}
+
+
+    /**
+     * <p>The state of the association.</p>
+     */
+    inline const RouteTableAssociationState& GetAssociationState() const{ return m_associationState; }
+
+    /**
+     * <p>The state of the association.</p>
+     */
+    inline void SetAssociationState(const RouteTableAssociationState& value) { m_associationState = value; }
+
+    /**
+     * <p>The state of the association.</p>
+     */
+    inline void SetAssociationState(RouteTableAssociationState&& value) { m_associationState = std::move(value); }
+
+    /**
+     * <p>The state of the association.</p>
+     */
+    inline AssociateRouteTableResponse& WithAssociationState(const RouteTableAssociationState& value) { SetAssociationState(value); return *this;}
+
+    /**
+     * <p>The state of the association.</p>
+     */
+    inline AssociateRouteTableResponse& WithAssociationState(RouteTableAssociationState&& value) { SetAssociationState(std::move(value)); return *this;}
 
 
     
@@ -102,6 +131,8 @@ namespace Model
   private:
 
     Aws::String m_associationId;
+
+    RouteTableAssociationState m_associationState;
 
     ResponseMetadata m_responseMetadata;
   };

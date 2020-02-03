@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     TimeBasedAutoScalingConfiguration();
-    TimeBasedAutoScalingConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimeBasedAutoScalingConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimeBasedAutoScalingConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    TimeBasedAutoScalingConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The instance ID.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The instance ID.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The instance ID.</p>
@@ -89,6 +95,12 @@ namespace Model
      * schedule.</p>
      */
     inline const WeeklyAutoScalingSchedule& GetAutoScalingSchedule() const{ return m_autoScalingSchedule; }
+
+    /**
+     * <p>A <code>WeeklyAutoScalingSchedule</code> object with the instance
+     * schedule.</p>
+     */
+    inline bool AutoScalingScheduleHasBeenSet() const { return m_autoScalingScheduleHasBeenSet; }
 
     /**
      * <p>A <code>WeeklyAutoScalingSchedule</code> object with the instance

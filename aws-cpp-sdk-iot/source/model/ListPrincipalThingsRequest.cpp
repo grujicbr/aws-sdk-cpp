@@ -35,7 +35,7 @@ ListPrincipalThingsRequest::ListPrincipalThingsRequest() :
 
 Aws::String ListPrincipalThingsRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection ListPrincipalThingsRequest::GetRequestSpecificHeaders() const
@@ -45,7 +45,7 @@ Aws::Http::HeaderValueCollection ListPrincipalThingsRequest::GetRequestSpecificH
   if(m_principalHasBeenSet)
   {
     ss << m_principal;
-    headers.insert(Aws::Http::HeaderValuePair("x-amzn-principal", ss.str()));
+    headers.emplace("x-amzn-principal",  ss.str());
     ss.str("");
   }
 

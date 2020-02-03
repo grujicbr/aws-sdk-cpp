@@ -35,6 +35,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -43,7 +44,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for MsSmoothGroupSettings<p><h3>See Also:</h3>   <a
+   * Ms Smooth Group Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/MsSmoothGroupSettings">AWS
    * API Reference</a></p>
    */
@@ -51,8 +52,8 @@ namespace Model
   {
   public:
     MsSmoothGroupSettings();
-    MsSmoothGroupSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    MsSmoothGroupSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MsSmoothGroupSettings(Aws::Utils::Json::JsonView jsonValue);
+    MsSmoothGroupSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -61,6 +62,12 @@ namespace Model
      * placed in the sparse track.  Only enabled if sparseTrackType is not "none".
      */
     inline const Aws::String& GetAcquisitionPointId() const{ return m_acquisitionPointId; }
+
+    /**
+     * The value of the "Acquisition Point Identity" element used in each message
+     * placed in the sparse track.  Only enabled if sparseTrackType is not "none".
+     */
+    inline bool AcquisitionPointIdHasBeenSet() const { return m_acquisitionPointIdHasBeenSet; }
 
     /**
      * The value of the "Acquisition Point Identity" element used in each message
@@ -111,6 +118,13 @@ namespace Model
      * time will be set to the current timecode. This option does not write timecodes
      * to the audio elementary stream.
      */
+    inline bool AudioOnlyTimecodeControlHasBeenSet() const { return m_audioOnlyTimecodeControlHasBeenSet; }
+
+    /**
+     * If set to passthrough for an audio-only MS Smooth output, the fragment absolute
+     * time will be set to the current timecode. This option does not write timecodes
+     * to the audio elementary stream.
+     */
     inline void SetAudioOnlyTimecodeControl(const SmoothGroupAudioOnlyTimecodeControl& value) { m_audioOnlyTimecodeControlHasBeenSet = true; m_audioOnlyTimecodeControl = value; }
 
     /**
@@ -141,6 +155,13 @@ namespace Model
      * certificates to fail.
      */
     inline const SmoothGroupCertificateMode& GetCertificateMode() const{ return m_certificateMode; }
+
+    /**
+     * If set to verifyAuthenticity, verify the https certificate chain to a trusted
+     * Certificate Authority (CA).  This will cause https outputs to self-signed
+     * certificates to fail.
+     */
+    inline bool CertificateModeHasBeenSet() const { return m_certificateModeHasBeenSet; }
 
     /**
      * If set to verifyAuthenticity, verify the https certificate chain to a trusted
@@ -183,6 +204,13 @@ namespace Model
      * connection is lost. Content will be cached during this time and the cache will
      * be be delivered to the IIS server once the connection is re-established.
      */
+    inline bool ConnectionRetryIntervalHasBeenSet() const { return m_connectionRetryIntervalHasBeenSet; }
+
+    /**
+     * Number of seconds to wait before retrying connection to the IIS server if the
+     * connection is lost. Content will be cached during this time and the cache will
+     * be be delivered to the IIS server once the connection is re-established.
+     */
     inline void SetConnectionRetryInterval(int value) { m_connectionRetryIntervalHasBeenSet = true; m_connectionRetryInterval = value; }
 
     /**
@@ -198,6 +226,12 @@ namespace Model
      * encoder to IIS.
      */
     inline const OutputLocationRef& GetDestination() const{ return m_destination; }
+
+    /**
+     * Smooth Streaming publish point on an IIS server. Elemental Live acts as a "Push"
+     * encoder to IIS.
+     */
+    inline bool DestinationHasBeenSet() const { return m_destinationHasBeenSet; }
 
     /**
      * Smooth Streaming publish point on an IIS server. Elemental Live acts as a "Push"
@@ -231,6 +265,14 @@ Should only be specified if
      * eventIdMode is set to useConfigured.
      */
     inline const Aws::String& GetEventId() const{ return m_eventId; }
+
+    /**
+     * MS Smooth event ID to be sent to the IIS server.
+
+Should only be specified if
+     * eventIdMode is set to useConfigured.
+     */
+    inline bool EventIdHasBeenSet() const { return m_eventIdHasBeenSet; }
 
     /**
      * MS Smooth event ID to be sent to the IIS server.
@@ -309,6 +351,21 @@ Options:
 - "noEventId" - do not send
      * an event ID to the IIS server.
      */
+    inline bool EventIdModeHasBeenSet() const { return m_eventIdModeHasBeenSet; }
+
+    /**
+     * Specifies whether or not to send an event ID to the IIS server. If no event ID
+     * is sent and the same Live Event is used without changing the publishing point,
+     * clients might see cached video from the previous run.
+
+Options:
+-
+     * "useConfigured" - use the value provided in eventId
+- "useTimestamp" - generate
+     * and send an event ID based on the current timestamp
+- "noEventId" - do not send
+     * an event ID to the IIS server.
+     */
     inline void SetEventIdMode(const SmoothGroupEventIdMode& value) { m_eventIdModeHasBeenSet = true; m_eventIdMode = value; }
 
     /**
@@ -365,6 +422,11 @@ Options:
     /**
      * When set to sendEos, send EOS signal to IIS server when stopping the event
      */
+    inline bool EventStopBehaviorHasBeenSet() const { return m_eventStopBehaviorHasBeenSet; }
+
+    /**
+     * When set to sendEos, send EOS signal to IIS server when stopping the event
+     */
     inline void SetEventStopBehavior(const SmoothGroupEventStopBehavior& value) { m_eventStopBehaviorHasBeenSet = true; m_eventStopBehavior = value; }
 
     /**
@@ -391,6 +453,11 @@ Options:
     /**
      * Size in seconds of file cache for streaming outputs.
      */
+    inline bool FilecacheDurationHasBeenSet() const { return m_filecacheDurationHasBeenSet; }
+
+    /**
+     * Size in seconds of file cache for streaming outputs.
+     */
     inline void SetFilecacheDuration(int value) { m_filecacheDurationHasBeenSet = true; m_filecacheDuration = value; }
 
     /**
@@ -409,6 +476,12 @@ Options:
      * Length of mp4 fragments to generate (in seconds). Fragment length must be
      * compatible with GOP size and framerate.
      */
+    inline bool FragmentLengthHasBeenSet() const { return m_fragmentLengthHasBeenSet; }
+
+    /**
+     * Length of mp4 fragments to generate (in seconds). Fragment length must be
+     * compatible with GOP size and framerate.
+     */
     inline void SetFragmentLength(int value) { m_fragmentLengthHasBeenSet = true; m_fragmentLength = value; }
 
     /**
@@ -422,6 +495,11 @@ Options:
      * Parameter that control output group behavior on input loss.
      */
     inline const InputLossActionForMsSmoothOut& GetInputLossAction() const{ return m_inputLossAction; }
+
+    /**
+     * Parameter that control output group behavior on input loss.
+     */
+    inline bool InputLossActionHasBeenSet() const { return m_inputLossActionHasBeenSet; }
 
     /**
      * Parameter that control output group behavior on input loss.
@@ -452,6 +530,11 @@ Options:
     /**
      * Number of retry attempts.
      */
+    inline bool NumRetriesHasBeenSet() const { return m_numRetriesHasBeenSet; }
+
+    /**
+     * Number of retry attempts.
+     */
     inline void SetNumRetries(int value) { m_numRetriesHasBeenSet = true; m_numRetries = value; }
 
     /**
@@ -470,6 +553,12 @@ Options:
      * Number of seconds before initiating a restart due to output failure, due to
      * exhausting the numRetries on one segment, or exceeding filecacheDuration.
      */
+    inline bool RestartDelayHasBeenSet() const { return m_restartDelayHasBeenSet; }
+
+    /**
+     * Number of seconds before initiating a restart due to output failure, due to
+     * exhausting the numRetries on one segment, or exceeding filecacheDuration.
+     */
     inline void SetRestartDelay(int value) { m_restartDelayHasBeenSet = true; m_restartDelay = value; }
 
     /**
@@ -480,72 +569,59 @@ Options:
 
 
     /**
-     * When set to useInputSegmentation, the output segment or fragment points are set
-     * by the RAI markers from the input streams.
+     * useInputSegmentation has been deprecated. The configured segment size is always
+     * used.
      */
     inline const SmoothGroupSegmentationMode& GetSegmentationMode() const{ return m_segmentationMode; }
 
     /**
-     * When set to useInputSegmentation, the output segment or fragment points are set
-     * by the RAI markers from the input streams.
+     * useInputSegmentation has been deprecated. The configured segment size is always
+     * used.
+     */
+    inline bool SegmentationModeHasBeenSet() const { return m_segmentationModeHasBeenSet; }
+
+    /**
+     * useInputSegmentation has been deprecated. The configured segment size is always
+     * used.
      */
     inline void SetSegmentationMode(const SmoothGroupSegmentationMode& value) { m_segmentationModeHasBeenSet = true; m_segmentationMode = value; }
 
     /**
-     * When set to useInputSegmentation, the output segment or fragment points are set
-     * by the RAI markers from the input streams.
+     * useInputSegmentation has been deprecated. The configured segment size is always
+     * used.
      */
     inline void SetSegmentationMode(SmoothGroupSegmentationMode&& value) { m_segmentationModeHasBeenSet = true; m_segmentationMode = std::move(value); }
 
     /**
-     * When set to useInputSegmentation, the output segment or fragment points are set
-     * by the RAI markers from the input streams.
+     * useInputSegmentation has been deprecated. The configured segment size is always
+     * used.
      */
     inline MsSmoothGroupSettings& WithSegmentationMode(const SmoothGroupSegmentationMode& value) { SetSegmentationMode(value); return *this;}
 
     /**
-     * When set to useInputSegmentation, the output segment or fragment points are set
-     * by the RAI markers from the input streams.
+     * useInputSegmentation has been deprecated. The configured segment size is always
+     * used.
      */
     inline MsSmoothGroupSettings& WithSegmentationMode(SmoothGroupSegmentationMode&& value) { SetSegmentationMode(std::move(value)); return *this;}
 
 
     /**
-     * Outputs that are "output locked" can use this delay. Assign a delay to the
-     * output that is "secondary".  Do not assign a delay to the "primary" output. The
-     * delay means that the primary output will always reach the downstream system
-     * before the secondary, which helps ensure that the downstream system always uses
-     * the primary output. (If there were no delay, the downstream system might
-     * flip-flop between whichever output happens to arrive first.) If the primary
-     * fails, the downstream system will switch to the secondary output. When the
-     * primary is restarted, the downstream system will switch back to the primary
-     * (because once again it is always arriving first)
+     * Number of milliseconds to delay the output from the second pipeline.
      */
     inline int GetSendDelayMs() const{ return m_sendDelayMs; }
 
     /**
-     * Outputs that are "output locked" can use this delay. Assign a delay to the
-     * output that is "secondary".  Do not assign a delay to the "primary" output. The
-     * delay means that the primary output will always reach the downstream system
-     * before the secondary, which helps ensure that the downstream system always uses
-     * the primary output. (If there were no delay, the downstream system might
-     * flip-flop between whichever output happens to arrive first.) If the primary
-     * fails, the downstream system will switch to the secondary output. When the
-     * primary is restarted, the downstream system will switch back to the primary
-     * (because once again it is always arriving first)
+     * Number of milliseconds to delay the output from the second pipeline.
+     */
+    inline bool SendDelayMsHasBeenSet() const { return m_sendDelayMsHasBeenSet; }
+
+    /**
+     * Number of milliseconds to delay the output from the second pipeline.
      */
     inline void SetSendDelayMs(int value) { m_sendDelayMsHasBeenSet = true; m_sendDelayMs = value; }
 
     /**
-     * Outputs that are "output locked" can use this delay. Assign a delay to the
-     * output that is "secondary".  Do not assign a delay to the "primary" output. The
-     * delay means that the primary output will always reach the downstream system
-     * before the secondary, which helps ensure that the downstream system always uses
-     * the primary output. (If there were no delay, the downstream system might
-     * flip-flop between whichever output happens to arrive first.) If the primary
-     * fails, the downstream system will switch to the secondary output. When the
-     * primary is restarted, the downstream system will switch back to the primary
-     * (because once again it is always arriving first)
+     * Number of milliseconds to delay the output from the second pipeline.
      */
     inline MsSmoothGroupSettings& WithSendDelayMs(int value) { SetSendDelayMs(value); return *this;}
 
@@ -555,6 +631,12 @@ Options:
      * this group of MS-Smooth outputs.
      */
     inline const SmoothGroupSparseTrackType& GetSparseTrackType() const{ return m_sparseTrackType; }
+
+    /**
+     * If set to scte35, use incoming SCTE-35 messages to generate a sparse track in
+     * this group of MS-Smooth outputs.
+     */
+    inline bool SparseTrackTypeHasBeenSet() const { return m_sparseTrackTypeHasBeenSet; }
 
     /**
      * If set to scte35, use incoming SCTE-35 messages to generate a sparse track in
@@ -591,6 +673,12 @@ Options:
      * When set to send, send stream manifest so publishing point doesn't start until
      * all streams start.
      */
+    inline bool StreamManifestBehaviorHasBeenSet() const { return m_streamManifestBehaviorHasBeenSet; }
+
+    /**
+     * When set to send, send stream manifest so publishing point doesn't start until
+     * all streams start.
+     */
     inline void SetStreamManifestBehavior(const SmoothGroupStreamManifestBehavior& value) { m_streamManifestBehaviorHasBeenSet = true; m_streamManifestBehavior = value; }
 
     /**
@@ -617,6 +705,12 @@ Options:
      * useConfiguredOffset.
      */
     inline const Aws::String& GetTimestampOffset() const{ return m_timestampOffset; }
+
+    /**
+     * Timestamp offset for the event.  Only used if timestampOffsetMode is set to
+     * useConfiguredOffset.
+     */
+    inline bool TimestampOffsetHasBeenSet() const { return m_timestampOffsetHasBeenSet; }
 
     /**
      * Timestamp offset for the event.  Only used if timestampOffsetMode is set to
@@ -663,6 +757,15 @@ Options:
      * configured date as the offset
      */
     inline const SmoothGroupTimestampOffsetMode& GetTimestampOffsetMode() const{ return m_timestampOffsetMode; }
+
+    /**
+     * Type of timestamp date offset to use.
+- useEventStartDate: Use the date the
+     * event was started as the offset
+- useConfiguredOffset: Use an explicitly
+     * configured date as the offset
+     */
+    inline bool TimestampOffsetModeHasBeenSet() const { return m_timestampOffsetModeHasBeenSet; }
 
     /**
      * Type of timestamp date offset to use.

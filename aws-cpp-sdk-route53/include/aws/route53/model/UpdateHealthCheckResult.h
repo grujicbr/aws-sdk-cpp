@@ -34,6 +34,12 @@ namespace Route53
 {
 namespace Model
 {
+  /**
+   * <p>A complex type that contains the response to the
+   * <code>UpdateHealthCheck</code> request.</p><p><h3>See Also:</h3>   <a
+   * href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/UpdateHealthCheckResponse">AWS
+   * API Reference</a></p>
+   */
   class AWS_ROUTE53_API UpdateHealthCheckResult
   {
   public:
@@ -42,19 +48,34 @@ namespace Model
     UpdateHealthCheckResult& operator=(const Aws::AmazonWebServiceResult<Aws::Utils::Xml::XmlDocument>& result);
 
 
-    
+    /**
+     * <p>A complex type that contains the response to an
+     * <code>UpdateHealthCheck</code> request.</p>
+     */
     inline const HealthCheck& GetHealthCheck() const{ return m_healthCheck; }
 
-    
+    /**
+     * <p>A complex type that contains the response to an
+     * <code>UpdateHealthCheck</code> request.</p>
+     */
     inline void SetHealthCheck(const HealthCheck& value) { m_healthCheck = value; }
 
-    
+    /**
+     * <p>A complex type that contains the response to an
+     * <code>UpdateHealthCheck</code> request.</p>
+     */
     inline void SetHealthCheck(HealthCheck&& value) { m_healthCheck = std::move(value); }
 
-    
+    /**
+     * <p>A complex type that contains the response to an
+     * <code>UpdateHealthCheck</code> request.</p>
+     */
     inline UpdateHealthCheckResult& WithHealthCheck(const HealthCheck& value) { SetHealthCheck(value); return *this;}
 
-    
+    /**
+     * <p>A complex type that contains the response to an
+     * <code>UpdateHealthCheck</code> request.</p>
+     */
     inline UpdateHealthCheckResult& WithHealthCheck(HealthCheck&& value) { SetHealthCheck(std::move(value)); return *this;}
 
   private:

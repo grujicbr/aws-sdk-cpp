@@ -35,7 +35,10 @@ CreateTrailRequest::CreateTrailRequest() :
     m_enableLogFileValidationHasBeenSet(false),
     m_cloudWatchLogsLogGroupArnHasBeenSet(false),
     m_cloudWatchLogsRoleArnHasBeenSet(false),
-    m_kmsKeyIdHasBeenSet(false)
+    m_kmsKeyIdHasBeenSet(false),
+    m_isOrganizationTrail(false),
+    m_isOrganizationTrailHasBeenSet(false),
+    m_tagsListHasBeenSet(false)
 {
 }
 
@@ -103,7 +106,24 @@ Aws::String CreateTrailRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_isOrganizationTrailHasBeenSet)
+  {
+   payload.WithBool("IsOrganizationTrail", m_isOrganizationTrail);
+
+  }
+
+  if(m_tagsListHasBeenSet)
+  {
+   Array<JsonValue> tagsListJsonList(m_tagsList.size());
+   for(unsigned tagsListIndex = 0; tagsListIndex < tagsListJsonList.GetLength(); ++tagsListIndex)
+   {
+     tagsListJsonList[tagsListIndex].AsObject(m_tagsList[tagsListIndex].Jsonize());
+   }
+   payload.WithArray("TagsList", std::move(tagsListJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateTrailRequest::GetRequestSpecificHeaders() const

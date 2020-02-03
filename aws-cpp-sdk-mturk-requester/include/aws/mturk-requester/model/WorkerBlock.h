@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     WorkerBlock();
-    WorkerBlock(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkerBlock& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkerBlock(Aws::Utils::Json::JsonView jsonValue);
+    WorkerBlock& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p> The ID of the Worker who accepted the HIT.</p>
      */
     inline const Aws::String& GetWorkerId() const{ return m_workerId; }
+
+    /**
+     * <p> The ID of the Worker who accepted the HIT.</p>
+     */
+    inline bool WorkerIdHasBeenSet() const { return m_workerIdHasBeenSet; }
 
     /**
      * <p> The ID of the Worker who accepted the HIT.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p> A message explaining the reason the Worker was blocked. </p>
      */
     inline const Aws::String& GetReason() const{ return m_reason; }
+
+    /**
+     * <p> A message explaining the reason the Worker was blocked. </p>
+     */
+    inline bool ReasonHasBeenSet() const { return m_reasonHasBeenSet; }
 
     /**
      * <p> A message explaining the reason the Worker was blocked. </p>

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     ArtifactDetails();
-    ArtifactDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    ArtifactDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ArtifactDetails(Aws::Utils::Json::JsonView jsonValue);
+    ArtifactDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The minimum number of artifacts allowed for the action type.</p>
      */
     inline int GetMinimumCount() const{ return m_minimumCount; }
+
+    /**
+     * <p>The minimum number of artifacts allowed for the action type.</p>
+     */
+    inline bool MinimumCountHasBeenSet() const { return m_minimumCountHasBeenSet; }
 
     /**
      * <p>The minimum number of artifacts allowed for the action type.</p>
@@ -65,6 +71,11 @@ namespace Model
      * <p>The maximum number of artifacts allowed for the action type.</p>
      */
     inline int GetMaximumCount() const{ return m_maximumCount; }
+
+    /**
+     * <p>The maximum number of artifacts allowed for the action type.</p>
+     */
+    inline bool MaximumCountHasBeenSet() const { return m_maximumCountHasBeenSet; }
 
     /**
      * <p>The maximum number of artifacts allowed for the action type.</p>

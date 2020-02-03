@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetGroupCertificateAuthorityRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,6 +46,11 @@ namespace Model
      * The ID of the certificate authority.
      */
     inline const Aws::String& GetCertificateAuthorityId() const{ return m_certificateAuthorityId; }
+
+    /**
+     * The ID of the certificate authority.
+     */
+    inline bool CertificateAuthorityIdHasBeenSet() const { return m_certificateAuthorityIdHasBeenSet; }
 
     /**
      * The ID of the certificate authority.
@@ -79,37 +84,42 @@ namespace Model
 
 
     /**
-     * The ID of the AWS Greengrass group.
+     * The ID of the Greengrass group.
      */
     inline const Aws::String& GetGroupId() const{ return m_groupId; }
 
     /**
-     * The ID of the AWS Greengrass group.
+     * The ID of the Greengrass group.
+     */
+    inline bool GroupIdHasBeenSet() const { return m_groupIdHasBeenSet; }
+
+    /**
+     * The ID of the Greengrass group.
      */
     inline void SetGroupId(const Aws::String& value) { m_groupIdHasBeenSet = true; m_groupId = value; }
 
     /**
-     * The ID of the AWS Greengrass group.
+     * The ID of the Greengrass group.
      */
     inline void SetGroupId(Aws::String&& value) { m_groupIdHasBeenSet = true; m_groupId = std::move(value); }
 
     /**
-     * The ID of the AWS Greengrass group.
+     * The ID of the Greengrass group.
      */
     inline void SetGroupId(const char* value) { m_groupIdHasBeenSet = true; m_groupId.assign(value); }
 
     /**
-     * The ID of the AWS Greengrass group.
+     * The ID of the Greengrass group.
      */
     inline GetGroupCertificateAuthorityRequest& WithGroupId(const Aws::String& value) { SetGroupId(value); return *this;}
 
     /**
-     * The ID of the AWS Greengrass group.
+     * The ID of the Greengrass group.
      */
     inline GetGroupCertificateAuthorityRequest& WithGroupId(Aws::String&& value) { SetGroupId(std::move(value)); return *this;}
 
     /**
-     * The ID of the AWS Greengrass group.
+     * The ID of the Greengrass group.
      */
     inline GetGroupCertificateAuthorityRequest& WithGroupId(const char* value) { SetGroupId(value); return *this;}
 

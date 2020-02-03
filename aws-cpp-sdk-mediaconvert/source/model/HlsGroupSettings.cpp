@@ -30,6 +30,7 @@ namespace Model
 
 HlsGroupSettings::HlsGroupSettings() : 
     m_adMarkersHasBeenSet(false),
+    m_additionalManifestsHasBeenSet(false),
     m_baseUrlHasBeenSet(false),
     m_captionLanguageMappingsHasBeenSet(false),
     m_captionLanguageSetting(HlsCaptionLanguageSetting::NOT_SET),
@@ -39,6 +40,7 @@ HlsGroupSettings::HlsGroupSettings() :
     m_codecSpecification(HlsCodecSpecification::NOT_SET),
     m_codecSpecificationHasBeenSet(false),
     m_destinationHasBeenSet(false),
+    m_destinationSettingsHasBeenSet(false),
     m_directoryStructure(HlsDirectoryStructure::NOT_SET),
     m_directoryStructureHasBeenSet(false),
     m_encryptionHasBeenSet(false),
@@ -46,6 +48,8 @@ HlsGroupSettings::HlsGroupSettings() :
     m_manifestCompressionHasBeenSet(false),
     m_manifestDurationFormat(HlsManifestDurationFormat::NOT_SET),
     m_manifestDurationFormatHasBeenSet(false),
+    m_minFinalSegmentLength(0.0),
+    m_minFinalSegmentLengthHasBeenSet(false),
     m_minSegmentLength(0),
     m_minSegmentLengthHasBeenSet(false),
     m_outputSelection(HlsOutputSelection::NOT_SET),
@@ -71,8 +75,9 @@ HlsGroupSettings::HlsGroupSettings() :
 {
 }
 
-HlsGroupSettings::HlsGroupSettings(const JsonValue& jsonValue) : 
+HlsGroupSettings::HlsGroupSettings(JsonView jsonValue) : 
     m_adMarkersHasBeenSet(false),
+    m_additionalManifestsHasBeenSet(false),
     m_baseUrlHasBeenSet(false),
     m_captionLanguageMappingsHasBeenSet(false),
     m_captionLanguageSetting(HlsCaptionLanguageSetting::NOT_SET),
@@ -82,6 +87,7 @@ HlsGroupSettings::HlsGroupSettings(const JsonValue& jsonValue) :
     m_codecSpecification(HlsCodecSpecification::NOT_SET),
     m_codecSpecificationHasBeenSet(false),
     m_destinationHasBeenSet(false),
+    m_destinationSettingsHasBeenSet(false),
     m_directoryStructure(HlsDirectoryStructure::NOT_SET),
     m_directoryStructureHasBeenSet(false),
     m_encryptionHasBeenSet(false),
@@ -89,6 +95,8 @@ HlsGroupSettings::HlsGroupSettings(const JsonValue& jsonValue) :
     m_manifestCompressionHasBeenSet(false),
     m_manifestDurationFormat(HlsManifestDurationFormat::NOT_SET),
     m_manifestDurationFormatHasBeenSet(false),
+    m_minFinalSegmentLength(0.0),
+    m_minFinalSegmentLengthHasBeenSet(false),
     m_minSegmentLength(0),
     m_minSegmentLengthHasBeenSet(false),
     m_outputSelection(HlsOutputSelection::NOT_SET),
@@ -115,16 +123,26 @@ HlsGroupSettings::HlsGroupSettings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
+HlsGroupSettings& HlsGroupSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("adMarkers"))
   {
-    Array<JsonValue> adMarkersJsonList = jsonValue.GetArray("adMarkers");
+    Array<JsonView> adMarkersJsonList = jsonValue.GetArray("adMarkers");
     for(unsigned adMarkersIndex = 0; adMarkersIndex < adMarkersJsonList.GetLength(); ++adMarkersIndex)
     {
       m_adMarkers.push_back(HlsAdMarkersMapper::GetHlsAdMarkersForName(adMarkersJsonList[adMarkersIndex].AsString()));
     }
     m_adMarkersHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("additionalManifests"))
+  {
+    Array<JsonView> additionalManifestsJsonList = jsonValue.GetArray("additionalManifests");
+    for(unsigned additionalManifestsIndex = 0; additionalManifestsIndex < additionalManifestsJsonList.GetLength(); ++additionalManifestsIndex)
+    {
+      m_additionalManifests.push_back(additionalManifestsJsonList[additionalManifestsIndex].AsObject());
+    }
+    m_additionalManifestsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("baseUrl"))
@@ -136,7 +154,7 @@ HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("captionLanguageMappings"))
   {
-    Array<JsonValue> captionLanguageMappingsJsonList = jsonValue.GetArray("captionLanguageMappings");
+    Array<JsonView> captionLanguageMappingsJsonList = jsonValue.GetArray("captionLanguageMappings");
     for(unsigned captionLanguageMappingsIndex = 0; captionLanguageMappingsIndex < captionLanguageMappingsJsonList.GetLength(); ++captionLanguageMappingsIndex)
     {
       m_captionLanguageMappings.push_back(captionLanguageMappingsJsonList[captionLanguageMappingsIndex].AsObject());
@@ -172,6 +190,13 @@ HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
     m_destinationHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("destinationSettings"))
+  {
+    m_destinationSettings = jsonValue.GetObject("destinationSettings");
+
+    m_destinationSettingsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("directoryStructure"))
   {
     m_directoryStructure = HlsDirectoryStructureMapper::GetHlsDirectoryStructureForName(jsonValue.GetString("directoryStructure"));
@@ -198,6 +223,13 @@ HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
     m_manifestDurationFormat = HlsManifestDurationFormatMapper::GetHlsManifestDurationFormatForName(jsonValue.GetString("manifestDurationFormat"));
 
     m_manifestDurationFormatHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("minFinalSegmentLength"))
+  {
+    m_minFinalSegmentLength = jsonValue.GetDouble("minFinalSegmentLength");
+
+    m_minFinalSegmentLengthHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("minSegmentLength"))
@@ -295,6 +327,17 @@ JsonValue HlsGroupSettings::Jsonize() const
 
   }
 
+  if(m_additionalManifestsHasBeenSet)
+  {
+   Array<JsonValue> additionalManifestsJsonList(m_additionalManifests.size());
+   for(unsigned additionalManifestsIndex = 0; additionalManifestsIndex < additionalManifestsJsonList.GetLength(); ++additionalManifestsIndex)
+   {
+     additionalManifestsJsonList[additionalManifestsIndex].AsObject(m_additionalManifests[additionalManifestsIndex].Jsonize());
+   }
+   payload.WithArray("additionalManifests", std::move(additionalManifestsJsonList));
+
+  }
+
   if(m_baseUrlHasBeenSet)
   {
    payload.WithString("baseUrl", m_baseUrl);
@@ -333,6 +376,12 @@ JsonValue HlsGroupSettings::Jsonize() const
 
   }
 
+  if(m_destinationSettingsHasBeenSet)
+  {
+   payload.WithObject("destinationSettings", m_destinationSettings.Jsonize());
+
+  }
+
   if(m_directoryStructureHasBeenSet)
   {
    payload.WithString("directoryStructure", HlsDirectoryStructureMapper::GetNameForHlsDirectoryStructure(m_directoryStructure));
@@ -352,6 +401,12 @@ JsonValue HlsGroupSettings::Jsonize() const
   if(m_manifestDurationFormatHasBeenSet)
   {
    payload.WithString("manifestDurationFormat", HlsManifestDurationFormatMapper::GetNameForHlsManifestDurationFormat(m_manifestDurationFormat));
+  }
+
+  if(m_minFinalSegmentLengthHasBeenSet)
+  {
+   payload.WithDouble("minFinalSegmentLength", m_minFinalSegmentLength);
+
   }
 
   if(m_minSegmentLengthHasBeenSet)

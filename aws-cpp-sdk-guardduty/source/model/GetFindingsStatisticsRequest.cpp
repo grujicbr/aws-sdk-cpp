@@ -24,20 +24,14 @@ using namespace Aws::Utils;
 
 GetFindingsStatisticsRequest::GetFindingsStatisticsRequest() : 
     m_detectorIdHasBeenSet(false),
-    m_findingCriteriaHasBeenSet(false),
-    m_findingStatisticTypesHasBeenSet(false)
+    m_findingStatisticTypesHasBeenSet(false),
+    m_findingCriteriaHasBeenSet(false)
 {
 }
 
 Aws::String GetFindingsStatisticsRequest::SerializePayload() const
 {
   JsonValue payload;
-
-  if(m_findingCriteriaHasBeenSet)
-  {
-   payload.WithObject("findingCriteria", m_findingCriteria.Jsonize());
-
-  }
 
   if(m_findingStatisticTypesHasBeenSet)
   {
@@ -50,7 +44,13 @@ Aws::String GetFindingsStatisticsRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_findingCriteriaHasBeenSet)
+  {
+   payload.WithObject("findingCriteria", m_findingCriteria.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

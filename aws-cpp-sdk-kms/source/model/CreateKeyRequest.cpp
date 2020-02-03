@@ -27,8 +27,11 @@ CreateKeyRequest::CreateKeyRequest() :
     m_descriptionHasBeenSet(false),
     m_keyUsage(KeyUsageType::NOT_SET),
     m_keyUsageHasBeenSet(false),
+    m_customerMasterKeySpec(CustomerMasterKeySpec::NOT_SET),
+    m_customerMasterKeySpecHasBeenSet(false),
     m_origin(OriginType::NOT_SET),
     m_originHasBeenSet(false),
+    m_customKeyStoreIdHasBeenSet(false),
     m_bypassPolicyLockoutSafetyCheck(false),
     m_bypassPolicyLockoutSafetyCheckHasBeenSet(false),
     m_tagsHasBeenSet(false)
@@ -56,9 +59,20 @@ Aws::String CreateKeyRequest::SerializePayload() const
    payload.WithString("KeyUsage", KeyUsageTypeMapper::GetNameForKeyUsageType(m_keyUsage));
   }
 
+  if(m_customerMasterKeySpecHasBeenSet)
+  {
+   payload.WithString("CustomerMasterKeySpec", CustomerMasterKeySpecMapper::GetNameForCustomerMasterKeySpec(m_customerMasterKeySpec));
+  }
+
   if(m_originHasBeenSet)
   {
    payload.WithString("Origin", OriginTypeMapper::GetNameForOriginType(m_origin));
+  }
+
+  if(m_customKeyStoreIdHasBeenSet)
+  {
+   payload.WithString("CustomKeyStoreId", m_customKeyStoreId);
+
   }
 
   if(m_bypassPolicyLockoutSafetyCheckHasBeenSet)
@@ -78,7 +92,7 @@ Aws::String CreateKeyRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateKeyRequest::GetRequestSpecificHeaders() const

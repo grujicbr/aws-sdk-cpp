@@ -44,6 +44,7 @@ GameSessionPlacement::GameSessionPlacement() :
     m_startTimeHasBeenSet(false),
     m_endTimeHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
+    m_dnsNameHasBeenSet(false),
     m_port(0),
     m_portHasBeenSet(false),
     m_placedPlayerSessionsHasBeenSet(false),
@@ -52,7 +53,7 @@ GameSessionPlacement::GameSessionPlacement() :
 {
 }
 
-GameSessionPlacement::GameSessionPlacement(const JsonValue& jsonValue) : 
+GameSessionPlacement::GameSessionPlacement(JsonView jsonValue) : 
     m_placementIdHasBeenSet(false),
     m_gameSessionQueueNameHasBeenSet(false),
     m_status(GameSessionPlacementState::NOT_SET),
@@ -68,6 +69,7 @@ GameSessionPlacement::GameSessionPlacement(const JsonValue& jsonValue) :
     m_startTimeHasBeenSet(false),
     m_endTimeHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
+    m_dnsNameHasBeenSet(false),
     m_port(0),
     m_portHasBeenSet(false),
     m_placedPlayerSessionsHasBeenSet(false),
@@ -77,7 +79,7 @@ GameSessionPlacement::GameSessionPlacement(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-GameSessionPlacement& GameSessionPlacement::operator =(const JsonValue& jsonValue)
+GameSessionPlacement& GameSessionPlacement::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("PlacementId"))
   {
@@ -102,7 +104,7 @@ GameSessionPlacement& GameSessionPlacement::operator =(const JsonValue& jsonValu
 
   if(jsonValue.ValueExists("GameProperties"))
   {
-    Array<JsonValue> gamePropertiesJsonList = jsonValue.GetArray("GameProperties");
+    Array<JsonView> gamePropertiesJsonList = jsonValue.GetArray("GameProperties");
     for(unsigned gamePropertiesIndex = 0; gamePropertiesIndex < gamePropertiesJsonList.GetLength(); ++gamePropertiesIndex)
     {
       m_gameProperties.push_back(gamePropertiesJsonList[gamePropertiesIndex].AsObject());
@@ -147,7 +149,7 @@ GameSessionPlacement& GameSessionPlacement::operator =(const JsonValue& jsonValu
 
   if(jsonValue.ValueExists("PlayerLatencies"))
   {
-    Array<JsonValue> playerLatenciesJsonList = jsonValue.GetArray("PlayerLatencies");
+    Array<JsonView> playerLatenciesJsonList = jsonValue.GetArray("PlayerLatencies");
     for(unsigned playerLatenciesIndex = 0; playerLatenciesIndex < playerLatenciesJsonList.GetLength(); ++playerLatenciesIndex)
     {
       m_playerLatencies.push_back(playerLatenciesJsonList[playerLatenciesIndex].AsObject());
@@ -176,6 +178,13 @@ GameSessionPlacement& GameSessionPlacement::operator =(const JsonValue& jsonValu
     m_ipAddressHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("DnsName"))
+  {
+    m_dnsName = jsonValue.GetString("DnsName");
+
+    m_dnsNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("Port"))
   {
     m_port = jsonValue.GetInteger("Port");
@@ -185,7 +194,7 @@ GameSessionPlacement& GameSessionPlacement::operator =(const JsonValue& jsonValu
 
   if(jsonValue.ValueExists("PlacedPlayerSessions"))
   {
-    Array<JsonValue> placedPlayerSessionsJsonList = jsonValue.GetArray("PlacedPlayerSessions");
+    Array<JsonView> placedPlayerSessionsJsonList = jsonValue.GetArray("PlacedPlayerSessions");
     for(unsigned placedPlayerSessionsIndex = 0; placedPlayerSessionsIndex < placedPlayerSessionsJsonList.GetLength(); ++placedPlayerSessionsIndex)
     {
       m_placedPlayerSessions.push_back(placedPlayerSessionsJsonList[placedPlayerSessionsIndex].AsObject());
@@ -296,6 +305,12 @@ JsonValue GameSessionPlacement::Jsonize() const
   if(m_ipAddressHasBeenSet)
   {
    payload.WithString("IpAddress", m_ipAddress);
+
+  }
+
+  if(m_dnsNameHasBeenSet)
+  {
+   payload.WithString("DnsName", m_dnsName);
 
   }
 

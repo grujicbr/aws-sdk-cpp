@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ResourceAccessPolicy();
-    ResourceAccessPolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceAccessPolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceAccessPolicy(Aws::Utils::Json::JsonView jsonValue);
+    ResourceAccessPolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * ''rw'' (read/write) or ''ro'' (read-only).
      */
     inline const Permission& GetPermission() const{ return m_permission; }
+
+    /**
+     * The permissions that the Lambda function has to the resource. Can be one of
+     * ''rw'' (read/write) or ''ro'' (read-only).
+     */
+    inline bool PermissionHasBeenSet() const { return m_permissionHasBeenSet; }
 
     /**
      * The permissions that the Lambda function has to the resource. Can be one of
@@ -83,6 +90,12 @@ namespace Model
      * resource definiton.)
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
+
+    /**
+     * The ID of the resource. (This ID is assigned to the resource when you create the
+     * resource definiton.)
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
 
     /**
      * The ID of the resource. (This ID is assigned to the resource when you create the

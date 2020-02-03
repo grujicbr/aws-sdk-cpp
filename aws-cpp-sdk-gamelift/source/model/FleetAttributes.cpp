@@ -42,6 +42,9 @@ FleetAttributes::FleetAttributes() :
     m_status(FleetStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_buildIdHasBeenSet(false),
+    m_buildArnHasBeenSet(false),
+    m_scriptIdHasBeenSet(false),
+    m_scriptArnHasBeenSet(false),
     m_serverLaunchPathHasBeenSet(false),
     m_serverLaunchParametersHasBeenSet(false),
     m_logPathsHasBeenSet(false),
@@ -51,11 +54,13 @@ FleetAttributes::FleetAttributes() :
     m_operatingSystemHasBeenSet(false),
     m_resourceCreationLimitPolicyHasBeenSet(false),
     m_metricGroupsHasBeenSet(false),
-    m_stoppedActionsHasBeenSet(false)
+    m_stoppedActionsHasBeenSet(false),
+    m_instanceRoleArnHasBeenSet(false),
+    m_certificateConfigurationHasBeenSet(false)
 {
 }
 
-FleetAttributes::FleetAttributes(const JsonValue& jsonValue) : 
+FleetAttributes::FleetAttributes(JsonView jsonValue) : 
     m_fleetIdHasBeenSet(false),
     m_fleetArnHasBeenSet(false),
     m_fleetType(FleetType::NOT_SET),
@@ -69,6 +74,9 @@ FleetAttributes::FleetAttributes(const JsonValue& jsonValue) :
     m_status(FleetStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_buildIdHasBeenSet(false),
+    m_buildArnHasBeenSet(false),
+    m_scriptIdHasBeenSet(false),
+    m_scriptArnHasBeenSet(false),
     m_serverLaunchPathHasBeenSet(false),
     m_serverLaunchParametersHasBeenSet(false),
     m_logPathsHasBeenSet(false),
@@ -78,12 +86,14 @@ FleetAttributes::FleetAttributes(const JsonValue& jsonValue) :
     m_operatingSystemHasBeenSet(false),
     m_resourceCreationLimitPolicyHasBeenSet(false),
     m_metricGroupsHasBeenSet(false),
-    m_stoppedActionsHasBeenSet(false)
+    m_stoppedActionsHasBeenSet(false),
+    m_instanceRoleArnHasBeenSet(false),
+    m_certificateConfigurationHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-FleetAttributes& FleetAttributes::operator =(const JsonValue& jsonValue)
+FleetAttributes& FleetAttributes::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("FleetId"))
   {
@@ -155,6 +165,27 @@ FleetAttributes& FleetAttributes::operator =(const JsonValue& jsonValue)
     m_buildIdHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("BuildArn"))
+  {
+    m_buildArn = jsonValue.GetString("BuildArn");
+
+    m_buildArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ScriptId"))
+  {
+    m_scriptId = jsonValue.GetString("ScriptId");
+
+    m_scriptIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ScriptArn"))
+  {
+    m_scriptArn = jsonValue.GetString("ScriptArn");
+
+    m_scriptArnHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ServerLaunchPath"))
   {
     m_serverLaunchPath = jsonValue.GetString("ServerLaunchPath");
@@ -171,7 +202,7 @@ FleetAttributes& FleetAttributes::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("LogPaths"))
   {
-    Array<JsonValue> logPathsJsonList = jsonValue.GetArray("LogPaths");
+    Array<JsonView> logPathsJsonList = jsonValue.GetArray("LogPaths");
     for(unsigned logPathsIndex = 0; logPathsIndex < logPathsJsonList.GetLength(); ++logPathsIndex)
     {
       m_logPaths.push_back(logPathsJsonList[logPathsIndex].AsString());
@@ -202,7 +233,7 @@ FleetAttributes& FleetAttributes::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("MetricGroups"))
   {
-    Array<JsonValue> metricGroupsJsonList = jsonValue.GetArray("MetricGroups");
+    Array<JsonView> metricGroupsJsonList = jsonValue.GetArray("MetricGroups");
     for(unsigned metricGroupsIndex = 0; metricGroupsIndex < metricGroupsJsonList.GetLength(); ++metricGroupsIndex)
     {
       m_metricGroups.push_back(metricGroupsJsonList[metricGroupsIndex].AsString());
@@ -212,12 +243,26 @@ FleetAttributes& FleetAttributes::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("StoppedActions"))
   {
-    Array<JsonValue> stoppedActionsJsonList = jsonValue.GetArray("StoppedActions");
+    Array<JsonView> stoppedActionsJsonList = jsonValue.GetArray("StoppedActions");
     for(unsigned stoppedActionsIndex = 0; stoppedActionsIndex < stoppedActionsJsonList.GetLength(); ++stoppedActionsIndex)
     {
       m_stoppedActions.push_back(FleetActionMapper::GetFleetActionForName(stoppedActionsJsonList[stoppedActionsIndex].AsString()));
     }
     m_stoppedActionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("InstanceRoleArn"))
+  {
+    m_instanceRoleArn = jsonValue.GetString("InstanceRoleArn");
+
+    m_instanceRoleArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CertificateConfiguration"))
+  {
+    m_certificateConfiguration = jsonValue.GetObject("CertificateConfiguration");
+
+    m_certificateConfigurationHasBeenSet = true;
   }
 
   return *this;
@@ -282,6 +327,24 @@ JsonValue FleetAttributes::Jsonize() const
 
   }
 
+  if(m_buildArnHasBeenSet)
+  {
+   payload.WithString("BuildArn", m_buildArn);
+
+  }
+
+  if(m_scriptIdHasBeenSet)
+  {
+   payload.WithString("ScriptId", m_scriptId);
+
+  }
+
+  if(m_scriptArnHasBeenSet)
+  {
+   payload.WithString("ScriptArn", m_scriptArn);
+
+  }
+
   if(m_serverLaunchPathHasBeenSet)
   {
    payload.WithString("ServerLaunchPath", m_serverLaunchPath);
@@ -340,6 +403,18 @@ JsonValue FleetAttributes::Jsonize() const
      stoppedActionsJsonList[stoppedActionsIndex].AsString(FleetActionMapper::GetNameForFleetAction(m_stoppedActions[stoppedActionsIndex]));
    }
    payload.WithArray("StoppedActions", std::move(stoppedActionsJsonList));
+
+  }
+
+  if(m_instanceRoleArnHasBeenSet)
+  {
+   payload.WithString("InstanceRoleArn", m_instanceRoleArn);
+
+  }
+
+  if(m_certificateConfigurationHasBeenSet)
+  {
+   payload.WithObject("CertificateConfiguration", m_certificateConfiguration.Jsonize());
 
   }
 

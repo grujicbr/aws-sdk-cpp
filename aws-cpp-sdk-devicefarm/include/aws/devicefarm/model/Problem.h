@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Problem();
-    Problem(const Aws::Utils::Json::JsonValue& jsonValue);
-    Problem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Problem(Aws::Utils::Json::JsonView jsonValue);
+    Problem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Information about the associated run.</p>
      */
     inline const ProblemDetail& GetRun() const{ return m_run; }
+
+    /**
+     * <p>Information about the associated run.</p>
+     */
+    inline bool RunHasBeenSet() const { return m_runHasBeenSet; }
 
     /**
      * <p>Information about the associated run.</p>
@@ -83,6 +89,11 @@ namespace Model
     /**
      * <p>Information about the associated job.</p>
      */
+    inline bool JobHasBeenSet() const { return m_jobHasBeenSet; }
+
+    /**
+     * <p>Information about the associated job.</p>
+     */
     inline void SetJob(const ProblemDetail& value) { m_jobHasBeenSet = true; m_job = value; }
 
     /**
@@ -105,6 +116,11 @@ namespace Model
      * <p>Information about the associated suite.</p>
      */
     inline const ProblemDetail& GetSuite() const{ return m_suite; }
+
+    /**
+     * <p>Information about the associated suite.</p>
+     */
+    inline bool SuiteHasBeenSet() const { return m_suiteHasBeenSet; }
 
     /**
      * <p>Information about the associated suite.</p>
@@ -135,6 +151,11 @@ namespace Model
     /**
      * <p>Information about the associated test.</p>
      */
+    inline bool TestHasBeenSet() const { return m_testHasBeenSet; }
+
+    /**
+     * <p>Information about the associated test.</p>
+     */
     inline void SetTest(const ProblemDetail& value) { m_testHasBeenSet = true; m_test = value; }
 
     /**
@@ -161,6 +182,11 @@ namespace Model
     /**
      * <p>Information about the associated device.</p>
      */
+    inline bool DeviceHasBeenSet() const { return m_deviceHasBeenSet; }
+
+    /**
+     * <p>Information about the associated device.</p>
+     */
     inline void SetDevice(const Device& value) { m_deviceHasBeenSet = true; m_device = value; }
 
     /**
@@ -181,51 +207,49 @@ namespace Model
 
     /**
      * <p>The problem's result.</p> <p>Allowed values include:</p> <ul> <li>
-     * <p>PENDING: A pending condition.</p> </li> <li> <p>PASSED: A passing
-     * condition.</p> </li> <li> <p>WARNED: A warning condition.</p> </li> <li>
-     * <p>FAILED: A failed condition.</p> </li> <li> <p>SKIPPED: A skipped
-     * condition.</p> </li> <li> <p>ERRORED: An error condition.</p> </li> <li>
-     * <p>STOPPED: A stopped condition.</p> </li> </ul>
+     * <p>PENDING</p> </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li>
+     * <p>FAILED</p> </li> <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li>
+     * <p>STOPPED</p> </li> </ul>
      */
     inline const ExecutionResult& GetResult() const{ return m_result; }
 
     /**
      * <p>The problem's result.</p> <p>Allowed values include:</p> <ul> <li>
-     * <p>PENDING: A pending condition.</p> </li> <li> <p>PASSED: A passing
-     * condition.</p> </li> <li> <p>WARNED: A warning condition.</p> </li> <li>
-     * <p>FAILED: A failed condition.</p> </li> <li> <p>SKIPPED: A skipped
-     * condition.</p> </li> <li> <p>ERRORED: An error condition.</p> </li> <li>
-     * <p>STOPPED: A stopped condition.</p> </li> </ul>
+     * <p>PENDING</p> </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li>
+     * <p>FAILED</p> </li> <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li>
+     * <p>STOPPED</p> </li> </ul>
+     */
+    inline bool ResultHasBeenSet() const { return m_resultHasBeenSet; }
+
+    /**
+     * <p>The problem's result.</p> <p>Allowed values include:</p> <ul> <li>
+     * <p>PENDING</p> </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li>
+     * <p>FAILED</p> </li> <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li>
+     * <p>STOPPED</p> </li> </ul>
      */
     inline void SetResult(const ExecutionResult& value) { m_resultHasBeenSet = true; m_result = value; }
 
     /**
      * <p>The problem's result.</p> <p>Allowed values include:</p> <ul> <li>
-     * <p>PENDING: A pending condition.</p> </li> <li> <p>PASSED: A passing
-     * condition.</p> </li> <li> <p>WARNED: A warning condition.</p> </li> <li>
-     * <p>FAILED: A failed condition.</p> </li> <li> <p>SKIPPED: A skipped
-     * condition.</p> </li> <li> <p>ERRORED: An error condition.</p> </li> <li>
-     * <p>STOPPED: A stopped condition.</p> </li> </ul>
+     * <p>PENDING</p> </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li>
+     * <p>FAILED</p> </li> <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li>
+     * <p>STOPPED</p> </li> </ul>
      */
     inline void SetResult(ExecutionResult&& value) { m_resultHasBeenSet = true; m_result = std::move(value); }
 
     /**
      * <p>The problem's result.</p> <p>Allowed values include:</p> <ul> <li>
-     * <p>PENDING: A pending condition.</p> </li> <li> <p>PASSED: A passing
-     * condition.</p> </li> <li> <p>WARNED: A warning condition.</p> </li> <li>
-     * <p>FAILED: A failed condition.</p> </li> <li> <p>SKIPPED: A skipped
-     * condition.</p> </li> <li> <p>ERRORED: An error condition.</p> </li> <li>
-     * <p>STOPPED: A stopped condition.</p> </li> </ul>
+     * <p>PENDING</p> </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li>
+     * <p>FAILED</p> </li> <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li>
+     * <p>STOPPED</p> </li> </ul>
      */
     inline Problem& WithResult(const ExecutionResult& value) { SetResult(value); return *this;}
 
     /**
      * <p>The problem's result.</p> <p>Allowed values include:</p> <ul> <li>
-     * <p>PENDING: A pending condition.</p> </li> <li> <p>PASSED: A passing
-     * condition.</p> </li> <li> <p>WARNED: A warning condition.</p> </li> <li>
-     * <p>FAILED: A failed condition.</p> </li> <li> <p>SKIPPED: A skipped
-     * condition.</p> </li> <li> <p>ERRORED: An error condition.</p> </li> <li>
-     * <p>STOPPED: A stopped condition.</p> </li> </ul>
+     * <p>PENDING</p> </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li>
+     * <p>FAILED</p> </li> <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li>
+     * <p>STOPPED</p> </li> </ul>
      */
     inline Problem& WithResult(ExecutionResult&& value) { SetResult(std::move(value)); return *this;}
 
@@ -234,6 +258,11 @@ namespace Model
      * <p>A message about the problem's result.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>A message about the problem's result.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>A message about the problem's result.</p>

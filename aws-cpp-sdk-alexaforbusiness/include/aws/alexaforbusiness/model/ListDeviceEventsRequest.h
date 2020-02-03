@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     ListDeviceEventsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +49,11 @@ namespace Model
      * <p>The ARN of a device.</p>
      */
     inline const Aws::String& GetDeviceArn() const{ return m_deviceArn; }
+
+    /**
+     * <p>The ARN of a device.</p>
+     */
+    inline bool DeviceArnHasBeenSet() const { return m_deviceArnHasBeenSet; }
 
     /**
      * <p>The ARN of a device.</p>
@@ -82,27 +87,50 @@ namespace Model
 
 
     /**
-     * <p>The event type to filter device events.</p>
+     * <p>The event type to filter device events. If EventType isn't specified, this
+     * returns a list of all device events in reverse chronological order. If EventType
+     * is specified, this returns a list of device events for that EventType in reverse
+     * chronological order. </p>
      */
     inline const DeviceEventType& GetEventType() const{ return m_eventType; }
 
     /**
-     * <p>The event type to filter device events.</p>
+     * <p>The event type to filter device events. If EventType isn't specified, this
+     * returns a list of all device events in reverse chronological order. If EventType
+     * is specified, this returns a list of device events for that EventType in reverse
+     * chronological order. </p>
+     */
+    inline bool EventTypeHasBeenSet() const { return m_eventTypeHasBeenSet; }
+
+    /**
+     * <p>The event type to filter device events. If EventType isn't specified, this
+     * returns a list of all device events in reverse chronological order. If EventType
+     * is specified, this returns a list of device events for that EventType in reverse
+     * chronological order. </p>
      */
     inline void SetEventType(const DeviceEventType& value) { m_eventTypeHasBeenSet = true; m_eventType = value; }
 
     /**
-     * <p>The event type to filter device events.</p>
+     * <p>The event type to filter device events. If EventType isn't specified, this
+     * returns a list of all device events in reverse chronological order. If EventType
+     * is specified, this returns a list of device events for that EventType in reverse
+     * chronological order. </p>
      */
     inline void SetEventType(DeviceEventType&& value) { m_eventTypeHasBeenSet = true; m_eventType = std::move(value); }
 
     /**
-     * <p>The event type to filter device events.</p>
+     * <p>The event type to filter device events. If EventType isn't specified, this
+     * returns a list of all device events in reverse chronological order. If EventType
+     * is specified, this returns a list of device events for that EventType in reverse
+     * chronological order. </p>
      */
     inline ListDeviceEventsRequest& WithEventType(const DeviceEventType& value) { SetEventType(value); return *this;}
 
     /**
-     * <p>The event type to filter device events.</p>
+     * <p>The event type to filter device events. If EventType isn't specified, this
+     * returns a list of all device events in reverse chronological order. If EventType
+     * is specified, this returns a list of device events for that EventType in reverse
+     * chronological order. </p>
      */
     inline ListDeviceEventsRequest& WithEventType(DeviceEventType&& value) { SetEventType(std::move(value)); return *this;}
 
@@ -111,7 +139,8 @@ namespace Model
      * <p>An optional token returned from a prior request. Use this token for
      * pagination of results from this action. If this parameter is specified, the
      * response only includes results beyond the token, up to the value specified by
-     * MaxResults.</p>
+     * MaxResults. When the end of results is reached, the response has a value of
+     * null.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
@@ -119,7 +148,17 @@ namespace Model
      * <p>An optional token returned from a prior request. Use this token for
      * pagination of results from this action. If this parameter is specified, the
      * response only includes results beyond the token, up to the value specified by
-     * MaxResults.</p>
+     * MaxResults. When the end of results is reached, the response has a value of
+     * null.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>An optional token returned from a prior request. Use this token for
+     * pagination of results from this action. If this parameter is specified, the
+     * response only includes results beyond the token, up to the value specified by
+     * MaxResults. When the end of results is reached, the response has a value of
+     * null.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
@@ -127,7 +166,8 @@ namespace Model
      * <p>An optional token returned from a prior request. Use this token for
      * pagination of results from this action. If this parameter is specified, the
      * response only includes results beyond the token, up to the value specified by
-     * MaxResults.</p>
+     * MaxResults. When the end of results is reached, the response has a value of
+     * null.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
@@ -135,7 +175,8 @@ namespace Model
      * <p>An optional token returned from a prior request. Use this token for
      * pagination of results from this action. If this parameter is specified, the
      * response only includes results beyond the token, up to the value specified by
-     * MaxResults.</p>
+     * MaxResults. When the end of results is reached, the response has a value of
+     * null.</p>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
@@ -143,7 +184,8 @@ namespace Model
      * <p>An optional token returned from a prior request. Use this token for
      * pagination of results from this action. If this parameter is specified, the
      * response only includes results beyond the token, up to the value specified by
-     * MaxResults.</p>
+     * MaxResults. When the end of results is reached, the response has a value of
+     * null.</p>
      */
     inline ListDeviceEventsRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
@@ -151,7 +193,8 @@ namespace Model
      * <p>An optional token returned from a prior request. Use this token for
      * pagination of results from this action. If this parameter is specified, the
      * response only includes results beyond the token, up to the value specified by
-     * MaxResults.</p>
+     * MaxResults. When the end of results is reached, the response has a value of
+     * null.</p>
      */
     inline ListDeviceEventsRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
@@ -159,29 +202,37 @@ namespace Model
      * <p>An optional token returned from a prior request. Use this token for
      * pagination of results from this action. If this parameter is specified, the
      * response only includes results beyond the token, up to the value specified by
-     * MaxResults.</p>
+     * MaxResults. When the end of results is reached, the response has a value of
+     * null.</p>
      */
     inline ListDeviceEventsRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
 
     /**
-     * <p>The maximum number of results to include in the response. If more results
-     * exist than the specified MaxResults value, a token is included in the response
-     * so that the remaining results can be retrieved. Required. </p>
+     * <p>The maximum number of results to include in the response. The default value
+     * is 50. If more results exist than the specified MaxResults value, a token is
+     * included in the response so that the remaining results can be retrieved. </p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
 
     /**
-     * <p>The maximum number of results to include in the response. If more results
-     * exist than the specified MaxResults value, a token is included in the response
-     * so that the remaining results can be retrieved. Required. </p>
+     * <p>The maximum number of results to include in the response. The default value
+     * is 50. If more results exist than the specified MaxResults value, a token is
+     * included in the response so that the remaining results can be retrieved. </p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of results to include in the response. The default value
+     * is 50. If more results exist than the specified MaxResults value, a token is
+     * included in the response so that the remaining results can be retrieved. </p>
      */
     inline void SetMaxResults(int value) { m_maxResultsHasBeenSet = true; m_maxResults = value; }
 
     /**
-     * <p>The maximum number of results to include in the response. If more results
-     * exist than the specified MaxResults value, a token is included in the response
-     * so that the remaining results can be retrieved. Required. </p>
+     * <p>The maximum number of results to include in the response. The default value
+     * is 50. If more results exist than the specified MaxResults value, a token is
+     * included in the response so that the remaining results can be retrieved. </p>
      */
     inline ListDeviceEventsRequest& WithMaxResults(int value) { SetMaxResults(value); return *this;}
 

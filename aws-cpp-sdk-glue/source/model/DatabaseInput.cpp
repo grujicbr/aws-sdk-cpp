@@ -32,20 +32,22 @@ DatabaseInput::DatabaseInput() :
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_locationUriHasBeenSet(false),
-    m_parametersHasBeenSet(false)
+    m_parametersHasBeenSet(false),
+    m_createTableDefaultPermissionsHasBeenSet(false)
 {
 }
 
-DatabaseInput::DatabaseInput(const JsonValue& jsonValue) : 
+DatabaseInput::DatabaseInput(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_locationUriHasBeenSet(false),
-    m_parametersHasBeenSet(false)
+    m_parametersHasBeenSet(false),
+    m_createTableDefaultPermissionsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DatabaseInput& DatabaseInput::operator =(const JsonValue& jsonValue)
+DatabaseInput& DatabaseInput::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -70,12 +72,22 @@ DatabaseInput& DatabaseInput::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Parameters"))
   {
-    Aws::Map<Aws::String, JsonValue> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
     for(auto& parametersItem : parametersJsonMap)
     {
       m_parameters[parametersItem.first] = parametersItem.second.AsString();
     }
     m_parametersHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CreateTableDefaultPermissions"))
+  {
+    Array<JsonView> createTableDefaultPermissionsJsonList = jsonValue.GetArray("CreateTableDefaultPermissions");
+    for(unsigned createTableDefaultPermissionsIndex = 0; createTableDefaultPermissionsIndex < createTableDefaultPermissionsJsonList.GetLength(); ++createTableDefaultPermissionsIndex)
+    {
+      m_createTableDefaultPermissions.push_back(createTableDefaultPermissionsJsonList[createTableDefaultPermissionsIndex].AsObject());
+    }
+    m_createTableDefaultPermissionsHasBeenSet = true;
   }
 
   return *this;
@@ -111,6 +123,17 @@ JsonValue DatabaseInput::Jsonize() const
      parametersJsonMap.WithString(parametersItem.first, parametersItem.second);
    }
    payload.WithObject("Parameters", std::move(parametersJsonMap));
+
+  }
+
+  if(m_createTableDefaultPermissionsHasBeenSet)
+  {
+   Array<JsonValue> createTableDefaultPermissionsJsonList(m_createTableDefaultPermissions.size());
+   for(unsigned createTableDefaultPermissionsIndex = 0; createTableDefaultPermissionsIndex < createTableDefaultPermissionsJsonList.GetLength(); ++createTableDefaultPermissionsIndex)
+   {
+     createTableDefaultPermissionsJsonList[createTableDefaultPermissionsIndex].AsObject(m_createTableDefaultPermissions[createTableDefaultPermissionsIndex].Jsonize());
+   }
+   payload.WithArray("CreateTableDefaultPermissions", std::move(createTableDefaultPermissionsJsonList));
 
   }
 

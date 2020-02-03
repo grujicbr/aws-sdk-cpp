@@ -33,21 +33,23 @@ RevisionLocation::RevisionLocation() :
     m_revisionTypeHasBeenSet(false),
     m_s3LocationHasBeenSet(false),
     m_gitHubLocationHasBeenSet(false),
-    m_stringHasBeenSet(false)
+    m_stringHasBeenSet(false),
+    m_appSpecContentHasBeenSet(false)
 {
 }
 
-RevisionLocation::RevisionLocation(const JsonValue& jsonValue) : 
+RevisionLocation::RevisionLocation(JsonView jsonValue) : 
     m_revisionType(RevisionLocationType::NOT_SET),
     m_revisionTypeHasBeenSet(false),
     m_s3LocationHasBeenSet(false),
     m_gitHubLocationHasBeenSet(false),
-    m_stringHasBeenSet(false)
+    m_stringHasBeenSet(false),
+    m_appSpecContentHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-RevisionLocation& RevisionLocation::operator =(const JsonValue& jsonValue)
+RevisionLocation& RevisionLocation::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("revisionType"))
   {
@@ -77,6 +79,13 @@ RevisionLocation& RevisionLocation::operator =(const JsonValue& jsonValue)
     m_stringHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("appSpecContent"))
+  {
+    m_appSpecContent = jsonValue.GetObject("appSpecContent");
+
+    m_appSpecContentHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -104,6 +113,12 @@ JsonValue RevisionLocation::Jsonize() const
   if(m_stringHasBeenSet)
   {
    payload.WithObject("string", m_string.Jsonize());
+
+  }
+
+  if(m_appSpecContentHasBeenSet)
+  {
+   payload.WithObject("appSpecContent", m_appSpecContent.Jsonize());
 
   }
 

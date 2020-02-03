@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Edge();
-    Edge(const Aws::Utils::Json::JsonValue& jsonValue);
-    Edge& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Edge(Aws::Utils::Json::JsonView jsonValue);
+    Edge& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Identifier of the edge. Unique within a service map.</p>
      */
     inline int GetReferenceId() const{ return m_referenceId; }
+
+    /**
+     * <p>Identifier of the edge. Unique within a service map.</p>
+     */
+    inline bool ReferenceIdHasBeenSet() const { return m_referenceIdHasBeenSet; }
 
     /**
      * <p>Identifier of the edge. Unique within a service map.</p>
@@ -70,6 +76,11 @@ namespace Model
      * <p>The start time of the first segment on the edge.</p>
      */
     inline const Aws::Utils::DateTime& GetStartTime() const{ return m_startTime; }
+
+    /**
+     * <p>The start time of the first segment on the edge.</p>
+     */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
 
     /**
      * <p>The start time of the first segment on the edge.</p>
@@ -100,6 +111,11 @@ namespace Model
     /**
      * <p>The end time of the last segment on the edge.</p>
      */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
+
+    /**
+     * <p>The end time of the last segment on the edge.</p>
+     */
     inline void SetEndTime(const Aws::Utils::DateTime& value) { m_endTimeHasBeenSet = true; m_endTime = value; }
 
     /**
@@ -126,6 +142,11 @@ namespace Model
     /**
      * <p>Response statistics for segments on the edge.</p>
      */
+    inline bool SummaryStatisticsHasBeenSet() const { return m_summaryStatisticsHasBeenSet; }
+
+    /**
+     * <p>Response statistics for segments on the edge.</p>
+     */
     inline void SetSummaryStatistics(const EdgeStatistics& value) { m_summaryStatisticsHasBeenSet = true; m_summaryStatistics = value; }
 
     /**
@@ -148,6 +169,11 @@ namespace Model
      * <p>A histogram that maps the spread of client response times on an edge.</p>
      */
     inline const Aws::Vector<HistogramEntry>& GetResponseTimeHistogram() const{ return m_responseTimeHistogram; }
+
+    /**
+     * <p>A histogram that maps the spread of client response times on an edge.</p>
+     */
+    inline bool ResponseTimeHistogramHasBeenSet() const { return m_responseTimeHistogramHasBeenSet; }
 
     /**
      * <p>A histogram that maps the spread of client response times on an edge.</p>
@@ -184,6 +210,11 @@ namespace Model
      * <p>Aliases for the edge.</p>
      */
     inline const Aws::Vector<Alias>& GetAliases() const{ return m_aliases; }
+
+    /**
+     * <p>Aliases for the edge.</p>
+     */
+    inline bool AliasesHasBeenSet() const { return m_aliasesHasBeenSet; }
 
     /**
      * <p>Aliases for the edge.</p>

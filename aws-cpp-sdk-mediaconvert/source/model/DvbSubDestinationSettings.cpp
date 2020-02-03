@@ -41,6 +41,8 @@ DvbSubDestinationSettings::DvbSubDestinationSettings() :
     m_fontOpacityHasBeenSet(false),
     m_fontResolution(0),
     m_fontResolutionHasBeenSet(false),
+    m_fontScript(FontScript::NOT_SET),
+    m_fontScriptHasBeenSet(false),
     m_fontSize(0),
     m_fontSizeHasBeenSet(false),
     m_outlineColor(DvbSubtitleOutlineColor::NOT_SET),
@@ -55,6 +57,8 @@ DvbSubDestinationSettings::DvbSubDestinationSettings() :
     m_shadowXOffsetHasBeenSet(false),
     m_shadowYOffset(0),
     m_shadowYOffsetHasBeenSet(false),
+    m_subtitlingType(DvbSubtitlingType::NOT_SET),
+    m_subtitlingTypeHasBeenSet(false),
     m_teletextSpacing(DvbSubtitleTeletextSpacing::NOT_SET),
     m_teletextSpacingHasBeenSet(false),
     m_xPosition(0),
@@ -64,7 +68,7 @@ DvbSubDestinationSettings::DvbSubDestinationSettings() :
 {
 }
 
-DvbSubDestinationSettings::DvbSubDestinationSettings(const JsonValue& jsonValue) : 
+DvbSubDestinationSettings::DvbSubDestinationSettings(JsonView jsonValue) : 
     m_alignment(DvbSubtitleAlignment::NOT_SET),
     m_alignmentHasBeenSet(false),
     m_backgroundColor(DvbSubtitleBackgroundColor::NOT_SET),
@@ -77,6 +81,8 @@ DvbSubDestinationSettings::DvbSubDestinationSettings(const JsonValue& jsonValue)
     m_fontOpacityHasBeenSet(false),
     m_fontResolution(0),
     m_fontResolutionHasBeenSet(false),
+    m_fontScript(FontScript::NOT_SET),
+    m_fontScriptHasBeenSet(false),
     m_fontSize(0),
     m_fontSizeHasBeenSet(false),
     m_outlineColor(DvbSubtitleOutlineColor::NOT_SET),
@@ -91,6 +97,8 @@ DvbSubDestinationSettings::DvbSubDestinationSettings(const JsonValue& jsonValue)
     m_shadowXOffsetHasBeenSet(false),
     m_shadowYOffset(0),
     m_shadowYOffsetHasBeenSet(false),
+    m_subtitlingType(DvbSubtitlingType::NOT_SET),
+    m_subtitlingTypeHasBeenSet(false),
     m_teletextSpacing(DvbSubtitleTeletextSpacing::NOT_SET),
     m_teletextSpacingHasBeenSet(false),
     m_xPosition(0),
@@ -101,7 +109,7 @@ DvbSubDestinationSettings::DvbSubDestinationSettings(const JsonValue& jsonValue)
   *this = jsonValue;
 }
 
-DvbSubDestinationSettings& DvbSubDestinationSettings::operator =(const JsonValue& jsonValue)
+DvbSubDestinationSettings& DvbSubDestinationSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("alignment"))
   {
@@ -143,6 +151,13 @@ DvbSubDestinationSettings& DvbSubDestinationSettings::operator =(const JsonValue
     m_fontResolution = jsonValue.GetInteger("fontResolution");
 
     m_fontResolutionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("fontScript"))
+  {
+    m_fontScript = FontScriptMapper::GetFontScriptForName(jsonValue.GetString("fontScript"));
+
+    m_fontScriptHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("fontSize"))
@@ -192,6 +207,13 @@ DvbSubDestinationSettings& DvbSubDestinationSettings::operator =(const JsonValue
     m_shadowYOffset = jsonValue.GetInteger("shadowYOffset");
 
     m_shadowYOffsetHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("subtitlingType"))
+  {
+    m_subtitlingType = DvbSubtitlingTypeMapper::GetDvbSubtitlingTypeForName(jsonValue.GetString("subtitlingType"));
+
+    m_subtitlingTypeHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("teletextSpacing"))
@@ -255,6 +277,11 @@ JsonValue DvbSubDestinationSettings::Jsonize() const
 
   }
 
+  if(m_fontScriptHasBeenSet)
+  {
+   payload.WithString("fontScript", FontScriptMapper::GetNameForFontScript(m_fontScript));
+  }
+
   if(m_fontSizeHasBeenSet)
   {
    payload.WithInteger("fontSize", m_fontSize);
@@ -293,6 +320,11 @@ JsonValue DvbSubDestinationSettings::Jsonize() const
   {
    payload.WithInteger("shadowYOffset", m_shadowYOffset);
 
+  }
+
+  if(m_subtitlingTypeHasBeenSet)
+  {
+   payload.WithString("subtitlingType", DvbSubtitlingTypeMapper::GetNameForDvbSubtitlingType(m_subtitlingType));
   }
 
   if(m_teletextSpacingHasBeenSet)

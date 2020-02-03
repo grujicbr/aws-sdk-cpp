@@ -36,7 +36,7 @@ GetExportRequest::GetExportRequest() :
 
 Aws::String GetExportRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection GetExportRequest::GetRequestSpecificHeaders() const
@@ -46,7 +46,7 @@ Aws::Http::HeaderValueCollection GetExportRequest::GetRequestSpecificHeaders() c
   if(m_acceptsHasBeenSet)
   {
     ss << m_accepts;
-    headers.insert(Aws::Http::HeaderValuePair("accept", ss.str()));
+    headers.emplace("accept",  ss.str());
     ss.str("");
   }
 

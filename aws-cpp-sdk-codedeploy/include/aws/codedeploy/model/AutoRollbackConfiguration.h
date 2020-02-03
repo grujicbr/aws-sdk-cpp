@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -35,7 +36,7 @@ namespace Model
 
   /**
    * <p>Information about a configuration for automatically rolling back to a
-   * previous version of an application revision when a deployment doesn't complete
+   * previous version of an application revision when a deployment is not completed
    * successfully.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/AutoRollbackConfiguration">AWS
    * API Reference</a></p>
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     AutoRollbackConfiguration();
-    AutoRollbackConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    AutoRollbackConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AutoRollbackConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    AutoRollbackConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * enabled.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Indicates whether a defined automatic rollback configuration is currently
+     * enabled.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Indicates whether a defined automatic rollback configuration is currently
@@ -72,6 +79,11 @@ namespace Model
      * <p>The event type or types that trigger a rollback.</p>
      */
     inline const Aws::Vector<AutoRollbackEvent>& GetEvents() const{ return m_events; }
+
+    /**
+     * <p>The event type or types that trigger a rollback.</p>
+     */
+    inline bool EventsHasBeenSet() const { return m_eventsHasBeenSet; }
 
     /**
      * <p>The event type or types that trigger a rollback.</p>

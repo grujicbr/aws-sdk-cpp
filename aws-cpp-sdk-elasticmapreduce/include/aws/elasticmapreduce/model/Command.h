@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Command();
-    Command(const Aws::Utils::Json::JsonValue& jsonValue);
-    Command& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Command(Aws::Utils::Json::JsonView jsonValue);
+    Command& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the command.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the command.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the command.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The Amazon S3 location of the command script.</p>
      */
+    inline bool ScriptPathHasBeenSet() const { return m_scriptPathHasBeenSet; }
+
+    /**
+     * <p>The Amazon S3 location of the command script.</p>
+     */
     inline void SetScriptPath(const Aws::String& value) { m_scriptPathHasBeenSet = true; m_scriptPath = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>Arguments for Amazon EMR to pass to the command for execution.</p>
      */
     inline const Aws::Vector<Aws::String>& GetArgs() const{ return m_args; }
+
+    /**
+     * <p>Arguments for Amazon EMR to pass to the command for execution.</p>
+     */
+    inline bool ArgsHasBeenSet() const { return m_argsHasBeenSet; }
 
     /**
      * <p>Arguments for Amazon EMR to pass to the command for execution.</p>

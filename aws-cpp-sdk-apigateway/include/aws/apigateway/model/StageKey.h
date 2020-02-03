@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     StageKey();
-    StageKey(const Aws::Utils::Json::JsonValue& jsonValue);
-    StageKey& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StageKey(Aws::Utils::Json::JsonView jsonValue);
+    StageKey& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The string identifier of the associated <a>RestApi</a>.</p>
      */
     inline const Aws::String& GetRestApiId() const{ return m_restApiId; }
+
+    /**
+     * <p>The string identifier of the associated <a>RestApi</a>.</p>
+     */
+    inline bool RestApiIdHasBeenSet() const { return m_restApiIdHasBeenSet; }
 
     /**
      * <p>The string identifier of the associated <a>RestApi</a>.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The stage name associated with the stage key.</p>
      */
     inline const Aws::String& GetStageName() const{ return m_stageName; }
+
+    /**
+     * <p>The stage name associated with the stage key.</p>
+     */
+    inline bool StageNameHasBeenSet() const { return m_stageNameHasBeenSet; }
 
     /**
      * <p>The stage name associated with the stage key.</p>

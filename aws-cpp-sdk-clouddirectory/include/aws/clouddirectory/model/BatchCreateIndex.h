@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     BatchCreateIndex();
-    BatchCreateIndex(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchCreateIndex& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchCreateIndex(Aws::Utils::Json::JsonView jsonValue);
+    BatchCreateIndex& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,12 @@ namespace Model
      * attribute is supported.</p>
      */
     inline const Aws::Vector<AttributeKey>& GetOrderedIndexedAttributeList() const{ return m_orderedIndexedAttributeList; }
+
+    /**
+     * <p>Specifies the attributes that should be indexed on. Currently only a single
+     * attribute is supported.</p>
+     */
+    inline bool OrderedIndexedAttributeListHasBeenSet() const { return m_orderedIndexedAttributeListHasBeenSet; }
 
     /**
      * <p>Specifies the attributes that should be indexed on. Currently only a single
@@ -104,6 +111,12 @@ namespace Model
      * <p>Indicates whether the attribute that is being indexed has unique values or
      * not.</p>
      */
+    inline bool IsUniqueHasBeenSet() const { return m_isUniqueHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the attribute that is being indexed has unique values or
+     * not.</p>
+     */
     inline void SetIsUnique(bool value) { m_isUniqueHasBeenSet = true; m_isUnique = value; }
 
     /**
@@ -117,6 +130,11 @@ namespace Model
      * <p>A reference to the parent object that contains the index object.</p>
      */
     inline const ObjectReference& GetParentReference() const{ return m_parentReference; }
+
+    /**
+     * <p>A reference to the parent object that contains the index object.</p>
+     */
+    inline bool ParentReferenceHasBeenSet() const { return m_parentReferenceHasBeenSet; }
 
     /**
      * <p>A reference to the parent object that contains the index object.</p>
@@ -143,6 +161,11 @@ namespace Model
      * <p>The name of the link between the parent object and the index object.</p>
      */
     inline const Aws::String& GetLinkName() const{ return m_linkName; }
+
+    /**
+     * <p>The name of the link between the parent object and the index object.</p>
+     */
+    inline bool LinkNameHasBeenSet() const { return m_linkNameHasBeenSet; }
 
     /**
      * <p>The name of the link between the parent object and the index object.</p>
@@ -177,50 +200,57 @@ namespace Model
 
     /**
      * <p>The batch reference name. See <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches">Batches</a>
-     * for more information.</p>
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction
+     * Support</a> for more information.</p>
      */
     inline const Aws::String& GetBatchReferenceName() const{ return m_batchReferenceName; }
 
     /**
      * <p>The batch reference name. See <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches">Batches</a>
-     * for more information.</p>
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction
+     * Support</a> for more information.</p>
+     */
+    inline bool BatchReferenceNameHasBeenSet() const { return m_batchReferenceNameHasBeenSet; }
+
+    /**
+     * <p>The batch reference name. See <a
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction
+     * Support</a> for more information.</p>
      */
     inline void SetBatchReferenceName(const Aws::String& value) { m_batchReferenceNameHasBeenSet = true; m_batchReferenceName = value; }
 
     /**
      * <p>The batch reference name. See <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches">Batches</a>
-     * for more information.</p>
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction
+     * Support</a> for more information.</p>
      */
     inline void SetBatchReferenceName(Aws::String&& value) { m_batchReferenceNameHasBeenSet = true; m_batchReferenceName = std::move(value); }
 
     /**
      * <p>The batch reference name. See <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches">Batches</a>
-     * for more information.</p>
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction
+     * Support</a> for more information.</p>
      */
     inline void SetBatchReferenceName(const char* value) { m_batchReferenceNameHasBeenSet = true; m_batchReferenceName.assign(value); }
 
     /**
      * <p>The batch reference name. See <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches">Batches</a>
-     * for more information.</p>
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction
+     * Support</a> for more information.</p>
      */
     inline BatchCreateIndex& WithBatchReferenceName(const Aws::String& value) { SetBatchReferenceName(value); return *this;}
 
     /**
      * <p>The batch reference name. See <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches">Batches</a>
-     * for more information.</p>
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction
+     * Support</a> for more information.</p>
      */
     inline BatchCreateIndex& WithBatchReferenceName(Aws::String&& value) { SetBatchReferenceName(std::move(value)); return *this;}
 
     /**
      * <p>The batch reference name. See <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches">Batches</a>
-     * for more information.</p>
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html">Transaction
+     * Support</a> for more information.</p>
      */
     inline BatchCreateIndex& WithBatchReferenceName(const char* value) { SetBatchReferenceName(value); return *this;}
 

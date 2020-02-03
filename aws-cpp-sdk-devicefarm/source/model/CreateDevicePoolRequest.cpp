@@ -26,7 +26,9 @@ CreateDevicePoolRequest::CreateDevicePoolRequest() :
     m_projectArnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
-    m_rulesHasBeenSet(false)
+    m_rulesHasBeenSet(false),
+    m_maxDevices(0),
+    m_maxDevicesHasBeenSet(false)
 {
 }
 
@@ -63,7 +65,13 @@ Aws::String CreateDevicePoolRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_maxDevicesHasBeenSet)
+  {
+   payload.WithInteger("maxDevices", m_maxDevices);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateDevicePoolRequest::GetRequestSpecificHeaders() const

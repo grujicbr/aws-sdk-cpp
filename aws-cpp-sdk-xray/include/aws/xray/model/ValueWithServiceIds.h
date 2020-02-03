@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ValueWithServiceIds();
-    ValueWithServiceIds(const Aws::Utils::Json::JsonValue& jsonValue);
-    ValueWithServiceIds& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ValueWithServiceIds(Aws::Utils::Json::JsonView jsonValue);
+    ValueWithServiceIds& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Values of the annotation.</p>
      */
     inline const AnnotationValue& GetAnnotationValue() const{ return m_annotationValue; }
+
+    /**
+     * <p>Values of the annotation.</p>
+     */
+    inline bool AnnotationValueHasBeenSet() const { return m_annotationValueHasBeenSet; }
 
     /**
      * <p>Values of the annotation.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>Services to which the annotation applies.</p>
      */
     inline const Aws::Vector<ServiceId>& GetServiceIds() const{ return m_serviceIds; }
+
+    /**
+     * <p>Services to which the annotation applies.</p>
+     */
+    inline bool ServiceIdsHasBeenSet() const { return m_serviceIdsHasBeenSet; }
 
     /**
      * <p>Services to which the annotation applies.</p>

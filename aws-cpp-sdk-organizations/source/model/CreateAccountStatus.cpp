@@ -36,12 +36,13 @@ CreateAccountStatus::CreateAccountStatus() :
     m_requestedTimestampHasBeenSet(false),
     m_completedTimestampHasBeenSet(false),
     m_accountIdHasBeenSet(false),
+    m_govCloudAccountIdHasBeenSet(false),
     m_failureReason(CreateAccountFailureReason::NOT_SET),
     m_failureReasonHasBeenSet(false)
 {
 }
 
-CreateAccountStatus::CreateAccountStatus(const JsonValue& jsonValue) : 
+CreateAccountStatus::CreateAccountStatus(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_accountNameHasBeenSet(false),
     m_state(CreateAccountState::NOT_SET),
@@ -49,13 +50,14 @@ CreateAccountStatus::CreateAccountStatus(const JsonValue& jsonValue) :
     m_requestedTimestampHasBeenSet(false),
     m_completedTimestampHasBeenSet(false),
     m_accountIdHasBeenSet(false),
+    m_govCloudAccountIdHasBeenSet(false),
     m_failureReason(CreateAccountFailureReason::NOT_SET),
     m_failureReasonHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-CreateAccountStatus& CreateAccountStatus::operator =(const JsonValue& jsonValue)
+CreateAccountStatus& CreateAccountStatus::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -97,6 +99,13 @@ CreateAccountStatus& CreateAccountStatus::operator =(const JsonValue& jsonValue)
     m_accountId = jsonValue.GetString("AccountId");
 
     m_accountIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("GovCloudAccountId"))
+  {
+    m_govCloudAccountId = jsonValue.GetString("GovCloudAccountId");
+
+    m_govCloudAccountIdHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("FailureReason"))
@@ -143,6 +152,12 @@ JsonValue CreateAccountStatus::Jsonize() const
   if(m_accountIdHasBeenSet)
   {
    payload.WithString("AccountId", m_accountId);
+
+  }
+
+  if(m_govCloudAccountIdHasBeenSet)
+  {
+   payload.WithString("GovCloudAccountId", m_govCloudAccountId);
 
   }
 

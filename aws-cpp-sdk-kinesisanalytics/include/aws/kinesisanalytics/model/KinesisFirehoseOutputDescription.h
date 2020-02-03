@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     KinesisFirehoseOutputDescription();
-    KinesisFirehoseOutputDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    KinesisFirehoseOutputDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KinesisFirehoseOutputDescription(Aws::Utils::Json::JsonView jsonValue);
+    KinesisFirehoseOutputDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * stream.</p>
      */
     inline const Aws::String& GetResourceARN() const{ return m_resourceARN; }
+
+    /**
+     * <p>Amazon Resource Name (ARN) of the Amazon Kinesis Firehose delivery
+     * stream.</p>
+     */
+    inline bool ResourceARNHasBeenSet() const { return m_resourceARNHasBeenSet; }
 
     /**
      * <p>Amazon Resource Name (ARN) of the Amazon Kinesis Firehose delivery
@@ -95,6 +102,12 @@ namespace Model
      * stream.</p>
      */
     inline const Aws::String& GetRoleARN() const{ return m_roleARN; }
+
+    /**
+     * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to access the
+     * stream.</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
 
     /**
      * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to access the

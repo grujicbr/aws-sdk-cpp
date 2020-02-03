@@ -33,6 +33,8 @@ M3u8Settings::M3u8Settings() :
     m_audioFramesPerPesHasBeenSet(false),
     m_audioPidsHasBeenSet(false),
     m_ecmPidHasBeenSet(false),
+    m_nielsenId3Behavior(M3u8NielsenId3Behavior::NOT_SET),
+    m_nielsenId3BehaviorHasBeenSet(false),
     m_patInterval(0),
     m_patIntervalHasBeenSet(false),
     m_pcrControl(M3u8PcrControl::NOT_SET),
@@ -57,11 +59,13 @@ M3u8Settings::M3u8Settings() :
 {
 }
 
-M3u8Settings::M3u8Settings(const JsonValue& jsonValue) : 
+M3u8Settings::M3u8Settings(JsonView jsonValue) : 
     m_audioFramesPerPes(0),
     m_audioFramesPerPesHasBeenSet(false),
     m_audioPidsHasBeenSet(false),
     m_ecmPidHasBeenSet(false),
+    m_nielsenId3Behavior(M3u8NielsenId3Behavior::NOT_SET),
+    m_nielsenId3BehaviorHasBeenSet(false),
     m_patInterval(0),
     m_patIntervalHasBeenSet(false),
     m_pcrControl(M3u8PcrControl::NOT_SET),
@@ -87,7 +91,7 @@ M3u8Settings::M3u8Settings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-M3u8Settings& M3u8Settings::operator =(const JsonValue& jsonValue)
+M3u8Settings& M3u8Settings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("audioFramesPerPes"))
   {
@@ -108,6 +112,13 @@ M3u8Settings& M3u8Settings::operator =(const JsonValue& jsonValue)
     m_ecmPid = jsonValue.GetString("ecmPid");
 
     m_ecmPidHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("nielsenId3Behavior"))
+  {
+    m_nielsenId3Behavior = M3u8NielsenId3BehaviorMapper::GetM3u8NielsenId3BehaviorForName(jsonValue.GetString("nielsenId3Behavior"));
+
+    m_nielsenId3BehaviorHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("patInterval"))
@@ -224,6 +235,11 @@ JsonValue M3u8Settings::Jsonize() const
   {
    payload.WithString("ecmPid", m_ecmPid);
 
+  }
+
+  if(m_nielsenId3BehaviorHasBeenSet)
+  {
+   payload.WithString("nielsenId3Behavior", M3u8NielsenId3BehaviorMapper::GetNameForM3u8NielsenId3Behavior(m_nielsenId3Behavior));
   }
 
   if(m_patIntervalHasBeenSet)

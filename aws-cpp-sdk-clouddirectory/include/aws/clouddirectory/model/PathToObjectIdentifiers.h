@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PathToObjectIdentifiers();
-    PathToObjectIdentifiers(const Aws::Utils::Json::JsonValue& jsonValue);
-    PathToObjectIdentifiers& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PathToObjectIdentifiers(Aws::Utils::Json::JsonView jsonValue);
+    PathToObjectIdentifiers& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * root.</p>
      */
     inline const Aws::String& GetPath() const{ return m_path; }
+
+    /**
+     * <p>The path that is used to identify the object starting from directory
+     * root.</p>
+     */
+    inline bool PathHasBeenSet() const { return m_pathHasBeenSet; }
 
     /**
      * <p>The path that is used to identify the object starting from directory
@@ -96,6 +103,12 @@ namespace Model
      * object in the request.</p>
      */
     inline const Aws::Vector<Aws::String>& GetObjectIdentifiers() const{ return m_objectIdentifiers; }
+
+    /**
+     * <p>Lists <code>ObjectIdentifiers</code> starting from directory root to the
+     * object in the request.</p>
+     */
+    inline bool ObjectIdentifiersHasBeenSet() const { return m_objectIdentifiersHasBeenSet; }
 
     /**
      * <p>Lists <code>ObjectIdentifiers</code> starting from directory root to the

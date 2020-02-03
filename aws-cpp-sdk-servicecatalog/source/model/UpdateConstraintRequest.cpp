@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 UpdateConstraintRequest::UpdateConstraintRequest() : 
     m_acceptLanguageHasBeenSet(false),
     m_idHasBeenSet(false),
-    m_descriptionHasBeenSet(false)
+    m_descriptionHasBeenSet(false),
+    m_parametersHasBeenSet(false)
 {
 }
 
@@ -51,7 +52,13 @@ Aws::String UpdateConstraintRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_parametersHasBeenSet)
+  {
+   payload.WithString("Parameters", m_parameters);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateConstraintRequest::GetRequestSpecificHeaders() const

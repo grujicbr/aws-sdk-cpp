@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     StorageDescriptor();
-    StorageDescriptor(const Aws::Utils::Json::JsonValue& jsonValue);
-    StorageDescriptor& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StorageDescriptor(Aws::Utils::Json::JsonView jsonValue);
+    StorageDescriptor& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>A list of the <code>Columns</code> in the table.</p>
      */
     inline const Aws::Vector<Column>& GetColumns() const{ return m_columns; }
+
+    /**
+     * <p>A list of the <code>Columns</code> in the table.</p>
+     */
+    inline bool ColumnsHasBeenSet() const { return m_columnsHasBeenSet; }
 
     /**
      * <p>A list of the <code>Columns</code> in the table.</p>
@@ -89,49 +95,56 @@ namespace Model
 
 
     /**
-     * <p>The physical location of the table. By default this takes the form of the
+     * <p>The physical location of the table. By default, this takes the form of the
      * warehouse location, followed by the database location in the warehouse, followed
      * by the table name.</p>
      */
     inline const Aws::String& GetLocation() const{ return m_location; }
 
     /**
-     * <p>The physical location of the table. By default this takes the form of the
+     * <p>The physical location of the table. By default, this takes the form of the
+     * warehouse location, followed by the database location in the warehouse, followed
+     * by the table name.</p>
+     */
+    inline bool LocationHasBeenSet() const { return m_locationHasBeenSet; }
+
+    /**
+     * <p>The physical location of the table. By default, this takes the form of the
      * warehouse location, followed by the database location in the warehouse, followed
      * by the table name.</p>
      */
     inline void SetLocation(const Aws::String& value) { m_locationHasBeenSet = true; m_location = value; }
 
     /**
-     * <p>The physical location of the table. By default this takes the form of the
+     * <p>The physical location of the table. By default, this takes the form of the
      * warehouse location, followed by the database location in the warehouse, followed
      * by the table name.</p>
      */
     inline void SetLocation(Aws::String&& value) { m_locationHasBeenSet = true; m_location = std::move(value); }
 
     /**
-     * <p>The physical location of the table. By default this takes the form of the
+     * <p>The physical location of the table. By default, this takes the form of the
      * warehouse location, followed by the database location in the warehouse, followed
      * by the table name.</p>
      */
     inline void SetLocation(const char* value) { m_locationHasBeenSet = true; m_location.assign(value); }
 
     /**
-     * <p>The physical location of the table. By default this takes the form of the
+     * <p>The physical location of the table. By default, this takes the form of the
      * warehouse location, followed by the database location in the warehouse, followed
      * by the table name.</p>
      */
     inline StorageDescriptor& WithLocation(const Aws::String& value) { SetLocation(value); return *this;}
 
     /**
-     * <p>The physical location of the table. By default this takes the form of the
+     * <p>The physical location of the table. By default, this takes the form of the
      * warehouse location, followed by the database location in the warehouse, followed
      * by the table name.</p>
      */
     inline StorageDescriptor& WithLocation(Aws::String&& value) { SetLocation(std::move(value)); return *this;}
 
     /**
-     * <p>The physical location of the table. By default this takes the form of the
+     * <p>The physical location of the table. By default, this takes the form of the
      * warehouse location, followed by the database location in the warehouse, followed
      * by the table name.</p>
      */
@@ -143,6 +156,12 @@ namespace Model
      * <code>TextInputFormat</code>, or a custom format.</p>
      */
     inline const Aws::String& GetInputFormat() const{ return m_inputFormat; }
+
+    /**
+     * <p>The input format: <code>SequenceFileInputFormat</code> (binary), or
+     * <code>TextInputFormat</code>, or a custom format.</p>
+     */
+    inline bool InputFormatHasBeenSet() const { return m_inputFormatHasBeenSet; }
 
     /**
      * <p>The input format: <code>SequenceFileInputFormat</code> (binary), or
@@ -191,6 +210,12 @@ namespace Model
      * <p>The output format: <code>SequenceFileOutputFormat</code> (binary), or
      * <code>IgnoreKeyTextOutputFormat</code>, or a custom format.</p>
      */
+    inline bool OutputFormatHasBeenSet() const { return m_outputFormatHasBeenSet; }
+
+    /**
+     * <p>The output format: <code>SequenceFileOutputFormat</code> (binary), or
+     * <code>IgnoreKeyTextOutputFormat</code>, or a custom format.</p>
+     */
     inline void SetOutputFormat(const Aws::String& value) { m_outputFormatHasBeenSet = true; m_outputFormat = value; }
 
     /**
@@ -225,17 +250,26 @@ namespace Model
 
 
     /**
-     * <p>True if the data in the table is compressed, or False if not.</p>
+     * <p> <code>True</code> if the data in the table is compressed, or
+     * <code>False</code> if not.</p>
      */
     inline bool GetCompressed() const{ return m_compressed; }
 
     /**
-     * <p>True if the data in the table is compressed, or False if not.</p>
+     * <p> <code>True</code> if the data in the table is compressed, or
+     * <code>False</code> if not.</p>
+     */
+    inline bool CompressedHasBeenSet() const { return m_compressedHasBeenSet; }
+
+    /**
+     * <p> <code>True</code> if the data in the table is compressed, or
+     * <code>False</code> if not.</p>
      */
     inline void SetCompressed(bool value) { m_compressedHasBeenSet = true; m_compressed = value; }
 
     /**
-     * <p>True if the data in the table is compressed, or False if not.</p>
+     * <p> <code>True</code> if the data in the table is compressed, or
+     * <code>False</code> if not.</p>
      */
     inline StorageDescriptor& WithCompressed(bool value) { SetCompressed(value); return *this;}
 
@@ -244,6 +278,11 @@ namespace Model
      * <p>Must be specified if the table contains any dimension columns.</p>
      */
     inline int GetNumberOfBuckets() const{ return m_numberOfBuckets; }
+
+    /**
+     * <p>Must be specified if the table contains any dimension columns.</p>
+     */
+    inline bool NumberOfBucketsHasBeenSet() const { return m_numberOfBucketsHasBeenSet; }
 
     /**
      * <p>Must be specified if the table contains any dimension columns.</p>
@@ -257,27 +296,32 @@ namespace Model
 
 
     /**
-     * <p>Serialization/deserialization (SerDe) information.</p>
+     * <p>The serialization/deserialization (SerDe) information.</p>
      */
     inline const SerDeInfo& GetSerdeInfo() const{ return m_serdeInfo; }
 
     /**
-     * <p>Serialization/deserialization (SerDe) information.</p>
+     * <p>The serialization/deserialization (SerDe) information.</p>
+     */
+    inline bool SerdeInfoHasBeenSet() const { return m_serdeInfoHasBeenSet; }
+
+    /**
+     * <p>The serialization/deserialization (SerDe) information.</p>
      */
     inline void SetSerdeInfo(const SerDeInfo& value) { m_serdeInfoHasBeenSet = true; m_serdeInfo = value; }
 
     /**
-     * <p>Serialization/deserialization (SerDe) information.</p>
+     * <p>The serialization/deserialization (SerDe) information.</p>
      */
     inline void SetSerdeInfo(SerDeInfo&& value) { m_serdeInfoHasBeenSet = true; m_serdeInfo = std::move(value); }
 
     /**
-     * <p>Serialization/deserialization (SerDe) information.</p>
+     * <p>The serialization/deserialization (SerDe) information.</p>
      */
     inline StorageDescriptor& WithSerdeInfo(const SerDeInfo& value) { SetSerdeInfo(value); return *this;}
 
     /**
-     * <p>Serialization/deserialization (SerDe) information.</p>
+     * <p>The serialization/deserialization (SerDe) information.</p>
      */
     inline StorageDescriptor& WithSerdeInfo(SerDeInfo&& value) { SetSerdeInfo(std::move(value)); return *this;}
 
@@ -287,6 +331,12 @@ namespace Model
      * in the table.</p>
      */
     inline const Aws::Vector<Aws::String>& GetBucketColumns() const{ return m_bucketColumns; }
+
+    /**
+     * <p>A list of reducer grouping columns, clustering columns, and bucketing columns
+     * in the table.</p>
+     */
+    inline bool BucketColumnsHasBeenSet() const { return m_bucketColumnsHasBeenSet; }
 
     /**
      * <p>A list of reducer grouping columns, clustering columns, and bucketing columns
@@ -339,6 +389,11 @@ namespace Model
     /**
      * <p>A list specifying the sort order of each bucket in the table.</p>
      */
+    inline bool SortColumnsHasBeenSet() const { return m_sortColumnsHasBeenSet; }
+
+    /**
+     * <p>A list specifying the sort order of each bucket in the table.</p>
+     */
     inline void SetSortColumns(const Aws::Vector<Order>& value) { m_sortColumnsHasBeenSet = true; m_sortColumns = value; }
 
     /**
@@ -368,109 +423,129 @@ namespace Model
 
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetParameters() const{ return m_parameters; }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
+     */
+    inline bool ParametersHasBeenSet() const { return m_parametersHasBeenSet; }
+
+    /**
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline void SetParameters(const Aws::Map<Aws::String, Aws::String>& value) { m_parametersHasBeenSet = true; m_parameters = value; }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline void SetParameters(Aws::Map<Aws::String, Aws::String>&& value) { m_parametersHasBeenSet = true; m_parameters = std::move(value); }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& WithParameters(const Aws::Map<Aws::String, Aws::String>& value) { SetParameters(value); return *this;}
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& WithParameters(Aws::Map<Aws::String, Aws::String>&& value) { SetParameters(std::move(value)); return *this;}
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& AddParameters(const Aws::String& key, const Aws::String& value) { m_parametersHasBeenSet = true; m_parameters.emplace(key, value); return *this; }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& AddParameters(Aws::String&& key, const Aws::String& value) { m_parametersHasBeenSet = true; m_parameters.emplace(std::move(key), value); return *this; }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& AddParameters(const Aws::String& key, Aws::String&& value) { m_parametersHasBeenSet = true; m_parameters.emplace(key, std::move(value)); return *this; }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& AddParameters(Aws::String&& key, Aws::String&& value) { m_parametersHasBeenSet = true; m_parameters.emplace(std::move(key), std::move(value)); return *this; }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& AddParameters(const char* key, Aws::String&& value) { m_parametersHasBeenSet = true; m_parameters.emplace(key, std::move(value)); return *this; }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& AddParameters(Aws::String&& key, const char* value) { m_parametersHasBeenSet = true; m_parameters.emplace(std::move(key), value); return *this; }
 
     /**
-     * <p>User-supplied properties in key-value form.</p>
+     * <p>The user-supplied properties in key-value form.</p>
      */
     inline StorageDescriptor& AddParameters(const char* key, const char* value) { m_parametersHasBeenSet = true; m_parameters.emplace(key, value); return *this; }
 
 
     /**
-     * <p>Information about values that appear very frequently in a column (skewed
+     * <p>The information about values that appear frequently in a column (skewed
      * values).</p>
      */
     inline const SkewedInfo& GetSkewedInfo() const{ return m_skewedInfo; }
 
     /**
-     * <p>Information about values that appear very frequently in a column (skewed
+     * <p>The information about values that appear frequently in a column (skewed
+     * values).</p>
+     */
+    inline bool SkewedInfoHasBeenSet() const { return m_skewedInfoHasBeenSet; }
+
+    /**
+     * <p>The information about values that appear frequently in a column (skewed
      * values).</p>
      */
     inline void SetSkewedInfo(const SkewedInfo& value) { m_skewedInfoHasBeenSet = true; m_skewedInfo = value; }
 
     /**
-     * <p>Information about values that appear very frequently in a column (skewed
+     * <p>The information about values that appear frequently in a column (skewed
      * values).</p>
      */
     inline void SetSkewedInfo(SkewedInfo&& value) { m_skewedInfoHasBeenSet = true; m_skewedInfo = std::move(value); }
 
     /**
-     * <p>Information about values that appear very frequently in a column (skewed
+     * <p>The information about values that appear frequently in a column (skewed
      * values).</p>
      */
     inline StorageDescriptor& WithSkewedInfo(const SkewedInfo& value) { SetSkewedInfo(value); return *this;}
 
     /**
-     * <p>Information about values that appear very frequently in a column (skewed
+     * <p>The information about values that appear frequently in a column (skewed
      * values).</p>
      */
     inline StorageDescriptor& WithSkewedInfo(SkewedInfo&& value) { SetSkewedInfo(std::move(value)); return *this;}
 
 
     /**
-     * <p>True if the table data is stored in subdirectories, or False if not.</p>
+     * <p> <code>True</code> if the table data is stored in subdirectories, or
+     * <code>False</code> if not.</p>
      */
     inline bool GetStoredAsSubDirectories() const{ return m_storedAsSubDirectories; }
 
     /**
-     * <p>True if the table data is stored in subdirectories, or False if not.</p>
+     * <p> <code>True</code> if the table data is stored in subdirectories, or
+     * <code>False</code> if not.</p>
+     */
+    inline bool StoredAsSubDirectoriesHasBeenSet() const { return m_storedAsSubDirectoriesHasBeenSet; }
+
+    /**
+     * <p> <code>True</code> if the table data is stored in subdirectories, or
+     * <code>False</code> if not.</p>
      */
     inline void SetStoredAsSubDirectories(bool value) { m_storedAsSubDirectoriesHasBeenSet = true; m_storedAsSubDirectories = value; }
 
     /**
-     * <p>True if the table data is stored in subdirectories, or False if not.</p>
+     * <p> <code>True</code> if the table data is stored in subdirectories, or
+     * <code>False</code> if not.</p>
      */
     inline StorageDescriptor& WithStoredAsSubDirectories(bool value) { SetStoredAsSubDirectories(value); return *this;}
 

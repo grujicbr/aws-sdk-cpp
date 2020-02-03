@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     InventoryRetrievalJobDescription();
-    InventoryRetrievalJobDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    InventoryRetrievalJobDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InventoryRetrievalJobDescription(Aws::Utils::Json::JsonView jsonValue);
+    InventoryRetrievalJobDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * Valid values are <code>CSV</code> and <code>JSON</code>.</p>
      */
     inline const Aws::String& GetFormat() const{ return m_format; }
+
+    /**
+     * <p>The output format for the vault inventory list, which is set by the
+     * <b>InitiateJob</b> request when initiating a job to retrieve a vault inventory.
+     * Valid values are <code>CSV</code> and <code>JSON</code>.</p>
+     */
+    inline bool FormatHasBeenSet() const { return m_formatHasBeenSet; }
 
     /**
      * <p>The output format for the vault inventory list, which is set by the
@@ -104,6 +112,14 @@ namespace Model
      * <code>2013-03-20T17:03:43Z</code>.</p>
      */
     inline const Aws::String& GetStartDate() const{ return m_startDate; }
+
+    /**
+     * <p>The start of the date range in Universal Coordinated Time (UTC) for vault
+     * inventory retrieval that includes archives created on or after this date. This
+     * value should be a string in the ISO 8601 date format, for example
+     * <code>2013-03-20T17:03:43Z</code>.</p>
+     */
+    inline bool StartDateHasBeenSet() const { return m_startDateHasBeenSet; }
 
     /**
      * <p>The start of the date range in Universal Coordinated Time (UTC) for vault
@@ -166,6 +182,13 @@ namespace Model
      * archives created before this date. This value should be a string in the ISO 8601
      * date format, for example <code>2013-03-20T17:03:43Z</code>.</p>
      */
+    inline bool EndDateHasBeenSet() const { return m_endDateHasBeenSet; }
+
+    /**
+     * <p>The end of the date range in UTC for vault inventory retrieval that includes
+     * archives created before this date. This value should be a string in the ISO 8601
+     * date format, for example <code>2013-03-20T17:03:43Z</code>.</p>
+     */
     inline void SetEndDate(const Aws::String& value) { m_endDateHasBeenSet = true; m_endDate = value; }
 
     /**
@@ -216,6 +239,13 @@ namespace Model
      * request. This limit is set when initiating the job with the a <b>InitiateJob</b>
      * request. </p>
      */
+    inline bool LimitHasBeenSet() const { return m_limitHasBeenSet; }
+
+    /**
+     * <p>The maximum number of inventory items returned per vault inventory retrieval
+     * request. This limit is set when initiating the job with the a <b>InitiateJob</b>
+     * request. </p>
+     */
     inline void SetLimit(const Aws::String& value) { m_limitHasBeenSet = true; m_limit = value; }
 
     /**
@@ -259,7 +289,7 @@ namespace Model
      * inventory retrieval results. You use the marker in a new <b>InitiateJob</b>
      * request to obtain additional inventory items. If there are no more inventory
      * items, this value is <code>null</code>. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
+     * href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
      * Range Inventory Retrieval</a>.</p>
      */
     inline const Aws::String& GetMarker() const{ return m_marker; }
@@ -269,7 +299,17 @@ namespace Model
      * inventory retrieval results. You use the marker in a new <b>InitiateJob</b>
      * request to obtain additional inventory items. If there are no more inventory
      * items, this value is <code>null</code>. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
+     * href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
+     * Range Inventory Retrieval</a>.</p>
+     */
+    inline bool MarkerHasBeenSet() const { return m_markerHasBeenSet; }
+
+    /**
+     * <p>An opaque string that represents where to continue pagination of the vault
+     * inventory retrieval results. You use the marker in a new <b>InitiateJob</b>
+     * request to obtain additional inventory items. If there are no more inventory
+     * items, this value is <code>null</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
      * Range Inventory Retrieval</a>.</p>
      */
     inline void SetMarker(const Aws::String& value) { m_markerHasBeenSet = true; m_marker = value; }
@@ -279,7 +319,7 @@ namespace Model
      * inventory retrieval results. You use the marker in a new <b>InitiateJob</b>
      * request to obtain additional inventory items. If there are no more inventory
      * items, this value is <code>null</code>. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
+     * href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
      * Range Inventory Retrieval</a>.</p>
      */
     inline void SetMarker(Aws::String&& value) { m_markerHasBeenSet = true; m_marker = std::move(value); }
@@ -289,7 +329,7 @@ namespace Model
      * inventory retrieval results. You use the marker in a new <b>InitiateJob</b>
      * request to obtain additional inventory items. If there are no more inventory
      * items, this value is <code>null</code>. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
+     * href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
      * Range Inventory Retrieval</a>.</p>
      */
     inline void SetMarker(const char* value) { m_markerHasBeenSet = true; m_marker.assign(value); }
@@ -299,7 +339,7 @@ namespace Model
      * inventory retrieval results. You use the marker in a new <b>InitiateJob</b>
      * request to obtain additional inventory items. If there are no more inventory
      * items, this value is <code>null</code>. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
+     * href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
      * Range Inventory Retrieval</a>.</p>
      */
     inline InventoryRetrievalJobDescription& WithMarker(const Aws::String& value) { SetMarker(value); return *this;}
@@ -309,7 +349,7 @@ namespace Model
      * inventory retrieval results. You use the marker in a new <b>InitiateJob</b>
      * request to obtain additional inventory items. If there are no more inventory
      * items, this value is <code>null</code>. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
+     * href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
      * Range Inventory Retrieval</a>.</p>
      */
     inline InventoryRetrievalJobDescription& WithMarker(Aws::String&& value) { SetMarker(std::move(value)); return *this;}
@@ -319,7 +359,7 @@ namespace Model
      * inventory retrieval results. You use the marker in a new <b>InitiateJob</b>
      * request to obtain additional inventory items. If there are no more inventory
      * items, this value is <code>null</code>. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
+     * href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">
      * Range Inventory Retrieval</a>.</p>
      */
     inline InventoryRetrievalJobDescription& WithMarker(const char* value) { SetMarker(value); return *this;}

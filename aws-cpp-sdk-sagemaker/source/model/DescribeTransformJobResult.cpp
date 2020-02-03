@@ -45,7 +45,7 @@ DescribeTransformJobResult::DescribeTransformJobResult(const Aws::AmazonWebServi
 
 DescribeTransformJobResult& DescribeTransformJobResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("TransformJobName"))
   {
     m_transformJobName = jsonValue.GetString("TransformJobName");
@@ -96,7 +96,7 @@ DescribeTransformJobResult& DescribeTransformJobResult::operator =(const Aws::Am
 
   if(jsonValue.ValueExists("Environment"))
   {
-    Aws::Map<Aws::String, JsonValue> environmentJsonMap = jsonValue.GetObject("Environment").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> environmentJsonMap = jsonValue.GetObject("Environment").GetAllObjects();
     for(auto& environmentItem : environmentJsonMap)
     {
       m_environment[environmentItem.first] = environmentItem.second.AsString();
@@ -136,6 +136,30 @@ DescribeTransformJobResult& DescribeTransformJobResult::operator =(const Aws::Am
   if(jsonValue.ValueExists("TransformEndTime"))
   {
     m_transformEndTime = jsonValue.GetDouble("TransformEndTime");
+
+  }
+
+  if(jsonValue.ValueExists("LabelingJobArn"))
+  {
+    m_labelingJobArn = jsonValue.GetString("LabelingJobArn");
+
+  }
+
+  if(jsonValue.ValueExists("AutoMLJobArn"))
+  {
+    m_autoMLJobArn = jsonValue.GetString("AutoMLJobArn");
+
+  }
+
+  if(jsonValue.ValueExists("DataProcessing"))
+  {
+    m_dataProcessing = jsonValue.GetObject("DataProcessing");
+
+  }
+
+  if(jsonValue.ValueExists("ExperimentConfig"))
+  {
+    m_experimentConfig = jsonValue.GetObject("ExperimentConfig");
 
   }
 

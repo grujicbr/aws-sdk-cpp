@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AddAttributesActivity();
-    AddAttributesActivity(const Aws::Utils::Json::JsonValue& jsonValue);
-    AddAttributesActivity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AddAttributesActivity(Aws::Utils::Json::JsonView jsonValue);
+    AddAttributesActivity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the 'addAttributes' activity.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the 'addAttributes' activity.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the 'addAttributes' activity.</p>
@@ -91,6 +97,14 @@ namespace Model
      * </note>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>A list of 1-50 "AttributeNameMapping" objects that map an existing attribute
+     * to a new attribute.</p> <note> <p>The existing attributes remain in the message,
+     * so if you want to remove the originals, use "RemoveAttributeActivity".</p>
+     * </note>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>A list of 1-50 "AttributeNameMapping" objects that map an existing attribute
@@ -185,6 +199,11 @@ namespace Model
      * <p>The next activity in the pipeline.</p>
      */
     inline const Aws::String& GetNext() const{ return m_next; }
+
+    /**
+     * <p>The next activity in the pipeline.</p>
+     */
+    inline bool NextHasBeenSet() const { return m_nextHasBeenSet; }
 
     /**
      * <p>The next activity in the pipeline.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     OrganizationalUnit();
-    OrganizationalUnit(const Aws::Utils::Json::JsonValue& jsonValue);
-    OrganizationalUnit& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OrganizationalUnit(Aws::Utils::Json::JsonView jsonValue);
+    OrganizationalUnit& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,8 +54,8 @@ namespace Model
      * <p>The unique identifier (ID) associated with this OU.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational
      * unit ID string requires "ou-" followed by from 4 to 32 lower-case letters or
-     * digits (the ID of the root that contains the OU) followed by a second "-" dash
-     * and from 8 to 32 additional lower-case letters or digits.</p>
+     * digits (the ID of the root that contains the OU). This string is followed by a
+     * second "-" dash and from 8 to 32 additional lower-case letters or digits.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
 
@@ -62,8 +63,17 @@ namespace Model
      * <p>The unique identifier (ID) associated with this OU.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational
      * unit ID string requires "ou-" followed by from 4 to 32 lower-case letters or
-     * digits (the ID of the root that contains the OU) followed by a second "-" dash
-     * and from 8 to 32 additional lower-case letters or digits.</p>
+     * digits (the ID of the root that contains the OU). This string is followed by a
+     * second "-" dash and from 8 to 32 additional lower-case letters or digits.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * <p>The unique identifier (ID) associated with this OU.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational
+     * unit ID string requires "ou-" followed by from 4 to 32 lower-case letters or
+     * digits (the ID of the root that contains the OU). This string is followed by a
+     * second "-" dash and from 8 to 32 additional lower-case letters or digits.</p>
      */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
 
@@ -71,8 +81,8 @@ namespace Model
      * <p>The unique identifier (ID) associated with this OU.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational
      * unit ID string requires "ou-" followed by from 4 to 32 lower-case letters or
-     * digits (the ID of the root that contains the OU) followed by a second "-" dash
-     * and from 8 to 32 additional lower-case letters or digits.</p>
+     * digits (the ID of the root that contains the OU). This string is followed by a
+     * second "-" dash and from 8 to 32 additional lower-case letters or digits.</p>
      */
     inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
 
@@ -80,8 +90,8 @@ namespace Model
      * <p>The unique identifier (ID) associated with this OU.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational
      * unit ID string requires "ou-" followed by from 4 to 32 lower-case letters or
-     * digits (the ID of the root that contains the OU) followed by a second "-" dash
-     * and from 8 to 32 additional lower-case letters or digits.</p>
+     * digits (the ID of the root that contains the OU). This string is followed by a
+     * second "-" dash and from 8 to 32 additional lower-case letters or digits.</p>
      */
     inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
 
@@ -89,8 +99,8 @@ namespace Model
      * <p>The unique identifier (ID) associated with this OU.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational
      * unit ID string requires "ou-" followed by from 4 to 32 lower-case letters or
-     * digits (the ID of the root that contains the OU) followed by a second "-" dash
-     * and from 8 to 32 additional lower-case letters or digits.</p>
+     * digits (the ID of the root that contains the OU). This string is followed by a
+     * second "-" dash and from 8 to 32 additional lower-case letters or digits.</p>
      */
     inline OrganizationalUnit& WithId(const Aws::String& value) { SetId(value); return *this;}
 
@@ -98,8 +108,8 @@ namespace Model
      * <p>The unique identifier (ID) associated with this OU.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational
      * unit ID string requires "ou-" followed by from 4 to 32 lower-case letters or
-     * digits (the ID of the root that contains the OU) followed by a second "-" dash
-     * and from 8 to 32 additional lower-case letters or digits.</p>
+     * digits (the ID of the root that contains the OU). This string is followed by a
+     * second "-" dash and from 8 to 32 additional lower-case letters or digits.</p>
      */
     inline OrganizationalUnit& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
 
@@ -107,8 +117,8 @@ namespace Model
      * <p>The unique identifier (ID) associated with this OU.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational
      * unit ID string requires "ou-" followed by from 4 to 32 lower-case letters or
-     * digits (the ID of the root that contains the OU) followed by a second "-" dash
-     * and from 8 to 32 additional lower-case letters or digits.</p>
+     * digits (the ID of the root that contains the OU). This string is followed by a
+     * second "-" dash and from 8 to 32 additional lower-case letters or digits.</p>
      */
     inline OrganizationalUnit& WithId(const char* value) { SetId(value); return *this;}
 
@@ -116,7 +126,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of this OU.</p> <p>For more information about
      * ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -125,7 +135,16 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of this OU.</p> <p>For more information about
      * ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * Formats Supported by Organizations</a> in the <i>AWS Organizations User
+     * Guide</i>.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of this OU.</p> <p>For more information about
+     * ARNs in Organizations, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -134,7 +153,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of this OU.</p> <p>For more information about
      * ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -143,7 +162,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of this OU.</p> <p>For more information about
      * ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -152,7 +171,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of this OU.</p> <p>For more information about
      * ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -161,7 +180,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of this OU.</p> <p>For more information about
      * ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -170,7 +189,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of this OU.</p> <p>For more information about
      * ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -184,6 +203,14 @@ namespace Model
      * character range.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The friendly name of this OU.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to
+     * validate this parameter is a string of any of the characters in the ASCII
+     * character range.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The friendly name of this OU.</p> <p>The <a

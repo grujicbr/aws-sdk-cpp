@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -50,8 +51,8 @@ namespace Model
   {
   public:
     JobFlowInstancesConfig();
-    JobFlowInstancesConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobFlowInstancesConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobFlowInstancesConfig(Aws::Utils::Json::JsonView jsonValue);
+    JobFlowInstancesConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +60,11 @@ namespace Model
      * <p>The EC2 instance type of the master node.</p>
      */
     inline const Aws::String& GetMasterInstanceType() const{ return m_masterInstanceType; }
+
+    /**
+     * <p>The EC2 instance type of the master node.</p>
+     */
+    inline bool MasterInstanceTypeHasBeenSet() const { return m_masterInstanceTypeHasBeenSet; }
 
     /**
      * <p>The EC2 instance type of the master node.</p>
@@ -92,37 +98,42 @@ namespace Model
 
 
     /**
-     * <p>The EC2 instance type of the slave nodes.</p>
+     * <p>The EC2 instance type of the core and task nodes.</p>
      */
     inline const Aws::String& GetSlaveInstanceType() const{ return m_slaveInstanceType; }
 
     /**
-     * <p>The EC2 instance type of the slave nodes.</p>
+     * <p>The EC2 instance type of the core and task nodes.</p>
+     */
+    inline bool SlaveInstanceTypeHasBeenSet() const { return m_slaveInstanceTypeHasBeenSet; }
+
+    /**
+     * <p>The EC2 instance type of the core and task nodes.</p>
      */
     inline void SetSlaveInstanceType(const Aws::String& value) { m_slaveInstanceTypeHasBeenSet = true; m_slaveInstanceType = value; }
 
     /**
-     * <p>The EC2 instance type of the slave nodes.</p>
+     * <p>The EC2 instance type of the core and task nodes.</p>
      */
     inline void SetSlaveInstanceType(Aws::String&& value) { m_slaveInstanceTypeHasBeenSet = true; m_slaveInstanceType = std::move(value); }
 
     /**
-     * <p>The EC2 instance type of the slave nodes.</p>
+     * <p>The EC2 instance type of the core and task nodes.</p>
      */
     inline void SetSlaveInstanceType(const char* value) { m_slaveInstanceTypeHasBeenSet = true; m_slaveInstanceType.assign(value); }
 
     /**
-     * <p>The EC2 instance type of the slave nodes.</p>
+     * <p>The EC2 instance type of the core and task nodes.</p>
      */
     inline JobFlowInstancesConfig& WithSlaveInstanceType(const Aws::String& value) { SetSlaveInstanceType(value); return *this;}
 
     /**
-     * <p>The EC2 instance type of the slave nodes.</p>
+     * <p>The EC2 instance type of the core and task nodes.</p>
      */
     inline JobFlowInstancesConfig& WithSlaveInstanceType(Aws::String&& value) { SetSlaveInstanceType(std::move(value)); return *this;}
 
     /**
-     * <p>The EC2 instance type of the slave nodes.</p>
+     * <p>The EC2 instance type of the core and task nodes.</p>
      */
     inline JobFlowInstancesConfig& WithSlaveInstanceType(const char* value) { SetSlaveInstanceType(value); return *this;}
 
@@ -131,6 +142,11 @@ namespace Model
      * <p>The number of EC2 instances in the cluster.</p>
      */
     inline int GetInstanceCount() const{ return m_instanceCount; }
+
+    /**
+     * <p>The number of EC2 instances in the cluster.</p>
+     */
+    inline bool InstanceCountHasBeenSet() const { return m_instanceCountHasBeenSet; }
 
     /**
      * <p>The number of EC2 instances in the cluster.</p>
@@ -147,6 +163,11 @@ namespace Model
      * <p>Configuration for the instance groups in a cluster.</p>
      */
     inline const Aws::Vector<InstanceGroupConfig>& GetInstanceGroups() const{ return m_instanceGroups; }
+
+    /**
+     * <p>Configuration for the instance groups in a cluster.</p>
+     */
+    inline bool InstanceGroupsHasBeenSet() const { return m_instanceGroupsHasBeenSet; }
 
     /**
      * <p>Configuration for the instance groups in a cluster.</p>
@@ -186,6 +207,14 @@ namespace Model
      * fleet configuration.</p>
      */
     inline const Aws::Vector<InstanceFleetConfig>& GetInstanceFleets() const{ return m_instanceFleets; }
+
+    /**
+     * <note> <p>The instance fleet configuration is available only in Amazon EMR
+     * versions 4.8.0 and later, excluding 5.0.x versions.</p> </note> <p>Describes the
+     * EC2 instances and instance configurations for clusters that use the instance
+     * fleet configuration.</p>
+     */
+    inline bool InstanceFleetsHasBeenSet() const { return m_instanceFleetsHasBeenSet; }
 
     /**
      * <note> <p>The instance fleet configuration is available only in Amazon EMR
@@ -246,6 +275,12 @@ namespace Model
      * <p>The name of the EC2 key pair that can be used to ssh to the master node as
      * the user called "hadoop."</p>
      */
+    inline bool Ec2KeyNameHasBeenSet() const { return m_ec2KeyNameHasBeenSet; }
+
+    /**
+     * <p>The name of the EC2 key pair that can be used to ssh to the master node as
+     * the user called "hadoop."</p>
+     */
     inline void SetEc2KeyName(const Aws::String& value) { m_ec2KeyNameHasBeenSet = true; m_ec2KeyName = value; }
 
     /**
@@ -287,6 +322,11 @@ namespace Model
     /**
      * <p>The Availability Zone in which the cluster runs.</p>
      */
+    inline bool PlacementHasBeenSet() const { return m_placementHasBeenSet; }
+
+    /**
+     * <p>The Availability Zone in which the cluster runs.</p>
+     */
     inline void SetPlacement(const PlacementType& value) { m_placementHasBeenSet = true; m_placement = value; }
 
     /**
@@ -315,6 +355,12 @@ namespace Model
      * <p>Specifies whether the cluster should remain available after completing all
      * steps.</p>
      */
+    inline bool KeepJobFlowAliveWhenNoStepsHasBeenSet() const { return m_keepJobFlowAliveWhenNoStepsHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the cluster should remain available after completing all
+     * steps.</p>
+     */
     inline void SetKeepJobFlowAliveWhenNoSteps(bool value) { m_keepJobFlowAliveWhenNoStepsHasBeenSet = true; m_keepJobFlowAliveWhenNoSteps = value; }
 
     /**
@@ -330,6 +376,13 @@ namespace Model
      * job-flow error.</p>
      */
     inline bool GetTerminationProtected() const{ return m_terminationProtected; }
+
+    /**
+     * <p>Specifies whether to lock the cluster to prevent the Amazon EC2 instances
+     * from being terminated by API call, user intervention, or in the event of a
+     * job-flow error.</p>
+     */
+    inline bool TerminationProtectedHasBeenSet() const { return m_terminationProtectedHasBeenSet; }
 
     /**
      * <p>Specifies whether to lock the cluster to prevent the Amazon EC2 instances
@@ -355,6 +408,16 @@ namespace Model
      * the default version of Hadoop for that AMI version is used.</p>
      */
     inline const Aws::String& GetHadoopVersion() const{ return m_hadoopVersion; }
+
+    /**
+     * <p>Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop
+     * version for the cluster. Valid inputs are "0.18" (deprecated), "0.20"
+     * (deprecated), "0.20.205" (deprecated), "1.0.3", "2.2.0", or "2.4.0". If you do
+     * not set this value, the default of 0.18 is used, unless the
+     * <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case
+     * the default version of Hadoop for that AMI version is used.</p>
+     */
+    inline bool HadoopVersionHasBeenSet() const { return m_hadoopVersionHasBeenSet; }
 
     /**
      * <p>Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop
@@ -421,12 +484,8 @@ namespace Model
      * <p>Applies to clusters that use the uniform instance group configuration. To
      * launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this
      * parameter to the identifier of the Amazon VPC subnet where you want the cluster
-     * to launch. If you do not specify this value, the cluster launches in the normal
-     * Amazon Web Services cloud, outside of an Amazon VPC, if the account launching
-     * the cluster supports EC2 Classic networks in the region where the cluster
-     * launches.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge
-     * instance type for clusters launched in an Amazon VPC.</p>
+     * to launch. If you do not specify this value and your account supports
+     * EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline const Aws::String& GetEc2SubnetId() const{ return m_ec2SubnetId; }
 
@@ -434,12 +493,17 @@ namespace Model
      * <p>Applies to clusters that use the uniform instance group configuration. To
      * launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this
      * parameter to the identifier of the Amazon VPC subnet where you want the cluster
-     * to launch. If you do not specify this value, the cluster launches in the normal
-     * Amazon Web Services cloud, outside of an Amazon VPC, if the account launching
-     * the cluster supports EC2 Classic networks in the region where the cluster
-     * launches.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge
-     * instance type for clusters launched in an Amazon VPC.</p>
+     * to launch. If you do not specify this value and your account supports
+     * EC2-Classic, the cluster launches in EC2-Classic.</p>
+     */
+    inline bool Ec2SubnetIdHasBeenSet() const { return m_ec2SubnetIdHasBeenSet; }
+
+    /**
+     * <p>Applies to clusters that use the uniform instance group configuration. To
+     * launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this
+     * parameter to the identifier of the Amazon VPC subnet where you want the cluster
+     * to launch. If you do not specify this value and your account supports
+     * EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline void SetEc2SubnetId(const Aws::String& value) { m_ec2SubnetIdHasBeenSet = true; m_ec2SubnetId = value; }
 
@@ -447,12 +511,8 @@ namespace Model
      * <p>Applies to clusters that use the uniform instance group configuration. To
      * launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this
      * parameter to the identifier of the Amazon VPC subnet where you want the cluster
-     * to launch. If you do not specify this value, the cluster launches in the normal
-     * Amazon Web Services cloud, outside of an Amazon VPC, if the account launching
-     * the cluster supports EC2 Classic networks in the region where the cluster
-     * launches.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge
-     * instance type for clusters launched in an Amazon VPC.</p>
+     * to launch. If you do not specify this value and your account supports
+     * EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline void SetEc2SubnetId(Aws::String&& value) { m_ec2SubnetIdHasBeenSet = true; m_ec2SubnetId = std::move(value); }
 
@@ -460,12 +520,8 @@ namespace Model
      * <p>Applies to clusters that use the uniform instance group configuration. To
      * launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this
      * parameter to the identifier of the Amazon VPC subnet where you want the cluster
-     * to launch. If you do not specify this value, the cluster launches in the normal
-     * Amazon Web Services cloud, outside of an Amazon VPC, if the account launching
-     * the cluster supports EC2 Classic networks in the region where the cluster
-     * launches.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge
-     * instance type for clusters launched in an Amazon VPC.</p>
+     * to launch. If you do not specify this value and your account supports
+     * EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline void SetEc2SubnetId(const char* value) { m_ec2SubnetIdHasBeenSet = true; m_ec2SubnetId.assign(value); }
 
@@ -473,12 +529,8 @@ namespace Model
      * <p>Applies to clusters that use the uniform instance group configuration. To
      * launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this
      * parameter to the identifier of the Amazon VPC subnet where you want the cluster
-     * to launch. If you do not specify this value, the cluster launches in the normal
-     * Amazon Web Services cloud, outside of an Amazon VPC, if the account launching
-     * the cluster supports EC2 Classic networks in the region where the cluster
-     * launches.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge
-     * instance type for clusters launched in an Amazon VPC.</p>
+     * to launch. If you do not specify this value and your account supports
+     * EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline JobFlowInstancesConfig& WithEc2SubnetId(const Aws::String& value) { SetEc2SubnetId(value); return *this;}
 
@@ -486,12 +538,8 @@ namespace Model
      * <p>Applies to clusters that use the uniform instance group configuration. To
      * launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this
      * parameter to the identifier of the Amazon VPC subnet where you want the cluster
-     * to launch. If you do not specify this value, the cluster launches in the normal
-     * Amazon Web Services cloud, outside of an Amazon VPC, if the account launching
-     * the cluster supports EC2 Classic networks in the region where the cluster
-     * launches.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge
-     * instance type for clusters launched in an Amazon VPC.</p>
+     * to launch. If you do not specify this value and your account supports
+     * EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline JobFlowInstancesConfig& WithEc2SubnetId(Aws::String&& value) { SetEc2SubnetId(std::move(value)); return *this;}
 
@@ -499,12 +547,8 @@ namespace Model
      * <p>Applies to clusters that use the uniform instance group configuration. To
      * launch the cluster in Amazon Virtual Private Cloud (Amazon VPC), set this
      * parameter to the identifier of the Amazon VPC subnet where you want the cluster
-     * to launch. If you do not specify this value, the cluster launches in the normal
-     * Amazon Web Services cloud, outside of an Amazon VPC, if the account launching
-     * the cluster supports EC2 Classic networks in the region where the cluster
-     * launches.</p> <p>Amazon VPC currently does not support cluster compute quadruple
-     * extra large (cc1.4xlarge) instances. Thus you cannot specify the cc1.4xlarge
-     * instance type for clusters launched in an Amazon VPC.</p>
+     * to launch. If you do not specify this value and your account supports
+     * EC2-Classic, the cluster launches in EC2-Classic.</p>
      */
     inline JobFlowInstancesConfig& WithEc2SubnetId(const char* value) { SetEc2SubnetId(value); return *this;}
 
@@ -517,6 +561,15 @@ namespace Model
      * versions.</p> </note>
      */
     inline const Aws::Vector<Aws::String>& GetEc2SubnetIds() const{ return m_ec2SubnetIds; }
+
+    /**
+     * <p>Applies to clusters that use the instance fleet configuration. When multiple
+     * EC2 subnet IDs are specified, Amazon EMR evaluates them and launches instances
+     * in the optimal subnet.</p> <note> <p>The instance fleet configuration is
+     * available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * versions.</p> </note>
+     */
+    inline bool Ec2SubnetIdsHasBeenSet() const { return m_ec2SubnetIdsHasBeenSet; }
 
     /**
      * <p>Applies to clusters that use the instance fleet configuration. When multiple
@@ -590,6 +643,11 @@ namespace Model
     /**
      * <p>The identifier of the Amazon EC2 security group for the master node.</p>
      */
+    inline bool EmrManagedMasterSecurityGroupHasBeenSet() const { return m_emrManagedMasterSecurityGroupHasBeenSet; }
+
+    /**
+     * <p>The identifier of the Amazon EC2 security group for the master node.</p>
+     */
     inline void SetEmrManagedMasterSecurityGroup(const Aws::String& value) { m_emrManagedMasterSecurityGroupHasBeenSet = true; m_emrManagedMasterSecurityGroup = value; }
 
     /**
@@ -619,37 +677,50 @@ namespace Model
 
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline const Aws::String& GetEmrManagedSlaveSecurityGroup() const{ return m_emrManagedSlaveSecurityGroup; }
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
+     */
+    inline bool EmrManagedSlaveSecurityGroupHasBeenSet() const { return m_emrManagedSlaveSecurityGroupHasBeenSet; }
+
+    /**
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline void SetEmrManagedSlaveSecurityGroup(const Aws::String& value) { m_emrManagedSlaveSecurityGroupHasBeenSet = true; m_emrManagedSlaveSecurityGroup = value; }
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline void SetEmrManagedSlaveSecurityGroup(Aws::String&& value) { m_emrManagedSlaveSecurityGroupHasBeenSet = true; m_emrManagedSlaveSecurityGroup = std::move(value); }
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline void SetEmrManagedSlaveSecurityGroup(const char* value) { m_emrManagedSlaveSecurityGroupHasBeenSet = true; m_emrManagedSlaveSecurityGroup.assign(value); }
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline JobFlowInstancesConfig& WithEmrManagedSlaveSecurityGroup(const Aws::String& value) { SetEmrManagedSlaveSecurityGroup(value); return *this;}
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline JobFlowInstancesConfig& WithEmrManagedSlaveSecurityGroup(Aws::String&& value) { SetEmrManagedSlaveSecurityGroup(std::move(value)); return *this;}
 
     /**
-     * <p>The identifier of the Amazon EC2 security group for the slave nodes.</p>
+     * <p>The identifier of the Amazon EC2 security group for the core and task
+     * nodes.</p>
      */
     inline JobFlowInstancesConfig& WithEmrManagedSlaveSecurityGroup(const char* value) { SetEmrManagedSlaveSecurityGroup(value); return *this;}
 
@@ -659,6 +730,12 @@ namespace Model
      * access clusters in VPC private subnets.</p>
      */
     inline const Aws::String& GetServiceAccessSecurityGroup() const{ return m_serviceAccessSecurityGroup; }
+
+    /**
+     * <p>The identifier of the Amazon EC2 security group for the Amazon EMR service to
+     * access clusters in VPC private subnets.</p>
+     */
+    inline bool ServiceAccessSecurityGroupHasBeenSet() const { return m_serviceAccessSecurityGroupHasBeenSet; }
 
     /**
      * <p>The identifier of the Amazon EC2 security group for the Amazon EMR service to
@@ -705,6 +782,11 @@ namespace Model
     /**
      * <p>A list of additional Amazon EC2 security group IDs for the master node.</p>
      */
+    inline bool AdditionalMasterSecurityGroupsHasBeenSet() const { return m_additionalMasterSecurityGroupsHasBeenSet; }
+
+    /**
+     * <p>A list of additional Amazon EC2 security group IDs for the master node.</p>
+     */
     inline void SetAdditionalMasterSecurityGroups(const Aws::Vector<Aws::String>& value) { m_additionalMasterSecurityGroupsHasBeenSet = true; m_additionalMasterSecurityGroups = value; }
 
     /**
@@ -739,42 +821,56 @@ namespace Model
 
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAdditionalSlaveSecurityGroups() const{ return m_additionalSlaveSecurityGroups; }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
+     */
+    inline bool AdditionalSlaveSecurityGroupsHasBeenSet() const { return m_additionalSlaveSecurityGroupsHasBeenSet; }
+
+    /**
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline void SetAdditionalSlaveSecurityGroups(const Aws::Vector<Aws::String>& value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups = value; }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline void SetAdditionalSlaveSecurityGroups(Aws::Vector<Aws::String>&& value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups = std::move(value); }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline JobFlowInstancesConfig& WithAdditionalSlaveSecurityGroups(const Aws::Vector<Aws::String>& value) { SetAdditionalSlaveSecurityGroups(value); return *this;}
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline JobFlowInstancesConfig& WithAdditionalSlaveSecurityGroups(Aws::Vector<Aws::String>&& value) { SetAdditionalSlaveSecurityGroups(std::move(value)); return *this;}
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline JobFlowInstancesConfig& AddAdditionalSlaveSecurityGroups(const Aws::String& value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups.push_back(value); return *this; }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline JobFlowInstancesConfig& AddAdditionalSlaveSecurityGroups(Aws::String&& value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>A list of additional Amazon EC2 security group IDs for the slave nodes.</p>
+     * <p>A list of additional Amazon EC2 security group IDs for the core and task
+     * nodes.</p>
      */
     inline JobFlowInstancesConfig& AddAdditionalSlaveSecurityGroups(const char* value) { m_additionalSlaveSecurityGroupsHasBeenSet = true; m_additionalSlaveSecurityGroups.push_back(value); return *this; }
 

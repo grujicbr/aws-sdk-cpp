@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CodeDeliveryDetailsType();
-    CodeDeliveryDetailsType(const Aws::Utils::Json::JsonValue& jsonValue);
-    CodeDeliveryDetailsType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CodeDeliveryDetailsType(Aws::Utils::Json::JsonView jsonValue);
+    CodeDeliveryDetailsType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The destination for the code delivery details.</p>
      */
     inline const Aws::String& GetDestination() const{ return m_destination; }
+
+    /**
+     * <p>The destination for the code delivery details.</p>
+     */
+    inline bool DestinationHasBeenSet() const { return m_destinationHasBeenSet; }
 
     /**
      * <p>The destination for the code delivery details.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The delivery medium (email message or phone number).</p>
      */
+    inline bool DeliveryMediumHasBeenSet() const { return m_deliveryMediumHasBeenSet; }
+
+    /**
+     * <p>The delivery medium (email message or phone number).</p>
+     */
     inline void SetDeliveryMedium(const DeliveryMediumType& value) { m_deliveryMediumHasBeenSet = true; m_deliveryMedium = value; }
 
     /**
@@ -114,6 +125,11 @@ namespace Model
      * <p>The attribute name.</p>
      */
     inline const Aws::String& GetAttributeName() const{ return m_attributeName; }
+
+    /**
+     * <p>The attribute name.</p>
+     */
+    inline bool AttributeNameHasBeenSet() const { return m_attributeNameHasBeenSet; }
 
     /**
      * <p>The attribute name.</p>

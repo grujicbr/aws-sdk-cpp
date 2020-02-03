@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -37,7 +38,7 @@ namespace Model
    * URL after the domain name.</p> <div class="remarks">A custom domain name plus a
    * <code>BasePathMapping</code> specification identifies a deployed <a>RestApi</a>
    * in a given stage of the owner <a>Account</a>.</div> <div class="seeAlso"> <a
-   * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html">Use
+   * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html">Use
    * Custom Domain Names</a> </div><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/BasePathMapping">AWS
    * API Reference</a></p>
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     BasePathMapping();
-    BasePathMapping(const Aws::Utils::Json::JsonValue& jsonValue);
-    BasePathMapping& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BasePathMapping(Aws::Utils::Json::JsonView jsonValue);
+    BasePathMapping& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,12 @@ namespace Model
      * after the domain name.</p>
      */
     inline const Aws::String& GetBasePath() const{ return m_basePath; }
+
+    /**
+     * <p>The base path name that callers of the API must provide as part of the URL
+     * after the domain name.</p>
+     */
+    inline bool BasePathHasBeenSet() const { return m_basePathHasBeenSet; }
 
     /**
      * <p>The base path name that callers of the API must provide as part of the URL
@@ -102,6 +109,11 @@ namespace Model
     /**
      * <p>The string identifier of the associated <a>RestApi</a>.</p>
      */
+    inline bool RestApiIdHasBeenSet() const { return m_restApiIdHasBeenSet; }
+
+    /**
+     * <p>The string identifier of the associated <a>RestApi</a>.</p>
+     */
     inline void SetRestApiId(const Aws::String& value) { m_restApiIdHasBeenSet = true; m_restApiId = value; }
 
     /**
@@ -134,6 +146,11 @@ namespace Model
      * <p>The name of the associated stage.</p>
      */
     inline const Aws::String& GetStage() const{ return m_stage; }
+
+    /**
+     * <p>The name of the associated stage.</p>
+     */
+    inline bool StageHasBeenSet() const { return m_stageHasBeenSet; }
 
     /**
      * <p>The name of the associated stage.</p>

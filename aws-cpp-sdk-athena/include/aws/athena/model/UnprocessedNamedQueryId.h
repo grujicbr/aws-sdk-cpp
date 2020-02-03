@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Athena
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UnprocessedNamedQueryId();
-    UnprocessedNamedQueryId(const Aws::Utils::Json::JsonValue& jsonValue);
-    UnprocessedNamedQueryId& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UnprocessedNamedQueryId(Aws::Utils::Json::JsonView jsonValue);
+    UnprocessedNamedQueryId& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The unique identifier of the named query.</p>
      */
     inline const Aws::String& GetNamedQueryId() const{ return m_namedQueryId; }
+
+    /**
+     * <p>The unique identifier of the named query.</p>
+     */
+    inline bool NamedQueryIdHasBeenSet() const { return m_namedQueryIdHasBeenSet; }
 
     /**
      * <p>The unique identifier of the named query.</p>
@@ -88,6 +94,12 @@ namespace Model
      * failed, if applicable.</p>
      */
     inline const Aws::String& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The error code returned when the processing request for the named query
+     * failed, if applicable.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The error code returned when the processing request for the named query
@@ -131,6 +143,12 @@ namespace Model
      * failed, if applicable.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The error message returned when the processing request for the named query
+     * failed, if applicable.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The error message returned when the processing request for the named query

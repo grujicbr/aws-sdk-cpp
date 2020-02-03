@@ -52,13 +52,13 @@ ParameterNameValue& ParameterNameValue::operator =(const XmlNode& xmlNode)
     XmlNode parameterNameNode = resultNode.FirstChild("ParameterName");
     if(!parameterNameNode.IsNull())
     {
-      m_parameterName = StringUtils::Trim(parameterNameNode.GetText().c_str());
+      m_parameterName = Aws::Utils::Xml::DecodeEscapedXmlText(parameterNameNode.GetText());
       m_parameterNameHasBeenSet = true;
     }
     XmlNode parameterValueNode = resultNode.FirstChild("ParameterValue");
     if(!parameterValueNode.IsNull())
     {
-      m_parameterValue = StringUtils::Trim(parameterValueNode.GetText().c_str());
+      m_parameterValue = Aws::Utils::Xml::DecodeEscapedXmlText(parameterValueNode.GetText());
       m_parameterValueHasBeenSet = true;
     }
   }

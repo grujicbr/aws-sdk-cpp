@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Macie
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     FailedS3Resource();
-    FailedS3Resource(const Aws::Utils::Json::JsonValue& jsonValue);
-    FailedS3Resource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FailedS3Resource(Aws::Utils::Json::JsonView jsonValue);
+    FailedS3Resource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The failed S3 resources.</p>
      */
     inline const S3Resource& GetFailedItem() const{ return m_failedItem; }
+
+    /**
+     * <p>The failed S3 resources.</p>
+     */
+    inline bool FailedItemHasBeenSet() const { return m_failedItemHasBeenSet; }
 
     /**
      * <p>The failed S3 resources.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The status code of a failed item.</p>
      */
     inline const Aws::String& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The status code of a failed item.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The status code of a failed item.</p>
@@ -113,6 +124,11 @@ namespace Model
      * <p>The error message of a failed item.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The error message of a failed item.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The error message of a failed item.</p>

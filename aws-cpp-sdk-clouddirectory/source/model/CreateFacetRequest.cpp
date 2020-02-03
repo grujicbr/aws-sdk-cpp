@@ -65,7 +65,7 @@ Aws::String CreateFacetRequest::SerializePayload() const
    payload.WithString("FacetStyle", FacetStyleMapper::GetNameForFacetStyle(m_facetStyle));
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateFacetRequest::GetRequestSpecificHeaders() const
@@ -75,7 +75,7 @@ Aws::Http::HeaderValueCollection CreateFacetRequest::GetRequestSpecificHeaders()
   if(m_schemaArnHasBeenSet)
   {
     ss << m_schemaArn;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-data-partition", ss.str()));
+    headers.emplace("x-amz-data-partition",  ss.str());
     ss.str("");
   }
 

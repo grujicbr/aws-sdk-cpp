@@ -7,7 +7,7 @@
 #set($initializerCount = $initializerCount + 1)
 #end
 #set($isStreamingMember = ($shape.payload && ($shape.payload == $entry.key && !$entry.value.shape.structure)))
-#if(!$entry.value.required && $useRequiredField && !$isStreamingMember)
+#if(!$entry.value.required && $useRequiredField && !$isStreamingMember && !$memberShape.isEventStream())
 #set($initializerCount = $initializerCount + 1)
 #end
 #end
@@ -17,12 +17,6 @@
 #set($index = 1)
 #foreach($entry in $shape.members.entrySet())
 #set($memberShape = $entry.value.shape)
-#if($memberShape.getName() == $shape.getName())
-#set($initializers = "${initializers}${nl}    ${CppViewHelper.computeMemberVariableName($entry.key)}(1)")
-#if($index < $initializerCount)
-#set($initializers = "${initializers},")
-#end
-#end
 #if($memberShape.primitive || $memberShape.enum || $entry.value.idempotencyToken)
 #if($memberShape.primitive)
 #set($initializers = "${initializers}${nl}    ${CppViewHelper.computeMemberVariableName($entry.key)}(${CppViewHelper.computeDefaultValue($memberShape)})")
@@ -37,7 +31,7 @@
 #set($index = $index + 1)
 #end
 #set($isStreamingMember = ($shape.payload && ($shape.payload == $entry.key && !$entry.value.shape.structure)))
-#if($useRequiredField && ((!$entry.value.required && $useRequiredField && !$isStreamingMember) || $entry.value.idempotencyToken))
+#if($useRequiredField && ((!$entry.value.required && $useRequiredField && !$isStreamingMember && !$memberShape.isEventStream()) || $entry.value.idempotencyToken))
 #if(!$entry.value.idempotencyToken)
 #set($initializers = "${initializers}${nl}    ${CppViewHelper.computeVariableHasBeenSetName($entry.key)}(false)")
 #else
@@ -47,5 +41,12 @@
 #set($initializers = "${initializers},")
 #end
 #set($index = $index + 1)
+#end
+#end
+#if($shape.request && $operation.result.shape.hasEventStreamMembers())
+#if($initializerCount > 0)
+#set($initializers = "${initializers},${nl}    m_decoder(Aws::Utils::Event::EventStreamDecoder(&m_handler))")
+#else
+#set($initializers = " : m_decoder(Aws::Utils::Event::EventStreamDecoder(&m_handler))")
 #end
 #end

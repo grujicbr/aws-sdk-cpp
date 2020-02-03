@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     TrustedAdvisorResourceDetail();
-    TrustedAdvisorResourceDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrustedAdvisorResourceDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrustedAdvisorResourceDetail(Aws::Utils::Json::JsonView jsonValue);
+    TrustedAdvisorResourceDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The status code for the resource identified in the Trusted Advisor check.</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status code for the resource identified in the Trusted Advisor check.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status code for the resource identified in the Trusted Advisor check.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The AWS region in which the identified resource is located.</p>
      */
+    inline bool RegionHasBeenSet() const { return m_regionHasBeenSet; }
+
+    /**
+     * <p>The AWS region in which the identified resource is located.</p>
+     */
     inline void SetRegion(const Aws::String& value) { m_regionHasBeenSet = true; m_region = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The unique identifier for the identified resource.</p>
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
+
+    /**
+     * <p>The unique identifier for the identified resource.</p>
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
 
     /**
      * <p>The unique identifier for the identified resource.</p>
@@ -166,6 +182,12 @@ namespace Model
      * <p>Specifies whether the AWS resource was ignored by Trusted Advisor because it
      * was marked as suppressed by the user.</p>
      */
+    inline bool IsSuppressedHasBeenSet() const { return m_isSuppressedHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the AWS resource was ignored by Trusted Advisor because it
+     * was marked as suppressed by the user.</p>
+     */
     inline void SetIsSuppressed(bool value) { m_isSuppressedHasBeenSet = true; m_isSuppressed = value; }
 
     /**
@@ -181,7 +203,7 @@ namespace Model
      * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
      * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
      * is shown in the Excel download, even in those cases where the UI shows just
-     * summary data. </p>
+     * summary data.</p>
      */
     inline const Aws::Vector<Aws::String>& GetMetadata() const{ return m_metadata; }
 
@@ -191,7 +213,17 @@ namespace Model
      * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
      * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
      * is shown in the Excel download, even in those cases where the UI shows just
-     * summary data. </p>
+     * summary data.</p>
+     */
+    inline bool MetadataHasBeenSet() const { return m_metadataHasBeenSet; }
+
+    /**
+     * <p>Additional information about the identified resource. The exact metadata and
+     * its order can be obtained by inspecting the
+     * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
+     * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
+     * is shown in the Excel download, even in those cases where the UI shows just
+     * summary data.</p>
      */
     inline void SetMetadata(const Aws::Vector<Aws::String>& value) { m_metadataHasBeenSet = true; m_metadata = value; }
 
@@ -201,7 +233,7 @@ namespace Model
      * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
      * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
      * is shown in the Excel download, even in those cases where the UI shows just
-     * summary data. </p>
+     * summary data.</p>
      */
     inline void SetMetadata(Aws::Vector<Aws::String>&& value) { m_metadataHasBeenSet = true; m_metadata = std::move(value); }
 
@@ -211,7 +243,7 @@ namespace Model
      * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
      * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
      * is shown in the Excel download, even in those cases where the UI shows just
-     * summary data. </p>
+     * summary data.</p>
      */
     inline TrustedAdvisorResourceDetail& WithMetadata(const Aws::Vector<Aws::String>& value) { SetMetadata(value); return *this;}
 
@@ -221,7 +253,7 @@ namespace Model
      * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
      * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
      * is shown in the Excel download, even in those cases where the UI shows just
-     * summary data. </p>
+     * summary data.</p>
      */
     inline TrustedAdvisorResourceDetail& WithMetadata(Aws::Vector<Aws::String>&& value) { SetMetadata(std::move(value)); return *this;}
 
@@ -231,7 +263,7 @@ namespace Model
      * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
      * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
      * is shown in the Excel download, even in those cases where the UI shows just
-     * summary data. </p>
+     * summary data.</p>
      */
     inline TrustedAdvisorResourceDetail& AddMetadata(const Aws::String& value) { m_metadataHasBeenSet = true; m_metadata.push_back(value); return *this; }
 
@@ -241,7 +273,7 @@ namespace Model
      * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
      * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
      * is shown in the Excel download, even in those cases where the UI shows just
-     * summary data. </p>
+     * summary data.</p>
      */
     inline TrustedAdvisorResourceDetail& AddMetadata(Aws::String&& value) { m_metadataHasBeenSet = true; m_metadata.push_back(std::move(value)); return *this; }
 
@@ -251,7 +283,7 @@ namespace Model
      * <a>TrustedAdvisorCheckDescription</a> object returned by the call to
      * <a>DescribeTrustedAdvisorChecks</a>. <b>Metadata</b> contains all the data that
      * is shown in the Excel download, even in those cases where the UI shows just
-     * summary data. </p>
+     * summary data.</p>
      */
     inline TrustedAdvisorResourceDetail& AddMetadata(const char* value) { m_metadataHasBeenSet = true; m_metadata.push_back(value); return *this; }
 

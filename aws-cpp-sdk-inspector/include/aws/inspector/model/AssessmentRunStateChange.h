@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AssessmentRunStateChange();
-    AssessmentRunStateChange(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssessmentRunStateChange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssessmentRunStateChange(Aws::Utils::Json::JsonView jsonValue);
+    AssessmentRunStateChange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The last time the assessment run state changed.</p>
      */
     inline const Aws::Utils::DateTime& GetStateChangedAt() const{ return m_stateChangedAt; }
+
+    /**
+     * <p>The last time the assessment run state changed.</p>
+     */
+    inline bool StateChangedAtHasBeenSet() const { return m_stateChangedAtHasBeenSet; }
 
     /**
      * <p>The last time the assessment run state changed.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The assessment run state.</p>
      */
     inline const AssessmentRunState& GetState() const{ return m_state; }
+
+    /**
+     * <p>The assessment run state.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The assessment run state.</p>

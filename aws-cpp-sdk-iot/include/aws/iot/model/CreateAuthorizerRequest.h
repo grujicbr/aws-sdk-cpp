@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     CreateAuthorizerRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,6 +48,11 @@ namespace Model
      * <p>The authorizer name.</p>
      */
     inline const Aws::String& GetAuthorizerName() const{ return m_authorizerName; }
+
+    /**
+     * <p>The authorizer name.</p>
+     */
+    inline bool AuthorizerNameHasBeenSet() const { return m_authorizerNameHasBeenSet; }
 
     /**
      * <p>The authorizer name.</p>
@@ -88,6 +93,11 @@ namespace Model
     /**
      * <p>The ARN of the authorizer's Lambda function.</p>
      */
+    inline bool AuthorizerFunctionArnHasBeenSet() const { return m_authorizerFunctionArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the authorizer's Lambda function.</p>
+     */
     inline void SetAuthorizerFunctionArn(const Aws::String& value) { m_authorizerFunctionArnHasBeenSet = true; m_authorizerFunctionArn = value; }
 
     /**
@@ -121,6 +131,12 @@ namespace Model
      * headers.</p>
      */
     inline const Aws::String& GetTokenKeyName() const{ return m_tokenKeyName; }
+
+    /**
+     * <p>The name of the token key used to extract the token from the HTTP
+     * headers.</p>
+     */
+    inline bool TokenKeyNameHasBeenSet() const { return m_tokenKeyNameHasBeenSet; }
 
     /**
      * <p>The name of the token key used to extract the token from the HTTP
@@ -164,6 +180,12 @@ namespace Model
      * authentication service.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetTokenSigningPublicKeys() const{ return m_tokenSigningPublicKeys; }
+
+    /**
+     * <p>The public keys used to verify the digital signature returned by your custom
+     * authentication service.</p>
+     */
+    inline bool TokenSigningPublicKeysHasBeenSet() const { return m_tokenSigningPublicKeysHasBeenSet; }
 
     /**
      * <p>The public keys used to verify the digital signature returned by your custom
@@ -240,6 +262,11 @@ namespace Model
     /**
      * <p>The status of the create authorizer request.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the create authorizer request.</p>
+     */
     inline void SetStatus(const AuthorizerStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -257,6 +284,31 @@ namespace Model
      */
     inline CreateAuthorizerRequest& WithStatus(AuthorizerStatus&& value) { SetStatus(std::move(value)); return *this;}
 
+
+    /**
+     * <p>Specifies whether AWS IoT validates the token signature in an authorization
+     * request.</p>
+     */
+    inline bool GetSigningDisabled() const{ return m_signingDisabled; }
+
+    /**
+     * <p>Specifies whether AWS IoT validates the token signature in an authorization
+     * request.</p>
+     */
+    inline bool SigningDisabledHasBeenSet() const { return m_signingDisabledHasBeenSet; }
+
+    /**
+     * <p>Specifies whether AWS IoT validates the token signature in an authorization
+     * request.</p>
+     */
+    inline void SetSigningDisabled(bool value) { m_signingDisabledHasBeenSet = true; m_signingDisabled = value; }
+
+    /**
+     * <p>Specifies whether AWS IoT validates the token signature in an authorization
+     * request.</p>
+     */
+    inline CreateAuthorizerRequest& WithSigningDisabled(bool value) { SetSigningDisabled(value); return *this;}
+
   private:
 
     Aws::String m_authorizerName;
@@ -273,6 +325,9 @@ namespace Model
 
     AuthorizerStatus m_status;
     bool m_statusHasBeenSet;
+
+    bool m_signingDisabled;
+    bool m_signingDisabledHasBeenSet;
   };
 
 } // namespace Model

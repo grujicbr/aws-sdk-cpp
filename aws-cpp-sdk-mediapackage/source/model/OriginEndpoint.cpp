@@ -30,6 +30,7 @@ namespace Model
 
 OriginEndpoint::OriginEndpoint() : 
     m_arnHasBeenSet(false),
+    m_authorizationHasBeenSet(false),
     m_channelIdHasBeenSet(false),
     m_cmafPackageHasBeenSet(false),
     m_dashPackageHasBeenSet(false),
@@ -38,8 +39,11 @@ OriginEndpoint::OriginEndpoint() :
     m_idHasBeenSet(false),
     m_manifestNameHasBeenSet(false),
     m_mssPackageHasBeenSet(false),
+    m_origination(Origination::NOT_SET),
+    m_originationHasBeenSet(false),
     m_startoverWindowSeconds(0),
     m_startoverWindowSecondsHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_timeDelaySeconds(0),
     m_timeDelaySecondsHasBeenSet(false),
     m_urlHasBeenSet(false),
@@ -47,8 +51,9 @@ OriginEndpoint::OriginEndpoint() :
 {
 }
 
-OriginEndpoint::OriginEndpoint(const JsonValue& jsonValue) : 
+OriginEndpoint::OriginEndpoint(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
+    m_authorizationHasBeenSet(false),
     m_channelIdHasBeenSet(false),
     m_cmafPackageHasBeenSet(false),
     m_dashPackageHasBeenSet(false),
@@ -57,8 +62,11 @@ OriginEndpoint::OriginEndpoint(const JsonValue& jsonValue) :
     m_idHasBeenSet(false),
     m_manifestNameHasBeenSet(false),
     m_mssPackageHasBeenSet(false),
+    m_origination(Origination::NOT_SET),
+    m_originationHasBeenSet(false),
     m_startoverWindowSeconds(0),
     m_startoverWindowSecondsHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_timeDelaySeconds(0),
     m_timeDelaySecondsHasBeenSet(false),
     m_urlHasBeenSet(false),
@@ -67,13 +75,20 @@ OriginEndpoint::OriginEndpoint(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-OriginEndpoint& OriginEndpoint::operator =(const JsonValue& jsonValue)
+OriginEndpoint& OriginEndpoint::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("arn"))
   {
     m_arn = jsonValue.GetString("arn");
 
     m_arnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("authorization"))
+  {
+    m_authorization = jsonValue.GetObject("authorization");
+
+    m_authorizationHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("channelId"))
@@ -132,11 +147,28 @@ OriginEndpoint& OriginEndpoint::operator =(const JsonValue& jsonValue)
     m_mssPackageHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("origination"))
+  {
+    m_origination = OriginationMapper::GetOriginationForName(jsonValue.GetString("origination"));
+
+    m_originationHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("startoverWindowSeconds"))
   {
     m_startoverWindowSeconds = jsonValue.GetInteger("startoverWindowSeconds");
 
     m_startoverWindowSecondsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("timeDelaySeconds"))
@@ -155,7 +187,7 @@ OriginEndpoint& OriginEndpoint::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("whitelist"))
   {
-    Array<JsonValue> whitelistJsonList = jsonValue.GetArray("whitelist");
+    Array<JsonView> whitelistJsonList = jsonValue.GetArray("whitelist");
     for(unsigned whitelistIndex = 0; whitelistIndex < whitelistJsonList.GetLength(); ++whitelistIndex)
     {
       m_whitelist.push_back(whitelistJsonList[whitelistIndex].AsString());
@@ -173,6 +205,12 @@ JsonValue OriginEndpoint::Jsonize() const
   if(m_arnHasBeenSet)
   {
    payload.WithString("arn", m_arn);
+
+  }
+
+  if(m_authorizationHasBeenSet)
+  {
+   payload.WithObject("authorization", m_authorization.Jsonize());
 
   }
 
@@ -224,9 +262,25 @@ JsonValue OriginEndpoint::Jsonize() const
 
   }
 
+  if(m_originationHasBeenSet)
+  {
+   payload.WithString("origination", OriginationMapper::GetNameForOrigination(m_origination));
+  }
+
   if(m_startoverWindowSecondsHasBeenSet)
   {
    payload.WithInteger("startoverWindowSeconds", m_startoverWindowSeconds);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
 
   }
 

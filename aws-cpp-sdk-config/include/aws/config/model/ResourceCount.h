@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ResourceCount();
-    ResourceCount(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceCount& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceCount(Aws::Utils::Json::JsonView jsonValue);
+    ResourceCount& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The resource type (for example, <code>"AWS::EC2::Instance"</code>).</p>
      */
     inline const ResourceType& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The resource type (for example, <code>"AWS::EC2::Instance"</code>).</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The resource type (for example, <code>"AWS::EC2::Instance"</code>).</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The number of resources.</p>
      */
     inline long long GetCount() const{ return m_count; }
+
+    /**
+     * <p>The number of resources.</p>
+     */
+    inline bool CountHasBeenSet() const { return m_countHasBeenSet; }
 
     /**
      * <p>The number of resources.</p>

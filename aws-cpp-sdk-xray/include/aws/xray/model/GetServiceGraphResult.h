@@ -141,37 +141,59 @@ namespace Model
 
 
     /**
-     * <p>Pagination token. Not used.</p>
+     * <p>A flag indicating whether the group's filter expression has been consistent,
+     * or if the returned service graph may show traces from an older version of the
+     * group's filter expression.</p>
+     */
+    inline bool GetContainsOldGroupVersions() const{ return m_containsOldGroupVersions; }
+
+    /**
+     * <p>A flag indicating whether the group's filter expression has been consistent,
+     * or if the returned service graph may show traces from an older version of the
+     * group's filter expression.</p>
+     */
+    inline void SetContainsOldGroupVersions(bool value) { m_containsOldGroupVersions = value; }
+
+    /**
+     * <p>A flag indicating whether the group's filter expression has been consistent,
+     * or if the returned service graph may show traces from an older version of the
+     * group's filter expression.</p>
+     */
+    inline GetServiceGraphResult& WithContainsOldGroupVersions(bool value) { SetContainsOldGroupVersions(value); return *this;}
+
+
+    /**
+     * <p>Pagination token.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
-     * <p>Pagination token. Not used.</p>
+     * <p>Pagination token.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextToken = value; }
 
     /**
-     * <p>Pagination token. Not used.</p>
+     * <p>Pagination token.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextToken = std::move(value); }
 
     /**
-     * <p>Pagination token. Not used.</p>
+     * <p>Pagination token.</p>
      */
     inline void SetNextToken(const char* value) { m_nextToken.assign(value); }
 
     /**
-     * <p>Pagination token. Not used.</p>
+     * <p>Pagination token.</p>
      */
     inline GetServiceGraphResult& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
-     * <p>Pagination token. Not used.</p>
+     * <p>Pagination token.</p>
      */
     inline GetServiceGraphResult& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
-     * <p>Pagination token. Not used.</p>
+     * <p>Pagination token.</p>
      */
     inline GetServiceGraphResult& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
@@ -182,6 +204,8 @@ namespace Model
     Aws::Utils::DateTime m_endTime;
 
     Aws::Vector<Service> m_services;
+
+    bool m_containsOldGroupVersions;
 
     Aws::String m_nextToken;
   };

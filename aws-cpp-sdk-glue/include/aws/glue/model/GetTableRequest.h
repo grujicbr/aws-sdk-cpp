@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetTableRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -45,43 +45,49 @@ namespace Model
 
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline const Aws::String& GetCatalogId() const{ return m_catalogId; }
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
+     * AWS account ID is used by default.</p>
+     */
+    inline bool CatalogIdHasBeenSet() const { return m_catalogIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const Aws::String& value) { m_catalogIdHasBeenSet = true; m_catalogId = value; }
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(Aws::String&& value) { m_catalogIdHasBeenSet = true; m_catalogId = std::move(value); }
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const char* value) { m_catalogIdHasBeenSet = true; m_catalogId.assign(value); }
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableRequest& WithCatalogId(const Aws::String& value) { SetCatalogId(value); return *this;}
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableRequest& WithCatalogId(Aws::String&& value) { SetCatalogId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableRequest& WithCatalogId(const char* value) { SetCatalogId(value); return *this;}
@@ -92,6 +98,12 @@ namespace Model
      * compatibility, this name is entirely lowercase.</p>
      */
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    /**
+     * <p>The name of the database in the catalog in which the table resides. For Hive
+     * compatibility, this name is entirely lowercase.</p>
+     */
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     /**
      * <p>The name of the database in the catalog in which the table resides. For Hive
@@ -135,6 +147,12 @@ namespace Model
      * compatibility, this name is entirely lowercase.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the table for which to retrieve the definition. For Hive
+     * compatibility, this name is entirely lowercase.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the table for which to retrieve the definition. For Hive

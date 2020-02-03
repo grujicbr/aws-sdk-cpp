@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LambdaConfigType();
-    LambdaConfigType(const Aws::Utils::Json::JsonValue& jsonValue);
-    LambdaConfigType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LambdaConfigType(Aws::Utils::Json::JsonView jsonValue);
+    LambdaConfigType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>A pre-registration AWS Lambda trigger.</p>
      */
     inline const Aws::String& GetPreSignUp() const{ return m_preSignUp; }
+
+    /**
+     * <p>A pre-registration AWS Lambda trigger.</p>
+     */
+    inline bool PreSignUpHasBeenSet() const { return m_preSignUpHasBeenSet; }
 
     /**
      * <p>A pre-registration AWS Lambda trigger.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>A custom Message AWS Lambda trigger.</p>
      */
+    inline bool CustomMessageHasBeenSet() const { return m_customMessageHasBeenSet; }
+
+    /**
+     * <p>A custom Message AWS Lambda trigger.</p>
+     */
     inline void SetCustomMessage(const Aws::String& value) { m_customMessageHasBeenSet = true; m_customMessage = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>A post-confirmation AWS Lambda trigger.</p>
      */
     inline const Aws::String& GetPostConfirmation() const{ return m_postConfirmation; }
+
+    /**
+     * <p>A post-confirmation AWS Lambda trigger.</p>
+     */
+    inline bool PostConfirmationHasBeenSet() const { return m_postConfirmationHasBeenSet; }
 
     /**
      * <p>A post-confirmation AWS Lambda trigger.</p>
@@ -163,6 +179,11 @@ namespace Model
     /**
      * <p>A pre-authentication AWS Lambda trigger.</p>
      */
+    inline bool PreAuthenticationHasBeenSet() const { return m_preAuthenticationHasBeenSet; }
+
+    /**
+     * <p>A pre-authentication AWS Lambda trigger.</p>
+     */
     inline void SetPreAuthentication(const Aws::String& value) { m_preAuthenticationHasBeenSet = true; m_preAuthentication = value; }
 
     /**
@@ -195,6 +216,11 @@ namespace Model
      * <p>A post-authentication AWS Lambda trigger.</p>
      */
     inline const Aws::String& GetPostAuthentication() const{ return m_postAuthentication; }
+
+    /**
+     * <p>A post-authentication AWS Lambda trigger.</p>
+     */
+    inline bool PostAuthenticationHasBeenSet() const { return m_postAuthenticationHasBeenSet; }
 
     /**
      * <p>A post-authentication AWS Lambda trigger.</p>
@@ -235,6 +261,11 @@ namespace Model
     /**
      * <p>Defines the authentication challenge.</p>
      */
+    inline bool DefineAuthChallengeHasBeenSet() const { return m_defineAuthChallengeHasBeenSet; }
+
+    /**
+     * <p>Defines the authentication challenge.</p>
+     */
     inline void SetDefineAuthChallenge(const Aws::String& value) { m_defineAuthChallengeHasBeenSet = true; m_defineAuthChallenge = value; }
 
     /**
@@ -267,6 +298,11 @@ namespace Model
      * <p>Creates an authentication challenge.</p>
      */
     inline const Aws::String& GetCreateAuthChallenge() const{ return m_createAuthChallenge; }
+
+    /**
+     * <p>Creates an authentication challenge.</p>
+     */
+    inline bool CreateAuthChallengeHasBeenSet() const { return m_createAuthChallengeHasBeenSet; }
 
     /**
      * <p>Creates an authentication challenge.</p>
@@ -307,6 +343,11 @@ namespace Model
     /**
      * <p>Verifies the authentication challenge response.</p>
      */
+    inline bool VerifyAuthChallengeResponseHasBeenSet() const { return m_verifyAuthChallengeResponseHasBeenSet; }
+
+    /**
+     * <p>Verifies the authentication challenge response.</p>
+     */
     inline void SetVerifyAuthChallengeResponse(const Aws::String& value) { m_verifyAuthChallengeResponseHasBeenSet = true; m_verifyAuthChallengeResponse = value; }
 
     /**
@@ -343,6 +384,11 @@ namespace Model
     /**
      * <p>A Lambda trigger that is invoked before token generation.</p>
      */
+    inline bool PreTokenGenerationHasBeenSet() const { return m_preTokenGenerationHasBeenSet; }
+
+    /**
+     * <p>A Lambda trigger that is invoked before token generation.</p>
+     */
     inline void SetPreTokenGeneration(const Aws::String& value) { m_preTokenGenerationHasBeenSet = true; m_preTokenGeneration = value; }
 
     /**
@@ -375,6 +421,11 @@ namespace Model
      * <p>The user migration Lambda config type.</p>
      */
     inline const Aws::String& GetUserMigration() const{ return m_userMigration; }
+
+    /**
+     * <p>The user migration Lambda config type.</p>
+     */
+    inline bool UserMigrationHasBeenSet() const { return m_userMigrationHasBeenSet; }
 
     /**
      * <p>The user migration Lambda config type.</p>

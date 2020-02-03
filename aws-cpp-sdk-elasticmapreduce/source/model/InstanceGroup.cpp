@@ -43,6 +43,11 @@ InstanceGroup::InstanceGroup() :
     m_runningInstanceCountHasBeenSet(false),
     m_statusHasBeenSet(false),
     m_configurationsHasBeenSet(false),
+    m_configurationsVersion(0),
+    m_configurationsVersionHasBeenSet(false),
+    m_lastSuccessfullyAppliedConfigurationsHasBeenSet(false),
+    m_lastSuccessfullyAppliedConfigurationsVersion(0),
+    m_lastSuccessfullyAppliedConfigurationsVersionHasBeenSet(false),
     m_ebsBlockDevicesHasBeenSet(false),
     m_ebsOptimized(false),
     m_ebsOptimizedHasBeenSet(false),
@@ -51,7 +56,7 @@ InstanceGroup::InstanceGroup() :
 {
 }
 
-InstanceGroup::InstanceGroup(const JsonValue& jsonValue) : 
+InstanceGroup::InstanceGroup(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_market(MarketType::NOT_SET),
@@ -66,6 +71,11 @@ InstanceGroup::InstanceGroup(const JsonValue& jsonValue) :
     m_runningInstanceCountHasBeenSet(false),
     m_statusHasBeenSet(false),
     m_configurationsHasBeenSet(false),
+    m_configurationsVersion(0),
+    m_configurationsVersionHasBeenSet(false),
+    m_lastSuccessfullyAppliedConfigurationsHasBeenSet(false),
+    m_lastSuccessfullyAppliedConfigurationsVersion(0),
+    m_lastSuccessfullyAppliedConfigurationsVersionHasBeenSet(false),
     m_ebsBlockDevicesHasBeenSet(false),
     m_ebsOptimized(false),
     m_ebsOptimizedHasBeenSet(false),
@@ -75,7 +85,7 @@ InstanceGroup::InstanceGroup(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-InstanceGroup& InstanceGroup::operator =(const JsonValue& jsonValue)
+InstanceGroup& InstanceGroup::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -142,7 +152,7 @@ InstanceGroup& InstanceGroup::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Configurations"))
   {
-    Array<JsonValue> configurationsJsonList = jsonValue.GetArray("Configurations");
+    Array<JsonView> configurationsJsonList = jsonValue.GetArray("Configurations");
     for(unsigned configurationsIndex = 0; configurationsIndex < configurationsJsonList.GetLength(); ++configurationsIndex)
     {
       m_configurations.push_back(configurationsJsonList[configurationsIndex].AsObject());
@@ -150,9 +160,33 @@ InstanceGroup& InstanceGroup::operator =(const JsonValue& jsonValue)
     m_configurationsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("ConfigurationsVersion"))
+  {
+    m_configurationsVersion = jsonValue.GetInt64("ConfigurationsVersion");
+
+    m_configurationsVersionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("LastSuccessfullyAppliedConfigurations"))
+  {
+    Array<JsonView> lastSuccessfullyAppliedConfigurationsJsonList = jsonValue.GetArray("LastSuccessfullyAppliedConfigurations");
+    for(unsigned lastSuccessfullyAppliedConfigurationsIndex = 0; lastSuccessfullyAppliedConfigurationsIndex < lastSuccessfullyAppliedConfigurationsJsonList.GetLength(); ++lastSuccessfullyAppliedConfigurationsIndex)
+    {
+      m_lastSuccessfullyAppliedConfigurations.push_back(lastSuccessfullyAppliedConfigurationsJsonList[lastSuccessfullyAppliedConfigurationsIndex].AsObject());
+    }
+    m_lastSuccessfullyAppliedConfigurationsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("LastSuccessfullyAppliedConfigurationsVersion"))
+  {
+    m_lastSuccessfullyAppliedConfigurationsVersion = jsonValue.GetInt64("LastSuccessfullyAppliedConfigurationsVersion");
+
+    m_lastSuccessfullyAppliedConfigurationsVersionHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("EbsBlockDevices"))
   {
-    Array<JsonValue> ebsBlockDevicesJsonList = jsonValue.GetArray("EbsBlockDevices");
+    Array<JsonView> ebsBlockDevicesJsonList = jsonValue.GetArray("EbsBlockDevices");
     for(unsigned ebsBlockDevicesIndex = 0; ebsBlockDevicesIndex < ebsBlockDevicesJsonList.GetLength(); ++ebsBlockDevicesIndex)
     {
       m_ebsBlockDevices.push_back(ebsBlockDevicesJsonList[ebsBlockDevicesIndex].AsObject());
@@ -248,6 +282,29 @@ JsonValue InstanceGroup::Jsonize() const
      configurationsJsonList[configurationsIndex].AsObject(m_configurations[configurationsIndex].Jsonize());
    }
    payload.WithArray("Configurations", std::move(configurationsJsonList));
+
+  }
+
+  if(m_configurationsVersionHasBeenSet)
+  {
+   payload.WithInt64("ConfigurationsVersion", m_configurationsVersion);
+
+  }
+
+  if(m_lastSuccessfullyAppliedConfigurationsHasBeenSet)
+  {
+   Array<JsonValue> lastSuccessfullyAppliedConfigurationsJsonList(m_lastSuccessfullyAppliedConfigurations.size());
+   for(unsigned lastSuccessfullyAppliedConfigurationsIndex = 0; lastSuccessfullyAppliedConfigurationsIndex < lastSuccessfullyAppliedConfigurationsJsonList.GetLength(); ++lastSuccessfullyAppliedConfigurationsIndex)
+   {
+     lastSuccessfullyAppliedConfigurationsJsonList[lastSuccessfullyAppliedConfigurationsIndex].AsObject(m_lastSuccessfullyAppliedConfigurations[lastSuccessfullyAppliedConfigurationsIndex].Jsonize());
+   }
+   payload.WithArray("LastSuccessfullyAppliedConfigurations", std::move(lastSuccessfullyAppliedConfigurationsJsonList));
+
+  }
+
+  if(m_lastSuccessfullyAppliedConfigurationsVersionHasBeenSet)
+  {
+   payload.WithInt64("LastSuccessfullyAppliedConfigurationsVersion", m_lastSuccessfullyAppliedConfigurationsVersion);
 
   }
 

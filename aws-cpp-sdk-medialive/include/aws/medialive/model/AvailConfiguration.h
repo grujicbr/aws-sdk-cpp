@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for AvailConfiguration<p><h3>See Also:</h3>   <a
+   * Avail Configuration<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailConfiguration">AWS
    * API Reference</a></p>
    */
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     AvailConfiguration();
-    AvailConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    AvailConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AvailConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    AvailConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * Ad avail settings.
      */
     inline const AvailSettings& GetAvailSettings() const{ return m_availSettings; }
+
+    /**
+     * Ad avail settings.
+     */
+    inline bool AvailSettingsHasBeenSet() const { return m_availSettingsHasBeenSet; }
 
     /**
      * Ad avail settings.

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ProvisioningArtifactSummary();
-    ProvisioningArtifactSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProvisioningArtifactSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProvisioningArtifactSummary(Aws::Utils::Json::JsonView jsonValue);
+    ProvisioningArtifactSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The identifier of the provisioning artifact.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The identifier of the provisioning artifact.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The identifier of the provisioning artifact.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The name of the provisioning artifact.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the provisioning artifact.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -125,6 +136,11 @@ namespace Model
      * <p>The description of the provisioning artifact.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the provisioning artifact.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the provisioning artifact.</p>
@@ -165,6 +181,11 @@ namespace Model
     /**
      * <p>The UTC time stamp of the creation time.</p>
      */
+    inline bool CreatedTimeHasBeenSet() const { return m_createdTimeHasBeenSet; }
+
+    /**
+     * <p>The UTC time stamp of the creation time.</p>
+     */
     inline void SetCreatedTime(const Aws::Utils::DateTime& value) { m_createdTimeHasBeenSet = true; m_createdTime = value; }
 
     /**
@@ -188,6 +209,12 @@ namespace Model
      * products.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetProvisioningArtifactMetadata() const{ return m_provisioningArtifactMetadata; }
+
+    /**
+     * <p>The metadata for the provisioning artifact. This is used with AWS Marketplace
+     * products.</p>
+     */
+    inline bool ProvisioningArtifactMetadataHasBeenSet() const { return m_provisioningArtifactMetadataHasBeenSet; }
 
     /**
      * <p>The metadata for the provisioning artifact. This is used with AWS Marketplace

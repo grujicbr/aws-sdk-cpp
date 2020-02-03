@@ -39,7 +39,8 @@ UserDetail::UserDetail() :
     m_userPolicyListHasBeenSet(false),
     m_groupListHasBeenSet(false),
     m_attachedManagedPoliciesHasBeenSet(false),
-    m_permissionsBoundaryHasBeenSet(false)
+    m_permissionsBoundaryHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -52,7 +53,8 @@ UserDetail::UserDetail(const XmlNode& xmlNode) :
     m_userPolicyListHasBeenSet(false),
     m_groupListHasBeenSet(false),
     m_attachedManagedPoliciesHasBeenSet(false),
-    m_permissionsBoundaryHasBeenSet(false)
+    m_permissionsBoundaryHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -66,31 +68,31 @@ UserDetail& UserDetail::operator =(const XmlNode& xmlNode)
     XmlNode pathNode = resultNode.FirstChild("Path");
     if(!pathNode.IsNull())
     {
-      m_path = StringUtils::Trim(pathNode.GetText().c_str());
+      m_path = Aws::Utils::Xml::DecodeEscapedXmlText(pathNode.GetText());
       m_pathHasBeenSet = true;
     }
     XmlNode userNameNode = resultNode.FirstChild("UserName");
     if(!userNameNode.IsNull())
     {
-      m_userName = StringUtils::Trim(userNameNode.GetText().c_str());
+      m_userName = Aws::Utils::Xml::DecodeEscapedXmlText(userNameNode.GetText());
       m_userNameHasBeenSet = true;
     }
     XmlNode userIdNode = resultNode.FirstChild("UserId");
     if(!userIdNode.IsNull())
     {
-      m_userId = StringUtils::Trim(userIdNode.GetText().c_str());
+      m_userId = Aws::Utils::Xml::DecodeEscapedXmlText(userIdNode.GetText());
       m_userIdHasBeenSet = true;
     }
     XmlNode arnNode = resultNode.FirstChild("Arn");
     if(!arnNode.IsNull())
     {
-      m_arn = StringUtils::Trim(arnNode.GetText().c_str());
+      m_arn = Aws::Utils::Xml::DecodeEscapedXmlText(arnNode.GetText());
       m_arnHasBeenSet = true;
     }
     XmlNode createDateNode = resultNode.FirstChild("CreateDate");
     if(!createDateNode.IsNull())
     {
-      m_createDate = DateTime(StringUtils::Trim(createDateNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_createDate = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(createDateNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_createDateHasBeenSet = true;
     }
     XmlNode userPolicyListNode = resultNode.FirstChild("UserPolicyList");
@@ -111,7 +113,7 @@ UserDetail& UserDetail::operator =(const XmlNode& xmlNode)
       XmlNode groupListMember = groupListNode.FirstChild("member");
       while(!groupListMember.IsNull())
       {
-        m_groupList.push_back(StringUtils::Trim(groupListMember.GetText().c_str()));
+        m_groupList.push_back(groupListMember.GetText());
         groupListMember = groupListMember.NextNode("member");
       }
 
@@ -134,6 +136,18 @@ UserDetail& UserDetail::operator =(const XmlNode& xmlNode)
     {
       m_permissionsBoundary = permissionsBoundaryNode;
       m_permissionsBoundaryHasBeenSet = true;
+    }
+    XmlNode tagsNode = resultNode.FirstChild("Tags");
+    if(!tagsNode.IsNull())
+    {
+      XmlNode tagsMember = tagsNode.FirstChild("member");
+      while(!tagsMember.IsNull())
+      {
+        m_tags.push_back(tagsMember);
+        tagsMember = tagsMember.NextNode("member");
+      }
+
+      m_tagsHasBeenSet = true;
     }
   }
 
@@ -205,6 +219,17 @@ void UserDetail::OutputToStream(Aws::OStream& oStream, const char* location, uns
       m_permissionsBoundary.OutputToStream(oStream, permissionsBoundaryLocationAndMemberSs.str().c_str());
   }
 
+  if(m_tagsHasBeenSet)
+  {
+      unsigned tagsIdx = 1;
+      for(auto& item : m_tags)
+      {
+        Aws::StringStream tagsSs;
+        tagsSs << location << index << locationValue << ".Tags.member." << tagsIdx++;
+        item.OutputToStream(oStream, tagsSs.str().c_str());
+      }
+  }
+
 }
 
 void UserDetail::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -262,6 +287,16 @@ void UserDetail::OutputToStream(Aws::OStream& oStream, const char* location) con
       Aws::String permissionsBoundaryLocationAndMember(location);
       permissionsBoundaryLocationAndMember += ".PermissionsBoundary";
       m_permissionsBoundary.OutputToStream(oStream, permissionsBoundaryLocationAndMember.c_str());
+  }
+  if(m_tagsHasBeenSet)
+  {
+      unsigned tagsIdx = 1;
+      for(auto& item : m_tags)
+      {
+        Aws::StringStream tagsSs;
+        tagsSs << location <<  ".Tags.member." << tagsIdx++;
+        item.OutputToStream(oStream, tagsSs.str().c_str());
+      }
   }
 }
 

@@ -28,7 +28,6 @@ namespace Glacier
   {
   public:
     virtual ~GlacierRequest () {}
-    virtual Aws::String SerializePayload() const override = 0;
 
     void AddParametersToRequest(Aws::Http::HttpRequest& httpRequest) const { AWS_UNREFERENCED_PARAM(httpRequest); }
 
@@ -38,10 +37,10 @@ namespace Glacier
 
       if(headers.size() == 0 || (headers.size() > 0 && headers.count(Aws::Http::CONTENT_TYPE_HEADER) == 0))
       {
-        headers.insert(Aws::Http::HeaderValuePair(Aws::Http::CONTENT_TYPE_HEADER, Aws::AMZN_JSON_CONTENT_TYPE_1_1 ));
+        headers.emplace(Aws::Http::HeaderValuePair(Aws::Http::CONTENT_TYPE_HEADER, Aws::AMZN_JSON_CONTENT_TYPE_1_1 ));
       }
-
-      headers.insert(Aws::Http::HeaderValuePair("x-amz-glacier-version", "2012-06-01"));
+      headers.emplace(Aws::Http::HeaderValuePair(Aws::Http::API_VERSION_HEADER, "2012-06-01"));
+      headers.emplace(Aws::Http::HeaderValuePair("x-amz-glacier-version", "2012-06-01"));
 
       return headers;
     }

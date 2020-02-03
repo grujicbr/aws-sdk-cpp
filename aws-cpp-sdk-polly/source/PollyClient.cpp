@@ -24,6 +24,9 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/polly/PollyClient.h>
 #include <aws/polly/PollyEndpoint.h>
 #include <aws/polly/PollyErrorMarshaller.h>
@@ -86,29 +89,42 @@ PollyClient::~PollyClient()
 
 void PollyClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << PollyEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + PollyEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void PollyClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
 }
 
 DeleteLexiconOutcome PollyClient::DeleteLexicon(const DeleteLexiconRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.NameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteLexicon", "Required field: Name, is not set");
+    return DeleteLexiconOutcome(Aws::Client::AWSError<PollyErrors>(PollyErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Name]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/lexicons/";
   ss << request.GetName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteLexiconOutcome(DeleteLexiconResult(outcome.GetResult()));
@@ -139,11 +155,11 @@ void PollyClient::DeleteLexiconAsyncHelper(const DeleteLexiconRequest& request, 
 
 DescribeVoicesOutcome PollyClient::DescribeVoices(const DescribeVoicesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/voices";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeVoicesOutcome(DescribeVoicesResult(outcome.GetResult()));
@@ -174,12 +190,17 @@ void PollyClient::DescribeVoicesAsyncHelper(const DescribeVoicesRequest& request
 
 GetLexiconOutcome PollyClient::GetLexicon(const GetLexiconRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.NameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetLexicon", "Required field: Name, is not set");
+    return GetLexiconOutcome(Aws::Client::AWSError<PollyErrors>(PollyErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Name]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/lexicons/";
   ss << request.GetName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetLexiconOutcome(GetLexiconResult(outcome.GetResult()));
@@ -210,12 +231,17 @@ void PollyClient::GetLexiconAsyncHelper(const GetLexiconRequest& request, const 
 
 GetSpeechSynthesisTaskOutcome PollyClient::GetSpeechSynthesisTask(const GetSpeechSynthesisTaskRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.TaskIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("GetSpeechSynthesisTask", "Required field: TaskId, is not set");
+    return GetSpeechSynthesisTaskOutcome(Aws::Client::AWSError<PollyErrors>(PollyErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TaskId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/synthesisTasks/";
   ss << request.GetTaskId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetSpeechSynthesisTaskOutcome(GetSpeechSynthesisTaskResult(outcome.GetResult()));
@@ -246,11 +272,11 @@ void PollyClient::GetSpeechSynthesisTaskAsyncHelper(const GetSpeechSynthesisTask
 
 ListLexiconsOutcome PollyClient::ListLexicons(const ListLexiconsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/lexicons";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListLexiconsOutcome(ListLexiconsResult(outcome.GetResult()));
@@ -281,11 +307,11 @@ void PollyClient::ListLexiconsAsyncHelper(const ListLexiconsRequest& request, co
 
 ListSpeechSynthesisTasksOutcome PollyClient::ListSpeechSynthesisTasks(const ListSpeechSynthesisTasksRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/synthesisTasks";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListSpeechSynthesisTasksOutcome(ListSpeechSynthesisTasksResult(outcome.GetResult()));
@@ -316,12 +342,17 @@ void PollyClient::ListSpeechSynthesisTasksAsyncHelper(const ListSpeechSynthesisT
 
 PutLexiconOutcome PollyClient::PutLexicon(const PutLexiconRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.NameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("PutLexicon", "Required field: Name, is not set");
+    return PutLexiconOutcome(Aws::Client::AWSError<PollyErrors>(PollyErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [Name]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/lexicons/";
   ss << request.GetName();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return PutLexiconOutcome(PutLexiconResult(outcome.GetResult()));
@@ -352,11 +383,11 @@ void PollyClient::PutLexiconAsyncHelper(const PutLexiconRequest& request, const 
 
 StartSpeechSynthesisTaskOutcome PollyClient::StartSpeechSynthesisTask(const StartSpeechSynthesisTaskRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/synthesisTasks";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return StartSpeechSynthesisTaskOutcome(StartSpeechSynthesisTaskResult(outcome.GetResult()));
@@ -387,11 +418,11 @@ void PollyClient::StartSpeechSynthesisTaskAsyncHelper(const StartSpeechSynthesis
 
 SynthesizeSpeechOutcome PollyClient::SynthesizeSpeech(const SynthesizeSpeechRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/v1/speech";
   uri.SetPath(uri.GetPath() + ss.str());
-  StreamOutcome outcome = MakeRequestWithUnparsedResponse(uri, request, HttpMethod::HTTP_POST);
+  StreamOutcome outcome = MakeRequestWithUnparsedResponse(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return SynthesizeSpeechOutcome(SynthesizeSpeechResult(outcome.GetResultWithOwnership()));

@@ -26,24 +26,42 @@ using namespace Aws::Utils;
 using namespace Aws::Http;
 
 DescribeVoicesRequest::DescribeVoicesRequest() : 
+    m_engine(Engine::NOT_SET),
+    m_engineHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
+    m_includeAdditionalLanguageCodes(false),
+    m_includeAdditionalLanguageCodesHasBeenSet(false),
     m_nextTokenHasBeenSet(false)
 {
 }
 
 Aws::String DescribeVoicesRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 void DescribeVoicesRequest::AddQueryStringParameters(URI& uri) const
 {
     Aws::StringStream ss;
+    if(m_engineHasBeenSet)
+    {
+      ss << EngineMapper::GetNameForEngine(m_engine);
+      uri.AddQueryStringParameter("Engine", ss.str());
+      ss.str("");
+    }
+
     if(m_languageCodeHasBeenSet)
     {
       ss << LanguageCodeMapper::GetNameForLanguageCode(m_languageCode);
       uri.AddQueryStringParameter("LanguageCode", ss.str());
+      ss.str("");
+    }
+
+    if(m_includeAdditionalLanguageCodesHasBeenSet)
+    {
+      ss << m_includeAdditionalLanguageCodes;
+      uri.AddQueryStringParameter("IncludeAdditionalLanguageCodes", ss.str());
       ss.str("");
     }
 

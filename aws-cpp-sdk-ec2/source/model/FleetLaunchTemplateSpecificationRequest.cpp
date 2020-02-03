@@ -54,19 +54,19 @@ FleetLaunchTemplateSpecificationRequest& FleetLaunchTemplateSpecificationRequest
     XmlNode launchTemplateIdNode = resultNode.FirstChild("LaunchTemplateId");
     if(!launchTemplateIdNode.IsNull())
     {
-      m_launchTemplateId = StringUtils::Trim(launchTemplateIdNode.GetText().c_str());
+      m_launchTemplateId = Aws::Utils::Xml::DecodeEscapedXmlText(launchTemplateIdNode.GetText());
       m_launchTemplateIdHasBeenSet = true;
     }
     XmlNode launchTemplateNameNode = resultNode.FirstChild("LaunchTemplateName");
     if(!launchTemplateNameNode.IsNull())
     {
-      m_launchTemplateName = StringUtils::Trim(launchTemplateNameNode.GetText().c_str());
+      m_launchTemplateName = Aws::Utils::Xml::DecodeEscapedXmlText(launchTemplateNameNode.GetText());
       m_launchTemplateNameHasBeenSet = true;
     }
     XmlNode versionNode = resultNode.FirstChild("Version");
     if(!versionNode.IsNull())
     {
-      m_version = StringUtils::Trim(versionNode.GetText().c_str());
+      m_version = Aws::Utils::Xml::DecodeEscapedXmlText(versionNode.GetText());
       m_versionHasBeenSet = true;
     }
   }

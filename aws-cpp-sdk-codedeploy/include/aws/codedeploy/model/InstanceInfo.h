@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     InstanceInfo();
-    InstanceInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceInfo(Aws::Utils::Json::JsonView jsonValue);
+    InstanceInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the on-premises instance.</p>
      */
     inline const Aws::String& GetInstanceName() const{ return m_instanceName; }
+
+    /**
+     * <p>The name of the on-premises instance.</p>
+     */
+    inline bool InstanceNameHasBeenSet() const { return m_instanceNameHasBeenSet; }
 
     /**
      * <p>The name of the on-premises instance.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The ARN of the IAM session associated with the on-premises instance.</p>
      */
+    inline bool IamSessionArnHasBeenSet() const { return m_iamSessionArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the IAM session associated with the on-premises instance.</p>
+     */
     inline void SetIamSessionArn(const Aws::String& value) { m_iamSessionArnHasBeenSet = true; m_iamSessionArn = value; }
 
     /**
@@ -125,6 +136,11 @@ namespace Model
      * <p>The IAM user ARN associated with the on-premises instance.</p>
      */
     inline const Aws::String& GetIamUserArn() const{ return m_iamUserArn; }
+
+    /**
+     * <p>The IAM user ARN associated with the on-premises instance.</p>
+     */
+    inline bool IamUserArnHasBeenSet() const { return m_iamUserArnHasBeenSet; }
 
     /**
      * <p>The IAM user ARN associated with the on-premises instance.</p>
@@ -165,6 +181,11 @@ namespace Model
     /**
      * <p>The ARN of the on-premises instance.</p>
      */
+    inline bool InstanceArnHasBeenSet() const { return m_instanceArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the on-premises instance.</p>
+     */
     inline void SetInstanceArn(const Aws::String& value) { m_instanceArnHasBeenSet = true; m_instanceArn = value; }
 
     /**
@@ -201,6 +222,11 @@ namespace Model
     /**
      * <p>The time at which the on-premises instance was registered.</p>
      */
+    inline bool RegisterTimeHasBeenSet() const { return m_registerTimeHasBeenSet; }
+
+    /**
+     * <p>The time at which the on-premises instance was registered.</p>
+     */
     inline void SetRegisterTime(const Aws::Utils::DateTime& value) { m_registerTimeHasBeenSet = true; m_registerTime = value; }
 
     /**
@@ -224,6 +250,12 @@ namespace Model
      * on-premises instance was deregistered.</p>
      */
     inline const Aws::Utils::DateTime& GetDeregisterTime() const{ return m_deregisterTime; }
+
+    /**
+     * <p>If the on-premises instance was deregistered, the time at which the
+     * on-premises instance was deregistered.</p>
+     */
+    inline bool DeregisterTimeHasBeenSet() const { return m_deregisterTimeHasBeenSet; }
 
     /**
      * <p>If the on-premises instance was deregistered, the time at which the
@@ -254,6 +286,11 @@ namespace Model
      * <p>The tags currently associated with the on-premises instance.</p>
      */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tags currently associated with the on-premises instance.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>The tags currently associated with the on-premises instance.</p>

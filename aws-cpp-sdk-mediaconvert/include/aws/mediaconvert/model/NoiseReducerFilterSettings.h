@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     NoiseReducerFilterSettings();
-    NoiseReducerFilterSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    NoiseReducerFilterSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NoiseReducerFilterSettings(Aws::Utils::Json::JsonView jsonValue);
+    NoiseReducerFilterSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,12 @@ namespace Model
      * filtering.
      */
     inline int GetStrength() const{ return m_strength; }
+
+    /**
+     * Relative strength of noise reducing filter. Higher values produce stronger
+     * filtering.
+     */
+    inline bool StrengthHasBeenSet() const { return m_strengthHasBeenSet; }
 
     /**
      * Relative strength of noise reducing filter. Higher values produce stronger

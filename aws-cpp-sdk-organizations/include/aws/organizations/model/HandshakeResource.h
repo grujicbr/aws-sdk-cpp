@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     HandshakeResource();
-    HandshakeResource(const Aws::Utils::Json::JsonValue& jsonValue);
-    HandshakeResource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HandshakeResource(Aws::Utils::Json::JsonView jsonValue);
+    HandshakeResource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,13 @@ namespace Model
      * type.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The information that is passed to the other party in the handshake. The
+     * format of the value string must match the requirements of the specified
+     * type.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The information that is passed to the other party in the handshake. The
@@ -130,6 +138,22 @@ namespace Model
      * by the handshake initiator and intended for the recipient to read.</p> </li>
      * </ul>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of information being passed, specifying how the value is to be
+     * interpreted by the other party:</p> <ul> <li> <p> <code>ACCOUNT</code> -
+     * Specifies an AWS account ID number.</p> </li> <li> <p> <code>ORGANIZATION</code>
+     * - Specifies an organization ID number.</p> </li> <li> <p> <code>EMAIL</code> -
+     * Specifies the email address that is associated with the account that receives
+     * the handshake. </p> </li> <li> <p> <code>OWNER_EMAIL</code> - Specifies the
+     * email address associated with the master account. Included as information about
+     * an organization. </p> </li> <li> <p> <code>OWNER_NAME</code> - Specifies the
+     * name associated with the master account. Included as information about an
+     * organization. </p> </li> <li> <p> <code>NOTES</code> - Additional text provided
+     * by the handshake initiator and intended for the recipient to read.</p> </li>
+     * </ul>
+     */
     inline void SetType(const HandshakeResourceType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -186,6 +210,12 @@ namespace Model
      * objects.</p>
      */
     inline const Aws::Vector<HandshakeResource>& GetResources() const{ return m_resources; }
+
+    /**
+     * <p>When needed, contains an additional array of <code>HandshakeResource</code>
+     * objects.</p>
+     */
+    inline bool ResourcesHasBeenSet() const { return m_resourcesHasBeenSet; }
 
     /**
      * <p>When needed, contains an additional array of <code>HandshakeResource</code>

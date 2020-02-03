@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ResourceServerType();
-    ResourceServerType(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceServerType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceServerType(Aws::Utils::Json::JsonView jsonValue);
+    ResourceServerType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The user pool ID for the user pool that hosts the resource server.</p>
      */
     inline const Aws::String& GetUserPoolId() const{ return m_userPoolId; }
+
+    /**
+     * <p>The user pool ID for the user pool that hosts the resource server.</p>
+     */
+    inline bool UserPoolIdHasBeenSet() const { return m_userPoolIdHasBeenSet; }
 
     /**
      * <p>The user pool ID for the user pool that hosts the resource server.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The identifier for the resource server.</p>
      */
+    inline bool IdentifierHasBeenSet() const { return m_identifierHasBeenSet; }
+
+    /**
+     * <p>The identifier for the resource server.</p>
+     */
     inline void SetIdentifier(const Aws::String& value) { m_identifierHasBeenSet = true; m_identifier = value; }
 
     /**
@@ -129,6 +140,11 @@ namespace Model
     /**
      * <p>The name of the resource server.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the resource server.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -161,6 +177,11 @@ namespace Model
      * <p>A list of scopes that are defined for the resource server.</p>
      */
     inline const Aws::Vector<ResourceServerScopeType>& GetScopes() const{ return m_scopes; }
+
+    /**
+     * <p>A list of scopes that are defined for the resource server.</p>
+     */
+    inline bool ScopesHasBeenSet() const { return m_scopesHasBeenSet; }
 
     /**
      * <p>A list of scopes that are defined for the resource server.</p>

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SecretsManager
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     SecretVersionsListEntry();
-    SecretVersionsListEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    SecretVersionsListEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SecretVersionsListEntry(Aws::Utils::Json::JsonView jsonValue);
+    SecretVersionsListEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The unique version identifier of this version of the secret.</p>
      */
     inline const Aws::String& GetVersionId() const{ return m_versionId; }
+
+    /**
+     * <p>The unique version identifier of this version of the secret.</p>
+     */
+    inline bool VersionIdHasBeenSet() const { return m_versionIdHasBeenSet; }
 
     /**
      * <p>The unique version identifier of this version of the secret.</p>
@@ -90,6 +96,12 @@ namespace Model
      * the secret.</p>
      */
     inline const Aws::Vector<Aws::String>& GetVersionStages() const{ return m_versionStages; }
+
+    /**
+     * <p>An array of staging labels that are currently associated with this version of
+     * the secret.</p>
+     */
+    inline bool VersionStagesHasBeenSet() const { return m_versionStagesHasBeenSet; }
 
     /**
      * <p>An array of staging labels that are currently associated with this version of
@@ -144,6 +156,12 @@ namespace Model
      * <p>The date that this version of the secret was last accessed. Note that the
      * resolution of this field is at the date level and does not include the time.</p>
      */
+    inline bool LastAccessedDateHasBeenSet() const { return m_lastAccessedDateHasBeenSet; }
+
+    /**
+     * <p>The date that this version of the secret was last accessed. Note that the
+     * resolution of this field is at the date level and does not include the time.</p>
+     */
     inline void SetLastAccessedDate(const Aws::Utils::DateTime& value) { m_lastAccessedDateHasBeenSet = true; m_lastAccessedDate = value; }
 
     /**
@@ -169,6 +187,11 @@ namespace Model
      * <p>The date and time this version of the secret was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedDate() const{ return m_createdDate; }
+
+    /**
+     * <p>The date and time this version of the secret was created.</p>
+     */
+    inline bool CreatedDateHasBeenSet() const { return m_createdDateHasBeenSet; }
 
     /**
      * <p>The date and time this version of the secret was created.</p>

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -32,7 +33,7 @@ namespace Model
 
   /**
    * <p>Details about AWS resources that were analyzed in a call to Trusted Advisor
-   * <a>DescribeTrustedAdvisorCheckSummaries</a>. </p><p><h3>See Also:</h3>   <a
+   * <a>DescribeTrustedAdvisorCheckSummaries</a>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/support-2013-04-15/TrustedAdvisorResourcesSummary">AWS
    * API Reference</a></p>
    */
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     TrustedAdvisorResourcesSummary();
-    TrustedAdvisorResourcesSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrustedAdvisorResourcesSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrustedAdvisorResourcesSummary(Aws::Utils::Json::JsonView jsonValue);
+    TrustedAdvisorResourcesSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * check.</p>
      */
     inline long long GetResourcesProcessed() const{ return m_resourcesProcessed; }
+
+    /**
+     * <p>The number of AWS resources that were analyzed by the Trusted Advisor
+     * check.</p>
+     */
+    inline bool ResourcesProcessedHasBeenSet() const { return m_resourcesProcessedHasBeenSet; }
 
     /**
      * <p>The number of AWS resources that were analyzed by the Trusted Advisor
@@ -74,6 +81,12 @@ namespace Model
      * <p>The number of AWS resources that were flagged (listed) by the Trusted Advisor
      * check.</p>
      */
+    inline bool ResourcesFlaggedHasBeenSet() const { return m_resourcesFlaggedHasBeenSet; }
+
+    /**
+     * <p>The number of AWS resources that were flagged (listed) by the Trusted Advisor
+     * check.</p>
+     */
     inline void SetResourcesFlagged(long long value) { m_resourcesFlaggedHasBeenSet = true; m_resourcesFlagged = value; }
 
     /**
@@ -93,6 +106,12 @@ namespace Model
      * <p>The number of AWS resources ignored by Trusted Advisor because information
      * was unavailable.</p>
      */
+    inline bool ResourcesIgnoredHasBeenSet() const { return m_resourcesIgnoredHasBeenSet; }
+
+    /**
+     * <p>The number of AWS resources ignored by Trusted Advisor because information
+     * was unavailable.</p>
+     */
     inline void SetResourcesIgnored(long long value) { m_resourcesIgnoredHasBeenSet = true; m_resourcesIgnored = value; }
 
     /**
@@ -107,6 +126,12 @@ namespace Model
      * marked as suppressed by the user.</p>
      */
     inline long long GetResourcesSuppressed() const{ return m_resourcesSuppressed; }
+
+    /**
+     * <p>The number of AWS resources ignored by Trusted Advisor because they were
+     * marked as suppressed by the user.</p>
+     */
+    inline bool ResourcesSuppressedHasBeenSet() const { return m_resourcesSuppressedHasBeenSet; }
 
     /**
      * <p>The number of AWS resources ignored by Trusted Advisor because they were

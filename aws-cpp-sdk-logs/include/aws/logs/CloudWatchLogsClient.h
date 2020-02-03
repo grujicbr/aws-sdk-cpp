@@ -27,14 +27,20 @@
 #include <aws/logs/model/DescribeLogGroupsResult.h>
 #include <aws/logs/model/DescribeLogStreamsResult.h>
 #include <aws/logs/model/DescribeMetricFiltersResult.h>
+#include <aws/logs/model/DescribeQueriesResult.h>
 #include <aws/logs/model/DescribeResourcePoliciesResult.h>
 #include <aws/logs/model/DescribeSubscriptionFiltersResult.h>
 #include <aws/logs/model/FilterLogEventsResult.h>
 #include <aws/logs/model/GetLogEventsResult.h>
+#include <aws/logs/model/GetLogGroupFieldsResult.h>
+#include <aws/logs/model/GetLogRecordResult.h>
+#include <aws/logs/model/GetQueryResultsResult.h>
 #include <aws/logs/model/ListTagsLogGroupResult.h>
 #include <aws/logs/model/PutDestinationResult.h>
 #include <aws/logs/model/PutLogEventsResult.h>
 #include <aws/logs/model/PutResourcePolicyResult.h>
+#include <aws/logs/model/StartQueryResult.h>
+#include <aws/logs/model/StopQueryResult.h>
 #include <aws/logs/model/TestMetricFilterResult.h>
 #include <aws/core/NoResult.h>
 #include <aws/core/client/AsyncCallerContext.h>
@@ -54,16 +60,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -99,11 +99,15 @@ namespace Model
         class DescribeLogGroupsRequest;
         class DescribeLogStreamsRequest;
         class DescribeMetricFiltersRequest;
+        class DescribeQueriesRequest;
         class DescribeResourcePoliciesRequest;
         class DescribeSubscriptionFiltersRequest;
         class DisassociateKmsKeyRequest;
         class FilterLogEventsRequest;
         class GetLogEventsRequest;
+        class GetLogGroupFieldsRequest;
+        class GetLogRecordRequest;
+        class GetQueryResultsRequest;
         class ListTagsLogGroupRequest;
         class PutDestinationRequest;
         class PutDestinationPolicyRequest;
@@ -112,6 +116,8 @@ namespace Model
         class PutResourcePolicyRequest;
         class PutRetentionPolicyRequest;
         class PutSubscriptionFilterRequest;
+        class StartQueryRequest;
+        class StopQueryRequest;
         class TagLogGroupRequest;
         class TestMetricFilterRequest;
         class UntagLogGroupRequest;
@@ -133,11 +139,15 @@ namespace Model
         typedef Aws::Utils::Outcome<DescribeLogGroupsResult, Aws::Client::AWSError<CloudWatchLogsErrors>> DescribeLogGroupsOutcome;
         typedef Aws::Utils::Outcome<DescribeLogStreamsResult, Aws::Client::AWSError<CloudWatchLogsErrors>> DescribeLogStreamsOutcome;
         typedef Aws::Utils::Outcome<DescribeMetricFiltersResult, Aws::Client::AWSError<CloudWatchLogsErrors>> DescribeMetricFiltersOutcome;
+        typedef Aws::Utils::Outcome<DescribeQueriesResult, Aws::Client::AWSError<CloudWatchLogsErrors>> DescribeQueriesOutcome;
         typedef Aws::Utils::Outcome<DescribeResourcePoliciesResult, Aws::Client::AWSError<CloudWatchLogsErrors>> DescribeResourcePoliciesOutcome;
         typedef Aws::Utils::Outcome<DescribeSubscriptionFiltersResult, Aws::Client::AWSError<CloudWatchLogsErrors>> DescribeSubscriptionFiltersOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<CloudWatchLogsErrors>> DisassociateKmsKeyOutcome;
         typedef Aws::Utils::Outcome<FilterLogEventsResult, Aws::Client::AWSError<CloudWatchLogsErrors>> FilterLogEventsOutcome;
         typedef Aws::Utils::Outcome<GetLogEventsResult, Aws::Client::AWSError<CloudWatchLogsErrors>> GetLogEventsOutcome;
+        typedef Aws::Utils::Outcome<GetLogGroupFieldsResult, Aws::Client::AWSError<CloudWatchLogsErrors>> GetLogGroupFieldsOutcome;
+        typedef Aws::Utils::Outcome<GetLogRecordResult, Aws::Client::AWSError<CloudWatchLogsErrors>> GetLogRecordOutcome;
+        typedef Aws::Utils::Outcome<GetQueryResultsResult, Aws::Client::AWSError<CloudWatchLogsErrors>> GetQueryResultsOutcome;
         typedef Aws::Utils::Outcome<ListTagsLogGroupResult, Aws::Client::AWSError<CloudWatchLogsErrors>> ListTagsLogGroupOutcome;
         typedef Aws::Utils::Outcome<PutDestinationResult, Aws::Client::AWSError<CloudWatchLogsErrors>> PutDestinationOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<CloudWatchLogsErrors>> PutDestinationPolicyOutcome;
@@ -146,6 +156,8 @@ namespace Model
         typedef Aws::Utils::Outcome<PutResourcePolicyResult, Aws::Client::AWSError<CloudWatchLogsErrors>> PutResourcePolicyOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<CloudWatchLogsErrors>> PutRetentionPolicyOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<CloudWatchLogsErrors>> PutSubscriptionFilterOutcome;
+        typedef Aws::Utils::Outcome<StartQueryResult, Aws::Client::AWSError<CloudWatchLogsErrors>> StartQueryOutcome;
+        typedef Aws::Utils::Outcome<StopQueryResult, Aws::Client::AWSError<CloudWatchLogsErrors>> StopQueryOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<CloudWatchLogsErrors>> TagLogGroupOutcome;
         typedef Aws::Utils::Outcome<TestMetricFilterResult, Aws::Client::AWSError<CloudWatchLogsErrors>> TestMetricFilterOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<CloudWatchLogsErrors>> UntagLogGroupOutcome;
@@ -167,11 +179,15 @@ namespace Model
         typedef std::future<DescribeLogGroupsOutcome> DescribeLogGroupsOutcomeCallable;
         typedef std::future<DescribeLogStreamsOutcome> DescribeLogStreamsOutcomeCallable;
         typedef std::future<DescribeMetricFiltersOutcome> DescribeMetricFiltersOutcomeCallable;
+        typedef std::future<DescribeQueriesOutcome> DescribeQueriesOutcomeCallable;
         typedef std::future<DescribeResourcePoliciesOutcome> DescribeResourcePoliciesOutcomeCallable;
         typedef std::future<DescribeSubscriptionFiltersOutcome> DescribeSubscriptionFiltersOutcomeCallable;
         typedef std::future<DisassociateKmsKeyOutcome> DisassociateKmsKeyOutcomeCallable;
         typedef std::future<FilterLogEventsOutcome> FilterLogEventsOutcomeCallable;
         typedef std::future<GetLogEventsOutcome> GetLogEventsOutcomeCallable;
+        typedef std::future<GetLogGroupFieldsOutcome> GetLogGroupFieldsOutcomeCallable;
+        typedef std::future<GetLogRecordOutcome> GetLogRecordOutcomeCallable;
+        typedef std::future<GetQueryResultsOutcome> GetQueryResultsOutcomeCallable;
         typedef std::future<ListTagsLogGroupOutcome> ListTagsLogGroupOutcomeCallable;
         typedef std::future<PutDestinationOutcome> PutDestinationOutcomeCallable;
         typedef std::future<PutDestinationPolicyOutcome> PutDestinationPolicyOutcomeCallable;
@@ -180,6 +196,8 @@ namespace Model
         typedef std::future<PutResourcePolicyOutcome> PutResourcePolicyOutcomeCallable;
         typedef std::future<PutRetentionPolicyOutcome> PutRetentionPolicyOutcomeCallable;
         typedef std::future<PutSubscriptionFilterOutcome> PutSubscriptionFilterOutcomeCallable;
+        typedef std::future<StartQueryOutcome> StartQueryOutcomeCallable;
+        typedef std::future<StopQueryOutcome> StopQueryOutcomeCallable;
         typedef std::future<TagLogGroupOutcome> TagLogGroupOutcomeCallable;
         typedef std::future<TestMetricFilterOutcome> TestMetricFilterOutcomeCallable;
         typedef std::future<UntagLogGroupOutcome> UntagLogGroupOutcomeCallable;
@@ -204,11 +222,15 @@ namespace Model
     typedef std::function<void(const CloudWatchLogsClient*, const Model::DescribeLogGroupsRequest&, const Model::DescribeLogGroupsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeLogGroupsResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::DescribeLogStreamsRequest&, const Model::DescribeLogStreamsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeLogStreamsResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::DescribeMetricFiltersRequest&, const Model::DescribeMetricFiltersOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMetricFiltersResponseReceivedHandler;
+    typedef std::function<void(const CloudWatchLogsClient*, const Model::DescribeQueriesRequest&, const Model::DescribeQueriesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeQueriesResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::DescribeResourcePoliciesRequest&, const Model::DescribeResourcePoliciesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeResourcePoliciesResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::DescribeSubscriptionFiltersRequest&, const Model::DescribeSubscriptionFiltersOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeSubscriptionFiltersResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::DisassociateKmsKeyRequest&, const Model::DisassociateKmsKeyOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DisassociateKmsKeyResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::FilterLogEventsRequest&, const Model::FilterLogEventsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > FilterLogEventsResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::GetLogEventsRequest&, const Model::GetLogEventsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetLogEventsResponseReceivedHandler;
+    typedef std::function<void(const CloudWatchLogsClient*, const Model::GetLogGroupFieldsRequest&, const Model::GetLogGroupFieldsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetLogGroupFieldsResponseReceivedHandler;
+    typedef std::function<void(const CloudWatchLogsClient*, const Model::GetLogRecordRequest&, const Model::GetLogRecordOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetLogRecordResponseReceivedHandler;
+    typedef std::function<void(const CloudWatchLogsClient*, const Model::GetQueryResultsRequest&, const Model::GetQueryResultsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetQueryResultsResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::ListTagsLogGroupRequest&, const Model::ListTagsLogGroupOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListTagsLogGroupResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::PutDestinationRequest&, const Model::PutDestinationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutDestinationResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::PutDestinationPolicyRequest&, const Model::PutDestinationPolicyOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutDestinationPolicyResponseReceivedHandler;
@@ -217,6 +239,8 @@ namespace Model
     typedef std::function<void(const CloudWatchLogsClient*, const Model::PutResourcePolicyRequest&, const Model::PutResourcePolicyOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutResourcePolicyResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::PutRetentionPolicyRequest&, const Model::PutRetentionPolicyOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutRetentionPolicyResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::PutSubscriptionFilterRequest&, const Model::PutSubscriptionFilterOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutSubscriptionFilterResponseReceivedHandler;
+    typedef std::function<void(const CloudWatchLogsClient*, const Model::StartQueryRequest&, const Model::StartQueryOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StartQueryResponseReceivedHandler;
+    typedef std::function<void(const CloudWatchLogsClient*, const Model::StopQueryRequest&, const Model::StopQueryOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StopQueryResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::TagLogGroupRequest&, const Model::TagLogGroupOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > TagLogGroupResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::TestMetricFilterRequest&, const Model::TestMetricFilterOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > TestMetricFilterResponseReceivedHandler;
     typedef std::function<void(const CloudWatchLogsClient*, const Model::UntagLogGroupRequest&, const Model::UntagLogGroupOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UntagLogGroupResponseReceivedHandler;
@@ -273,7 +297,7 @@ namespace Model
 
         virtual ~CloudWatchLogsClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "logs"; }
+        inline virtual const char* GetServiceClientName() const override { return "CloudWatch Logs"; }
 
 
         /**
@@ -283,11 +307,15 @@ namespace Model
          * After a CMK is associated with a log group, all newly ingested data for the log
          * group is encrypted using the CMK. This association is stored as long as the data
          * encrypted with the CMK is still within Amazon CloudWatch Logs. This enables
-         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p>
-         * <p>Note that it can take up to 5 minutes for this operation to take effect.</p>
-         * <p>If you attempt to associate a CMK with a log group but the CMK does not exist
-         * or the CMK is disabled, you will receive an
-         * <code>InvalidParameterException</code> error. </p><p><h3>See Also:</h3>   <a
+         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p> <note>
+         * <p> <b>Important:</b> CloudWatch Logs supports only symmetric CMKs. Do not use
+         * an associate an asymmetric CMK with your log group. For more information, see <a
+         * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using
+         * Symmetric and Asymmetric Keys</a>.</p> </note> <p>Note that it can take up to 5
+         * minutes for this operation to take effect.</p> <p>If you attempt to associate a
+         * CMK with a log group but the CMK does not exist or the CMK is disabled, you will
+         * receive an <code>InvalidParameterException</code> error. </p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKey">AWS
          * API Reference</a></p>
          */
@@ -300,11 +328,15 @@ namespace Model
          * After a CMK is associated with a log group, all newly ingested data for the log
          * group is encrypted using the CMK. This association is stored as long as the data
          * encrypted with the CMK is still within Amazon CloudWatch Logs. This enables
-         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p>
-         * <p>Note that it can take up to 5 minutes for this operation to take effect.</p>
-         * <p>If you attempt to associate a CMK with a log group but the CMK does not exist
-         * or the CMK is disabled, you will receive an
-         * <code>InvalidParameterException</code> error. </p><p><h3>See Also:</h3>   <a
+         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p> <note>
+         * <p> <b>Important:</b> CloudWatch Logs supports only symmetric CMKs. Do not use
+         * an associate an asymmetric CMK with your log group. For more information, see <a
+         * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using
+         * Symmetric and Asymmetric Keys</a>.</p> </note> <p>Note that it can take up to 5
+         * minutes for this operation to take effect.</p> <p>If you attempt to associate a
+         * CMK with a log group but the CMK does not exist or the CMK is disabled, you will
+         * receive an <code>InvalidParameterException</code> error. </p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKey">AWS
          * API Reference</a></p>
          *
@@ -319,11 +351,15 @@ namespace Model
          * After a CMK is associated with a log group, all newly ingested data for the log
          * group is encrypted using the CMK. This association is stored as long as the data
          * encrypted with the CMK is still within Amazon CloudWatch Logs. This enables
-         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p>
-         * <p>Note that it can take up to 5 minutes for this operation to take effect.</p>
-         * <p>If you attempt to associate a CMK with a log group but the CMK does not exist
-         * or the CMK is disabled, you will receive an
-         * <code>InvalidParameterException</code> error. </p><p><h3>See Also:</h3>   <a
+         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p> <note>
+         * <p> <b>Important:</b> CloudWatch Logs supports only symmetric CMKs. Do not use
+         * an associate an asymmetric CMK with your log group. For more information, see <a
+         * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using
+         * Symmetric and Asymmetric Keys</a>.</p> </note> <p>Note that it can take up to 5
+         * minutes for this operation to take effect.</p> <p>If you attempt to associate a
+         * CMK with a log group but the CMK does not exist or the CMK is disabled, you will
+         * receive an <code>InvalidParameterException</code> error. </p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKey">AWS
          * API Reference</a></p>
          *
@@ -372,8 +408,10 @@ namespace Model
          * task at a time. To cancel an export task, use <a>CancelExportTask</a>.</p>
          * <p>You can export logs from multiple log groups or multiple time ranges to the
          * same S3 bucket. To separate out log data for each export task, you can specify a
-         * prefix to be used as the Amazon S3 key prefix for all exported
-         * objects.</p><p><h3>See Also:</h3>   <a
+         * prefix to be used as the Amazon S3 key prefix for all exported objects.</p>
+         * <p>Exporting to S3 buckets that are encrypted with AES-256 is supported.
+         * Exporting to S3 buckets encrypted with SSE-KMS is not supported. </p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateExportTask">AWS
          * API Reference</a></p>
          */
@@ -389,8 +427,10 @@ namespace Model
          * task at a time. To cancel an export task, use <a>CancelExportTask</a>.</p>
          * <p>You can export logs from multiple log groups or multiple time ranges to the
          * same S3 bucket. To separate out log data for each export task, you can specify a
-         * prefix to be used as the Amazon S3 key prefix for all exported
-         * objects.</p><p><h3>See Also:</h3>   <a
+         * prefix to be used as the Amazon S3 key prefix for all exported objects.</p>
+         * <p>Exporting to S3 buckets that are encrypted with AES-256 is supported.
+         * Exporting to S3 buckets encrypted with SSE-KMS is not supported. </p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateExportTask">AWS
          * API Reference</a></p>
          *
@@ -408,8 +448,10 @@ namespace Model
          * task at a time. To cancel an export task, use <a>CancelExportTask</a>.</p>
          * <p>You can export logs from multiple log groups or multiple time ranges to the
          * same S3 bucket. To separate out log data for each export task, you can specify a
-         * prefix to be used as the Amazon S3 key prefix for all exported
-         * objects.</p><p><h3>See Also:</h3>   <a
+         * prefix to be used as the Amazon S3 key prefix for all exported objects.</p>
+         * <p>Exporting to S3 buckets that are encrypted with AES-256 is supported.
+         * Exporting to S3 buckets encrypted with SSE-KMS is not supported. </p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateExportTask">AWS
          * API Reference</a></p>
          *
@@ -418,40 +460,48 @@ namespace Model
         virtual void CreateExportTaskAsync(const Model::CreateExportTaskRequest& request, const CreateExportTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Creates a log group with the specified name.</p> <p>You can create up to 5000
-         * log groups per account.</p> <p>You must use the following guidelines when naming
-         * a log group:</p> <ul> <li> <p>Log group names must be unique within a region for
-         * an AWS account.</p> </li> <li> <p>Log group names can be between 1 and 512
-         * characters long.</p> </li> <li> <p>Log group names consist of the following
-         * characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/' (forward slash),
-         * and '.' (period).</p> </li> </ul> <p>If you associate a AWS Key Management
-         * Service (AWS KMS) customer master key (CMK) with the log group, ingested data is
-         * encrypted using the CMK. This association is stored as long as the data
-         * encrypted with the CMK is still within Amazon CloudWatch Logs. This enables
-         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p> <p>If
-         * you attempt to associate a CMK with the log group but the CMK does not exist or
-         * the CMK is disabled, you will receive an <code>InvalidParameterException</code>
-         * error. </p><p><h3>See Also:</h3>   <a
+         * <p>Creates a log group with the specified name.</p> <p>You can create up to
+         * 20,000 log groups per account.</p> <p>You must use the following guidelines when
+         * naming a log group:</p> <ul> <li> <p>Log group names must be unique within a
+         * region for an AWS account.</p> </li> <li> <p>Log group names can be between 1
+         * and 512 characters long.</p> </li> <li> <p>Log group names consist of the
+         * following characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/'
+         * (forward slash), '.' (period), and '#' (number sign)</p> </li> </ul> <p>If you
+         * associate a AWS Key Management Service (AWS KMS) customer master key (CMK) with
+         * the log group, ingested data is encrypted using the CMK. This association is
+         * stored as long as the data encrypted with the CMK is still within Amazon
+         * CloudWatch Logs. This enables Amazon CloudWatch Logs to decrypt this data
+         * whenever it is requested.</p> <p>If you attempt to associate a CMK with the log
+         * group but the CMK does not exist or the CMK is disabled, you will receive an
+         * <code>InvalidParameterException</code> error. </p> <note> <p> <b>Important:</b>
+         * CloudWatch Logs supports only symmetric CMKs. Do not associate an asymmetric CMK
+         * with your log group. For more information, see <a
+         * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using
+         * Symmetric and Asymmetric Keys</a>.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateLogGroup">AWS
          * API Reference</a></p>
          */
         virtual Model::CreateLogGroupOutcome CreateLogGroup(const Model::CreateLogGroupRequest& request) const;
 
         /**
-         * <p>Creates a log group with the specified name.</p> <p>You can create up to 5000
-         * log groups per account.</p> <p>You must use the following guidelines when naming
-         * a log group:</p> <ul> <li> <p>Log group names must be unique within a region for
-         * an AWS account.</p> </li> <li> <p>Log group names can be between 1 and 512
-         * characters long.</p> </li> <li> <p>Log group names consist of the following
-         * characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/' (forward slash),
-         * and '.' (period).</p> </li> </ul> <p>If you associate a AWS Key Management
-         * Service (AWS KMS) customer master key (CMK) with the log group, ingested data is
-         * encrypted using the CMK. This association is stored as long as the data
-         * encrypted with the CMK is still within Amazon CloudWatch Logs. This enables
-         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p> <p>If
-         * you attempt to associate a CMK with the log group but the CMK does not exist or
-         * the CMK is disabled, you will receive an <code>InvalidParameterException</code>
-         * error. </p><p><h3>See Also:</h3>   <a
+         * <p>Creates a log group with the specified name.</p> <p>You can create up to
+         * 20,000 log groups per account.</p> <p>You must use the following guidelines when
+         * naming a log group:</p> <ul> <li> <p>Log group names must be unique within a
+         * region for an AWS account.</p> </li> <li> <p>Log group names can be between 1
+         * and 512 characters long.</p> </li> <li> <p>Log group names consist of the
+         * following characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/'
+         * (forward slash), '.' (period), and '#' (number sign)</p> </li> </ul> <p>If you
+         * associate a AWS Key Management Service (AWS KMS) customer master key (CMK) with
+         * the log group, ingested data is encrypted using the CMK. This association is
+         * stored as long as the data encrypted with the CMK is still within Amazon
+         * CloudWatch Logs. This enables Amazon CloudWatch Logs to decrypt this data
+         * whenever it is requested.</p> <p>If you attempt to associate a CMK with the log
+         * group but the CMK does not exist or the CMK is disabled, you will receive an
+         * <code>InvalidParameterException</code> error. </p> <note> <p> <b>Important:</b>
+         * CloudWatch Logs supports only symmetric CMKs. Do not associate an asymmetric CMK
+         * with your log group. For more information, see <a
+         * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using
+         * Symmetric and Asymmetric Keys</a>.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateLogGroup">AWS
          * API Reference</a></p>
          *
@@ -460,20 +510,24 @@ namespace Model
         virtual Model::CreateLogGroupOutcomeCallable CreateLogGroupCallable(const Model::CreateLogGroupRequest& request) const;
 
         /**
-         * <p>Creates a log group with the specified name.</p> <p>You can create up to 5000
-         * log groups per account.</p> <p>You must use the following guidelines when naming
-         * a log group:</p> <ul> <li> <p>Log group names must be unique within a region for
-         * an AWS account.</p> </li> <li> <p>Log group names can be between 1 and 512
-         * characters long.</p> </li> <li> <p>Log group names consist of the following
-         * characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/' (forward slash),
-         * and '.' (period).</p> </li> </ul> <p>If you associate a AWS Key Management
-         * Service (AWS KMS) customer master key (CMK) with the log group, ingested data is
-         * encrypted using the CMK. This association is stored as long as the data
-         * encrypted with the CMK is still within Amazon CloudWatch Logs. This enables
-         * Amazon CloudWatch Logs to decrypt this data whenever it is requested.</p> <p>If
-         * you attempt to associate a CMK with the log group but the CMK does not exist or
-         * the CMK is disabled, you will receive an <code>InvalidParameterException</code>
-         * error. </p><p><h3>See Also:</h3>   <a
+         * <p>Creates a log group with the specified name.</p> <p>You can create up to
+         * 20,000 log groups per account.</p> <p>You must use the following guidelines when
+         * naming a log group:</p> <ul> <li> <p>Log group names must be unique within a
+         * region for an AWS account.</p> </li> <li> <p>Log group names can be between 1
+         * and 512 characters long.</p> </li> <li> <p>Log group names consist of the
+         * following characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), '/'
+         * (forward slash), '.' (period), and '#' (number sign)</p> </li> </ul> <p>If you
+         * associate a AWS Key Management Service (AWS KMS) customer master key (CMK) with
+         * the log group, ingested data is encrypted using the CMK. This association is
+         * stored as long as the data encrypted with the CMK is still within Amazon
+         * CloudWatch Logs. This enables Amazon CloudWatch Logs to decrypt this data
+         * whenever it is requested.</p> <p>If you attempt to associate a CMK with the log
+         * group but the CMK does not exist or the CMK is disabled, you will receive an
+         * <code>InvalidParameterException</code> error. </p> <note> <p> <b>Important:</b>
+         * CloudWatch Logs supports only symmetric CMKs. Do not associate an asymmetric CMK
+         * with your log group. For more information, see <a
+         * href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using
+         * Symmetric and Asymmetric Keys</a>.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateLogGroup">AWS
          * API Reference</a></p>
          *
@@ -483,12 +537,13 @@ namespace Model
 
         /**
          * <p>Creates a log stream for the specified log group.</p> <p>There is no limit on
-         * the number of log streams that you can create for a log group.</p> <p>You must
-         * use the following guidelines when naming a log stream:</p> <ul> <li> <p>Log
-         * stream names must be unique within the log group.</p> </li> <li> <p>Log stream
-         * names can be between 1 and 512 characters long.</p> </li> <li> <p>The ':'
-         * (colon) and '*' (asterisk) characters are not allowed.</p> </li> </ul><p><h3>See
-         * Also:</h3>   <a
+         * the number of log streams that you can create for a log group. There is a limit
+         * of 50 TPS on <code>CreateLogStream</code> operations, after which transactions
+         * are throttled.</p> <p>You must use the following guidelines when naming a log
+         * stream:</p> <ul> <li> <p>Log stream names must be unique within the log
+         * group.</p> </li> <li> <p>Log stream names can be between 1 and 512 characters
+         * long.</p> </li> <li> <p>The ':' (colon) and '*' (asterisk) characters are not
+         * allowed.</p> </li> </ul><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateLogStream">AWS
          * API Reference</a></p>
          */
@@ -496,12 +551,13 @@ namespace Model
 
         /**
          * <p>Creates a log stream for the specified log group.</p> <p>There is no limit on
-         * the number of log streams that you can create for a log group.</p> <p>You must
-         * use the following guidelines when naming a log stream:</p> <ul> <li> <p>Log
-         * stream names must be unique within the log group.</p> </li> <li> <p>Log stream
-         * names can be between 1 and 512 characters long.</p> </li> <li> <p>The ':'
-         * (colon) and '*' (asterisk) characters are not allowed.</p> </li> </ul><p><h3>See
-         * Also:</h3>   <a
+         * the number of log streams that you can create for a log group. There is a limit
+         * of 50 TPS on <code>CreateLogStream</code> operations, after which transactions
+         * are throttled.</p> <p>You must use the following guidelines when naming a log
+         * stream:</p> <ul> <li> <p>Log stream names must be unique within the log
+         * group.</p> </li> <li> <p>Log stream names can be between 1 and 512 characters
+         * long.</p> </li> <li> <p>The ':' (colon) and '*' (asterisk) characters are not
+         * allowed.</p> </li> </ul><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateLogStream">AWS
          * API Reference</a></p>
          *
@@ -511,12 +567,13 @@ namespace Model
 
         /**
          * <p>Creates a log stream for the specified log group.</p> <p>There is no limit on
-         * the number of log streams that you can create for a log group.</p> <p>You must
-         * use the following guidelines when naming a log stream:</p> <ul> <li> <p>Log
-         * stream names must be unique within the log group.</p> </li> <li> <p>Log stream
-         * names can be between 1 and 512 characters long.</p> </li> <li> <p>The ':'
-         * (colon) and '*' (asterisk) characters are not allowed.</p> </li> </ul><p><h3>See
-         * Also:</h3>   <a
+         * the number of log streams that you can create for a log group. There is a limit
+         * of 50 TPS on <code>CreateLogStream</code> operations, after which transactions
+         * are throttled.</p> <p>You must use the following guidelines when naming a log
+         * stream:</p> <ul> <li> <p>Log stream names must be unique within the log
+         * group.</p> </li> <li> <p>Log stream names can be between 1 and 512 characters
+         * long.</p> </li> <li> <p>The ':' (colon) and '*' (asterisk) characters are not
+         * allowed.</p> </li> </ul><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/CreateLogStream">AWS
          * API Reference</a></p>
          *
@@ -879,6 +936,40 @@ namespace Model
         virtual void DescribeMetricFiltersAsync(const Model::DescribeMetricFiltersRequest& request, const DescribeMetricFiltersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Returns a list of CloudWatch Logs Insights queries that are scheduled,
+         * executing, or have been executed recently in this account. You can request all
+         * queries, or limit it to queries of a specific log group or queries with a
+         * certain status.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeQueries">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeQueriesOutcome DescribeQueries(const Model::DescribeQueriesRequest& request) const;
+
+        /**
+         * <p>Returns a list of CloudWatch Logs Insights queries that are scheduled,
+         * executing, or have been executed recently in this account. You can request all
+         * queries, or limit it to queries of a specific log group or queries with a
+         * certain status.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeQueries">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeQueriesOutcomeCallable DescribeQueriesCallable(const Model::DescribeQueriesRequest& request) const;
+
+        /**
+         * <p>Returns a list of CloudWatch Logs Insights queries that are scheduled,
+         * executing, or have been executed recently in this account. You can request all
+         * queries, or limit it to queries of a specific log group or queries with a
+         * certain status.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeQueries">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeQueriesAsync(const Model::DescribeQueriesRequest& request, const DescribeQueriesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Lists the resource policies in this account.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePolicies">AWS
          * API Reference</a></p>
@@ -1058,6 +1149,138 @@ namespace Model
         virtual void GetLogEventsAsync(const Model::GetLogEventsRequest& request, const GetLogEventsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Returns a list of the fields that are included in log events in the specified
+         * log group, along with the percentage of log events that contain each field. The
+         * search is limited to a time period that you specify.</p> <p>In the results,
+         * fields that start with @ are fields generated by CloudWatch Logs. For example,
+         * <code>@timestamp</code> is the timestamp of each log event.</p> <p>The response
+         * results are sorted by the frequency percentage, starting with the highest
+         * percentage.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetLogGroupFields">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetLogGroupFieldsOutcome GetLogGroupFields(const Model::GetLogGroupFieldsRequest& request) const;
+
+        /**
+         * <p>Returns a list of the fields that are included in log events in the specified
+         * log group, along with the percentage of log events that contain each field. The
+         * search is limited to a time period that you specify.</p> <p>In the results,
+         * fields that start with @ are fields generated by CloudWatch Logs. For example,
+         * <code>@timestamp</code> is the timestamp of each log event.</p> <p>The response
+         * results are sorted by the frequency percentage, starting with the highest
+         * percentage.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetLogGroupFields">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetLogGroupFieldsOutcomeCallable GetLogGroupFieldsCallable(const Model::GetLogGroupFieldsRequest& request) const;
+
+        /**
+         * <p>Returns a list of the fields that are included in log events in the specified
+         * log group, along with the percentage of log events that contain each field. The
+         * search is limited to a time period that you specify.</p> <p>In the results,
+         * fields that start with @ are fields generated by CloudWatch Logs. For example,
+         * <code>@timestamp</code> is the timestamp of each log event.</p> <p>The response
+         * results are sorted by the frequency percentage, starting with the highest
+         * percentage.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetLogGroupFields">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetLogGroupFieldsAsync(const Model::GetLogGroupFieldsRequest& request, const GetLogGroupFieldsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Retrieves all the fields and values of a single log event. All fields are
+         * retrieved, even if the original query that produced the
+         * <code>logRecordPointer</code> retrieved only a subset of fields. Fields are
+         * returned as field name/field value pairs.</p> <p>Additionally, the entire
+         * unparsed log event is returned within <code>@message</code>.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetLogRecord">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetLogRecordOutcome GetLogRecord(const Model::GetLogRecordRequest& request) const;
+
+        /**
+         * <p>Retrieves all the fields and values of a single log event. All fields are
+         * retrieved, even if the original query that produced the
+         * <code>logRecordPointer</code> retrieved only a subset of fields. Fields are
+         * returned as field name/field value pairs.</p> <p>Additionally, the entire
+         * unparsed log event is returned within <code>@message</code>.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetLogRecord">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetLogRecordOutcomeCallable GetLogRecordCallable(const Model::GetLogRecordRequest& request) const;
+
+        /**
+         * <p>Retrieves all the fields and values of a single log event. All fields are
+         * retrieved, even if the original query that produced the
+         * <code>logRecordPointer</code> retrieved only a subset of fields. Fields are
+         * returned as field name/field value pairs.</p> <p>Additionally, the entire
+         * unparsed log event is returned within <code>@message</code>.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetLogRecord">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetLogRecordAsync(const Model::GetLogRecordRequest& request, const GetLogRecordResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Returns the results from the specified query.</p> <p>Only the fields
+         * requested in the query are returned, along with a <code>@ptr</code> field which
+         * is the identifier for the log record. You can use the value of <code>@ptr</code>
+         * in a operation to get the full log record.</p> <p> <code>GetQueryResults</code>
+         * does not start a query execution. To run a query, use .</p> <p>If the value of
+         * the <code>Status</code> field in the output is <code>Running</code>, this
+         * operation returns only partial results. If you see a value of
+         * <code>Scheduled</code> or <code>Running</code> for the status, you can retry the
+         * operation later to see the final results. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetQueryResults">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetQueryResultsOutcome GetQueryResults(const Model::GetQueryResultsRequest& request) const;
+
+        /**
+         * <p>Returns the results from the specified query.</p> <p>Only the fields
+         * requested in the query are returned, along with a <code>@ptr</code> field which
+         * is the identifier for the log record. You can use the value of <code>@ptr</code>
+         * in a operation to get the full log record.</p> <p> <code>GetQueryResults</code>
+         * does not start a query execution. To run a query, use .</p> <p>If the value of
+         * the <code>Status</code> field in the output is <code>Running</code>, this
+         * operation returns only partial results. If you see a value of
+         * <code>Scheduled</code> or <code>Running</code> for the status, you can retry the
+         * operation later to see the final results. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetQueryResults">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetQueryResultsOutcomeCallable GetQueryResultsCallable(const Model::GetQueryResultsRequest& request) const;
+
+        /**
+         * <p>Returns the results from the specified query.</p> <p>Only the fields
+         * requested in the query are returned, along with a <code>@ptr</code> field which
+         * is the identifier for the log record. You can use the value of <code>@ptr</code>
+         * in a operation to get the full log record.</p> <p> <code>GetQueryResults</code>
+         * does not start a query execution. To run a query, use .</p> <p>If the value of
+         * the <code>Status</code> field in the output is <code>Running</code>, this
+         * operation returns only partial results. If you see a value of
+         * <code>Scheduled</code> or <code>Running</code> for the status, you can retry the
+         * operation later to see the final results. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/GetQueryResults">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetQueryResultsAsync(const Model::GetQueryResultsRequest& request, const GetQueryResultsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Lists the tags for the specified log group.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/ListTagsLogGroup">AWS
          * API Reference</a></p>
@@ -1083,16 +1306,15 @@ namespace Model
         virtual void ListTagsLogGroupAsync(const Model::ListTagsLogGroupRequest& request, const ListTagsLogGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Creates or updates a destination. A destination encapsulates a physical
-         * resource (such as an Amazon Kinesis stream) and enables you to subscribe to a
-         * real-time stream of log events for a different account, ingested using
-         * <a>PutLogEvents</a>. Currently, the only supported physical resource is a
-         * Kinesis stream belonging to the same account as the destination.</p> <p>Through
-         * an access policy, a destination controls what is written to its Kinesis stream.
-         * By default, <code>PutDestination</code> does not set any access policy with the
-         * destination, which means a cross-account user cannot call
-         * <a>PutSubscriptionFilter</a> against this destination. To enable this, the
-         * destination owner must call <a>PutDestinationPolicy</a> after
+         * <p>Creates or updates a destination. This operation is used only to create
+         * destinations for cross-account subscriptions.</p> <p>A destination encapsulates
+         * a physical resource (such as an Amazon Kinesis stream) and enables you to
+         * subscribe to a real-time stream of log events for a different account, ingested
+         * using <a>PutLogEvents</a>.</p> <p>Through an access policy, a destination
+         * controls what is written to it. By default, <code>PutDestination</code> does not
+         * set any access policy with the destination, which means a cross-account user
+         * cannot call <a>PutSubscriptionFilter</a> against this destination. To enable
+         * this, the destination owner must call <a>PutDestinationPolicy</a> after
          * <code>PutDestination</code>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutDestination">AWS
          * API Reference</a></p>
@@ -1100,16 +1322,15 @@ namespace Model
         virtual Model::PutDestinationOutcome PutDestination(const Model::PutDestinationRequest& request) const;
 
         /**
-         * <p>Creates or updates a destination. A destination encapsulates a physical
-         * resource (such as an Amazon Kinesis stream) and enables you to subscribe to a
-         * real-time stream of log events for a different account, ingested using
-         * <a>PutLogEvents</a>. Currently, the only supported physical resource is a
-         * Kinesis stream belonging to the same account as the destination.</p> <p>Through
-         * an access policy, a destination controls what is written to its Kinesis stream.
-         * By default, <code>PutDestination</code> does not set any access policy with the
-         * destination, which means a cross-account user cannot call
-         * <a>PutSubscriptionFilter</a> against this destination. To enable this, the
-         * destination owner must call <a>PutDestinationPolicy</a> after
+         * <p>Creates or updates a destination. This operation is used only to create
+         * destinations for cross-account subscriptions.</p> <p>A destination encapsulates
+         * a physical resource (such as an Amazon Kinesis stream) and enables you to
+         * subscribe to a real-time stream of log events for a different account, ingested
+         * using <a>PutLogEvents</a>.</p> <p>Through an access policy, a destination
+         * controls what is written to it. By default, <code>PutDestination</code> does not
+         * set any access policy with the destination, which means a cross-account user
+         * cannot call <a>PutSubscriptionFilter</a> against this destination. To enable
+         * this, the destination owner must call <a>PutDestinationPolicy</a> after
          * <code>PutDestination</code>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutDestination">AWS
          * API Reference</a></p>
@@ -1119,16 +1340,15 @@ namespace Model
         virtual Model::PutDestinationOutcomeCallable PutDestinationCallable(const Model::PutDestinationRequest& request) const;
 
         /**
-         * <p>Creates or updates a destination. A destination encapsulates a physical
-         * resource (such as an Amazon Kinesis stream) and enables you to subscribe to a
-         * real-time stream of log events for a different account, ingested using
-         * <a>PutLogEvents</a>. Currently, the only supported physical resource is a
-         * Kinesis stream belonging to the same account as the destination.</p> <p>Through
-         * an access policy, a destination controls what is written to its Kinesis stream.
-         * By default, <code>PutDestination</code> does not set any access policy with the
-         * destination, which means a cross-account user cannot call
-         * <a>PutSubscriptionFilter</a> against this destination. To enable this, the
-         * destination owner must call <a>PutDestinationPolicy</a> after
+         * <p>Creates or updates a destination. This operation is used only to create
+         * destinations for cross-account subscriptions.</p> <p>A destination encapsulates
+         * a physical resource (such as an Amazon Kinesis stream) and enables you to
+         * subscribe to a real-time stream of log events for a different account, ingested
+         * using <a>PutLogEvents</a>.</p> <p>Through an access policy, a destination
+         * controls what is written to it. By default, <code>PutDestination</code> does not
+         * set any access policy with the destination, which means a cross-account user
+         * cannot call <a>PutSubscriptionFilter</a> against this destination. To enable
+         * this, the destination owner must call <a>PutDestinationPolicy</a> after
          * <code>PutDestination</code>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutDestination">AWS
          * API Reference</a></p>
@@ -1140,7 +1360,7 @@ namespace Model
         /**
          * <p>Creates or updates an access policy associated with an existing destination.
          * An access policy is an <a
-         * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html">IAM
+         * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html">IAM
          * policy document</a> that is used to authorize claims to register a subscription
          * filter against a given destination.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutDestinationPolicy">AWS
@@ -1151,7 +1371,7 @@ namespace Model
         /**
          * <p>Creates or updates an access policy associated with an existing destination.
          * An access policy is an <a
-         * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html">IAM
+         * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html">IAM
          * policy document</a> that is used to authorize claims to register a subscription
          * filter against a given destination.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutDestinationPolicy">AWS
@@ -1164,7 +1384,7 @@ namespace Model
         /**
          * <p>Creates or updates an access policy associated with an existing destination.
          * An access policy is an <a
-         * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html">IAM
+         * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html">IAM
          * policy document</a> that is used to authorize claims to register a subscription
          * filter against a given destination.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutDestinationPolicy">AWS
@@ -1178,7 +1398,8 @@ namespace Model
          * <p>Uploads a batch of log events to the specified log stream.</p> <p>You must
          * include the sequence token obtained from the response of the previous call. An
          * upload in a newly created log stream does not require a sequence token. You can
-         * also get the sequence token using <a>DescribeLogStreams</a>. If you call
+         * also get the sequence token in the <code>expectedSequenceToken</code> field from
+         * <code>InvalidSequenceTokenException</code>. If you call
          * <code>PutLogEvents</code> twice within a narrow time period using the same value
          * for <code>sequenceToken</code>, both calls may be successful, or one may be
          * rejected.</p> <p>The batch of events must satisfy the following constraints:</p>
@@ -1186,13 +1407,19 @@ namespace Model
          * calculated as the sum of all event messages in UTF-8, plus 26 bytes for each log
          * event.</p> </li> <li> <p>None of the log events in the batch can be more than 2
          * hours in the future.</p> </li> <li> <p>None of the log events in the batch can
-         * be older than 14 days or the retention period of the log group.</p> </li> <li>
-         * <p>The log events in the batch must be in chronological ordered by their time
-         * stamp (the time the event occurred, expressed as the number of milliseconds
-         * after Jan 1, 1970 00:00:00 UTC).</p> </li> <li> <p>The maximum number of log
-         * events in a batch is 10,000.</p> </li> <li> <p>A batch of log events in a single
-         * request cannot span more than 24 hours. Otherwise, the operation fails.</p>
-         * </li> </ul><p><h3>See Also:</h3>   <a
+         * be older than 14 days or older than the retention period of the log group.</p>
+         * </li> <li> <p>The log events in the batch must be in chronological ordered by
+         * their timestamp. The timestamp is the time the event occurred, expressed as the
+         * number of milliseconds after Jan 1, 1970 00:00:00 UTC. (In AWS Tools for
+         * PowerShell and the AWS SDK for .NET, the timestamp is specified in .NET format:
+         * yyyy-mm-ddThh:mm:ss. For example, 2017-09-15T13:45:30.) </p> </li> <li> <p>A
+         * batch of log events in a single request cannot span more than 24 hours.
+         * Otherwise, the operation fails.</p> </li> <li> <p>The maximum number of log
+         * events in a batch is 10,000.</p> </li> <li> <p>There is a quota of 5 requests
+         * per second per log stream. Additional requests are throttled. This quota can't
+         * be changed.</p> </li> </ul> <p>If a call to PutLogEvents returns
+         * "UnrecognizedClientException" the most likely cause is an invalid AWS access key
+         * ID or secret key. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutLogEvents">AWS
          * API Reference</a></p>
          */
@@ -1202,7 +1429,8 @@ namespace Model
          * <p>Uploads a batch of log events to the specified log stream.</p> <p>You must
          * include the sequence token obtained from the response of the previous call. An
          * upload in a newly created log stream does not require a sequence token. You can
-         * also get the sequence token using <a>DescribeLogStreams</a>. If you call
+         * also get the sequence token in the <code>expectedSequenceToken</code> field from
+         * <code>InvalidSequenceTokenException</code>. If you call
          * <code>PutLogEvents</code> twice within a narrow time period using the same value
          * for <code>sequenceToken</code>, both calls may be successful, or one may be
          * rejected.</p> <p>The batch of events must satisfy the following constraints:</p>
@@ -1210,13 +1438,19 @@ namespace Model
          * calculated as the sum of all event messages in UTF-8, plus 26 bytes for each log
          * event.</p> </li> <li> <p>None of the log events in the batch can be more than 2
          * hours in the future.</p> </li> <li> <p>None of the log events in the batch can
-         * be older than 14 days or the retention period of the log group.</p> </li> <li>
-         * <p>The log events in the batch must be in chronological ordered by their time
-         * stamp (the time the event occurred, expressed as the number of milliseconds
-         * after Jan 1, 1970 00:00:00 UTC).</p> </li> <li> <p>The maximum number of log
-         * events in a batch is 10,000.</p> </li> <li> <p>A batch of log events in a single
-         * request cannot span more than 24 hours. Otherwise, the operation fails.</p>
-         * </li> </ul><p><h3>See Also:</h3>   <a
+         * be older than 14 days or older than the retention period of the log group.</p>
+         * </li> <li> <p>The log events in the batch must be in chronological ordered by
+         * their timestamp. The timestamp is the time the event occurred, expressed as the
+         * number of milliseconds after Jan 1, 1970 00:00:00 UTC. (In AWS Tools for
+         * PowerShell and the AWS SDK for .NET, the timestamp is specified in .NET format:
+         * yyyy-mm-ddThh:mm:ss. For example, 2017-09-15T13:45:30.) </p> </li> <li> <p>A
+         * batch of log events in a single request cannot span more than 24 hours.
+         * Otherwise, the operation fails.</p> </li> <li> <p>The maximum number of log
+         * events in a batch is 10,000.</p> </li> <li> <p>There is a quota of 5 requests
+         * per second per log stream. Additional requests are throttled. This quota can't
+         * be changed.</p> </li> </ul> <p>If a call to PutLogEvents returns
+         * "UnrecognizedClientException" the most likely cause is an invalid AWS access key
+         * ID or secret key. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutLogEvents">AWS
          * API Reference</a></p>
          *
@@ -1228,7 +1462,8 @@ namespace Model
          * <p>Uploads a batch of log events to the specified log stream.</p> <p>You must
          * include the sequence token obtained from the response of the previous call. An
          * upload in a newly created log stream does not require a sequence token. You can
-         * also get the sequence token using <a>DescribeLogStreams</a>. If you call
+         * also get the sequence token in the <code>expectedSequenceToken</code> field from
+         * <code>InvalidSequenceTokenException</code>. If you call
          * <code>PutLogEvents</code> twice within a narrow time period using the same value
          * for <code>sequenceToken</code>, both calls may be successful, or one may be
          * rejected.</p> <p>The batch of events must satisfy the following constraints:</p>
@@ -1236,13 +1471,19 @@ namespace Model
          * calculated as the sum of all event messages in UTF-8, plus 26 bytes for each log
          * event.</p> </li> <li> <p>None of the log events in the batch can be more than 2
          * hours in the future.</p> </li> <li> <p>None of the log events in the batch can
-         * be older than 14 days or the retention period of the log group.</p> </li> <li>
-         * <p>The log events in the batch must be in chronological ordered by their time
-         * stamp (the time the event occurred, expressed as the number of milliseconds
-         * after Jan 1, 1970 00:00:00 UTC).</p> </li> <li> <p>The maximum number of log
-         * events in a batch is 10,000.</p> </li> <li> <p>A batch of log events in a single
-         * request cannot span more than 24 hours. Otherwise, the operation fails.</p>
-         * </li> </ul><p><h3>See Also:</h3>   <a
+         * be older than 14 days or older than the retention period of the log group.</p>
+         * </li> <li> <p>The log events in the batch must be in chronological ordered by
+         * their timestamp. The timestamp is the time the event occurred, expressed as the
+         * number of milliseconds after Jan 1, 1970 00:00:00 UTC. (In AWS Tools for
+         * PowerShell and the AWS SDK for .NET, the timestamp is specified in .NET format:
+         * yyyy-mm-ddThh:mm:ss. For example, 2017-09-15T13:45:30.) </p> </li> <li> <p>A
+         * batch of log events in a single request cannot span more than 24 hours.
+         * Otherwise, the operation fails.</p> </li> <li> <p>The maximum number of log
+         * events in a batch is 10,000.</p> </li> <li> <p>There is a quota of 5 requests
+         * per second per log stream. Additional requests are throttled. This quota can't
+         * be changed.</p> </li> </ul> <p>If a call to PutLogEvents returns
+         * "UnrecognizedClientException" the most likely cause is an invalid AWS access key
+         * ID or secret key. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutLogEvents">AWS
          * API Reference</a></p>
          *
@@ -1289,7 +1530,7 @@ namespace Model
 
         /**
          * <p>Creates or updates a resource policy allowing other AWS services to put log
-         * events to this account, such as Amazon Route 53. An account can have up to 50
+         * events to this account, such as Amazon Route 53. An account can have up to 10
          * resource policies per region.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicy">AWS
          * API Reference</a></p>
@@ -1298,7 +1539,7 @@ namespace Model
 
         /**
          * <p>Creates or updates a resource policy allowing other AWS services to put log
-         * events to this account, such as Amazon Route 53. An account can have up to 50
+         * events to this account, such as Amazon Route 53. An account can have up to 10
          * resource policies per region.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicy">AWS
          * API Reference</a></p>
@@ -1309,7 +1550,7 @@ namespace Model
 
         /**
          * <p>Creates or updates a resource policy allowing other AWS services to put log
-         * events to this account, such as Amazon Route 53. An account can have up to 50
+         * events to this account, such as Amazon Route 53. An account can have up to 10
          * resource policies per region.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicy">AWS
          * API Reference</a></p>
@@ -1417,10 +1658,84 @@ namespace Model
         virtual void PutSubscriptionFilterAsync(const Model::PutSubscriptionFilterRequest& request, const PutSubscriptionFilterResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Schedules a query of a log group using CloudWatch Logs Insights. You specify
+         * the log group and time range to query, and the query string to use.</p> <p>For
+         * more information, see <a
+         * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html">CloudWatch
+         * Logs Insights Query Syntax</a>.</p> <p>Queries time out after 15 minutes of
+         * execution. If your queries are timing out, reduce the time range being searched,
+         * or partition your query into a number of queries.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/StartQuery">AWS API
+         * Reference</a></p>
+         */
+        virtual Model::StartQueryOutcome StartQuery(const Model::StartQueryRequest& request) const;
+
+        /**
+         * <p>Schedules a query of a log group using CloudWatch Logs Insights. You specify
+         * the log group and time range to query, and the query string to use.</p> <p>For
+         * more information, see <a
+         * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html">CloudWatch
+         * Logs Insights Query Syntax</a>.</p> <p>Queries time out after 15 minutes of
+         * execution. If your queries are timing out, reduce the time range being searched,
+         * or partition your query into a number of queries.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/StartQuery">AWS API
+         * Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::StartQueryOutcomeCallable StartQueryCallable(const Model::StartQueryRequest& request) const;
+
+        /**
+         * <p>Schedules a query of a log group using CloudWatch Logs Insights. You specify
+         * the log group and time range to query, and the query string to use.</p> <p>For
+         * more information, see <a
+         * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html">CloudWatch
+         * Logs Insights Query Syntax</a>.</p> <p>Queries time out after 15 minutes of
+         * execution. If your queries are timing out, reduce the time range being searched,
+         * or partition your query into a number of queries.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/StartQuery">AWS API
+         * Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void StartQueryAsync(const Model::StartQueryRequest& request, const StartQueryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Stops a CloudWatch Logs Insights query that is in progress. If the query has
+         * already ended, the operation returns an error indicating that the specified
+         * query is not running.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/StopQuery">AWS API
+         * Reference</a></p>
+         */
+        virtual Model::StopQueryOutcome StopQuery(const Model::StopQueryRequest& request) const;
+
+        /**
+         * <p>Stops a CloudWatch Logs Insights query that is in progress. If the query has
+         * already ended, the operation returns an error indicating that the specified
+         * query is not running.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/StopQuery">AWS API
+         * Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::StopQueryOutcomeCallable StopQueryCallable(const Model::StopQueryRequest& request) const;
+
+        /**
+         * <p>Stops a CloudWatch Logs Insights query that is in progress. If the query has
+         * already ended, the operation returns an error indicating that the specified
+         * query is not running.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/StopQuery">AWS API
+         * Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void StopQueryAsync(const Model::StopQueryRequest& request, const StopQueryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Adds or updates the specified tags for the specified log group.</p> <p>To
          * list the tags for a log group, use <a>ListTagsLogGroup</a>. To remove tags, use
          * <a>UntagLogGroup</a>.</p> <p>For more information about tags, see <a
-         * href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html">Tag
+         * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html">Tag
          * Log Groups in Amazon CloudWatch Logs</a> in the <i>Amazon CloudWatch Logs User
          * Guide</i>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/TagLogGroup">AWS
@@ -1432,7 +1747,7 @@ namespace Model
          * <p>Adds or updates the specified tags for the specified log group.</p> <p>To
          * list the tags for a log group, use <a>ListTagsLogGroup</a>. To remove tags, use
          * <a>UntagLogGroup</a>.</p> <p>For more information about tags, see <a
-         * href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html">Tag
+         * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html">Tag
          * Log Groups in Amazon CloudWatch Logs</a> in the <i>Amazon CloudWatch Logs User
          * Guide</i>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/TagLogGroup">AWS
@@ -1446,7 +1761,7 @@ namespace Model
          * <p>Adds or updates the specified tags for the specified log group.</p> <p>To
          * list the tags for a log group, use <a>ListTagsLogGroup</a>. To remove tags, use
          * <a>UntagLogGroup</a>.</p> <p>For more information about tags, see <a
-         * href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html">Tag
+         * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html">Tag
          * Log Groups in Amazon CloudWatch Logs</a> in the <i>Amazon CloudWatch Logs User
          * Guide</i>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/TagLogGroup">AWS
@@ -1519,10 +1834,9 @@ namespace Model
         virtual void UntagLogGroupAsync(const Model::UntagLogGroupRequest& request, const UntagLogGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void AssociateKmsKeyAsyncHelper(const Model::AssociateKmsKeyRequest& request, const AssociateKmsKeyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CancelExportTaskAsyncHelper(const Model::CancelExportTaskRequest& request, const CancelExportTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateExportTaskAsyncHelper(const Model::CreateExportTaskRequest& request, const CreateExportTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -1540,11 +1854,15 @@ namespace Model
         void DescribeLogGroupsAsyncHelper(const Model::DescribeLogGroupsRequest& request, const DescribeLogGroupsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeLogStreamsAsyncHelper(const Model::DescribeLogStreamsRequest& request, const DescribeLogStreamsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeMetricFiltersAsyncHelper(const Model::DescribeMetricFiltersRequest& request, const DescribeMetricFiltersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeQueriesAsyncHelper(const Model::DescribeQueriesRequest& request, const DescribeQueriesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeResourcePoliciesAsyncHelper(const Model::DescribeResourcePoliciesRequest& request, const DescribeResourcePoliciesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeSubscriptionFiltersAsyncHelper(const Model::DescribeSubscriptionFiltersRequest& request, const DescribeSubscriptionFiltersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DisassociateKmsKeyAsyncHelper(const Model::DisassociateKmsKeyRequest& request, const DisassociateKmsKeyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void FilterLogEventsAsyncHelper(const Model::FilterLogEventsRequest& request, const FilterLogEventsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetLogEventsAsyncHelper(const Model::GetLogEventsRequest& request, const GetLogEventsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetLogGroupFieldsAsyncHelper(const Model::GetLogGroupFieldsRequest& request, const GetLogGroupFieldsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetLogRecordAsyncHelper(const Model::GetLogRecordRequest& request, const GetLogRecordResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetQueryResultsAsyncHelper(const Model::GetQueryResultsRequest& request, const GetQueryResultsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListTagsLogGroupAsyncHelper(const Model::ListTagsLogGroupRequest& request, const ListTagsLogGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void PutDestinationAsyncHelper(const Model::PutDestinationRequest& request, const PutDestinationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void PutDestinationPolicyAsyncHelper(const Model::PutDestinationPolicyRequest& request, const PutDestinationPolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -1553,11 +1871,14 @@ namespace Model
         void PutResourcePolicyAsyncHelper(const Model::PutResourcePolicyRequest& request, const PutResourcePolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void PutRetentionPolicyAsyncHelper(const Model::PutRetentionPolicyRequest& request, const PutRetentionPolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void PutSubscriptionFilterAsyncHelper(const Model::PutSubscriptionFilterRequest& request, const PutSubscriptionFilterResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void StartQueryAsyncHelper(const Model::StartQueryRequest& request, const StartQueryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void StopQueryAsyncHelper(const Model::StopQueryRequest& request, const StopQueryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void TagLogGroupAsyncHelper(const Model::TagLogGroupRequest& request, const TagLogGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void TestMetricFilterAsyncHelper(const Model::TestMetricFilterRequest& request, const TestMetricFilterResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UntagLogGroupAsyncHelper(const Model::UntagLogGroupRequest& request, const UntagLogGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

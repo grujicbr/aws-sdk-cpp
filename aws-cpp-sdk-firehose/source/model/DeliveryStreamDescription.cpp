@@ -33,6 +33,8 @@ DeliveryStreamDescription::DeliveryStreamDescription() :
     m_deliveryStreamARNHasBeenSet(false),
     m_deliveryStreamStatus(DeliveryStreamStatus::NOT_SET),
     m_deliveryStreamStatusHasBeenSet(false),
+    m_failureDescriptionHasBeenSet(false),
+    m_deliveryStreamEncryptionConfigurationHasBeenSet(false),
     m_deliveryStreamType(DeliveryStreamType::NOT_SET),
     m_deliveryStreamTypeHasBeenSet(false),
     m_versionIdHasBeenSet(false),
@@ -45,11 +47,13 @@ DeliveryStreamDescription::DeliveryStreamDescription() :
 {
 }
 
-DeliveryStreamDescription::DeliveryStreamDescription(const JsonValue& jsonValue) : 
+DeliveryStreamDescription::DeliveryStreamDescription(JsonView jsonValue) : 
     m_deliveryStreamNameHasBeenSet(false),
     m_deliveryStreamARNHasBeenSet(false),
     m_deliveryStreamStatus(DeliveryStreamStatus::NOT_SET),
     m_deliveryStreamStatusHasBeenSet(false),
+    m_failureDescriptionHasBeenSet(false),
+    m_deliveryStreamEncryptionConfigurationHasBeenSet(false),
     m_deliveryStreamType(DeliveryStreamType::NOT_SET),
     m_deliveryStreamTypeHasBeenSet(false),
     m_versionIdHasBeenSet(false),
@@ -63,7 +67,7 @@ DeliveryStreamDescription::DeliveryStreamDescription(const JsonValue& jsonValue)
   *this = jsonValue;
 }
 
-DeliveryStreamDescription& DeliveryStreamDescription::operator =(const JsonValue& jsonValue)
+DeliveryStreamDescription& DeliveryStreamDescription::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DeliveryStreamName"))
   {
@@ -84,6 +88,20 @@ DeliveryStreamDescription& DeliveryStreamDescription::operator =(const JsonValue
     m_deliveryStreamStatus = DeliveryStreamStatusMapper::GetDeliveryStreamStatusForName(jsonValue.GetString("DeliveryStreamStatus"));
 
     m_deliveryStreamStatusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("FailureDescription"))
+  {
+    m_failureDescription = jsonValue.GetObject("FailureDescription");
+
+    m_failureDescriptionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("DeliveryStreamEncryptionConfiguration"))
+  {
+    m_deliveryStreamEncryptionConfiguration = jsonValue.GetObject("DeliveryStreamEncryptionConfiguration");
+
+    m_deliveryStreamEncryptionConfigurationHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("DeliveryStreamType"))
@@ -123,7 +141,7 @@ DeliveryStreamDescription& DeliveryStreamDescription::operator =(const JsonValue
 
   if(jsonValue.ValueExists("Destinations"))
   {
-    Array<JsonValue> destinationsJsonList = jsonValue.GetArray("Destinations");
+    Array<JsonView> destinationsJsonList = jsonValue.GetArray("Destinations");
     for(unsigned destinationsIndex = 0; destinationsIndex < destinationsJsonList.GetLength(); ++destinationsIndex)
     {
       m_destinations.push_back(destinationsJsonList[destinationsIndex].AsObject());
@@ -160,6 +178,18 @@ JsonValue DeliveryStreamDescription::Jsonize() const
   if(m_deliveryStreamStatusHasBeenSet)
   {
    payload.WithString("DeliveryStreamStatus", DeliveryStreamStatusMapper::GetNameForDeliveryStreamStatus(m_deliveryStreamStatus));
+  }
+
+  if(m_failureDescriptionHasBeenSet)
+  {
+   payload.WithObject("FailureDescription", m_failureDescription.Jsonize());
+
+  }
+
+  if(m_deliveryStreamEncryptionConfigurationHasBeenSet)
+  {
+   payload.WithObject("DeliveryStreamEncryptionConfiguration", m_deliveryStreamEncryptionConfiguration.Jsonize());
+
   }
 
   if(m_deliveryStreamTypeHasBeenSet)

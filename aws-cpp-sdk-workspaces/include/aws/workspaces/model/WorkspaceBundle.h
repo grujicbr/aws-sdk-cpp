@@ -19,6 +19,7 @@
 #include <aws/workspaces/model/RootStorage.h>
 #include <aws/workspaces/model/UserStorage.h>
 #include <aws/workspaces/model/ComputeType.h>
+#include <aws/core/utils/DateTime.h>
 #include <utility>
 
 namespace Aws
@@ -28,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkSpaces
@@ -36,7 +38,7 @@ namespace Model
 {
 
   /**
-   * <p>Information about a WorkSpace bundle.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes a WorkSpace bundle.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/WorkspaceBundle">AWS
    * API Reference</a></p>
    */
@@ -44,8 +46,8 @@ namespace Model
   {
   public:
     WorkspaceBundle();
-    WorkspaceBundle(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkspaceBundle& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkspaceBundle(Aws::Utils::Json::JsonView jsonValue);
+    WorkspaceBundle& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +55,11 @@ namespace Model
      * <p>The bundle identifier.</p>
      */
     inline const Aws::String& GetBundleId() const{ return m_bundleId; }
+
+    /**
+     * <p>The bundle identifier.</p>
+     */
+    inline bool BundleIdHasBeenSet() const { return m_bundleIdHasBeenSet; }
 
     /**
      * <p>The bundle identifier.</p>
@@ -93,6 +100,11 @@ namespace Model
     /**
      * <p>The name of the bundle.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the bundle.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -126,6 +138,12 @@ namespace Model
      * <code>AMAZON</code> if the bundle is provided by AWS.</p>
      */
     inline const Aws::String& GetOwner() const{ return m_owner; }
+
+    /**
+     * <p>The owner of the bundle. This is the account identifier of the owner, or
+     * <code>AMAZON</code> if the bundle is provided by AWS.</p>
+     */
+    inline bool OwnerHasBeenSet() const { return m_ownerHasBeenSet; }
 
     /**
      * <p>The owner of the bundle. This is the account identifier of the owner, or
@@ -172,6 +190,11 @@ namespace Model
     /**
      * <p>A description.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A description.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -201,9 +224,55 @@ namespace Model
 
 
     /**
+     * <p>The image identifier of the bundle.</p>
+     */
+    inline const Aws::String& GetImageId() const{ return m_imageId; }
+
+    /**
+     * <p>The image identifier of the bundle.</p>
+     */
+    inline bool ImageIdHasBeenSet() const { return m_imageIdHasBeenSet; }
+
+    /**
+     * <p>The image identifier of the bundle.</p>
+     */
+    inline void SetImageId(const Aws::String& value) { m_imageIdHasBeenSet = true; m_imageId = value; }
+
+    /**
+     * <p>The image identifier of the bundle.</p>
+     */
+    inline void SetImageId(Aws::String&& value) { m_imageIdHasBeenSet = true; m_imageId = std::move(value); }
+
+    /**
+     * <p>The image identifier of the bundle.</p>
+     */
+    inline void SetImageId(const char* value) { m_imageIdHasBeenSet = true; m_imageId.assign(value); }
+
+    /**
+     * <p>The image identifier of the bundle.</p>
+     */
+    inline WorkspaceBundle& WithImageId(const Aws::String& value) { SetImageId(value); return *this;}
+
+    /**
+     * <p>The image identifier of the bundle.</p>
+     */
+    inline WorkspaceBundle& WithImageId(Aws::String&& value) { SetImageId(std::move(value)); return *this;}
+
+    /**
+     * <p>The image identifier of the bundle.</p>
+     */
+    inline WorkspaceBundle& WithImageId(const char* value) { SetImageId(value); return *this;}
+
+
+    /**
      * <p>The size of the root volume.</p>
      */
     inline const RootStorage& GetRootStorage() const{ return m_rootStorage; }
+
+    /**
+     * <p>The size of the root volume.</p>
+     */
+    inline bool RootStorageHasBeenSet() const { return m_rootStorageHasBeenSet; }
 
     /**
      * <p>The size of the root volume.</p>
@@ -230,6 +299,11 @@ namespace Model
      * <p>The size of the user storage.</p>
      */
     inline const UserStorage& GetUserStorage() const{ return m_userStorage; }
+
+    /**
+     * <p>The size of the user storage.</p>
+     */
+    inline bool UserStorageHasBeenSet() const { return m_userStorageHasBeenSet; }
 
     /**
      * <p>The size of the user storage.</p>
@@ -264,6 +338,13 @@ namespace Model
      * href="http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles">Amazon
      * WorkSpaces Bundles</a>.</p>
      */
+    inline bool ComputeTypeHasBeenSet() const { return m_computeTypeHasBeenSet; }
+
+    /**
+     * <p>The compute type. For more information, see <a
+     * href="http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles">Amazon
+     * WorkSpaces Bundles</a>.</p>
+     */
     inline void SetComputeType(const ComputeType& value) { m_computeTypeHasBeenSet = true; m_computeType = value; }
 
     /**
@@ -287,6 +368,37 @@ namespace Model
      */
     inline WorkspaceBundle& WithComputeType(ComputeType&& value) { SetComputeType(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The last time that the bundle was updated.</p>
+     */
+    inline const Aws::Utils::DateTime& GetLastUpdatedTime() const{ return m_lastUpdatedTime; }
+
+    /**
+     * <p>The last time that the bundle was updated.</p>
+     */
+    inline bool LastUpdatedTimeHasBeenSet() const { return m_lastUpdatedTimeHasBeenSet; }
+
+    /**
+     * <p>The last time that the bundle was updated.</p>
+     */
+    inline void SetLastUpdatedTime(const Aws::Utils::DateTime& value) { m_lastUpdatedTimeHasBeenSet = true; m_lastUpdatedTime = value; }
+
+    /**
+     * <p>The last time that the bundle was updated.</p>
+     */
+    inline void SetLastUpdatedTime(Aws::Utils::DateTime&& value) { m_lastUpdatedTimeHasBeenSet = true; m_lastUpdatedTime = std::move(value); }
+
+    /**
+     * <p>The last time that the bundle was updated.</p>
+     */
+    inline WorkspaceBundle& WithLastUpdatedTime(const Aws::Utils::DateTime& value) { SetLastUpdatedTime(value); return *this;}
+
+    /**
+     * <p>The last time that the bundle was updated.</p>
+     */
+    inline WorkspaceBundle& WithLastUpdatedTime(Aws::Utils::DateTime&& value) { SetLastUpdatedTime(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_bundleId;
@@ -301,6 +413,9 @@ namespace Model
     Aws::String m_description;
     bool m_descriptionHasBeenSet;
 
+    Aws::String m_imageId;
+    bool m_imageIdHasBeenSet;
+
     RootStorage m_rootStorage;
     bool m_rootStorageHasBeenSet;
 
@@ -309,6 +424,9 @@ namespace Model
 
     ComputeType m_computeType;
     bool m_computeTypeHasBeenSet;
+
+    Aws::Utils::DateTime m_lastUpdatedTime;
+    bool m_lastUpdatedTimeHasBeenSet;
   };
 
 } // namespace Model

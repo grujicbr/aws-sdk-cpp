@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     SecurityConfigurationSummary();
-    SecurityConfigurationSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    SecurityConfigurationSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SecurityConfigurationSummary(Aws::Utils::Json::JsonView jsonValue);
+    SecurityConfigurationSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the security configuration.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the security configuration.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the security configuration.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The date and time the security configuration was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDateTime() const{ return m_creationDateTime; }
+
+    /**
+     * <p>The date and time the security configuration was created.</p>
+     */
+    inline bool CreationDateTimeHasBeenSet() const { return m_creationDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time the security configuration was created.</p>

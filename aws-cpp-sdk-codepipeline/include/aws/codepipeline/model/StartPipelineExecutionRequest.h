@@ -18,6 +18,7 @@
 #include <aws/codepipeline/CodePipelineRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <utility>
+#include <aws/core/utils/UUID.h>
 
 namespace Aws
 {
@@ -27,8 +28,8 @@ namespace Model
 {
 
   /**
-   * <p>Represents the input of a StartPipelineExecution action.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>Represents the input of a <code>StartPipelineExecution</code>
+   * action.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecutionInput">AWS
    * API Reference</a></p>
    */
@@ -36,7 +37,7 @@ namespace Model
   {
   public:
     StartPipelineExecutionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the pipeline to start.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the pipeline to start.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the pipeline to start.</p>
@@ -83,10 +89,62 @@ namespace Model
      */
     inline StartPipelineExecutionRequest& WithName(const char* value) { SetName(value); return *this;}
 
+
+    /**
+     * <p>The system-generated unique ID used to identify a unique execution
+     * request.</p>
+     */
+    inline const Aws::String& GetClientRequestToken() const{ return m_clientRequestToken; }
+
+    /**
+     * <p>The system-generated unique ID used to identify a unique execution
+     * request.</p>
+     */
+    inline bool ClientRequestTokenHasBeenSet() const { return m_clientRequestTokenHasBeenSet; }
+
+    /**
+     * <p>The system-generated unique ID used to identify a unique execution
+     * request.</p>
+     */
+    inline void SetClientRequestToken(const Aws::String& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = value; }
+
+    /**
+     * <p>The system-generated unique ID used to identify a unique execution
+     * request.</p>
+     */
+    inline void SetClientRequestToken(Aws::String&& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = std::move(value); }
+
+    /**
+     * <p>The system-generated unique ID used to identify a unique execution
+     * request.</p>
+     */
+    inline void SetClientRequestToken(const char* value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken.assign(value); }
+
+    /**
+     * <p>The system-generated unique ID used to identify a unique execution
+     * request.</p>
+     */
+    inline StartPipelineExecutionRequest& WithClientRequestToken(const Aws::String& value) { SetClientRequestToken(value); return *this;}
+
+    /**
+     * <p>The system-generated unique ID used to identify a unique execution
+     * request.</p>
+     */
+    inline StartPipelineExecutionRequest& WithClientRequestToken(Aws::String&& value) { SetClientRequestToken(std::move(value)); return *this;}
+
+    /**
+     * <p>The system-generated unique ID used to identify a unique execution
+     * request.</p>
+     */
+    inline StartPipelineExecutionRequest& WithClientRequestToken(const char* value) { SetClientRequestToken(value); return *this;}
+
   private:
 
     Aws::String m_name;
     bool m_nameHasBeenSet;
+
+    Aws::String m_clientRequestToken;
+    bool m_clientRequestTokenHasBeenSet;
   };
 
 } // namespace Model

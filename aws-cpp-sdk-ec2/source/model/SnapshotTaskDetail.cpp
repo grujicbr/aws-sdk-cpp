@@ -34,7 +34,10 @@ SnapshotTaskDetail::SnapshotTaskDetail() :
     m_descriptionHasBeenSet(false),
     m_diskImageSize(0.0),
     m_diskImageSizeHasBeenSet(false),
+    m_encrypted(false),
+    m_encryptedHasBeenSet(false),
     m_formatHasBeenSet(false),
+    m_kmsKeyIdHasBeenSet(false),
     m_progressHasBeenSet(false),
     m_snapshotIdHasBeenSet(false),
     m_statusHasBeenSet(false),
@@ -48,7 +51,10 @@ SnapshotTaskDetail::SnapshotTaskDetail(const XmlNode& xmlNode) :
     m_descriptionHasBeenSet(false),
     m_diskImageSize(0.0),
     m_diskImageSizeHasBeenSet(false),
+    m_encrypted(false),
+    m_encryptedHasBeenSet(false),
     m_formatHasBeenSet(false),
+    m_kmsKeyIdHasBeenSet(false),
     m_progressHasBeenSet(false),
     m_snapshotIdHasBeenSet(false),
     m_statusHasBeenSet(false),
@@ -68,49 +74,61 @@ SnapshotTaskDetail& SnapshotTaskDetail::operator =(const XmlNode& xmlNode)
     XmlNode descriptionNode = resultNode.FirstChild("description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode diskImageSizeNode = resultNode.FirstChild("diskImageSize");
     if(!diskImageSizeNode.IsNull())
     {
-      m_diskImageSize = StringUtils::ConvertToDouble(StringUtils::Trim(diskImageSizeNode.GetText().c_str()).c_str());
+      m_diskImageSize = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(diskImageSizeNode.GetText()).c_str()).c_str());
       m_diskImageSizeHasBeenSet = true;
+    }
+    XmlNode encryptedNode = resultNode.FirstChild("encrypted");
+    if(!encryptedNode.IsNull())
+    {
+      m_encrypted = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(encryptedNode.GetText()).c_str()).c_str());
+      m_encryptedHasBeenSet = true;
     }
     XmlNode formatNode = resultNode.FirstChild("format");
     if(!formatNode.IsNull())
     {
-      m_format = StringUtils::Trim(formatNode.GetText().c_str());
+      m_format = Aws::Utils::Xml::DecodeEscapedXmlText(formatNode.GetText());
       m_formatHasBeenSet = true;
+    }
+    XmlNode kmsKeyIdNode = resultNode.FirstChild("kmsKeyId");
+    if(!kmsKeyIdNode.IsNull())
+    {
+      m_kmsKeyId = Aws::Utils::Xml::DecodeEscapedXmlText(kmsKeyIdNode.GetText());
+      m_kmsKeyIdHasBeenSet = true;
     }
     XmlNode progressNode = resultNode.FirstChild("progress");
     if(!progressNode.IsNull())
     {
-      m_progress = StringUtils::Trim(progressNode.GetText().c_str());
+      m_progress = Aws::Utils::Xml::DecodeEscapedXmlText(progressNode.GetText());
       m_progressHasBeenSet = true;
     }
     XmlNode snapshotIdNode = resultNode.FirstChild("snapshotId");
     if(!snapshotIdNode.IsNull())
     {
-      m_snapshotId = StringUtils::Trim(snapshotIdNode.GetText().c_str());
+      m_snapshotId = Aws::Utils::Xml::DecodeEscapedXmlText(snapshotIdNode.GetText());
       m_snapshotIdHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode statusMessageNode = resultNode.FirstChild("statusMessage");
     if(!statusMessageNode.IsNull())
     {
-      m_statusMessage = StringUtils::Trim(statusMessageNode.GetText().c_str());
+      m_statusMessage = Aws::Utils::Xml::DecodeEscapedXmlText(statusMessageNode.GetText());
       m_statusMessageHasBeenSet = true;
     }
     XmlNode urlNode = resultNode.FirstChild("url");
     if(!urlNode.IsNull())
     {
-      m_url = StringUtils::Trim(urlNode.GetText().c_str());
+      m_url = Aws::Utils::Xml::DecodeEscapedXmlText(urlNode.GetText());
       m_urlHasBeenSet = true;
     }
     XmlNode userBucketNode = resultNode.FirstChild("userBucket");
@@ -136,9 +154,19 @@ void SnapshotTaskDetail::OutputToStream(Aws::OStream& oStream, const char* locat
         oStream << location << index << locationValue << ".DiskImageSize=" << StringUtils::URLEncode(m_diskImageSize) << "&";
   }
 
+  if(m_encryptedHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".Encrypted=" << std::boolalpha << m_encrypted << "&";
+  }
+
   if(m_formatHasBeenSet)
   {
       oStream << location << index << locationValue << ".Format=" << StringUtils::URLEncode(m_format.c_str()) << "&";
+  }
+
+  if(m_kmsKeyIdHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".KmsKeyId=" << StringUtils::URLEncode(m_kmsKeyId.c_str()) << "&";
   }
 
   if(m_progressHasBeenSet)
@@ -185,9 +213,17 @@ void SnapshotTaskDetail::OutputToStream(Aws::OStream& oStream, const char* locat
   {
         oStream << location << ".DiskImageSize=" << StringUtils::URLEncode(m_diskImageSize) << "&";
   }
+  if(m_encryptedHasBeenSet)
+  {
+      oStream << location << ".Encrypted=" << std::boolalpha << m_encrypted << "&";
+  }
   if(m_formatHasBeenSet)
   {
       oStream << location << ".Format=" << StringUtils::URLEncode(m_format.c_str()) << "&";
+  }
+  if(m_kmsKeyIdHasBeenSet)
+  {
+      oStream << location << ".KmsKeyId=" << StringUtils::URLEncode(m_kmsKeyId.c_str()) << "&";
   }
   if(m_progressHasBeenSet)
   {

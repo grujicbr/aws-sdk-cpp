@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     FirehoseAction();
-    FirehoseAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    FirehoseAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FirehoseAction(Aws::Utils::Json::JsonView jsonValue);
+    FirehoseAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The IAM role that grants access to the Amazon Kinesis Firehose stream.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The IAM role that grants access to the Amazon Kinesis Firehose stream.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The IAM role that grants access to the Amazon Kinesis Firehose stream.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The delivery stream name.</p>
      */
+    inline bool DeliveryStreamNameHasBeenSet() const { return m_deliveryStreamNameHasBeenSet; }
+
+    /**
+     * <p>The delivery stream name.</p>
+     */
     inline void SetDeliveryStreamName(const Aws::String& value) { m_deliveryStreamNameHasBeenSet = true; m_deliveryStreamName = value; }
 
     /**
@@ -125,6 +136,13 @@ namespace Model
      * newline), ',' (comma).</p>
      */
     inline const Aws::String& GetSeparator() const{ return m_separator; }
+
+    /**
+     * <p>A character separator that will be used to separate records written to the
+     * Firehose stream. Valid values are: '\n' (newline), '\t' (tab), '\r\n' (Windows
+     * newline), ',' (comma).</p>
+     */
+    inline bool SeparatorHasBeenSet() const { return m_separatorHasBeenSet; }
 
     /**
      * <p>A character separator that will be used to separate records written to the

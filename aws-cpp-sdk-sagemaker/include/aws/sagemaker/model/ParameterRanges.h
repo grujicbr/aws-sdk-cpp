@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -37,7 +38,13 @@ namespace Model
 
   /**
    * <p>Specifies ranges of integer, continuous, and categorical hyperparameters that
-   * a hyperparameter tuning job searches.</p><p><h3>See Also:</h3>   <a
+   * a hyperparameter tuning job searches. The hyperparameter tuning job launches
+   * training jobs with hyperparameter values within these ranges to find the
+   * combination of values that result in the training job with the best performance
+   * as measured by the objective metric of the hyperparameter tuning job.</p> <note>
+   * <p>You can specify a maximum of 20 hyperparameters that a hyperparameter tuning
+   * job can search over. Every possible value of a categorical parameter range
+   * counts against this limit.</p> </note><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ParameterRanges">AWS
    * API Reference</a></p>
    */
@@ -45,8 +52,8 @@ namespace Model
   {
   public:
     ParameterRanges();
-    ParameterRanges(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParameterRanges& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParameterRanges(Aws::Utils::Json::JsonView jsonValue);
+    ParameterRanges& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +62,12 @@ namespace Model
      * integer hyperparameters that a hyperparameter tuning job searches.</p>
      */
     inline const Aws::Vector<IntegerParameterRange>& GetIntegerParameterRanges() const{ return m_integerParameterRanges; }
+
+    /**
+     * <p>The array of <a>IntegerParameterRange</a> objects that specify ranges of
+     * integer hyperparameters that a hyperparameter tuning job searches.</p>
+     */
+    inline bool IntegerParameterRangesHasBeenSet() const { return m_integerParameterRangesHasBeenSet; }
 
     /**
      * <p>The array of <a>IntegerParameterRange</a> objects that specify ranges of
@@ -103,6 +116,12 @@ namespace Model
      * <p>The array of <a>ContinuousParameterRange</a> objects that specify ranges of
      * continuous hyperparameters that a hyperparameter tuning job searches.</p>
      */
+    inline bool ContinuousParameterRangesHasBeenSet() const { return m_continuousParameterRangesHasBeenSet; }
+
+    /**
+     * <p>The array of <a>ContinuousParameterRange</a> objects that specify ranges of
+     * continuous hyperparameters that a hyperparameter tuning job searches.</p>
+     */
     inline void SetContinuousParameterRanges(const Aws::Vector<ContinuousParameterRange>& value) { m_continuousParameterRangesHasBeenSet = true; m_continuousParameterRanges = value; }
 
     /**
@@ -141,6 +160,12 @@ namespace Model
      * categorical hyperparameters that a hyperparameter tuning job searches.</p>
      */
     inline const Aws::Vector<CategoricalParameterRange>& GetCategoricalParameterRanges() const{ return m_categoricalParameterRanges; }
+
+    /**
+     * <p>The array of <a>CategoricalParameterRange</a> objects that specify ranges of
+     * categorical hyperparameters that a hyperparameter tuning job searches.</p>
+     */
+    inline bool CategoricalParameterRangesHasBeenSet() const { return m_categoricalParameterRangesHasBeenSet; }
 
     /**
      * <p>The array of <a>CategoricalParameterRange</a> objects that specify ranges of

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Tag();
-    Tag(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tag(Aws::Utils::Json::JsonView jsonValue);
+    Tag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * unique for the Elasticsearch domain to which they are attached.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>Specifies the <code>TagKey</code>, the name of the tag. Tag keys must be
+     * unique for the Elasticsearch domain to which they are attached.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>Specifies the <code>TagKey</code>, the name of the tag. Tag keys must be
@@ -96,6 +103,14 @@ namespace Model
      * Trinity</code> and <code>cost-center : Trinity</code></p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>Specifies the <code>TagValue</code>, the value assigned to the corresponding
+     * tag key. Tag values can be null and do not have to be unique in a tag set. For
+     * example, you can have a key value pair in a tag set of <code>project :
+     * Trinity</code> and <code>cost-center : Trinity</code></p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>Specifies the <code>TagValue</code>, the value assigned to the corresponding

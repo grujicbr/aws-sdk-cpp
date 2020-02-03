@@ -28,9 +28,12 @@ CreateTableRequest::CreateTableRequest() :
     m_keySchemaHasBeenSet(false),
     m_localSecondaryIndexesHasBeenSet(false),
     m_globalSecondaryIndexesHasBeenSet(false),
+    m_billingMode(BillingMode::NOT_SET),
+    m_billingModeHasBeenSet(false),
     m_provisionedThroughputHasBeenSet(false),
     m_streamSpecificationHasBeenSet(false),
-    m_sSESpecificationHasBeenSet(false)
+    m_sSESpecificationHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -88,6 +91,11 @@ Aws::String CreateTableRequest::SerializePayload() const
 
   }
 
+  if(m_billingModeHasBeenSet)
+  {
+   payload.WithString("BillingMode", BillingModeMapper::GetNameForBillingMode(m_billingMode));
+  }
+
   if(m_provisionedThroughputHasBeenSet)
   {
    payload.WithObject("ProvisionedThroughput", m_provisionedThroughput.Jsonize());
@@ -106,7 +114,18 @@ Aws::String CreateTableRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateTableRequest::GetRequestSpecificHeaders() const

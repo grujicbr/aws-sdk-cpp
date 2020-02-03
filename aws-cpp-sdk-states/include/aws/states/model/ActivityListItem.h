@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ActivityListItem();
-    ActivityListItem(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActivityListItem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActivityListItem(Aws::Utils::Json::JsonView jsonValue);
+    ActivityListItem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) that identifies the activity.</p>
      */
     inline const Aws::String& GetActivityArn() const{ return m_activityArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that identifies the activity.</p>
+     */
+    inline bool ActivityArnHasBeenSet() const { return m_activityArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that identifies the activity.</p>
@@ -85,7 +91,7 @@ namespace Model
 
     /**
      * <p>The name of the activity.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -95,7 +101,17 @@ namespace Model
 
     /**
      * <p>The name of the activity.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
+     * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
+     * <li> <p>control characters (<code>U+0000-001F</code>,
+     * <code>U+007F-009F</code>)</p> </li> </ul>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the activity.</p> <p>A name must <i>not</i> contain:</p> <ul>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -105,7 +121,7 @@ namespace Model
 
     /**
      * <p>The name of the activity.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -115,7 +131,7 @@ namespace Model
 
     /**
      * <p>The name of the activity.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -125,7 +141,7 @@ namespace Model
 
     /**
      * <p>The name of the activity.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -135,7 +151,7 @@ namespace Model
 
     /**
      * <p>The name of the activity.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -145,7 +161,7 @@ namespace Model
 
     /**
      * <p>The name of the activity.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -158,6 +174,11 @@ namespace Model
      * <p>The date the activity is created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The date the activity is created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The date the activity is created.</p>

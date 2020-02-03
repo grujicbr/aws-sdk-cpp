@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     ResourceLimits();
-    ResourceLimits(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceLimits& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceLimits(Aws::Utils::Json::JsonView jsonValue);
+    ResourceLimits& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * launch.</p>
      */
     inline int GetMaxNumberOfTrainingJobs() const{ return m_maxNumberOfTrainingJobs; }
+
+    /**
+     * <p>The maximum number of training jobs that a hyperparameter tuning job can
+     * launch.</p>
+     */
+    inline bool MaxNumberOfTrainingJobsHasBeenSet() const { return m_maxNumberOfTrainingJobsHasBeenSet; }
 
     /**
      * <p>The maximum number of training jobs that a hyperparameter tuning job can
@@ -69,6 +76,12 @@ namespace Model
      * job can launch.</p>
      */
     inline int GetMaxParallelTrainingJobs() const{ return m_maxParallelTrainingJobs; }
+
+    /**
+     * <p>The maximum number of concurrent training jobs that a hyperparameter tuning
+     * job can launch.</p>
+     */
+    inline bool MaxParallelTrainingJobsHasBeenSet() const { return m_maxParallelTrainingJobsHasBeenSet; }
 
     /**
      * <p>The maximum number of concurrent training jobs that a hyperparameter tuning

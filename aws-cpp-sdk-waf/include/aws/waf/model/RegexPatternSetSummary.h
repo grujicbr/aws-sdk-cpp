@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     RegexPatternSetSummary();
-    RegexPatternSetSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    RegexPatternSetSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RegexPatternSetSummary(Aws::Utils::Json::JsonView jsonValue);
+    RegexPatternSetSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +60,17 @@ namespace Model
      * by <a>ListRegexPatternSets</a>.</p>
      */
     inline const Aws::String& GetRegexPatternSetId() const{ return m_regexPatternSetId; }
+
+    /**
+     * <p>The <code>RegexPatternSetId</code> for a <code>RegexPatternSet</code>. You
+     * use <code>RegexPatternSetId</code> to get information about a
+     * <code>RegexPatternSet</code>, update a <code>RegexPatternSet</code>, remove a
+     * <code>RegexPatternSet</code> from a <code>RegexMatchSet</code>, and delete a
+     * <code>RegexPatternSet</code> from AWS WAF.</p> <p>
+     * <code>RegexPatternSetId</code> is returned by <a>CreateRegexPatternSet</a> and
+     * by <a>ListRegexPatternSets</a>.</p>
+     */
+    inline bool RegexPatternSetIdHasBeenSet() const { return m_regexPatternSetIdHasBeenSet; }
 
     /**
      * <p>The <code>RegexPatternSetId</code> for a <code>RegexPatternSet</code>. You
@@ -132,6 +144,12 @@ namespace Model
      * change <code>Name</code> after you create a <code>RegexPatternSet</code>.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>A friendly name or description of the <a>RegexPatternSet</a>. You can't
+     * change <code>Name</code> after you create a <code>RegexPatternSet</code>.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A friendly name or description of the <a>RegexPatternSet</a>. You can't

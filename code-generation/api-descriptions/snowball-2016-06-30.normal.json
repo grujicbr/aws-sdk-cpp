@@ -181,6 +181,20 @@
       "output":{"shape":"GetSnowballUsageResult"},
       "documentation":"<p>Returns information about the Snowball service limit for your account, and also the number of Snowballs your account has in use.</p> <p>The default service limit for the number of Snowballs that you can have at one time is 1. If you want to increase your service limit, contact AWS Support.</p>"
     },
+    "GetSoftwareUpdates":{
+      "name":"GetSoftwareUpdates",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"GetSoftwareUpdatesRequest"},
+      "output":{"shape":"GetSoftwareUpdatesResult"},
+      "errors":[
+        {"shape":"InvalidResourceException"},
+        {"shape":"InvalidJobStateException"}
+      ],
+      "documentation":"<p>Returns an Amazon S3 presigned URL for an update file associated with a specified <code>JobId</code>.</p>"
+    },
     "ListClusterJobs":{
       "name":"ListClusterJobs",
       "http":{
@@ -434,11 +448,11 @@
         },
         "KmsKeyARN":{
           "shape":"KmsKeyARN",
-          "documentation":"<p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created using the <a href=\"http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> API action in AWS Key Management Service (AWS KMS).</p>"
+          "documentation":"<p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created using the <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> API action in AWS Key Management Service (AWS KMS).</p>"
         },
         "RoleARN":{
           "shape":"RoleARN",
-          "documentation":"<p>The role ARN associated with this cluster. This ARN was created using the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).</p>"
+          "documentation":"<p>The role ARN associated with this cluster. This ARN was created using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).</p>"
         },
         "ClusterState":{
           "shape":"ClusterState",
@@ -554,11 +568,11 @@
         },
         "KmsKeyARN":{
           "shape":"KmsKeyARN",
-          "documentation":"<p>The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code> values are created by using the <a href=\"http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> API action in AWS Key Management Service (AWS KMS). </p>"
+          "documentation":"<p>The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code> values are created by using the <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> API action in AWS Key Management Service (AWS KMS). </p>"
         },
         "RoleARN":{
           "shape":"RoleARN",
-          "documentation":"<p>The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are created by using the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).</p>"
+          "documentation":"<p>The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are created by using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).</p>"
         },
         "SnowballType":{
           "shape":"SnowballType",
@@ -608,11 +622,11 @@
         },
         "KmsKeyARN":{
           "shape":"KmsKeyARN",
-          "documentation":"<p>The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created using the <a href=\"http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> AWS Key Management Service (KMS) API action.</p>"
+          "documentation":"<p>The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created using the <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> AWS Key Management Service (KMS) API action.</p>"
         },
         "RoleARN":{
           "shape":"RoleARN",
-          "documentation":"<p>The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created using the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> AWS Identity and Access Management (IAM) API action.</p>"
+          "documentation":"<p>The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> AWS Identity and Access Management (IAM) API action.</p>"
         },
         "SnowballCapacityPreference":{
           "shape":"SnowballCapacity",
@@ -855,6 +869,25 @@
         }
       }
     },
+    "GetSoftwareUpdatesRequest":{
+      "type":"structure",
+      "required":["JobId"],
+      "members":{
+        "JobId":{
+          "shape":"JobId",
+          "documentation":"<p>The ID for a job that you want to get the software update file for, for example <code>JID123e4567-e89b-12d3-a456-426655440000</code>.</p>"
+        }
+      }
+    },
+    "GetSoftwareUpdatesResult":{
+      "type":"structure",
+      "members":{
+        "UpdatesURI":{
+          "shape":"String",
+          "documentation":"<p>The Amazon S3 presigned URL for the update file associated with the specified <code>JobId</code> value. The software update will be available for 2 days after this request is made. To access an update after the 2 days have passed, you'll have to make another call to <code>GetSoftwareUpdates</code>.</p>"
+        }
+      }
+    },
     "Integer":{"type":"integer"},
     "InvalidAddressException":{
       "type":"structure",
@@ -995,11 +1028,11 @@
         },
         "KmsKeyARN":{
           "shape":"KmsKeyARN",
-          "documentation":"<p>The Amazon Resource Name (ARN) for the AWS Key Management Service (AWS KMS) key associated with this job. This ARN was created using the <a href=\"http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> API action in AWS KMS.</p>"
+          "documentation":"<p>The Amazon Resource Name (ARN) for the AWS Key Management Service (AWS KMS) key associated with this job. This ARN was created using the <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html\">CreateKey</a> API action in AWS KMS.</p>"
         },
         "RoleARN":{
           "shape":"RoleARN",
-          "documentation":"<p>The role ARN associated with this job. This ARN was created using the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).</p>"
+          "documentation":"<p>The role ARN associated with this job. This ARN was created using the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).</p>"
         },
         "AddressId":{
           "shape":"AddressId",
@@ -1067,6 +1100,7 @@
         "InTransitToCustomer",
         "WithCustomer",
         "InTransitToAWS",
+        "WithAWSSortingFacility",
         "WithAWS",
         "InProgress",
         "Complete",
@@ -1252,7 +1286,7 @@
       "members":{
         "SnsTopicARN":{
           "shape":"SnsTopicARN",
-          "documentation":"<p>The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource Names (ARNs) for topics by using the <a href=\"http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html\">CreateTopic</a> Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <a href=\"http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html\">Subscribe</a> AWS Simple Notification Service (SNS) API action.</p>"
+          "documentation":"<p>The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource Names (ARNs) for topics by using the <a href=\"https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html\">CreateTopic</a> Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <a href=\"https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html\">Subscribe</a> AWS Simple Notification Service (SNS) API action.</p>"
         },
         "JobStatesToNotify":{
           "shape":"JobStateList",
@@ -1339,6 +1373,7 @@
         "T50",
         "T80",
         "T100",
+        "T42",
         "NoPreference"
       ]
     },
@@ -1346,7 +1381,9 @@
       "type":"string",
       "enum":[
         "STANDARD",
-        "EDGE"
+        "EDGE",
+        "EDGE_C",
+        "EDGE_CG"
       ]
     },
     "SnsTopicARN":{
@@ -1377,7 +1414,7 @@
         },
         "RoleARN":{
           "shape":"RoleARN",
-          "documentation":"<p>The new role Amazon Resource Name (ARN) that you want to associate with this cluster. To create a role ARN, use the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).</p>"
+          "documentation":"<p>The new role Amazon Resource Name (ARN) that you want to associate with this cluster. To create a role ARN, use the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).</p>"
         },
         "Description":{
           "shape":"String",
@@ -1420,7 +1457,7 @@
         },
         "RoleARN":{
           "shape":"RoleARN",
-          "documentation":"<p>The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN, use the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a>AWS Identity and Access Management (IAM) API action.</p>"
+          "documentation":"<p>The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN, use the <a href=\"https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a>AWS Identity and Access Management (IAM) API action.</p>"
         },
         "Notification":{
           "shape":"Notification",
@@ -1458,5 +1495,5 @@
       }
     }
   },
-  "documentation":"<p>AWS Snowball is a petabyte-scale data transport solution that uses secure devices to transfer large amounts of data between your on-premises data centers and Amazon Simple Storage Service (Amazon S3). The Snowball commands described here provide access to the same functionality that is available in the AWS Snowball Management Console, which enables you to create and manage jobs for Snowball. To transfer data locally with a Snowball device, you'll need to use the Snowball client or the Amazon S3 API adapter for Snowball. For more information, see the <a href=\"http://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html\">User Guide</a>.</p>"
+  "documentation":"<p>AWS Snowball is a petabyte-scale data transport solution that uses secure devices to transfer large amounts of data between your on-premises data centers and Amazon Simple Storage Service (Amazon S3). The Snowball commands described here provide access to the same functionality that is available in the AWS Snowball Management Console, which enables you to create and manage jobs for Snowball. To transfer data locally with a Snowball device, you'll need to use the Snowball client or the Amazon S3 API adapter for Snowball. For more information, see the <a href=\"https://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html\">User Guide</a>.</p>"
 }

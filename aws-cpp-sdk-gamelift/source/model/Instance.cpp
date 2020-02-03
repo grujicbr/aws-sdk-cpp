@@ -32,6 +32,7 @@ Instance::Instance() :
     m_fleetIdHasBeenSet(false),
     m_instanceIdHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
+    m_dnsNameHasBeenSet(false),
     m_operatingSystem(OperatingSystem::NOT_SET),
     m_operatingSystemHasBeenSet(false),
     m_type(EC2InstanceType::NOT_SET),
@@ -42,10 +43,11 @@ Instance::Instance() :
 {
 }
 
-Instance::Instance(const JsonValue& jsonValue) : 
+Instance::Instance(JsonView jsonValue) : 
     m_fleetIdHasBeenSet(false),
     m_instanceIdHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
+    m_dnsNameHasBeenSet(false),
     m_operatingSystem(OperatingSystem::NOT_SET),
     m_operatingSystemHasBeenSet(false),
     m_type(EC2InstanceType::NOT_SET),
@@ -57,7 +59,7 @@ Instance::Instance(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Instance& Instance::operator =(const JsonValue& jsonValue)
+Instance& Instance::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("FleetId"))
   {
@@ -78,6 +80,13 @@ Instance& Instance::operator =(const JsonValue& jsonValue)
     m_ipAddress = jsonValue.GetString("IpAddress");
 
     m_ipAddressHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("DnsName"))
+  {
+    m_dnsName = jsonValue.GetString("DnsName");
+
+    m_dnsNameHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("OperatingSystem"))
@@ -130,6 +139,12 @@ JsonValue Instance::Jsonize() const
   if(m_ipAddressHasBeenSet)
   {
    payload.WithString("IpAddress", m_ipAddress);
+
+  }
+
+  if(m_dnsNameHasBeenSet)
+  {
+   payload.WithString("DnsName", m_dnsName);
 
   }
 

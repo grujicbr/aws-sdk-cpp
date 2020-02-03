@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -45,7 +46,7 @@ namespace Model
    * associated event attribute's <code>cause</code> parameter is set to
    * <code>OPERATION_NOT_PERMITTED</code>. For details and example IAM policies, see
    * <a
-   * href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
+   * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
    * IAM to Manage Access to Amazon SWF Workflows</a> in the <i>Amazon SWF Developer
    * Guide</i>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/RequestCancelActivityTaskDecisionAttributes">AWS
@@ -55,8 +56,8 @@ namespace Model
   {
   public:
     RequestCancelActivityTaskDecisionAttributes();
-    RequestCancelActivityTaskDecisionAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    RequestCancelActivityTaskDecisionAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RequestCancelActivityTaskDecisionAttributes(Aws::Utils::Json::JsonView jsonValue);
+    RequestCancelActivityTaskDecisionAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -64,6 +65,11 @@ namespace Model
      * <p>The <code>activityId</code> of the activity task to be canceled.</p>
      */
     inline const Aws::String& GetActivityId() const{ return m_activityId; }
+
+    /**
+     * <p>The <code>activityId</code> of the activity task to be canceled.</p>
+     */
+    inline bool ActivityIdHasBeenSet() const { return m_activityIdHasBeenSet; }
 
     /**
      * <p>The <code>activityId</code> of the activity task to be canceled.</p>

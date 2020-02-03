@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     ResourceGroup();
-    ResourceGroup(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceGroup& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceGroup(Aws::Utils::Json::JsonView jsonValue);
+    ResourceGroup& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The ARN of the resource group.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The ARN of the resource group.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The ARN of the resource group.</p>
@@ -98,6 +104,12 @@ namespace Model
      * <p>The tags (key and value pairs) of the resource group. This data type property
      * is used in the <a>CreateResourceGroup</a> action.</p>
      */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags (key and value pairs) of the resource group. This data type property
+     * is used in the <a>CreateResourceGroup</a> action.</p>
+     */
     inline void SetTags(const Aws::Vector<ResourceGroupTag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
     /**
@@ -135,6 +147,11 @@ namespace Model
      * <p>The time at which resource group is created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedAt() const{ return m_createdAt; }
+
+    /**
+     * <p>The time at which resource group is created.</p>
+     */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
 
     /**
      * <p>The time at which resource group is created.</p>

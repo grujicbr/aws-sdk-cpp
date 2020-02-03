@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     InstanceFleetStateChangeReason();
-    InstanceFleetStateChangeReason(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceFleetStateChangeReason& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceFleetStateChangeReason(Aws::Utils::Json::JsonView jsonValue);
+    InstanceFleetStateChangeReason& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>A code corresponding to the reason the state change occurred.</p>
      */
     inline const InstanceFleetStateChangeReasonCode& GetCode() const{ return m_code; }
+
+    /**
+     * <p>A code corresponding to the reason the state change occurred.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>A code corresponding to the reason the state change occurred.</p>
@@ -79,6 +85,11 @@ namespace Model
      * <p>An explanatory message.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>An explanatory message.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>An explanatory message.</p>

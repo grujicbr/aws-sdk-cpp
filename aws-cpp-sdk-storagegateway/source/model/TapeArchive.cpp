@@ -39,11 +39,12 @@ TapeArchive::TapeArchive() :
     m_tapeStatusHasBeenSet(false),
     m_tapeUsedInBytes(0),
     m_tapeUsedInBytesHasBeenSet(false),
-    m_kMSKeyHasBeenSet(false)
+    m_kMSKeyHasBeenSet(false),
+    m_poolIdHasBeenSet(false)
 {
 }
 
-TapeArchive::TapeArchive(const JsonValue& jsonValue) : 
+TapeArchive::TapeArchive(JsonView jsonValue) : 
     m_tapeARNHasBeenSet(false),
     m_tapeBarcodeHasBeenSet(false),
     m_tapeCreatedDateHasBeenSet(false),
@@ -54,12 +55,13 @@ TapeArchive::TapeArchive(const JsonValue& jsonValue) :
     m_tapeStatusHasBeenSet(false),
     m_tapeUsedInBytes(0),
     m_tapeUsedInBytesHasBeenSet(false),
-    m_kMSKeyHasBeenSet(false)
+    m_kMSKeyHasBeenSet(false),
+    m_poolIdHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-TapeArchive& TapeArchive::operator =(const JsonValue& jsonValue)
+TapeArchive& TapeArchive::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TapeARN"))
   {
@@ -124,6 +126,13 @@ TapeArchive& TapeArchive::operator =(const JsonValue& jsonValue)
     m_kMSKeyHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("PoolId"))
+  {
+    m_poolId = jsonValue.GetString("PoolId");
+
+    m_poolIdHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -180,6 +189,12 @@ JsonValue TapeArchive::Jsonize() const
   if(m_kMSKeyHasBeenSet)
   {
    payload.WithString("KMSKey", m_kMSKey);
+
+  }
+
+  if(m_poolIdHasBeenSet)
+  {
+   payload.WithString("PoolId", m_poolId);
 
   }
 

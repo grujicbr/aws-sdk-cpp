@@ -31,7 +31,7 @@ GetObjectRequest::GetObjectRequest() :
 
 Aws::String GetObjectRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection GetObjectRequest::GetRequestSpecificHeaders() const
@@ -41,7 +41,7 @@ Aws::Http::HeaderValueCollection GetObjectRequest::GetRequestSpecificHeaders() c
   if(m_rangeHasBeenSet)
   {
     ss << m_range;
-    headers.insert(Aws::Http::HeaderValuePair("range", ss.str()));
+    headers.emplace("range",  ss.str());
     ss.str("");
   }
 

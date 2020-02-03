@@ -52,13 +52,13 @@ SecurityGroupMembership& SecurityGroupMembership::operator =(const XmlNode& xmlN
     XmlNode securityGroupIdNode = resultNode.FirstChild("SecurityGroupId");
     if(!securityGroupIdNode.IsNull())
     {
-      m_securityGroupId = StringUtils::Trim(securityGroupIdNode.GetText().c_str());
+      m_securityGroupId = Aws::Utils::Xml::DecodeEscapedXmlText(securityGroupIdNode.GetText());
       m_securityGroupIdHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
   }

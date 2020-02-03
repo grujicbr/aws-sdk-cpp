@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ThingTypeMetadata();
-    ThingTypeMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    ThingTypeMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ThingTypeMetadata(Aws::Utils::Json::JsonView jsonValue);
+    ThingTypeMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * associated with this type.</p>
      */
     inline bool GetDeprecated() const{ return m_deprecated; }
+
+    /**
+     * <p>Whether the thing type is deprecated. If <b>true</b>, no new things could be
+     * associated with this type.</p>
+     */
+    inline bool DeprecatedHasBeenSet() const { return m_deprecatedHasBeenSet; }
 
     /**
      * <p>Whether the thing type is deprecated. If <b>true</b>, no new things could be
@@ -72,6 +79,11 @@ namespace Model
      * <p>The date and time when the thing type was deprecated.</p>
      */
     inline const Aws::Utils::DateTime& GetDeprecationDate() const{ return m_deprecationDate; }
+
+    /**
+     * <p>The date and time when the thing type was deprecated.</p>
+     */
+    inline bool DeprecationDateHasBeenSet() const { return m_deprecationDateHasBeenSet; }
 
     /**
      * <p>The date and time when the thing type was deprecated.</p>
@@ -98,6 +110,11 @@ namespace Model
      * <p>The date and time when the thing type was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The date and time when the thing type was created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The date and time when the thing type was created.</p>

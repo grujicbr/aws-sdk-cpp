@@ -39,11 +39,12 @@ ScalableTarget::ScalableTarget() :
     m_maxCapacity(0),
     m_maxCapacityHasBeenSet(false),
     m_roleARNHasBeenSet(false),
-    m_creationTimeHasBeenSet(false)
+    m_creationTimeHasBeenSet(false),
+    m_suspendedStateHasBeenSet(false)
 {
 }
 
-ScalableTarget::ScalableTarget(const JsonValue& jsonValue) : 
+ScalableTarget::ScalableTarget(JsonView jsonValue) : 
     m_serviceNamespace(ServiceNamespace::NOT_SET),
     m_serviceNamespaceHasBeenSet(false),
     m_resourceIdHasBeenSet(false),
@@ -54,12 +55,13 @@ ScalableTarget::ScalableTarget(const JsonValue& jsonValue) :
     m_maxCapacity(0),
     m_maxCapacityHasBeenSet(false),
     m_roleARNHasBeenSet(false),
-    m_creationTimeHasBeenSet(false)
+    m_creationTimeHasBeenSet(false),
+    m_suspendedStateHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ScalableTarget& ScalableTarget::operator =(const JsonValue& jsonValue)
+ScalableTarget& ScalableTarget::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ServiceNamespace"))
   {
@@ -110,6 +112,13 @@ ScalableTarget& ScalableTarget::operator =(const JsonValue& jsonValue)
     m_creationTimeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("SuspendedState"))
+  {
+    m_suspendedState = jsonValue.GetObject("SuspendedState");
+
+    m_suspendedStateHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -154,6 +163,12 @@ JsonValue ScalableTarget::Jsonize() const
   if(m_creationTimeHasBeenSet)
   {
    payload.WithDouble("CreationTime", m_creationTime.SecondsWithMSPrecision());
+  }
+
+  if(m_suspendedStateHasBeenSet)
+  {
+   payload.WithObject("SuspendedState", m_suspendedState.Jsonize());
+
   }
 
   return payload;

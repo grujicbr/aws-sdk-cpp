@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     DeleteMountTargetRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,37 +46,42 @@ namespace Model
 
 
     /**
-     * <p>ID of the mount target to delete (String).</p>
+     * <p>The ID of the mount target to delete (String).</p>
      */
     inline const Aws::String& GetMountTargetId() const{ return m_mountTargetId; }
 
     /**
-     * <p>ID of the mount target to delete (String).</p>
+     * <p>The ID of the mount target to delete (String).</p>
+     */
+    inline bool MountTargetIdHasBeenSet() const { return m_mountTargetIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the mount target to delete (String).</p>
      */
     inline void SetMountTargetId(const Aws::String& value) { m_mountTargetIdHasBeenSet = true; m_mountTargetId = value; }
 
     /**
-     * <p>ID of the mount target to delete (String).</p>
+     * <p>The ID of the mount target to delete (String).</p>
      */
     inline void SetMountTargetId(Aws::String&& value) { m_mountTargetIdHasBeenSet = true; m_mountTargetId = std::move(value); }
 
     /**
-     * <p>ID of the mount target to delete (String).</p>
+     * <p>The ID of the mount target to delete (String).</p>
      */
     inline void SetMountTargetId(const char* value) { m_mountTargetIdHasBeenSet = true; m_mountTargetId.assign(value); }
 
     /**
-     * <p>ID of the mount target to delete (String).</p>
+     * <p>The ID of the mount target to delete (String).</p>
      */
     inline DeleteMountTargetRequest& WithMountTargetId(const Aws::String& value) { SetMountTargetId(value); return *this;}
 
     /**
-     * <p>ID of the mount target to delete (String).</p>
+     * <p>The ID of the mount target to delete (String).</p>
      */
     inline DeleteMountTargetRequest& WithMountTargetId(Aws::String&& value) { SetMountTargetId(std::move(value)); return *this;}
 
     /**
-     * <p>ID of the mount target to delete (String).</p>
+     * <p>The ID of the mount target to delete (String).</p>
      */
     inline DeleteMountTargetRequest& WithMountTargetId(const char* value) { SetMountTargetId(value); return *this;}
 

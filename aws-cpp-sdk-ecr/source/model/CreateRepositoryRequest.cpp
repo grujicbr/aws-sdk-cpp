@@ -23,7 +23,11 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 CreateRepositoryRequest::CreateRepositoryRequest() : 
-    m_repositoryNameHasBeenSet(false)
+    m_repositoryNameHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_imageTagMutability(ImageTagMutability::NOT_SET),
+    m_imageTagMutabilityHasBeenSet(false),
+    m_imageScanningConfigurationHasBeenSet(false)
 {
 }
 
@@ -37,7 +41,29 @@ Aws::String CreateRepositoryRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_imageTagMutabilityHasBeenSet)
+  {
+   payload.WithString("imageTagMutability", ImageTagMutabilityMapper::GetNameForImageTagMutability(m_imageTagMutability));
+  }
+
+  if(m_imageScanningConfigurationHasBeenSet)
+  {
+   payload.WithObject("imageScanningConfiguration", m_imageScanningConfiguration.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateRepositoryRequest::GetRequestSpecificHeaders() const

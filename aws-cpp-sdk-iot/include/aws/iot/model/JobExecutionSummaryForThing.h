@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     JobExecutionSummaryForThing();
-    JobExecutionSummaryForThing(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobExecutionSummaryForThing& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobExecutionSummaryForThing(Aws::Utils::Json::JsonView jsonValue);
+    JobExecutionSummaryForThing& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The unique identifier you assigned to this job when it was created.</p>
      */
     inline const Aws::String& GetJobId() const{ return m_jobId; }
+
+    /**
+     * <p>The unique identifier you assigned to this job when it was created.</p>
+     */
+    inline bool JobIdHasBeenSet() const { return m_jobIdHasBeenSet; }
 
     /**
      * <p>The unique identifier you assigned to this job when it was created.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>Contains a subset of information about a job execution.</p>
      */
     inline const JobExecutionSummary& GetJobExecutionSummary() const{ return m_jobExecutionSummary; }
+
+    /**
+     * <p>Contains a subset of information about a job execution.</p>
+     */
+    inline bool JobExecutionSummaryHasBeenSet() const { return m_jobExecutionSummaryHasBeenSet; }
 
     /**
      * <p>Contains a subset of information about a job execution.</p>

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     OutputGroup();
-    OutputGroup(const Aws::Utils::Json::JsonValue& jsonValue);
-    OutputGroup& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OutputGroup(Aws::Utils::Json::JsonView jsonValue);
+    OutputGroup& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * and the underscore character allowed; only 32 characters allowed.
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * Custom output group name optionally defined by the user.  Only letters, numbers,
+     * and the underscore character allowed; only 32 characters allowed.
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * Custom output group name optionally defined by the user.  Only letters, numbers,
@@ -101,6 +108,11 @@ namespace Model
     /**
      * Settings associated with the output group.
      */
+    inline bool OutputGroupSettingsHasBeenSet() const { return m_outputGroupSettingsHasBeenSet; }
+
+    /**
+     * Settings associated with the output group.
+     */
     inline void SetOutputGroupSettings(const OutputGroupSettings& value) { m_outputGroupSettingsHasBeenSet = true; m_outputGroupSettings = value; }
 
     /**
@@ -121,6 +133,9 @@ namespace Model
 
     
     inline const Aws::Vector<Output>& GetOutputs() const{ return m_outputs; }
+
+    
+    inline bool OutputsHasBeenSet() const { return m_outputsHasBeenSet; }
 
     
     inline void SetOutputs(const Aws::Vector<Output>& value) { m_outputsHasBeenSet = true; m_outputs = value; }

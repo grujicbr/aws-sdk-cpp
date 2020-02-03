@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -31,7 +32,7 @@ namespace Model
 {
 
   /**
-   * <p>The SMS multi-factor authentication (MFA) settings type.</p><p><h3>See
+   * <p>The type used for enabling SMS MFA at the user level.</p><p><h3>See
    * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SMSMfaSettingsType">AWS
    * API Reference</a></p>
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     SMSMfaSettingsType();
-    SMSMfaSettingsType(const Aws::Utils::Json::JsonValue& jsonValue);
-    SMSMfaSettingsType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SMSMfaSettingsType(Aws::Utils::Json::JsonView jsonValue);
+    SMSMfaSettingsType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>Specifies whether SMS text message MFA is enabled.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Specifies whether SMS text message MFA is enabled.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Specifies whether SMS text message MFA is enabled.</p>
@@ -62,17 +68,22 @@ namespace Model
 
 
     /**
-     * <p>The preferred MFA method.</p>
+     * <p>Specifies whether SMS is the preferred MFA method.</p>
      */
     inline bool GetPreferredMfa() const{ return m_preferredMfa; }
 
     /**
-     * <p>The preferred MFA method.</p>
+     * <p>Specifies whether SMS is the preferred MFA method.</p>
+     */
+    inline bool PreferredMfaHasBeenSet() const { return m_preferredMfaHasBeenSet; }
+
+    /**
+     * <p>Specifies whether SMS is the preferred MFA method.</p>
      */
     inline void SetPreferredMfa(bool value) { m_preferredMfaHasBeenSet = true; m_preferredMfa = value; }
 
     /**
-     * <p>The preferred MFA method.</p>
+     * <p>Specifies whether SMS is the preferred MFA method.</p>
      */
     inline SMSMfaSettingsType& WithPreferredMfa(bool value) { SetPreferredMfa(value); return *this;}
 

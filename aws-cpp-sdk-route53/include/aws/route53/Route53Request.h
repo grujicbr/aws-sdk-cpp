@@ -27,7 +27,6 @@ namespace Route53
   {
   public:
     virtual ~Route53Request () {}
-    virtual Aws::String SerializePayload() const override = 0;
 
     void AddParametersToRequest(Aws::Http::HttpRequest& httpRequest) const { AWS_UNREFERENCED_PARAM(httpRequest); }
 
@@ -37,9 +36,9 @@ namespace Route53
 
       if(headers.size() == 0 || (headers.size() > 0 && headers.count(Aws::Http::CONTENT_TYPE_HEADER) == 0))
       {
-        headers.insert(Aws::Http::HeaderValuePair(Aws::Http::CONTENT_TYPE_HEADER, Aws::AMZN_XML_CONTENT_TYPE ));
+        headers.emplace(Aws::Http::HeaderValuePair(Aws::Http::CONTENT_TYPE_HEADER, Aws::AMZN_XML_CONTENT_TYPE ));
       }
-
+      headers.emplace(Aws::Http::HeaderValuePair(Aws::Http::API_VERSION_HEADER, "2013-04-01"));
       return headers;
     }
 

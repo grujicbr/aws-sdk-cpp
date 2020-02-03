@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -41,49 +42,55 @@ namespace Model
   {
   public:
     DeviceiSCSIAttributes();
-    DeviceiSCSIAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceiSCSIAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceiSCSIAttributes(Aws::Utils::Json::JsonView jsonValue);
+    DeviceiSCSIAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>Specifies the unique Amazon Resource Name(ARN) that encodes the iSCSI
+     * <p>Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
      * qualified name(iqn) of a tape drive or media changer target.</p>
      */
     inline const Aws::String& GetTargetARN() const{ return m_targetARN; }
 
     /**
-     * <p>Specifies the unique Amazon Resource Name(ARN) that encodes the iSCSI
+     * <p>Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
+     * qualified name(iqn) of a tape drive or media changer target.</p>
+     */
+    inline bool TargetARNHasBeenSet() const { return m_targetARNHasBeenSet; }
+
+    /**
+     * <p>Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
      * qualified name(iqn) of a tape drive or media changer target.</p>
      */
     inline void SetTargetARN(const Aws::String& value) { m_targetARNHasBeenSet = true; m_targetARN = value; }
 
     /**
-     * <p>Specifies the unique Amazon Resource Name(ARN) that encodes the iSCSI
+     * <p>Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
      * qualified name(iqn) of a tape drive or media changer target.</p>
      */
     inline void SetTargetARN(Aws::String&& value) { m_targetARNHasBeenSet = true; m_targetARN = std::move(value); }
 
     /**
-     * <p>Specifies the unique Amazon Resource Name(ARN) that encodes the iSCSI
+     * <p>Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
      * qualified name(iqn) of a tape drive or media changer target.</p>
      */
     inline void SetTargetARN(const char* value) { m_targetARNHasBeenSet = true; m_targetARN.assign(value); }
 
     /**
-     * <p>Specifies the unique Amazon Resource Name(ARN) that encodes the iSCSI
+     * <p>Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
      * qualified name(iqn) of a tape drive or media changer target.</p>
      */
     inline DeviceiSCSIAttributes& WithTargetARN(const Aws::String& value) { SetTargetARN(value); return *this;}
 
     /**
-     * <p>Specifies the unique Amazon Resource Name(ARN) that encodes the iSCSI
+     * <p>Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
      * qualified name(iqn) of a tape drive or media changer target.</p>
      */
     inline DeviceiSCSIAttributes& WithTargetARN(Aws::String&& value) { SetTargetARN(std::move(value)); return *this;}
 
     /**
-     * <p>Specifies the unique Amazon Resource Name(ARN) that encodes the iSCSI
+     * <p>Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
      * qualified name(iqn) of a tape drive or media changer target.</p>
      */
     inline DeviceiSCSIAttributes& WithTargetARN(const char* value) { SetTargetARN(value); return *this;}
@@ -93,6 +100,11 @@ namespace Model
      * <p>The network interface identifier of the VTL device.</p>
      */
     inline const Aws::String& GetNetworkInterfaceId() const{ return m_networkInterfaceId; }
+
+    /**
+     * <p>The network interface identifier of the VTL device.</p>
+     */
+    inline bool NetworkInterfaceIdHasBeenSet() const { return m_networkInterfaceIdHasBeenSet; }
 
     /**
      * <p>The network interface identifier of the VTL device.</p>
@@ -133,6 +145,11 @@ namespace Model
     /**
      * <p>The port used to communicate with iSCSI VTL device targets.</p>
      */
+    inline bool NetworkInterfacePortHasBeenSet() const { return m_networkInterfacePortHasBeenSet; }
+
+    /**
+     * <p>The port used to communicate with iSCSI VTL device targets.</p>
+     */
     inline void SetNetworkInterfacePort(int value) { m_networkInterfacePortHasBeenSet = true; m_networkInterfacePort = value; }
 
     /**
@@ -145,6 +162,11 @@ namespace Model
      * <p>Indicates whether mutual CHAP is enabled for the iSCSI target.</p>
      */
     inline bool GetChapEnabled() const{ return m_chapEnabled; }
+
+    /**
+     * <p>Indicates whether mutual CHAP is enabled for the iSCSI target.</p>
+     */
+    inline bool ChapEnabledHasBeenSet() const { return m_chapEnabledHasBeenSet; }
 
     /**
      * <p>Indicates whether mutual CHAP is enabled for the iSCSI target.</p>

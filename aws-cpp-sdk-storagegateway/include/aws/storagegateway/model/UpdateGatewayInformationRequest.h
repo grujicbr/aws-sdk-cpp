@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     UpdateGatewayInformationRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,6 +46,9 @@ namespace Model
 
     
     inline const Aws::String& GetGatewayARN() const{ return m_gatewayARN; }
+
+    
+    inline bool GatewayARNHasBeenSet() const { return m_gatewayARNHasBeenSet; }
 
     
     inline void SetGatewayARN(const Aws::String& value) { m_gatewayARNHasBeenSet = true; m_gatewayARN = value; }
@@ -70,6 +73,9 @@ namespace Model
     inline const Aws::String& GetGatewayName() const{ return m_gatewayName; }
 
     
+    inline bool GatewayNameHasBeenSet() const { return m_gatewayNameHasBeenSet; }
+
+    
     inline void SetGatewayName(const Aws::String& value) { m_gatewayNameHasBeenSet = true; m_gatewayName = value; }
 
     
@@ -88,26 +94,118 @@ namespace Model
     inline UpdateGatewayInformationRequest& WithGatewayName(const char* value) { SetGatewayName(value); return *this;}
 
 
-    
+    /**
+     * <p>A value that indicates the time zone of the gateway.</p>
+     */
     inline const Aws::String& GetGatewayTimezone() const{ return m_gatewayTimezone; }
 
-    
+    /**
+     * <p>A value that indicates the time zone of the gateway.</p>
+     */
+    inline bool GatewayTimezoneHasBeenSet() const { return m_gatewayTimezoneHasBeenSet; }
+
+    /**
+     * <p>A value that indicates the time zone of the gateway.</p>
+     */
     inline void SetGatewayTimezone(const Aws::String& value) { m_gatewayTimezoneHasBeenSet = true; m_gatewayTimezone = value; }
 
-    
+    /**
+     * <p>A value that indicates the time zone of the gateway.</p>
+     */
     inline void SetGatewayTimezone(Aws::String&& value) { m_gatewayTimezoneHasBeenSet = true; m_gatewayTimezone = std::move(value); }
 
-    
+    /**
+     * <p>A value that indicates the time zone of the gateway.</p>
+     */
     inline void SetGatewayTimezone(const char* value) { m_gatewayTimezoneHasBeenSet = true; m_gatewayTimezone.assign(value); }
 
-    
+    /**
+     * <p>A value that indicates the time zone of the gateway.</p>
+     */
     inline UpdateGatewayInformationRequest& WithGatewayTimezone(const Aws::String& value) { SetGatewayTimezone(value); return *this;}
 
-    
+    /**
+     * <p>A value that indicates the time zone of the gateway.</p>
+     */
     inline UpdateGatewayInformationRequest& WithGatewayTimezone(Aws::String&& value) { SetGatewayTimezone(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>A value that indicates the time zone of the gateway.</p>
+     */
     inline UpdateGatewayInformationRequest& WithGatewayTimezone(const char* value) { SetGatewayTimezone(value); return *this;}
+
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that you
+     * want to use to monitor and log events in the gateway. </p> <p>For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html">What
+     * Is Amazon CloudWatch Logs?</a>.</p>
+     */
+    inline const Aws::String& GetCloudWatchLogGroupARN() const{ return m_cloudWatchLogGroupARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that you
+     * want to use to monitor and log events in the gateway. </p> <p>For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html">What
+     * Is Amazon CloudWatch Logs?</a>.</p>
+     */
+    inline bool CloudWatchLogGroupARNHasBeenSet() const { return m_cloudWatchLogGroupARNHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that you
+     * want to use to monitor and log events in the gateway. </p> <p>For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html">What
+     * Is Amazon CloudWatch Logs?</a>.</p>
+     */
+    inline void SetCloudWatchLogGroupARN(const Aws::String& value) { m_cloudWatchLogGroupARNHasBeenSet = true; m_cloudWatchLogGroupARN = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that you
+     * want to use to monitor and log events in the gateway. </p> <p>For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html">What
+     * Is Amazon CloudWatch Logs?</a>.</p>
+     */
+    inline void SetCloudWatchLogGroupARN(Aws::String&& value) { m_cloudWatchLogGroupARNHasBeenSet = true; m_cloudWatchLogGroupARN = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that you
+     * want to use to monitor and log events in the gateway. </p> <p>For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html">What
+     * Is Amazon CloudWatch Logs?</a>.</p>
+     */
+    inline void SetCloudWatchLogGroupARN(const char* value) { m_cloudWatchLogGroupARNHasBeenSet = true; m_cloudWatchLogGroupARN.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that you
+     * want to use to monitor and log events in the gateway. </p> <p>For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html">What
+     * Is Amazon CloudWatch Logs?</a>.</p>
+     */
+    inline UpdateGatewayInformationRequest& WithCloudWatchLogGroupARN(const Aws::String& value) { SetCloudWatchLogGroupARN(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that you
+     * want to use to monitor and log events in the gateway. </p> <p>For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html">What
+     * Is Amazon CloudWatch Logs?</a>.</p>
+     */
+    inline UpdateGatewayInformationRequest& WithCloudWatchLogGroupARN(Aws::String&& value) { SetCloudWatchLogGroupARN(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that you
+     * want to use to monitor and log events in the gateway. </p> <p>For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html">What
+     * Is Amazon CloudWatch Logs?</a>.</p>
+     */
+    inline UpdateGatewayInformationRequest& WithCloudWatchLogGroupARN(const char* value) { SetCloudWatchLogGroupARN(value); return *this;}
 
   private:
 
@@ -119,6 +217,9 @@ namespace Model
 
     Aws::String m_gatewayTimezone;
     bool m_gatewayTimezoneHasBeenSet;
+
+    Aws::String m_cloudWatchLogGroupARN;
+    bool m_cloudWatchLogGroupARNHasBeenSet;
   };
 
 } // namespace Model

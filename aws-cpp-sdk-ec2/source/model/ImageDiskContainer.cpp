@@ -60,31 +60,31 @@ ImageDiskContainer& ImageDiskContainer::operator =(const XmlNode& xmlNode)
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode deviceNameNode = resultNode.FirstChild("DeviceName");
     if(!deviceNameNode.IsNull())
     {
-      m_deviceName = StringUtils::Trim(deviceNameNode.GetText().c_str());
+      m_deviceName = Aws::Utils::Xml::DecodeEscapedXmlText(deviceNameNode.GetText());
       m_deviceNameHasBeenSet = true;
     }
     XmlNode formatNode = resultNode.FirstChild("Format");
     if(!formatNode.IsNull())
     {
-      m_format = StringUtils::Trim(formatNode.GetText().c_str());
+      m_format = Aws::Utils::Xml::DecodeEscapedXmlText(formatNode.GetText());
       m_formatHasBeenSet = true;
     }
     XmlNode snapshotIdNode = resultNode.FirstChild("SnapshotId");
     if(!snapshotIdNode.IsNull())
     {
-      m_snapshotId = StringUtils::Trim(snapshotIdNode.GetText().c_str());
+      m_snapshotId = Aws::Utils::Xml::DecodeEscapedXmlText(snapshotIdNode.GetText());
       m_snapshotIdHasBeenSet = true;
     }
     XmlNode urlNode = resultNode.FirstChild("Url");
     if(!urlNode.IsNull())
     {
-      m_url = StringUtils::Trim(urlNode.GetText().c_str());
+      m_url = Aws::Utils::Xml::DecodeEscapedXmlText(urlNode.GetText());
       m_urlHasBeenSet = true;
     }
     XmlNode userBucketNode = resultNode.FirstChild("UserBucket");

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Health
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     EventDetails();
-    EventDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventDetails(Aws::Utils::Json::JsonView jsonValue);
+    EventDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Summary information about the event.</p>
      */
     inline const Event& GetEvent() const{ return m_event; }
+
+    /**
+     * <p>Summary information about the event.</p>
+     */
+    inline bool EventHasBeenSet() const { return m_eventHasBeenSet; }
 
     /**
      * <p>Summary information about the event.</p>
@@ -81,6 +87,11 @@ namespace Model
      * <p>The most recent description of the event.</p>
      */
     inline const Aws::String& GetEventDescription() const{ return m_eventDescription; }
+
+    /**
+     * <p>The most recent description of the event.</p>
+     */
+    inline bool EventDescriptionHasBeenSet() const { return m_eventDescriptionHasBeenSet; }
 
     /**
      * <p>The most recent description of the event.</p>
@@ -117,6 +128,11 @@ namespace Model
      * <p>Additional metadata about the event.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetEventMetadata() const{ return m_eventMetadata; }
+
+    /**
+     * <p>Additional metadata about the event.</p>
+     */
+    inline bool EventMetadataHasBeenSet() const { return m_eventMetadataHasBeenSet; }
 
     /**
      * <p>Additional metadata about the event.</p>

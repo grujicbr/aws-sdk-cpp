@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     TerminateJobRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,6 +46,11 @@ namespace Model
      * <p>The AWS Batch job ID of the job to terminate.</p>
      */
     inline const Aws::String& GetJobId() const{ return m_jobId; }
+
+    /**
+     * <p>The AWS Batch job ID of the job to terminate.</p>
+     */
+    inline bool JobIdHasBeenSet() const { return m_jobIdHasBeenSet; }
 
     /**
      * <p>The AWS Batch job ID of the job to terminate.</p>
@@ -81,49 +86,56 @@ namespace Model
     /**
      * <p>A message to attach to the job that explains the reason for canceling it.
      * This message is returned by future <a>DescribeJobs</a> operations on the job.
-     * This message is also recorded in the AWS Batch activity logs. </p>
+     * This message is also recorded in the AWS Batch activity logs.</p>
      */
     inline const Aws::String& GetReason() const{ return m_reason; }
 
     /**
      * <p>A message to attach to the job that explains the reason for canceling it.
      * This message is returned by future <a>DescribeJobs</a> operations on the job.
-     * This message is also recorded in the AWS Batch activity logs. </p>
+     * This message is also recorded in the AWS Batch activity logs.</p>
+     */
+    inline bool ReasonHasBeenSet() const { return m_reasonHasBeenSet; }
+
+    /**
+     * <p>A message to attach to the job that explains the reason for canceling it.
+     * This message is returned by future <a>DescribeJobs</a> operations on the job.
+     * This message is also recorded in the AWS Batch activity logs.</p>
      */
     inline void SetReason(const Aws::String& value) { m_reasonHasBeenSet = true; m_reason = value; }
 
     /**
      * <p>A message to attach to the job that explains the reason for canceling it.
      * This message is returned by future <a>DescribeJobs</a> operations on the job.
-     * This message is also recorded in the AWS Batch activity logs. </p>
+     * This message is also recorded in the AWS Batch activity logs.</p>
      */
     inline void SetReason(Aws::String&& value) { m_reasonHasBeenSet = true; m_reason = std::move(value); }
 
     /**
      * <p>A message to attach to the job that explains the reason for canceling it.
      * This message is returned by future <a>DescribeJobs</a> operations on the job.
-     * This message is also recorded in the AWS Batch activity logs. </p>
+     * This message is also recorded in the AWS Batch activity logs.</p>
      */
     inline void SetReason(const char* value) { m_reasonHasBeenSet = true; m_reason.assign(value); }
 
     /**
      * <p>A message to attach to the job that explains the reason for canceling it.
      * This message is returned by future <a>DescribeJobs</a> operations on the job.
-     * This message is also recorded in the AWS Batch activity logs. </p>
+     * This message is also recorded in the AWS Batch activity logs.</p>
      */
     inline TerminateJobRequest& WithReason(const Aws::String& value) { SetReason(value); return *this;}
 
     /**
      * <p>A message to attach to the job that explains the reason for canceling it.
      * This message is returned by future <a>DescribeJobs</a> operations on the job.
-     * This message is also recorded in the AWS Batch activity logs. </p>
+     * This message is also recorded in the AWS Batch activity logs.</p>
      */
     inline TerminateJobRequest& WithReason(Aws::String&& value) { SetReason(std::move(value)); return *this;}
 
     /**
      * <p>A message to attach to the job that explains the reason for canceling it.
      * This message is returned by future <a>DescribeJobs</a> operations on the job.
-     * This message is also recorded in the AWS Batch activity logs. </p>
+     * This message is also recorded in the AWS Batch activity logs.</p>
      */
     inline TerminateJobRequest& WithReason(const char* value) { SetReason(value); return *this;}
 

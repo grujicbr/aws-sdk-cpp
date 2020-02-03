@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     RadiusSettings();
-    RadiusSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    RadiusSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RadiusSettings(Aws::Utils::Json::JsonView jsonValue);
+    RadiusSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * endpoints, or the IP addresses of your RADIUS server load balancer.</p>
      */
     inline const Aws::Vector<Aws::String>& GetRadiusServers() const{ return m_radiusServers; }
+
+    /**
+     * <p>An array of strings that contains the IP addresses of the RADIUS server
+     * endpoints, or the IP addresses of your RADIUS server load balancer.</p>
+     */
+    inline bool RadiusServersHasBeenSet() const { return m_radiusServersHasBeenSet; }
 
     /**
      * <p>An array of strings that contains the IP addresses of the RADIUS server
@@ -110,6 +117,13 @@ namespace Model
      * on-premises network must allow inbound traffic over this port from the AWS
      * Directory Service servers.</p>
      */
+    inline bool RadiusPortHasBeenSet() const { return m_radiusPortHasBeenSet; }
+
+    /**
+     * <p>The port that your RADIUS server is using for communications. Your
+     * on-premises network must allow inbound traffic over this port from the AWS
+     * Directory Service servers.</p>
+     */
     inline void SetRadiusPort(int value) { m_radiusPortHasBeenSet = true; m_radiusPort = value; }
 
     /**
@@ -124,6 +138,11 @@ namespace Model
      * <p>The amount of time, in seconds, to wait for the RADIUS server to respond.</p>
      */
     inline int GetRadiusTimeout() const{ return m_radiusTimeout; }
+
+    /**
+     * <p>The amount of time, in seconds, to wait for the RADIUS server to respond.</p>
+     */
+    inline bool RadiusTimeoutHasBeenSet() const { return m_radiusTimeoutHasBeenSet; }
 
     /**
      * <p>The amount of time, in seconds, to wait for the RADIUS server to respond.</p>
@@ -146,6 +165,12 @@ namespace Model
      * <p>The maximum number of times that communication with the RADIUS server is
      * attempted.</p>
      */
+    inline bool RadiusRetriesHasBeenSet() const { return m_radiusRetriesHasBeenSet; }
+
+    /**
+     * <p>The maximum number of times that communication with the RADIUS server is
+     * attempted.</p>
+     */
     inline void SetRadiusRetries(int value) { m_radiusRetriesHasBeenSet = true; m_radiusRetries = value; }
 
     /**
@@ -156,37 +181,42 @@ namespace Model
 
 
     /**
-     * <p>Not currently used.</p>
+     * <p>Required for enabling RADIUS on the directory.</p>
      */
     inline const Aws::String& GetSharedSecret() const{ return m_sharedSecret; }
 
     /**
-     * <p>Not currently used.</p>
+     * <p>Required for enabling RADIUS on the directory.</p>
+     */
+    inline bool SharedSecretHasBeenSet() const { return m_sharedSecretHasBeenSet; }
+
+    /**
+     * <p>Required for enabling RADIUS on the directory.</p>
      */
     inline void SetSharedSecret(const Aws::String& value) { m_sharedSecretHasBeenSet = true; m_sharedSecret = value; }
 
     /**
-     * <p>Not currently used.</p>
+     * <p>Required for enabling RADIUS on the directory.</p>
      */
     inline void SetSharedSecret(Aws::String&& value) { m_sharedSecretHasBeenSet = true; m_sharedSecret = std::move(value); }
 
     /**
-     * <p>Not currently used.</p>
+     * <p>Required for enabling RADIUS on the directory.</p>
      */
     inline void SetSharedSecret(const char* value) { m_sharedSecretHasBeenSet = true; m_sharedSecret.assign(value); }
 
     /**
-     * <p>Not currently used.</p>
+     * <p>Required for enabling RADIUS on the directory.</p>
      */
     inline RadiusSettings& WithSharedSecret(const Aws::String& value) { SetSharedSecret(value); return *this;}
 
     /**
-     * <p>Not currently used.</p>
+     * <p>Required for enabling RADIUS on the directory.</p>
      */
     inline RadiusSettings& WithSharedSecret(Aws::String&& value) { SetSharedSecret(std::move(value)); return *this;}
 
     /**
-     * <p>Not currently used.</p>
+     * <p>Required for enabling RADIUS on the directory.</p>
      */
     inline RadiusSettings& WithSharedSecret(const char* value) { SetSharedSecret(value); return *this;}
 
@@ -195,6 +225,11 @@ namespace Model
      * <p>The protocol specified for your RADIUS endpoints.</p>
      */
     inline const RadiusAuthenticationProtocol& GetAuthenticationProtocol() const{ return m_authenticationProtocol; }
+
+    /**
+     * <p>The protocol specified for your RADIUS endpoints.</p>
+     */
+    inline bool AuthenticationProtocolHasBeenSet() const { return m_authenticationProtocolHasBeenSet; }
 
     /**
      * <p>The protocol specified for your RADIUS endpoints.</p>
@@ -221,6 +256,11 @@ namespace Model
      * <p>Not currently used.</p>
      */
     inline const Aws::String& GetDisplayLabel() const{ return m_displayLabel; }
+
+    /**
+     * <p>Not currently used.</p>
+     */
+    inline bool DisplayLabelHasBeenSet() const { return m_displayLabelHasBeenSet; }
 
     /**
      * <p>Not currently used.</p>
@@ -257,6 +297,11 @@ namespace Model
      * <p>Not currently used.</p>
      */
     inline bool GetUseSameUsername() const{ return m_useSameUsername; }
+
+    /**
+     * <p>Not currently used.</p>
+     */
+    inline bool UseSameUsernameHasBeenSet() const { return m_useSameUsernameHasBeenSet; }
 
     /**
      * <p>Not currently used.</p>

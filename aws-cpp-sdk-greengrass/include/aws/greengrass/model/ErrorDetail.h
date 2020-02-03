@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ErrorDetail();
-    ErrorDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ErrorDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ErrorDetail(Aws::Utils::Json::JsonView jsonValue);
+    ErrorDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * A detailed error code.
      */
     inline const Aws::String& GetDetailedErrorCode() const{ return m_detailedErrorCode; }
+
+    /**
+     * A detailed error code.
+     */
+    inline bool DetailedErrorCodeHasBeenSet() const { return m_detailedErrorCodeHasBeenSet; }
 
     /**
      * A detailed error code.
@@ -86,6 +92,11 @@ namespace Model
      * A detailed error message.
      */
     inline const Aws::String& GetDetailedErrorMessage() const{ return m_detailedErrorMessage; }
+
+    /**
+     * A detailed error message.
+     */
+    inline bool DetailedErrorMessageHasBeenSet() const { return m_detailedErrorMessageHasBeenSet; }
 
     /**
      * A detailed error message.

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     SizeConstraintSetUpdate();
-    SizeConstraintSetUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    SizeConstraintSetUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SizeConstraintSetUpdate(Aws::Utils::Json::JsonView jsonValue);
+    SizeConstraintSetUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,13 @@ namespace Model
      * <code>SizeConstraintSetUpdate</code> from a <code>SizeConstraintSet</code>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specify <code>INSERT</code> to add a <a>SizeConstraintSetUpdate</a> to a
+     * <a>SizeConstraintSet</a>. Use <code>DELETE</code> to remove a
+     * <code>SizeConstraintSetUpdate</code> from a <code>SizeConstraintSet</code>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specify <code>INSERT</code> to add a <a>SizeConstraintSetUpdate</a> to a
@@ -95,6 +103,16 @@ namespace Model
      * <code>SizeConstraint</code> is considered to match.</p>
      */
     inline const SizeConstraint& GetSizeConstraint() const{ return m_sizeConstraint; }
+
+    /**
+     * <p>Specifies a constraint on the size of a part of the web request. AWS WAF uses
+     * the <code>Size</code>, <code>ComparisonOperator</code>, and
+     * <code>FieldToMatch</code> to build an expression in the form of
+     * "<code>Size</code> <code>ComparisonOperator</code> size in bytes of
+     * <code>FieldToMatch</code>". If that expression is true, the
+     * <code>SizeConstraint</code> is considered to match.</p>
+     */
+    inline bool SizeConstraintHasBeenSet() const { return m_sizeConstraintHasBeenSet; }
 
     /**
      * <p>Specifies a constraint on the size of a part of the web request. AWS WAF uses

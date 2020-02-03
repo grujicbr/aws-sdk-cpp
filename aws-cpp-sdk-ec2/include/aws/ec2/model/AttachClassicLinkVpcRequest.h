@@ -28,16 +28,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for AttachClassicLinkVpc.</p><p><h3>See Also:</h3>  
-   * <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AttachClassicLinkVpcRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API AttachClassicLinkVpcRequest : public EC2Request
   {
   public:
     AttachClassicLinkVpcRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -65,6 +61,14 @@ namespace Model
      * required permissions, the error response is <code>DryRunOperation</code>.
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
     inline void SetDryRun(bool value) { m_dryRunHasBeenSet = true; m_dryRun = value; }
 
     /**
@@ -81,6 +85,12 @@ namespace Model
      * security groups from a different VPC.</p>
      */
     inline const Aws::Vector<Aws::String>& GetGroups() const{ return m_groups; }
+
+    /**
+     * <p>The ID of one or more of the VPC's security groups. You cannot specify
+     * security groups from a different VPC.</p>
+     */
+    inline bool GroupsHasBeenSet() const { return m_groupsHasBeenSet; }
 
     /**
      * <p>The ID of one or more of the VPC's security groups. You cannot specify
@@ -133,6 +143,11 @@ namespace Model
     /**
      * <p>The ID of an EC2-Classic instance to link to the ClassicLink-enabled VPC.</p>
      */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
+
+    /**
+     * <p>The ID of an EC2-Classic instance to link to the ClassicLink-enabled VPC.</p>
+     */
     inline void SetInstanceId(const Aws::String& value) { m_instanceIdHasBeenSet = true; m_instanceId = value; }
 
     /**
@@ -165,6 +180,11 @@ namespace Model
      * <p>The ID of a ClassicLink-enabled VPC.</p>
      */
     inline const Aws::String& GetVpcId() const{ return m_vpcId; }
+
+    /**
+     * <p>The ID of a ClassicLink-enabled VPC.</p>
+     */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
 
     /**
      * <p>The ID of a ClassicLink-enabled VPC.</p>

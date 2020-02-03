@@ -23,11 +23,13 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/ssm/model/AddTagsToResourceResult.h>
 #include <aws/ssm/model/CancelCommandResult.h>
+#include <aws/ssm/model/CancelMaintenanceWindowExecutionResult.h>
 #include <aws/ssm/model/CreateActivationResult.h>
 #include <aws/ssm/model/CreateAssociationResult.h>
 #include <aws/ssm/model/CreateAssociationBatchResult.h>
 #include <aws/ssm/model/CreateDocumentResult.h>
 #include <aws/ssm/model/CreateMaintenanceWindowResult.h>
+#include <aws/ssm/model/CreateOpsItemResult.h>
 #include <aws/ssm/model/CreatePatchBaselineResult.h>
 #include <aws/ssm/model/CreateResourceDataSyncResult.h>
 #include <aws/ssm/model/DeleteActivationResult.h>
@@ -63,15 +65,22 @@
 #include <aws/ssm/model/DescribeMaintenanceWindowExecutionTaskInvocationsResult.h>
 #include <aws/ssm/model/DescribeMaintenanceWindowExecutionTasksResult.h>
 #include <aws/ssm/model/DescribeMaintenanceWindowExecutionsResult.h>
+#include <aws/ssm/model/DescribeMaintenanceWindowScheduleResult.h>
 #include <aws/ssm/model/DescribeMaintenanceWindowTargetsResult.h>
 #include <aws/ssm/model/DescribeMaintenanceWindowTasksResult.h>
 #include <aws/ssm/model/DescribeMaintenanceWindowsResult.h>
+#include <aws/ssm/model/DescribeMaintenanceWindowsForTargetResult.h>
+#include <aws/ssm/model/DescribeOpsItemsResult.h>
 #include <aws/ssm/model/DescribeParametersResult.h>
 #include <aws/ssm/model/DescribePatchBaselinesResult.h>
 #include <aws/ssm/model/DescribePatchGroupStateResult.h>
 #include <aws/ssm/model/DescribePatchGroupsResult.h>
+#include <aws/ssm/model/DescribePatchPropertiesResult.h>
+#include <aws/ssm/model/DescribeSessionsResult.h>
 #include <aws/ssm/model/GetAutomationExecutionResult.h>
+#include <aws/ssm/model/GetCalendarStateResult.h>
 #include <aws/ssm/model/GetCommandInvocationResult.h>
+#include <aws/ssm/model/GetConnectionStatusResult.h>
 #include <aws/ssm/model/GetDefaultPatchBaselineResult.h>
 #include <aws/ssm/model/GetDeployablePatchSnapshotForInstanceResult.h>
 #include <aws/ssm/model/GetDocumentResult.h>
@@ -82,12 +91,16 @@
 #include <aws/ssm/model/GetMaintenanceWindowExecutionTaskResult.h>
 #include <aws/ssm/model/GetMaintenanceWindowExecutionTaskInvocationResult.h>
 #include <aws/ssm/model/GetMaintenanceWindowTaskResult.h>
+#include <aws/ssm/model/GetOpsItemResult.h>
+#include <aws/ssm/model/GetOpsSummaryResult.h>
 #include <aws/ssm/model/GetParameterResult.h>
 #include <aws/ssm/model/GetParameterHistoryResult.h>
 #include <aws/ssm/model/GetParametersResult.h>
 #include <aws/ssm/model/GetParametersByPathResult.h>
 #include <aws/ssm/model/GetPatchBaselineResult.h>
 #include <aws/ssm/model/GetPatchBaselineForPatchGroupResult.h>
+#include <aws/ssm/model/GetServiceSettingResult.h>
+#include <aws/ssm/model/LabelParameterVersionResult.h>
 #include <aws/ssm/model/ListAssociationVersionsResult.h>
 #include <aws/ssm/model/ListAssociationsResult.h>
 #include <aws/ssm/model/ListCommandInvocationsResult.h>
@@ -109,11 +122,15 @@
 #include <aws/ssm/model/RegisterTargetWithMaintenanceWindowResult.h>
 #include <aws/ssm/model/RegisterTaskWithMaintenanceWindowResult.h>
 #include <aws/ssm/model/RemoveTagsFromResourceResult.h>
+#include <aws/ssm/model/ResetServiceSettingResult.h>
+#include <aws/ssm/model/ResumeSessionResult.h>
 #include <aws/ssm/model/SendAutomationSignalResult.h>
 #include <aws/ssm/model/SendCommandResult.h>
 #include <aws/ssm/model/StartAssociationsOnceResult.h>
 #include <aws/ssm/model/StartAutomationExecutionResult.h>
+#include <aws/ssm/model/StartSessionResult.h>
 #include <aws/ssm/model/StopAutomationExecutionResult.h>
+#include <aws/ssm/model/TerminateSessionResult.h>
 #include <aws/ssm/model/UpdateAssociationResult.h>
 #include <aws/ssm/model/UpdateAssociationStatusResult.h>
 #include <aws/ssm/model/UpdateDocumentResult.h>
@@ -122,7 +139,10 @@
 #include <aws/ssm/model/UpdateMaintenanceWindowTargetResult.h>
 #include <aws/ssm/model/UpdateMaintenanceWindowTaskResult.h>
 #include <aws/ssm/model/UpdateManagedInstanceRoleResult.h>
+#include <aws/ssm/model/UpdateOpsItemResult.h>
 #include <aws/ssm/model/UpdatePatchBaselineResult.h>
+#include <aws/ssm/model/UpdateResourceDataSyncResult.h>
+#include <aws/ssm/model/UpdateServiceSettingResult.h>
 #include <aws/core/client/AsyncCallerContext.h>
 #include <aws/core/http/HttpTypes.h>
 #include <future>
@@ -140,16 +160,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -170,11 +184,13 @@ namespace Model
 {
         class AddTagsToResourceRequest;
         class CancelCommandRequest;
+        class CancelMaintenanceWindowExecutionRequest;
         class CreateActivationRequest;
         class CreateAssociationRequest;
         class CreateAssociationBatchRequest;
         class CreateDocumentRequest;
         class CreateMaintenanceWindowRequest;
+        class CreateOpsItemRequest;
         class CreatePatchBaselineRequest;
         class CreateResourceDataSyncRequest;
         class DeleteActivationRequest;
@@ -210,15 +226,22 @@ namespace Model
         class DescribeMaintenanceWindowExecutionTaskInvocationsRequest;
         class DescribeMaintenanceWindowExecutionTasksRequest;
         class DescribeMaintenanceWindowExecutionsRequest;
+        class DescribeMaintenanceWindowScheduleRequest;
         class DescribeMaintenanceWindowTargetsRequest;
         class DescribeMaintenanceWindowTasksRequest;
         class DescribeMaintenanceWindowsRequest;
+        class DescribeMaintenanceWindowsForTargetRequest;
+        class DescribeOpsItemsRequest;
         class DescribeParametersRequest;
         class DescribePatchBaselinesRequest;
         class DescribePatchGroupStateRequest;
         class DescribePatchGroupsRequest;
+        class DescribePatchPropertiesRequest;
+        class DescribeSessionsRequest;
         class GetAutomationExecutionRequest;
+        class GetCalendarStateRequest;
         class GetCommandInvocationRequest;
+        class GetConnectionStatusRequest;
         class GetDefaultPatchBaselineRequest;
         class GetDeployablePatchSnapshotForInstanceRequest;
         class GetDocumentRequest;
@@ -229,12 +252,16 @@ namespace Model
         class GetMaintenanceWindowExecutionTaskRequest;
         class GetMaintenanceWindowExecutionTaskInvocationRequest;
         class GetMaintenanceWindowTaskRequest;
+        class GetOpsItemRequest;
+        class GetOpsSummaryRequest;
         class GetParameterRequest;
         class GetParameterHistoryRequest;
         class GetParametersRequest;
         class GetParametersByPathRequest;
         class GetPatchBaselineRequest;
         class GetPatchBaselineForPatchGroupRequest;
+        class GetServiceSettingRequest;
+        class LabelParameterVersionRequest;
         class ListAssociationVersionsRequest;
         class ListAssociationsRequest;
         class ListCommandInvocationsRequest;
@@ -256,11 +283,15 @@ namespace Model
         class RegisterTargetWithMaintenanceWindowRequest;
         class RegisterTaskWithMaintenanceWindowRequest;
         class RemoveTagsFromResourceRequest;
+        class ResetServiceSettingRequest;
+        class ResumeSessionRequest;
         class SendAutomationSignalRequest;
         class SendCommandRequest;
         class StartAssociationsOnceRequest;
         class StartAutomationExecutionRequest;
+        class StartSessionRequest;
         class StopAutomationExecutionRequest;
+        class TerminateSessionRequest;
         class UpdateAssociationRequest;
         class UpdateAssociationStatusRequest;
         class UpdateDocumentRequest;
@@ -269,15 +300,20 @@ namespace Model
         class UpdateMaintenanceWindowTargetRequest;
         class UpdateMaintenanceWindowTaskRequest;
         class UpdateManagedInstanceRoleRequest;
+        class UpdateOpsItemRequest;
         class UpdatePatchBaselineRequest;
+        class UpdateResourceDataSyncRequest;
+        class UpdateServiceSettingRequest;
 
         typedef Aws::Utils::Outcome<AddTagsToResourceResult, Aws::Client::AWSError<SSMErrors>> AddTagsToResourceOutcome;
         typedef Aws::Utils::Outcome<CancelCommandResult, Aws::Client::AWSError<SSMErrors>> CancelCommandOutcome;
+        typedef Aws::Utils::Outcome<CancelMaintenanceWindowExecutionResult, Aws::Client::AWSError<SSMErrors>> CancelMaintenanceWindowExecutionOutcome;
         typedef Aws::Utils::Outcome<CreateActivationResult, Aws::Client::AWSError<SSMErrors>> CreateActivationOutcome;
         typedef Aws::Utils::Outcome<CreateAssociationResult, Aws::Client::AWSError<SSMErrors>> CreateAssociationOutcome;
         typedef Aws::Utils::Outcome<CreateAssociationBatchResult, Aws::Client::AWSError<SSMErrors>> CreateAssociationBatchOutcome;
         typedef Aws::Utils::Outcome<CreateDocumentResult, Aws::Client::AWSError<SSMErrors>> CreateDocumentOutcome;
         typedef Aws::Utils::Outcome<CreateMaintenanceWindowResult, Aws::Client::AWSError<SSMErrors>> CreateMaintenanceWindowOutcome;
+        typedef Aws::Utils::Outcome<CreateOpsItemResult, Aws::Client::AWSError<SSMErrors>> CreateOpsItemOutcome;
         typedef Aws::Utils::Outcome<CreatePatchBaselineResult, Aws::Client::AWSError<SSMErrors>> CreatePatchBaselineOutcome;
         typedef Aws::Utils::Outcome<CreateResourceDataSyncResult, Aws::Client::AWSError<SSMErrors>> CreateResourceDataSyncOutcome;
         typedef Aws::Utils::Outcome<DeleteActivationResult, Aws::Client::AWSError<SSMErrors>> DeleteActivationOutcome;
@@ -313,15 +349,22 @@ namespace Model
         typedef Aws::Utils::Outcome<DescribeMaintenanceWindowExecutionTaskInvocationsResult, Aws::Client::AWSError<SSMErrors>> DescribeMaintenanceWindowExecutionTaskInvocationsOutcome;
         typedef Aws::Utils::Outcome<DescribeMaintenanceWindowExecutionTasksResult, Aws::Client::AWSError<SSMErrors>> DescribeMaintenanceWindowExecutionTasksOutcome;
         typedef Aws::Utils::Outcome<DescribeMaintenanceWindowExecutionsResult, Aws::Client::AWSError<SSMErrors>> DescribeMaintenanceWindowExecutionsOutcome;
+        typedef Aws::Utils::Outcome<DescribeMaintenanceWindowScheduleResult, Aws::Client::AWSError<SSMErrors>> DescribeMaintenanceWindowScheduleOutcome;
         typedef Aws::Utils::Outcome<DescribeMaintenanceWindowTargetsResult, Aws::Client::AWSError<SSMErrors>> DescribeMaintenanceWindowTargetsOutcome;
         typedef Aws::Utils::Outcome<DescribeMaintenanceWindowTasksResult, Aws::Client::AWSError<SSMErrors>> DescribeMaintenanceWindowTasksOutcome;
         typedef Aws::Utils::Outcome<DescribeMaintenanceWindowsResult, Aws::Client::AWSError<SSMErrors>> DescribeMaintenanceWindowsOutcome;
+        typedef Aws::Utils::Outcome<DescribeMaintenanceWindowsForTargetResult, Aws::Client::AWSError<SSMErrors>> DescribeMaintenanceWindowsForTargetOutcome;
+        typedef Aws::Utils::Outcome<DescribeOpsItemsResult, Aws::Client::AWSError<SSMErrors>> DescribeOpsItemsOutcome;
         typedef Aws::Utils::Outcome<DescribeParametersResult, Aws::Client::AWSError<SSMErrors>> DescribeParametersOutcome;
         typedef Aws::Utils::Outcome<DescribePatchBaselinesResult, Aws::Client::AWSError<SSMErrors>> DescribePatchBaselinesOutcome;
         typedef Aws::Utils::Outcome<DescribePatchGroupStateResult, Aws::Client::AWSError<SSMErrors>> DescribePatchGroupStateOutcome;
         typedef Aws::Utils::Outcome<DescribePatchGroupsResult, Aws::Client::AWSError<SSMErrors>> DescribePatchGroupsOutcome;
+        typedef Aws::Utils::Outcome<DescribePatchPropertiesResult, Aws::Client::AWSError<SSMErrors>> DescribePatchPropertiesOutcome;
+        typedef Aws::Utils::Outcome<DescribeSessionsResult, Aws::Client::AWSError<SSMErrors>> DescribeSessionsOutcome;
         typedef Aws::Utils::Outcome<GetAutomationExecutionResult, Aws::Client::AWSError<SSMErrors>> GetAutomationExecutionOutcome;
+        typedef Aws::Utils::Outcome<GetCalendarStateResult, Aws::Client::AWSError<SSMErrors>> GetCalendarStateOutcome;
         typedef Aws::Utils::Outcome<GetCommandInvocationResult, Aws::Client::AWSError<SSMErrors>> GetCommandInvocationOutcome;
+        typedef Aws::Utils::Outcome<GetConnectionStatusResult, Aws::Client::AWSError<SSMErrors>> GetConnectionStatusOutcome;
         typedef Aws::Utils::Outcome<GetDefaultPatchBaselineResult, Aws::Client::AWSError<SSMErrors>> GetDefaultPatchBaselineOutcome;
         typedef Aws::Utils::Outcome<GetDeployablePatchSnapshotForInstanceResult, Aws::Client::AWSError<SSMErrors>> GetDeployablePatchSnapshotForInstanceOutcome;
         typedef Aws::Utils::Outcome<GetDocumentResult, Aws::Client::AWSError<SSMErrors>> GetDocumentOutcome;
@@ -332,12 +375,16 @@ namespace Model
         typedef Aws::Utils::Outcome<GetMaintenanceWindowExecutionTaskResult, Aws::Client::AWSError<SSMErrors>> GetMaintenanceWindowExecutionTaskOutcome;
         typedef Aws::Utils::Outcome<GetMaintenanceWindowExecutionTaskInvocationResult, Aws::Client::AWSError<SSMErrors>> GetMaintenanceWindowExecutionTaskInvocationOutcome;
         typedef Aws::Utils::Outcome<GetMaintenanceWindowTaskResult, Aws::Client::AWSError<SSMErrors>> GetMaintenanceWindowTaskOutcome;
+        typedef Aws::Utils::Outcome<GetOpsItemResult, Aws::Client::AWSError<SSMErrors>> GetOpsItemOutcome;
+        typedef Aws::Utils::Outcome<GetOpsSummaryResult, Aws::Client::AWSError<SSMErrors>> GetOpsSummaryOutcome;
         typedef Aws::Utils::Outcome<GetParameterResult, Aws::Client::AWSError<SSMErrors>> GetParameterOutcome;
         typedef Aws::Utils::Outcome<GetParameterHistoryResult, Aws::Client::AWSError<SSMErrors>> GetParameterHistoryOutcome;
         typedef Aws::Utils::Outcome<GetParametersResult, Aws::Client::AWSError<SSMErrors>> GetParametersOutcome;
         typedef Aws::Utils::Outcome<GetParametersByPathResult, Aws::Client::AWSError<SSMErrors>> GetParametersByPathOutcome;
         typedef Aws::Utils::Outcome<GetPatchBaselineResult, Aws::Client::AWSError<SSMErrors>> GetPatchBaselineOutcome;
         typedef Aws::Utils::Outcome<GetPatchBaselineForPatchGroupResult, Aws::Client::AWSError<SSMErrors>> GetPatchBaselineForPatchGroupOutcome;
+        typedef Aws::Utils::Outcome<GetServiceSettingResult, Aws::Client::AWSError<SSMErrors>> GetServiceSettingOutcome;
+        typedef Aws::Utils::Outcome<LabelParameterVersionResult, Aws::Client::AWSError<SSMErrors>> LabelParameterVersionOutcome;
         typedef Aws::Utils::Outcome<ListAssociationVersionsResult, Aws::Client::AWSError<SSMErrors>> ListAssociationVersionsOutcome;
         typedef Aws::Utils::Outcome<ListAssociationsResult, Aws::Client::AWSError<SSMErrors>> ListAssociationsOutcome;
         typedef Aws::Utils::Outcome<ListCommandInvocationsResult, Aws::Client::AWSError<SSMErrors>> ListCommandInvocationsOutcome;
@@ -359,11 +406,15 @@ namespace Model
         typedef Aws::Utils::Outcome<RegisterTargetWithMaintenanceWindowResult, Aws::Client::AWSError<SSMErrors>> RegisterTargetWithMaintenanceWindowOutcome;
         typedef Aws::Utils::Outcome<RegisterTaskWithMaintenanceWindowResult, Aws::Client::AWSError<SSMErrors>> RegisterTaskWithMaintenanceWindowOutcome;
         typedef Aws::Utils::Outcome<RemoveTagsFromResourceResult, Aws::Client::AWSError<SSMErrors>> RemoveTagsFromResourceOutcome;
+        typedef Aws::Utils::Outcome<ResetServiceSettingResult, Aws::Client::AWSError<SSMErrors>> ResetServiceSettingOutcome;
+        typedef Aws::Utils::Outcome<ResumeSessionResult, Aws::Client::AWSError<SSMErrors>> ResumeSessionOutcome;
         typedef Aws::Utils::Outcome<SendAutomationSignalResult, Aws::Client::AWSError<SSMErrors>> SendAutomationSignalOutcome;
         typedef Aws::Utils::Outcome<SendCommandResult, Aws::Client::AWSError<SSMErrors>> SendCommandOutcome;
         typedef Aws::Utils::Outcome<StartAssociationsOnceResult, Aws::Client::AWSError<SSMErrors>> StartAssociationsOnceOutcome;
         typedef Aws::Utils::Outcome<StartAutomationExecutionResult, Aws::Client::AWSError<SSMErrors>> StartAutomationExecutionOutcome;
+        typedef Aws::Utils::Outcome<StartSessionResult, Aws::Client::AWSError<SSMErrors>> StartSessionOutcome;
         typedef Aws::Utils::Outcome<StopAutomationExecutionResult, Aws::Client::AWSError<SSMErrors>> StopAutomationExecutionOutcome;
+        typedef Aws::Utils::Outcome<TerminateSessionResult, Aws::Client::AWSError<SSMErrors>> TerminateSessionOutcome;
         typedef Aws::Utils::Outcome<UpdateAssociationResult, Aws::Client::AWSError<SSMErrors>> UpdateAssociationOutcome;
         typedef Aws::Utils::Outcome<UpdateAssociationStatusResult, Aws::Client::AWSError<SSMErrors>> UpdateAssociationStatusOutcome;
         typedef Aws::Utils::Outcome<UpdateDocumentResult, Aws::Client::AWSError<SSMErrors>> UpdateDocumentOutcome;
@@ -372,15 +423,20 @@ namespace Model
         typedef Aws::Utils::Outcome<UpdateMaintenanceWindowTargetResult, Aws::Client::AWSError<SSMErrors>> UpdateMaintenanceWindowTargetOutcome;
         typedef Aws::Utils::Outcome<UpdateMaintenanceWindowTaskResult, Aws::Client::AWSError<SSMErrors>> UpdateMaintenanceWindowTaskOutcome;
         typedef Aws::Utils::Outcome<UpdateManagedInstanceRoleResult, Aws::Client::AWSError<SSMErrors>> UpdateManagedInstanceRoleOutcome;
+        typedef Aws::Utils::Outcome<UpdateOpsItemResult, Aws::Client::AWSError<SSMErrors>> UpdateOpsItemOutcome;
         typedef Aws::Utils::Outcome<UpdatePatchBaselineResult, Aws::Client::AWSError<SSMErrors>> UpdatePatchBaselineOutcome;
+        typedef Aws::Utils::Outcome<UpdateResourceDataSyncResult, Aws::Client::AWSError<SSMErrors>> UpdateResourceDataSyncOutcome;
+        typedef Aws::Utils::Outcome<UpdateServiceSettingResult, Aws::Client::AWSError<SSMErrors>> UpdateServiceSettingOutcome;
 
         typedef std::future<AddTagsToResourceOutcome> AddTagsToResourceOutcomeCallable;
         typedef std::future<CancelCommandOutcome> CancelCommandOutcomeCallable;
+        typedef std::future<CancelMaintenanceWindowExecutionOutcome> CancelMaintenanceWindowExecutionOutcomeCallable;
         typedef std::future<CreateActivationOutcome> CreateActivationOutcomeCallable;
         typedef std::future<CreateAssociationOutcome> CreateAssociationOutcomeCallable;
         typedef std::future<CreateAssociationBatchOutcome> CreateAssociationBatchOutcomeCallable;
         typedef std::future<CreateDocumentOutcome> CreateDocumentOutcomeCallable;
         typedef std::future<CreateMaintenanceWindowOutcome> CreateMaintenanceWindowOutcomeCallable;
+        typedef std::future<CreateOpsItemOutcome> CreateOpsItemOutcomeCallable;
         typedef std::future<CreatePatchBaselineOutcome> CreatePatchBaselineOutcomeCallable;
         typedef std::future<CreateResourceDataSyncOutcome> CreateResourceDataSyncOutcomeCallable;
         typedef std::future<DeleteActivationOutcome> DeleteActivationOutcomeCallable;
@@ -416,15 +472,22 @@ namespace Model
         typedef std::future<DescribeMaintenanceWindowExecutionTaskInvocationsOutcome> DescribeMaintenanceWindowExecutionTaskInvocationsOutcomeCallable;
         typedef std::future<DescribeMaintenanceWindowExecutionTasksOutcome> DescribeMaintenanceWindowExecutionTasksOutcomeCallable;
         typedef std::future<DescribeMaintenanceWindowExecutionsOutcome> DescribeMaintenanceWindowExecutionsOutcomeCallable;
+        typedef std::future<DescribeMaintenanceWindowScheduleOutcome> DescribeMaintenanceWindowScheduleOutcomeCallable;
         typedef std::future<DescribeMaintenanceWindowTargetsOutcome> DescribeMaintenanceWindowTargetsOutcomeCallable;
         typedef std::future<DescribeMaintenanceWindowTasksOutcome> DescribeMaintenanceWindowTasksOutcomeCallable;
         typedef std::future<DescribeMaintenanceWindowsOutcome> DescribeMaintenanceWindowsOutcomeCallable;
+        typedef std::future<DescribeMaintenanceWindowsForTargetOutcome> DescribeMaintenanceWindowsForTargetOutcomeCallable;
+        typedef std::future<DescribeOpsItemsOutcome> DescribeOpsItemsOutcomeCallable;
         typedef std::future<DescribeParametersOutcome> DescribeParametersOutcomeCallable;
         typedef std::future<DescribePatchBaselinesOutcome> DescribePatchBaselinesOutcomeCallable;
         typedef std::future<DescribePatchGroupStateOutcome> DescribePatchGroupStateOutcomeCallable;
         typedef std::future<DescribePatchGroupsOutcome> DescribePatchGroupsOutcomeCallable;
+        typedef std::future<DescribePatchPropertiesOutcome> DescribePatchPropertiesOutcomeCallable;
+        typedef std::future<DescribeSessionsOutcome> DescribeSessionsOutcomeCallable;
         typedef std::future<GetAutomationExecutionOutcome> GetAutomationExecutionOutcomeCallable;
+        typedef std::future<GetCalendarStateOutcome> GetCalendarStateOutcomeCallable;
         typedef std::future<GetCommandInvocationOutcome> GetCommandInvocationOutcomeCallable;
+        typedef std::future<GetConnectionStatusOutcome> GetConnectionStatusOutcomeCallable;
         typedef std::future<GetDefaultPatchBaselineOutcome> GetDefaultPatchBaselineOutcomeCallable;
         typedef std::future<GetDeployablePatchSnapshotForInstanceOutcome> GetDeployablePatchSnapshotForInstanceOutcomeCallable;
         typedef std::future<GetDocumentOutcome> GetDocumentOutcomeCallable;
@@ -435,12 +498,16 @@ namespace Model
         typedef std::future<GetMaintenanceWindowExecutionTaskOutcome> GetMaintenanceWindowExecutionTaskOutcomeCallable;
         typedef std::future<GetMaintenanceWindowExecutionTaskInvocationOutcome> GetMaintenanceWindowExecutionTaskInvocationOutcomeCallable;
         typedef std::future<GetMaintenanceWindowTaskOutcome> GetMaintenanceWindowTaskOutcomeCallable;
+        typedef std::future<GetOpsItemOutcome> GetOpsItemOutcomeCallable;
+        typedef std::future<GetOpsSummaryOutcome> GetOpsSummaryOutcomeCallable;
         typedef std::future<GetParameterOutcome> GetParameterOutcomeCallable;
         typedef std::future<GetParameterHistoryOutcome> GetParameterHistoryOutcomeCallable;
         typedef std::future<GetParametersOutcome> GetParametersOutcomeCallable;
         typedef std::future<GetParametersByPathOutcome> GetParametersByPathOutcomeCallable;
         typedef std::future<GetPatchBaselineOutcome> GetPatchBaselineOutcomeCallable;
         typedef std::future<GetPatchBaselineForPatchGroupOutcome> GetPatchBaselineForPatchGroupOutcomeCallable;
+        typedef std::future<GetServiceSettingOutcome> GetServiceSettingOutcomeCallable;
+        typedef std::future<LabelParameterVersionOutcome> LabelParameterVersionOutcomeCallable;
         typedef std::future<ListAssociationVersionsOutcome> ListAssociationVersionsOutcomeCallable;
         typedef std::future<ListAssociationsOutcome> ListAssociationsOutcomeCallable;
         typedef std::future<ListCommandInvocationsOutcome> ListCommandInvocationsOutcomeCallable;
@@ -462,11 +529,15 @@ namespace Model
         typedef std::future<RegisterTargetWithMaintenanceWindowOutcome> RegisterTargetWithMaintenanceWindowOutcomeCallable;
         typedef std::future<RegisterTaskWithMaintenanceWindowOutcome> RegisterTaskWithMaintenanceWindowOutcomeCallable;
         typedef std::future<RemoveTagsFromResourceOutcome> RemoveTagsFromResourceOutcomeCallable;
+        typedef std::future<ResetServiceSettingOutcome> ResetServiceSettingOutcomeCallable;
+        typedef std::future<ResumeSessionOutcome> ResumeSessionOutcomeCallable;
         typedef std::future<SendAutomationSignalOutcome> SendAutomationSignalOutcomeCallable;
         typedef std::future<SendCommandOutcome> SendCommandOutcomeCallable;
         typedef std::future<StartAssociationsOnceOutcome> StartAssociationsOnceOutcomeCallable;
         typedef std::future<StartAutomationExecutionOutcome> StartAutomationExecutionOutcomeCallable;
+        typedef std::future<StartSessionOutcome> StartSessionOutcomeCallable;
         typedef std::future<StopAutomationExecutionOutcome> StopAutomationExecutionOutcomeCallable;
+        typedef std::future<TerminateSessionOutcome> TerminateSessionOutcomeCallable;
         typedef std::future<UpdateAssociationOutcome> UpdateAssociationOutcomeCallable;
         typedef std::future<UpdateAssociationStatusOutcome> UpdateAssociationStatusOutcomeCallable;
         typedef std::future<UpdateDocumentOutcome> UpdateDocumentOutcomeCallable;
@@ -475,18 +546,23 @@ namespace Model
         typedef std::future<UpdateMaintenanceWindowTargetOutcome> UpdateMaintenanceWindowTargetOutcomeCallable;
         typedef std::future<UpdateMaintenanceWindowTaskOutcome> UpdateMaintenanceWindowTaskOutcomeCallable;
         typedef std::future<UpdateManagedInstanceRoleOutcome> UpdateManagedInstanceRoleOutcomeCallable;
+        typedef std::future<UpdateOpsItemOutcome> UpdateOpsItemOutcomeCallable;
         typedef std::future<UpdatePatchBaselineOutcome> UpdatePatchBaselineOutcomeCallable;
+        typedef std::future<UpdateResourceDataSyncOutcome> UpdateResourceDataSyncOutcomeCallable;
+        typedef std::future<UpdateServiceSettingOutcome> UpdateServiceSettingOutcomeCallable;
 } // namespace Model
 
   class SSMClient;
 
     typedef std::function<void(const SSMClient*, const Model::AddTagsToResourceRequest&, const Model::AddTagsToResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > AddTagsToResourceResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::CancelCommandRequest&, const Model::CancelCommandOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CancelCommandResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::CancelMaintenanceWindowExecutionRequest&, const Model::CancelMaintenanceWindowExecutionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CancelMaintenanceWindowExecutionResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::CreateActivationRequest&, const Model::CreateActivationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateActivationResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::CreateAssociationRequest&, const Model::CreateAssociationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateAssociationResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::CreateAssociationBatchRequest&, const Model::CreateAssociationBatchOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateAssociationBatchResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::CreateDocumentRequest&, const Model::CreateDocumentOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateDocumentResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::CreateMaintenanceWindowRequest&, const Model::CreateMaintenanceWindowOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateMaintenanceWindowResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::CreateOpsItemRequest&, const Model::CreateOpsItemOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateOpsItemResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::CreatePatchBaselineRequest&, const Model::CreatePatchBaselineOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreatePatchBaselineResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::CreateResourceDataSyncRequest&, const Model::CreateResourceDataSyncOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateResourceDataSyncResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DeleteActivationRequest&, const Model::DeleteActivationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DeleteActivationResponseReceivedHandler;
@@ -522,15 +598,22 @@ namespace Model
     typedef std::function<void(const SSMClient*, const Model::DescribeMaintenanceWindowExecutionTaskInvocationsRequest&, const Model::DescribeMaintenanceWindowExecutionTaskInvocationsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMaintenanceWindowExecutionTaskInvocationsResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribeMaintenanceWindowExecutionTasksRequest&, const Model::DescribeMaintenanceWindowExecutionTasksOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMaintenanceWindowExecutionTasksResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribeMaintenanceWindowExecutionsRequest&, const Model::DescribeMaintenanceWindowExecutionsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMaintenanceWindowExecutionsResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::DescribeMaintenanceWindowScheduleRequest&, const Model::DescribeMaintenanceWindowScheduleOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMaintenanceWindowScheduleResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribeMaintenanceWindowTargetsRequest&, const Model::DescribeMaintenanceWindowTargetsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMaintenanceWindowTargetsResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribeMaintenanceWindowTasksRequest&, const Model::DescribeMaintenanceWindowTasksOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMaintenanceWindowTasksResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribeMaintenanceWindowsRequest&, const Model::DescribeMaintenanceWindowsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMaintenanceWindowsResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::DescribeMaintenanceWindowsForTargetRequest&, const Model::DescribeMaintenanceWindowsForTargetOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeMaintenanceWindowsForTargetResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::DescribeOpsItemsRequest&, const Model::DescribeOpsItemsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeOpsItemsResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribeParametersRequest&, const Model::DescribeParametersOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeParametersResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribePatchBaselinesRequest&, const Model::DescribePatchBaselinesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribePatchBaselinesResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribePatchGroupStateRequest&, const Model::DescribePatchGroupStateOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribePatchGroupStateResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::DescribePatchGroupsRequest&, const Model::DescribePatchGroupsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribePatchGroupsResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::DescribePatchPropertiesRequest&, const Model::DescribePatchPropertiesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribePatchPropertiesResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::DescribeSessionsRequest&, const Model::DescribeSessionsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeSessionsResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetAutomationExecutionRequest&, const Model::GetAutomationExecutionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetAutomationExecutionResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::GetCalendarStateRequest&, const Model::GetCalendarStateOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetCalendarStateResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetCommandInvocationRequest&, const Model::GetCommandInvocationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetCommandInvocationResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::GetConnectionStatusRequest&, const Model::GetConnectionStatusOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetConnectionStatusResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetDefaultPatchBaselineRequest&, const Model::GetDefaultPatchBaselineOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetDefaultPatchBaselineResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetDeployablePatchSnapshotForInstanceRequest&, const Model::GetDeployablePatchSnapshotForInstanceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetDeployablePatchSnapshotForInstanceResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetDocumentRequest&, const Model::GetDocumentOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetDocumentResponseReceivedHandler;
@@ -541,12 +624,16 @@ namespace Model
     typedef std::function<void(const SSMClient*, const Model::GetMaintenanceWindowExecutionTaskRequest&, const Model::GetMaintenanceWindowExecutionTaskOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetMaintenanceWindowExecutionTaskResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetMaintenanceWindowExecutionTaskInvocationRequest&, const Model::GetMaintenanceWindowExecutionTaskInvocationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetMaintenanceWindowExecutionTaskInvocationResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetMaintenanceWindowTaskRequest&, const Model::GetMaintenanceWindowTaskOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetMaintenanceWindowTaskResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::GetOpsItemRequest&, const Model::GetOpsItemOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetOpsItemResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::GetOpsSummaryRequest&, const Model::GetOpsSummaryOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetOpsSummaryResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetParameterRequest&, const Model::GetParameterOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetParameterResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetParameterHistoryRequest&, const Model::GetParameterHistoryOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetParameterHistoryResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetParametersRequest&, const Model::GetParametersOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetParametersResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetParametersByPathRequest&, const Model::GetParametersByPathOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetParametersByPathResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetPatchBaselineRequest&, const Model::GetPatchBaselineOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetPatchBaselineResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::GetPatchBaselineForPatchGroupRequest&, const Model::GetPatchBaselineForPatchGroupOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetPatchBaselineForPatchGroupResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::GetServiceSettingRequest&, const Model::GetServiceSettingOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetServiceSettingResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::LabelParameterVersionRequest&, const Model::LabelParameterVersionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > LabelParameterVersionResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::ListAssociationVersionsRequest&, const Model::ListAssociationVersionsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListAssociationVersionsResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::ListAssociationsRequest&, const Model::ListAssociationsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListAssociationsResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::ListCommandInvocationsRequest&, const Model::ListCommandInvocationsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListCommandInvocationsResponseReceivedHandler;
@@ -568,11 +655,15 @@ namespace Model
     typedef std::function<void(const SSMClient*, const Model::RegisterTargetWithMaintenanceWindowRequest&, const Model::RegisterTargetWithMaintenanceWindowOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RegisterTargetWithMaintenanceWindowResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::RegisterTaskWithMaintenanceWindowRequest&, const Model::RegisterTaskWithMaintenanceWindowOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RegisterTaskWithMaintenanceWindowResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::RemoveTagsFromResourceRequest&, const Model::RemoveTagsFromResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RemoveTagsFromResourceResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::ResetServiceSettingRequest&, const Model::ResetServiceSettingOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ResetServiceSettingResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::ResumeSessionRequest&, const Model::ResumeSessionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ResumeSessionResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::SendAutomationSignalRequest&, const Model::SendAutomationSignalOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SendAutomationSignalResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::SendCommandRequest&, const Model::SendCommandOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SendCommandResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::StartAssociationsOnceRequest&, const Model::StartAssociationsOnceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StartAssociationsOnceResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::StartAutomationExecutionRequest&, const Model::StartAutomationExecutionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StartAutomationExecutionResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::StartSessionRequest&, const Model::StartSessionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StartSessionResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::StopAutomationExecutionRequest&, const Model::StopAutomationExecutionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StopAutomationExecutionResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::TerminateSessionRequest&, const Model::TerminateSessionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > TerminateSessionResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::UpdateAssociationRequest&, const Model::UpdateAssociationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateAssociationResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::UpdateAssociationStatusRequest&, const Model::UpdateAssociationStatusOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateAssociationStatusResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::UpdateDocumentRequest&, const Model::UpdateDocumentOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateDocumentResponseReceivedHandler;
@@ -581,7 +672,10 @@ namespace Model
     typedef std::function<void(const SSMClient*, const Model::UpdateMaintenanceWindowTargetRequest&, const Model::UpdateMaintenanceWindowTargetOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateMaintenanceWindowTargetResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::UpdateMaintenanceWindowTaskRequest&, const Model::UpdateMaintenanceWindowTaskOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateMaintenanceWindowTaskResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::UpdateManagedInstanceRoleRequest&, const Model::UpdateManagedInstanceRoleOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateManagedInstanceRoleResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::UpdateOpsItemRequest&, const Model::UpdateOpsItemOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateOpsItemResponseReceivedHandler;
     typedef std::function<void(const SSMClient*, const Model::UpdatePatchBaselineRequest&, const Model::UpdatePatchBaselineOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdatePatchBaselineResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::UpdateResourceDataSyncRequest&, const Model::UpdateResourceDataSyncOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateResourceDataSyncResponseReceivedHandler;
+    typedef std::function<void(const SSMClient*, const Model::UpdateServiceSettingRequest&, const Model::UpdateServiceSettingOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateServiceSettingResponseReceivedHandler;
 
   /**
    * <fullname>AWS Systems Manager</fullname> <p>AWS Systems Manager is a collection
@@ -596,8 +690,8 @@ namespace Model
    * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/">AWS Systems
    * Manager User Guide</a>.</p> <p>To get started, verify prerequisites and
    * configure managed instances. For more information, see <a
-   * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html">Systems
-   * Manager Prerequisites</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+   * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html">Setting
+   * Up AWS Systems Manager</a> in the <i>AWS Systems Manager User Guide</i>.</p>
    * <p>For information about other API actions you can perform on Amazon EC2
    * instances, see the <a
    * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/">Amazon EC2 API
@@ -631,13 +725,13 @@ namespace Model
 
         virtual ~SSMClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "ssm"; }
+        inline virtual const char* GetServiceClientName() const override { return "SSM"; }
 
 
         /**
          * <p>Adds or overwrites one or more tags for the specified resource. Tags are
-         * metadata that you can assign to your documents, managed instances, Maintenance
-         * Windows, Parameter Store parameters, and patch baselines. Tags enable you to
+         * metadata that you can assign to your documents, managed instances, maintenance
+         * windows, Parameter Store parameters, and patch baselines. Tags enable you to
          * categorize your resources in different ways, for example, by purpose, owner, or
          * environment. Each tag consists of a key and an optional value, both of which you
          * define. For example, you could define a set of tags for your account's managed
@@ -660,8 +754,8 @@ namespace Model
 
         /**
          * <p>Adds or overwrites one or more tags for the specified resource. Tags are
-         * metadata that you can assign to your documents, managed instances, Maintenance
-         * Windows, Parameter Store parameters, and patch baselines. Tags enable you to
+         * metadata that you can assign to your documents, managed instances, maintenance
+         * windows, Parameter Store parameters, and patch baselines. Tags enable you to
          * categorize your resources in different ways, for example, by purpose, owner, or
          * environment. Each tag consists of a key and an optional value, both of which you
          * define. For example, you could define a set of tags for your account's managed
@@ -686,8 +780,8 @@ namespace Model
 
         /**
          * <p>Adds or overwrites one or more tags for the specified resource. Tags are
-         * metadata that you can assign to your documents, managed instances, Maintenance
-         * Windows, Parameter Store parameters, and patch baselines. Tags enable you to
+         * metadata that you can assign to your documents, managed instances, maintenance
+         * windows, Parameter Store parameters, and patch baselines. Tags enable you to
          * categorize your resources in different ways, for example, by purpose, owner, or
          * environment. Each tag consists of a key and an optional value, both of which you
          * define. For example, you could define a set of tags for your account's managed
@@ -742,24 +836,69 @@ namespace Model
         virtual void CancelCommandAsync(const Model::CancelCommandRequest& request, const CancelCommandResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Registers your on-premises server or virtual machine with Amazon EC2 so that
-         * you can manage these resources using Run Command. An on-premises server or
-         * virtual machine that has been registered with EC2 is called a managed instance.
-         * For more information about activations, see <a
+         * <p>Stops a maintenance window execution that is already in progress and cancels
+         * any tasks in the window that have not already starting running. (Tasks already
+         * in progress will continue to completion.)</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CancelMaintenanceWindowExecution">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::CancelMaintenanceWindowExecutionOutcome CancelMaintenanceWindowExecution(const Model::CancelMaintenanceWindowExecutionRequest& request) const;
+
+        /**
+         * <p>Stops a maintenance window execution that is already in progress and cancels
+         * any tasks in the window that have not already starting running. (Tasks already
+         * in progress will continue to completion.)</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CancelMaintenanceWindowExecution">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::CancelMaintenanceWindowExecutionOutcomeCallable CancelMaintenanceWindowExecutionCallable(const Model::CancelMaintenanceWindowExecutionRequest& request) const;
+
+        /**
+         * <p>Stops a maintenance window execution that is already in progress and cancels
+         * any tasks in the window that have not already starting running. (Tasks already
+         * in progress will continue to completion.)</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CancelMaintenanceWindowExecution">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void CancelMaintenanceWindowExecutionAsync(const Model::CancelMaintenanceWindowExecutionRequest& request, const CancelMaintenanceWindowExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Generates an activation code and activation ID you can use to register your
+         * on-premises server or virtual machine (VM) with Systems Manager. Registering
+         * these machines with Systems Manager makes it possible to manage them using
+         * Systems Manager capabilities. You use the activation code and ID when installing
+         * SSM Agent on machines in your hybrid environment. For more information about
+         * requirements for managing on-premises instances and VMs using Systems Manager,
+         * see <a
          * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html">Setting
-         * Up Systems Manager in Hybrid Environments</a>.</p><p><h3>See Also:</h3>   <a
+         * Up AWS Systems Manager for Hybrid Environments</a> in the <i>AWS Systems Manager
+         * User Guide</i>. </p> <note> <p>On-premises servers or VMs that are registered
+         * with Systems Manager and Amazon EC2 instances that you manage with Systems
+         * Manager are all called <i>managed instances</i>.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateActivation">AWS
          * API Reference</a></p>
          */
         virtual Model::CreateActivationOutcome CreateActivation(const Model::CreateActivationRequest& request) const;
 
         /**
-         * <p>Registers your on-premises server or virtual machine with Amazon EC2 so that
-         * you can manage these resources using Run Command. An on-premises server or
-         * virtual machine that has been registered with EC2 is called a managed instance.
-         * For more information about activations, see <a
+         * <p>Generates an activation code and activation ID you can use to register your
+         * on-premises server or virtual machine (VM) with Systems Manager. Registering
+         * these machines with Systems Manager makes it possible to manage them using
+         * Systems Manager capabilities. You use the activation code and ID when installing
+         * SSM Agent on machines in your hybrid environment. For more information about
+         * requirements for managing on-premises instances and VMs using Systems Manager,
+         * see <a
          * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html">Setting
-         * Up Systems Manager in Hybrid Environments</a>.</p><p><h3>See Also:</h3>   <a
+         * Up AWS Systems Manager for Hybrid Environments</a> in the <i>AWS Systems Manager
+         * User Guide</i>. </p> <note> <p>On-premises servers or VMs that are registered
+         * with Systems Manager and Amazon EC2 instances that you manage with Systems
+         * Manager are all called <i>managed instances</i>.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateActivation">AWS
          * API Reference</a></p>
          *
@@ -768,12 +907,19 @@ namespace Model
         virtual Model::CreateActivationOutcomeCallable CreateActivationCallable(const Model::CreateActivationRequest& request) const;
 
         /**
-         * <p>Registers your on-premises server or virtual machine with Amazon EC2 so that
-         * you can manage these resources using Run Command. An on-premises server or
-         * virtual machine that has been registered with EC2 is called a managed instance.
-         * For more information about activations, see <a
+         * <p>Generates an activation code and activation ID you can use to register your
+         * on-premises server or virtual machine (VM) with Systems Manager. Registering
+         * these machines with Systems Manager makes it possible to manage them using
+         * Systems Manager capabilities. You use the activation code and ID when installing
+         * SSM Agent on machines in your hybrid environment. For more information about
+         * requirements for managing on-premises instances and VMs using Systems Manager,
+         * see <a
          * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html">Setting
-         * Up Systems Manager in Hybrid Environments</a>.</p><p><h3>See Also:</h3>   <a
+         * Up AWS Systems Manager for Hybrid Environments</a> in the <i>AWS Systems Manager
+         * User Guide</i>. </p> <note> <p>On-premises servers or VMs that are registered
+         * with Systems Manager and Amazon EC2 instances that you manage with Systems
+         * Manager are all called <i>managed instances</i>.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateActivation">AWS
          * API Reference</a></p>
          *
@@ -784,10 +930,10 @@ namespace Model
         /**
          * <p>Associates the specified Systems Manager document with the specified
          * instances or targets.</p> <p>When you associate a document with one or more
-         * instances using instance IDs or tags, the SSM Agent running on the instance
+         * instances using instance IDs or tags, SSM Agent running on the instance
          * processes the document and configures the instance as specified.</p> <p>If you
          * associate a document with an instance that already has an associated document,
-         * the system throws the AssociationAlreadyExists exception.</p><p><h3>See
+         * the system returns the AssociationAlreadyExists exception.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateAssociation">AWS
          * API Reference</a></p>
@@ -797,10 +943,10 @@ namespace Model
         /**
          * <p>Associates the specified Systems Manager document with the specified
          * instances or targets.</p> <p>When you associate a document with one or more
-         * instances using instance IDs or tags, the SSM Agent running on the instance
+         * instances using instance IDs or tags, SSM Agent running on the instance
          * processes the document and configures the instance as specified.</p> <p>If you
          * associate a document with an instance that already has an associated document,
-         * the system throws the AssociationAlreadyExists exception.</p><p><h3>See
+         * the system returns the AssociationAlreadyExists exception.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateAssociation">AWS
          * API Reference</a></p>
@@ -812,10 +958,10 @@ namespace Model
         /**
          * <p>Associates the specified Systems Manager document with the specified
          * instances or targets.</p> <p>When you associate a document with one or more
-         * instances using instance IDs or tags, the SSM Agent running on the instance
+         * instances using instance IDs or tags, SSM Agent running on the instance
          * processes the document and configures the instance as specified.</p> <p>If you
          * associate a document with an instance that already has an associated document,
-         * the system throws the AssociationAlreadyExists exception.</p><p><h3>See
+         * the system returns the AssociationAlreadyExists exception.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateAssociation">AWS
          * API Reference</a></p>
@@ -827,10 +973,10 @@ namespace Model
         /**
          * <p>Associates the specified Systems Manager document with the specified
          * instances or targets.</p> <p>When you associate a document with one or more
-         * instances using instance IDs or tags, the SSM Agent running on the instance
+         * instances using instance IDs or tags, SSM Agent running on the instance
          * processes the document and configures the instance as specified.</p> <p>If you
          * associate a document with an instance that already has an associated document,
-         * the system throws the AssociationAlreadyExists exception.</p><p><h3>See
+         * the system returns the AssociationAlreadyExists exception.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateAssociationBatch">AWS
          * API Reference</a></p>
@@ -840,10 +986,10 @@ namespace Model
         /**
          * <p>Associates the specified Systems Manager document with the specified
          * instances or targets.</p> <p>When you associate a document with one or more
-         * instances using instance IDs or tags, the SSM Agent running on the instance
+         * instances using instance IDs or tags, SSM Agent running on the instance
          * processes the document and configures the instance as specified.</p> <p>If you
          * associate a document with an instance that already has an associated document,
-         * the system throws the AssociationAlreadyExists exception.</p><p><h3>See
+         * the system returns the AssociationAlreadyExists exception.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateAssociationBatch">AWS
          * API Reference</a></p>
@@ -855,10 +1001,10 @@ namespace Model
         /**
          * <p>Associates the specified Systems Manager document with the specified
          * instances or targets.</p> <p>When you associate a document with one or more
-         * instances using instance IDs or tags, the SSM Agent running on the instance
+         * instances using instance IDs or tags, SSM Agent running on the instance
          * processes the document and configures the instance as specified.</p> <p>If you
          * associate a document with an instance that already has an associated document,
-         * the system throws the AssociationAlreadyExists exception.</p><p><h3>See
+         * the system returns the AssociationAlreadyExists exception.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateAssociationBatch">AWS
          * API Reference</a></p>
@@ -899,14 +1045,28 @@ namespace Model
         virtual void CreateDocumentAsync(const Model::CreateDocumentRequest& request, const CreateDocumentResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Creates a new Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates a new maintenance window.</p> <note> <p>The value you specify for
+         * <code>Duration</code> determines the specific end time for the maintenance
+         * window based on the time it begins. No maintenance window tasks are permitted to
+         * start after the resulting endtime minus the number of hours you specify for
+         * <code>Cutoff</code>. For example, if the maintenance window starts at 3 PM, the
+         * duration is three hours, and the value you specify for <code>Cutoff</code> is
+         * one hour, no maintenance window tasks can start after 5 PM.</p>
+         * </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateMaintenanceWindow">AWS
          * API Reference</a></p>
          */
         virtual Model::CreateMaintenanceWindowOutcome CreateMaintenanceWindow(const Model::CreateMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Creates a new Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates a new maintenance window.</p> <note> <p>The value you specify for
+         * <code>Duration</code> determines the specific end time for the maintenance
+         * window based on the time it begins. No maintenance window tasks are permitted to
+         * start after the resulting endtime minus the number of hours you specify for
+         * <code>Cutoff</code>. For example, if the maintenance window starts at 3 PM, the
+         * duration is three hours, and the value you specify for <code>Cutoff</code> is
+         * one hour, no maintenance window tasks can start after 5 PM.</p>
+         * </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -915,13 +1075,72 @@ namespace Model
         virtual Model::CreateMaintenanceWindowOutcomeCallable CreateMaintenanceWindowCallable(const Model::CreateMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Creates a new Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates a new maintenance window.</p> <note> <p>The value you specify for
+         * <code>Duration</code> determines the specific end time for the maintenance
+         * window based on the time it begins. No maintenance window tasks are permitted to
+         * start after the resulting endtime minus the number of hours you specify for
+         * <code>Cutoff</code>. For example, if the maintenance window starts at 3 PM, the
+         * duration is three hours, and the value you specify for <code>Cutoff</code> is
+         * one hour, no maintenance window tasks can start after 5 PM.</p>
+         * </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateMaintenanceWindow">AWS
          * API Reference</a></p>
          *
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void CreateMaintenanceWindowAsync(const Model::CreateMaintenanceWindowRequest& request, const CreateMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Creates a new OpsItem. You must have permission in AWS Identity and Access
+         * Management (IAM) to create a new OpsItem. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateOpsItem">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::CreateOpsItemOutcome CreateOpsItem(const Model::CreateOpsItemRequest& request) const;
+
+        /**
+         * <p>Creates a new OpsItem. You must have permission in AWS Identity and Access
+         * Management (IAM) to create a new OpsItem. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateOpsItem">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::CreateOpsItemOutcomeCallable CreateOpsItemCallable(const Model::CreateOpsItemRequest& request) const;
+
+        /**
+         * <p>Creates a new OpsItem. You must have permission in AWS Identity and Access
+         * Management (IAM) to create a new OpsItem. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateOpsItem">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void CreateOpsItemAsync(const Model::CreateOpsItemRequest& request, const CreateOpsItemResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Creates a patch baseline.</p> <note> <p>For information about valid key and
@@ -961,36 +1180,62 @@ namespace Model
         virtual void CreatePatchBaselineAsync(const Model::CreatePatchBaselineRequest& request, const CreatePatchBaselineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Creates a resource data sync configuration to a single bucket in Amazon S3.
-         * This is an asynchronous operation that returns immediately. After a successful
-         * initial sync is completed, the system continuously syncs data to the Amazon S3
-         * bucket. To check the status of the sync, use the
-         * <a>ListResourceDataSync</a>.</p> <p>By default, data is not encrypted in Amazon
-         * S3. We strongly recommend that you enable encryption in Amazon S3 to ensure
-         * secure data storage. We also recommend that you secure access to the Amazon S3
-         * bucket by creating a restrictive bucket policy. To view an example of a
-         * restrictive Amazon S3 bucket policy for Resource Data Sync, see <a
-         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync-create.html">Create
-         * a Resource Data Sync for Inventory</a> in the <i>AWS Systems Manager User
-         * Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * <p>A resource data sync helps you view data from multiple sources in a single
+         * location. Systems Manager offers two types of resource data sync:
+         * <code>SyncToDestination</code> and <code>SyncFromSource</code>.</p> <p>You can
+         * configure Systems Manager Inventory to use the <code>SyncToDestination</code>
+         * type to synchronize Inventory data from multiple AWS Regions to a single Amazon
+         * S3 bucket. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync.html">Configuring
+         * Resource Data Sync for Inventory</a> in the <i>AWS Systems Manager User
+         * Guide</i>.</p> <p>You can configure Systems Manager Explorer to use the
+         * <code>SyncToDestination</code> type to synchronize operational work items
+         * (OpsItems) and operational data (OpsData) from multiple AWS Regions to a single
+         * Amazon S3 bucket. You can also configure Explorer to use the
+         * <code>SyncFromSource</code> type. This type synchronizes OpsItems and OpsData
+         * from multiple AWS accounts and Regions by using AWS Organizations. For more
+         * information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html">Setting
+         * Up Explorer to Display Data from Multiple Accounts and Regions</a> in the <i>AWS
+         * Systems Manager User Guide</i>.</p> <p>A resource data sync is an asynchronous
+         * operation that returns immediately. After a successful initial sync is
+         * completed, the system continuously syncs data. To check the status of a sync,
+         * use the <a>ListResourceDataSync</a>.</p> <note> <p>By default, data is not
+         * encrypted in Amazon S3. We strongly recommend that you enable encryption in
+         * Amazon S3 to ensure secure data storage. We also recommend that you secure
+         * access to the Amazon S3 bucket by creating a restrictive bucket policy. </p>
+         * </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateResourceDataSync">AWS
          * API Reference</a></p>
          */
         virtual Model::CreateResourceDataSyncOutcome CreateResourceDataSync(const Model::CreateResourceDataSyncRequest& request) const;
 
         /**
-         * <p>Creates a resource data sync configuration to a single bucket in Amazon S3.
-         * This is an asynchronous operation that returns immediately. After a successful
-         * initial sync is completed, the system continuously syncs data to the Amazon S3
-         * bucket. To check the status of the sync, use the
-         * <a>ListResourceDataSync</a>.</p> <p>By default, data is not encrypted in Amazon
-         * S3. We strongly recommend that you enable encryption in Amazon S3 to ensure
-         * secure data storage. We also recommend that you secure access to the Amazon S3
-         * bucket by creating a restrictive bucket policy. To view an example of a
-         * restrictive Amazon S3 bucket policy for Resource Data Sync, see <a
-         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync-create.html">Create
-         * a Resource Data Sync for Inventory</a> in the <i>AWS Systems Manager User
-         * Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * <p>A resource data sync helps you view data from multiple sources in a single
+         * location. Systems Manager offers two types of resource data sync:
+         * <code>SyncToDestination</code> and <code>SyncFromSource</code>.</p> <p>You can
+         * configure Systems Manager Inventory to use the <code>SyncToDestination</code>
+         * type to synchronize Inventory data from multiple AWS Regions to a single Amazon
+         * S3 bucket. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync.html">Configuring
+         * Resource Data Sync for Inventory</a> in the <i>AWS Systems Manager User
+         * Guide</i>.</p> <p>You can configure Systems Manager Explorer to use the
+         * <code>SyncToDestination</code> type to synchronize operational work items
+         * (OpsItems) and operational data (OpsData) from multiple AWS Regions to a single
+         * Amazon S3 bucket. You can also configure Explorer to use the
+         * <code>SyncFromSource</code> type. This type synchronizes OpsItems and OpsData
+         * from multiple AWS accounts and Regions by using AWS Organizations. For more
+         * information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html">Setting
+         * Up Explorer to Display Data from Multiple Accounts and Regions</a> in the <i>AWS
+         * Systems Manager User Guide</i>.</p> <p>A resource data sync is an asynchronous
+         * operation that returns immediately. After a successful initial sync is
+         * completed, the system continuously syncs data. To check the status of a sync,
+         * use the <a>ListResourceDataSync</a>.</p> <note> <p>By default, data is not
+         * encrypted in Amazon S3. We strongly recommend that you enable encryption in
+         * Amazon S3 to ensure secure data storage. We also recommend that you secure
+         * access to the Amazon S3 bucket by creating a restrictive bucket policy. </p>
+         * </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateResourceDataSync">AWS
          * API Reference</a></p>
          *
@@ -999,18 +1244,31 @@ namespace Model
         virtual Model::CreateResourceDataSyncOutcomeCallable CreateResourceDataSyncCallable(const Model::CreateResourceDataSyncRequest& request) const;
 
         /**
-         * <p>Creates a resource data sync configuration to a single bucket in Amazon S3.
-         * This is an asynchronous operation that returns immediately. After a successful
-         * initial sync is completed, the system continuously syncs data to the Amazon S3
-         * bucket. To check the status of the sync, use the
-         * <a>ListResourceDataSync</a>.</p> <p>By default, data is not encrypted in Amazon
-         * S3. We strongly recommend that you enable encryption in Amazon S3 to ensure
-         * secure data storage. We also recommend that you secure access to the Amazon S3
-         * bucket by creating a restrictive bucket policy. To view an example of a
-         * restrictive Amazon S3 bucket policy for Resource Data Sync, see <a
-         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync-create.html">Create
-         * a Resource Data Sync for Inventory</a> in the <i>AWS Systems Manager User
-         * Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * <p>A resource data sync helps you view data from multiple sources in a single
+         * location. Systems Manager offers two types of resource data sync:
+         * <code>SyncToDestination</code> and <code>SyncFromSource</code>.</p> <p>You can
+         * configure Systems Manager Inventory to use the <code>SyncToDestination</code>
+         * type to synchronize Inventory data from multiple AWS Regions to a single Amazon
+         * S3 bucket. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync.html">Configuring
+         * Resource Data Sync for Inventory</a> in the <i>AWS Systems Manager User
+         * Guide</i>.</p> <p>You can configure Systems Manager Explorer to use the
+         * <code>SyncToDestination</code> type to synchronize operational work items
+         * (OpsItems) and operational data (OpsData) from multiple AWS Regions to a single
+         * Amazon S3 bucket. You can also configure Explorer to use the
+         * <code>SyncFromSource</code> type. This type synchronizes OpsItems and OpsData
+         * from multiple AWS accounts and Regions by using AWS Organizations. For more
+         * information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html">Setting
+         * Up Explorer to Display Data from Multiple Accounts and Regions</a> in the <i>AWS
+         * Systems Manager User Guide</i>.</p> <p>A resource data sync is an asynchronous
+         * operation that returns immediately. After a successful initial sync is
+         * completed, the system continuously syncs data. To check the status of a sync,
+         * use the <a>ListResourceDataSync</a>.</p> <note> <p>By default, data is not
+         * encrypted in Amazon S3. We strongly recommend that you enable encryption in
+         * Amazon S3 to ensure secure data storage. We also recommend that you secure
+         * access to the Amazon S3 bucket by creating a restrictive bucket policy. </p>
+         * </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateResourceDataSync">AWS
          * API Reference</a></p>
          *
@@ -1158,14 +1416,14 @@ namespace Model
         virtual void DeleteInventoryAsync(const Model::DeleteInventoryRequest& request, const DeleteInventoryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Deletes a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteMaintenanceWindow">AWS
          * API Reference</a></p>
          */
         virtual Model::DeleteMaintenanceWindowOutcome DeleteMaintenanceWindow(const Model::DeleteMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Deletes a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -1174,7 +1432,7 @@ namespace Model
         virtual Model::DeleteMaintenanceWindowOutcomeCallable DeleteMaintenanceWindowCallable(const Model::DeleteMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Deletes a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Deletes a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -1208,16 +1466,14 @@ namespace Model
         virtual void DeleteParameterAsync(const Model::DeleteParameterRequest& request, const DeleteParameterResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Delete a list of parameters. This API is used to delete parameters by using
-         * the Amazon EC2 console.</p><p><h3>See Also:</h3>   <a
+         * <p>Delete a list of parameters.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteParameters">AWS
          * API Reference</a></p>
          */
         virtual Model::DeleteParametersOutcome DeleteParameters(const Model::DeleteParametersRequest& request) const;
 
         /**
-         * <p>Delete a list of parameters. This API is used to delete parameters by using
-         * the Amazon EC2 console.</p><p><h3>See Also:</h3>   <a
+         * <p>Delete a list of parameters.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteParameters">AWS
          * API Reference</a></p>
          *
@@ -1226,8 +1482,7 @@ namespace Model
         virtual Model::DeleteParametersOutcomeCallable DeleteParametersCallable(const Model::DeleteParametersRequest& request) const;
 
         /**
-         * <p>Delete a list of parameters. This API is used to delete parameters by using
-         * the Amazon EC2 console.</p><p><h3>See Also:</h3>   <a
+         * <p>Delete a list of parameters.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteParameters">AWS
          * API Reference</a></p>
          *
@@ -1262,9 +1517,9 @@ namespace Model
 
         /**
          * <p>Deletes a Resource Data Sync configuration. After the configuration is
-         * deleted, changes to inventory data on managed instances are no longer synced
-         * with the target Amazon S3 bucket. Deleting a sync configuration does not delete
-         * data in the target Amazon S3 bucket.</p><p><h3>See Also:</h3>   <a
+         * deleted, changes to data on managed instances are no longer synced to or from
+         * the target. Deleting a sync configuration does not delete data.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteResourceDataSync">AWS
          * API Reference</a></p>
          */
@@ -1272,9 +1527,9 @@ namespace Model
 
         /**
          * <p>Deletes a Resource Data Sync configuration. After the configuration is
-         * deleted, changes to inventory data on managed instances are no longer synced
-         * with the target Amazon S3 bucket. Deleting a sync configuration does not delete
-         * data in the target Amazon S3 bucket.</p><p><h3>See Also:</h3>   <a
+         * deleted, changes to data on managed instances are no longer synced to or from
+         * the target. Deleting a sync configuration does not delete data.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteResourceDataSync">AWS
          * API Reference</a></p>
          *
@@ -1284,9 +1539,9 @@ namespace Model
 
         /**
          * <p>Deletes a Resource Data Sync configuration. After the configuration is
-         * deleted, changes to inventory data on managed instances are no longer synced
-         * with the target Amazon S3 bucket. Deleting a sync configuration does not delete
-         * data in the target Amazon S3 bucket.</p><p><h3>See Also:</h3>   <a
+         * deleted, changes to data on managed instances are no longer synced to or from
+         * the target. Deleting a sync configuration does not delete data.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteResourceDataSync">AWS
          * API Reference</a></p>
          *
@@ -1354,14 +1609,14 @@ namespace Model
         virtual void DeregisterPatchBaselineForPatchGroupAsync(const Model::DeregisterPatchBaselineForPatchGroupRequest& request, const DeregisterPatchBaselineForPatchGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Removes a target from a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes a target from a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeregisterTargetFromMaintenanceWindow">AWS
          * API Reference</a></p>
          */
         virtual Model::DeregisterTargetFromMaintenanceWindowOutcome DeregisterTargetFromMaintenanceWindow(const Model::DeregisterTargetFromMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Removes a target from a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes a target from a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeregisterTargetFromMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -1370,7 +1625,7 @@ namespace Model
         virtual Model::DeregisterTargetFromMaintenanceWindowOutcomeCallable DeregisterTargetFromMaintenanceWindowCallable(const Model::DeregisterTargetFromMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Removes a target from a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes a target from a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeregisterTargetFromMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -1379,14 +1634,14 @@ namespace Model
         virtual void DeregisterTargetFromMaintenanceWindowAsync(const Model::DeregisterTargetFromMaintenanceWindowRequest& request, const DeregisterTargetFromMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Removes a task from a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes a task from a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeregisterTaskFromMaintenanceWindow">AWS
          * API Reference</a></p>
          */
         virtual Model::DeregisterTaskFromMaintenanceWindowOutcome DeregisterTaskFromMaintenanceWindow(const Model::DeregisterTaskFromMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Removes a task from a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes a task from a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeregisterTaskFromMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -1395,7 +1650,7 @@ namespace Model
         virtual Model::DeregisterTaskFromMaintenanceWindowOutcomeCallable DeregisterTaskFromMaintenanceWindowCallable(const Model::DeregisterTaskFromMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Removes a task from a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes a task from a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeregisterTaskFromMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -1404,20 +1659,20 @@ namespace Model
         virtual void DeregisterTaskFromMaintenanceWindowAsync(const Model::DeregisterTaskFromMaintenanceWindowRequest& request, const DeregisterTaskFromMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Details about the activation, including: the date and time the activation was
-         * created, the expiration date, the IAM role assigned to the instances in the
-         * activation, and the number of instances activated by this
-         * registration.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes details about the activation, such as the date and time the
+         * activation was created, its expiration date, the IAM role assigned to the
+         * instances in the activation, and the number of instances registered by using
+         * this activation.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeActivations">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeActivationsOutcome DescribeActivations(const Model::DescribeActivationsRequest& request) const;
 
         /**
-         * <p>Details about the activation, including: the date and time the activation was
-         * created, the expiration date, the IAM role assigned to the instances in the
-         * activation, and the number of instances activated by this
-         * registration.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes details about the activation, such as the date and time the
+         * activation was created, its expiration date, the IAM role assigned to the
+         * instances in the activation, and the number of instances registered by using
+         * this activation.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeActivations">AWS
          * API Reference</a></p>
          *
@@ -1426,10 +1681,10 @@ namespace Model
         virtual Model::DescribeActivationsOutcomeCallable DescribeActivationsCallable(const Model::DescribeActivationsRequest& request) const;
 
         /**
-         * <p>Details about the activation, including: the date and time the activation was
-         * created, the expiration date, the IAM role assigned to the instances in the
-         * activation, and the number of instances activated by this
-         * registration.</p><p><h3>See Also:</h3>   <a
+         * <p>Describes details about the activation, such as the date and time the
+         * activation was created, its expiration date, the IAM role assigned to the
+         * instances in the activation, and the number of instances registered by using
+         * this activation.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeActivations">AWS
          * API Reference</a></p>
          *
@@ -1590,16 +1845,16 @@ namespace Model
         virtual void DescribeAutomationStepExecutionsAsync(const Model::DescribeAutomationStepExecutionsRequest& request, const DescribeAutomationStepExecutionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists all patches that could possibly be included in a patch
-         * baseline.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists all patches eligible to be included in a patch baseline.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeAvailablePatches">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeAvailablePatchesOutcome DescribeAvailablePatches(const Model::DescribeAvailablePatchesRequest& request) const;
 
         /**
-         * <p>Lists all patches that could possibly be included in a patch
-         * baseline.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists all patches eligible to be included in a patch baseline.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeAvailablePatches">AWS
          * API Reference</a></p>
          *
@@ -1608,8 +1863,8 @@ namespace Model
         virtual Model::DescribeAvailablePatchesOutcomeCallable DescribeAvailablePatchesCallable(const Model::DescribeAvailablePatchesRequest& request) const;
 
         /**
-         * <p>Lists all patches that could possibly be included in a patch
-         * baseline.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists all patches eligible to be included in a patch baseline.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeAvailablePatches">AWS
          * API Reference</a></p>
          *
@@ -1932,8 +2187,8 @@ namespace Model
 
         /**
          * <p>Retrieves the individual task executions (one per target) for a particular
-         * task executed as part of a Maintenance Window execution.</p><p><h3>See
-         * Also:</h3>   <a
+         * task run as part of a maintenance window execution.</p><p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutionTaskInvocations">AWS
          * API Reference</a></p>
          */
@@ -1941,8 +2196,8 @@ namespace Model
 
         /**
          * <p>Retrieves the individual task executions (one per target) for a particular
-         * task executed as part of a Maintenance Window execution.</p><p><h3>See
-         * Also:</h3>   <a
+         * task run as part of a maintenance window execution.</p><p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutionTaskInvocations">AWS
          * API Reference</a></p>
          *
@@ -1952,8 +2207,8 @@ namespace Model
 
         /**
          * <p>Retrieves the individual task executions (one per target) for a particular
-         * task executed as part of a Maintenance Window execution.</p><p><h3>See
-         * Also:</h3>   <a
+         * task run as part of a maintenance window execution.</p><p><h3>See Also:</h3>  
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutionTaskInvocations">AWS
          * API Reference</a></p>
          *
@@ -1962,16 +2217,16 @@ namespace Model
         virtual void DescribeMaintenanceWindowExecutionTaskInvocationsAsync(const Model::DescribeMaintenanceWindowExecutionTaskInvocationsRequest& request, const DescribeMaintenanceWindowExecutionTaskInvocationsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>For a given Maintenance Window execution, lists the tasks that were
-         * executed.</p><p><h3>See Also:</h3>   <a
+         * <p>For a given maintenance window execution, lists the tasks that were
+         * run.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutionTasks">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeMaintenanceWindowExecutionTasksOutcome DescribeMaintenanceWindowExecutionTasks(const Model::DescribeMaintenanceWindowExecutionTasksRequest& request) const;
 
         /**
-         * <p>For a given Maintenance Window execution, lists the tasks that were
-         * executed.</p><p><h3>See Also:</h3>   <a
+         * <p>For a given maintenance window execution, lists the tasks that were
+         * run.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutionTasks">AWS
          * API Reference</a></p>
          *
@@ -1980,8 +2235,8 @@ namespace Model
         virtual Model::DescribeMaintenanceWindowExecutionTasksOutcomeCallable DescribeMaintenanceWindowExecutionTasksCallable(const Model::DescribeMaintenanceWindowExecutionTasksRequest& request) const;
 
         /**
-         * <p>For a given Maintenance Window execution, lists the tasks that were
-         * executed.</p><p><h3>See Also:</h3>   <a
+         * <p>For a given maintenance window execution, lists the tasks that were
+         * run.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutionTasks">AWS
          * API Reference</a></p>
          *
@@ -1990,9 +2245,9 @@ namespace Model
         virtual void DescribeMaintenanceWindowExecutionTasksAsync(const Model::DescribeMaintenanceWindowExecutionTasksRequest& request, const DescribeMaintenanceWindowExecutionTasksResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the executions of a Maintenance Window. This includes information about
-         * when the Maintenance Window was scheduled to be active, and information about
-         * tasks registered and run with the Maintenance Window.</p><p><h3>See Also:</h3>  
+         * <p>Lists the executions of a maintenance window. This includes information about
+         * when the maintenance window was scheduled to be active, and information about
+         * tasks registered and run with the maintenance window.</p><p><h3>See Also:</h3>  
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutions">AWS
          * API Reference</a></p>
@@ -2000,9 +2255,9 @@ namespace Model
         virtual Model::DescribeMaintenanceWindowExecutionsOutcome DescribeMaintenanceWindowExecutions(const Model::DescribeMaintenanceWindowExecutionsRequest& request) const;
 
         /**
-         * <p>Lists the executions of a Maintenance Window. This includes information about
-         * when the Maintenance Window was scheduled to be active, and information about
-         * tasks registered and run with the Maintenance Window.</p><p><h3>See Also:</h3>  
+         * <p>Lists the executions of a maintenance window. This includes information about
+         * when the maintenance window was scheduled to be active, and information about
+         * tasks registered and run with the maintenance window.</p><p><h3>See Also:</h3>  
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutions">AWS
          * API Reference</a></p>
@@ -2012,9 +2267,9 @@ namespace Model
         virtual Model::DescribeMaintenanceWindowExecutionsOutcomeCallable DescribeMaintenanceWindowExecutionsCallable(const Model::DescribeMaintenanceWindowExecutionsRequest& request) const;
 
         /**
-         * <p>Lists the executions of a Maintenance Window. This includes information about
-         * when the Maintenance Window was scheduled to be active, and information about
-         * tasks registered and run with the Maintenance Window.</p><p><h3>See Also:</h3>  
+         * <p>Lists the executions of a maintenance window. This includes information about
+         * when the maintenance window was scheduled to be active, and information about
+         * tasks registered and run with the maintenance window.</p><p><h3>See Also:</h3>  
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowExecutions">AWS
          * API Reference</a></p>
@@ -2024,7 +2279,35 @@ namespace Model
         virtual void DescribeMaintenanceWindowExecutionsAsync(const Model::DescribeMaintenanceWindowExecutionsRequest& request, const DescribeMaintenanceWindowExecutionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the targets registered with the Maintenance Window.</p><p><h3>See
+         * <p>Retrieves information about upcoming executions of a maintenance
+         * window.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowSchedule">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeMaintenanceWindowScheduleOutcome DescribeMaintenanceWindowSchedule(const Model::DescribeMaintenanceWindowScheduleRequest& request) const;
+
+        /**
+         * <p>Retrieves information about upcoming executions of a maintenance
+         * window.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowSchedule">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeMaintenanceWindowScheduleOutcomeCallable DescribeMaintenanceWindowScheduleCallable(const Model::DescribeMaintenanceWindowScheduleRequest& request) const;
+
+        /**
+         * <p>Retrieves information about upcoming executions of a maintenance
+         * window.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowSchedule">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeMaintenanceWindowScheduleAsync(const Model::DescribeMaintenanceWindowScheduleRequest& request, const DescribeMaintenanceWindowScheduleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Lists the targets registered with the maintenance window.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowTargets">AWS
          * API Reference</a></p>
@@ -2032,7 +2315,7 @@ namespace Model
         virtual Model::DescribeMaintenanceWindowTargetsOutcome DescribeMaintenanceWindowTargets(const Model::DescribeMaintenanceWindowTargetsRequest& request) const;
 
         /**
-         * <p>Lists the targets registered with the Maintenance Window.</p><p><h3>See
+         * <p>Lists the targets registered with the maintenance window.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowTargets">AWS
          * API Reference</a></p>
@@ -2042,7 +2325,7 @@ namespace Model
         virtual Model::DescribeMaintenanceWindowTargetsOutcomeCallable DescribeMaintenanceWindowTargetsCallable(const Model::DescribeMaintenanceWindowTargetsRequest& request) const;
 
         /**
-         * <p>Lists the targets registered with the Maintenance Window.</p><p><h3>See
+         * <p>Lists the targets registered with the maintenance window.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowTargets">AWS
          * API Reference</a></p>
@@ -2052,14 +2335,14 @@ namespace Model
         virtual void DescribeMaintenanceWindowTargetsAsync(const Model::DescribeMaintenanceWindowTargetsRequest& request, const DescribeMaintenanceWindowTargetsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the tasks in a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the tasks in a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowTasks">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeMaintenanceWindowTasksOutcome DescribeMaintenanceWindowTasks(const Model::DescribeMaintenanceWindowTasksRequest& request) const;
 
         /**
-         * <p>Lists the tasks in a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the tasks in a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowTasks">AWS
          * API Reference</a></p>
          *
@@ -2068,7 +2351,7 @@ namespace Model
         virtual Model::DescribeMaintenanceWindowTasksOutcomeCallable DescribeMaintenanceWindowTasksCallable(const Model::DescribeMaintenanceWindowTasksRequest& request) const;
 
         /**
-         * <p>Lists the tasks in a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the tasks in a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowTasks">AWS
          * API Reference</a></p>
          *
@@ -2077,7 +2360,7 @@ namespace Model
         virtual void DescribeMaintenanceWindowTasksAsync(const Model::DescribeMaintenanceWindowTasksRequest& request, const DescribeMaintenanceWindowTasksResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Retrieves the Maintenance Windows in an AWS account.</p><p><h3>See Also:</h3>
+         * <p>Retrieves the maintenance windows in an AWS account.</p><p><h3>See Also:</h3>
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindows">AWS
          * API Reference</a></p>
@@ -2085,7 +2368,7 @@ namespace Model
         virtual Model::DescribeMaintenanceWindowsOutcome DescribeMaintenanceWindows(const Model::DescribeMaintenanceWindowsRequest& request) const;
 
         /**
-         * <p>Retrieves the Maintenance Windows in an AWS account.</p><p><h3>See Also:</h3>
+         * <p>Retrieves the maintenance windows in an AWS account.</p><p><h3>See Also:</h3>
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindows">AWS
          * API Reference</a></p>
@@ -2095,7 +2378,7 @@ namespace Model
         virtual Model::DescribeMaintenanceWindowsOutcomeCallable DescribeMaintenanceWindowsCallable(const Model::DescribeMaintenanceWindowsRequest& request) const;
 
         /**
-         * <p>Retrieves the Maintenance Windows in an AWS account.</p><p><h3>See Also:</h3>
+         * <p>Retrieves the maintenance windows in an AWS account.</p><p><h3>See Also:</h3>
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindows">AWS
          * API Reference</a></p>
@@ -2105,28 +2388,110 @@ namespace Model
         virtual void DescribeMaintenanceWindowsAsync(const Model::DescribeMaintenanceWindowsRequest& request, const DescribeMaintenanceWindowsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Get information about a parameter.</p> <p>Request results are returned on a
-         * best-effort basis. If you specify <code>MaxResults</code> in the request, the
-         * response includes information up to the limit specified. The number of items
+         * <p>Retrieves information about the maintenance window targets or tasks that an
+         * instance is associated with.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowsForTarget">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeMaintenanceWindowsForTargetOutcome DescribeMaintenanceWindowsForTarget(const Model::DescribeMaintenanceWindowsForTargetRequest& request) const;
+
+        /**
+         * <p>Retrieves information about the maintenance window targets or tasks that an
+         * instance is associated with.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowsForTarget">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeMaintenanceWindowsForTargetOutcomeCallable DescribeMaintenanceWindowsForTargetCallable(const Model::DescribeMaintenanceWindowsForTargetRequest& request) const;
+
+        /**
+         * <p>Retrieves information about the maintenance window targets or tasks that an
+         * instance is associated with.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowsForTarget">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeMaintenanceWindowsForTargetAsync(const Model::DescribeMaintenanceWindowsForTargetRequest& request, const DescribeMaintenanceWindowsForTargetResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Query a set of OpsItems. You must have permission in AWS Identity and Access
+         * Management (IAM) to query a list of OpsItems. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeOpsItems">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeOpsItemsOutcome DescribeOpsItems(const Model::DescribeOpsItemsRequest& request) const;
+
+        /**
+         * <p>Query a set of OpsItems. You must have permission in AWS Identity and Access
+         * Management (IAM) to query a list of OpsItems. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeOpsItems">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeOpsItemsOutcomeCallable DescribeOpsItemsCallable(const Model::DescribeOpsItemsRequest& request) const;
+
+        /**
+         * <p>Query a set of OpsItems. You must have permission in AWS Identity and Access
+         * Management (IAM) to query a list of OpsItems. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeOpsItems">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeOpsItemsAsync(const Model::DescribeOpsItemsRequest& request, const DescribeOpsItemsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Get information about a parameter.</p> <note> <p>Request results are returned
+         * on a best-effort basis. If you specify <code>MaxResults</code> in the request,
+         * the response includes information up to the limit specified. The number of items
          * returned, however, can be between zero and the value of <code>MaxResults</code>.
          * If the service reaches an internal limit while processing the results, it stops
          * the operation and returns the matching values up to that point and a
          * <code>NextToken</code>. You can specify the <code>NextToken</code> in a
-         * subsequent call to get the next set of results.</p><p><h3>See Also:</h3>   <a
+         * subsequent call to get the next set of results.</p> </note><p><h3>See Also:</h3>
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeParameters">AWS
          * API Reference</a></p>
          */
         virtual Model::DescribeParametersOutcome DescribeParameters(const Model::DescribeParametersRequest& request) const;
 
         /**
-         * <p>Get information about a parameter.</p> <p>Request results are returned on a
-         * best-effort basis. If you specify <code>MaxResults</code> in the request, the
-         * response includes information up to the limit specified. The number of items
+         * <p>Get information about a parameter.</p> <note> <p>Request results are returned
+         * on a best-effort basis. If you specify <code>MaxResults</code> in the request,
+         * the response includes information up to the limit specified. The number of items
          * returned, however, can be between zero and the value of <code>MaxResults</code>.
          * If the service reaches an internal limit while processing the results, it stops
          * the operation and returns the matching values up to that point and a
          * <code>NextToken</code>. You can specify the <code>NextToken</code> in a
-         * subsequent call to get the next set of results.</p><p><h3>See Also:</h3>   <a
+         * subsequent call to get the next set of results.</p> </note><p><h3>See Also:</h3>
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeParameters">AWS
          * API Reference</a></p>
          *
@@ -2135,14 +2500,15 @@ namespace Model
         virtual Model::DescribeParametersOutcomeCallable DescribeParametersCallable(const Model::DescribeParametersRequest& request) const;
 
         /**
-         * <p>Get information about a parameter.</p> <p>Request results are returned on a
-         * best-effort basis. If you specify <code>MaxResults</code> in the request, the
-         * response includes information up to the limit specified. The number of items
+         * <p>Get information about a parameter.</p> <note> <p>Request results are returned
+         * on a best-effort basis. If you specify <code>MaxResults</code> in the request,
+         * the response includes information up to the limit specified. The number of items
          * returned, however, can be between zero and the value of <code>MaxResults</code>.
          * If the service reaches an internal limit while processing the results, it stops
          * the operation and returns the matching values up to that point and a
          * <code>NextToken</code>. You can specify the <code>NextToken</code> in a
-         * subsequent call to get the next set of results.</p><p><h3>See Also:</h3>   <a
+         * subsequent call to get the next set of results.</p> </note><p><h3>See Also:</h3>
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeParameters">AWS
          * API Reference</a></p>
          *
@@ -2232,6 +2598,104 @@ namespace Model
         virtual void DescribePatchGroupsAsync(const Model::DescribePatchGroupsRequest& request, const DescribePatchGroupsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Lists the properties of available patches organized by product, product
+         * family, classification, severity, and other properties of available patches. You
+         * can use the reported properties in the filters you specify in requests for
+         * actions such as <a>CreatePatchBaseline</a>, <a>UpdatePatchBaseline</a>,
+         * <a>DescribeAvailablePatches</a>, and <a>DescribePatchBaselines</a>.</p> <p>The
+         * following section lists the properties that can be used in filters for each
+         * major operating system type:</p> <dl> <dt>WINDOWS</dt> <dd> <p>Valid properties:
+         * PRODUCT, PRODUCT_FAMILY, CLASSIFICATION, MSRC_SEVERITY</p> </dd>
+         * <dt>AMAZON_LINUX</dt> <dd> <p>Valid properties: PRODUCT, CLASSIFICATION,
+         * SEVERITY</p> </dd> <dt>AMAZON_LINUX_2</dt> <dd> <p>Valid properties: PRODUCT,
+         * CLASSIFICATION, SEVERITY</p> </dd> <dt>UBUNTU </dt> <dd> <p>Valid properties:
+         * PRODUCT, PRIORITY</p> </dd> <dt>REDHAT_ENTERPRISE_LINUX</dt> <dd> <p>Valid
+         * properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd> <dt>SUSE</dt> <dd>
+         * <p>Valid properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd> <dt>CENTOS</dt>
+         * <dd> <p>Valid properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd>
+         * </dl><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribePatchProperties">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribePatchPropertiesOutcome DescribePatchProperties(const Model::DescribePatchPropertiesRequest& request) const;
+
+        /**
+         * <p>Lists the properties of available patches organized by product, product
+         * family, classification, severity, and other properties of available patches. You
+         * can use the reported properties in the filters you specify in requests for
+         * actions such as <a>CreatePatchBaseline</a>, <a>UpdatePatchBaseline</a>,
+         * <a>DescribeAvailablePatches</a>, and <a>DescribePatchBaselines</a>.</p> <p>The
+         * following section lists the properties that can be used in filters for each
+         * major operating system type:</p> <dl> <dt>WINDOWS</dt> <dd> <p>Valid properties:
+         * PRODUCT, PRODUCT_FAMILY, CLASSIFICATION, MSRC_SEVERITY</p> </dd>
+         * <dt>AMAZON_LINUX</dt> <dd> <p>Valid properties: PRODUCT, CLASSIFICATION,
+         * SEVERITY</p> </dd> <dt>AMAZON_LINUX_2</dt> <dd> <p>Valid properties: PRODUCT,
+         * CLASSIFICATION, SEVERITY</p> </dd> <dt>UBUNTU </dt> <dd> <p>Valid properties:
+         * PRODUCT, PRIORITY</p> </dd> <dt>REDHAT_ENTERPRISE_LINUX</dt> <dd> <p>Valid
+         * properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd> <dt>SUSE</dt> <dd>
+         * <p>Valid properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd> <dt>CENTOS</dt>
+         * <dd> <p>Valid properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd>
+         * </dl><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribePatchProperties">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribePatchPropertiesOutcomeCallable DescribePatchPropertiesCallable(const Model::DescribePatchPropertiesRequest& request) const;
+
+        /**
+         * <p>Lists the properties of available patches organized by product, product
+         * family, classification, severity, and other properties of available patches. You
+         * can use the reported properties in the filters you specify in requests for
+         * actions such as <a>CreatePatchBaseline</a>, <a>UpdatePatchBaseline</a>,
+         * <a>DescribeAvailablePatches</a>, and <a>DescribePatchBaselines</a>.</p> <p>The
+         * following section lists the properties that can be used in filters for each
+         * major operating system type:</p> <dl> <dt>WINDOWS</dt> <dd> <p>Valid properties:
+         * PRODUCT, PRODUCT_FAMILY, CLASSIFICATION, MSRC_SEVERITY</p> </dd>
+         * <dt>AMAZON_LINUX</dt> <dd> <p>Valid properties: PRODUCT, CLASSIFICATION,
+         * SEVERITY</p> </dd> <dt>AMAZON_LINUX_2</dt> <dd> <p>Valid properties: PRODUCT,
+         * CLASSIFICATION, SEVERITY</p> </dd> <dt>UBUNTU </dt> <dd> <p>Valid properties:
+         * PRODUCT, PRIORITY</p> </dd> <dt>REDHAT_ENTERPRISE_LINUX</dt> <dd> <p>Valid
+         * properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd> <dt>SUSE</dt> <dd>
+         * <p>Valid properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd> <dt>CENTOS</dt>
+         * <dd> <p>Valid properties: PRODUCT, CLASSIFICATION, SEVERITY</p> </dd>
+         * </dl><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribePatchProperties">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribePatchPropertiesAsync(const Model::DescribePatchPropertiesRequest& request, const DescribePatchPropertiesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Retrieves a list of all active sessions (both connected and disconnected) or
+         * terminated sessions from the past 30 days.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeSessions">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeSessionsOutcome DescribeSessions(const Model::DescribeSessionsRequest& request) const;
+
+        /**
+         * <p>Retrieves a list of all active sessions (both connected and disconnected) or
+         * terminated sessions from the past 30 days.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeSessions">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeSessionsOutcomeCallable DescribeSessionsCallable(const Model::DescribeSessionsRequest& request) const;
+
+        /**
+         * <p>Retrieves a list of all active sessions (both connected and disconnected) or
+         * terminated sessions from the past 30 days.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeSessions">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeSessionsAsync(const Model::DescribeSessionsRequest& request, const DescribeSessionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Get detailed information about a particular Automation
          * execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetAutomationExecution">AWS
@@ -2260,6 +2724,58 @@ namespace Model
         virtual void GetAutomationExecutionAsync(const Model::GetAutomationExecutionRequest& request, const GetAutomationExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Gets the state of the AWS Systems Manager Change Calendar at an optional,
+         * specified time. If you specify a time, <code>GetCalendarState</code> returns the
+         * state of the calendar at a specific time, and returns the next time that the
+         * Change Calendar state will transition. If you do not specify a time,
+         * <code>GetCalendarState</code> assumes the current time. Change Calendar entries
+         * have two possible states: <code>OPEN</code> or <code>CLOSED</code>. For more
+         * information about Systems Manager Change Calendar, see <a
+         * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar.html">AWS
+         * Systems Manager Change Calendar</a> in the <i>AWS Systems Manager User
+         * Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetCalendarState">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetCalendarStateOutcome GetCalendarState(const Model::GetCalendarStateRequest& request) const;
+
+        /**
+         * <p>Gets the state of the AWS Systems Manager Change Calendar at an optional,
+         * specified time. If you specify a time, <code>GetCalendarState</code> returns the
+         * state of the calendar at a specific time, and returns the next time that the
+         * Change Calendar state will transition. If you do not specify a time,
+         * <code>GetCalendarState</code> assumes the current time. Change Calendar entries
+         * have two possible states: <code>OPEN</code> or <code>CLOSED</code>. For more
+         * information about Systems Manager Change Calendar, see <a
+         * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar.html">AWS
+         * Systems Manager Change Calendar</a> in the <i>AWS Systems Manager User
+         * Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetCalendarState">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetCalendarStateOutcomeCallable GetCalendarStateCallable(const Model::GetCalendarStateRequest& request) const;
+
+        /**
+         * <p>Gets the state of the AWS Systems Manager Change Calendar at an optional,
+         * specified time. If you specify a time, <code>GetCalendarState</code> returns the
+         * state of the calendar at a specific time, and returns the next time that the
+         * Change Calendar state will transition. If you do not specify a time,
+         * <code>GetCalendarState</code> assumes the current time. Change Calendar entries
+         * have two possible states: <code>OPEN</code> or <code>CLOSED</code>. For more
+         * information about Systems Manager Change Calendar, see <a
+         * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar.html">AWS
+         * Systems Manager Change Calendar</a> in the <i>AWS Systems Manager User
+         * Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetCalendarState">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetCalendarStateAsync(const Model::GetCalendarStateRequest& request, const GetCalendarStateResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Returns detailed information about command execution for an invocation or
          * plugin. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetCommandInvocation">AWS
@@ -2286,6 +2802,37 @@ namespace Model
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void GetCommandInvocationAsync(const Model::GetCommandInvocationRequest& request, const GetCommandInvocationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Retrieves the Session Manager connection status for an instance to determine
+         * whether it is connected and ready to receive Session Manager
+         * connections.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetConnectionStatus">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetConnectionStatusOutcome GetConnectionStatus(const Model::GetConnectionStatusRequest& request) const;
+
+        /**
+         * <p>Retrieves the Session Manager connection status for an instance to determine
+         * whether it is connected and ready to receive Session Manager
+         * connections.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetConnectionStatus">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetConnectionStatusOutcomeCallable GetConnectionStatusCallable(const Model::GetConnectionStatusRequest& request) const;
+
+        /**
+         * <p>Retrieves the Session Manager connection status for an instance to determine
+         * whether it is connected and ready to receive Session Manager
+         * connections.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetConnectionStatus">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetConnectionStatusAsync(const Model::GetConnectionStatusRequest& request, const GetConnectionStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Retrieves the default patch baseline. Note that Systems Manager supports
@@ -2440,14 +2987,14 @@ namespace Model
         virtual void GetInventorySchemaAsync(const Model::GetInventorySchemaRequest& request, const GetInventorySchemaResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Retrieves a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindow">AWS
          * API Reference</a></p>
          */
         virtual Model::GetMaintenanceWindowOutcome GetMaintenanceWindow(const Model::GetMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Retrieves a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -2456,7 +3003,7 @@ namespace Model
         virtual Model::GetMaintenanceWindowOutcomeCallable GetMaintenanceWindowCallable(const Model::GetMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Retrieves a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -2465,16 +3012,16 @@ namespace Model
         virtual void GetMaintenanceWindowAsync(const Model::GetMaintenanceWindowRequest& request, const GetMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Retrieves details about a specific task executed as part of a Maintenance
-         * Window execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves details about a specific a maintenance window
+         * execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecution">AWS
          * API Reference</a></p>
          */
         virtual Model::GetMaintenanceWindowExecutionOutcome GetMaintenanceWindowExecution(const Model::GetMaintenanceWindowExecutionRequest& request) const;
 
         /**
-         * <p>Retrieves details about a specific task executed as part of a Maintenance
-         * Window execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves details about a specific a maintenance window
+         * execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecution">AWS
          * API Reference</a></p>
          *
@@ -2483,8 +3030,8 @@ namespace Model
         virtual Model::GetMaintenanceWindowExecutionOutcomeCallable GetMaintenanceWindowExecutionCallable(const Model::GetMaintenanceWindowExecutionRequest& request) const;
 
         /**
-         * <p>Retrieves details about a specific task executed as part of a Maintenance
-         * Window execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves details about a specific a maintenance window
+         * execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecution">AWS
          * API Reference</a></p>
          *
@@ -2493,16 +3040,16 @@ namespace Model
         virtual void GetMaintenanceWindowExecutionAsync(const Model::GetMaintenanceWindowExecutionRequest& request, const GetMaintenanceWindowExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Retrieves the details about a specific task executed as part of a Maintenance
-         * Window execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves the details about a specific task run as part of a maintenance
+         * window execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecutionTask">AWS
          * API Reference</a></p>
          */
         virtual Model::GetMaintenanceWindowExecutionTaskOutcome GetMaintenanceWindowExecutionTask(const Model::GetMaintenanceWindowExecutionTaskRequest& request) const;
 
         /**
-         * <p>Retrieves the details about a specific task executed as part of a Maintenance
-         * Window execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves the details about a specific task run as part of a maintenance
+         * window execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecutionTask">AWS
          * API Reference</a></p>
          *
@@ -2511,8 +3058,8 @@ namespace Model
         virtual Model::GetMaintenanceWindowExecutionTaskOutcomeCallable GetMaintenanceWindowExecutionTaskCallable(const Model::GetMaintenanceWindowExecutionTaskRequest& request) const;
 
         /**
-         * <p>Retrieves the details about a specific task executed as part of a Maintenance
-         * Window execution.</p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves the details about a specific task run as part of a maintenance
+         * window execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecutionTask">AWS
          * API Reference</a></p>
          *
@@ -2521,18 +3068,16 @@ namespace Model
         virtual void GetMaintenanceWindowExecutionTaskAsync(const Model::GetMaintenanceWindowExecutionTaskRequest& request, const GetMaintenanceWindowExecutionTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Retrieves a task invocation. A task invocation is a specific task executing
-         * on a specific target. Maintenance Windows report status for all invocations.
-         * </p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves information about a specific task running on a specific
+         * target.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecutionTaskInvocation">AWS
          * API Reference</a></p>
          */
         virtual Model::GetMaintenanceWindowExecutionTaskInvocationOutcome GetMaintenanceWindowExecutionTaskInvocation(const Model::GetMaintenanceWindowExecutionTaskInvocationRequest& request) const;
 
         /**
-         * <p>Retrieves a task invocation. A task invocation is a specific task executing
-         * on a specific target. Maintenance Windows report status for all invocations.
-         * </p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves information about a specific task running on a specific
+         * target.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecutionTaskInvocation">AWS
          * API Reference</a></p>
          *
@@ -2541,9 +3086,8 @@ namespace Model
         virtual Model::GetMaintenanceWindowExecutionTaskInvocationOutcomeCallable GetMaintenanceWindowExecutionTaskInvocationCallable(const Model::GetMaintenanceWindowExecutionTaskInvocationRequest& request) const;
 
         /**
-         * <p>Retrieves a task invocation. A task invocation is a specific task executing
-         * on a specific target. Maintenance Windows report status for all invocations.
-         * </p><p><h3>See Also:</h3>   <a
+         * <p>Retrieves information about a specific task running on a specific
+         * target.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecutionTaskInvocation">AWS
          * API Reference</a></p>
          *
@@ -2552,14 +3096,14 @@ namespace Model
         virtual void GetMaintenanceWindowExecutionTaskInvocationAsync(const Model::GetMaintenanceWindowExecutionTaskInvocationRequest& request, const GetMaintenanceWindowExecutionTaskInvocationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the tasks in a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the tasks in a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowTask">AWS
          * API Reference</a></p>
          */
         virtual Model::GetMaintenanceWindowTaskOutcome GetMaintenanceWindowTask(const Model::GetMaintenanceWindowTaskRequest& request) const;
 
         /**
-         * <p>Lists the tasks in a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the tasks in a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowTask">AWS
          * API Reference</a></p>
          *
@@ -2568,13 +3112,96 @@ namespace Model
         virtual Model::GetMaintenanceWindowTaskOutcomeCallable GetMaintenanceWindowTaskCallable(const Model::GetMaintenanceWindowTaskRequest& request) const;
 
         /**
-         * <p>Lists the tasks in a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Lists the tasks in a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowTask">AWS
          * API Reference</a></p>
          *
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void GetMaintenanceWindowTaskAsync(const Model::GetMaintenanceWindowTaskRequest& request, const GetMaintenanceWindowTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Get information about an OpsItem by using the ID. You must have permission in
+         * AWS Identity and Access Management (IAM) to view information about an OpsItem.
+         * For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetOpsItem">AWS API
+         * Reference</a></p>
+         */
+        virtual Model::GetOpsItemOutcome GetOpsItem(const Model::GetOpsItemRequest& request) const;
+
+        /**
+         * <p>Get information about an OpsItem by using the ID. You must have permission in
+         * AWS Identity and Access Management (IAM) to view information about an OpsItem.
+         * For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetOpsItem">AWS API
+         * Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetOpsItemOutcomeCallable GetOpsItemCallable(const Model::GetOpsItemRequest& request) const;
+
+        /**
+         * <p>Get information about an OpsItem by using the ID. You must have permission in
+         * AWS Identity and Access Management (IAM) to view information about an OpsItem.
+         * For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetOpsItem">AWS API
+         * Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetOpsItemAsync(const Model::GetOpsItemRequest& request, const GetOpsItemResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>View a summary of OpsItems based on specified filters and
+         * aggregators.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetOpsSummary">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetOpsSummaryOutcome GetOpsSummary(const Model::GetOpsSummaryRequest& request) const;
+
+        /**
+         * <p>View a summary of OpsItems based on specified filters and
+         * aggregators.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetOpsSummary">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetOpsSummaryOutcomeCallable GetOpsSummaryCallable(const Model::GetOpsSummaryRequest& request) const;
+
+        /**
+         * <p>View a summary of OpsItems based on specified filters and
+         * aggregators.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetOpsSummary">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetOpsSummaryAsync(const Model::GetOpsSummaryRequest& request, const GetOpsSummaryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Get information about a parameter by using the parameter name. Don't confuse
@@ -2664,36 +3291,30 @@ namespace Model
         virtual void GetParametersAsync(const Model::GetParametersRequest& request, const GetParametersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Retrieve parameters in a specific hierarchy. For more information, see <a
-         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-working.html">Working
-         * with Systems Manager Parameters</a> in the <i>AWS Systems Manager User
-         * Guide</i>. </p> <p>Request results are returned on a best-effort basis. If you
+         * <p>Retrieve information about one or more parameters in a specific hierarchy.
+         * </p> <note> <p>Request results are returned on a best-effort basis. If you
          * specify <code>MaxResults</code> in the request, the response includes
          * information up to the limit specified. The number of items returned, however,
          * can be between zero and the value of <code>MaxResults</code>. If the service
          * reaches an internal limit while processing the results, it stops the operation
          * and returns the matching values up to that point and a <code>NextToken</code>.
          * You can specify the <code>NextToken</code> in a subsequent call to get the next
-         * set of results.</p> <note> <p>This API action doesn't support filtering by tags.
-         * </p> </note><p><h3>See Also:</h3>   <a
+         * set of results.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetParametersByPath">AWS
          * API Reference</a></p>
          */
         virtual Model::GetParametersByPathOutcome GetParametersByPath(const Model::GetParametersByPathRequest& request) const;
 
         /**
-         * <p>Retrieve parameters in a specific hierarchy. For more information, see <a
-         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-working.html">Working
-         * with Systems Manager Parameters</a> in the <i>AWS Systems Manager User
-         * Guide</i>. </p> <p>Request results are returned on a best-effort basis. If you
+         * <p>Retrieve information about one or more parameters in a specific hierarchy.
+         * </p> <note> <p>Request results are returned on a best-effort basis. If you
          * specify <code>MaxResults</code> in the request, the response includes
          * information up to the limit specified. The number of items returned, however,
          * can be between zero and the value of <code>MaxResults</code>. If the service
          * reaches an internal limit while processing the results, it stops the operation
          * and returns the matching values up to that point and a <code>NextToken</code>.
          * You can specify the <code>NextToken</code> in a subsequent call to get the next
-         * set of results.</p> <note> <p>This API action doesn't support filtering by tags.
-         * </p> </note><p><h3>See Also:</h3>   <a
+         * set of results.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetParametersByPath">AWS
          * API Reference</a></p>
          *
@@ -2702,18 +3323,15 @@ namespace Model
         virtual Model::GetParametersByPathOutcomeCallable GetParametersByPathCallable(const Model::GetParametersByPathRequest& request) const;
 
         /**
-         * <p>Retrieve parameters in a specific hierarchy. For more information, see <a
-         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-working.html">Working
-         * with Systems Manager Parameters</a> in the <i>AWS Systems Manager User
-         * Guide</i>. </p> <p>Request results are returned on a best-effort basis. If you
+         * <p>Retrieve information about one or more parameters in a specific hierarchy.
+         * </p> <note> <p>Request results are returned on a best-effort basis. If you
          * specify <code>MaxResults</code> in the request, the response includes
          * information up to the limit specified. The number of items returned, however,
          * can be between zero and the value of <code>MaxResults</code>. If the service
          * reaches an internal limit while processing the results, it stops the operation
          * and returns the matching values up to that point and a <code>NextToken</code>.
          * You can specify the <code>NextToken</code> in a subsequent call to get the next
-         * set of results.</p> <note> <p>This API action doesn't support filtering by tags.
-         * </p> </note><p><h3>See Also:</h3>   <a
+         * set of results.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetParametersByPath">AWS
          * API Reference</a></p>
          *
@@ -2775,6 +3393,152 @@ namespace Model
         virtual void GetPatchBaselineForPatchGroupAsync(const Model::GetPatchBaselineForPatchGroupRequest& request, const GetPatchBaselineForPatchGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>UpdateServiceSetting</a> API action to change the default setting. Or use the
+         * <a>ResetServiceSetting</a> to change the value back to the original value
+         * defined by the AWS service team.</p> <p>Query the current service setting for
+         * the account. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetServiceSetting">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetServiceSettingOutcome GetServiceSetting(const Model::GetServiceSettingRequest& request) const;
+
+        /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>UpdateServiceSetting</a> API action to change the default setting. Or use the
+         * <a>ResetServiceSetting</a> to change the value back to the original value
+         * defined by the AWS service team.</p> <p>Query the current service setting for
+         * the account. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetServiceSetting">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetServiceSettingOutcomeCallable GetServiceSettingCallable(const Model::GetServiceSettingRequest& request) const;
+
+        /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>UpdateServiceSetting</a> API action to change the default setting. Or use the
+         * <a>ResetServiceSetting</a> to change the value back to the original value
+         * defined by the AWS service team.</p> <p>Query the current service setting for
+         * the account. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetServiceSetting">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetServiceSettingAsync(const Model::GetServiceSettingRequest& request, const GetServiceSettingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>A parameter label is a user-defined alias to help you manage different
+         * versions of a parameter. When you modify a parameter, Systems Manager
+         * automatically saves a new version and increments the version number by one. A
+         * label can help you remember the purpose of a parameter when there are multiple
+         * versions. </p> <p>Parameter labels have the following requirements and
+         * restrictions.</p> <ul> <li> <p>A version of a parameter can have a maximum of 10
+         * labels.</p> </li> <li> <p>You can't attach the same label to different versions
+         * of the same parameter. For example, if version 1 has the label Production, then
+         * you can't attach Production to version 2.</p> </li> <li> <p>You can move a label
+         * from one version of a parameter to another.</p> </li> <li> <p>You can't create a
+         * label when you create a new parameter. You must attach a label to a specific
+         * version of a parameter.</p> </li> <li> <p>You can't delete a parameter label. If
+         * you no longer want to use a parameter label, then you must move it to a
+         * different version of a parameter.</p> </li> <li> <p>A label can have a maximum
+         * of 100 characters.</p> </li> <li> <p>Labels can contain letters (case
+         * sensitive), numbers, periods (.), hyphens (-), or underscores (_).</p> </li>
+         * <li> <p>Labels can't begin with a number, "aws," or "ssm" (not case sensitive).
+         * If a label fails to meet these requirements, then the label is not associated
+         * with a parameter and the system displays it in the list of InvalidLabels.</p>
+         * </li> </ul><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/LabelParameterVersion">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::LabelParameterVersionOutcome LabelParameterVersion(const Model::LabelParameterVersionRequest& request) const;
+
+        /**
+         * <p>A parameter label is a user-defined alias to help you manage different
+         * versions of a parameter. When you modify a parameter, Systems Manager
+         * automatically saves a new version and increments the version number by one. A
+         * label can help you remember the purpose of a parameter when there are multiple
+         * versions. </p> <p>Parameter labels have the following requirements and
+         * restrictions.</p> <ul> <li> <p>A version of a parameter can have a maximum of 10
+         * labels.</p> </li> <li> <p>You can't attach the same label to different versions
+         * of the same parameter. For example, if version 1 has the label Production, then
+         * you can't attach Production to version 2.</p> </li> <li> <p>You can move a label
+         * from one version of a parameter to another.</p> </li> <li> <p>You can't create a
+         * label when you create a new parameter. You must attach a label to a specific
+         * version of a parameter.</p> </li> <li> <p>You can't delete a parameter label. If
+         * you no longer want to use a parameter label, then you must move it to a
+         * different version of a parameter.</p> </li> <li> <p>A label can have a maximum
+         * of 100 characters.</p> </li> <li> <p>Labels can contain letters (case
+         * sensitive), numbers, periods (.), hyphens (-), or underscores (_).</p> </li>
+         * <li> <p>Labels can't begin with a number, "aws," or "ssm" (not case sensitive).
+         * If a label fails to meet these requirements, then the label is not associated
+         * with a parameter and the system displays it in the list of InvalidLabels.</p>
+         * </li> </ul><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/LabelParameterVersion">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::LabelParameterVersionOutcomeCallable LabelParameterVersionCallable(const Model::LabelParameterVersionRequest& request) const;
+
+        /**
+         * <p>A parameter label is a user-defined alias to help you manage different
+         * versions of a parameter. When you modify a parameter, Systems Manager
+         * automatically saves a new version and increments the version number by one. A
+         * label can help you remember the purpose of a parameter when there are multiple
+         * versions. </p> <p>Parameter labels have the following requirements and
+         * restrictions.</p> <ul> <li> <p>A version of a parameter can have a maximum of 10
+         * labels.</p> </li> <li> <p>You can't attach the same label to different versions
+         * of the same parameter. For example, if version 1 has the label Production, then
+         * you can't attach Production to version 2.</p> </li> <li> <p>You can move a label
+         * from one version of a parameter to another.</p> </li> <li> <p>You can't create a
+         * label when you create a new parameter. You must attach a label to a specific
+         * version of a parameter.</p> </li> <li> <p>You can't delete a parameter label. If
+         * you no longer want to use a parameter label, then you must move it to a
+         * different version of a parameter.</p> </li> <li> <p>A label can have a maximum
+         * of 100 characters.</p> </li> <li> <p>Labels can contain letters (case
+         * sensitive), numbers, periods (.), hyphens (-), or underscores (_).</p> </li>
+         * <li> <p>Labels can't begin with a number, "aws," or "ssm" (not case sensitive).
+         * If a label fails to meet these requirements, then the label is not associated
+         * with a parameter and the system displays it in the list of InvalidLabels.</p>
+         * </li> </ul><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/LabelParameterVersion">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void LabelParameterVersionAsync(const Model::LabelParameterVersionRequest& request, const LabelParameterVersionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Retrieves all versions of an association for a specific association
          * ID.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListAssociationVersions">AWS
@@ -2803,16 +3567,18 @@ namespace Model
         virtual void ListAssociationVersionsAsync(const Model::ListAssociationVersionsRequest& request, const ListAssociationVersionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the associations for the specified Systems Manager document or
-         * instance.</p><p><h3>See Also:</h3>   <a
+         * <p>Returns all State Manager associations in the current AWS account and Region.
+         * You can limit the results to a specific State Manager association document or
+         * instance by specifying a filter.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListAssociations">AWS
          * API Reference</a></p>
          */
         virtual Model::ListAssociationsOutcome ListAssociations(const Model::ListAssociationsRequest& request) const;
 
         /**
-         * <p>Lists the associations for the specified Systems Manager document or
-         * instance.</p><p><h3>See Also:</h3>   <a
+         * <p>Returns all State Manager associations in the current AWS account and Region.
+         * You can limit the results to a specific State Manager association document or
+         * instance by specifying a filter.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListAssociations">AWS
          * API Reference</a></p>
          *
@@ -2821,8 +3587,9 @@ namespace Model
         virtual Model::ListAssociationsOutcomeCallable ListAssociationsCallable(const Model::ListAssociationsRequest& request) const;
 
         /**
-         * <p>Lists the associations for the specified Systems Manager document or
-         * instance.</p><p><h3>See Also:</h3>   <a
+         * <p>Returns all State Manager associations in the current AWS account and Region.
+         * You can limit the results to a specific State Manager association document or
+         * instance by specifying a filter.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListAssociations">AWS
          * API Reference</a></p>
          *
@@ -2833,10 +3600,9 @@ namespace Model
         /**
          * <p>An invocation is copy of a command sent to a specific instance. A command can
          * apply to one or more instances. A command invocation applies to one instance.
-         * For example, if a user executes SendCommand against three instances, then a
-         * command invocation is created for each requested instance ID.
-         * ListCommandInvocations provide status about command execution.</p><p><h3>See
-         * Also:</h3>   <a
+         * For example, if a user runs SendCommand against three instances, then a command
+         * invocation is created for each requested instance ID. ListCommandInvocations
+         * provide status about command execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListCommandInvocations">AWS
          * API Reference</a></p>
          */
@@ -2845,10 +3611,9 @@ namespace Model
         /**
          * <p>An invocation is copy of a command sent to a specific instance. A command can
          * apply to one or more instances. A command invocation applies to one instance.
-         * For example, if a user executes SendCommand against three instances, then a
-         * command invocation is created for each requested instance ID.
-         * ListCommandInvocations provide status about command execution.</p><p><h3>See
-         * Also:</h3>   <a
+         * For example, if a user runs SendCommand against three instances, then a command
+         * invocation is created for each requested instance ID. ListCommandInvocations
+         * provide status about command execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListCommandInvocations">AWS
          * API Reference</a></p>
          *
@@ -2859,10 +3624,9 @@ namespace Model
         /**
          * <p>An invocation is copy of a command sent to a specific instance. A command can
          * apply to one or more instances. A command invocation applies to one instance.
-         * For example, if a user executes SendCommand against three instances, then a
-         * command invocation is created for each requested instance ID.
-         * ListCommandInvocations provide status about command execution.</p><p><h3>See
-         * Also:</h3>   <a
+         * For example, if a user runs SendCommand against three instances, then a command
+         * invocation is created for each requested instance ID. ListCommandInvocations
+         * provide status about command execution.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListCommandInvocations">AWS
          * API Reference</a></p>
          *
@@ -2992,16 +3756,18 @@ namespace Model
         virtual void ListDocumentVersionsAsync(const Model::ListDocumentVersionsRequest& request, const ListDocumentVersionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Describes one or more of your Systems Manager documents.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Returns all Systems Manager (SSM) documents in the current AWS account and
+         * Region. You can limit the results of this request by using a
+         * filter.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListDocuments">AWS
          * API Reference</a></p>
          */
         virtual Model::ListDocumentsOutcome ListDocuments(const Model::ListDocumentsRequest& request) const;
 
         /**
-         * <p>Describes one or more of your Systems Manager documents.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Returns all Systems Manager (SSM) documents in the current AWS account and
+         * Region. You can limit the results of this request by using a
+         * filter.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListDocuments">AWS
          * API Reference</a></p>
          *
@@ -3010,8 +3776,9 @@ namespace Model
         virtual Model::ListDocumentsOutcomeCallable ListDocumentsCallable(const Model::ListDocumentsRequest& request) const;
 
         /**
-         * <p>Describes one or more of your Systems Manager documents.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Returns all Systems Manager (SSM) documents in the current AWS account and
+         * Region. You can limit the results of this request by using a
+         * filter.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListDocuments">AWS
          * API Reference</a></p>
          *
@@ -3349,14 +4116,22 @@ namespace Model
         virtual void PutParameterAsync(const Model::PutParameterRequest& request, const PutParameterResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Defines the default patch baseline.</p><p><h3>See Also:</h3>   <a
+         * <p>Defines the default patch baseline for the relevant operating system.</p>
+         * <p>To reset the AWS predefined patch baseline as the default, specify the full
+         * patch baseline ARN as the baseline ID value. For example, for CentOS, specify
+         * <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0574b43a65ea646ed</code>
+         * instead of <code>pb-0574b43a65ea646ed</code>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterDefaultPatchBaseline">AWS
          * API Reference</a></p>
          */
         virtual Model::RegisterDefaultPatchBaselineOutcome RegisterDefaultPatchBaseline(const Model::RegisterDefaultPatchBaselineRequest& request) const;
 
         /**
-         * <p>Defines the default patch baseline.</p><p><h3>See Also:</h3>   <a
+         * <p>Defines the default patch baseline for the relevant operating system.</p>
+         * <p>To reset the AWS predefined patch baseline as the default, specify the full
+         * patch baseline ARN as the baseline ID value. For example, for CentOS, specify
+         * <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0574b43a65ea646ed</code>
+         * instead of <code>pb-0574b43a65ea646ed</code>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterDefaultPatchBaseline">AWS
          * API Reference</a></p>
          *
@@ -3365,7 +4140,11 @@ namespace Model
         virtual Model::RegisterDefaultPatchBaselineOutcomeCallable RegisterDefaultPatchBaselineCallable(const Model::RegisterDefaultPatchBaselineRequest& request) const;
 
         /**
-         * <p>Defines the default patch baseline.</p><p><h3>See Also:</h3>   <a
+         * <p>Defines the default patch baseline for the relevant operating system.</p>
+         * <p>To reset the AWS predefined patch baseline as the default, specify the full
+         * patch baseline ARN as the baseline ID value. For example, for CentOS, specify
+         * <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0574b43a65ea646ed</code>
+         * instead of <code>pb-0574b43a65ea646ed</code>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterDefaultPatchBaseline">AWS
          * API Reference</a></p>
          *
@@ -3399,14 +4178,14 @@ namespace Model
         virtual void RegisterPatchBaselineForPatchGroupAsync(const Model::RegisterPatchBaselineForPatchGroupRequest& request, const RegisterPatchBaselineForPatchGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Registers a target with a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Registers a target with a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterTargetWithMaintenanceWindow">AWS
          * API Reference</a></p>
          */
         virtual Model::RegisterTargetWithMaintenanceWindowOutcome RegisterTargetWithMaintenanceWindow(const Model::RegisterTargetWithMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Registers a target with a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Registers a target with a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterTargetWithMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -3415,7 +4194,7 @@ namespace Model
         virtual Model::RegisterTargetWithMaintenanceWindowOutcomeCallable RegisterTargetWithMaintenanceWindowCallable(const Model::RegisterTargetWithMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Registers a target with a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Registers a target with a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterTargetWithMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -3424,14 +4203,14 @@ namespace Model
         virtual void RegisterTargetWithMaintenanceWindowAsync(const Model::RegisterTargetWithMaintenanceWindowRequest& request, const RegisterTargetWithMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Adds a new task to a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Adds a new task to a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterTaskWithMaintenanceWindow">AWS
          * API Reference</a></p>
          */
         virtual Model::RegisterTaskWithMaintenanceWindowOutcome RegisterTaskWithMaintenanceWindow(const Model::RegisterTaskWithMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Adds a new task to a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Adds a new task to a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterTaskWithMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -3440,7 +4219,7 @@ namespace Model
         virtual Model::RegisterTaskWithMaintenanceWindowOutcomeCallable RegisterTaskWithMaintenanceWindowCallable(const Model::RegisterTaskWithMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Adds a new task to a Maintenance Window.</p><p><h3>See Also:</h3>   <a
+         * <p>Adds a new task to a maintenance window.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterTaskWithMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -3449,14 +4228,14 @@ namespace Model
         virtual void RegisterTaskWithMaintenanceWindowAsync(const Model::RegisterTaskWithMaintenanceWindowRequest& request, const RegisterTaskWithMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Removes all tags from the specified resource.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes tag keys from the specified resource.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RemoveTagsFromResource">AWS
          * API Reference</a></p>
          */
         virtual Model::RemoveTagsFromResourceOutcome RemoveTagsFromResource(const Model::RemoveTagsFromResourceRequest& request) const;
 
         /**
-         * <p>Removes all tags from the specified resource.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes tag keys from the specified resource.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RemoveTagsFromResource">AWS
          * API Reference</a></p>
          *
@@ -3465,13 +4244,114 @@ namespace Model
         virtual Model::RemoveTagsFromResourceOutcomeCallable RemoveTagsFromResourceCallable(const Model::RemoveTagsFromResourceRequest& request) const;
 
         /**
-         * <p>Removes all tags from the specified resource.</p><p><h3>See Also:</h3>   <a
+         * <p>Removes tag keys from the specified resource.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RemoveTagsFromResource">AWS
          * API Reference</a></p>
          *
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void RemoveTagsFromResourceAsync(const Model::RemoveTagsFromResourceRequest& request, const RemoveTagsFromResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>GetServiceSetting</a> API action to view the current value. Use the
+         * <a>UpdateServiceSetting</a> API action to change the default setting. </p>
+         * <p>Reset the service setting for the account to the default value as provisioned
+         * by the AWS service team. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ResetServiceSetting">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::ResetServiceSettingOutcome ResetServiceSetting(const Model::ResetServiceSettingRequest& request) const;
+
+        /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>GetServiceSetting</a> API action to view the current value. Use the
+         * <a>UpdateServiceSetting</a> API action to change the default setting. </p>
+         * <p>Reset the service setting for the account to the default value as provisioned
+         * by the AWS service team. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ResetServiceSetting">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ResetServiceSettingOutcomeCallable ResetServiceSettingCallable(const Model::ResetServiceSettingRequest& request) const;
+
+        /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>GetServiceSetting</a> API action to view the current value. Use the
+         * <a>UpdateServiceSetting</a> API action to change the default setting. </p>
+         * <p>Reset the service setting for the account to the default value as provisioned
+         * by the AWS service team. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ResetServiceSetting">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ResetServiceSettingAsync(const Model::ResetServiceSettingRequest& request, const ResetServiceSettingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Reconnects a session to an instance after it has been disconnected.
+         * Connections can be resumed for disconnected sessions, but not terminated
+         * sessions.</p> <note> <p>This command is primarily for use by client machines to
+         * automatically reconnect during intermittent network issues. It is not intended
+         * for any other use.</p> </note><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ResumeSession">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::ResumeSessionOutcome ResumeSession(const Model::ResumeSessionRequest& request) const;
+
+        /**
+         * <p>Reconnects a session to an instance after it has been disconnected.
+         * Connections can be resumed for disconnected sessions, but not terminated
+         * sessions.</p> <note> <p>This command is primarily for use by client machines to
+         * automatically reconnect during intermittent network issues. It is not intended
+         * for any other use.</p> </note><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ResumeSession">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ResumeSessionOutcomeCallable ResumeSessionCallable(const Model::ResumeSessionRequest& request) const;
+
+        /**
+         * <p>Reconnects a session to an instance after it has been disconnected.
+         * Connections can be resumed for disconnected sessions, but not terminated
+         * sessions.</p> <note> <p>This command is primarily for use by client machines to
+         * automatically reconnect during intermittent network issues. It is not intended
+         * for any other use.</p> </note><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ResumeSession">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ResumeSessionAsync(const Model::ResumeSessionRequest& request, const ResumeSessionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Sends a signal to an Automation execution to change the current behavior or
@@ -3502,33 +4382,33 @@ namespace Model
         virtual void SendAutomationSignalAsync(const Model::SendAutomationSignalRequest& request, const SendAutomationSignalResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Executes commands on one or more managed instances.</p><p><h3>See Also:</h3> 
-         * <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendCommand">AWS
-         * API Reference</a></p>
+         * <p>Runs commands on one or more managed instances.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendCommand">AWS API
+         * Reference</a></p>
          */
         virtual Model::SendCommandOutcome SendCommand(const Model::SendCommandRequest& request) const;
 
         /**
-         * <p>Executes commands on one or more managed instances.</p><p><h3>See Also:</h3> 
-         * <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendCommand">AWS
-         * API Reference</a></p>
+         * <p>Runs commands on one or more managed instances.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendCommand">AWS API
+         * Reference</a></p>
          *
          * returns a future to the operation so that it can be executed in parallel to other requests.
          */
         virtual Model::SendCommandOutcomeCallable SendCommandCallable(const Model::SendCommandRequest& request) const;
 
         /**
-         * <p>Executes commands on one or more managed instances.</p><p><h3>See Also:</h3> 
-         * <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendCommand">AWS
-         * API Reference</a></p>
+         * <p>Runs commands on one or more managed instances.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendCommand">AWS API
+         * Reference</a></p>
          *
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void SendCommandAsync(const Model::SendCommandRequest& request, const SendCommandResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Use this API action to execute an association immediately and only one time.
-         * This action can be helpful when troubleshooting associations.</p><p><h3>See
+         * <p>Use this API action to run an association immediately and only one time. This
+         * action can be helpful when troubleshooting associations.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StartAssociationsOnce">AWS
          * API Reference</a></p>
@@ -3536,8 +4416,8 @@ namespace Model
         virtual Model::StartAssociationsOnceOutcome StartAssociationsOnce(const Model::StartAssociationsOnceRequest& request) const;
 
         /**
-         * <p>Use this API action to execute an association immediately and only one time.
-         * This action can be helpful when troubleshooting associations.</p><p><h3>See
+         * <p>Use this API action to run an association immediately and only one time. This
+         * action can be helpful when troubleshooting associations.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StartAssociationsOnce">AWS
          * API Reference</a></p>
@@ -3547,8 +4427,8 @@ namespace Model
         virtual Model::StartAssociationsOnceOutcomeCallable StartAssociationsOnceCallable(const Model::StartAssociationsOnceRequest& request) const;
 
         /**
-         * <p>Use this API action to execute an association immediately and only one time.
-         * This action can be helpful when troubleshooting associations.</p><p><h3>See
+         * <p>Use this API action to run an association immediately and only one time. This
+         * action can be helpful when troubleshooting associations.</p><p><h3>See
          * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StartAssociationsOnce">AWS
          * API Reference</a></p>
@@ -3583,14 +4463,69 @@ namespace Model
         virtual void StartAutomationExecutionAsync(const Model::StartAutomationExecutionRequest& request, const StartAutomationExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Stop an Automation that is currently executing.</p><p><h3>See Also:</h3>   <a
+         * <p>Initiates a connection to a target (for example, an instance) for a Session
+         * Manager session. Returns a URL and token that can be used to open a WebSocket
+         * connection for sending input and receiving outputs.</p> <note> <p>AWS CLI usage:
+         * <code>start-session</code> is an interactive command that requires the Session
+         * Manager plugin to be installed on the client machine making the call. For
+         * information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html">
+         * Install the Session Manager Plugin for the AWS CLI</a> in the <i>AWS Systems
+         * Manager User Guide</i>.</p> <p>AWS Tools for PowerShell usage: Start-SSMSession
+         * is not currently supported by AWS Tools for PowerShell on Windows local
+         * machines.</p> </note><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StartSession">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::StartSessionOutcome StartSession(const Model::StartSessionRequest& request) const;
+
+        /**
+         * <p>Initiates a connection to a target (for example, an instance) for a Session
+         * Manager session. Returns a URL and token that can be used to open a WebSocket
+         * connection for sending input and receiving outputs.</p> <note> <p>AWS CLI usage:
+         * <code>start-session</code> is an interactive command that requires the Session
+         * Manager plugin to be installed on the client machine making the call. For
+         * information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html">
+         * Install the Session Manager Plugin for the AWS CLI</a> in the <i>AWS Systems
+         * Manager User Guide</i>.</p> <p>AWS Tools for PowerShell usage: Start-SSMSession
+         * is not currently supported by AWS Tools for PowerShell on Windows local
+         * machines.</p> </note><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StartSession">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::StartSessionOutcomeCallable StartSessionCallable(const Model::StartSessionRequest& request) const;
+
+        /**
+         * <p>Initiates a connection to a target (for example, an instance) for a Session
+         * Manager session. Returns a URL and token that can be used to open a WebSocket
+         * connection for sending input and receiving outputs.</p> <note> <p>AWS CLI usage:
+         * <code>start-session</code> is an interactive command that requires the Session
+         * Manager plugin to be installed on the client machine making the call. For
+         * information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html">
+         * Install the Session Manager Plugin for the AWS CLI</a> in the <i>AWS Systems
+         * Manager User Guide</i>.</p> <p>AWS Tools for PowerShell usage: Start-SSMSession
+         * is not currently supported by AWS Tools for PowerShell on Windows local
+         * machines.</p> </note><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StartSession">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void StartSessionAsync(const Model::StartSessionRequest& request, const StartSessionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Stop an Automation that is currently running.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StopAutomationExecution">AWS
          * API Reference</a></p>
          */
         virtual Model::StopAutomationExecutionOutcome StopAutomationExecution(const Model::StopAutomationExecutionRequest& request) const;
 
         /**
-         * <p>Stop an Automation that is currently executing.</p><p><h3>See Also:</h3>   <a
+         * <p>Stop an Automation that is currently running.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StopAutomationExecution">AWS
          * API Reference</a></p>
          *
@@ -3599,7 +4534,7 @@ namespace Model
         virtual Model::StopAutomationExecutionOutcomeCallable StopAutomationExecutionCallable(const Model::StopAutomationExecutionRequest& request) const;
 
         /**
-         * <p>Stop an Automation that is currently executing.</p><p><h3>See Also:</h3>   <a
+         * <p>Stop an Automation that is currently running.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StopAutomationExecution">AWS
          * API Reference</a></p>
          *
@@ -3608,9 +4543,47 @@ namespace Model
         virtual void StopAutomationExecutionAsync(const Model::StopAutomationExecutionRequest& request, const StopAutomationExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Permanently ends a session and closes the data connection between the Session
+         * Manager client and SSM Agent on the instance. A terminated session cannot be
+         * resumed.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/TerminateSession">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::TerminateSessionOutcome TerminateSession(const Model::TerminateSessionRequest& request) const;
+
+        /**
+         * <p>Permanently ends a session and closes the data connection between the Session
+         * Manager client and SSM Agent on the instance. A terminated session cannot be
+         * resumed.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/TerminateSession">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::TerminateSessionOutcomeCallable TerminateSessionCallable(const Model::TerminateSessionRequest& request) const;
+
+        /**
+         * <p>Permanently ends a session and closes the data connection between the Session
+         * Manager client and SSM Agent on the instance. A terminated session cannot be
+         * resumed.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/TerminateSession">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void TerminateSessionAsync(const Model::TerminateSessionRequest& request, const TerminateSessionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Updates an association. You can update the association name and version, the
-         * document version, schedule, parameters, and Amazon S3 output.</p><p><h3>See
-         * Also:</h3>   <a
+         * document version, schedule, parameters, and Amazon S3 output. </p> <p>In order
+         * to call this API action, your IAM user account, group, or role must be
+         * configured with permission to call the <a>DescribeAssociation</a> API action. If
+         * you don't have permission to call DescribeAssociation, then you receive the
+         * following error: <code>An error occurred (AccessDeniedException) when calling
+         * the UpdateAssociation operation: User: &lt;user_arn&gt; is not authorized to
+         * perform: ssm:DescribeAssociation on resource: &lt;resource_arn&gt;</code> </p>
+         * <important> <p>When you update an association, the association immediately runs
+         * against the specified targets.</p> </important><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateAssociation">AWS
          * API Reference</a></p>
          */
@@ -3618,8 +4591,15 @@ namespace Model
 
         /**
          * <p>Updates an association. You can update the association name and version, the
-         * document version, schedule, parameters, and Amazon S3 output.</p><p><h3>See
-         * Also:</h3>   <a
+         * document version, schedule, parameters, and Amazon S3 output. </p> <p>In order
+         * to call this API action, your IAM user account, group, or role must be
+         * configured with permission to call the <a>DescribeAssociation</a> API action. If
+         * you don't have permission to call DescribeAssociation, then you receive the
+         * following error: <code>An error occurred (AccessDeniedException) when calling
+         * the UpdateAssociation operation: User: &lt;user_arn&gt; is not authorized to
+         * perform: ssm:DescribeAssociation on resource: &lt;resource_arn&gt;</code> </p>
+         * <important> <p>When you update an association, the association immediately runs
+         * against the specified targets.</p> </important><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateAssociation">AWS
          * API Reference</a></p>
          *
@@ -3629,8 +4609,15 @@ namespace Model
 
         /**
          * <p>Updates an association. You can update the association name and version, the
-         * document version, schedule, parameters, and Amazon S3 output.</p><p><h3>See
-         * Also:</h3>   <a
+         * document version, schedule, parameters, and Amazon S3 output. </p> <p>In order
+         * to call this API action, your IAM user account, group, or role must be
+         * configured with permission to call the <a>DescribeAssociation</a> API action. If
+         * you don't have permission to call DescribeAssociation, then you receive the
+         * following error: <code>An error occurred (AccessDeniedException) when calling
+         * the UpdateAssociation operation: User: &lt;user_arn&gt; is not authorized to
+         * perform: ssm:DescribeAssociation on resource: &lt;resource_arn&gt;</code> </p>
+         * <important> <p>When you update an association, the association immediately runs
+         * against the specified targets.</p> </important><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateAssociation">AWS
          * API Reference</a></p>
          *
@@ -3667,14 +4654,14 @@ namespace Model
         virtual void UpdateAssociationStatusAsync(const Model::UpdateAssociationStatusRequest& request, const UpdateAssociationStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>The document you want to update.</p><p><h3>See Also:</h3>   <a
+         * <p>Updates one or more values for an SSM document.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateDocument">AWS
          * API Reference</a></p>
          */
         virtual Model::UpdateDocumentOutcome UpdateDocument(const Model::UpdateDocumentRequest& request) const;
 
         /**
-         * <p>The document you want to update.</p><p><h3>See Also:</h3>   <a
+         * <p>Updates one or more values for an SSM document.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateDocument">AWS
          * API Reference</a></p>
          *
@@ -3683,7 +4670,7 @@ namespace Model
         virtual Model::UpdateDocumentOutcomeCallable UpdateDocumentCallable(const Model::UpdateDocumentRequest& request) const;
 
         /**
-         * <p>The document you want to update.</p><p><h3>See Also:</h3>   <a
+         * <p>Updates one or more values for an SSM document.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateDocument">AWS
          * API Reference</a></p>
          *
@@ -3717,16 +4704,28 @@ namespace Model
         virtual void UpdateDocumentDefaultVersionAsync(const Model::UpdateDocumentDefaultVersionRequest& request, const UpdateDocumentDefaultVersionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Updates an existing Maintenance Window. Only specified parameters are
-         * modified.</p><p><h3>See Also:</h3>   <a
+         * <p>Updates an existing maintenance window. Only specified parameters are
+         * modified.</p> <note> <p>The value you specify for <code>Duration</code>
+         * determines the specific end time for the maintenance window based on the time it
+         * begins. No maintenance window tasks are permitted to start after the resulting
+         * endtime minus the number of hours you specify for <code>Cutoff</code>. For
+         * example, if the maintenance window starts at 3 PM, the duration is three hours,
+         * and the value you specify for <code>Cutoff</code> is one hour, no maintenance
+         * window tasks can start after 5 PM.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindow">AWS
          * API Reference</a></p>
          */
         virtual Model::UpdateMaintenanceWindowOutcome UpdateMaintenanceWindow(const Model::UpdateMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Updates an existing Maintenance Window. Only specified parameters are
-         * modified.</p><p><h3>See Also:</h3>   <a
+         * <p>Updates an existing maintenance window. Only specified parameters are
+         * modified.</p> <note> <p>The value you specify for <code>Duration</code>
+         * determines the specific end time for the maintenance window based on the time it
+         * begins. No maintenance window tasks are permitted to start after the resulting
+         * endtime minus the number of hours you specify for <code>Cutoff</code>. For
+         * example, if the maintenance window starts at 3 PM, the duration is three hours,
+         * and the value you specify for <code>Cutoff</code> is one hour, no maintenance
+         * window tasks can start after 5 PM.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -3735,8 +4734,14 @@ namespace Model
         virtual Model::UpdateMaintenanceWindowOutcomeCallable UpdateMaintenanceWindowCallable(const Model::UpdateMaintenanceWindowRequest& request) const;
 
         /**
-         * <p>Updates an existing Maintenance Window. Only specified parameters are
-         * modified.</p><p><h3>See Also:</h3>   <a
+         * <p>Updates an existing maintenance window. Only specified parameters are
+         * modified.</p> <note> <p>The value you specify for <code>Duration</code>
+         * determines the specific end time for the maintenance window based on the time it
+         * begins. No maintenance window tasks are permitted to start after the resulting
+         * endtime minus the number of hours you specify for <code>Cutoff</code>. For
+         * example, if the maintenance window starts at 3 PM, the duration is three hours,
+         * and the value you specify for <code>Cutoff</code> is one hour, no maintenance
+         * window tasks can start after 5 PM.</p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindow">AWS
          * API Reference</a></p>
          *
@@ -3745,24 +4750,28 @@ namespace Model
         virtual void UpdateMaintenanceWindowAsync(const Model::UpdateMaintenanceWindowRequest& request, const UpdateMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Modifies the target of an existing Maintenance Window. You can't change the
-         * target type, but you can change the following:</p> <p>The target from being an
-         * ID target to a Tag target, or a Tag target to an ID target.</p> <p>IDs for an ID
-         * target.</p> <p>Tags for a Tag target.</p> <p>Owner.</p> <p>Name.</p>
-         * <p>Description.</p> <p>If a parameter is null, then the corresponding field is
-         * not modified.</p><p><h3>See Also:</h3>   <a
+         * <p>Modifies the target of an existing maintenance window. You can change the
+         * following:</p> <ul> <li> <p>Name</p> </li> <li> <p>Description</p> </li> <li>
+         * <p>Owner</p> </li> <li> <p>IDs for an ID target</p> </li> <li> <p>Tags for a Tag
+         * target</p> </li> <li> <p>From any supported tag type to another. The three
+         * supported tag types are ID target, Tag target, and resource group. For more
+         * information, see <a>Target</a>.</p> </li> </ul> <note> <p>If a parameter is
+         * null, then the corresponding field is not modified.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindowTarget">AWS
          * API Reference</a></p>
          */
         virtual Model::UpdateMaintenanceWindowTargetOutcome UpdateMaintenanceWindowTarget(const Model::UpdateMaintenanceWindowTargetRequest& request) const;
 
         /**
-         * <p>Modifies the target of an existing Maintenance Window. You can't change the
-         * target type, but you can change the following:</p> <p>The target from being an
-         * ID target to a Tag target, or a Tag target to an ID target.</p> <p>IDs for an ID
-         * target.</p> <p>Tags for a Tag target.</p> <p>Owner.</p> <p>Name.</p>
-         * <p>Description.</p> <p>If a parameter is null, then the corresponding field is
-         * not modified.</p><p><h3>See Also:</h3>   <a
+         * <p>Modifies the target of an existing maintenance window. You can change the
+         * following:</p> <ul> <li> <p>Name</p> </li> <li> <p>Description</p> </li> <li>
+         * <p>Owner</p> </li> <li> <p>IDs for an ID target</p> </li> <li> <p>Tags for a Tag
+         * target</p> </li> <li> <p>From any supported tag type to another. The three
+         * supported tag types are ID target, Tag target, and resource group. For more
+         * information, see <a>Target</a>.</p> </li> </ul> <note> <p>If a parameter is
+         * null, then the corresponding field is not modified.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindowTarget">AWS
          * API Reference</a></p>
          *
@@ -3771,12 +4780,14 @@ namespace Model
         virtual Model::UpdateMaintenanceWindowTargetOutcomeCallable UpdateMaintenanceWindowTargetCallable(const Model::UpdateMaintenanceWindowTargetRequest& request) const;
 
         /**
-         * <p>Modifies the target of an existing Maintenance Window. You can't change the
-         * target type, but you can change the following:</p> <p>The target from being an
-         * ID target to a Tag target, or a Tag target to an ID target.</p> <p>IDs for an ID
-         * target.</p> <p>Tags for a Tag target.</p> <p>Owner.</p> <p>Name.</p>
-         * <p>Description.</p> <p>If a parameter is null, then the corresponding field is
-         * not modified.</p><p><h3>See Also:</h3>   <a
+         * <p>Modifies the target of an existing maintenance window. You can change the
+         * following:</p> <ul> <li> <p>Name</p> </li> <li> <p>Description</p> </li> <li>
+         * <p>Owner</p> </li> <li> <p>IDs for an ID target</p> </li> <li> <p>Tags for a Tag
+         * target</p> </li> <li> <p>From any supported tag type to another. The three
+         * supported tag types are ID target, Tag target, and resource group. For more
+         * information, see <a>Target</a>.</p> </li> </ul> <note> <p>If a parameter is
+         * null, then the corresponding field is not modified.</p> </note><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindowTarget">AWS
          * API Reference</a></p>
          *
@@ -3785,7 +4796,7 @@ namespace Model
         virtual void UpdateMaintenanceWindowTargetAsync(const Model::UpdateMaintenanceWindowTargetRequest& request, const UpdateMaintenanceWindowTargetResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Modifies a task assigned to a Maintenance Window. You can't change the task
+         * <p>Modifies a task assigned to a maintenance window. You can't change the task
          * type, but you can change the following values:</p> <ul> <li> <p>TaskARN. For
          * example, you can change a RUN_COMMAND task from AWS-RunPowerShellScript to
          * AWS-RunShellScript.</p> </li> <li> <p>ServiceRoleArn</p> </li> <li>
@@ -3802,7 +4813,7 @@ namespace Model
         virtual Model::UpdateMaintenanceWindowTaskOutcome UpdateMaintenanceWindowTask(const Model::UpdateMaintenanceWindowTaskRequest& request) const;
 
         /**
-         * <p>Modifies a task assigned to a Maintenance Window. You can't change the task
+         * <p>Modifies a task assigned to a maintenance window. You can't change the task
          * type, but you can change the following values:</p> <ul> <li> <p>TaskARN. For
          * example, you can change a RUN_COMMAND task from AWS-RunPowerShellScript to
          * AWS-RunShellScript.</p> </li> <li> <p>ServiceRoleArn</p> </li> <li>
@@ -3821,7 +4832,7 @@ namespace Model
         virtual Model::UpdateMaintenanceWindowTaskOutcomeCallable UpdateMaintenanceWindowTaskCallable(const Model::UpdateMaintenanceWindowTaskRequest& request) const;
 
         /**
-         * <p>Modifies a task assigned to a Maintenance Window. You can't change the task
+         * <p>Modifies a task assigned to a maintenance window. You can't change the task
          * type, but you can change the following values:</p> <ul> <li> <p>TaskARN. For
          * example, you can change a RUN_COMMAND task from AWS-RunPowerShellScript to
          * AWS-RunShellScript.</p> </li> <li> <p>ServiceRoleArn</p> </li> <li>
@@ -3840,16 +4851,16 @@ namespace Model
         virtual void UpdateMaintenanceWindowTaskAsync(const Model::UpdateMaintenanceWindowTaskRequest& request, const UpdateMaintenanceWindowTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Assigns or changes an Amazon Identity and Access Management (IAM) role to the
-         * managed instance.</p><p><h3>See Also:</h3>   <a
+         * <p>Assigns or changes an Amazon Identity and Access Management (IAM) role for
+         * the managed instance.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateManagedInstanceRole">AWS
          * API Reference</a></p>
          */
         virtual Model::UpdateManagedInstanceRoleOutcome UpdateManagedInstanceRole(const Model::UpdateManagedInstanceRoleRequest& request) const;
 
         /**
-         * <p>Assigns or changes an Amazon Identity and Access Management (IAM) role to the
-         * managed instance.</p><p><h3>See Also:</h3>   <a
+         * <p>Assigns or changes an Amazon Identity and Access Management (IAM) role for
+         * the managed instance.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateManagedInstanceRole">AWS
          * API Reference</a></p>
          *
@@ -3858,14 +4869,66 @@ namespace Model
         virtual Model::UpdateManagedInstanceRoleOutcomeCallable UpdateManagedInstanceRoleCallable(const Model::UpdateManagedInstanceRoleRequest& request) const;
 
         /**
-         * <p>Assigns or changes an Amazon Identity and Access Management (IAM) role to the
-         * managed instance.</p><p><h3>See Also:</h3>   <a
+         * <p>Assigns or changes an Amazon Identity and Access Management (IAM) role for
+         * the managed instance.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateManagedInstanceRole">AWS
          * API Reference</a></p>
          *
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void UpdateManagedInstanceRoleAsync(const Model::UpdateManagedInstanceRoleRequest& request, const UpdateManagedInstanceRoleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Edit or change an OpsItem. You must have permission in AWS Identity and
+         * Access Management (IAM) to update an OpsItem. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateOpsItem">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::UpdateOpsItemOutcome UpdateOpsItem(const Model::UpdateOpsItemRequest& request) const;
+
+        /**
+         * <p>Edit or change an OpsItem. You must have permission in AWS Identity and
+         * Access Management (IAM) to update an OpsItem. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateOpsItem">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::UpdateOpsItemOutcomeCallable UpdateOpsItemCallable(const Model::UpdateOpsItemRequest& request) const;
+
+        /**
+         * <p>Edit or change an OpsItem. You must have permission in AWS Identity and
+         * Access Management (IAM) to update an OpsItem. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html">Getting
+         * Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+         * <p>Operations engineers and IT professionals use OpsCenter to view, investigate,
+         * and remediate operational issues impacting the performance and health of their
+         * AWS resources. For more information, see <a
+         * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">AWS
+         * Systems Manager OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+         * </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateOpsItem">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void UpdateOpsItemAsync(const Model::UpdateOpsItemRequest& request, const UpdateOpsItemResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Modifies an existing patch baseline. Fields not specified in the request are
@@ -3904,18 +4967,126 @@ namespace Model
          */
         virtual void UpdatePatchBaselineAsync(const Model::UpdatePatchBaselineRequest& request, const UpdatePatchBaselineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
+        /**
+         * <p>Update a resource data sync. After you create a resource data sync for a
+         * Region, you can't change the account options for that sync. For example, if you
+         * create a sync in the us-east-2 (Ohio) Region and you choose the Include only the
+         * current account option, you can't edit that sync later and choose the Include
+         * all accounts from my AWS Organizations configuration option. Instead, you must
+         * delete the first resource data sync, and create a new one.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateResourceDataSync">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::UpdateResourceDataSyncOutcome UpdateResourceDataSync(const Model::UpdateResourceDataSyncRequest& request) const;
 
+        /**
+         * <p>Update a resource data sync. After you create a resource data sync for a
+         * Region, you can't change the account options for that sync. For example, if you
+         * create a sync in the us-east-2 (Ohio) Region and you choose the Include only the
+         * current account option, you can't edit that sync later and choose the Include
+         * all accounts from my AWS Organizations configuration option. Instead, you must
+         * delete the first resource data sync, and create a new one.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateResourceDataSync">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::UpdateResourceDataSyncOutcomeCallable UpdateResourceDataSyncCallable(const Model::UpdateResourceDataSyncRequest& request) const;
+
+        /**
+         * <p>Update a resource data sync. After you create a resource data sync for a
+         * Region, you can't change the account options for that sync. For example, if you
+         * create a sync in the us-east-2 (Ohio) Region and you choose the Include only the
+         * current account option, you can't edit that sync later and choose the Include
+         * all accounts from my AWS Organizations configuration option. Instead, you must
+         * delete the first resource data sync, and create a new one.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateResourceDataSync">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void UpdateResourceDataSyncAsync(const Model::UpdateResourceDataSyncRequest& request, const UpdateResourceDataSyncResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>GetServiceSetting</a> API action to view the current value. Or, use the
+         * <a>ResetServiceSetting</a> to change the value back to the original value
+         * defined by the AWS service team.</p> <p>Update the service setting for the
+         * account. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateServiceSetting">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::UpdateServiceSettingOutcome UpdateServiceSetting(const Model::UpdateServiceSettingRequest& request) const;
+
+        /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>GetServiceSetting</a> API action to view the current value. Or, use the
+         * <a>ResetServiceSetting</a> to change the value back to the original value
+         * defined by the AWS service team.</p> <p>Update the service setting for the
+         * account. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateServiceSetting">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::UpdateServiceSettingOutcomeCallable UpdateServiceSettingCallable(const Model::UpdateServiceSettingRequest& request) const;
+
+        /**
+         * <p> <code>ServiceSetting</code> is an account-level setting for an AWS service.
+         * This setting defines how a user interacts with or uses a service or a feature of
+         * a service. For example, if an AWS service charges money to the account based on
+         * feature or service usage, then the AWS service team might create a default
+         * setting of "false". This means the user can't use this feature unless they
+         * change the setting to "true" and intentionally opt in for a paid feature.</p>
+         * <p>Services map a <code>SettingId</code> object to a setting value. AWS services
+         * teams define the default value for a <code>SettingId</code>. You can't create a
+         * new <code>SettingId</code>, but you can overwrite the default value if you have
+         * the <code>ssm:UpdateServiceSetting</code> permission for the setting. Use the
+         * <a>GetServiceSetting</a> API action to view the current value. Or, use the
+         * <a>ResetServiceSetting</a> to change the value back to the original value
+         * defined by the AWS service team.</p> <p>Update the service setting for the
+         * account. </p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateServiceSetting">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void UpdateServiceSettingAsync(const Model::UpdateServiceSettingRequest& request, const UpdateServiceSettingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void AddTagsToResourceAsyncHelper(const Model::AddTagsToResourceRequest& request, const AddTagsToResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CancelCommandAsyncHelper(const Model::CancelCommandRequest& request, const CancelCommandResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void CancelMaintenanceWindowExecutionAsyncHelper(const Model::CancelMaintenanceWindowExecutionRequest& request, const CancelMaintenanceWindowExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateActivationAsyncHelper(const Model::CreateActivationRequest& request, const CreateActivationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateAssociationAsyncHelper(const Model::CreateAssociationRequest& request, const CreateAssociationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateAssociationBatchAsyncHelper(const Model::CreateAssociationBatchRequest& request, const CreateAssociationBatchResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateDocumentAsyncHelper(const Model::CreateDocumentRequest& request, const CreateDocumentResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateMaintenanceWindowAsyncHelper(const Model::CreateMaintenanceWindowRequest& request, const CreateMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void CreateOpsItemAsyncHelper(const Model::CreateOpsItemRequest& request, const CreateOpsItemResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreatePatchBaselineAsyncHelper(const Model::CreatePatchBaselineRequest& request, const CreatePatchBaselineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateResourceDataSyncAsyncHelper(const Model::CreateResourceDataSyncRequest& request, const CreateResourceDataSyncResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteActivationAsyncHelper(const Model::DeleteActivationRequest& request, const DeleteActivationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -3951,15 +5122,22 @@ namespace Model
         void DescribeMaintenanceWindowExecutionTaskInvocationsAsyncHelper(const Model::DescribeMaintenanceWindowExecutionTaskInvocationsRequest& request, const DescribeMaintenanceWindowExecutionTaskInvocationsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeMaintenanceWindowExecutionTasksAsyncHelper(const Model::DescribeMaintenanceWindowExecutionTasksRequest& request, const DescribeMaintenanceWindowExecutionTasksResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeMaintenanceWindowExecutionsAsyncHelper(const Model::DescribeMaintenanceWindowExecutionsRequest& request, const DescribeMaintenanceWindowExecutionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeMaintenanceWindowScheduleAsyncHelper(const Model::DescribeMaintenanceWindowScheduleRequest& request, const DescribeMaintenanceWindowScheduleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeMaintenanceWindowTargetsAsyncHelper(const Model::DescribeMaintenanceWindowTargetsRequest& request, const DescribeMaintenanceWindowTargetsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeMaintenanceWindowTasksAsyncHelper(const Model::DescribeMaintenanceWindowTasksRequest& request, const DescribeMaintenanceWindowTasksResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeMaintenanceWindowsAsyncHelper(const Model::DescribeMaintenanceWindowsRequest& request, const DescribeMaintenanceWindowsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeMaintenanceWindowsForTargetAsyncHelper(const Model::DescribeMaintenanceWindowsForTargetRequest& request, const DescribeMaintenanceWindowsForTargetResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeOpsItemsAsyncHelper(const Model::DescribeOpsItemsRequest& request, const DescribeOpsItemsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeParametersAsyncHelper(const Model::DescribeParametersRequest& request, const DescribeParametersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribePatchBaselinesAsyncHelper(const Model::DescribePatchBaselinesRequest& request, const DescribePatchBaselinesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribePatchGroupStateAsyncHelper(const Model::DescribePatchGroupStateRequest& request, const DescribePatchGroupStateResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribePatchGroupsAsyncHelper(const Model::DescribePatchGroupsRequest& request, const DescribePatchGroupsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribePatchPropertiesAsyncHelper(const Model::DescribePatchPropertiesRequest& request, const DescribePatchPropertiesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeSessionsAsyncHelper(const Model::DescribeSessionsRequest& request, const DescribeSessionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetAutomationExecutionAsyncHelper(const Model::GetAutomationExecutionRequest& request, const GetAutomationExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetCalendarStateAsyncHelper(const Model::GetCalendarStateRequest& request, const GetCalendarStateResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetCommandInvocationAsyncHelper(const Model::GetCommandInvocationRequest& request, const GetCommandInvocationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetConnectionStatusAsyncHelper(const Model::GetConnectionStatusRequest& request, const GetConnectionStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetDefaultPatchBaselineAsyncHelper(const Model::GetDefaultPatchBaselineRequest& request, const GetDefaultPatchBaselineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetDeployablePatchSnapshotForInstanceAsyncHelper(const Model::GetDeployablePatchSnapshotForInstanceRequest& request, const GetDeployablePatchSnapshotForInstanceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetDocumentAsyncHelper(const Model::GetDocumentRequest& request, const GetDocumentResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -3970,12 +5148,16 @@ namespace Model
         void GetMaintenanceWindowExecutionTaskAsyncHelper(const Model::GetMaintenanceWindowExecutionTaskRequest& request, const GetMaintenanceWindowExecutionTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetMaintenanceWindowExecutionTaskInvocationAsyncHelper(const Model::GetMaintenanceWindowExecutionTaskInvocationRequest& request, const GetMaintenanceWindowExecutionTaskInvocationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetMaintenanceWindowTaskAsyncHelper(const Model::GetMaintenanceWindowTaskRequest& request, const GetMaintenanceWindowTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetOpsItemAsyncHelper(const Model::GetOpsItemRequest& request, const GetOpsItemResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetOpsSummaryAsyncHelper(const Model::GetOpsSummaryRequest& request, const GetOpsSummaryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetParameterAsyncHelper(const Model::GetParameterRequest& request, const GetParameterResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetParameterHistoryAsyncHelper(const Model::GetParameterHistoryRequest& request, const GetParameterHistoryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetParametersAsyncHelper(const Model::GetParametersRequest& request, const GetParametersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetParametersByPathAsyncHelper(const Model::GetParametersByPathRequest& request, const GetParametersByPathResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetPatchBaselineAsyncHelper(const Model::GetPatchBaselineRequest& request, const GetPatchBaselineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetPatchBaselineForPatchGroupAsyncHelper(const Model::GetPatchBaselineForPatchGroupRequest& request, const GetPatchBaselineForPatchGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetServiceSettingAsyncHelper(const Model::GetServiceSettingRequest& request, const GetServiceSettingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void LabelParameterVersionAsyncHelper(const Model::LabelParameterVersionRequest& request, const LabelParameterVersionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListAssociationVersionsAsyncHelper(const Model::ListAssociationVersionsRequest& request, const ListAssociationVersionsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListAssociationsAsyncHelper(const Model::ListAssociationsRequest& request, const ListAssociationsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListCommandInvocationsAsyncHelper(const Model::ListCommandInvocationsRequest& request, const ListCommandInvocationsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -3997,11 +5179,15 @@ namespace Model
         void RegisterTargetWithMaintenanceWindowAsyncHelper(const Model::RegisterTargetWithMaintenanceWindowRequest& request, const RegisterTargetWithMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void RegisterTaskWithMaintenanceWindowAsyncHelper(const Model::RegisterTaskWithMaintenanceWindowRequest& request, const RegisterTaskWithMaintenanceWindowResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void RemoveTagsFromResourceAsyncHelper(const Model::RemoveTagsFromResourceRequest& request, const RemoveTagsFromResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ResetServiceSettingAsyncHelper(const Model::ResetServiceSettingRequest& request, const ResetServiceSettingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ResumeSessionAsyncHelper(const Model::ResumeSessionRequest& request, const ResumeSessionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void SendAutomationSignalAsyncHelper(const Model::SendAutomationSignalRequest& request, const SendAutomationSignalResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void SendCommandAsyncHelper(const Model::SendCommandRequest& request, const SendCommandResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void StartAssociationsOnceAsyncHelper(const Model::StartAssociationsOnceRequest& request, const StartAssociationsOnceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void StartAutomationExecutionAsyncHelper(const Model::StartAutomationExecutionRequest& request, const StartAutomationExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void StartSessionAsyncHelper(const Model::StartSessionRequest& request, const StartSessionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void StopAutomationExecutionAsyncHelper(const Model::StopAutomationExecutionRequest& request, const StopAutomationExecutionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void TerminateSessionAsyncHelper(const Model::TerminateSessionRequest& request, const TerminateSessionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateAssociationAsyncHelper(const Model::UpdateAssociationRequest& request, const UpdateAssociationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateAssociationStatusAsyncHelper(const Model::UpdateAssociationStatusRequest& request, const UpdateAssociationStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateDocumentAsyncHelper(const Model::UpdateDocumentRequest& request, const UpdateDocumentResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -4010,9 +5196,13 @@ namespace Model
         void UpdateMaintenanceWindowTargetAsyncHelper(const Model::UpdateMaintenanceWindowTargetRequest& request, const UpdateMaintenanceWindowTargetResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateMaintenanceWindowTaskAsyncHelper(const Model::UpdateMaintenanceWindowTaskRequest& request, const UpdateMaintenanceWindowTaskResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateManagedInstanceRoleAsyncHelper(const Model::UpdateManagedInstanceRoleRequest& request, const UpdateManagedInstanceRoleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void UpdateOpsItemAsyncHelper(const Model::UpdateOpsItemRequest& request, const UpdateOpsItemResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdatePatchBaselineAsyncHelper(const Model::UpdatePatchBaselineRequest& request, const UpdatePatchBaselineResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void UpdateResourceDataSyncAsyncHelper(const Model::UpdateResourceDataSyncRequest& request, const UpdateResourceDataSyncResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void UpdateServiceSettingAsyncHelper(const Model::UpdateServiceSettingRequest& request, const UpdateServiceSettingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

@@ -11,7 +11,7 @@
 #set($memberVarName = $CppViewHelper.computeMemberVariableName($entry.key))
 #set($varNameHasBeenSet = $CppViewHelper.computeVariableHasBeenSetName($entry.key))
 #if($memberName == $shape.payload)##member is the whole payload (not wrapped)
-#set($memberIsWholePayload = true)  
+#set($memberIsWholePayload = true)
 #end
 #if(!$member.required && !$memberIsWholePayload)
   if(jsonValue.ValueExists("${memberName}"))
@@ -32,15 +32,15 @@
 #elseif($member.shape.blob)
   ${spaces}${memberVarName} = HashingUtils::Base64Decode(jsonValue.GetString("${memberName}"));
 #else
-#if($member.shape.getName() == $shape.getName())
-#set($singleElementVector = '[0]')
-#else
-#set($singleElementVector = '')
-#end
 #if($memberIsWholePayload)
   ${spaces}${memberVarName} = jsonValue;
 #else
-  ${spaces}${memberVarName}${singleElementVector} = jsonValue.Get${CppViewHelper.computeJsonCppType($member.shape)}("${memberName}");
+#if($member.shape.getName() == $shape.getName() || $member.shape.isMutuallyReferencedWith($shape))
+  ${spaces}${memberVarName}.resize(1);
+  ${spaces}${memberVarName}[0] = jsonValue.Get${CppViewHelper.computeJsonCppType($member.shape)}("${memberName}");
+#else
+  ${spaces}${memberVarName} = jsonValue.Get${CppViewHelper.computeJsonCppType($member.shape)}("${memberName}");
+#end
 
 #end
 #end

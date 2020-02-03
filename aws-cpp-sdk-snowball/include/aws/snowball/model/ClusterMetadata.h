@@ -32,6 +32,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     ClusterMetadata();
-    ClusterMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    ClusterMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ClusterMetadata(Aws::Utils::Json::JsonView jsonValue);
+    ClusterMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>The automatically generated ID for a cluster.</p>
      */
     inline const Aws::String& GetClusterId() const{ return m_clusterId; }
+
+    /**
+     * <p>The automatically generated ID for a cluster.</p>
+     */
+    inline bool ClusterIdHasBeenSet() const { return m_clusterIdHasBeenSet; }
 
     /**
      * <p>The automatically generated ID for a cluster.</p>
@@ -97,6 +103,11 @@ namespace Model
     /**
      * <p>The optional description of the cluster.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The optional description of the cluster.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -128,7 +139,7 @@ namespace Model
     /**
      * <p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this
      * cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
      * API action in AWS Key Management Service (AWS KMS).</p>
      */
     inline const Aws::String& GetKmsKeyARN() const{ return m_kmsKeyARN; }
@@ -136,7 +147,15 @@ namespace Model
     /**
      * <p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this
      * cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     * API action in AWS Key Management Service (AWS KMS).</p>
+     */
+    inline bool KmsKeyARNHasBeenSet() const { return m_kmsKeyARNHasBeenSet; }
+
+    /**
+     * <p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this
+     * cluster. This ARN was created using the <a
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
      * API action in AWS Key Management Service (AWS KMS).</p>
      */
     inline void SetKmsKeyARN(const Aws::String& value) { m_kmsKeyARNHasBeenSet = true; m_kmsKeyARN = value; }
@@ -144,7 +163,7 @@ namespace Model
     /**
      * <p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this
      * cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
      * API action in AWS Key Management Service (AWS KMS).</p>
      */
     inline void SetKmsKeyARN(Aws::String&& value) { m_kmsKeyARNHasBeenSet = true; m_kmsKeyARN = std::move(value); }
@@ -152,7 +171,7 @@ namespace Model
     /**
      * <p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this
      * cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
      * API action in AWS Key Management Service (AWS KMS).</p>
      */
     inline void SetKmsKeyARN(const char* value) { m_kmsKeyARNHasBeenSet = true; m_kmsKeyARN.assign(value); }
@@ -160,7 +179,7 @@ namespace Model
     /**
      * <p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this
      * cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
      * API action in AWS Key Management Service (AWS KMS).</p>
      */
     inline ClusterMetadata& WithKmsKeyARN(const Aws::String& value) { SetKmsKeyARN(value); return *this;}
@@ -168,7 +187,7 @@ namespace Model
     /**
      * <p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this
      * cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
      * API action in AWS Key Management Service (AWS KMS).</p>
      */
     inline ClusterMetadata& WithKmsKeyARN(Aws::String&& value) { SetKmsKeyARN(std::move(value)); return *this;}
@@ -176,7 +195,7 @@ namespace Model
     /**
      * <p>The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this
      * cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
      * API action in AWS Key Management Service (AWS KMS).</p>
      */
     inline ClusterMetadata& WithKmsKeyARN(const char* value) { SetKmsKeyARN(value); return *this;}
@@ -184,49 +203,56 @@ namespace Model
 
     /**
      * <p>The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      * API action in AWS Identity and Access Management (IAM).</p>
      */
     inline const Aws::String& GetRoleARN() const{ return m_roleARN; }
 
     /**
      * <p>The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
+     * API action in AWS Identity and Access Management (IAM).</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
+
+    /**
+     * <p>The role ARN associated with this cluster. This ARN was created using the <a
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      * API action in AWS Identity and Access Management (IAM).</p>
      */
     inline void SetRoleARN(const Aws::String& value) { m_roleARNHasBeenSet = true; m_roleARN = value; }
 
     /**
      * <p>The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      * API action in AWS Identity and Access Management (IAM).</p>
      */
     inline void SetRoleARN(Aws::String&& value) { m_roleARNHasBeenSet = true; m_roleARN = std::move(value); }
 
     /**
      * <p>The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      * API action in AWS Identity and Access Management (IAM).</p>
      */
     inline void SetRoleARN(const char* value) { m_roleARNHasBeenSet = true; m_roleARN.assign(value); }
 
     /**
      * <p>The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      * API action in AWS Identity and Access Management (IAM).</p>
      */
     inline ClusterMetadata& WithRoleARN(const Aws::String& value) { SetRoleARN(value); return *this;}
 
     /**
      * <p>The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      * API action in AWS Identity and Access Management (IAM).</p>
      */
     inline ClusterMetadata& WithRoleARN(Aws::String&& value) { SetRoleARN(std::move(value)); return *this;}
 
     /**
      * <p>The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      * API action in AWS Identity and Access Management (IAM).</p>
      */
     inline ClusterMetadata& WithRoleARN(const char* value) { SetRoleARN(value); return *this;}
@@ -236,6 +262,11 @@ namespace Model
      * <p>The current status of the cluster.</p>
      */
     inline const ClusterState& GetClusterState() const{ return m_clusterState; }
+
+    /**
+     * <p>The current status of the cluster.</p>
+     */
+    inline bool ClusterStateHasBeenSet() const { return m_clusterStateHasBeenSet; }
 
     /**
      * <p>The current status of the cluster.</p>
@@ -263,6 +294,12 @@ namespace Model
      * clusters is <code>LOCAL_USE</code>.</p>
      */
     inline const JobType& GetJobType() const{ return m_jobType; }
+
+    /**
+     * <p>The type of job for this cluster. Currently, the only job type supported for
+     * clusters is <code>LOCAL_USE</code>.</p>
+     */
+    inline bool JobTypeHasBeenSet() const { return m_jobTypeHasBeenSet; }
 
     /**
      * <p>The type of job for this cluster. Currently, the only job type supported for
@@ -299,6 +336,12 @@ namespace Model
      * <p>The type of AWS Snowball device to use for this cluster. Currently, the only
      * supported device type for cluster jobs is <code>EDGE</code>.</p>
      */
+    inline bool SnowballTypeHasBeenSet() const { return m_snowballTypeHasBeenSet; }
+
+    /**
+     * <p>The type of AWS Snowball device to use for this cluster. Currently, the only
+     * supported device type for cluster jobs is <code>EDGE</code>.</p>
+     */
     inline void SetSnowballType(const SnowballType& value) { m_snowballTypeHasBeenSet = true; m_snowballType = value; }
 
     /**
@@ -324,6 +367,11 @@ namespace Model
      * <p>The creation date for this cluster.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The creation date for this cluster.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The creation date for this cluster.</p>
@@ -356,6 +404,12 @@ namespace Model
      * <p>The arrays of <a>JobResource</a> objects that can include updated
      * <a>S3Resource</a> objects or <a>LambdaResource</a> objects.</p>
      */
+    inline bool ResourcesHasBeenSet() const { return m_resourcesHasBeenSet; }
+
+    /**
+     * <p>The arrays of <a>JobResource</a> objects that can include updated
+     * <a>S3Resource</a> objects or <a>LambdaResource</a> objects.</p>
+     */
     inline void SetResources(const JobResource& value) { m_resourcesHasBeenSet = true; m_resources = value; }
 
     /**
@@ -381,6 +435,11 @@ namespace Model
      * <p>The automatically generated ID for a specific address.</p>
      */
     inline const Aws::String& GetAddressId() const{ return m_addressId; }
+
+    /**
+     * <p>The automatically generated ID for a specific address.</p>
+     */
+    inline bool AddressIdHasBeenSet() const { return m_addressIdHasBeenSet; }
 
     /**
      * <p>The automatically generated ID for a specific address.</p>
@@ -427,6 +486,21 @@ namespace Model
      * access to one-day shipping and two-day shipping.</p> </li> </ul>
      */
     inline const ShippingOption& GetShippingOption() const{ return m_shippingOption; }
+
+    /**
+     * <p>The shipping speed for each node in this cluster. This speed doesn't dictate
+     * how soon you'll get each Snowball Edge device, rather it represents how quickly
+     * each device moves to its destination while in transit. Regional shipping speeds
+     * are as follows:</p> <ul> <li> <p>In Australia, you have access to express
+     * shipping. Typically, devices shipped express are delivered in about a day.</p>
+     * </li> <li> <p>In the European Union (EU), you have access to express shipping.
+     * Typically, Snowball Edges shipped express are delivered in about a day. In
+     * addition, most countries in the EU have access to standard shipping, which
+     * typically takes less than a week, one way.</p> </li> <li> <p>In India, Snowball
+     * Edges are delivered in one to seven days.</p> </li> <li> <p>In the US, you have
+     * access to one-day shipping and two-day shipping.</p> </li> </ul>
+     */
+    inline bool ShippingOptionHasBeenSet() const { return m_shippingOptionHasBeenSet; }
 
     /**
      * <p>The shipping speed for each node in this cluster. This speed doesn't dictate
@@ -499,6 +573,12 @@ namespace Model
      * <p>The Amazon Simple Notification Service (Amazon SNS) notification settings for
      * this cluster.</p>
      */
+    inline bool NotificationHasBeenSet() const { return m_notificationHasBeenSet; }
+
+    /**
+     * <p>The Amazon Simple Notification Service (Amazon SNS) notification settings for
+     * this cluster.</p>
+     */
     inline void SetNotification(const Notification& value) { m_notificationHasBeenSet = true; m_notification = value; }
 
     /**
@@ -525,6 +605,12 @@ namespace Model
      * shipped to its primary address. This field is not supported in most regions.</p>
      */
     inline const Aws::String& GetForwardingAddressId() const{ return m_forwardingAddressId; }
+
+    /**
+     * <p>The ID of the address that you want a cluster shipped to, after it will be
+     * shipped to its primary address. This field is not supported in most regions.</p>
+     */
+    inline bool ForwardingAddressIdHasBeenSet() const { return m_forwardingAddressIdHasBeenSet; }
 
     /**
      * <p>The ID of the address that you want a cluster shipped to, after it will be

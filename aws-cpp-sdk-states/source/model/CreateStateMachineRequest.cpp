@@ -25,7 +25,11 @@ using namespace Aws::Utils;
 CreateStateMachineRequest::CreateStateMachineRequest() : 
     m_nameHasBeenSet(false),
     m_definitionHasBeenSet(false),
-    m_roleArnHasBeenSet(false)
+    m_roleArnHasBeenSet(false),
+    m_type(StateMachineType::NOT_SET),
+    m_typeHasBeenSet(false),
+    m_loggingConfigurationHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -51,7 +55,29 @@ Aws::String CreateStateMachineRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_typeHasBeenSet)
+  {
+   payload.WithString("type", StateMachineTypeMapper::GetNameForStateMachineType(m_type));
+  }
+
+  if(m_loggingConfigurationHasBeenSet)
+  {
+   payload.WithObject("loggingConfiguration", m_loggingConfiguration.Jsonize());
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateStateMachineRequest::GetRequestSpecificHeaders() const

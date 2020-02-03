@@ -33,6 +33,7 @@
 #include <aws/snowball/model/GetJobManifestResult.h>
 #include <aws/snowball/model/GetJobUnlockCodeResult.h>
 #include <aws/snowball/model/GetSnowballUsageResult.h>
+#include <aws/snowball/model/GetSoftwareUpdatesResult.h>
 #include <aws/snowball/model/ListClusterJobsResult.h>
 #include <aws/snowball/model/ListClustersResult.h>
 #include <aws/snowball/model/ListCompatibleImagesResult.h>
@@ -56,16 +57,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -96,6 +91,7 @@ namespace Model
         class GetJobManifestRequest;
         class GetJobUnlockCodeRequest;
         class GetSnowballUsageRequest;
+        class GetSoftwareUpdatesRequest;
         class ListClusterJobsRequest;
         class ListClustersRequest;
         class ListCompatibleImagesRequest;
@@ -115,6 +111,7 @@ namespace Model
         typedef Aws::Utils::Outcome<GetJobManifestResult, Aws::Client::AWSError<SnowballErrors>> GetJobManifestOutcome;
         typedef Aws::Utils::Outcome<GetJobUnlockCodeResult, Aws::Client::AWSError<SnowballErrors>> GetJobUnlockCodeOutcome;
         typedef Aws::Utils::Outcome<GetSnowballUsageResult, Aws::Client::AWSError<SnowballErrors>> GetSnowballUsageOutcome;
+        typedef Aws::Utils::Outcome<GetSoftwareUpdatesResult, Aws::Client::AWSError<SnowballErrors>> GetSoftwareUpdatesOutcome;
         typedef Aws::Utils::Outcome<ListClusterJobsResult, Aws::Client::AWSError<SnowballErrors>> ListClusterJobsOutcome;
         typedef Aws::Utils::Outcome<ListClustersResult, Aws::Client::AWSError<SnowballErrors>> ListClustersOutcome;
         typedef Aws::Utils::Outcome<ListCompatibleImagesResult, Aws::Client::AWSError<SnowballErrors>> ListCompatibleImagesOutcome;
@@ -134,6 +131,7 @@ namespace Model
         typedef std::future<GetJobManifestOutcome> GetJobManifestOutcomeCallable;
         typedef std::future<GetJobUnlockCodeOutcome> GetJobUnlockCodeOutcomeCallable;
         typedef std::future<GetSnowballUsageOutcome> GetSnowballUsageOutcomeCallable;
+        typedef std::future<GetSoftwareUpdatesOutcome> GetSoftwareUpdatesOutcomeCallable;
         typedef std::future<ListClusterJobsOutcome> ListClusterJobsOutcomeCallable;
         typedef std::future<ListClustersOutcome> ListClustersOutcomeCallable;
         typedef std::future<ListCompatibleImagesOutcome> ListCompatibleImagesOutcomeCallable;
@@ -156,6 +154,7 @@ namespace Model
     typedef std::function<void(const SnowballClient*, const Model::GetJobManifestRequest&, const Model::GetJobManifestOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetJobManifestResponseReceivedHandler;
     typedef std::function<void(const SnowballClient*, const Model::GetJobUnlockCodeRequest&, const Model::GetJobUnlockCodeOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetJobUnlockCodeResponseReceivedHandler;
     typedef std::function<void(const SnowballClient*, const Model::GetSnowballUsageRequest&, const Model::GetSnowballUsageOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetSnowballUsageResponseReceivedHandler;
+    typedef std::function<void(const SnowballClient*, const Model::GetSoftwareUpdatesRequest&, const Model::GetSoftwareUpdatesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetSoftwareUpdatesResponseReceivedHandler;
     typedef std::function<void(const SnowballClient*, const Model::ListClusterJobsRequest&, const Model::ListClusterJobsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListClusterJobsResponseReceivedHandler;
     typedef std::function<void(const SnowballClient*, const Model::ListClustersRequest&, const Model::ListClustersOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListClustersResponseReceivedHandler;
     typedef std::function<void(const SnowballClient*, const Model::ListCompatibleImagesRequest&, const Model::ListCompatibleImagesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListCompatibleImagesResponseReceivedHandler;
@@ -172,7 +171,7 @@ namespace Model
    * Snowball. To transfer data locally with a Snowball device, you'll need to use
    * the Snowball client or the Amazon S3 API adapter for Snowball. For more
    * information, see the <a
-   * href="http://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html">User
+   * href="https://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html">User
    * Guide</a>.</p>
    */
   class AWS_SNOWBALL_API SnowballClient : public Aws::Client::AWSJsonClient
@@ -201,7 +200,7 @@ namespace Model
 
         virtual ~SnowballClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "snowball"; }
+        inline virtual const char* GetServiceClientName() const override { return "Snowball"; }
 
 
         /**
@@ -655,6 +654,34 @@ namespace Model
         virtual void GetSnowballUsageAsync(const Model::GetSnowballUsageRequest& request, const GetSnowballUsageResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Returns an Amazon S3 presigned URL for an update file associated with a
+         * specified <code>JobId</code>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/GetSoftwareUpdates">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetSoftwareUpdatesOutcome GetSoftwareUpdates(const Model::GetSoftwareUpdatesRequest& request) const;
+
+        /**
+         * <p>Returns an Amazon S3 presigned URL for an update file associated with a
+         * specified <code>JobId</code>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/GetSoftwareUpdates">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetSoftwareUpdatesOutcomeCallable GetSoftwareUpdatesCallable(const Model::GetSoftwareUpdatesRequest& request) const;
+
+        /**
+         * <p>Returns an Amazon S3 presigned URL for an update file associated with a
+         * specified <code>JobId</code>.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/GetSoftwareUpdates">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetSoftwareUpdatesAsync(const Model::GetSoftwareUpdatesRequest& request, const GetSoftwareUpdatesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Returns an array of <code>JobListEntry</code> objects of the specified
          * length. Each <code>JobListEntry</code> object is for a job in the specified
          * cluster and contains a job's state, a job's ID, and other
@@ -874,10 +901,9 @@ namespace Model
         virtual void UpdateJobAsync(const Model::UpdateJobRequest& request, const UpdateJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void CancelClusterAsyncHelper(const Model::CancelClusterRequest& request, const CancelClusterResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CancelJobAsyncHelper(const Model::CancelJobRequest& request, const CancelJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateAddressAsyncHelper(const Model::CreateAddressRequest& request, const CreateAddressResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -890,6 +916,7 @@ namespace Model
         void GetJobManifestAsyncHelper(const Model::GetJobManifestRequest& request, const GetJobManifestResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetJobUnlockCodeAsyncHelper(const Model::GetJobUnlockCodeRequest& request, const GetJobUnlockCodeResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetSnowballUsageAsyncHelper(const Model::GetSnowballUsageRequest& request, const GetSnowballUsageResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetSoftwareUpdatesAsyncHelper(const Model::GetSoftwareUpdatesRequest& request, const GetSoftwareUpdatesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListClusterJobsAsyncHelper(const Model::ListClusterJobsRequest& request, const ListClusterJobsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListClustersAsyncHelper(const Model::ListClustersRequest& request, const ListClustersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListCompatibleImagesAsyncHelper(const Model::ListCompatibleImagesRequest& request, const ListCompatibleImagesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -898,6 +925,7 @@ namespace Model
         void UpdateJobAsyncHelper(const Model::UpdateJobRequest& request, const UpdateJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

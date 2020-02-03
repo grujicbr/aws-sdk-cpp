@@ -31,27 +31,27 @@ namespace Model
 Member::Member() : 
     m_accountIdHasBeenSet(false),
     m_detectorIdHasBeenSet(false),
-    m_emailHasBeenSet(false),
-    m_invitedAtHasBeenSet(false),
     m_masterIdHasBeenSet(false),
+    m_emailHasBeenSet(false),
     m_relationshipStatusHasBeenSet(false),
+    m_invitedAtHasBeenSet(false),
     m_updatedAtHasBeenSet(false)
 {
 }
 
-Member::Member(const JsonValue& jsonValue) : 
+Member::Member(JsonView jsonValue) : 
     m_accountIdHasBeenSet(false),
     m_detectorIdHasBeenSet(false),
-    m_emailHasBeenSet(false),
-    m_invitedAtHasBeenSet(false),
     m_masterIdHasBeenSet(false),
+    m_emailHasBeenSet(false),
     m_relationshipStatusHasBeenSet(false),
+    m_invitedAtHasBeenSet(false),
     m_updatedAtHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Member& Member::operator =(const JsonValue& jsonValue)
+Member& Member::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("accountId"))
   {
@@ -67,20 +67,6 @@ Member& Member::operator =(const JsonValue& jsonValue)
     m_detectorIdHasBeenSet = true;
   }
 
-  if(jsonValue.ValueExists("email"))
-  {
-    m_email = jsonValue.GetString("email");
-
-    m_emailHasBeenSet = true;
-  }
-
-  if(jsonValue.ValueExists("invitedAt"))
-  {
-    m_invitedAt = jsonValue.GetString("invitedAt");
-
-    m_invitedAtHasBeenSet = true;
-  }
-
   if(jsonValue.ValueExists("masterId"))
   {
     m_masterId = jsonValue.GetString("masterId");
@@ -88,11 +74,25 @@ Member& Member::operator =(const JsonValue& jsonValue)
     m_masterIdHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("email"))
+  {
+    m_email = jsonValue.GetString("email");
+
+    m_emailHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("relationshipStatus"))
   {
     m_relationshipStatus = jsonValue.GetString("relationshipStatus");
 
     m_relationshipStatusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("invitedAt"))
+  {
+    m_invitedAt = jsonValue.GetString("invitedAt");
+
+    m_invitedAtHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("updatedAt"))
@@ -121,27 +121,27 @@ JsonValue Member::Jsonize() const
 
   }
 
-  if(m_emailHasBeenSet)
-  {
-   payload.WithString("email", m_email);
-
-  }
-
-  if(m_invitedAtHasBeenSet)
-  {
-   payload.WithString("invitedAt", m_invitedAt);
-
-  }
-
   if(m_masterIdHasBeenSet)
   {
    payload.WithString("masterId", m_masterId);
 
   }
 
+  if(m_emailHasBeenSet)
+  {
+   payload.WithString("email", m_email);
+
+  }
+
   if(m_relationshipStatusHasBeenSet)
   {
    payload.WithString("relationshipStatus", m_relationshipStatus);
+
+  }
+
+  if(m_invitedAtHasBeenSet)
+  {
+   payload.WithString("invitedAt", m_invitedAt);
 
   }
 

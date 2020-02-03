@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     SampledHTTPRequest();
-    SampledHTTPRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    SampledHTTPRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SampledHTTPRequest(Aws::Utils::Json::JsonView jsonValue);
+    SampledHTTPRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>A complex type that contains detailed information about the request.</p>
      */
     inline const HTTPRequest& GetRequest() const{ return m_request; }
+
+    /**
+     * <p>A complex type that contains detailed information about the request.</p>
+     */
+    inline bool RequestHasBeenSet() const { return m_requestHasBeenSet; }
 
     /**
      * <p>A complex type that contains detailed information about the request.</p>
@@ -93,6 +99,14 @@ namespace Model
      * represents roughly twice as many CloudFront web requests as a result that has a
      * weight of <code>1</code>.</p>
      */
+    inline bool WeightHasBeenSet() const { return m_weightHasBeenSet; }
+
+    /**
+     * <p>A value that indicates how one result in the response relates proportionally
+     * to other results in the response. A result that has a weight of <code>2</code>
+     * represents roughly twice as many CloudFront web requests as a result that has a
+     * weight of <code>1</code>.</p>
+     */
     inline void SetWeight(long long value) { m_weightHasBeenSet = true; m_weight = value; }
 
     /**
@@ -109,6 +123,12 @@ namespace Model
      * Unix time format (in seconds).</p>
      */
     inline const Aws::Utils::DateTime& GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>The time at which AWS WAF received the request from your AWS resource, in
+     * Unix time format (in seconds).</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>The time at which AWS WAF received the request from your AWS resource, in
@@ -140,6 +160,12 @@ namespace Model
      * <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.</p>
      */
     inline const Aws::String& GetAction() const{ return m_action; }
+
+    /**
+     * <p>The action for the <code>Rule</code> that the request matched:
+     * <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>The action for the <code>Rule</code> that the request matched:
@@ -185,6 +211,14 @@ namespace Model
      * <code>RuleGroup</code> that matched the request listed in the response.</p>
      */
     inline const Aws::String& GetRuleWithinRuleGroup() const{ return m_ruleWithinRuleGroup; }
+
+    /**
+     * <p>This value is returned if the <code>GetSampledRequests</code> request
+     * specifies the ID of a <code>RuleGroup</code> rather than the ID of an individual
+     * rule. <code>RuleWithinRuleGroup</code> is the rule within the specified
+     * <code>RuleGroup</code> that matched the request listed in the response.</p>
+     */
+    inline bool RuleWithinRuleGroupHasBeenSet() const { return m_ruleWithinRuleGroupHasBeenSet; }
 
     /**
      * <p>This value is returned if the <code>GetSampledRequests</code> request

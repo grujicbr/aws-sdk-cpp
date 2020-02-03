@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -43,43 +44,56 @@ namespace Model
   {
   public:
     SharedImagePermissions();
-    SharedImagePermissions(const Aws::Utils::Json::JsonValue& jsonValue);
-    SharedImagePermissions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SharedImagePermissions(Aws::Utils::Json::JsonView jsonValue);
+    SharedImagePermissions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The 12-digit ID of the AWS account with which the image is shared.</p>
+     * <p>The 12-digit identifier of the AWS account with which the image is
+     * shared.</p>
      */
     inline const Aws::String& GetSharedAccountId() const{ return m_sharedAccountId; }
 
     /**
-     * <p>The 12-digit ID of the AWS account with which the image is shared.</p>
+     * <p>The 12-digit identifier of the AWS account with which the image is
+     * shared.</p>
+     */
+    inline bool SharedAccountIdHasBeenSet() const { return m_sharedAccountIdHasBeenSet; }
+
+    /**
+     * <p>The 12-digit identifier of the AWS account with which the image is
+     * shared.</p>
      */
     inline void SetSharedAccountId(const Aws::String& value) { m_sharedAccountIdHasBeenSet = true; m_sharedAccountId = value; }
 
     /**
-     * <p>The 12-digit ID of the AWS account with which the image is shared.</p>
+     * <p>The 12-digit identifier of the AWS account with which the image is
+     * shared.</p>
      */
     inline void SetSharedAccountId(Aws::String&& value) { m_sharedAccountIdHasBeenSet = true; m_sharedAccountId = std::move(value); }
 
     /**
-     * <p>The 12-digit ID of the AWS account with which the image is shared.</p>
+     * <p>The 12-digit identifier of the AWS account with which the image is
+     * shared.</p>
      */
     inline void SetSharedAccountId(const char* value) { m_sharedAccountIdHasBeenSet = true; m_sharedAccountId.assign(value); }
 
     /**
-     * <p>The 12-digit ID of the AWS account with which the image is shared.</p>
+     * <p>The 12-digit identifier of the AWS account with which the image is
+     * shared.</p>
      */
     inline SharedImagePermissions& WithSharedAccountId(const Aws::String& value) { SetSharedAccountId(value); return *this;}
 
     /**
-     * <p>The 12-digit ID of the AWS account with which the image is shared.</p>
+     * <p>The 12-digit identifier of the AWS account with which the image is
+     * shared.</p>
      */
     inline SharedImagePermissions& WithSharedAccountId(Aws::String&& value) { SetSharedAccountId(std::move(value)); return *this;}
 
     /**
-     * <p>The 12-digit ID of the AWS account with which the image is shared.</p>
+     * <p>The 12-digit identifier of the AWS account with which the image is
+     * shared.</p>
      */
     inline SharedImagePermissions& WithSharedAccountId(const char* value) { SetSharedAccountId(value); return *this;}
 
@@ -88,6 +102,11 @@ namespace Model
      * <p>Describes the permissions for a shared image.</p>
      */
     inline const ImagePermissions& GetImagePermissions() const{ return m_imagePermissions; }
+
+    /**
+     * <p>Describes the permissions for a shared image.</p>
+     */
+    inline bool ImagePermissionsHasBeenSet() const { return m_imagePermissionsHasBeenSet; }
 
     /**
      * <p>Describes the permissions for a shared image.</p>

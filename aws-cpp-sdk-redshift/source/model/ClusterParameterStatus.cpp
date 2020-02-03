@@ -54,19 +54,19 @@ ClusterParameterStatus& ClusterParameterStatus::operator =(const XmlNode& xmlNod
     XmlNode parameterNameNode = resultNode.FirstChild("ParameterName");
     if(!parameterNameNode.IsNull())
     {
-      m_parameterName = StringUtils::Trim(parameterNameNode.GetText().c_str());
+      m_parameterName = Aws::Utils::Xml::DecodeEscapedXmlText(parameterNameNode.GetText());
       m_parameterNameHasBeenSet = true;
     }
     XmlNode parameterApplyStatusNode = resultNode.FirstChild("ParameterApplyStatus");
     if(!parameterApplyStatusNode.IsNull())
     {
-      m_parameterApplyStatus = StringUtils::Trim(parameterApplyStatusNode.GetText().c_str());
+      m_parameterApplyStatus = Aws::Utils::Xml::DecodeEscapedXmlText(parameterApplyStatusNode.GetText());
       m_parameterApplyStatusHasBeenSet = true;
     }
     XmlNode parameterApplyErrorDescriptionNode = resultNode.FirstChild("ParameterApplyErrorDescription");
     if(!parameterApplyErrorDescriptionNode.IsNull())
     {
-      m_parameterApplyErrorDescription = StringUtils::Trim(parameterApplyErrorDescriptionNode.GetText().c_str());
+      m_parameterApplyErrorDescription = Aws::Utils::Xml::DecodeEscapedXmlText(parameterApplyErrorDescriptionNode.GetText());
       m_parameterApplyErrorDescriptionHasBeenSet = true;
     }
   }

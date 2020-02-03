@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoSync
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     IdentityPoolUsage();
-    IdentityPoolUsage(const Aws::Utils::Json::JsonValue& jsonValue);
-    IdentityPoolUsage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IdentityPoolUsage(Aws::Utils::Json::JsonView jsonValue);
+    IdentityPoolUsage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * created by Amazon Cognito. GUID generation is unique within a region.
      */
     inline const Aws::String& GetIdentityPoolId() const{ return m_identityPoolId; }
+
+    /**
+     * A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE)
+     * created by Amazon Cognito. GUID generation is unique within a region.
+     */
+    inline bool IdentityPoolIdHasBeenSet() const { return m_identityPoolIdHasBeenSet; }
 
     /**
      * A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE)
@@ -98,6 +105,11 @@ namespace Model
     /**
      * Number of sync sessions for the identity pool.
      */
+    inline bool SyncSessionsCountHasBeenSet() const { return m_syncSessionsCountHasBeenSet; }
+
+    /**
+     * Number of sync sessions for the identity pool.
+     */
     inline void SetSyncSessionsCount(long long value) { m_syncSessionsCountHasBeenSet = true; m_syncSessionsCount = value; }
 
     /**
@@ -114,6 +126,11 @@ namespace Model
     /**
      * Data storage information for the identity pool.
      */
+    inline bool DataStorageHasBeenSet() const { return m_dataStorageHasBeenSet; }
+
+    /**
+     * Data storage information for the identity pool.
+     */
     inline void SetDataStorage(long long value) { m_dataStorageHasBeenSet = true; m_dataStorage = value; }
 
     /**
@@ -126,6 +143,11 @@ namespace Model
      * Date on which the identity pool was last modified.
      */
     inline const Aws::Utils::DateTime& GetLastModifiedDate() const{ return m_lastModifiedDate; }
+
+    /**
+     * Date on which the identity pool was last modified.
+     */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
 
     /**
      * Date on which the identity pool was last modified.

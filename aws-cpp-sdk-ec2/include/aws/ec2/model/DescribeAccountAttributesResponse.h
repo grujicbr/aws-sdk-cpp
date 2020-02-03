@@ -36,12 +36,6 @@ namespace EC2
 {
 namespace Model
 {
-  /**
-   * <p>Contains the output of DescribeAccountAttributes.</p><p><h3>See Also:</h3>  
-   * <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeAccountAttributesResult">AWS
-   * API Reference</a></p>
-   */
   class AWS_EC2_API DescribeAccountAttributesResponse
   {
   public:
@@ -51,37 +45,37 @@ namespace Model
 
 
     /**
-     * <p>Information about one or more account attributes.</p>
+     * <p>Information about the account attributes.</p>
      */
     inline const Aws::Vector<AccountAttribute>& GetAccountAttributes() const{ return m_accountAttributes; }
 
     /**
-     * <p>Information about one or more account attributes.</p>
+     * <p>Information about the account attributes.</p>
      */
     inline void SetAccountAttributes(const Aws::Vector<AccountAttribute>& value) { m_accountAttributes = value; }
 
     /**
-     * <p>Information about one or more account attributes.</p>
+     * <p>Information about the account attributes.</p>
      */
     inline void SetAccountAttributes(Aws::Vector<AccountAttribute>&& value) { m_accountAttributes = std::move(value); }
 
     /**
-     * <p>Information about one or more account attributes.</p>
+     * <p>Information about the account attributes.</p>
      */
     inline DescribeAccountAttributesResponse& WithAccountAttributes(const Aws::Vector<AccountAttribute>& value) { SetAccountAttributes(value); return *this;}
 
     /**
-     * <p>Information about one or more account attributes.</p>
+     * <p>Information about the account attributes.</p>
      */
     inline DescribeAccountAttributesResponse& WithAccountAttributes(Aws::Vector<AccountAttribute>&& value) { SetAccountAttributes(std::move(value)); return *this;}
 
     /**
-     * <p>Information about one or more account attributes.</p>
+     * <p>Information about the account attributes.</p>
      */
     inline DescribeAccountAttributesResponse& AddAccountAttributes(const AccountAttribute& value) { m_accountAttributes.push_back(value); return *this; }
 
     /**
-     * <p>Information about one or more account attributes.</p>
+     * <p>Information about the account attributes.</p>
      */
     inline DescribeAccountAttributesResponse& AddAccountAttributes(AccountAttribute&& value) { m_accountAttributes.push_back(std::move(value)); return *this; }
 

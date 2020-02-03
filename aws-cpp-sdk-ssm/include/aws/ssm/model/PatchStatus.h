@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PatchStatus();
-    PatchStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    PatchStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PatchStatus(Aws::Utils::Json::JsonView jsonValue);
+    PatchStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * EXPLICIT_APPROVED, EXPLICIT_REJECTED).</p>
      */
     inline const PatchDeploymentStatus& GetDeploymentStatus() const{ return m_deploymentStatus; }
+
+    /**
+     * <p>The approval status of a patch (APPROVED, PENDING_APPROVAL,
+     * EXPLICIT_APPROVED, EXPLICIT_REJECTED).</p>
+     */
+    inline bool DeploymentStatusHasBeenSet() const { return m_deploymentStatusHasBeenSet; }
 
     /**
      * <p>The approval status of a patch (APPROVED, PENDING_APPROVAL,
@@ -87,6 +94,11 @@ namespace Model
     /**
      * <p>The compliance severity level for a patch.</p>
      */
+    inline bool ComplianceLevelHasBeenSet() const { return m_complianceLevelHasBeenSet; }
+
+    /**
+     * <p>The compliance severity level for a patch.</p>
+     */
     inline void SetComplianceLevel(const PatchComplianceLevel& value) { m_complianceLevelHasBeenSet = true; m_complianceLevel = value; }
 
     /**
@@ -110,6 +122,12 @@ namespace Model
      * PENDING_APPROVAL).</p>
      */
     inline const Aws::Utils::DateTime& GetApprovalDate() const{ return m_approvalDate; }
+
+    /**
+     * <p>The date the patch was approved (or will be approved if the status is
+     * PENDING_APPROVAL).</p>
+     */
+    inline bool ApprovalDateHasBeenSet() const { return m_approvalDateHasBeenSet; }
 
     /**
      * <p>The date the patch was approved (or will be approved if the status is

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationDiscoveryService
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     CustomerAgentInfo();
-    CustomerAgentInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    CustomerAgentInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CustomerAgentInfo(Aws::Utils::Json::JsonView jsonValue);
+    CustomerAgentInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p>Number of active discovery agents.</p>
      */
     inline int GetActiveAgents() const{ return m_activeAgents; }
+
+    /**
+     * <p>Number of active discovery agents.</p>
+     */
+    inline bool ActiveAgentsHasBeenSet() const { return m_activeAgentsHasBeenSet; }
 
     /**
      * <p>Number of active discovery agents.</p>
@@ -68,6 +74,11 @@ namespace Model
     /**
      * <p>Number of healthy discovery agents</p>
      */
+    inline bool HealthyAgentsHasBeenSet() const { return m_healthyAgentsHasBeenSet; }
+
+    /**
+     * <p>Number of healthy discovery agents</p>
+     */
     inline void SetHealthyAgents(int value) { m_healthyAgentsHasBeenSet = true; m_healthyAgents = value; }
 
     /**
@@ -80,6 +91,11 @@ namespace Model
      * <p>Number of blacklisted discovery agents.</p>
      */
     inline int GetBlackListedAgents() const{ return m_blackListedAgents; }
+
+    /**
+     * <p>Number of blacklisted discovery agents.</p>
+     */
+    inline bool BlackListedAgentsHasBeenSet() const { return m_blackListedAgentsHasBeenSet; }
 
     /**
      * <p>Number of blacklisted discovery agents.</p>
@@ -100,6 +116,11 @@ namespace Model
     /**
      * <p>Number of discovery agents with status SHUTDOWN.</p>
      */
+    inline bool ShutdownAgentsHasBeenSet() const { return m_shutdownAgentsHasBeenSet; }
+
+    /**
+     * <p>Number of discovery agents with status SHUTDOWN.</p>
+     */
     inline void SetShutdownAgents(int value) { m_shutdownAgentsHasBeenSet = true; m_shutdownAgents = value; }
 
     /**
@@ -112,6 +133,11 @@ namespace Model
      * <p>Number of unhealthy discovery agents.</p>
      */
     inline int GetUnhealthyAgents() const{ return m_unhealthyAgents; }
+
+    /**
+     * <p>Number of unhealthy discovery agents.</p>
+     */
+    inline bool UnhealthyAgentsHasBeenSet() const { return m_unhealthyAgentsHasBeenSet; }
 
     /**
      * <p>Number of unhealthy discovery agents.</p>
@@ -132,6 +158,11 @@ namespace Model
     /**
      * <p>Total number of discovery agents.</p>
      */
+    inline bool TotalAgentsHasBeenSet() const { return m_totalAgentsHasBeenSet; }
+
+    /**
+     * <p>Total number of discovery agents.</p>
+     */
     inline void SetTotalAgents(int value) { m_totalAgentsHasBeenSet = true; m_totalAgents = value; }
 
     /**
@@ -144,6 +175,11 @@ namespace Model
      * <p>Number of unknown discovery agents.</p>
      */
     inline int GetUnknownAgents() const{ return m_unknownAgents; }
+
+    /**
+     * <p>Number of unknown discovery agents.</p>
+     */
+    inline bool UnknownAgentsHasBeenSet() const { return m_unknownAgentsHasBeenSet; }
 
     /**
      * <p>Number of unknown discovery agents.</p>

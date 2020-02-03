@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Comment();
-    Comment(const Aws::Utils::Json::JsonValue& jsonValue);
-    Comment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Comment(Aws::Utils::Json::JsonView jsonValue);
+    Comment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The ID of the comment.</p>
      */
     inline const Aws::String& GetCommentId() const{ return m_commentId; }
+
+    /**
+     * <p>The ID of the comment.</p>
+     */
+    inline bool CommentIdHasBeenSet() const { return m_commentIdHasBeenSet; }
 
     /**
      * <p>The ID of the comment.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The ID of the parent comment.</p>
      */
+    inline bool ParentIdHasBeenSet() const { return m_parentIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the parent comment.</p>
+     */
     inline void SetParentId(const Aws::String& value) { m_parentIdHasBeenSet = true; m_parentId = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>The ID of the root comment in the thread.</p>
      */
     inline const Aws::String& GetThreadId() const{ return m_threadId; }
+
+    /**
+     * <p>The ID of the root comment in the thread.</p>
+     */
+    inline bool ThreadIdHasBeenSet() const { return m_threadIdHasBeenSet; }
 
     /**
      * <p>The ID of the root comment in the thread.</p>
@@ -166,6 +182,11 @@ namespace Model
     /**
      * <p>The text of the comment.</p>
      */
+    inline bool TextHasBeenSet() const { return m_textHasBeenSet; }
+
+    /**
+     * <p>The text of the comment.</p>
+     */
     inline void SetText(const Aws::String& value) { m_textHasBeenSet = true; m_text = value; }
 
     /**
@@ -202,6 +223,11 @@ namespace Model
     /**
      * <p>The details of the user who made the comment.</p>
      */
+    inline bool ContributorHasBeenSet() const { return m_contributorHasBeenSet; }
+
+    /**
+     * <p>The details of the user who made the comment.</p>
+     */
     inline void SetContributor(const User& value) { m_contributorHasBeenSet = true; m_contributor = value; }
 
     /**
@@ -224,6 +250,11 @@ namespace Model
      * <p>The time that the comment was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedTimestamp() const{ return m_createdTimestamp; }
+
+    /**
+     * <p>The time that the comment was created.</p>
+     */
+    inline bool CreatedTimestampHasBeenSet() const { return m_createdTimestampHasBeenSet; }
 
     /**
      * <p>The time that the comment was created.</p>
@@ -254,6 +285,11 @@ namespace Model
     /**
      * <p>The status of the comment.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the comment.</p>
+     */
     inline void SetStatus(const CommentStatusType& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -279,6 +315,14 @@ namespace Model
      * contributors.</p>
      */
     inline const CommentVisibilityType& GetVisibility() const{ return m_visibility; }
+
+    /**
+     * <p>The visibility of the comment. Options are either PRIVATE, where the comment
+     * is visible only to the comment author and document owner and co-owners, or
+     * PUBLIC, where the comment is visible to document owners, co-owners, and
+     * contributors.</p>
+     */
+    inline bool VisibilityHasBeenSet() const { return m_visibilityHasBeenSet; }
 
     /**
      * <p>The visibility of the comment. Options are either PRIVATE, where the comment
@@ -318,6 +362,12 @@ namespace Model
      * user ID of the user being replied to.</p>
      */
     inline const Aws::String& GetRecipientId() const{ return m_recipientId; }
+
+    /**
+     * <p>If the comment is a reply to another user's comment, this field contains the
+     * user ID of the user being replied to.</p>
+     */
+    inline bool RecipientIdHasBeenSet() const { return m_recipientIdHasBeenSet; }
 
     /**
      * <p>If the comment is a reply to another user's comment, this field contains the

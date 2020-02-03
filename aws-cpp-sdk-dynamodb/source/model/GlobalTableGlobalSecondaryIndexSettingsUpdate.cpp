@@ -31,19 +31,21 @@ namespace Model
 GlobalTableGlobalSecondaryIndexSettingsUpdate::GlobalTableGlobalSecondaryIndexSettingsUpdate() : 
     m_indexNameHasBeenSet(false),
     m_provisionedWriteCapacityUnits(0),
-    m_provisionedWriteCapacityUnitsHasBeenSet(false)
+    m_provisionedWriteCapacityUnitsHasBeenSet(false),
+    m_provisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet(false)
 {
 }
 
-GlobalTableGlobalSecondaryIndexSettingsUpdate::GlobalTableGlobalSecondaryIndexSettingsUpdate(const JsonValue& jsonValue) : 
+GlobalTableGlobalSecondaryIndexSettingsUpdate::GlobalTableGlobalSecondaryIndexSettingsUpdate(JsonView jsonValue) : 
     m_indexNameHasBeenSet(false),
     m_provisionedWriteCapacityUnits(0),
-    m_provisionedWriteCapacityUnitsHasBeenSet(false)
+    m_provisionedWriteCapacityUnitsHasBeenSet(false),
+    m_provisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-GlobalTableGlobalSecondaryIndexSettingsUpdate& GlobalTableGlobalSecondaryIndexSettingsUpdate::operator =(const JsonValue& jsonValue)
+GlobalTableGlobalSecondaryIndexSettingsUpdate& GlobalTableGlobalSecondaryIndexSettingsUpdate::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("IndexName"))
   {
@@ -57,6 +59,13 @@ GlobalTableGlobalSecondaryIndexSettingsUpdate& GlobalTableGlobalSecondaryIndexSe
     m_provisionedWriteCapacityUnits = jsonValue.GetInt64("ProvisionedWriteCapacityUnits");
 
     m_provisionedWriteCapacityUnitsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ProvisionedWriteCapacityAutoScalingSettingsUpdate"))
+  {
+    m_provisionedWriteCapacityAutoScalingSettingsUpdate = jsonValue.GetObject("ProvisionedWriteCapacityAutoScalingSettingsUpdate");
+
+    m_provisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet = true;
   }
 
   return *this;
@@ -75,6 +84,12 @@ JsonValue GlobalTableGlobalSecondaryIndexSettingsUpdate::Jsonize() const
   if(m_provisionedWriteCapacityUnitsHasBeenSet)
   {
    payload.WithInt64("ProvisionedWriteCapacityUnits", m_provisionedWriteCapacityUnits);
+
+  }
+
+  if(m_provisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet)
+  {
+   payload.WithObject("ProvisionedWriteCapacityAutoScalingSettingsUpdate", m_provisionedWriteCapacityAutoScalingSettingsUpdate.Jsonize());
 
   }
 

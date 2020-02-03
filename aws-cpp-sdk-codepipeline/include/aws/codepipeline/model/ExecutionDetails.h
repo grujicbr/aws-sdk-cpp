@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ExecutionDetails();
-    ExecutionDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExecutionDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExecutionDetails(Aws::Utils::Json::JsonView jsonValue);
+    ExecutionDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The summary of the current status of the actions.</p>
      */
     inline const Aws::String& GetSummary() const{ return m_summary; }
+
+    /**
+     * <p>The summary of the current status of the actions.</p>
+     */
+    inline bool SummaryHasBeenSet() const { return m_summaryHasBeenSet; }
 
     /**
      * <p>The summary of the current status of the actions.</p>
@@ -93,6 +99,12 @@ namespace Model
      * <p>The system-generated unique ID of this action used to identify this job
      * worker in any external systems, such as AWS CodeDeploy.</p>
      */
+    inline bool ExternalExecutionIdHasBeenSet() const { return m_externalExecutionIdHasBeenSet; }
+
+    /**
+     * <p>The system-generated unique ID of this action used to identify this job
+     * worker in any external systems, such as AWS CodeDeploy.</p>
+     */
     inline void SetExternalExecutionId(const Aws::String& value) { m_externalExecutionIdHasBeenSet = true; m_externalExecutionId = value; }
 
     /**
@@ -127,20 +139,26 @@ namespace Model
 
 
     /**
-     * <p>The percentage of work completed on the action, represented on a scale of
-     * zero to one hundred percent.</p>
+     * <p>The percentage of work completed on the action, represented on a scale of 0
+     * to 100 percent.</p>
      */
     inline int GetPercentComplete() const{ return m_percentComplete; }
 
     /**
-     * <p>The percentage of work completed on the action, represented on a scale of
-     * zero to one hundred percent.</p>
+     * <p>The percentage of work completed on the action, represented on a scale of 0
+     * to 100 percent.</p>
+     */
+    inline bool PercentCompleteHasBeenSet() const { return m_percentCompleteHasBeenSet; }
+
+    /**
+     * <p>The percentage of work completed on the action, represented on a scale of 0
+     * to 100 percent.</p>
      */
     inline void SetPercentComplete(int value) { m_percentCompleteHasBeenSet = true; m_percentComplete = value; }
 
     /**
-     * <p>The percentage of work completed on the action, represented on a scale of
-     * zero to one hundred percent.</p>
+     * <p>The percentage of work completed on the action, represented on a scale of 0
+     * to 100 percent.</p>
      */
     inline ExecutionDetails& WithPercentComplete(int value) { SetPercentComplete(value); return *this;}
 

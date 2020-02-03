@@ -32,24 +32,32 @@ Version::Version() :
     m_applicationIdHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_parameterDefinitionsHasBeenSet(false),
+    m_requiredCapabilitiesHasBeenSet(false),
+    m_resourcesSupported(false),
+    m_resourcesSupportedHasBeenSet(false),
     m_semanticVersionHasBeenSet(false),
+    m_sourceCodeArchiveUrlHasBeenSet(false),
     m_sourceCodeUrlHasBeenSet(false),
     m_templateUrlHasBeenSet(false)
 {
 }
 
-Version::Version(const JsonValue& jsonValue) : 
+Version::Version(JsonView jsonValue) : 
     m_applicationIdHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_parameterDefinitionsHasBeenSet(false),
+    m_requiredCapabilitiesHasBeenSet(false),
+    m_resourcesSupported(false),
+    m_resourcesSupportedHasBeenSet(false),
     m_semanticVersionHasBeenSet(false),
+    m_sourceCodeArchiveUrlHasBeenSet(false),
     m_sourceCodeUrlHasBeenSet(false),
     m_templateUrlHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Version& Version::operator =(const JsonValue& jsonValue)
+Version& Version::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("applicationId"))
   {
@@ -67,7 +75,7 @@ Version& Version::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("parameterDefinitions"))
   {
-    Array<JsonValue> parameterDefinitionsJsonList = jsonValue.GetArray("parameterDefinitions");
+    Array<JsonView> parameterDefinitionsJsonList = jsonValue.GetArray("parameterDefinitions");
     for(unsigned parameterDefinitionsIndex = 0; parameterDefinitionsIndex < parameterDefinitionsJsonList.GetLength(); ++parameterDefinitionsIndex)
     {
       m_parameterDefinitions.push_back(parameterDefinitionsJsonList[parameterDefinitionsIndex].AsObject());
@@ -75,11 +83,35 @@ Version& Version::operator =(const JsonValue& jsonValue)
     m_parameterDefinitionsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("requiredCapabilities"))
+  {
+    Array<JsonView> requiredCapabilitiesJsonList = jsonValue.GetArray("requiredCapabilities");
+    for(unsigned requiredCapabilitiesIndex = 0; requiredCapabilitiesIndex < requiredCapabilitiesJsonList.GetLength(); ++requiredCapabilitiesIndex)
+    {
+      m_requiredCapabilities.push_back(CapabilityMapper::GetCapabilityForName(requiredCapabilitiesJsonList[requiredCapabilitiesIndex].AsString()));
+    }
+    m_requiredCapabilitiesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("resourcesSupported"))
+  {
+    m_resourcesSupported = jsonValue.GetBool("resourcesSupported");
+
+    m_resourcesSupportedHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("semanticVersion"))
   {
     m_semanticVersion = jsonValue.GetString("semanticVersion");
 
     m_semanticVersionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("sourceCodeArchiveUrl"))
+  {
+    m_sourceCodeArchiveUrl = jsonValue.GetString("sourceCodeArchiveUrl");
+
+    m_sourceCodeArchiveUrlHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("sourceCodeUrl"))
@@ -126,9 +158,32 @@ JsonValue Version::Jsonize() const
 
   }
 
+  if(m_requiredCapabilitiesHasBeenSet)
+  {
+   Array<JsonValue> requiredCapabilitiesJsonList(m_requiredCapabilities.size());
+   for(unsigned requiredCapabilitiesIndex = 0; requiredCapabilitiesIndex < requiredCapabilitiesJsonList.GetLength(); ++requiredCapabilitiesIndex)
+   {
+     requiredCapabilitiesJsonList[requiredCapabilitiesIndex].AsString(CapabilityMapper::GetNameForCapability(m_requiredCapabilities[requiredCapabilitiesIndex]));
+   }
+   payload.WithArray("requiredCapabilities", std::move(requiredCapabilitiesJsonList));
+
+  }
+
+  if(m_resourcesSupportedHasBeenSet)
+  {
+   payload.WithBool("resourcesSupported", m_resourcesSupported);
+
+  }
+
   if(m_semanticVersionHasBeenSet)
   {
    payload.WithString("semanticVersion", m_semanticVersion);
+
+  }
+
+  if(m_sourceCodeArchiveUrlHasBeenSet)
+  {
+   payload.WithString("sourceCodeArchiveUrl", m_sourceCodeArchiveUrl);
 
   }
 

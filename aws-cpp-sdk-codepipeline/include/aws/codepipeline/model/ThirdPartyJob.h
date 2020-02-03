@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -33,9 +34,9 @@ namespace Model
 {
 
   /**
-   * <p>A response to a PollForThirdPartyJobs request returned by AWS CodePipeline
-   * when there is a job to be worked upon by a partner action.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>A response to a <code>PollForThirdPartyJobs</code> request returned by AWS
+   * CodePipeline when there is a job to be worked on by a partner
+   * action.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ThirdPartyJob">AWS
    * API Reference</a></p>
    */
@@ -43,50 +44,64 @@ namespace Model
   {
   public:
     ThirdPartyJob();
-    ThirdPartyJob(const Aws::Utils::Json::JsonValue& jsonValue);
-    ThirdPartyJob& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ThirdPartyJob(Aws::Utils::Json::JsonView jsonValue);
+    ThirdPartyJob& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The clientToken portion of the clientId and clientToken pair used to verify
-     * that the calling entity is allowed access to the job and its details.</p>
+     * <p>The <code>clientToken</code> portion of the <code>clientId</code> and
+     * <code>clientToken</code> pair used to verify that the calling entity is allowed
+     * access to the job and its details.</p>
      */
     inline const Aws::String& GetClientId() const{ return m_clientId; }
 
     /**
-     * <p>The clientToken portion of the clientId and clientToken pair used to verify
-     * that the calling entity is allowed access to the job and its details.</p>
+     * <p>The <code>clientToken</code> portion of the <code>clientId</code> and
+     * <code>clientToken</code> pair used to verify that the calling entity is allowed
+     * access to the job and its details.</p>
+     */
+    inline bool ClientIdHasBeenSet() const { return m_clientIdHasBeenSet; }
+
+    /**
+     * <p>The <code>clientToken</code> portion of the <code>clientId</code> and
+     * <code>clientToken</code> pair used to verify that the calling entity is allowed
+     * access to the job and its details.</p>
      */
     inline void SetClientId(const Aws::String& value) { m_clientIdHasBeenSet = true; m_clientId = value; }
 
     /**
-     * <p>The clientToken portion of the clientId and clientToken pair used to verify
-     * that the calling entity is allowed access to the job and its details.</p>
+     * <p>The <code>clientToken</code> portion of the <code>clientId</code> and
+     * <code>clientToken</code> pair used to verify that the calling entity is allowed
+     * access to the job and its details.</p>
      */
     inline void SetClientId(Aws::String&& value) { m_clientIdHasBeenSet = true; m_clientId = std::move(value); }
 
     /**
-     * <p>The clientToken portion of the clientId and clientToken pair used to verify
-     * that the calling entity is allowed access to the job and its details.</p>
+     * <p>The <code>clientToken</code> portion of the <code>clientId</code> and
+     * <code>clientToken</code> pair used to verify that the calling entity is allowed
+     * access to the job and its details.</p>
      */
     inline void SetClientId(const char* value) { m_clientIdHasBeenSet = true; m_clientId.assign(value); }
 
     /**
-     * <p>The clientToken portion of the clientId and clientToken pair used to verify
-     * that the calling entity is allowed access to the job and its details.</p>
+     * <p>The <code>clientToken</code> portion of the <code>clientId</code> and
+     * <code>clientToken</code> pair used to verify that the calling entity is allowed
+     * access to the job and its details.</p>
      */
     inline ThirdPartyJob& WithClientId(const Aws::String& value) { SetClientId(value); return *this;}
 
     /**
-     * <p>The clientToken portion of the clientId and clientToken pair used to verify
-     * that the calling entity is allowed access to the job and its details.</p>
+     * <p>The <code>clientToken</code> portion of the <code>clientId</code> and
+     * <code>clientToken</code> pair used to verify that the calling entity is allowed
+     * access to the job and its details.</p>
      */
     inline ThirdPartyJob& WithClientId(Aws::String&& value) { SetClientId(std::move(value)); return *this;}
 
     /**
-     * <p>The clientToken portion of the clientId and clientToken pair used to verify
-     * that the calling entity is allowed access to the job and its details.</p>
+     * <p>The <code>clientToken</code> portion of the <code>clientId</code> and
+     * <code>clientToken</code> pair used to verify that the calling entity is allowed
+     * access to the job and its details.</p>
      */
     inline ThirdPartyJob& WithClientId(const char* value) { SetClientId(value); return *this;}
 
@@ -95,6 +110,11 @@ namespace Model
      * <p>The identifier used to identify the job in AWS CodePipeline.</p>
      */
     inline const Aws::String& GetJobId() const{ return m_jobId; }
+
+    /**
+     * <p>The identifier used to identify the job in AWS CodePipeline.</p>
+     */
+    inline bool JobIdHasBeenSet() const { return m_jobIdHasBeenSet; }
 
     /**
      * <p>The identifier used to identify the job in AWS CodePipeline.</p>

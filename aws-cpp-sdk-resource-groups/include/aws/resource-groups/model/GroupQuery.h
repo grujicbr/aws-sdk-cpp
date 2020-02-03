@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ResourceGroups
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     GroupQuery();
-    GroupQuery(const Aws::Utils::Json::JsonValue& jsonValue);
-    GroupQuery& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GroupQuery(Aws::Utils::Json::JsonView jsonValue);
+    GroupQuery& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * query.</p>
      */
     inline const Aws::String& GetGroupName() const{ return m_groupName; }
+
+    /**
+     * <p>The name of a resource group that is associated with a specific resource
+     * query.</p>
+     */
+    inline bool GroupNameHasBeenSet() const { return m_groupNameHasBeenSet; }
 
     /**
      * <p>The name of a resource group that is associated with a specific resource
@@ -96,6 +103,12 @@ namespace Model
      * associated resource group.</p>
      */
     inline const ResourceQuery& GetResourceQuery() const{ return m_resourceQuery; }
+
+    /**
+     * <p>The resource query which determines which AWS resources are members of the
+     * associated resource group.</p>
+     */
+    inline bool ResourceQueryHasBeenSet() const { return m_resourceQueryHasBeenSet; }
 
     /**
      * <p>The resource query which determines which AWS resources are members of the

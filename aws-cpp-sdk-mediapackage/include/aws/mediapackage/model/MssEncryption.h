@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaPackage
@@ -42,13 +43,16 @@ namespace Model
   {
   public:
     MssEncryption();
-    MssEncryption(const Aws::Utils::Json::JsonValue& jsonValue);
-    MssEncryption& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MssEncryption(Aws::Utils::Json::JsonView jsonValue);
+    MssEncryption& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const SpekeKeyProvider& GetSpekeKeyProvider() const{ return m_spekeKeyProvider; }
+
+    
+    inline bool SpekeKeyProviderHasBeenSet() const { return m_spekeKeyProviderHasBeenSet; }
 
     
     inline void SetSpekeKeyProvider(const SpekeKeyProvider& value) { m_spekeKeyProviderHasBeenSet = true; m_spekeKeyProvider = value; }

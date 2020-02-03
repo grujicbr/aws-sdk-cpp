@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TopicRuleListItem();
-    TopicRuleListItem(const Aws::Utils::Json::JsonValue& jsonValue);
-    TopicRuleListItem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TopicRuleListItem(Aws::Utils::Json::JsonView jsonValue);
+    TopicRuleListItem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The rule ARN.</p>
      */
     inline const Aws::String& GetRuleArn() const{ return m_ruleArn; }
+
+    /**
+     * <p>The rule ARN.</p>
+     */
+    inline bool RuleArnHasBeenSet() const { return m_ruleArnHasBeenSet; }
 
     /**
      * <p>The rule ARN.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The name of the rule.</p>
      */
+    inline bool RuleNameHasBeenSet() const { return m_ruleNameHasBeenSet; }
+
+    /**
+     * <p>The name of the rule.</p>
+     */
     inline void SetRuleName(const Aws::String& value) { m_ruleNameHasBeenSet = true; m_ruleName = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The pattern for the topic names that apply.</p>
      */
     inline const Aws::String& GetTopicPattern() const{ return m_topicPattern; }
+
+    /**
+     * <p>The pattern for the topic names that apply.</p>
+     */
+    inline bool TopicPatternHasBeenSet() const { return m_topicPatternHasBeenSet; }
 
     /**
      * <p>The pattern for the topic names that apply.</p>
@@ -163,6 +179,11 @@ namespace Model
     /**
      * <p>The date and time the rule was created.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The date and time the rule was created.</p>
+     */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -185,6 +206,11 @@ namespace Model
      * <p>Specifies whether the rule is disabled.</p>
      */
     inline bool GetRuleDisabled() const{ return m_ruleDisabled; }
+
+    /**
+     * <p>Specifies whether the rule is disabled.</p>
+     */
+    inline bool RuleDisabledHasBeenSet() const { return m_ruleDisabledHasBeenSet; }
 
     /**
      * <p>Specifies whether the rule is disabled.</p>

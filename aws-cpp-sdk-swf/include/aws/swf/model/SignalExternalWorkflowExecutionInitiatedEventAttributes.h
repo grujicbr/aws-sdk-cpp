@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     SignalExternalWorkflowExecutionInitiatedEventAttributes();
-    SignalExternalWorkflowExecutionInitiatedEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    SignalExternalWorkflowExecutionInitiatedEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SignalExternalWorkflowExecutionInitiatedEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    SignalExternalWorkflowExecutionInitiatedEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The <code>workflowId</code> of the external workflow execution.</p>
      */
     inline const Aws::String& GetWorkflowId() const{ return m_workflowId; }
+
+    /**
+     * <p>The <code>workflowId</code> of the external workflow execution.</p>
+     */
+    inline bool WorkflowIdHasBeenSet() const { return m_workflowIdHasBeenSet; }
 
     /**
      * <p>The <code>workflowId</code> of the external workflow execution.</p>
@@ -89,6 +95,12 @@ namespace Model
      * to.</p>
      */
     inline const Aws::String& GetRunId() const{ return m_runId; }
+
+    /**
+     * <p>The <code>runId</code> of the external workflow execution to send the signal
+     * to.</p>
+     */
+    inline bool RunIdHasBeenSet() const { return m_runIdHasBeenSet; }
 
     /**
      * <p>The <code>runId</code> of the external workflow execution to send the signal
@@ -135,6 +147,11 @@ namespace Model
     /**
      * <p>The name of the signal.</p>
      */
+    inline bool SignalNameHasBeenSet() const { return m_signalNameHasBeenSet; }
+
+    /**
+     * <p>The name of the signal.</p>
+     */
     inline void SetSignalName(const Aws::String& value) { m_signalNameHasBeenSet = true; m_signalName = value; }
 
     /**
@@ -167,6 +184,11 @@ namespace Model
      * <p>The input provided to the signal.</p>
      */
     inline const Aws::String& GetInput() const{ return m_input; }
+
+    /**
+     * <p>The input provided to the signal.</p>
+     */
+    inline bool InputHasBeenSet() const { return m_inputHasBeenSet; }
 
     /**
      * <p>The input provided to the signal.</p>
@@ -213,6 +235,14 @@ namespace Model
      * decision for this signal. This information can be useful for diagnosing problems
      * by tracing back the chain of events leading up to this event.</p>
      */
+    inline bool DecisionTaskCompletedEventIdHasBeenSet() const { return m_decisionTaskCompletedEventIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the <code>DecisionTaskCompleted</code> event corresponding to the
+     * decision task that resulted in the <code>SignalExternalWorkflowExecution</code>
+     * decision for this signal. This information can be useful for diagnosing problems
+     * by tracing back the chain of events leading up to this event.</p>
+     */
     inline void SetDecisionTaskCompletedEventId(long long value) { m_decisionTaskCompletedEventIdHasBeenSet = true; m_decisionTaskCompletedEventId = value; }
 
     /**
@@ -229,6 +259,12 @@ namespace Model
      * decision tasks.</p>
      */
     inline const Aws::String& GetControl() const{ return m_control; }
+
+    /**
+     * <p>Data attached to the event that can be used by the decider in subsequent
+     * decision tasks.</p>
+     */
+    inline bool ControlHasBeenSet() const { return m_controlHasBeenSet; }
 
     /**
      * <p>Data attached to the event that can be used by the decider in subsequent

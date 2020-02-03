@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticTranscoder
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DetectedProperties();
-    DetectedProperties(const Aws::Utils::Json::JsonValue& jsonValue);
-    DetectedProperties& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DetectedProperties(Aws::Utils::Json::JsonView jsonValue);
+    DetectedProperties& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The detected width of the input file, in pixels.</p>
      */
     inline int GetWidth() const{ return m_width; }
+
+    /**
+     * <p>The detected width of the input file, in pixels.</p>
+     */
+    inline bool WidthHasBeenSet() const { return m_widthHasBeenSet; }
 
     /**
      * <p>The detected width of the input file, in pixels.</p>
@@ -71,6 +77,11 @@ namespace Model
     /**
      * <p>The detected height of the input file, in pixels.</p>
      */
+    inline bool HeightHasBeenSet() const { return m_heightHasBeenSet; }
+
+    /**
+     * <p>The detected height of the input file, in pixels.</p>
+     */
     inline void SetHeight(int value) { m_heightHasBeenSet = true; m_height = value; }
 
     /**
@@ -83,6 +94,11 @@ namespace Model
      * <p>The detected frame rate of the input file, in frames per second.</p>
      */
     inline const Aws::String& GetFrameRate() const{ return m_frameRate; }
+
+    /**
+     * <p>The detected frame rate of the input file, in frames per second.</p>
+     */
+    inline bool FrameRateHasBeenSet() const { return m_frameRateHasBeenSet; }
 
     /**
      * <p>The detected frame rate of the input file, in frames per second.</p>
@@ -123,6 +139,11 @@ namespace Model
     /**
      * <p>The detected file size of the input file, in bytes.</p>
      */
+    inline bool FileSizeHasBeenSet() const { return m_fileSizeHasBeenSet; }
+
+    /**
+     * <p>The detected file size of the input file, in bytes.</p>
+     */
     inline void SetFileSize(long long value) { m_fileSizeHasBeenSet = true; m_fileSize = value; }
 
     /**
@@ -135,6 +156,11 @@ namespace Model
      * <p>The detected duration of the input file, in milliseconds.</p>
      */
     inline long long GetDurationMillis() const{ return m_durationMillis; }
+
+    /**
+     * <p>The detected duration of the input file, in milliseconds.</p>
+     */
+    inline bool DurationMillisHasBeenSet() const { return m_durationMillisHasBeenSet; }
 
     /**
      * <p>The detected duration of the input file, in milliseconds.</p>

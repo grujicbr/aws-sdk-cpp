@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppSync
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Type();
-    Type(const Aws::Utils::Json::JsonValue& jsonValue);
-    Type& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Type(Aws::Utils::Json::JsonView jsonValue);
+    Type& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The type name.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The type name.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The type name.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The type description.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The type description.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The type ARN.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The type ARN.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The type ARN.</p>
@@ -163,6 +179,11 @@ namespace Model
     /**
      * <p>The type definition.</p>
      */
+    inline bool DefinitionHasBeenSet() const { return m_definitionHasBeenSet; }
+
+    /**
+     * <p>The type definition.</p>
+     */
     inline void SetDefinition(const Aws::String& value) { m_definitionHasBeenSet = true; m_definition = value; }
 
     /**
@@ -195,6 +216,11 @@ namespace Model
      * <p>The type format: SDL or JSON.</p>
      */
     inline const TypeDefinitionFormat& GetFormat() const{ return m_format; }
+
+    /**
+     * <p>The type format: SDL or JSON.</p>
+     */
+    inline bool FormatHasBeenSet() const { return m_formatHasBeenSet; }
 
     /**
      * <p>The type format: SDL or JSON.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EbsBlockDevice();
-    EbsBlockDevice(const Aws::Utils::Json::JsonValue& jsonValue);
-    EbsBlockDevice& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EbsBlockDevice(Aws::Utils::Json::JsonView jsonValue);
+    EbsBlockDevice& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * be requested for the EBS volume attached to an EC2 instance in the cluster.</p>
      */
     inline const VolumeSpecification& GetVolumeSpecification() const{ return m_volumeSpecification; }
+
+    /**
+     * <p>EBS volume specifications such as volume type, IOPS, and size (GiB) that will
+     * be requested for the EBS volume attached to an EC2 instance in the cluster.</p>
+     */
+    inline bool VolumeSpecificationHasBeenSet() const { return m_volumeSpecificationHasBeenSet; }
 
     /**
      * <p>EBS volume specifications such as volume type, IOPS, and size (GiB) that will
@@ -83,6 +90,11 @@ namespace Model
      * <p>The device name that is exposed to the instance, such as /dev/sdh.</p>
      */
     inline const Aws::String& GetDevice() const{ return m_device; }
+
+    /**
+     * <p>The device name that is exposed to the instance, such as /dev/sdh.</p>
+     */
+    inline bool DeviceHasBeenSet() const { return m_deviceHasBeenSet; }
 
     /**
      * <p>The device name that is exposed to the instance, such as /dev/sdh.</p>

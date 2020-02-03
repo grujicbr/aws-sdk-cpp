@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Category();
-    Category(const Aws::Utils::Json::JsonValue& jsonValue);
-    Category& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Category(Aws::Utils::Json::JsonView jsonValue);
+    Category& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The category code for the support case.</p>
      */
     inline const Aws::String& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The category code for the support case.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The category code for the support case.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The category name for the support case.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The category name for the support case.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The category name for the support case.</p>

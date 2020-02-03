@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -43,64 +44,80 @@ namespace Model
   {
   public:
     Schedule();
-    Schedule(const Aws::Utils::Json::JsonValue& jsonValue);
-    Schedule& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Schedule(Aws::Utils::Json::JsonView jsonValue);
+    Schedule& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>A <code>cron</code> expression used to specify the schedule (see <a
+     * <p>A <code>cron</code> expression used to specify the schedule. For more
+     * information, see <a
      * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
-     * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
+     * 12:15 UTC, specify <code>cron(15 12 * * ? *)</code>.</p>
      */
     inline const Aws::String& GetScheduleExpression() const{ return m_scheduleExpression; }
 
     /**
-     * <p>A <code>cron</code> expression used to specify the schedule (see <a
+     * <p>A <code>cron</code> expression used to specify the schedule. For more
+     * information, see <a
      * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
-     * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
+     * 12:15 UTC, specify <code>cron(15 12 * * ? *)</code>.</p>
+     */
+    inline bool ScheduleExpressionHasBeenSet() const { return m_scheduleExpressionHasBeenSet; }
+
+    /**
+     * <p>A <code>cron</code> expression used to specify the schedule. For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
+     * 12:15 UTC, specify <code>cron(15 12 * * ? *)</code>.</p>
      */
     inline void SetScheduleExpression(const Aws::String& value) { m_scheduleExpressionHasBeenSet = true; m_scheduleExpression = value; }
 
     /**
-     * <p>A <code>cron</code> expression used to specify the schedule (see <a
+     * <p>A <code>cron</code> expression used to specify the schedule. For more
+     * information, see <a
      * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
-     * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
+     * 12:15 UTC, specify <code>cron(15 12 * * ? *)</code>.</p>
      */
     inline void SetScheduleExpression(Aws::String&& value) { m_scheduleExpressionHasBeenSet = true; m_scheduleExpression = std::move(value); }
 
     /**
-     * <p>A <code>cron</code> expression used to specify the schedule (see <a
+     * <p>A <code>cron</code> expression used to specify the schedule. For more
+     * information, see <a
      * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
-     * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
+     * 12:15 UTC, specify <code>cron(15 12 * * ? *)</code>.</p>
      */
     inline void SetScheduleExpression(const char* value) { m_scheduleExpressionHasBeenSet = true; m_scheduleExpression.assign(value); }
 
     /**
-     * <p>A <code>cron</code> expression used to specify the schedule (see <a
+     * <p>A <code>cron</code> expression used to specify the schedule. For more
+     * information, see <a
      * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
-     * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
+     * 12:15 UTC, specify <code>cron(15 12 * * ? *)</code>.</p>
      */
     inline Schedule& WithScheduleExpression(const Aws::String& value) { SetScheduleExpression(value); return *this;}
 
     /**
-     * <p>A <code>cron</code> expression used to specify the schedule (see <a
+     * <p>A <code>cron</code> expression used to specify the schedule. For more
+     * information, see <a
      * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
-     * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
+     * 12:15 UTC, specify <code>cron(15 12 * * ? *)</code>.</p>
      */
     inline Schedule& WithScheduleExpression(Aws::String&& value) { SetScheduleExpression(std::move(value)); return *this;}
 
     /**
-     * <p>A <code>cron</code> expression used to specify the schedule (see <a
+     * <p>A <code>cron</code> expression used to specify the schedule. For more
+     * information, see <a
      * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
-     * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
+     * 12:15 UTC, specify <code>cron(15 12 * * ? *)</code>.</p>
      */
     inline Schedule& WithScheduleExpression(const char* value) { SetScheduleExpression(value); return *this;}
 
@@ -109,6 +126,11 @@ namespace Model
      * <p>The state of the schedule.</p>
      */
     inline const ScheduleState& GetState() const{ return m_state; }
+
+    /**
+     * <p>The state of the schedule.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The state of the schedule.</p>

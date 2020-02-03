@@ -31,15 +31,17 @@ namespace Model
 VideoPreprocessor::VideoPreprocessor() : 
     m_colorCorrectorHasBeenSet(false),
     m_deinterlacerHasBeenSet(false),
+    m_dolbyVisionHasBeenSet(false),
     m_imageInserterHasBeenSet(false),
     m_noiseReducerHasBeenSet(false),
     m_timecodeBurninHasBeenSet(false)
 {
 }
 
-VideoPreprocessor::VideoPreprocessor(const JsonValue& jsonValue) : 
+VideoPreprocessor::VideoPreprocessor(JsonView jsonValue) : 
     m_colorCorrectorHasBeenSet(false),
     m_deinterlacerHasBeenSet(false),
+    m_dolbyVisionHasBeenSet(false),
     m_imageInserterHasBeenSet(false),
     m_noiseReducerHasBeenSet(false),
     m_timecodeBurninHasBeenSet(false)
@@ -47,7 +49,7 @@ VideoPreprocessor::VideoPreprocessor(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-VideoPreprocessor& VideoPreprocessor::operator =(const JsonValue& jsonValue)
+VideoPreprocessor& VideoPreprocessor::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("colorCorrector"))
   {
@@ -61,6 +63,13 @@ VideoPreprocessor& VideoPreprocessor::operator =(const JsonValue& jsonValue)
     m_deinterlacer = jsonValue.GetObject("deinterlacer");
 
     m_deinterlacerHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("dolbyVision"))
+  {
+    m_dolbyVision = jsonValue.GetObject("dolbyVision");
+
+    m_dolbyVisionHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("imageInserter"))
@@ -100,6 +109,12 @@ JsonValue VideoPreprocessor::Jsonize() const
   if(m_deinterlacerHasBeenSet)
   {
    payload.WithObject("deinterlacer", m_deinterlacer.Jsonize());
+
+  }
+
+  if(m_dolbyVisionHasBeenSet)
+  {
+   payload.WithObject("dolbyVision", m_dolbyVision.Jsonize());
 
   }
 

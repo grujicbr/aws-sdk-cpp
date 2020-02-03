@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 CreateApplicationRequest::CreateApplicationRequest() : 
     m_applicationNameHasBeenSet(false),
     m_computePlatform(ComputePlatform::NOT_SET),
-    m_computePlatformHasBeenSet(false)
+    m_computePlatformHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -44,7 +45,18 @@ Aws::String CreateApplicationRequest::SerializePayload() const
    payload.WithString("computePlatform", ComputePlatformMapper::GetNameForComputePlatform(m_computePlatform));
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateApplicationRequest::GetRequestSpecificHeaders() const

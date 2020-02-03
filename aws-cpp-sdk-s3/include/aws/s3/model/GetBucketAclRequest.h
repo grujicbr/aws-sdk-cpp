@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     GetBucketAclRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,30 +49,52 @@ namespace Model
     void AddQueryStringParameters(Aws::Http::URI& uri) const override;
 
 
-    
+    /**
+     * <p>Specifies the S3 bucket whose ACL is being requested.</p>
+     */
     inline const Aws::String& GetBucket() const{ return m_bucket; }
 
-    
+    /**
+     * <p>Specifies the S3 bucket whose ACL is being requested.</p>
+     */
+    inline bool BucketHasBeenSet() const { return m_bucketHasBeenSet; }
+
+    /**
+     * <p>Specifies the S3 bucket whose ACL is being requested.</p>
+     */
     inline void SetBucket(const Aws::String& value) { m_bucketHasBeenSet = true; m_bucket = value; }
 
-    
+    /**
+     * <p>Specifies the S3 bucket whose ACL is being requested.</p>
+     */
     inline void SetBucket(Aws::String&& value) { m_bucketHasBeenSet = true; m_bucket = std::move(value); }
 
-    
+    /**
+     * <p>Specifies the S3 bucket whose ACL is being requested.</p>
+     */
     inline void SetBucket(const char* value) { m_bucketHasBeenSet = true; m_bucket.assign(value); }
 
-    
+    /**
+     * <p>Specifies the S3 bucket whose ACL is being requested.</p>
+     */
     inline GetBucketAclRequest& WithBucket(const Aws::String& value) { SetBucket(value); return *this;}
 
-    
+    /**
+     * <p>Specifies the S3 bucket whose ACL is being requested.</p>
+     */
     inline GetBucketAclRequest& WithBucket(Aws::String&& value) { SetBucket(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>Specifies the S3 bucket whose ACL is being requested.</p>
+     */
     inline GetBucketAclRequest& WithBucket(const char* value) { SetBucket(value); return *this;}
 
 
     
     inline const Aws::Map<Aws::String, Aws::String>& GetCustomizedAccessLogTag() const{ return m_customizedAccessLogTag; }
+
+    
+    inline bool CustomizedAccessLogTagHasBeenSet() const { return m_customizedAccessLogTagHasBeenSet; }
 
     
     inline void SetCustomizedAccessLogTag(const Aws::Map<Aws::String, Aws::String>& value) { m_customizedAccessLogTagHasBeenSet = true; m_customizedAccessLogTag = value; }

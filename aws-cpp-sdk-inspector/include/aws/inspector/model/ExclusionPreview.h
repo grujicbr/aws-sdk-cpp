@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ExclusionPreview();
-    ExclusionPreview(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExclusionPreview& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExclusionPreview(Aws::Utils::Json::JsonView jsonValue);
+    ExclusionPreview& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of the exclusion preview.</p>
      */
     inline const Aws::String& GetTitle() const{ return m_title; }
+
+    /**
+     * <p>The name of the exclusion preview.</p>
+     */
+    inline bool TitleHasBeenSet() const { return m_titleHasBeenSet; }
 
     /**
      * <p>The name of the exclusion preview.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The description of the exclusion preview.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the exclusion preview.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>The recommendation for the exclusion preview.</p>
      */
     inline const Aws::String& GetRecommendation() const{ return m_recommendation; }
+
+    /**
+     * <p>The recommendation for the exclusion preview.</p>
+     */
+    inline bool RecommendationHasBeenSet() const { return m_recommendationHasBeenSet; }
 
     /**
      * <p>The recommendation for the exclusion preview.</p>
@@ -166,6 +182,11 @@ namespace Model
     /**
      * <p>The AWS resources for which the exclusion preview pertains.</p>
      */
+    inline bool ScopesHasBeenSet() const { return m_scopesHasBeenSet; }
+
+    /**
+     * <p>The AWS resources for which the exclusion preview pertains.</p>
+     */
     inline void SetScopes(const Aws::Vector<Scope>& value) { m_scopesHasBeenSet = true; m_scopes = value; }
 
     /**
@@ -198,6 +219,11 @@ namespace Model
      * <p>The system-defined attributes for the exclusion preview.</p>
      */
     inline const Aws::Vector<Attribute>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The system-defined attributes for the exclusion preview.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The system-defined attributes for the exclusion preview.</p>

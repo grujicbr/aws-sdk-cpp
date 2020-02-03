@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CodeGenNode();
-    CodeGenNode(const Aws::Utils::Json::JsonValue& jsonValue);
-    CodeGenNode& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CodeGenNode(Aws::Utils::Json::JsonView jsonValue);
+    CodeGenNode& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A node identifier that is unique within the node's graph.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>A node identifier that is unique within the node's graph.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>A node identifier that is unique within the node's graph.</p>
@@ -85,37 +91,42 @@ namespace Model
 
 
     /**
-     * <p>The type of node this is.</p>
+     * <p>The type of node that this is.</p>
      */
     inline const Aws::String& GetNodeType() const{ return m_nodeType; }
 
     /**
-     * <p>The type of node this is.</p>
+     * <p>The type of node that this is.</p>
+     */
+    inline bool NodeTypeHasBeenSet() const { return m_nodeTypeHasBeenSet; }
+
+    /**
+     * <p>The type of node that this is.</p>
      */
     inline void SetNodeType(const Aws::String& value) { m_nodeTypeHasBeenSet = true; m_nodeType = value; }
 
     /**
-     * <p>The type of node this is.</p>
+     * <p>The type of node that this is.</p>
      */
     inline void SetNodeType(Aws::String&& value) { m_nodeTypeHasBeenSet = true; m_nodeType = std::move(value); }
 
     /**
-     * <p>The type of node this is.</p>
+     * <p>The type of node that this is.</p>
      */
     inline void SetNodeType(const char* value) { m_nodeTypeHasBeenSet = true; m_nodeType.assign(value); }
 
     /**
-     * <p>The type of node this is.</p>
+     * <p>The type of node that this is.</p>
      */
     inline CodeGenNode& WithNodeType(const Aws::String& value) { SetNodeType(value); return *this;}
 
     /**
-     * <p>The type of node this is.</p>
+     * <p>The type of node that this is.</p>
      */
     inline CodeGenNode& WithNodeType(Aws::String&& value) { SetNodeType(std::move(value)); return *this;}
 
     /**
-     * <p>The type of node this is.</p>
+     * <p>The type of node that this is.</p>
      */
     inline CodeGenNode& WithNodeType(const char* value) { SetNodeType(value); return *this;}
 
@@ -124,6 +135,11 @@ namespace Model
      * <p>Properties of the node, in the form of name-value pairs.</p>
      */
     inline const Aws::Vector<CodeGenNodeArg>& GetArgs() const{ return m_args; }
+
+    /**
+     * <p>Properties of the node, in the form of name-value pairs.</p>
+     */
+    inline bool ArgsHasBeenSet() const { return m_argsHasBeenSet; }
 
     /**
      * <p>Properties of the node, in the form of name-value pairs.</p>
@@ -160,6 +176,11 @@ namespace Model
      * <p>The line number of the node.</p>
      */
     inline int GetLineNumber() const{ return m_lineNumber; }
+
+    /**
+     * <p>The line number of the node.</p>
+     */
+    inline bool LineNumberHasBeenSet() const { return m_lineNumberHasBeenSet; }
 
     /**
      * <p>The line number of the node.</p>

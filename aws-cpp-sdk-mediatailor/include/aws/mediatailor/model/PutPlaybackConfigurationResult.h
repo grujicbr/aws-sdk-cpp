@@ -17,7 +17,10 @@
 #include <aws/mediatailor/MediaTailor_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/mediatailor/model/CdnConfiguration.h>
+#include <aws/mediatailor/model/DashConfiguration.h>
 #include <aws/mediatailor/model/HlsConfiguration.h>
+#include <aws/mediatailor/model/LivePreRollConfiguration.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <utility>
 
 namespace Aws
@@ -49,7 +52,7 @@ namespace Model
      * static parameters and placeholders for dynamic parameters. AWS Elemental
      * MediaTailor substitutes player-specific and session-specific parameters as
      * needed when calling the ADS. Alternately, for testing, you can provide a static
-     * VAST URL. The maximum length is 25000 characters.</p>
+     * VAST URL. The maximum length is 25,000 characters.</p>
      */
     inline const Aws::String& GetAdDecisionServerUrl() const{ return m_adDecisionServerUrl; }
 
@@ -58,7 +61,7 @@ namespace Model
      * static parameters and placeholders for dynamic parameters. AWS Elemental
      * MediaTailor substitutes player-specific and session-specific parameters as
      * needed when calling the ADS. Alternately, for testing, you can provide a static
-     * VAST URL. The maximum length is 25000 characters.</p>
+     * VAST URL. The maximum length is 25,000 characters.</p>
      */
     inline void SetAdDecisionServerUrl(const Aws::String& value) { m_adDecisionServerUrl = value; }
 
@@ -67,7 +70,7 @@ namespace Model
      * static parameters and placeholders for dynamic parameters. AWS Elemental
      * MediaTailor substitutes player-specific and session-specific parameters as
      * needed when calling the ADS. Alternately, for testing, you can provide a static
-     * VAST URL. The maximum length is 25000 characters.</p>
+     * VAST URL. The maximum length is 25,000 characters.</p>
      */
     inline void SetAdDecisionServerUrl(Aws::String&& value) { m_adDecisionServerUrl = std::move(value); }
 
@@ -76,7 +79,7 @@ namespace Model
      * static parameters and placeholders for dynamic parameters. AWS Elemental
      * MediaTailor substitutes player-specific and session-specific parameters as
      * needed when calling the ADS. Alternately, for testing, you can provide a static
-     * VAST URL. The maximum length is 25000 characters.</p>
+     * VAST URL. The maximum length is 25,000 characters.</p>
      */
     inline void SetAdDecisionServerUrl(const char* value) { m_adDecisionServerUrl.assign(value); }
 
@@ -85,7 +88,7 @@ namespace Model
      * static parameters and placeholders for dynamic parameters. AWS Elemental
      * MediaTailor substitutes player-specific and session-specific parameters as
      * needed when calling the ADS. Alternately, for testing, you can provide a static
-     * VAST URL. The maximum length is 25000 characters.</p>
+     * VAST URL. The maximum length is 25,000 characters.</p>
      */
     inline PutPlaybackConfigurationResult& WithAdDecisionServerUrl(const Aws::String& value) { SetAdDecisionServerUrl(value); return *this;}
 
@@ -94,7 +97,7 @@ namespace Model
      * static parameters and placeholders for dynamic parameters. AWS Elemental
      * MediaTailor substitutes player-specific and session-specific parameters as
      * needed when calling the ADS. Alternately, for testing, you can provide a static
-     * VAST URL. The maximum length is 25000 characters.</p>
+     * VAST URL. The maximum length is 25,000 characters.</p>
      */
     inline PutPlaybackConfigurationResult& WithAdDecisionServerUrl(Aws::String&& value) { SetAdDecisionServerUrl(std::move(value)); return *this;}
 
@@ -103,7 +106,7 @@ namespace Model
      * static parameters and placeholders for dynamic parameters. AWS Elemental
      * MediaTailor substitutes player-specific and session-specific parameters as
      * needed when calling the ADS. Alternately, for testing, you can provide a static
-     * VAST URL. The maximum length is 25000 characters.</p>
+     * VAST URL. The maximum length is 25,000 characters.</p>
      */
     inline PutPlaybackConfigurationResult& WithAdDecisionServerUrl(const char* value) { SetAdDecisionServerUrl(value); return *this;}
 
@@ -140,6 +143,32 @@ namespace Model
 
 
     /**
+     * <p>The configuration for DASH content. </p>
+     */
+    inline const DashConfiguration& GetDashConfiguration() const{ return m_dashConfiguration; }
+
+    /**
+     * <p>The configuration for DASH content. </p>
+     */
+    inline void SetDashConfiguration(const DashConfiguration& value) { m_dashConfiguration = value; }
+
+    /**
+     * <p>The configuration for DASH content. </p>
+     */
+    inline void SetDashConfiguration(DashConfiguration&& value) { m_dashConfiguration = std::move(value); }
+
+    /**
+     * <p>The configuration for DASH content. </p>
+     */
+    inline PutPlaybackConfigurationResult& WithDashConfiguration(const DashConfiguration& value) { SetDashConfiguration(value); return *this;}
+
+    /**
+     * <p>The configuration for DASH content. </p>
+     */
+    inline PutPlaybackConfigurationResult& WithDashConfiguration(DashConfiguration&& value) { SetDashConfiguration(std::move(value)); return *this;}
+
+
+    /**
      * <p>The configuration for HLS content. </p>
      */
     inline const HlsConfiguration& GetHlsConfiguration() const{ return m_hlsConfiguration; }
@@ -166,39 +195,101 @@ namespace Model
 
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The configuration for pre-roll ad insertion.</p>
+     */
+    inline const LivePreRollConfiguration& GetLivePreRollConfiguration() const{ return m_livePreRollConfiguration; }
+
+    /**
+     * <p>The configuration for pre-roll ad insertion.</p>
+     */
+    inline void SetLivePreRollConfiguration(const LivePreRollConfiguration& value) { m_livePreRollConfiguration = value; }
+
+    /**
+     * <p>The configuration for pre-roll ad insertion.</p>
+     */
+    inline void SetLivePreRollConfiguration(LivePreRollConfiguration&& value) { m_livePreRollConfiguration = std::move(value); }
+
+    /**
+     * <p>The configuration for pre-roll ad insertion.</p>
+     */
+    inline PutPlaybackConfigurationResult& WithLivePreRollConfiguration(const LivePreRollConfiguration& value) { SetLivePreRollConfiguration(value); return *this;}
+
+    /**
+     * <p>The configuration for pre-roll ad insertion.</p>
+     */
+    inline PutPlaybackConfigurationResult& WithLivePreRollConfiguration(LivePreRollConfiguration&& value) { SetLivePreRollConfiguration(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The identifier for the playback configuration.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline void SetName(const Aws::String& value) { m_name = value; }
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline void SetName(Aws::String&& value) { m_name = std::move(value); }
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline void SetName(const char* value) { m_name.assign(value); }
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline PutPlaybackConfigurationResult& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline PutPlaybackConfigurationResult& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline PutPlaybackConfigurationResult& WithName(const char* value) { SetName(value); return *this;}
+
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the playback configuration. </p>
+     */
+    inline const Aws::String& GetPlaybackConfigurationArn() const{ return m_playbackConfigurationArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the playback configuration. </p>
+     */
+    inline void SetPlaybackConfigurationArn(const Aws::String& value) { m_playbackConfigurationArn = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the playback configuration. </p>
+     */
+    inline void SetPlaybackConfigurationArn(Aws::String&& value) { m_playbackConfigurationArn = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the playback configuration. </p>
+     */
+    inline void SetPlaybackConfigurationArn(const char* value) { m_playbackConfigurationArn.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& WithPlaybackConfigurationArn(const Aws::String& value) { SetPlaybackConfigurationArn(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& WithPlaybackConfigurationArn(Aws::String&& value) { SetPlaybackConfigurationArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& WithPlaybackConfigurationArn(const char* value) { SetPlaybackConfigurationArn(value); return *this;}
 
 
     /**
@@ -288,74 +379,192 @@ namespace Model
 
 
     /**
-     * <p>URL for a high-quality video asset to transcode and use to fill in time
+     * <p>The URL for a high-quality video asset to transcode and use to fill in time
      * that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in
-     * gaps in media content. Configuring the slate is optional for non-VPAID
-     * configurations. For VPAID, the slate is required because AWS Elemental
-     * MediaTailor provides it in the slots designated for dynamic ad content. The
-     * slate must be a high-quality asset that contains both audio and video. </p>
+     * gaps in media content. Configuring the slate is optional for non-VPAID playback
+     * configurations. For VPAID, the slate is required because MediaTailor provides it
+     * in the slots designated for dynamic ad content. The slate must be a high-quality
+     * asset that contains both audio and video. </p>
      */
     inline const Aws::String& GetSlateAdUrl() const{ return m_slateAdUrl; }
 
     /**
-     * <p>URL for a high-quality video asset to transcode and use to fill in time
+     * <p>The URL for a high-quality video asset to transcode and use to fill in time
      * that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in
-     * gaps in media content. Configuring the slate is optional for non-VPAID
-     * configurations. For VPAID, the slate is required because AWS Elemental
-     * MediaTailor provides it in the slots designated for dynamic ad content. The
-     * slate must be a high-quality asset that contains both audio and video. </p>
+     * gaps in media content. Configuring the slate is optional for non-VPAID playback
+     * configurations. For VPAID, the slate is required because MediaTailor provides it
+     * in the slots designated for dynamic ad content. The slate must be a high-quality
+     * asset that contains both audio and video. </p>
      */
     inline void SetSlateAdUrl(const Aws::String& value) { m_slateAdUrl = value; }
 
     /**
-     * <p>URL for a high-quality video asset to transcode and use to fill in time
+     * <p>The URL for a high-quality video asset to transcode and use to fill in time
      * that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in
-     * gaps in media content. Configuring the slate is optional for non-VPAID
-     * configurations. For VPAID, the slate is required because AWS Elemental
-     * MediaTailor provides it in the slots designated for dynamic ad content. The
-     * slate must be a high-quality asset that contains both audio and video. </p>
+     * gaps in media content. Configuring the slate is optional for non-VPAID playback
+     * configurations. For VPAID, the slate is required because MediaTailor provides it
+     * in the slots designated for dynamic ad content. The slate must be a high-quality
+     * asset that contains both audio and video. </p>
      */
     inline void SetSlateAdUrl(Aws::String&& value) { m_slateAdUrl = std::move(value); }
 
     /**
-     * <p>URL for a high-quality video asset to transcode and use to fill in time
+     * <p>The URL for a high-quality video asset to transcode and use to fill in time
      * that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in
-     * gaps in media content. Configuring the slate is optional for non-VPAID
-     * configurations. For VPAID, the slate is required because AWS Elemental
-     * MediaTailor provides it in the slots designated for dynamic ad content. The
-     * slate must be a high-quality asset that contains both audio and video. </p>
+     * gaps in media content. Configuring the slate is optional for non-VPAID playback
+     * configurations. For VPAID, the slate is required because MediaTailor provides it
+     * in the slots designated for dynamic ad content. The slate must be a high-quality
+     * asset that contains both audio and video. </p>
      */
     inline void SetSlateAdUrl(const char* value) { m_slateAdUrl.assign(value); }
 
     /**
-     * <p>URL for a high-quality video asset to transcode and use to fill in time
+     * <p>The URL for a high-quality video asset to transcode and use to fill in time
      * that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in
-     * gaps in media content. Configuring the slate is optional for non-VPAID
-     * configurations. For VPAID, the slate is required because AWS Elemental
-     * MediaTailor provides it in the slots designated for dynamic ad content. The
-     * slate must be a high-quality asset that contains both audio and video. </p>
+     * gaps in media content. Configuring the slate is optional for non-VPAID playback
+     * configurations. For VPAID, the slate is required because MediaTailor provides it
+     * in the slots designated for dynamic ad content. The slate must be a high-quality
+     * asset that contains both audio and video. </p>
      */
     inline PutPlaybackConfigurationResult& WithSlateAdUrl(const Aws::String& value) { SetSlateAdUrl(value); return *this;}
 
     /**
-     * <p>URL for a high-quality video asset to transcode and use to fill in time
+     * <p>The URL for a high-quality video asset to transcode and use to fill in time
      * that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in
-     * gaps in media content. Configuring the slate is optional for non-VPAID
-     * configurations. For VPAID, the slate is required because AWS Elemental
-     * MediaTailor provides it in the slots designated for dynamic ad content. The
-     * slate must be a high-quality asset that contains both audio and video. </p>
+     * gaps in media content. Configuring the slate is optional for non-VPAID playback
+     * configurations. For VPAID, the slate is required because MediaTailor provides it
+     * in the slots designated for dynamic ad content. The slate must be a high-quality
+     * asset that contains both audio and video. </p>
      */
     inline PutPlaybackConfigurationResult& WithSlateAdUrl(Aws::String&& value) { SetSlateAdUrl(std::move(value)); return *this;}
 
     /**
-     * <p>URL for a high-quality video asset to transcode and use to fill in time
+     * <p>The URL for a high-quality video asset to transcode and use to fill in time
      * that's not used by ads. AWS Elemental MediaTailor shows the slate to fill in
-     * gaps in media content. Configuring the slate is optional for non-VPAID
-     * configurations. For VPAID, the slate is required because AWS Elemental
-     * MediaTailor provides it in the slots designated for dynamic ad content. The
-     * slate must be a high-quality asset that contains both audio and video. </p>
+     * gaps in media content. Configuring the slate is optional for non-VPAID playback
+     * configurations. For VPAID, the slate is required because MediaTailor provides it
+     * in the slots designated for dynamic ad content. The slate must be a high-quality
+     * asset that contains both audio and video. </p>
      */
     inline PutPlaybackConfigurationResult& WithSlateAdUrl(const char* value) { SetSlateAdUrl(value); return *this;}
+
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tags = value; }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tags = std::move(value); }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& AddTags(const Aws::String& key, const Aws::String& value) { m_tags.emplace(key, value); return *this; }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& AddTags(Aws::String&& key, const Aws::String& value) { m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& AddTags(const Aws::String& key, Aws::String&& value) { m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& AddTags(Aws::String&& key, Aws::String&& value) { m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& AddTags(const char* key, Aws::String&& value) { m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& AddTags(Aws::String&& key, const char* value) { m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The tags assigned to the playback configuration. </p>
+     */
+    inline PutPlaybackConfigurationResult& AddTags(const char* key, const char* value) { m_tags.emplace(key, value); return *this; }
+
+
+    /**
+     * <p>The name that is used to associate this playback configuration with a custom
+     * transcode profile. This overrides the dynamic transcoding defaults of
+     * MediaTailor. Use this only if you have already set up custom profiles with the
+     * help of AWS Support.</p>
+     */
+    inline const Aws::String& GetTranscodeProfileName() const{ return m_transcodeProfileName; }
+
+    /**
+     * <p>The name that is used to associate this playback configuration with a custom
+     * transcode profile. This overrides the dynamic transcoding defaults of
+     * MediaTailor. Use this only if you have already set up custom profiles with the
+     * help of AWS Support.</p>
+     */
+    inline void SetTranscodeProfileName(const Aws::String& value) { m_transcodeProfileName = value; }
+
+    /**
+     * <p>The name that is used to associate this playback configuration with a custom
+     * transcode profile. This overrides the dynamic transcoding defaults of
+     * MediaTailor. Use this only if you have already set up custom profiles with the
+     * help of AWS Support.</p>
+     */
+    inline void SetTranscodeProfileName(Aws::String&& value) { m_transcodeProfileName = std::move(value); }
+
+    /**
+     * <p>The name that is used to associate this playback configuration with a custom
+     * transcode profile. This overrides the dynamic transcoding defaults of
+     * MediaTailor. Use this only if you have already set up custom profiles with the
+     * help of AWS Support.</p>
+     */
+    inline void SetTranscodeProfileName(const char* value) { m_transcodeProfileName.assign(value); }
+
+    /**
+     * <p>The name that is used to associate this playback configuration with a custom
+     * transcode profile. This overrides the dynamic transcoding defaults of
+     * MediaTailor. Use this only if you have already set up custom profiles with the
+     * help of AWS Support.</p>
+     */
+    inline PutPlaybackConfigurationResult& WithTranscodeProfileName(const Aws::String& value) { SetTranscodeProfileName(value); return *this;}
+
+    /**
+     * <p>The name that is used to associate this playback configuration with a custom
+     * transcode profile. This overrides the dynamic transcoding defaults of
+     * MediaTailor. Use this only if you have already set up custom profiles with the
+     * help of AWS Support.</p>
+     */
+    inline PutPlaybackConfigurationResult& WithTranscodeProfileName(Aws::String&& value) { SetTranscodeProfileName(std::move(value)); return *this;}
+
+    /**
+     * <p>The name that is used to associate this playback configuration with a custom
+     * transcode profile. This overrides the dynamic transcoding defaults of
+     * MediaTailor. Use this only if you have already set up custom profiles with the
+     * help of AWS Support.</p>
+     */
+    inline PutPlaybackConfigurationResult& WithTranscodeProfileName(const char* value) { SetTranscodeProfileName(value); return *this;}
 
 
     /**
@@ -406,15 +615,25 @@ namespace Model
 
     CdnConfiguration m_cdnConfiguration;
 
+    DashConfiguration m_dashConfiguration;
+
     HlsConfiguration m_hlsConfiguration;
 
+    LivePreRollConfiguration m_livePreRollConfiguration;
+
     Aws::String m_name;
+
+    Aws::String m_playbackConfigurationArn;
 
     Aws::String m_playbackEndpointPrefix;
 
     Aws::String m_sessionInitializationEndpointPrefix;
 
     Aws::String m_slateAdUrl;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
+
+    Aws::String m_transcodeProfileName;
 
     Aws::String m_videoContentSourceUrl;
   };

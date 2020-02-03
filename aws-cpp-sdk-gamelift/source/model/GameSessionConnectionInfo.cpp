@@ -31,15 +31,17 @@ namespace Model
 GameSessionConnectionInfo::GameSessionConnectionInfo() : 
     m_gameSessionArnHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
+    m_dnsNameHasBeenSet(false),
     m_port(0),
     m_portHasBeenSet(false),
     m_matchedPlayerSessionsHasBeenSet(false)
 {
 }
 
-GameSessionConnectionInfo::GameSessionConnectionInfo(const JsonValue& jsonValue) : 
+GameSessionConnectionInfo::GameSessionConnectionInfo(JsonView jsonValue) : 
     m_gameSessionArnHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
+    m_dnsNameHasBeenSet(false),
     m_port(0),
     m_portHasBeenSet(false),
     m_matchedPlayerSessionsHasBeenSet(false)
@@ -47,7 +49,7 @@ GameSessionConnectionInfo::GameSessionConnectionInfo(const JsonValue& jsonValue)
   *this = jsonValue;
 }
 
-GameSessionConnectionInfo& GameSessionConnectionInfo::operator =(const JsonValue& jsonValue)
+GameSessionConnectionInfo& GameSessionConnectionInfo::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("GameSessionArn"))
   {
@@ -63,6 +65,13 @@ GameSessionConnectionInfo& GameSessionConnectionInfo::operator =(const JsonValue
     m_ipAddressHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("DnsName"))
+  {
+    m_dnsName = jsonValue.GetString("DnsName");
+
+    m_dnsNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("Port"))
   {
     m_port = jsonValue.GetInteger("Port");
@@ -72,7 +81,7 @@ GameSessionConnectionInfo& GameSessionConnectionInfo::operator =(const JsonValue
 
   if(jsonValue.ValueExists("MatchedPlayerSessions"))
   {
-    Array<JsonValue> matchedPlayerSessionsJsonList = jsonValue.GetArray("MatchedPlayerSessions");
+    Array<JsonView> matchedPlayerSessionsJsonList = jsonValue.GetArray("MatchedPlayerSessions");
     for(unsigned matchedPlayerSessionsIndex = 0; matchedPlayerSessionsIndex < matchedPlayerSessionsJsonList.GetLength(); ++matchedPlayerSessionsIndex)
     {
       m_matchedPlayerSessions.push_back(matchedPlayerSessionsJsonList[matchedPlayerSessionsIndex].AsObject());
@@ -96,6 +105,12 @@ JsonValue GameSessionConnectionInfo::Jsonize() const
   if(m_ipAddressHasBeenSet)
   {
    payload.WithString("IpAddress", m_ipAddress);
+
+  }
+
+  if(m_dnsNameHasBeenSet)
+  {
+   payload.WithString("DnsName", m_dnsName);
 
   }
 

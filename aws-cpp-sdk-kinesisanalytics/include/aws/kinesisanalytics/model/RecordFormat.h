@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RecordFormat();
-    RecordFormat(const Aws::Utils::Json::JsonValue& jsonValue);
-    RecordFormat& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RecordFormat(Aws::Utils::Json::JsonView jsonValue);
+    RecordFormat& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The type of record format.</p>
      */
     inline const RecordFormatType& GetRecordFormatType() const{ return m_recordFormatType; }
+
+    /**
+     * <p>The type of record format.</p>
+     */
+    inline bool RecordFormatTypeHasBeenSet() const { return m_recordFormatTypeHasBeenSet; }
 
     /**
      * <p>The type of record format.</p>
@@ -81,6 +87,14 @@ namespace Model
      * streaming source.</p>
      */
     inline const MappingParameters& GetMappingParameters() const{ return m_mappingParameters; }
+
+    /**
+     * <p>When configuring application input at the time of creating or updating an
+     * application, provides additional mapping information specific to the record
+     * format (such as JSON, CSV, or record fields delimited by some delimiter) on the
+     * streaming source.</p>
+     */
+    inline bool MappingParametersHasBeenSet() const { return m_mappingParametersHasBeenSet; }
 
     /**
      * <p>When configuring application input at the time of creating or updating an

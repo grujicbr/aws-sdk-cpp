@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchEvents
@@ -36,7 +37,7 @@ namespace Model
   /**
    * <p>Information about the EC2 instances that are to be sent the command,
    * specified as key-value pairs. Each <code>RunCommandTarget</code> block can
-   * include only one key, but this key may specify multiple values.</p><p><h3>See
+   * include only one key, but this key can specify multiple values.</p><p><h3>See
    * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/events-2015-10-07/RunCommandTarget">AWS
    * API Reference</a></p>
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     RunCommandTarget();
-    RunCommandTarget(const Aws::Utils::Json::JsonValue& jsonValue);
-    RunCommandTarget& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RunCommandTarget(Aws::Utils::Json::JsonView jsonValue);
+    RunCommandTarget& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * <code>InstanceIds</code>.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>Can be either <code>tag:</code> <i>tag-key</i> or
+     * <code>InstanceIds</code>.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>Can be either <code>tag:</code> <i>tag-key</i> or
@@ -99,6 +106,13 @@ namespace Model
      * <code>Values</code> is a list of Amazon EC2 instance IDs.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>If <code>Key</code> is <code>tag:</code> <i>tag-key</i>, <code>Values</code>
+     * is a list of tag values. If <code>Key</code> is <code>InstanceIds</code>,
+     * <code>Values</code> is a list of Amazon EC2 instance IDs.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>If <code>Key</code> is <code>tag:</code> <i>tag-key</i>, <code>Values</code>

@@ -50,11 +50,14 @@ Fleet::Fleet() :
     m_fleetErrorsHasBeenSet(false),
     m_enableDefaultInternetAccess(false),
     m_enableDefaultInternetAccessHasBeenSet(false),
-    m_domainJoinInfoHasBeenSet(false)
+    m_domainJoinInfoHasBeenSet(false),
+    m_idleDisconnectTimeoutInSeconds(0),
+    m_idleDisconnectTimeoutInSecondsHasBeenSet(false),
+    m_iamRoleArnHasBeenSet(false)
 {
 }
 
-Fleet::Fleet(const JsonValue& jsonValue) : 
+Fleet::Fleet(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_displayNameHasBeenSet(false),
@@ -76,12 +79,15 @@ Fleet::Fleet(const JsonValue& jsonValue) :
     m_fleetErrorsHasBeenSet(false),
     m_enableDefaultInternetAccess(false),
     m_enableDefaultInternetAccessHasBeenSet(false),
-    m_domainJoinInfoHasBeenSet(false)
+    m_domainJoinInfoHasBeenSet(false),
+    m_idleDisconnectTimeoutInSeconds(0),
+    m_idleDisconnectTimeoutInSecondsHasBeenSet(false),
+    m_iamRoleArnHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Fleet& Fleet::operator =(const JsonValue& jsonValue)
+Fleet& Fleet::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Arn"))
   {
@@ -183,7 +189,7 @@ Fleet& Fleet::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("FleetErrors"))
   {
-    Array<JsonValue> fleetErrorsJsonList = jsonValue.GetArray("FleetErrors");
+    Array<JsonView> fleetErrorsJsonList = jsonValue.GetArray("FleetErrors");
     for(unsigned fleetErrorsIndex = 0; fleetErrorsIndex < fleetErrorsJsonList.GetLength(); ++fleetErrorsIndex)
     {
       m_fleetErrors.push_back(fleetErrorsJsonList[fleetErrorsIndex].AsObject());
@@ -203,6 +209,20 @@ Fleet& Fleet::operator =(const JsonValue& jsonValue)
     m_domainJoinInfo = jsonValue.GetObject("DomainJoinInfo");
 
     m_domainJoinInfoHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("IdleDisconnectTimeoutInSeconds"))
+  {
+    m_idleDisconnectTimeoutInSeconds = jsonValue.GetInteger("IdleDisconnectTimeoutInSeconds");
+
+    m_idleDisconnectTimeoutInSecondsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("IamRoleArn"))
+  {
+    m_iamRoleArn = jsonValue.GetString("IamRoleArn");
+
+    m_iamRoleArnHasBeenSet = true;
   }
 
   return *this;
@@ -313,6 +333,18 @@ JsonValue Fleet::Jsonize() const
   if(m_domainJoinInfoHasBeenSet)
   {
    payload.WithObject("DomainJoinInfo", m_domainJoinInfo.Jsonize());
+
+  }
+
+  if(m_idleDisconnectTimeoutInSecondsHasBeenSet)
+  {
+   payload.WithInteger("IdleDisconnectTimeoutInSeconds", m_idleDisconnectTimeoutInSeconds);
+
+  }
+
+  if(m_iamRoleArnHasBeenSet)
+  {
+   payload.WithString("IamRoleArn", m_iamRoleArn);
 
   }
 

@@ -31,19 +31,25 @@ namespace Model
 RenewalSummary::RenewalSummary() : 
     m_renewalStatus(RenewalStatus::NOT_SET),
     m_renewalStatusHasBeenSet(false),
-    m_domainValidationOptionsHasBeenSet(false)
+    m_domainValidationOptionsHasBeenSet(false),
+    m_renewalStatusReason(FailureReason::NOT_SET),
+    m_renewalStatusReasonHasBeenSet(false),
+    m_updatedAtHasBeenSet(false)
 {
 }
 
-RenewalSummary::RenewalSummary(const JsonValue& jsonValue) : 
+RenewalSummary::RenewalSummary(JsonView jsonValue) : 
     m_renewalStatus(RenewalStatus::NOT_SET),
     m_renewalStatusHasBeenSet(false),
-    m_domainValidationOptionsHasBeenSet(false)
+    m_domainValidationOptionsHasBeenSet(false),
+    m_renewalStatusReason(FailureReason::NOT_SET),
+    m_renewalStatusReasonHasBeenSet(false),
+    m_updatedAtHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-RenewalSummary& RenewalSummary::operator =(const JsonValue& jsonValue)
+RenewalSummary& RenewalSummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("RenewalStatus"))
   {
@@ -54,12 +60,26 @@ RenewalSummary& RenewalSummary::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("DomainValidationOptions"))
   {
-    Array<JsonValue> domainValidationOptionsJsonList = jsonValue.GetArray("DomainValidationOptions");
+    Array<JsonView> domainValidationOptionsJsonList = jsonValue.GetArray("DomainValidationOptions");
     for(unsigned domainValidationOptionsIndex = 0; domainValidationOptionsIndex < domainValidationOptionsJsonList.GetLength(); ++domainValidationOptionsIndex)
     {
       m_domainValidationOptions.push_back(domainValidationOptionsJsonList[domainValidationOptionsIndex].AsObject());
     }
     m_domainValidationOptionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("RenewalStatusReason"))
+  {
+    m_renewalStatusReason = FailureReasonMapper::GetFailureReasonForName(jsonValue.GetString("RenewalStatusReason"));
+
+    m_renewalStatusReasonHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("UpdatedAt"))
+  {
+    m_updatedAt = jsonValue.GetDouble("UpdatedAt");
+
+    m_updatedAtHasBeenSet = true;
   }
 
   return *this;
@@ -83,6 +103,16 @@ JsonValue RenewalSummary::Jsonize() const
    }
    payload.WithArray("DomainValidationOptions", std::move(domainValidationOptionsJsonList));
 
+  }
+
+  if(m_renewalStatusReasonHasBeenSet)
+  {
+   payload.WithString("RenewalStatusReason", FailureReasonMapper::GetNameForFailureReason(m_renewalStatusReason));
+  }
+
+  if(m_updatedAtHasBeenSet)
+  {
+   payload.WithDouble("UpdatedAt", m_updatedAt.SecondsWithMSPrecision());
   }
 
   return payload;

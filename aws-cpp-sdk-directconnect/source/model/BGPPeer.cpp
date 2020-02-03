@@ -29,6 +29,7 @@ namespace Model
 {
 
 BGPPeer::BGPPeer() : 
+    m_bgpPeerIdHasBeenSet(false),
     m_asn(0),
     m_asnHasBeenSet(false),
     m_authKeyHasBeenSet(false),
@@ -39,11 +40,13 @@ BGPPeer::BGPPeer() :
     m_bgpPeerState(BGPPeerState::NOT_SET),
     m_bgpPeerStateHasBeenSet(false),
     m_bgpStatus(BGPStatus::NOT_SET),
-    m_bgpStatusHasBeenSet(false)
+    m_bgpStatusHasBeenSet(false),
+    m_awsDeviceV2HasBeenSet(false)
 {
 }
 
-BGPPeer::BGPPeer(const JsonValue& jsonValue) : 
+BGPPeer::BGPPeer(JsonView jsonValue) : 
+    m_bgpPeerIdHasBeenSet(false),
     m_asn(0),
     m_asnHasBeenSet(false),
     m_authKeyHasBeenSet(false),
@@ -54,13 +57,21 @@ BGPPeer::BGPPeer(const JsonValue& jsonValue) :
     m_bgpPeerState(BGPPeerState::NOT_SET),
     m_bgpPeerStateHasBeenSet(false),
     m_bgpStatus(BGPStatus::NOT_SET),
-    m_bgpStatusHasBeenSet(false)
+    m_bgpStatusHasBeenSet(false),
+    m_awsDeviceV2HasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-BGPPeer& BGPPeer::operator =(const JsonValue& jsonValue)
+BGPPeer& BGPPeer::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("bgpPeerId"))
+  {
+    m_bgpPeerId = jsonValue.GetString("bgpPeerId");
+
+    m_bgpPeerIdHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("asn"))
   {
     m_asn = jsonValue.GetInteger("asn");
@@ -110,12 +121,25 @@ BGPPeer& BGPPeer::operator =(const JsonValue& jsonValue)
     m_bgpStatusHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("awsDeviceV2"))
+  {
+    m_awsDeviceV2 = jsonValue.GetString("awsDeviceV2");
+
+    m_awsDeviceV2HasBeenSet = true;
+  }
+
   return *this;
 }
 
 JsonValue BGPPeer::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_bgpPeerIdHasBeenSet)
+  {
+   payload.WithString("bgpPeerId", m_bgpPeerId);
+
+  }
 
   if(m_asnHasBeenSet)
   {
@@ -154,6 +178,12 @@ JsonValue BGPPeer::Jsonize() const
   if(m_bgpStatusHasBeenSet)
   {
    payload.WithString("bgpStatus", BGPStatusMapper::GetNameForBGPStatus(m_bgpStatus));
+  }
+
+  if(m_awsDeviceV2HasBeenSet)
+  {
+   payload.WithString("awsDeviceV2", m_awsDeviceV2);
+
   }
 
   return payload;

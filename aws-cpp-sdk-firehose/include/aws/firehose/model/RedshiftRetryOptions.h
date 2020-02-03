@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     RedshiftRetryOptions();
-    RedshiftRetryOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    RedshiftRetryOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RedshiftRetryOptions(Aws::Utils::Json::JsonView jsonValue);
+    RedshiftRetryOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,15 @@ namespace Model
      * delivery attempt takes longer than the current value.</p>
      */
     inline int GetDurationInSeconds() const{ return m_durationInSeconds; }
+
+    /**
+     * <p>The length of time during which Kinesis Data Firehose retries delivery after
+     * a failure, starting from the initial request and including the first attempt.
+     * The default value is 3600 seconds (60 minutes). Kinesis Data Firehose does not
+     * retry if the value of <code>DurationInSeconds</code> is 0 (zero) or if the first
+     * delivery attempt takes longer than the current value.</p>
+     */
+    inline bool DurationInSecondsHasBeenSet() const { return m_durationInSecondsHasBeenSet; }
 
     /**
      * <p>The length of time during which Kinesis Data Firehose retries delivery after

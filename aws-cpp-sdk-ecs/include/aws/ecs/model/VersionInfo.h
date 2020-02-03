@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     VersionInfo();
-    VersionInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    VersionInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VersionInfo(Aws::Utils::Json::JsonView jsonValue);
+    VersionInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The version number of the Amazon ECS container agent.</p>
      */
     inline const Aws::String& GetAgentVersion() const{ return m_agentVersion; }
+
+    /**
+     * <p>The version number of the Amazon ECS container agent.</p>
+     */
+    inline bool AgentVersionHasBeenSet() const { return m_agentVersionHasBeenSet; }
 
     /**
      * <p>The version number of the Amazon ECS container agent.</p>
@@ -89,6 +95,13 @@ namespace Model
      * </a> GitHub repository.</p>
      */
     inline const Aws::String& GetAgentHash() const{ return m_agentHash; }
+
+    /**
+     * <p>The Git commit hash for the Amazon ECS container agent build on the <a
+     * href="https://github.com/aws/amazon-ecs-agent/commits/master">amazon-ecs-agent
+     * </a> GitHub repository.</p>
+     */
+    inline bool AgentHashHasBeenSet() const { return m_agentHashHasBeenSet; }
 
     /**
      * <p>The Git commit hash for the Amazon ECS container agent build on the <a
@@ -137,6 +150,11 @@ namespace Model
      * <p>The Docker version running on the container instance.</p>
      */
     inline const Aws::String& GetDockerVersion() const{ return m_dockerVersion; }
+
+    /**
+     * <p>The Docker version running on the container instance.</p>
+     */
+    inline bool DockerVersionHasBeenSet() const { return m_dockerVersionHasBeenSet; }
 
     /**
      * <p>The Docker version running on the container instance.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Macie
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     S3Resource();
-    S3Resource(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3Resource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3Resource(Aws::Utils::Json::JsonView jsonValue);
+    S3Resource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the S3 bucket.</p>
      */
     inline const Aws::String& GetBucketName() const{ return m_bucketName; }
+
+    /**
+     * <p>The name of the S3 bucket.</p>
+     */
+    inline bool BucketNameHasBeenSet() const { return m_bucketNameHasBeenSet; }
 
     /**
      * <p>The name of the S3 bucket.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The prefix of the S3 bucket. </p>
      */
     inline const Aws::String& GetPrefix() const{ return m_prefix; }
+
+    /**
+     * <p>The prefix of the S3 bucket. </p>
+     */
+    inline bool PrefixHasBeenSet() const { return m_prefixHasBeenSet; }
 
     /**
      * <p>The prefix of the S3 bucket. </p>

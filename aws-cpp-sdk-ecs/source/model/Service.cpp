@@ -43,9 +43,11 @@ Service::Service() :
     m_pendingCountHasBeenSet(false),
     m_launchType(LaunchType::NOT_SET),
     m_launchTypeHasBeenSet(false),
+    m_capacityProviderStrategyHasBeenSet(false),
     m_platformVersionHasBeenSet(false),
     m_taskDefinitionHasBeenSet(false),
     m_deploymentConfigurationHasBeenSet(false),
+    m_taskSetsHasBeenSet(false),
     m_deploymentsHasBeenSet(false),
     m_roleArnHasBeenSet(false),
     m_eventsHasBeenSet(false),
@@ -56,11 +58,18 @@ Service::Service() :
     m_healthCheckGracePeriodSeconds(0),
     m_healthCheckGracePeriodSecondsHasBeenSet(false),
     m_schedulingStrategy(SchedulingStrategy::NOT_SET),
-    m_schedulingStrategyHasBeenSet(false)
+    m_schedulingStrategyHasBeenSet(false),
+    m_deploymentControllerHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_createdByHasBeenSet(false),
+    m_enableECSManagedTags(false),
+    m_enableECSManagedTagsHasBeenSet(false),
+    m_propagateTags(PropagateTags::NOT_SET),
+    m_propagateTagsHasBeenSet(false)
 {
 }
 
-Service::Service(const JsonValue& jsonValue) : 
+Service::Service(JsonView jsonValue) : 
     m_serviceArnHasBeenSet(false),
     m_serviceNameHasBeenSet(false),
     m_clusterArnHasBeenSet(false),
@@ -75,9 +84,11 @@ Service::Service(const JsonValue& jsonValue) :
     m_pendingCountHasBeenSet(false),
     m_launchType(LaunchType::NOT_SET),
     m_launchTypeHasBeenSet(false),
+    m_capacityProviderStrategyHasBeenSet(false),
     m_platformVersionHasBeenSet(false),
     m_taskDefinitionHasBeenSet(false),
     m_deploymentConfigurationHasBeenSet(false),
+    m_taskSetsHasBeenSet(false),
     m_deploymentsHasBeenSet(false),
     m_roleArnHasBeenSet(false),
     m_eventsHasBeenSet(false),
@@ -88,12 +99,19 @@ Service::Service(const JsonValue& jsonValue) :
     m_healthCheckGracePeriodSeconds(0),
     m_healthCheckGracePeriodSecondsHasBeenSet(false),
     m_schedulingStrategy(SchedulingStrategy::NOT_SET),
-    m_schedulingStrategyHasBeenSet(false)
+    m_schedulingStrategyHasBeenSet(false),
+    m_deploymentControllerHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_createdByHasBeenSet(false),
+    m_enableECSManagedTags(false),
+    m_enableECSManagedTagsHasBeenSet(false),
+    m_propagateTags(PropagateTags::NOT_SET),
+    m_propagateTagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Service& Service::operator =(const JsonValue& jsonValue)
+Service& Service::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("serviceArn"))
   {
@@ -118,7 +136,7 @@ Service& Service::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("loadBalancers"))
   {
-    Array<JsonValue> loadBalancersJsonList = jsonValue.GetArray("loadBalancers");
+    Array<JsonView> loadBalancersJsonList = jsonValue.GetArray("loadBalancers");
     for(unsigned loadBalancersIndex = 0; loadBalancersIndex < loadBalancersJsonList.GetLength(); ++loadBalancersIndex)
     {
       m_loadBalancers.push_back(loadBalancersJsonList[loadBalancersIndex].AsObject());
@@ -128,7 +146,7 @@ Service& Service::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("serviceRegistries"))
   {
-    Array<JsonValue> serviceRegistriesJsonList = jsonValue.GetArray("serviceRegistries");
+    Array<JsonView> serviceRegistriesJsonList = jsonValue.GetArray("serviceRegistries");
     for(unsigned serviceRegistriesIndex = 0; serviceRegistriesIndex < serviceRegistriesJsonList.GetLength(); ++serviceRegistriesIndex)
     {
       m_serviceRegistries.push_back(serviceRegistriesJsonList[serviceRegistriesIndex].AsObject());
@@ -171,6 +189,16 @@ Service& Service::operator =(const JsonValue& jsonValue)
     m_launchTypeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("capacityProviderStrategy"))
+  {
+    Array<JsonView> capacityProviderStrategyJsonList = jsonValue.GetArray("capacityProviderStrategy");
+    for(unsigned capacityProviderStrategyIndex = 0; capacityProviderStrategyIndex < capacityProviderStrategyJsonList.GetLength(); ++capacityProviderStrategyIndex)
+    {
+      m_capacityProviderStrategy.push_back(capacityProviderStrategyJsonList[capacityProviderStrategyIndex].AsObject());
+    }
+    m_capacityProviderStrategyHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("platformVersion"))
   {
     m_platformVersion = jsonValue.GetString("platformVersion");
@@ -192,9 +220,19 @@ Service& Service::operator =(const JsonValue& jsonValue)
     m_deploymentConfigurationHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("taskSets"))
+  {
+    Array<JsonView> taskSetsJsonList = jsonValue.GetArray("taskSets");
+    for(unsigned taskSetsIndex = 0; taskSetsIndex < taskSetsJsonList.GetLength(); ++taskSetsIndex)
+    {
+      m_taskSets.push_back(taskSetsJsonList[taskSetsIndex].AsObject());
+    }
+    m_taskSetsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("deployments"))
   {
-    Array<JsonValue> deploymentsJsonList = jsonValue.GetArray("deployments");
+    Array<JsonView> deploymentsJsonList = jsonValue.GetArray("deployments");
     for(unsigned deploymentsIndex = 0; deploymentsIndex < deploymentsJsonList.GetLength(); ++deploymentsIndex)
     {
       m_deployments.push_back(deploymentsJsonList[deploymentsIndex].AsObject());
@@ -211,7 +249,7 @@ Service& Service::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("events"))
   {
-    Array<JsonValue> eventsJsonList = jsonValue.GetArray("events");
+    Array<JsonView> eventsJsonList = jsonValue.GetArray("events");
     for(unsigned eventsIndex = 0; eventsIndex < eventsJsonList.GetLength(); ++eventsIndex)
     {
       m_events.push_back(eventsJsonList[eventsIndex].AsObject());
@@ -228,7 +266,7 @@ Service& Service::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("placementConstraints"))
   {
-    Array<JsonValue> placementConstraintsJsonList = jsonValue.GetArray("placementConstraints");
+    Array<JsonView> placementConstraintsJsonList = jsonValue.GetArray("placementConstraints");
     for(unsigned placementConstraintsIndex = 0; placementConstraintsIndex < placementConstraintsJsonList.GetLength(); ++placementConstraintsIndex)
     {
       m_placementConstraints.push_back(placementConstraintsJsonList[placementConstraintsIndex].AsObject());
@@ -238,7 +276,7 @@ Service& Service::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("placementStrategy"))
   {
-    Array<JsonValue> placementStrategyJsonList = jsonValue.GetArray("placementStrategy");
+    Array<JsonView> placementStrategyJsonList = jsonValue.GetArray("placementStrategy");
     for(unsigned placementStrategyIndex = 0; placementStrategyIndex < placementStrategyJsonList.GetLength(); ++placementStrategyIndex)
     {
       m_placementStrategy.push_back(placementStrategyJsonList[placementStrategyIndex].AsObject());
@@ -265,6 +303,44 @@ Service& Service::operator =(const JsonValue& jsonValue)
     m_schedulingStrategy = SchedulingStrategyMapper::GetSchedulingStrategyForName(jsonValue.GetString("schedulingStrategy"));
 
     m_schedulingStrategyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("deploymentController"))
+  {
+    m_deploymentController = jsonValue.GetObject("deploymentController");
+
+    m_deploymentControllerHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("createdBy"))
+  {
+    m_createdBy = jsonValue.GetString("createdBy");
+
+    m_createdByHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("enableECSManagedTags"))
+  {
+    m_enableECSManagedTags = jsonValue.GetBool("enableECSManagedTags");
+
+    m_enableECSManagedTagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("propagateTags"))
+  {
+    m_propagateTags = PropagateTagsMapper::GetPropagateTagsForName(jsonValue.GetString("propagateTags"));
+
+    m_propagateTagsHasBeenSet = true;
   }
 
   return *this;
@@ -343,6 +419,17 @@ JsonValue Service::Jsonize() const
    payload.WithString("launchType", LaunchTypeMapper::GetNameForLaunchType(m_launchType));
   }
 
+  if(m_capacityProviderStrategyHasBeenSet)
+  {
+   Array<JsonValue> capacityProviderStrategyJsonList(m_capacityProviderStrategy.size());
+   for(unsigned capacityProviderStrategyIndex = 0; capacityProviderStrategyIndex < capacityProviderStrategyJsonList.GetLength(); ++capacityProviderStrategyIndex)
+   {
+     capacityProviderStrategyJsonList[capacityProviderStrategyIndex].AsObject(m_capacityProviderStrategy[capacityProviderStrategyIndex].Jsonize());
+   }
+   payload.WithArray("capacityProviderStrategy", std::move(capacityProviderStrategyJsonList));
+
+  }
+
   if(m_platformVersionHasBeenSet)
   {
    payload.WithString("platformVersion", m_platformVersion);
@@ -358,6 +445,17 @@ JsonValue Service::Jsonize() const
   if(m_deploymentConfigurationHasBeenSet)
   {
    payload.WithObject("deploymentConfiguration", m_deploymentConfiguration.Jsonize());
+
+  }
+
+  if(m_taskSetsHasBeenSet)
+  {
+   Array<JsonValue> taskSetsJsonList(m_taskSets.size());
+   for(unsigned taskSetsIndex = 0; taskSetsIndex < taskSetsJsonList.GetLength(); ++taskSetsIndex)
+   {
+     taskSetsJsonList[taskSetsIndex].AsObject(m_taskSets[taskSetsIndex].Jsonize());
+   }
+   payload.WithArray("taskSets", std::move(taskSetsJsonList));
 
   }
 
@@ -431,6 +529,40 @@ JsonValue Service::Jsonize() const
   if(m_schedulingStrategyHasBeenSet)
   {
    payload.WithString("schedulingStrategy", SchedulingStrategyMapper::GetNameForSchedulingStrategy(m_schedulingStrategy));
+  }
+
+  if(m_deploymentControllerHasBeenSet)
+  {
+   payload.WithObject("deploymentController", m_deploymentController.Jsonize());
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_createdByHasBeenSet)
+  {
+   payload.WithString("createdBy", m_createdBy);
+
+  }
+
+  if(m_enableECSManagedTagsHasBeenSet)
+  {
+   payload.WithBool("enableECSManagedTags", m_enableECSManagedTags);
+
+  }
+
+  if(m_propagateTagsHasBeenSet)
+  {
+   payload.WithString("propagateTags", PropagateTagsMapper::GetNameForPropagateTags(m_propagateTags));
   }
 
   return payload;

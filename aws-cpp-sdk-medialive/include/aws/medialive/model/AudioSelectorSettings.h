@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for AudioSelectorSettings<p><h3>See Also:</h3>   <a
+   * Audio Selector Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioSelectorSettings">AWS
    * API Reference</a></p>
    */
@@ -42,13 +43,16 @@ namespace Model
   {
   public:
     AudioSelectorSettings();
-    AudioSelectorSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    AudioSelectorSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AudioSelectorSettings(Aws::Utils::Json::JsonView jsonValue);
+    AudioSelectorSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const AudioLanguageSelection& GetAudioLanguageSelection() const{ return m_audioLanguageSelection; }
+
+    
+    inline bool AudioLanguageSelectionHasBeenSet() const { return m_audioLanguageSelectionHasBeenSet; }
 
     
     inline void SetAudioLanguageSelection(const AudioLanguageSelection& value) { m_audioLanguageSelectionHasBeenSet = true; m_audioLanguageSelection = value; }
@@ -65,6 +69,9 @@ namespace Model
 
     
     inline const AudioPidSelection& GetAudioPidSelection() const{ return m_audioPidSelection; }
+
+    
+    inline bool AudioPidSelectionHasBeenSet() const { return m_audioPidSelectionHasBeenSet; }
 
     
     inline void SetAudioPidSelection(const AudioPidSelection& value) { m_audioPidSelectionHasBeenSet = true; m_audioPidSelection = value; }

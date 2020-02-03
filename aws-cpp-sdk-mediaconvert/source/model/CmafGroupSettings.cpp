@@ -29,12 +29,14 @@ namespace Model
 {
 
 CmafGroupSettings::CmafGroupSettings() : 
+    m_additionalManifestsHasBeenSet(false),
     m_baseUrlHasBeenSet(false),
     m_clientCache(CmafClientCache::NOT_SET),
     m_clientCacheHasBeenSet(false),
     m_codecSpecification(CmafCodecSpecification::NOT_SET),
     m_codecSpecificationHasBeenSet(false),
     m_destinationHasBeenSet(false),
+    m_destinationSettingsHasBeenSet(false),
     m_encryptionHasBeenSet(false),
     m_fragmentLength(0),
     m_fragmentLengthHasBeenSet(false),
@@ -44,6 +46,10 @@ CmafGroupSettings::CmafGroupSettings() :
     m_manifestDurationFormatHasBeenSet(false),
     m_minBufferTime(0),
     m_minBufferTimeHasBeenSet(false),
+    m_minFinalSegmentLength(0.0),
+    m_minFinalSegmentLengthHasBeenSet(false),
+    m_mpdProfile(CmafMpdProfile::NOT_SET),
+    m_mpdProfileHasBeenSet(false),
     m_segmentControl(CmafSegmentControl::NOT_SET),
     m_segmentControlHasBeenSet(false),
     m_segmentLength(0),
@@ -53,17 +59,21 @@ CmafGroupSettings::CmafGroupSettings() :
     m_writeDashManifest(CmafWriteDASHManifest::NOT_SET),
     m_writeDashManifestHasBeenSet(false),
     m_writeHlsManifest(CmafWriteHLSManifest::NOT_SET),
-    m_writeHlsManifestHasBeenSet(false)
+    m_writeHlsManifestHasBeenSet(false),
+    m_writeSegmentTimelineInRepresentation(CmafWriteSegmentTimelineInRepresentation::NOT_SET),
+    m_writeSegmentTimelineInRepresentationHasBeenSet(false)
 {
 }
 
-CmafGroupSettings::CmafGroupSettings(const JsonValue& jsonValue) : 
+CmafGroupSettings::CmafGroupSettings(JsonView jsonValue) : 
+    m_additionalManifestsHasBeenSet(false),
     m_baseUrlHasBeenSet(false),
     m_clientCache(CmafClientCache::NOT_SET),
     m_clientCacheHasBeenSet(false),
     m_codecSpecification(CmafCodecSpecification::NOT_SET),
     m_codecSpecificationHasBeenSet(false),
     m_destinationHasBeenSet(false),
+    m_destinationSettingsHasBeenSet(false),
     m_encryptionHasBeenSet(false),
     m_fragmentLength(0),
     m_fragmentLengthHasBeenSet(false),
@@ -73,6 +83,10 @@ CmafGroupSettings::CmafGroupSettings(const JsonValue& jsonValue) :
     m_manifestDurationFormatHasBeenSet(false),
     m_minBufferTime(0),
     m_minBufferTimeHasBeenSet(false),
+    m_minFinalSegmentLength(0.0),
+    m_minFinalSegmentLengthHasBeenSet(false),
+    m_mpdProfile(CmafMpdProfile::NOT_SET),
+    m_mpdProfileHasBeenSet(false),
     m_segmentControl(CmafSegmentControl::NOT_SET),
     m_segmentControlHasBeenSet(false),
     m_segmentLength(0),
@@ -82,13 +96,25 @@ CmafGroupSettings::CmafGroupSettings(const JsonValue& jsonValue) :
     m_writeDashManifest(CmafWriteDASHManifest::NOT_SET),
     m_writeDashManifestHasBeenSet(false),
     m_writeHlsManifest(CmafWriteHLSManifest::NOT_SET),
-    m_writeHlsManifestHasBeenSet(false)
+    m_writeHlsManifestHasBeenSet(false),
+    m_writeSegmentTimelineInRepresentation(CmafWriteSegmentTimelineInRepresentation::NOT_SET),
+    m_writeSegmentTimelineInRepresentationHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-CmafGroupSettings& CmafGroupSettings::operator =(const JsonValue& jsonValue)
+CmafGroupSettings& CmafGroupSettings::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("additionalManifests"))
+  {
+    Array<JsonView> additionalManifestsJsonList = jsonValue.GetArray("additionalManifests");
+    for(unsigned additionalManifestsIndex = 0; additionalManifestsIndex < additionalManifestsJsonList.GetLength(); ++additionalManifestsIndex)
+    {
+      m_additionalManifests.push_back(additionalManifestsJsonList[additionalManifestsIndex].AsObject());
+    }
+    m_additionalManifestsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("baseUrl"))
   {
     m_baseUrl = jsonValue.GetString("baseUrl");
@@ -115,6 +141,13 @@ CmafGroupSettings& CmafGroupSettings::operator =(const JsonValue& jsonValue)
     m_destination = jsonValue.GetString("destination");
 
     m_destinationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("destinationSettings"))
+  {
+    m_destinationSettings = jsonValue.GetObject("destinationSettings");
+
+    m_destinationSettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("encryption"))
@@ -152,6 +185,20 @@ CmafGroupSettings& CmafGroupSettings::operator =(const JsonValue& jsonValue)
     m_minBufferTimeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("minFinalSegmentLength"))
+  {
+    m_minFinalSegmentLength = jsonValue.GetDouble("minFinalSegmentLength");
+
+    m_minFinalSegmentLengthHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mpdProfile"))
+  {
+    m_mpdProfile = CmafMpdProfileMapper::GetCmafMpdProfileForName(jsonValue.GetString("mpdProfile"));
+
+    m_mpdProfileHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("segmentControl"))
   {
     m_segmentControl = CmafSegmentControlMapper::GetCmafSegmentControlForName(jsonValue.GetString("segmentControl"));
@@ -187,12 +234,30 @@ CmafGroupSettings& CmafGroupSettings::operator =(const JsonValue& jsonValue)
     m_writeHlsManifestHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("writeSegmentTimelineInRepresentation"))
+  {
+    m_writeSegmentTimelineInRepresentation = CmafWriteSegmentTimelineInRepresentationMapper::GetCmafWriteSegmentTimelineInRepresentationForName(jsonValue.GetString("writeSegmentTimelineInRepresentation"));
+
+    m_writeSegmentTimelineInRepresentationHasBeenSet = true;
+  }
+
   return *this;
 }
 
 JsonValue CmafGroupSettings::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_additionalManifestsHasBeenSet)
+  {
+   Array<JsonValue> additionalManifestsJsonList(m_additionalManifests.size());
+   for(unsigned additionalManifestsIndex = 0; additionalManifestsIndex < additionalManifestsJsonList.GetLength(); ++additionalManifestsIndex)
+   {
+     additionalManifestsJsonList[additionalManifestsIndex].AsObject(m_additionalManifests[additionalManifestsIndex].Jsonize());
+   }
+   payload.WithArray("additionalManifests", std::move(additionalManifestsJsonList));
+
+  }
 
   if(m_baseUrlHasBeenSet)
   {
@@ -213,6 +278,12 @@ JsonValue CmafGroupSettings::Jsonize() const
   if(m_destinationHasBeenSet)
   {
    payload.WithString("destination", m_destination);
+
+  }
+
+  if(m_destinationSettingsHasBeenSet)
+  {
+   payload.WithObject("destinationSettings", m_destinationSettings.Jsonize());
 
   }
 
@@ -244,6 +315,17 @@ JsonValue CmafGroupSettings::Jsonize() const
 
   }
 
+  if(m_minFinalSegmentLengthHasBeenSet)
+  {
+   payload.WithDouble("minFinalSegmentLength", m_minFinalSegmentLength);
+
+  }
+
+  if(m_mpdProfileHasBeenSet)
+  {
+   payload.WithString("mpdProfile", CmafMpdProfileMapper::GetNameForCmafMpdProfile(m_mpdProfile));
+  }
+
   if(m_segmentControlHasBeenSet)
   {
    payload.WithString("segmentControl", CmafSegmentControlMapper::GetNameForCmafSegmentControl(m_segmentControl));
@@ -268,6 +350,11 @@ JsonValue CmafGroupSettings::Jsonize() const
   if(m_writeHlsManifestHasBeenSet)
   {
    payload.WithString("writeHlsManifest", CmafWriteHLSManifestMapper::GetNameForCmafWriteHLSManifest(m_writeHlsManifest));
+  }
+
+  if(m_writeSegmentTimelineInRepresentationHasBeenSet)
+  {
+   payload.WithString("writeSegmentTimelineInRepresentation", CmafWriteSegmentTimelineInRepresentationMapper::GetNameForCmafWriteSegmentTimelineInRepresentation(m_writeSegmentTimelineInRepresentation));
   }
 
   return payload;

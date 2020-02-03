@@ -20,6 +20,9 @@
 #include <aws/workspaces/model/WorkspaceDirectoryType.h>
 #include <aws/workspaces/model/WorkspaceDirectoryState.h>
 #include <aws/workspaces/model/DefaultWorkspaceCreationProperties.h>
+#include <aws/workspaces/model/WorkspaceAccessProperties.h>
+#include <aws/workspaces/model/Tenancy.h>
+#include <aws/workspaces/model/SelfservicePermissions.h>
 #include <utility>
 
 namespace Aws
@@ -29,6 +32,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkSpaces
@@ -37,8 +41,8 @@ namespace Model
 {
 
   /**
-   * <p>Information about an AWS Directory Service directory for use with Amazon
-   * WorkSpaces.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes a directory that is used with Amazon WorkSpaces.</p><p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/WorkspaceDirectory">AWS
    * API Reference</a></p>
    */
@@ -46,8 +50,8 @@ namespace Model
   {
   public:
     WorkspaceDirectory();
-    WorkspaceDirectory(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkspaceDirectory& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkspaceDirectory(Aws::Utils::Json::JsonView jsonValue);
+    WorkspaceDirectory& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +59,11 @@ namespace Model
      * <p>The directory identifier.</p>
      */
     inline const Aws::String& GetDirectoryId() const{ return m_directoryId; }
+
+    /**
+     * <p>The directory identifier.</p>
+     */
+    inline bool DirectoryIdHasBeenSet() const { return m_directoryIdHasBeenSet; }
 
     /**
      * <p>The directory identifier.</p>
@@ -95,6 +104,11 @@ namespace Model
     /**
      * <p>The directory alias.</p>
      */
+    inline bool AliasHasBeenSet() const { return m_aliasHasBeenSet; }
+
+    /**
+     * <p>The directory alias.</p>
+     */
     inline void SetAlias(const Aws::String& value) { m_aliasHasBeenSet = true; m_alias = value; }
 
     /**
@@ -127,6 +141,11 @@ namespace Model
      * <p>The name of the directory.</p>
      */
     inline const Aws::String& GetDirectoryName() const{ return m_directoryName; }
+
+    /**
+     * <p>The name of the directory.</p>
+     */
+    inline bool DirectoryNameHasBeenSet() const { return m_directoryNameHasBeenSet; }
 
     /**
      * <p>The name of the directory.</p>
@@ -164,6 +183,12 @@ namespace Model
      * their Amazon WorkSpaces client application to connect to the directory.</p>
      */
     inline const Aws::String& GetRegistrationCode() const{ return m_registrationCode; }
+
+    /**
+     * <p>The registration code for the directory. This is the code that users enter in
+     * their Amazon WorkSpaces client application to connect to the directory.</p>
+     */
+    inline bool RegistrationCodeHasBeenSet() const { return m_registrationCodeHasBeenSet; }
 
     /**
      * <p>The registration code for the directory. This is the code that users enter in
@@ -210,6 +235,11 @@ namespace Model
     /**
      * <p>The identifiers of the subnets used with the directory.</p>
      */
+    inline bool SubnetIdsHasBeenSet() const { return m_subnetIdsHasBeenSet; }
+
+    /**
+     * <p>The identifiers of the subnets used with the directory.</p>
+     */
     inline void SetSubnetIds(const Aws::Vector<Aws::String>& value) { m_subnetIdsHasBeenSet = true; m_subnetIds = value; }
 
     /**
@@ -247,6 +277,11 @@ namespace Model
      * <p>The IP addresses of the DNS servers for the directory.</p>
      */
     inline const Aws::Vector<Aws::String>& GetDnsIpAddresses() const{ return m_dnsIpAddresses; }
+
+    /**
+     * <p>The IP addresses of the DNS servers for the directory.</p>
+     */
+    inline bool DnsIpAddressesHasBeenSet() const { return m_dnsIpAddressesHasBeenSet; }
 
     /**
      * <p>The IP addresses of the DNS servers for the directory.</p>
@@ -292,6 +327,11 @@ namespace Model
     /**
      * <p>The user name for the service account.</p>
      */
+    inline bool CustomerUserNameHasBeenSet() const { return m_customerUserNameHasBeenSet; }
+
+    /**
+     * <p>The user name for the service account.</p>
+     */
     inline void SetCustomerUserName(const Aws::String& value) { m_customerUserNameHasBeenSet = true; m_customerUserName = value; }
 
     /**
@@ -326,6 +366,13 @@ namespace Model
      * behalf.</p>
      */
     inline const Aws::String& GetIamRoleId() const{ return m_iamRoleId; }
+
+    /**
+     * <p>The identifier of the IAM role. This is the role that allows Amazon
+     * WorkSpaces to make calls to other services, such as Amazon EC2, on your
+     * behalf.</p>
+     */
+    inline bool IamRoleIdHasBeenSet() const { return m_iamRoleIdHasBeenSet; }
 
     /**
      * <p>The identifier of the IAM role. This is the role that allows Amazon
@@ -378,6 +425,11 @@ namespace Model
     /**
      * <p>The directory type.</p>
      */
+    inline bool DirectoryTypeHasBeenSet() const { return m_directoryTypeHasBeenSet; }
+
+    /**
+     * <p>The directory type.</p>
+     */
     inline void SetDirectoryType(const WorkspaceDirectoryType& value) { m_directoryTypeHasBeenSet = true; m_directoryType = value; }
 
     /**
@@ -400,6 +452,11 @@ namespace Model
      * <p>The identifier of the security group that is assigned to new WorkSpaces.</p>
      */
     inline const Aws::String& GetWorkspaceSecurityGroupId() const{ return m_workspaceSecurityGroupId; }
+
+    /**
+     * <p>The identifier of the security group that is assigned to new WorkSpaces.</p>
+     */
+    inline bool WorkspaceSecurityGroupIdHasBeenSet() const { return m_workspaceSecurityGroupIdHasBeenSet; }
 
     /**
      * <p>The identifier of the security group that is assigned to new WorkSpaces.</p>
@@ -433,27 +490,32 @@ namespace Model
 
 
     /**
-     * <p>The state of the directory's registration with Amazon WorkSpaces</p>
+     * <p>The state of the directory's registration with Amazon WorkSpaces.</p>
      */
     inline const WorkspaceDirectoryState& GetState() const{ return m_state; }
 
     /**
-     * <p>The state of the directory's registration with Amazon WorkSpaces</p>
+     * <p>The state of the directory's registration with Amazon WorkSpaces.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The state of the directory's registration with Amazon WorkSpaces.</p>
      */
     inline void SetState(const WorkspaceDirectoryState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
-     * <p>The state of the directory's registration with Amazon WorkSpaces</p>
+     * <p>The state of the directory's registration with Amazon WorkSpaces.</p>
      */
     inline void SetState(WorkspaceDirectoryState&& value) { m_stateHasBeenSet = true; m_state = std::move(value); }
 
     /**
-     * <p>The state of the directory's registration with Amazon WorkSpaces</p>
+     * <p>The state of the directory's registration with Amazon WorkSpaces.</p>
      */
     inline WorkspaceDirectory& WithState(const WorkspaceDirectoryState& value) { SetState(value); return *this;}
 
     /**
-     * <p>The state of the directory's registration with Amazon WorkSpaces</p>
+     * <p>The state of the directory's registration with Amazon WorkSpaces.</p>
      */
     inline WorkspaceDirectory& WithState(WorkspaceDirectoryState&& value) { SetState(std::move(value)); return *this;}
 
@@ -462,6 +524,11 @@ namespace Model
      * <p>The default creation properties for all WorkSpaces in the directory.</p>
      */
     inline const DefaultWorkspaceCreationProperties& GetWorkspaceCreationProperties() const{ return m_workspaceCreationProperties; }
+
+    /**
+     * <p>The default creation properties for all WorkSpaces in the directory.</p>
+     */
+    inline bool WorkspaceCreationPropertiesHasBeenSet() const { return m_workspaceCreationPropertiesHasBeenSet; }
 
     /**
      * <p>The default creation properties for all WorkSpaces in the directory.</p>
@@ -489,6 +556,12 @@ namespace Model
      * directory.</p>
      */
     inline const Aws::Vector<Aws::String>& GetIpGroupIds() const{ return m_ipGroupIds; }
+
+    /**
+     * <p>The identifiers of the IP access control groups associated with the
+     * directory.</p>
+     */
+    inline bool IpGroupIdsHasBeenSet() const { return m_ipGroupIdsHasBeenSet; }
 
     /**
      * <p>The identifiers of the IP access control groups associated with the
@@ -532,6 +605,129 @@ namespace Model
      */
     inline WorkspaceDirectory& AddIpGroupIds(const char* value) { m_ipGroupIdsHasBeenSet = true; m_ipGroupIds.push_back(value); return *this; }
 
+
+    /**
+     * <p>The devices and operating systems that users can use to access
+     * WorkSpaces.</p>
+     */
+    inline const WorkspaceAccessProperties& GetWorkspaceAccessProperties() const{ return m_workspaceAccessProperties; }
+
+    /**
+     * <p>The devices and operating systems that users can use to access
+     * WorkSpaces.</p>
+     */
+    inline bool WorkspaceAccessPropertiesHasBeenSet() const { return m_workspaceAccessPropertiesHasBeenSet; }
+
+    /**
+     * <p>The devices and operating systems that users can use to access
+     * WorkSpaces.</p>
+     */
+    inline void SetWorkspaceAccessProperties(const WorkspaceAccessProperties& value) { m_workspaceAccessPropertiesHasBeenSet = true; m_workspaceAccessProperties = value; }
+
+    /**
+     * <p>The devices and operating systems that users can use to access
+     * WorkSpaces.</p>
+     */
+    inline void SetWorkspaceAccessProperties(WorkspaceAccessProperties&& value) { m_workspaceAccessPropertiesHasBeenSet = true; m_workspaceAccessProperties = std::move(value); }
+
+    /**
+     * <p>The devices and operating systems that users can use to access
+     * WorkSpaces.</p>
+     */
+    inline WorkspaceDirectory& WithWorkspaceAccessProperties(const WorkspaceAccessProperties& value) { SetWorkspaceAccessProperties(value); return *this;}
+
+    /**
+     * <p>The devices and operating systems that users can use to access
+     * WorkSpaces.</p>
+     */
+    inline WorkspaceDirectory& WithWorkspaceAccessProperties(WorkspaceAccessProperties&& value) { SetWorkspaceAccessProperties(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Specifies whether the directory is dedicated or shared. To use Bring Your Own
+     * License (BYOL), this value must be set to <code>DEDICATED</code>. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring
+     * Your Own Windows Desktop Images</a>.</p>
+     */
+    inline const Tenancy& GetTenancy() const{ return m_tenancy; }
+
+    /**
+     * <p>Specifies whether the directory is dedicated or shared. To use Bring Your Own
+     * License (BYOL), this value must be set to <code>DEDICATED</code>. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring
+     * Your Own Windows Desktop Images</a>.</p>
+     */
+    inline bool TenancyHasBeenSet() const { return m_tenancyHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the directory is dedicated or shared. To use Bring Your Own
+     * License (BYOL), this value must be set to <code>DEDICATED</code>. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring
+     * Your Own Windows Desktop Images</a>.</p>
+     */
+    inline void SetTenancy(const Tenancy& value) { m_tenancyHasBeenSet = true; m_tenancy = value; }
+
+    /**
+     * <p>Specifies whether the directory is dedicated or shared. To use Bring Your Own
+     * License (BYOL), this value must be set to <code>DEDICATED</code>. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring
+     * Your Own Windows Desktop Images</a>.</p>
+     */
+    inline void SetTenancy(Tenancy&& value) { m_tenancyHasBeenSet = true; m_tenancy = std::move(value); }
+
+    /**
+     * <p>Specifies whether the directory is dedicated or shared. To use Bring Your Own
+     * License (BYOL), this value must be set to <code>DEDICATED</code>. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring
+     * Your Own Windows Desktop Images</a>.</p>
+     */
+    inline WorkspaceDirectory& WithTenancy(const Tenancy& value) { SetTenancy(value); return *this;}
+
+    /**
+     * <p>Specifies whether the directory is dedicated or shared. To use Bring Your Own
+     * License (BYOL), this value must be set to <code>DEDICATED</code>. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring
+     * Your Own Windows Desktop Images</a>.</p>
+     */
+    inline WorkspaceDirectory& WithTenancy(Tenancy&& value) { SetTenancy(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The default self-service permissions for WorkSpaces in the directory.</p>
+     */
+    inline const SelfservicePermissions& GetSelfservicePermissions() const{ return m_selfservicePermissions; }
+
+    /**
+     * <p>The default self-service permissions for WorkSpaces in the directory.</p>
+     */
+    inline bool SelfservicePermissionsHasBeenSet() const { return m_selfservicePermissionsHasBeenSet; }
+
+    /**
+     * <p>The default self-service permissions for WorkSpaces in the directory.</p>
+     */
+    inline void SetSelfservicePermissions(const SelfservicePermissions& value) { m_selfservicePermissionsHasBeenSet = true; m_selfservicePermissions = value; }
+
+    /**
+     * <p>The default self-service permissions for WorkSpaces in the directory.</p>
+     */
+    inline void SetSelfservicePermissions(SelfservicePermissions&& value) { m_selfservicePermissionsHasBeenSet = true; m_selfservicePermissions = std::move(value); }
+
+    /**
+     * <p>The default self-service permissions for WorkSpaces in the directory.</p>
+     */
+    inline WorkspaceDirectory& WithSelfservicePermissions(const SelfservicePermissions& value) { SetSelfservicePermissions(value); return *this;}
+
+    /**
+     * <p>The default self-service permissions for WorkSpaces in the directory.</p>
+     */
+    inline WorkspaceDirectory& WithSelfservicePermissions(SelfservicePermissions&& value) { SetSelfservicePermissions(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_directoryId;
@@ -572,6 +768,15 @@ namespace Model
 
     Aws::Vector<Aws::String> m_ipGroupIds;
     bool m_ipGroupIdsHasBeenSet;
+
+    WorkspaceAccessProperties m_workspaceAccessProperties;
+    bool m_workspaceAccessPropertiesHasBeenSet;
+
+    Tenancy m_tenancy;
+    bool m_tenancyHasBeenSet;
+
+    SelfservicePermissions m_selfservicePermissions;
+    bool m_selfservicePermissionsHasBeenSet;
   };
 
 } // namespace Model

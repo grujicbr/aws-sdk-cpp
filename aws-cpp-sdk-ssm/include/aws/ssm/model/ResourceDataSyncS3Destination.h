@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ResourceDataSyncS3Destination();
-    ResourceDataSyncS3Destination(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceDataSyncS3Destination& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceDataSyncS3Destination(Aws::Utils::Json::JsonView jsonValue);
+    ResourceDataSyncS3Destination& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the Amazon S3 bucket where the aggregated data is stored.</p>
      */
     inline const Aws::String& GetBucketName() const{ return m_bucketName; }
+
+    /**
+     * <p>The name of the Amazon S3 bucket where the aggregated data is stored.</p>
+     */
+    inline bool BucketNameHasBeenSet() const { return m_bucketNameHasBeenSet; }
 
     /**
      * <p>The name of the Amazon S3 bucket where the aggregated data is stored.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>An Amazon S3 prefix for the bucket.</p>
      */
     inline const Aws::String& GetPrefix() const{ return m_prefix; }
+
+    /**
+     * <p>An Amazon S3 prefix for the bucket.</p>
+     */
+    inline bool PrefixHasBeenSet() const { return m_prefixHasBeenSet; }
 
     /**
      * <p>An Amazon S3 prefix for the bucket.</p>
@@ -130,6 +141,12 @@ namespace Model
      * <p>A supported sync format. The following format is currently supported:
      * JsonSerDe</p>
      */
+    inline bool SyncFormatHasBeenSet() const { return m_syncFormatHasBeenSet; }
+
+    /**
+     * <p>A supported sync format. The following format is currently supported:
+     * JsonSerDe</p>
+     */
     inline void SetSyncFormat(const ResourceDataSyncS3Format& value) { m_syncFormatHasBeenSet = true; m_syncFormat = value; }
 
     /**
@@ -156,6 +173,12 @@ namespace Model
      * Sync.</p>
      */
     inline const Aws::String& GetRegion() const{ return m_region; }
+
+    /**
+     * <p>The AWS Region with the Amazon S3 bucket targeted by the Resource Data
+     * Sync.</p>
+     */
+    inline bool RegionHasBeenSet() const { return m_regionHasBeenSet; }
 
     /**
      * <p>The AWS Region with the Amazon S3 bucket targeted by the Resource Data
@@ -196,43 +219,49 @@ namespace Model
 
     /**
      * <p>The ARN of an encryption key for a destination in Amazon S3. Must belong to
-     * the same region as the destination Amazon S3 bucket.</p>
+     * the same Region as the destination Amazon S3 bucket.</p>
      */
     inline const Aws::String& GetAWSKMSKeyARN() const{ return m_aWSKMSKeyARN; }
 
     /**
      * <p>The ARN of an encryption key for a destination in Amazon S3. Must belong to
-     * the same region as the destination Amazon S3 bucket.</p>
+     * the same Region as the destination Amazon S3 bucket.</p>
+     */
+    inline bool AWSKMSKeyARNHasBeenSet() const { return m_aWSKMSKeyARNHasBeenSet; }
+
+    /**
+     * <p>The ARN of an encryption key for a destination in Amazon S3. Must belong to
+     * the same Region as the destination Amazon S3 bucket.</p>
      */
     inline void SetAWSKMSKeyARN(const Aws::String& value) { m_aWSKMSKeyARNHasBeenSet = true; m_aWSKMSKeyARN = value; }
 
     /**
      * <p>The ARN of an encryption key for a destination in Amazon S3. Must belong to
-     * the same region as the destination Amazon S3 bucket.</p>
+     * the same Region as the destination Amazon S3 bucket.</p>
      */
     inline void SetAWSKMSKeyARN(Aws::String&& value) { m_aWSKMSKeyARNHasBeenSet = true; m_aWSKMSKeyARN = std::move(value); }
 
     /**
      * <p>The ARN of an encryption key for a destination in Amazon S3. Must belong to
-     * the same region as the destination Amazon S3 bucket.</p>
+     * the same Region as the destination Amazon S3 bucket.</p>
      */
     inline void SetAWSKMSKeyARN(const char* value) { m_aWSKMSKeyARNHasBeenSet = true; m_aWSKMSKeyARN.assign(value); }
 
     /**
      * <p>The ARN of an encryption key for a destination in Amazon S3. Must belong to
-     * the same region as the destination Amazon S3 bucket.</p>
+     * the same Region as the destination Amazon S3 bucket.</p>
      */
     inline ResourceDataSyncS3Destination& WithAWSKMSKeyARN(const Aws::String& value) { SetAWSKMSKeyARN(value); return *this;}
 
     /**
      * <p>The ARN of an encryption key for a destination in Amazon S3. Must belong to
-     * the same region as the destination Amazon S3 bucket.</p>
+     * the same Region as the destination Amazon S3 bucket.</p>
      */
     inline ResourceDataSyncS3Destination& WithAWSKMSKeyARN(Aws::String&& value) { SetAWSKMSKeyARN(std::move(value)); return *this;}
 
     /**
      * <p>The ARN of an encryption key for a destination in Amazon S3. Must belong to
-     * the same region as the destination Amazon S3 bucket.</p>
+     * the same Region as the destination Amazon S3 bucket.</p>
      */
     inline ResourceDataSyncS3Destination& WithAWSKMSKeyARN(const char* value) { SetAWSKMSKeyARN(value); return *this;}
 

@@ -33,21 +33,23 @@ WebACL::WebACL() :
     m_nameHasBeenSet(false),
     m_metricNameHasBeenSet(false),
     m_defaultActionHasBeenSet(false),
-    m_rulesHasBeenSet(false)
+    m_rulesHasBeenSet(false),
+    m_webACLArnHasBeenSet(false)
 {
 }
 
-WebACL::WebACL(const JsonValue& jsonValue) : 
+WebACL::WebACL(JsonView jsonValue) : 
     m_webACLIdHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_metricNameHasBeenSet(false),
     m_defaultActionHasBeenSet(false),
-    m_rulesHasBeenSet(false)
+    m_rulesHasBeenSet(false),
+    m_webACLArnHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-WebACL& WebACL::operator =(const JsonValue& jsonValue)
+WebACL& WebACL::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("WebACLId"))
   {
@@ -79,12 +81,19 @@ WebACL& WebACL::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Rules"))
   {
-    Array<JsonValue> rulesJsonList = jsonValue.GetArray("Rules");
+    Array<JsonView> rulesJsonList = jsonValue.GetArray("Rules");
     for(unsigned rulesIndex = 0; rulesIndex < rulesJsonList.GetLength(); ++rulesIndex)
     {
       m_rules.push_back(rulesJsonList[rulesIndex].AsObject());
     }
     m_rulesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WebACLArn"))
+  {
+    m_webACLArn = jsonValue.GetString("WebACLArn");
+
+    m_webACLArnHasBeenSet = true;
   }
 
   return *this;
@@ -126,6 +135,12 @@ JsonValue WebACL::Jsonize() const
      rulesJsonList[rulesIndex].AsObject(m_rules[rulesIndex].Jsonize());
    }
    payload.WithArray("Rules", std::move(rulesJsonList));
+
+  }
+
+  if(m_webACLArnHasBeenSet)
+  {
+   payload.WithString("WebACLArn", m_webACLArn);
 
   }
 

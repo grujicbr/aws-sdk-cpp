@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ElasticsearchVersionStatus();
-    ElasticsearchVersionStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    ElasticsearchVersionStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ElasticsearchVersionStatus(Aws::Utils::Json::JsonView jsonValue);
+    ElasticsearchVersionStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * domain.</p>
      */
     inline const Aws::String& GetOptions() const{ return m_options; }
+
+    /**
+     * <p> Specifies the Elasticsearch version for the specified Elasticsearch
+     * domain.</p>
+     */
+    inline bool OptionsHasBeenSet() const { return m_optionsHasBeenSet; }
 
     /**
      * <p> Specifies the Elasticsearch version for the specified Elasticsearch
@@ -96,6 +103,12 @@ namespace Model
      * Elasticsearch domain.</p>
      */
     inline const OptionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p> Specifies the status of the Elasticsearch version options for the specified
+     * Elasticsearch domain.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p> Specifies the status of the Elasticsearch version options for the specified

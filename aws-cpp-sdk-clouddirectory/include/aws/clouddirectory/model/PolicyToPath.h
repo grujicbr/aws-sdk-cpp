@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     PolicyToPath();
-    PolicyToPath(const Aws::Utils::Json::JsonValue& jsonValue);
-    PolicyToPath& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PolicyToPath(Aws::Utils::Json::JsonView jsonValue);
+    PolicyToPath& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The path that is referenced from the root.</p>
      */
     inline const Aws::String& GetPath() const{ return m_path; }
+
+    /**
+     * <p>The path that is referenced from the root.</p>
+     */
+    inline bool PathHasBeenSet() const { return m_pathHasBeenSet; }
 
     /**
      * <p>The path that is referenced from the root.</p>
@@ -90,6 +96,11 @@ namespace Model
      * <p>List of policy objects.</p>
      */
     inline const Aws::Vector<PolicyAttachment>& GetPolicies() const{ return m_policies; }
+
+    /**
+     * <p>List of policy objects.</p>
+     */
+    inline bool PoliciesHasBeenSet() const { return m_policiesHasBeenSet; }
 
     /**
      * <p>List of policy objects.</p>

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     GenericRevisionInfo();
-    GenericRevisionInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    GenericRevisionInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GenericRevisionInfo(Aws::Utils::Json::JsonView jsonValue);
+    GenericRevisionInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A comment about the revision.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A comment about the revision.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A comment about the revision.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The deployment groups for which this is the current target revision.</p>
      */
     inline const Aws::Vector<Aws::String>& GetDeploymentGroups() const{ return m_deploymentGroups; }
+
+    /**
+     * <p>The deployment groups for which this is the current target revision.</p>
+     */
+    inline bool DeploymentGroupsHasBeenSet() const { return m_deploymentGroupsHasBeenSet; }
 
     /**
      * <p>The deployment groups for which this is the current target revision.</p>
@@ -133,6 +144,11 @@ namespace Model
     /**
      * <p>When the revision was first used by AWS CodeDeploy.</p>
      */
+    inline bool FirstUsedTimeHasBeenSet() const { return m_firstUsedTimeHasBeenSet; }
+
+    /**
+     * <p>When the revision was first used by AWS CodeDeploy.</p>
+     */
     inline void SetFirstUsedTime(const Aws::Utils::DateTime& value) { m_firstUsedTimeHasBeenSet = true; m_firstUsedTime = value; }
 
     /**
@@ -159,6 +175,11 @@ namespace Model
     /**
      * <p>When the revision was last used by AWS CodeDeploy.</p>
      */
+    inline bool LastUsedTimeHasBeenSet() const { return m_lastUsedTimeHasBeenSet; }
+
+    /**
+     * <p>When the revision was last used by AWS CodeDeploy.</p>
+     */
     inline void SetLastUsedTime(const Aws::Utils::DateTime& value) { m_lastUsedTimeHasBeenSet = true; m_lastUsedTime = value; }
 
     /**
@@ -181,6 +202,11 @@ namespace Model
      * <p>When the revision was registered with AWS CodeDeploy.</p>
      */
     inline const Aws::Utils::DateTime& GetRegisterTime() const{ return m_registerTime; }
+
+    /**
+     * <p>When the revision was registered with AWS CodeDeploy.</p>
+     */
+    inline bool RegisterTimeHasBeenSet() const { return m_registerTimeHasBeenSet; }
 
     /**
      * <p>When the revision was registered with AWS CodeDeploy.</p>

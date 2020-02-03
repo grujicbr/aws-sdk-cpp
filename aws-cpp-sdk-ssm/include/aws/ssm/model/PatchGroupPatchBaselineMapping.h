@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PatchGroupPatchBaselineMapping();
-    PatchGroupPatchBaselineMapping(const Aws::Utils::Json::JsonValue& jsonValue);
-    PatchGroupPatchBaselineMapping& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PatchGroupPatchBaselineMapping(Aws::Utils::Json::JsonView jsonValue);
+    PatchGroupPatchBaselineMapping& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the patch group registered with the patch baseline.</p>
      */
     inline const Aws::String& GetPatchGroup() const{ return m_patchGroup; }
+
+    /**
+     * <p>The name of the patch group registered with the patch baseline.</p>
+     */
+    inline bool PatchGroupHasBeenSet() const { return m_patchGroupHasBeenSet; }
 
     /**
      * <p>The name of the patch group registered with the patch baseline.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The patch baseline the patch group is registered with.</p>
      */
     inline const PatchBaselineIdentity& GetBaselineIdentity() const{ return m_baselineIdentity; }
+
+    /**
+     * <p>The patch baseline the patch group is registered with.</p>
+     */
+    inline bool BaselineIdentityHasBeenSet() const { return m_baselineIdentityHasBeenSet; }
 
     /**
      * <p>The patch baseline the patch group is registered with.</p>

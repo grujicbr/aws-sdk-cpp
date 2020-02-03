@@ -28,20 +28,24 @@ using namespace Aws;
 
 AllocateHostedConnectionResult::AllocateHostedConnectionResult() : 
     m_connectionState(ConnectionState::NOT_SET),
-    m_vlan(0)
+    m_vlan(0),
+    m_jumboFrameCapable(false),
+    m_hasLogicalRedundancy(HasLogicalRedundancy::NOT_SET)
 {
 }
 
 AllocateHostedConnectionResult::AllocateHostedConnectionResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
     m_connectionState(ConnectionState::NOT_SET),
-    m_vlan(0)
+    m_vlan(0),
+    m_jumboFrameCapable(false),
+    m_hasLogicalRedundancy(HasLogicalRedundancy::NOT_SET)
 {
   *this = result;
 }
 
 AllocateHostedConnectionResult& AllocateHostedConnectionResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("ownerAccount"))
   {
     m_ownerAccount = jsonValue.GetString("ownerAccount");
@@ -111,6 +115,39 @@ AllocateHostedConnectionResult& AllocateHostedConnectionResult::operator =(const
   if(jsonValue.ValueExists("awsDevice"))
   {
     m_awsDevice = jsonValue.GetString("awsDevice");
+
+  }
+
+  if(jsonValue.ValueExists("jumboFrameCapable"))
+  {
+    m_jumboFrameCapable = jsonValue.GetBool("jumboFrameCapable");
+
+  }
+
+  if(jsonValue.ValueExists("awsDeviceV2"))
+  {
+    m_awsDeviceV2 = jsonValue.GetString("awsDeviceV2");
+
+  }
+
+  if(jsonValue.ValueExists("hasLogicalRedundancy"))
+  {
+    m_hasLogicalRedundancy = HasLogicalRedundancyMapper::GetHasLogicalRedundancyForName(jsonValue.GetString("hasLogicalRedundancy"));
+
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+  }
+
+  if(jsonValue.ValueExists("providerName"))
+  {
+    m_providerName = jsonValue.GetString("providerName");
 
   }
 

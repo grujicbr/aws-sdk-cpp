@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     StageDeclaration();
-    StageDeclaration(const Aws::Utils::Json::JsonValue& jsonValue);
-    StageDeclaration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StageDeclaration(Aws::Utils::Json::JsonView jsonValue);
+    StageDeclaration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of the stage.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the stage.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the stage.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>Reserved for future use.</p>
      */
+    inline bool BlockersHasBeenSet() const { return m_blockersHasBeenSet; }
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
     inline void SetBlockers(const Aws::Vector<BlockerDeclaration>& value) { m_blockersHasBeenSet = true; m_blockers = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>The actions included in a stage.</p>
      */
     inline const Aws::Vector<ActionDeclaration>& GetActions() const{ return m_actions; }
+
+    /**
+     * <p>The actions included in a stage.</p>
+     */
+    inline bool ActionsHasBeenSet() const { return m_actionsHasBeenSet; }
 
     /**
      * <p>The actions included in a stage.</p>

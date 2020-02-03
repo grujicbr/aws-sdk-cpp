@@ -70,7 +70,13 @@ Snapshot::Snapshot() :
     m_tagsHasBeenSet(false),
     m_restorableNodeTypesHasBeenSet(false),
     m_enhancedVpcRouting(false),
-    m_enhancedVpcRoutingHasBeenSet(false)
+    m_enhancedVpcRoutingHasBeenSet(false),
+    m_maintenanceTrackNameHasBeenSet(false),
+    m_manualSnapshotRetentionPeriod(0),
+    m_manualSnapshotRetentionPeriodHasBeenSet(false),
+    m_manualSnapshotRemainingDays(0),
+    m_manualSnapshotRemainingDaysHasBeenSet(false),
+    m_snapshotRetentionStartTimeHasBeenSet(false)
 {
 }
 
@@ -114,7 +120,13 @@ Snapshot::Snapshot(const XmlNode& xmlNode) :
     m_tagsHasBeenSet(false),
     m_restorableNodeTypesHasBeenSet(false),
     m_enhancedVpcRouting(false),
-    m_enhancedVpcRoutingHasBeenSet(false)
+    m_enhancedVpcRoutingHasBeenSet(false),
+    m_maintenanceTrackNameHasBeenSet(false),
+    m_manualSnapshotRetentionPeriod(0),
+    m_manualSnapshotRetentionPeriodHasBeenSet(false),
+    m_manualSnapshotRemainingDays(0),
+    m_manualSnapshotRemainingDaysHasBeenSet(false),
+    m_snapshotRetentionStartTimeHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -128,103 +140,103 @@ Snapshot& Snapshot::operator =(const XmlNode& xmlNode)
     XmlNode snapshotIdentifierNode = resultNode.FirstChild("SnapshotIdentifier");
     if(!snapshotIdentifierNode.IsNull())
     {
-      m_snapshotIdentifier = StringUtils::Trim(snapshotIdentifierNode.GetText().c_str());
+      m_snapshotIdentifier = Aws::Utils::Xml::DecodeEscapedXmlText(snapshotIdentifierNode.GetText());
       m_snapshotIdentifierHasBeenSet = true;
     }
     XmlNode clusterIdentifierNode = resultNode.FirstChild("ClusterIdentifier");
     if(!clusterIdentifierNode.IsNull())
     {
-      m_clusterIdentifier = StringUtils::Trim(clusterIdentifierNode.GetText().c_str());
+      m_clusterIdentifier = Aws::Utils::Xml::DecodeEscapedXmlText(clusterIdentifierNode.GetText());
       m_clusterIdentifierHasBeenSet = true;
     }
     XmlNode snapshotCreateTimeNode = resultNode.FirstChild("SnapshotCreateTime");
     if(!snapshotCreateTimeNode.IsNull())
     {
-      m_snapshotCreateTime = DateTime(StringUtils::Trim(snapshotCreateTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_snapshotCreateTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(snapshotCreateTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_snapshotCreateTimeHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode portNode = resultNode.FirstChild("Port");
     if(!portNode.IsNull())
     {
-      m_port = StringUtils::ConvertToInt32(StringUtils::Trim(portNode.GetText().c_str()).c_str());
+      m_port = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(portNode.GetText()).c_str()).c_str());
       m_portHasBeenSet = true;
     }
     XmlNode availabilityZoneNode = resultNode.FirstChild("AvailabilityZone");
     if(!availabilityZoneNode.IsNull())
     {
-      m_availabilityZone = StringUtils::Trim(availabilityZoneNode.GetText().c_str());
+      m_availabilityZone = Aws::Utils::Xml::DecodeEscapedXmlText(availabilityZoneNode.GetText());
       m_availabilityZoneHasBeenSet = true;
     }
     XmlNode clusterCreateTimeNode = resultNode.FirstChild("ClusterCreateTime");
     if(!clusterCreateTimeNode.IsNull())
     {
-      m_clusterCreateTime = DateTime(StringUtils::Trim(clusterCreateTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_clusterCreateTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(clusterCreateTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_clusterCreateTimeHasBeenSet = true;
     }
     XmlNode masterUsernameNode = resultNode.FirstChild("MasterUsername");
     if(!masterUsernameNode.IsNull())
     {
-      m_masterUsername = StringUtils::Trim(masterUsernameNode.GetText().c_str());
+      m_masterUsername = Aws::Utils::Xml::DecodeEscapedXmlText(masterUsernameNode.GetText());
       m_masterUsernameHasBeenSet = true;
     }
     XmlNode clusterVersionNode = resultNode.FirstChild("ClusterVersion");
     if(!clusterVersionNode.IsNull())
     {
-      m_clusterVersion = StringUtils::Trim(clusterVersionNode.GetText().c_str());
+      m_clusterVersion = Aws::Utils::Xml::DecodeEscapedXmlText(clusterVersionNode.GetText());
       m_clusterVersionHasBeenSet = true;
     }
     XmlNode snapshotTypeNode = resultNode.FirstChild("SnapshotType");
     if(!snapshotTypeNode.IsNull())
     {
-      m_snapshotType = StringUtils::Trim(snapshotTypeNode.GetText().c_str());
+      m_snapshotType = Aws::Utils::Xml::DecodeEscapedXmlText(snapshotTypeNode.GetText());
       m_snapshotTypeHasBeenSet = true;
     }
     XmlNode nodeTypeNode = resultNode.FirstChild("NodeType");
     if(!nodeTypeNode.IsNull())
     {
-      m_nodeType = StringUtils::Trim(nodeTypeNode.GetText().c_str());
+      m_nodeType = Aws::Utils::Xml::DecodeEscapedXmlText(nodeTypeNode.GetText());
       m_nodeTypeHasBeenSet = true;
     }
     XmlNode numberOfNodesNode = resultNode.FirstChild("NumberOfNodes");
     if(!numberOfNodesNode.IsNull())
     {
-      m_numberOfNodes = StringUtils::ConvertToInt32(StringUtils::Trim(numberOfNodesNode.GetText().c_str()).c_str());
+      m_numberOfNodes = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(numberOfNodesNode.GetText()).c_str()).c_str());
       m_numberOfNodesHasBeenSet = true;
     }
     XmlNode dBNameNode = resultNode.FirstChild("DBName");
     if(!dBNameNode.IsNull())
     {
-      m_dBName = StringUtils::Trim(dBNameNode.GetText().c_str());
+      m_dBName = Aws::Utils::Xml::DecodeEscapedXmlText(dBNameNode.GetText());
       m_dBNameHasBeenSet = true;
     }
     XmlNode vpcIdNode = resultNode.FirstChild("VpcId");
     if(!vpcIdNode.IsNull())
     {
-      m_vpcId = StringUtils::Trim(vpcIdNode.GetText().c_str());
+      m_vpcId = Aws::Utils::Xml::DecodeEscapedXmlText(vpcIdNode.GetText());
       m_vpcIdHasBeenSet = true;
     }
     XmlNode encryptedNode = resultNode.FirstChild("Encrypted");
     if(!encryptedNode.IsNull())
     {
-      m_encrypted = StringUtils::ConvertToBool(StringUtils::Trim(encryptedNode.GetText().c_str()).c_str());
+      m_encrypted = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(encryptedNode.GetText()).c_str()).c_str());
       m_encryptedHasBeenSet = true;
     }
     XmlNode kmsKeyIdNode = resultNode.FirstChild("KmsKeyId");
     if(!kmsKeyIdNode.IsNull())
     {
-      m_kmsKeyId = StringUtils::Trim(kmsKeyIdNode.GetText().c_str());
+      m_kmsKeyId = Aws::Utils::Xml::DecodeEscapedXmlText(kmsKeyIdNode.GetText());
       m_kmsKeyIdHasBeenSet = true;
     }
     XmlNode encryptedWithHSMNode = resultNode.FirstChild("EncryptedWithHSM");
     if(!encryptedWithHSMNode.IsNull())
     {
-      m_encryptedWithHSM = StringUtils::ConvertToBool(StringUtils::Trim(encryptedWithHSMNode.GetText().c_str()).c_str());
+      m_encryptedWithHSM = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(encryptedWithHSMNode.GetText()).c_str()).c_str());
       m_encryptedWithHSMHasBeenSet = true;
     }
     XmlNode accountsWithRestoreAccessNode = resultNode.FirstChild("AccountsWithRestoreAccess");
@@ -242,49 +254,49 @@ Snapshot& Snapshot::operator =(const XmlNode& xmlNode)
     XmlNode ownerAccountNode = resultNode.FirstChild("OwnerAccount");
     if(!ownerAccountNode.IsNull())
     {
-      m_ownerAccount = StringUtils::Trim(ownerAccountNode.GetText().c_str());
+      m_ownerAccount = Aws::Utils::Xml::DecodeEscapedXmlText(ownerAccountNode.GetText());
       m_ownerAccountHasBeenSet = true;
     }
     XmlNode totalBackupSizeInMegaBytesNode = resultNode.FirstChild("TotalBackupSizeInMegaBytes");
     if(!totalBackupSizeInMegaBytesNode.IsNull())
     {
-      m_totalBackupSizeInMegaBytes = StringUtils::ConvertToDouble(StringUtils::Trim(totalBackupSizeInMegaBytesNode.GetText().c_str()).c_str());
+      m_totalBackupSizeInMegaBytes = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(totalBackupSizeInMegaBytesNode.GetText()).c_str()).c_str());
       m_totalBackupSizeInMegaBytesHasBeenSet = true;
     }
     XmlNode actualIncrementalBackupSizeInMegaBytesNode = resultNode.FirstChild("ActualIncrementalBackupSizeInMegaBytes");
     if(!actualIncrementalBackupSizeInMegaBytesNode.IsNull())
     {
-      m_actualIncrementalBackupSizeInMegaBytes = StringUtils::ConvertToDouble(StringUtils::Trim(actualIncrementalBackupSizeInMegaBytesNode.GetText().c_str()).c_str());
+      m_actualIncrementalBackupSizeInMegaBytes = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(actualIncrementalBackupSizeInMegaBytesNode.GetText()).c_str()).c_str());
       m_actualIncrementalBackupSizeInMegaBytesHasBeenSet = true;
     }
     XmlNode backupProgressInMegaBytesNode = resultNode.FirstChild("BackupProgressInMegaBytes");
     if(!backupProgressInMegaBytesNode.IsNull())
     {
-      m_backupProgressInMegaBytes = StringUtils::ConvertToDouble(StringUtils::Trim(backupProgressInMegaBytesNode.GetText().c_str()).c_str());
+      m_backupProgressInMegaBytes = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(backupProgressInMegaBytesNode.GetText()).c_str()).c_str());
       m_backupProgressInMegaBytesHasBeenSet = true;
     }
     XmlNode currentBackupRateInMegaBytesPerSecondNode = resultNode.FirstChild("CurrentBackupRateInMegaBytesPerSecond");
     if(!currentBackupRateInMegaBytesPerSecondNode.IsNull())
     {
-      m_currentBackupRateInMegaBytesPerSecond = StringUtils::ConvertToDouble(StringUtils::Trim(currentBackupRateInMegaBytesPerSecondNode.GetText().c_str()).c_str());
+      m_currentBackupRateInMegaBytesPerSecond = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(currentBackupRateInMegaBytesPerSecondNode.GetText()).c_str()).c_str());
       m_currentBackupRateInMegaBytesPerSecondHasBeenSet = true;
     }
     XmlNode estimatedSecondsToCompletionNode = resultNode.FirstChild("EstimatedSecondsToCompletion");
     if(!estimatedSecondsToCompletionNode.IsNull())
     {
-      m_estimatedSecondsToCompletion = StringUtils::ConvertToInt64(StringUtils::Trim(estimatedSecondsToCompletionNode.GetText().c_str()).c_str());
+      m_estimatedSecondsToCompletion = StringUtils::ConvertToInt64(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(estimatedSecondsToCompletionNode.GetText()).c_str()).c_str());
       m_estimatedSecondsToCompletionHasBeenSet = true;
     }
     XmlNode elapsedTimeInSecondsNode = resultNode.FirstChild("ElapsedTimeInSeconds");
     if(!elapsedTimeInSecondsNode.IsNull())
     {
-      m_elapsedTimeInSeconds = StringUtils::ConvertToInt64(StringUtils::Trim(elapsedTimeInSecondsNode.GetText().c_str()).c_str());
+      m_elapsedTimeInSeconds = StringUtils::ConvertToInt64(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(elapsedTimeInSecondsNode.GetText()).c_str()).c_str());
       m_elapsedTimeInSecondsHasBeenSet = true;
     }
     XmlNode sourceRegionNode = resultNode.FirstChild("SourceRegion");
     if(!sourceRegionNode.IsNull())
     {
-      m_sourceRegion = StringUtils::Trim(sourceRegionNode.GetText().c_str());
+      m_sourceRegion = Aws::Utils::Xml::DecodeEscapedXmlText(sourceRegionNode.GetText());
       m_sourceRegionHasBeenSet = true;
     }
     XmlNode tagsNode = resultNode.FirstChild("Tags");
@@ -305,7 +317,7 @@ Snapshot& Snapshot::operator =(const XmlNode& xmlNode)
       XmlNode restorableNodeTypesMember = restorableNodeTypesNode.FirstChild("NodeType");
       while(!restorableNodeTypesMember.IsNull())
       {
-        m_restorableNodeTypes.push_back(StringUtils::Trim(restorableNodeTypesMember.GetText().c_str()));
+        m_restorableNodeTypes.push_back(restorableNodeTypesMember.GetText());
         restorableNodeTypesMember = restorableNodeTypesMember.NextNode("NodeType");
       }
 
@@ -314,8 +326,32 @@ Snapshot& Snapshot::operator =(const XmlNode& xmlNode)
     XmlNode enhancedVpcRoutingNode = resultNode.FirstChild("EnhancedVpcRouting");
     if(!enhancedVpcRoutingNode.IsNull())
     {
-      m_enhancedVpcRouting = StringUtils::ConvertToBool(StringUtils::Trim(enhancedVpcRoutingNode.GetText().c_str()).c_str());
+      m_enhancedVpcRouting = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(enhancedVpcRoutingNode.GetText()).c_str()).c_str());
       m_enhancedVpcRoutingHasBeenSet = true;
+    }
+    XmlNode maintenanceTrackNameNode = resultNode.FirstChild("MaintenanceTrackName");
+    if(!maintenanceTrackNameNode.IsNull())
+    {
+      m_maintenanceTrackName = Aws::Utils::Xml::DecodeEscapedXmlText(maintenanceTrackNameNode.GetText());
+      m_maintenanceTrackNameHasBeenSet = true;
+    }
+    XmlNode manualSnapshotRetentionPeriodNode = resultNode.FirstChild("ManualSnapshotRetentionPeriod");
+    if(!manualSnapshotRetentionPeriodNode.IsNull())
+    {
+      m_manualSnapshotRetentionPeriod = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(manualSnapshotRetentionPeriodNode.GetText()).c_str()).c_str());
+      m_manualSnapshotRetentionPeriodHasBeenSet = true;
+    }
+    XmlNode manualSnapshotRemainingDaysNode = resultNode.FirstChild("ManualSnapshotRemainingDays");
+    if(!manualSnapshotRemainingDaysNode.IsNull())
+    {
+      m_manualSnapshotRemainingDays = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(manualSnapshotRemainingDaysNode.GetText()).c_str()).c_str());
+      m_manualSnapshotRemainingDaysHasBeenSet = true;
+    }
+    XmlNode snapshotRetentionStartTimeNode = resultNode.FirstChild("SnapshotRetentionStartTime");
+    if(!snapshotRetentionStartTimeNode.IsNull())
+    {
+      m_snapshotRetentionStartTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(snapshotRetentionStartTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
+      m_snapshotRetentionStartTimeHasBeenSet = true;
     }
   }
 
@@ -485,6 +521,26 @@ void Snapshot::OutputToStream(Aws::OStream& oStream, const char* location, unsig
       oStream << location << index << locationValue << ".EnhancedVpcRouting=" << std::boolalpha << m_enhancedVpcRouting << "&";
   }
 
+  if(m_maintenanceTrackNameHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".MaintenanceTrackName=" << StringUtils::URLEncode(m_maintenanceTrackName.c_str()) << "&";
+  }
+
+  if(m_manualSnapshotRetentionPeriodHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".ManualSnapshotRetentionPeriod=" << m_manualSnapshotRetentionPeriod << "&";
+  }
+
+  if(m_manualSnapshotRemainingDaysHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".ManualSnapshotRemainingDays=" << m_manualSnapshotRemainingDays << "&";
+  }
+
+  if(m_snapshotRetentionStartTimeHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".SnapshotRetentionStartTime=" << StringUtils::URLEncode(m_snapshotRetentionStartTime.ToGmtString(DateFormat::ISO_8601).c_str()) << "&";
+  }
+
 }
 
 void Snapshot::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -620,6 +676,22 @@ void Snapshot::OutputToStream(Aws::OStream& oStream, const char* location) const
   if(m_enhancedVpcRoutingHasBeenSet)
   {
       oStream << location << ".EnhancedVpcRouting=" << std::boolalpha << m_enhancedVpcRouting << "&";
+  }
+  if(m_maintenanceTrackNameHasBeenSet)
+  {
+      oStream << location << ".MaintenanceTrackName=" << StringUtils::URLEncode(m_maintenanceTrackName.c_str()) << "&";
+  }
+  if(m_manualSnapshotRetentionPeriodHasBeenSet)
+  {
+      oStream << location << ".ManualSnapshotRetentionPeriod=" << m_manualSnapshotRetentionPeriod << "&";
+  }
+  if(m_manualSnapshotRemainingDaysHasBeenSet)
+  {
+      oStream << location << ".ManualSnapshotRemainingDays=" << m_manualSnapshotRemainingDays << "&";
+  }
+  if(m_snapshotRetentionStartTimeHasBeenSet)
+  {
+      oStream << location << ".SnapshotRetentionStartTime=" << StringUtils::URLEncode(m_snapshotRetentionStartTime.ToGmtString(DateFormat::ISO_8601).c_str()) << "&";
   }
 }
 

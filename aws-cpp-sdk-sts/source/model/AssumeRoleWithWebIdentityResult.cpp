@@ -58,7 +58,7 @@ AssumeRoleWithWebIdentityResult& AssumeRoleWithWebIdentityResult::operator =(con
     XmlNode subjectFromWebIdentityTokenNode = resultNode.FirstChild("SubjectFromWebIdentityToken");
     if(!subjectFromWebIdentityTokenNode.IsNull())
     {
-      m_subjectFromWebIdentityToken = StringUtils::Trim(subjectFromWebIdentityTokenNode.GetText().c_str());
+      m_subjectFromWebIdentityToken = Aws::Utils::Xml::DecodeEscapedXmlText(subjectFromWebIdentityTokenNode.GetText());
     }
     XmlNode assumedRoleUserNode = resultNode.FirstChild("AssumedRoleUser");
     if(!assumedRoleUserNode.IsNull())
@@ -68,17 +68,17 @@ AssumeRoleWithWebIdentityResult& AssumeRoleWithWebIdentityResult::operator =(con
     XmlNode packedPolicySizeNode = resultNode.FirstChild("PackedPolicySize");
     if(!packedPolicySizeNode.IsNull())
     {
-      m_packedPolicySize = StringUtils::ConvertToInt32(StringUtils::Trim(packedPolicySizeNode.GetText().c_str()).c_str());
+      m_packedPolicySize = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(packedPolicySizeNode.GetText()).c_str()).c_str());
     }
     XmlNode providerNode = resultNode.FirstChild("Provider");
     if(!providerNode.IsNull())
     {
-      m_provider = StringUtils::Trim(providerNode.GetText().c_str());
+      m_provider = Aws::Utils::Xml::DecodeEscapedXmlText(providerNode.GetText());
     }
     XmlNode audienceNode = resultNode.FirstChild("Audience");
     if(!audienceNode.IsNull())
     {
-      m_audience = StringUtils::Trim(audienceNode.GetText().c_str());
+      m_audience = Aws::Utils::Xml::DecodeEscapedXmlText(audienceNode.GetText());
     }
   }
 

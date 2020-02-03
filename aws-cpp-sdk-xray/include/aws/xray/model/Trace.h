@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Trace();
-    Trace(const Aws::Utils::Json::JsonValue& jsonValue);
-    Trace& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Trace(Aws::Utils::Json::JsonView jsonValue);
+    Trace& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * subsegments.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier for the request that generated the trace's segments and
+     * subsegments.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier for the request that generated the trace's segments and
@@ -102,6 +109,12 @@ namespace Model
      * <p>The length of time in seconds between the start time of the root segment and
      * the end time of the last segment that completed.</p>
      */
+    inline bool DurationHasBeenSet() const { return m_durationHasBeenSet; }
+
+    /**
+     * <p>The length of time in seconds between the start time of the root segment and
+     * the end time of the last segment that completed.</p>
+     */
     inline void SetDuration(double value) { m_durationHasBeenSet = true; m_duration = value; }
 
     /**
@@ -116,6 +129,12 @@ namespace Model
      * trace.</p>
      */
     inline const Aws::Vector<Segment>& GetSegments() const{ return m_segments; }
+
+    /**
+     * <p>Segment documents for the segments and subsegments that comprise the
+     * trace.</p>
+     */
+    inline bool SegmentsHasBeenSet() const { return m_segmentsHasBeenSet; }
 
     /**
      * <p>Segment documents for the segments and subsegments that comprise the

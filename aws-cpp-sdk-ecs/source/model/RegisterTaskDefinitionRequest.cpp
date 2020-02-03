@@ -33,7 +33,14 @@ RegisterTaskDefinitionRequest::RegisterTaskDefinitionRequest() :
     m_placementConstraintsHasBeenSet(false),
     m_requiresCompatibilitiesHasBeenSet(false),
     m_cpuHasBeenSet(false),
-    m_memoryHasBeenSet(false)
+    m_memoryHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_pidMode(PidMode::NOT_SET),
+    m_pidModeHasBeenSet(false),
+    m_ipcMode(IpcMode::NOT_SET),
+    m_ipcModeHasBeenSet(false),
+    m_proxyConfigurationHasBeenSet(false),
+    m_inferenceAcceleratorsHasBeenSet(false)
 {
 }
 
@@ -120,7 +127,45 @@ Aws::String RegisterTaskDefinitionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_pidModeHasBeenSet)
+  {
+   payload.WithString("pidMode", PidModeMapper::GetNameForPidMode(m_pidMode));
+  }
+
+  if(m_ipcModeHasBeenSet)
+  {
+   payload.WithString("ipcMode", IpcModeMapper::GetNameForIpcMode(m_ipcMode));
+  }
+
+  if(m_proxyConfigurationHasBeenSet)
+  {
+   payload.WithObject("proxyConfiguration", m_proxyConfiguration.Jsonize());
+
+  }
+
+  if(m_inferenceAcceleratorsHasBeenSet)
+  {
+   Array<JsonValue> inferenceAcceleratorsJsonList(m_inferenceAccelerators.size());
+   for(unsigned inferenceAcceleratorsIndex = 0; inferenceAcceleratorsIndex < inferenceAcceleratorsJsonList.GetLength(); ++inferenceAcceleratorsIndex)
+   {
+     inferenceAcceleratorsJsonList[inferenceAcceleratorsIndex].AsObject(m_inferenceAccelerators[inferenceAcceleratorsIndex].Jsonize());
+   }
+   payload.WithArray("inferenceAccelerators", std::move(inferenceAcceleratorsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection RegisterTaskDefinitionRequest::GetRequestSpecificHeaders() const

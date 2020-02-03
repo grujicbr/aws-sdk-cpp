@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CaptionLanguageMapping();
-    CaptionLanguageMapping(const Aws::Utils::Json::JsonValue& jsonValue);
-    CaptionLanguageMapping& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CaptionLanguageMapping(Aws::Utils::Json::JsonView jsonValue);
+    CaptionLanguageMapping& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * channel mapping must have a unique channel number (maximum of 4)
      */
     inline int GetCaptionChannel() const{ return m_captionChannel; }
+
+    /**
+     * The closed caption channel being described by this CaptionLanguageMapping.  Each
+     * channel mapping must have a unique channel number (maximum of 4)
+     */
+    inline bool CaptionChannelHasBeenSet() const { return m_captionChannelHasBeenSet; }
 
     /**
      * The closed caption channel being described by this CaptionLanguageMapping.  Each
@@ -72,6 +79,12 @@ namespace Model
      * http://www.loc.gov/standards/iso639-2)
      */
     inline const Aws::String& GetLanguageCode() const{ return m_languageCode; }
+
+    /**
+     * Three character ISO 639-2 language code (see
+     * http://www.loc.gov/standards/iso639-2)
+     */
+    inline bool LanguageCodeHasBeenSet() const { return m_languageCodeHasBeenSet; }
 
     /**
      * Three character ISO 639-2 language code (see
@@ -114,6 +127,11 @@ namespace Model
      * Textual description of language
      */
     inline const Aws::String& GetLanguageDescription() const{ return m_languageDescription; }
+
+    /**
+     * Textual description of language
+     */
+    inline bool LanguageDescriptionHasBeenSet() const { return m_languageDescriptionHasBeenSet; }
 
     /**
      * Textual description of language

@@ -25,11 +25,15 @@ using namespace Aws::Utils;
 GetHLSStreamingSessionURLRequest::GetHLSStreamingSessionURLRequest() : 
     m_streamNameHasBeenSet(false),
     m_streamARNHasBeenSet(false),
-    m_playbackMode(PlaybackMode::NOT_SET),
+    m_playbackMode(HLSPlaybackMode::NOT_SET),
     m_playbackModeHasBeenSet(false),
     m_hLSFragmentSelectorHasBeenSet(false),
-    m_discontinuityMode(DiscontinuityMode::NOT_SET),
+    m_containerFormat(ContainerFormat::NOT_SET),
+    m_containerFormatHasBeenSet(false),
+    m_discontinuityMode(HLSDiscontinuityMode::NOT_SET),
     m_discontinuityModeHasBeenSet(false),
+    m_displayFragmentTimestamp(HLSDisplayFragmentTimestamp::NOT_SET),
+    m_displayFragmentTimestampHasBeenSet(false),
     m_expires(0),
     m_expiresHasBeenSet(false),
     m_maxMediaPlaylistFragmentResults(0),
@@ -55,7 +59,7 @@ Aws::String GetHLSStreamingSessionURLRequest::SerializePayload() const
 
   if(m_playbackModeHasBeenSet)
   {
-   payload.WithString("PlaybackMode", PlaybackModeMapper::GetNameForPlaybackMode(m_playbackMode));
+   payload.WithString("PlaybackMode", HLSPlaybackModeMapper::GetNameForHLSPlaybackMode(m_playbackMode));
   }
 
   if(m_hLSFragmentSelectorHasBeenSet)
@@ -64,9 +68,19 @@ Aws::String GetHLSStreamingSessionURLRequest::SerializePayload() const
 
   }
 
+  if(m_containerFormatHasBeenSet)
+  {
+   payload.WithString("ContainerFormat", ContainerFormatMapper::GetNameForContainerFormat(m_containerFormat));
+  }
+
   if(m_discontinuityModeHasBeenSet)
   {
-   payload.WithString("DiscontinuityMode", DiscontinuityModeMapper::GetNameForDiscontinuityMode(m_discontinuityMode));
+   payload.WithString("DiscontinuityMode", HLSDiscontinuityModeMapper::GetNameForHLSDiscontinuityMode(m_discontinuityMode));
+  }
+
+  if(m_displayFragmentTimestampHasBeenSet)
+  {
+   payload.WithString("DisplayFragmentTimestamp", HLSDisplayFragmentTimestampMapper::GetNameForHLSDisplayFragmentTimestamp(m_displayFragmentTimestamp));
   }
 
   if(m_expiresHasBeenSet)
@@ -81,7 +95,7 @@ Aws::String GetHLSStreamingSessionURLRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

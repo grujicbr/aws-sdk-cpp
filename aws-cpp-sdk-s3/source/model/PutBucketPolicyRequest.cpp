@@ -35,6 +35,7 @@ PutBucketPolicyRequest::PutBucketPolicyRequest() :
 {
 }
 
+
 void PutBucketPolicyRequest::AddQueryStringParameters(URI& uri) const
 {
     Aws::StringStream ss;
@@ -63,14 +64,14 @@ Aws::Http::HeaderValueCollection PutBucketPolicyRequest::GetRequestSpecificHeade
   if(m_contentMD5HasBeenSet)
   {
     ss << m_contentMD5;
-    headers.insert(Aws::Http::HeaderValuePair("content-md5", ss.str()));
+    headers.emplace("content-md5",  ss.str());
     ss.str("");
   }
 
   if(m_confirmRemoveSelfBucketAccessHasBeenSet)
   {
     ss << m_confirmRemoveSelfBucketAccess;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-confirm-remove-self-bucket-access", ss.str()));
+    headers.emplace("x-amz-confirm-remove-self-bucket-access",  ss.str());
     ss.str("");
   }
 

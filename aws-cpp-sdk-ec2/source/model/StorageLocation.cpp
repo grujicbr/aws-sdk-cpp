@@ -52,13 +52,13 @@ StorageLocation& StorageLocation::operator =(const XmlNode& xmlNode)
     XmlNode bucketNode = resultNode.FirstChild("Bucket");
     if(!bucketNode.IsNull())
     {
-      m_bucket = StringUtils::Trim(bucketNode.GetText().c_str());
+      m_bucket = Aws::Utils::Xml::DecodeEscapedXmlText(bucketNode.GetText());
       m_bucketHasBeenSet = true;
     }
     XmlNode keyNode = resultNode.FirstChild("Key");
     if(!keyNode.IsNull())
     {
-      m_key = StringUtils::Trim(keyNode.GetText().c_str());
+      m_key = Aws::Utils::Xml::DecodeEscapedXmlText(keyNode.GetText());
       m_keyHasBeenSet = true;
     }
   }

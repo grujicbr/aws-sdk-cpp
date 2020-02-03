@@ -23,16 +23,19 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/kinesis/model/DescribeLimitsResult.h>
 #include <aws/kinesis/model/DescribeStreamResult.h>
+#include <aws/kinesis/model/DescribeStreamConsumerResult.h>
 #include <aws/kinesis/model/DescribeStreamSummaryResult.h>
 #include <aws/kinesis/model/DisableEnhancedMonitoringResult.h>
 #include <aws/kinesis/model/EnableEnhancedMonitoringResult.h>
 #include <aws/kinesis/model/GetRecordsResult.h>
 #include <aws/kinesis/model/GetShardIteratorResult.h>
 #include <aws/kinesis/model/ListShardsResult.h>
+#include <aws/kinesis/model/ListStreamConsumersResult.h>
 #include <aws/kinesis/model/ListStreamsResult.h>
 #include <aws/kinesis/model/ListTagsForStreamResult.h>
 #include <aws/kinesis/model/PutRecordResult.h>
 #include <aws/kinesis/model/PutRecordsResult.h>
+#include <aws/kinesis/model/RegisterStreamConsumerResult.h>
 #include <aws/kinesis/model/UpdateShardCountResult.h>
 #include <aws/core/NoResult.h>
 #include <aws/core/client/AsyncCallerContext.h>
@@ -52,16 +55,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -84,8 +81,10 @@ namespace Model
         class CreateStreamRequest;
         class DecreaseStreamRetentionPeriodRequest;
         class DeleteStreamRequest;
+        class DeregisterStreamConsumerRequest;
         class DescribeLimitsRequest;
         class DescribeStreamRequest;
+        class DescribeStreamConsumerRequest;
         class DescribeStreamSummaryRequest;
         class DisableEnhancedMonitoringRequest;
         class EnableEnhancedMonitoringRequest;
@@ -93,23 +92,28 @@ namespace Model
         class GetShardIteratorRequest;
         class IncreaseStreamRetentionPeriodRequest;
         class ListShardsRequest;
+        class ListStreamConsumersRequest;
         class ListStreamsRequest;
         class ListTagsForStreamRequest;
         class MergeShardsRequest;
         class PutRecordRequest;
         class PutRecordsRequest;
+        class RegisterStreamConsumerRequest;
         class RemoveTagsFromStreamRequest;
         class SplitShardRequest;
         class StartStreamEncryptionRequest;
         class StopStreamEncryptionRequest;
+        class SubscribeToShardRequest;
         class UpdateShardCountRequest;
 
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> AddTagsToStreamOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> CreateStreamOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> DecreaseStreamRetentionPeriodOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> DeleteStreamOutcome;
+        typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> DeregisterStreamConsumerOutcome;
         typedef Aws::Utils::Outcome<DescribeLimitsResult, Aws::Client::AWSError<KinesisErrors>> DescribeLimitsOutcome;
         typedef Aws::Utils::Outcome<DescribeStreamResult, Aws::Client::AWSError<KinesisErrors>> DescribeStreamOutcome;
+        typedef Aws::Utils::Outcome<DescribeStreamConsumerResult, Aws::Client::AWSError<KinesisErrors>> DescribeStreamConsumerOutcome;
         typedef Aws::Utils::Outcome<DescribeStreamSummaryResult, Aws::Client::AWSError<KinesisErrors>> DescribeStreamSummaryOutcome;
         typedef Aws::Utils::Outcome<DisableEnhancedMonitoringResult, Aws::Client::AWSError<KinesisErrors>> DisableEnhancedMonitoringOutcome;
         typedef Aws::Utils::Outcome<EnableEnhancedMonitoringResult, Aws::Client::AWSError<KinesisErrors>> EnableEnhancedMonitoringOutcome;
@@ -117,23 +121,28 @@ namespace Model
         typedef Aws::Utils::Outcome<GetShardIteratorResult, Aws::Client::AWSError<KinesisErrors>> GetShardIteratorOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> IncreaseStreamRetentionPeriodOutcome;
         typedef Aws::Utils::Outcome<ListShardsResult, Aws::Client::AWSError<KinesisErrors>> ListShardsOutcome;
+        typedef Aws::Utils::Outcome<ListStreamConsumersResult, Aws::Client::AWSError<KinesisErrors>> ListStreamConsumersOutcome;
         typedef Aws::Utils::Outcome<ListStreamsResult, Aws::Client::AWSError<KinesisErrors>> ListStreamsOutcome;
         typedef Aws::Utils::Outcome<ListTagsForStreamResult, Aws::Client::AWSError<KinesisErrors>> ListTagsForStreamOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> MergeShardsOutcome;
         typedef Aws::Utils::Outcome<PutRecordResult, Aws::Client::AWSError<KinesisErrors>> PutRecordOutcome;
         typedef Aws::Utils::Outcome<PutRecordsResult, Aws::Client::AWSError<KinesisErrors>> PutRecordsOutcome;
+        typedef Aws::Utils::Outcome<RegisterStreamConsumerResult, Aws::Client::AWSError<KinesisErrors>> RegisterStreamConsumerOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> RemoveTagsFromStreamOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> SplitShardOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> StartStreamEncryptionOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> StopStreamEncryptionOutcome;
+        typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<KinesisErrors>> SubscribeToShardOutcome;
         typedef Aws::Utils::Outcome<UpdateShardCountResult, Aws::Client::AWSError<KinesisErrors>> UpdateShardCountOutcome;
 
         typedef std::future<AddTagsToStreamOutcome> AddTagsToStreamOutcomeCallable;
         typedef std::future<CreateStreamOutcome> CreateStreamOutcomeCallable;
         typedef std::future<DecreaseStreamRetentionPeriodOutcome> DecreaseStreamRetentionPeriodOutcomeCallable;
         typedef std::future<DeleteStreamOutcome> DeleteStreamOutcomeCallable;
+        typedef std::future<DeregisterStreamConsumerOutcome> DeregisterStreamConsumerOutcomeCallable;
         typedef std::future<DescribeLimitsOutcome> DescribeLimitsOutcomeCallable;
         typedef std::future<DescribeStreamOutcome> DescribeStreamOutcomeCallable;
+        typedef std::future<DescribeStreamConsumerOutcome> DescribeStreamConsumerOutcomeCallable;
         typedef std::future<DescribeStreamSummaryOutcome> DescribeStreamSummaryOutcomeCallable;
         typedef std::future<DisableEnhancedMonitoringOutcome> DisableEnhancedMonitoringOutcomeCallable;
         typedef std::future<EnableEnhancedMonitoringOutcome> EnableEnhancedMonitoringOutcomeCallable;
@@ -141,15 +150,18 @@ namespace Model
         typedef std::future<GetShardIteratorOutcome> GetShardIteratorOutcomeCallable;
         typedef std::future<IncreaseStreamRetentionPeriodOutcome> IncreaseStreamRetentionPeriodOutcomeCallable;
         typedef std::future<ListShardsOutcome> ListShardsOutcomeCallable;
+        typedef std::future<ListStreamConsumersOutcome> ListStreamConsumersOutcomeCallable;
         typedef std::future<ListStreamsOutcome> ListStreamsOutcomeCallable;
         typedef std::future<ListTagsForStreamOutcome> ListTagsForStreamOutcomeCallable;
         typedef std::future<MergeShardsOutcome> MergeShardsOutcomeCallable;
         typedef std::future<PutRecordOutcome> PutRecordOutcomeCallable;
         typedef std::future<PutRecordsOutcome> PutRecordsOutcomeCallable;
+        typedef std::future<RegisterStreamConsumerOutcome> RegisterStreamConsumerOutcomeCallable;
         typedef std::future<RemoveTagsFromStreamOutcome> RemoveTagsFromStreamOutcomeCallable;
         typedef std::future<SplitShardOutcome> SplitShardOutcomeCallable;
         typedef std::future<StartStreamEncryptionOutcome> StartStreamEncryptionOutcomeCallable;
         typedef std::future<StopStreamEncryptionOutcome> StopStreamEncryptionOutcomeCallable;
+        typedef std::future<SubscribeToShardOutcome> SubscribeToShardOutcomeCallable;
         typedef std::future<UpdateShardCountOutcome> UpdateShardCountOutcomeCallable;
 } // namespace Model
 
@@ -159,8 +171,10 @@ namespace Model
     typedef std::function<void(const KinesisClient*, const Model::CreateStreamRequest&, const Model::CreateStreamOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateStreamResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::DecreaseStreamRetentionPeriodRequest&, const Model::DecreaseStreamRetentionPeriodOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DecreaseStreamRetentionPeriodResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::DeleteStreamRequest&, const Model::DeleteStreamOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DeleteStreamResponseReceivedHandler;
+    typedef std::function<void(const KinesisClient*, const Model::DeregisterStreamConsumerRequest&, const Model::DeregisterStreamConsumerOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DeregisterStreamConsumerResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::DescribeLimitsRequest&, const Model::DescribeLimitsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeLimitsResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::DescribeStreamRequest&, const Model::DescribeStreamOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeStreamResponseReceivedHandler;
+    typedef std::function<void(const KinesisClient*, const Model::DescribeStreamConsumerRequest&, const Model::DescribeStreamConsumerOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeStreamConsumerResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::DescribeStreamSummaryRequest&, const Model::DescribeStreamSummaryOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeStreamSummaryResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::DisableEnhancedMonitoringRequest&, const Model::DisableEnhancedMonitoringOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DisableEnhancedMonitoringResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::EnableEnhancedMonitoringRequest&, const Model::EnableEnhancedMonitoringOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > EnableEnhancedMonitoringResponseReceivedHandler;
@@ -168,15 +182,18 @@ namespace Model
     typedef std::function<void(const KinesisClient*, const Model::GetShardIteratorRequest&, const Model::GetShardIteratorOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetShardIteratorResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::IncreaseStreamRetentionPeriodRequest&, const Model::IncreaseStreamRetentionPeriodOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > IncreaseStreamRetentionPeriodResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::ListShardsRequest&, const Model::ListShardsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListShardsResponseReceivedHandler;
+    typedef std::function<void(const KinesisClient*, const Model::ListStreamConsumersRequest&, const Model::ListStreamConsumersOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListStreamConsumersResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::ListStreamsRequest&, const Model::ListStreamsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListStreamsResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::ListTagsForStreamRequest&, const Model::ListTagsForStreamOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListTagsForStreamResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::MergeShardsRequest&, const Model::MergeShardsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > MergeShardsResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::PutRecordRequest&, const Model::PutRecordOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutRecordResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::PutRecordsRequest&, const Model::PutRecordsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutRecordsResponseReceivedHandler;
+    typedef std::function<void(const KinesisClient*, const Model::RegisterStreamConsumerRequest&, const Model::RegisterStreamConsumerOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RegisterStreamConsumerResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::RemoveTagsFromStreamRequest&, const Model::RemoveTagsFromStreamOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RemoveTagsFromStreamResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::SplitShardRequest&, const Model::SplitShardOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SplitShardResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::StartStreamEncryptionRequest&, const Model::StartStreamEncryptionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StartStreamEncryptionResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::StopStreamEncryptionRequest&, const Model::StopStreamEncryptionOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StopStreamEncryptionResponseReceivedHandler;
+    typedef std::function<void(const KinesisClient*, const Model::SubscribeToShardRequest&, const Model::SubscribeToShardOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SubscribeToShardResponseReceivedHandler;
     typedef std::function<void(const KinesisClient*, const Model::UpdateShardCountRequest&, const Model::UpdateShardCountOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateShardCountResponseReceivedHandler;
 
   /**
@@ -210,26 +227,32 @@ namespace Model
 
         virtual ~KinesisClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "kinesis"; }
+        inline virtual const char* GetServiceClientName() const override { return "Kinesis"; }
 
 
         /**
-         * <p>Adds or updates tags for the specified Kinesis data stream. Each stream can
-         * have up to 10 tags.</p> <p>If tags have already been assigned to the stream,
-         * <code>AddTagsToStream</code> overwrites any existing tags that correspond to the
-         * specified tag keys.</p> <p> <a>AddTagsToStream</a> has a limit of five
-         * transactions per second per account.</p><p><h3>See Also:</h3>   <a
+         * <p>Adds or updates tags for the specified Kinesis data stream. Each time you
+         * invoke this operation, you can specify up to 10 tags. If you want to add more
+         * than 10 tags to your stream, you can invoke this operation multiple times. In
+         * total, each stream can have up to 50 tags.</p> <p>If tags have already been
+         * assigned to the stream, <code>AddTagsToStream</code> overwrites any existing
+         * tags that correspond to the specified tag keys.</p> <p> <a>AddTagsToStream</a>
+         * has a limit of five transactions per second per account.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/AddTagsToStream">AWS
          * API Reference</a></p>
          */
         virtual Model::AddTagsToStreamOutcome AddTagsToStream(const Model::AddTagsToStreamRequest& request) const;
 
         /**
-         * <p>Adds or updates tags for the specified Kinesis data stream. Each stream can
-         * have up to 10 tags.</p> <p>If tags have already been assigned to the stream,
-         * <code>AddTagsToStream</code> overwrites any existing tags that correspond to the
-         * specified tag keys.</p> <p> <a>AddTagsToStream</a> has a limit of five
-         * transactions per second per account.</p><p><h3>See Also:</h3>   <a
+         * <p>Adds or updates tags for the specified Kinesis data stream. Each time you
+         * invoke this operation, you can specify up to 10 tags. If you want to add more
+         * than 10 tags to your stream, you can invoke this operation multiple times. In
+         * total, each stream can have up to 50 tags.</p> <p>If tags have already been
+         * assigned to the stream, <code>AddTagsToStream</code> overwrites any existing
+         * tags that correspond to the specified tag keys.</p> <p> <a>AddTagsToStream</a>
+         * has a limit of five transactions per second per account.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/AddTagsToStream">AWS
          * API Reference</a></p>
          *
@@ -238,11 +261,14 @@ namespace Model
         virtual Model::AddTagsToStreamOutcomeCallable AddTagsToStreamCallable(const Model::AddTagsToStreamRequest& request) const;
 
         /**
-         * <p>Adds or updates tags for the specified Kinesis data stream. Each stream can
-         * have up to 10 tags.</p> <p>If tags have already been assigned to the stream,
-         * <code>AddTagsToStream</code> overwrites any existing tags that correspond to the
-         * specified tag keys.</p> <p> <a>AddTagsToStream</a> has a limit of five
-         * transactions per second per account.</p><p><h3>See Also:</h3>   <a
+         * <p>Adds or updates tags for the specified Kinesis data stream. Each time you
+         * invoke this operation, you can specify up to 10 tags. If you want to add more
+         * than 10 tags to your stream, you can invoke this operation multiple times. In
+         * total, each stream can have up to 50 tags.</p> <p>If tags have already been
+         * assigned to the stream, <code>AddTagsToStream</code> overwrites any existing
+         * tags that correspond to the specified tag keys.</p> <p> <a>AddTagsToStream</a>
+         * has a limit of five transactions per second per account.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/AddTagsToStream">AWS
          * API Reference</a></p>
          *
@@ -476,6 +502,55 @@ namespace Model
         virtual void DeleteStreamAsync(const Model::DeleteStreamRequest& request, const DeleteStreamResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>To deregister a consumer, provide its ARN. Alternatively, you can provide the
+         * ARN of the data stream and the name you gave the consumer when you registered
+         * it. You may also provide all three parameters, as long as they don't conflict
+         * with each other. If you don't know the name or ARN of the consumer that you want
+         * to deregister, you can use the <a>ListStreamConsumers</a> operation to get a
+         * list of the descriptions of all the consumers that are currently registered with
+         * a given data stream. The description of a consumer contains its name and
+         * ARN.</p> <p>This operation has a limit of five transactions per second per
+         * account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DeregisterStreamConsumer">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DeregisterStreamConsumerOutcome DeregisterStreamConsumer(const Model::DeregisterStreamConsumerRequest& request) const;
+
+        /**
+         * <p>To deregister a consumer, provide its ARN. Alternatively, you can provide the
+         * ARN of the data stream and the name you gave the consumer when you registered
+         * it. You may also provide all three parameters, as long as they don't conflict
+         * with each other. If you don't know the name or ARN of the consumer that you want
+         * to deregister, you can use the <a>ListStreamConsumers</a> operation to get a
+         * list of the descriptions of all the consumers that are currently registered with
+         * a given data stream. The description of a consumer contains its name and
+         * ARN.</p> <p>This operation has a limit of five transactions per second per
+         * account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DeregisterStreamConsumer">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DeregisterStreamConsumerOutcomeCallable DeregisterStreamConsumerCallable(const Model::DeregisterStreamConsumerRequest& request) const;
+
+        /**
+         * <p>To deregister a consumer, provide its ARN. Alternatively, you can provide the
+         * ARN of the data stream and the name you gave the consumer when you registered
+         * it. You may also provide all three parameters, as long as they don't conflict
+         * with each other. If you don't know the name or ARN of the consumer that you want
+         * to deregister, you can use the <a>ListStreamConsumers</a> operation to get a
+         * list of the descriptions of all the consumers that are currently registered with
+         * a given data stream. The description of a consumer contains its name and
+         * ARN.</p> <p>This operation has a limit of five transactions per second per
+         * account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DeregisterStreamConsumer">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DeregisterStreamConsumerAsync(const Model::DeregisterStreamConsumerRequest& request, const DeregisterStreamConsumerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Describes the shard limits and usage for the account.</p> <p>If you update
          * your account limits, the old limits might be returned for a few minutes.</p>
          * <p>This operation has a limit of one transaction per second per
@@ -572,6 +647,55 @@ namespace Model
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void DescribeStreamAsync(const Model::DescribeStreamRequest& request, const DescribeStreamResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>To get the description of a registered consumer, provide the ARN of the
+         * consumer. Alternatively, you can provide the ARN of the data stream and the name
+         * you gave the consumer when you registered it. You may also provide all three
+         * parameters, as long as they don't conflict with each other. If you don't know
+         * the name or ARN of the consumer that you want to describe, you can use the
+         * <a>ListStreamConsumers</a> operation to get a list of the descriptions of all
+         * the consumers that are currently registered with a given data stream.</p>
+         * <p>This operation has a limit of 20 transactions per second per
+         * account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamConsumer">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeStreamConsumerOutcome DescribeStreamConsumer(const Model::DescribeStreamConsumerRequest& request) const;
+
+        /**
+         * <p>To get the description of a registered consumer, provide the ARN of the
+         * consumer. Alternatively, you can provide the ARN of the data stream and the name
+         * you gave the consumer when you registered it. You may also provide all three
+         * parameters, as long as they don't conflict with each other. If you don't know
+         * the name or ARN of the consumer that you want to describe, you can use the
+         * <a>ListStreamConsumers</a> operation to get a list of the descriptions of all
+         * the consumers that are currently registered with a given data stream.</p>
+         * <p>This operation has a limit of 20 transactions per second per
+         * account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamConsumer">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeStreamConsumerOutcomeCallable DescribeStreamConsumerCallable(const Model::DescribeStreamConsumerRequest& request) const;
+
+        /**
+         * <p>To get the description of a registered consumer, provide the ARN of the
+         * consumer. Alternatively, you can provide the ARN of the data stream and the name
+         * you gave the consumer when you registered it. You may also provide all three
+         * parameters, as long as they don't conflict with each other. If you don't know
+         * the name or ARN of the consumer that you want to describe, you can use the
+         * <a>ListStreamConsumers</a> operation to get a list of the descriptions of all
+         * the consumers that are currently registered with a given data stream.</p>
+         * <p>This operation has a limit of 20 transactions per second per
+         * account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamConsumer">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeStreamConsumerAsync(const Model::DescribeStreamConsumerRequest& request, const DescribeStreamConsumerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Provides a summarized description of the specified Kinesis data stream
@@ -685,24 +809,25 @@ namespace Model
          * <code>NextShardIterator</code>. You can terminate the loop when the shard is
          * closed, or when the shard iterator reaches the record with the sequence number
          * or other attribute that marks it as the last record to process.</p> <p>Each data
-         * record can be up to 1 MB in size, and each shard can read up to 2 MB per second.
-         * You can ensure that your calls don't exceed the maximum supported size or
-         * throughput by using the <code>Limit</code> parameter to specify the maximum
+         * record can be up to 1 MiB in size, and each shard can read up to 2 MiB per
+         * second. You can ensure that your calls don't exceed the maximum supported size
+         * or throughput by using the <code>Limit</code> parameter to specify the maximum
          * number of records that <a>GetRecords</a> can return. Consider your average
-         * record size when determining this limit.</p> <p>The size of the data returned by
+         * record size when determining this limit. The maximum number of records that can
+         * be returned per call is 10,000.</p> <p>The size of the data returned by
          * <a>GetRecords</a> varies depending on the utilization of the shard. The maximum
-         * size of data that <a>GetRecords</a> can return is 10 MB. If a call returns this
-         * amount of data, subsequent calls made within the next five seconds throw
+         * size of data that <a>GetRecords</a> can return is 10 MiB. If a call returns this
+         * amount of data, subsequent calls made within the next 5 seconds throw
          * <code>ProvisionedThroughputExceededException</code>. If there is insufficient
-         * provisioned throughput on the stream, subsequent calls made within the next one
+         * provisioned throughput on the stream, subsequent calls made within the next 1
          * second throw <code>ProvisionedThroughputExceededException</code>.
-         * <a>GetRecords</a> won't return any data when it throws an exception. For this
-         * reason, we recommend that you wait one second between calls to
-         * <a>GetRecords</a>; however, it's possible that the application will get
-         * exceptions for longer than 1 second.</p> <p>To detect whether the application is
-         * falling behind in processing, you can use the <code>MillisBehindLatest</code>
-         * response attribute. You can also monitor the stream using CloudWatch metrics and
-         * other mechanisms (see <a
+         * <a>GetRecords</a> doesn't return any data when it throws an exception. For this
+         * reason, we recommend that you wait 1 second between calls to <a>GetRecords</a>.
+         * However, it's possible that the application will get exceptions for longer than
+         * 1 second.</p> <p>To detect whether the application is falling behind in
+         * processing, you can use the <code>MillisBehindLatest</code> response attribute.
+         * You can also monitor the stream using CloudWatch metrics and other mechanisms
+         * (see <a
          * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring.html">Monitoring</a>
          * in the <i>Amazon Kinesis Data Streams Developer Guide</i>).</p> <p>Each Amazon
          * Kinesis record includes a value, <code>ApproximateArrivalTimestamp</code>, that
@@ -713,7 +838,8 @@ namespace Model
          * <a>PutRecords</a>). The time stamp has millisecond precision. There are no
          * guarantees about the time stamp accuracy, or that the time stamp is always
          * increasing. For example, records in a shard or across a stream might have time
-         * stamps that are out of order.</p><p><h3>See Also:</h3>   <a
+         * stamps that are out of order.</p> <p>This operation has a limit of five
+         * transactions per second per account.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/GetRecords">AWS
          * API Reference</a></p>
          */
@@ -741,24 +867,25 @@ namespace Model
          * <code>NextShardIterator</code>. You can terminate the loop when the shard is
          * closed, or when the shard iterator reaches the record with the sequence number
          * or other attribute that marks it as the last record to process.</p> <p>Each data
-         * record can be up to 1 MB in size, and each shard can read up to 2 MB per second.
-         * You can ensure that your calls don't exceed the maximum supported size or
-         * throughput by using the <code>Limit</code> parameter to specify the maximum
+         * record can be up to 1 MiB in size, and each shard can read up to 2 MiB per
+         * second. You can ensure that your calls don't exceed the maximum supported size
+         * or throughput by using the <code>Limit</code> parameter to specify the maximum
          * number of records that <a>GetRecords</a> can return. Consider your average
-         * record size when determining this limit.</p> <p>The size of the data returned by
+         * record size when determining this limit. The maximum number of records that can
+         * be returned per call is 10,000.</p> <p>The size of the data returned by
          * <a>GetRecords</a> varies depending on the utilization of the shard. The maximum
-         * size of data that <a>GetRecords</a> can return is 10 MB. If a call returns this
-         * amount of data, subsequent calls made within the next five seconds throw
+         * size of data that <a>GetRecords</a> can return is 10 MiB. If a call returns this
+         * amount of data, subsequent calls made within the next 5 seconds throw
          * <code>ProvisionedThroughputExceededException</code>. If there is insufficient
-         * provisioned throughput on the stream, subsequent calls made within the next one
+         * provisioned throughput on the stream, subsequent calls made within the next 1
          * second throw <code>ProvisionedThroughputExceededException</code>.
-         * <a>GetRecords</a> won't return any data when it throws an exception. For this
-         * reason, we recommend that you wait one second between calls to
-         * <a>GetRecords</a>; however, it's possible that the application will get
-         * exceptions for longer than 1 second.</p> <p>To detect whether the application is
-         * falling behind in processing, you can use the <code>MillisBehindLatest</code>
-         * response attribute. You can also monitor the stream using CloudWatch metrics and
-         * other mechanisms (see <a
+         * <a>GetRecords</a> doesn't return any data when it throws an exception. For this
+         * reason, we recommend that you wait 1 second between calls to <a>GetRecords</a>.
+         * However, it's possible that the application will get exceptions for longer than
+         * 1 second.</p> <p>To detect whether the application is falling behind in
+         * processing, you can use the <code>MillisBehindLatest</code> response attribute.
+         * You can also monitor the stream using CloudWatch metrics and other mechanisms
+         * (see <a
          * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring.html">Monitoring</a>
          * in the <i>Amazon Kinesis Data Streams Developer Guide</i>).</p> <p>Each Amazon
          * Kinesis record includes a value, <code>ApproximateArrivalTimestamp</code>, that
@@ -769,7 +896,8 @@ namespace Model
          * <a>PutRecords</a>). The time stamp has millisecond precision. There are no
          * guarantees about the time stamp accuracy, or that the time stamp is always
          * increasing. For example, records in a shard or across a stream might have time
-         * stamps that are out of order.</p><p><h3>See Also:</h3>   <a
+         * stamps that are out of order.</p> <p>This operation has a limit of five
+         * transactions per second per account.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/GetRecords">AWS
          * API Reference</a></p>
          *
@@ -799,24 +927,25 @@ namespace Model
          * <code>NextShardIterator</code>. You can terminate the loop when the shard is
          * closed, or when the shard iterator reaches the record with the sequence number
          * or other attribute that marks it as the last record to process.</p> <p>Each data
-         * record can be up to 1 MB in size, and each shard can read up to 2 MB per second.
-         * You can ensure that your calls don't exceed the maximum supported size or
-         * throughput by using the <code>Limit</code> parameter to specify the maximum
+         * record can be up to 1 MiB in size, and each shard can read up to 2 MiB per
+         * second. You can ensure that your calls don't exceed the maximum supported size
+         * or throughput by using the <code>Limit</code> parameter to specify the maximum
          * number of records that <a>GetRecords</a> can return. Consider your average
-         * record size when determining this limit.</p> <p>The size of the data returned by
+         * record size when determining this limit. The maximum number of records that can
+         * be returned per call is 10,000.</p> <p>The size of the data returned by
          * <a>GetRecords</a> varies depending on the utilization of the shard. The maximum
-         * size of data that <a>GetRecords</a> can return is 10 MB. If a call returns this
-         * amount of data, subsequent calls made within the next five seconds throw
+         * size of data that <a>GetRecords</a> can return is 10 MiB. If a call returns this
+         * amount of data, subsequent calls made within the next 5 seconds throw
          * <code>ProvisionedThroughputExceededException</code>. If there is insufficient
-         * provisioned throughput on the stream, subsequent calls made within the next one
+         * provisioned throughput on the stream, subsequent calls made within the next 1
          * second throw <code>ProvisionedThroughputExceededException</code>.
-         * <a>GetRecords</a> won't return any data when it throws an exception. For this
-         * reason, we recommend that you wait one second between calls to
-         * <a>GetRecords</a>; however, it's possible that the application will get
-         * exceptions for longer than 1 second.</p> <p>To detect whether the application is
-         * falling behind in processing, you can use the <code>MillisBehindLatest</code>
-         * response attribute. You can also monitor the stream using CloudWatch metrics and
-         * other mechanisms (see <a
+         * <a>GetRecords</a> doesn't return any data when it throws an exception. For this
+         * reason, we recommend that you wait 1 second between calls to <a>GetRecords</a>.
+         * However, it's possible that the application will get exceptions for longer than
+         * 1 second.</p> <p>To detect whether the application is falling behind in
+         * processing, you can use the <code>MillisBehindLatest</code> response attribute.
+         * You can also monitor the stream using CloudWatch metrics and other mechanisms
+         * (see <a
          * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring.html">Monitoring</a>
          * in the <i>Amazon Kinesis Data Streams Developer Guide</i>).</p> <p>Each Amazon
          * Kinesis record includes a value, <code>ApproximateArrivalTimestamp</code>, that
@@ -827,7 +956,8 @@ namespace Model
          * <a>PutRecords</a>). The time stamp has millisecond precision. There are no
          * guarantees about the time stamp accuracy, or that the time stamp is always
          * increasing. For example, records in a shard or across a stream might have time
-         * stamps that are out of order.</p><p><h3>See Also:</h3>   <a
+         * stamps that are out of order.</p> <p>This operation has a limit of five
+         * transactions per second per account.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/GetRecords">AWS
          * API Reference</a></p>
          *
@@ -836,7 +966,7 @@ namespace Model
         virtual void GetRecordsAsync(const Model::GetRecordsRequest& request, const GetRecordsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Gets an Amazon Kinesis shard iterator. A shard iterator expires five minutes
+         * <p>Gets an Amazon Kinesis shard iterator. A shard iterator expires 5 minutes
          * after it is returned to the requester.</p> <p>A shard iterator specifies the
          * shard position from which to start reading data records sequentially. The
          * position is specified using the sequence number of a data record in a shard. A
@@ -877,7 +1007,7 @@ namespace Model
         virtual Model::GetShardIteratorOutcome GetShardIterator(const Model::GetShardIteratorRequest& request) const;
 
         /**
-         * <p>Gets an Amazon Kinesis shard iterator. A shard iterator expires five minutes
+         * <p>Gets an Amazon Kinesis shard iterator. A shard iterator expires 5 minutes
          * after it is returned to the requester.</p> <p>A shard iterator specifies the
          * shard position from which to start reading data records sequentially. The
          * position is specified using the sequence number of a data record in a shard. A
@@ -920,7 +1050,7 @@ namespace Model
         virtual Model::GetShardIteratorOutcomeCallable GetShardIteratorCallable(const Model::GetShardIteratorRequest& request) const;
 
         /**
-         * <p>Gets an Amazon Kinesis shard iterator. A shard iterator expires five minutes
+         * <p>Gets an Amazon Kinesis shard iterator. A shard iterator expires 5 minutes
          * after it is returned to the requester.</p> <p>A shard iterator specifies the
          * shard position from which to start reading data records sequentially. The
          * position is specified using the sequence number of a data record in a shard. A
@@ -1015,7 +1145,8 @@ namespace Model
         virtual void IncreaseStreamRetentionPeriodAsync(const Model::IncreaseStreamRetentionPeriodRequest& request, const IncreaseStreamRetentionPeriodResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Lists the shards in a stream and provides information about each shard.</p>
+         * <p>Lists the shards in a stream and provides information about each shard. This
+         * operation has a limit of 100 transactions per second per data stream.</p>
          * <important> <p>This API is a new operation that is used by the Amazon Kinesis
          * Client Library (KCL). If you have a fine-grained IAM policy that only allows
          * specific operations, you must update your policy to allow calls to this API. For
@@ -1029,7 +1160,8 @@ namespace Model
         virtual Model::ListShardsOutcome ListShards(const Model::ListShardsRequest& request) const;
 
         /**
-         * <p>Lists the shards in a stream and provides information about each shard.</p>
+         * <p>Lists the shards in a stream and provides information about each shard. This
+         * operation has a limit of 100 transactions per second per data stream.</p>
          * <important> <p>This API is a new operation that is used by the Amazon Kinesis
          * Client Library (KCL). If you have a fine-grained IAM policy that only allows
          * specific operations, you must update your policy to allow calls to this API. For
@@ -1045,7 +1177,8 @@ namespace Model
         virtual Model::ListShardsOutcomeCallable ListShardsCallable(const Model::ListShardsRequest& request) const;
 
         /**
-         * <p>Lists the shards in a stream and provides information about each shard.</p>
+         * <p>Lists the shards in a stream and provides information about each shard. This
+         * operation has a limit of 100 transactions per second per data stream.</p>
          * <important> <p>This API is a new operation that is used by the Amazon Kinesis
          * Client Library (KCL). If you have a fine-grained IAM policy that only allows
          * specific operations, you must update your policy to allow calls to this API. For
@@ -1059,6 +1192,37 @@ namespace Model
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void ListShardsAsync(const Model::ListShardsRequest& request, const ListShardsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Lists the consumers registered to receive data from a stream using enhanced
+         * fan-out, and provides information about each consumer.</p> <p>This operation has
+         * a limit of 10 transactions per second per account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/ListStreamConsumers">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::ListStreamConsumersOutcome ListStreamConsumers(const Model::ListStreamConsumersRequest& request) const;
+
+        /**
+         * <p>Lists the consumers registered to receive data from a stream using enhanced
+         * fan-out, and provides information about each consumer.</p> <p>This operation has
+         * a limit of 10 transactions per second per account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/ListStreamConsumers">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ListStreamConsumersOutcomeCallable ListStreamConsumersCallable(const Model::ListStreamConsumersRequest& request) const;
+
+        /**
+         * <p>Lists the consumers registered to receive data from a stream using enhanced
+         * fan-out, and provides information about each consumer.</p> <p>This operation has
+         * a limit of 10 transactions per second per account.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/ListStreamConsumers">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ListStreamConsumersAsync(const Model::ListStreamConsumersRequest& request, const ListStreamConsumersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Lists your Kinesis data streams.</p> <p>The number of streams may be too
@@ -1591,6 +1755,49 @@ namespace Model
         virtual void PutRecordsAsync(const Model::PutRecordsRequest& request, const PutRecordsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Registers a consumer with a Kinesis data stream. When you use this operation,
+         * the consumer you register can read data from the stream at a rate of up to 2 MiB
+         * per second. This rate is unaffected by the total number of consumers that read
+         * from the same stream.</p> <p>You can register up to 5 consumers per stream. A
+         * given consumer can only be registered with one stream.</p> <p>This operation has
+         * a limit of five transactions per second per account.</p><p><h3>See Also:</h3>  
+         * <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/RegisterStreamConsumer">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::RegisterStreamConsumerOutcome RegisterStreamConsumer(const Model::RegisterStreamConsumerRequest& request) const;
+
+        /**
+         * <p>Registers a consumer with a Kinesis data stream. When you use this operation,
+         * the consumer you register can read data from the stream at a rate of up to 2 MiB
+         * per second. This rate is unaffected by the total number of consumers that read
+         * from the same stream.</p> <p>You can register up to 5 consumers per stream. A
+         * given consumer can only be registered with one stream.</p> <p>This operation has
+         * a limit of five transactions per second per account.</p><p><h3>See Also:</h3>  
+         * <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/RegisterStreamConsumer">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::RegisterStreamConsumerOutcomeCallable RegisterStreamConsumerCallable(const Model::RegisterStreamConsumerRequest& request) const;
+
+        /**
+         * <p>Registers a consumer with a Kinesis data stream. When you use this operation,
+         * the consumer you register can read data from the stream at a rate of up to 2 MiB
+         * per second. This rate is unaffected by the total number of consumers that read
+         * from the same stream.</p> <p>You can register up to 5 consumers per stream. A
+         * given consumer can only be registered with one stream.</p> <p>This operation has
+         * a limit of five transactions per second per account.</p><p><h3>See Also:</h3>  
+         * <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/RegisterStreamConsumer">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void RegisterStreamConsumerAsync(const Model::RegisterStreamConsumerRequest& request, const RegisterStreamConsumerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Removes tags from the specified Kinesis data stream. Removed tags are deleted
          * and cannot be recovered after this operation successfully completes.</p> <p>If
          * you specify a tag that does not exist, it is ignored.</p> <p>
@@ -1663,9 +1870,9 @@ namespace Model
          * are authorized for your account, you receive a
          * <code>LimitExceededException</code>. </p> <p>For the default shard limit for an
          * AWS account, see <a
-         * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Streams
-         * Limits</a> in the <i>Amazon Kinesis Data Streams Developer Guide</i>. To
-         * increase this limit, <a
+         * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Kinesis
+         * Data Streams Limits</a> in the <i>Amazon Kinesis Data Streams Developer
+         * Guide</i>. To increase this limit, <a
          * href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">contact
          * AWS Support</a>.</p> <p>If you try to operate on too many streams simultaneously
          * using <a>CreateStream</a>, <a>DeleteStream</a>, <a>MergeShards</a>, and/or
@@ -1713,9 +1920,9 @@ namespace Model
          * are authorized for your account, you receive a
          * <code>LimitExceededException</code>. </p> <p>For the default shard limit for an
          * AWS account, see <a
-         * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Streams
-         * Limits</a> in the <i>Amazon Kinesis Data Streams Developer Guide</i>. To
-         * increase this limit, <a
+         * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Kinesis
+         * Data Streams Limits</a> in the <i>Amazon Kinesis Data Streams Developer
+         * Guide</i>. To increase this limit, <a
          * href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">contact
          * AWS Support</a>.</p> <p>If you try to operate on too many streams simultaneously
          * using <a>CreateStream</a>, <a>DeleteStream</a>, <a>MergeShards</a>, and/or
@@ -1765,9 +1972,9 @@ namespace Model
          * are authorized for your account, you receive a
          * <code>LimitExceededException</code>. </p> <p>For the default shard limit for an
          * AWS account, see <a
-         * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Streams
-         * Limits</a> in the <i>Amazon Kinesis Data Streams Developer Guide</i>. To
-         * increase this limit, <a
+         * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Kinesis
+         * Data Streams Limits</a> in the <i>Amazon Kinesis Data Streams Developer
+         * Guide</i>. To increase this limit, <a
          * href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">contact
          * AWS Support</a>.</p> <p>If you try to operate on too many streams simultaneously
          * using <a>CreateStream</a>, <a>DeleteStream</a>, <a>MergeShards</a>, and/or
@@ -1793,7 +2000,7 @@ namespace Model
          * <code>ACTIVE</code>, encryption begins for records written to the stream. </p>
          * <p>API Limits: You can successfully apply a new AWS KMS key for server-side
          * encryption 25 times in a rolling 24-hour period.</p> <p>Note: It can take up to
-         * five seconds after the stream is in an <code>ACTIVE</code> status before all
+         * 5 seconds after the stream is in an <code>ACTIVE</code> status before all
          * records written to the stream are encrypted. After you enable encryption, you
          * can verify that encryption is applied by inspecting the API response from
          * <code>PutRecord</code> or <code>PutRecords</code>.</p><p><h3>See Also:</h3>   <a
@@ -1814,7 +2021,7 @@ namespace Model
          * <code>ACTIVE</code>, encryption begins for records written to the stream. </p>
          * <p>API Limits: You can successfully apply a new AWS KMS key for server-side
          * encryption 25 times in a rolling 24-hour period.</p> <p>Note: It can take up to
-         * five seconds after the stream is in an <code>ACTIVE</code> status before all
+         * 5 seconds after the stream is in an <code>ACTIVE</code> status before all
          * records written to the stream are encrypted. After you enable encryption, you
          * can verify that encryption is applied by inspecting the API response from
          * <code>PutRecord</code> or <code>PutRecords</code>.</p><p><h3>See Also:</h3>   <a
@@ -1837,7 +2044,7 @@ namespace Model
          * <code>ACTIVE</code>, encryption begins for records written to the stream. </p>
          * <p>API Limits: You can successfully apply a new AWS KMS key for server-side
          * encryption 25 times in a rolling 24-hour period.</p> <p>Note: It can take up to
-         * five seconds after the stream is in an <code>ACTIVE</code> status before all
+         * 5 seconds after the stream is in an <code>ACTIVE</code> status before all
          * records written to the stream are encrypted. After you enable encryption, you
          * can verify that encryption is applied by inspecting the API response from
          * <code>PutRecord</code> or <code>PutRecords</code>.</p><p><h3>See Also:</h3>   <a
@@ -1859,8 +2066,8 @@ namespace Model
          * <code>UPDATING</code>. Once the status of the stream is <code>ACTIVE</code>,
          * records written to the stream are no longer encrypted by Kinesis Data Streams.
          * </p> <p>API Limits: You can successfully disable server-side encryption 25 times
-         * in a rolling 24-hour period. </p> <p>Note: It can take up to five seconds after
-         * the stream is in an <code>ACTIVE</code> status before all records written to the
+         * in a rolling 24-hour period. </p> <p>Note: It can take up to 5 seconds after the
+         * stream is in an <code>ACTIVE</code> status before all records written to the
          * stream are no longer subject to encryption. After you disabled encryption, you
          * can verify that encryption is not applied by inspecting the API response from
          * <code>PutRecord</code> or <code>PutRecords</code>.</p><p><h3>See Also:</h3>   <a
@@ -1880,8 +2087,8 @@ namespace Model
          * <code>UPDATING</code>. Once the status of the stream is <code>ACTIVE</code>,
          * records written to the stream are no longer encrypted by Kinesis Data Streams.
          * </p> <p>API Limits: You can successfully disable server-side encryption 25 times
-         * in a rolling 24-hour period. </p> <p>Note: It can take up to five seconds after
-         * the stream is in an <code>ACTIVE</code> status before all records written to the
+         * in a rolling 24-hour period. </p> <p>Note: It can take up to 5 seconds after the
+         * stream is in an <code>ACTIVE</code> status before all records written to the
          * stream are no longer subject to encryption. After you disabled encryption, you
          * can verify that encryption is not applied by inspecting the API response from
          * <code>PutRecord</code> or <code>PutRecords</code>.</p><p><h3>See Also:</h3>   <a
@@ -1903,8 +2110,8 @@ namespace Model
          * <code>UPDATING</code>. Once the status of the stream is <code>ACTIVE</code>,
          * records written to the stream are no longer encrypted by Kinesis Data Streams.
          * </p> <p>API Limits: You can successfully disable server-side encryption 25 times
-         * in a rolling 24-hour period. </p> <p>Note: It can take up to five seconds after
-         * the stream is in an <code>ACTIVE</code> status before all records written to the
+         * in a rolling 24-hour period. </p> <p>Note: It can take up to 5 seconds after the
+         * stream is in an <code>ACTIVE</code> status before all records written to the
          * stream are no longer subject to encryption. After you disabled encryption, you
          * can verify that encryption is not applied by inspecting the API response from
          * <code>PutRecord</code> or <code>PutRecords</code>.</p><p><h3>See Also:</h3>   <a
@@ -1914,6 +2121,64 @@ namespace Model
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void StopStreamEncryptionAsync(const Model::StopStreamEncryptionRequest& request, const StopStreamEncryptionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Call this operation from your consumer after you call
+         * <a>RegisterStreamConsumer</a> to register the consumer with Kinesis Data
+         * Streams. If the call succeeds, your consumer starts receiving events of type
+         * <a>SubscribeToShardEvent</a> for up to 5 minutes, after which time you need to
+         * call <code>SubscribeToShard</code> again to renew the subscription if you want
+         * to continue to receive records.</p> <p>You can make one call to
+         * <code>SubscribeToShard</code> per second per <code>ConsumerARN</code>. If your
+         * call succeeds, and then you call the operation again less than 5 seconds later,
+         * the second call generates a <a>ResourceInUseException</a>. If you call the
+         * operation a second time more than 5 seconds after the first call succeeds, the
+         * second call succeeds and the first connection gets shut down.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/SubscribeToShard">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::SubscribeToShardOutcome SubscribeToShard(Model::SubscribeToShardRequest& request) const;
+
+        /**
+         * <p>Call this operation from your consumer after you call
+         * <a>RegisterStreamConsumer</a> to register the consumer with Kinesis Data
+         * Streams. If the call succeeds, your consumer starts receiving events of type
+         * <a>SubscribeToShardEvent</a> for up to 5 minutes, after which time you need to
+         * call <code>SubscribeToShard</code> again to renew the subscription if you want
+         * to continue to receive records.</p> <p>You can make one call to
+         * <code>SubscribeToShard</code> per second per <code>ConsumerARN</code>. If your
+         * call succeeds, and then you call the operation again less than 5 seconds later,
+         * the second call generates a <a>ResourceInUseException</a>. If you call the
+         * operation a second time more than 5 seconds after the first call succeeds, the
+         * second call succeeds and the first connection gets shut down.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/SubscribeToShard">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::SubscribeToShardOutcomeCallable SubscribeToShardCallable(Model::SubscribeToShardRequest& request) const;
+
+        /**
+         * <p>Call this operation from your consumer after you call
+         * <a>RegisterStreamConsumer</a> to register the consumer with Kinesis Data
+         * Streams. If the call succeeds, your consumer starts receiving events of type
+         * <a>SubscribeToShardEvent</a> for up to 5 minutes, after which time you need to
+         * call <code>SubscribeToShard</code> again to renew the subscription if you want
+         * to continue to receive records.</p> <p>You can make one call to
+         * <code>SubscribeToShard</code> per second per <code>ConsumerARN</code>. If your
+         * call succeeds, and then you call the operation again less than 5 seconds later,
+         * the second call generates a <a>ResourceInUseException</a>. If you call the
+         * operation a second time more than 5 seconds after the first call succeeds, the
+         * second call succeeds and the first connection gets shut down.</p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/SubscribeToShard">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void SubscribeToShardAsync(Model::SubscribeToShardRequest& request, const SubscribeToShardResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Updates the shard count of the specified stream to the specified number of
@@ -1927,15 +2192,15 @@ namespace Model
          * Streams performs splits or merges on individual shards. This can cause
          * short-lived shards to be created, in addition to the final shards. We recommend
          * that you double or halve the shard count, as this results in the fewest number
-         * of splits or merges.</p> <p>This operation has the following limits. You cannot
-         * do the following:</p> <ul> <li> <p>Scale more than twice per rolling 24-hour
-         * period per stream</p> </li> <li> <p>Scale up to more than double your current
-         * shard count for a stream</p> </li> <li> <p>Scale down below half your current
-         * shard count for a stream</p> </li> <li> <p>Scale up to more than 500 shards in a
-         * stream</p> </li> <li> <p>Scale a stream with more than 500 shards down unless
-         * the result is less than 500 shards</p> </li> <li> <p>Scale up to more than the
-         * shard limit for your account</p> </li> </ul> <p>For the default limits for an
-         * AWS account, see <a
+         * of splits or merges.</p> <p>This operation has the following default limits. By
+         * default, you cannot do the following:</p> <ul> <li> <p>Scale more than twice per
+         * rolling 24-hour period per stream</p> </li> <li> <p>Scale up to more than double
+         * your current shard count for a stream</p> </li> <li> <p>Scale down below half
+         * your current shard count for a stream</p> </li> <li> <p>Scale up to more than
+         * 500 shards in a stream</p> </li> <li> <p>Scale a stream with more than 500
+         * shards down unless the result is less than 500 shards</p> </li> <li> <p>Scale up
+         * to more than the shard limit for your account</p> </li> </ul> <p>For the default
+         * limits for an AWS account, see <a
          * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Streams
          * Limits</a> in the <i>Amazon Kinesis Data Streams Developer Guide</i>. To request
          * an increase in the call rate limit, the shard limit for this API, or your
@@ -1959,15 +2224,15 @@ namespace Model
          * Streams performs splits or merges on individual shards. This can cause
          * short-lived shards to be created, in addition to the final shards. We recommend
          * that you double or halve the shard count, as this results in the fewest number
-         * of splits or merges.</p> <p>This operation has the following limits. You cannot
-         * do the following:</p> <ul> <li> <p>Scale more than twice per rolling 24-hour
-         * period per stream</p> </li> <li> <p>Scale up to more than double your current
-         * shard count for a stream</p> </li> <li> <p>Scale down below half your current
-         * shard count for a stream</p> </li> <li> <p>Scale up to more than 500 shards in a
-         * stream</p> </li> <li> <p>Scale a stream with more than 500 shards down unless
-         * the result is less than 500 shards</p> </li> <li> <p>Scale up to more than the
-         * shard limit for your account</p> </li> </ul> <p>For the default limits for an
-         * AWS account, see <a
+         * of splits or merges.</p> <p>This operation has the following default limits. By
+         * default, you cannot do the following:</p> <ul> <li> <p>Scale more than twice per
+         * rolling 24-hour period per stream</p> </li> <li> <p>Scale up to more than double
+         * your current shard count for a stream</p> </li> <li> <p>Scale down below half
+         * your current shard count for a stream</p> </li> <li> <p>Scale up to more than
+         * 500 shards in a stream</p> </li> <li> <p>Scale a stream with more than 500
+         * shards down unless the result is less than 500 shards</p> </li> <li> <p>Scale up
+         * to more than the shard limit for your account</p> </li> </ul> <p>For the default
+         * limits for an AWS account, see <a
          * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Streams
          * Limits</a> in the <i>Amazon Kinesis Data Streams Developer Guide</i>. To request
          * an increase in the call rate limit, the shard limit for this API, or your
@@ -1993,15 +2258,15 @@ namespace Model
          * Streams performs splits or merges on individual shards. This can cause
          * short-lived shards to be created, in addition to the final shards. We recommend
          * that you double or halve the shard count, as this results in the fewest number
-         * of splits or merges.</p> <p>This operation has the following limits. You cannot
-         * do the following:</p> <ul> <li> <p>Scale more than twice per rolling 24-hour
-         * period per stream</p> </li> <li> <p>Scale up to more than double your current
-         * shard count for a stream</p> </li> <li> <p>Scale down below half your current
-         * shard count for a stream</p> </li> <li> <p>Scale up to more than 500 shards in a
-         * stream</p> </li> <li> <p>Scale a stream with more than 500 shards down unless
-         * the result is less than 500 shards</p> </li> <li> <p>Scale up to more than the
-         * shard limit for your account</p> </li> </ul> <p>For the default limits for an
-         * AWS account, see <a
+         * of splits or merges.</p> <p>This operation has the following default limits. By
+         * default, you cannot do the following:</p> <ul> <li> <p>Scale more than twice per
+         * rolling 24-hour period per stream</p> </li> <li> <p>Scale up to more than double
+         * your current shard count for a stream</p> </li> <li> <p>Scale down below half
+         * your current shard count for a stream</p> </li> <li> <p>Scale up to more than
+         * 500 shards in a stream</p> </li> <li> <p>Scale a stream with more than 500
+         * shards down unless the result is less than 500 shards</p> </li> <li> <p>Scale up
+         * to more than the shard limit for your account</p> </li> </ul> <p>For the default
+         * limits for an AWS account, see <a
          * href="http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html">Streams
          * Limits</a> in the <i>Amazon Kinesis Data Streams Developer Guide</i>. To request
          * an increase in the call rate limit, the shard limit for this API, or your
@@ -2016,16 +2281,17 @@ namespace Model
         virtual void UpdateShardCountAsync(const Model::UpdateShardCountRequest& request, const UpdateShardCountResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void AddTagsToStreamAsyncHelper(const Model::AddTagsToStreamRequest& request, const AddTagsToStreamResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateStreamAsyncHelper(const Model::CreateStreamRequest& request, const CreateStreamResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DecreaseStreamRetentionPeriodAsyncHelper(const Model::DecreaseStreamRetentionPeriodRequest& request, const DecreaseStreamRetentionPeriodResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteStreamAsyncHelper(const Model::DeleteStreamRequest& request, const DeleteStreamResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DeregisterStreamConsumerAsyncHelper(const Model::DeregisterStreamConsumerRequest& request, const DeregisterStreamConsumerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeLimitsAsyncHelper(const Model::DescribeLimitsRequest& request, const DescribeLimitsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeStreamAsyncHelper(const Model::DescribeStreamRequest& request, const DescribeStreamResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeStreamConsumerAsyncHelper(const Model::DescribeStreamConsumerRequest& request, const DescribeStreamConsumerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeStreamSummaryAsyncHelper(const Model::DescribeStreamSummaryRequest& request, const DescribeStreamSummaryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DisableEnhancedMonitoringAsyncHelper(const Model::DisableEnhancedMonitoringRequest& request, const DisableEnhancedMonitoringResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void EnableEnhancedMonitoringAsyncHelper(const Model::EnableEnhancedMonitoringRequest& request, const EnableEnhancedMonitoringResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -2033,18 +2299,22 @@ namespace Model
         void GetShardIteratorAsyncHelper(const Model::GetShardIteratorRequest& request, const GetShardIteratorResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void IncreaseStreamRetentionPeriodAsyncHelper(const Model::IncreaseStreamRetentionPeriodRequest& request, const IncreaseStreamRetentionPeriodResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListShardsAsyncHelper(const Model::ListShardsRequest& request, const ListShardsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ListStreamConsumersAsyncHelper(const Model::ListStreamConsumersRequest& request, const ListStreamConsumersResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListStreamsAsyncHelper(const Model::ListStreamsRequest& request, const ListStreamsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListTagsForStreamAsyncHelper(const Model::ListTagsForStreamRequest& request, const ListTagsForStreamResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void MergeShardsAsyncHelper(const Model::MergeShardsRequest& request, const MergeShardsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void PutRecordAsyncHelper(const Model::PutRecordRequest& request, const PutRecordResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void PutRecordsAsyncHelper(const Model::PutRecordsRequest& request, const PutRecordsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void RegisterStreamConsumerAsyncHelper(const Model::RegisterStreamConsumerRequest& request, const RegisterStreamConsumerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void RemoveTagsFromStreamAsyncHelper(const Model::RemoveTagsFromStreamRequest& request, const RemoveTagsFromStreamResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void SplitShardAsyncHelper(const Model::SplitShardRequest& request, const SplitShardResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void StartStreamEncryptionAsyncHelper(const Model::StartStreamEncryptionRequest& request, const StartStreamEncryptionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void StopStreamEncryptionAsyncHelper(const Model::StopStreamEncryptionRequest& request, const StopStreamEncryptionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void SubscribeToShardAsyncHelper(Model::SubscribeToShardRequest& request, const SubscribeToShardResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateShardCountAsyncHelper(const Model::UpdateShardCountRequest& request, const UpdateShardCountResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

@@ -31,7 +31,8 @@ UpdateElasticsearchDomainConfigRequest::UpdateElasticsearchDomainConfigRequest()
     m_cognitoOptionsHasBeenSet(false),
     m_advancedOptionsHasBeenSet(false),
     m_accessPoliciesHasBeenSet(false),
-    m_logPublishingOptionsHasBeenSet(false)
+    m_logPublishingOptionsHasBeenSet(false),
+    m_domainEndpointOptionsHasBeenSet(false)
 {
 }
 
@@ -97,7 +98,13 @@ Aws::String UpdateElasticsearchDomainConfigRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_domainEndpointOptionsHasBeenSet)
+  {
+   payload.WithObject("DomainEndpointOptions", m_domainEndpointOptions.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

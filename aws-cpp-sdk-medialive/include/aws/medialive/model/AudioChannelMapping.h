@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for AudioChannelMapping<p><h3>See Also:</h3>   <a
+   * Audio Channel Mapping<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioChannelMapping">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AudioChannelMapping();
-    AudioChannelMapping(const Aws::Utils::Json::JsonValue& jsonValue);
-    AudioChannelMapping& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AudioChannelMapping(Aws::Utils::Json::JsonView jsonValue);
+    AudioChannelMapping& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * output channel.
      */
     inline const Aws::Vector<InputChannelLevel>& GetInputChannelLevels() const{ return m_inputChannelLevels; }
+
+    /**
+     * Indices and gain values for each input channel that should be remixed into this
+     * output channel.
+     */
+    inline bool InputChannelLevelsHasBeenSet() const { return m_inputChannelLevelsHasBeenSet; }
 
     /**
      * Indices and gain values for each input channel that should be remixed into this
@@ -94,6 +101,11 @@ namespace Model
      * The index of the output channel being produced.
      */
     inline int GetOutputChannel() const{ return m_outputChannel; }
+
+    /**
+     * The index of the output channel being produced.
+     */
+    inline bool OutputChannelHasBeenSet() const { return m_outputChannelHasBeenSet; }
 
     /**
      * The index of the output channel being produced.

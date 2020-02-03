@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     ComputeCapacity();
-    ComputeCapacity(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComputeCapacity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComputeCapacity(Aws::Utils::Json::JsonView jsonValue);
+    ComputeCapacity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p>The desired number of streaming instances.</p>
      */
     inline int GetDesiredInstances() const{ return m_desiredInstances; }
+
+    /**
+     * <p>The desired number of streaming instances.</p>
+     */
+    inline bool DesiredInstancesHasBeenSet() const { return m_desiredInstancesHasBeenSet; }
 
     /**
      * <p>The desired number of streaming instances.</p>

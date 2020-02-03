@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AssociationFilter();
-    AssociationFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssociationFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssociationFilter(Aws::Utils::Json::JsonView jsonValue);
+    AssociationFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the filter.</p>
      */
     inline const AssociationFilterKey& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The name of the filter.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The name of the filter.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The filter value.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The filter value.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The filter value.</p>

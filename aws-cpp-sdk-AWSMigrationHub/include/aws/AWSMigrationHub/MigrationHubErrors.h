@@ -50,12 +50,14 @@ enum class MigrationHubErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
   DRY_RUN_OPERATION= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  HOME_REGION_NOT_SET,
   INVALID_INPUT,
   POLICY_ERROR,
   UNAUTHORIZED_OPERATION

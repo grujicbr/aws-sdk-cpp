@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/dynamodb/DynamoDB_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/dynamodb/model/AutoScalingSettingsUpdate.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/dynamodb/model/ReplicaGlobalSecondaryIndexSettingsUpdate.h>
 #include <utility>
@@ -27,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -35,7 +37,7 @@ namespace Model
 {
 
   /**
-   * <p>Represents the settings for a global table in a region that will be
+   * <p>Represents the settings for a global table in a Region that will be
    * modified.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/ReplicaSettingsUpdate">AWS
    * API Reference</a></p>
@@ -44,43 +46,48 @@ namespace Model
   {
   public:
     ReplicaSettingsUpdate();
-    ReplicaSettingsUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReplicaSettingsUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReplicaSettingsUpdate(Aws::Utils::Json::JsonView jsonValue);
+    ReplicaSettingsUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The region of the replica to be added.</p>
+     * <p>The Region of the replica to be added.</p>
      */
     inline const Aws::String& GetRegionName() const{ return m_regionName; }
 
     /**
-     * <p>The region of the replica to be added.</p>
+     * <p>The Region of the replica to be added.</p>
+     */
+    inline bool RegionNameHasBeenSet() const { return m_regionNameHasBeenSet; }
+
+    /**
+     * <p>The Region of the replica to be added.</p>
      */
     inline void SetRegionName(const Aws::String& value) { m_regionNameHasBeenSet = true; m_regionName = value; }
 
     /**
-     * <p>The region of the replica to be added.</p>
+     * <p>The Region of the replica to be added.</p>
      */
     inline void SetRegionName(Aws::String&& value) { m_regionNameHasBeenSet = true; m_regionName = std::move(value); }
 
     /**
-     * <p>The region of the replica to be added.</p>
+     * <p>The Region of the replica to be added.</p>
      */
     inline void SetRegionName(const char* value) { m_regionNameHasBeenSet = true; m_regionName.assign(value); }
 
     /**
-     * <p>The region of the replica to be added.</p>
+     * <p>The Region of the replica to be added.</p>
      */
     inline ReplicaSettingsUpdate& WithRegionName(const Aws::String& value) { SetRegionName(value); return *this;}
 
     /**
-     * <p>The region of the replica to be added.</p>
+     * <p>The Region of the replica to be added.</p>
      */
     inline ReplicaSettingsUpdate& WithRegionName(Aws::String&& value) { SetRegionName(std::move(value)); return *this;}
 
     /**
-     * <p>The region of the replica to be added.</p>
+     * <p>The Region of the replica to be added.</p>
      */
     inline ReplicaSettingsUpdate& WithRegionName(const char* value) { SetRegionName(value); return *this;}
 
@@ -89,7 +96,7 @@ namespace Model
      * <p>The maximum number of strongly consistent reads consumed per second before
      * DynamoDB returns a <code>ThrottlingException</code>. For more information, see
      * <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying
      * Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      */
@@ -99,7 +106,17 @@ namespace Model
      * <p>The maximum number of strongly consistent reads consumed per second before
      * DynamoDB returns a <code>ThrottlingException</code>. For more information, see
      * <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying
+     * Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * </p>
+     */
+    inline bool ReplicaProvisionedReadCapacityUnitsHasBeenSet() const { return m_replicaProvisionedReadCapacityUnitsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of strongly consistent reads consumed per second before
+     * DynamoDB returns a <code>ThrottlingException</code>. For more information, see
+     * <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying
      * Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      */
@@ -109,7 +126,7 @@ namespace Model
      * <p>The maximum number of strongly consistent reads consumed per second before
      * DynamoDB returns a <code>ThrottlingException</code>. For more information, see
      * <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput">Specifying
      * Read and Write Requirements</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      */
@@ -117,10 +134,53 @@ namespace Model
 
 
     /**
+     * <p>Auto scaling settings for managing a global table replica's read capacity
+     * units.</p>
+     */
+    inline const AutoScalingSettingsUpdate& GetReplicaProvisionedReadCapacityAutoScalingSettingsUpdate() const{ return m_replicaProvisionedReadCapacityAutoScalingSettingsUpdate; }
+
+    /**
+     * <p>Auto scaling settings for managing a global table replica's read capacity
+     * units.</p>
+     */
+    inline bool ReplicaProvisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet() const { return m_replicaProvisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet; }
+
+    /**
+     * <p>Auto scaling settings for managing a global table replica's read capacity
+     * units.</p>
+     */
+    inline void SetReplicaProvisionedReadCapacityAutoScalingSettingsUpdate(const AutoScalingSettingsUpdate& value) { m_replicaProvisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet = true; m_replicaProvisionedReadCapacityAutoScalingSettingsUpdate = value; }
+
+    /**
+     * <p>Auto scaling settings for managing a global table replica's read capacity
+     * units.</p>
+     */
+    inline void SetReplicaProvisionedReadCapacityAutoScalingSettingsUpdate(AutoScalingSettingsUpdate&& value) { m_replicaProvisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet = true; m_replicaProvisionedReadCapacityAutoScalingSettingsUpdate = std::move(value); }
+
+    /**
+     * <p>Auto scaling settings for managing a global table replica's read capacity
+     * units.</p>
+     */
+    inline ReplicaSettingsUpdate& WithReplicaProvisionedReadCapacityAutoScalingSettingsUpdate(const AutoScalingSettingsUpdate& value) { SetReplicaProvisionedReadCapacityAutoScalingSettingsUpdate(value); return *this;}
+
+    /**
+     * <p>Auto scaling settings for managing a global table replica's read capacity
+     * units.</p>
+     */
+    inline ReplicaSettingsUpdate& WithReplicaProvisionedReadCapacityAutoScalingSettingsUpdate(AutoScalingSettingsUpdate&& value) { SetReplicaProvisionedReadCapacityAutoScalingSettingsUpdate(std::move(value)); return *this;}
+
+
+    /**
      * <p>Represents the settings of a global secondary index for a global table that
      * will be modified.</p>
      */
     inline const Aws::Vector<ReplicaGlobalSecondaryIndexSettingsUpdate>& GetReplicaGlobalSecondaryIndexSettingsUpdate() const{ return m_replicaGlobalSecondaryIndexSettingsUpdate; }
+
+    /**
+     * <p>Represents the settings of a global secondary index for a global table that
+     * will be modified.</p>
+     */
+    inline bool ReplicaGlobalSecondaryIndexSettingsUpdateHasBeenSet() const { return m_replicaGlobalSecondaryIndexSettingsUpdateHasBeenSet; }
 
     /**
      * <p>Represents the settings of a global secondary index for a global table that
@@ -165,6 +225,9 @@ namespace Model
 
     long long m_replicaProvisionedReadCapacityUnits;
     bool m_replicaProvisionedReadCapacityUnitsHasBeenSet;
+
+    AutoScalingSettingsUpdate m_replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
+    bool m_replicaProvisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet;
 
     Aws::Vector<ReplicaGlobalSecondaryIndexSettingsUpdate> m_replicaGlobalSecondaryIndexSettingsUpdate;
     bool m_replicaGlobalSecondaryIndexSettingsUpdateHasBeenSet;

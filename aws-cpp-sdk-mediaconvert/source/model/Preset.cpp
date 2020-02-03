@@ -41,7 +41,7 @@ Preset::Preset() :
 {
 }
 
-Preset::Preset(const JsonValue& jsonValue) : 
+Preset::Preset(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
     m_categoryHasBeenSet(false),
     m_createdAtHasBeenSet(false),
@@ -55,7 +55,7 @@ Preset::Preset(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Preset& Preset::operator =(const JsonValue& jsonValue)
+Preset& Preset::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("arn"))
   {
@@ -73,7 +73,7 @@ Preset& Preset::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("createdAt"))
   {
-    m_createdAt = jsonValue.GetString("createdAt");
+    m_createdAt = jsonValue.GetDouble("createdAt");
 
     m_createdAtHasBeenSet = true;
   }
@@ -87,7 +87,7 @@ Preset& Preset::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("lastUpdated"))
   {
-    m_lastUpdated = jsonValue.GetString("lastUpdated");
+    m_lastUpdated = jsonValue.GetDouble("lastUpdated");
 
     m_lastUpdatedHasBeenSet = true;
   }

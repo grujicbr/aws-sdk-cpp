@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Statement();
-    Statement(const Aws::Utils::Json::JsonValue& jsonValue);
-    Statement& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Statement(Aws::Utils::Json::JsonView jsonValue);
+    Statement& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>A collection of message objects.</p>
      */
     inline const Aws::Vector<Message>& GetMessages() const{ return m_messages; }
+
+    /**
+     * <p>A collection of message objects.</p>
+     */
+    inline bool MessagesHasBeenSet() const { return m_messagesHasBeenSet; }
 
     /**
      * <p>A collection of message objects.</p>
@@ -93,6 +99,15 @@ namespace Model
      * </p>
      */
     inline const Aws::String& GetResponseCard() const{ return m_responseCard; }
+
+    /**
+     * <p> At runtime, if the client is using the <a
+     * href="http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a>
+     * API, Amazon Lex includes the response card in the response. It substitutes all
+     * of the session attributes and slot values for placeholders in the response card.
+     * </p>
+     */
+    inline bool ResponseCardHasBeenSet() const { return m_responseCardHasBeenSet; }
 
     /**
      * <p> At runtime, if the client is using the <a

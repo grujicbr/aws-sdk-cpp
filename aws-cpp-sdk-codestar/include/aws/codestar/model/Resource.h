@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeStar
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Resource();
-    Resource(const Aws::Utils::Json::JsonValue& jsonValue);
-    Resource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Resource(Aws::Utils::Json::JsonView jsonValue);
+    Resource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the resource.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the resource.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the resource.</p>

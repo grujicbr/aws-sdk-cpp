@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchAttachPolicy();
-    BatchAttachPolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchAttachPolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchAttachPolicy(Aws::Utils::Json::JsonView jsonValue);
+    BatchAttachPolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The reference that is associated with the policy object.</p>
      */
     inline const ObjectReference& GetPolicyReference() const{ return m_policyReference; }
+
+    /**
+     * <p>The reference that is associated with the policy object.</p>
+     */
+    inline bool PolicyReferenceHasBeenSet() const { return m_policyReferenceHasBeenSet; }
 
     /**
      * <p>The reference that is associated with the policy object.</p>
@@ -79,6 +85,12 @@ namespace Model
      * attached.</p>
      */
     inline const ObjectReference& GetObjectReference() const{ return m_objectReference; }
+
+    /**
+     * <p>The reference that identifies the object to which the policy will be
+     * attached.</p>
+     */
+    inline bool ObjectReferenceHasBeenSet() const { return m_objectReferenceHasBeenSet; }
 
     /**
      * <p>The reference that identifies the object to which the policy will be

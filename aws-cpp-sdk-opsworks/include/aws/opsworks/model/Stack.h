@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     Stack();
-    Stack(const Aws::Utils::Json::JsonValue& jsonValue);
-    Stack& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Stack(Aws::Utils::Json::JsonView jsonValue);
+    Stack& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The stack ID.</p>
      */
     inline const Aws::String& GetStackId() const{ return m_stackId; }
+
+    /**
+     * <p>The stack ID.</p>
+     */
+    inline bool StackIdHasBeenSet() const { return m_stackIdHasBeenSet; }
 
     /**
      * <p>The stack ID.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>The stack name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The stack name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -132,6 +143,11 @@ namespace Model
     /**
      * <p>The stack's ARN.</p>
      */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The stack's ARN.</p>
+     */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
@@ -163,7 +179,7 @@ namespace Model
     /**
      * <p>The stack AWS region, such as "ap-northeast-2". For more information about
      * AWS regions, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline const Aws::String& GetRegion() const{ return m_region; }
@@ -171,7 +187,15 @@ namespace Model
     /**
      * <p>The stack AWS region, such as "ap-northeast-2". For more information about
      * AWS regions, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * Endpoints</a>.</p>
+     */
+    inline bool RegionHasBeenSet() const { return m_regionHasBeenSet; }
+
+    /**
+     * <p>The stack AWS region, such as "ap-northeast-2". For more information about
+     * AWS regions, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline void SetRegion(const Aws::String& value) { m_regionHasBeenSet = true; m_region = value; }
@@ -179,7 +203,7 @@ namespace Model
     /**
      * <p>The stack AWS region, such as "ap-northeast-2". For more information about
      * AWS regions, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline void SetRegion(Aws::String&& value) { m_regionHasBeenSet = true; m_region = std::move(value); }
@@ -187,7 +211,7 @@ namespace Model
     /**
      * <p>The stack AWS region, such as "ap-northeast-2". For more information about
      * AWS regions, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline void SetRegion(const char* value) { m_regionHasBeenSet = true; m_region.assign(value); }
@@ -195,7 +219,7 @@ namespace Model
     /**
      * <p>The stack AWS region, such as "ap-northeast-2". For more information about
      * AWS regions, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline Stack& WithRegion(const Aws::String& value) { SetRegion(value); return *this;}
@@ -203,7 +227,7 @@ namespace Model
     /**
      * <p>The stack AWS region, such as "ap-northeast-2". For more information about
      * AWS regions, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline Stack& WithRegion(Aws::String&& value) { SetRegion(std::move(value)); return *this;}
@@ -211,7 +235,7 @@ namespace Model
     /**
      * <p>The stack AWS region, such as "ap-northeast-2". For more information about
      * AWS regions, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline Stack& WithRegion(const char* value) { SetRegion(value); return *this;}
@@ -221,6 +245,11 @@ namespace Model
      * <p>The VPC ID; applicable only if the stack is running in a VPC.</p>
      */
     inline const Aws::String& GetVpcId() const{ return m_vpcId; }
+
+    /**
+     * <p>The VPC ID; applicable only if the stack is running in a VPC.</p>
+     */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
 
     /**
      * <p>The VPC ID; applicable only if the stack is running in a VPC.</p>
@@ -257,6 +286,11 @@ namespace Model
      * <p>The stack's attributes.</p>
      */
     inline const Aws::Map<StackAttributesKeys, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The stack's attributes.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The stack's attributes.</p>
@@ -317,6 +351,11 @@ namespace Model
     /**
      * <p>The stack AWS Identity and Access Management (IAM) role.</p>
      */
+    inline bool ServiceRoleArnHasBeenSet() const { return m_serviceRoleArnHasBeenSet; }
+
+    /**
+     * <p>The stack AWS Identity and Access Management (IAM) role.</p>
+     */
     inline void SetServiceRoleArn(const Aws::String& value) { m_serviceRoleArnHasBeenSet = true; m_serviceRoleArn = value; }
 
     /**
@@ -348,7 +387,7 @@ namespace Model
     /**
      * <p>The ARN of an IAM profile that is the default profile for all of the stack's
      * EC2 instances. For more information about IAM ARNs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      * Identifiers</a>.</p>
      */
     inline const Aws::String& GetDefaultInstanceProfileArn() const{ return m_defaultInstanceProfileArn; }
@@ -356,7 +395,15 @@ namespace Model
     /**
      * <p>The ARN of an IAM profile that is the default profile for all of the stack's
      * EC2 instances. For more information about IAM ARNs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
+     * Identifiers</a>.</p>
+     */
+    inline bool DefaultInstanceProfileArnHasBeenSet() const { return m_defaultInstanceProfileArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of an IAM profile that is the default profile for all of the stack's
+     * EC2 instances. For more information about IAM ARNs, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      * Identifiers</a>.</p>
      */
     inline void SetDefaultInstanceProfileArn(const Aws::String& value) { m_defaultInstanceProfileArnHasBeenSet = true; m_defaultInstanceProfileArn = value; }
@@ -364,7 +411,7 @@ namespace Model
     /**
      * <p>The ARN of an IAM profile that is the default profile for all of the stack's
      * EC2 instances. For more information about IAM ARNs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      * Identifiers</a>.</p>
      */
     inline void SetDefaultInstanceProfileArn(Aws::String&& value) { m_defaultInstanceProfileArnHasBeenSet = true; m_defaultInstanceProfileArn = std::move(value); }
@@ -372,7 +419,7 @@ namespace Model
     /**
      * <p>The ARN of an IAM profile that is the default profile for all of the stack's
      * EC2 instances. For more information about IAM ARNs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      * Identifiers</a>.</p>
      */
     inline void SetDefaultInstanceProfileArn(const char* value) { m_defaultInstanceProfileArnHasBeenSet = true; m_defaultInstanceProfileArn.assign(value); }
@@ -380,7 +427,7 @@ namespace Model
     /**
      * <p>The ARN of an IAM profile that is the default profile for all of the stack's
      * EC2 instances. For more information about IAM ARNs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      * Identifiers</a>.</p>
      */
     inline Stack& WithDefaultInstanceProfileArn(const Aws::String& value) { SetDefaultInstanceProfileArn(value); return *this;}
@@ -388,7 +435,7 @@ namespace Model
     /**
      * <p>The ARN of an IAM profile that is the default profile for all of the stack's
      * EC2 instances. For more information about IAM ARNs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      * Identifiers</a>.</p>
      */
     inline Stack& WithDefaultInstanceProfileArn(Aws::String&& value) { SetDefaultInstanceProfileArn(std::move(value)); return *this;}
@@ -396,7 +443,7 @@ namespace Model
     /**
      * <p>The ARN of an IAM profile that is the default profile for all of the stack's
      * EC2 instances. For more information about IAM ARNs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      * Identifiers</a>.</p>
      */
     inline Stack& WithDefaultInstanceProfileArn(const char* value) { SetDefaultInstanceProfileArn(value); return *this;}
@@ -406,6 +453,11 @@ namespace Model
      * <p>The stack's default operating system.</p>
      */
     inline const Aws::String& GetDefaultOs() const{ return m_defaultOs; }
+
+    /**
+     * <p>The stack's default operating system.</p>
+     */
+    inline bool DefaultOsHasBeenSet() const { return m_defaultOsHasBeenSet; }
 
     /**
      * <p>The stack's default operating system.</p>
@@ -446,6 +498,11 @@ namespace Model
     /**
      * <p>The stack host name theme, with spaces replaced by underscores.</p>
      */
+    inline bool HostnameThemeHasBeenSet() const { return m_hostnameThemeHasBeenSet; }
+
+    /**
+     * <p>The stack host name theme, with spaces replaced by underscores.</p>
+     */
     inline void SetHostnameTheme(const Aws::String& value) { m_hostnameThemeHasBeenSet = true; m_hostnameTheme = value; }
 
     /**
@@ -476,49 +533,56 @@ namespace Model
 
     /**
      * <p>The stack's default Availability Zone. For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline const Aws::String& GetDefaultAvailabilityZone() const{ return m_defaultAvailabilityZone; }
 
     /**
      * <p>The stack's default Availability Zone. For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * Endpoints</a>.</p>
+     */
+    inline bool DefaultAvailabilityZoneHasBeenSet() const { return m_defaultAvailabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The stack's default Availability Zone. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline void SetDefaultAvailabilityZone(const Aws::String& value) { m_defaultAvailabilityZoneHasBeenSet = true; m_defaultAvailabilityZone = value; }
 
     /**
      * <p>The stack's default Availability Zone. For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline void SetDefaultAvailabilityZone(Aws::String&& value) { m_defaultAvailabilityZoneHasBeenSet = true; m_defaultAvailabilityZone = std::move(value); }
 
     /**
      * <p>The stack's default Availability Zone. For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline void SetDefaultAvailabilityZone(const char* value) { m_defaultAvailabilityZoneHasBeenSet = true; m_defaultAvailabilityZone.assign(value); }
 
     /**
      * <p>The stack's default Availability Zone. For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline Stack& WithDefaultAvailabilityZone(const Aws::String& value) { SetDefaultAvailabilityZone(value); return *this;}
 
     /**
      * <p>The stack's default Availability Zone. For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline Stack& WithDefaultAvailabilityZone(Aws::String&& value) { SetDefaultAvailabilityZone(std::move(value)); return *this;}
 
     /**
      * <p>The stack's default Availability Zone. For more information, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and
      * Endpoints</a>.</p>
      */
     inline Stack& WithDefaultAvailabilityZone(const char* value) { SetDefaultAvailabilityZone(value); return *this;}
@@ -528,6 +592,11 @@ namespace Model
      * <p>The default subnet ID; applicable only if the stack is running in a VPC.</p>
      */
     inline const Aws::String& GetDefaultSubnetId() const{ return m_defaultSubnetId; }
+
+    /**
+     * <p>The default subnet ID; applicable only if the stack is running in a VPC.</p>
+     */
+    inline bool DefaultSubnetIdHasBeenSet() const { return m_defaultSubnetIdHasBeenSet; }
 
     /**
      * <p>The default subnet ID; applicable only if the stack is running in a VPC.</p>
@@ -567,7 +636,7 @@ namespace Model
      * recipes. The string should be in the following format:</p> <p> <code>"{\"key1\":
      * \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more information on
      * custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline const Aws::String& GetCustomJson() const{ return m_customJson; }
@@ -579,7 +648,19 @@ namespace Model
      * recipes. The string should be in the following format:</p> <p> <code>"{\"key1\":
      * \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more information on
      * custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
+     */
+    inline bool CustomJsonHasBeenSet() const { return m_customJsonHasBeenSet; }
+
+    /**
+     * <p>A JSON object that contains user-defined attributes to be added to the stack
+     * configuration and deployment attributes. You can use custom JSON to override the
+     * corresponding default stack configuration attribute values or to pass data to
+     * recipes. The string should be in the following format:</p> <p> <code>"{\"key1\":
+     * \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more information on
+     * custom JSON, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline void SetCustomJson(const Aws::String& value) { m_customJsonHasBeenSet = true; m_customJson = value; }
@@ -591,7 +672,7 @@ namespace Model
      * recipes. The string should be in the following format:</p> <p> <code>"{\"key1\":
      * \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more information on
      * custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline void SetCustomJson(Aws::String&& value) { m_customJsonHasBeenSet = true; m_customJson = std::move(value); }
@@ -603,7 +684,7 @@ namespace Model
      * recipes. The string should be in the following format:</p> <p> <code>"{\"key1\":
      * \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more information on
      * custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline void SetCustomJson(const char* value) { m_customJsonHasBeenSet = true; m_customJson.assign(value); }
@@ -615,7 +696,7 @@ namespace Model
      * recipes. The string should be in the following format:</p> <p> <code>"{\"key1\":
      * \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more information on
      * custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline Stack& WithCustomJson(const Aws::String& value) { SetCustomJson(value); return *this;}
@@ -627,7 +708,7 @@ namespace Model
      * recipes. The string should be in the following format:</p> <p> <code>"{\"key1\":
      * \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more information on
      * custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline Stack& WithCustomJson(Aws::String&& value) { SetCustomJson(std::move(value)); return *this;}
@@ -639,7 +720,7 @@ namespace Model
      * recipes. The string should be in the following format:</p> <p> <code>"{\"key1\":
      * \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more information on
      * custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline Stack& WithCustomJson(const char* value) { SetCustomJson(value); return *this;}
@@ -649,6 +730,11 @@ namespace Model
      * <p>The configuration manager.</p>
      */
     inline const StackConfigurationManager& GetConfigurationManager() const{ return m_configurationManager; }
+
+    /**
+     * <p>The configuration manager.</p>
+     */
+    inline bool ConfigurationManagerHasBeenSet() const { return m_configurationManagerHasBeenSet; }
 
     /**
      * <p>The configuration manager.</p>
@@ -674,7 +760,7 @@ namespace Model
     /**
      * <p>A <code>ChefConfiguration</code> object that specifies whether to enable
      * Berkshelf and the Berkshelf version. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
      * a New Stack</a>.</p>
      */
     inline const ChefConfiguration& GetChefConfiguration() const{ return m_chefConfiguration; }
@@ -682,7 +768,15 @@ namespace Model
     /**
      * <p>A <code>ChefConfiguration</code> object that specifies whether to enable
      * Berkshelf and the Berkshelf version. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
+     * a New Stack</a>.</p>
+     */
+    inline bool ChefConfigurationHasBeenSet() const { return m_chefConfigurationHasBeenSet; }
+
+    /**
+     * <p>A <code>ChefConfiguration</code> object that specifies whether to enable
+     * Berkshelf and the Berkshelf version. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
      * a New Stack</a>.</p>
      */
     inline void SetChefConfiguration(const ChefConfiguration& value) { m_chefConfigurationHasBeenSet = true; m_chefConfiguration = value; }
@@ -690,7 +784,7 @@ namespace Model
     /**
      * <p>A <code>ChefConfiguration</code> object that specifies whether to enable
      * Berkshelf and the Berkshelf version. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
      * a New Stack</a>.</p>
      */
     inline void SetChefConfiguration(ChefConfiguration&& value) { m_chefConfigurationHasBeenSet = true; m_chefConfiguration = std::move(value); }
@@ -698,7 +792,7 @@ namespace Model
     /**
      * <p>A <code>ChefConfiguration</code> object that specifies whether to enable
      * Berkshelf and the Berkshelf version. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
      * a New Stack</a>.</p>
      */
     inline Stack& WithChefConfiguration(const ChefConfiguration& value) { SetChefConfiguration(value); return *this;}
@@ -706,7 +800,7 @@ namespace Model
     /**
      * <p>A <code>ChefConfiguration</code> object that specifies whether to enable
      * Berkshelf and the Berkshelf version. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html">Create
      * a New Stack</a>.</p>
      */
     inline Stack& WithChefConfiguration(ChefConfiguration&& value) { SetChefConfiguration(std::move(value)); return *this;}
@@ -716,6 +810,11 @@ namespace Model
      * <p>Whether the stack uses custom cookbooks.</p>
      */
     inline bool GetUseCustomCookbooks() const{ return m_useCustomCookbooks; }
+
+    /**
+     * <p>Whether the stack uses custom cookbooks.</p>
+     */
+    inline bool UseCustomCookbooksHasBeenSet() const { return m_useCustomCookbooksHasBeenSet; }
 
     /**
      * <p>Whether the stack uses custom cookbooks.</p>
@@ -738,6 +837,12 @@ namespace Model
      * <p>Whether the stack automatically associates the AWS OpsWorks Stacks built-in
      * security groups with the stack's layers.</p>
      */
+    inline bool UseOpsworksSecurityGroupsHasBeenSet() const { return m_useOpsworksSecurityGroupsHasBeenSet; }
+
+    /**
+     * <p>Whether the stack automatically associates the AWS OpsWorks Stacks built-in
+     * security groups with the stack's layers.</p>
+     */
     inline void SetUseOpsworksSecurityGroups(bool value) { m_useOpsworksSecurityGroupsHasBeenSet = true; m_useOpsworksSecurityGroups = value; }
 
     /**
@@ -747,19 +852,64 @@ namespace Model
     inline Stack& WithUseOpsworksSecurityGroups(bool value) { SetUseOpsworksSecurityGroups(value); return *this;}
 
 
-    
+    /**
+     * <p>Contains the information required to retrieve an app or cookbook from a
+     * repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html">Adding
+     * Apps</a> or <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html">Cookbooks
+     * and Recipes</a>.</p>
+     */
     inline const Source& GetCustomCookbooksSource() const{ return m_customCookbooksSource; }
 
-    
+    /**
+     * <p>Contains the information required to retrieve an app or cookbook from a
+     * repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html">Adding
+     * Apps</a> or <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html">Cookbooks
+     * and Recipes</a>.</p>
+     */
+    inline bool CustomCookbooksSourceHasBeenSet() const { return m_customCookbooksSourceHasBeenSet; }
+
+    /**
+     * <p>Contains the information required to retrieve an app or cookbook from a
+     * repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html">Adding
+     * Apps</a> or <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html">Cookbooks
+     * and Recipes</a>.</p>
+     */
     inline void SetCustomCookbooksSource(const Source& value) { m_customCookbooksSourceHasBeenSet = true; m_customCookbooksSource = value; }
 
-    
+    /**
+     * <p>Contains the information required to retrieve an app or cookbook from a
+     * repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html">Adding
+     * Apps</a> or <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html">Cookbooks
+     * and Recipes</a>.</p>
+     */
     inline void SetCustomCookbooksSource(Source&& value) { m_customCookbooksSourceHasBeenSet = true; m_customCookbooksSource = std::move(value); }
 
-    
+    /**
+     * <p>Contains the information required to retrieve an app or cookbook from a
+     * repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html">Adding
+     * Apps</a> or <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html">Cookbooks
+     * and Recipes</a>.</p>
+     */
     inline Stack& WithCustomCookbooksSource(const Source& value) { SetCustomCookbooksSource(value); return *this;}
 
-    
+    /**
+     * <p>Contains the information required to retrieve an app or cookbook from a
+     * repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html">Adding
+     * Apps</a> or <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html">Cookbooks
+     * and Recipes</a>.</p>
+     */
     inline Stack& WithCustomCookbooksSource(Source&& value) { SetCustomCookbooksSource(std::move(value)); return *this;}
 
 
@@ -768,6 +918,12 @@ namespace Model
      * this value when you create or update an instance.</p>
      */
     inline const Aws::String& GetDefaultSshKeyName() const{ return m_defaultSshKeyName; }
+
+    /**
+     * <p>A default Amazon EC2 key pair for the stack's instances. You can override
+     * this value when you create or update an instance.</p>
+     */
+    inline bool DefaultSshKeyNameHasBeenSet() const { return m_defaultSshKeyNameHasBeenSet; }
 
     /**
      * <p>A default Amazon EC2 key pair for the stack's instances. You can override
@@ -814,6 +970,11 @@ namespace Model
     /**
      * <p>The date when the stack was created.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The date when the stack was created.</p>
+     */
     inline void SetCreatedAt(const Aws::String& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -846,7 +1007,7 @@ namespace Model
      * <p>The default root device type. This value is used by default for all instances
      * in the stack, but you can override it when you create an instance. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
      * for the Root Device</a>.</p>
      */
     inline const RootDeviceType& GetDefaultRootDeviceType() const{ return m_defaultRootDeviceType; }
@@ -855,7 +1016,16 @@ namespace Model
      * <p>The default root device type. This value is used by default for all instances
      * in the stack, but you can override it when you create an instance. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
+     * for the Root Device</a>.</p>
+     */
+    inline bool DefaultRootDeviceTypeHasBeenSet() const { return m_defaultRootDeviceTypeHasBeenSet; }
+
+    /**
+     * <p>The default root device type. This value is used by default for all instances
+     * in the stack, but you can override it when you create an instance. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
      * for the Root Device</a>.</p>
      */
     inline void SetDefaultRootDeviceType(const RootDeviceType& value) { m_defaultRootDeviceTypeHasBeenSet = true; m_defaultRootDeviceType = value; }
@@ -864,7 +1034,7 @@ namespace Model
      * <p>The default root device type. This value is used by default for all instances
      * in the stack, but you can override it when you create an instance. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
      * for the Root Device</a>.</p>
      */
     inline void SetDefaultRootDeviceType(RootDeviceType&& value) { m_defaultRootDeviceTypeHasBeenSet = true; m_defaultRootDeviceType = std::move(value); }
@@ -873,7 +1043,7 @@ namespace Model
      * <p>The default root device type. This value is used by default for all instances
      * in the stack, but you can override it when you create an instance. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
      * for the Root Device</a>.</p>
      */
     inline Stack& WithDefaultRootDeviceType(const RootDeviceType& value) { SetDefaultRootDeviceType(value); return *this;}
@@ -882,7 +1052,7 @@ namespace Model
      * <p>The default root device type. This value is used by default for all instances
      * in the stack, but you can override it when you create an instance. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
      * for the Root Device</a>.</p>
      */
     inline Stack& WithDefaultRootDeviceType(RootDeviceType&& value) { SetDefaultRootDeviceType(std::move(value)); return *this;}
@@ -893,6 +1063,12 @@ namespace Model
      * auto-update. or a version number for a fixed agent version.</p>
      */
     inline const Aws::String& GetAgentVersion() const{ return m_agentVersion; }
+
+    /**
+     * <p>The agent version. This parameter is set to <code>LATEST</code> for
+     * auto-update. or a version number for a fixed agent version.</p>
+     */
+    inline bool AgentVersionHasBeenSet() const { return m_agentVersionHasBeenSet; }
 
     /**
      * <p>The agent version. This parameter is set to <code>LATEST</code> for

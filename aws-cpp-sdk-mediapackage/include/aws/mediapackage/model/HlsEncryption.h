@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaPackage
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     HlsEncryption();
-    HlsEncryption(const Aws::Utils::Json::JsonValue& jsonValue);
-    HlsEncryption& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HlsEncryption(Aws::Utils::Json::JsonView jsonValue);
+    HlsEncryption& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,14 @@ When not specified
 
      */
     inline const Aws::String& GetConstantInitializationVector() const{ return m_constantInitializationVector; }
+
+    /**
+     * A constant initialization vector for encryption (optional).
+When not specified
+     * the initialization vector will be periodically rotated.
+
+     */
+    inline bool ConstantInitializationVectorHasBeenSet() const { return m_constantInitializationVectorHasBeenSet; }
 
     /**
      * A constant initialization vector for encryption (optional).
@@ -113,6 +122,11 @@ When not specified
     /**
      * The encryption method to use.
      */
+    inline bool EncryptionMethodHasBeenSet() const { return m_encryptionMethodHasBeenSet; }
+
+    /**
+     * The encryption method to use.
+     */
     inline void SetEncryptionMethod(const EncryptionMethod& value) { m_encryptionMethodHasBeenSet = true; m_encryptionMethod = value; }
 
     /**
@@ -139,6 +153,11 @@ When not specified
     /**
      * Interval (in seconds) between each encryption key rotation.
      */
+    inline bool KeyRotationIntervalSecondsHasBeenSet() const { return m_keyRotationIntervalSecondsHasBeenSet; }
+
+    /**
+     * Interval (in seconds) between each encryption key rotation.
+     */
     inline void SetKeyRotationIntervalSeconds(int value) { m_keyRotationIntervalSecondsHasBeenSet = true; m_keyRotationIntervalSeconds = value; }
 
     /**
@@ -155,6 +174,11 @@ When not specified
     /**
      * When enabled, the EXT-X-KEY tag will be repeated in output manifests.
      */
+    inline bool RepeatExtXKeyHasBeenSet() const { return m_repeatExtXKeyHasBeenSet; }
+
+    /**
+     * When enabled, the EXT-X-KEY tag will be repeated in output manifests.
+     */
     inline void SetRepeatExtXKey(bool value) { m_repeatExtXKeyHasBeenSet = true; m_repeatExtXKey = value; }
 
     /**
@@ -165,6 +189,9 @@ When not specified
 
     
     inline const SpekeKeyProvider& GetSpekeKeyProvider() const{ return m_spekeKeyProvider; }
+
+    
+    inline bool SpekeKeyProviderHasBeenSet() const { return m_spekeKeyProviderHasBeenSet; }
 
     
     inline void SetSpekeKeyProvider(const SpekeKeyProvider& value) { m_spekeKeyProviderHasBeenSet = true; m_spekeKeyProvider = value; }

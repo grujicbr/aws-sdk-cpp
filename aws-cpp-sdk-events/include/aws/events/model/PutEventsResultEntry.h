@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchEvents
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PutEventsResultEntry();
-    PutEventsResultEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    PutEventsResultEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PutEventsResultEntry(Aws::Utils::Json::JsonView jsonValue);
+    PutEventsResultEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID of the event.</p>
      */
     inline const Aws::String& GetEventId() const{ return m_eventId; }
+
+    /**
+     * <p>The ID of the event.</p>
+     */
+    inline bool EventIdHasBeenSet() const { return m_eventIdHasBeenSet; }
 
     /**
      * <p>The ID of the event.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The error code that indicates why the event submission failed.</p>
      */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
+
+    /**
+     * <p>The error code that indicates why the event submission failed.</p>
+     */
     inline void SetErrorCode(const Aws::String& value) { m_errorCodeHasBeenSet = true; m_errorCode = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The error message that explains why the event submission failed.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The error message that explains why the event submission failed.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The error message that explains why the event submission failed.</p>

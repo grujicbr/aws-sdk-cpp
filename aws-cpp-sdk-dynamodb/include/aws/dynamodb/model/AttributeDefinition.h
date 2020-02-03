@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AttributeDefinition();
-    AttributeDefinition(const Aws::Utils::Json::JsonValue& jsonValue);
-    AttributeDefinition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AttributeDefinition(Aws::Utils::Json::JsonView jsonValue);
+    AttributeDefinition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A name for the attribute.</p>
      */
     inline const Aws::String& GetAttributeName() const{ return m_attributeName; }
+
+    /**
+     * <p>A name for the attribute.</p>
+     */
+    inline bool AttributeNameHasBeenSet() const { return m_attributeNameHasBeenSet; }
 
     /**
      * <p>A name for the attribute.</p>
@@ -91,6 +97,14 @@ namespace Model
      * of type Binary</p> </li> </ul>
      */
     inline const ScalarAttributeType& GetAttributeType() const{ return m_attributeType; }
+
+    /**
+     * <p>The data type for the attribute, where:</p> <ul> <li> <p> <code>S</code> -
+     * the attribute is of type String</p> </li> <li> <p> <code>N</code> - the
+     * attribute is of type Number</p> </li> <li> <p> <code>B</code> - the attribute is
+     * of type Binary</p> </li> </ul>
+     */
+    inline bool AttributeTypeHasBeenSet() const { return m_attributeTypeHasBeenSet; }
 
     /**
      * <p>The data type for the attribute, where:</p> <ul> <li> <p> <code>S</code> -

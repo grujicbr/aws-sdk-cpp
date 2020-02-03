@@ -38,11 +38,12 @@ DataSource::DataSource() :
     m_dynamodbConfigHasBeenSet(false),
     m_lambdaConfigHasBeenSet(false),
     m_elasticsearchConfigHasBeenSet(false),
-    m_httpConfigHasBeenSet(false)
+    m_httpConfigHasBeenSet(false),
+    m_relationalDatabaseConfigHasBeenSet(false)
 {
 }
 
-DataSource::DataSource(const JsonValue& jsonValue) : 
+DataSource::DataSource(JsonView jsonValue) : 
     m_dataSourceArnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -52,12 +53,13 @@ DataSource::DataSource(const JsonValue& jsonValue) :
     m_dynamodbConfigHasBeenSet(false),
     m_lambdaConfigHasBeenSet(false),
     m_elasticsearchConfigHasBeenSet(false),
-    m_httpConfigHasBeenSet(false)
+    m_httpConfigHasBeenSet(false),
+    m_relationalDatabaseConfigHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DataSource& DataSource::operator =(const JsonValue& jsonValue)
+DataSource& DataSource::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("dataSourceArn"))
   {
@@ -122,6 +124,13 @@ DataSource& DataSource::operator =(const JsonValue& jsonValue)
     m_httpConfigHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("relationalDatabaseConfig"))
+  {
+    m_relationalDatabaseConfig = jsonValue.GetObject("relationalDatabaseConfig");
+
+    m_relationalDatabaseConfigHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -179,6 +188,12 @@ JsonValue DataSource::Jsonize() const
   if(m_httpConfigHasBeenSet)
   {
    payload.WithObject("httpConfig", m_httpConfig.Jsonize());
+
+  }
+
+  if(m_relationalDatabaseConfigHasBeenSet)
+  {
+   payload.WithObject("relationalDatabaseConfig", m_relationalDatabaseConfig.Jsonize());
 
   }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AutoScalingPolicyStateChangeReason();
-    AutoScalingPolicyStateChangeReason(const Aws::Utils::Json::JsonValue& jsonValue);
-    AutoScalingPolicyStateChangeReason& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AutoScalingPolicyStateChangeReason(Aws::Utils::Json::JsonView jsonValue);
+    AutoScalingPolicyStateChangeReason& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,15 @@ namespace Model
      * indicates an error.</p>
      */
     inline const AutoScalingPolicyStateChangeReasonCode& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The code indicating the reason for the change in
+     * status.<code>USER_REQUEST</code> indicates that the scaling policy status was
+     * changed by a user. <code>PROVISION_FAILURE</code> indicates that the status
+     * change was because the policy failed to provision. <code>CLEANUP_FAILURE</code>
+     * indicates an error.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The code indicating the reason for the change in
@@ -99,6 +109,12 @@ namespace Model
      * state change.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>A friendly, more verbose message that accompanies an automatic scaling policy
+     * state change.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>A friendly, more verbose message that accompanies an automatic scaling policy

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Region();
-    Region(const Aws::Utils::Json::JsonValue& jsonValue);
-    Region& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Region(Aws::Utils::Json::JsonView jsonValue);
+    Region& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The continent code (e.g., <code>NA</code>, meaning North America).</p>
      */
     inline const Aws::String& GetContinentCode() const{ return m_continentCode; }
+
+    /**
+     * <p>The continent code (e.g., <code>NA</code>, meaning North America).</p>
+     */
+    inline bool ContinentCodeHasBeenSet() const { return m_continentCodeHasBeenSet; }
 
     /**
      * <p>The continent code (e.g., <code>NA</code>, meaning North America).</p>
@@ -90,6 +96,12 @@ namespace Model
      * serve users in the eastern United States and eastern Canada</code>).</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the AWS Region (e.g., <code>This region is recommended to
+     * serve users in the eastern United States and eastern Canada</code>).</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the AWS Region (e.g., <code>This region is recommended to
@@ -136,6 +148,11 @@ namespace Model
     /**
      * <p>The display name (e.g., <code>Ohio</code>).</p>
      */
+    inline bool DisplayNameHasBeenSet() const { return m_displayNameHasBeenSet; }
+
+    /**
+     * <p>The display name (e.g., <code>Ohio</code>).</p>
+     */
     inline void SetDisplayName(const Aws::String& value) { m_displayNameHasBeenSet = true; m_displayName = value; }
 
     /**
@@ -172,6 +189,11 @@ namespace Model
     /**
      * <p>The region name (e.g., <code>us-east-2</code>).</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The region name (e.g., <code>us-east-2</code>).</p>
+     */
     inline void SetName(const RegionName& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -195,6 +217,12 @@ namespace Model
      * (case-sensitive).</p>
      */
     inline const Aws::Vector<AvailabilityZone>& GetAvailabilityZones() const{ return m_availabilityZones; }
+
+    /**
+     * <p>The Availability Zones. Follows the format <code>us-east-2a</code>
+     * (case-sensitive).</p>
+     */
+    inline bool AvailabilityZonesHasBeenSet() const { return m_availabilityZonesHasBeenSet; }
 
     /**
      * <p>The Availability Zones. Follows the format <code>us-east-2a</code>
@@ -232,6 +260,55 @@ namespace Model
      */
     inline Region& AddAvailabilityZones(AvailabilityZone&& value) { m_availabilityZonesHasBeenSet = true; m_availabilityZones.push_back(std::move(value)); return *this; }
 
+
+    /**
+     * <p>The Availability Zones for databases. Follows the format
+     * <code>us-east-2a</code> (case-sensitive).</p>
+     */
+    inline const Aws::Vector<AvailabilityZone>& GetRelationalDatabaseAvailabilityZones() const{ return m_relationalDatabaseAvailabilityZones; }
+
+    /**
+     * <p>The Availability Zones for databases. Follows the format
+     * <code>us-east-2a</code> (case-sensitive).</p>
+     */
+    inline bool RelationalDatabaseAvailabilityZonesHasBeenSet() const { return m_relationalDatabaseAvailabilityZonesHasBeenSet; }
+
+    /**
+     * <p>The Availability Zones for databases. Follows the format
+     * <code>us-east-2a</code> (case-sensitive).</p>
+     */
+    inline void SetRelationalDatabaseAvailabilityZones(const Aws::Vector<AvailabilityZone>& value) { m_relationalDatabaseAvailabilityZonesHasBeenSet = true; m_relationalDatabaseAvailabilityZones = value; }
+
+    /**
+     * <p>The Availability Zones for databases. Follows the format
+     * <code>us-east-2a</code> (case-sensitive).</p>
+     */
+    inline void SetRelationalDatabaseAvailabilityZones(Aws::Vector<AvailabilityZone>&& value) { m_relationalDatabaseAvailabilityZonesHasBeenSet = true; m_relationalDatabaseAvailabilityZones = std::move(value); }
+
+    /**
+     * <p>The Availability Zones for databases. Follows the format
+     * <code>us-east-2a</code> (case-sensitive).</p>
+     */
+    inline Region& WithRelationalDatabaseAvailabilityZones(const Aws::Vector<AvailabilityZone>& value) { SetRelationalDatabaseAvailabilityZones(value); return *this;}
+
+    /**
+     * <p>The Availability Zones for databases. Follows the format
+     * <code>us-east-2a</code> (case-sensitive).</p>
+     */
+    inline Region& WithRelationalDatabaseAvailabilityZones(Aws::Vector<AvailabilityZone>&& value) { SetRelationalDatabaseAvailabilityZones(std::move(value)); return *this;}
+
+    /**
+     * <p>The Availability Zones for databases. Follows the format
+     * <code>us-east-2a</code> (case-sensitive).</p>
+     */
+    inline Region& AddRelationalDatabaseAvailabilityZones(const AvailabilityZone& value) { m_relationalDatabaseAvailabilityZonesHasBeenSet = true; m_relationalDatabaseAvailabilityZones.push_back(value); return *this; }
+
+    /**
+     * <p>The Availability Zones for databases. Follows the format
+     * <code>us-east-2a</code> (case-sensitive).</p>
+     */
+    inline Region& AddRelationalDatabaseAvailabilityZones(AvailabilityZone&& value) { m_relationalDatabaseAvailabilityZonesHasBeenSet = true; m_relationalDatabaseAvailabilityZones.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::String m_continentCode;
@@ -248,6 +325,9 @@ namespace Model
 
     Aws::Vector<AvailabilityZone> m_availabilityZones;
     bool m_availabilityZonesHasBeenSet;
+
+    Aws::Vector<AvailabilityZone> m_relationalDatabaseAvailabilityZones;
+    bool m_relationalDatabaseAvailabilityZonesHasBeenSet;
   };
 
 } // namespace Model

@@ -40,11 +40,13 @@ KeyPhrasesDetectionJobProperties::KeyPhrasesDetectionJobProperties() :
     m_outputDataConfigHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
-    m_dataAccessRoleArnHasBeenSet(false)
+    m_dataAccessRoleArnHasBeenSet(false),
+    m_volumeKmsKeyIdHasBeenSet(false),
+    m_vpcConfigHasBeenSet(false)
 {
 }
 
-KeyPhrasesDetectionJobProperties::KeyPhrasesDetectionJobProperties(const JsonValue& jsonValue) : 
+KeyPhrasesDetectionJobProperties::KeyPhrasesDetectionJobProperties(JsonView jsonValue) : 
     m_jobIdHasBeenSet(false),
     m_jobNameHasBeenSet(false),
     m_jobStatus(JobStatus::NOT_SET),
@@ -56,12 +58,14 @@ KeyPhrasesDetectionJobProperties::KeyPhrasesDetectionJobProperties(const JsonVal
     m_outputDataConfigHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
-    m_dataAccessRoleArnHasBeenSet(false)
+    m_dataAccessRoleArnHasBeenSet(false),
+    m_volumeKmsKeyIdHasBeenSet(false),
+    m_vpcConfigHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-KeyPhrasesDetectionJobProperties& KeyPhrasesDetectionJobProperties::operator =(const JsonValue& jsonValue)
+KeyPhrasesDetectionJobProperties& KeyPhrasesDetectionJobProperties::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("JobId"))
   {
@@ -133,6 +137,20 @@ KeyPhrasesDetectionJobProperties& KeyPhrasesDetectionJobProperties::operator =(c
     m_dataAccessRoleArnHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("VolumeKmsKeyId"))
+  {
+    m_volumeKmsKeyId = jsonValue.GetString("VolumeKmsKeyId");
+
+    m_volumeKmsKeyIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("VpcConfig"))
+  {
+    m_vpcConfig = jsonValue.GetObject("VpcConfig");
+
+    m_vpcConfigHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -193,6 +211,18 @@ JsonValue KeyPhrasesDetectionJobProperties::Jsonize() const
   if(m_dataAccessRoleArnHasBeenSet)
   {
    payload.WithString("DataAccessRoleArn", m_dataAccessRoleArn);
+
+  }
+
+  if(m_volumeKmsKeyIdHasBeenSet)
+  {
+   payload.WithString("VolumeKmsKeyId", m_volumeKmsKeyId);
+
+  }
+
+  if(m_vpcConfigHasBeenSet)
+  {
+   payload.WithObject("VpcConfig", m_vpcConfig.Jsonize());
 
   }
 

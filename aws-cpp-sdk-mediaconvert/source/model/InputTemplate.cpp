@@ -32,6 +32,7 @@ InputTemplate::InputTemplate() :
     m_audioSelectorGroupsHasBeenSet(false),
     m_audioSelectorsHasBeenSet(false),
     m_captionSelectorsHasBeenSet(false),
+    m_cropHasBeenSet(false),
     m_deblockFilter(InputDeblockFilter::NOT_SET),
     m_deblockFilterHasBeenSet(false),
     m_denoiseFilter(InputDenoiseFilter::NOT_SET),
@@ -40,21 +41,25 @@ InputTemplate::InputTemplate() :
     m_filterEnableHasBeenSet(false),
     m_filterStrength(0),
     m_filterStrengthHasBeenSet(false),
+    m_imageInserterHasBeenSet(false),
     m_inputClippingsHasBeenSet(false),
+    m_positionHasBeenSet(false),
     m_programNumber(0),
     m_programNumberHasBeenSet(false),
     m_psiControl(InputPsiControl::NOT_SET),
     m_psiControlHasBeenSet(false),
     m_timecodeSource(InputTimecodeSource::NOT_SET),
     m_timecodeSourceHasBeenSet(false),
+    m_timecodeStartHasBeenSet(false),
     m_videoSelectorHasBeenSet(false)
 {
 }
 
-InputTemplate::InputTemplate(const JsonValue& jsonValue) : 
+InputTemplate::InputTemplate(JsonView jsonValue) : 
     m_audioSelectorGroupsHasBeenSet(false),
     m_audioSelectorsHasBeenSet(false),
     m_captionSelectorsHasBeenSet(false),
+    m_cropHasBeenSet(false),
     m_deblockFilter(InputDeblockFilter::NOT_SET),
     m_deblockFilterHasBeenSet(false),
     m_denoiseFilter(InputDenoiseFilter::NOT_SET),
@@ -63,23 +68,26 @@ InputTemplate::InputTemplate(const JsonValue& jsonValue) :
     m_filterEnableHasBeenSet(false),
     m_filterStrength(0),
     m_filterStrengthHasBeenSet(false),
+    m_imageInserterHasBeenSet(false),
     m_inputClippingsHasBeenSet(false),
+    m_positionHasBeenSet(false),
     m_programNumber(0),
     m_programNumberHasBeenSet(false),
     m_psiControl(InputPsiControl::NOT_SET),
     m_psiControlHasBeenSet(false),
     m_timecodeSource(InputTimecodeSource::NOT_SET),
     m_timecodeSourceHasBeenSet(false),
+    m_timecodeStartHasBeenSet(false),
     m_videoSelectorHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-InputTemplate& InputTemplate::operator =(const JsonValue& jsonValue)
+InputTemplate& InputTemplate::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("audioSelectorGroups"))
   {
-    Aws::Map<Aws::String, JsonValue> audioSelectorGroupsJsonMap = jsonValue.GetObject("audioSelectorGroups").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> audioSelectorGroupsJsonMap = jsonValue.GetObject("audioSelectorGroups").GetAllObjects();
     for(auto& audioSelectorGroupsItem : audioSelectorGroupsJsonMap)
     {
       m_audioSelectorGroups[audioSelectorGroupsItem.first] = audioSelectorGroupsItem.second.AsObject();
@@ -89,7 +97,7 @@ InputTemplate& InputTemplate::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("audioSelectors"))
   {
-    Aws::Map<Aws::String, JsonValue> audioSelectorsJsonMap = jsonValue.GetObject("audioSelectors").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> audioSelectorsJsonMap = jsonValue.GetObject("audioSelectors").GetAllObjects();
     for(auto& audioSelectorsItem : audioSelectorsJsonMap)
     {
       m_audioSelectors[audioSelectorsItem.first] = audioSelectorsItem.second.AsObject();
@@ -99,12 +107,19 @@ InputTemplate& InputTemplate::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("captionSelectors"))
   {
-    Aws::Map<Aws::String, JsonValue> captionSelectorsJsonMap = jsonValue.GetObject("captionSelectors").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> captionSelectorsJsonMap = jsonValue.GetObject("captionSelectors").GetAllObjects();
     for(auto& captionSelectorsItem : captionSelectorsJsonMap)
     {
       m_captionSelectors[captionSelectorsItem.first] = captionSelectorsItem.second.AsObject();
     }
     m_captionSelectorsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("crop"))
+  {
+    m_crop = jsonValue.GetObject("crop");
+
+    m_cropHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("deblockFilter"))
@@ -135,14 +150,28 @@ InputTemplate& InputTemplate::operator =(const JsonValue& jsonValue)
     m_filterStrengthHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("imageInserter"))
+  {
+    m_imageInserter = jsonValue.GetObject("imageInserter");
+
+    m_imageInserterHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("inputClippings"))
   {
-    Array<JsonValue> inputClippingsJsonList = jsonValue.GetArray("inputClippings");
+    Array<JsonView> inputClippingsJsonList = jsonValue.GetArray("inputClippings");
     for(unsigned inputClippingsIndex = 0; inputClippingsIndex < inputClippingsJsonList.GetLength(); ++inputClippingsIndex)
     {
       m_inputClippings.push_back(inputClippingsJsonList[inputClippingsIndex].AsObject());
     }
     m_inputClippingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("position"))
+  {
+    m_position = jsonValue.GetObject("position");
+
+    m_positionHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("programNumber"))
@@ -164,6 +193,13 @@ InputTemplate& InputTemplate::operator =(const JsonValue& jsonValue)
     m_timecodeSource = InputTimecodeSourceMapper::GetInputTimecodeSourceForName(jsonValue.GetString("timecodeSource"));
 
     m_timecodeSourceHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("timecodeStart"))
+  {
+    m_timecodeStart = jsonValue.GetString("timecodeStart");
+
+    m_timecodeStartHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("videoSelector"))
@@ -213,6 +249,12 @@ JsonValue InputTemplate::Jsonize() const
 
   }
 
+  if(m_cropHasBeenSet)
+  {
+   payload.WithObject("crop", m_crop.Jsonize());
+
+  }
+
   if(m_deblockFilterHasBeenSet)
   {
    payload.WithString("deblockFilter", InputDeblockFilterMapper::GetNameForInputDeblockFilter(m_deblockFilter));
@@ -234,6 +276,12 @@ JsonValue InputTemplate::Jsonize() const
 
   }
 
+  if(m_imageInserterHasBeenSet)
+  {
+   payload.WithObject("imageInserter", m_imageInserter.Jsonize());
+
+  }
+
   if(m_inputClippingsHasBeenSet)
   {
    Array<JsonValue> inputClippingsJsonList(m_inputClippings.size());
@@ -242,6 +290,12 @@ JsonValue InputTemplate::Jsonize() const
      inputClippingsJsonList[inputClippingsIndex].AsObject(m_inputClippings[inputClippingsIndex].Jsonize());
    }
    payload.WithArray("inputClippings", std::move(inputClippingsJsonList));
+
+  }
+
+  if(m_positionHasBeenSet)
+  {
+   payload.WithObject("position", m_position.Jsonize());
 
   }
 
@@ -259,6 +313,12 @@ JsonValue InputTemplate::Jsonize() const
   if(m_timecodeSourceHasBeenSet)
   {
    payload.WithString("timecodeSource", InputTimecodeSourceMapper::GetNameForInputTimecodeSource(m_timecodeSource));
+  }
+
+  if(m_timecodeStartHasBeenSet)
+  {
+   payload.WithString("timecodeStart", m_timecodeStart);
+
   }
 
   if(m_videoSelectorHasBeenSet)

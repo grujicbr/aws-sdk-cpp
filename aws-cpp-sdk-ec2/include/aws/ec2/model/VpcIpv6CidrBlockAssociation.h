@@ -59,6 +59,11 @@ namespace Model
     /**
      * <p>The association ID for the IPv6 CIDR block.</p>
      */
+    inline bool AssociationIdHasBeenSet() const { return m_associationIdHasBeenSet; }
+
+    /**
+     * <p>The association ID for the IPv6 CIDR block.</p>
+     */
     inline void SetAssociationId(const Aws::String& value) { m_associationIdHasBeenSet = true; m_associationId = value; }
 
     /**
@@ -91,6 +96,11 @@ namespace Model
      * <p>The IPv6 CIDR block.</p>
      */
     inline const Aws::String& GetIpv6CidrBlock() const{ return m_ipv6CidrBlock; }
+
+    /**
+     * <p>The IPv6 CIDR block.</p>
+     */
+    inline bool Ipv6CidrBlockHasBeenSet() const { return m_ipv6CidrBlockHasBeenSet; }
 
     /**
      * <p>The IPv6 CIDR block.</p>
@@ -131,6 +141,11 @@ namespace Model
     /**
      * <p>Information about the state of the CIDR block.</p>
      */
+    inline bool Ipv6CidrBlockStateHasBeenSet() const { return m_ipv6CidrBlockStateHasBeenSet; }
+
+    /**
+     * <p>Information about the state of the CIDR block.</p>
+     */
     inline void SetIpv6CidrBlockState(const VpcCidrBlockState& value) { m_ipv6CidrBlockStateHasBeenSet = true; m_ipv6CidrBlockState = value; }
 
     /**
@@ -148,6 +163,96 @@ namespace Model
      */
     inline VpcIpv6CidrBlockAssociation& WithIpv6CidrBlockState(VpcCidrBlockState&& value) { SetIpv6CidrBlockState(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is
+     * allocated.</p>
+     */
+    inline const Aws::String& GetIpv6Pool() const{ return m_ipv6Pool; }
+
+    /**
+     * <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is
+     * allocated.</p>
+     */
+    inline bool Ipv6PoolHasBeenSet() const { return m_ipv6PoolHasBeenSet; }
+
+    /**
+     * <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is
+     * allocated.</p>
+     */
+    inline void SetIpv6Pool(const Aws::String& value) { m_ipv6PoolHasBeenSet = true; m_ipv6Pool = value; }
+
+    /**
+     * <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is
+     * allocated.</p>
+     */
+    inline void SetIpv6Pool(Aws::String&& value) { m_ipv6PoolHasBeenSet = true; m_ipv6Pool = std::move(value); }
+
+    /**
+     * <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is
+     * allocated.</p>
+     */
+    inline void SetIpv6Pool(const char* value) { m_ipv6PoolHasBeenSet = true; m_ipv6Pool.assign(value); }
+
+    /**
+     * <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is
+     * allocated.</p>
+     */
+    inline VpcIpv6CidrBlockAssociation& WithIpv6Pool(const Aws::String& value) { SetIpv6Pool(value); return *this;}
+
+    /**
+     * <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is
+     * allocated.</p>
+     */
+    inline VpcIpv6CidrBlockAssociation& WithIpv6Pool(Aws::String&& value) { SetIpv6Pool(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is
+     * allocated.</p>
+     */
+    inline VpcIpv6CidrBlockAssociation& WithIpv6Pool(const char* value) { SetIpv6Pool(value); return *this;}
+
+
+    /**
+     * <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
+     */
+    inline const Aws::String& GetNetworkBorderGroup() const{ return m_networkBorderGroup; }
+
+    /**
+     * <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
+     */
+    inline bool NetworkBorderGroupHasBeenSet() const { return m_networkBorderGroupHasBeenSet; }
+
+    /**
+     * <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
+     */
+    inline void SetNetworkBorderGroup(const Aws::String& value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup = value; }
+
+    /**
+     * <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
+     */
+    inline void SetNetworkBorderGroup(Aws::String&& value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup = std::move(value); }
+
+    /**
+     * <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
+     */
+    inline void SetNetworkBorderGroup(const char* value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup.assign(value); }
+
+    /**
+     * <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
+     */
+    inline VpcIpv6CidrBlockAssociation& WithNetworkBorderGroup(const Aws::String& value) { SetNetworkBorderGroup(value); return *this;}
+
+    /**
+     * <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
+     */
+    inline VpcIpv6CidrBlockAssociation& WithNetworkBorderGroup(Aws::String&& value) { SetNetworkBorderGroup(std::move(value)); return *this;}
+
+    /**
+     * <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
+     */
+    inline VpcIpv6CidrBlockAssociation& WithNetworkBorderGroup(const char* value) { SetNetworkBorderGroup(value); return *this;}
+
   private:
 
     Aws::String m_associationId;
@@ -158,6 +263,12 @@ namespace Model
 
     VpcCidrBlockState m_ipv6CidrBlockState;
     bool m_ipv6CidrBlockStateHasBeenSet;
+
+    Aws::String m_ipv6Pool;
+    bool m_ipv6PoolHasBeenSet;
+
+    Aws::String m_networkBorderGroup;
+    bool m_networkBorderGroupHasBeenSet;
   };
 
 } // namespace Model

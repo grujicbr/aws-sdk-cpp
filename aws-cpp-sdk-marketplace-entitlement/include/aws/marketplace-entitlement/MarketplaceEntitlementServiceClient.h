@@ -39,16 +39,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -115,7 +109,7 @@ namespace Model
 
         virtual ~MarketplaceEntitlementServiceClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "aws-marketplace"; }
+        inline virtual const char* GetServiceClientName() const override { return "entitlement.marketplace"; }
 
 
         /**
@@ -150,13 +144,13 @@ namespace Model
         virtual void GetEntitlementsAsync(const Model::GetEntitlementsRequest& request, const GetEntitlementsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void GetEntitlementsAsyncHelper(const Model::GetEntitlementsRequest& request, const GetEntitlementsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

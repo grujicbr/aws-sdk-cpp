@@ -39,7 +39,7 @@ DescribeRuleResult::DescribeRuleResult(const Aws::AmazonWebServiceResult<JsonVal
 
 DescribeRuleResult& DescribeRuleResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("Name"))
   {
     m_name = jsonValue.GetString("Name");
@@ -79,6 +79,18 @@ DescribeRuleResult& DescribeRuleResult::operator =(const Aws::AmazonWebServiceRe
   if(jsonValue.ValueExists("RoleArn"))
   {
     m_roleArn = jsonValue.GetString("RoleArn");
+
+  }
+
+  if(jsonValue.ValueExists("ManagedBy"))
+  {
+    m_managedBy = jsonValue.GetString("ManagedBy");
+
+  }
+
+  if(jsonValue.ValueExists("EventBusName"))
+  {
+    m_eventBusName = jsonValue.GetString("EventBusName");
 
   }
 

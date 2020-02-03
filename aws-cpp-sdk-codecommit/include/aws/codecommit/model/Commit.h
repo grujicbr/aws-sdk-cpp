@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -43,43 +44,48 @@ namespace Model
   {
   public:
     Commit();
-    Commit(const Aws::Utils::Json::JsonValue& jsonValue);
-    Commit& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Commit(Aws::Utils::Json::JsonView jsonValue);
+    Commit& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The full SHA of the specified commit. </p>
+     * <p>The full SHA ID of the specified commit. </p>
      */
     inline const Aws::String& GetCommitId() const{ return m_commitId; }
 
     /**
-     * <p>The full SHA of the specified commit. </p>
+     * <p>The full SHA ID of the specified commit. </p>
+     */
+    inline bool CommitIdHasBeenSet() const { return m_commitIdHasBeenSet; }
+
+    /**
+     * <p>The full SHA ID of the specified commit. </p>
      */
     inline void SetCommitId(const Aws::String& value) { m_commitIdHasBeenSet = true; m_commitId = value; }
 
     /**
-     * <p>The full SHA of the specified commit. </p>
+     * <p>The full SHA ID of the specified commit. </p>
      */
     inline void SetCommitId(Aws::String&& value) { m_commitIdHasBeenSet = true; m_commitId = std::move(value); }
 
     /**
-     * <p>The full SHA of the specified commit. </p>
+     * <p>The full SHA ID of the specified commit. </p>
      */
     inline void SetCommitId(const char* value) { m_commitIdHasBeenSet = true; m_commitId.assign(value); }
 
     /**
-     * <p>The full SHA of the specified commit. </p>
+     * <p>The full SHA ID of the specified commit. </p>
      */
     inline Commit& WithCommitId(const Aws::String& value) { SetCommitId(value); return *this;}
 
     /**
-     * <p>The full SHA of the specified commit. </p>
+     * <p>The full SHA ID of the specified commit. </p>
      */
     inline Commit& WithCommitId(Aws::String&& value) { SetCommitId(std::move(value)); return *this;}
 
     /**
-     * <p>The full SHA of the specified commit. </p>
+     * <p>The full SHA ID of the specified commit. </p>
      */
     inline Commit& WithCommitId(const char* value) { SetCommitId(value); return *this;}
 
@@ -88,6 +94,11 @@ namespace Model
      * <p>Tree information for the specified commit.</p>
      */
     inline const Aws::String& GetTreeId() const{ return m_treeId; }
+
+    /**
+     * <p>Tree information for the specified commit.</p>
+     */
+    inline bool TreeIdHasBeenSet() const { return m_treeIdHasBeenSet; }
 
     /**
      * <p>Tree information for the specified commit.</p>
@@ -125,6 +136,12 @@ namespace Model
      * the full commit ID.</p>
      */
     inline const Aws::Vector<Aws::String>& GetParents() const{ return m_parents; }
+
+    /**
+     * <p>A list of parent commits for the specified commit. Each parent commit ID is
+     * the full commit ID.</p>
+     */
+    inline bool ParentsHasBeenSet() const { return m_parentsHasBeenSet; }
 
     /**
      * <p>A list of parent commits for the specified commit. Each parent commit ID is
@@ -177,6 +194,11 @@ namespace Model
     /**
      * <p>The commit message associated with the specified commit.</p>
      */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
+
+    /**
+     * <p>The commit message associated with the specified commit.</p>
+     */
     inline void SetMessage(const Aws::String& value) { m_messageHasBeenSet = true; m_message = value; }
 
     /**
@@ -211,6 +233,13 @@ namespace Model
      * email address for the author, as configured in Git.</p>
      */
     inline const UserInfo& GetAuthor() const{ return m_author; }
+
+    /**
+     * <p>Information about the author of the specified commit. Information includes
+     * the date in timestamp format with GMT offset, the name of the author, and the
+     * email address for the author, as configured in Git.</p>
+     */
+    inline bool AuthorHasBeenSet() const { return m_authorHasBeenSet; }
 
     /**
      * <p>Information about the author of the specified commit. Information includes
@@ -261,6 +290,17 @@ namespace Model
      * href="http://git-scm.com/book/ch2-3.html">Viewing the Commit History</a> in Pro
      * Git by Scott Chacon and Ben Straub.</p>
      */
+    inline bool CommitterHasBeenSet() const { return m_committerHasBeenSet; }
+
+    /**
+     * <p>Information about the person who committed the specified commit, also known
+     * as the committer. Information includes the date in timestamp format with GMT
+     * offset, the name of the committer, and the email address for the committer, as
+     * configured in Git.</p> <p>For more information about the difference between an
+     * author and a committer in Git, see <a
+     * href="http://git-scm.com/book/ch2-3.html">Viewing the Commit History</a> in Pro
+     * Git by Scott Chacon and Ben Straub.</p>
+     */
     inline void SetCommitter(const UserInfo& value) { m_committerHasBeenSet = true; m_committer = value; }
 
     /**
@@ -298,37 +338,42 @@ namespace Model
 
 
     /**
-     * <p>Any additional data associated with the specified commit.</p>
+     * <p>Any other data associated with the specified commit.</p>
      */
     inline const Aws::String& GetAdditionalData() const{ return m_additionalData; }
 
     /**
-     * <p>Any additional data associated with the specified commit.</p>
+     * <p>Any other data associated with the specified commit.</p>
+     */
+    inline bool AdditionalDataHasBeenSet() const { return m_additionalDataHasBeenSet; }
+
+    /**
+     * <p>Any other data associated with the specified commit.</p>
      */
     inline void SetAdditionalData(const Aws::String& value) { m_additionalDataHasBeenSet = true; m_additionalData = value; }
 
     /**
-     * <p>Any additional data associated with the specified commit.</p>
+     * <p>Any other data associated with the specified commit.</p>
      */
     inline void SetAdditionalData(Aws::String&& value) { m_additionalDataHasBeenSet = true; m_additionalData = std::move(value); }
 
     /**
-     * <p>Any additional data associated with the specified commit.</p>
+     * <p>Any other data associated with the specified commit.</p>
      */
     inline void SetAdditionalData(const char* value) { m_additionalDataHasBeenSet = true; m_additionalData.assign(value); }
 
     /**
-     * <p>Any additional data associated with the specified commit.</p>
+     * <p>Any other data associated with the specified commit.</p>
      */
     inline Commit& WithAdditionalData(const Aws::String& value) { SetAdditionalData(value); return *this;}
 
     /**
-     * <p>Any additional data associated with the specified commit.</p>
+     * <p>Any other data associated with the specified commit.</p>
      */
     inline Commit& WithAdditionalData(Aws::String&& value) { SetAdditionalData(std::move(value)); return *this;}
 
     /**
-     * <p>Any additional data associated with the specified commit.</p>
+     * <p>Any other data associated with the specified commit.</p>
      */
     inline Commit& WithAdditionalData(const char* value) { SetAdditionalData(value); return *this;}
 

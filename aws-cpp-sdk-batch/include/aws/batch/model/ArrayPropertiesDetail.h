@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Batch
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ArrayPropertiesDetail();
-    ArrayPropertiesDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ArrayPropertiesDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ArrayPropertiesDetail(Aws::Utils::Json::JsonView jsonValue);
+    ArrayPropertiesDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * This parameter is returned for parent array jobs.</p>
      */
     inline const Aws::Map<Aws::String, int>& GetStatusSummary() const{ return m_statusSummary; }
+
+    /**
+     * <p>A summary of the number of array job children in each available job status.
+     * This parameter is returned for parent array jobs.</p>
+     */
+    inline bool StatusSummaryHasBeenSet() const { return m_statusSummaryHasBeenSet; }
 
     /**
      * <p>A summary of the number of array job children in each available job status.
@@ -107,6 +114,12 @@ namespace Model
      * <p>The size of the array job. This parameter is returned for parent array
      * jobs.</p>
      */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
+
+    /**
+     * <p>The size of the array job. This parameter is returned for parent array
+     * jobs.</p>
+     */
     inline void SetSize(int value) { m_sizeHasBeenSet = true; m_size = value; }
 
     /**
@@ -121,6 +134,12 @@ namespace Model
      * parameter is returned for array job children.</p>
      */
     inline int GetIndex() const{ return m_index; }
+
+    /**
+     * <p>The job index within the array that is associated with this job. This
+     * parameter is returned for array job children.</p>
+     */
+    inline bool IndexHasBeenSet() const { return m_indexHasBeenSet; }
 
     /**
      * <p>The job index within the array that is associated with this job. This

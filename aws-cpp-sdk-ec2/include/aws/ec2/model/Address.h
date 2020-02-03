@@ -60,6 +60,11 @@ namespace Model
     /**
      * <p>The ID of the instance that the address is associated with (if any).</p>
      */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the instance that the address is associated with (if any).</p>
+     */
     inline void SetInstanceId(const Aws::String& value) { m_instanceIdHasBeenSet = true; m_instanceId = value; }
 
     /**
@@ -92,6 +97,11 @@ namespace Model
      * <p>The Elastic IP address.</p>
      */
     inline const Aws::String& GetPublicIp() const{ return m_publicIp; }
+
+    /**
+     * <p>The Elastic IP address.</p>
+     */
+    inline bool PublicIpHasBeenSet() const { return m_publicIpHasBeenSet; }
 
     /**
      * <p>The Elastic IP address.</p>
@@ -132,6 +142,11 @@ namespace Model
     /**
      * <p>The ID representing the allocation of the address for use with EC2-VPC.</p>
      */
+    inline bool AllocationIdHasBeenSet() const { return m_allocationIdHasBeenSet; }
+
+    /**
+     * <p>The ID representing the allocation of the address for use with EC2-VPC.</p>
+     */
     inline void SetAllocationId(const Aws::String& value) { m_allocationIdHasBeenSet = true; m_allocationId = value; }
 
     /**
@@ -165,6 +180,12 @@ namespace Model
      * VPC.</p>
      */
     inline const Aws::String& GetAssociationId() const{ return m_associationId; }
+
+    /**
+     * <p>The ID representing the association of the address with an instance in a
+     * VPC.</p>
+     */
+    inline bool AssociationIdHasBeenSet() const { return m_associationIdHasBeenSet; }
 
     /**
      * <p>The ID representing the association of the address with an instance in a
@@ -215,6 +236,13 @@ namespace Model
      * EC2-Classic (<code>standard</code>) or instances in a VPC
      * (<code>vpc</code>).</p>
      */
+    inline bool DomainHasBeenSet() const { return m_domainHasBeenSet; }
+
+    /**
+     * <p>Indicates whether this Elastic IP address is for use with instances in
+     * EC2-Classic (<code>standard</code>) or instances in a VPC
+     * (<code>vpc</code>).</p>
+     */
     inline void SetDomain(const DomainType& value) { m_domainHasBeenSet = true; m_domain = value; }
 
     /**
@@ -243,6 +271,11 @@ namespace Model
      * <p>The ID of the network interface.</p>
      */
     inline const Aws::String& GetNetworkInterfaceId() const{ return m_networkInterfaceId; }
+
+    /**
+     * <p>The ID of the network interface.</p>
+     */
+    inline bool NetworkInterfaceIdHasBeenSet() const { return m_networkInterfaceIdHasBeenSet; }
 
     /**
      * <p>The ID of the network interface.</p>
@@ -283,6 +316,11 @@ namespace Model
     /**
      * <p>The ID of the AWS account that owns the network interface.</p>
      */
+    inline bool NetworkInterfaceOwnerIdHasBeenSet() const { return m_networkInterfaceOwnerIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the AWS account that owns the network interface.</p>
+     */
     inline void SetNetworkInterfaceOwnerId(const Aws::String& value) { m_networkInterfaceOwnerIdHasBeenSet = true; m_networkInterfaceOwnerId = value; }
 
     /**
@@ -315,6 +353,11 @@ namespace Model
      * <p>The private IP address associated with the Elastic IP address.</p>
      */
     inline const Aws::String& GetPrivateIpAddress() const{ return m_privateIpAddress; }
+
+    /**
+     * <p>The private IP address associated with the Elastic IP address.</p>
+     */
+    inline bool PrivateIpAddressHasBeenSet() const { return m_privateIpAddressHasBeenSet; }
 
     /**
      * <p>The private IP address associated with the Elastic IP address.</p>
@@ -355,6 +398,11 @@ namespace Model
     /**
      * <p>Any tags assigned to the Elastic IP address.</p>
      */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>Any tags assigned to the Elastic IP address.</p>
+     */
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
     /**
@@ -381,6 +429,170 @@ namespace Model
      * <p>Any tags assigned to the Elastic IP address.</p>
      */
     inline Address& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>The ID of an address pool.</p>
+     */
+    inline const Aws::String& GetPublicIpv4Pool() const{ return m_publicIpv4Pool; }
+
+    /**
+     * <p>The ID of an address pool.</p>
+     */
+    inline bool PublicIpv4PoolHasBeenSet() const { return m_publicIpv4PoolHasBeenSet; }
+
+    /**
+     * <p>The ID of an address pool.</p>
+     */
+    inline void SetPublicIpv4Pool(const Aws::String& value) { m_publicIpv4PoolHasBeenSet = true; m_publicIpv4Pool = value; }
+
+    /**
+     * <p>The ID of an address pool.</p>
+     */
+    inline void SetPublicIpv4Pool(Aws::String&& value) { m_publicIpv4PoolHasBeenSet = true; m_publicIpv4Pool = std::move(value); }
+
+    /**
+     * <p>The ID of an address pool.</p>
+     */
+    inline void SetPublicIpv4Pool(const char* value) { m_publicIpv4PoolHasBeenSet = true; m_publicIpv4Pool.assign(value); }
+
+    /**
+     * <p>The ID of an address pool.</p>
+     */
+    inline Address& WithPublicIpv4Pool(const Aws::String& value) { SetPublicIpv4Pool(value); return *this;}
+
+    /**
+     * <p>The ID of an address pool.</p>
+     */
+    inline Address& WithPublicIpv4Pool(Aws::String&& value) { SetPublicIpv4Pool(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of an address pool.</p>
+     */
+    inline Address& WithPublicIpv4Pool(const char* value) { SetPublicIpv4Pool(value); return *this;}
+
+
+    /**
+     * <p>The name of the location from which the IP address is advertised.</p>
+     */
+    inline const Aws::String& GetNetworkBorderGroup() const{ return m_networkBorderGroup; }
+
+    /**
+     * <p>The name of the location from which the IP address is advertised.</p>
+     */
+    inline bool NetworkBorderGroupHasBeenSet() const { return m_networkBorderGroupHasBeenSet; }
+
+    /**
+     * <p>The name of the location from which the IP address is advertised.</p>
+     */
+    inline void SetNetworkBorderGroup(const Aws::String& value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup = value; }
+
+    /**
+     * <p>The name of the location from which the IP address is advertised.</p>
+     */
+    inline void SetNetworkBorderGroup(Aws::String&& value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup = std::move(value); }
+
+    /**
+     * <p>The name of the location from which the IP address is advertised.</p>
+     */
+    inline void SetNetworkBorderGroup(const char* value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup.assign(value); }
+
+    /**
+     * <p>The name of the location from which the IP address is advertised.</p>
+     */
+    inline Address& WithNetworkBorderGroup(const Aws::String& value) { SetNetworkBorderGroup(value); return *this;}
+
+    /**
+     * <p>The name of the location from which the IP address is advertised.</p>
+     */
+    inline Address& WithNetworkBorderGroup(Aws::String&& value) { SetNetworkBorderGroup(std::move(value)); return *this;}
+
+    /**
+     * <p>The name of the location from which the IP address is advertised.</p>
+     */
+    inline Address& WithNetworkBorderGroup(const char* value) { SetNetworkBorderGroup(value); return *this;}
+
+
+    /**
+     * <p>The customer-owned IP address.</p>
+     */
+    inline const Aws::String& GetCustomerOwnedIp() const{ return m_customerOwnedIp; }
+
+    /**
+     * <p>The customer-owned IP address.</p>
+     */
+    inline bool CustomerOwnedIpHasBeenSet() const { return m_customerOwnedIpHasBeenSet; }
+
+    /**
+     * <p>The customer-owned IP address.</p>
+     */
+    inline void SetCustomerOwnedIp(const Aws::String& value) { m_customerOwnedIpHasBeenSet = true; m_customerOwnedIp = value; }
+
+    /**
+     * <p>The customer-owned IP address.</p>
+     */
+    inline void SetCustomerOwnedIp(Aws::String&& value) { m_customerOwnedIpHasBeenSet = true; m_customerOwnedIp = std::move(value); }
+
+    /**
+     * <p>The customer-owned IP address.</p>
+     */
+    inline void SetCustomerOwnedIp(const char* value) { m_customerOwnedIpHasBeenSet = true; m_customerOwnedIp.assign(value); }
+
+    /**
+     * <p>The customer-owned IP address.</p>
+     */
+    inline Address& WithCustomerOwnedIp(const Aws::String& value) { SetCustomerOwnedIp(value); return *this;}
+
+    /**
+     * <p>The customer-owned IP address.</p>
+     */
+    inline Address& WithCustomerOwnedIp(Aws::String&& value) { SetCustomerOwnedIp(std::move(value)); return *this;}
+
+    /**
+     * <p>The customer-owned IP address.</p>
+     */
+    inline Address& WithCustomerOwnedIp(const char* value) { SetCustomerOwnedIp(value); return *this;}
+
+
+    /**
+     * <p>The ID of the customer-owned address pool.</p>
+     */
+    inline const Aws::String& GetCustomerOwnedIpv4Pool() const{ return m_customerOwnedIpv4Pool; }
+
+    /**
+     * <p>The ID of the customer-owned address pool.</p>
+     */
+    inline bool CustomerOwnedIpv4PoolHasBeenSet() const { return m_customerOwnedIpv4PoolHasBeenSet; }
+
+    /**
+     * <p>The ID of the customer-owned address pool.</p>
+     */
+    inline void SetCustomerOwnedIpv4Pool(const Aws::String& value) { m_customerOwnedIpv4PoolHasBeenSet = true; m_customerOwnedIpv4Pool = value; }
+
+    /**
+     * <p>The ID of the customer-owned address pool.</p>
+     */
+    inline void SetCustomerOwnedIpv4Pool(Aws::String&& value) { m_customerOwnedIpv4PoolHasBeenSet = true; m_customerOwnedIpv4Pool = std::move(value); }
+
+    /**
+     * <p>The ID of the customer-owned address pool.</p>
+     */
+    inline void SetCustomerOwnedIpv4Pool(const char* value) { m_customerOwnedIpv4PoolHasBeenSet = true; m_customerOwnedIpv4Pool.assign(value); }
+
+    /**
+     * <p>The ID of the customer-owned address pool.</p>
+     */
+    inline Address& WithCustomerOwnedIpv4Pool(const Aws::String& value) { SetCustomerOwnedIpv4Pool(value); return *this;}
+
+    /**
+     * <p>The ID of the customer-owned address pool.</p>
+     */
+    inline Address& WithCustomerOwnedIpv4Pool(Aws::String&& value) { SetCustomerOwnedIpv4Pool(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the customer-owned address pool.</p>
+     */
+    inline Address& WithCustomerOwnedIpv4Pool(const char* value) { SetCustomerOwnedIpv4Pool(value); return *this;}
 
   private:
 
@@ -410,6 +622,18 @@ namespace Model
 
     Aws::Vector<Tag> m_tags;
     bool m_tagsHasBeenSet;
+
+    Aws::String m_publicIpv4Pool;
+    bool m_publicIpv4PoolHasBeenSet;
+
+    Aws::String m_networkBorderGroup;
+    bool m_networkBorderGroupHasBeenSet;
+
+    Aws::String m_customerOwnedIp;
+    bool m_customerOwnedIpHasBeenSet;
+
+    Aws::String m_customerOwnedIpv4Pool;
+    bool m_customerOwnedIpv4PoolHasBeenSet;
   };
 
 } // namespace Model

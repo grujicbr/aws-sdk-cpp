@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ScalingAction();
-    ScalingAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    ScalingAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ScalingAction(Aws::Utils::Json::JsonView jsonValue);
+    ScalingAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * specified for the group.</p>
      */
     inline const MarketType& GetMarket() const{ return m_market; }
+
+    /**
+     * <p>Not available for instance groups. Instance groups use the market type
+     * specified for the group.</p>
+     */
+    inline bool MarketHasBeenSet() const { return m_marketHasBeenSet; }
 
     /**
      * <p>Not available for instance groups. Instance groups use the market type
@@ -84,6 +91,12 @@ namespace Model
      * and the periodicity of the adjustment.</p>
      */
     inline const SimpleScalingPolicyConfiguration& GetSimpleScalingPolicyConfiguration() const{ return m_simpleScalingPolicyConfiguration; }
+
+    /**
+     * <p>The type of adjustment the automatic scaling activity makes when triggered,
+     * and the periodicity of the adjustment.</p>
+     */
+    inline bool SimpleScalingPolicyConfigurationHasBeenSet() const { return m_simpleScalingPolicyConfigurationHasBeenSet; }
 
     /**
      * <p>The type of adjustment the automatic scaling activity makes when triggered,

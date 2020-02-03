@@ -32,28 +32,34 @@ ReplicaSettingsDescription::ReplicaSettingsDescription() :
     m_regionNameHasBeenSet(false),
     m_replicaStatus(ReplicaStatus::NOT_SET),
     m_replicaStatusHasBeenSet(false),
+    m_replicaBillingModeSummaryHasBeenSet(false),
     m_replicaProvisionedReadCapacityUnits(0),
     m_replicaProvisionedReadCapacityUnitsHasBeenSet(false),
+    m_replicaProvisionedReadCapacityAutoScalingSettingsHasBeenSet(false),
     m_replicaProvisionedWriteCapacityUnits(0),
     m_replicaProvisionedWriteCapacityUnitsHasBeenSet(false),
+    m_replicaProvisionedWriteCapacityAutoScalingSettingsHasBeenSet(false),
     m_replicaGlobalSecondaryIndexSettingsHasBeenSet(false)
 {
 }
 
-ReplicaSettingsDescription::ReplicaSettingsDescription(const JsonValue& jsonValue) : 
+ReplicaSettingsDescription::ReplicaSettingsDescription(JsonView jsonValue) : 
     m_regionNameHasBeenSet(false),
     m_replicaStatus(ReplicaStatus::NOT_SET),
     m_replicaStatusHasBeenSet(false),
+    m_replicaBillingModeSummaryHasBeenSet(false),
     m_replicaProvisionedReadCapacityUnits(0),
     m_replicaProvisionedReadCapacityUnitsHasBeenSet(false),
+    m_replicaProvisionedReadCapacityAutoScalingSettingsHasBeenSet(false),
     m_replicaProvisionedWriteCapacityUnits(0),
     m_replicaProvisionedWriteCapacityUnitsHasBeenSet(false),
+    m_replicaProvisionedWriteCapacityAutoScalingSettingsHasBeenSet(false),
     m_replicaGlobalSecondaryIndexSettingsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ReplicaSettingsDescription& ReplicaSettingsDescription::operator =(const JsonValue& jsonValue)
+ReplicaSettingsDescription& ReplicaSettingsDescription::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("RegionName"))
   {
@@ -69,11 +75,25 @@ ReplicaSettingsDescription& ReplicaSettingsDescription::operator =(const JsonVal
     m_replicaStatusHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("ReplicaBillingModeSummary"))
+  {
+    m_replicaBillingModeSummary = jsonValue.GetObject("ReplicaBillingModeSummary");
+
+    m_replicaBillingModeSummaryHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ReplicaProvisionedReadCapacityUnits"))
   {
     m_replicaProvisionedReadCapacityUnits = jsonValue.GetInt64("ReplicaProvisionedReadCapacityUnits");
 
     m_replicaProvisionedReadCapacityUnitsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ReplicaProvisionedReadCapacityAutoScalingSettings"))
+  {
+    m_replicaProvisionedReadCapacityAutoScalingSettings = jsonValue.GetObject("ReplicaProvisionedReadCapacityAutoScalingSettings");
+
+    m_replicaProvisionedReadCapacityAutoScalingSettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("ReplicaProvisionedWriteCapacityUnits"))
@@ -83,9 +103,16 @@ ReplicaSettingsDescription& ReplicaSettingsDescription::operator =(const JsonVal
     m_replicaProvisionedWriteCapacityUnitsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("ReplicaProvisionedWriteCapacityAutoScalingSettings"))
+  {
+    m_replicaProvisionedWriteCapacityAutoScalingSettings = jsonValue.GetObject("ReplicaProvisionedWriteCapacityAutoScalingSettings");
+
+    m_replicaProvisionedWriteCapacityAutoScalingSettingsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ReplicaGlobalSecondaryIndexSettings"))
   {
-    Array<JsonValue> replicaGlobalSecondaryIndexSettingsJsonList = jsonValue.GetArray("ReplicaGlobalSecondaryIndexSettings");
+    Array<JsonView> replicaGlobalSecondaryIndexSettingsJsonList = jsonValue.GetArray("ReplicaGlobalSecondaryIndexSettings");
     for(unsigned replicaGlobalSecondaryIndexSettingsIndex = 0; replicaGlobalSecondaryIndexSettingsIndex < replicaGlobalSecondaryIndexSettingsJsonList.GetLength(); ++replicaGlobalSecondaryIndexSettingsIndex)
     {
       m_replicaGlobalSecondaryIndexSettings.push_back(replicaGlobalSecondaryIndexSettingsJsonList[replicaGlobalSecondaryIndexSettingsIndex].AsObject());
@@ -111,15 +138,33 @@ JsonValue ReplicaSettingsDescription::Jsonize() const
    payload.WithString("ReplicaStatus", ReplicaStatusMapper::GetNameForReplicaStatus(m_replicaStatus));
   }
 
+  if(m_replicaBillingModeSummaryHasBeenSet)
+  {
+   payload.WithObject("ReplicaBillingModeSummary", m_replicaBillingModeSummary.Jsonize());
+
+  }
+
   if(m_replicaProvisionedReadCapacityUnitsHasBeenSet)
   {
    payload.WithInt64("ReplicaProvisionedReadCapacityUnits", m_replicaProvisionedReadCapacityUnits);
 
   }
 
+  if(m_replicaProvisionedReadCapacityAutoScalingSettingsHasBeenSet)
+  {
+   payload.WithObject("ReplicaProvisionedReadCapacityAutoScalingSettings", m_replicaProvisionedReadCapacityAutoScalingSettings.Jsonize());
+
+  }
+
   if(m_replicaProvisionedWriteCapacityUnitsHasBeenSet)
   {
    payload.WithInt64("ReplicaProvisionedWriteCapacityUnits", m_replicaProvisionedWriteCapacityUnits);
+
+  }
+
+  if(m_replicaProvisionedWriteCapacityAutoScalingSettingsHasBeenSet)
+  {
+   payload.WithObject("ReplicaProvisionedWriteCapacityAutoScalingSettings", m_replicaProvisionedWriteCapacityAutoScalingSettings.Jsonize());
 
   }
 

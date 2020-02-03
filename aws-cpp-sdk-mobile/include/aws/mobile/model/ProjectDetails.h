@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Mobile
@@ -46,13 +47,16 @@ namespace Model
   {
   public:
     ProjectDetails();
-    ProjectDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProjectDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProjectDetails(Aws::Utils::Json::JsonView jsonValue);
+    ProjectDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Aws::String& GetName() const{ return m_name; }
+
+    
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
@@ -77,6 +81,9 @@ namespace Model
     inline const Aws::String& GetProjectId() const{ return m_projectId; }
 
     
+    inline bool ProjectIdHasBeenSet() const { return m_projectIdHasBeenSet; }
+
+    
     inline void SetProjectId(const Aws::String& value) { m_projectIdHasBeenSet = true; m_projectId = value; }
 
     
@@ -97,6 +104,9 @@ namespace Model
 
     
     inline const Aws::String& GetRegion() const{ return m_region; }
+
+    
+    inline bool RegionHasBeenSet() const { return m_regionHasBeenSet; }
 
     
     inline void SetRegion(const Aws::String& value) { m_regionHasBeenSet = true; m_region = value; }
@@ -121,6 +131,9 @@ namespace Model
     inline const ProjectState& GetState() const{ return m_state; }
 
     
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    
     inline void SetState(const ProjectState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     
@@ -137,6 +150,11 @@ namespace Model
      * <p> Date the project was created. </p>
      */
     inline const Aws::Utils::DateTime& GetCreatedDate() const{ return m_createdDate; }
+
+    /**
+     * <p> Date the project was created. </p>
+     */
+    inline bool CreatedDateHasBeenSet() const { return m_createdDateHasBeenSet; }
 
     /**
      * <p> Date the project was created. </p>
@@ -167,6 +185,11 @@ namespace Model
     /**
      * <p> Date of the last modification of the project. </p>
      */
+    inline bool LastUpdatedDateHasBeenSet() const { return m_lastUpdatedDateHasBeenSet; }
+
+    /**
+     * <p> Date of the last modification of the project. </p>
+     */
     inline void SetLastUpdatedDate(const Aws::Utils::DateTime& value) { m_lastUpdatedDateHasBeenSet = true; m_lastUpdatedDate = value; }
 
     /**
@@ -189,6 +212,11 @@ namespace Model
      * <p> Website URL for this project in the AWS Mobile Hub console. </p>
      */
     inline const Aws::String& GetConsoleUrl() const{ return m_consoleUrl; }
+
+    /**
+     * <p> Website URL for this project in the AWS Mobile Hub console. </p>
+     */
+    inline bool ConsoleUrlHasBeenSet() const { return m_consoleUrlHasBeenSet; }
 
     /**
      * <p> Website URL for this project in the AWS Mobile Hub console. </p>
@@ -223,6 +251,9 @@ namespace Model
 
     
     inline const Aws::Vector<Resource>& GetResources() const{ return m_resources; }
+
+    
+    inline bool ResourcesHasBeenSet() const { return m_resourcesHasBeenSet; }
 
     
     inline void SetResources(const Aws::Vector<Resource>& value) { m_resourcesHasBeenSet = true; m_resources = value; }

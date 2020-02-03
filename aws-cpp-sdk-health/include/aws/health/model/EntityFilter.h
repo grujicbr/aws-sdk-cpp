@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Health
@@ -46,64 +47,80 @@ namespace Model
   {
   public:
     EntityFilter();
-    EntityFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    EntityFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EntityFilter(Aws::Utils::Json::JsonView jsonValue);
+    EntityFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>A list of event ARNs (unique identifiers). For example:
-     * <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
-     * "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> </p>
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
      */
     inline const Aws::Vector<Aws::String>& GetEventArns() const{ return m_eventArns; }
 
     /**
      * <p>A list of event ARNs (unique identifiers). For example:
-     * <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
-     * "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> </p>
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
+     */
+    inline bool EventArnsHasBeenSet() const { return m_eventArnsHasBeenSet; }
+
+    /**
+     * <p>A list of event ARNs (unique identifiers). For example:
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
      */
     inline void SetEventArns(const Aws::Vector<Aws::String>& value) { m_eventArnsHasBeenSet = true; m_eventArns = value; }
 
     /**
      * <p>A list of event ARNs (unique identifiers). For example:
-     * <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
-     * "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> </p>
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
      */
     inline void SetEventArns(Aws::Vector<Aws::String>&& value) { m_eventArnsHasBeenSet = true; m_eventArns = std::move(value); }
 
     /**
      * <p>A list of event ARNs (unique identifiers). For example:
-     * <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
-     * "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> </p>
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
      */
     inline EntityFilter& WithEventArns(const Aws::Vector<Aws::String>& value) { SetEventArns(value); return *this;}
 
     /**
      * <p>A list of event ARNs (unique identifiers). For example:
-     * <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
-     * "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> </p>
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
      */
     inline EntityFilter& WithEventArns(Aws::Vector<Aws::String>&& value) { SetEventArns(std::move(value)); return *this;}
 
     /**
      * <p>A list of event ARNs (unique identifiers). For example:
-     * <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
-     * "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> </p>
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
      */
     inline EntityFilter& AddEventArns(const Aws::String& value) { m_eventArnsHasBeenSet = true; m_eventArns.push_back(value); return *this; }
 
     /**
      * <p>A list of event ARNs (unique identifiers). For example:
-     * <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
-     * "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> </p>
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
      */
     inline EntityFilter& AddEventArns(Aws::String&& value) { m_eventArnsHasBeenSet = true; m_eventArns.push_back(std::move(value)); return *this; }
 
     /**
      * <p>A list of event ARNs (unique identifiers). For example:
-     * <code>"arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331",
-     * "arn:aws:health:us-west-1::event/AWS_EBS_LOST_VOLUME_xyz"</code> </p>
+     * <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+     * "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code>
+     * </p>
      */
     inline EntityFilter& AddEventArns(const char* value) { m_eventArnsHasBeenSet = true; m_eventArns.push_back(value); return *this; }
 
@@ -112,6 +129,11 @@ namespace Model
      * <p>A list of entity ARNs (unique identifiers).</p>
      */
     inline const Aws::Vector<Aws::String>& GetEntityArns() const{ return m_entityArns; }
+
+    /**
+     * <p>A list of entity ARNs (unique identifiers).</p>
+     */
+    inline bool EntityArnsHasBeenSet() const { return m_entityArnsHasBeenSet; }
 
     /**
      * <p>A list of entity ARNs (unique identifiers).</p>
@@ -157,6 +179,11 @@ namespace Model
     /**
      * <p>A list of IDs for affected entities.</p>
      */
+    inline bool EntityValuesHasBeenSet() const { return m_entityValuesHasBeenSet; }
+
+    /**
+     * <p>A list of IDs for affected entities.</p>
+     */
     inline void SetEntityValues(const Aws::Vector<Aws::String>& value) { m_entityValuesHasBeenSet = true; m_entityValues = value; }
 
     /**
@@ -198,6 +225,11 @@ namespace Model
     /**
      * <p>A list of the most recent dates and times that the entity was updated.</p>
      */
+    inline bool LastUpdatedTimesHasBeenSet() const { return m_lastUpdatedTimesHasBeenSet; }
+
+    /**
+     * <p>A list of the most recent dates and times that the entity was updated.</p>
+     */
     inline void SetLastUpdatedTimes(const Aws::Vector<DateTimeRange>& value) { m_lastUpdatedTimesHasBeenSet = true; m_lastUpdatedTimes = value; }
 
     /**
@@ -230,6 +262,11 @@ namespace Model
      * <p>A map of entity tags attached to the affected entity.</p>
      */
     inline const Aws::Vector<Aws::Map<Aws::String, Aws::String>>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>A map of entity tags attached to the affected entity.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>A map of entity tags attached to the affected entity.</p>
@@ -267,6 +304,12 @@ namespace Model
      * <code>UNIMPAIRED</code>, or <code>UNKNOWN</code>).</p>
      */
     inline const Aws::Vector<EntityStatusCode>& GetStatusCodes() const{ return m_statusCodes; }
+
+    /**
+     * <p>A list of entity status codes (<code>IMPAIRED</code>,
+     * <code>UNIMPAIRED</code>, or <code>UNKNOWN</code>).</p>
+     */
+    inline bool StatusCodesHasBeenSet() const { return m_statusCodesHasBeenSet; }
 
     /**
      * <p>A list of entity status codes (<code>IMPAIRED</code>,

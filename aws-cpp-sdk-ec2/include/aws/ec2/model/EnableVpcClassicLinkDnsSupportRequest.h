@@ -27,16 +27,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for EnableVpcClassicLinkDnsSupport.</p><p><h3>See
-   * Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/EnableVpcClassicLinkDnsSupportRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API EnableVpcClassicLinkDnsSupportRequest : public EC2Request
   {
   public:
     EnableVpcClassicLinkDnsSupportRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +50,11 @@ namespace Model
      * <p>The ID of the VPC.</p>
      */
     inline const Aws::String& GetVpcId() const{ return m_vpcId; }
+
+    /**
+     * <p>The ID of the VPC.</p>
+     */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
 
     /**
      * <p>The ID of the VPC.</p>

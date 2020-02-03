@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/medialive/MediaLive_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/medialive/model/M3u8NielsenId3Behavior.h>
 #include <aws/medialive/model/M3u8PcrControl.h>
 #include <aws/medialive/model/M3u8Scte35Behavior.h>
 #include <aws/medialive/model/M3u8TimedMetadataBehavior.h>
@@ -28,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -44,8 +46,8 @@ namespace Model
   {
   public:
     M3u8Settings();
-    M3u8Settings(const Aws::Utils::Json::JsonValue& jsonValue);
-    M3u8Settings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    M3u8Settings(Aws::Utils::Json::JsonView jsonValue);
+    M3u8Settings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +55,11 @@ namespace Model
      * The number of audio frames to insert for each PES packet.
      */
     inline int GetAudioFramesPerPes() const{ return m_audioFramesPerPes; }
+
+    /**
+     * The number of audio frames to insert for each PES packet.
+     */
+    inline bool AudioFramesPerPesHasBeenSet() const { return m_audioFramesPerPesHasBeenSet; }
 
     /**
      * The number of audio frames to insert for each PES packet.
@@ -71,6 +78,13 @@ namespace Model
      * comma separation. Can be entered as decimal or hexadecimal values.
      */
     inline const Aws::String& GetAudioPids() const{ return m_audioPids; }
+
+    /**
+     * Packet Identifier (PID) of the elementary audio stream(s) in the transport
+     * stream. Multiple values are accepted, and can be entered in ranges and/or by
+     * comma separation. Can be entered as decimal or hexadecimal values.
+     */
+    inline bool AudioPidsHasBeenSet() const { return m_audioPidsHasBeenSet; }
 
     /**
      * Packet Identifier (PID) of the elementary audio stream(s) in the transport
@@ -123,6 +137,11 @@ namespace Model
     /**
      * This parameter is unused and deprecated.
      */
+    inline bool EcmPidHasBeenSet() const { return m_ecmPidHasBeenSet; }
+
+    /**
+     * This parameter is unused and deprecated.
+     */
     inline void SetEcmPid(const Aws::String& value) { m_ecmPidHasBeenSet = true; m_ecmPid = value; }
 
     /**
@@ -152,10 +171,59 @@ namespace Model
 
 
     /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be
+     * detected in the input audio and an equivalent ID3 tag will be inserted in the
+     * output.
+     */
+    inline const M3u8NielsenId3Behavior& GetNielsenId3Behavior() const{ return m_nielsenId3Behavior; }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be
+     * detected in the input audio and an equivalent ID3 tag will be inserted in the
+     * output.
+     */
+    inline bool NielsenId3BehaviorHasBeenSet() const { return m_nielsenId3BehaviorHasBeenSet; }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be
+     * detected in the input audio and an equivalent ID3 tag will be inserted in the
+     * output.
+     */
+    inline void SetNielsenId3Behavior(const M3u8NielsenId3Behavior& value) { m_nielsenId3BehaviorHasBeenSet = true; m_nielsenId3Behavior = value; }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be
+     * detected in the input audio and an equivalent ID3 tag will be inserted in the
+     * output.
+     */
+    inline void SetNielsenId3Behavior(M3u8NielsenId3Behavior&& value) { m_nielsenId3BehaviorHasBeenSet = true; m_nielsenId3Behavior = std::move(value); }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be
+     * detected in the input audio and an equivalent ID3 tag will be inserted in the
+     * output.
+     */
+    inline M3u8Settings& WithNielsenId3Behavior(const M3u8NielsenId3Behavior& value) { SetNielsenId3Behavior(value); return *this;}
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be
+     * detected in the input audio and an equivalent ID3 tag will be inserted in the
+     * output.
+     */
+    inline M3u8Settings& WithNielsenId3Behavior(M3u8NielsenId3Behavior&& value) { SetNielsenId3Behavior(std::move(value)); return *this;}
+
+
+    /**
      * The number of milliseconds between instances of this table in the output
      * transport stream. A value of \"0\" writes out the PMT once per segment file.
      */
     inline int GetPatInterval() const{ return m_patInterval; }
+
+    /**
+     * The number of milliseconds between instances of this table in the output
+     * transport stream. A value of \"0\" writes out the PMT once per segment file.
+     */
+    inline bool PatIntervalHasBeenSet() const { return m_patIntervalHasBeenSet; }
 
     /**
      * The number of milliseconds between instances of this table in the output
@@ -176,6 +244,13 @@ namespace Model
      * only when the PCR PID is the same as the video or audio elementary stream.
      */
     inline const M3u8PcrControl& GetPcrControl() const{ return m_pcrControl; }
+
+    /**
+     * When set to pcrEveryPesPacket, a Program Clock Reference value is inserted for
+     * every Packetized Elementary Stream (PES) header. This parameter is effective
+     * only when the PCR PID is the same as the video or audio elementary stream.
+     */
+    inline bool PcrControlHasBeenSet() const { return m_pcrControlHasBeenSet; }
 
     /**
      * When set to pcrEveryPesPacket, a Program Clock Reference value is inserted for
@@ -216,6 +291,12 @@ namespace Model
      * Maximum time in milliseconds between Program Clock References (PCRs) inserted
      * into the transport stream.
      */
+    inline bool PcrPeriodHasBeenSet() const { return m_pcrPeriodHasBeenSet; }
+
+    /**
+     * Maximum time in milliseconds between Program Clock References (PCRs) inserted
+     * into the transport stream.
+     */
     inline void SetPcrPeriod(int value) { m_pcrPeriodHasBeenSet = true; m_pcrPeriod = value; }
 
     /**
@@ -231,6 +312,13 @@ namespace Model
      * Video PID. Can be entered as a decimal or hexadecimal value.
      */
     inline const Aws::String& GetPcrPid() const{ return m_pcrPid; }
+
+    /**
+     * Packet Identifier (PID) of the Program Clock Reference (PCR) in the transport
+     * stream. When no value is given, the encoder will assign the same value as the
+     * Video PID. Can be entered as a decimal or hexadecimal value.
+     */
+    inline bool PcrPidHasBeenSet() const { return m_pcrPidHasBeenSet; }
 
     /**
      * Packet Identifier (PID) of the Program Clock Reference (PCR) in the transport
@@ -285,6 +373,12 @@ namespace Model
      * The number of milliseconds between instances of this table in the output
      * transport stream. A value of \"0\" writes out the PMT once per segment file.
      */
+    inline bool PmtIntervalHasBeenSet() const { return m_pmtIntervalHasBeenSet; }
+
+    /**
+     * The number of milliseconds between instances of this table in the output
+     * transport stream. A value of \"0\" writes out the PMT once per segment file.
+     */
     inline void SetPmtInterval(int value) { m_pmtIntervalHasBeenSet = true; m_pmtInterval = value; }
 
     /**
@@ -299,6 +393,12 @@ namespace Model
      * Can be entered as a decimal or hexadecimal value.
      */
     inline const Aws::String& GetPmtPid() const{ return m_pmtPid; }
+
+    /**
+     * Packet Identifier (PID) for the Program Map Table (PMT) in the transport stream.
+     * Can be entered as a decimal or hexadecimal value.
+     */
+    inline bool PmtPidHasBeenSet() const { return m_pmtPidHasBeenSet; }
 
     /**
      * Packet Identifier (PID) for the Program Map Table (PMT) in the transport stream.
@@ -345,6 +445,11 @@ namespace Model
     /**
      * The value of the program number field in the Program Map Table.
      */
+    inline bool ProgramNumHasBeenSet() const { return m_programNumHasBeenSet; }
+
+    /**
+     * The value of the program number field in the Program Map Table.
+     */
     inline void SetProgramNum(int value) { m_programNumHasBeenSet = true; m_programNum = value; }
 
     /**
@@ -358,6 +463,12 @@ namespace Model
      * output.
      */
     inline const M3u8Scte35Behavior& GetScte35Behavior() const{ return m_scte35Behavior; }
+
+    /**
+     * If set to passthrough, passes any SCTE-35 signals from the input source to this
+     * output.
+     */
+    inline bool Scte35BehaviorHasBeenSet() const { return m_scte35BehaviorHasBeenSet; }
 
     /**
      * If set to passthrough, passes any SCTE-35 signals from the input source to this
@@ -389,6 +500,12 @@ namespace Model
      * entered as a decimal or hexadecimal value.
      */
     inline const Aws::String& GetScte35Pid() const{ return m_scte35Pid; }
+
+    /**
+     * Packet Identifier (PID) of the SCTE-35 stream in the transport stream. Can be
+     * entered as a decimal or hexadecimal value.
+     */
+    inline bool Scte35PidHasBeenSet() const { return m_scte35PidHasBeenSet; }
 
     /**
      * Packet Identifier (PID) of the SCTE-35 stream in the transport stream. Can be
@@ -435,6 +552,11 @@ namespace Model
     /**
      * When set to passthrough, timed metadata is passed through from input to output.
      */
+    inline bool TimedMetadataBehaviorHasBeenSet() const { return m_timedMetadataBehaviorHasBeenSet; }
+
+    /**
+     * When set to passthrough, timed metadata is passed through from input to output.
+     */
     inline void SetTimedMetadataBehavior(const M3u8TimedMetadataBehavior& value) { m_timedMetadataBehaviorHasBeenSet = true; m_timedMetadataBehavior = value; }
 
     /**
@@ -459,6 +581,13 @@ namespace Model
      * 0x20)..8182 (or 0x1ff6).
      */
     inline const Aws::String& GetTimedMetadataPid() const{ return m_timedMetadataPid; }
+
+    /**
+     * Packet Identifier (PID) of the timed metadata stream in the transport stream.
+     * Can be entered as a decimal or hexadecimal value.  Valid values are 32 (or
+     * 0x20)..8182 (or 0x1ff6).
+     */
+    inline bool TimedMetadataPidHasBeenSet() const { return m_timedMetadataPidHasBeenSet; }
 
     /**
      * Packet Identifier (PID) of the timed metadata stream in the transport stream.
@@ -511,6 +640,11 @@ namespace Model
     /**
      * The value of the transport stream ID field in the Program Map Table.
      */
+    inline bool TransportStreamIdHasBeenSet() const { return m_transportStreamIdHasBeenSet; }
+
+    /**
+     * The value of the transport stream ID field in the Program Map Table.
+     */
     inline void SetTransportStreamId(int value) { m_transportStreamIdHasBeenSet = true; m_transportStreamId = value; }
 
     /**
@@ -524,6 +658,12 @@ namespace Model
      * Can be entered as a decimal or hexadecimal value.
      */
     inline const Aws::String& GetVideoPid() const{ return m_videoPid; }
+
+    /**
+     * Packet Identifier (PID) of the elementary video stream in the transport stream.
+     * Can be entered as a decimal or hexadecimal value.
+     */
+    inline bool VideoPidHasBeenSet() const { return m_videoPidHasBeenSet; }
 
     /**
      * Packet Identifier (PID) of the elementary video stream in the transport stream.
@@ -571,6 +711,9 @@ namespace Model
 
     Aws::String m_ecmPid;
     bool m_ecmPidHasBeenSet;
+
+    M3u8NielsenId3Behavior m_nielsenId3Behavior;
+    bool m_nielsenId3BehaviorHasBeenSet;
 
     int m_patInterval;
     bool m_patIntervalHasBeenSet;

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT1ClickDevicesService
@@ -37,8 +38,8 @@ namespace Model
   {
   public:
     DeviceEvent();
-    DeviceEvent(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceEvent& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceEvent(Aws::Utils::Json::JsonView jsonValue);
+    DeviceEvent& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -46,6 +47,11 @@ namespace Model
      * <p>An object representing the device associated with the event.</p>
      */
     inline const Device& GetDevice() const{ return m_device; }
+
+    /**
+     * <p>An object representing the device associated with the event.</p>
+     */
+    inline bool DeviceHasBeenSet() const { return m_deviceHasBeenSet; }
 
     /**
      * <p>An object representing the device associated with the event.</p>
@@ -72,6 +78,11 @@ namespace Model
      * <p>A serialized JSON object representing the device-type specific event.</p>
      */
     inline const Aws::String& GetStdEvent() const{ return m_stdEvent; }
+
+    /**
+     * <p>A serialized JSON object representing the device-type specific event.</p>
+     */
+    inline bool StdEventHasBeenSet() const { return m_stdEventHasBeenSet; }
 
     /**
      * <p>A serialized JSON object representing the device-type specific event.</p>

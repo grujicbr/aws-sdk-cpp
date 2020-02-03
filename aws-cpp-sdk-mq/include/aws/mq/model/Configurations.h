@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MQ
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Configurations();
-    Configurations(const Aws::Utils::Json::JsonValue& jsonValue);
-    Configurations& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Configurations(Aws::Utils::Json::JsonView jsonValue);
+    Configurations& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * The current configuration of the broker.
      */
     inline const ConfigurationId& GetCurrent() const{ return m_current; }
+
+    /**
+     * The current configuration of the broker.
+     */
+    inline bool CurrentHasBeenSet() const { return m_currentHasBeenSet; }
 
     /**
      * The current configuration of the broker.
@@ -77,6 +83,11 @@ namespace Model
      * The history of configurations applied to the broker.
      */
     inline const Aws::Vector<ConfigurationId>& GetHistory() const{ return m_history; }
+
+    /**
+     * The history of configurations applied to the broker.
+     */
+    inline bool HistoryHasBeenSet() const { return m_historyHasBeenSet; }
 
     /**
      * The history of configurations applied to the broker.
@@ -113,6 +124,11 @@ namespace Model
      * The pending configuration of the broker.
      */
     inline const ConfigurationId& GetPending() const{ return m_pending; }
+
+    /**
+     * The pending configuration of the broker.
+     */
+    inline bool PendingHasBeenSet() const { return m_pendingHasBeenSet; }
 
     /**
      * The pending configuration of the broker.

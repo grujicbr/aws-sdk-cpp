@@ -24,7 +24,8 @@ using namespace Aws::Utils;
 
 UpdateDatastoreRequest::UpdateDatastoreRequest() : 
     m_datastoreNameHasBeenSet(false),
-    m_retentionPeriodHasBeenSet(false)
+    m_retentionPeriodHasBeenSet(false),
+    m_datastoreStorageHasBeenSet(false)
 {
 }
 
@@ -38,7 +39,13 @@ Aws::String UpdateDatastoreRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_datastoreStorageHasBeenSet)
+  {
+   payload.WithObject("datastoreStorage", m_datastoreStorage.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

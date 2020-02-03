@@ -33,21 +33,25 @@ ClusterSummary::ClusterSummary() :
     m_nameHasBeenSet(false),
     m_statusHasBeenSet(false),
     m_normalizedInstanceHours(0),
-    m_normalizedInstanceHoursHasBeenSet(false)
+    m_normalizedInstanceHoursHasBeenSet(false),
+    m_clusterArnHasBeenSet(false),
+    m_outpostArnHasBeenSet(false)
 {
 }
 
-ClusterSummary::ClusterSummary(const JsonValue& jsonValue) : 
+ClusterSummary::ClusterSummary(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_statusHasBeenSet(false),
     m_normalizedInstanceHours(0),
-    m_normalizedInstanceHoursHasBeenSet(false)
+    m_normalizedInstanceHoursHasBeenSet(false),
+    m_clusterArnHasBeenSet(false),
+    m_outpostArnHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ClusterSummary& ClusterSummary::operator =(const JsonValue& jsonValue)
+ClusterSummary& ClusterSummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -75,6 +79,20 @@ ClusterSummary& ClusterSummary::operator =(const JsonValue& jsonValue)
     m_normalizedInstanceHours = jsonValue.GetInteger("NormalizedInstanceHours");
 
     m_normalizedInstanceHoursHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ClusterArn"))
+  {
+    m_clusterArn = jsonValue.GetString("ClusterArn");
+
+    m_clusterArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("OutpostArn"))
+  {
+    m_outpostArn = jsonValue.GetString("OutpostArn");
+
+    m_outpostArnHasBeenSet = true;
   }
 
   return *this;
@@ -105,6 +123,18 @@ JsonValue ClusterSummary::Jsonize() const
   if(m_normalizedInstanceHoursHasBeenSet)
   {
    payload.WithInteger("NormalizedInstanceHours", m_normalizedInstanceHours);
+
+  }
+
+  if(m_clusterArnHasBeenSet)
+  {
+   payload.WithString("ClusterArn", m_clusterArn);
+
+  }
+
+  if(m_outpostArnHasBeenSet)
+  {
+   payload.WithString("OutpostArn", m_outpostArn);
 
   }
 

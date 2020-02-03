@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     CreateDBSnapshotRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -53,63 +53,72 @@ namespace Model
 
     /**
      * <p>The identifier for the DB snapshot.</p> <p>Constraints:</p> <ul> <li>
-     * <p>Cannot be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
+     * <p>Can't be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
      * letters, numbers, or hyphens</p> </li> <li> <p>First character must be a
-     * letter</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive
+     * letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
      * hyphens</p> </li> </ul> <p>Example: <code>my-snapshot-id</code> </p>
      */
     inline const Aws::String& GetDBSnapshotIdentifier() const{ return m_dBSnapshotIdentifier; }
 
     /**
      * <p>The identifier for the DB snapshot.</p> <p>Constraints:</p> <ul> <li>
-     * <p>Cannot be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
+     * <p>Can't be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
      * letters, numbers, or hyphens</p> </li> <li> <p>First character must be a
-     * letter</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive
+     * letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <p>Example: <code>my-snapshot-id</code> </p>
+     */
+    inline bool DBSnapshotIdentifierHasBeenSet() const { return m_dBSnapshotIdentifierHasBeenSet; }
+
+    /**
+     * <p>The identifier for the DB snapshot.</p> <p>Constraints:</p> <ul> <li>
+     * <p>Can't be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
+     * letters, numbers, or hyphens</p> </li> <li> <p>First character must be a
+     * letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
      * hyphens</p> </li> </ul> <p>Example: <code>my-snapshot-id</code> </p>
      */
     inline void SetDBSnapshotIdentifier(const Aws::String& value) { m_dBSnapshotIdentifierHasBeenSet = true; m_dBSnapshotIdentifier = value; }
 
     /**
      * <p>The identifier for the DB snapshot.</p> <p>Constraints:</p> <ul> <li>
-     * <p>Cannot be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
+     * <p>Can't be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
      * letters, numbers, or hyphens</p> </li> <li> <p>First character must be a
-     * letter</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive
+     * letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
      * hyphens</p> </li> </ul> <p>Example: <code>my-snapshot-id</code> </p>
      */
     inline void SetDBSnapshotIdentifier(Aws::String&& value) { m_dBSnapshotIdentifierHasBeenSet = true; m_dBSnapshotIdentifier = std::move(value); }
 
     /**
      * <p>The identifier for the DB snapshot.</p> <p>Constraints:</p> <ul> <li>
-     * <p>Cannot be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
+     * <p>Can't be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
      * letters, numbers, or hyphens</p> </li> <li> <p>First character must be a
-     * letter</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive
+     * letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
      * hyphens</p> </li> </ul> <p>Example: <code>my-snapshot-id</code> </p>
      */
     inline void SetDBSnapshotIdentifier(const char* value) { m_dBSnapshotIdentifierHasBeenSet = true; m_dBSnapshotIdentifier.assign(value); }
 
     /**
      * <p>The identifier for the DB snapshot.</p> <p>Constraints:</p> <ul> <li>
-     * <p>Cannot be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
+     * <p>Can't be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
      * letters, numbers, or hyphens</p> </li> <li> <p>First character must be a
-     * letter</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive
+     * letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
      * hyphens</p> </li> </ul> <p>Example: <code>my-snapshot-id</code> </p>
      */
     inline CreateDBSnapshotRequest& WithDBSnapshotIdentifier(const Aws::String& value) { SetDBSnapshotIdentifier(value); return *this;}
 
     /**
      * <p>The identifier for the DB snapshot.</p> <p>Constraints:</p> <ul> <li>
-     * <p>Cannot be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
+     * <p>Can't be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
      * letters, numbers, or hyphens</p> </li> <li> <p>First character must be a
-     * letter</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive
+     * letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
      * hyphens</p> </li> </ul> <p>Example: <code>my-snapshot-id</code> </p>
      */
     inline CreateDBSnapshotRequest& WithDBSnapshotIdentifier(Aws::String&& value) { SetDBSnapshotIdentifier(std::move(value)); return *this;}
 
     /**
      * <p>The identifier for the DB snapshot.</p> <p>Constraints:</p> <ul> <li>
-     * <p>Cannot be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
+     * <p>Can't be null, empty, or blank</p> </li> <li> <p>Must contain from 1 to 255
      * letters, numbers, or hyphens</p> </li> <li> <p>First character must be a
-     * letter</p> </li> <li> <p>Cannot end with a hyphen or contain two consecutive
+     * letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
      * hyphens</p> </li> </ul> <p>Example: <code>my-snapshot-id</code> </p>
      */
     inline CreateDBSnapshotRequest& WithDBSnapshotIdentifier(const char* value) { SetDBSnapshotIdentifier(value); return *this;}
@@ -121,6 +130,13 @@ namespace Model
      * existing DBInstance.</p> </li> </ul>
      */
     inline const Aws::String& GetDBInstanceIdentifier() const{ return m_dBInstanceIdentifier; }
+
+    /**
+     * <p>The identifier of the DB instance that you want to create the snapshot
+     * of.</p> <p>Constraints:</p> <ul> <li> <p>Must match the identifier of an
+     * existing DBInstance.</p> </li> </ul>
+     */
+    inline bool DBInstanceIdentifierHasBeenSet() const { return m_dBInstanceIdentifierHasBeenSet; }
 
     /**
      * <p>The identifier of the DB instance that you want to create the snapshot
@@ -167,6 +183,9 @@ namespace Model
 
     
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }

@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     ListArtifactsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,73 +50,79 @@ namespace Model
 
 
     /**
-     * <p>The Run, Job, Suite, or Test ARN.</p>
+     * <p>The run, job, suite, or test ARN.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
 
     /**
-     * <p>The Run, Job, Suite, or Test ARN.</p>
+     * <p>The run, job, suite, or test ARN.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The run, job, suite, or test ARN.</p>
      */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
-     * <p>The Run, Job, Suite, or Test ARN.</p>
+     * <p>The run, job, suite, or test ARN.</p>
      */
     inline void SetArn(Aws::String&& value) { m_arnHasBeenSet = true; m_arn = std::move(value); }
 
     /**
-     * <p>The Run, Job, Suite, or Test ARN.</p>
+     * <p>The run, job, suite, or test ARN.</p>
      */
     inline void SetArn(const char* value) { m_arnHasBeenSet = true; m_arn.assign(value); }
 
     /**
-     * <p>The Run, Job, Suite, or Test ARN.</p>
+     * <p>The run, job, suite, or test ARN.</p>
      */
     inline ListArtifactsRequest& WithArn(const Aws::String& value) { SetArn(value); return *this;}
 
     /**
-     * <p>The Run, Job, Suite, or Test ARN.</p>
+     * <p>The run, job, suite, or test ARN.</p>
      */
     inline ListArtifactsRequest& WithArn(Aws::String&& value) { SetArn(std::move(value)); return *this;}
 
     /**
-     * <p>The Run, Job, Suite, or Test ARN.</p>
+     * <p>The run, job, suite, or test ARN.</p>
      */
     inline ListArtifactsRequest& WithArn(const char* value) { SetArn(value); return *this;}
 
 
     /**
-     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE:
-     * The artifacts are files.</p> </li> <li> <p>LOG: The artifacts are logs.</p>
-     * </li> <li> <p>SCREENSHOT: The artifacts are screenshots.</p> </li> </ul>
+     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE</p>
+     * </li> <li> <p>LOG</p> </li> <li> <p>SCREENSHOT</p> </li> </ul>
      */
     inline const ArtifactCategory& GetType() const{ return m_type; }
 
     /**
-     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE:
-     * The artifacts are files.</p> </li> <li> <p>LOG: The artifacts are logs.</p>
-     * </li> <li> <p>SCREENSHOT: The artifacts are screenshots.</p> </li> </ul>
+     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE</p>
+     * </li> <li> <p>LOG</p> </li> <li> <p>SCREENSHOT</p> </li> </ul>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE</p>
+     * </li> <li> <p>LOG</p> </li> <li> <p>SCREENSHOT</p> </li> </ul>
      */
     inline void SetType(const ArtifactCategory& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
-     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE:
-     * The artifacts are files.</p> </li> <li> <p>LOG: The artifacts are logs.</p>
-     * </li> <li> <p>SCREENSHOT: The artifacts are screenshots.</p> </li> </ul>
+     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE</p>
+     * </li> <li> <p>LOG</p> </li> <li> <p>SCREENSHOT</p> </li> </ul>
      */
     inline void SetType(ArtifactCategory&& value) { m_typeHasBeenSet = true; m_type = std::move(value); }
 
     /**
-     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE:
-     * The artifacts are files.</p> </li> <li> <p>LOG: The artifacts are logs.</p>
-     * </li> <li> <p>SCREENSHOT: The artifacts are screenshots.</p> </li> </ul>
+     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE</p>
+     * </li> <li> <p>LOG</p> </li> <li> <p>SCREENSHOT</p> </li> </ul>
      */
     inline ListArtifactsRequest& WithType(const ArtifactCategory& value) { SetType(value); return *this;}
 
     /**
-     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE:
-     * The artifacts are files.</p> </li> <li> <p>LOG: The artifacts are logs.</p>
-     * </li> <li> <p>SCREENSHOT: The artifacts are screenshots.</p> </li> </ul>
+     * <p>The artifacts' type.</p> <p>Allowed values include:</p> <ul> <li> <p>FILE</p>
+     * </li> <li> <p>LOG</p> </li> <li> <p>SCREENSHOT</p> </li> </ul>
      */
     inline ListArtifactsRequest& WithType(ArtifactCategory&& value) { SetType(std::move(value)); return *this;}
 
@@ -126,6 +132,12 @@ namespace Model
      * which can be used to return the next set of items in the list.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>An identifier that was returned from the previous call to this operation,
+     * which can be used to return the next set of items in the list.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>An identifier that was returned from the previous call to this operation,

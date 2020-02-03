@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RiskExceptionConfigurationType();
-    RiskExceptionConfigurationType(const Aws::Utils::Json::JsonValue& jsonValue);
-    RiskExceptionConfigurationType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RiskExceptionConfigurationType(Aws::Utils::Json::JsonView jsonValue);
+    RiskExceptionConfigurationType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * its associated routing prefix.</p>
      */
     inline const Aws::Vector<Aws::String>& GetBlockedIPRangeList() const{ return m_blockedIPRangeList; }
+
+    /**
+     * <p>Overrides the risk decision to always block the pre-authentication requests.
+     * The IP range is in CIDR notation: a compact representation of an IP address and
+     * its associated routing prefix.</p>
+     */
+    inline bool BlockedIPRangeListHasBeenSet() const { return m_blockedIPRangeListHasBeenSet; }
 
     /**
      * <p>Overrides the risk decision to always block the pre-authentication requests.
@@ -110,6 +118,12 @@ namespace Model
      * range is in CIDR notation.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSkippedIPRangeList() const{ return m_skippedIPRangeList; }
+
+    /**
+     * <p>Risk detection is not performed on the IP addresses in the range list. The IP
+     * range is in CIDR notation.</p>
+     */
+    inline bool SkippedIPRangeListHasBeenSet() const { return m_skippedIPRangeListHasBeenSet; }
 
     /**
      * <p>Risk detection is not performed on the IP addresses in the range list. The IP

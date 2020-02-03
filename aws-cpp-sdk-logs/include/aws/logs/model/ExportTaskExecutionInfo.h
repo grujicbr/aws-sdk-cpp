@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     ExportTaskExecutionInfo();
-    ExportTaskExecutionInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExportTaskExecutionInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExportTaskExecutionInfo(Aws::Utils::Json::JsonView jsonValue);
+    ExportTaskExecutionInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,12 @@ namespace Model
      * after Jan 1, 1970 00:00:00 UTC.</p>
      */
     inline long long GetCreationTime() const{ return m_creationTime; }
+
+    /**
+     * <p>The creation time of the export task, expressed as the number of milliseconds
+     * after Jan 1, 1970 00:00:00 UTC.</p>
+     */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
 
     /**
      * <p>The creation time of the export task, expressed as the number of milliseconds
@@ -68,6 +75,12 @@ namespace Model
      * milliseconds after Jan 1, 1970 00:00:00 UTC.</p>
      */
     inline long long GetCompletionTime() const{ return m_completionTime; }
+
+    /**
+     * <p>The completion time of the export task, expressed as the number of
+     * milliseconds after Jan 1, 1970 00:00:00 UTC.</p>
+     */
+    inline bool CompletionTimeHasBeenSet() const { return m_completionTimeHasBeenSet; }
 
     /**
      * <p>The completion time of the export task, expressed as the number of

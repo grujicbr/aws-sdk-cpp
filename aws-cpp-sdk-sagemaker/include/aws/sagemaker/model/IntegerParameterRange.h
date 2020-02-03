@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/sagemaker/SageMaker_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/sagemaker/model/HyperParameterScalingType.h>
 #include <utility>
 
 namespace Aws
@@ -25,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -42,8 +44,8 @@ namespace Model
   {
   public:
     IntegerParameterRange();
-    IntegerParameterRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    IntegerParameterRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IntegerParameterRange(Aws::Utils::Json::JsonView jsonValue);
+    IntegerParameterRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +53,11 @@ namespace Model
      * <p>The name of the hyperparameter to search.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the hyperparameter to search.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the hyperparameter to search.</p>
@@ -91,6 +98,11 @@ namespace Model
     /**
      * <p>The minimum value of the hyperparameter to search.</p>
      */
+    inline bool MinValueHasBeenSet() const { return m_minValueHasBeenSet; }
+
+    /**
+     * <p>The minimum value of the hyperparameter to search.</p>
+     */
     inline void SetMinValue(const Aws::String& value) { m_minValueHasBeenSet = true; m_minValue = value; }
 
     /**
@@ -127,6 +139,11 @@ namespace Model
     /**
      * <p>The maximum value of the hyperparameter to search.</p>
      */
+    inline bool MaxValueHasBeenSet() const { return m_maxValueHasBeenSet; }
+
+    /**
+     * <p>The maximum value of the hyperparameter to search.</p>
+     */
     inline void SetMaxValue(const Aws::String& value) { m_maxValueHasBeenSet = true; m_maxValue = value; }
 
     /**
@@ -154,6 +171,91 @@ namespace Model
      */
     inline IntegerParameterRange& WithMaxValue(const char* value) { SetMaxValue(value); return *this;}
 
+
+    /**
+     * <p>The scale that hyperparameter tuning uses to search the hyperparameter range.
+     * For information about choosing a hyperparameter scale, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type">Hyperparameter
+     * Scaling</a>. One of the following values:</p> <dl> <dt>Auto</dt> <dd> <p>Amazon
+     * SageMaker hyperparameter tuning chooses the best scale for the
+     * hyperparameter.</p> </dd> <dt>Linear</dt> <dd> <p>Hyperparameter tuning searches
+     * the values in the hyperparameter range by using a linear scale.</p> </dd>
+     * <dt>Logarithmic</dt> <dd> <p>Hyperparameter tuning searches the values in the
+     * hyperparameter range by using a logarithmic scale.</p> <p>Logarithmic scaling
+     * works only for ranges that have only values greater than 0.</p> </dd> </dl>
+     */
+    inline const HyperParameterScalingType& GetScalingType() const{ return m_scalingType; }
+
+    /**
+     * <p>The scale that hyperparameter tuning uses to search the hyperparameter range.
+     * For information about choosing a hyperparameter scale, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type">Hyperparameter
+     * Scaling</a>. One of the following values:</p> <dl> <dt>Auto</dt> <dd> <p>Amazon
+     * SageMaker hyperparameter tuning chooses the best scale for the
+     * hyperparameter.</p> </dd> <dt>Linear</dt> <dd> <p>Hyperparameter tuning searches
+     * the values in the hyperparameter range by using a linear scale.</p> </dd>
+     * <dt>Logarithmic</dt> <dd> <p>Hyperparameter tuning searches the values in the
+     * hyperparameter range by using a logarithmic scale.</p> <p>Logarithmic scaling
+     * works only for ranges that have only values greater than 0.</p> </dd> </dl>
+     */
+    inline bool ScalingTypeHasBeenSet() const { return m_scalingTypeHasBeenSet; }
+
+    /**
+     * <p>The scale that hyperparameter tuning uses to search the hyperparameter range.
+     * For information about choosing a hyperparameter scale, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type">Hyperparameter
+     * Scaling</a>. One of the following values:</p> <dl> <dt>Auto</dt> <dd> <p>Amazon
+     * SageMaker hyperparameter tuning chooses the best scale for the
+     * hyperparameter.</p> </dd> <dt>Linear</dt> <dd> <p>Hyperparameter tuning searches
+     * the values in the hyperparameter range by using a linear scale.</p> </dd>
+     * <dt>Logarithmic</dt> <dd> <p>Hyperparameter tuning searches the values in the
+     * hyperparameter range by using a logarithmic scale.</p> <p>Logarithmic scaling
+     * works only for ranges that have only values greater than 0.</p> </dd> </dl>
+     */
+    inline void SetScalingType(const HyperParameterScalingType& value) { m_scalingTypeHasBeenSet = true; m_scalingType = value; }
+
+    /**
+     * <p>The scale that hyperparameter tuning uses to search the hyperparameter range.
+     * For information about choosing a hyperparameter scale, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type">Hyperparameter
+     * Scaling</a>. One of the following values:</p> <dl> <dt>Auto</dt> <dd> <p>Amazon
+     * SageMaker hyperparameter tuning chooses the best scale for the
+     * hyperparameter.</p> </dd> <dt>Linear</dt> <dd> <p>Hyperparameter tuning searches
+     * the values in the hyperparameter range by using a linear scale.</p> </dd>
+     * <dt>Logarithmic</dt> <dd> <p>Hyperparameter tuning searches the values in the
+     * hyperparameter range by using a logarithmic scale.</p> <p>Logarithmic scaling
+     * works only for ranges that have only values greater than 0.</p> </dd> </dl>
+     */
+    inline void SetScalingType(HyperParameterScalingType&& value) { m_scalingTypeHasBeenSet = true; m_scalingType = std::move(value); }
+
+    /**
+     * <p>The scale that hyperparameter tuning uses to search the hyperparameter range.
+     * For information about choosing a hyperparameter scale, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type">Hyperparameter
+     * Scaling</a>. One of the following values:</p> <dl> <dt>Auto</dt> <dd> <p>Amazon
+     * SageMaker hyperparameter tuning chooses the best scale for the
+     * hyperparameter.</p> </dd> <dt>Linear</dt> <dd> <p>Hyperparameter tuning searches
+     * the values in the hyperparameter range by using a linear scale.</p> </dd>
+     * <dt>Logarithmic</dt> <dd> <p>Hyperparameter tuning searches the values in the
+     * hyperparameter range by using a logarithmic scale.</p> <p>Logarithmic scaling
+     * works only for ranges that have only values greater than 0.</p> </dd> </dl>
+     */
+    inline IntegerParameterRange& WithScalingType(const HyperParameterScalingType& value) { SetScalingType(value); return *this;}
+
+    /**
+     * <p>The scale that hyperparameter tuning uses to search the hyperparameter range.
+     * For information about choosing a hyperparameter scale, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type">Hyperparameter
+     * Scaling</a>. One of the following values:</p> <dl> <dt>Auto</dt> <dd> <p>Amazon
+     * SageMaker hyperparameter tuning chooses the best scale for the
+     * hyperparameter.</p> </dd> <dt>Linear</dt> <dd> <p>Hyperparameter tuning searches
+     * the values in the hyperparameter range by using a linear scale.</p> </dd>
+     * <dt>Logarithmic</dt> <dd> <p>Hyperparameter tuning searches the values in the
+     * hyperparameter range by using a logarithmic scale.</p> <p>Logarithmic scaling
+     * works only for ranges that have only values greater than 0.</p> </dd> </dl>
+     */
+    inline IntegerParameterRange& WithScalingType(HyperParameterScalingType&& value) { SetScalingType(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_name;
@@ -164,6 +266,9 @@ namespace Model
 
     Aws::String m_maxValue;
     bool m_maxValueHasBeenSet;
+
+    HyperParameterScalingType m_scalingType;
+    bool m_scalingTypeHasBeenSet;
   };
 
 } // namespace Model

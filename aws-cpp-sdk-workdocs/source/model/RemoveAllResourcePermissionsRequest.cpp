@@ -31,7 +31,7 @@ RemoveAllResourcePermissionsRequest::RemoveAllResourcePermissionsRequest() :
 
 Aws::String RemoveAllResourcePermissionsRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection RemoveAllResourcePermissionsRequest::GetRequestSpecificHeaders() const
@@ -41,7 +41,7 @@ Aws::Http::HeaderValueCollection RemoveAllResourcePermissionsRequest::GetRequest
   if(m_authenticationTokenHasBeenSet)
   {
     ss << m_authenticationToken;
-    headers.insert(Aws::Http::HeaderValuePair("authentication", ss.str()));
+    headers.emplace("authentication",  ss.str());
     ss.str("");
   }
 

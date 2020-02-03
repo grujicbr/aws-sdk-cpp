@@ -17,6 +17,7 @@
 #include <aws/mediaconvert/MediaConvert_EXPORTS.h>
 #include <aws/mediaconvert/model/ColorCorrector.h>
 #include <aws/mediaconvert/model/Deinterlacer.h>
+#include <aws/mediaconvert/model/DolbyVision.h>
 #include <aws/mediaconvert/model/ImageInserter.h>
 #include <aws/mediaconvert/model/NoiseReducer.h>
 #include <aws/mediaconvert/model/TimecodeBurnin.h>
@@ -29,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -47,8 +49,8 @@ namespace Model
   {
   public:
     VideoPreprocessor();
-    VideoPreprocessor(const Aws::Utils::Json::JsonValue& jsonValue);
-    VideoPreprocessor& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VideoPreprocessor(Aws::Utils::Json::JsonView jsonValue);
+    VideoPreprocessor& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +60,13 @@ namespace Model
      * default.
      */
     inline const ColorCorrector& GetColorCorrector() const{ return m_colorCorrector; }
+
+    /**
+     * Enable the Color corrector (ColorCorrector) feature if necessary. Enable or
+     * disable this feature for each output individually. This setting is disabled by
+     * default.
+     */
+    inline bool ColorCorrectorHasBeenSet() const { return m_colorCorrectorHasBeenSet; }
 
     /**
      * Enable the Color corrector (ColorCorrector) feature if necessary. Enable or
@@ -98,6 +107,12 @@ namespace Model
      * Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer
      * picture.
      */
+    inline bool DeinterlacerHasBeenSet() const { return m_deinterlacerHasBeenSet; }
+
+    /**
+     * Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer
+     * picture.
+     */
     inline void SetDeinterlacer(const Deinterlacer& value) { m_deinterlacerHasBeenSet = true; m_deinterlacer = value; }
 
     /**
@@ -120,11 +135,49 @@ namespace Model
 
 
     /**
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     */
+    inline const DolbyVision& GetDolbyVision() const{ return m_dolbyVision; }
+
+    /**
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     */
+    inline bool DolbyVisionHasBeenSet() const { return m_dolbyVisionHasBeenSet; }
+
+    /**
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     */
+    inline void SetDolbyVision(const DolbyVision& value) { m_dolbyVisionHasBeenSet = true; m_dolbyVision = value; }
+
+    /**
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     */
+    inline void SetDolbyVision(DolbyVision&& value) { m_dolbyVisionHasBeenSet = true; m_dolbyVision = std::move(value); }
+
+    /**
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     */
+    inline VideoPreprocessor& WithDolbyVision(const DolbyVision& value) { SetDolbyVision(value); return *this;}
+
+    /**
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     */
+    inline VideoPreprocessor& WithDolbyVision(DolbyVision&& value) { SetDolbyVision(std::move(value)); return *this;}
+
+
+    /**
      * Enable the Image inserter (ImageInserter) feature to include a graphic overlay
      * on your video. Enable or disable this feature for each output individually. This
      * setting is disabled by default.
      */
     inline const ImageInserter& GetImageInserter() const{ return m_imageInserter; }
+
+    /**
+     * Enable the Image inserter (ImageInserter) feature to include a graphic overlay
+     * on your video. Enable or disable this feature for each output individually. This
+     * setting is disabled by default.
+     */
+    inline bool ImageInserterHasBeenSet() const { return m_imageInserterHasBeenSet; }
 
     /**
      * Enable the Image inserter (ImageInserter) feature to include a graphic overlay
@@ -167,6 +220,13 @@ namespace Model
      * output if necessary. Enable or disable this feature for each output
      * individually. This setting is disabled by default.
      */
+    inline bool NoiseReducerHasBeenSet() const { return m_noiseReducerHasBeenSet; }
+
+    /**
+     * Enable the Noise reducer (NoiseReducer) feature to remove noise from your video
+     * output if necessary. Enable or disable this feature for each output
+     * individually. This setting is disabled by default.
+     */
     inline void SetNoiseReducer(const NoiseReducer& value) { m_noiseReducerHasBeenSet = true; m_noiseReducer = value; }
 
     /**
@@ -201,6 +261,12 @@ namespace Model
      * Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified
      * prefix into the output.
      */
+    inline bool TimecodeBurninHasBeenSet() const { return m_timecodeBurninHasBeenSet; }
+
+    /**
+     * Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified
+     * prefix into the output.
+     */
     inline void SetTimecodeBurnin(const TimecodeBurnin& value) { m_timecodeBurninHasBeenSet = true; m_timecodeBurnin = value; }
 
     /**
@@ -228,6 +294,9 @@ namespace Model
 
     Deinterlacer m_deinterlacer;
     bool m_deinterlacerHasBeenSet;
+
+    DolbyVision m_dolbyVision;
+    bool m_dolbyVisionHasBeenSet;
 
     ImageInserter m_imageInserter;
     bool m_imageInserterHasBeenSet;

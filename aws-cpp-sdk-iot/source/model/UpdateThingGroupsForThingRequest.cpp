@@ -25,7 +25,9 @@ using namespace Aws::Utils;
 UpdateThingGroupsForThingRequest::UpdateThingGroupsForThingRequest() : 
     m_thingNameHasBeenSet(false),
     m_thingGroupsToAddHasBeenSet(false),
-    m_thingGroupsToRemoveHasBeenSet(false)
+    m_thingGroupsToRemoveHasBeenSet(false),
+    m_overrideDynamicGroups(false),
+    m_overrideDynamicGroupsHasBeenSet(false)
 {
 }
 
@@ -61,7 +63,13 @@ Aws::String UpdateThingGroupsForThingRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_overrideDynamicGroupsHasBeenSet)
+  {
+   payload.WithBool("overrideDynamicGroups", m_overrideDynamicGroups);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

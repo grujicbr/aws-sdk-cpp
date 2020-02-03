@@ -35,25 +35,27 @@ TreatmentResource::TreatmentResource() :
     m_sizePercent(0),
     m_sizePercentHasBeenSet(false),
     m_stateHasBeenSet(false),
+    m_templateConfigurationHasBeenSet(false),
     m_treatmentDescriptionHasBeenSet(false),
     m_treatmentNameHasBeenSet(false)
 {
 }
 
-TreatmentResource::TreatmentResource(const JsonValue& jsonValue) : 
+TreatmentResource::TreatmentResource(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_messageConfigurationHasBeenSet(false),
     m_scheduleHasBeenSet(false),
     m_sizePercent(0),
     m_sizePercentHasBeenSet(false),
     m_stateHasBeenSet(false),
+    m_templateConfigurationHasBeenSet(false),
     m_treatmentDescriptionHasBeenSet(false),
     m_treatmentNameHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-TreatmentResource& TreatmentResource::operator =(const JsonValue& jsonValue)
+TreatmentResource& TreatmentResource::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -88,6 +90,13 @@ TreatmentResource& TreatmentResource::operator =(const JsonValue& jsonValue)
     m_state = jsonValue.GetObject("State");
 
     m_stateHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("TemplateConfiguration"))
+  {
+    m_templateConfiguration = jsonValue.GetObject("TemplateConfiguration");
+
+    m_templateConfigurationHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("TreatmentDescription"))
@@ -138,6 +147,12 @@ JsonValue TreatmentResource::Jsonize() const
   if(m_stateHasBeenSet)
   {
    payload.WithObject("State", m_state.Jsonize());
+
+  }
+
+  if(m_templateConfigurationHasBeenSet)
+  {
+   payload.WithObject("TemplateConfiguration", m_templateConfiguration.Jsonize());
 
   }
 

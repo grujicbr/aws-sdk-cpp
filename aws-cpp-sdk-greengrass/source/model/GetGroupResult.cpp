@@ -37,7 +37,7 @@ GetGroupResult::GetGroupResult(const Aws::AmazonWebServiceResult<JsonValue>& res
 
 GetGroupResult& GetGroupResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("Arn"))
   {
     m_arn = jsonValue.GetString("Arn");
@@ -78,6 +78,15 @@ GetGroupResult& GetGroupResult::operator =(const Aws::AmazonWebServiceResult<Jso
   {
     m_name = jsonValue.GetString("Name");
 
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
   }
 
 

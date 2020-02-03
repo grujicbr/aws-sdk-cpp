@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticTranscoder
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     Artwork();
-    Artwork(const Aws::Utils::Json::JsonValue& jsonValue);
-    Artwork& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Artwork(Aws::Utils::Json::JsonView jsonValue);
+    Artwork& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -62,6 +63,16 @@ namespace Model
      * file isn't in the specified bucket, Elastic Transcoder returns an error.</p>
      */
     inline const Aws::String& GetInputKey() const{ return m_inputKey; }
+
+    /**
+     * <p>The name of the file to be used as album art. To determine which Amazon S3
+     * bucket contains the specified file, Elastic Transcoder checks the pipeline
+     * specified by <code>PipelineId</code>; the <code>InputBucket</code> object in
+     * that pipeline identifies the bucket.</p> <p>If the file name includes a prefix,
+     * for example, <code>cooking/pie.jpg</code>, include the prefix in the key. If the
+     * file isn't in the specified bucket, Elastic Transcoder returns an error.</p>
+     */
+    inline bool InputKeyHasBeenSet() const { return m_inputKeyHasBeenSet; }
 
     /**
      * <p>The name of the file to be used as album art. To determine which Amazon S3
@@ -138,6 +149,14 @@ namespace Model
      * specify a numeric value, enter an even integer between 32 and 4096,
      * inclusive.</p>
      */
+    inline bool MaxWidthHasBeenSet() const { return m_maxWidthHasBeenSet; }
+
+    /**
+     * <p>The maximum width of the output album art in pixels. If you specify
+     * <code>auto</code>, Elastic Transcoder uses 600 as the default value. If you
+     * specify a numeric value, enter an even integer between 32 and 4096,
+     * inclusive.</p>
+     */
     inline void SetMaxWidth(const Aws::String& value) { m_maxWidthHasBeenSet = true; m_maxWidth = value; }
 
     /**
@@ -188,6 +207,14 @@ namespace Model
      * inclusive.</p>
      */
     inline const Aws::String& GetMaxHeight() const{ return m_maxHeight; }
+
+    /**
+     * <p>The maximum height of the output album art in pixels. If you specify
+     * <code>auto</code>, Elastic Transcoder uses 600 as the default value. If you
+     * specify a numeric value, enter an even integer between 32 and 3072,
+     * inclusive.</p>
+     */
+    inline bool MaxHeightHasBeenSet() const { return m_maxHeightHasBeenSet; }
 
     /**
      * <p>The maximum height of the output album art in pixels. If you specify
@@ -266,6 +293,35 @@ namespace Model
      * art up.</p> </li> </ul>
      */
     inline const Aws::String& GetSizingPolicy() const{ return m_sizingPolicy; }
+
+    /**
+     * <p>Specify one of the following values to control scaling of the output album
+     * art:</p> <ul> <li> <p> <code>Fit:</code> Elastic Transcoder scales the output
+     * art so it matches the value that you specified in either <code>MaxWidth</code>
+     * or <code>MaxHeight</code> without exceeding the other value.</p> </li> <li> <p>
+     * <code>Fill:</code> Elastic Transcoder scales the output art so it matches the
+     * value that you specified in either <code>MaxWidth</code> or
+     * <code>MaxHeight</code> and matches or exceeds the other value. Elastic
+     * Transcoder centers the output art and then crops it in the dimension (if any)
+     * that exceeds the maximum value. </p> </li> <li> <p> <code>Stretch:</code>
+     * Elastic Transcoder stretches the output art to match the values that you
+     * specified for <code>MaxWidth</code> and <code>MaxHeight</code>. If the relative
+     * proportions of the input art and the output art are different, the output art
+     * will be distorted.</p> </li> <li> <p> <code>Keep:</code> Elastic Transcoder does
+     * not scale the output art. If either dimension of the input art exceeds the
+     * values that you specified for <code>MaxWidth</code> and <code>MaxHeight</code>,
+     * Elastic Transcoder crops the output art.</p> </li> <li> <p>
+     * <code>ShrinkToFit:</code> Elastic Transcoder scales the output art down so that
+     * its dimensions match the values that you specified for at least one of
+     * <code>MaxWidth</code> and <code>MaxHeight</code> without exceeding either value.
+     * If you specify this option, Elastic Transcoder does not scale the art up.</p>
+     * </li> <li> <p> <code>ShrinkToFill</code> Elastic Transcoder scales the output
+     * art down so that its dimensions match the values that you specified for at least
+     * one of <code>MaxWidth</code> and <code>MaxHeight</code> without dropping below
+     * either value. If you specify this option, Elastic Transcoder does not scale the
+     * art up.</p> </li> </ul>
+     */
+    inline bool SizingPolicyHasBeenSet() const { return m_sizingPolicyHasBeenSet; }
 
     /**
      * <p>Specify one of the following values to control scaling of the output album
@@ -458,6 +514,15 @@ namespace Model
      * values that you specified for <code>MaxWidth</code> and
      * <code>MaxHeight</code>.</p>
      */
+    inline bool PaddingPolicyHasBeenSet() const { return m_paddingPolicyHasBeenSet; }
+
+    /**
+     * <p>When you set <code>PaddingPolicy</code> to <code>Pad</code>, Elastic
+     * Transcoder may add white bars to the top and bottom and/or left and right sides
+     * of the output album art to make the total size of the output art match the
+     * values that you specified for <code>MaxWidth</code> and
+     * <code>MaxHeight</code>.</p>
+     */
     inline void SetPaddingPolicy(const Aws::String& value) { m_paddingPolicyHasBeenSet = true; m_paddingPolicy = value; }
 
     /**
@@ -516,6 +581,12 @@ namespace Model
      * <p>The format of album art, if any. Valid formats are <code>.jpg</code> and
      * <code>.png</code>.</p>
      */
+    inline bool AlbumArtFormatHasBeenSet() const { return m_albumArtFormatHasBeenSet; }
+
+    /**
+     * <p>The format of album art, if any. Valid formats are <code>.jpg</code> and
+     * <code>.png</code>.</p>
+     */
     inline void SetAlbumArtFormat(const Aws::String& value) { m_albumArtFormatHasBeenSet = true; m_albumArtFormat = value; }
 
     /**
@@ -554,6 +625,12 @@ namespace Model
      * your artwork.</p>
      */
     inline const Encryption& GetEncryption() const{ return m_encryption; }
+
+    /**
+     * <p>The encryption settings, if any, that you want Elastic Transcoder to apply to
+     * your artwork.</p>
+     */
+    inline bool EncryptionHasBeenSet() const { return m_encryptionHasBeenSet; }
 
     /**
      * <p>The encryption settings, if any, that you want Elastic Transcoder to apply to

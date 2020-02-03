@@ -36,6 +36,7 @@ InstanceSnapshot::InstanceSnapshot() :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_state(InstanceSnapshotState::NOT_SET),
     m_stateHasBeenSet(false),
     m_progressHasBeenSet(false),
@@ -44,12 +45,14 @@ InstanceSnapshot::InstanceSnapshot() :
     m_fromInstanceArnHasBeenSet(false),
     m_fromBlueprintIdHasBeenSet(false),
     m_fromBundleIdHasBeenSet(false),
+    m_isFromAutoSnapshot(false),
+    m_isFromAutoSnapshotHasBeenSet(false),
     m_sizeInGb(0),
     m_sizeInGbHasBeenSet(false)
 {
 }
 
-InstanceSnapshot::InstanceSnapshot(const JsonValue& jsonValue) : 
+InstanceSnapshot::InstanceSnapshot(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_supportCodeHasBeenSet(false),
@@ -57,6 +60,7 @@ InstanceSnapshot::InstanceSnapshot(const JsonValue& jsonValue) :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_state(InstanceSnapshotState::NOT_SET),
     m_stateHasBeenSet(false),
     m_progressHasBeenSet(false),
@@ -65,13 +69,15 @@ InstanceSnapshot::InstanceSnapshot(const JsonValue& jsonValue) :
     m_fromInstanceArnHasBeenSet(false),
     m_fromBlueprintIdHasBeenSet(false),
     m_fromBundleIdHasBeenSet(false),
+    m_isFromAutoSnapshot(false),
+    m_isFromAutoSnapshotHasBeenSet(false),
     m_sizeInGb(0),
     m_sizeInGbHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-InstanceSnapshot& InstanceSnapshot::operator =(const JsonValue& jsonValue)
+InstanceSnapshot& InstanceSnapshot::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -115,6 +121,16 @@ InstanceSnapshot& InstanceSnapshot::operator =(const JsonValue& jsonValue)
     m_resourceTypeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("state"))
   {
     m_state = InstanceSnapshotStateMapper::GetInstanceSnapshotStateForName(jsonValue.GetString("state"));
@@ -131,7 +147,7 @@ InstanceSnapshot& InstanceSnapshot::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("fromAttachedDisks"))
   {
-    Array<JsonValue> fromAttachedDisksJsonList = jsonValue.GetArray("fromAttachedDisks");
+    Array<JsonView> fromAttachedDisksJsonList = jsonValue.GetArray("fromAttachedDisks");
     for(unsigned fromAttachedDisksIndex = 0; fromAttachedDisksIndex < fromAttachedDisksJsonList.GetLength(); ++fromAttachedDisksIndex)
     {
       m_fromAttachedDisks.push_back(fromAttachedDisksJsonList[fromAttachedDisksIndex].AsObject());
@@ -165,6 +181,13 @@ InstanceSnapshot& InstanceSnapshot::operator =(const JsonValue& jsonValue)
     m_fromBundleId = jsonValue.GetString("fromBundleId");
 
     m_fromBundleIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("isFromAutoSnapshot"))
+  {
+    m_isFromAutoSnapshot = jsonValue.GetBool("isFromAutoSnapshot");
+
+    m_isFromAutoSnapshotHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("sizeInGb"))
@@ -215,6 +238,17 @@ JsonValue InstanceSnapshot::Jsonize() const
    payload.WithString("resourceType", ResourceTypeMapper::GetNameForResourceType(m_resourceType));
   }
 
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
   if(m_stateHasBeenSet)
   {
    payload.WithString("state", InstanceSnapshotStateMapper::GetNameForInstanceSnapshotState(m_state));
@@ -258,6 +292,12 @@ JsonValue InstanceSnapshot::Jsonize() const
   if(m_fromBundleIdHasBeenSet)
   {
    payload.WithString("fromBundleId", m_fromBundleId);
+
+  }
+
+  if(m_isFromAutoSnapshotHasBeenSet)
+  {
+   payload.WithBool("isFromAutoSnapshot", m_isFromAutoSnapshot);
 
   }
 

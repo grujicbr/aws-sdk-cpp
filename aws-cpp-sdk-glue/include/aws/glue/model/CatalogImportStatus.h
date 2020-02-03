@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -43,23 +44,32 @@ namespace Model
   {
   public:
     CatalogImportStatus();
-    CatalogImportStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    CatalogImportStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CatalogImportStatus(Aws::Utils::Json::JsonView jsonValue);
+    CatalogImportStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>True if the migration has completed, or False otherwise.</p>
+     * <p> <code>True</code> if the migration has completed, or <code>False</code>
+     * otherwise.</p>
      */
     inline bool GetImportCompleted() const{ return m_importCompleted; }
 
     /**
-     * <p>True if the migration has completed, or False otherwise.</p>
+     * <p> <code>True</code> if the migration has completed, or <code>False</code>
+     * otherwise.</p>
+     */
+    inline bool ImportCompletedHasBeenSet() const { return m_importCompletedHasBeenSet; }
+
+    /**
+     * <p> <code>True</code> if the migration has completed, or <code>False</code>
+     * otherwise.</p>
      */
     inline void SetImportCompleted(bool value) { m_importCompletedHasBeenSet = true; m_importCompleted = value; }
 
     /**
-     * <p>True if the migration has completed, or False otherwise.</p>
+     * <p> <code>True</code> if the migration has completed, or <code>False</code>
+     * otherwise.</p>
      */
     inline CatalogImportStatus& WithImportCompleted(bool value) { SetImportCompleted(value); return *this;}
 
@@ -68,6 +78,11 @@ namespace Model
      * <p>The time that the migration was started.</p>
      */
     inline const Aws::Utils::DateTime& GetImportTime() const{ return m_importTime; }
+
+    /**
+     * <p>The time that the migration was started.</p>
+     */
+    inline bool ImportTimeHasBeenSet() const { return m_importTimeHasBeenSet; }
 
     /**
      * <p>The time that the migration was started.</p>
@@ -94,6 +109,11 @@ namespace Model
      * <p>The name of the person who initiated the migration.</p>
      */
     inline const Aws::String& GetImportedBy() const{ return m_importedBy; }
+
+    /**
+     * <p>The name of the person who initiated the migration.</p>
+     */
+    inline bool ImportedByHasBeenSet() const { return m_importedByHasBeenSet; }
 
     /**
      * <p>The name of the person who initiated the migration.</p>

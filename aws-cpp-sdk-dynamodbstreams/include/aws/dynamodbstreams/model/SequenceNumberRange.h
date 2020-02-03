@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDBStreams
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     SequenceNumberRange();
-    SequenceNumberRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    SequenceNumberRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SequenceNumberRange(Aws::Utils::Json::JsonView jsonValue);
+    SequenceNumberRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The first sequence number.</p>
      */
     inline const Aws::String& GetStartingSequenceNumber() const{ return m_startingSequenceNumber; }
+
+    /**
+     * <p>The first sequence number.</p>
+     */
+    inline bool StartingSequenceNumberHasBeenSet() const { return m_startingSequenceNumberHasBeenSet; }
 
     /**
      * <p>The first sequence number.</p>
@@ -85,6 +91,11 @@ namespace Model
      * <p>The last sequence number.</p>
      */
     inline const Aws::String& GetEndingSequenceNumber() const{ return m_endingSequenceNumber; }
+
+    /**
+     * <p>The last sequence number.</p>
+     */
+    inline bool EndingSequenceNumberHasBeenSet() const { return m_endingSequenceNumberHasBeenSet; }
 
     /**
      * <p>The last sequence number.</p>

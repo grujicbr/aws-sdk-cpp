@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ChallengeResponseType();
-    ChallengeResponseType(const Aws::Utils::Json::JsonValue& jsonValue);
-    ChallengeResponseType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ChallengeResponseType(Aws::Utils::Json::JsonView jsonValue);
+    ChallengeResponseType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The challenge name</p>
      */
     inline const ChallengeName& GetChallengeName() const{ return m_challengeName; }
+
+    /**
+     * <p>The challenge name</p>
+     */
+    inline bool ChallengeNameHasBeenSet() const { return m_challengeNameHasBeenSet; }
 
     /**
      * <p>The challenge name</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The challenge response.</p>
      */
     inline const ChallengeResponse& GetChallengeResponse() const{ return m_challengeResponse; }
+
+    /**
+     * <p>The challenge response.</p>
+     */
+    inline bool ChallengeResponseHasBeenSet() const { return m_challengeResponseHasBeenSet; }
 
     /**
      * <p>The challenge response.</p>

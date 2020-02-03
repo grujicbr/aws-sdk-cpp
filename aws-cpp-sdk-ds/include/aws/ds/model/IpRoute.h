@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     IpRoute();
-    IpRoute(const Aws::Utils::Json::JsonValue& jsonValue);
-    IpRoute& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IpRoute(Aws::Utils::Json::JsonView jsonValue);
+    IpRoute& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * 10.0.0.0/32.</p>
      */
     inline const Aws::String& GetCidrIp() const{ return m_cidrIp; }
+
+    /**
+     * <p>IP address block using CIDR format, for example 10.0.0.0/24. This is often
+     * the address block of the DNS server used for your on-premises domain. For a
+     * single IP address use a CIDR address block with /32. For example
+     * 10.0.0.0/32.</p>
+     */
+    inline bool CidrIpHasBeenSet() const { return m_cidrIpHasBeenSet; }
 
     /**
      * <p>IP address block using CIDR format, for example 10.0.0.0/24. This is often
@@ -108,6 +117,11 @@ namespace Model
      * <p>Description of the address block.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>Description of the address block.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>Description of the address block.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ProviderUserIdentifierType();
-    ProviderUserIdentifierType(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProviderUserIdentifierType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProviderUserIdentifierType(Aws::Utils::Json::JsonView jsonValue);
+    ProviderUserIdentifierType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * Amazon.</p>
      */
     inline const Aws::String& GetProviderName() const{ return m_providerName; }
+
+    /**
+     * <p>The name of the provider, for example, Facebook, Google, or Login with
+     * Amazon.</p>
+     */
+    inline bool ProviderNameHasBeenSet() const { return m_providerNameHasBeenSet; }
 
     /**
      * <p>The name of the provider, for example, Facebook, Google, or Login with
@@ -100,6 +107,12 @@ namespace Model
      * <p>The name of the provider attribute to link to, for example,
      * <code>NameID</code>.</p>
      */
+    inline bool ProviderAttributeNameHasBeenSet() const { return m_providerAttributeNameHasBeenSet; }
+
+    /**
+     * <p>The name of the provider attribute to link to, for example,
+     * <code>NameID</code>.</p>
+     */
     inline void SetProviderAttributeName(const Aws::String& value) { m_providerAttributeNameHasBeenSet = true; m_providerAttributeName = value; }
 
     /**
@@ -138,6 +151,12 @@ namespace Model
      * <code>xxxxx_account</code>.</p>
      */
     inline const Aws::String& GetProviderAttributeValue() const{ return m_providerAttributeValue; }
+
+    /**
+     * <p>The value of the provider attribute to link to, for example,
+     * <code>xxxxx_account</code>.</p>
+     */
+    inline bool ProviderAttributeValueHasBeenSet() const { return m_providerAttributeValueHasBeenSet; }
 
     /**
      * <p>The value of the provider attribute to link to, for example,

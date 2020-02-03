@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ArtifactLocation();
-    ArtifactLocation(const Aws::Utils::Json::JsonValue& jsonValue);
-    ArtifactLocation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ArtifactLocation(Aws::Utils::Json::JsonView jsonValue);
+    ArtifactLocation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The type of artifact in the location.</p>
      */
     inline const ArtifactLocationType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of artifact in the location.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of artifact in the location.</p>
@@ -75,27 +81,32 @@ namespace Model
 
 
     /**
-     * <p>The Amazon S3 bucket that contains the artifact.</p>
+     * <p>The S3 bucket that contains the artifact.</p>
      */
     inline const S3ArtifactLocation& GetS3Location() const{ return m_s3Location; }
 
     /**
-     * <p>The Amazon S3 bucket that contains the artifact.</p>
+     * <p>The S3 bucket that contains the artifact.</p>
+     */
+    inline bool S3LocationHasBeenSet() const { return m_s3LocationHasBeenSet; }
+
+    /**
+     * <p>The S3 bucket that contains the artifact.</p>
      */
     inline void SetS3Location(const S3ArtifactLocation& value) { m_s3LocationHasBeenSet = true; m_s3Location = value; }
 
     /**
-     * <p>The Amazon S3 bucket that contains the artifact.</p>
+     * <p>The S3 bucket that contains the artifact.</p>
      */
     inline void SetS3Location(S3ArtifactLocation&& value) { m_s3LocationHasBeenSet = true; m_s3Location = std::move(value); }
 
     /**
-     * <p>The Amazon S3 bucket that contains the artifact.</p>
+     * <p>The S3 bucket that contains the artifact.</p>
      */
     inline ArtifactLocation& WithS3Location(const S3ArtifactLocation& value) { SetS3Location(value); return *this;}
 
     /**
-     * <p>The Amazon S3 bucket that contains the artifact.</p>
+     * <p>The S3 bucket that contains the artifact.</p>
      */
     inline ArtifactLocation& WithS3Location(S3ArtifactLocation&& value) { SetS3Location(std::move(value)); return *this;}
 

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexRuntimeService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     GenericAttachment();
-    GenericAttachment(const Aws::Utils::Json::JsonValue& jsonValue);
-    GenericAttachment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GenericAttachment(Aws::Utils::Json::JsonView jsonValue);
+    GenericAttachment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The title of the option.</p>
      */
     inline const Aws::String& GetTitle() const{ return m_title; }
+
+    /**
+     * <p>The title of the option.</p>
+     */
+    inline bool TitleHasBeenSet() const { return m_titleHasBeenSet; }
 
     /**
      * <p>The title of the option.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The subtitle shown below the title.</p>
      */
+    inline bool SubTitleHasBeenSet() const { return m_subTitleHasBeenSet; }
+
+    /**
+     * <p>The subtitle shown below the title.</p>
+     */
     inline void SetSubTitle(const Aws::String& value) { m_subTitleHasBeenSet = true; m_subTitle = value; }
 
     /**
@@ -125,6 +136,11 @@ namespace Model
      * <p>The URL of an attachment to the response card.</p>
      */
     inline const Aws::String& GetAttachmentLinkUrl() const{ return m_attachmentLinkUrl; }
+
+    /**
+     * <p>The URL of an attachment to the response card.</p>
+     */
+    inline bool AttachmentLinkUrlHasBeenSet() const { return m_attachmentLinkUrlHasBeenSet; }
 
     /**
      * <p>The URL of an attachment to the response card.</p>
@@ -165,6 +181,11 @@ namespace Model
     /**
      * <p>The URL of an image that is displayed to the user.</p>
      */
+    inline bool ImageUrlHasBeenSet() const { return m_imageUrlHasBeenSet; }
+
+    /**
+     * <p>The URL of an image that is displayed to the user.</p>
+     */
     inline void SetImageUrl(const Aws::String& value) { m_imageUrlHasBeenSet = true; m_imageUrl = value; }
 
     /**
@@ -197,6 +218,11 @@ namespace Model
      * <p>The list of options to show to the user.</p>
      */
     inline const Aws::Vector<Button>& GetButtons() const{ return m_buttons; }
+
+    /**
+     * <p>The list of options to show to the user.</p>
+     */
+    inline bool ButtonsHasBeenSet() const { return m_buttonsHasBeenSet; }
 
     /**
      * <p>The list of options to show to the user.</p>

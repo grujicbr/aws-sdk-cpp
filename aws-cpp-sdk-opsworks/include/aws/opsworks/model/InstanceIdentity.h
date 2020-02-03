@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -35,7 +36,7 @@ namespace Model
   /**
    * <p>Contains a description of an Amazon EC2 instance from the Amazon EC2 metadata
    * service. For more information, see <a
-   * href="http://docs.aws.amazon.com/sdkfornet/latest/apidocs/Index.html">Instance
+   * href="https://docs.aws.amazon.com/sdkfornet/latest/apidocs/Index.html">Instance
    * Metadata and User Data</a>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/InstanceIdentity">AWS
    * API Reference</a></p>
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     InstanceIdentity();
-    InstanceIdentity(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceIdentity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceIdentity(Aws::Utils::Json::JsonView jsonValue);
+    InstanceIdentity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>A JSON document that contains the metadata.</p>
      */
     inline const Aws::String& GetDocument() const{ return m_document; }
+
+    /**
+     * <p>A JSON document that contains the metadata.</p>
+     */
+    inline bool DocumentHasBeenSet() const { return m_documentHasBeenSet; }
 
     /**
      * <p>A JSON document that contains the metadata.</p>
@@ -90,6 +96,12 @@ namespace Model
      * authenticity.</p>
      */
     inline const Aws::String& GetSignature() const{ return m_signature; }
+
+    /**
+     * <p>A signature that can be used to verify the document's accuracy and
+     * authenticity.</p>
+     */
+    inline bool SignatureHasBeenSet() const { return m_signatureHasBeenSet; }
 
     /**
      * <p>A signature that can be used to verify the document's accuracy and

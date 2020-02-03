@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     FunctionConfiguration();
-    FunctionConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    FunctionConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FunctionConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    FunctionConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * ''json''.
      */
     inline const EncodingType& GetEncodingType() const{ return m_encodingType; }
+
+    /**
+     * The expected encoding type of the input payload for the function. The default is
+     * ''json''.
+     */
+    inline bool EncodingTypeHasBeenSet() const { return m_encodingTypeHasBeenSet; }
 
     /**
      * The expected encoding type of the input payload for the function. The default is
@@ -87,6 +94,11 @@ namespace Model
     /**
      * The environment configuration of the function.
      */
+    inline bool EnvironmentHasBeenSet() const { return m_environmentHasBeenSet; }
+
+    /**
+     * The environment configuration of the function.
+     */
     inline void SetEnvironment(const FunctionConfigurationEnvironment& value) { m_environmentHasBeenSet = true; m_environment = value; }
 
     /**
@@ -109,6 +121,11 @@ namespace Model
      * The execution arguments.
      */
     inline const Aws::String& GetExecArgs() const{ return m_execArgs; }
+
+    /**
+     * The execution arguments.
+     */
+    inline bool ExecArgsHasBeenSet() const { return m_execArgsHasBeenSet; }
 
     /**
      * The execution arguments.
@@ -149,6 +166,11 @@ namespace Model
     /**
      * The name of the function executable.
      */
+    inline bool ExecutableHasBeenSet() const { return m_executableHasBeenSet; }
+
+    /**
+     * The name of the function executable.
+     */
     inline void SetExecutable(const Aws::String& value) { m_executableHasBeenSet = true; m_executable = value; }
 
     /**
@@ -178,17 +200,30 @@ namespace Model
 
 
     /**
-     * The memory size, in KB, which the function requires.
+     * The memory size, in KB, which the function requires. This setting is not
+     * applicable and should be cleared when you run the Lambda function without
+     * containerization.
      */
     inline int GetMemorySize() const{ return m_memorySize; }
 
     /**
-     * The memory size, in KB, which the function requires.
+     * The memory size, in KB, which the function requires. This setting is not
+     * applicable and should be cleared when you run the Lambda function without
+     * containerization.
+     */
+    inline bool MemorySizeHasBeenSet() const { return m_memorySizeHasBeenSet; }
+
+    /**
+     * The memory size, in KB, which the function requires. This setting is not
+     * applicable and should be cleared when you run the Lambda function without
+     * containerization.
      */
     inline void SetMemorySize(int value) { m_memorySizeHasBeenSet = true; m_memorySize = value; }
 
     /**
-     * The memory size, in KB, which the function requires.
+     * The memory size, in KB, which the function requires. This setting is not
+     * applicable and should be cleared when you run the Lambda function without
+     * containerization.
      */
     inline FunctionConfiguration& WithMemorySize(int value) { SetMemorySize(value); return *this;}
 
@@ -198,6 +233,12 @@ namespace Model
      * starts when the core starts.
      */
     inline bool GetPinned() const{ return m_pinned; }
+
+    /**
+     * True if the function is pinned. Pinned means the function is long-lived and
+     * starts when the core starts.
+     */
+    inline bool PinnedHasBeenSet() const { return m_pinnedHasBeenSet; }
 
     /**
      * True if the function is pinned. Pinned means the function is long-lived and
@@ -214,19 +255,29 @@ namespace Model
 
     /**
      * The allowed function execution time, after which Lambda should terminate the
-     * function. This timeout still applies to pinned lambdas for each request.
+     * function. This timeout still applies to pinned Lambda functions for each
+     * request.
      */
     inline int GetTimeout() const{ return m_timeout; }
 
     /**
      * The allowed function execution time, after which Lambda should terminate the
-     * function. This timeout still applies to pinned lambdas for each request.
+     * function. This timeout still applies to pinned Lambda functions for each
+     * request.
+     */
+    inline bool TimeoutHasBeenSet() const { return m_timeoutHasBeenSet; }
+
+    /**
+     * The allowed function execution time, after which Lambda should terminate the
+     * function. This timeout still applies to pinned Lambda functions for each
+     * request.
      */
     inline void SetTimeout(int value) { m_timeoutHasBeenSet = true; m_timeout = value; }
 
     /**
      * The allowed function execution time, after which Lambda should terminate the
-     * function. This timeout still applies to pinned lambdas for each request.
+     * function. This timeout still applies to pinned Lambda functions for each
+     * request.
      */
     inline FunctionConfiguration& WithTimeout(int value) { SetTimeout(value); return *this;}
 

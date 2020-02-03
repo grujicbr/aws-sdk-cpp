@@ -34,26 +34,34 @@ PullRequestEvent::PullRequestEvent() :
     m_pullRequestEventType(PullRequestEventType::NOT_SET),
     m_pullRequestEventTypeHasBeenSet(false),
     m_actorArnHasBeenSet(false),
+    m_pullRequestCreatedEventMetadataHasBeenSet(false),
     m_pullRequestStatusChangedEventMetadataHasBeenSet(false),
     m_pullRequestSourceReferenceUpdatedEventMetadataHasBeenSet(false),
-    m_pullRequestMergedStateChangedEventMetadataHasBeenSet(false)
+    m_pullRequestMergedStateChangedEventMetadataHasBeenSet(false),
+    m_approvalRuleEventMetadataHasBeenSet(false),
+    m_approvalStateChangedEventMetadataHasBeenSet(false),
+    m_approvalRuleOverriddenEventMetadataHasBeenSet(false)
 {
 }
 
-PullRequestEvent::PullRequestEvent(const JsonValue& jsonValue) : 
+PullRequestEvent::PullRequestEvent(JsonView jsonValue) : 
     m_pullRequestIdHasBeenSet(false),
     m_eventDateHasBeenSet(false),
     m_pullRequestEventType(PullRequestEventType::NOT_SET),
     m_pullRequestEventTypeHasBeenSet(false),
     m_actorArnHasBeenSet(false),
+    m_pullRequestCreatedEventMetadataHasBeenSet(false),
     m_pullRequestStatusChangedEventMetadataHasBeenSet(false),
     m_pullRequestSourceReferenceUpdatedEventMetadataHasBeenSet(false),
-    m_pullRequestMergedStateChangedEventMetadataHasBeenSet(false)
+    m_pullRequestMergedStateChangedEventMetadataHasBeenSet(false),
+    m_approvalRuleEventMetadataHasBeenSet(false),
+    m_approvalStateChangedEventMetadataHasBeenSet(false),
+    m_approvalRuleOverriddenEventMetadataHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-PullRequestEvent& PullRequestEvent::operator =(const JsonValue& jsonValue)
+PullRequestEvent& PullRequestEvent::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("pullRequestId"))
   {
@@ -83,6 +91,13 @@ PullRequestEvent& PullRequestEvent::operator =(const JsonValue& jsonValue)
     m_actorArnHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("pullRequestCreatedEventMetadata"))
+  {
+    m_pullRequestCreatedEventMetadata = jsonValue.GetObject("pullRequestCreatedEventMetadata");
+
+    m_pullRequestCreatedEventMetadataHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("pullRequestStatusChangedEventMetadata"))
   {
     m_pullRequestStatusChangedEventMetadata = jsonValue.GetObject("pullRequestStatusChangedEventMetadata");
@@ -102,6 +117,27 @@ PullRequestEvent& PullRequestEvent::operator =(const JsonValue& jsonValue)
     m_pullRequestMergedStateChangedEventMetadata = jsonValue.GetObject("pullRequestMergedStateChangedEventMetadata");
 
     m_pullRequestMergedStateChangedEventMetadataHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("approvalRuleEventMetadata"))
+  {
+    m_approvalRuleEventMetadata = jsonValue.GetObject("approvalRuleEventMetadata");
+
+    m_approvalRuleEventMetadataHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("approvalStateChangedEventMetadata"))
+  {
+    m_approvalStateChangedEventMetadata = jsonValue.GetObject("approvalStateChangedEventMetadata");
+
+    m_approvalStateChangedEventMetadataHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("approvalRuleOverriddenEventMetadata"))
+  {
+    m_approvalRuleOverriddenEventMetadata = jsonValue.GetObject("approvalRuleOverriddenEventMetadata");
+
+    m_approvalRuleOverriddenEventMetadataHasBeenSet = true;
   }
 
   return *this;
@@ -133,6 +169,12 @@ JsonValue PullRequestEvent::Jsonize() const
 
   }
 
+  if(m_pullRequestCreatedEventMetadataHasBeenSet)
+  {
+   payload.WithObject("pullRequestCreatedEventMetadata", m_pullRequestCreatedEventMetadata.Jsonize());
+
+  }
+
   if(m_pullRequestStatusChangedEventMetadataHasBeenSet)
   {
    payload.WithObject("pullRequestStatusChangedEventMetadata", m_pullRequestStatusChangedEventMetadata.Jsonize());
@@ -148,6 +190,24 @@ JsonValue PullRequestEvent::Jsonize() const
   if(m_pullRequestMergedStateChangedEventMetadataHasBeenSet)
   {
    payload.WithObject("pullRequestMergedStateChangedEventMetadata", m_pullRequestMergedStateChangedEventMetadata.Jsonize());
+
+  }
+
+  if(m_approvalRuleEventMetadataHasBeenSet)
+  {
+   payload.WithObject("approvalRuleEventMetadata", m_approvalRuleEventMetadata.Jsonize());
+
+  }
+
+  if(m_approvalStateChangedEventMetadataHasBeenSet)
+  {
+   payload.WithObject("approvalStateChangedEventMetadata", m_approvalStateChangedEventMetadata.Jsonize());
+
+  }
+
+  if(m_approvalRuleOverriddenEventMetadataHasBeenSet)
+  {
+   payload.WithObject("approvalRuleOverriddenEventMetadata", m_approvalRuleOverriddenEventMetadata.Jsonize());
 
   }
 

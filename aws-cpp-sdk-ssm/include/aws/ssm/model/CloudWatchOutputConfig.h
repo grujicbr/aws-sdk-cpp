@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CloudWatchOutputConfig();
-    CloudWatchOutputConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    CloudWatchOutputConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CloudWatchOutputConfig(Aws::Utils::Json::JsonView jsonValue);
+    CloudWatchOutputConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * aws/ssm/<i>SystemsManagerDocumentName</i>.</p>
      */
     inline const Aws::String& GetCloudWatchLogGroupName() const{ return m_cloudWatchLogGroupName; }
+
+    /**
+     * <p>The name of the CloudWatch log group where you want to send command output.
+     * If you don't specify a group name, Systems Manager automatically creates a log
+     * group for you. The log group uses the following naming format:
+     * aws/ssm/<i>SystemsManagerDocumentName</i>.</p>
+     */
+    inline bool CloudWatchLogGroupNameHasBeenSet() const { return m_cloudWatchLogGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the CloudWatch log group where you want to send command output.
@@ -108,6 +117,11 @@ namespace Model
      * <p>Enables Systems Manager to send command output to CloudWatch Logs.</p>
      */
     inline bool GetCloudWatchOutputEnabled() const{ return m_cloudWatchOutputEnabled; }
+
+    /**
+     * <p>Enables Systems Manager to send command output to CloudWatch Logs.</p>
+     */
+    inline bool CloudWatchOutputEnabledHasBeenSet() const { return m_cloudWatchOutputEnabledHasBeenSet; }
 
     /**
      * <p>Enables Systems Manager to send command output to CloudWatch Logs.</p>

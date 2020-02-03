@@ -41,6 +41,7 @@ H264Settings::H264Settings() :
     m_bufSizeHasBeenSet(false),
     m_colorMetadata(H264ColorMetadata::NOT_SET),
     m_colorMetadataHasBeenSet(false),
+    m_colorSpaceSettingsHasBeenSet(false),
     m_entropyEncoding(H264EntropyEncoding::NOT_SET),
     m_entropyEncodingHasBeenSet(false),
     m_fixedAfd(FixedAfd::NOT_SET),
@@ -81,6 +82,8 @@ H264Settings::H264Settings() :
     m_parNumeratorHasBeenSet(false),
     m_profile(H264Profile::NOT_SET),
     m_profileHasBeenSet(false),
+    m_qvbrQualityLevel(0),
+    m_qvbrQualityLevelHasBeenSet(false),
     m_rateControlMode(H264RateControlMode::NOT_SET),
     m_rateControlModeHasBeenSet(false),
     m_scanType(H264ScanType::NOT_SET),
@@ -93,6 +96,8 @@ H264Settings::H264Settings() :
     m_softnessHasBeenSet(false),
     m_spatialAq(H264SpatialAq::NOT_SET),
     m_spatialAqHasBeenSet(false),
+    m_subgopLength(H264SubGopLength::NOT_SET),
+    m_subgopLengthHasBeenSet(false),
     m_syntax(H264Syntax::NOT_SET),
     m_syntaxHasBeenSet(false),
     m_temporalAq(H264TemporalAq::NOT_SET),
@@ -102,7 +107,7 @@ H264Settings::H264Settings() :
 {
 }
 
-H264Settings::H264Settings(const JsonValue& jsonValue) : 
+H264Settings::H264Settings(JsonView jsonValue) : 
     m_adaptiveQuantization(H264AdaptiveQuantization::NOT_SET),
     m_adaptiveQuantizationHasBeenSet(false),
     m_afdSignaling(AfdSignaling::NOT_SET),
@@ -115,6 +120,7 @@ H264Settings::H264Settings(const JsonValue& jsonValue) :
     m_bufSizeHasBeenSet(false),
     m_colorMetadata(H264ColorMetadata::NOT_SET),
     m_colorMetadataHasBeenSet(false),
+    m_colorSpaceSettingsHasBeenSet(false),
     m_entropyEncoding(H264EntropyEncoding::NOT_SET),
     m_entropyEncodingHasBeenSet(false),
     m_fixedAfd(FixedAfd::NOT_SET),
@@ -155,6 +161,8 @@ H264Settings::H264Settings(const JsonValue& jsonValue) :
     m_parNumeratorHasBeenSet(false),
     m_profile(H264Profile::NOT_SET),
     m_profileHasBeenSet(false),
+    m_qvbrQualityLevel(0),
+    m_qvbrQualityLevelHasBeenSet(false),
     m_rateControlMode(H264RateControlMode::NOT_SET),
     m_rateControlModeHasBeenSet(false),
     m_scanType(H264ScanType::NOT_SET),
@@ -167,6 +175,8 @@ H264Settings::H264Settings(const JsonValue& jsonValue) :
     m_softnessHasBeenSet(false),
     m_spatialAq(H264SpatialAq::NOT_SET),
     m_spatialAqHasBeenSet(false),
+    m_subgopLength(H264SubGopLength::NOT_SET),
+    m_subgopLengthHasBeenSet(false),
     m_syntax(H264Syntax::NOT_SET),
     m_syntaxHasBeenSet(false),
     m_temporalAq(H264TemporalAq::NOT_SET),
@@ -177,7 +187,7 @@ H264Settings::H264Settings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-H264Settings& H264Settings::operator =(const JsonValue& jsonValue)
+H264Settings& H264Settings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("adaptiveQuantization"))
   {
@@ -219,6 +229,13 @@ H264Settings& H264Settings::operator =(const JsonValue& jsonValue)
     m_colorMetadata = H264ColorMetadataMapper::GetH264ColorMetadataForName(jsonValue.GetString("colorMetadata"));
 
     m_colorMetadataHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("colorSpaceSettings"))
+  {
+    m_colorSpaceSettings = jsonValue.GetObject("colorSpaceSettings");
+
+    m_colorSpaceSettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("entropyEncoding"))
@@ -361,6 +378,13 @@ H264Settings& H264Settings::operator =(const JsonValue& jsonValue)
     m_profileHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("qvbrQualityLevel"))
+  {
+    m_qvbrQualityLevel = jsonValue.GetInteger("qvbrQualityLevel");
+
+    m_qvbrQualityLevelHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("rateControlMode"))
   {
     m_rateControlMode = H264RateControlModeMapper::GetH264RateControlModeForName(jsonValue.GetString("rateControlMode"));
@@ -401,6 +425,13 @@ H264Settings& H264Settings::operator =(const JsonValue& jsonValue)
     m_spatialAq = H264SpatialAqMapper::GetH264SpatialAqForName(jsonValue.GetString("spatialAq"));
 
     m_spatialAqHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("subgopLength"))
+  {
+    m_subgopLength = H264SubGopLengthMapper::GetH264SubGopLengthForName(jsonValue.GetString("subgopLength"));
+
+    m_subgopLengthHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("syntax"))
@@ -462,6 +493,12 @@ JsonValue H264Settings::Jsonize() const
   if(m_colorMetadataHasBeenSet)
   {
    payload.WithString("colorMetadata", H264ColorMetadataMapper::GetNameForH264ColorMetadata(m_colorMetadata));
+  }
+
+  if(m_colorSpaceSettingsHasBeenSet)
+  {
+   payload.WithObject("colorSpaceSettings", m_colorSpaceSettings.Jsonize());
+
   }
 
   if(m_entropyEncodingHasBeenSet)
@@ -574,6 +611,12 @@ JsonValue H264Settings::Jsonize() const
    payload.WithString("profile", H264ProfileMapper::GetNameForH264Profile(m_profile));
   }
 
+  if(m_qvbrQualityLevelHasBeenSet)
+  {
+   payload.WithInteger("qvbrQualityLevel", m_qvbrQualityLevel);
+
+  }
+
   if(m_rateControlModeHasBeenSet)
   {
    payload.WithString("rateControlMode", H264RateControlModeMapper::GetNameForH264RateControlMode(m_rateControlMode));
@@ -604,6 +647,11 @@ JsonValue H264Settings::Jsonize() const
   if(m_spatialAqHasBeenSet)
   {
    payload.WithString("spatialAq", H264SpatialAqMapper::GetNameForH264SpatialAq(m_spatialAq));
+  }
+
+  if(m_subgopLengthHasBeenSet)
+  {
+   payload.WithString("subgopLength", H264SubGopLengthMapper::GetNameForH264SubGopLength(m_subgopLength));
   }
 
   if(m_syntaxHasBeenSet)

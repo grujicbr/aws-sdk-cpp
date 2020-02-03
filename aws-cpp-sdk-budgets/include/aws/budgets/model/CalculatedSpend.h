@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Budgets
@@ -33,11 +34,11 @@ namespace Model
 {
 
   /**
-   * <p>The spend objects associated with this budget. The <code>actualSpend</code>
-   * tracks how much you've used, cost, usage, or RI units, and the
-   * <code>forecastedSpend</code> tracks how much you are predicted to spend if your
-   * current usage remains steady.</p> <p>For example, if it is the 20th of the month
-   * and you have spent <code>50</code> dollars on Amazon EC2, your
+   * <p>The spend objects that are associated with this budget. The
+   * <code>actualSpend</code> tracks how much you've used, cost, usage, or RI units,
+   * and the <code>forecastedSpend</code> tracks how much you are predicted to spend
+   * if your current usage remains steady.</p> <p>For example, if it is the 20th of
+   * the month and you have spent <code>50</code> dollars on Amazon EC2, your
    * <code>actualSpend</code> is <code>50 USD</code>, and your
    * <code>forecastedSpend</code> is <code>75 USD</code>.</p><p><h3>See Also:</h3>  
    * <a
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     CalculatedSpend();
-    CalculatedSpend(const Aws::Utils::Json::JsonValue& jsonValue);
-    CalculatedSpend& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CalculatedSpend(Aws::Utils::Json::JsonView jsonValue);
+    CalculatedSpend& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>The amount of cost, usage, or RI units that you have used.</p>
      */
     inline const Spend& GetActualSpend() const{ return m_actualSpend; }
+
+    /**
+     * <p>The amount of cost, usage, or RI units that you have used.</p>
+     */
+    inline bool ActualSpendHasBeenSet() const { return m_actualSpendHasBeenSet; }
 
     /**
      * <p>The amount of cost, usage, or RI units that you have used.</p>
@@ -83,6 +89,11 @@ namespace Model
      * <p>The amount of cost, usage, or RI units that you are forecasted to use.</p>
      */
     inline const Spend& GetForecastedSpend() const{ return m_forecastedSpend; }
+
+    /**
+     * <p>The amount of cost, usage, or RI units that you are forecasted to use.</p>
+     */
+    inline bool ForecastedSpendHasBeenSet() const { return m_forecastedSpendHasBeenSet; }
 
     /**
      * <p>The amount of cost, usage, or RI units that you are forecasted to use.</p>

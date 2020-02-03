@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DesiredWeightAndCapacity();
-    DesiredWeightAndCapacity(const Aws::Utils::Json::JsonValue& jsonValue);
-    DesiredWeightAndCapacity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DesiredWeightAndCapacity(Aws::Utils::Json::JsonView jsonValue);
+    DesiredWeightAndCapacity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the variant to update.</p>
      */
     inline const Aws::String& GetVariantName() const{ return m_variantName; }
+
+    /**
+     * <p>The name of the variant to update.</p>
+     */
+    inline bool VariantNameHasBeenSet() const { return m_variantNameHasBeenSet; }
 
     /**
      * <p>The name of the variant to update.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The variant's weight.</p>
      */
+    inline bool DesiredWeightHasBeenSet() const { return m_desiredWeightHasBeenSet; }
+
+    /**
+     * <p>The variant's weight.</p>
+     */
     inline void SetDesiredWeight(double value) { m_desiredWeightHasBeenSet = true; m_desiredWeight = value; }
 
     /**
@@ -103,6 +114,11 @@ namespace Model
      * <p>The variant's capacity.</p>
      */
     inline int GetDesiredInstanceCount() const{ return m_desiredInstanceCount; }
+
+    /**
+     * <p>The variant's capacity.</p>
+     */
+    inline bool DesiredInstanceCountHasBeenSet() const { return m_desiredInstanceCountHasBeenSet; }
 
     /**
      * <p>The variant's capacity.</p>

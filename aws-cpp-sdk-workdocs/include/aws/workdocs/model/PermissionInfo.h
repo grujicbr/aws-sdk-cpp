@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PermissionInfo();
-    PermissionInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    PermissionInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PermissionInfo(Aws::Utils::Json::JsonView jsonValue);
+    PermissionInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The role of the user.</p>
      */
     inline const RoleType& GetRole() const{ return m_role; }
+
+    /**
+     * <p>The role of the user.</p>
+     */
+    inline bool RoleHasBeenSet() const { return m_roleHasBeenSet; }
 
     /**
      * <p>The role of the user.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The type of permissions.</p>
      */
     inline const RolePermissionType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of permissions.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of permissions.</p>

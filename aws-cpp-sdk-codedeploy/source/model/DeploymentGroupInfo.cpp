@@ -49,11 +49,12 @@ DeploymentGroupInfo::DeploymentGroupInfo() :
     m_ec2TagSetHasBeenSet(false),
     m_onPremisesTagSetHasBeenSet(false),
     m_computePlatform(ComputePlatform::NOT_SET),
-    m_computePlatformHasBeenSet(false)
+    m_computePlatformHasBeenSet(false),
+    m_ecsServicesHasBeenSet(false)
 {
 }
 
-DeploymentGroupInfo::DeploymentGroupInfo(const JsonValue& jsonValue) : 
+DeploymentGroupInfo::DeploymentGroupInfo(JsonView jsonValue) : 
     m_applicationNameHasBeenSet(false),
     m_deploymentGroupIdHasBeenSet(false),
     m_deploymentGroupNameHasBeenSet(false),
@@ -74,12 +75,13 @@ DeploymentGroupInfo::DeploymentGroupInfo(const JsonValue& jsonValue) :
     m_ec2TagSetHasBeenSet(false),
     m_onPremisesTagSetHasBeenSet(false),
     m_computePlatform(ComputePlatform::NOT_SET),
-    m_computePlatformHasBeenSet(false)
+    m_computePlatformHasBeenSet(false),
+    m_ecsServicesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DeploymentGroupInfo& DeploymentGroupInfo::operator =(const JsonValue& jsonValue)
+DeploymentGroupInfo& DeploymentGroupInfo::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("applicationName"))
   {
@@ -111,7 +113,7 @@ DeploymentGroupInfo& DeploymentGroupInfo::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("ec2TagFilters"))
   {
-    Array<JsonValue> ec2TagFiltersJsonList = jsonValue.GetArray("ec2TagFilters");
+    Array<JsonView> ec2TagFiltersJsonList = jsonValue.GetArray("ec2TagFilters");
     for(unsigned ec2TagFiltersIndex = 0; ec2TagFiltersIndex < ec2TagFiltersJsonList.GetLength(); ++ec2TagFiltersIndex)
     {
       m_ec2TagFilters.push_back(ec2TagFiltersJsonList[ec2TagFiltersIndex].AsObject());
@@ -121,7 +123,7 @@ DeploymentGroupInfo& DeploymentGroupInfo::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("onPremisesInstanceTagFilters"))
   {
-    Array<JsonValue> onPremisesInstanceTagFiltersJsonList = jsonValue.GetArray("onPremisesInstanceTagFilters");
+    Array<JsonView> onPremisesInstanceTagFiltersJsonList = jsonValue.GetArray("onPremisesInstanceTagFilters");
     for(unsigned onPremisesInstanceTagFiltersIndex = 0; onPremisesInstanceTagFiltersIndex < onPremisesInstanceTagFiltersJsonList.GetLength(); ++onPremisesInstanceTagFiltersIndex)
     {
       m_onPremisesInstanceTagFilters.push_back(onPremisesInstanceTagFiltersJsonList[onPremisesInstanceTagFiltersIndex].AsObject());
@@ -131,7 +133,7 @@ DeploymentGroupInfo& DeploymentGroupInfo::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("autoScalingGroups"))
   {
-    Array<JsonValue> autoScalingGroupsJsonList = jsonValue.GetArray("autoScalingGroups");
+    Array<JsonView> autoScalingGroupsJsonList = jsonValue.GetArray("autoScalingGroups");
     for(unsigned autoScalingGroupsIndex = 0; autoScalingGroupsIndex < autoScalingGroupsJsonList.GetLength(); ++autoScalingGroupsIndex)
     {
       m_autoScalingGroups.push_back(autoScalingGroupsJsonList[autoScalingGroupsIndex].AsObject());
@@ -155,7 +157,7 @@ DeploymentGroupInfo& DeploymentGroupInfo::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("triggerConfigurations"))
   {
-    Array<JsonValue> triggerConfigurationsJsonList = jsonValue.GetArray("triggerConfigurations");
+    Array<JsonView> triggerConfigurationsJsonList = jsonValue.GetArray("triggerConfigurations");
     for(unsigned triggerConfigurationsIndex = 0; triggerConfigurationsIndex < triggerConfigurationsJsonList.GetLength(); ++triggerConfigurationsIndex)
     {
       m_triggerConfigurations.push_back(triggerConfigurationsJsonList[triggerConfigurationsIndex].AsObject());
@@ -231,6 +233,16 @@ DeploymentGroupInfo& DeploymentGroupInfo::operator =(const JsonValue& jsonValue)
     m_computePlatform = ComputePlatformMapper::GetComputePlatformForName(jsonValue.GetString("computePlatform"));
 
     m_computePlatformHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ecsServices"))
+  {
+    Array<JsonView> ecsServicesJsonList = jsonValue.GetArray("ecsServices");
+    for(unsigned ecsServicesIndex = 0; ecsServicesIndex < ecsServicesJsonList.GetLength(); ++ecsServicesIndex)
+    {
+      m_ecsServices.push_back(ecsServicesJsonList[ecsServicesIndex].AsObject());
+    }
+    m_ecsServicesHasBeenSet = true;
   }
 
   return *this;
@@ -377,6 +389,17 @@ JsonValue DeploymentGroupInfo::Jsonize() const
   if(m_computePlatformHasBeenSet)
   {
    payload.WithString("computePlatform", ComputePlatformMapper::GetNameForComputePlatform(m_computePlatform));
+  }
+
+  if(m_ecsServicesHasBeenSet)
+  {
+   Array<JsonValue> ecsServicesJsonList(m_ecsServices.size());
+   for(unsigned ecsServicesIndex = 0; ecsServicesIndex < ecsServicesJsonList.GetLength(); ++ecsServicesIndex)
+   {
+     ecsServicesJsonList[ecsServicesIndex].AsObject(m_ecsServices[ecsServicesIndex].Jsonize());
+   }
+   payload.WithArray("ecsServices", std::move(ecsServicesJsonList));
+
   }
 
   return payload;

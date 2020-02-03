@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     HlsCaptionLanguageMapping();
-    HlsCaptionLanguageMapping(const Aws::Utils::Json::JsonValue& jsonValue);
-    HlsCaptionLanguageMapping& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HlsCaptionLanguageMapping(Aws::Utils::Json::JsonView jsonValue);
+    HlsCaptionLanguageMapping& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * Caption channel.
      */
     inline int GetCaptionChannel() const{ return m_captionChannel; }
+
+    /**
+     * Caption channel.
+     */
+    inline bool CaptionChannelHasBeenSet() const { return m_captionChannelHasBeenSet; }
 
     /**
      * Caption channel.
@@ -64,61 +70,88 @@ namespace Model
 
 
     /**
-     * Specify the language for this caption channel, using the ISO 639-2 or ISO 639-3
+     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3
      * three-letter language code
      */
     inline const Aws::String& GetCustomLanguageCode() const{ return m_customLanguageCode; }
 
     /**
-     * Specify the language for this caption channel, using the ISO 639-2 or ISO 639-3
+     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3
+     * three-letter language code
+     */
+    inline bool CustomLanguageCodeHasBeenSet() const { return m_customLanguageCodeHasBeenSet; }
+
+    /**
+     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3
      * three-letter language code
      */
     inline void SetCustomLanguageCode(const Aws::String& value) { m_customLanguageCodeHasBeenSet = true; m_customLanguageCode = value; }
 
     /**
-     * Specify the language for this caption channel, using the ISO 639-2 or ISO 639-3
+     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3
      * three-letter language code
      */
     inline void SetCustomLanguageCode(Aws::String&& value) { m_customLanguageCodeHasBeenSet = true; m_customLanguageCode = std::move(value); }
 
     /**
-     * Specify the language for this caption channel, using the ISO 639-2 or ISO 639-3
+     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3
      * three-letter language code
      */
     inline void SetCustomLanguageCode(const char* value) { m_customLanguageCodeHasBeenSet = true; m_customLanguageCode.assign(value); }
 
     /**
-     * Specify the language for this caption channel, using the ISO 639-2 or ISO 639-3
+     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3
      * three-letter language code
      */
     inline HlsCaptionLanguageMapping& WithCustomLanguageCode(const Aws::String& value) { SetCustomLanguageCode(value); return *this;}
 
     /**
-     * Specify the language for this caption channel, using the ISO 639-2 or ISO 639-3
+     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3
      * three-letter language code
      */
     inline HlsCaptionLanguageMapping& WithCustomLanguageCode(Aws::String&& value) { SetCustomLanguageCode(std::move(value)); return *this;}
 
     /**
-     * Specify the language for this caption channel, using the ISO 639-2 or ISO 639-3
+     * Specify the language for this captions channel, using the ISO 639-2 or ISO 639-3
      * three-letter language code
      */
     inline HlsCaptionLanguageMapping& WithCustomLanguageCode(const char* value) { SetCustomLanguageCode(value); return *this;}
 
 
-    
+    /**
+     * Specify the language, using the ISO 639-2 three-letter code listed at
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     */
     inline const LanguageCode& GetLanguageCode() const{ return m_languageCode; }
 
-    
+    /**
+     * Specify the language, using the ISO 639-2 three-letter code listed at
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     */
+    inline bool LanguageCodeHasBeenSet() const { return m_languageCodeHasBeenSet; }
+
+    /**
+     * Specify the language, using the ISO 639-2 three-letter code listed at
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     */
     inline void SetLanguageCode(const LanguageCode& value) { m_languageCodeHasBeenSet = true; m_languageCode = value; }
 
-    
+    /**
+     * Specify the language, using the ISO 639-2 three-letter code listed at
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     */
     inline void SetLanguageCode(LanguageCode&& value) { m_languageCodeHasBeenSet = true; m_languageCode = std::move(value); }
 
-    
+    /**
+     * Specify the language, using the ISO 639-2 three-letter code listed at
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     */
     inline HlsCaptionLanguageMapping& WithLanguageCode(const LanguageCode& value) { SetLanguageCode(value); return *this;}
 
-    
+    /**
+     * Specify the language, using the ISO 639-2 three-letter code listed at
+     * https://www.loc.gov/standards/iso639-2/php/code_list.php.
+     */
     inline HlsCaptionLanguageMapping& WithLanguageCode(LanguageCode&& value) { SetLanguageCode(std::move(value)); return *this;}
 
 
@@ -126,6 +159,11 @@ namespace Model
      * Caption language description.
      */
     inline const Aws::String& GetLanguageDescription() const{ return m_languageDescription; }
+
+    /**
+     * Caption language description.
+     */
+    inline bool LanguageDescriptionHasBeenSet() const { return m_languageDescriptionHasBeenSet; }
 
     /**
      * Caption language description.

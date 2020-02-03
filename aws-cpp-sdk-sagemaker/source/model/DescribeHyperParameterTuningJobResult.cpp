@@ -39,7 +39,7 @@ DescribeHyperParameterTuningJobResult::DescribeHyperParameterTuningJobResult(con
 
 DescribeHyperParameterTuningJobResult& DescribeHyperParameterTuningJobResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("HyperParameterTuningJobName"))
   {
     m_hyperParameterTuningJobName = jsonValue.GetString("HyperParameterTuningJobName");
@@ -62,6 +62,15 @@ DescribeHyperParameterTuningJobResult& DescribeHyperParameterTuningJobResult::op
   {
     m_trainingJobDefinition = jsonValue.GetObject("TrainingJobDefinition");
 
+  }
+
+  if(jsonValue.ValueExists("TrainingJobDefinitions"))
+  {
+    Array<JsonView> trainingJobDefinitionsJsonList = jsonValue.GetArray("TrainingJobDefinitions");
+    for(unsigned trainingJobDefinitionsIndex = 0; trainingJobDefinitionsIndex < trainingJobDefinitionsJsonList.GetLength(); ++trainingJobDefinitionsIndex)
+    {
+      m_trainingJobDefinitions.push_back(trainingJobDefinitionsJsonList[trainingJobDefinitionsIndex].AsObject());
+    }
   }
 
   if(jsonValue.ValueExists("HyperParameterTuningJobStatus"))
@@ -103,6 +112,18 @@ DescribeHyperParameterTuningJobResult& DescribeHyperParameterTuningJobResult::op
   if(jsonValue.ValueExists("BestTrainingJob"))
   {
     m_bestTrainingJob = jsonValue.GetObject("BestTrainingJob");
+
+  }
+
+  if(jsonValue.ValueExists("OverallBestTrainingJob"))
+  {
+    m_overallBestTrainingJob = jsonValue.GetObject("OverallBestTrainingJob");
+
+  }
+
+  if(jsonValue.ValueExists("WarmStartConfig"))
+  {
+    m_warmStartConfig = jsonValue.GetObject("WarmStartConfig");
 
   }
 

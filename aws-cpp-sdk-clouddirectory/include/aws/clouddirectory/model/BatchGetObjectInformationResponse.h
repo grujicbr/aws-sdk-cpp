@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BatchGetObjectInformationResponse();
-    BatchGetObjectInformationResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchGetObjectInformationResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchGetObjectInformationResponse(Aws::Utils::Json::JsonView jsonValue);
+    BatchGetObjectInformationResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The facets attached to the specified object.</p>
      */
     inline const Aws::Vector<SchemaFacet>& GetSchemaFacets() const{ return m_schemaFacets; }
+
+    /**
+     * <p>The facets attached to the specified object.</p>
+     */
+    inline bool SchemaFacetsHasBeenSet() const { return m_schemaFacetsHasBeenSet; }
 
     /**
      * <p>The facets attached to the specified object.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The <code>ObjectIdentifier</code> of the specified object.</p>
      */
     inline const Aws::String& GetObjectIdentifier() const{ return m_objectIdentifier; }
+
+    /**
+     * <p>The <code>ObjectIdentifier</code> of the specified object.</p>
+     */
+    inline bool ObjectIdentifierHasBeenSet() const { return m_objectIdentifierHasBeenSet; }
 
     /**
      * <p>The <code>ObjectIdentifier</code> of the specified object.</p>

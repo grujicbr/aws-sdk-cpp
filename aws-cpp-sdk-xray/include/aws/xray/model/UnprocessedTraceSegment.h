@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UnprocessedTraceSegment();
-    UnprocessedTraceSegment(const Aws::Utils::Json::JsonValue& jsonValue);
-    UnprocessedTraceSegment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UnprocessedTraceSegment(Aws::Utils::Json::JsonView jsonValue);
+    UnprocessedTraceSegment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The segment's ID.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The segment's ID.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The segment's ID.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The error that caused processing to fail.</p>
      */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
+
+    /**
+     * <p>The error that caused processing to fail.</p>
+     */
     inline void SetErrorCode(const Aws::String& value) { m_errorCodeHasBeenSet = true; m_errorCode = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The error message.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The error message.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The error message.</p>

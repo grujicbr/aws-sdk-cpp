@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ReportedOs();
-    ReportedOs(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReportedOs& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReportedOs(Aws::Utils::Json::JsonView jsonValue);
+    ReportedOs& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The operating system family.</p>
      */
     inline const Aws::String& GetFamily() const{ return m_family; }
+
+    /**
+     * <p>The operating system family.</p>
+     */
+    inline bool FamilyHasBeenSet() const { return m_familyHasBeenSet; }
 
     /**
      * <p>The operating system family.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The operating system name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The operating system name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The operating system version.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The operating system version.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The operating system version.</p>

@@ -17,6 +17,8 @@
 #include <aws/firehose/Firehose_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/firehose/model/DeliveryStreamStatus.h>
+#include <aws/firehose/model/FailureDescription.h>
+#include <aws/firehose/model/DeliveryStreamEncryptionConfiguration.h>
 #include <aws/firehose/model/DeliveryStreamType.h>
 #include <aws/core/utils/DateTime.h>
 #include <aws/firehose/model/SourceDescription.h>
@@ -31,6 +33,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -47,8 +50,8 @@ namespace Model
   {
   public:
     DeliveryStreamDescription();
-    DeliveryStreamDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeliveryStreamDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeliveryStreamDescription(Aws::Utils::Json::JsonView jsonValue);
+    DeliveryStreamDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +59,11 @@ namespace Model
      * <p>The name of the delivery stream.</p>
      */
     inline const Aws::String& GetDeliveryStreamName() const{ return m_deliveryStreamName; }
+
+    /**
+     * <p>The name of the delivery stream.</p>
+     */
+    inline bool DeliveryStreamNameHasBeenSet() const { return m_deliveryStreamNameHasBeenSet; }
 
     /**
      * <p>The name of the delivery stream.</p>
@@ -95,6 +103,14 @@ namespace Model
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
      */
     inline const Aws::String& GetDeliveryStreamARN() const{ return m_deliveryStreamARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the delivery stream. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     */
+    inline bool DeliveryStreamARNHasBeenSet() const { return m_deliveryStreamARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the delivery stream. For more information,
@@ -146,29 +162,132 @@ namespace Model
 
 
     /**
-     * <p>The status of the delivery stream.</p>
+     * <p>The status of the delivery stream. If the status of a delivery stream is
+     * <code>CREATING_FAILED</code>, this status doesn't change, and you can't invoke
+     * <code>CreateDeliveryStream</code> again on it. However, you can invoke the
+     * <a>DeleteDeliveryStream</a> operation to delete it.</p>
      */
     inline const DeliveryStreamStatus& GetDeliveryStreamStatus() const{ return m_deliveryStreamStatus; }
 
     /**
-     * <p>The status of the delivery stream.</p>
+     * <p>The status of the delivery stream. If the status of a delivery stream is
+     * <code>CREATING_FAILED</code>, this status doesn't change, and you can't invoke
+     * <code>CreateDeliveryStream</code> again on it. However, you can invoke the
+     * <a>DeleteDeliveryStream</a> operation to delete it.</p>
+     */
+    inline bool DeliveryStreamStatusHasBeenSet() const { return m_deliveryStreamStatusHasBeenSet; }
+
+    /**
+     * <p>The status of the delivery stream. If the status of a delivery stream is
+     * <code>CREATING_FAILED</code>, this status doesn't change, and you can't invoke
+     * <code>CreateDeliveryStream</code> again on it. However, you can invoke the
+     * <a>DeleteDeliveryStream</a> operation to delete it.</p>
      */
     inline void SetDeliveryStreamStatus(const DeliveryStreamStatus& value) { m_deliveryStreamStatusHasBeenSet = true; m_deliveryStreamStatus = value; }
 
     /**
-     * <p>The status of the delivery stream.</p>
+     * <p>The status of the delivery stream. If the status of a delivery stream is
+     * <code>CREATING_FAILED</code>, this status doesn't change, and you can't invoke
+     * <code>CreateDeliveryStream</code> again on it. However, you can invoke the
+     * <a>DeleteDeliveryStream</a> operation to delete it.</p>
      */
     inline void SetDeliveryStreamStatus(DeliveryStreamStatus&& value) { m_deliveryStreamStatusHasBeenSet = true; m_deliveryStreamStatus = std::move(value); }
 
     /**
-     * <p>The status of the delivery stream.</p>
+     * <p>The status of the delivery stream. If the status of a delivery stream is
+     * <code>CREATING_FAILED</code>, this status doesn't change, and you can't invoke
+     * <code>CreateDeliveryStream</code> again on it. However, you can invoke the
+     * <a>DeleteDeliveryStream</a> operation to delete it.</p>
      */
     inline DeliveryStreamDescription& WithDeliveryStreamStatus(const DeliveryStreamStatus& value) { SetDeliveryStreamStatus(value); return *this;}
 
     /**
-     * <p>The status of the delivery stream.</p>
+     * <p>The status of the delivery stream. If the status of a delivery stream is
+     * <code>CREATING_FAILED</code>, this status doesn't change, and you can't invoke
+     * <code>CreateDeliveryStream</code> again on it. However, you can invoke the
+     * <a>DeleteDeliveryStream</a> operation to delete it.</p>
      */
     inline DeliveryStreamDescription& WithDeliveryStreamStatus(DeliveryStreamStatus&& value) { SetDeliveryStreamStatus(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Provides details in case one of the following operations fails due to an
+     * error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>,
+     * <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+     */
+    inline const FailureDescription& GetFailureDescription() const{ return m_failureDescription; }
+
+    /**
+     * <p>Provides details in case one of the following operations fails due to an
+     * error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>,
+     * <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+     */
+    inline bool FailureDescriptionHasBeenSet() const { return m_failureDescriptionHasBeenSet; }
+
+    /**
+     * <p>Provides details in case one of the following operations fails due to an
+     * error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>,
+     * <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+     */
+    inline void SetFailureDescription(const FailureDescription& value) { m_failureDescriptionHasBeenSet = true; m_failureDescription = value; }
+
+    /**
+     * <p>Provides details in case one of the following operations fails due to an
+     * error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>,
+     * <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+     */
+    inline void SetFailureDescription(FailureDescription&& value) { m_failureDescriptionHasBeenSet = true; m_failureDescription = std::move(value); }
+
+    /**
+     * <p>Provides details in case one of the following operations fails due to an
+     * error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>,
+     * <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+     */
+    inline DeliveryStreamDescription& WithFailureDescription(const FailureDescription& value) { SetFailureDescription(value); return *this;}
+
+    /**
+     * <p>Provides details in case one of the following operations fails due to an
+     * error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>,
+     * <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+     */
+    inline DeliveryStreamDescription& WithFailureDescription(FailureDescription&& value) { SetFailureDescription(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Indicates the server-side encryption (SSE) status for the delivery
+     * stream.</p>
+     */
+    inline const DeliveryStreamEncryptionConfiguration& GetDeliveryStreamEncryptionConfiguration() const{ return m_deliveryStreamEncryptionConfiguration; }
+
+    /**
+     * <p>Indicates the server-side encryption (SSE) status for the delivery
+     * stream.</p>
+     */
+    inline bool DeliveryStreamEncryptionConfigurationHasBeenSet() const { return m_deliveryStreamEncryptionConfigurationHasBeenSet; }
+
+    /**
+     * <p>Indicates the server-side encryption (SSE) status for the delivery
+     * stream.</p>
+     */
+    inline void SetDeliveryStreamEncryptionConfiguration(const DeliveryStreamEncryptionConfiguration& value) { m_deliveryStreamEncryptionConfigurationHasBeenSet = true; m_deliveryStreamEncryptionConfiguration = value; }
+
+    /**
+     * <p>Indicates the server-side encryption (SSE) status for the delivery
+     * stream.</p>
+     */
+    inline void SetDeliveryStreamEncryptionConfiguration(DeliveryStreamEncryptionConfiguration&& value) { m_deliveryStreamEncryptionConfigurationHasBeenSet = true; m_deliveryStreamEncryptionConfiguration = std::move(value); }
+
+    /**
+     * <p>Indicates the server-side encryption (SSE) status for the delivery
+     * stream.</p>
+     */
+    inline DeliveryStreamDescription& WithDeliveryStreamEncryptionConfiguration(const DeliveryStreamEncryptionConfiguration& value) { SetDeliveryStreamEncryptionConfiguration(value); return *this;}
+
+    /**
+     * <p>Indicates the server-side encryption (SSE) status for the delivery
+     * stream.</p>
+     */
+    inline DeliveryStreamDescription& WithDeliveryStreamEncryptionConfiguration(DeliveryStreamEncryptionConfiguration&& value) { SetDeliveryStreamEncryptionConfiguration(std::move(value)); return *this;}
 
 
     /**
@@ -178,6 +297,14 @@ namespace Model
      * delivery stream uses a Kinesis data stream as a source.</p> </li> </ul>
      */
     inline const DeliveryStreamType& GetDeliveryStreamType() const{ return m_deliveryStreamType; }
+
+    /**
+     * <p>The delivery stream type. This can be one of the following values:</p> <ul>
+     * <li> <p> <code>DirectPut</code>: Provider applications access the delivery
+     * stream directly.</p> </li> <li> <p> <code>KinesisStreamAsSource</code>: The
+     * delivery stream uses a Kinesis data stream as a source.</p> </li> </ul>
+     */
+    inline bool DeliveryStreamTypeHasBeenSet() const { return m_deliveryStreamTypeHasBeenSet; }
 
     /**
      * <p>The delivery stream type. This can be one of the following values:</p> <ul>
@@ -219,6 +346,14 @@ namespace Model
      * version of the delivery stream.</p>
      */
     inline const Aws::String& GetVersionId() const{ return m_versionId; }
+
+    /**
+     * <p>Each time the destination is updated for a delivery stream, the version ID is
+     * changed, and the current version ID is required when updating the destination.
+     * This is so that the service knows it is applying the changes to the correct
+     * version of the delivery stream.</p>
+     */
+    inline bool VersionIdHasBeenSet() const { return m_versionIdHasBeenSet; }
 
     /**
      * <p>Each time the destination is updated for a delivery stream, the version ID is
@@ -277,6 +412,11 @@ namespace Model
     /**
      * <p>The date and time that the delivery stream was created.</p>
      */
+    inline bool CreateTimestampHasBeenSet() const { return m_createTimestampHasBeenSet; }
+
+    /**
+     * <p>The date and time that the delivery stream was created.</p>
+     */
     inline void SetCreateTimestamp(const Aws::Utils::DateTime& value) { m_createTimestampHasBeenSet = true; m_createTimestamp = value; }
 
     /**
@@ -299,6 +439,11 @@ namespace Model
      * <p>The date and time that the delivery stream was last updated.</p>
      */
     inline const Aws::Utils::DateTime& GetLastUpdateTimestamp() const{ return m_lastUpdateTimestamp; }
+
+    /**
+     * <p>The date and time that the delivery stream was last updated.</p>
+     */
+    inline bool LastUpdateTimestampHasBeenSet() const { return m_lastUpdateTimestampHasBeenSet; }
 
     /**
      * <p>The date and time that the delivery stream was last updated.</p>
@@ -333,6 +478,13 @@ namespace Model
      * <code>KinesisStreamAsSource</code>, a <a>SourceDescription</a> object describing
      * the source Kinesis data stream.</p>
      */
+    inline bool SourceHasBeenSet() const { return m_sourceHasBeenSet; }
+
+    /**
+     * <p>If the <code>DeliveryStreamType</code> parameter is
+     * <code>KinesisStreamAsSource</code>, a <a>SourceDescription</a> object describing
+     * the source Kinesis data stream.</p>
+     */
     inline void SetSource(const SourceDescription& value) { m_sourceHasBeenSet = true; m_source = value; }
 
     /**
@@ -361,6 +513,11 @@ namespace Model
      * <p>The destinations.</p>
      */
     inline const Aws::Vector<DestinationDescription>& GetDestinations() const{ return m_destinations; }
+
+    /**
+     * <p>The destinations.</p>
+     */
+    inline bool DestinationsHasBeenSet() const { return m_destinationsHasBeenSet; }
 
     /**
      * <p>The destinations.</p>
@@ -401,6 +558,11 @@ namespace Model
     /**
      * <p>Indicates whether there are more destinations available to list.</p>
      */
+    inline bool HasMoreDestinationsHasBeenSet() const { return m_hasMoreDestinationsHasBeenSet; }
+
+    /**
+     * <p>Indicates whether there are more destinations available to list.</p>
+     */
     inline void SetHasMoreDestinations(bool value) { m_hasMoreDestinationsHasBeenSet = true; m_hasMoreDestinations = value; }
 
     /**
@@ -418,6 +580,12 @@ namespace Model
 
     DeliveryStreamStatus m_deliveryStreamStatus;
     bool m_deliveryStreamStatusHasBeenSet;
+
+    FailureDescription m_failureDescription;
+    bool m_failureDescriptionHasBeenSet;
+
+    DeliveryStreamEncryptionConfiguration m_deliveryStreamEncryptionConfiguration;
+    bool m_deliveryStreamEncryptionConfigurationHasBeenSet;
 
     DeliveryStreamType m_deliveryStreamType;
     bool m_deliveryStreamTypeHasBeenSet;

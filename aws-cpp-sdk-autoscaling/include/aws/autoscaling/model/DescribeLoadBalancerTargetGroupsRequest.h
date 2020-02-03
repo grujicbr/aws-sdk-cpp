@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     DescribeLoadBalancerTargetGroupsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,6 +50,11 @@ namespace Model
      * <p>The name of the Auto Scaling group.</p>
      */
     inline const Aws::String& GetAutoScalingGroupName() const{ return m_autoScalingGroupName; }
+
+    /**
+     * <p>The name of the Auto Scaling group.</p>
+     */
+    inline bool AutoScalingGroupNameHasBeenSet() const { return m_autoScalingGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the Auto Scaling group.</p>
@@ -92,6 +97,12 @@ namespace Model
      * <p>The token for the next set of items to return. (You received this token from
      * a previous call.)</p>
      */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>The token for the next set of items to return. (You received this token from
+     * a previous call.)</p>
+     */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
@@ -127,19 +138,25 @@ namespace Model
 
     /**
      * <p>The maximum number of items to return with this call. The default value is
-     * 100 and the maximum value is 100.</p>
+     * <code>100</code> and the maximum value is <code>100</code>.</p>
      */
     inline int GetMaxRecords() const{ return m_maxRecords; }
 
     /**
      * <p>The maximum number of items to return with this call. The default value is
-     * 100 and the maximum value is 100.</p>
+     * <code>100</code> and the maximum value is <code>100</code>.</p>
+     */
+    inline bool MaxRecordsHasBeenSet() const { return m_maxRecordsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>100</code> and the maximum value is <code>100</code>.</p>
      */
     inline void SetMaxRecords(int value) { m_maxRecordsHasBeenSet = true; m_maxRecords = value; }
 
     /**
      * <p>The maximum number of items to return with this call. The default value is
-     * 100 and the maximum value is 100.</p>
+     * <code>100</code> and the maximum value is <code>100</code>.</p>
      */
     inline DescribeLoadBalancerTargetGroupsRequest& WithMaxRecords(int value) { SetMaxRecords(value); return *this;}
 

@@ -32,20 +32,22 @@ Channel::Channel() :
     m_arnHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_hlsIngestHasBeenSet(false),
-    m_idHasBeenSet(false)
+    m_idHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-Channel::Channel(const JsonValue& jsonValue) : 
+Channel::Channel(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_hlsIngestHasBeenSet(false),
-    m_idHasBeenSet(false)
+    m_idHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Channel& Channel::operator =(const JsonValue& jsonValue)
+Channel& Channel::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("arn"))
   {
@@ -73,6 +75,16 @@ Channel& Channel::operator =(const JsonValue& jsonValue)
     m_id = jsonValue.GetString("id");
 
     m_idHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
   }
 
   return *this;
@@ -103,6 +115,17 @@ JsonValue Channel::Jsonize() const
   if(m_idHasBeenSet)
   {
    payload.WithString("id", m_id);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
 
   }
 

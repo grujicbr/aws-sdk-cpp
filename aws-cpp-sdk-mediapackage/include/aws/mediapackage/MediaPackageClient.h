@@ -22,16 +22,21 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/mediapackage/model/CreateChannelResult.h>
+#include <aws/mediapackage/model/CreateHarvestJobResult.h>
 #include <aws/mediapackage/model/CreateOriginEndpointResult.h>
 #include <aws/mediapackage/model/DeleteChannelResult.h>
 #include <aws/mediapackage/model/DeleteOriginEndpointResult.h>
 #include <aws/mediapackage/model/DescribeChannelResult.h>
+#include <aws/mediapackage/model/DescribeHarvestJobResult.h>
 #include <aws/mediapackage/model/DescribeOriginEndpointResult.h>
 #include <aws/mediapackage/model/ListChannelsResult.h>
+#include <aws/mediapackage/model/ListHarvestJobsResult.h>
 #include <aws/mediapackage/model/ListOriginEndpointsResult.h>
-#include <aws/mediapackage/model/RotateChannelCredentialsResult.h>
+#include <aws/mediapackage/model/ListTagsForResourceResult.h>
+#include <aws/mediapackage/model/RotateIngestEndpointCredentialsResult.h>
 #include <aws/mediapackage/model/UpdateChannelResult.h>
 #include <aws/mediapackage/model/UpdateOriginEndpointResult.h>
+#include <aws/core/NoResult.h>
 #include <aws/core/client/AsyncCallerContext.h>
 #include <aws/core/http/HttpTypes.h>
 #include <future>
@@ -49,16 +54,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -78,38 +77,56 @@ namespace MediaPackage
 namespace Model
 {
         class CreateChannelRequest;
+        class CreateHarvestJobRequest;
         class CreateOriginEndpointRequest;
         class DeleteChannelRequest;
         class DeleteOriginEndpointRequest;
         class DescribeChannelRequest;
+        class DescribeHarvestJobRequest;
         class DescribeOriginEndpointRequest;
         class ListChannelsRequest;
+        class ListHarvestJobsRequest;
         class ListOriginEndpointsRequest;
-        class RotateChannelCredentialsRequest;
+        class ListTagsForResourceRequest;
+        class RotateIngestEndpointCredentialsRequest;
+        class TagResourceRequest;
+        class UntagResourceRequest;
         class UpdateChannelRequest;
         class UpdateOriginEndpointRequest;
 
         typedef Aws::Utils::Outcome<CreateChannelResult, Aws::Client::AWSError<MediaPackageErrors>> CreateChannelOutcome;
+        typedef Aws::Utils::Outcome<CreateHarvestJobResult, Aws::Client::AWSError<MediaPackageErrors>> CreateHarvestJobOutcome;
         typedef Aws::Utils::Outcome<CreateOriginEndpointResult, Aws::Client::AWSError<MediaPackageErrors>> CreateOriginEndpointOutcome;
         typedef Aws::Utils::Outcome<DeleteChannelResult, Aws::Client::AWSError<MediaPackageErrors>> DeleteChannelOutcome;
         typedef Aws::Utils::Outcome<DeleteOriginEndpointResult, Aws::Client::AWSError<MediaPackageErrors>> DeleteOriginEndpointOutcome;
         typedef Aws::Utils::Outcome<DescribeChannelResult, Aws::Client::AWSError<MediaPackageErrors>> DescribeChannelOutcome;
+        typedef Aws::Utils::Outcome<DescribeHarvestJobResult, Aws::Client::AWSError<MediaPackageErrors>> DescribeHarvestJobOutcome;
         typedef Aws::Utils::Outcome<DescribeOriginEndpointResult, Aws::Client::AWSError<MediaPackageErrors>> DescribeOriginEndpointOutcome;
         typedef Aws::Utils::Outcome<ListChannelsResult, Aws::Client::AWSError<MediaPackageErrors>> ListChannelsOutcome;
+        typedef Aws::Utils::Outcome<ListHarvestJobsResult, Aws::Client::AWSError<MediaPackageErrors>> ListHarvestJobsOutcome;
         typedef Aws::Utils::Outcome<ListOriginEndpointsResult, Aws::Client::AWSError<MediaPackageErrors>> ListOriginEndpointsOutcome;
-        typedef Aws::Utils::Outcome<RotateChannelCredentialsResult, Aws::Client::AWSError<MediaPackageErrors>> RotateChannelCredentialsOutcome;
+        typedef Aws::Utils::Outcome<ListTagsForResourceResult, Aws::Client::AWSError<MediaPackageErrors>> ListTagsForResourceOutcome;
+        typedef Aws::Utils::Outcome<RotateIngestEndpointCredentialsResult, Aws::Client::AWSError<MediaPackageErrors>> RotateIngestEndpointCredentialsOutcome;
+        typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<MediaPackageErrors>> TagResourceOutcome;
+        typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<MediaPackageErrors>> UntagResourceOutcome;
         typedef Aws::Utils::Outcome<UpdateChannelResult, Aws::Client::AWSError<MediaPackageErrors>> UpdateChannelOutcome;
         typedef Aws::Utils::Outcome<UpdateOriginEndpointResult, Aws::Client::AWSError<MediaPackageErrors>> UpdateOriginEndpointOutcome;
 
         typedef std::future<CreateChannelOutcome> CreateChannelOutcomeCallable;
+        typedef std::future<CreateHarvestJobOutcome> CreateHarvestJobOutcomeCallable;
         typedef std::future<CreateOriginEndpointOutcome> CreateOriginEndpointOutcomeCallable;
         typedef std::future<DeleteChannelOutcome> DeleteChannelOutcomeCallable;
         typedef std::future<DeleteOriginEndpointOutcome> DeleteOriginEndpointOutcomeCallable;
         typedef std::future<DescribeChannelOutcome> DescribeChannelOutcomeCallable;
+        typedef std::future<DescribeHarvestJobOutcome> DescribeHarvestJobOutcomeCallable;
         typedef std::future<DescribeOriginEndpointOutcome> DescribeOriginEndpointOutcomeCallable;
         typedef std::future<ListChannelsOutcome> ListChannelsOutcomeCallable;
+        typedef std::future<ListHarvestJobsOutcome> ListHarvestJobsOutcomeCallable;
         typedef std::future<ListOriginEndpointsOutcome> ListOriginEndpointsOutcomeCallable;
-        typedef std::future<RotateChannelCredentialsOutcome> RotateChannelCredentialsOutcomeCallable;
+        typedef std::future<ListTagsForResourceOutcome> ListTagsForResourceOutcomeCallable;
+        typedef std::future<RotateIngestEndpointCredentialsOutcome> RotateIngestEndpointCredentialsOutcomeCallable;
+        typedef std::future<TagResourceOutcome> TagResourceOutcomeCallable;
+        typedef std::future<UntagResourceOutcome> UntagResourceOutcomeCallable;
         typedef std::future<UpdateChannelOutcome> UpdateChannelOutcomeCallable;
         typedef std::future<UpdateOriginEndpointOutcome> UpdateOriginEndpointOutcomeCallable;
 } // namespace Model
@@ -117,14 +134,20 @@ namespace Model
   class MediaPackageClient;
 
     typedef std::function<void(const MediaPackageClient*, const Model::CreateChannelRequest&, const Model::CreateChannelOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateChannelResponseReceivedHandler;
+    typedef std::function<void(const MediaPackageClient*, const Model::CreateHarvestJobRequest&, const Model::CreateHarvestJobOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateHarvestJobResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::CreateOriginEndpointRequest&, const Model::CreateOriginEndpointOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > CreateOriginEndpointResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::DeleteChannelRequest&, const Model::DeleteChannelOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DeleteChannelResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::DeleteOriginEndpointRequest&, const Model::DeleteOriginEndpointOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DeleteOriginEndpointResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::DescribeChannelRequest&, const Model::DescribeChannelOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeChannelResponseReceivedHandler;
+    typedef std::function<void(const MediaPackageClient*, const Model::DescribeHarvestJobRequest&, const Model::DescribeHarvestJobOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeHarvestJobResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::DescribeOriginEndpointRequest&, const Model::DescribeOriginEndpointOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > DescribeOriginEndpointResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::ListChannelsRequest&, const Model::ListChannelsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListChannelsResponseReceivedHandler;
+    typedef std::function<void(const MediaPackageClient*, const Model::ListHarvestJobsRequest&, const Model::ListHarvestJobsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListHarvestJobsResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::ListOriginEndpointsRequest&, const Model::ListOriginEndpointsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListOriginEndpointsResponseReceivedHandler;
-    typedef std::function<void(const MediaPackageClient*, const Model::RotateChannelCredentialsRequest&, const Model::RotateChannelCredentialsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RotateChannelCredentialsResponseReceivedHandler;
+    typedef std::function<void(const MediaPackageClient*, const Model::ListTagsForResourceRequest&, const Model::ListTagsForResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListTagsForResourceResponseReceivedHandler;
+    typedef std::function<void(const MediaPackageClient*, const Model::RotateIngestEndpointCredentialsRequest&, const Model::RotateIngestEndpointCredentialsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > RotateIngestEndpointCredentialsResponseReceivedHandler;
+    typedef std::function<void(const MediaPackageClient*, const Model::TagResourceRequest&, const Model::TagResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > TagResourceResponseReceivedHandler;
+    typedef std::function<void(const MediaPackageClient*, const Model::UntagResourceRequest&, const Model::UntagResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UntagResourceResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::UpdateChannelRequest&, const Model::UpdateChannelOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateChannelResponseReceivedHandler;
     typedef std::function<void(const MediaPackageClient*, const Model::UpdateOriginEndpointRequest&, const Model::UpdateOriginEndpointOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UpdateOriginEndpointResponseReceivedHandler;
 
@@ -157,7 +180,7 @@ namespace Model
 
         virtual ~MediaPackageClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "mediapackage"; }
+        inline virtual const char* GetServiceClientName() const override { return "MediaPackage"; }
 
 
         /**
@@ -184,6 +207,31 @@ namespace Model
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void CreateChannelAsync(const Model::CreateChannelRequest& request, const CreateChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * Creates a new HarvestJob record.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateHarvestJob">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::CreateHarvestJobOutcome CreateHarvestJob(const Model::CreateHarvestJobRequest& request) const;
+
+        /**
+         * Creates a new HarvestJob record.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateHarvestJob">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::CreateHarvestJobOutcomeCallable CreateHarvestJobCallable(const Model::CreateHarvestJobRequest& request) const;
+
+        /**
+         * Creates a new HarvestJob record.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateHarvestJob">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void CreateHarvestJobAsync(const Model::CreateHarvestJobRequest& request, const CreateHarvestJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * Creates a new OriginEndpoint record.<p><h3>See Also:</h3>   <a
@@ -286,6 +334,31 @@ namespace Model
         virtual void DescribeChannelAsync(const Model::DescribeChannelRequest& request, const DescribeChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * Gets details about an existing HarvestJob.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeHarvestJob">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::DescribeHarvestJobOutcome DescribeHarvestJob(const Model::DescribeHarvestJobRequest& request) const;
+
+        /**
+         * Gets details about an existing HarvestJob.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeHarvestJob">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::DescribeHarvestJobOutcomeCallable DescribeHarvestJobCallable(const Model::DescribeHarvestJobRequest& request) const;
+
+        /**
+         * Gets details about an existing HarvestJob.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeHarvestJob">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void DescribeHarvestJobAsync(const Model::DescribeHarvestJobRequest& request, const DescribeHarvestJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * Gets details about an existing OriginEndpoint.<p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpoint">AWS
          * API Reference</a></p>
@@ -336,6 +409,31 @@ namespace Model
         virtual void ListChannelsAsync(const Model::ListChannelsRequest& request, const ListChannelsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * Returns a collection of HarvestJob records.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListHarvestJobs">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::ListHarvestJobsOutcome ListHarvestJobs(const Model::ListHarvestJobsRequest& request) const;
+
+        /**
+         * Returns a collection of HarvestJob records.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListHarvestJobs">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ListHarvestJobsOutcomeCallable ListHarvestJobsCallable(const Model::ListHarvestJobsRequest& request) const;
+
+        /**
+         * Returns a collection of HarvestJob records.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListHarvestJobs">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ListHarvestJobsAsync(const Model::ListHarvestJobsRequest& request, const ListHarvestJobsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * Returns a collection of OriginEndpoint records.<p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpoints">AWS
          * API Reference</a></p>
@@ -361,29 +459,89 @@ namespace Model
         virtual void ListOriginEndpointsAsync(const Model::ListOriginEndpointsRequest& request, const ListOriginEndpointsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * Changes the Channel ingest username and password.<p><h3>See Also:</h3>   <a
-         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentials">AWS
-         * API Reference</a></p>
+         * 
          */
-        virtual Model::RotateChannelCredentialsOutcome RotateChannelCredentials(const Model::RotateChannelCredentialsRequest& request) const;
+        virtual Model::ListTagsForResourceOutcome ListTagsForResource(const Model::ListTagsForResourceRequest& request) const;
 
         /**
-         * Changes the Channel ingest username and password.<p><h3>See Also:</h3>   <a
-         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentials">AWS
+         * 
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ListTagsForResourceOutcomeCallable ListTagsForResourceCallable(const Model::ListTagsForResourceRequest& request) const;
+
+        /**
+         * 
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ListTagsForResourceAsync(const Model::ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * Rotate the IngestEndpoint's username and password, as specified by the
+         * IngestEndpoint's id.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateIngestEndpointCredentials">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::RotateIngestEndpointCredentialsOutcome RotateIngestEndpointCredentials(const Model::RotateIngestEndpointCredentialsRequest& request) const;
+
+        /**
+         * Rotate the IngestEndpoint's username and password, as specified by the
+         * IngestEndpoint's id.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateIngestEndpointCredentials">AWS
          * API Reference</a></p>
          *
          * returns a future to the operation so that it can be executed in parallel to other requests.
          */
-        virtual Model::RotateChannelCredentialsOutcomeCallable RotateChannelCredentialsCallable(const Model::RotateChannelCredentialsRequest& request) const;
+        virtual Model::RotateIngestEndpointCredentialsOutcomeCallable RotateIngestEndpointCredentialsCallable(const Model::RotateIngestEndpointCredentialsRequest& request) const;
 
         /**
-         * Changes the Channel ingest username and password.<p><h3>See Also:</h3>   <a
-         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentials">AWS
+         * Rotate the IngestEndpoint's username and password, as specified by the
+         * IngestEndpoint's id.<p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateIngestEndpointCredentials">AWS
          * API Reference</a></p>
          *
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
-        virtual void RotateChannelCredentialsAsync(const Model::RotateChannelCredentialsRequest& request, const RotateChannelCredentialsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+        virtual void RotateIngestEndpointCredentialsAsync(const Model::RotateIngestEndpointCredentialsRequest& request, const RotateIngestEndpointCredentialsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * 
+         */
+        virtual Model::TagResourceOutcome TagResource(const Model::TagResourceRequest& request) const;
+
+        /**
+         * 
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::TagResourceOutcomeCallable TagResourceCallable(const Model::TagResourceRequest& request) const;
+
+        /**
+         * 
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void TagResourceAsync(const Model::TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * 
+         */
+        virtual Model::UntagResourceOutcome UntagResource(const Model::UntagResourceRequest& request) const;
+
+        /**
+         * 
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::UntagResourceOutcomeCallable UntagResourceCallable(const Model::UntagResourceRequest& request) const;
+
+        /**
+         * 
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void UntagResourceAsync(const Model::UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * Updates an existing Channel.<p><h3>See Also:</h3>   <a
@@ -436,23 +594,29 @@ namespace Model
         virtual void UpdateOriginEndpointAsync(const Model::UpdateOriginEndpointRequest& request, const UpdateOriginEndpointResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void CreateChannelAsyncHelper(const Model::CreateChannelRequest& request, const CreateChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void CreateHarvestJobAsyncHelper(const Model::CreateHarvestJobRequest& request, const CreateHarvestJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateOriginEndpointAsyncHelper(const Model::CreateOriginEndpointRequest& request, const CreateOriginEndpointResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteChannelAsyncHelper(const Model::DeleteChannelRequest& request, const DeleteChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteOriginEndpointAsyncHelper(const Model::DeleteOriginEndpointRequest& request, const DeleteOriginEndpointResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeChannelAsyncHelper(const Model::DescribeChannelRequest& request, const DescribeChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void DescribeHarvestJobAsyncHelper(const Model::DescribeHarvestJobRequest& request, const DescribeHarvestJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeOriginEndpointAsyncHelper(const Model::DescribeOriginEndpointRequest& request, const DescribeOriginEndpointResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListChannelsAsyncHelper(const Model::ListChannelsRequest& request, const ListChannelsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ListHarvestJobsAsyncHelper(const Model::ListHarvestJobsRequest& request, const ListHarvestJobsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListOriginEndpointsAsyncHelper(const Model::ListOriginEndpointsRequest& request, const ListOriginEndpointsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
-        void RotateChannelCredentialsAsyncHelper(const Model::RotateChannelCredentialsRequest& request, const RotateChannelCredentialsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ListTagsForResourceAsyncHelper(const Model::ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void RotateIngestEndpointCredentialsAsyncHelper(const Model::RotateIngestEndpointCredentialsRequest& request, const RotateIngestEndpointCredentialsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void TagResourceAsyncHelper(const Model::TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void UntagResourceAsyncHelper(const Model::UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateChannelAsyncHelper(const Model::UpdateChannelRequest& request, const UpdateChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void UpdateOriginEndpointAsyncHelper(const Model::UpdateOriginEndpointRequest& request, const UpdateOriginEndpointResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

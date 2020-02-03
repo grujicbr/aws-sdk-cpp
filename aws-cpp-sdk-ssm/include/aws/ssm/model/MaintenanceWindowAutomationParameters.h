@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     MaintenanceWindowAutomationParameters();
-    MaintenanceWindowAutomationParameters(const Aws::Utils::Json::JsonValue& jsonValue);
-    MaintenanceWindowAutomationParameters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MaintenanceWindowAutomationParameters(Aws::Utils::Json::JsonView jsonValue);
+    MaintenanceWindowAutomationParameters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The version of an Automation document to use during task execution.</p>
      */
     inline const Aws::String& GetDocumentVersion() const{ return m_documentVersion; }
+
+    /**
+     * <p>The version of an Automation document to use during task execution.</p>
+     */
+    inline bool DocumentVersionHasBeenSet() const { return m_documentVersionHasBeenSet; }
 
     /**
      * <p>The version of an Automation document to use during task execution.</p>
@@ -92,12 +98,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -112,12 +118,32 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
+     * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
+     * AUTOMATION task types, Systems Manager ignores any values specified for these
+     * parameters.</p> </note>
+     */
+    inline bool ParametersHasBeenSet() const { return m_parametersHasBeenSet; }
+
+    /**
+     * <p>The parameters for the AUTOMATION task.</p> <p>For information about
+     * specifying and updating task parameters, see
+     * <a>RegisterTaskWithMaintenanceWindow</a> and
+     * <a>UpdateMaintenanceWindowTask</a>.</p> <note> <p> <code>LoggingInfo</code> has
+     * been deprecated. To specify an S3 bucket to contain logs, instead use the
+     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
+     * the <code>TaskInvocationParameters</code> structure. For information about how
+     * Systems Manager handles these options for the supported maintenance window task
+     * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
+     * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
+     * to a task when it runs, instead use the <code>Parameters</code> option in the
+     * <code>TaskInvocationParameters</code> structure. For information about how
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -132,12 +158,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -152,12 +178,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -172,12 +198,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -192,12 +218,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -212,12 +238,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -232,12 +258,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -252,12 +278,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -272,12 +298,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>
@@ -292,12 +318,12 @@ namespace Model
      * been deprecated. To specify an S3 bucket to contain logs, instead use the
      * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in
      * the <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>
      * <code>TaskParameters</code> has been deprecated. To specify parameters to pass
      * to a task when it runs, instead use the <code>Parameters</code> option in the
      * <code>TaskInvocationParameters</code> structure. For information about how
-     * Systems Manager handles these options for the supported Maintenance Window task
+     * Systems Manager handles these options for the supported maintenance window task
      * types, see <a>MaintenanceWindowTaskInvocationParameters</a>.</p> <p>For
      * AUTOMATION task types, Systems Manager ignores any values specified for these
      * parameters.</p> </note>

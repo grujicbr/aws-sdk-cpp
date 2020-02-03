@@ -37,8 +37,8 @@ namespace CodePipeline
 namespace Model
 {
   /**
-   * <p>Represents the output of a ListActionTypes action.</p><p><h3>See Also:</h3>  
-   * <a
+   * <p>Represents the output of a <code>ListActionTypes</code> action.</p><p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypesOutput">AWS
    * API Reference</a></p>
    */
@@ -88,49 +88,49 @@ namespace Model
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list action types call to
+     * is also returned. It can be used in a subsequent list action types call to
      * return the next set of action types in the list.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list action types call to
+     * is also returned. It can be used in a subsequent list action types call to
      * return the next set of action types in the list.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextToken = value; }
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list action types call to
+     * is also returned. It can be used in a subsequent list action types call to
      * return the next set of action types in the list.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextToken = std::move(value); }
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list action types call to
+     * is also returned. It can be used in a subsequent list action types call to
      * return the next set of action types in the list.</p>
      */
     inline void SetNextToken(const char* value) { m_nextToken.assign(value); }
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list action types call to
+     * is also returned. It can be used in a subsequent list action types call to
      * return the next set of action types in the list.</p>
      */
     inline ListActionTypesResult& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list action types call to
+     * is also returned. It can be used in a subsequent list action types call to
      * return the next set of action types in the list.</p>
      */
     inline ListActionTypesResult& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list action types call to
+     * is also returned. It can be used in a subsequent list action types call to
      * return the next set of action types in the list.</p>
      */
     inline ListActionTypesResult& WithNextToken(const char* value) { SetNextToken(value); return *this;}

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Grant();
-    Grant(const Aws::Utils::Json::JsonValue& jsonValue);
-    Grant& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Grant(Aws::Utils::Json::JsonView jsonValue);
+    Grant& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The grantee.</p>
      */
     inline const Grantee& GetGrantee() const{ return m_grantee; }
+
+    /**
+     * <p>The grantee.</p>
+     */
+    inline bool GranteeHasBeenSet() const { return m_granteeHasBeenSet; }
 
     /**
      * <p>The grantee.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>Specifies the permission given to the grantee. </p>
      */
     inline const Permission& GetPermission() const{ return m_permission; }
+
+    /**
+     * <p>Specifies the permission given to the grantee. </p>
+     */
+    inline bool PermissionHasBeenSet() const { return m_permissionHasBeenSet; }
 
     /**
      * <p>Specifies the permission given to the grantee. </p>

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ResourceTargetDefinition();
-    ResourceTargetDefinition(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceTargetDefinition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceTargetDefinition(Aws::Utils::Json::JsonView jsonValue);
+    ResourceTargetDefinition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The attribute to be changed.</p>
      */
     inline const ResourceAttribute& GetAttribute() const{ return m_attribute; }
+
+    /**
+     * <p>The attribute to be changed.</p>
+     */
+    inline bool AttributeHasBeenSet() const { return m_attributeHasBeenSet; }
 
     /**
      * <p>The attribute to be changed.</p>
@@ -80,6 +86,12 @@ namespace Model
      * property. Otherwise, the value is null.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>If the attribute is <code>Properties</code>, the value is the name of the
+     * property. Otherwise, the value is null.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>If the attribute is <code>Properties</code>, the value is the name of the
@@ -123,6 +135,12 @@ namespace Model
      * this property causes the resource to be re-created.</p>
      */
     inline const RequiresRecreation& GetRequiresRecreation() const{ return m_requiresRecreation; }
+
+    /**
+     * <p>If the attribute is <code>Properties</code>, indicates whether a change to
+     * this property causes the resource to be re-created.</p>
+     */
+    inline bool RequiresRecreationHasBeenSet() const { return m_requiresRecreationHasBeenSet; }
 
     /**
      * <p>If the attribute is <code>Properties</code>, indicates whether a change to

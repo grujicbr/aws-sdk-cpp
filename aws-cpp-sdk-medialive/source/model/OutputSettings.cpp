@@ -30,30 +30,43 @@ namespace Model
 
 OutputSettings::OutputSettings() : 
     m_archiveOutputSettingsHasBeenSet(false),
+    m_frameCaptureOutputSettingsHasBeenSet(false),
     m_hlsOutputSettingsHasBeenSet(false),
+    m_mediaPackageOutputSettingsHasBeenSet(false),
     m_msSmoothOutputSettingsHasBeenSet(false),
+    m_multiplexOutputSettingsHasBeenSet(false),
     m_rtmpOutputSettingsHasBeenSet(false),
     m_udpOutputSettingsHasBeenSet(false)
 {
 }
 
-OutputSettings::OutputSettings(const JsonValue& jsonValue) : 
+OutputSettings::OutputSettings(JsonView jsonValue) : 
     m_archiveOutputSettingsHasBeenSet(false),
+    m_frameCaptureOutputSettingsHasBeenSet(false),
     m_hlsOutputSettingsHasBeenSet(false),
+    m_mediaPackageOutputSettingsHasBeenSet(false),
     m_msSmoothOutputSettingsHasBeenSet(false),
+    m_multiplexOutputSettingsHasBeenSet(false),
     m_rtmpOutputSettingsHasBeenSet(false),
     m_udpOutputSettingsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-OutputSettings& OutputSettings::operator =(const JsonValue& jsonValue)
+OutputSettings& OutputSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("archiveOutputSettings"))
   {
     m_archiveOutputSettings = jsonValue.GetObject("archiveOutputSettings");
 
     m_archiveOutputSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("frameCaptureOutputSettings"))
+  {
+    m_frameCaptureOutputSettings = jsonValue.GetObject("frameCaptureOutputSettings");
+
+    m_frameCaptureOutputSettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("hlsOutputSettings"))
@@ -63,11 +76,25 @@ OutputSettings& OutputSettings::operator =(const JsonValue& jsonValue)
     m_hlsOutputSettingsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("mediaPackageOutputSettings"))
+  {
+    m_mediaPackageOutputSettings = jsonValue.GetObject("mediaPackageOutputSettings");
+
+    m_mediaPackageOutputSettingsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("msSmoothOutputSettings"))
   {
     m_msSmoothOutputSettings = jsonValue.GetObject("msSmoothOutputSettings");
 
     m_msSmoothOutputSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("multiplexOutputSettings"))
+  {
+    m_multiplexOutputSettings = jsonValue.GetObject("multiplexOutputSettings");
+
+    m_multiplexOutputSettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("rtmpOutputSettings"))
@@ -97,15 +124,33 @@ JsonValue OutputSettings::Jsonize() const
 
   }
 
+  if(m_frameCaptureOutputSettingsHasBeenSet)
+  {
+   payload.WithObject("frameCaptureOutputSettings", m_frameCaptureOutputSettings.Jsonize());
+
+  }
+
   if(m_hlsOutputSettingsHasBeenSet)
   {
    payload.WithObject("hlsOutputSettings", m_hlsOutputSettings.Jsonize());
 
   }
 
+  if(m_mediaPackageOutputSettingsHasBeenSet)
+  {
+   payload.WithObject("mediaPackageOutputSettings", m_mediaPackageOutputSettings.Jsonize());
+
+  }
+
   if(m_msSmoothOutputSettingsHasBeenSet)
   {
    payload.WithObject("msSmoothOutputSettings", m_msSmoothOutputSettings.Jsonize());
+
+  }
+
+  if(m_multiplexOutputSettingsHasBeenSet)
+  {
+   payload.WithObject("multiplexOutputSettings", m_multiplexOutputSettings.Jsonize());
 
   }
 

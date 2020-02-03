@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CostExplorer
@@ -34,8 +35,8 @@ namespace Model
 {
 
   /**
-   * <p>Represents a group when you specify a group by criteria, or in the response
-   * to a query with a specific grouping.</p><p><h3>See Also:</h3>   <a
+   * <p>Represents a group when you specify a group by criteria or in the response to
+   * a query with a specific grouping.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GroupDefinition">AWS
    * API Reference</a></p>
    */
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     GroupDefinition();
-    GroupDefinition(const Aws::Utils::Json::JsonValue& jsonValue);
-    GroupDefinition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GroupDefinition(Aws::Utils::Json::JsonView jsonValue);
+    GroupDefinition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The string that represents the type of group.</p>
      */
     inline const GroupDefinitionType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The string that represents the type of group.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The string that represents the type of group.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The string that represents a key for a specified group.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The string that represents a key for a specified group.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The string that represents a key for a specified group.</p>

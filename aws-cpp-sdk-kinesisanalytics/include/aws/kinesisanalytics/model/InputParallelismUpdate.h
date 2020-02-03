@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     InputParallelismUpdate();
-    InputParallelismUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputParallelismUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputParallelismUpdate(Aws::Utils::Json::JsonView jsonValue);
+    InputParallelismUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,12 @@ namespace Model
      * source.</p>
      */
     inline int GetCountUpdate() const{ return m_countUpdate; }
+
+    /**
+     * <p>Number of in-application streams to create for the specified streaming
+     * source.</p>
+     */
+    inline bool CountUpdateHasBeenSet() const { return m_countUpdateHasBeenSet; }
 
     /**
      * <p>Number of in-application streams to create for the specified streaming

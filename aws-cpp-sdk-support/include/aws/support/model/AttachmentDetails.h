@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AttachmentDetails();
-    AttachmentDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    AttachmentDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AttachmentDetails(Aws::Utils::Json::JsonView jsonValue);
+    AttachmentDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ID of the attachment.</p>
      */
     inline const Aws::String& GetAttachmentId() const{ return m_attachmentId; }
+
+    /**
+     * <p>The ID of the attachment.</p>
+     */
+    inline bool AttachmentIdHasBeenSet() const { return m_attachmentIdHasBeenSet; }
 
     /**
      * <p>The ID of the attachment.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The file name of the attachment.</p>
      */
     inline const Aws::String& GetFileName() const{ return m_fileName; }
+
+    /**
+     * <p>The file name of the attachment.</p>
+     */
+    inline bool FileNameHasBeenSet() const { return m_fileNameHasBeenSet; }
 
     /**
      * <p>The file name of the attachment.</p>

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CostExplorer
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ReservationCoverageGroup();
-    ReservationCoverageGroup(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReservationCoverageGroup& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReservationCoverageGroup(Aws::Utils::Json::JsonView jsonValue);
+    ReservationCoverageGroup& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The attributes for this group of reservations.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The attributes for this group of reservations.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The attributes for this group of reservations.</p>
@@ -114,6 +120,11 @@ namespace Model
      * <p>How much instance usage this group of reservations covered.</p>
      */
     inline const Coverage& GetCoverage() const{ return m_coverage; }
+
+    /**
+     * <p>How much instance usage this group of reservations covered.</p>
+     */
+    inline bool CoverageHasBeenSet() const { return m_coverageHasBeenSet; }
 
     /**
      * <p>How much instance usage this group of reservations covered.</p>

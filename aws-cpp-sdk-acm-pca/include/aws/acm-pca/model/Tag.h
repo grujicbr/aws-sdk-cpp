@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACMPCA
@@ -36,8 +37,8 @@ namespace Model
    * <p>Tags are labels that you can use to identify and organize your private CAs.
    * Each tag consists of a key and an optional value. You can associate up to 50
    * tags with a private CA. To add one or more tags to a private CA, call the
-   * <a>TagCertificateAuthority</a> operation. To remove a tag, call the
-   * <a>UntagCertificateAuthority</a> operation. </p><p><h3>See Also:</h3>   <a
+   * <a>TagCertificateAuthority</a> action. To remove a tag, call the
+   * <a>UntagCertificateAuthority</a> action. </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/acm-pca-2017-08-22/Tag">AWS API
    * Reference</a></p>
    */
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Tag();
-    Tag(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tag(Aws::Utils::Json::JsonView jsonValue);
+    Tag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Key (name) of the tag.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>Key (name) of the tag.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>Key (name) of the tag.</p>
@@ -90,6 +96,11 @@ namespace Model
      * <p>Value of the tag.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>Value of the tag.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>Value of the tag.</p>

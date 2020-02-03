@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ExecutionFailedEventDetails();
-    ExecutionFailedEventDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExecutionFailedEventDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExecutionFailedEventDetails(Aws::Utils::Json::JsonView jsonValue);
+    ExecutionFailedEventDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The error code of the failure.</p>
      */
     inline const Aws::String& GetError() const{ return m_error; }
+
+    /**
+     * <p>The error code of the failure.</p>
+     */
+    inline bool ErrorHasBeenSet() const { return m_errorHasBeenSet; }
 
     /**
      * <p>The error code of the failure.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>A more detailed explanation of the cause of the failure.</p>
      */
     inline const Aws::String& GetCause() const{ return m_cause; }
+
+    /**
+     * <p>A more detailed explanation of the cause of the failure.</p>
+     */
+    inline bool CauseHasBeenSet() const { return m_causeHasBeenSet; }
 
     /**
      * <p>A more detailed explanation of the cause of the failure.</p>

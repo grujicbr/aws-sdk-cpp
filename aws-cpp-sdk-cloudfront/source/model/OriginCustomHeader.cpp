@@ -52,13 +52,13 @@ OriginCustomHeader& OriginCustomHeader::operator =(const XmlNode& xmlNode)
     XmlNode headerNameNode = resultNode.FirstChild("HeaderName");
     if(!headerNameNode.IsNull())
     {
-      m_headerName = StringUtils::Trim(headerNameNode.GetText().c_str());
+      m_headerName = Aws::Utils::Xml::DecodeEscapedXmlText(headerNameNode.GetText());
       m_headerNameHasBeenSet = true;
     }
     XmlNode headerValueNode = resultNode.FirstChild("HeaderValue");
     if(!headerValueNode.IsNull())
     {
-      m_headerValue = StringUtils::Trim(headerValueNode.GetText().c_str());
+      m_headerValue = Aws::Utils::Xml::DecodeEscapedXmlText(headerValueNode.GetText());
       m_headerValueHasBeenSet = true;
     }
   }

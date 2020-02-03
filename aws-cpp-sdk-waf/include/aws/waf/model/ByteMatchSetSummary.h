@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ByteMatchSetSummary();
-    ByteMatchSetSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ByteMatchSetSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ByteMatchSetSummary(Aws::Utils::Json::JsonView jsonValue);
+    ByteMatchSetSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,16 @@ namespace Model
      * returned by <a>CreateByteMatchSet</a> and by <a>ListByteMatchSets</a>.</p>
      */
     inline const Aws::String& GetByteMatchSetId() const{ return m_byteMatchSetId; }
+
+    /**
+     * <p>The <code>ByteMatchSetId</code> for a <code>ByteMatchSet</code>. You use
+     * <code>ByteMatchSetId</code> to get information about a
+     * <code>ByteMatchSet</code>, update a <code>ByteMatchSet</code>, remove a
+     * <code>ByteMatchSet</code> from a <code>Rule</code>, and delete a
+     * <code>ByteMatchSet</code> from AWS WAF.</p> <p> <code>ByteMatchSetId</code> is
+     * returned by <a>CreateByteMatchSet</a> and by <a>ListByteMatchSets</a>.</p>
+     */
+    inline bool ByteMatchSetIdHasBeenSet() const { return m_byteMatchSetIdHasBeenSet; }
 
     /**
      * <p>The <code>ByteMatchSetId</code> for a <code>ByteMatchSet</code>. You use
@@ -124,6 +135,12 @@ namespace Model
      * <code>Name</code> after you create a <code>ByteMatchSet</code>.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>A friendly name or description of the <a>ByteMatchSet</a>. You can't change
+     * <code>Name</code> after you create a <code>ByteMatchSet</code>.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A friendly name or description of the <a>ByteMatchSet</a>. You can't change

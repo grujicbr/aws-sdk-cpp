@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BlueGreenDeploymentConfiguration();
-    BlueGreenDeploymentConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    BlueGreenDeploymentConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BlueGreenDeploymentConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    BlueGreenDeploymentConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * a blue/green deployment.</p>
      */
     inline const BlueInstanceTerminationOption& GetTerminateBlueInstancesOnDeploymentSuccess() const{ return m_terminateBlueInstancesOnDeploymentSuccess; }
+
+    /**
+     * <p>Information about whether to terminate instances in the original fleet during
+     * a blue/green deployment.</p>
+     */
+    inline bool TerminateBlueInstancesOnDeploymentSuccessHasBeenSet() const { return m_terminateBlueInstancesOnDeploymentSuccessHasBeenSet; }
 
     /**
      * <p>Information about whether to terminate instances in the original fleet during
@@ -90,6 +97,12 @@ namespace Model
      * <p>Information about the action to take when newly provisioned instances are
      * ready to receive traffic in a blue/green deployment.</p>
      */
+    inline bool DeploymentReadyOptionHasBeenSet() const { return m_deploymentReadyOptionHasBeenSet; }
+
+    /**
+     * <p>Information about the action to take when newly provisioned instances are
+     * ready to receive traffic in a blue/green deployment.</p>
+     */
     inline void SetDeploymentReadyOption(const DeploymentReadyOption& value) { m_deploymentReadyOptionHasBeenSet = true; m_deploymentReadyOption = value; }
 
     /**
@@ -116,6 +129,12 @@ namespace Model
      * in a blue/green deployment.</p>
      */
     inline const GreenFleetProvisioningOption& GetGreenFleetProvisioningOption() const{ return m_greenFleetProvisioningOption; }
+
+    /**
+     * <p>Information about how instances are provisioned for a replacement environment
+     * in a blue/green deployment.</p>
+     */
+    inline bool GreenFleetProvisioningOptionHasBeenSet() const { return m_greenFleetProvisioningOptionHasBeenSet; }
 
     /**
      * <p>Information about how instances are provisioned for a replacement environment

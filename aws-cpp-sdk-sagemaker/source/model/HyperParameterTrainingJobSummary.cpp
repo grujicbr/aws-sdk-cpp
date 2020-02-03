@@ -29,8 +29,10 @@ namespace Model
 {
 
 HyperParameterTrainingJobSummary::HyperParameterTrainingJobSummary() : 
+    m_trainingJobDefinitionNameHasBeenSet(false),
     m_trainingJobNameHasBeenSet(false),
     m_trainingJobArnHasBeenSet(false),
+    m_tuningJobNameHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_trainingStartTimeHasBeenSet(false),
     m_trainingEndTimeHasBeenSet(false),
@@ -44,9 +46,11 @@ HyperParameterTrainingJobSummary::HyperParameterTrainingJobSummary() :
 {
 }
 
-HyperParameterTrainingJobSummary::HyperParameterTrainingJobSummary(const JsonValue& jsonValue) : 
+HyperParameterTrainingJobSummary::HyperParameterTrainingJobSummary(JsonView jsonValue) : 
+    m_trainingJobDefinitionNameHasBeenSet(false),
     m_trainingJobNameHasBeenSet(false),
     m_trainingJobArnHasBeenSet(false),
+    m_tuningJobNameHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_trainingStartTimeHasBeenSet(false),
     m_trainingEndTimeHasBeenSet(false),
@@ -61,8 +65,15 @@ HyperParameterTrainingJobSummary::HyperParameterTrainingJobSummary(const JsonVal
   *this = jsonValue;
 }
 
-HyperParameterTrainingJobSummary& HyperParameterTrainingJobSummary::operator =(const JsonValue& jsonValue)
+HyperParameterTrainingJobSummary& HyperParameterTrainingJobSummary::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("TrainingJobDefinitionName"))
+  {
+    m_trainingJobDefinitionName = jsonValue.GetString("TrainingJobDefinitionName");
+
+    m_trainingJobDefinitionNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("TrainingJobName"))
   {
     m_trainingJobName = jsonValue.GetString("TrainingJobName");
@@ -75,6 +86,13 @@ HyperParameterTrainingJobSummary& HyperParameterTrainingJobSummary::operator =(c
     m_trainingJobArn = jsonValue.GetString("TrainingJobArn");
 
     m_trainingJobArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("TuningJobName"))
+  {
+    m_tuningJobName = jsonValue.GetString("TuningJobName");
+
+    m_tuningJobNameHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("CreationTime"))
@@ -107,7 +125,7 @@ HyperParameterTrainingJobSummary& HyperParameterTrainingJobSummary::operator =(c
 
   if(jsonValue.ValueExists("TunedHyperParameters"))
   {
-    Aws::Map<Aws::String, JsonValue> tunedHyperParametersJsonMap = jsonValue.GetObject("TunedHyperParameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> tunedHyperParametersJsonMap = jsonValue.GetObject("TunedHyperParameters").GetAllObjects();
     for(auto& tunedHyperParametersItem : tunedHyperParametersJsonMap)
     {
       m_tunedHyperParameters[tunedHyperParametersItem.first] = tunedHyperParametersItem.second.AsString();
@@ -143,6 +161,12 @@ JsonValue HyperParameterTrainingJobSummary::Jsonize() const
 {
   JsonValue payload;
 
+  if(m_trainingJobDefinitionNameHasBeenSet)
+  {
+   payload.WithString("TrainingJobDefinitionName", m_trainingJobDefinitionName);
+
+  }
+
   if(m_trainingJobNameHasBeenSet)
   {
    payload.WithString("TrainingJobName", m_trainingJobName);
@@ -152,6 +176,12 @@ JsonValue HyperParameterTrainingJobSummary::Jsonize() const
   if(m_trainingJobArnHasBeenSet)
   {
    payload.WithString("TrainingJobArn", m_trainingJobArn);
+
+  }
+
+  if(m_tuningJobNameHasBeenSet)
+  {
+   payload.WithString("TuningJobName", m_tuningJobName);
 
   }
 

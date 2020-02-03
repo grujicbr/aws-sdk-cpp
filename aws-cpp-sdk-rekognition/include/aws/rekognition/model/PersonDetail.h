@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PersonDetail();
-    PersonDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    PersonDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PersonDetail(Aws::Utils::Json::JsonView jsonValue);
+    PersonDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * Rekognition.</p>
      */
     inline long long GetIndex() const{ return m_index; }
+
+    /**
+     * <p>Identifier for the person detected person within a video. Use to keep track
+     * of the person throughout the video. The identifier is not stored by Amazon
+     * Rekognition.</p>
+     */
+    inline bool IndexHasBeenSet() const { return m_indexHasBeenSet; }
 
     /**
      * <p>Identifier for the person detected person within a video. Use to keep track
@@ -74,6 +82,11 @@ namespace Model
      * <p>Bounding box around the detected person.</p>
      */
     inline const BoundingBox& GetBoundingBox() const{ return m_boundingBox; }
+
+    /**
+     * <p>Bounding box around the detected person.</p>
+     */
+    inline bool BoundingBoxHasBeenSet() const { return m_boundingBoxHasBeenSet; }
 
     /**
      * <p>Bounding box around the detected person.</p>
@@ -100,6 +113,11 @@ namespace Model
      * <p>Face details for the detected person.</p>
      */
     inline const FaceDetail& GetFace() const{ return m_face; }
+
+    /**
+     * <p>Face details for the detected person.</p>
+     */
+    inline bool FaceHasBeenSet() const { return m_faceHasBeenSet; }
 
     /**
      * <p>Face details for the detected person.</p>

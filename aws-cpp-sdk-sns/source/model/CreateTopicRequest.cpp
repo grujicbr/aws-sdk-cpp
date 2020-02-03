@@ -21,7 +21,9 @@ using namespace Aws::SNS::Model;
 using namespace Aws::Utils;
 
 CreateTopicRequest::CreateTopicRequest() : 
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_attributesHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -32,6 +34,29 @@ Aws::String CreateTopicRequest::SerializePayload() const
   if(m_nameHasBeenSet)
   {
     ss << "Name=" << StringUtils::URLEncode(m_name.c_str()) << "&";
+  }
+
+  if(m_attributesHasBeenSet)
+  {
+    unsigned attributesCount = 1;
+    for(auto& item : m_attributes)
+    {
+      ss << "Attributes.entry." << attributesCount << ".key="
+          << StringUtils::URLEncode(item.first.c_str()) << "&";
+      ss << "Attributes.entry." << attributesCount << ".value="
+          << StringUtils::URLEncode(item.second.c_str()) << "&";
+      attributesCount++;
+    }
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+    unsigned tagsCount = 1;
+    for(auto& item : m_tags)
+    {
+      item.OutputToStream(ss, "Tags.member.", tagsCount, "");
+      tagsCount++;
+    }
   }
 
   ss << "Version=2010-03-31";

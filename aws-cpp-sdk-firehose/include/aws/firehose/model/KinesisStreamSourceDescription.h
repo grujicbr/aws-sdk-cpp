@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     KinesisStreamSourceDescription();
-    KinesisStreamSourceDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    KinesisStreamSourceDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KinesisStreamSourceDescription(Aws::Utils::Json::JsonView jsonValue);
+    KinesisStreamSourceDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,14 @@ namespace Model
      * Kinesis Data Streams ARN Format</a>.</p>
      */
     inline const Aws::String& GetKinesisStreamARN() const{ return m_kinesisStreamARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the source Kinesis data stream. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">Amazon
+     * Kinesis Data Streams ARN Format</a>.</p>
+     */
+    inline bool KinesisStreamARNHasBeenSet() const { return m_kinesisStreamARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the source Kinesis data stream. For more
@@ -119,6 +128,14 @@ namespace Model
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
      * Identity and Access Management (IAM) ARN Format</a>.</p>
      */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
+
+    /**
+     * <p>The ARN of the role used by the source Kinesis data stream. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
+     * Identity and Access Management (IAM) ARN Format</a>.</p>
+     */
     inline void SetRoleARN(const Aws::String& value) { m_roleARNHasBeenSet = true; m_roleARN = value; }
 
     /**
@@ -164,31 +181,37 @@ namespace Model
 
     /**
      * <p>Kinesis Data Firehose starts retrieving records from the Kinesis data stream
-     * starting with this time stamp.</p>
+     * starting with this timestamp.</p>
      */
     inline const Aws::Utils::DateTime& GetDeliveryStartTimestamp() const{ return m_deliveryStartTimestamp; }
 
     /**
      * <p>Kinesis Data Firehose starts retrieving records from the Kinesis data stream
-     * starting with this time stamp.</p>
+     * starting with this timestamp.</p>
+     */
+    inline bool DeliveryStartTimestampHasBeenSet() const { return m_deliveryStartTimestampHasBeenSet; }
+
+    /**
+     * <p>Kinesis Data Firehose starts retrieving records from the Kinesis data stream
+     * starting with this timestamp.</p>
      */
     inline void SetDeliveryStartTimestamp(const Aws::Utils::DateTime& value) { m_deliveryStartTimestampHasBeenSet = true; m_deliveryStartTimestamp = value; }
 
     /**
      * <p>Kinesis Data Firehose starts retrieving records from the Kinesis data stream
-     * starting with this time stamp.</p>
+     * starting with this timestamp.</p>
      */
     inline void SetDeliveryStartTimestamp(Aws::Utils::DateTime&& value) { m_deliveryStartTimestampHasBeenSet = true; m_deliveryStartTimestamp = std::move(value); }
 
     /**
      * <p>Kinesis Data Firehose starts retrieving records from the Kinesis data stream
-     * starting with this time stamp.</p>
+     * starting with this timestamp.</p>
      */
     inline KinesisStreamSourceDescription& WithDeliveryStartTimestamp(const Aws::Utils::DateTime& value) { SetDeliveryStartTimestamp(value); return *this;}
 
     /**
      * <p>Kinesis Data Firehose starts retrieving records from the Kinesis data stream
-     * starting with this time stamp.</p>
+     * starting with this timestamp.</p>
      */
     inline KinesisStreamSourceDescription& WithDeliveryStartTimestamp(Aws::Utils::DateTime&& value) { SetDeliveryStartTimestamp(std::move(value)); return *this;}
 

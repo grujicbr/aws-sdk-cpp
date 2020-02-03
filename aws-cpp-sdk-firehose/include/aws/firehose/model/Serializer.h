@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     Serializer();
-    Serializer(const Aws::Utils::Json::JsonValue& jsonValue);
-    Serializer& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Serializer(Aws::Utils::Json::JsonView jsonValue);
+    Serializer& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +60,13 @@ namespace Model
      * href="https://parquet.apache.org/documentation/latest/">Apache Parquet</a>.</p>
      */
     inline const ParquetSerDe& GetParquetSerDe() const{ return m_parquetSerDe; }
+
+    /**
+     * <p>A serializer to use for converting data to the Parquet format before storing
+     * it in Amazon S3. For more information, see <a
+     * href="https://parquet.apache.org/documentation/latest/">Apache Parquet</a>.</p>
+     */
+    inline bool ParquetSerDeHasBeenSet() const { return m_parquetSerDeHasBeenSet; }
 
     /**
      * <p>A serializer to use for converting data to the Parquet format before storing
@@ -95,6 +103,13 @@ namespace Model
      * href="https://orc.apache.org/docs/">Apache ORC</a>.</p>
      */
     inline const OrcSerDe& GetOrcSerDe() const{ return m_orcSerDe; }
+
+    /**
+     * <p>A serializer to use for converting data to the ORC format before storing it
+     * in Amazon S3. For more information, see <a
+     * href="https://orc.apache.org/docs/">Apache ORC</a>.</p>
+     */
+    inline bool OrcSerDeHasBeenSet() const { return m_orcSerDeHasBeenSet; }
 
     /**
      * <p>A serializer to use for converting data to the ORC format before storing it

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     FaultStatistics();
-    FaultStatistics(const Aws::Utils::Json::JsonValue& jsonValue);
-    FaultStatistics& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FaultStatistics(Aws::Utils::Json::JsonView jsonValue);
+    FaultStatistics& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * codes.</p>
      */
     inline long long GetOtherCount() const{ return m_otherCount; }
+
+    /**
+     * <p>The number of requests that failed with untracked 5xx Server Error status
+     * codes.</p>
+     */
+    inline bool OtherCountHasBeenSet() const { return m_otherCountHasBeenSet; }
 
     /**
      * <p>The number of requests that failed with untracked 5xx Server Error status
@@ -69,6 +76,12 @@ namespace Model
      * code.</p>
      */
     inline long long GetTotalCount() const{ return m_totalCount; }
+
+    /**
+     * <p>The total number of requests that failed with a 5xx Server Error status
+     * code.</p>
+     */
+    inline bool TotalCountHasBeenSet() const { return m_totalCountHasBeenSet; }
 
     /**
      * <p>The total number of requests that failed with a 5xx Server Error status

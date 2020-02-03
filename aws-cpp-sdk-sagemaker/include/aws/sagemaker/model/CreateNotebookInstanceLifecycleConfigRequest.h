@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     CreateNotebookInstanceLifecycleConfigRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,6 +50,11 @@ namespace Model
      * <p>The name of the lifecycle configuration.</p>
      */
     inline const Aws::String& GetNotebookInstanceLifecycleConfigName() const{ return m_notebookInstanceLifecycleConfigName; }
+
+    /**
+     * <p>The name of the lifecycle configuration.</p>
+     */
+    inline bool NotebookInstanceLifecycleConfigNameHasBeenSet() const { return m_notebookInstanceLifecycleConfigNameHasBeenSet; }
 
     /**
      * <p>The name of the lifecycle configuration.</p>
@@ -83,80 +88,107 @@ namespace Model
 
 
     /**
-     * <p>A shell script that runs only once, when you create a notebook instance.</p>
+     * <p>A shell script that runs only once, when you create a notebook instance. The
+     * shell script must be a base64-encoded string.</p>
      */
     inline const Aws::Vector<NotebookInstanceLifecycleHook>& GetOnCreate() const{ return m_onCreate; }
 
     /**
-     * <p>A shell script that runs only once, when you create a notebook instance.</p>
+     * <p>A shell script that runs only once, when you create a notebook instance. The
+     * shell script must be a base64-encoded string.</p>
+     */
+    inline bool OnCreateHasBeenSet() const { return m_onCreateHasBeenSet; }
+
+    /**
+     * <p>A shell script that runs only once, when you create a notebook instance. The
+     * shell script must be a base64-encoded string.</p>
      */
     inline void SetOnCreate(const Aws::Vector<NotebookInstanceLifecycleHook>& value) { m_onCreateHasBeenSet = true; m_onCreate = value; }
 
     /**
-     * <p>A shell script that runs only once, when you create a notebook instance.</p>
+     * <p>A shell script that runs only once, when you create a notebook instance. The
+     * shell script must be a base64-encoded string.</p>
      */
     inline void SetOnCreate(Aws::Vector<NotebookInstanceLifecycleHook>&& value) { m_onCreateHasBeenSet = true; m_onCreate = std::move(value); }
 
     /**
-     * <p>A shell script that runs only once, when you create a notebook instance.</p>
+     * <p>A shell script that runs only once, when you create a notebook instance. The
+     * shell script must be a base64-encoded string.</p>
      */
     inline CreateNotebookInstanceLifecycleConfigRequest& WithOnCreate(const Aws::Vector<NotebookInstanceLifecycleHook>& value) { SetOnCreate(value); return *this;}
 
     /**
-     * <p>A shell script that runs only once, when you create a notebook instance.</p>
+     * <p>A shell script that runs only once, when you create a notebook instance. The
+     * shell script must be a base64-encoded string.</p>
      */
     inline CreateNotebookInstanceLifecycleConfigRequest& WithOnCreate(Aws::Vector<NotebookInstanceLifecycleHook>&& value) { SetOnCreate(std::move(value)); return *this;}
 
     /**
-     * <p>A shell script that runs only once, when you create a notebook instance.</p>
+     * <p>A shell script that runs only once, when you create a notebook instance. The
+     * shell script must be a base64-encoded string.</p>
      */
     inline CreateNotebookInstanceLifecycleConfigRequest& AddOnCreate(const NotebookInstanceLifecycleHook& value) { m_onCreateHasBeenSet = true; m_onCreate.push_back(value); return *this; }
 
     /**
-     * <p>A shell script that runs only once, when you create a notebook instance.</p>
+     * <p>A shell script that runs only once, when you create a notebook instance. The
+     * shell script must be a base64-encoded string.</p>
      */
     inline CreateNotebookInstanceLifecycleConfigRequest& AddOnCreate(NotebookInstanceLifecycleHook&& value) { m_onCreateHasBeenSet = true; m_onCreate.push_back(std::move(value)); return *this; }
 
 
     /**
      * <p>A shell script that runs every time you start a notebook instance, including
-     * when you create the notebook instance.</p>
+     * when you create the notebook instance. The shell script must be a base64-encoded
+     * string.</p>
      */
     inline const Aws::Vector<NotebookInstanceLifecycleHook>& GetOnStart() const{ return m_onStart; }
 
     /**
      * <p>A shell script that runs every time you start a notebook instance, including
-     * when you create the notebook instance.</p>
+     * when you create the notebook instance. The shell script must be a base64-encoded
+     * string.</p>
+     */
+    inline bool OnStartHasBeenSet() const { return m_onStartHasBeenSet; }
+
+    /**
+     * <p>A shell script that runs every time you start a notebook instance, including
+     * when you create the notebook instance. The shell script must be a base64-encoded
+     * string.</p>
      */
     inline void SetOnStart(const Aws::Vector<NotebookInstanceLifecycleHook>& value) { m_onStartHasBeenSet = true; m_onStart = value; }
 
     /**
      * <p>A shell script that runs every time you start a notebook instance, including
-     * when you create the notebook instance.</p>
+     * when you create the notebook instance. The shell script must be a base64-encoded
+     * string.</p>
      */
     inline void SetOnStart(Aws::Vector<NotebookInstanceLifecycleHook>&& value) { m_onStartHasBeenSet = true; m_onStart = std::move(value); }
 
     /**
      * <p>A shell script that runs every time you start a notebook instance, including
-     * when you create the notebook instance.</p>
+     * when you create the notebook instance. The shell script must be a base64-encoded
+     * string.</p>
      */
     inline CreateNotebookInstanceLifecycleConfigRequest& WithOnStart(const Aws::Vector<NotebookInstanceLifecycleHook>& value) { SetOnStart(value); return *this;}
 
     /**
      * <p>A shell script that runs every time you start a notebook instance, including
-     * when you create the notebook instance.</p>
+     * when you create the notebook instance. The shell script must be a base64-encoded
+     * string.</p>
      */
     inline CreateNotebookInstanceLifecycleConfigRequest& WithOnStart(Aws::Vector<NotebookInstanceLifecycleHook>&& value) { SetOnStart(std::move(value)); return *this;}
 
     /**
      * <p>A shell script that runs every time you start a notebook instance, including
-     * when you create the notebook instance.</p>
+     * when you create the notebook instance. The shell script must be a base64-encoded
+     * string.</p>
      */
     inline CreateNotebookInstanceLifecycleConfigRequest& AddOnStart(const NotebookInstanceLifecycleHook& value) { m_onStartHasBeenSet = true; m_onStart.push_back(value); return *this; }
 
     /**
      * <p>A shell script that runs every time you start a notebook instance, including
-     * when you create the notebook instance.</p>
+     * when you create the notebook instance. The shell script must be a base64-encoded
+     * string.</p>
      */
     inline CreateNotebookInstanceLifecycleConfigRequest& AddOnStart(NotebookInstanceLifecycleHook&& value) { m_onStartHasBeenSet = true; m_onStart.push_back(std::move(value)); return *this; }
 

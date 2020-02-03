@@ -62,19 +62,19 @@ OptionConfiguration& OptionConfiguration::operator =(const XmlNode& xmlNode)
     XmlNode optionNameNode = resultNode.FirstChild("OptionName");
     if(!optionNameNode.IsNull())
     {
-      m_optionName = StringUtils::Trim(optionNameNode.GetText().c_str());
+      m_optionName = Aws::Utils::Xml::DecodeEscapedXmlText(optionNameNode.GetText());
       m_optionNameHasBeenSet = true;
     }
     XmlNode portNode = resultNode.FirstChild("Port");
     if(!portNode.IsNull())
     {
-      m_port = StringUtils::ConvertToInt32(StringUtils::Trim(portNode.GetText().c_str()).c_str());
+      m_port = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(portNode.GetText()).c_str()).c_str());
       m_portHasBeenSet = true;
     }
     XmlNode optionVersionNode = resultNode.FirstChild("OptionVersion");
     if(!optionVersionNode.IsNull())
     {
-      m_optionVersion = StringUtils::Trim(optionVersionNode.GetText().c_str());
+      m_optionVersion = Aws::Utils::Xml::DecodeEscapedXmlText(optionVersionNode.GetText());
       m_optionVersionHasBeenSet = true;
     }
     XmlNode dBSecurityGroupMembershipsNode = resultNode.FirstChild("DBSecurityGroupMemberships");
@@ -83,7 +83,7 @@ OptionConfiguration& OptionConfiguration::operator =(const XmlNode& xmlNode)
       XmlNode dBSecurityGroupMembershipsMember = dBSecurityGroupMembershipsNode.FirstChild("DBSecurityGroupName");
       while(!dBSecurityGroupMembershipsMember.IsNull())
       {
-        m_dBSecurityGroupMemberships.push_back(StringUtils::Trim(dBSecurityGroupMembershipsMember.GetText().c_str()));
+        m_dBSecurityGroupMemberships.push_back(dBSecurityGroupMembershipsMember.GetText());
         dBSecurityGroupMembershipsMember = dBSecurityGroupMembershipsMember.NextNode("DBSecurityGroupName");
       }
 
@@ -95,7 +95,7 @@ OptionConfiguration& OptionConfiguration::operator =(const XmlNode& xmlNode)
       XmlNode vpcSecurityGroupMembershipsMember = vpcSecurityGroupMembershipsNode.FirstChild("VpcSecurityGroupId");
       while(!vpcSecurityGroupMembershipsMember.IsNull())
       {
-        m_vpcSecurityGroupMemberships.push_back(StringUtils::Trim(vpcSecurityGroupMembershipsMember.GetText().c_str()));
+        m_vpcSecurityGroupMemberships.push_back(vpcSecurityGroupMembershipsMember.GetText());
         vpcSecurityGroupMembershipsMember = vpcSecurityGroupMembershipsMember.NextNode("VpcSecurityGroupId");
       }
 

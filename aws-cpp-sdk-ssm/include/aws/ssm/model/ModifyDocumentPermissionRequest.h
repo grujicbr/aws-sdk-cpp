@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     ModifyDocumentPermissionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,6 +50,11 @@ namespace Model
      * <p>The name of the document that you want to share.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the document that you want to share.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the document that you want to share.</p>
@@ -92,6 +97,12 @@ namespace Model
      * <p>The permission type for the document. The permission type can be
      * <i>Share</i>.</p>
      */
+    inline bool PermissionTypeHasBeenSet() const { return m_permissionTypeHasBeenSet; }
+
+    /**
+     * <p>The permission type for the document. The permission type can be
+     * <i>Share</i>.</p>
+     */
     inline void SetPermissionType(const DocumentPermissionType& value) { m_permissionTypeHasBeenSet = true; m_permissionType = value; }
 
     /**
@@ -118,6 +129,12 @@ namespace Model
      * IDs can either be a group of account IDs or <i>All</i>.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAccountIdsToAdd() const{ return m_accountIdsToAdd; }
+
+    /**
+     * <p>The AWS user accounts that should have access to the document. The account
+     * IDs can either be a group of account IDs or <i>All</i>.</p>
+     */
+    inline bool AccountIdsToAddHasBeenSet() const { return m_accountIdsToAddHasBeenSet; }
 
     /**
      * <p>The AWS user accounts that should have access to the document. The account
@@ -176,6 +193,14 @@ namespace Model
      * has a higher priority than <i>AccountIdsToAdd</i>. If you specify an account ID
      * to add and the same ID to remove, the system removes access to the document.</p>
      */
+    inline bool AccountIdsToRemoveHasBeenSet() const { return m_accountIdsToRemoveHasBeenSet; }
+
+    /**
+     * <p>The AWS user accounts that should no longer have access to the document. The
+     * AWS user account can either be a group of account IDs or <i>All</i>. This action
+     * has a higher priority than <i>AccountIdsToAdd</i>. If you specify an account ID
+     * to add and the same ID to remove, the system removes access to the document.</p>
+     */
     inline void SetAccountIdsToRemove(const Aws::Vector<Aws::String>& value) { m_accountIdsToRemoveHasBeenSet = true; m_accountIdsToRemove = value; }
 
     /**
@@ -226,6 +251,55 @@ namespace Model
      */
     inline ModifyDocumentPermissionRequest& AddAccountIdsToRemove(const char* value) { m_accountIdsToRemoveHasBeenSet = true; m_accountIdsToRemove.push_back(value); return *this; }
 
+
+    /**
+     * <p>(Optional) The version of the document to share. If it's not specified, the
+     * system choose the <code>Default</code> version to share.</p>
+     */
+    inline const Aws::String& GetSharedDocumentVersion() const{ return m_sharedDocumentVersion; }
+
+    /**
+     * <p>(Optional) The version of the document to share. If it's not specified, the
+     * system choose the <code>Default</code> version to share.</p>
+     */
+    inline bool SharedDocumentVersionHasBeenSet() const { return m_sharedDocumentVersionHasBeenSet; }
+
+    /**
+     * <p>(Optional) The version of the document to share. If it's not specified, the
+     * system choose the <code>Default</code> version to share.</p>
+     */
+    inline void SetSharedDocumentVersion(const Aws::String& value) { m_sharedDocumentVersionHasBeenSet = true; m_sharedDocumentVersion = value; }
+
+    /**
+     * <p>(Optional) The version of the document to share. If it's not specified, the
+     * system choose the <code>Default</code> version to share.</p>
+     */
+    inline void SetSharedDocumentVersion(Aws::String&& value) { m_sharedDocumentVersionHasBeenSet = true; m_sharedDocumentVersion = std::move(value); }
+
+    /**
+     * <p>(Optional) The version of the document to share. If it's not specified, the
+     * system choose the <code>Default</code> version to share.</p>
+     */
+    inline void SetSharedDocumentVersion(const char* value) { m_sharedDocumentVersionHasBeenSet = true; m_sharedDocumentVersion.assign(value); }
+
+    /**
+     * <p>(Optional) The version of the document to share. If it's not specified, the
+     * system choose the <code>Default</code> version to share.</p>
+     */
+    inline ModifyDocumentPermissionRequest& WithSharedDocumentVersion(const Aws::String& value) { SetSharedDocumentVersion(value); return *this;}
+
+    /**
+     * <p>(Optional) The version of the document to share. If it's not specified, the
+     * system choose the <code>Default</code> version to share.</p>
+     */
+    inline ModifyDocumentPermissionRequest& WithSharedDocumentVersion(Aws::String&& value) { SetSharedDocumentVersion(std::move(value)); return *this;}
+
+    /**
+     * <p>(Optional) The version of the document to share. If it's not specified, the
+     * system choose the <code>Default</code> version to share.</p>
+     */
+    inline ModifyDocumentPermissionRequest& WithSharedDocumentVersion(const char* value) { SetSharedDocumentVersion(value); return *this;}
+
   private:
 
     Aws::String m_name;
@@ -239,6 +313,9 @@ namespace Model
 
     Aws::Vector<Aws::String> m_accountIdsToRemove;
     bool m_accountIdsToRemoveHasBeenSet;
+
+    Aws::String m_sharedDocumentVersion;
+    bool m_sharedDocumentVersionHasBeenSet;
   };
 
 } // namespace Model

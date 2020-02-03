@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -33,7 +34,8 @@ namespace Model
 {
 
   /**
-   * State of the Campaign<p><h3>See Also:</h3>   <a
+   * <p>Provides information about the status of a campaign.</p><p><h3>See Also:</h3>
+   * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CampaignState">AWS
    * API Reference</a></p>
    */
@@ -41,53 +43,56 @@ namespace Model
   {
   public:
     CampaignState();
-    CampaignState(const Aws::Utils::Json::JsonValue& jsonValue);
-    CampaignState& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CampaignState(Aws::Utils::Json::JsonView jsonValue);
+    CampaignState& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * The status of the campaign, or the status of a treatment that belongs to an A/B
-     * test campaign.
-
-Valid values: SCHEDULED, EXECUTING, PENDING_NEXT_RUN, COMPLETED,
-     * PAUSED
+     * <p>The current status of the campaign, or the current status of a treatment that
+     * belongs to an A/B test campaign. If a campaign uses A/B testing, the campaign
+     * has a status of COMPLETED only if all campaign treatments have a status of
+     * COMPLETED.</p>
      */
     inline const CampaignStatus& GetCampaignStatus() const{ return m_campaignStatus; }
 
     /**
-     * The status of the campaign, or the status of a treatment that belongs to an A/B
-     * test campaign.
+     * <p>The current status of the campaign, or the current status of a treatment that
+     * belongs to an A/B test campaign. If a campaign uses A/B testing, the campaign
+     * has a status of COMPLETED only if all campaign treatments have a status of
+     * COMPLETED.</p>
+     */
+    inline bool CampaignStatusHasBeenSet() const { return m_campaignStatusHasBeenSet; }
 
-Valid values: SCHEDULED, EXECUTING, PENDING_NEXT_RUN, COMPLETED,
-     * PAUSED
+    /**
+     * <p>The current status of the campaign, or the current status of a treatment that
+     * belongs to an A/B test campaign. If a campaign uses A/B testing, the campaign
+     * has a status of COMPLETED only if all campaign treatments have a status of
+     * COMPLETED.</p>
      */
     inline void SetCampaignStatus(const CampaignStatus& value) { m_campaignStatusHasBeenSet = true; m_campaignStatus = value; }
 
     /**
-     * The status of the campaign, or the status of a treatment that belongs to an A/B
-     * test campaign.
-
-Valid values: SCHEDULED, EXECUTING, PENDING_NEXT_RUN, COMPLETED,
-     * PAUSED
+     * <p>The current status of the campaign, or the current status of a treatment that
+     * belongs to an A/B test campaign. If a campaign uses A/B testing, the campaign
+     * has a status of COMPLETED only if all campaign treatments have a status of
+     * COMPLETED.</p>
      */
     inline void SetCampaignStatus(CampaignStatus&& value) { m_campaignStatusHasBeenSet = true; m_campaignStatus = std::move(value); }
 
     /**
-     * The status of the campaign, or the status of a treatment that belongs to an A/B
-     * test campaign.
-
-Valid values: SCHEDULED, EXECUTING, PENDING_NEXT_RUN, COMPLETED,
-     * PAUSED
+     * <p>The current status of the campaign, or the current status of a treatment that
+     * belongs to an A/B test campaign. If a campaign uses A/B testing, the campaign
+     * has a status of COMPLETED only if all campaign treatments have a status of
+     * COMPLETED.</p>
      */
     inline CampaignState& WithCampaignStatus(const CampaignStatus& value) { SetCampaignStatus(value); return *this;}
 
     /**
-     * The status of the campaign, or the status of a treatment that belongs to an A/B
-     * test campaign.
-
-Valid values: SCHEDULED, EXECUTING, PENDING_NEXT_RUN, COMPLETED,
-     * PAUSED
+     * <p>The current status of the campaign, or the current status of a treatment that
+     * belongs to an A/B test campaign. If a campaign uses A/B testing, the campaign
+     * has a status of COMPLETED only if all campaign treatments have a status of
+     * COMPLETED.</p>
      */
     inline CampaignState& WithCampaignStatus(CampaignStatus&& value) { SetCampaignStatus(std::move(value)); return *this;}
 

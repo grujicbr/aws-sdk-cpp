@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     IntentMetadata();
-    IntentMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    IntentMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IntentMetadata(Aws::Utils::Json::JsonView jsonValue);
+    IntentMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the intent.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the intent.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the intent.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>A description of the intent.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the intent.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the intent.</p>
@@ -129,6 +140,12 @@ namespace Model
      * <p>The date that the intent was updated. When you create an intent, the creation
      * date and last updated date are the same.</p>
      */
+    inline bool LastUpdatedDateHasBeenSet() const { return m_lastUpdatedDateHasBeenSet; }
+
+    /**
+     * <p>The date that the intent was updated. When you create an intent, the creation
+     * date and last updated date are the same.</p>
+     */
     inline void SetLastUpdatedDate(const Aws::Utils::DateTime& value) { m_lastUpdatedDateHasBeenSet = true; m_lastUpdatedDate = value; }
 
     /**
@@ -158,6 +175,11 @@ namespace Model
     /**
      * <p>The date that the intent was created.</p>
      */
+    inline bool CreatedDateHasBeenSet() const { return m_createdDateHasBeenSet; }
+
+    /**
+     * <p>The date that the intent was created.</p>
+     */
     inline void SetCreatedDate(const Aws::Utils::DateTime& value) { m_createdDateHasBeenSet = true; m_createdDate = value; }
 
     /**
@@ -180,6 +202,11 @@ namespace Model
      * <p>The version of the intent.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version of the intent.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version of the intent.</p>

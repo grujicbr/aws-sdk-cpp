@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     HITLayoutParameter();
-    HITLayoutParameter(const Aws::Utils::Json::JsonValue& jsonValue);
-    HITLayoutParameter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HITLayoutParameter(Aws::Utils::Json::JsonView jsonValue);
+    HITLayoutParameter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p> The name of the parameter in the HITLayout. </p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p> The name of the parameter in the HITLayout. </p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p> The name of the parameter in the HITLayout. </p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The value substituted for the parameter referenced in the HITLayout. </p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value substituted for the parameter referenced in the HITLayout. </p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value substituted for the parameter referenced in the HITLayout. </p>

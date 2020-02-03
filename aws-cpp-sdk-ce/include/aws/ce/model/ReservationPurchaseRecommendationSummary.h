@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CostExplorer
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ReservationPurchaseRecommendationSummary();
-    ReservationPurchaseRecommendationSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReservationPurchaseRecommendationSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReservationPurchaseRecommendationSummary(Aws::Utils::Json::JsonView jsonValue);
+    ReservationPurchaseRecommendationSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * in a month.</p>
      */
     inline const Aws::String& GetTotalEstimatedMonthlySavingsAmount() const{ return m_totalEstimatedMonthlySavingsAmount; }
+
+    /**
+     * <p>The total amount that AWS estimates that this recommendation could save you
+     * in a month.</p>
+     */
+    inline bool TotalEstimatedMonthlySavingsAmountHasBeenSet() const { return m_totalEstimatedMonthlySavingsAmountHasBeenSet; }
 
     /**
      * <p>The total amount that AWS estimates that this recommendation could save you
@@ -101,6 +108,12 @@ namespace Model
      * <p>The total amount that AWS estimates that this recommendation could save you
      * in a month, as a percentage of your costs.</p>
      */
+    inline bool TotalEstimatedMonthlySavingsPercentageHasBeenSet() const { return m_totalEstimatedMonthlySavingsPercentageHasBeenSet; }
+
+    /**
+     * <p>The total amount that AWS estimates that this recommendation could save you
+     * in a month, as a percentage of your costs.</p>
+     */
     inline void SetTotalEstimatedMonthlySavingsPercentage(const Aws::String& value) { m_totalEstimatedMonthlySavingsPercentageHasBeenSet = true; m_totalEstimatedMonthlySavingsPercentage = value; }
 
     /**
@@ -138,6 +151,11 @@ namespace Model
      * <p>The currency code used for this recommendation.</p>
      */
     inline const Aws::String& GetCurrencyCode() const{ return m_currencyCode; }
+
+    /**
+     * <p>The currency code used for this recommendation.</p>
+     */
+    inline bool CurrencyCodeHasBeenSet() const { return m_currencyCodeHasBeenSet; }
 
     /**
      * <p>The currency code used for this recommendation.</p>

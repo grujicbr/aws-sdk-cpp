@@ -43,7 +43,9 @@ AuthenticateOidcActionConfig::AuthenticateOidcActionConfig() :
     m_sessionTimeoutHasBeenSet(false),
     m_authenticationRequestExtraParamsHasBeenSet(false),
     m_onUnauthenticatedRequest(AuthenticateOidcActionConditionalBehaviorEnum::NOT_SET),
-    m_onUnauthenticatedRequestHasBeenSet(false)
+    m_onUnauthenticatedRequestHasBeenSet(false),
+    m_useExistingClientSecret(false),
+    m_useExistingClientSecretHasBeenSet(false)
 {
 }
 
@@ -60,7 +62,9 @@ AuthenticateOidcActionConfig::AuthenticateOidcActionConfig(const XmlNode& xmlNod
     m_sessionTimeoutHasBeenSet(false),
     m_authenticationRequestExtraParamsHasBeenSet(false),
     m_onUnauthenticatedRequest(AuthenticateOidcActionConditionalBehaviorEnum::NOT_SET),
-    m_onUnauthenticatedRequestHasBeenSet(false)
+    m_onUnauthenticatedRequestHasBeenSet(false),
+    m_useExistingClientSecret(false),
+    m_useExistingClientSecretHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -74,55 +78,55 @@ AuthenticateOidcActionConfig& AuthenticateOidcActionConfig::operator =(const Xml
     XmlNode issuerNode = resultNode.FirstChild("Issuer");
     if(!issuerNode.IsNull())
     {
-      m_issuer = StringUtils::Trim(issuerNode.GetText().c_str());
+      m_issuer = Aws::Utils::Xml::DecodeEscapedXmlText(issuerNode.GetText());
       m_issuerHasBeenSet = true;
     }
     XmlNode authorizationEndpointNode = resultNode.FirstChild("AuthorizationEndpoint");
     if(!authorizationEndpointNode.IsNull())
     {
-      m_authorizationEndpoint = StringUtils::Trim(authorizationEndpointNode.GetText().c_str());
+      m_authorizationEndpoint = Aws::Utils::Xml::DecodeEscapedXmlText(authorizationEndpointNode.GetText());
       m_authorizationEndpointHasBeenSet = true;
     }
     XmlNode tokenEndpointNode = resultNode.FirstChild("TokenEndpoint");
     if(!tokenEndpointNode.IsNull())
     {
-      m_tokenEndpoint = StringUtils::Trim(tokenEndpointNode.GetText().c_str());
+      m_tokenEndpoint = Aws::Utils::Xml::DecodeEscapedXmlText(tokenEndpointNode.GetText());
       m_tokenEndpointHasBeenSet = true;
     }
     XmlNode userInfoEndpointNode = resultNode.FirstChild("UserInfoEndpoint");
     if(!userInfoEndpointNode.IsNull())
     {
-      m_userInfoEndpoint = StringUtils::Trim(userInfoEndpointNode.GetText().c_str());
+      m_userInfoEndpoint = Aws::Utils::Xml::DecodeEscapedXmlText(userInfoEndpointNode.GetText());
       m_userInfoEndpointHasBeenSet = true;
     }
     XmlNode clientIdNode = resultNode.FirstChild("ClientId");
     if(!clientIdNode.IsNull())
     {
-      m_clientId = StringUtils::Trim(clientIdNode.GetText().c_str());
+      m_clientId = Aws::Utils::Xml::DecodeEscapedXmlText(clientIdNode.GetText());
       m_clientIdHasBeenSet = true;
     }
     XmlNode clientSecretNode = resultNode.FirstChild("ClientSecret");
     if(!clientSecretNode.IsNull())
     {
-      m_clientSecret = StringUtils::Trim(clientSecretNode.GetText().c_str());
+      m_clientSecret = Aws::Utils::Xml::DecodeEscapedXmlText(clientSecretNode.GetText());
       m_clientSecretHasBeenSet = true;
     }
     XmlNode sessionCookieNameNode = resultNode.FirstChild("SessionCookieName");
     if(!sessionCookieNameNode.IsNull())
     {
-      m_sessionCookieName = StringUtils::Trim(sessionCookieNameNode.GetText().c_str());
+      m_sessionCookieName = Aws::Utils::Xml::DecodeEscapedXmlText(sessionCookieNameNode.GetText());
       m_sessionCookieNameHasBeenSet = true;
     }
     XmlNode scopeNode = resultNode.FirstChild("Scope");
     if(!scopeNode.IsNull())
     {
-      m_scope = StringUtils::Trim(scopeNode.GetText().c_str());
+      m_scope = Aws::Utils::Xml::DecodeEscapedXmlText(scopeNode.GetText());
       m_scopeHasBeenSet = true;
     }
     XmlNode sessionTimeoutNode = resultNode.FirstChild("SessionTimeout");
     if(!sessionTimeoutNode.IsNull())
     {
-      m_sessionTimeout = StringUtils::ConvertToInt64(StringUtils::Trim(sessionTimeoutNode.GetText().c_str()).c_str());
+      m_sessionTimeout = StringUtils::ConvertToInt64(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(sessionTimeoutNode.GetText()).c_str()).c_str());
       m_sessionTimeoutHasBeenSet = true;
     }
     XmlNode authenticationRequestExtraParamsNode = resultNode.FirstChild("AuthenticationRequestExtraParams");
@@ -134,8 +138,8 @@ AuthenticateOidcActionConfig& AuthenticateOidcActionConfig::operator =(const Xml
       {
         XmlNode keyNode = authenticationRequestExtraParamsEntry.FirstChild("key");
         XmlNode valueNode = authenticationRequestExtraParamsEntry.FirstChild("value");
-        m_authenticationRequestExtraParams[StringUtils::Trim(keyNode.GetText().c_str())] =
-            StringUtils::Trim(valueNode.GetText().c_str());
+        m_authenticationRequestExtraParams[keyNode.GetText()] =
+            valueNode.GetText();
         authenticationRequestExtraParamsEntry = authenticationRequestExtraParamsEntry.NextNode("entry");
       }
 
@@ -144,8 +148,14 @@ AuthenticateOidcActionConfig& AuthenticateOidcActionConfig::operator =(const Xml
     XmlNode onUnauthenticatedRequestNode = resultNode.FirstChild("OnUnauthenticatedRequest");
     if(!onUnauthenticatedRequestNode.IsNull())
     {
-      m_onUnauthenticatedRequest = AuthenticateOidcActionConditionalBehaviorEnumMapper::GetAuthenticateOidcActionConditionalBehaviorEnumForName(StringUtils::Trim(onUnauthenticatedRequestNode.GetText().c_str()).c_str());
+      m_onUnauthenticatedRequest = AuthenticateOidcActionConditionalBehaviorEnumMapper::GetAuthenticateOidcActionConditionalBehaviorEnumForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(onUnauthenticatedRequestNode.GetText()).c_str()).c_str());
       m_onUnauthenticatedRequestHasBeenSet = true;
+    }
+    XmlNode useExistingClientSecretNode = resultNode.FirstChild("UseExistingClientSecret");
+    if(!useExistingClientSecretNode.IsNull())
+    {
+      m_useExistingClientSecret = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(useExistingClientSecretNode.GetText()).c_str()).c_str());
+      m_useExistingClientSecretHasBeenSet = true;
     }
   }
 
@@ -217,6 +227,11 @@ void AuthenticateOidcActionConfig::OutputToStream(Aws::OStream& oStream, const c
       oStream << location << index << locationValue << ".OnUnauthenticatedRequest=" << AuthenticateOidcActionConditionalBehaviorEnumMapper::GetNameForAuthenticateOidcActionConditionalBehaviorEnum(m_onUnauthenticatedRequest) << "&";
   }
 
+  if(m_useExistingClientSecretHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".UseExistingClientSecret=" << std::boolalpha << m_useExistingClientSecret << "&";
+  }
+
 }
 
 void AuthenticateOidcActionConfig::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -273,6 +288,10 @@ void AuthenticateOidcActionConfig::OutputToStream(Aws::OStream& oStream, const c
   if(m_onUnauthenticatedRequestHasBeenSet)
   {
       oStream << location << ".OnUnauthenticatedRequest=" << AuthenticateOidcActionConditionalBehaviorEnumMapper::GetNameForAuthenticateOidcActionConditionalBehaviorEnum(m_onUnauthenticatedRequest) << "&";
+  }
+  if(m_useExistingClientSecretHasBeenSet)
+  {
+      oStream << location << ".UseExistingClientSecret=" << std::boolalpha << m_useExistingClientSecret << "&";
   }
 }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ScriptBootstrapActionConfig();
-    ScriptBootstrapActionConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    ScriptBootstrapActionConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ScriptBootstrapActionConfig(Aws::Utils::Json::JsonView jsonValue);
+    ScriptBootstrapActionConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * location in Amazon S3 or on a local file system.</p>
      */
     inline const Aws::String& GetPath() const{ return m_path; }
+
+    /**
+     * <p>Location of the script to run during a bootstrap action. Can be either a
+     * location in Amazon S3 or on a local file system.</p>
+     */
+    inline bool PathHasBeenSet() const { return m_pathHasBeenSet; }
 
     /**
      * <p>Location of the script to run during a bootstrap action. Can be either a
@@ -95,6 +102,11 @@ namespace Model
      * <p>A list of command line arguments to pass to the bootstrap action script.</p>
      */
     inline const Aws::Vector<Aws::String>& GetArgs() const{ return m_args; }
+
+    /**
+     * <p>A list of command line arguments to pass to the bootstrap action script.</p>
+     */
+    inline bool ArgsHasBeenSet() const { return m_argsHasBeenSet; }
 
     /**
      * <p>A list of command line arguments to pass to the bootstrap action script.</p>

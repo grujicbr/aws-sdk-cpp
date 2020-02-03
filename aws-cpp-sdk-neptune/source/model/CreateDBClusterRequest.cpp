@@ -46,7 +46,10 @@ CreateDBClusterRequest::CreateDBClusterRequest() :
     m_kmsKeyIdHasBeenSet(false),
     m_preSignedUrlHasBeenSet(false),
     m_enableIAMDatabaseAuthentication(false),
-    m_enableIAMDatabaseAuthenticationHasBeenSet(false)
+    m_enableIAMDatabaseAuthenticationHasBeenSet(false),
+    m_enableCloudwatchLogsExportsHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false)
 {
 }
 
@@ -179,6 +182,22 @@ Aws::String CreateDBClusterRequest::SerializePayload() const
   if(m_enableIAMDatabaseAuthenticationHasBeenSet)
   {
     ss << "EnableIAMDatabaseAuthentication=" << std::boolalpha << m_enableIAMDatabaseAuthentication << "&";
+  }
+
+  if(m_enableCloudwatchLogsExportsHasBeenSet)
+  {
+    unsigned enableCloudwatchLogsExportsCount = 1;
+    for(auto& item : m_enableCloudwatchLogsExports)
+    {
+      ss << "EnableCloudwatchLogsExports.member." << enableCloudwatchLogsExportsCount << "="
+          << StringUtils::URLEncode(item.c_str()) << "&";
+      enableCloudwatchLogsExportsCount++;
+    }
+  }
+
+  if(m_deletionProtectionHasBeenSet)
+  {
+    ss << "DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
   }
 
   ss << "Version=2014-10-31";

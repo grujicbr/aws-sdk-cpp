@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MachineLearning
@@ -52,8 +53,8 @@ namespace Model
   {
   public:
     Prediction();
-    Prediction(const Aws::Utils::Json::JsonValue& jsonValue);
-    Prediction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Prediction(Aws::Utils::Json::JsonView jsonValue);
+    Prediction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -62,6 +63,12 @@ namespace Model
      * <code>MULTICLASS</code> <code>MLModel</code>.</p>
      */
     inline const Aws::String& GetPredictedLabel() const{ return m_predictedLabel; }
+
+    /**
+     * <p>The prediction label for either a <code>BINARY</code> or
+     * <code>MULTICLASS</code> <code>MLModel</code>.</p>
+     */
+    inline bool PredictedLabelHasBeenSet() const { return m_predictedLabelHasBeenSet; }
 
     /**
      * <p>The prediction label for either a <code>BINARY</code> or
@@ -108,6 +115,11 @@ namespace Model
     /**
      * The prediction value for <code>REGRESSION</code> <code>MLModel</code>.
      */
+    inline bool PredictedValueHasBeenSet() const { return m_predictedValueHasBeenSet; }
+
+    /**
+     * The prediction value for <code>REGRESSION</code> <code>MLModel</code>.
+     */
     inline void SetPredictedValue(double value) { m_predictedValueHasBeenSet = true; m_predictedValue = value; }
 
     /**
@@ -118,6 +130,9 @@ namespace Model
 
     
     inline const Aws::Map<Aws::String, double>& GetPredictedScores() const{ return m_predictedScores; }
+
+    
+    inline bool PredictedScoresHasBeenSet() const { return m_predictedScoresHasBeenSet; }
 
     
     inline void SetPredictedScores(const Aws::Map<Aws::String, double>& value) { m_predictedScoresHasBeenSet = true; m_predictedScores = value; }
@@ -143,6 +158,9 @@ namespace Model
 
     
     inline const Aws::Map<DetailsAttributes, Aws::String>& GetDetails() const{ return m_details; }
+
+    
+    inline bool DetailsHasBeenSet() const { return m_detailsHasBeenSet; }
 
     
     inline void SetDetails(const Aws::Map<DetailsAttributes, Aws::String>& value) { m_detailsHasBeenSet = true; m_details = value; }

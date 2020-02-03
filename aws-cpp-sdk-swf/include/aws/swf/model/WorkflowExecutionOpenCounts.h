@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     WorkflowExecutionOpenCounts();
-    WorkflowExecutionOpenCounts(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkflowExecutionOpenCounts& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkflowExecutionOpenCounts(Aws::Utils::Json::JsonView jsonValue);
+    WorkflowExecutionOpenCounts& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The count of activity tasks whose status is <code>OPEN</code>.</p>
      */
     inline int GetOpenActivityTasks() const{ return m_openActivityTasks; }
+
+    /**
+     * <p>The count of activity tasks whose status is <code>OPEN</code>.</p>
+     */
+    inline bool OpenActivityTasksHasBeenSet() const { return m_openActivityTasksHasBeenSet; }
 
     /**
      * <p>The count of activity tasks whose status is <code>OPEN</code>.</p>
@@ -66,6 +72,12 @@ namespace Model
      * have at most one open decision task.</p>
      */
     inline int GetOpenDecisionTasks() const{ return m_openDecisionTasks; }
+
+    /**
+     * <p>The count of decision tasks whose status is OPEN. A workflow execution can
+     * have at most one open decision task.</p>
+     */
+    inline bool OpenDecisionTasksHasBeenSet() const { return m_openDecisionTasksHasBeenSet; }
 
     /**
      * <p>The count of decision tasks whose status is OPEN. A workflow execution can
@@ -90,6 +102,12 @@ namespace Model
      * <p>The count of timers started by this workflow execution that have not fired
      * yet.</p>
      */
+    inline bool OpenTimersHasBeenSet() const { return m_openTimersHasBeenSet; }
+
+    /**
+     * <p>The count of timers started by this workflow execution that have not fired
+     * yet.</p>
+     */
     inline void SetOpenTimers(int value) { m_openTimersHasBeenSet = true; m_openTimers = value; }
 
     /**
@@ -107,6 +125,11 @@ namespace Model
     /**
      * <p>The count of child workflow executions whose status is <code>OPEN</code>.</p>
      */
+    inline bool OpenChildWorkflowExecutionsHasBeenSet() const { return m_openChildWorkflowExecutionsHasBeenSet; }
+
+    /**
+     * <p>The count of child workflow executions whose status is <code>OPEN</code>.</p>
+     */
     inline void SetOpenChildWorkflowExecutions(int value) { m_openChildWorkflowExecutionsHasBeenSet = true; m_openChildWorkflowExecutions = value; }
 
     /**
@@ -119,6 +142,11 @@ namespace Model
      * <p>The count of Lambda tasks whose status is <code>OPEN</code>.</p>
      */
     inline int GetOpenLambdaFunctions() const{ return m_openLambdaFunctions; }
+
+    /**
+     * <p>The count of Lambda tasks whose status is <code>OPEN</code>.</p>
+     */
+    inline bool OpenLambdaFunctionsHasBeenSet() const { return m_openLambdaFunctionsHasBeenSet; }
 
     /**
      * <p>The count of Lambda tasks whose status is <code>OPEN</code>.</p>

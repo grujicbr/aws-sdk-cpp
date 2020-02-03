@@ -39,11 +39,12 @@ NewPublicVirtualInterfaceAllocation::NewPublicVirtualInterfaceAllocation() :
     m_customerAddressHasBeenSet(false),
     m_addressFamily(AddressFamily::NOT_SET),
     m_addressFamilyHasBeenSet(false),
-    m_routeFilterPrefixesHasBeenSet(false)
+    m_routeFilterPrefixesHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-NewPublicVirtualInterfaceAllocation::NewPublicVirtualInterfaceAllocation(const JsonValue& jsonValue) : 
+NewPublicVirtualInterfaceAllocation::NewPublicVirtualInterfaceAllocation(JsonView jsonValue) : 
     m_virtualInterfaceNameHasBeenSet(false),
     m_vlan(0),
     m_vlanHasBeenSet(false),
@@ -54,12 +55,13 @@ NewPublicVirtualInterfaceAllocation::NewPublicVirtualInterfaceAllocation(const J
     m_customerAddressHasBeenSet(false),
     m_addressFamily(AddressFamily::NOT_SET),
     m_addressFamilyHasBeenSet(false),
-    m_routeFilterPrefixesHasBeenSet(false)
+    m_routeFilterPrefixesHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-NewPublicVirtualInterfaceAllocation& NewPublicVirtualInterfaceAllocation::operator =(const JsonValue& jsonValue)
+NewPublicVirtualInterfaceAllocation& NewPublicVirtualInterfaceAllocation::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("virtualInterfaceName"))
   {
@@ -112,12 +114,22 @@ NewPublicVirtualInterfaceAllocation& NewPublicVirtualInterfaceAllocation::operat
 
   if(jsonValue.ValueExists("routeFilterPrefixes"))
   {
-    Array<JsonValue> routeFilterPrefixesJsonList = jsonValue.GetArray("routeFilterPrefixes");
+    Array<JsonView> routeFilterPrefixesJsonList = jsonValue.GetArray("routeFilterPrefixes");
     for(unsigned routeFilterPrefixesIndex = 0; routeFilterPrefixesIndex < routeFilterPrefixesJsonList.GetLength(); ++routeFilterPrefixesIndex)
     {
       m_routeFilterPrefixes.push_back(routeFilterPrefixesJsonList[routeFilterPrefixesIndex].AsObject());
     }
     m_routeFilterPrefixesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
   }
 
   return *this;
@@ -176,6 +188,17 @@ JsonValue NewPublicVirtualInterfaceAllocation::Jsonize() const
      routeFilterPrefixesJsonList[routeFilterPrefixesIndex].AsObject(m_routeFilterPrefixes[routeFilterPrefixesIndex].Jsonize());
    }
    payload.WithArray("routeFilterPrefixes", std::move(routeFilterPrefixesJsonList));
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
 
   }
 

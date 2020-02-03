@@ -35,6 +35,9 @@ OTAUpdateInfo::OTAUpdateInfo() :
     m_lastModifiedDateHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_targetsHasBeenSet(false),
+    m_protocolsHasBeenSet(false),
+    m_awsJobExecutionsRolloutConfigHasBeenSet(false),
+    m_awsJobPresignedUrlConfigHasBeenSet(false),
     m_targetSelection(TargetSelection::NOT_SET),
     m_targetSelectionHasBeenSet(false),
     m_otaUpdateFilesHasBeenSet(false),
@@ -47,13 +50,16 @@ OTAUpdateInfo::OTAUpdateInfo() :
 {
 }
 
-OTAUpdateInfo::OTAUpdateInfo(const JsonValue& jsonValue) : 
+OTAUpdateInfo::OTAUpdateInfo(JsonView jsonValue) : 
     m_otaUpdateIdHasBeenSet(false),
     m_otaUpdateArnHasBeenSet(false),
     m_creationDateHasBeenSet(false),
     m_lastModifiedDateHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_targetsHasBeenSet(false),
+    m_protocolsHasBeenSet(false),
+    m_awsJobExecutionsRolloutConfigHasBeenSet(false),
+    m_awsJobPresignedUrlConfigHasBeenSet(false),
     m_targetSelection(TargetSelection::NOT_SET),
     m_targetSelectionHasBeenSet(false),
     m_otaUpdateFilesHasBeenSet(false),
@@ -67,7 +73,7 @@ OTAUpdateInfo::OTAUpdateInfo(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-OTAUpdateInfo& OTAUpdateInfo::operator =(const JsonValue& jsonValue)
+OTAUpdateInfo& OTAUpdateInfo::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("otaUpdateId"))
   {
@@ -106,12 +112,36 @@ OTAUpdateInfo& OTAUpdateInfo::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("targets"))
   {
-    Array<JsonValue> targetsJsonList = jsonValue.GetArray("targets");
+    Array<JsonView> targetsJsonList = jsonValue.GetArray("targets");
     for(unsigned targetsIndex = 0; targetsIndex < targetsJsonList.GetLength(); ++targetsIndex)
     {
       m_targets.push_back(targetsJsonList[targetsIndex].AsString());
     }
     m_targetsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("protocols"))
+  {
+    Array<JsonView> protocolsJsonList = jsonValue.GetArray("protocols");
+    for(unsigned protocolsIndex = 0; protocolsIndex < protocolsJsonList.GetLength(); ++protocolsIndex)
+    {
+      m_protocols.push_back(ProtocolMapper::GetProtocolForName(protocolsJsonList[protocolsIndex].AsString()));
+    }
+    m_protocolsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("awsJobExecutionsRolloutConfig"))
+  {
+    m_awsJobExecutionsRolloutConfig = jsonValue.GetObject("awsJobExecutionsRolloutConfig");
+
+    m_awsJobExecutionsRolloutConfigHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("awsJobPresignedUrlConfig"))
+  {
+    m_awsJobPresignedUrlConfig = jsonValue.GetObject("awsJobPresignedUrlConfig");
+
+    m_awsJobPresignedUrlConfigHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("targetSelection"))
@@ -123,7 +153,7 @@ OTAUpdateInfo& OTAUpdateInfo::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("otaUpdateFiles"))
   {
-    Array<JsonValue> otaUpdateFilesJsonList = jsonValue.GetArray("otaUpdateFiles");
+    Array<JsonView> otaUpdateFilesJsonList = jsonValue.GetArray("otaUpdateFiles");
     for(unsigned otaUpdateFilesIndex = 0; otaUpdateFilesIndex < otaUpdateFilesJsonList.GetLength(); ++otaUpdateFilesIndex)
     {
       m_otaUpdateFiles.push_back(otaUpdateFilesJsonList[otaUpdateFilesIndex].AsObject());
@@ -161,7 +191,7 @@ OTAUpdateInfo& OTAUpdateInfo::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("additionalParameters"))
   {
-    Aws::Map<Aws::String, JsonValue> additionalParametersJsonMap = jsonValue.GetObject("additionalParameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> additionalParametersJsonMap = jsonValue.GetObject("additionalParameters").GetAllObjects();
     for(auto& additionalParametersItem : additionalParametersJsonMap)
     {
       m_additionalParameters[additionalParametersItem.first] = additionalParametersItem.second.AsString();
@@ -212,6 +242,29 @@ JsonValue OTAUpdateInfo::Jsonize() const
      targetsJsonList[targetsIndex].AsString(m_targets[targetsIndex]);
    }
    payload.WithArray("targets", std::move(targetsJsonList));
+
+  }
+
+  if(m_protocolsHasBeenSet)
+  {
+   Array<JsonValue> protocolsJsonList(m_protocols.size());
+   for(unsigned protocolsIndex = 0; protocolsIndex < protocolsJsonList.GetLength(); ++protocolsIndex)
+   {
+     protocolsJsonList[protocolsIndex].AsString(ProtocolMapper::GetNameForProtocol(m_protocols[protocolsIndex]));
+   }
+   payload.WithArray("protocols", std::move(protocolsJsonList));
+
+  }
+
+  if(m_awsJobExecutionsRolloutConfigHasBeenSet)
+  {
+   payload.WithObject("awsJobExecutionsRolloutConfig", m_awsJobExecutionsRolloutConfig.Jsonize());
+
+  }
+
+  if(m_awsJobPresignedUrlConfigHasBeenSet)
+  {
+   payload.WithObject("awsJobPresignedUrlConfig", m_awsJobPresignedUrlConfig.Jsonize());
 
   }
 

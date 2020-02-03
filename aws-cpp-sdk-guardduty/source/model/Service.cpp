@@ -30,6 +30,7 @@ namespace Model
 
 Service::Service() : 
     m_actionHasBeenSet(false),
+    m_evidenceHasBeenSet(false),
     m_archived(false),
     m_archivedHasBeenSet(false),
     m_count(0),
@@ -43,8 +44,9 @@ Service::Service() :
 {
 }
 
-Service::Service(const JsonValue& jsonValue) : 
+Service::Service(JsonView jsonValue) : 
     m_actionHasBeenSet(false),
+    m_evidenceHasBeenSet(false),
     m_archived(false),
     m_archivedHasBeenSet(false),
     m_count(0),
@@ -59,13 +61,20 @@ Service::Service(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Service& Service::operator =(const JsonValue& jsonValue)
+Service& Service::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("action"))
   {
     m_action = jsonValue.GetObject("action");
 
     m_actionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("evidence"))
+  {
+    m_evidence = jsonValue.GetObject("evidence");
+
+    m_evidenceHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("archived"))
@@ -134,6 +143,12 @@ JsonValue Service::Jsonize() const
   if(m_actionHasBeenSet)
   {
    payload.WithObject("action", m_action.Jsonize());
+
+  }
+
+  if(m_evidenceHasBeenSet)
+  {
+   payload.WithObject("evidence", m_evidence.Jsonize());
 
   }
 

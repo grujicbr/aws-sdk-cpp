@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CompliantSummary();
-    CompliantSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    CompliantSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CompliantSummary(Aws::Utils::Json::JsonView jsonValue);
+    CompliantSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The total number of resources that are compliant.</p>
      */
     inline int GetCompliantCount() const{ return m_compliantCount; }
+
+    /**
+     * <p>The total number of resources that are compliant.</p>
+     */
+    inline bool CompliantCountHasBeenSet() const { return m_compliantCountHasBeenSet; }
 
     /**
      * <p>The total number of resources that are compliant.</p>
@@ -67,6 +73,11 @@ namespace Model
      * <p>A summary of the compliance severity by compliance type.</p>
      */
     inline const SeveritySummary& GetSeveritySummary() const{ return m_severitySummary; }
+
+    /**
+     * <p>A summary of the compliance severity by compliance type.</p>
+     */
+    inline bool SeveritySummaryHasBeenSet() const { return m_severitySummaryHasBeenSet; }
 
     /**
      * <p>A summary of the compliance severity by compliance type.</p>

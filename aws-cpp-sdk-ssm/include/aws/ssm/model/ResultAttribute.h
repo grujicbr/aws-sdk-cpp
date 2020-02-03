@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ResultAttribute();
-    ResultAttribute(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResultAttribute& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResultAttribute(Aws::Utils::Json::JsonView jsonValue);
+    ResultAttribute& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * Default Value: AWS:InstanceInformation.</p>
      */
     inline const Aws::String& GetTypeName() const{ return m_typeName; }
+
+    /**
+     * <p>Name of the inventory item type. Valid value: AWS:InstanceInformation.
+     * Default Value: AWS:InstanceInformation.</p>
+     */
+    inline bool TypeNameHasBeenSet() const { return m_typeNameHasBeenSet; }
 
     /**
      * <p>Name of the inventory item type. Valid value: AWS:InstanceInformation.

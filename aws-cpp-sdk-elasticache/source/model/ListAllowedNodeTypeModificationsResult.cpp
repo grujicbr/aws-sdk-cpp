@@ -54,8 +54,19 @@ ListAllowedNodeTypeModificationsResult& ListAllowedNodeTypeModificationsResult::
       XmlNode scaleUpModificationsMember = scaleUpModificationsNode.FirstChild("member");
       while(!scaleUpModificationsMember.IsNull())
       {
-        m_scaleUpModifications.push_back(StringUtils::Trim(scaleUpModificationsMember.GetText().c_str()));
+        m_scaleUpModifications.push_back(scaleUpModificationsMember.GetText());
         scaleUpModificationsMember = scaleUpModificationsMember.NextNode("member");
+      }
+
+    }
+    XmlNode scaleDownModificationsNode = resultNode.FirstChild("ScaleDownModifications");
+    if(!scaleDownModificationsNode.IsNull())
+    {
+      XmlNode scaleDownModificationsMember = scaleDownModificationsNode.FirstChild("member");
+      while(!scaleDownModificationsMember.IsNull())
+      {
+        m_scaleDownModifications.push_back(scaleDownModificationsMember.GetText());
+        scaleDownModificationsMember = scaleDownModificationsMember.NextNode("member");
       }
 
     }

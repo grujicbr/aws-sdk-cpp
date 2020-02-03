@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     PostCommentReplyRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +51,13 @@ namespace Model
      * <a>GetCommentsForPullRequest</a>.</p>
      */
     inline const Aws::String& GetInReplyTo() const{ return m_inReplyTo; }
+
+    /**
+     * <p>The system-generated ID of the comment to which you want to reply. To get
+     * this ID, use <a>GetCommentsForComparedCommit</a> or
+     * <a>GetCommentsForPullRequest</a>.</p>
+     */
+    inline bool InReplyToHasBeenSet() const { return m_inReplyToHasBeenSet; }
 
     /**
      * <p>The system-generated ID of the comment to which you want to reply. To get
@@ -96,58 +103,66 @@ namespace Model
 
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline const Aws::String& GetClientRequestToken() const{ return m_clientRequestToken; }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     */
+    inline bool ClientRequestTokenHasBeenSet() const { return m_clientRequestTokenHasBeenSet; }
+
+    /**
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline void SetClientRequestToken(const Aws::String& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = value; }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline void SetClientRequestToken(Aws::String&& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = std::move(value); }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline void SetClientRequestToken(const char* value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken.assign(value); }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline PostCommentReplyRequest& WithClientRequestToken(const Aws::String& value) { SetClientRequestToken(value); return *this;}
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline PostCommentReplyRequest& WithClientRequestToken(Aws::String&& value) { SetClientRequestToken(std::move(value)); return *this;}
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
      */
     inline PostCommentReplyRequest& WithClientRequestToken(const char* value) { SetClientRequestToken(value); return *this;}
 
@@ -156,6 +171,11 @@ namespace Model
      * <p>The contents of your reply to a comment.</p>
      */
     inline const Aws::String& GetContent() const{ return m_content; }
+
+    /**
+     * <p>The contents of your reply to a comment.</p>
+     */
+    inline bool ContentHasBeenSet() const { return m_contentHasBeenSet; }
 
     /**
      * <p>The contents of your reply to a comment.</p>

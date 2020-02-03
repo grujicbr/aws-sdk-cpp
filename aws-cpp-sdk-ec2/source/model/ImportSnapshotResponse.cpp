@@ -51,12 +51,12 @@ ImportSnapshotResponse& ImportSnapshotResponse::operator =(const Aws::AmazonWebS
     XmlNode descriptionNode = resultNode.FirstChild("description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
     }
     XmlNode importTaskIdNode = resultNode.FirstChild("importTaskId");
     if(!importTaskIdNode.IsNull())
     {
-      m_importTaskId = StringUtils::Trim(importTaskIdNode.GetText().c_str());
+      m_importTaskId = Aws::Utils::Xml::DecodeEscapedXmlText(importTaskIdNode.GetText());
     }
     XmlNode snapshotTaskDetailNode = resultNode.FirstChild("snapshotTaskDetail");
     if(!snapshotTaskDetailNode.IsNull())
@@ -66,8 +66,11 @@ ImportSnapshotResponse& ImportSnapshotResponse::operator =(const Aws::AmazonWebS
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::ImportSnapshotResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

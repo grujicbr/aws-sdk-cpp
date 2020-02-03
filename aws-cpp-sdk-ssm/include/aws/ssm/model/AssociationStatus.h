@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AssociationStatus();
-    AssociationStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssociationStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssociationStatus(Aws::Utils::Json::JsonView jsonValue);
+    AssociationStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The date when the status changed.</p>
      */
     inline const Aws::Utils::DateTime& GetDate() const{ return m_date; }
+
+    /**
+     * <p>The date when the status changed.</p>
+     */
+    inline bool DateHasBeenSet() const { return m_dateHasBeenSet; }
 
     /**
      * <p>The date when the status changed.</p>
@@ -82,6 +88,11 @@ namespace Model
     /**
      * <p>The status.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The status.</p>
+     */
     inline void SetName(const AssociationStatusName& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -104,6 +115,11 @@ namespace Model
      * <p>The reason for the status.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The reason for the status.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The reason for the status.</p>
@@ -140,6 +156,11 @@ namespace Model
      * <p>A user-defined string.</p>
      */
     inline const Aws::String& GetAdditionalInfo() const{ return m_additionalInfo; }
+
+    /**
+     * <p>A user-defined string.</p>
+     */
+    inline bool AdditionalInfoHasBeenSet() const { return m_additionalInfoHasBeenSet; }
 
     /**
      * <p>A user-defined string.</p>

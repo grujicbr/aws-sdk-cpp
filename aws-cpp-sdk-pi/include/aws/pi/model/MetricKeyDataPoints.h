@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace PI
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     MetricKeyDataPoints();
-    MetricKeyDataPoints(const Aws::Utils::Json::JsonValue& jsonValue);
-    MetricKeyDataPoints& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MetricKeyDataPoints(Aws::Utils::Json::JsonView jsonValue);
+    MetricKeyDataPoints& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The dimension(s) to which the data points apply.</p>
      */
     inline const ResponseResourceMetricKey& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The dimension(s) to which the data points apply.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The dimension(s) to which the data points apply.</p>
@@ -80,6 +86,12 @@ namespace Model
      * time.</p>
      */
     inline const Aws::Vector<DataPoint>& GetDataPoints() const{ return m_dataPoints; }
+
+    /**
+     * <p>An array of timestamp-value pairs, representing measurements over a period of
+     * time.</p>
+     */
+    inline bool DataPointsHasBeenSet() const { return m_dataPointsHasBeenSet; }
 
     /**
      * <p>An array of timestamp-value pairs, representing measurements over a period of

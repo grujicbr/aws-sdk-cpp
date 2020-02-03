@@ -45,6 +45,9 @@ namespace Aws
         static const int RATE_KEY_HASH = HashingUtils::HashString("RATE_KEY");
         static const int RULE_TYPE_HASH = HashingUtils::HashString("RULE_TYPE");
         static const int NEXT_MARKER_HASH = HashingUtils::HashString("NEXT_MARKER");
+        static const int RESOURCE_ARN_HASH = HashingUtils::HashString("RESOURCE_ARN");
+        static const int TAGS_HASH = HashingUtils::HashString("TAGS");
+        static const int TAG_KEYS_HASH = HashingUtils::HashString("TAG_KEYS");
 
 
         ParameterExceptionField GetParameterExceptionFieldForName(const Aws::String& name)
@@ -110,6 +113,18 @@ namespace Aws
           {
             return ParameterExceptionField::NEXT_MARKER;
           }
+          else if (hashCode == RESOURCE_ARN_HASH)
+          {
+            return ParameterExceptionField::RESOURCE_ARN;
+          }
+          else if (hashCode == TAGS_HASH)
+          {
+            return ParameterExceptionField::TAGS;
+          }
+          else if (hashCode == TAG_KEYS_HASH)
+          {
+            return ParameterExceptionField::TAG_KEYS;
+          }
           EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
           if(overflowContainer)
           {
@@ -154,6 +169,12 @@ namespace Aws
             return "RULE_TYPE";
           case ParameterExceptionField::NEXT_MARKER:
             return "NEXT_MARKER";
+          case ParameterExceptionField::RESOURCE_ARN:
+            return "RESOURCE_ARN";
+          case ParameterExceptionField::TAGS:
+            return "TAGS";
+          case ParameterExceptionField::TAG_KEYS:
+            return "TAG_KEYS";
           default:
             EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
             if(overflowContainer)
@@ -161,7 +182,7 @@ namespace Aws
               return overflowContainer->RetrieveOverflow(static_cast<int>(enumValue));
             }
 
-            return "";
+            return {};
           }
         }
 

@@ -30,6 +30,7 @@ namespace Model
 
 Channel::Channel() : 
     m_nameHasBeenSet(false),
+    m_storageHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_status(ChannelStatus::NOT_SET),
     m_statusHasBeenSet(false),
@@ -39,8 +40,9 @@ Channel::Channel() :
 {
 }
 
-Channel::Channel(const JsonValue& jsonValue) : 
+Channel::Channel(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
+    m_storageHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_status(ChannelStatus::NOT_SET),
     m_statusHasBeenSet(false),
@@ -51,13 +53,20 @@ Channel::Channel(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Channel& Channel::operator =(const JsonValue& jsonValue)
+Channel& Channel::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
     m_name = jsonValue.GetString("name");
 
     m_nameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("storage"))
+  {
+    m_storage = jsonValue.GetObject("storage");
+
+    m_storageHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("arn"))
@@ -105,6 +114,12 @@ JsonValue Channel::Jsonize() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("name", m_name);
+
+  }
+
+  if(m_storageHasBeenSet)
+  {
+   payload.WithObject("storage", m_storage.Jsonize());
 
   }
 

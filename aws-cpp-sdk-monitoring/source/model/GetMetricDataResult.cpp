@@ -62,7 +62,18 @@ GetMetricDataResult& GetMetricDataResult::operator =(const Aws::AmazonWebService
     XmlNode nextTokenNode = resultNode.FirstChild("NextToken");
     if(!nextTokenNode.IsNull())
     {
-      m_nextToken = StringUtils::Trim(nextTokenNode.GetText().c_str());
+      m_nextToken = Aws::Utils::Xml::DecodeEscapedXmlText(nextTokenNode.GetText());
+    }
+    XmlNode messagesNode = resultNode.FirstChild("Messages");
+    if(!messagesNode.IsNull())
+    {
+      XmlNode messagesMember = messagesNode.FirstChild("member");
+      while(!messagesMember.IsNull())
+      {
+        m_messages.push_back(messagesMember);
+        messagesMember = messagesMember.NextNode("member");
+      }
+
     }
   }
 

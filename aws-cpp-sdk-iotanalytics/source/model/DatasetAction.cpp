@@ -30,18 +30,20 @@ namespace Model
 
 DatasetAction::DatasetAction() : 
     m_actionNameHasBeenSet(false),
-    m_queryActionHasBeenSet(false)
+    m_queryActionHasBeenSet(false),
+    m_containerActionHasBeenSet(false)
 {
 }
 
-DatasetAction::DatasetAction(const JsonValue& jsonValue) : 
+DatasetAction::DatasetAction(JsonView jsonValue) : 
     m_actionNameHasBeenSet(false),
-    m_queryActionHasBeenSet(false)
+    m_queryActionHasBeenSet(false),
+    m_containerActionHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DatasetAction& DatasetAction::operator =(const JsonValue& jsonValue)
+DatasetAction& DatasetAction::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("actionName"))
   {
@@ -55,6 +57,13 @@ DatasetAction& DatasetAction::operator =(const JsonValue& jsonValue)
     m_queryAction = jsonValue.GetObject("queryAction");
 
     m_queryActionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("containerAction"))
+  {
+    m_containerAction = jsonValue.GetObject("containerAction");
+
+    m_containerActionHasBeenSet = true;
   }
 
   return *this;
@@ -73,6 +82,12 @@ JsonValue DatasetAction::Jsonize() const
   if(m_queryActionHasBeenSet)
   {
    payload.WithObject("queryAction", m_queryAction.Jsonize());
+
+  }
+
+  if(m_containerActionHasBeenSet)
+  {
+   payload.WithObject("containerAction", m_containerAction.Jsonize());
 
   }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     NotebookInstanceLifecycleConfigSummary();
-    NotebookInstanceLifecycleConfigSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    NotebookInstanceLifecycleConfigSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NotebookInstanceLifecycleConfigSummary(Aws::Utils::Json::JsonView jsonValue);
+    NotebookInstanceLifecycleConfigSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the lifecycle configuration.</p>
      */
     inline const Aws::String& GetNotebookInstanceLifecycleConfigName() const{ return m_notebookInstanceLifecycleConfigName; }
+
+    /**
+     * <p>The name of the lifecycle configuration.</p>
+     */
+    inline bool NotebookInstanceLifecycleConfigNameHasBeenSet() const { return m_notebookInstanceLifecycleConfigNameHasBeenSet; }
 
     /**
      * <p>The name of the lifecycle configuration.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the lifecycle configuration.</p>
      */
+    inline bool NotebookInstanceLifecycleConfigArnHasBeenSet() const { return m_notebookInstanceLifecycleConfigArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the lifecycle configuration.</p>
+     */
     inline void SetNotebookInstanceLifecycleConfigArn(const Aws::String& value) { m_notebookInstanceLifecycleConfigArnHasBeenSet = true; m_notebookInstanceLifecycleConfigArn = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
     /**
      * <p>A timestamp that tells when the lifecycle configuration was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>A timestamp that tells when the lifecycle configuration was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -151,6 +167,12 @@ namespace Model
      * modified.</p>
      */
     inline const Aws::Utils::DateTime& GetLastModifiedTime() const{ return m_lastModifiedTime; }
+
+    /**
+     * <p>A timestamp that tells when the lifecycle configuration was last
+     * modified.</p>
+     */
+    inline bool LastModifiedTimeHasBeenSet() const { return m_lastModifiedTimeHasBeenSet; }
 
     /**
      * <p>A timestamp that tells when the lifecycle configuration was last

@@ -39,7 +39,8 @@ UpdateUserPoolRequest::UpdateUserPoolRequest() :
     m_smsConfigurationHasBeenSet(false),
     m_userPoolTagsHasBeenSet(false),
     m_adminCreateUserConfigHasBeenSet(false),
-    m_userPoolAddOnsHasBeenSet(false)
+    m_userPoolAddOnsHasBeenSet(false),
+    m_accountRecoverySettingHasBeenSet(false)
 {
 }
 
@@ -152,7 +153,13 @@ Aws::String UpdateUserPoolRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_accountRecoverySettingHasBeenSet)
+  {
+   payload.WithObject("AccountRecoverySetting", m_accountRecoverySetting.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateUserPoolRequest::GetRequestSpecificHeaders() const

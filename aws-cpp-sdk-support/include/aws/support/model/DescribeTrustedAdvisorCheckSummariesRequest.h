@@ -28,15 +28,12 @@ namespace Model
 {
 
   /**
-   * <p/><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/support-2013-04-15/DescribeTrustedAdvisorCheckSummariesRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_SUPPORT_API DescribeTrustedAdvisorCheckSummariesRequest : public SupportRequest
   {
   public:
     DescribeTrustedAdvisorCheckSummariesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +49,11 @@ namespace Model
      * <p>The IDs of the Trusted Advisor checks.</p>
      */
     inline const Aws::Vector<Aws::String>& GetCheckIds() const{ return m_checkIds; }
+
+    /**
+     * <p>The IDs of the Trusted Advisor checks.</p>
+     */
+    inline bool CheckIdsHasBeenSet() const { return m_checkIdsHasBeenSet; }
 
     /**
      * <p>The IDs of the Trusted Advisor checks.</p>

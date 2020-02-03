@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     Resolution();
-    Resolution(const Aws::Utils::Json::JsonValue& jsonValue);
-    Resolution& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Resolution(Aws::Utils::Json::JsonView jsonValue);
+    Resolution& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The screen resolution's width, expressed in pixels.</p>
      */
     inline int GetWidth() const{ return m_width; }
+
+    /**
+     * <p>The screen resolution's width, expressed in pixels.</p>
+     */
+    inline bool WidthHasBeenSet() const { return m_widthHasBeenSet; }
 
     /**
      * <p>The screen resolution's width, expressed in pixels.</p>
@@ -65,6 +71,11 @@ namespace Model
      * <p>The screen resolution's height, expressed in pixels.</p>
      */
     inline int GetHeight() const{ return m_height; }
+
+    /**
+     * <p>The screen resolution's height, expressed in pixels.</p>
+     */
+    inline bool HeightHasBeenSet() const { return m_heightHasBeenSet; }
 
     /**
      * <p>The screen resolution's height, expressed in pixels.</p>

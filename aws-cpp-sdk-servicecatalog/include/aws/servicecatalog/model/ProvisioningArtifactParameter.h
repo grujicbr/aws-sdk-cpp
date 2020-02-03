@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ProvisioningArtifactParameter();
-    ProvisioningArtifactParameter(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProvisioningArtifactParameter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProvisioningArtifactParameter(Aws::Utils::Json::JsonView jsonValue);
+    ProvisioningArtifactParameter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The parameter key.</p>
      */
     inline const Aws::String& GetParameterKey() const{ return m_parameterKey; }
+
+    /**
+     * <p>The parameter key.</p>
+     */
+    inline bool ParameterKeyHasBeenSet() const { return m_parameterKeyHasBeenSet; }
 
     /**
      * <p>The parameter key.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The default value.</p>
      */
+    inline bool DefaultValueHasBeenSet() const { return m_defaultValueHasBeenSet; }
+
+    /**
+     * <p>The default value.</p>
+     */
     inline void SetDefaultValue(const Aws::String& value) { m_defaultValueHasBeenSet = true; m_defaultValue = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The parameter type.</p>
      */
     inline const Aws::String& GetParameterType() const{ return m_parameterType; }
+
+    /**
+     * <p>The parameter type.</p>
+     */
+    inline bool ParameterTypeHasBeenSet() const { return m_parameterTypeHasBeenSet; }
 
     /**
      * <p>The parameter type.</p>
@@ -168,6 +184,13 @@ namespace Model
      * when the parameter is retrieved. This parameter is used to hide sensitive
      * information.</p>
      */
+    inline bool IsNoEchoHasBeenSet() const { return m_isNoEchoHasBeenSet; }
+
+    /**
+     * <p>If this value is true, the value for this parameter is obfuscated from view
+     * when the parameter is retrieved. This parameter is used to hide sensitive
+     * information.</p>
+     */
     inline void SetIsNoEcho(bool value) { m_isNoEchoHasBeenSet = true; m_isNoEcho = value; }
 
     /**
@@ -182,6 +205,11 @@ namespace Model
      * <p>The description of the parameter.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the parameter.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the parameter.</p>
@@ -218,6 +246,11 @@ namespace Model
      * <p>Constraints that the administrator has put on a parameter.</p>
      */
     inline const ParameterConstraints& GetParameterConstraints() const{ return m_parameterConstraints; }
+
+    /**
+     * <p>Constraints that the administrator has put on a parameter.</p>
+     */
+    inline bool ParameterConstraintsHasBeenSet() const { return m_parameterConstraintsHasBeenSet; }
 
     /**
      * <p>Constraints that the administrator has put on a parameter.</p>

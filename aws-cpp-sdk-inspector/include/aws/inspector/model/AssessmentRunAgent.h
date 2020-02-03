@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     AssessmentRunAgent();
-    AssessmentRunAgent(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssessmentRunAgent& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssessmentRunAgent(Aws::Utils::Json::JsonView jsonValue);
+    AssessmentRunAgent& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The AWS account of the EC2 instance where the agent is installed.</p>
      */
     inline const Aws::String& GetAgentId() const{ return m_agentId; }
+
+    /**
+     * <p>The AWS account of the EC2 instance where the agent is installed.</p>
+     */
+    inline bool AgentIdHasBeenSet() const { return m_agentIdHasBeenSet; }
 
     /**
      * <p>The AWS account of the EC2 instance where the agent is installed.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>The ARN of the assessment run that is associated with the agent.</p>
      */
+    inline bool AssessmentRunArnHasBeenSet() const { return m_assessmentRunArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the assessment run that is associated with the agent.</p>
+     */
     inline void SetAssessmentRunArn(const Aws::String& value) { m_assessmentRunArnHasBeenSet = true; m_assessmentRunArn = value; }
 
     /**
@@ -132,6 +143,11 @@ namespace Model
     /**
      * <p>The current health state of the agent.</p>
      */
+    inline bool AgentHealthHasBeenSet() const { return m_agentHealthHasBeenSet; }
+
+    /**
+     * <p>The current health state of the agent.</p>
+     */
     inline void SetAgentHealth(const AgentHealth& value) { m_agentHealthHasBeenSet = true; m_agentHealth = value; }
 
     /**
@@ -158,6 +174,11 @@ namespace Model
     /**
      * <p>The detailed health state of the agent.</p>
      */
+    inline bool AgentHealthCodeHasBeenSet() const { return m_agentHealthCodeHasBeenSet; }
+
+    /**
+     * <p>The detailed health state of the agent.</p>
+     */
     inline void SetAgentHealthCode(const AgentHealthCode& value) { m_agentHealthCodeHasBeenSet = true; m_agentHealthCode = value; }
 
     /**
@@ -180,6 +201,11 @@ namespace Model
      * <p>The description for the agent health code.</p>
      */
     inline const Aws::String& GetAgentHealthDetails() const{ return m_agentHealthDetails; }
+
+    /**
+     * <p>The description for the agent health code.</p>
+     */
+    inline bool AgentHealthDetailsHasBeenSet() const { return m_agentHealthDetailsHasBeenSet; }
 
     /**
      * <p>The description for the agent health code.</p>
@@ -217,6 +243,12 @@ namespace Model
      * ID.</p>
      */
     inline const Aws::String& GetAutoScalingGroup() const{ return m_autoScalingGroup; }
+
+    /**
+     * <p>The Auto Scaling group of the EC2 instance that is specified by the agent
+     * ID.</p>
+     */
+    inline bool AutoScalingGroupHasBeenSet() const { return m_autoScalingGroupHasBeenSet; }
 
     /**
      * <p>The Auto Scaling group of the EC2 instance that is specified by the agent
@@ -260,6 +292,12 @@ namespace Model
      * agent.</p>
      */
     inline const Aws::Vector<TelemetryMetadata>& GetTelemetryMetadata() const{ return m_telemetryMetadata; }
+
+    /**
+     * <p>The Amazon Inspector application data metrics that are collected by the
+     * agent.</p>
+     */
+    inline bool TelemetryMetadataHasBeenSet() const { return m_telemetryMetadataHasBeenSet; }
 
     /**
      * <p>The Amazon Inspector application data metrics that are collected by the

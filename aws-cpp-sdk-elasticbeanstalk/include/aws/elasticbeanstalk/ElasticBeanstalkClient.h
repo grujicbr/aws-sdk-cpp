@@ -298,7 +298,7 @@ namespace Model
    * API, go to <a href="http://aws.amazon.com/tools/">Tools for Amazon Web
    * Services</a>.</p> <p> <b>Endpoints</b> </p> <p>For a list of region-specific
    * endpoints that AWS Elastic Beanstalk supports, go to <a
-   * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region">Regions
+   * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region">Regions
    * and Endpoints</a> in the <i>Amazon Web Services Glossary</i>.</p>
    */
   class AWS_ELASTICBEANSTALK_API ElasticBeanstalkClient : public Aws::Client::AWSXMLClient
@@ -327,7 +327,7 @@ namespace Model
 
         virtual ~ElasticBeanstalkClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "elasticbeanstalk"; }
+        inline virtual const char* GetServiceClientName() const override { return "Elastic Beanstalk"; }
 
 
        /**
@@ -429,7 +429,7 @@ namespace Model
          * source bundles for each of the environments to create or update. The name of
          * each environment and other required information must be included in the source
          * bundles in an environment manifest named <code>env.yaml</code>. See <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-mgmt-compose.html">Compose
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-mgmt-compose.html">Compose
          * Environments</a> for details.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ComposeEnvironments">AWS
          * API Reference</a></p>
@@ -442,7 +442,7 @@ namespace Model
          * source bundles for each of the environments to create or update. The name of
          * each environment and other required information must be included in the source
          * bundles in an environment manifest named <code>env.yaml</code>. See <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-mgmt-compose.html">Compose
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-mgmt-compose.html">Compose
          * Environments</a> for details.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ComposeEnvironments">AWS
          * API Reference</a></p>
@@ -457,7 +457,7 @@ namespace Model
          * source bundles for each of the environments to create or update. The name of
          * each environment and other required information must be included in the source
          * bundles in an environment manifest named <code>env.yaml</code>. See <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-mgmt-compose.html">Compose
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-mgmt-compose.html">Compose
          * Environments</a> for details.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ComposeEnvironments">AWS
          * API Reference</a></p>
@@ -558,7 +558,9 @@ namespace Model
         /**
          * <p>Creates a configuration template. Templates are associated with a specific
          * application and are used to deploy different versions of the application with
-         * the same configuration settings.</p> <p>Related Topics</p> <ul> <li> <p>
+         * the same configuration settings.</p> <p>Templates aren't associated with any
+         * environment. The <code>EnvironmentName</code> response element is always
+         * <code>null</code>.</p> <p>Related Topics</p> <ul> <li> <p>
          * <a>DescribeConfigurationOptions</a> </p> </li> <li> <p>
          * <a>DescribeConfigurationSettings</a> </p> </li> <li> <p>
          * <a>ListAvailableSolutionStacks</a> </p> </li> </ul><p><h3>See Also:</h3>   <a
@@ -570,7 +572,9 @@ namespace Model
         /**
          * <p>Creates a configuration template. Templates are associated with a specific
          * application and are used to deploy different versions of the application with
-         * the same configuration settings.</p> <p>Related Topics</p> <ul> <li> <p>
+         * the same configuration settings.</p> <p>Templates aren't associated with any
+         * environment. The <code>EnvironmentName</code> response element is always
+         * <code>null</code>.</p> <p>Related Topics</p> <ul> <li> <p>
          * <a>DescribeConfigurationOptions</a> </p> </li> <li> <p>
          * <a>DescribeConfigurationSettings</a> </p> </li> <li> <p>
          * <a>ListAvailableSolutionStacks</a> </p> </li> </ul><p><h3>See Also:</h3>   <a
@@ -584,7 +588,9 @@ namespace Model
         /**
          * <p>Creates a configuration template. Templates are associated with a specific
          * application and are used to deploy different versions of the application with
-         * the same configuration settings.</p> <p>Related Topics</p> <ul> <li> <p>
+         * the same configuration settings.</p> <p>Templates aren't associated with any
+         * environment. The <code>EnvironmentName</code> response element is always
+         * <code>null</code>.</p> <p>Related Topics</p> <ul> <li> <p>
          * <a>DescribeConfigurationOptions</a> </p> </li> <li> <p>
          * <a>DescribeConfigurationSettings</a> </p> </li> <li> <p>
          * <a>ListAvailableSolutionStacks</a> </p> </li> </ul><p><h3>See Also:</h3>   <a
@@ -1202,7 +1208,7 @@ namespace Model
         /**
          * <p>Retrieves detailed information about the health of instances in your AWS
          * Elastic Beanstalk. This operation requires <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html">enhanced
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html">enhanced
          * health reporting</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/DescribeInstancesHealth">AWS
          * API Reference</a></p>
@@ -1212,7 +1218,7 @@ namespace Model
         /**
          * <p>Retrieves detailed information about the health of instances in your AWS
          * Elastic Beanstalk. This operation requires <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html">enhanced
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html">enhanced
          * health reporting</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/DescribeInstancesHealth">AWS
          * API Reference</a></p>
@@ -1224,7 +1230,7 @@ namespace Model
         /**
          * <p>Retrieves detailed information about the health of instances in your AWS
          * Elastic Beanstalk. This operation requires <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html">enhanced
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html">enhanced
          * health reporting</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/DescribeInstancesHealth">AWS
          * API Reference</a></p>
@@ -1316,7 +1322,7 @@ namespace Model
          * contains a list of tag key-value pairs.</p> <p>Currently, Elastic Beanstalk only
          * supports tagging of Elastic Beanstalk environments. For details about
          * environment tagging, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
          * Resources in Your Elastic Beanstalk Environment</a>.</p><p><h3>See Also:</h3>  
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResource">AWS
@@ -1329,7 +1335,7 @@ namespace Model
          * contains a list of tag key-value pairs.</p> <p>Currently, Elastic Beanstalk only
          * supports tagging of Elastic Beanstalk environments. For details about
          * environment tagging, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
          * Resources in Your Elastic Beanstalk Environment</a>.</p><p><h3>See Also:</h3>  
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResource">AWS
@@ -1344,7 +1350,7 @@ namespace Model
          * contains a list of tag key-value pairs.</p> <p>Currently, Elastic Beanstalk only
          * supports tagging of Elastic Beanstalk environments. For details about
          * environment tagging, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
          * Resources in Your Elastic Beanstalk Environment</a>.</p><p><h3>See Also:</h3>  
          * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResource">AWS
@@ -1737,7 +1743,7 @@ namespace Model
          * <code>TagsToRemove</code>.</p> <p>Currently, Elastic Beanstalk only supports
          * tagging of Elastic Beanstalk environments. For details about environment
          * tagging, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
          * Resources in Your Elastic Beanstalk Environment</a>.</p> <p>If you create a
          * custom IAM user policy to control permission to this operation, specify one of
          * the following two virtual actions (or both) instead of the API operation
@@ -1747,7 +1753,7 @@ namespace Model
          * <dd> <p>Controls permission to call <code>UpdateTagsForResource</code> and pass
          * a list of tag keys to remove in the <code>TagsToRemove</code> parameter.</p>
          * </dd> </dl> <p>For details about creating a custom user policy, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies">Creating
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies">Creating
          * a Custom User Policy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResource">AWS
          * API Reference</a></p>
@@ -1760,7 +1766,7 @@ namespace Model
          * <code>TagsToRemove</code>.</p> <p>Currently, Elastic Beanstalk only supports
          * tagging of Elastic Beanstalk environments. For details about environment
          * tagging, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
          * Resources in Your Elastic Beanstalk Environment</a>.</p> <p>If you create a
          * custom IAM user policy to control permission to this operation, specify one of
          * the following two virtual actions (or both) instead of the API operation
@@ -1770,7 +1776,7 @@ namespace Model
          * <dd> <p>Controls permission to call <code>UpdateTagsForResource</code> and pass
          * a list of tag keys to remove in the <code>TagsToRemove</code> parameter.</p>
          * </dd> </dl> <p>For details about creating a custom user policy, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies">Creating
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies">Creating
          * a Custom User Policy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResource">AWS
          * API Reference</a></p>
@@ -1785,7 +1791,7 @@ namespace Model
          * <code>TagsToRemove</code>.</p> <p>Currently, Elastic Beanstalk only supports
          * tagging of Elastic Beanstalk environments. For details about environment
          * tagging, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging
          * Resources in Your Elastic Beanstalk Environment</a>.</p> <p>If you create a
          * custom IAM user policy to control permission to this operation, specify one of
          * the following two virtual actions (or both) instead of the API operation
@@ -1795,7 +1801,7 @@ namespace Model
          * <dd> <p>Controls permission to call <code>UpdateTagsForResource</code> and pass
          * a list of tag keys to remove in the <code>TagsToRemove</code> parameter.</p>
          * </dd> </dl> <p>For details about creating a custom user policy, see <a
-         * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies">Creating
+         * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies">Creating
          * a Custom User Policy</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResource">AWS
          * API Reference</a></p>
@@ -1838,11 +1844,10 @@ namespace Model
          */
         virtual void ValidateConfigurationSettingsAsync(const Model::ValidateConfigurationSettingsRequest& request, const ValidateConfigurationSettingsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
-
+      
+        void OverrideEndpoint(const Aws::String& endpoint);
   private:
-    void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
+        void init(const Aws::Client::ClientConfiguration& clientConfiguration);
         void AbortEnvironmentUpdateAsyncHelper(const Model::AbortEnvironmentUpdateRequest& request, const AbortEnvironmentUpdateResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ApplyEnvironmentManagedActionAsyncHelper(const Model::ApplyEnvironmentManagedActionRequest& request, const ApplyEnvironmentManagedActionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CheckDNSAvailabilityAsyncHelper(const Model::CheckDNSAvailabilityRequest& request, const CheckDNSAvailabilityResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -1888,8 +1893,9 @@ namespace Model
         void UpdateTagsForResourceAsyncHelper(const Model::UpdateTagsForResourceRequest& request, const UpdateTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ValidateConfigurationSettingsAsyncHelper(const Model::ValidateConfigurationSettingsRequest& request, const ValidateConfigurationSettingsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
-    Aws::String m_uri;
-    std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
+        Aws::String m_uri;
+        Aws::String m_configScheme;
+        std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 
 } // namespace ElasticBeanstalk

@@ -51,7 +51,7 @@ ModifyLoadBalancerAttributesResult& ModifyLoadBalancerAttributesResult::operator
     XmlNode loadBalancerNameNode = resultNode.FirstChild("LoadBalancerName");
     if(!loadBalancerNameNode.IsNull())
     {
-      m_loadBalancerName = StringUtils::Trim(loadBalancerNameNode.GetText().c_str());
+      m_loadBalancerName = Aws::Utils::Xml::DecodeEscapedXmlText(loadBalancerNameNode.GetText());
     }
     XmlNode loadBalancerAttributesNode = resultNode.FirstChild("LoadBalancerAttributes");
     if(!loadBalancerAttributesNode.IsNull())

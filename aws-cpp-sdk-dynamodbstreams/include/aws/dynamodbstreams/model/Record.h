@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDBStreams
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Record();
-    Record(const Aws::Utils::Json::JsonValue& jsonValue);
-    Record& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Record(Aws::Utils::Json::JsonView jsonValue);
+    Record& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * record.</p>
      */
     inline const Aws::String& GetEventID() const{ return m_eventID; }
+
+    /**
+     * <p>A globally unique identifier for the event that was recorded in this stream
+     * record.</p>
+     */
+    inline bool EventIDHasBeenSet() const { return m_eventIDHasBeenSet; }
 
     /**
      * <p>A globally unique identifier for the event that was recorded in this stream
@@ -105,6 +112,15 @@ namespace Model
      * updated.</p></li> <li><p><code>REMOVE</code> - the item was deleted from the
      * table</p></li> </ul>
      */
+    inline bool EventNameHasBeenSet() const { return m_eventNameHasBeenSet; }
+
+    /**
+     * <p>The type of data modification that was performed on the DynamoDB table:</p>
+     * <ul> <li><p><code>INSERT</code> - a new item was added to the table.</p></li>
+     * <li><p><code>MODIFY</code> - one or more of the item's attributes were
+     * updated.</p></li> <li><p><code>REMOVE</code> - the item was deleted from the
+     * table</p></li> </ul>
+     */
     inline void SetEventName(const OperationType& value) { m_eventNameHasBeenSet = true; m_eventName = value; }
 
     /**
@@ -140,6 +156,12 @@ namespace Model
      * <i>1.0</i>.</p>
      */
     inline const Aws::String& GetEventVersion() const{ return m_eventVersion; }
+
+    /**
+     * <p>The version number of the stream record format. Currently, this is
+     * <i>1.0</i>.</p>
+     */
+    inline bool EventVersionHasBeenSet() const { return m_eventVersionHasBeenSet; }
 
     /**
      * <p>The version number of the stream record format. Currently, this is
@@ -188,6 +210,12 @@ namespace Model
      * <p>The AWS service from which the stream record originated. For DynamoDB
      * Streams, this is <i>aws:dynamodb</i>.</p>
      */
+    inline bool EventSourceHasBeenSet() const { return m_eventSourceHasBeenSet; }
+
+    /**
+     * <p>The AWS service from which the stream record originated. For DynamoDB
+     * Streams, this is <i>aws:dynamodb</i>.</p>
+     */
     inline void SetEventSource(const Aws::String& value) { m_eventSourceHasBeenSet = true; m_eventSource = value; }
 
     /**
@@ -229,6 +257,11 @@ namespace Model
     /**
      * <p>The region in which the <i>GetRecords</i> request was received.</p>
      */
+    inline bool AwsRegionHasBeenSet() const { return m_awsRegionHasBeenSet; }
+
+    /**
+     * <p>The region in which the <i>GetRecords</i> request was received.</p>
+     */
     inline void SetAwsRegion(const Aws::String& value) { m_awsRegionHasBeenSet = true; m_awsRegion = value; }
 
     /**
@@ -262,6 +295,12 @@ namespace Model
      * fields.</p>
      */
     inline const StreamRecord& GetDynamodb() const{ return m_dynamodb; }
+
+    /**
+     * <p>The main body of the stream record, containing all of the DynamoDB-specific
+     * fields.</p>
+     */
+    inline bool DynamodbHasBeenSet() const { return m_dynamodbHasBeenSet; }
 
     /**
      * <p>The main body of the stream record, containing all of the DynamoDB-specific

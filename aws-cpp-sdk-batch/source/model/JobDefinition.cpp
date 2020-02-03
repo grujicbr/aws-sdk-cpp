@@ -38,11 +38,12 @@ JobDefinition::JobDefinition() :
     m_parametersHasBeenSet(false),
     m_retryStrategyHasBeenSet(false),
     m_containerPropertiesHasBeenSet(false),
-    m_timeoutHasBeenSet(false)
+    m_timeoutHasBeenSet(false),
+    m_nodePropertiesHasBeenSet(false)
 {
 }
 
-JobDefinition::JobDefinition(const JsonValue& jsonValue) : 
+JobDefinition::JobDefinition(JsonView jsonValue) : 
     m_jobDefinitionNameHasBeenSet(false),
     m_jobDefinitionArnHasBeenSet(false),
     m_revision(0),
@@ -52,12 +53,13 @@ JobDefinition::JobDefinition(const JsonValue& jsonValue) :
     m_parametersHasBeenSet(false),
     m_retryStrategyHasBeenSet(false),
     m_containerPropertiesHasBeenSet(false),
-    m_timeoutHasBeenSet(false)
+    m_timeoutHasBeenSet(false),
+    m_nodePropertiesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-JobDefinition& JobDefinition::operator =(const JsonValue& jsonValue)
+JobDefinition& JobDefinition::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("jobDefinitionName"))
   {
@@ -96,7 +98,7 @@ JobDefinition& JobDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("parameters"))
   {
-    Aws::Map<Aws::String, JsonValue> parametersJsonMap = jsonValue.GetObject("parameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> parametersJsonMap = jsonValue.GetObject("parameters").GetAllObjects();
     for(auto& parametersItem : parametersJsonMap)
     {
       m_parameters[parametersItem.first] = parametersItem.second.AsString();
@@ -123,6 +125,13 @@ JobDefinition& JobDefinition::operator =(const JsonValue& jsonValue)
     m_timeout = jsonValue.GetObject("timeout");
 
     m_timeoutHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("nodeProperties"))
+  {
+    m_nodeProperties = jsonValue.GetObject("nodeProperties");
+
+    m_nodePropertiesHasBeenSet = true;
   }
 
   return *this;
@@ -188,6 +197,12 @@ JsonValue JobDefinition::Jsonize() const
   if(m_timeoutHasBeenSet)
   {
    payload.WithObject("timeout", m_timeout.Jsonize());
+
+  }
+
+  if(m_nodePropertiesHasBeenSet)
+  {
+   payload.WithObject("nodeProperties", m_nodeProperties.Jsonize());
 
   }
 

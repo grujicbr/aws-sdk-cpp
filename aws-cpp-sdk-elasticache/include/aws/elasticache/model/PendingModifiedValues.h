@@ -18,6 +18,7 @@
 #include <aws/core/utils/memory/stl/AWSStreamFwd.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/elasticache/model/AuthTokenUpdateStatus.h>
 #include <utility>
 
 namespace Aws
@@ -63,6 +64,13 @@ namespace Model
      * Redis, this value must be 1. For clusters running Memcached, this value must be
      * between 1 and 20.</p>
      */
+    inline bool NumCacheNodesHasBeenSet() const { return m_numCacheNodesHasBeenSet; }
+
+    /**
+     * <p>The new number of cache nodes for the cluster.</p> <p>For clusters running
+     * Redis, this value must be 1. For clusters running Memcached, this value must be
+     * between 1 and 20.</p>
+     */
     inline void SetNumCacheNodes(int value) { m_numCacheNodesHasBeenSet = true; m_numCacheNodes = value; }
 
     /**
@@ -75,49 +83,55 @@ namespace Model
 
     /**
      * <p>A list of cache node IDs that are being removed (or will be removed) from the
-     * cluster. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
      */
     inline const Aws::Vector<Aws::String>& GetCacheNodeIdsToRemove() const{ return m_cacheNodeIdsToRemove; }
 
     /**
      * <p>A list of cache node IDs that are being removed (or will be removed) from the
-     * cluster. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
+     */
+    inline bool CacheNodeIdsToRemoveHasBeenSet() const { return m_cacheNodeIdsToRemoveHasBeenSet; }
+
+    /**
+     * <p>A list of cache node IDs that are being removed (or will be removed) from the
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
      */
     inline void SetCacheNodeIdsToRemove(const Aws::Vector<Aws::String>& value) { m_cacheNodeIdsToRemoveHasBeenSet = true; m_cacheNodeIdsToRemove = value; }
 
     /**
      * <p>A list of cache node IDs that are being removed (or will be removed) from the
-     * cluster. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
      */
     inline void SetCacheNodeIdsToRemove(Aws::Vector<Aws::String>&& value) { m_cacheNodeIdsToRemoveHasBeenSet = true; m_cacheNodeIdsToRemove = std::move(value); }
 
     /**
      * <p>A list of cache node IDs that are being removed (or will be removed) from the
-     * cluster. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
      */
     inline PendingModifiedValues& WithCacheNodeIdsToRemove(const Aws::Vector<Aws::String>& value) { SetCacheNodeIdsToRemove(value); return *this;}
 
     /**
      * <p>A list of cache node IDs that are being removed (or will be removed) from the
-     * cluster. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
      */
     inline PendingModifiedValues& WithCacheNodeIdsToRemove(Aws::Vector<Aws::String>&& value) { SetCacheNodeIdsToRemove(std::move(value)); return *this;}
 
     /**
      * <p>A list of cache node IDs that are being removed (or will be removed) from the
-     * cluster. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
      */
     inline PendingModifiedValues& AddCacheNodeIdsToRemove(const Aws::String& value) { m_cacheNodeIdsToRemoveHasBeenSet = true; m_cacheNodeIdsToRemove.push_back(value); return *this; }
 
     /**
      * <p>A list of cache node IDs that are being removed (or will be removed) from the
-     * cluster. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
      */
     inline PendingModifiedValues& AddCacheNodeIdsToRemove(Aws::String&& value) { m_cacheNodeIdsToRemoveHasBeenSet = true; m_cacheNodeIdsToRemove.push_back(std::move(value)); return *this; }
 
     /**
      * <p>A list of cache node IDs that are being removed (or will be removed) from the
-     * cluster. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+     * cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
      */
     inline PendingModifiedValues& AddCacheNodeIdsToRemove(const char* value) { m_cacheNodeIdsToRemoveHasBeenSet = true; m_cacheNodeIdsToRemove.push_back(value); return *this; }
 
@@ -126,6 +140,11 @@ namespace Model
      * <p>The new cache engine version that the cluster runs.</p>
      */
     inline const Aws::String& GetEngineVersion() const{ return m_engineVersion; }
+
+    /**
+     * <p>The new cache engine version that the cluster runs.</p>
+     */
+    inline bool EngineVersionHasBeenSet() const { return m_engineVersionHasBeenSet; }
 
     /**
      * <p>The new cache engine version that the cluster runs.</p>
@@ -166,6 +185,11 @@ namespace Model
     /**
      * <p>The cache node type that this cluster or replication group is scaled to.</p>
      */
+    inline bool CacheNodeTypeHasBeenSet() const { return m_cacheNodeTypeHasBeenSet; }
+
+    /**
+     * <p>The cache node type that this cluster or replication group is scaled to.</p>
+     */
     inline void SetCacheNodeType(const Aws::String& value) { m_cacheNodeTypeHasBeenSet = true; m_cacheNodeType = value; }
 
     /**
@@ -193,6 +217,37 @@ namespace Model
      */
     inline PendingModifiedValues& WithCacheNodeType(const char* value) { SetCacheNodeType(value); return *this;}
 
+
+    /**
+     * <p>The auth token status</p>
+     */
+    inline const AuthTokenUpdateStatus& GetAuthTokenStatus() const{ return m_authTokenStatus; }
+
+    /**
+     * <p>The auth token status</p>
+     */
+    inline bool AuthTokenStatusHasBeenSet() const { return m_authTokenStatusHasBeenSet; }
+
+    /**
+     * <p>The auth token status</p>
+     */
+    inline void SetAuthTokenStatus(const AuthTokenUpdateStatus& value) { m_authTokenStatusHasBeenSet = true; m_authTokenStatus = value; }
+
+    /**
+     * <p>The auth token status</p>
+     */
+    inline void SetAuthTokenStatus(AuthTokenUpdateStatus&& value) { m_authTokenStatusHasBeenSet = true; m_authTokenStatus = std::move(value); }
+
+    /**
+     * <p>The auth token status</p>
+     */
+    inline PendingModifiedValues& WithAuthTokenStatus(const AuthTokenUpdateStatus& value) { SetAuthTokenStatus(value); return *this;}
+
+    /**
+     * <p>The auth token status</p>
+     */
+    inline PendingModifiedValues& WithAuthTokenStatus(AuthTokenUpdateStatus&& value) { SetAuthTokenStatus(std::move(value)); return *this;}
+
   private:
 
     int m_numCacheNodes;
@@ -206,6 +261,9 @@ namespace Model
 
     Aws::String m_cacheNodeType;
     bool m_cacheNodeTypeHasBeenSet;
+
+    AuthTokenUpdateStatus m_authTokenStatus;
+    bool m_authTokenStatusHasBeenSet;
   };
 
 } // namespace Model

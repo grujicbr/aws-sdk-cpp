@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -42,13 +43,16 @@ namespace Model
   {
   public:
     OutputLocationRef();
-    OutputLocationRef(const Aws::Utils::Json::JsonValue& jsonValue);
-    OutputLocationRef& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OutputLocationRef(Aws::Utils::Json::JsonView jsonValue);
+    OutputLocationRef& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Aws::String& GetDestinationRefId() const{ return m_destinationRefId; }
+
+    
+    inline bool DestinationRefIdHasBeenSet() const { return m_destinationRefIdHasBeenSet; }
 
     
     inline void SetDestinationRefId(const Aws::String& value) { m_destinationRefIdHasBeenSet = true; m_destinationRefId = value; }

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Face();
-    Face(const Aws::Utils::Json::JsonValue& jsonValue);
-    Face& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Face(Aws::Utils::Json::JsonView jsonValue);
+    Face& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Unique identifier that Amazon Rekognition assigns to the face.</p>
      */
     inline const Aws::String& GetFaceId() const{ return m_faceId; }
+
+    /**
+     * <p>Unique identifier that Amazon Rekognition assigns to the face.</p>
+     */
+    inline bool FaceIdHasBeenSet() const { return m_faceIdHasBeenSet; }
 
     /**
      * <p>Unique identifier that Amazon Rekognition assigns to the face.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>Bounding box of the face.</p>
      */
+    inline bool BoundingBoxHasBeenSet() const { return m_boundingBoxHasBeenSet; }
+
+    /**
+     * <p>Bounding box of the face.</p>
+     */
     inline void SetBoundingBox(const BoundingBox& value) { m_boundingBoxHasBeenSet = true; m_boundingBox = value; }
 
     /**
@@ -115,6 +126,11 @@ namespace Model
      * <p>Unique identifier that Amazon Rekognition assigns to the input image.</p>
      */
     inline const Aws::String& GetImageId() const{ return m_imageId; }
+
+    /**
+     * <p>Unique identifier that Amazon Rekognition assigns to the input image.</p>
+     */
+    inline bool ImageIdHasBeenSet() const { return m_imageIdHasBeenSet; }
 
     /**
      * <p>Unique identifier that Amazon Rekognition assigns to the input image.</p>
@@ -155,6 +171,11 @@ namespace Model
     /**
      * <p>Identifier that you assign to all the faces in the input image.</p>
      */
+    inline bool ExternalImageIdHasBeenSet() const { return m_externalImageIdHasBeenSet; }
+
+    /**
+     * <p>Identifier that you assign to all the faces in the input image.</p>
+     */
     inline void SetExternalImageId(const Aws::String& value) { m_externalImageIdHasBeenSet = true; m_externalImageId = value; }
 
     /**
@@ -188,6 +209,12 @@ namespace Model
      * object such as a tree).</p>
      */
     inline double GetConfidence() const{ return m_confidence; }
+
+    /**
+     * <p>Confidence level that the bounding box contains a face (and not a different
+     * object such as a tree).</p>
+     */
+    inline bool ConfidenceHasBeenSet() const { return m_confidenceHasBeenSet; }
 
     /**
      * <p>Confidence level that the bounding box contains a face (and not a different

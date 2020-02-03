@@ -18,6 +18,7 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/alexaforbusiness/model/DeviceStatus.h>
 #include <aws/alexaforbusiness/model/DeviceStatusInfo.h>
+#include <aws/alexaforbusiness/model/DeviceNetworkProfileInfo.h>
 #include <utility>
 
 namespace Aws
@@ -27,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -43,8 +45,8 @@ namespace Model
   {
   public:
     Device();
-    Device(const Aws::Utils::Json::JsonValue& jsonValue);
-    Device& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Device(Aws::Utils::Json::JsonView jsonValue);
+    Device& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +54,11 @@ namespace Model
      * <p>The ARN of a device.</p>
      */
     inline const Aws::String& GetDeviceArn() const{ return m_deviceArn; }
+
+    /**
+     * <p>The ARN of a device.</p>
+     */
+    inline bool DeviceArnHasBeenSet() const { return m_deviceArnHasBeenSet; }
 
     /**
      * <p>The ARN of a device.</p>
@@ -92,6 +99,11 @@ namespace Model
     /**
      * <p>The serial number of a device.</p>
      */
+    inline bool DeviceSerialNumberHasBeenSet() const { return m_deviceSerialNumberHasBeenSet; }
+
+    /**
+     * <p>The serial number of a device.</p>
+     */
     inline void SetDeviceSerialNumber(const Aws::String& value) { m_deviceSerialNumberHasBeenSet = true; m_deviceSerialNumber = value; }
 
     /**
@@ -124,6 +136,11 @@ namespace Model
      * <p>The type of a device.</p>
      */
     inline const Aws::String& GetDeviceType() const{ return m_deviceType; }
+
+    /**
+     * <p>The type of a device.</p>
+     */
+    inline bool DeviceTypeHasBeenSet() const { return m_deviceTypeHasBeenSet; }
 
     /**
      * <p>The type of a device.</p>
@@ -164,6 +181,11 @@ namespace Model
     /**
      * <p>The name of a device.</p>
      */
+    inline bool DeviceNameHasBeenSet() const { return m_deviceNameHasBeenSet; }
+
+    /**
+     * <p>The name of a device.</p>
+     */
     inline void SetDeviceName(const Aws::String& value) { m_deviceNameHasBeenSet = true; m_deviceName = value; }
 
     /**
@@ -196,6 +218,11 @@ namespace Model
      * <p>The software version of a device.</p>
      */
     inline const Aws::String& GetSoftwareVersion() const{ return m_softwareVersion; }
+
+    /**
+     * <p>The software version of a device.</p>
+     */
+    inline bool SoftwareVersionHasBeenSet() const { return m_softwareVersionHasBeenSet; }
 
     /**
      * <p>The software version of a device.</p>
@@ -236,6 +263,11 @@ namespace Model
     /**
      * <p>The MAC address of a device.</p>
      */
+    inline bool MacAddressHasBeenSet() const { return m_macAddressHasBeenSet; }
+
+    /**
+     * <p>The MAC address of a device.</p>
+     */
     inline void SetMacAddress(const Aws::String& value) { m_macAddressHasBeenSet = true; m_macAddress = value; }
 
     /**
@@ -268,6 +300,11 @@ namespace Model
      * <p>The room ARN of a device.</p>
      */
     inline const Aws::String& GetRoomArn() const{ return m_roomArn; }
+
+    /**
+     * <p>The room ARN of a device.</p>
+     */
+    inline bool RoomArnHasBeenSet() const { return m_roomArnHasBeenSet; }
 
     /**
      * <p>The room ARN of a device.</p>
@@ -310,6 +347,12 @@ namespace Model
      * <p>The status of a device. If the status is not READY, check the
      * DeviceStatusInfo value for details.</p>
      */
+    inline bool DeviceStatusHasBeenSet() const { return m_deviceStatusHasBeenSet; }
+
+    /**
+     * <p>The status of a device. If the status is not READY, check the
+     * DeviceStatusInfo value for details.</p>
+     */
     inline void SetDeviceStatus(const DeviceStatus& value) { m_deviceStatusHasBeenSet = true; m_deviceStatus = value; }
 
     /**
@@ -339,6 +382,11 @@ namespace Model
     /**
      * <p>Detailed information about a device's status.</p>
      */
+    inline bool DeviceStatusInfoHasBeenSet() const { return m_deviceStatusInfoHasBeenSet; }
+
+    /**
+     * <p>Detailed information about a device's status.</p>
+     */
     inline void SetDeviceStatusInfo(const DeviceStatusInfo& value) { m_deviceStatusInfoHasBeenSet = true; m_deviceStatusInfo = value; }
 
     /**
@@ -355,6 +403,37 @@ namespace Model
      * <p>Detailed information about a device's status.</p>
      */
     inline Device& WithDeviceStatusInfo(DeviceStatusInfo&& value) { SetDeviceStatusInfo(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Detailed information about a device's network profile.</p>
+     */
+    inline const DeviceNetworkProfileInfo& GetNetworkProfileInfo() const{ return m_networkProfileInfo; }
+
+    /**
+     * <p>Detailed information about a device's network profile.</p>
+     */
+    inline bool NetworkProfileInfoHasBeenSet() const { return m_networkProfileInfoHasBeenSet; }
+
+    /**
+     * <p>Detailed information about a device's network profile.</p>
+     */
+    inline void SetNetworkProfileInfo(const DeviceNetworkProfileInfo& value) { m_networkProfileInfoHasBeenSet = true; m_networkProfileInfo = value; }
+
+    /**
+     * <p>Detailed information about a device's network profile.</p>
+     */
+    inline void SetNetworkProfileInfo(DeviceNetworkProfileInfo&& value) { m_networkProfileInfoHasBeenSet = true; m_networkProfileInfo = std::move(value); }
+
+    /**
+     * <p>Detailed information about a device's network profile.</p>
+     */
+    inline Device& WithNetworkProfileInfo(const DeviceNetworkProfileInfo& value) { SetNetworkProfileInfo(value); return *this;}
+
+    /**
+     * <p>Detailed information about a device's network profile.</p>
+     */
+    inline Device& WithNetworkProfileInfo(DeviceNetworkProfileInfo&& value) { SetNetworkProfileInfo(std::move(value)); return *this;}
 
   private:
 
@@ -384,6 +463,9 @@ namespace Model
 
     DeviceStatusInfo m_deviceStatusInfo;
     bool m_deviceStatusInfoHasBeenSet;
+
+    DeviceNetworkProfileInfo m_networkProfileInfo;
+    bool m_networkProfileInfoHasBeenSet;
   };
 
 } // namespace Model

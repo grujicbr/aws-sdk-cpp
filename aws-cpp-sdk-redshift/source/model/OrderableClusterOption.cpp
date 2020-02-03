@@ -56,19 +56,19 @@ OrderableClusterOption& OrderableClusterOption::operator =(const XmlNode& xmlNod
     XmlNode clusterVersionNode = resultNode.FirstChild("ClusterVersion");
     if(!clusterVersionNode.IsNull())
     {
-      m_clusterVersion = StringUtils::Trim(clusterVersionNode.GetText().c_str());
+      m_clusterVersion = Aws::Utils::Xml::DecodeEscapedXmlText(clusterVersionNode.GetText());
       m_clusterVersionHasBeenSet = true;
     }
     XmlNode clusterTypeNode = resultNode.FirstChild("ClusterType");
     if(!clusterTypeNode.IsNull())
     {
-      m_clusterType = StringUtils::Trim(clusterTypeNode.GetText().c_str());
+      m_clusterType = Aws::Utils::Xml::DecodeEscapedXmlText(clusterTypeNode.GetText());
       m_clusterTypeHasBeenSet = true;
     }
     XmlNode nodeTypeNode = resultNode.FirstChild("NodeType");
     if(!nodeTypeNode.IsNull())
     {
-      m_nodeType = StringUtils::Trim(nodeTypeNode.GetText().c_str());
+      m_nodeType = Aws::Utils::Xml::DecodeEscapedXmlText(nodeTypeNode.GetText());
       m_nodeTypeHasBeenSet = true;
     }
     XmlNode availabilityZonesNode = resultNode.FirstChild("AvailabilityZones");

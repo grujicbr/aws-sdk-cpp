@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Comprehend
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     SentimentScore();
-    SentimentScore(const Aws::Utils::Json::JsonValue& jsonValue);
-    SentimentScore& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SentimentScore(Aws::Utils::Json::JsonView jsonValue);
+    SentimentScore& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * detection of the <code>POSITIVE</code> sentiment.</p>
      */
     inline double GetPositive() const{ return m_positive; }
+
+    /**
+     * <p>The level of confidence that Amazon Comprehend has in the accuracy of its
+     * detection of the <code>POSITIVE</code> sentiment.</p>
+     */
+    inline bool PositiveHasBeenSet() const { return m_positiveHasBeenSet; }
 
     /**
      * <p>The level of confidence that Amazon Comprehend has in the accuracy of its
@@ -74,6 +81,12 @@ namespace Model
      * <p>The level of confidence that Amazon Comprehend has in the accuracy of its
      * detection of the <code>NEGATIVE</code> sentiment.</p>
      */
+    inline bool NegativeHasBeenSet() const { return m_negativeHasBeenSet; }
+
+    /**
+     * <p>The level of confidence that Amazon Comprehend has in the accuracy of its
+     * detection of the <code>NEGATIVE</code> sentiment.</p>
+     */
     inline void SetNegative(double value) { m_negativeHasBeenSet = true; m_negative = value; }
 
     /**
@@ -93,6 +106,12 @@ namespace Model
      * <p>The level of confidence that Amazon Comprehend has in the accuracy of its
      * detection of the <code>NEUTRAL</code> sentiment.</p>
      */
+    inline bool NeutralHasBeenSet() const { return m_neutralHasBeenSet; }
+
+    /**
+     * <p>The level of confidence that Amazon Comprehend has in the accuracy of its
+     * detection of the <code>NEUTRAL</code> sentiment.</p>
+     */
     inline void SetNeutral(double value) { m_neutralHasBeenSet = true; m_neutral = value; }
 
     /**
@@ -107,6 +126,12 @@ namespace Model
      * detection of the <code>MIXED</code> sentiment.</p>
      */
     inline double GetMixed() const{ return m_mixed; }
+
+    /**
+     * <p>The level of confidence that Amazon Comprehend has in the accuracy of its
+     * detection of the <code>MIXED</code> sentiment.</p>
+     */
+    inline bool MixedHasBeenSet() const { return m_mixedHasBeenSet; }
 
     /**
      * <p>The level of confidence that Amazon Comprehend has in the accuracy of its

@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     UpdateDatabaseRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,43 +47,49 @@ namespace Model
 
     /**
      * <p>The ID of the Data Catalog in which the metadata database resides. If none is
-     * supplied, the AWS account ID is used by default.</p>
+     * provided, the AWS account ID is used by default.</p>
      */
     inline const Aws::String& GetCatalogId() const{ return m_catalogId; }
 
     /**
      * <p>The ID of the Data Catalog in which the metadata database resides. If none is
-     * supplied, the AWS account ID is used by default.</p>
+     * provided, the AWS account ID is used by default.</p>
+     */
+    inline bool CatalogIdHasBeenSet() const { return m_catalogIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Data Catalog in which the metadata database resides. If none is
+     * provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const Aws::String& value) { m_catalogIdHasBeenSet = true; m_catalogId = value; }
 
     /**
      * <p>The ID of the Data Catalog in which the metadata database resides. If none is
-     * supplied, the AWS account ID is used by default.</p>
+     * provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(Aws::String&& value) { m_catalogIdHasBeenSet = true; m_catalogId = std::move(value); }
 
     /**
      * <p>The ID of the Data Catalog in which the metadata database resides. If none is
-     * supplied, the AWS account ID is used by default.</p>
+     * provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const char* value) { m_catalogIdHasBeenSet = true; m_catalogId.assign(value); }
 
     /**
      * <p>The ID of the Data Catalog in which the metadata database resides. If none is
-     * supplied, the AWS account ID is used by default.</p>
+     * provided, the AWS account ID is used by default.</p>
      */
     inline UpdateDatabaseRequest& WithCatalogId(const Aws::String& value) { SetCatalogId(value); return *this;}
 
     /**
      * <p>The ID of the Data Catalog in which the metadata database resides. If none is
-     * supplied, the AWS account ID is used by default.</p>
+     * provided, the AWS account ID is used by default.</p>
      */
     inline UpdateDatabaseRequest& WithCatalogId(Aws::String&& value) { SetCatalogId(std::move(value)); return *this;}
 
     /**
      * <p>The ID of the Data Catalog in which the metadata database resides. If none is
-     * supplied, the AWS account ID is used by default.</p>
+     * provided, the AWS account ID is used by default.</p>
      */
     inline UpdateDatabaseRequest& WithCatalogId(const char* value) { SetCatalogId(value); return *this;}
 
@@ -93,6 +99,12 @@ namespace Model
      * this is folded to lowercase.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the database to update in the catalog. For Hive compatibility,
+     * this is folded to lowercase.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the database to update in the catalog. For Hive compatibility,
@@ -136,6 +148,12 @@ namespace Model
      * metadata database in the catalog.</p>
      */
     inline const DatabaseInput& GetDatabaseInput() const{ return m_databaseInput; }
+
+    /**
+     * <p>A <code>DatabaseInput</code> object specifying the new definition of the
+     * metadata database in the catalog.</p>
+     */
+    inline bool DatabaseInputHasBeenSet() const { return m_databaseInputHasBeenSet; }
 
     /**
      * <p>A <code>DatabaseInput</code> object specifying the new definition of the

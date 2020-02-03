@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for AvailSettings<p><h3>See Also:</h3>   <a
+   * Avail Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailSettings">AWS
    * API Reference</a></p>
    */
@@ -42,13 +43,16 @@ namespace Model
   {
   public:
     AvailSettings();
-    AvailSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    AvailSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AvailSettings(Aws::Utils::Json::JsonView jsonValue);
+    AvailSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Scte35SpliceInsert& GetScte35SpliceInsert() const{ return m_scte35SpliceInsert; }
+
+    
+    inline bool Scte35SpliceInsertHasBeenSet() const { return m_scte35SpliceInsertHasBeenSet; }
 
     
     inline void SetScte35SpliceInsert(const Scte35SpliceInsert& value) { m_scte35SpliceInsertHasBeenSet = true; m_scte35SpliceInsert = value; }
@@ -65,6 +69,9 @@ namespace Model
 
     
     inline const Scte35TimeSignalApos& GetScte35TimeSignalApos() const{ return m_scte35TimeSignalApos; }
+
+    
+    inline bool Scte35TimeSignalAposHasBeenSet() const { return m_scte35TimeSignalAposHasBeenSet; }
 
     
     inline void SetScte35TimeSignalApos(const Scte35TimeSignalApos& value) { m_scte35TimeSignalAposHasBeenSet = true; m_scte35TimeSignalApos = value; }

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace TranscribeService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Transcript();
-    Transcript(const Aws::Utils::Json::JsonValue& jsonValue);
-    Transcript& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Transcript(Aws::Utils::Json::JsonView jsonValue);
+    Transcript& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,15 @@ namespace Model
      * is a shareable URL that provides secure access to that location.</p>
      */
     inline const Aws::String& GetTranscriptFileUri() const{ return m_transcriptFileUri; }
+
+    /**
+     * <p>The location where the transcription is stored.</p> <p>Use this URI to access
+     * the transcription. If you specified an S3 bucket in the
+     * <code>OutputBucketName</code> field when you created the job, this is the URI of
+     * that bucket. If you chose to store the transcription in Amazon Transcribe, this
+     * is a shareable URL that provides secure access to that location.</p>
+     */
+    inline bool TranscriptFileUriHasBeenSet() const { return m_transcriptFileUriHasBeenSet; }
 
     /**
      * <p>The location where the transcription is stored.</p> <p>Use this URI to access

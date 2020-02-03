@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Sort();
-    Sort(const Aws::Utils::Json::JsonValue& jsonValue);
-    Sort& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Sort(Aws::Utils::Json::JsonView jsonValue);
+    Sort& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The sort key of a sort object.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The sort key of a sort object.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The sort key of a sort object.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The sort value of a sort object.</p>
      */
     inline const SortValue& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The sort value of a sort object.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The sort value of a sort object.</p>

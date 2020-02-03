@@ -27,15 +27,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for CreateRoute.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateRouteRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API CreateRouteRequest : public EC2Request
   {
   public:
     CreateRouteRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +51,12 @@ namespace Model
      * are based on the most specific match.</p>
      */
     inline const Aws::String& GetDestinationCidrBlock() const{ return m_destinationCidrBlock; }
+
+    /**
+     * <p>The IPv4 CIDR address block used for the destination match. Routing decisions
+     * are based on the most specific match.</p>
+     */
+    inline bool DestinationCidrBlockHasBeenSet() const { return m_destinationCidrBlockHasBeenSet; }
 
     /**
      * <p>The IPv4 CIDR address block used for the destination match. Routing decisions
@@ -97,6 +100,12 @@ namespace Model
      * based on the most specific match.</p>
      */
     inline const Aws::String& GetDestinationIpv6CidrBlock() const{ return m_destinationIpv6CidrBlock; }
+
+    /**
+     * <p>The IPv6 CIDR block used for the destination match. Routing decisions are
+     * based on the most specific match.</p>
+     */
+    inline bool DestinationIpv6CidrBlockHasBeenSet() const { return m_destinationIpv6CidrBlockHasBeenSet; }
 
     /**
      * <p>The IPv6 CIDR block used for the destination match. Routing decisions are
@@ -149,6 +158,14 @@ namespace Model
      * required permissions, the error response is <code>DryRunOperation</code>.
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
     inline void SetDryRun(bool value) { m_dryRunHasBeenSet = true; m_dryRun = value; }
 
     /**
@@ -161,79 +178,90 @@ namespace Model
 
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline const Aws::String& GetEgressOnlyInternetGatewayId() const{ return m_egressOnlyInternetGatewayId; }
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
+     */
+    inline bool EgressOnlyInternetGatewayIdHasBeenSet() const { return m_egressOnlyInternetGatewayIdHasBeenSet; }
+
+    /**
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline void SetEgressOnlyInternetGatewayId(const Aws::String& value) { m_egressOnlyInternetGatewayIdHasBeenSet = true; m_egressOnlyInternetGatewayId = value; }
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline void SetEgressOnlyInternetGatewayId(Aws::String&& value) { m_egressOnlyInternetGatewayIdHasBeenSet = true; m_egressOnlyInternetGatewayId = std::move(value); }
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline void SetEgressOnlyInternetGatewayId(const char* value) { m_egressOnlyInternetGatewayIdHasBeenSet = true; m_egressOnlyInternetGatewayId.assign(value); }
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline CreateRouteRequest& WithEgressOnlyInternetGatewayId(const Aws::String& value) { SetEgressOnlyInternetGatewayId(value); return *this;}
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline CreateRouteRequest& WithEgressOnlyInternetGatewayId(Aws::String&& value) { SetEgressOnlyInternetGatewayId(std::move(value)); return *this;}
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline CreateRouteRequest& WithEgressOnlyInternetGatewayId(const char* value) { SetEgressOnlyInternetGatewayId(value); return *this;}
 
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway attached to your
+     * <p>The ID of an internet gateway or virtual private gateway attached to your
      * VPC.</p>
      */
     inline const Aws::String& GetGatewayId() const{ return m_gatewayId; }
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway attached to your
+     * <p>The ID of an internet gateway or virtual private gateway attached to your
+     * VPC.</p>
+     */
+    inline bool GatewayIdHasBeenSet() const { return m_gatewayIdHasBeenSet; }
+
+    /**
+     * <p>The ID of an internet gateway or virtual private gateway attached to your
      * VPC.</p>
      */
     inline void SetGatewayId(const Aws::String& value) { m_gatewayIdHasBeenSet = true; m_gatewayId = value; }
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway attached to your
+     * <p>The ID of an internet gateway or virtual private gateway attached to your
      * VPC.</p>
      */
     inline void SetGatewayId(Aws::String&& value) { m_gatewayIdHasBeenSet = true; m_gatewayId = std::move(value); }
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway attached to your
+     * <p>The ID of an internet gateway or virtual private gateway attached to your
      * VPC.</p>
      */
     inline void SetGatewayId(const char* value) { m_gatewayIdHasBeenSet = true; m_gatewayId.assign(value); }
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway attached to your
+     * <p>The ID of an internet gateway or virtual private gateway attached to your
      * VPC.</p>
      */
     inline CreateRouteRequest& WithGatewayId(const Aws::String& value) { SetGatewayId(value); return *this;}
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway attached to your
+     * <p>The ID of an internet gateway or virtual private gateway attached to your
      * VPC.</p>
      */
     inline CreateRouteRequest& WithGatewayId(Aws::String&& value) { SetGatewayId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway attached to your
+     * <p>The ID of an internet gateway or virtual private gateway attached to your
      * VPC.</p>
      */
     inline CreateRouteRequest& WithGatewayId(const char* value) { SetGatewayId(value); return *this;}
@@ -244,6 +272,12 @@ namespace Model
      * instance ID unless exactly one network interface is attached.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The ID of a NAT instance in your VPC. The operation fails if you specify an
+     * instance ID unless exactly one network interface is attached.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The ID of a NAT instance in your VPC. The operation fails if you specify an
@@ -290,6 +324,11 @@ namespace Model
     /**
      * <p>[IPv4 traffic only] The ID of a NAT gateway.</p>
      */
+    inline bool NatGatewayIdHasBeenSet() const { return m_natGatewayIdHasBeenSet; }
+
+    /**
+     * <p>[IPv4 traffic only] The ID of a NAT gateway.</p>
+     */
     inline void SetNatGatewayId(const Aws::String& value) { m_natGatewayIdHasBeenSet = true; m_natGatewayId = value; }
 
     /**
@@ -319,9 +358,96 @@ namespace Model
 
 
     /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline const Aws::String& GetTransitGatewayId() const{ return m_transitGatewayId; }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline bool TransitGatewayIdHasBeenSet() const { return m_transitGatewayIdHasBeenSet; }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline void SetTransitGatewayId(const Aws::String& value) { m_transitGatewayIdHasBeenSet = true; m_transitGatewayId = value; }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline void SetTransitGatewayId(Aws::String&& value) { m_transitGatewayIdHasBeenSet = true; m_transitGatewayId = std::move(value); }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline void SetTransitGatewayId(const char* value) { m_transitGatewayIdHasBeenSet = true; m_transitGatewayId.assign(value); }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline CreateRouteRequest& WithTransitGatewayId(const Aws::String& value) { SetTransitGatewayId(value); return *this;}
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline CreateRouteRequest& WithTransitGatewayId(Aws::String&& value) { SetTransitGatewayId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline CreateRouteRequest& WithTransitGatewayId(const char* value) { SetTransitGatewayId(value); return *this;}
+
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline const Aws::String& GetLocalGatewayId() const{ return m_localGatewayId; }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline bool LocalGatewayIdHasBeenSet() const { return m_localGatewayIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline void SetLocalGatewayId(const Aws::String& value) { m_localGatewayIdHasBeenSet = true; m_localGatewayId = value; }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline void SetLocalGatewayId(Aws::String&& value) { m_localGatewayIdHasBeenSet = true; m_localGatewayId = std::move(value); }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline void SetLocalGatewayId(const char* value) { m_localGatewayIdHasBeenSet = true; m_localGatewayId.assign(value); }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline CreateRouteRequest& WithLocalGatewayId(const Aws::String& value) { SetLocalGatewayId(value); return *this;}
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline CreateRouteRequest& WithLocalGatewayId(Aws::String&& value) { SetLocalGatewayId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline CreateRouteRequest& WithLocalGatewayId(const char* value) { SetLocalGatewayId(value); return *this;}
+
+
+    /**
      * <p>The ID of a network interface.</p>
      */
     inline const Aws::String& GetNetworkInterfaceId() const{ return m_networkInterfaceId; }
+
+    /**
+     * <p>The ID of a network interface.</p>
+     */
+    inline bool NetworkInterfaceIdHasBeenSet() const { return m_networkInterfaceIdHasBeenSet; }
 
     /**
      * <p>The ID of a network interface.</p>
@@ -362,6 +488,11 @@ namespace Model
     /**
      * <p>The ID of the route table for the route.</p>
      */
+    inline bool RouteTableIdHasBeenSet() const { return m_routeTableIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the route table for the route.</p>
+     */
     inline void SetRouteTableId(const Aws::String& value) { m_routeTableIdHasBeenSet = true; m_routeTableId = value; }
 
     /**
@@ -394,6 +525,11 @@ namespace Model
      * <p>The ID of a VPC peering connection.</p>
      */
     inline const Aws::String& GetVpcPeeringConnectionId() const{ return m_vpcPeeringConnectionId; }
+
+    /**
+     * <p>The ID of a VPC peering connection.</p>
+     */
+    inline bool VpcPeeringConnectionIdHasBeenSet() const { return m_vpcPeeringConnectionIdHasBeenSet; }
 
     /**
      * <p>The ID of a VPC peering connection.</p>
@@ -447,6 +583,12 @@ namespace Model
 
     Aws::String m_natGatewayId;
     bool m_natGatewayIdHasBeenSet;
+
+    Aws::String m_transitGatewayId;
+    bool m_transitGatewayIdHasBeenSet;
+
+    Aws::String m_localGatewayId;
+    bool m_localGatewayIdHasBeenSet;
 
     Aws::String m_networkInterfaceId;
     bool m_networkInterfaceIdHasBeenSet;

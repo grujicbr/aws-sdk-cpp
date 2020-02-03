@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     InstanceInformationStringFilter();
-    InstanceInformationStringFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceInformationStringFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceInformationStringFilter(Aws::Utils::Json::JsonView jsonValue);
+    InstanceInformationStringFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * Key"</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The filter key name to describe your instances. For example:</p>
+     * <p>"InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|"AssociationStatus"|"Tag
+     * Key"</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The filter key name to describe your instances. For example:</p>
@@ -102,6 +110,11 @@ namespace Model
      * <p>The filter values.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>The filter values.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>The filter values.</p>

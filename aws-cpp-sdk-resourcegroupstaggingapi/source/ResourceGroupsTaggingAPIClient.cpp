@@ -24,12 +24,18 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/resourcegroupstaggingapi/ResourceGroupsTaggingAPIClient.h>
 #include <aws/resourcegroupstaggingapi/ResourceGroupsTaggingAPIEndpoint.h>
 #include <aws/resourcegroupstaggingapi/ResourceGroupsTaggingAPIErrorMarshaller.h>
+#include <aws/resourcegroupstaggingapi/model/DescribeReportCreationRequest.h>
+#include <aws/resourcegroupstaggingapi/model/GetComplianceSummaryRequest.h>
 #include <aws/resourcegroupstaggingapi/model/GetResourcesRequest.h>
 #include <aws/resourcegroupstaggingapi/model/GetTagKeysRequest.h>
 #include <aws/resourcegroupstaggingapi/model/GetTagValuesRequest.h>
+#include <aws/resourcegroupstaggingapi/model/StartReportCreationRequest.h>
 #include <aws/resourcegroupstaggingapi/model/TagResourcesRequest.h>
 #include <aws/resourcegroupstaggingapi/model/UntagResourcesRequest.h>
 
@@ -82,28 +88,106 @@ ResourceGroupsTaggingAPIClient::~ResourceGroupsTaggingAPIClient()
 
 void ResourceGroupsTaggingAPIClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << ResourceGroupsTaggingAPIEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + ResourceGroupsTaggingAPIEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void ResourceGroupsTaggingAPIClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
+}
+
+DescribeReportCreationOutcome ResourceGroupsTaggingAPIClient::DescribeReportCreation(const DescribeReportCreationRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeReportCreationOutcome(DescribeReportCreationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeReportCreationOutcome(outcome.GetError());
+  }
+}
+
+DescribeReportCreationOutcomeCallable ResourceGroupsTaggingAPIClient::DescribeReportCreationCallable(const DescribeReportCreationRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeReportCreationOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeReportCreation(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void ResourceGroupsTaggingAPIClient::DescribeReportCreationAsync(const DescribeReportCreationRequest& request, const DescribeReportCreationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeReportCreationAsyncHelper( request, handler, context ); } );
+}
+
+void ResourceGroupsTaggingAPIClient::DescribeReportCreationAsyncHelper(const DescribeReportCreationRequest& request, const DescribeReportCreationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeReportCreation(request), context);
+}
+
+GetComplianceSummaryOutcome ResourceGroupsTaggingAPIClient::GetComplianceSummary(const GetComplianceSummaryRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return GetComplianceSummaryOutcome(GetComplianceSummaryResult(outcome.GetResult()));
+  }
+  else
+  {
+    return GetComplianceSummaryOutcome(outcome.GetError());
+  }
+}
+
+GetComplianceSummaryOutcomeCallable ResourceGroupsTaggingAPIClient::GetComplianceSummaryCallable(const GetComplianceSummaryRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< GetComplianceSummaryOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->GetComplianceSummary(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void ResourceGroupsTaggingAPIClient::GetComplianceSummaryAsync(const GetComplianceSummaryRequest& request, const GetComplianceSummaryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->GetComplianceSummaryAsyncHelper( request, handler, context ); } );
+}
+
+void ResourceGroupsTaggingAPIClient::GetComplianceSummaryAsyncHelper(const GetComplianceSummaryRequest& request, const GetComplianceSummaryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, GetComplianceSummary(request), context);
 }
 
 GetResourcesOutcome ResourceGroupsTaggingAPIClient::GetResources(const GetResourcesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetResourcesOutcome(GetResourcesResult(outcome.GetResult()));
@@ -134,11 +218,11 @@ void ResourceGroupsTaggingAPIClient::GetResourcesAsyncHelper(const GetResourcesR
 
 GetTagKeysOutcome ResourceGroupsTaggingAPIClient::GetTagKeys(const GetTagKeysRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetTagKeysOutcome(GetTagKeysResult(outcome.GetResult()));
@@ -169,11 +253,11 @@ void ResourceGroupsTaggingAPIClient::GetTagKeysAsyncHelper(const GetTagKeysReque
 
 GetTagValuesOutcome ResourceGroupsTaggingAPIClient::GetTagValues(const GetTagValuesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetTagValuesOutcome(GetTagValuesResult(outcome.GetResult()));
@@ -202,13 +286,48 @@ void ResourceGroupsTaggingAPIClient::GetTagValuesAsyncHelper(const GetTagValuesR
   handler(this, request, GetTagValues(request), context);
 }
 
-TagResourcesOutcome ResourceGroupsTaggingAPIClient::TagResources(const TagResourcesRequest& request) const
+StartReportCreationOutcome ResourceGroupsTaggingAPIClient::StartReportCreation(const StartReportCreationRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return StartReportCreationOutcome(StartReportCreationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return StartReportCreationOutcome(outcome.GetError());
+  }
+}
+
+StartReportCreationOutcomeCallable ResourceGroupsTaggingAPIClient::StartReportCreationCallable(const StartReportCreationRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< StartReportCreationOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->StartReportCreation(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void ResourceGroupsTaggingAPIClient::StartReportCreationAsync(const StartReportCreationRequest& request, const StartReportCreationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->StartReportCreationAsyncHelper( request, handler, context ); } );
+}
+
+void ResourceGroupsTaggingAPIClient::StartReportCreationAsyncHelper(const StartReportCreationRequest& request, const StartReportCreationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, StartReportCreation(request), context);
+}
+
+TagResourcesOutcome ResourceGroupsTaggingAPIClient::TagResources(const TagResourcesRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return TagResourcesOutcome(TagResourcesResult(outcome.GetResult()));
@@ -239,11 +358,11 @@ void ResourceGroupsTaggingAPIClient::TagResourcesAsyncHelper(const TagResourcesR
 
 UntagResourcesOutcome ResourceGroupsTaggingAPIClient::UntagResources(const UntagResourcesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UntagResourcesOutcome(UntagResourcesResult(outcome.GetResult()));

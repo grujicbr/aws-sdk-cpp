@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationDiscoveryService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     OrderByElement();
-    OrderByElement(const Aws::Utils::Json::JsonValue& jsonValue);
-    OrderByElement& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OrderByElement(Aws::Utils::Json::JsonView jsonValue);
+    OrderByElement& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The field on which to order.</p>
      */
     inline const Aws::String& GetFieldName() const{ return m_fieldName; }
+
+    /**
+     * <p>The field on which to order.</p>
+     */
+    inline bool FieldNameHasBeenSet() const { return m_fieldNameHasBeenSet; }
 
     /**
      * <p>The field on which to order.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>Ordering direction.</p>
      */
     inline const OrderString& GetSortOrder() const{ return m_sortOrder; }
+
+    /**
+     * <p>Ordering direction.</p>
+     */
+    inline bool SortOrderHasBeenSet() const { return m_sortOrderHasBeenSet; }
 
     /**
      * <p>Ordering direction.</p>

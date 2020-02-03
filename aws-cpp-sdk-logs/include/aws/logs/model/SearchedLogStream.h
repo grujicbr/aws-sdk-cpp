@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     SearchedLogStream();
-    SearchedLogStream(const Aws::Utils::Json::JsonValue& jsonValue);
-    SearchedLogStream& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SearchedLogStream(Aws::Utils::Json::JsonView jsonValue);
+    SearchedLogStream& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the log stream.</p>
      */
     inline const Aws::String& GetLogStreamName() const{ return m_logStreamName; }
+
+    /**
+     * <p>The name of the log stream.</p>
+     */
+    inline bool LogStreamNameHasBeenSet() const { return m_logStreamNameHasBeenSet; }
 
     /**
      * <p>The name of the log stream.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>Indicates whether all the events in this log stream were searched.</p>
      */
     inline bool GetSearchedCompletely() const{ return m_searchedCompletely; }
+
+    /**
+     * <p>Indicates whether all the events in this log stream were searched.</p>
+     */
+    inline bool SearchedCompletelyHasBeenSet() const { return m_searchedCompletelyHasBeenSet; }
 
     /**
      * <p>Indicates whether all the events in this log stream were searched.</p>

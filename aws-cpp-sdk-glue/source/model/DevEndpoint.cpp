@@ -39,6 +39,11 @@ DevEndpoint::DevEndpoint() :
     m_zeppelinRemoteSparkInterpreterPortHasBeenSet(false),
     m_publicAddressHasBeenSet(false),
     m_statusHasBeenSet(false),
+    m_workerType(WorkerType::NOT_SET),
+    m_workerTypeHasBeenSet(false),
+    m_glueVersionHasBeenSet(false),
+    m_numberOfWorkers(0),
+    m_numberOfWorkersHasBeenSet(false),
     m_numberOfNodes(0),
     m_numberOfNodesHasBeenSet(false),
     m_availabilityZoneHasBeenSet(false),
@@ -49,11 +54,14 @@ DevEndpoint::DevEndpoint() :
     m_lastUpdateStatusHasBeenSet(false),
     m_createdTimestampHasBeenSet(false),
     m_lastModifiedTimestampHasBeenSet(false),
-    m_publicKeyHasBeenSet(false)
+    m_publicKeyHasBeenSet(false),
+    m_publicKeysHasBeenSet(false),
+    m_securityConfigurationHasBeenSet(false),
+    m_argumentsHasBeenSet(false)
 {
 }
 
-DevEndpoint::DevEndpoint(const JsonValue& jsonValue) : 
+DevEndpoint::DevEndpoint(JsonView jsonValue) : 
     m_endpointNameHasBeenSet(false),
     m_roleArnHasBeenSet(false),
     m_securityGroupIdsHasBeenSet(false),
@@ -64,6 +72,11 @@ DevEndpoint::DevEndpoint(const JsonValue& jsonValue) :
     m_zeppelinRemoteSparkInterpreterPortHasBeenSet(false),
     m_publicAddressHasBeenSet(false),
     m_statusHasBeenSet(false),
+    m_workerType(WorkerType::NOT_SET),
+    m_workerTypeHasBeenSet(false),
+    m_glueVersionHasBeenSet(false),
+    m_numberOfWorkers(0),
+    m_numberOfWorkersHasBeenSet(false),
     m_numberOfNodes(0),
     m_numberOfNodesHasBeenSet(false),
     m_availabilityZoneHasBeenSet(false),
@@ -74,12 +87,15 @@ DevEndpoint::DevEndpoint(const JsonValue& jsonValue) :
     m_lastUpdateStatusHasBeenSet(false),
     m_createdTimestampHasBeenSet(false),
     m_lastModifiedTimestampHasBeenSet(false),
-    m_publicKeyHasBeenSet(false)
+    m_publicKeyHasBeenSet(false),
+    m_publicKeysHasBeenSet(false),
+    m_securityConfigurationHasBeenSet(false),
+    m_argumentsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DevEndpoint& DevEndpoint::operator =(const JsonValue& jsonValue)
+DevEndpoint& DevEndpoint::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("EndpointName"))
   {
@@ -97,7 +113,7 @@ DevEndpoint& DevEndpoint::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("SecurityGroupIds"))
   {
-    Array<JsonValue> securityGroupIdsJsonList = jsonValue.GetArray("SecurityGroupIds");
+    Array<JsonView> securityGroupIdsJsonList = jsonValue.GetArray("SecurityGroupIds");
     for(unsigned securityGroupIdsIndex = 0; securityGroupIdsIndex < securityGroupIdsJsonList.GetLength(); ++securityGroupIdsIndex)
     {
       m_securityGroupIds.push_back(securityGroupIdsJsonList[securityGroupIdsIndex].AsString());
@@ -145,6 +161,27 @@ DevEndpoint& DevEndpoint::operator =(const JsonValue& jsonValue)
     m_status = jsonValue.GetString("Status");
 
     m_statusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WorkerType"))
+  {
+    m_workerType = WorkerTypeMapper::GetWorkerTypeForName(jsonValue.GetString("WorkerType"));
+
+    m_workerTypeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("GlueVersion"))
+  {
+    m_glueVersion = jsonValue.GetString("GlueVersion");
+
+    m_glueVersionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("NumberOfWorkers"))
+  {
+    m_numberOfWorkers = jsonValue.GetInteger("NumberOfWorkers");
+
+    m_numberOfWorkersHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("NumberOfNodes"))
@@ -217,6 +254,33 @@ DevEndpoint& DevEndpoint::operator =(const JsonValue& jsonValue)
     m_publicKeyHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("PublicKeys"))
+  {
+    Array<JsonView> publicKeysJsonList = jsonValue.GetArray("PublicKeys");
+    for(unsigned publicKeysIndex = 0; publicKeysIndex < publicKeysJsonList.GetLength(); ++publicKeysIndex)
+    {
+      m_publicKeys.push_back(publicKeysJsonList[publicKeysIndex].AsString());
+    }
+    m_publicKeysHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("SecurityConfiguration"))
+  {
+    m_securityConfiguration = jsonValue.GetString("SecurityConfiguration");
+
+    m_securityConfigurationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Arguments"))
+  {
+    Aws::Map<Aws::String, JsonView> argumentsJsonMap = jsonValue.GetObject("Arguments").GetAllObjects();
+    for(auto& argumentsItem : argumentsJsonMap)
+    {
+      m_arguments[argumentsItem.first] = argumentsItem.second.AsString();
+    }
+    m_argumentsHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -283,6 +347,23 @@ JsonValue DevEndpoint::Jsonize() const
 
   }
 
+  if(m_workerTypeHasBeenSet)
+  {
+   payload.WithString("WorkerType", WorkerTypeMapper::GetNameForWorkerType(m_workerType));
+  }
+
+  if(m_glueVersionHasBeenSet)
+  {
+   payload.WithString("GlueVersion", m_glueVersion);
+
+  }
+
+  if(m_numberOfWorkersHasBeenSet)
+  {
+   payload.WithInteger("NumberOfWorkers", m_numberOfWorkers);
+
+  }
+
   if(m_numberOfNodesHasBeenSet)
   {
    payload.WithInteger("NumberOfNodes", m_numberOfNodes);
@@ -338,6 +419,34 @@ JsonValue DevEndpoint::Jsonize() const
   if(m_publicKeyHasBeenSet)
   {
    payload.WithString("PublicKey", m_publicKey);
+
+  }
+
+  if(m_publicKeysHasBeenSet)
+  {
+   Array<JsonValue> publicKeysJsonList(m_publicKeys.size());
+   for(unsigned publicKeysIndex = 0; publicKeysIndex < publicKeysJsonList.GetLength(); ++publicKeysIndex)
+   {
+     publicKeysJsonList[publicKeysIndex].AsString(m_publicKeys[publicKeysIndex]);
+   }
+   payload.WithArray("PublicKeys", std::move(publicKeysJsonList));
+
+  }
+
+  if(m_securityConfigurationHasBeenSet)
+  {
+   payload.WithString("SecurityConfiguration", m_securityConfiguration);
+
+  }
+
+  if(m_argumentsHasBeenSet)
+  {
+   JsonValue argumentsJsonMap;
+   for(auto& argumentsItem : m_arguments)
+   {
+     argumentsJsonMap.WithString(argumentsItem.first, argumentsItem.second);
+   }
+   payload.WithObject("Arguments", std::move(argumentsJsonMap));
 
   }
 

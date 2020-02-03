@@ -51,13 +51,16 @@ AttachNetworkInterfaceResponse& AttachNetworkInterfaceResponse::operator =(const
     XmlNode attachmentIdNode = resultNode.FirstChild("attachmentId");
     if(!attachmentIdNode.IsNull())
     {
-      m_attachmentId = StringUtils::Trim(attachmentIdNode.GetText().c_str());
+      m_attachmentId = Aws::Utils::Xml::DecodeEscapedXmlText(attachmentIdNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::AttachNetworkInterfaceResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

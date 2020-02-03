@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     ApplicationUpdate();
-    ApplicationUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    ApplicationUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ApplicationUpdate(Aws::Utils::Json::JsonView jsonValue);
+    ApplicationUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>Describes application input configuration updates.</p>
      */
     inline const Aws::Vector<InputUpdate>& GetInputUpdates() const{ return m_inputUpdates; }
+
+    /**
+     * <p>Describes application input configuration updates.</p>
+     */
+    inline bool InputUpdatesHasBeenSet() const { return m_inputUpdatesHasBeenSet; }
 
     /**
      * <p>Describes application input configuration updates.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>Describes application code updates.</p>
      */
+    inline bool ApplicationCodeUpdateHasBeenSet() const { return m_applicationCodeUpdateHasBeenSet; }
+
+    /**
+     * <p>Describes application code updates.</p>
+     */
     inline void SetApplicationCodeUpdate(const Aws::String& value) { m_applicationCodeUpdateHasBeenSet = true; m_applicationCodeUpdate = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
      * <p>Describes application output configuration updates.</p>
      */
     inline const Aws::Vector<OutputUpdate>& GetOutputUpdates() const{ return m_outputUpdates; }
+
+    /**
+     * <p>Describes application output configuration updates.</p>
+     */
+    inline bool OutputUpdatesHasBeenSet() const { return m_outputUpdatesHasBeenSet; }
 
     /**
      * <p>Describes application output configuration updates.</p>
@@ -168,6 +184,11 @@ namespace Model
     /**
      * <p>Describes application reference data source updates.</p>
      */
+    inline bool ReferenceDataSourceUpdatesHasBeenSet() const { return m_referenceDataSourceUpdatesHasBeenSet; }
+
+    /**
+     * <p>Describes application reference data source updates.</p>
+     */
     inline void SetReferenceDataSourceUpdates(const Aws::Vector<ReferenceDataSourceUpdate>& value) { m_referenceDataSourceUpdatesHasBeenSet = true; m_referenceDataSourceUpdates = value; }
 
     /**
@@ -200,6 +221,11 @@ namespace Model
      * <p>Describes application CloudWatch logging option updates.</p>
      */
     inline const Aws::Vector<CloudWatchLoggingOptionUpdate>& GetCloudWatchLoggingOptionUpdates() const{ return m_cloudWatchLoggingOptionUpdates; }
+
+    /**
+     * <p>Describes application CloudWatch logging option updates.</p>
+     */
+    inline bool CloudWatchLoggingOptionUpdatesHasBeenSet() const { return m_cloudWatchLoggingOptionUpdatesHasBeenSet; }
 
     /**
      * <p>Describes application CloudWatch logging option updates.</p>

@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     GetReservedNodeExchangeOfferingsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,43 +50,49 @@ namespace Model
   public:
 
     /**
-     * <p>A string representing the node identifier for the Reserved Node to be
+     * <p>A string representing the node identifier for the DC1 Reserved Node to be
      * exchanged.</p>
      */
     inline const Aws::String& GetReservedNodeId() const{ return m_reservedNodeId; }
 
     /**
-     * <p>A string representing the node identifier for the Reserved Node to be
+     * <p>A string representing the node identifier for the DC1 Reserved Node to be
+     * exchanged.</p>
+     */
+    inline bool ReservedNodeIdHasBeenSet() const { return m_reservedNodeIdHasBeenSet; }
+
+    /**
+     * <p>A string representing the node identifier for the DC1 Reserved Node to be
      * exchanged.</p>
      */
     inline void SetReservedNodeId(const Aws::String& value) { m_reservedNodeIdHasBeenSet = true; m_reservedNodeId = value; }
 
     /**
-     * <p>A string representing the node identifier for the Reserved Node to be
+     * <p>A string representing the node identifier for the DC1 Reserved Node to be
      * exchanged.</p>
      */
     inline void SetReservedNodeId(Aws::String&& value) { m_reservedNodeIdHasBeenSet = true; m_reservedNodeId = std::move(value); }
 
     /**
-     * <p>A string representing the node identifier for the Reserved Node to be
+     * <p>A string representing the node identifier for the DC1 Reserved Node to be
      * exchanged.</p>
      */
     inline void SetReservedNodeId(const char* value) { m_reservedNodeIdHasBeenSet = true; m_reservedNodeId.assign(value); }
 
     /**
-     * <p>A string representing the node identifier for the Reserved Node to be
+     * <p>A string representing the node identifier for the DC1 Reserved Node to be
      * exchanged.</p>
      */
     inline GetReservedNodeExchangeOfferingsRequest& WithReservedNodeId(const Aws::String& value) { SetReservedNodeId(value); return *this;}
 
     /**
-     * <p>A string representing the node identifier for the Reserved Node to be
+     * <p>A string representing the node identifier for the DC1 Reserved Node to be
      * exchanged.</p>
      */
     inline GetReservedNodeExchangeOfferingsRequest& WithReservedNodeId(Aws::String&& value) { SetReservedNodeId(std::move(value)); return *this;}
 
     /**
-     * <p>A string representing the node identifier for the Reserved Node to be
+     * <p>A string representing the node identifier for the DC1 Reserved Node to be
      * exchanged.</p>
      */
     inline GetReservedNodeExchangeOfferingsRequest& WithReservedNodeId(const char* value) { SetReservedNodeId(value); return *this;}
@@ -97,6 +103,12 @@ namespace Model
      * retrieve.</p>
      */
     inline int GetMaxRecords() const{ return m_maxRecords; }
+
+    /**
+     * <p>An integer setting the maximum number of ReservedNodeOfferings to
+     * retrieve.</p>
+     */
+    inline bool MaxRecordsHasBeenSet() const { return m_maxRecordsHasBeenSet; }
 
     /**
      * <p>An integer setting the maximum number of ReservedNodeOfferings to
@@ -116,6 +128,12 @@ namespace Model
      * ReservedNodeOfferings.</p>
      */
     inline const Aws::String& GetMarker() const{ return m_marker; }
+
+    /**
+     * <p>A value that indicates the starting point for the next set of
+     * ReservedNodeOfferings.</p>
+     */
+    inline bool MarkerHasBeenSet() const { return m_markerHasBeenSet; }
 
     /**
      * <p>A value that indicates the starting point for the next set of

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Attribute();
-    Attribute(const Aws::Utils::Json::JsonValue& jsonValue);
-    Attribute& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Attribute(Aws::Utils::Json::JsonView jsonValue);
+    Attribute& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The attribute key.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The attribute key.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The attribute key.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The value assigned to the attribute key.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value assigned to the attribute key.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value assigned to the attribute key.</p>

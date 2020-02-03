@@ -61,6 +61,13 @@ namespace Model
      * group, not both. To specify a single IPv4 address, use the /32 prefix
      * length.</p>
      */
+    inline bool CidrIpHasBeenSet() const { return m_cidrIpHasBeenSet; }
+
+    /**
+     * <p>The IPv4 CIDR range. You can either specify a CIDR range or a source security
+     * group, not both. To specify a single IPv4 address, use the /32 prefix
+     * length.</p>
+     */
     inline void SetCidrIp(const Aws::String& value) { m_cidrIpHasBeenSet = true; m_cidrIp = value; }
 
     /**
@@ -102,49 +109,56 @@ namespace Model
     /**
      * <p>A description for the security group rule that references this IPv4 address
      * range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters
-     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
+     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
 
     /**
      * <p>A description for the security group rule that references this IPv4 address
      * range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters
-     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
+     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A description for the security group rule that references this IPv4 address
+     * range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters
+     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>
      */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
      * <p>A description for the security group rule that references this IPv4 address
      * range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters
-     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
+     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>
      */
     inline void SetDescription(Aws::String&& value) { m_descriptionHasBeenSet = true; m_description = std::move(value); }
 
     /**
      * <p>A description for the security group rule that references this IPv4 address
      * range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters
-     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
+     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>
      */
     inline void SetDescription(const char* value) { m_descriptionHasBeenSet = true; m_description.assign(value); }
 
     /**
      * <p>A description for the security group rule that references this IPv4 address
      * range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters
-     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
+     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>
      */
     inline IpRange& WithDescription(const Aws::String& value) { SetDescription(value); return *this;}
 
     /**
      * <p>A description for the security group rule that references this IPv4 address
      * range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters
-     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
+     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>
      */
     inline IpRange& WithDescription(Aws::String&& value) { SetDescription(std::move(value)); return *this;}
 
     /**
      * <p>A description for the security group rule that references this IPv4 address
      * range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters
-     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*</p>
+     * are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>
      */
     inline IpRange& WithDescription(const char* value) { SetDescription(value); return *this;}
 

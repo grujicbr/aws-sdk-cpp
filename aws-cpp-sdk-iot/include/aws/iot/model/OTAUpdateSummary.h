@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     OTAUpdateSummary();
-    OTAUpdateSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    OTAUpdateSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OTAUpdateSummary(Aws::Utils::Json::JsonView jsonValue);
+    OTAUpdateSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The OTA update ID.</p>
      */
     inline const Aws::String& GetOtaUpdateId() const{ return m_otaUpdateId; }
+
+    /**
+     * <p>The OTA update ID.</p>
+     */
+    inline bool OtaUpdateIdHasBeenSet() const { return m_otaUpdateIdHasBeenSet; }
 
     /**
      * <p>The OTA update ID.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The OTA update ARN.</p>
      */
+    inline bool OtaUpdateArnHasBeenSet() const { return m_otaUpdateArnHasBeenSet; }
+
+    /**
+     * <p>The OTA update ARN.</p>
+     */
     inline void SetOtaUpdateArn(const Aws::String& value) { m_otaUpdateArnHasBeenSet = true; m_otaUpdateArn = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The date when the OTA update was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The date when the OTA update was created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The date when the OTA update was created.</p>

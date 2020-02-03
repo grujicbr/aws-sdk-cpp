@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     SourceSchema();
-    SourceSchema(const Aws::Utils::Json::JsonValue& jsonValue);
-    SourceSchema& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SourceSchema(Aws::Utils::Json::JsonView jsonValue);
+    SourceSchema& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Specifies the format of the records on the streaming source.</p>
      */
     inline const RecordFormat& GetRecordFormat() const{ return m_recordFormat; }
+
+    /**
+     * <p>Specifies the format of the records on the streaming source.</p>
+     */
+    inline bool RecordFormatHasBeenSet() const { return m_recordFormatHasBeenSet; }
 
     /**
      * <p>Specifies the format of the records on the streaming source.</p>
@@ -82,6 +88,12 @@ namespace Model
      * UTF-8.</p>
      */
     inline const Aws::String& GetRecordEncoding() const{ return m_recordEncoding; }
+
+    /**
+     * <p>Specifies the encoding of the records in the streaming source. For example,
+     * UTF-8.</p>
+     */
+    inline bool RecordEncodingHasBeenSet() const { return m_recordEncodingHasBeenSet; }
 
     /**
      * <p>Specifies the encoding of the records in the streaming source. For example,
@@ -124,6 +136,11 @@ namespace Model
      * <p>A list of <code>RecordColumn</code> objects.</p>
      */
     inline const Aws::Vector<RecordColumn>& GetRecordColumns() const{ return m_recordColumns; }
+
+    /**
+     * <p>A list of <code>RecordColumn</code> objects.</p>
+     */
+    inline bool RecordColumnsHasBeenSet() const { return m_recordColumnsHasBeenSet; }
 
     /**
      * <p>A list of <code>RecordColumn</code> objects.</p>

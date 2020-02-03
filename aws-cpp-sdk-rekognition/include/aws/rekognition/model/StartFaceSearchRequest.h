@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     StartFaceSearchRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +51,12 @@ namespace Model
      * bucket. </p>
      */
     inline const Video& GetVideo() const{ return m_video; }
+
+    /**
+     * <p>The video you want to search. The video must be stored in an Amazon S3
+     * bucket. </p>
+     */
+    inline bool VideoHasBeenSet() const { return m_videoHasBeenSet; }
 
     /**
      * <p>The video you want to search. The video must be stored in an Amazon S3
@@ -84,6 +90,14 @@ namespace Model
      * the same job from being accidently started more than once. </p>
      */
     inline const Aws::String& GetClientRequestToken() const{ return m_clientRequestToken; }
+
+    /**
+     * <p>Idempotent token used to identify the start request. If you use the same
+     * token with multiple <code>StartFaceSearch</code> requests, the same
+     * <code>JobId</code> is returned. Use <code>ClientRequestToken</code> to prevent
+     * the same job from being accidently started more than once. </p>
+     */
+    inline bool ClientRequestTokenHasBeenSet() const { return m_clientRequestTokenHasBeenSet; }
 
     /**
      * <p>Idempotent token used to identify the start request. If you use the same
@@ -136,19 +150,29 @@ namespace Model
 
     /**
      * <p>The minimum confidence in the person match to return. For example, don't
-     * return any matches where confidence in matches is less than 70%. </p>
+     * return any matches where confidence in matches is less than 70%. The default
+     * value is 80%.</p>
      */
     inline double GetFaceMatchThreshold() const{ return m_faceMatchThreshold; }
 
     /**
      * <p>The minimum confidence in the person match to return. For example, don't
-     * return any matches where confidence in matches is less than 70%. </p>
+     * return any matches where confidence in matches is less than 70%. The default
+     * value is 80%.</p>
+     */
+    inline bool FaceMatchThresholdHasBeenSet() const { return m_faceMatchThresholdHasBeenSet; }
+
+    /**
+     * <p>The minimum confidence in the person match to return. For example, don't
+     * return any matches where confidence in matches is less than 70%. The default
+     * value is 80%.</p>
      */
     inline void SetFaceMatchThreshold(double value) { m_faceMatchThresholdHasBeenSet = true; m_faceMatchThreshold = value; }
 
     /**
      * <p>The minimum confidence in the person match to return. For example, don't
-     * return any matches where confidence in matches is less than 70%. </p>
+     * return any matches where confidence in matches is less than 70%. The default
+     * value is 80%.</p>
      */
     inline StartFaceSearchRequest& WithFaceMatchThreshold(double value) { SetFaceMatchThreshold(value); return *this;}
 
@@ -157,6 +181,11 @@ namespace Model
      * <p>ID of the collection that contains the faces you want to search for.</p>
      */
     inline const Aws::String& GetCollectionId() const{ return m_collectionId; }
+
+    /**
+     * <p>ID of the collection that contains the faces you want to search for.</p>
+     */
+    inline bool CollectionIdHasBeenSet() const { return m_collectionIdHasBeenSet; }
 
     /**
      * <p>ID of the collection that contains the faces you want to search for.</p>
@@ -199,6 +228,12 @@ namespace Model
      * <p>The ARN of the Amazon SNS topic to which you want Amazon Rekognition Video to
      * publish the completion status of the search. </p>
      */
+    inline bool NotificationChannelHasBeenSet() const { return m_notificationChannelHasBeenSet; }
+
+    /**
+     * <p>The ARN of the Amazon SNS topic to which you want Amazon Rekognition Video to
+     * publish the completion status of the search. </p>
+     */
     inline void SetNotificationChannel(const NotificationChannel& value) { m_notificationChannelHasBeenSet = true; m_notificationChannel = value; }
 
     /**
@@ -221,44 +256,66 @@ namespace Model
 
 
     /**
-     * <p>Unique identifier you specify to identify the job in the completion status
-     * published to the Amazon Simple Notification Service topic. </p>
+     * <p>An identifier you specify that's returned in the completion notification
+     * that's published to your Amazon Simple Notification Service topic. For example,
+     * you can use <code>JobTag</code> to group related jobs and identify them in the
+     * completion notification.</p>
      */
     inline const Aws::String& GetJobTag() const{ return m_jobTag; }
 
     /**
-     * <p>Unique identifier you specify to identify the job in the completion status
-     * published to the Amazon Simple Notification Service topic. </p>
+     * <p>An identifier you specify that's returned in the completion notification
+     * that's published to your Amazon Simple Notification Service topic. For example,
+     * you can use <code>JobTag</code> to group related jobs and identify them in the
+     * completion notification.</p>
+     */
+    inline bool JobTagHasBeenSet() const { return m_jobTagHasBeenSet; }
+
+    /**
+     * <p>An identifier you specify that's returned in the completion notification
+     * that's published to your Amazon Simple Notification Service topic. For example,
+     * you can use <code>JobTag</code> to group related jobs and identify them in the
+     * completion notification.</p>
      */
     inline void SetJobTag(const Aws::String& value) { m_jobTagHasBeenSet = true; m_jobTag = value; }
 
     /**
-     * <p>Unique identifier you specify to identify the job in the completion status
-     * published to the Amazon Simple Notification Service topic. </p>
+     * <p>An identifier you specify that's returned in the completion notification
+     * that's published to your Amazon Simple Notification Service topic. For example,
+     * you can use <code>JobTag</code> to group related jobs and identify them in the
+     * completion notification.</p>
      */
     inline void SetJobTag(Aws::String&& value) { m_jobTagHasBeenSet = true; m_jobTag = std::move(value); }
 
     /**
-     * <p>Unique identifier you specify to identify the job in the completion status
-     * published to the Amazon Simple Notification Service topic. </p>
+     * <p>An identifier you specify that's returned in the completion notification
+     * that's published to your Amazon Simple Notification Service topic. For example,
+     * you can use <code>JobTag</code> to group related jobs and identify them in the
+     * completion notification.</p>
      */
     inline void SetJobTag(const char* value) { m_jobTagHasBeenSet = true; m_jobTag.assign(value); }
 
     /**
-     * <p>Unique identifier you specify to identify the job in the completion status
-     * published to the Amazon Simple Notification Service topic. </p>
+     * <p>An identifier you specify that's returned in the completion notification
+     * that's published to your Amazon Simple Notification Service topic. For example,
+     * you can use <code>JobTag</code> to group related jobs and identify them in the
+     * completion notification.</p>
      */
     inline StartFaceSearchRequest& WithJobTag(const Aws::String& value) { SetJobTag(value); return *this;}
 
     /**
-     * <p>Unique identifier you specify to identify the job in the completion status
-     * published to the Amazon Simple Notification Service topic. </p>
+     * <p>An identifier you specify that's returned in the completion notification
+     * that's published to your Amazon Simple Notification Service topic. For example,
+     * you can use <code>JobTag</code> to group related jobs and identify them in the
+     * completion notification.</p>
      */
     inline StartFaceSearchRequest& WithJobTag(Aws::String&& value) { SetJobTag(std::move(value)); return *this;}
 
     /**
-     * <p>Unique identifier you specify to identify the job in the completion status
-     * published to the Amazon Simple Notification Service topic. </p>
+     * <p>An identifier you specify that's returned in the completion notification
+     * that's published to your Amazon Simple Notification Service topic. For example,
+     * you can use <code>JobTag</code> to group related jobs and identify them in the
+     * completion notification.</p>
      */
     inline StartFaceSearchRequest& WithJobTag(const char* value) { SetJobTag(value); return *this;}
 

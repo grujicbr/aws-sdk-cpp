@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     GeoMatchConstraint();
-    GeoMatchConstraint(const Aws::Utils::Json::JsonValue& jsonValue);
-    GeoMatchConstraint& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GeoMatchConstraint(Aws::Utils::Json::JsonView jsonValue);
+    GeoMatchConstraint& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * <code>Country</code> is the only valid value.</p>
      */
     inline const GeoMatchConstraintType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of geographical area you want AWS WAF to search for. Currently
+     * <code>Country</code> is the only valid value.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of geographical area you want AWS WAF to search for. Currently
@@ -83,6 +90,11 @@ namespace Model
      * <p>The country that you want AWS WAF to search for.</p>
      */
     inline const GeoMatchConstraintValue& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The country that you want AWS WAF to search for.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The country that you want AWS WAF to search for.</p>

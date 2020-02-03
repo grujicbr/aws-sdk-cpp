@@ -28,7 +28,9 @@ PurchaseOfferingRequest::PurchaseOfferingRequest() :
     m_nameHasBeenSet(false),
     m_offeringIdHasBeenSet(false),
     m_requestId(Aws::Utils::UUID::RandomUUID()),
-    m_requestIdHasBeenSet(true)
+    m_requestIdHasBeenSet(true),
+    m_startHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -54,7 +56,24 @@ Aws::String PurchaseOfferingRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_startHasBeenSet)
+  {
+   payload.WithString("start", m_start);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EventSubscription();
-    EventSubscription(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventSubscription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventSubscription(Aws::Utils::Json::JsonView jsonValue);
+    EventSubscription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * are sent.</p>
      */
     inline const InspectorEvent& GetEvent() const{ return m_event; }
+
+    /**
+     * <p>The event for which Amazon Simple Notification Service (SNS) notifications
+     * are sent.</p>
+     */
+    inline bool EventHasBeenSet() const { return m_eventHasBeenSet; }
 
     /**
      * <p>The event for which Amazon Simple Notification Service (SNS) notifications
@@ -83,6 +90,11 @@ namespace Model
      * <p>The time at which <a>SubscribeToEvent</a> is called.</p>
      */
     inline const Aws::Utils::DateTime& GetSubscribedAt() const{ return m_subscribedAt; }
+
+    /**
+     * <p>The time at which <a>SubscribeToEvent</a> is called.</p>
+     */
+    inline bool SubscribedAtHasBeenSet() const { return m_subscribedAtHasBeenSet; }
 
     /**
      * <p>The time at which <a>SubscribeToEvent</a> is called.</p>

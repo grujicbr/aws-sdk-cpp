@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     TimecodeBurnin();
-    TimecodeBurnin(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimecodeBurnin& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimecodeBurnin(Aws::Utils::Json::JsonView jsonValue);
+    TimecodeBurnin& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * values are 10, 16, 32, 48.
      */
     inline int GetFontSize() const{ return m_fontSize; }
+
+    /**
+     * Use Font Size (FontSize) to set the font size of any burned-in timecode. Valid
+     * values are 10, 16, 32, 48.
+     */
+    inline bool FontSizeHasBeenSet() const { return m_fontSizeHasBeenSet; }
 
     /**
      * Use Font Size (FontSize) to set the font size of any burned-in timecode. Valid
@@ -67,19 +74,40 @@ namespace Model
     inline TimecodeBurnin& WithFontSize(int value) { SetFontSize(value); return *this;}
 
 
-    
+    /**
+     * Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to specify
+     * the location the burned-in timecode on output video.
+     */
     inline const TimecodeBurninPosition& GetPosition() const{ return m_position; }
 
-    
+    /**
+     * Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to specify
+     * the location the burned-in timecode on output video.
+     */
+    inline bool PositionHasBeenSet() const { return m_positionHasBeenSet; }
+
+    /**
+     * Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to specify
+     * the location the burned-in timecode on output video.
+     */
     inline void SetPosition(const TimecodeBurninPosition& value) { m_positionHasBeenSet = true; m_position = value; }
 
-    
+    /**
+     * Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to specify
+     * the location the burned-in timecode on output video.
+     */
     inline void SetPosition(TimecodeBurninPosition&& value) { m_positionHasBeenSet = true; m_position = std::move(value); }
 
-    
+    /**
+     * Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to specify
+     * the location the burned-in timecode on output video.
+     */
     inline TimecodeBurnin& WithPosition(const TimecodeBurninPosition& value) { SetPosition(value); return *this;}
 
-    
+    /**
+     * Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to specify
+     * the location the burned-in timecode on output video.
+     */
     inline TimecodeBurnin& WithPosition(TimecodeBurninPosition&& value) { SetPosition(std::move(value)); return *this;}
 
 
@@ -91,6 +119,15 @@ namespace Model
      * all special characters represented on a standard English keyboard.
      */
     inline const Aws::String& GetPrefix() const{ return m_prefix; }
+
+    /**
+     * Use Prefix (Prefix) to place ASCII characters before any burned-in timecode. For
+     * example, a prefix of "EZ-" will result in the timecode "EZ-00:00:00:00". Provide
+     * either the characters themselves or the ASCII code equivalents. The supported
+     * range of characters is 0x20 through 0x7e. This includes letters, numbers, and
+     * all special characters represented on a standard English keyboard.
+     */
+    inline bool PrefixHasBeenSet() const { return m_prefixHasBeenSet; }
 
     /**
      * Use Prefix (Prefix) to place ASCII characters before any burned-in timecode. For

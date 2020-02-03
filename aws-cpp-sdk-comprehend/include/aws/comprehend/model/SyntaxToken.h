@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Comprehend
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     SyntaxToken();
-    SyntaxToken(const Aws::Utils::Json::JsonValue& jsonValue);
-    SyntaxToken& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SyntaxToken(Aws::Utils::Json::JsonView jsonValue);
+    SyntaxToken& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>A unique identifier for a token.</p>
      */
     inline int GetTokenId() const{ return m_tokenId; }
+
+    /**
+     * <p>A unique identifier for a token.</p>
+     */
+    inline bool TokenIdHasBeenSet() const { return m_tokenIdHasBeenSet; }
 
     /**
      * <p>A unique identifier for a token.</p>
@@ -69,6 +75,11 @@ namespace Model
      * <p>The word that was recognized in the source text.</p>
      */
     inline const Aws::String& GetText() const{ return m_text; }
+
+    /**
+     * <p>The word that was recognized in the source text.</p>
+     */
+    inline bool TextHasBeenSet() const { return m_textHasBeenSet; }
 
     /**
      * <p>The word that was recognized in the source text.</p>
@@ -111,6 +122,12 @@ namespace Model
      * <p>The zero-based offset from the beginning of the source text to the first
      * character in the word.</p>
      */
+    inline bool BeginOffsetHasBeenSet() const { return m_beginOffsetHasBeenSet; }
+
+    /**
+     * <p>The zero-based offset from the beginning of the source text to the first
+     * character in the word.</p>
+     */
     inline void SetBeginOffset(int value) { m_beginOffsetHasBeenSet = true; m_beginOffset = value; }
 
     /**
@@ -125,6 +142,12 @@ namespace Model
      * character in the word.</p>
      */
     inline int GetEndOffset() const{ return m_endOffset; }
+
+    /**
+     * <p>The zero-based offset from the beginning of the source text to the last
+     * character in the word.</p>
+     */
+    inline bool EndOffsetHasBeenSet() const { return m_endOffsetHasBeenSet; }
 
     /**
      * <p>The zero-based offset from the beginning of the source text to the last
@@ -145,6 +168,13 @@ namespace Model
      * information, see <a>how-syntax</a>.</p>
      */
     inline const PartOfSpeechTag& GetPartOfSpeech() const{ return m_partOfSpeech; }
+
+    /**
+     * <p>Provides the part of speech label and the confidence level that Amazon
+     * Comprehend has that the part of speech was correctly identified. For more
+     * information, see <a>how-syntax</a>.</p>
+     */
+    inline bool PartOfSpeechHasBeenSet() const { return m_partOfSpeechHasBeenSet; }
 
     /**
      * <p>Provides the part of speech label and the confidence level that Amazon

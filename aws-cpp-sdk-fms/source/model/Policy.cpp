@@ -34,30 +34,36 @@ Policy::Policy() :
     m_policyUpdateTokenHasBeenSet(false),
     m_securityServicePolicyDataHasBeenSet(false),
     m_resourceTypeHasBeenSet(false),
+    m_resourceTypeListHasBeenSet(false),
     m_resourceTagsHasBeenSet(false),
     m_excludeResourceTags(false),
     m_excludeResourceTagsHasBeenSet(false),
     m_remediationEnabled(false),
-    m_remediationEnabledHasBeenSet(false)
+    m_remediationEnabledHasBeenSet(false),
+    m_includeMapHasBeenSet(false),
+    m_excludeMapHasBeenSet(false)
 {
 }
 
-Policy::Policy(const JsonValue& jsonValue) : 
+Policy::Policy(JsonView jsonValue) : 
     m_policyIdHasBeenSet(false),
     m_policyNameHasBeenSet(false),
     m_policyUpdateTokenHasBeenSet(false),
     m_securityServicePolicyDataHasBeenSet(false),
     m_resourceTypeHasBeenSet(false),
+    m_resourceTypeListHasBeenSet(false),
     m_resourceTagsHasBeenSet(false),
     m_excludeResourceTags(false),
     m_excludeResourceTagsHasBeenSet(false),
     m_remediationEnabled(false),
-    m_remediationEnabledHasBeenSet(false)
+    m_remediationEnabledHasBeenSet(false),
+    m_includeMapHasBeenSet(false),
+    m_excludeMapHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Policy& Policy::operator =(const JsonValue& jsonValue)
+Policy& Policy::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("PolicyId"))
   {
@@ -94,9 +100,19 @@ Policy& Policy::operator =(const JsonValue& jsonValue)
     m_resourceTypeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("ResourceTypeList"))
+  {
+    Array<JsonView> resourceTypeListJsonList = jsonValue.GetArray("ResourceTypeList");
+    for(unsigned resourceTypeListIndex = 0; resourceTypeListIndex < resourceTypeListJsonList.GetLength(); ++resourceTypeListIndex)
+    {
+      m_resourceTypeList.push_back(resourceTypeListJsonList[resourceTypeListIndex].AsString());
+    }
+    m_resourceTypeListHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ResourceTags"))
   {
-    Array<JsonValue> resourceTagsJsonList = jsonValue.GetArray("ResourceTags");
+    Array<JsonView> resourceTagsJsonList = jsonValue.GetArray("ResourceTags");
     for(unsigned resourceTagsIndex = 0; resourceTagsIndex < resourceTagsJsonList.GetLength(); ++resourceTagsIndex)
     {
       m_resourceTags.push_back(resourceTagsJsonList[resourceTagsIndex].AsObject());
@@ -116,6 +132,40 @@ Policy& Policy::operator =(const JsonValue& jsonValue)
     m_remediationEnabled = jsonValue.GetBool("RemediationEnabled");
 
     m_remediationEnabledHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("IncludeMap"))
+  {
+    Aws::Map<Aws::String, JsonView> includeMapJsonMap = jsonValue.GetObject("IncludeMap").GetAllObjects();
+    for(auto& includeMapItem : includeMapJsonMap)
+    {
+      Array<JsonView> customerPolicyScopeIdListJsonList = includeMapItem.second.AsArray();
+      Aws::Vector<Aws::String> customerPolicyScopeIdListList;
+      customerPolicyScopeIdListList.reserve((size_t)customerPolicyScopeIdListJsonList.GetLength());
+      for(unsigned customerPolicyScopeIdListIndex = 0; customerPolicyScopeIdListIndex < customerPolicyScopeIdListJsonList.GetLength(); ++customerPolicyScopeIdListIndex)
+      {
+        customerPolicyScopeIdListList.push_back(customerPolicyScopeIdListJsonList[customerPolicyScopeIdListIndex].AsString());
+      }
+      m_includeMap[CustomerPolicyScopeIdTypeMapper::GetCustomerPolicyScopeIdTypeForName(includeMapItem.first)] = std::move(customerPolicyScopeIdListList);
+    }
+    m_includeMapHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ExcludeMap"))
+  {
+    Aws::Map<Aws::String, JsonView> excludeMapJsonMap = jsonValue.GetObject("ExcludeMap").GetAllObjects();
+    for(auto& excludeMapItem : excludeMapJsonMap)
+    {
+      Array<JsonView> customerPolicyScopeIdListJsonList = excludeMapItem.second.AsArray();
+      Aws::Vector<Aws::String> customerPolicyScopeIdListList;
+      customerPolicyScopeIdListList.reserve((size_t)customerPolicyScopeIdListJsonList.GetLength());
+      for(unsigned customerPolicyScopeIdListIndex = 0; customerPolicyScopeIdListIndex < customerPolicyScopeIdListJsonList.GetLength(); ++customerPolicyScopeIdListIndex)
+      {
+        customerPolicyScopeIdListList.push_back(customerPolicyScopeIdListJsonList[customerPolicyScopeIdListIndex].AsString());
+      }
+      m_excludeMap[CustomerPolicyScopeIdTypeMapper::GetCustomerPolicyScopeIdTypeForName(excludeMapItem.first)] = std::move(customerPolicyScopeIdListList);
+    }
+    m_excludeMapHasBeenSet = true;
   }
 
   return *this;
@@ -155,6 +205,17 @@ JsonValue Policy::Jsonize() const
 
   }
 
+  if(m_resourceTypeListHasBeenSet)
+  {
+   Array<JsonValue> resourceTypeListJsonList(m_resourceTypeList.size());
+   for(unsigned resourceTypeListIndex = 0; resourceTypeListIndex < resourceTypeListJsonList.GetLength(); ++resourceTypeListIndex)
+   {
+     resourceTypeListJsonList[resourceTypeListIndex].AsString(m_resourceTypeList[resourceTypeListIndex]);
+   }
+   payload.WithArray("ResourceTypeList", std::move(resourceTypeListJsonList));
+
+  }
+
   if(m_resourceTagsHasBeenSet)
   {
    Array<JsonValue> resourceTagsJsonList(m_resourceTags.size());
@@ -175,6 +236,38 @@ JsonValue Policy::Jsonize() const
   if(m_remediationEnabledHasBeenSet)
   {
    payload.WithBool("RemediationEnabled", m_remediationEnabled);
+
+  }
+
+  if(m_includeMapHasBeenSet)
+  {
+   JsonValue includeMapJsonMap;
+   for(auto& includeMapItem : m_includeMap)
+   {
+     Array<JsonValue> customerPolicyScopeIdListJsonList(includeMapItem.second.size());
+     for(unsigned customerPolicyScopeIdListIndex = 0; customerPolicyScopeIdListIndex < customerPolicyScopeIdListJsonList.GetLength(); ++customerPolicyScopeIdListIndex)
+     {
+       customerPolicyScopeIdListJsonList[customerPolicyScopeIdListIndex].AsString(includeMapItem.second[customerPolicyScopeIdListIndex]);
+     }
+     includeMapJsonMap.WithArray(CustomerPolicyScopeIdTypeMapper::GetNameForCustomerPolicyScopeIdType(includeMapItem.first), std::move(customerPolicyScopeIdListJsonList));
+   }
+   payload.WithObject("IncludeMap", std::move(includeMapJsonMap));
+
+  }
+
+  if(m_excludeMapHasBeenSet)
+  {
+   JsonValue excludeMapJsonMap;
+   for(auto& excludeMapItem : m_excludeMap)
+   {
+     Array<JsonValue> customerPolicyScopeIdListJsonList(excludeMapItem.second.size());
+     for(unsigned customerPolicyScopeIdListIndex = 0; customerPolicyScopeIdListIndex < customerPolicyScopeIdListJsonList.GetLength(); ++customerPolicyScopeIdListIndex)
+     {
+       customerPolicyScopeIdListJsonList[customerPolicyScopeIdListIndex].AsString(excludeMapItem.second[customerPolicyScopeIdListIndex]);
+     }
+     excludeMapJsonMap.WithArray(CustomerPolicyScopeIdTypeMapper::GetNameForCustomerPolicyScopeIdType(excludeMapItem.first), std::move(customerPolicyScopeIdListJsonList));
+   }
+   payload.WithObject("ExcludeMap", std::move(excludeMapJsonMap));
 
   }
 

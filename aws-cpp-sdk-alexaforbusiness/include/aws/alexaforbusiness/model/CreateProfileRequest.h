@@ -20,6 +20,7 @@
 #include <aws/alexaforbusiness/model/DistanceUnit.h>
 #include <aws/alexaforbusiness/model/TemperatureUnit.h>
 #include <aws/alexaforbusiness/model/WakeWord.h>
+#include <aws/alexaforbusiness/model/CreateMeetingRoomConfiguration.h>
 #include <utility>
 #include <aws/core/utils/UUID.h>
 
@@ -36,7 +37,7 @@ namespace Model
   {
   public:
     CreateProfileRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of a room profile.</p>
      */
     inline const Aws::String& GetProfileName() const{ return m_profileName; }
+
+    /**
+     * <p>The name of a room profile.</p>
+     */
+    inline bool ProfileNameHasBeenSet() const { return m_profileNameHasBeenSet; }
 
     /**
      * <p>The name of a room profile.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The time zone used by a room profile.</p>
      */
+    inline bool TimezoneHasBeenSet() const { return m_timezoneHasBeenSet; }
+
+    /**
+     * <p>The time zone used by a room profile.</p>
+     */
     inline void SetTimezone(const Aws::String& value) { m_timezoneHasBeenSet = true; m_timezone = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The valid address for the room.</p>
      */
     inline const Aws::String& GetAddress() const{ return m_address; }
+
+    /**
+     * <p>The valid address for the room.</p>
+     */
+    inline bool AddressHasBeenSet() const { return m_addressHasBeenSet; }
 
     /**
      * <p>The valid address for the room.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>The distance unit to be used by devices in the profile.</p>
      */
+    inline bool DistanceUnitHasBeenSet() const { return m_distanceUnitHasBeenSet; }
+
+    /**
+     * <p>The distance unit to be used by devices in the profile.</p>
+     */
     inline void SetDistanceUnit(const DistanceUnit& value) { m_distanceUnitHasBeenSet = true; m_distanceUnit = value; }
 
     /**
@@ -186,6 +207,11 @@ namespace Model
      * <p>The temperature unit to be used by devices in the profile.</p>
      */
     inline const TemperatureUnit& GetTemperatureUnit() const{ return m_temperatureUnit; }
+
+    /**
+     * <p>The temperature unit to be used by devices in the profile.</p>
+     */
+    inline bool TemperatureUnitHasBeenSet() const { return m_temperatureUnitHasBeenSet; }
 
     /**
      * <p>The temperature unit to be used by devices in the profile.</p>
@@ -216,6 +242,11 @@ namespace Model
     /**
      * <p>A wake word for Alexa, Echo, Amazon, or a computer.</p>
      */
+    inline bool WakeWordHasBeenSet() const { return m_wakeWordHasBeenSet; }
+
+    /**
+     * <p>A wake word for Alexa, Echo, Amazon, or a computer.</p>
+     */
     inline void SetWakeWord(const WakeWord& value) { m_wakeWordHasBeenSet = true; m_wakeWord = value; }
 
     /**
@@ -235,9 +266,63 @@ namespace Model
 
 
     /**
+     * <p>The locale of the room profile. (This is currently only available to a
+     * limited preview audience.)</p>
+     */
+    inline const Aws::String& GetLocale() const{ return m_locale; }
+
+    /**
+     * <p>The locale of the room profile. (This is currently only available to a
+     * limited preview audience.)</p>
+     */
+    inline bool LocaleHasBeenSet() const { return m_localeHasBeenSet; }
+
+    /**
+     * <p>The locale of the room profile. (This is currently only available to a
+     * limited preview audience.)</p>
+     */
+    inline void SetLocale(const Aws::String& value) { m_localeHasBeenSet = true; m_locale = value; }
+
+    /**
+     * <p>The locale of the room profile. (This is currently only available to a
+     * limited preview audience.)</p>
+     */
+    inline void SetLocale(Aws::String&& value) { m_localeHasBeenSet = true; m_locale = std::move(value); }
+
+    /**
+     * <p>The locale of the room profile. (This is currently only available to a
+     * limited preview audience.)</p>
+     */
+    inline void SetLocale(const char* value) { m_localeHasBeenSet = true; m_locale.assign(value); }
+
+    /**
+     * <p>The locale of the room profile. (This is currently only available to a
+     * limited preview audience.)</p>
+     */
+    inline CreateProfileRequest& WithLocale(const Aws::String& value) { SetLocale(value); return *this;}
+
+    /**
+     * <p>The locale of the room profile. (This is currently only available to a
+     * limited preview audience.)</p>
+     */
+    inline CreateProfileRequest& WithLocale(Aws::String&& value) { SetLocale(std::move(value)); return *this;}
+
+    /**
+     * <p>The locale of the room profile. (This is currently only available to a
+     * limited preview audience.)</p>
+     */
+    inline CreateProfileRequest& WithLocale(const char* value) { SetLocale(value); return *this;}
+
+
+    /**
      * <p>The user-specified token that is used during the creation of a profile.</p>
      */
     inline const Aws::String& GetClientRequestToken() const{ return m_clientRequestToken; }
+
+    /**
+     * <p>The user-specified token that is used during the creation of a profile.</p>
+     */
+    inline bool ClientRequestTokenHasBeenSet() const { return m_clientRequestTokenHasBeenSet; }
 
     /**
      * <p>The user-specified token that is used during the creation of a profile.</p>
@@ -278,6 +363,11 @@ namespace Model
     /**
      * <p>Whether room profile setup is enabled.</p>
      */
+    inline bool SetupModeDisabledHasBeenSet() const { return m_setupModeDisabledHasBeenSet; }
+
+    /**
+     * <p>Whether room profile setup is enabled.</p>
+     */
     inline void SetSetupModeDisabled(bool value) { m_setupModeDisabledHasBeenSet = true; m_setupModeDisabled = value; }
 
     /**
@@ -290,6 +380,11 @@ namespace Model
      * <p>The maximum volume limit for a room profile.</p>
      */
     inline int GetMaxVolumeLimit() const{ return m_maxVolumeLimit; }
+
+    /**
+     * <p>The maximum volume limit for a room profile.</p>
+     */
+    inline bool MaxVolumeLimitHasBeenSet() const { return m_maxVolumeLimitHasBeenSet; }
 
     /**
      * <p>The maximum volume limit for a room profile.</p>
@@ -310,12 +405,48 @@ namespace Model
     /**
      * <p>Whether PSTN calling is enabled.</p>
      */
+    inline bool PSTNEnabledHasBeenSet() const { return m_pSTNEnabledHasBeenSet; }
+
+    /**
+     * <p>Whether PSTN calling is enabled.</p>
+     */
     inline void SetPSTNEnabled(bool value) { m_pSTNEnabledHasBeenSet = true; m_pSTNEnabled = value; }
 
     /**
      * <p>Whether PSTN calling is enabled.</p>
      */
     inline CreateProfileRequest& WithPSTNEnabled(bool value) { SetPSTNEnabled(value); return *this;}
+
+
+    /**
+     * <p>The meeting room settings of a room profile.</p>
+     */
+    inline const CreateMeetingRoomConfiguration& GetMeetingRoomConfiguration() const{ return m_meetingRoomConfiguration; }
+
+    /**
+     * <p>The meeting room settings of a room profile.</p>
+     */
+    inline bool MeetingRoomConfigurationHasBeenSet() const { return m_meetingRoomConfigurationHasBeenSet; }
+
+    /**
+     * <p>The meeting room settings of a room profile.</p>
+     */
+    inline void SetMeetingRoomConfiguration(const CreateMeetingRoomConfiguration& value) { m_meetingRoomConfigurationHasBeenSet = true; m_meetingRoomConfiguration = value; }
+
+    /**
+     * <p>The meeting room settings of a room profile.</p>
+     */
+    inline void SetMeetingRoomConfiguration(CreateMeetingRoomConfiguration&& value) { m_meetingRoomConfigurationHasBeenSet = true; m_meetingRoomConfiguration = std::move(value); }
+
+    /**
+     * <p>The meeting room settings of a room profile.</p>
+     */
+    inline CreateProfileRequest& WithMeetingRoomConfiguration(const CreateMeetingRoomConfiguration& value) { SetMeetingRoomConfiguration(value); return *this;}
+
+    /**
+     * <p>The meeting room settings of a room profile.</p>
+     */
+    inline CreateProfileRequest& WithMeetingRoomConfiguration(CreateMeetingRoomConfiguration&& value) { SetMeetingRoomConfiguration(std::move(value)); return *this;}
 
   private:
 
@@ -337,6 +468,9 @@ namespace Model
     WakeWord m_wakeWord;
     bool m_wakeWordHasBeenSet;
 
+    Aws::String m_locale;
+    bool m_localeHasBeenSet;
+
     Aws::String m_clientRequestToken;
     bool m_clientRequestTokenHasBeenSet;
 
@@ -348,6 +482,9 @@ namespace Model
 
     bool m_pSTNEnabled;
     bool m_pSTNEnabledHasBeenSet;
+
+    CreateMeetingRoomConfiguration m_meetingRoomConfiguration;
+    bool m_meetingRoomConfigurationHasBeenSet;
   };
 
 } // namespace Model

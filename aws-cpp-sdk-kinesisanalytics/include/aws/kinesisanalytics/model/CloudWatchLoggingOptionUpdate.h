@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     CloudWatchLoggingOptionUpdate();
-    CloudWatchLoggingOptionUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    CloudWatchLoggingOptionUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CloudWatchLoggingOptionUpdate(Aws::Utils::Json::JsonView jsonValue);
+    CloudWatchLoggingOptionUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>ID of the CloudWatch logging option to update</p>
      */
     inline const Aws::String& GetCloudWatchLoggingOptionId() const{ return m_cloudWatchLoggingOptionId; }
+
+    /**
+     * <p>ID of the CloudWatch logging option to update</p>
+     */
+    inline bool CloudWatchLoggingOptionIdHasBeenSet() const { return m_cloudWatchLoggingOptionIdHasBeenSet; }
 
     /**
      * <p>ID of the CloudWatch logging option to update</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>ARN of the CloudWatch log to receive application messages.</p>
      */
+    inline bool LogStreamARNUpdateHasBeenSet() const { return m_logStreamARNUpdateHasBeenSet; }
+
+    /**
+     * <p>ARN of the CloudWatch log to receive application messages.</p>
+     */
     inline void SetLogStreamARNUpdate(const Aws::String& value) { m_logStreamARNUpdateHasBeenSet = true; m_logStreamARNUpdate = value; }
 
     /**
@@ -124,6 +135,13 @@ namespace Model
      * <code>PutLogEvents</code> policy action enabled.</p>
      */
     inline const Aws::String& GetRoleARNUpdate() const{ return m_roleARNUpdate; }
+
+    /**
+     * <p>IAM ARN of the role to use to send application messages. Note: To write
+     * application messages to CloudWatch, the IAM role used must have the
+     * <code>PutLogEvents</code> policy action enabled.</p>
+     */
+    inline bool RoleARNUpdateHasBeenSet() const { return m_roleARNUpdateHasBeenSet; }
 
     /**
      * <p>IAM ARN of the role to use to send application messages. Note: To write

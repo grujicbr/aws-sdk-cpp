@@ -26,18 +26,20 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-CreateApplicationVersionResult::CreateApplicationVersionResult()
+CreateApplicationVersionResult::CreateApplicationVersionResult() : 
+    m_resourcesSupported(false)
 {
 }
 
-CreateApplicationVersionResult::CreateApplicationVersionResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+CreateApplicationVersionResult::CreateApplicationVersionResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_resourcesSupported(false)
 {
   *this = result;
 }
 
 CreateApplicationVersionResult& CreateApplicationVersionResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("applicationId"))
   {
     m_applicationId = jsonValue.GetString("applicationId");
@@ -52,16 +54,37 @@ CreateApplicationVersionResult& CreateApplicationVersionResult::operator =(const
 
   if(jsonValue.ValueExists("parameterDefinitions"))
   {
-    Array<JsonValue> parameterDefinitionsJsonList = jsonValue.GetArray("parameterDefinitions");
+    Array<JsonView> parameterDefinitionsJsonList = jsonValue.GetArray("parameterDefinitions");
     for(unsigned parameterDefinitionsIndex = 0; parameterDefinitionsIndex < parameterDefinitionsJsonList.GetLength(); ++parameterDefinitionsIndex)
     {
       m_parameterDefinitions.push_back(parameterDefinitionsJsonList[parameterDefinitionsIndex].AsObject());
     }
   }
 
+  if(jsonValue.ValueExists("requiredCapabilities"))
+  {
+    Array<JsonView> requiredCapabilitiesJsonList = jsonValue.GetArray("requiredCapabilities");
+    for(unsigned requiredCapabilitiesIndex = 0; requiredCapabilitiesIndex < requiredCapabilitiesJsonList.GetLength(); ++requiredCapabilitiesIndex)
+    {
+      m_requiredCapabilities.push_back(CapabilityMapper::GetCapabilityForName(requiredCapabilitiesJsonList[requiredCapabilitiesIndex].AsString()));
+    }
+  }
+
+  if(jsonValue.ValueExists("resourcesSupported"))
+  {
+    m_resourcesSupported = jsonValue.GetBool("resourcesSupported");
+
+  }
+
   if(jsonValue.ValueExists("semanticVersion"))
   {
     m_semanticVersion = jsonValue.GetString("semanticVersion");
+
+  }
+
+  if(jsonValue.ValueExists("sourceCodeArchiveUrl"))
+  {
+    m_sourceCodeArchiveUrl = jsonValue.GetString("sourceCodeArchiveUrl");
 
   }
 

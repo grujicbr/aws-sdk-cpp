@@ -27,16 +27,12 @@ namespace Model
 {
 
   /**
-   * <p>Container for the parameters to the DescribeInterconnects
-   * operation.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DescribeInterconnectsRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_DIRECTCONNECT_API DescribeInterconnectsRequest : public DirectConnectRequest
   {
   public:
     DescribeInterconnectsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,25 +44,44 @@ namespace Model
     Aws::Http::HeaderValueCollection GetRequestSpecificHeaders() const override;
 
 
-    
+    /**
+     * <p>The ID of the interconnect.</p>
+     */
     inline const Aws::String& GetInterconnectId() const{ return m_interconnectId; }
 
-    
+    /**
+     * <p>The ID of the interconnect.</p>
+     */
+    inline bool InterconnectIdHasBeenSet() const { return m_interconnectIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the interconnect.</p>
+     */
     inline void SetInterconnectId(const Aws::String& value) { m_interconnectIdHasBeenSet = true; m_interconnectId = value; }
 
-    
+    /**
+     * <p>The ID of the interconnect.</p>
+     */
     inline void SetInterconnectId(Aws::String&& value) { m_interconnectIdHasBeenSet = true; m_interconnectId = std::move(value); }
 
-    
+    /**
+     * <p>The ID of the interconnect.</p>
+     */
     inline void SetInterconnectId(const char* value) { m_interconnectIdHasBeenSet = true; m_interconnectId.assign(value); }
 
-    
+    /**
+     * <p>The ID of the interconnect.</p>
+     */
     inline DescribeInterconnectsRequest& WithInterconnectId(const Aws::String& value) { SetInterconnectId(value); return *this;}
 
-    
+    /**
+     * <p>The ID of the interconnect.</p>
+     */
     inline DescribeInterconnectsRequest& WithInterconnectId(Aws::String&& value) { SetInterconnectId(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>The ID of the interconnect.</p>
+     */
     inline DescribeInterconnectsRequest& WithInterconnectId(const char* value) { SetInterconnectId(value); return *this;}
 
   private:

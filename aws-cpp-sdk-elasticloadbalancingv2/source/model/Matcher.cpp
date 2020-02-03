@@ -50,7 +50,7 @@ Matcher& Matcher::operator =(const XmlNode& xmlNode)
     XmlNode httpCodeNode = resultNode.FirstChild("HttpCode");
     if(!httpCodeNode.IsNull())
     {
-      m_httpCode = StringUtils::Trim(httpCodeNode.GetText().c_str());
+      m_httpCode = Aws::Utils::Xml::DecodeEscapedXmlText(httpCodeNode.GetText());
       m_httpCodeHasBeenSet = true;
     }
   }

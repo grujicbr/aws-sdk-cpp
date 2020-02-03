@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Macie
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     S3ResourceClassification();
-    S3ResourceClassification(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3ResourceClassification& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3ResourceClassification(Aws::Utils::Json::JsonView jsonValue);
+    S3ResourceClassification& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of the S3 bucket that you want to associate with Amazon Macie.</p>
      */
     inline const Aws::String& GetBucketName() const{ return m_bucketName; }
+
+    /**
+     * <p>The name of the S3 bucket that you want to associate with Amazon Macie.</p>
+     */
+    inline bool BucketNameHasBeenSet() const { return m_bucketNameHasBeenSet; }
 
     /**
      * <p>The name of the S3 bucket that you want to associate with Amazon Macie.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The prefix of the S3 bucket that you want to associate with Amazon Macie.</p>
      */
+    inline bool PrefixHasBeenSet() const { return m_prefixHasBeenSet; }
+
+    /**
+     * <p>The prefix of the S3 bucket that you want to associate with Amazon Macie.</p>
+     */
     inline void SetPrefix(const Aws::String& value) { m_prefixHasBeenSet = true; m_prefix = value; }
 
     /**
@@ -127,6 +138,12 @@ namespace Model
      * with Amazon Macie. </p>
      */
     inline const ClassificationType& GetClassificationType() const{ return m_classificationType; }
+
+    /**
+     * <p>The classification type that you want to specify for the resource associated
+     * with Amazon Macie. </p>
+     */
+    inline bool ClassificationTypeHasBeenSet() const { return m_classificationTypeHasBeenSet; }
 
     /**
      * <p>The classification type that you want to specify for the resource associated

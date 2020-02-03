@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AnnotationValue();
-    AnnotationValue(const Aws::Utils::Json::JsonValue& jsonValue);
-    AnnotationValue& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AnnotationValue(Aws::Utils::Json::JsonView jsonValue);
+    AnnotationValue& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Value for a Number annotation.</p>
      */
     inline double GetNumberValue() const{ return m_numberValue; }
+
+    /**
+     * <p>Value for a Number annotation.</p>
+     */
+    inline bool NumberValueHasBeenSet() const { return m_numberValueHasBeenSet; }
 
     /**
      * <p>Value for a Number annotation.</p>
@@ -71,6 +77,11 @@ namespace Model
     /**
      * <p>Value for a Boolean annotation.</p>
      */
+    inline bool BooleanValueHasBeenSet() const { return m_booleanValueHasBeenSet; }
+
+    /**
+     * <p>Value for a Boolean annotation.</p>
+     */
     inline void SetBooleanValue(bool value) { m_booleanValueHasBeenSet = true; m_booleanValue = value; }
 
     /**
@@ -83,6 +94,11 @@ namespace Model
      * <p>Value for a String annotation.</p>
      */
     inline const Aws::String& GetStringValue() const{ return m_stringValue; }
+
+    /**
+     * <p>Value for a String annotation.</p>
+     */
+    inline bool StringValueHasBeenSet() const { return m_stringValueHasBeenSet; }
 
     /**
      * <p>Value for a String annotation.</p>

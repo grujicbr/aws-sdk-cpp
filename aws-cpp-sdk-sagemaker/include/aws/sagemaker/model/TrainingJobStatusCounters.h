@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -40,25 +41,31 @@ namespace Model
   {
   public:
     TrainingJobStatusCounters();
-    TrainingJobStatusCounters(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrainingJobStatusCounters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrainingJobStatusCounters(Aws::Utils::Json::JsonView jsonValue);
+    TrainingJobStatusCounters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The number of completed training jobs launched by a hyperparameter tuning
+     * <p>The number of completed training jobs launched by the hyperparameter tuning
      * job.</p>
      */
     inline int GetCompleted() const{ return m_completed; }
 
     /**
-     * <p>The number of completed training jobs launched by a hyperparameter tuning
+     * <p>The number of completed training jobs launched by the hyperparameter tuning
+     * job.</p>
+     */
+    inline bool CompletedHasBeenSet() const { return m_completedHasBeenSet; }
+
+    /**
+     * <p>The number of completed training jobs launched by the hyperparameter tuning
      * job.</p>
      */
     inline void SetCompleted(int value) { m_completedHasBeenSet = true; m_completed = value; }
 
     /**
-     * <p>The number of completed training jobs launched by a hyperparameter tuning
+     * <p>The number of completed training jobs launched by the hyperparameter tuning
      * job.</p>
      */
     inline TrainingJobStatusCounters& WithCompleted(int value) { SetCompleted(value); return *this;}
@@ -69,6 +76,12 @@ namespace Model
      * job.</p>
      */
     inline int GetInProgress() const{ return m_inProgress; }
+
+    /**
+     * <p>The number of in-progress training jobs launched by a hyperparameter tuning
+     * job.</p>
+     */
+    inline bool InProgressHasBeenSet() const { return m_inProgressHasBeenSet; }
 
     /**
      * <p>The number of in-progress training jobs launched by a hyperparameter tuning
@@ -95,6 +108,13 @@ namespace Model
      * training job can be retried only if it failed because an internal service error
      * occurred.</p>
      */
+    inline bool RetryableErrorHasBeenSet() const { return m_retryableErrorHasBeenSet; }
+
+    /**
+     * <p>The number of training jobs that failed, but can be retried. A failed
+     * training job can be retried only if it failed because an internal service error
+     * occurred.</p>
+     */
     inline void SetRetryableError(int value) { m_retryableErrorHasBeenSet = true; m_retryableError = value; }
 
     /**
@@ -115,6 +135,12 @@ namespace Model
      * <p>The number of training jobs that failed and can't be retried. A failed
      * training job can't be retried if it failed because a client error occurred.</p>
      */
+    inline bool NonRetryableErrorHasBeenSet() const { return m_nonRetryableErrorHasBeenSet; }
+
+    /**
+     * <p>The number of training jobs that failed and can't be retried. A failed
+     * training job can't be retried if it failed because a client error occurred.</p>
+     */
     inline void SetNonRetryableError(int value) { m_nonRetryableErrorHasBeenSet = true; m_nonRetryableError = value; }
 
     /**
@@ -129,6 +155,12 @@ namespace Model
      * manually stopped.</p>
      */
     inline int GetStopped() const{ return m_stopped; }
+
+    /**
+     * <p>The number of training jobs launched by a hyperparameter tuning job that were
+     * manually stopped.</p>
+     */
+    inline bool StoppedHasBeenSet() const { return m_stoppedHasBeenSet; }
 
     /**
      * <p>The number of training jobs launched by a hyperparameter tuning job that were

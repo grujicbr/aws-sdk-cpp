@@ -28,20 +28,24 @@ using namespace Aws;
 
 CreateDevEndpointResult::CreateDevEndpointResult() : 
     m_zeppelinRemoteSparkInterpreterPort(0),
-    m_numberOfNodes(0)
+    m_numberOfNodes(0),
+    m_workerType(WorkerType::NOT_SET),
+    m_numberOfWorkers(0)
 {
 }
 
 CreateDevEndpointResult::CreateDevEndpointResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
     m_zeppelinRemoteSparkInterpreterPort(0),
-    m_numberOfNodes(0)
+    m_numberOfNodes(0),
+    m_workerType(WorkerType::NOT_SET),
+    m_numberOfWorkers(0)
 {
   *this = result;
 }
 
 CreateDevEndpointResult& CreateDevEndpointResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("EndpointName"))
   {
     m_endpointName = jsonValue.GetString("EndpointName");
@@ -56,7 +60,7 @@ CreateDevEndpointResult& CreateDevEndpointResult::operator =(const Aws::AmazonWe
 
   if(jsonValue.ValueExists("SecurityGroupIds"))
   {
-    Array<JsonValue> securityGroupIdsJsonList = jsonValue.GetArray("SecurityGroupIds");
+    Array<JsonView> securityGroupIdsJsonList = jsonValue.GetArray("SecurityGroupIds");
     for(unsigned securityGroupIdsIndex = 0; securityGroupIdsIndex < securityGroupIdsJsonList.GetLength(); ++securityGroupIdsIndex)
     {
       m_securityGroupIds.push_back(securityGroupIdsJsonList[securityGroupIdsIndex].AsString());
@@ -93,6 +97,24 @@ CreateDevEndpointResult& CreateDevEndpointResult::operator =(const Aws::AmazonWe
 
   }
 
+  if(jsonValue.ValueExists("WorkerType"))
+  {
+    m_workerType = WorkerTypeMapper::GetWorkerTypeForName(jsonValue.GetString("WorkerType"));
+
+  }
+
+  if(jsonValue.ValueExists("GlueVersion"))
+  {
+    m_glueVersion = jsonValue.GetString("GlueVersion");
+
+  }
+
+  if(jsonValue.ValueExists("NumberOfWorkers"))
+  {
+    m_numberOfWorkers = jsonValue.GetInteger("NumberOfWorkers");
+
+  }
+
   if(jsonValue.ValueExists("AvailabilityZone"))
   {
     m_availabilityZone = jsonValue.GetString("AvailabilityZone");
@@ -123,10 +145,25 @@ CreateDevEndpointResult& CreateDevEndpointResult::operator =(const Aws::AmazonWe
 
   }
 
+  if(jsonValue.ValueExists("SecurityConfiguration"))
+  {
+    m_securityConfiguration = jsonValue.GetString("SecurityConfiguration");
+
+  }
+
   if(jsonValue.ValueExists("CreatedTimestamp"))
   {
     m_createdTimestamp = jsonValue.GetDouble("CreatedTimestamp");
 
+  }
+
+  if(jsonValue.ValueExists("Arguments"))
+  {
+    Aws::Map<Aws::String, JsonView> argumentsJsonMap = jsonValue.GetObject("Arguments").GetAllObjects();
+    for(auto& argumentsItem : argumentsJsonMap)
+    {
+      m_arguments[argumentsItem.first] = argumentsItem.second.AsString();
+    }
   }
 
 

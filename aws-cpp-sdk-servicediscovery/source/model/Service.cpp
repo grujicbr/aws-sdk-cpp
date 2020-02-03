@@ -32,6 +32,7 @@ Service::Service() :
     m_idHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_namespaceIdHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_instanceCount(0),
     m_instanceCountHasBeenSet(false),
@@ -43,10 +44,11 @@ Service::Service() :
 {
 }
 
-Service::Service(const JsonValue& jsonValue) : 
+Service::Service(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_namespaceIdHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_instanceCount(0),
     m_instanceCountHasBeenSet(false),
@@ -59,7 +61,7 @@ Service::Service(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Service& Service::operator =(const JsonValue& jsonValue)
+Service& Service::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -80,6 +82,13 @@ Service& Service::operator =(const JsonValue& jsonValue)
     m_name = jsonValue.GetString("Name");
 
     m_nameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("NamespaceId"))
+  {
+    m_namespaceId = jsonValue.GetString("NamespaceId");
+
+    m_namespaceIdHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("Description"))
@@ -153,6 +162,12 @@ JsonValue Service::Jsonize() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("Name", m_name);
+
+  }
+
+  if(m_namespaceIdHasBeenSet)
+  {
+   payload.WithString("NamespaceId", m_namespaceId);
 
   }
 

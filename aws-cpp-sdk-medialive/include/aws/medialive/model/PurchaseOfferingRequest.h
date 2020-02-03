@@ -17,6 +17,7 @@
 #include <aws/medialive/MediaLive_EXPORTS.h>
 #include <aws/medialive/MediaLiveRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <utility>
 #include <aws/core/utils/UUID.h>
 
@@ -36,7 +37,7 @@ namespace Model
   {
   public:
     PurchaseOfferingRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +55,11 @@ namespace Model
     /**
      * Number of resources
      */
+    inline bool CountHasBeenSet() const { return m_countHasBeenSet; }
+
+    /**
+     * Number of resources
+     */
     inline void SetCount(int value) { m_countHasBeenSet = true; m_count = value; }
 
     /**
@@ -66,6 +72,11 @@ namespace Model
      * Name for the new reservation
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * Name for the new reservation
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * Name for the new reservation
@@ -102,6 +113,11 @@ namespace Model
      * Offering to purchase, e.g. '87654321'
      */
     inline const Aws::String& GetOfferingId() const{ return m_offeringId; }
+
+    /**
+     * Offering to purchase, e.g. '87654321'
+     */
+    inline bool OfferingIdHasBeenSet() const { return m_offeringIdHasBeenSet; }
 
     /**
      * Offering to purchase, e.g. '87654321'
@@ -144,6 +160,12 @@ namespace Model
      * Unique request ID to be specified. This is needed to prevent retries from
      * creating multiple resources.
      */
+    inline bool RequestIdHasBeenSet() const { return m_requestIdHasBeenSet; }
+
+    /**
+     * Unique request ID to be specified. This is needed to prevent retries from
+     * creating multiple resources.
+     */
     inline void SetRequestId(const Aws::String& value) { m_requestIdHasBeenSet = true; m_requestId = value; }
 
     /**
@@ -176,6 +198,129 @@ namespace Model
      */
     inline PurchaseOfferingRequest& WithRequestId(const char* value) { SetRequestId(value); return *this;}
 
+
+    /**
+     * Requested reservation start time (UTC) in ISO-8601 format. The specified time
+     * must be between the first day of the current month and one year from now. If no
+     * value is given, the default is now.
+     */
+    inline const Aws::String& GetStart() const{ return m_start; }
+
+    /**
+     * Requested reservation start time (UTC) in ISO-8601 format. The specified time
+     * must be between the first day of the current month and one year from now. If no
+     * value is given, the default is now.
+     */
+    inline bool StartHasBeenSet() const { return m_startHasBeenSet; }
+
+    /**
+     * Requested reservation start time (UTC) in ISO-8601 format. The specified time
+     * must be between the first day of the current month and one year from now. If no
+     * value is given, the default is now.
+     */
+    inline void SetStart(const Aws::String& value) { m_startHasBeenSet = true; m_start = value; }
+
+    /**
+     * Requested reservation start time (UTC) in ISO-8601 format. The specified time
+     * must be between the first day of the current month and one year from now. If no
+     * value is given, the default is now.
+     */
+    inline void SetStart(Aws::String&& value) { m_startHasBeenSet = true; m_start = std::move(value); }
+
+    /**
+     * Requested reservation start time (UTC) in ISO-8601 format. The specified time
+     * must be between the first day of the current month and one year from now. If no
+     * value is given, the default is now.
+     */
+    inline void SetStart(const char* value) { m_startHasBeenSet = true; m_start.assign(value); }
+
+    /**
+     * Requested reservation start time (UTC) in ISO-8601 format. The specified time
+     * must be between the first day of the current month and one year from now. If no
+     * value is given, the default is now.
+     */
+    inline PurchaseOfferingRequest& WithStart(const Aws::String& value) { SetStart(value); return *this;}
+
+    /**
+     * Requested reservation start time (UTC) in ISO-8601 format. The specified time
+     * must be between the first day of the current month and one year from now. If no
+     * value is given, the default is now.
+     */
+    inline PurchaseOfferingRequest& WithStart(Aws::String&& value) { SetStart(std::move(value)); return *this;}
+
+    /**
+     * Requested reservation start time (UTC) in ISO-8601 format. The specified time
+     * must be between the first day of the current month and one year from now. If no
+     * value is given, the default is now.
+     */
+    inline PurchaseOfferingRequest& WithStart(const char* value) { SetStart(value); return *this;}
+
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * A collection of key-value pairs
+     */
+    inline PurchaseOfferingRequest& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
   private:
 
     int m_count;
@@ -189,6 +334,12 @@ namespace Model
 
     Aws::String m_requestId;
     bool m_requestIdHasBeenSet;
+
+    Aws::String m_start;
+    bool m_startHasBeenSet;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

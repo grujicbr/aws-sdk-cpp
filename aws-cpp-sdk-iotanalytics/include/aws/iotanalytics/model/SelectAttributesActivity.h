@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     SelectAttributesActivity();
-    SelectAttributesActivity(const Aws::Utils::Json::JsonValue& jsonValue);
-    SelectAttributesActivity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SelectAttributesActivity(Aws::Utils::Json::JsonView jsonValue);
+    SelectAttributesActivity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the 'selectAttributes' activity.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the 'selectAttributes' activity.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the 'selectAttributes' activity.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>A list of the attributes to select from the message.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>A list of the attributes to select from the message.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>A list of the attributes to select from the message.</p>
@@ -129,6 +140,11 @@ namespace Model
      * <p>The next activity in the pipeline.</p>
      */
     inline const Aws::String& GetNext() const{ return m_next; }
+
+    /**
+     * <p>The next activity in the pipeline.</p>
+     */
+    inline bool NextHasBeenSet() const { return m_nextHasBeenSet; }
 
     /**
      * <p>The next activity in the pipeline.</p>

@@ -37,7 +37,7 @@ GenerateClientCertificateResult::GenerateClientCertificateResult(const Aws::Amaz
 
 GenerateClientCertificateResult& GenerateClientCertificateResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("clientCertificateId"))
   {
     m_clientCertificateId = jsonValue.GetString("clientCertificateId");
@@ -66,6 +66,15 @@ GenerateClientCertificateResult& GenerateClientCertificateResult::operator =(con
   {
     m_expirationDate = jsonValue.GetDouble("expirationDate");
 
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
   }
 
 

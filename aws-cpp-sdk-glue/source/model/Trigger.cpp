@@ -30,6 +30,7 @@ namespace Model
 
 Trigger::Trigger() : 
     m_nameHasBeenSet(false),
+    m_workflowNameHasBeenSet(false),
     m_idHasBeenSet(false),
     m_type(TriggerType::NOT_SET),
     m_typeHasBeenSet(false),
@@ -42,8 +43,9 @@ Trigger::Trigger() :
 {
 }
 
-Trigger::Trigger(const JsonValue& jsonValue) : 
+Trigger::Trigger(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
+    m_workflowNameHasBeenSet(false),
     m_idHasBeenSet(false),
     m_type(TriggerType::NOT_SET),
     m_typeHasBeenSet(false),
@@ -57,13 +59,20 @@ Trigger::Trigger(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Trigger& Trigger::operator =(const JsonValue& jsonValue)
+Trigger& Trigger::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
     m_name = jsonValue.GetString("Name");
 
     m_nameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WorkflowName"))
+  {
+    m_workflowName = jsonValue.GetString("WorkflowName");
+
+    m_workflowNameHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("Id"))
@@ -103,7 +112,7 @@ Trigger& Trigger::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Actions"))
   {
-    Array<JsonValue> actionsJsonList = jsonValue.GetArray("Actions");
+    Array<JsonView> actionsJsonList = jsonValue.GetArray("Actions");
     for(unsigned actionsIndex = 0; actionsIndex < actionsJsonList.GetLength(); ++actionsIndex)
     {
       m_actions.push_back(actionsJsonList[actionsIndex].AsObject());
@@ -128,6 +137,12 @@ JsonValue Trigger::Jsonize() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("Name", m_name);
+
+  }
+
+  if(m_workflowNameHasBeenSet)
+  {
+   payload.WithString("WorkflowName", m_workflowName);
 
   }
 

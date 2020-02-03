@@ -24,6 +24,7 @@ using namespace Aws::Utils;
 
 TranslateTextRequest::TranslateTextRequest() : 
     m_textHasBeenSet(false),
+    m_terminologyNamesHasBeenSet(false),
     m_sourceLanguageCodeHasBeenSet(false),
     m_targetLanguageCodeHasBeenSet(false)
 {
@@ -39,6 +40,17 @@ Aws::String TranslateTextRequest::SerializePayload() const
 
   }
 
+  if(m_terminologyNamesHasBeenSet)
+  {
+   Array<JsonValue> terminologyNamesJsonList(m_terminologyNames.size());
+   for(unsigned terminologyNamesIndex = 0; terminologyNamesIndex < terminologyNamesJsonList.GetLength(); ++terminologyNamesIndex)
+   {
+     terminologyNamesJsonList[terminologyNamesIndex].AsString(m_terminologyNames[terminologyNamesIndex]);
+   }
+   payload.WithArray("TerminologyNames", std::move(terminologyNamesJsonList));
+
+  }
+
   if(m_sourceLanguageCodeHasBeenSet)
   {
    payload.WithString("SourceLanguageCode", m_sourceLanguageCode);
@@ -51,7 +63,7 @@ Aws::String TranslateTextRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection TranslateTextRequest::GetRequestSpecificHeaders() const

@@ -31,6 +31,7 @@ namespace Model
 {
 
 NodeGroupConfiguration::NodeGroupConfiguration() : 
+    m_nodeGroupIdHasBeenSet(false),
     m_slotsHasBeenSet(false),
     m_replicaCount(0),
     m_replicaCountHasBeenSet(false),
@@ -40,6 +41,7 @@ NodeGroupConfiguration::NodeGroupConfiguration() :
 }
 
 NodeGroupConfiguration::NodeGroupConfiguration(const XmlNode& xmlNode) : 
+    m_nodeGroupIdHasBeenSet(false),
     m_slotsHasBeenSet(false),
     m_replicaCount(0),
     m_replicaCountHasBeenSet(false),
@@ -55,22 +57,28 @@ NodeGroupConfiguration& NodeGroupConfiguration::operator =(const XmlNode& xmlNod
 
   if(!resultNode.IsNull())
   {
+    XmlNode nodeGroupIdNode = resultNode.FirstChild("NodeGroupId");
+    if(!nodeGroupIdNode.IsNull())
+    {
+      m_nodeGroupId = Aws::Utils::Xml::DecodeEscapedXmlText(nodeGroupIdNode.GetText());
+      m_nodeGroupIdHasBeenSet = true;
+    }
     XmlNode slotsNode = resultNode.FirstChild("Slots");
     if(!slotsNode.IsNull())
     {
-      m_slots = StringUtils::Trim(slotsNode.GetText().c_str());
+      m_slots = Aws::Utils::Xml::DecodeEscapedXmlText(slotsNode.GetText());
       m_slotsHasBeenSet = true;
     }
     XmlNode replicaCountNode = resultNode.FirstChild("ReplicaCount");
     if(!replicaCountNode.IsNull())
     {
-      m_replicaCount = StringUtils::ConvertToInt32(StringUtils::Trim(replicaCountNode.GetText().c_str()).c_str());
+      m_replicaCount = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(replicaCountNode.GetText()).c_str()).c_str());
       m_replicaCountHasBeenSet = true;
     }
     XmlNode primaryAvailabilityZoneNode = resultNode.FirstChild("PrimaryAvailabilityZone");
     if(!primaryAvailabilityZoneNode.IsNull())
     {
-      m_primaryAvailabilityZone = StringUtils::Trim(primaryAvailabilityZoneNode.GetText().c_str());
+      m_primaryAvailabilityZone = Aws::Utils::Xml::DecodeEscapedXmlText(primaryAvailabilityZoneNode.GetText());
       m_primaryAvailabilityZoneHasBeenSet = true;
     }
     XmlNode replicaAvailabilityZonesNode = resultNode.FirstChild("ReplicaAvailabilityZones");
@@ -79,7 +87,7 @@ NodeGroupConfiguration& NodeGroupConfiguration::operator =(const XmlNode& xmlNod
       XmlNode replicaAvailabilityZonesMember = replicaAvailabilityZonesNode.FirstChild("AvailabilityZone");
       while(!replicaAvailabilityZonesMember.IsNull())
       {
-        m_replicaAvailabilityZones.push_back(StringUtils::Trim(replicaAvailabilityZonesMember.GetText().c_str()));
+        m_replicaAvailabilityZones.push_back(replicaAvailabilityZonesMember.GetText());
         replicaAvailabilityZonesMember = replicaAvailabilityZonesMember.NextNode("AvailabilityZone");
       }
 
@@ -92,6 +100,11 @@ NodeGroupConfiguration& NodeGroupConfiguration::operator =(const XmlNode& xmlNod
 
 void NodeGroupConfiguration::OutputToStream(Aws::OStream& oStream, const char* location, unsigned index, const char* locationValue) const
 {
+  if(m_nodeGroupIdHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".NodeGroupId=" << StringUtils::URLEncode(m_nodeGroupId.c_str()) << "&";
+  }
+
   if(m_slotsHasBeenSet)
   {
       oStream << location << index << locationValue << ".Slots=" << StringUtils::URLEncode(m_slots.c_str()) << "&";
@@ -120,6 +133,10 @@ void NodeGroupConfiguration::OutputToStream(Aws::OStream& oStream, const char* l
 
 void NodeGroupConfiguration::OutputToStream(Aws::OStream& oStream, const char* location) const
 {
+  if(m_nodeGroupIdHasBeenSet)
+  {
+      oStream << location << ".NodeGroupId=" << StringUtils::URLEncode(m_nodeGroupId.c_str()) << "&";
+  }
   if(m_slotsHasBeenSet)
   {
       oStream << location << ".Slots=" << StringUtils::URLEncode(m_slots.c_str()) << "&";

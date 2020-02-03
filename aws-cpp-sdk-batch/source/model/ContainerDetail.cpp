@@ -50,11 +50,15 @@ ContainerDetail::ContainerDetail() :
     m_reasonHasBeenSet(false),
     m_containerInstanceArnHasBeenSet(false),
     m_taskArnHasBeenSet(false),
-    m_logStreamNameHasBeenSet(false)
+    m_logStreamNameHasBeenSet(false),
+    m_instanceTypeHasBeenSet(false),
+    m_networkInterfacesHasBeenSet(false),
+    m_resourceRequirementsHasBeenSet(false),
+    m_linuxParametersHasBeenSet(false)
 {
 }
 
-ContainerDetail::ContainerDetail(const JsonValue& jsonValue) : 
+ContainerDetail::ContainerDetail(JsonView jsonValue) : 
     m_imageHasBeenSet(false),
     m_vcpus(0),
     m_vcpusHasBeenSet(false),
@@ -76,12 +80,16 @@ ContainerDetail::ContainerDetail(const JsonValue& jsonValue) :
     m_reasonHasBeenSet(false),
     m_containerInstanceArnHasBeenSet(false),
     m_taskArnHasBeenSet(false),
-    m_logStreamNameHasBeenSet(false)
+    m_logStreamNameHasBeenSet(false),
+    m_instanceTypeHasBeenSet(false),
+    m_networkInterfacesHasBeenSet(false),
+    m_resourceRequirementsHasBeenSet(false),
+    m_linuxParametersHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ContainerDetail& ContainerDetail::operator =(const JsonValue& jsonValue)
+ContainerDetail& ContainerDetail::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("image"))
   {
@@ -106,7 +114,7 @@ ContainerDetail& ContainerDetail::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("command"))
   {
-    Array<JsonValue> commandJsonList = jsonValue.GetArray("command");
+    Array<JsonView> commandJsonList = jsonValue.GetArray("command");
     for(unsigned commandIndex = 0; commandIndex < commandJsonList.GetLength(); ++commandIndex)
     {
       m_command.push_back(commandJsonList[commandIndex].AsString());
@@ -123,7 +131,7 @@ ContainerDetail& ContainerDetail::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("volumes"))
   {
-    Array<JsonValue> volumesJsonList = jsonValue.GetArray("volumes");
+    Array<JsonView> volumesJsonList = jsonValue.GetArray("volumes");
     for(unsigned volumesIndex = 0; volumesIndex < volumesJsonList.GetLength(); ++volumesIndex)
     {
       m_volumes.push_back(volumesJsonList[volumesIndex].AsObject());
@@ -133,7 +141,7 @@ ContainerDetail& ContainerDetail::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("environment"))
   {
-    Array<JsonValue> environmentJsonList = jsonValue.GetArray("environment");
+    Array<JsonView> environmentJsonList = jsonValue.GetArray("environment");
     for(unsigned environmentIndex = 0; environmentIndex < environmentJsonList.GetLength(); ++environmentIndex)
     {
       m_environment.push_back(environmentJsonList[environmentIndex].AsObject());
@@ -143,7 +151,7 @@ ContainerDetail& ContainerDetail::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("mountPoints"))
   {
-    Array<JsonValue> mountPointsJsonList = jsonValue.GetArray("mountPoints");
+    Array<JsonView> mountPointsJsonList = jsonValue.GetArray("mountPoints");
     for(unsigned mountPointsIndex = 0; mountPointsIndex < mountPointsJsonList.GetLength(); ++mountPointsIndex)
     {
       m_mountPoints.push_back(mountPointsJsonList[mountPointsIndex].AsObject());
@@ -160,7 +168,7 @@ ContainerDetail& ContainerDetail::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("ulimits"))
   {
-    Array<JsonValue> ulimitsJsonList = jsonValue.GetArray("ulimits");
+    Array<JsonView> ulimitsJsonList = jsonValue.GetArray("ulimits");
     for(unsigned ulimitsIndex = 0; ulimitsIndex < ulimitsJsonList.GetLength(); ++ulimitsIndex)
     {
       m_ulimits.push_back(ulimitsJsonList[ulimitsIndex].AsObject());
@@ -215,6 +223,40 @@ ContainerDetail& ContainerDetail::operator =(const JsonValue& jsonValue)
     m_logStreamName = jsonValue.GetString("logStreamName");
 
     m_logStreamNameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("instanceType"))
+  {
+    m_instanceType = jsonValue.GetString("instanceType");
+
+    m_instanceTypeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("networkInterfaces"))
+  {
+    Array<JsonView> networkInterfacesJsonList = jsonValue.GetArray("networkInterfaces");
+    for(unsigned networkInterfacesIndex = 0; networkInterfacesIndex < networkInterfacesJsonList.GetLength(); ++networkInterfacesIndex)
+    {
+      m_networkInterfaces.push_back(networkInterfacesJsonList[networkInterfacesIndex].AsObject());
+    }
+    m_networkInterfacesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("resourceRequirements"))
+  {
+    Array<JsonView> resourceRequirementsJsonList = jsonValue.GetArray("resourceRequirements");
+    for(unsigned resourceRequirementsIndex = 0; resourceRequirementsIndex < resourceRequirementsJsonList.GetLength(); ++resourceRequirementsIndex)
+    {
+      m_resourceRequirements.push_back(resourceRequirementsJsonList[resourceRequirementsIndex].AsObject());
+    }
+    m_resourceRequirementsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("linuxParameters"))
+  {
+    m_linuxParameters = jsonValue.GetObject("linuxParameters");
+
+    m_linuxParametersHasBeenSet = true;
   }
 
   return *this;
@@ -348,6 +390,40 @@ JsonValue ContainerDetail::Jsonize() const
   if(m_logStreamNameHasBeenSet)
   {
    payload.WithString("logStreamName", m_logStreamName);
+
+  }
+
+  if(m_instanceTypeHasBeenSet)
+  {
+   payload.WithString("instanceType", m_instanceType);
+
+  }
+
+  if(m_networkInterfacesHasBeenSet)
+  {
+   Array<JsonValue> networkInterfacesJsonList(m_networkInterfaces.size());
+   for(unsigned networkInterfacesIndex = 0; networkInterfacesIndex < networkInterfacesJsonList.GetLength(); ++networkInterfacesIndex)
+   {
+     networkInterfacesJsonList[networkInterfacesIndex].AsObject(m_networkInterfaces[networkInterfacesIndex].Jsonize());
+   }
+   payload.WithArray("networkInterfaces", std::move(networkInterfacesJsonList));
+
+  }
+
+  if(m_resourceRequirementsHasBeenSet)
+  {
+   Array<JsonValue> resourceRequirementsJsonList(m_resourceRequirements.size());
+   for(unsigned resourceRequirementsIndex = 0; resourceRequirementsIndex < resourceRequirementsJsonList.GetLength(); ++resourceRequirementsIndex)
+   {
+     resourceRequirementsJsonList[resourceRequirementsIndex].AsObject(m_resourceRequirements[resourceRequirementsIndex].Jsonize());
+   }
+   payload.WithArray("resourceRequirements", std::move(resourceRequirementsJsonList));
+
+  }
+
+  if(m_linuxParametersHasBeenSet)
+  {
+   payload.WithObject("linuxParameters", m_linuxParameters.Jsonize());
 
   }
 

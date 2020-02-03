@@ -57,6 +57,12 @@ namespace Model
      * <p>If true, the public DNS hostnames of instances in the specified VPC resolve
      * to private IP addresses when queried from instances in the peer VPC.</p>
      */
+    inline bool AllowDnsResolutionFromRemoteVpcHasBeenSet() const { return m_allowDnsResolutionFromRemoteVpcHasBeenSet; }
+
+    /**
+     * <p>If true, the public DNS hostnames of instances in the specified VPC resolve
+     * to private IP addresses when queried from instances in the peer VPC.</p>
+     */
     inline void SetAllowDnsResolutionFromRemoteVpc(bool value) { m_allowDnsResolutionFromRemoteVpcHasBeenSet = true; m_allowDnsResolutionFromRemoteVpc = value; }
 
     /**
@@ -68,38 +74,50 @@ namespace Model
 
     /**
      * <p>If true, enables outbound communication from an EC2-Classic instance that's
-     * linked to a local VPC via ClassicLink to instances in a peer VPC.</p>
+     * linked to a local VPC using ClassicLink to instances in a peer VPC.</p>
      */
     inline bool GetAllowEgressFromLocalClassicLinkToRemoteVpc() const{ return m_allowEgressFromLocalClassicLinkToRemoteVpc; }
 
     /**
      * <p>If true, enables outbound communication from an EC2-Classic instance that's
-     * linked to a local VPC via ClassicLink to instances in a peer VPC.</p>
+     * linked to a local VPC using ClassicLink to instances in a peer VPC.</p>
+     */
+    inline bool AllowEgressFromLocalClassicLinkToRemoteVpcHasBeenSet() const { return m_allowEgressFromLocalClassicLinkToRemoteVpcHasBeenSet; }
+
+    /**
+     * <p>If true, enables outbound communication from an EC2-Classic instance that's
+     * linked to a local VPC using ClassicLink to instances in a peer VPC.</p>
      */
     inline void SetAllowEgressFromLocalClassicLinkToRemoteVpc(bool value) { m_allowEgressFromLocalClassicLinkToRemoteVpcHasBeenSet = true; m_allowEgressFromLocalClassicLinkToRemoteVpc = value; }
 
     /**
      * <p>If true, enables outbound communication from an EC2-Classic instance that's
-     * linked to a local VPC via ClassicLink to instances in a peer VPC.</p>
+     * linked to a local VPC using ClassicLink to instances in a peer VPC.</p>
      */
     inline PeeringConnectionOptions& WithAllowEgressFromLocalClassicLinkToRemoteVpc(bool value) { SetAllowEgressFromLocalClassicLinkToRemoteVpc(value); return *this;}
 
 
     /**
      * <p>If true, enables outbound communication from instances in a local VPC to an
-     * EC2-Classic instance that's linked to a peer VPC via ClassicLink.</p>
+     * EC2-Classic instance that's linked to a peer VPC using ClassicLink.</p>
      */
     inline bool GetAllowEgressFromLocalVpcToRemoteClassicLink() const{ return m_allowEgressFromLocalVpcToRemoteClassicLink; }
 
     /**
      * <p>If true, enables outbound communication from instances in a local VPC to an
-     * EC2-Classic instance that's linked to a peer VPC via ClassicLink.</p>
+     * EC2-Classic instance that's linked to a peer VPC using ClassicLink.</p>
+     */
+    inline bool AllowEgressFromLocalVpcToRemoteClassicLinkHasBeenSet() const { return m_allowEgressFromLocalVpcToRemoteClassicLinkHasBeenSet; }
+
+    /**
+     * <p>If true, enables outbound communication from instances in a local VPC to an
+     * EC2-Classic instance that's linked to a peer VPC using ClassicLink.</p>
      */
     inline void SetAllowEgressFromLocalVpcToRemoteClassicLink(bool value) { m_allowEgressFromLocalVpcToRemoteClassicLinkHasBeenSet = true; m_allowEgressFromLocalVpcToRemoteClassicLink = value; }
 
     /**
      * <p>If true, enables outbound communication from instances in a local VPC to an
-     * EC2-Classic instance that's linked to a peer VPC via ClassicLink.</p>
+     * EC2-Classic instance that's linked to a peer VPC using ClassicLink.</p>
      */
     inline PeeringConnectionOptions& WithAllowEgressFromLocalVpcToRemoteClassicLink(bool value) { SetAllowEgressFromLocalVpcToRemoteClassicLink(value); return *this;}
 

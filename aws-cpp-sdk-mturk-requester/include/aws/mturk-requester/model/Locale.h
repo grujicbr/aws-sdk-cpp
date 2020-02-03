@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Locale();
-    Locale(const Aws::Utils::Json::JsonValue& jsonValue);
-    Locale& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Locale(Aws::Utils::Json::JsonView jsonValue);
+    Locale& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * example, the code US refers to the United States of America. </p>
      */
     inline const Aws::String& GetCountry() const{ return m_country; }
+
+    /**
+     * <p> The country of the locale. Must be a valid ISO 3166 country code. For
+     * example, the code US refers to the United States of America. </p>
+     */
+    inline bool CountryHasBeenSet() const { return m_countryHasBeenSet; }
 
     /**
      * <p> The country of the locale. Must be a valid ISO 3166 country code. For
@@ -95,6 +102,12 @@ namespace Model
      * For example, the code WA refers to the state of Washington.</p>
      */
     inline const Aws::String& GetSubdivision() const{ return m_subdivision; }
+
+    /**
+     * <p>The state or subdivision of the locale. A valid ISO 3166-2 subdivision code.
+     * For example, the code WA refers to the state of Washington.</p>
+     */
+    inline bool SubdivisionHasBeenSet() const { return m_subdivisionHasBeenSet; }
 
     /**
      * <p>The state or subdivision of the locale. A valid ISO 3166-2 subdivision code.

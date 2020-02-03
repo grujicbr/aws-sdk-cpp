@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     InstanceNetworking();
-    InstanceNetworking(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceNetworking& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceNetworking(Aws::Utils::Json::JsonView jsonValue);
+    InstanceNetworking& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The amount of data in GB allocated for monthly data transfers.</p>
      */
     inline const MonthlyTransfer& GetMonthlyTransfer() const{ return m_monthlyTransfer; }
+
+    /**
+     * <p>The amount of data in GB allocated for monthly data transfers.</p>
+     */
+    inline bool MonthlyTransferHasBeenSet() const { return m_monthlyTransferHasBeenSet; }
 
     /**
      * <p>The amount of data in GB allocated for monthly data transfers.</p>
@@ -80,6 +86,12 @@ namespace Model
      * instance.</p>
      */
     inline const Aws::Vector<InstancePortInfo>& GetPorts() const{ return m_ports; }
+
+    /**
+     * <p>An array of key-value pairs containing information about the ports on the
+     * instance.</p>
+     */
+    inline bool PortsHasBeenSet() const { return m_portsHasBeenSet; }
 
     /**
      * <p>An array of key-value pairs containing information about the ports on the

@@ -26,7 +26,8 @@ using namespace Aws::Utils;
 CreateFunctionDefinitionRequest::CreateFunctionDefinitionRequest() : 
     m_amznClientTokenHasBeenSet(false),
     m_initialVersionHasBeenSet(false),
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -46,7 +47,18 @@ Aws::String CreateFunctionDefinitionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateFunctionDefinitionRequest::GetRequestSpecificHeaders() const
@@ -56,7 +68,7 @@ Aws::Http::HeaderValueCollection CreateFunctionDefinitionRequest::GetRequestSpec
   if(m_amznClientTokenHasBeenSet)
   {
     ss << m_amznClientToken;
-    headers.insert(Aws::Http::HeaderValuePair("x-amzn-client-token", ss.str()));
+    headers.emplace("x-amzn-client-token",  ss.str());
     ss.str("");
   }
 

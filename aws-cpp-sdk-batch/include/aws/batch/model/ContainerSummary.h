@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Batch
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ContainerSummary();
-    ContainerSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ContainerSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ContainerSummary(Aws::Utils::Json::JsonView jsonValue);
+    ContainerSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The exit code to return upon completion.</p>
      */
     inline int GetExitCode() const{ return m_exitCode; }
+
+    /**
+     * <p>The exit code to return upon completion.</p>
+     */
+    inline bool ExitCodeHasBeenSet() const { return m_exitCodeHasBeenSet; }
 
     /**
      * <p>The exit code to return upon completion.</p>
@@ -68,6 +74,12 @@ namespace Model
      * details about a running or stopped container.</p>
      */
     inline const Aws::String& GetReason() const{ return m_reason; }
+
+    /**
+     * <p>A short (255 max characters) human-readable string to provide additional
+     * details about a running or stopped container.</p>
+     */
+    inline bool ReasonHasBeenSet() const { return m_reasonHasBeenSet; }
 
     /**
      * <p>A short (255 max characters) human-readable string to provide additional

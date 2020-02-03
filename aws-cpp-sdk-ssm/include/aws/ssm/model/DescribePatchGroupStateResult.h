@@ -92,6 +92,59 @@ namespace Model
 
 
     /**
+     * <p>The number of instances with patches installed by Patch Manager that have not
+     * been rebooted after the patch installation. The status of these instances is
+     * NON_COMPLIANT.</p>
+     */
+    inline int GetInstancesWithInstalledPendingRebootPatches() const{ return m_instancesWithInstalledPendingRebootPatches; }
+
+    /**
+     * <p>The number of instances with patches installed by Patch Manager that have not
+     * been rebooted after the patch installation. The status of these instances is
+     * NON_COMPLIANT.</p>
+     */
+    inline void SetInstancesWithInstalledPendingRebootPatches(int value) { m_instancesWithInstalledPendingRebootPatches = value; }
+
+    /**
+     * <p>The number of instances with patches installed by Patch Manager that have not
+     * been rebooted after the patch installation. The status of these instances is
+     * NON_COMPLIANT.</p>
+     */
+    inline DescribePatchGroupStateResult& WithInstancesWithInstalledPendingRebootPatches(int value) { SetInstancesWithInstalledPendingRebootPatches(value); return *this;}
+
+
+    /**
+     * <p>The number of instances with patches installed that are specified in a
+     * RejectedPatches list. Patches with a status of <i>INSTALLED_REJECTED</i> were
+     * typically installed before they were added to a RejectedPatches list.</p> <note>
+     * <p>If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the
+     * value of InstancesWithInstalledRejectedPatches will always be 0 (zero).</p>
+     * </note>
+     */
+    inline int GetInstancesWithInstalledRejectedPatches() const{ return m_instancesWithInstalledRejectedPatches; }
+
+    /**
+     * <p>The number of instances with patches installed that are specified in a
+     * RejectedPatches list. Patches with a status of <i>INSTALLED_REJECTED</i> were
+     * typically installed before they were added to a RejectedPatches list.</p> <note>
+     * <p>If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the
+     * value of InstancesWithInstalledRejectedPatches will always be 0 (zero).</p>
+     * </note>
+     */
+    inline void SetInstancesWithInstalledRejectedPatches(int value) { m_instancesWithInstalledRejectedPatches = value; }
+
+    /**
+     * <p>The number of instances with patches installed that are specified in a
+     * RejectedPatches list. Patches with a status of <i>INSTALLED_REJECTED</i> were
+     * typically installed before they were added to a RejectedPatches list.</p> <note>
+     * <p>If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the
+     * value of InstancesWithInstalledRejectedPatches will always be 0 (zero).</p>
+     * </note>
+     */
+    inline DescribePatchGroupStateResult& WithInstancesWithInstalledRejectedPatches(int value) { SetInstancesWithInstalledRejectedPatches(value); return *this;}
+
+
+    /**
      * <p>The number of instances with missing patches from the patch baseline.</p>
      */
     inline int GetInstancesWithMissingPatches() const{ return m_instancesWithMissingPatches; }
@@ -141,6 +194,28 @@ namespace Model
      */
     inline DescribePatchGroupStateResult& WithInstancesWithNotApplicablePatches(int value) { SetInstancesWithNotApplicablePatches(value); return *this;}
 
+
+    /**
+     * <p>The number of instances with <code>NotApplicable</code> patches beyond the
+     * supported limit, which are not reported by name to Systems Manager
+     * Inventory.</p>
+     */
+    inline int GetInstancesWithUnreportedNotApplicablePatches() const{ return m_instancesWithUnreportedNotApplicablePatches; }
+
+    /**
+     * <p>The number of instances with <code>NotApplicable</code> patches beyond the
+     * supported limit, which are not reported by name to Systems Manager
+     * Inventory.</p>
+     */
+    inline void SetInstancesWithUnreportedNotApplicablePatches(int value) { m_instancesWithUnreportedNotApplicablePatches = value; }
+
+    /**
+     * <p>The number of instances with <code>NotApplicable</code> patches beyond the
+     * supported limit, which are not reported by name to Systems Manager
+     * Inventory.</p>
+     */
+    inline DescribePatchGroupStateResult& WithInstancesWithUnreportedNotApplicablePatches(int value) { SetInstancesWithUnreportedNotApplicablePatches(value); return *this;}
+
   private:
 
     int m_instances;
@@ -149,11 +224,17 @@ namespace Model
 
     int m_instancesWithInstalledOtherPatches;
 
+    int m_instancesWithInstalledPendingRebootPatches;
+
+    int m_instancesWithInstalledRejectedPatches;
+
     int m_instancesWithMissingPatches;
 
     int m_instancesWithFailedPatches;
 
     int m_instancesWithNotApplicablePatches;
+
+    int m_instancesWithUnreportedNotApplicablePatches;
   };
 
 } // namespace Model

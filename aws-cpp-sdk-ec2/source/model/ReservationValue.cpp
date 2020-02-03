@@ -54,19 +54,19 @@ ReservationValue& ReservationValue::operator =(const XmlNode& xmlNode)
     XmlNode hourlyPriceNode = resultNode.FirstChild("hourlyPrice");
     if(!hourlyPriceNode.IsNull())
     {
-      m_hourlyPrice = StringUtils::Trim(hourlyPriceNode.GetText().c_str());
+      m_hourlyPrice = Aws::Utils::Xml::DecodeEscapedXmlText(hourlyPriceNode.GetText());
       m_hourlyPriceHasBeenSet = true;
     }
     XmlNode remainingTotalValueNode = resultNode.FirstChild("remainingTotalValue");
     if(!remainingTotalValueNode.IsNull())
     {
-      m_remainingTotalValue = StringUtils::Trim(remainingTotalValueNode.GetText().c_str());
+      m_remainingTotalValue = Aws::Utils::Xml::DecodeEscapedXmlText(remainingTotalValueNode.GetText());
       m_remainingTotalValueHasBeenSet = true;
     }
     XmlNode remainingUpfrontValueNode = resultNode.FirstChild("remainingUpfrontValue");
     if(!remainingUpfrontValueNode.IsNull())
     {
-      m_remainingUpfrontValue = StringUtils::Trim(remainingUpfrontValueNode.GetText().c_str());
+      m_remainingUpfrontValue = Aws::Utils::Xml::DecodeEscapedXmlText(remainingUpfrontValueNode.GetText());
       m_remainingUpfrontValueHasBeenSet = true;
     }
   }

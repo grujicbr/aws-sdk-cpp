@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -31,7 +32,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for HlsBasicPutSettings<p><h3>See Also:</h3>   <a
+   * Hls Basic Put Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsBasicPutSettings">AWS
    * API Reference</a></p>
    */
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     HlsBasicPutSettings();
-    HlsBasicPutSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    HlsBasicPutSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HlsBasicPutSettings(Aws::Utils::Json::JsonView jsonValue);
+    HlsBasicPutSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,12 @@ namespace Model
      * connection is lost.
      */
     inline int GetConnectionRetryInterval() const{ return m_connectionRetryInterval; }
+
+    /**
+     * Number of seconds to wait before retrying connection to the CDN if the
+     * connection is lost.
+     */
+    inline bool ConnectionRetryIntervalHasBeenSet() const { return m_connectionRetryIntervalHasBeenSet; }
 
     /**
      * Number of seconds to wait before retrying connection to the CDN if the
@@ -71,6 +78,11 @@ namespace Model
     /**
      * Size in seconds of file cache for streaming outputs.
      */
+    inline bool FilecacheDurationHasBeenSet() const { return m_filecacheDurationHasBeenSet; }
+
+    /**
+     * Size in seconds of file cache for streaming outputs.
+     */
     inline void SetFilecacheDuration(int value) { m_filecacheDurationHasBeenSet = true; m_filecacheDuration = value; }
 
     /**
@@ -84,6 +96,12 @@ namespace Model
      * error state.
      */
     inline int GetNumRetries() const{ return m_numRetries; }
+
+    /**
+     * Number of retry attempts that will be made before the Live Event is put into an
+     * error state.
+     */
+    inline bool NumRetriesHasBeenSet() const { return m_numRetriesHasBeenSet; }
 
     /**
      * Number of retry attempts that will be made before the Live Event is put into an
@@ -103,6 +121,12 @@ namespace Model
      * initiated. A value of 0 means never restart.
      */
     inline int GetRestartDelay() const{ return m_restartDelay; }
+
+    /**
+     * If a streaming output fails, number of seconds to wait until a restart is
+     * initiated. A value of 0 means never restart.
+     */
+    inline bool RestartDelayHasBeenSet() const { return m_restartDelayHasBeenSet; }
 
     /**
      * If a streaming output fails, number of seconds to wait until a restart is

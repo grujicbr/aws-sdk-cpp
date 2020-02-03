@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 DescribeProtectionRequest::DescribeProtectionRequest() : 
-    m_protectionIdHasBeenSet(false)
+    m_protectionIdHasBeenSet(false),
+    m_resourceArnHasBeenSet(false)
 {
 }
 
@@ -37,7 +38,13 @@ Aws::String DescribeProtectionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_resourceArnHasBeenSet)
+  {
+   payload.WithString("ResourceArn", m_resourceArn);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DescribeProtectionRequest::GetRequestSpecificHeaders() const

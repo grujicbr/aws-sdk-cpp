@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     NotifyMigrationTaskStateRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,6 +50,11 @@ namespace Model
      * <p>The name of the ProgressUpdateStream. </p>
      */
     inline const Aws::String& GetProgressUpdateStream() const{ return m_progressUpdateStream; }
+
+    /**
+     * <p>The name of the ProgressUpdateStream. </p>
+     */
+    inline bool ProgressUpdateStreamHasBeenSet() const { return m_progressUpdateStreamHasBeenSet; }
 
     /**
      * <p>The name of the ProgressUpdateStream. </p>
@@ -83,37 +88,50 @@ namespace Model
 
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline const Aws::String& GetMigrationTaskName() const{ return m_migrationTaskName; }
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
+     */
+    inline bool MigrationTaskNameHasBeenSet() const { return m_migrationTaskNameHasBeenSet; }
+
+    /**
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline void SetMigrationTaskName(const Aws::String& value) { m_migrationTaskNameHasBeenSet = true; m_migrationTaskName = value; }
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline void SetMigrationTaskName(Aws::String&& value) { m_migrationTaskNameHasBeenSet = true; m_migrationTaskName = std::move(value); }
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline void SetMigrationTaskName(const char* value) { m_migrationTaskNameHasBeenSet = true; m_migrationTaskName.assign(value); }
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline NotifyMigrationTaskStateRequest& WithMigrationTaskName(const Aws::String& value) { SetMigrationTaskName(value); return *this;}
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline NotifyMigrationTaskStateRequest& WithMigrationTaskName(Aws::String&& value) { SetMigrationTaskName(std::move(value)); return *this;}
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline NotifyMigrationTaskStateRequest& WithMigrationTaskName(const char* value) { SetMigrationTaskName(value); return *this;}
 
@@ -122,6 +140,11 @@ namespace Model
      * <p>Information about the task's progress and status.</p>
      */
     inline const Task& GetTask() const{ return m_task; }
+
+    /**
+     * <p>Information about the task's progress and status.</p>
+     */
+    inline bool TaskHasBeenSet() const { return m_taskHasBeenSet; }
 
     /**
      * <p>Information about the task's progress and status.</p>
@@ -148,6 +171,11 @@ namespace Model
      * <p>The timestamp when the task was gathered.</p>
      */
     inline const Aws::Utils::DateTime& GetUpdateDateTime() const{ return m_updateDateTime; }
+
+    /**
+     * <p>The timestamp when the task was gathered.</p>
+     */
+    inline bool UpdateDateTimeHasBeenSet() const { return m_updateDateTimeHasBeenSet; }
 
     /**
      * <p>The timestamp when the task was gathered.</p>
@@ -182,6 +210,13 @@ namespace Model
      * expect an update. If Migration Hub does not receive an update within the
      * specified interval, then the migration task will be considered stale.</p>
      */
+    inline bool NextUpdateSecondsHasBeenSet() const { return m_nextUpdateSecondsHasBeenSet; }
+
+    /**
+     * <p>Number of seconds after the UpdateDateTime within which the Migration Hub can
+     * expect an update. If Migration Hub does not receive an update within the
+     * specified interval, then the migration task will be considered stale.</p>
+     */
     inline void SetNextUpdateSeconds(int value) { m_nextUpdateSecondsHasBeenSet = true; m_nextUpdateSeconds = value; }
 
     /**
@@ -197,6 +232,12 @@ namespace Model
      * to test if the caller has permission to make the call.</p>
      */
     inline bool GetDryRun() const{ return m_dryRun; }
+
+    /**
+     * <p>Optional boolean flag to indicate whether any effect should take place. Used
+     * to test if the caller has permission to make the call.</p>
+     */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
 
     /**
      * <p>Optional boolean flag to indicate whether any effect should take place. Used

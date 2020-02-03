@@ -54,16 +54,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -197,7 +191,7 @@ namespace Model
 
         virtual ~BatchClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "batch"; }
+        inline virtual const char* GetServiceClientName() const override { return "Batch"; }
 
 
         /**
@@ -243,25 +237,38 @@ namespace Model
         /**
          * <p>Creates an AWS Batch compute environment. You can create <code>MANAGED</code>
          * or <code>UNMANAGED</code> compute environments.</p> <p>In a managed compute
-         * environment, AWS Batch manages the compute resources within the environment,
-         * based on the compute resources that you specify. Instances launched into a
-         * managed compute environment use a recent, approved version of the Amazon
-         * ECS-optimized AMI. You can choose to use Amazon EC2 On-Demand Instances in your
-         * managed compute environment, or you can use Amazon EC2 Spot Instances that only
-         * launch when the Spot bid price is below a specified percentage of the On-Demand
-         * price.</p> <p>In an unmanaged compute environment, you can manage your own
-         * compute resources. This provides more compute resource configuration options,
-         * such as using a custom AMI, but you must ensure that your AMI meets the Amazon
-         * ECS container instance AMI specification. For more information, see <a
-         * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html">Container
+         * environment, AWS Batch manages the capacity and instance types of the compute
+         * resources within the environment. This is based on the compute resource
+         * specification that you define or the <a
+         * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html">launch
+         * template</a> that you specify when you create the compute environment. You can
+         * choose to use Amazon EC2 On-Demand Instances or Spot Instances in your managed
+         * compute environment. You can optionally set a maximum price so that Spot
+         * Instances only launch when the Spot Instance price is below a specified
+         * percentage of the On-Demand price.</p> <note> <p>Multi-node parallel jobs are
+         * not supported on Spot Instances.</p> </note> <p>In an unmanaged compute
+         * environment, you can manage your own compute resources. This provides more
+         * compute resource configuration options, such as using a custom AMI, but you must
+         * ensure that your AMI meets the Amazon ECS container instance AMI specification.
+         * For more information, see <a
+         * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html">Container
          * Instance AMIs</a> in the <i>Amazon Elastic Container Service Developer
          * Guide</i>. After you have created your unmanaged compute environment, you can
          * use the <a>DescribeComputeEnvironments</a> operation to find the Amazon ECS
-         * cluster that is associated with it and then manually launch your container
+         * cluster that is associated with it. Then, manually launch your container
          * instances into that Amazon ECS cluster. For more information, see <a
-         * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html">Launching
+         * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html">Launching
          * an Amazon ECS Container Instance</a> in the <i>Amazon Elastic Container Service
-         * Developer Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * Developer Guide</i>.</p> <note> <p>AWS Batch does not upgrade the AMIs in a
+         * compute environment after it is created (for example, when a newer version of
+         * the Amazon ECS-optimized AMI is available). You are responsible for the
+         * management of the guest operating system (including updates and security
+         * patches) and any additional application software or utilities that you install
+         * on the compute resources. To use a new AMI for your AWS Batch jobs:</p> <ol>
+         * <li> <p>Create a new compute environment with the new AMI.</p> </li> <li> <p>Add
+         * the compute environment to an existing job queue.</p> </li> <li> <p>Remove the
+         * old compute environment from your job queue.</p> </li> <li> <p>Delete the old
+         * compute environment.</p> </li> </ol> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/CreateComputeEnvironment">AWS
          * API Reference</a></p>
          */
@@ -270,25 +277,38 @@ namespace Model
         /**
          * <p>Creates an AWS Batch compute environment. You can create <code>MANAGED</code>
          * or <code>UNMANAGED</code> compute environments.</p> <p>In a managed compute
-         * environment, AWS Batch manages the compute resources within the environment,
-         * based on the compute resources that you specify. Instances launched into a
-         * managed compute environment use a recent, approved version of the Amazon
-         * ECS-optimized AMI. You can choose to use Amazon EC2 On-Demand Instances in your
-         * managed compute environment, or you can use Amazon EC2 Spot Instances that only
-         * launch when the Spot bid price is below a specified percentage of the On-Demand
-         * price.</p> <p>In an unmanaged compute environment, you can manage your own
-         * compute resources. This provides more compute resource configuration options,
-         * such as using a custom AMI, but you must ensure that your AMI meets the Amazon
-         * ECS container instance AMI specification. For more information, see <a
-         * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html">Container
+         * environment, AWS Batch manages the capacity and instance types of the compute
+         * resources within the environment. This is based on the compute resource
+         * specification that you define or the <a
+         * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html">launch
+         * template</a> that you specify when you create the compute environment. You can
+         * choose to use Amazon EC2 On-Demand Instances or Spot Instances in your managed
+         * compute environment. You can optionally set a maximum price so that Spot
+         * Instances only launch when the Spot Instance price is below a specified
+         * percentage of the On-Demand price.</p> <note> <p>Multi-node parallel jobs are
+         * not supported on Spot Instances.</p> </note> <p>In an unmanaged compute
+         * environment, you can manage your own compute resources. This provides more
+         * compute resource configuration options, such as using a custom AMI, but you must
+         * ensure that your AMI meets the Amazon ECS container instance AMI specification.
+         * For more information, see <a
+         * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html">Container
          * Instance AMIs</a> in the <i>Amazon Elastic Container Service Developer
          * Guide</i>. After you have created your unmanaged compute environment, you can
          * use the <a>DescribeComputeEnvironments</a> operation to find the Amazon ECS
-         * cluster that is associated with it and then manually launch your container
+         * cluster that is associated with it. Then, manually launch your container
          * instances into that Amazon ECS cluster. For more information, see <a
-         * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html">Launching
+         * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html">Launching
          * an Amazon ECS Container Instance</a> in the <i>Amazon Elastic Container Service
-         * Developer Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * Developer Guide</i>.</p> <note> <p>AWS Batch does not upgrade the AMIs in a
+         * compute environment after it is created (for example, when a newer version of
+         * the Amazon ECS-optimized AMI is available). You are responsible for the
+         * management of the guest operating system (including updates and security
+         * patches) and any additional application software or utilities that you install
+         * on the compute resources. To use a new AMI for your AWS Batch jobs:</p> <ol>
+         * <li> <p>Create a new compute environment with the new AMI.</p> </li> <li> <p>Add
+         * the compute environment to an existing job queue.</p> </li> <li> <p>Remove the
+         * old compute environment from your job queue.</p> </li> <li> <p>Delete the old
+         * compute environment.</p> </li> </ol> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/CreateComputeEnvironment">AWS
          * API Reference</a></p>
          *
@@ -299,25 +319,38 @@ namespace Model
         /**
          * <p>Creates an AWS Batch compute environment. You can create <code>MANAGED</code>
          * or <code>UNMANAGED</code> compute environments.</p> <p>In a managed compute
-         * environment, AWS Batch manages the compute resources within the environment,
-         * based on the compute resources that you specify. Instances launched into a
-         * managed compute environment use a recent, approved version of the Amazon
-         * ECS-optimized AMI. You can choose to use Amazon EC2 On-Demand Instances in your
-         * managed compute environment, or you can use Amazon EC2 Spot Instances that only
-         * launch when the Spot bid price is below a specified percentage of the On-Demand
-         * price.</p> <p>In an unmanaged compute environment, you can manage your own
-         * compute resources. This provides more compute resource configuration options,
-         * such as using a custom AMI, but you must ensure that your AMI meets the Amazon
-         * ECS container instance AMI specification. For more information, see <a
-         * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html">Container
+         * environment, AWS Batch manages the capacity and instance types of the compute
+         * resources within the environment. This is based on the compute resource
+         * specification that you define or the <a
+         * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html">launch
+         * template</a> that you specify when you create the compute environment. You can
+         * choose to use Amazon EC2 On-Demand Instances or Spot Instances in your managed
+         * compute environment. You can optionally set a maximum price so that Spot
+         * Instances only launch when the Spot Instance price is below a specified
+         * percentage of the On-Demand price.</p> <note> <p>Multi-node parallel jobs are
+         * not supported on Spot Instances.</p> </note> <p>In an unmanaged compute
+         * environment, you can manage your own compute resources. This provides more
+         * compute resource configuration options, such as using a custom AMI, but you must
+         * ensure that your AMI meets the Amazon ECS container instance AMI specification.
+         * For more information, see <a
+         * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html">Container
          * Instance AMIs</a> in the <i>Amazon Elastic Container Service Developer
          * Guide</i>. After you have created your unmanaged compute environment, you can
          * use the <a>DescribeComputeEnvironments</a> operation to find the Amazon ECS
-         * cluster that is associated with it and then manually launch your container
+         * cluster that is associated with it. Then, manually launch your container
          * instances into that Amazon ECS cluster. For more information, see <a
-         * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html">Launching
+         * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html">Launching
          * an Amazon ECS Container Instance</a> in the <i>Amazon Elastic Container Service
-         * Developer Guide</i>.</p><p><h3>See Also:</h3>   <a
+         * Developer Guide</i>.</p> <note> <p>AWS Batch does not upgrade the AMIs in a
+         * compute environment after it is created (for example, when a newer version of
+         * the Amazon ECS-optimized AMI is available). You are responsible for the
+         * management of the guest operating system (including updates and security
+         * patches) and any additional application software or utilities that you install
+         * on the compute resources. To use a new AMI for your AWS Batch jobs:</p> <ol>
+         * <li> <p>Create a new compute environment with the new AMI.</p> </li> <li> <p>Add
+         * the compute environment to an existing job queue.</p> </li> <li> <p>Remove the
+         * old compute environment from your job queue.</p> </li> <li> <p>Delete the old
+         * compute environment.</p> </li> </ol> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/CreateComputeEnvironment">AWS
          * API Reference</a></p>
          *
@@ -413,7 +446,7 @@ namespace Model
          * queue with the <a>UpdateJobQueue</a> operation. All jobs in the queue are
          * terminated when you delete a job queue.</p> <p>It is not necessary to
          * disassociate compute environments from a queue before submitting a
-         * <code>DeleteJobQueue</code> request. </p><p><h3>See Also:</h3>   <a
+         * <code>DeleteJobQueue</code> request.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/DeleteJobQueue">AWS
          * API Reference</a></p>
          */
@@ -424,7 +457,7 @@ namespace Model
          * queue with the <a>UpdateJobQueue</a> operation. All jobs in the queue are
          * terminated when you delete a job queue.</p> <p>It is not necessary to
          * disassociate compute environments from a queue before submitting a
-         * <code>DeleteJobQueue</code> request. </p><p><h3>See Also:</h3>   <a
+         * <code>DeleteJobQueue</code> request.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/DeleteJobQueue">AWS
          * API Reference</a></p>
          *
@@ -437,7 +470,7 @@ namespace Model
          * queue with the <a>UpdateJobQueue</a> operation. All jobs in the queue are
          * terminated when you delete a job queue.</p> <p>It is not necessary to
          * disassociate compute environments from a queue before submitting a
-         * <code>DeleteJobQueue</code> request. </p><p><h3>See Also:</h3>   <a
+         * <code>DeleteJobQueue</code> request.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/DeleteJobQueue">AWS
          * API Reference</a></p>
          *
@@ -446,14 +479,16 @@ namespace Model
         virtual void DeleteJobQueueAsync(const Model::DeleteJobQueueRequest& request, const DeleteJobQueueResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Deregisters an AWS Batch job definition.</p><p><h3>See Also:</h3>   <a
+         * <p>Deregisters an AWS Batch job definition. Job definitions will be permanently
+         * deleted after 180 days.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/DeregisterJobDefinition">AWS
          * API Reference</a></p>
          */
         virtual Model::DeregisterJobDefinitionOutcome DeregisterJobDefinition(const Model::DeregisterJobDefinitionRequest& request) const;
 
         /**
-         * <p>Deregisters an AWS Batch job definition.</p><p><h3>See Also:</h3>   <a
+         * <p>Deregisters an AWS Batch job definition. Job definitions will be permanently
+         * deleted after 180 days.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/DeregisterJobDefinition">AWS
          * API Reference</a></p>
          *
@@ -462,7 +497,8 @@ namespace Model
         virtual Model::DeregisterJobDefinitionOutcomeCallable DeregisterJobDefinitionCallable(const Model::DeregisterJobDefinitionRequest& request) const;
 
         /**
-         * <p>Deregisters an AWS Batch job definition.</p><p><h3>See Also:</h3>   <a
+         * <p>Deregisters an AWS Batch job definition. Job definitions will be permanently
+         * deleted after 180 days.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/DeregisterJobDefinition">AWS
          * API Reference</a></p>
          *
@@ -589,20 +625,26 @@ namespace Model
         virtual void DescribeJobsAsync(const Model::DescribeJobsRequest& request, const DescribeJobsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Returns a list of task jobs for a specified job queue. You can filter the
-         * results by job status with the <code>jobStatus</code> parameter. If you do not
-         * specify a status, only <code>RUNNING</code> jobs are returned.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Returns a list of AWS Batch jobs.</p> <p>You must specify only one of the
+         * following:</p> <ul> <li> <p>a job queue ID to return a list of jobs in that job
+         * queue</p> </li> <li> <p>a multi-node parallel job ID to return a list of that
+         * job's nodes</p> </li> <li> <p>an array job ID to return a list of that job's
+         * children</p> </li> </ul> <p>You can filter the results by job status with the
+         * <code>jobStatus</code> parameter. If you do not specify a status, only
+         * <code>RUNNING</code> jobs are returned.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ListJobs">AWS API
          * Reference</a></p>
          */
         virtual Model::ListJobsOutcome ListJobs(const Model::ListJobsRequest& request) const;
 
         /**
-         * <p>Returns a list of task jobs for a specified job queue. You can filter the
-         * results by job status with the <code>jobStatus</code> parameter. If you do not
-         * specify a status, only <code>RUNNING</code> jobs are returned.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Returns a list of AWS Batch jobs.</p> <p>You must specify only one of the
+         * following:</p> <ul> <li> <p>a job queue ID to return a list of jobs in that job
+         * queue</p> </li> <li> <p>a multi-node parallel job ID to return a list of that
+         * job's nodes</p> </li> <li> <p>an array job ID to return a list of that job's
+         * children</p> </li> </ul> <p>You can filter the results by job status with the
+         * <code>jobStatus</code> parameter. If you do not specify a status, only
+         * <code>RUNNING</code> jobs are returned.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ListJobs">AWS API
          * Reference</a></p>
          *
@@ -611,10 +653,13 @@ namespace Model
         virtual Model::ListJobsOutcomeCallable ListJobsCallable(const Model::ListJobsRequest& request) const;
 
         /**
-         * <p>Returns a list of task jobs for a specified job queue. You can filter the
-         * results by job status with the <code>jobStatus</code> parameter. If you do not
-         * specify a status, only <code>RUNNING</code> jobs are returned.</p><p><h3>See
-         * Also:</h3>   <a
+         * <p>Returns a list of AWS Batch jobs.</p> <p>You must specify only one of the
+         * following:</p> <ul> <li> <p>a job queue ID to return a list of jobs in that job
+         * queue</p> </li> <li> <p>a multi-node parallel job ID to return a list of that
+         * job's nodes</p> </li> <li> <p>an array job ID to return a list of that job's
+         * children</p> </li> </ul> <p>You can filter the results by job status with the
+         * <code>jobStatus</code> parameter. If you do not specify a status, only
+         * <code>RUNNING</code> jobs are returned.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ListJobs">AWS API
          * Reference</a></p>
          *
@@ -623,14 +668,14 @@ namespace Model
         virtual void ListJobsAsync(const Model::ListJobsRequest& request, const ListJobsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Registers an AWS Batch job definition. </p><p><h3>See Also:</h3>   <a
+         * <p>Registers an AWS Batch job definition.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/RegisterJobDefinition">AWS
          * API Reference</a></p>
          */
         virtual Model::RegisterJobDefinitionOutcome RegisterJobDefinition(const Model::RegisterJobDefinitionRequest& request) const;
 
         /**
-         * <p>Registers an AWS Batch job definition. </p><p><h3>See Also:</h3>   <a
+         * <p>Registers an AWS Batch job definition.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/RegisterJobDefinition">AWS
          * API Reference</a></p>
          *
@@ -639,7 +684,7 @@ namespace Model
         virtual Model::RegisterJobDefinitionOutcomeCallable RegisterJobDefinitionCallable(const Model::RegisterJobDefinitionRequest& request) const;
 
         /**
-         * <p>Registers an AWS Batch job definition. </p><p><h3>See Also:</h3>   <a
+         * <p>Registers an AWS Batch job definition.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/RegisterJobDefinition">AWS
          * API Reference</a></p>
          *
@@ -649,8 +694,8 @@ namespace Model
 
         /**
          * <p>Submits an AWS Batch job from a job definition. Parameters specified during
-         * <a>SubmitJob</a> override parameters defined in the job definition.
-         * </p><p><h3>See Also:</h3>   <a
+         * <a>SubmitJob</a> override parameters defined in the job
+         * definition.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/SubmitJob">AWS API
          * Reference</a></p>
          */
@@ -658,8 +703,8 @@ namespace Model
 
         /**
          * <p>Submits an AWS Batch job from a job definition. Parameters specified during
-         * <a>SubmitJob</a> override parameters defined in the job definition.
-         * </p><p><h3>See Also:</h3>   <a
+         * <a>SubmitJob</a> override parameters defined in the job
+         * definition.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/SubmitJob">AWS API
          * Reference</a></p>
          *
@@ -669,8 +714,8 @@ namespace Model
 
         /**
          * <p>Submits an AWS Batch job from a job definition. Parameters specified during
-         * <a>SubmitJob</a> override parameters defined in the job definition.
-         * </p><p><h3>See Also:</h3>   <a
+         * <a>SubmitJob</a> override parameters defined in the job
+         * definition.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/SubmitJob">AWS API
          * Reference</a></p>
          *
@@ -763,10 +808,9 @@ namespace Model
         virtual void UpdateJobQueueAsync(const Model::UpdateJobQueueRequest& request, const UpdateJobQueueResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void CancelJobAsyncHelper(const Model::CancelJobRequest& request, const CancelJobResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateComputeEnvironmentAsyncHelper(const Model::CreateComputeEnvironmentRequest& request, const CreateComputeEnvironmentResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateJobQueueAsyncHelper(const Model::CreateJobQueueRequest& request, const CreateJobQueueResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -785,6 +829,7 @@ namespace Model
         void UpdateJobQueueAsyncHelper(const Model::UpdateJobQueueRequest& request, const UpdateJobQueueResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

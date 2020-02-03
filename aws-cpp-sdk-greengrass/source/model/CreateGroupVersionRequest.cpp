@@ -25,6 +25,7 @@ using namespace Aws::Utils;
 
 CreateGroupVersionRequest::CreateGroupVersionRequest() : 
     m_amznClientTokenHasBeenSet(false),
+    m_connectorDefinitionVersionArnHasBeenSet(false),
     m_coreDefinitionVersionArnHasBeenSet(false),
     m_deviceDefinitionVersionArnHasBeenSet(false),
     m_functionDefinitionVersionArnHasBeenSet(false),
@@ -38,6 +39,12 @@ CreateGroupVersionRequest::CreateGroupVersionRequest() :
 Aws::String CreateGroupVersionRequest::SerializePayload() const
 {
   JsonValue payload;
+
+  if(m_connectorDefinitionVersionArnHasBeenSet)
+  {
+   payload.WithString("ConnectorDefinitionVersionArn", m_connectorDefinitionVersionArn);
+
+  }
 
   if(m_coreDefinitionVersionArnHasBeenSet)
   {
@@ -75,7 +82,7 @@ Aws::String CreateGroupVersionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateGroupVersionRequest::GetRequestSpecificHeaders() const
@@ -85,7 +92,7 @@ Aws::Http::HeaderValueCollection CreateGroupVersionRequest::GetRequestSpecificHe
   if(m_amznClientTokenHasBeenSet)
   {
     ss << m_amznClientToken;
-    headers.insert(Aws::Http::HeaderValuePair("x-amzn-client-token", ss.str()));
+    headers.emplace("x-amzn-client-token",  ss.str());
     ss.str("");
   }
 

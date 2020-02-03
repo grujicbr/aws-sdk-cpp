@@ -51,13 +51,16 @@ AcceptReservedInstancesExchangeQuoteResponse& AcceptReservedInstancesExchangeQuo
     XmlNode exchangeIdNode = resultNode.FirstChild("exchangeId");
     if(!exchangeIdNode.IsNull())
     {
-      m_exchangeId = StringUtils::Trim(exchangeIdNode.GetText().c_str());
+      m_exchangeId = Aws::Utils::Xml::DecodeEscapedXmlText(exchangeIdNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::AcceptReservedInstancesExchangeQuoteResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

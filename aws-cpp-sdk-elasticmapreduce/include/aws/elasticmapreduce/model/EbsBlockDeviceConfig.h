@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EbsBlockDeviceConfig();
-    EbsBlockDeviceConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    EbsBlockDeviceConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EbsBlockDeviceConfig(Aws::Utils::Json::JsonView jsonValue);
+    EbsBlockDeviceConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * be requested for the EBS volume attached to an EC2 instance in the cluster.</p>
      */
     inline const VolumeSpecification& GetVolumeSpecification() const{ return m_volumeSpecification; }
+
+    /**
+     * <p>EBS volume specifications such as volume type, IOPS, and size (GiB) that will
+     * be requested for the EBS volume attached to an EC2 instance in the cluster.</p>
+     */
+    inline bool VolumeSpecificationHasBeenSet() const { return m_volumeSpecificationHasBeenSet; }
 
     /**
      * <p>EBS volume specifications such as volume type, IOPS, and size (GiB) that will
@@ -84,6 +91,12 @@ namespace Model
      * associated with every instance in the instance group</p>
      */
     inline int GetVolumesPerInstance() const{ return m_volumesPerInstance; }
+
+    /**
+     * <p>Number of EBS volumes with a specific volume configuration that will be
+     * associated with every instance in the instance group</p>
+     */
+    inline bool VolumesPerInstanceHasBeenSet() const { return m_volumesPerInstanceHasBeenSet; }
 
     /**
      * <p>Number of EBS volumes with a specific volume configuration that will be

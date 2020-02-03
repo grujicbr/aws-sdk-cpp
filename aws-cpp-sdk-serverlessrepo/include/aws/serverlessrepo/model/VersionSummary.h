@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServerlessApplicationRepository
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     VersionSummary();
-    VersionSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    VersionSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VersionSummary(Aws::Utils::Json::JsonView jsonValue);
+    VersionSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The application Amazon Resource Name (ARN).</p>
      */
     inline const Aws::String& GetApplicationId() const{ return m_applicationId; }
+
+    /**
+     * <p>The application Amazon Resource Name (ARN).</p>
+     */
+    inline bool ApplicationIdHasBeenSet() const { return m_applicationIdHasBeenSet; }
 
     /**
      * <p>The application Amazon Resource Name (ARN).</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The date and time this resource was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time this resource was created.</p>
+     */
     inline void SetCreationTime(const Aws::String& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -125,6 +136,14 @@ namespace Model
  </p>
      */
     inline const Aws::String& GetSemanticVersion() const{ return m_semanticVersion; }
+
+    /**
+     * <p>The semantic version of the application:</p><p>
+ <a
+     * href="https://semver.org/">https://semver.org/</a>
+ </p>
+     */
+    inline bool SemanticVersionHasBeenSet() const { return m_semanticVersionHasBeenSet; }
 
     /**
      * <p>The semantic version of the application:</p><p>
@@ -176,37 +195,50 @@ namespace Model
 
 
     /**
-     * <p>A link to a public repository for the source code of your application.</p>
+     * <p>A link to a public repository for the source code of your application, for
+     * example the URL of a specific GitHub commit.</p>
      */
     inline const Aws::String& GetSourceCodeUrl() const{ return m_sourceCodeUrl; }
 
     /**
-     * <p>A link to a public repository for the source code of your application.</p>
+     * <p>A link to a public repository for the source code of your application, for
+     * example the URL of a specific GitHub commit.</p>
+     */
+    inline bool SourceCodeUrlHasBeenSet() const { return m_sourceCodeUrlHasBeenSet; }
+
+    /**
+     * <p>A link to a public repository for the source code of your application, for
+     * example the URL of a specific GitHub commit.</p>
      */
     inline void SetSourceCodeUrl(const Aws::String& value) { m_sourceCodeUrlHasBeenSet = true; m_sourceCodeUrl = value; }
 
     /**
-     * <p>A link to a public repository for the source code of your application.</p>
+     * <p>A link to a public repository for the source code of your application, for
+     * example the URL of a specific GitHub commit.</p>
      */
     inline void SetSourceCodeUrl(Aws::String&& value) { m_sourceCodeUrlHasBeenSet = true; m_sourceCodeUrl = std::move(value); }
 
     /**
-     * <p>A link to a public repository for the source code of your application.</p>
+     * <p>A link to a public repository for the source code of your application, for
+     * example the URL of a specific GitHub commit.</p>
      */
     inline void SetSourceCodeUrl(const char* value) { m_sourceCodeUrlHasBeenSet = true; m_sourceCodeUrl.assign(value); }
 
     /**
-     * <p>A link to a public repository for the source code of your application.</p>
+     * <p>A link to a public repository for the source code of your application, for
+     * example the URL of a specific GitHub commit.</p>
      */
     inline VersionSummary& WithSourceCodeUrl(const Aws::String& value) { SetSourceCodeUrl(value); return *this;}
 
     /**
-     * <p>A link to a public repository for the source code of your application.</p>
+     * <p>A link to a public repository for the source code of your application, for
+     * example the URL of a specific GitHub commit.</p>
      */
     inline VersionSummary& WithSourceCodeUrl(Aws::String&& value) { SetSourceCodeUrl(std::move(value)); return *this;}
 
     /**
-     * <p>A link to a public repository for the source code of your application.</p>
+     * <p>A link to a public repository for the source code of your application, for
+     * example the URL of a specific GitHub commit.</p>
      */
     inline VersionSummary& WithSourceCodeUrl(const char* value) { SetSourceCodeUrl(value); return *this;}
 

@@ -37,11 +37,14 @@ ProjectEnvironment::ProjectEnvironment() :
     m_environmentVariablesHasBeenSet(false),
     m_privilegedMode(false),
     m_privilegedModeHasBeenSet(false),
-    m_certificateHasBeenSet(false)
+    m_certificateHasBeenSet(false),
+    m_registryCredentialHasBeenSet(false),
+    m_imagePullCredentialsType(ImagePullCredentialsType::NOT_SET),
+    m_imagePullCredentialsTypeHasBeenSet(false)
 {
 }
 
-ProjectEnvironment::ProjectEnvironment(const JsonValue& jsonValue) : 
+ProjectEnvironment::ProjectEnvironment(JsonView jsonValue) : 
     m_type(EnvironmentType::NOT_SET),
     m_typeHasBeenSet(false),
     m_imageHasBeenSet(false),
@@ -50,12 +53,15 @@ ProjectEnvironment::ProjectEnvironment(const JsonValue& jsonValue) :
     m_environmentVariablesHasBeenSet(false),
     m_privilegedMode(false),
     m_privilegedModeHasBeenSet(false),
-    m_certificateHasBeenSet(false)
+    m_certificateHasBeenSet(false),
+    m_registryCredentialHasBeenSet(false),
+    m_imagePullCredentialsType(ImagePullCredentialsType::NOT_SET),
+    m_imagePullCredentialsTypeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ProjectEnvironment& ProjectEnvironment::operator =(const JsonValue& jsonValue)
+ProjectEnvironment& ProjectEnvironment::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("type"))
   {
@@ -80,7 +86,7 @@ ProjectEnvironment& ProjectEnvironment::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("environmentVariables"))
   {
-    Array<JsonValue> environmentVariablesJsonList = jsonValue.GetArray("environmentVariables");
+    Array<JsonView> environmentVariablesJsonList = jsonValue.GetArray("environmentVariables");
     for(unsigned environmentVariablesIndex = 0; environmentVariablesIndex < environmentVariablesJsonList.GetLength(); ++environmentVariablesIndex)
     {
       m_environmentVariables.push_back(environmentVariablesJsonList[environmentVariablesIndex].AsObject());
@@ -100,6 +106,20 @@ ProjectEnvironment& ProjectEnvironment::operator =(const JsonValue& jsonValue)
     m_certificate = jsonValue.GetString("certificate");
 
     m_certificateHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("registryCredential"))
+  {
+    m_registryCredential = jsonValue.GetObject("registryCredential");
+
+    m_registryCredentialHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("imagePullCredentialsType"))
+  {
+    m_imagePullCredentialsType = ImagePullCredentialsTypeMapper::GetImagePullCredentialsTypeForName(jsonValue.GetString("imagePullCredentialsType"));
+
+    m_imagePullCredentialsTypeHasBeenSet = true;
   }
 
   return *this;
@@ -146,6 +166,17 @@ JsonValue ProjectEnvironment::Jsonize() const
   {
    payload.WithString("certificate", m_certificate);
 
+  }
+
+  if(m_registryCredentialHasBeenSet)
+  {
+   payload.WithObject("registryCredential", m_registryCredential.Jsonize());
+
+  }
+
+  if(m_imagePullCredentialsTypeHasBeenSet)
+  {
+   payload.WithString("imagePullCredentialsType", ImagePullCredentialsTypeMapper::GetNameForImagePullCredentialsType(m_imagePullCredentialsType));
   }
 
   return payload;

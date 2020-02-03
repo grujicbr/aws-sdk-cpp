@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Subscription();
-    Subscription(const Aws::Utils::Json::JsonValue& jsonValue);
-    Subscription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Subscription(Aws::Utils::Json::JsonView jsonValue);
+    Subscription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID of the subscription.</p>
      */
     inline const Aws::String& GetSubscriptionId() const{ return m_subscriptionId; }
+
+    /**
+     * <p>The ID of the subscription.</p>
+     */
+    inline bool SubscriptionIdHasBeenSet() const { return m_subscriptionIdHasBeenSet; }
 
     /**
      * <p>The ID of the subscription.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The endpoint of the subscription.</p>
      */
+    inline bool EndPointHasBeenSet() const { return m_endPointHasBeenSet; }
+
+    /**
+     * <p>The endpoint of the subscription.</p>
+     */
     inline void SetEndPoint(const Aws::String& value) { m_endPointHasBeenSet = true; m_endPoint = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The protocol of the subscription.</p>
      */
     inline const SubscriptionProtocolType& GetProtocol() const{ return m_protocol; }
+
+    /**
+     * <p>The protocol of the subscription.</p>
+     */
+    inline bool ProtocolHasBeenSet() const { return m_protocolHasBeenSet; }
 
     /**
      * <p>The protocol of the subscription.</p>

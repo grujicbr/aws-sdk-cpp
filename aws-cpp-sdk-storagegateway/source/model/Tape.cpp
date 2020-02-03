@@ -40,11 +40,12 @@ Tape::Tape() :
     m_progressHasBeenSet(false),
     m_tapeUsedInBytes(0),
     m_tapeUsedInBytesHasBeenSet(false),
-    m_kMSKeyHasBeenSet(false)
+    m_kMSKeyHasBeenSet(false),
+    m_poolIdHasBeenSet(false)
 {
 }
 
-Tape::Tape(const JsonValue& jsonValue) : 
+Tape::Tape(JsonView jsonValue) : 
     m_tapeARNHasBeenSet(false),
     m_tapeBarcodeHasBeenSet(false),
     m_tapeCreatedDateHasBeenSet(false),
@@ -56,12 +57,13 @@ Tape::Tape(const JsonValue& jsonValue) :
     m_progressHasBeenSet(false),
     m_tapeUsedInBytes(0),
     m_tapeUsedInBytesHasBeenSet(false),
-    m_kMSKeyHasBeenSet(false)
+    m_kMSKeyHasBeenSet(false),
+    m_poolIdHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Tape& Tape::operator =(const JsonValue& jsonValue)
+Tape& Tape::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TapeARN"))
   {
@@ -126,6 +128,13 @@ Tape& Tape::operator =(const JsonValue& jsonValue)
     m_kMSKeyHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("PoolId"))
+  {
+    m_poolId = jsonValue.GetString("PoolId");
+
+    m_poolIdHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -183,6 +192,12 @@ JsonValue Tape::Jsonize() const
   if(m_kMSKeyHasBeenSet)
   {
    payload.WithString("KMSKey", m_kMSKey);
+
+  }
+
+  if(m_poolIdHasBeenSet)
+  {
+   payload.WithString("PoolId", m_poolId);
 
   }
 

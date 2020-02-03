@@ -18,6 +18,9 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/DateTime.h>
 #include <aws/apigateway/model/EndpointConfiguration.h>
+#include <aws/apigateway/model/DomainNameStatus.h>
+#include <aws/apigateway/model/SecurityPolicy.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <utility>
 
 namespace Aws
@@ -48,7 +51,7 @@ namespace Model
    * <code>https://apis.examples.com/myApi</code>, where <code>myApi</code> is the
    * base path mapping (<a>BasePathMapping</a>) of your API under the custom domain
    * name. </p> </div> <div class="seeAlso"> <a
-   * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html">Set
+   * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html">Set
    * a Custom Host Name for an API</a> </div><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/DomainName">AWS
    * API Reference</a></p>
@@ -290,7 +293,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline const Aws::String& GetRegionalHostedZoneId() const{ return m_regionalHostedZoneId; }
@@ -300,7 +303,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline void SetRegionalHostedZoneId(const Aws::String& value) { m_regionalHostedZoneId = value; }
@@ -310,7 +313,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline void SetRegionalHostedZoneId(Aws::String&& value) { m_regionalHostedZoneId = std::move(value); }
@@ -320,7 +323,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline void SetRegionalHostedZoneId(const char* value) { m_regionalHostedZoneId.assign(value); }
@@ -330,7 +333,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline CreateDomainNameResult& WithRegionalHostedZoneId(const Aws::String& value) { SetRegionalHostedZoneId(value); return *this;}
@@ -340,7 +343,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline CreateDomainNameResult& WithRegionalHostedZoneId(Aws::String&& value) { SetRegionalHostedZoneId(std::move(value)); return *this;}
@@ -350,7 +353,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline CreateDomainNameResult& WithRegionalHostedZoneId(const char* value) { SetRegionalHostedZoneId(value); return *this;}
@@ -454,7 +457,7 @@ namespace Model
      * custom domain name for an edge-optimized endpoint. You set up this association
      * when adding a DNS record pointing the custom domain name to this distribution
      * name. For more information about CloudFront distributions, see the <a
-     * href="http://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
+     * href="https://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
      * CloudFront documentation</a>.</p>
      */
     inline const Aws::String& GetDistributionDomainName() const{ return m_distributionDomainName; }
@@ -464,7 +467,7 @@ namespace Model
      * custom domain name for an edge-optimized endpoint. You set up this association
      * when adding a DNS record pointing the custom domain name to this distribution
      * name. For more information about CloudFront distributions, see the <a
-     * href="http://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
+     * href="https://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
      * CloudFront documentation</a>.</p>
      */
     inline void SetDistributionDomainName(const Aws::String& value) { m_distributionDomainName = value; }
@@ -474,7 +477,7 @@ namespace Model
      * custom domain name for an edge-optimized endpoint. You set up this association
      * when adding a DNS record pointing the custom domain name to this distribution
      * name. For more information about CloudFront distributions, see the <a
-     * href="http://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
+     * href="https://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
      * CloudFront documentation</a>.</p>
      */
     inline void SetDistributionDomainName(Aws::String&& value) { m_distributionDomainName = std::move(value); }
@@ -484,7 +487,7 @@ namespace Model
      * custom domain name for an edge-optimized endpoint. You set up this association
      * when adding a DNS record pointing the custom domain name to this distribution
      * name. For more information about CloudFront distributions, see the <a
-     * href="http://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
+     * href="https://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
      * CloudFront documentation</a>.</p>
      */
     inline void SetDistributionDomainName(const char* value) { m_distributionDomainName.assign(value); }
@@ -494,7 +497,7 @@ namespace Model
      * custom domain name for an edge-optimized endpoint. You set up this association
      * when adding a DNS record pointing the custom domain name to this distribution
      * name. For more information about CloudFront distributions, see the <a
-     * href="http://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
+     * href="https://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
      * CloudFront documentation</a>.</p>
      */
     inline CreateDomainNameResult& WithDistributionDomainName(const Aws::String& value) { SetDistributionDomainName(value); return *this;}
@@ -504,7 +507,7 @@ namespace Model
      * custom domain name for an edge-optimized endpoint. You set up this association
      * when adding a DNS record pointing the custom domain name to this distribution
      * name. For more information about CloudFront distributions, see the <a
-     * href="http://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
+     * href="https://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
      * CloudFront documentation</a>.</p>
      */
     inline CreateDomainNameResult& WithDistributionDomainName(Aws::String&& value) { SetDistributionDomainName(std::move(value)); return *this;}
@@ -514,7 +517,7 @@ namespace Model
      * custom domain name for an edge-optimized endpoint. You set up this association
      * when adding a DNS record pointing the custom domain name to this distribution
      * name. For more information about CloudFront distributions, see the <a
-     * href="http://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
+     * href="https://aws.amazon.com/documentation/cloudfront/" target="_blank">Amazon
      * CloudFront documentation</a>.</p>
      */
     inline CreateDomainNameResult& WithDistributionDomainName(const char* value) { SetDistributionDomainName(value); return *this;}
@@ -526,7 +529,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline const Aws::String& GetDistributionHostedZoneId() const{ return m_distributionHostedZoneId; }
@@ -537,7 +540,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline void SetDistributionHostedZoneId(const Aws::String& value) { m_distributionHostedZoneId = value; }
@@ -548,7 +551,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline void SetDistributionHostedZoneId(Aws::String&& value) { m_distributionHostedZoneId = std::move(value); }
@@ -559,7 +562,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline void SetDistributionHostedZoneId(const char* value) { m_distributionHostedZoneId.assign(value); }
@@ -570,7 +573,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline CreateDomainNameResult& WithDistributionHostedZoneId(const Aws::String& value) { SetDistributionHostedZoneId(value); return *this;}
@@ -581,7 +584,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline CreateDomainNameResult& WithDistributionHostedZoneId(Aws::String&& value) { SetDistributionHostedZoneId(std::move(value)); return *this;}
@@ -592,7 +595,7 @@ namespace Model
      * For more information, see <a
      * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html">Set
      * up a Regional Custom Domain Name</a> and <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region">AWS
      * Regions and Endpoints for API Gateway</a>. </p>
      */
     inline CreateDomainNameResult& WithDistributionHostedZoneId(const char* value) { SetDistributionHostedZoneId(value); return *this;}
@@ -628,6 +631,204 @@ namespace Model
      */
     inline CreateDomainNameResult& WithEndpointConfiguration(EndpointConfiguration&& value) { SetEndpointConfiguration(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The status of the <a>DomainName</a> migration. The valid values are
+     * <code>AVAILABLE</code> and <code>UPDATING</code>. If the status is
+     * <code>UPDATING</code>, the domain cannot be modified further until the existing
+     * operation is complete. If it is <code>AVAILABLE</code>, the domain can be
+     * updated.</p>
+     */
+    inline const DomainNameStatus& GetDomainNameStatus() const{ return m_domainNameStatus; }
+
+    /**
+     * <p>The status of the <a>DomainName</a> migration. The valid values are
+     * <code>AVAILABLE</code> and <code>UPDATING</code>. If the status is
+     * <code>UPDATING</code>, the domain cannot be modified further until the existing
+     * operation is complete. If it is <code>AVAILABLE</code>, the domain can be
+     * updated.</p>
+     */
+    inline void SetDomainNameStatus(const DomainNameStatus& value) { m_domainNameStatus = value; }
+
+    /**
+     * <p>The status of the <a>DomainName</a> migration. The valid values are
+     * <code>AVAILABLE</code> and <code>UPDATING</code>. If the status is
+     * <code>UPDATING</code>, the domain cannot be modified further until the existing
+     * operation is complete. If it is <code>AVAILABLE</code>, the domain can be
+     * updated.</p>
+     */
+    inline void SetDomainNameStatus(DomainNameStatus&& value) { m_domainNameStatus = std::move(value); }
+
+    /**
+     * <p>The status of the <a>DomainName</a> migration. The valid values are
+     * <code>AVAILABLE</code> and <code>UPDATING</code>. If the status is
+     * <code>UPDATING</code>, the domain cannot be modified further until the existing
+     * operation is complete. If it is <code>AVAILABLE</code>, the domain can be
+     * updated.</p>
+     */
+    inline CreateDomainNameResult& WithDomainNameStatus(const DomainNameStatus& value) { SetDomainNameStatus(value); return *this;}
+
+    /**
+     * <p>The status of the <a>DomainName</a> migration. The valid values are
+     * <code>AVAILABLE</code> and <code>UPDATING</code>. If the status is
+     * <code>UPDATING</code>, the domain cannot be modified further until the existing
+     * operation is complete. If it is <code>AVAILABLE</code>, the domain can be
+     * updated.</p>
+     */
+    inline CreateDomainNameResult& WithDomainNameStatus(DomainNameStatus&& value) { SetDomainNameStatus(std::move(value)); return *this;}
+
+
+    /**
+     * <p>An optional text message containing detailed information about status of the
+     * <a>DomainName</a> migration.</p>
+     */
+    inline const Aws::String& GetDomainNameStatusMessage() const{ return m_domainNameStatusMessage; }
+
+    /**
+     * <p>An optional text message containing detailed information about status of the
+     * <a>DomainName</a> migration.</p>
+     */
+    inline void SetDomainNameStatusMessage(const Aws::String& value) { m_domainNameStatusMessage = value; }
+
+    /**
+     * <p>An optional text message containing detailed information about status of the
+     * <a>DomainName</a> migration.</p>
+     */
+    inline void SetDomainNameStatusMessage(Aws::String&& value) { m_domainNameStatusMessage = std::move(value); }
+
+    /**
+     * <p>An optional text message containing detailed information about status of the
+     * <a>DomainName</a> migration.</p>
+     */
+    inline void SetDomainNameStatusMessage(const char* value) { m_domainNameStatusMessage.assign(value); }
+
+    /**
+     * <p>An optional text message containing detailed information about status of the
+     * <a>DomainName</a> migration.</p>
+     */
+    inline CreateDomainNameResult& WithDomainNameStatusMessage(const Aws::String& value) { SetDomainNameStatusMessage(value); return *this;}
+
+    /**
+     * <p>An optional text message containing detailed information about status of the
+     * <a>DomainName</a> migration.</p>
+     */
+    inline CreateDomainNameResult& WithDomainNameStatusMessage(Aws::String&& value) { SetDomainNameStatusMessage(std::move(value)); return *this;}
+
+    /**
+     * <p>An optional text message containing detailed information about status of the
+     * <a>DomainName</a> migration.</p>
+     */
+    inline CreateDomainNameResult& WithDomainNameStatusMessage(const char* value) { SetDomainNameStatusMessage(value); return *this;}
+
+
+    /**
+     * <p>The Transport Layer Security (TLS) version + cipher suite for this
+     * <a>DomainName</a>. The valid values are <code>TLS_1_0</code> and
+     * <code>TLS_1_2</code>.</p>
+     */
+    inline const SecurityPolicy& GetSecurityPolicy() const{ return m_securityPolicy; }
+
+    /**
+     * <p>The Transport Layer Security (TLS) version + cipher suite for this
+     * <a>DomainName</a>. The valid values are <code>TLS_1_0</code> and
+     * <code>TLS_1_2</code>.</p>
+     */
+    inline void SetSecurityPolicy(const SecurityPolicy& value) { m_securityPolicy = value; }
+
+    /**
+     * <p>The Transport Layer Security (TLS) version + cipher suite for this
+     * <a>DomainName</a>. The valid values are <code>TLS_1_0</code> and
+     * <code>TLS_1_2</code>.</p>
+     */
+    inline void SetSecurityPolicy(SecurityPolicy&& value) { m_securityPolicy = std::move(value); }
+
+    /**
+     * <p>The Transport Layer Security (TLS) version + cipher suite for this
+     * <a>DomainName</a>. The valid values are <code>TLS_1_0</code> and
+     * <code>TLS_1_2</code>.</p>
+     */
+    inline CreateDomainNameResult& WithSecurityPolicy(const SecurityPolicy& value) { SetSecurityPolicy(value); return *this;}
+
+    /**
+     * <p>The Transport Layer Security (TLS) version + cipher suite for this
+     * <a>DomainName</a>. The valid values are <code>TLS_1_0</code> and
+     * <code>TLS_1_2</code>.</p>
+     */
+    inline CreateDomainNameResult& WithSecurityPolicy(SecurityPolicy&& value) { SetSecurityPolicy(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tags = value; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tags = std::move(value); }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& AddTags(const Aws::String& key, const Aws::String& value) { m_tags.emplace(key, value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& AddTags(Aws::String&& key, const Aws::String& value) { m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& AddTags(const Aws::String& key, Aws::String&& value) { m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& AddTags(Aws::String&& key, Aws::String&& value) { m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& AddTags(const char* key, Aws::String&& value) { m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& AddTags(Aws::String&& key, const char* value) { m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline CreateDomainNameResult& AddTags(const char* key, const char* value) { m_tags.emplace(key, value); return *this; }
+
   private:
 
     Aws::String m_domainName;
@@ -651,6 +852,14 @@ namespace Model
     Aws::String m_distributionHostedZoneId;
 
     EndpointConfiguration m_endpointConfiguration;
+
+    DomainNameStatus m_domainNameStatus;
+
+    Aws::String m_domainNameStatusMessage;
+
+    SecurityPolicy m_securityPolicy;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
   };
 
 } // namespace Model

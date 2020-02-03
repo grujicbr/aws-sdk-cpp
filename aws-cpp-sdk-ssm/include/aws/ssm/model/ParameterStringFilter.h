@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -35,8 +36,18 @@ namespace Model
 
   /**
    * <p>One or more filters. Use a filter to return a more specific list of
-   * results.</p> <note> <p>The <code>Name</code> field can't be used with the
-   * <a>GetParametersByPath</a> API action.</p> </note><p><h3>See Also:</h3>   <a
+   * results.</p> <important> <p>The <code>ParameterStringFilter</code> object is
+   * used by the <a>DescribeParameters</a> and <a>GetParametersByPath</a> API
+   * actions. However, not all of the pattern values listed for <code>Key</code> can
+   * be used with both actions.</p> <p>For <code>DescribeActions</code>, all of the
+   * listed patterns are valid, with the exception of <code>Label</code>.</p> <p>For
+   * <code>GetParametersByPath</code>, the following patterns listed for
+   * <code>Key</code> are not valid: <code>Name</code>, <code>Path</code>, and
+   * <code>Tier</code>.</p> <p>For examples of CLI commands demonstrating valid
+   * parameter filter constructions, see <a
+   * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html">Searching
+   * for Systems Manager Parameters</a> in the <i>AWS Systems Manager User
+   * Guide</i>.</p> </important><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ParameterStringFilter">AWS
    * API Reference</a></p>
    */
@@ -44,8 +55,8 @@ namespace Model
   {
   public:
     ParameterStringFilter();
-    ParameterStringFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParameterStringFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParameterStringFilter(Aws::Utils::Json::JsonView jsonValue);
+    ParameterStringFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +64,11 @@ namespace Model
      * <p>The name of the filter.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The name of the filter.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The name of the filter.</p>
@@ -86,44 +102,98 @@ namespace Model
 
 
     /**
-     * <p>Valid options are Equals and BeginsWith. For Path filter, valid options are
-     * Recursive and OneLevel.</p>
+     * <p>For all filters used with <a>DescribeParameters</a>, valid options include
+     * <code>Equals</code> and <code>BeginsWith</code>. The <code>Name</code> filter
+     * additionally supports the <code>Contains</code> option. (Exception: For filters
+     * using the key <code>Path</code>, valid options include <code>Recursive</code>
+     * and <code>OneLevel</code>.)</p> <p>For filters used with
+     * <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using the key
+     * <code>Label</code>, the only valid option is <code>Equals</code>.)</p>
      */
     inline const Aws::String& GetOption() const{ return m_option; }
 
     /**
-     * <p>Valid options are Equals and BeginsWith. For Path filter, valid options are
-     * Recursive and OneLevel.</p>
+     * <p>For all filters used with <a>DescribeParameters</a>, valid options include
+     * <code>Equals</code> and <code>BeginsWith</code>. The <code>Name</code> filter
+     * additionally supports the <code>Contains</code> option. (Exception: For filters
+     * using the key <code>Path</code>, valid options include <code>Recursive</code>
+     * and <code>OneLevel</code>.)</p> <p>For filters used with
+     * <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using the key
+     * <code>Label</code>, the only valid option is <code>Equals</code>.)</p>
+     */
+    inline bool OptionHasBeenSet() const { return m_optionHasBeenSet; }
+
+    /**
+     * <p>For all filters used with <a>DescribeParameters</a>, valid options include
+     * <code>Equals</code> and <code>BeginsWith</code>. The <code>Name</code> filter
+     * additionally supports the <code>Contains</code> option. (Exception: For filters
+     * using the key <code>Path</code>, valid options include <code>Recursive</code>
+     * and <code>OneLevel</code>.)</p> <p>For filters used with
+     * <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using the key
+     * <code>Label</code>, the only valid option is <code>Equals</code>.)</p>
      */
     inline void SetOption(const Aws::String& value) { m_optionHasBeenSet = true; m_option = value; }
 
     /**
-     * <p>Valid options are Equals and BeginsWith. For Path filter, valid options are
-     * Recursive and OneLevel.</p>
+     * <p>For all filters used with <a>DescribeParameters</a>, valid options include
+     * <code>Equals</code> and <code>BeginsWith</code>. The <code>Name</code> filter
+     * additionally supports the <code>Contains</code> option. (Exception: For filters
+     * using the key <code>Path</code>, valid options include <code>Recursive</code>
+     * and <code>OneLevel</code>.)</p> <p>For filters used with
+     * <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using the key
+     * <code>Label</code>, the only valid option is <code>Equals</code>.)</p>
      */
     inline void SetOption(Aws::String&& value) { m_optionHasBeenSet = true; m_option = std::move(value); }
 
     /**
-     * <p>Valid options are Equals and BeginsWith. For Path filter, valid options are
-     * Recursive and OneLevel.</p>
+     * <p>For all filters used with <a>DescribeParameters</a>, valid options include
+     * <code>Equals</code> and <code>BeginsWith</code>. The <code>Name</code> filter
+     * additionally supports the <code>Contains</code> option. (Exception: For filters
+     * using the key <code>Path</code>, valid options include <code>Recursive</code>
+     * and <code>OneLevel</code>.)</p> <p>For filters used with
+     * <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using the key
+     * <code>Label</code>, the only valid option is <code>Equals</code>.)</p>
      */
     inline void SetOption(const char* value) { m_optionHasBeenSet = true; m_option.assign(value); }
 
     /**
-     * <p>Valid options are Equals and BeginsWith. For Path filter, valid options are
-     * Recursive and OneLevel.</p>
+     * <p>For all filters used with <a>DescribeParameters</a>, valid options include
+     * <code>Equals</code> and <code>BeginsWith</code>. The <code>Name</code> filter
+     * additionally supports the <code>Contains</code> option. (Exception: For filters
+     * using the key <code>Path</code>, valid options include <code>Recursive</code>
+     * and <code>OneLevel</code>.)</p> <p>For filters used with
+     * <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using the key
+     * <code>Label</code>, the only valid option is <code>Equals</code>.)</p>
      */
     inline ParameterStringFilter& WithOption(const Aws::String& value) { SetOption(value); return *this;}
 
     /**
-     * <p>Valid options are Equals and BeginsWith. For Path filter, valid options are
-     * Recursive and OneLevel.</p>
+     * <p>For all filters used with <a>DescribeParameters</a>, valid options include
+     * <code>Equals</code> and <code>BeginsWith</code>. The <code>Name</code> filter
+     * additionally supports the <code>Contains</code> option. (Exception: For filters
+     * using the key <code>Path</code>, valid options include <code>Recursive</code>
+     * and <code>OneLevel</code>.)</p> <p>For filters used with
+     * <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using the key
+     * <code>Label</code>, the only valid option is <code>Equals</code>.)</p>
      */
     inline ParameterStringFilter& WithOption(Aws::String&& value) { SetOption(std::move(value)); return *this;}
 
     /**
-     * <p>Valid options are Equals and BeginsWith. For Path filter, valid options are
-     * Recursive and OneLevel.</p>
+     * <p>For all filters used with <a>DescribeParameters</a>, valid options include
+     * <code>Equals</code> and <code>BeginsWith</code>. The <code>Name</code> filter
+     * additionally supports the <code>Contains</code> option. (Exception: For filters
+     * using the key <code>Path</code>, valid options include <code>Recursive</code>
+     * and <code>OneLevel</code>.)</p> <p>For filters used with
+     * <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using the key
+     * <code>Label</code>, the only valid option is <code>Equals</code>.)</p>
      */
     inline ParameterStringFilter& WithOption(const char* value) { SetOption(value); return *this;}
 
@@ -132,6 +202,11 @@ namespace Model
      * <p>The value you want to search for.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>The value you want to search for.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>The value you want to search for.</p>

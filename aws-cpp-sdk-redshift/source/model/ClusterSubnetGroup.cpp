@@ -60,25 +60,25 @@ ClusterSubnetGroup& ClusterSubnetGroup::operator =(const XmlNode& xmlNode)
     XmlNode clusterSubnetGroupNameNode = resultNode.FirstChild("ClusterSubnetGroupName");
     if(!clusterSubnetGroupNameNode.IsNull())
     {
-      m_clusterSubnetGroupName = StringUtils::Trim(clusterSubnetGroupNameNode.GetText().c_str());
+      m_clusterSubnetGroupName = Aws::Utils::Xml::DecodeEscapedXmlText(clusterSubnetGroupNameNode.GetText());
       m_clusterSubnetGroupNameHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode vpcIdNode = resultNode.FirstChild("VpcId");
     if(!vpcIdNode.IsNull())
     {
-      m_vpcId = StringUtils::Trim(vpcIdNode.GetText().c_str());
+      m_vpcId = Aws::Utils::Xml::DecodeEscapedXmlText(vpcIdNode.GetText());
       m_vpcIdHasBeenSet = true;
     }
     XmlNode subnetGroupStatusNode = resultNode.FirstChild("SubnetGroupStatus");
     if(!subnetGroupStatusNode.IsNull())
     {
-      m_subnetGroupStatus = StringUtils::Trim(subnetGroupStatusNode.GetText().c_str());
+      m_subnetGroupStatus = Aws::Utils::Xml::DecodeEscapedXmlText(subnetGroupStatusNode.GetText());
       m_subnetGroupStatusHasBeenSet = true;
     }
     XmlNode subnetsNode = resultNode.FirstChild("Subnets");

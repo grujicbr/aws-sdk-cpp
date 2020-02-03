@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -42,26 +43,32 @@ namespace Model
   {
   public:
     InputLogEvent();
-    InputLogEvent(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputLogEvent& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputLogEvent(Aws::Utils::Json::JsonView jsonValue);
+    InputLogEvent& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The time the event occurred, expressed as the number of milliseconds fter Jan
-     * 1, 1970 00:00:00 UTC.</p>
+     * <p>The time the event occurred, expressed as the number of milliseconds after
+     * Jan 1, 1970 00:00:00 UTC.</p>
      */
     inline long long GetTimestamp() const{ return m_timestamp; }
 
     /**
-     * <p>The time the event occurred, expressed as the number of milliseconds fter Jan
-     * 1, 1970 00:00:00 UTC.</p>
+     * <p>The time the event occurred, expressed as the number of milliseconds after
+     * Jan 1, 1970 00:00:00 UTC.</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
+
+    /**
+     * <p>The time the event occurred, expressed as the number of milliseconds after
+     * Jan 1, 1970 00:00:00 UTC.</p>
      */
     inline void SetTimestamp(long long value) { m_timestampHasBeenSet = true; m_timestamp = value; }
 
     /**
-     * <p>The time the event occurred, expressed as the number of milliseconds fter Jan
-     * 1, 1970 00:00:00 UTC.</p>
+     * <p>The time the event occurred, expressed as the number of milliseconds after
+     * Jan 1, 1970 00:00:00 UTC.</p>
      */
     inline InputLogEvent& WithTimestamp(long long value) { SetTimestamp(value); return *this;}
 
@@ -70,6 +77,11 @@ namespace Model
      * <p>The raw event message.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The raw event message.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The raw event message.</p>

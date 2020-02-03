@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -38,7 +39,7 @@ namespace Model
 
   /**
    * <p>A facet attribute definition. See <a
-   * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#attributereferences">Attribute
+   * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html">Attribute
    * References</a> for more information.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/FacetAttributeDefinition">AWS
    * API Reference</a></p>
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     FacetAttributeDefinition();
-    FacetAttributeDefinition(const Aws::Utils::Json::JsonValue& jsonValue);
-    FacetAttributeDefinition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FacetAttributeDefinition(Aws::Utils::Json::JsonView jsonValue);
+    FacetAttributeDefinition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The type of the attribute.</p>
      */
     inline const FacetAttributeType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of the attribute.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of the attribute.</p>
@@ -86,6 +92,11 @@ namespace Model
     /**
      * <p>The default value of the attribute (if configured).</p>
      */
+    inline bool DefaultValueHasBeenSet() const { return m_defaultValueHasBeenSet; }
+
+    /**
+     * <p>The default value of the attribute (if configured).</p>
+     */
     inline void SetDefaultValue(const TypedAttributeValue& value) { m_defaultValueHasBeenSet = true; m_defaultValue = value; }
 
     /**
@@ -112,6 +123,11 @@ namespace Model
     /**
      * <p>Whether the attribute is mutable or not.</p>
      */
+    inline bool IsImmutableHasBeenSet() const { return m_isImmutableHasBeenSet; }
+
+    /**
+     * <p>Whether the attribute is mutable or not.</p>
+     */
     inline void SetIsImmutable(bool value) { m_isImmutableHasBeenSet = true; m_isImmutable = value; }
 
     /**
@@ -124,6 +140,11 @@ namespace Model
      * <p>Validation rules attached to the attribute definition.</p>
      */
     inline const Aws::Map<Aws::String, Rule>& GetRules() const{ return m_rules; }
+
+    /**
+     * <p>Validation rules attached to the attribute definition.</p>
+     */
+    inline bool RulesHasBeenSet() const { return m_rulesHasBeenSet; }
 
     /**
      * <p>Validation rules attached to the attribute definition.</p>

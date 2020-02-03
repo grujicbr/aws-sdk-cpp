@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CostExplorer
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     MetricValue();
-    MetricValue(const Aws::Utils::Json::JsonValue& jsonValue);
-    MetricValue& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MetricValue(Aws::Utils::Json::JsonView jsonValue);
+    MetricValue& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The actual number that represents the metric.</p>
      */
     inline const Aws::String& GetAmount() const{ return m_amount; }
+
+    /**
+     * <p>The actual number that represents the metric.</p>
+     */
+    inline bool AmountHasBeenSet() const { return m_amountHasBeenSet; }
 
     /**
      * <p>The actual number that represents the metric.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The unit that the metric is given in.</p>
      */
     inline const Aws::String& GetUnit() const{ return m_unit; }
+
+    /**
+     * <p>The unit that the metric is given in.</p>
+     */
+    inline bool UnitHasBeenSet() const { return m_unitHasBeenSet; }
 
     /**
      * <p>The unit that the metric is given in.</p>

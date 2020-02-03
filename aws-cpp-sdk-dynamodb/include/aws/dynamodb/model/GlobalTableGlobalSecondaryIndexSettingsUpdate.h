@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/dynamodb/DynamoDB_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/dynamodb/model/AutoScalingSettingsUpdate.h>
 #include <utility>
 
 namespace Aws
@@ -25,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -42,8 +44,8 @@ namespace Model
   {
   public:
     GlobalTableGlobalSecondaryIndexSettingsUpdate();
-    GlobalTableGlobalSecondaryIndexSettingsUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    GlobalTableGlobalSecondaryIndexSettingsUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GlobalTableGlobalSecondaryIndexSettingsUpdate(Aws::Utils::Json::JsonView jsonValue);
+    GlobalTableGlobalSecondaryIndexSettingsUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +54,12 @@ namespace Model
      * other indexes on this table.</p>
      */
     inline const Aws::String& GetIndexName() const{ return m_indexName; }
+
+    /**
+     * <p>The name of the global secondary index. The name must be unique among all
+     * other indexes on this table.</p>
+     */
+    inline bool IndexNameHasBeenSet() const { return m_indexNameHasBeenSet; }
 
     /**
      * <p>The name of the global secondary index. The name must be unique among all
@@ -100,6 +108,12 @@ namespace Model
      * <p>The maximum number of writes consumed per second before DynamoDB returns a
      * <code>ThrottlingException.</code> </p>
      */
+    inline bool ProvisionedWriteCapacityUnitsHasBeenSet() const { return m_provisionedWriteCapacityUnitsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of writes consumed per second before DynamoDB returns a
+     * <code>ThrottlingException.</code> </p>
+     */
     inline void SetProvisionedWriteCapacityUnits(long long value) { m_provisionedWriteCapacityUnitsHasBeenSet = true; m_provisionedWriteCapacityUnits = value; }
 
     /**
@@ -108,6 +122,43 @@ namespace Model
      */
     inline GlobalTableGlobalSecondaryIndexSettingsUpdate& WithProvisionedWriteCapacityUnits(long long value) { SetProvisionedWriteCapacityUnits(value); return *this;}
 
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index's write capacity
+     * units.</p>
+     */
+    inline const AutoScalingSettingsUpdate& GetProvisionedWriteCapacityAutoScalingSettingsUpdate() const{ return m_provisionedWriteCapacityAutoScalingSettingsUpdate; }
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index's write capacity
+     * units.</p>
+     */
+    inline bool ProvisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet() const { return m_provisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet; }
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index's write capacity
+     * units.</p>
+     */
+    inline void SetProvisionedWriteCapacityAutoScalingSettingsUpdate(const AutoScalingSettingsUpdate& value) { m_provisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet = true; m_provisionedWriteCapacityAutoScalingSettingsUpdate = value; }
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index's write capacity
+     * units.</p>
+     */
+    inline void SetProvisionedWriteCapacityAutoScalingSettingsUpdate(AutoScalingSettingsUpdate&& value) { m_provisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet = true; m_provisionedWriteCapacityAutoScalingSettingsUpdate = std::move(value); }
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index's write capacity
+     * units.</p>
+     */
+    inline GlobalTableGlobalSecondaryIndexSettingsUpdate& WithProvisionedWriteCapacityAutoScalingSettingsUpdate(const AutoScalingSettingsUpdate& value) { SetProvisionedWriteCapacityAutoScalingSettingsUpdate(value); return *this;}
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index's write capacity
+     * units.</p>
+     */
+    inline GlobalTableGlobalSecondaryIndexSettingsUpdate& WithProvisionedWriteCapacityAutoScalingSettingsUpdate(AutoScalingSettingsUpdate&& value) { SetProvisionedWriteCapacityAutoScalingSettingsUpdate(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_indexName;
@@ -115,6 +166,9 @@ namespace Model
 
     long long m_provisionedWriteCapacityUnits;
     bool m_provisionedWriteCapacityUnitsHasBeenSet;
+
+    AutoScalingSettingsUpdate m_provisionedWriteCapacityAutoScalingSettingsUpdate;
+    bool m_provisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet;
   };
 
 } // namespace Model

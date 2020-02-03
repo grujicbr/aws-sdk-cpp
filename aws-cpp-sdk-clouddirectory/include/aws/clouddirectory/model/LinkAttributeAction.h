@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     LinkAttributeAction();
-    LinkAttributeAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    LinkAttributeAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LinkAttributeAction(Aws::Utils::Json::JsonView jsonValue);
+    LinkAttributeAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * <code>DELETE</code>.</p>
      */
     inline const UpdateActionType& GetAttributeActionType() const{ return m_attributeActionType; }
+
+    /**
+     * <p>A type that can be either <code>UPDATE_OR_CREATE</code> or
+     * <code>DELETE</code>.</p>
+     */
+    inline bool AttributeActionTypeHasBeenSet() const { return m_attributeActionTypeHasBeenSet; }
 
     /**
      * <p>A type that can be either <code>UPDATE_OR_CREATE</code> or
@@ -84,6 +91,11 @@ namespace Model
      * <p>The value that you want to update to.</p>
      */
     inline const TypedAttributeValue& GetAttributeUpdateValue() const{ return m_attributeUpdateValue; }
+
+    /**
+     * <p>The value that you want to update to.</p>
+     */
+    inline bool AttributeUpdateValueHasBeenSet() const { return m_attributeUpdateValueHasBeenSet; }
 
     /**
      * <p>The value that you want to update to.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Subnet();
-    Subnet(const Aws::Utils::Json::JsonValue& jsonValue);
-    Subnet& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Subnet(Aws::Utils::Json::JsonView jsonValue);
+    Subnet& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The subnet identifier.</p>
      */
     inline const Aws::String& GetSubnetIdentifier() const{ return m_subnetIdentifier; }
+
+    /**
+     * <p>The subnet identifier.</p>
+     */
+    inline bool SubnetIdentifierHasBeenSet() const { return m_subnetIdentifierHasBeenSet; }
 
     /**
      * <p>The subnet identifier.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The Availability Zone of the subnet.</p>
      */
+    inline bool SubnetAvailabilityZoneHasBeenSet() const { return m_subnetAvailabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The Availability Zone of the subnet.</p>
+     */
     inline void SetSubnetAvailabilityZone(const AvailabilityZone& value) { m_subnetAvailabilityZoneHasBeenSet = true; m_subnetAvailabilityZone = value; }
 
     /**
@@ -113,6 +124,11 @@ namespace Model
      * <p>The status of the subnet.</p>
      */
     inline const Aws::String& GetSubnetStatus() const{ return m_subnetStatus; }
+
+    /**
+     * <p>The status of the subnet.</p>
+     */
+    inline bool SubnetStatusHasBeenSet() const { return m_subnetStatusHasBeenSet; }
 
     /**
      * <p>The status of the subnet.</p>

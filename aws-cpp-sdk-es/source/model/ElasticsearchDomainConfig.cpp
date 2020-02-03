@@ -37,12 +37,14 @@ ElasticsearchDomainConfig::ElasticsearchDomainConfig() :
     m_vPCOptionsHasBeenSet(false),
     m_cognitoOptionsHasBeenSet(false),
     m_encryptionAtRestOptionsHasBeenSet(false),
+    m_nodeToNodeEncryptionOptionsHasBeenSet(false),
     m_advancedOptionsHasBeenSet(false),
-    m_logPublishingOptionsHasBeenSet(false)
+    m_logPublishingOptionsHasBeenSet(false),
+    m_domainEndpointOptionsHasBeenSet(false)
 {
 }
 
-ElasticsearchDomainConfig::ElasticsearchDomainConfig(const JsonValue& jsonValue) : 
+ElasticsearchDomainConfig::ElasticsearchDomainConfig(JsonView jsonValue) : 
     m_elasticsearchVersionHasBeenSet(false),
     m_elasticsearchClusterConfigHasBeenSet(false),
     m_eBSOptionsHasBeenSet(false),
@@ -51,13 +53,15 @@ ElasticsearchDomainConfig::ElasticsearchDomainConfig(const JsonValue& jsonValue)
     m_vPCOptionsHasBeenSet(false),
     m_cognitoOptionsHasBeenSet(false),
     m_encryptionAtRestOptionsHasBeenSet(false),
+    m_nodeToNodeEncryptionOptionsHasBeenSet(false),
     m_advancedOptionsHasBeenSet(false),
-    m_logPublishingOptionsHasBeenSet(false)
+    m_logPublishingOptionsHasBeenSet(false),
+    m_domainEndpointOptionsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ElasticsearchDomainConfig& ElasticsearchDomainConfig::operator =(const JsonValue& jsonValue)
+ElasticsearchDomainConfig& ElasticsearchDomainConfig::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ElasticsearchVersion"))
   {
@@ -115,6 +119,13 @@ ElasticsearchDomainConfig& ElasticsearchDomainConfig::operator =(const JsonValue
     m_encryptionAtRestOptionsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("NodeToNodeEncryptionOptions"))
+  {
+    m_nodeToNodeEncryptionOptions = jsonValue.GetObject("NodeToNodeEncryptionOptions");
+
+    m_nodeToNodeEncryptionOptionsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("AdvancedOptions"))
   {
     m_advancedOptions = jsonValue.GetObject("AdvancedOptions");
@@ -127,6 +138,13 @@ ElasticsearchDomainConfig& ElasticsearchDomainConfig::operator =(const JsonValue
     m_logPublishingOptions = jsonValue.GetObject("LogPublishingOptions");
 
     m_logPublishingOptionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("DomainEndpointOptions"))
+  {
+    m_domainEndpointOptions = jsonValue.GetObject("DomainEndpointOptions");
+
+    m_domainEndpointOptionsHasBeenSet = true;
   }
 
   return *this;
@@ -184,6 +202,12 @@ JsonValue ElasticsearchDomainConfig::Jsonize() const
 
   }
 
+  if(m_nodeToNodeEncryptionOptionsHasBeenSet)
+  {
+   payload.WithObject("NodeToNodeEncryptionOptions", m_nodeToNodeEncryptionOptions.Jsonize());
+
+  }
+
   if(m_advancedOptionsHasBeenSet)
   {
    payload.WithObject("AdvancedOptions", m_advancedOptions.Jsonize());
@@ -193,6 +217,12 @@ JsonValue ElasticsearchDomainConfig::Jsonize() const
   if(m_logPublishingOptionsHasBeenSet)
   {
    payload.WithObject("LogPublishingOptions", m_logPublishingOptions.Jsonize());
+
+  }
+
+  if(m_domainEndpointOptionsHasBeenSet)
+  {
+   payload.WithObject("DomainEndpointOptions", m_domainEndpointOptions.Jsonize());
 
   }
 

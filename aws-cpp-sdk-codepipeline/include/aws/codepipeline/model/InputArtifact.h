@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -42,13 +43,13 @@ namespace Model
   {
   public:
     InputArtifact();
-    InputArtifact(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputArtifact& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputArtifact(Aws::Utils::Json::JsonView jsonValue);
+    InputArtifact& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The name of the artifact to be worked on, for example, "My App".</p> <p>The
+     * <p>The name of the artifact to be worked on (for example, "My App").</p> <p>The
      * input artifact of an action must exactly match the output artifact declared in a
      * preceding action, but the input artifact does not have to be the next action in
      * strict sequence from the action that provided the output artifact. Actions in
@@ -58,7 +59,17 @@ namespace Model
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
-     * <p>The name of the artifact to be worked on, for example, "My App".</p> <p>The
+     * <p>The name of the artifact to be worked on (for example, "My App").</p> <p>The
+     * input artifact of an action must exactly match the output artifact declared in a
+     * preceding action, but the input artifact does not have to be the next action in
+     * strict sequence from the action that provided the output artifact. Actions in
+     * parallel can declare different output artifacts, which are in turn consumed by
+     * different following actions.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the artifact to be worked on (for example, "My App").</p> <p>The
      * input artifact of an action must exactly match the output artifact declared in a
      * preceding action, but the input artifact does not have to be the next action in
      * strict sequence from the action that provided the output artifact. Actions in
@@ -68,7 +79,7 @@ namespace Model
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
-     * <p>The name of the artifact to be worked on, for example, "My App".</p> <p>The
+     * <p>The name of the artifact to be worked on (for example, "My App").</p> <p>The
      * input artifact of an action must exactly match the output artifact declared in a
      * preceding action, but the input artifact does not have to be the next action in
      * strict sequence from the action that provided the output artifact. Actions in
@@ -78,7 +89,7 @@ namespace Model
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
     /**
-     * <p>The name of the artifact to be worked on, for example, "My App".</p> <p>The
+     * <p>The name of the artifact to be worked on (for example, "My App").</p> <p>The
      * input artifact of an action must exactly match the output artifact declared in a
      * preceding action, but the input artifact does not have to be the next action in
      * strict sequence from the action that provided the output artifact. Actions in
@@ -88,7 +99,7 @@ namespace Model
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
     /**
-     * <p>The name of the artifact to be worked on, for example, "My App".</p> <p>The
+     * <p>The name of the artifact to be worked on (for example, "My App").</p> <p>The
      * input artifact of an action must exactly match the output artifact declared in a
      * preceding action, but the input artifact does not have to be the next action in
      * strict sequence from the action that provided the output artifact. Actions in
@@ -98,7 +109,7 @@ namespace Model
     inline InputArtifact& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
-     * <p>The name of the artifact to be worked on, for example, "My App".</p> <p>The
+     * <p>The name of the artifact to be worked on (for example, "My App").</p> <p>The
      * input artifact of an action must exactly match the output artifact declared in a
      * preceding action, but the input artifact does not have to be the next action in
      * strict sequence from the action that provided the output artifact. Actions in
@@ -108,7 +119,7 @@ namespace Model
     inline InputArtifact& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
-     * <p>The name of the artifact to be worked on, for example, "My App".</p> <p>The
+     * <p>The name of the artifact to be worked on (for example, "My App").</p> <p>The
      * input artifact of an action must exactly match the output artifact declared in a
      * preceding action, but the input artifact does not have to be the next action in
      * strict sequence from the action that provided the output artifact. Actions in

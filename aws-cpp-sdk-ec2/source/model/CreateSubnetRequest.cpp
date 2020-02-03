@@ -22,8 +22,10 @@ using namespace Aws::Utils;
 
 CreateSubnetRequest::CreateSubnetRequest() : 
     m_availabilityZoneHasBeenSet(false),
+    m_availabilityZoneIdHasBeenSet(false),
     m_cidrBlockHasBeenSet(false),
     m_ipv6CidrBlockHasBeenSet(false),
+    m_outpostArnHasBeenSet(false),
     m_vpcIdHasBeenSet(false),
     m_dryRun(false),
     m_dryRunHasBeenSet(false)
@@ -39,6 +41,11 @@ Aws::String CreateSubnetRequest::SerializePayload() const
     ss << "AvailabilityZone=" << StringUtils::URLEncode(m_availabilityZone.c_str()) << "&";
   }
 
+  if(m_availabilityZoneIdHasBeenSet)
+  {
+    ss << "AvailabilityZoneId=" << StringUtils::URLEncode(m_availabilityZoneId.c_str()) << "&";
+  }
+
   if(m_cidrBlockHasBeenSet)
   {
     ss << "CidrBlock=" << StringUtils::URLEncode(m_cidrBlock.c_str()) << "&";
@@ -47,6 +54,11 @@ Aws::String CreateSubnetRequest::SerializePayload() const
   if(m_ipv6CidrBlockHasBeenSet)
   {
     ss << "Ipv6CidrBlock=" << StringUtils::URLEncode(m_ipv6CidrBlock.c_str()) << "&";
+  }
+
+  if(m_outpostArnHasBeenSet)
+  {
+    ss << "OutpostArn=" << StringUtils::URLEncode(m_outpostArn.c_str()) << "&";
   }
 
   if(m_vpcIdHasBeenSet)

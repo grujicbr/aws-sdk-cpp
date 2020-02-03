@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -37,9 +38,9 @@ namespace Model
    * <p>A snapshot of the documentation of an API.</p> <div
    * class="remarks"><p>Publishing API documentation involves creating a
    * documentation version associated with an API stage and exporting the versioned
-   * documentation to an external (e.g., Swagger) file.</p></div> <div
+   * documentation to an external (e.g., OpenAPI) file.</p></div> <div
    * class="seeAlso"> <a
-   * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html">Documenting
+   * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html">Documenting
    * an API</a>, <a>DocumentationPart</a>, <a>DocumentationVersions</a>
    * </div><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/DocumentationVersion">AWS
@@ -49,8 +50,8 @@ namespace Model
   {
   public:
     DocumentationVersion();
-    DocumentationVersion(const Aws::Utils::Json::JsonValue& jsonValue);
-    DocumentationVersion& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DocumentationVersion(Aws::Utils::Json::JsonView jsonValue);
+    DocumentationVersion& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,11 @@ namespace Model
      * <p>The version identifier of the API documentation snapshot.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version identifier of the API documentation snapshot.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version identifier of the API documentation snapshot.</p>
@@ -98,6 +104,11 @@ namespace Model
     /**
      * <p>The date when the API documentation snapshot is created.</p>
      */
+    inline bool CreatedDateHasBeenSet() const { return m_createdDateHasBeenSet; }
+
+    /**
+     * <p>The date when the API documentation snapshot is created.</p>
+     */
     inline void SetCreatedDate(const Aws::Utils::DateTime& value) { m_createdDateHasBeenSet = true; m_createdDate = value; }
 
     /**
@@ -120,6 +131,11 @@ namespace Model
      * <p>The description of the API documentation snapshot.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the API documentation snapshot.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the API documentation snapshot.</p>

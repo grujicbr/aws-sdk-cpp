@@ -33,6 +33,13 @@ namespace S3
 namespace Model
 {
 
+  /**
+   * <p> In terms of implementation, a Bucket is a resource. An Amazon S3 bucket name
+   * is globally unique, and the namespace is shared by all AWS accounts.
+   * </p><p><h3>See Also:</h3>   <a
+   * href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Bucket">AWS API
+   * Reference</a></p>
+   */
   class AWS_S3_API Bucket
   {
   public:
@@ -47,6 +54,11 @@ namespace Model
      * <p>The name of the bucket.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the bucket.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the bucket.</p>
@@ -83,6 +95,11 @@ namespace Model
      * <p>Date the bucket was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>Date the bucket was created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>Date the bucket was created.</p>

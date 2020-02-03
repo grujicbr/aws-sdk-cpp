@@ -37,7 +37,9 @@ LaunchTemplateOverrides::LaunchTemplateOverrides() :
     m_subnetIdHasBeenSet(false),
     m_availabilityZoneHasBeenSet(false),
     m_weightedCapacity(0.0),
-    m_weightedCapacityHasBeenSet(false)
+    m_weightedCapacityHasBeenSet(false),
+    m_priority(0.0),
+    m_priorityHasBeenSet(false)
 {
 }
 
@@ -48,7 +50,9 @@ LaunchTemplateOverrides::LaunchTemplateOverrides(const XmlNode& xmlNode) :
     m_subnetIdHasBeenSet(false),
     m_availabilityZoneHasBeenSet(false),
     m_weightedCapacity(0.0),
-    m_weightedCapacityHasBeenSet(false)
+    m_weightedCapacityHasBeenSet(false),
+    m_priority(0.0),
+    m_priorityHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -62,32 +66,38 @@ LaunchTemplateOverrides& LaunchTemplateOverrides::operator =(const XmlNode& xmlN
     XmlNode instanceTypeNode = resultNode.FirstChild("instanceType");
     if(!instanceTypeNode.IsNull())
     {
-      m_instanceType = InstanceTypeMapper::GetInstanceTypeForName(StringUtils::Trim(instanceTypeNode.GetText().c_str()).c_str());
+      m_instanceType = InstanceTypeMapper::GetInstanceTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(instanceTypeNode.GetText()).c_str()).c_str());
       m_instanceTypeHasBeenSet = true;
     }
     XmlNode spotPriceNode = resultNode.FirstChild("spotPrice");
     if(!spotPriceNode.IsNull())
     {
-      m_spotPrice = StringUtils::Trim(spotPriceNode.GetText().c_str());
+      m_spotPrice = Aws::Utils::Xml::DecodeEscapedXmlText(spotPriceNode.GetText());
       m_spotPriceHasBeenSet = true;
     }
     XmlNode subnetIdNode = resultNode.FirstChild("subnetId");
     if(!subnetIdNode.IsNull())
     {
-      m_subnetId = StringUtils::Trim(subnetIdNode.GetText().c_str());
+      m_subnetId = Aws::Utils::Xml::DecodeEscapedXmlText(subnetIdNode.GetText());
       m_subnetIdHasBeenSet = true;
     }
     XmlNode availabilityZoneNode = resultNode.FirstChild("availabilityZone");
     if(!availabilityZoneNode.IsNull())
     {
-      m_availabilityZone = StringUtils::Trim(availabilityZoneNode.GetText().c_str());
+      m_availabilityZone = Aws::Utils::Xml::DecodeEscapedXmlText(availabilityZoneNode.GetText());
       m_availabilityZoneHasBeenSet = true;
     }
     XmlNode weightedCapacityNode = resultNode.FirstChild("weightedCapacity");
     if(!weightedCapacityNode.IsNull())
     {
-      m_weightedCapacity = StringUtils::ConvertToDouble(StringUtils::Trim(weightedCapacityNode.GetText().c_str()).c_str());
+      m_weightedCapacity = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(weightedCapacityNode.GetText()).c_str()).c_str());
       m_weightedCapacityHasBeenSet = true;
+    }
+    XmlNode priorityNode = resultNode.FirstChild("priority");
+    if(!priorityNode.IsNull())
+    {
+      m_priority = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(priorityNode.GetText()).c_str()).c_str());
+      m_priorityHasBeenSet = true;
     }
   }
 
@@ -121,6 +131,11 @@ void LaunchTemplateOverrides::OutputToStream(Aws::OStream& oStream, const char* 
         oStream << location << index << locationValue << ".WeightedCapacity=" << StringUtils::URLEncode(m_weightedCapacity) << "&";
   }
 
+  if(m_priorityHasBeenSet)
+  {
+        oStream << location << index << locationValue << ".Priority=" << StringUtils::URLEncode(m_priority) << "&";
+  }
+
 }
 
 void LaunchTemplateOverrides::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -144,6 +159,10 @@ void LaunchTemplateOverrides::OutputToStream(Aws::OStream& oStream, const char* 
   if(m_weightedCapacityHasBeenSet)
   {
         oStream << location << ".WeightedCapacity=" << StringUtils::URLEncode(m_weightedCapacity) << "&";
+  }
+  if(m_priorityHasBeenSet)
+  {
+        oStream << location << ".Priority=" << StringUtils::URLEncode(m_priority) << "&";
   }
 }
 

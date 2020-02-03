@@ -24,6 +24,9 @@
 #include <aws/core/utils/xml/XmlSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/sts/STSClient.h>
 #include <aws/sts/STSEndpoint.h>
 #include <aws/sts/STSErrorMarshaller.h>
@@ -31,6 +34,7 @@
 #include <aws/sts/model/AssumeRoleWithSAMLRequest.h>
 #include <aws/sts/model/AssumeRoleWithWebIdentityRequest.h>
 #include <aws/sts/model/DecodeAuthorizationMessageRequest.h>
+#include <aws/sts/model/GetAccessKeyInfoRequest.h>
 #include <aws/sts/model/GetCallerIdentityRequest.h>
 #include <aws/sts/model/GetFederationTokenRequest.h>
 #include <aws/sts/model/GetSessionTokenRequest.h>
@@ -85,19 +89,27 @@ STSClient::~STSClient()
 
 void STSClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << STSEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + STSEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void STSClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
 }
 
 Aws::String STSClient::ConvertRequestToPresignedUrl(const AmazonSerializableWebServiceRequest& requestToConvert, const char* region) const
@@ -107,16 +119,16 @@ Aws::String STSClient::ConvertRequestToPresignedUrl(const AmazonSerializableWebS
   ss << "?" << requestToConvert.SerializePayload();
 
   URI uri(ss.str());
-  return GeneratePresignedUrl(uri, HttpMethod::HTTP_GET, region, 3600);
+  return GeneratePresignedUrl(uri, Aws::Http::HttpMethod::HTTP_GET, region, 3600);
 }
 
 AssumeRoleOutcome STSClient::AssumeRole(const AssumeRoleRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return AssumeRoleOutcome(AssumeRoleResult(outcome.GetResult()));
@@ -147,11 +159,11 @@ void STSClient::AssumeRoleAsyncHelper(const AssumeRoleRequest& request, const As
 
 AssumeRoleWithSAMLOutcome STSClient::AssumeRoleWithSAML(const AssumeRoleWithSAMLRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return AssumeRoleWithSAMLOutcome(AssumeRoleWithSAMLResult(outcome.GetResult()));
@@ -182,11 +194,11 @@ void STSClient::AssumeRoleWithSAMLAsyncHelper(const AssumeRoleWithSAMLRequest& r
 
 AssumeRoleWithWebIdentityOutcome STSClient::AssumeRoleWithWebIdentity(const AssumeRoleWithWebIdentityRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return AssumeRoleWithWebIdentityOutcome(AssumeRoleWithWebIdentityResult(outcome.GetResult()));
@@ -217,11 +229,11 @@ void STSClient::AssumeRoleWithWebIdentityAsyncHelper(const AssumeRoleWithWebIden
 
 DecodeAuthorizationMessageOutcome STSClient::DecodeAuthorizationMessage(const DecodeAuthorizationMessageRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return DecodeAuthorizationMessageOutcome(DecodeAuthorizationMessageResult(outcome.GetResult()));
@@ -250,13 +262,48 @@ void STSClient::DecodeAuthorizationMessageAsyncHelper(const DecodeAuthorizationM
   handler(this, request, DecodeAuthorizationMessage(request), context);
 }
 
-GetCallerIdentityOutcome STSClient::GetCallerIdentity(const GetCallerIdentityRequest& request) const
+GetAccessKeyInfoOutcome STSClient::GetAccessKeyInfo(const GetAccessKeyInfoRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
+  if(outcome.IsSuccess())
+  {
+    return GetAccessKeyInfoOutcome(GetAccessKeyInfoResult(outcome.GetResult()));
+  }
+  else
+  {
+    return GetAccessKeyInfoOutcome(outcome.GetError());
+  }
+}
+
+GetAccessKeyInfoOutcomeCallable STSClient::GetAccessKeyInfoCallable(const GetAccessKeyInfoRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< GetAccessKeyInfoOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->GetAccessKeyInfo(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void STSClient::GetAccessKeyInfoAsync(const GetAccessKeyInfoRequest& request, const GetAccessKeyInfoResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->GetAccessKeyInfoAsyncHelper( request, handler, context ); } );
+}
+
+void STSClient::GetAccessKeyInfoAsyncHelper(const GetAccessKeyInfoRequest& request, const GetAccessKeyInfoResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, GetAccessKeyInfo(request), context);
+}
+
+GetCallerIdentityOutcome STSClient::GetCallerIdentity(const GetCallerIdentityRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return GetCallerIdentityOutcome(GetCallerIdentityResult(outcome.GetResult()));
@@ -287,11 +334,11 @@ void STSClient::GetCallerIdentityAsyncHelper(const GetCallerIdentityRequest& req
 
 GetFederationTokenOutcome STSClient::GetFederationToken(const GetFederationTokenRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return GetFederationTokenOutcome(GetFederationTokenResult(outcome.GetResult()));
@@ -322,11 +369,11 @@ void STSClient::GetFederationTokenAsyncHelper(const GetFederationTokenRequest& r
 
 GetSessionTokenOutcome STSClient::GetSessionToken(const GetSessionTokenRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  XmlOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST);
+  XmlOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return GetSessionTokenOutcome(GetSessionTokenResult(outcome.GetResult()));

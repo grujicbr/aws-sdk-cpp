@@ -27,14 +27,19 @@ namespace Model
   {
     NOT_SET,
     Starting,
+    LaunchingMLInstances,
+    PreparingTrainingStack,
     Downloading,
+    DownloadingTrainingImage,
     Training,
     Uploading,
     Stopping,
     Stopped,
     MaxRuntimeExceeded,
     Completed,
-    Failed
+    Failed,
+    Interrupted,
+    MaxWaitTimeExceeded
   };
 
 namespace SecondaryStatusMapper

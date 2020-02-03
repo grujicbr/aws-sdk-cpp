@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     StackError();
-    StackError(const Aws::Utils::Json::JsonValue& jsonValue);
-    StackError& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StackError(Aws::Utils::Json::JsonView jsonValue);
+    StackError& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The error code.</p>
      */
     inline const StackErrorCode& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The error code.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The error code.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The error message.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The error message.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The error message.</p>

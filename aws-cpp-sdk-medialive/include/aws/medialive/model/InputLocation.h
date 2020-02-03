@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for InputLocation<p><h3>See Also:</h3>   <a
+   * Input Location<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputLocation">AWS
    * API Reference</a></p>
    */
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     InputLocation();
-    InputLocation(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputLocation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputLocation(Aws::Utils::Json::JsonView jsonValue);
+    InputLocation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * key used to extract the password from EC2 Parameter store
      */
     inline const Aws::String& GetPasswordParam() const{ return m_passwordParam; }
+
+    /**
+     * key used to extract the password from EC2 Parameter store
+     */
+    inline bool PasswordParamHasBeenSet() const { return m_passwordParamHasBeenSet; }
 
     /**
      * key used to extract the password from EC2 Parameter store
@@ -88,6 +94,13 @@ namespace Model
      * RTMP destination should have a uri simliar to: "rtmp://fmsserver/live".
      */
     inline const Aws::String& GetUri() const{ return m_uri; }
+
+    /**
+     * Uniform Resource Identifier - This should be a path to a file accessible to the
+     * Live system (eg. a http:// URI) depending on the output type. For example, a
+     * RTMP destination should have a uri simliar to: "rtmp://fmsserver/live".
+     */
+    inline bool UriHasBeenSet() const { return m_uriHasBeenSet; }
 
     /**
      * Uniform Resource Identifier - This should be a path to a file accessible to the
@@ -136,6 +149,11 @@ namespace Model
      * Documentation update needed
      */
     inline const Aws::String& GetUsername() const{ return m_username; }
+
+    /**
+     * Documentation update needed
+     */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
 
     /**
      * Documentation update needed

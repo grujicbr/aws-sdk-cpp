@@ -50,6 +50,8 @@ M2tsSettings::M2tsSettings() :
     m_ebpPlacementHasBeenSet(false),
     m_esRateInPes(M2tsEsRateInPes::NOT_SET),
     m_esRateInPesHasBeenSet(false),
+    m_forceTsVideoEbpOrder(M2tsForceTsVideoEbpOrder::NOT_SET),
+    m_forceTsVideoEbpOrderHasBeenSet(false),
     m_fragmentTime(0.0),
     m_fragmentTimeHasBeenSet(false),
     m_maxPcrInterval(0),
@@ -76,6 +78,7 @@ M2tsSettings::M2tsSettings() :
     m_programNumberHasBeenSet(false),
     m_rateMode(M2tsRateMode::NOT_SET),
     m_rateModeHasBeenSet(false),
+    m_scte35EsamHasBeenSet(false),
     m_scte35Pid(0),
     m_scte35PidHasBeenSet(false),
     m_scte35Source(M2tsScte35Source::NOT_SET),
@@ -95,7 +98,7 @@ M2tsSettings::M2tsSettings() :
 {
 }
 
-M2tsSettings::M2tsSettings(const JsonValue& jsonValue) : 
+M2tsSettings::M2tsSettings(JsonView jsonValue) : 
     m_audioBufferModel(M2tsAudioBufferModel::NOT_SET),
     m_audioBufferModelHasBeenSet(false),
     m_audioFramesPerPes(0),
@@ -117,6 +120,8 @@ M2tsSettings::M2tsSettings(const JsonValue& jsonValue) :
     m_ebpPlacementHasBeenSet(false),
     m_esRateInPes(M2tsEsRateInPes::NOT_SET),
     m_esRateInPesHasBeenSet(false),
+    m_forceTsVideoEbpOrder(M2tsForceTsVideoEbpOrder::NOT_SET),
+    m_forceTsVideoEbpOrderHasBeenSet(false),
     m_fragmentTime(0.0),
     m_fragmentTimeHasBeenSet(false),
     m_maxPcrInterval(0),
@@ -143,6 +148,7 @@ M2tsSettings::M2tsSettings(const JsonValue& jsonValue) :
     m_programNumberHasBeenSet(false),
     m_rateMode(M2tsRateMode::NOT_SET),
     m_rateModeHasBeenSet(false),
+    m_scte35EsamHasBeenSet(false),
     m_scte35Pid(0),
     m_scte35PidHasBeenSet(false),
     m_scte35Source(M2tsScte35Source::NOT_SET),
@@ -163,7 +169,7 @@ M2tsSettings::M2tsSettings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-M2tsSettings& M2tsSettings::operator =(const JsonValue& jsonValue)
+M2tsSettings& M2tsSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("audioBufferModel"))
   {
@@ -181,7 +187,7 @@ M2tsSettings& M2tsSettings::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("audioPids"))
   {
-    Array<JsonValue> audioPidsJsonList = jsonValue.GetArray("audioPids");
+    Array<JsonView> audioPidsJsonList = jsonValue.GetArray("audioPids");
     for(unsigned audioPidsIndex = 0; audioPidsIndex < audioPidsJsonList.GetLength(); ++audioPidsIndex)
     {
       m_audioPids.push_back(audioPidsJsonList[audioPidsIndex].AsInteger());
@@ -219,7 +225,7 @@ M2tsSettings& M2tsSettings::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("dvbSubPids"))
   {
-    Array<JsonValue> dvbSubPidsJsonList = jsonValue.GetArray("dvbSubPids");
+    Array<JsonView> dvbSubPidsJsonList = jsonValue.GetArray("dvbSubPids");
     for(unsigned dvbSubPidsIndex = 0; dvbSubPidsIndex < dvbSubPidsJsonList.GetLength(); ++dvbSubPidsIndex)
     {
       m_dvbSubPids.push_back(dvbSubPidsJsonList[dvbSubPidsIndex].AsInteger());
@@ -260,6 +266,13 @@ M2tsSettings& M2tsSettings::operator =(const JsonValue& jsonValue)
     m_esRateInPes = M2tsEsRateInPesMapper::GetM2tsEsRateInPesForName(jsonValue.GetString("esRateInPes"));
 
     m_esRateInPesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("forceTsVideoEbpOrder"))
+  {
+    m_forceTsVideoEbpOrder = M2tsForceTsVideoEbpOrderMapper::GetM2tsForceTsVideoEbpOrderForName(jsonValue.GetString("forceTsVideoEbpOrder"));
+
+    m_forceTsVideoEbpOrderHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("fragmentTime"))
@@ -351,6 +364,13 @@ M2tsSettings& M2tsSettings::operator =(const JsonValue& jsonValue)
     m_rateMode = M2tsRateModeMapper::GetM2tsRateModeForName(jsonValue.GetString("rateMode"));
 
     m_rateModeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("scte35Esam"))
+  {
+    m_scte35Esam = jsonValue.GetObject("scte35Esam");
+
+    m_scte35EsamHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("scte35Pid"))
@@ -499,6 +519,11 @@ JsonValue M2tsSettings::Jsonize() const
    payload.WithString("esRateInPes", M2tsEsRateInPesMapper::GetNameForM2tsEsRateInPes(m_esRateInPes));
   }
 
+  if(m_forceTsVideoEbpOrderHasBeenSet)
+  {
+   payload.WithString("forceTsVideoEbpOrder", M2tsForceTsVideoEbpOrderMapper::GetNameForM2tsForceTsVideoEbpOrder(m_forceTsVideoEbpOrder));
+  }
+
   if(m_fragmentTimeHasBeenSet)
   {
    payload.WithDouble("fragmentTime", m_fragmentTime);
@@ -572,6 +597,12 @@ JsonValue M2tsSettings::Jsonize() const
   if(m_rateModeHasBeenSet)
   {
    payload.WithString("rateMode", M2tsRateModeMapper::GetNameForM2tsRateMode(m_rateMode));
+  }
+
+  if(m_scte35EsamHasBeenSet)
+  {
+   payload.WithObject("scte35Esam", m_scte35Esam.Jsonize());
+
   }
 
   if(m_scte35PidHasBeenSet)

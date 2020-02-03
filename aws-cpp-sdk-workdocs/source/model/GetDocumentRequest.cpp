@@ -35,7 +35,7 @@ GetDocumentRequest::GetDocumentRequest() :
 
 Aws::String GetDocumentRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection GetDocumentRequest::GetRequestSpecificHeaders() const
@@ -45,7 +45,7 @@ Aws::Http::HeaderValueCollection GetDocumentRequest::GetRequestSpecificHeaders()
   if(m_authenticationTokenHasBeenSet)
   {
     ss << m_authenticationToken;
-    headers.insert(Aws::Http::HeaderValuePair("authentication", ss.str()));
+    headers.emplace("authentication",  ss.str());
     ss.str("");
   }
 

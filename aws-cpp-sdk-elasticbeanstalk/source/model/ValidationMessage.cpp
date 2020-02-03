@@ -58,25 +58,25 @@ ValidationMessage& ValidationMessage::operator =(const XmlNode& xmlNode)
     XmlNode messageNode = resultNode.FirstChild("Message");
     if(!messageNode.IsNull())
     {
-      m_message = StringUtils::Trim(messageNode.GetText().c_str());
+      m_message = Aws::Utils::Xml::DecodeEscapedXmlText(messageNode.GetText());
       m_messageHasBeenSet = true;
     }
     XmlNode severityNode = resultNode.FirstChild("Severity");
     if(!severityNode.IsNull())
     {
-      m_severity = ValidationSeverityMapper::GetValidationSeverityForName(StringUtils::Trim(severityNode.GetText().c_str()).c_str());
+      m_severity = ValidationSeverityMapper::GetValidationSeverityForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(severityNode.GetText()).c_str()).c_str());
       m_severityHasBeenSet = true;
     }
     XmlNode namespaceNode = resultNode.FirstChild("Namespace");
     if(!namespaceNode.IsNull())
     {
-      m_namespace = StringUtils::Trim(namespaceNode.GetText().c_str());
+      m_namespace = Aws::Utils::Xml::DecodeEscapedXmlText(namespaceNode.GetText());
       m_namespaceHasBeenSet = true;
     }
     XmlNode optionNameNode = resultNode.FirstChild("OptionName");
     if(!optionNameNode.IsNull())
     {
-      m_optionName = StringUtils::Trim(optionNameNode.GetText().c_str());
+      m_optionName = Aws::Utils::Xml::DecodeEscapedXmlText(optionNameNode.GetText());
       m_optionNameHasBeenSet = true;
     }
   }

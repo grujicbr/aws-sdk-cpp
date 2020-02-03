@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -37,8 +38,8 @@ namespace Model
    * folders stored as Amazon S3 objects in S3 buckets don't, by default, have Unix
    * file permissions assigned to them. Upon discovery in an S3 bucket by Storage
    * Gateway, the S3 objects that represent files and folders are assigned these
-   * default Unix permissions. This operation is only supported in the file gateway
-   * type.</p><p><h3>See Also:</h3>   <a
+   * default Unix permissions. This operation is only supported for file
+   * gateways.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NFSFileShareDefaults">AWS
    * API Reference</a></p>
    */
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     NFSFileShareDefaults();
-    NFSFileShareDefaults(const Aws::Utils::Json::JsonValue& jsonValue);
-    NFSFileShareDefaults& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NFSFileShareDefaults(Aws::Utils::Json::JsonView jsonValue);
+    NFSFileShareDefaults& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,12 @@ namespace Model
      * default file mode inside the file share. The default value is 0666. </p>
      */
     inline const Aws::String& GetFileMode() const{ return m_fileMode; }
+
+    /**
+     * <p>The Unix file mode in the form "nnnn". For example, "0666" represents the
+     * default file mode inside the file share. The default value is 0666. </p>
+     */
+    inline bool FileModeHasBeenSet() const { return m_fileModeHasBeenSet; }
 
     /**
      * <p>The Unix file mode in the form "nnnn". For example, "0666" represents the
@@ -100,6 +107,13 @@ namespace Model
      * value is 0777.</p>
      */
     inline const Aws::String& GetDirectoryMode() const{ return m_directoryMode; }
+
+    /**
+     * <p>The Unix directory mode in the form "nnnn". For example, "0666" represents
+     * the default access mode for all directories inside the file share. The default
+     * value is 0777.</p>
+     */
+    inline bool DirectoryModeHasBeenSet() const { return m_directoryModeHasBeenSet; }
 
     /**
      * <p>The Unix directory mode in the form "nnnn". For example, "0666" represents
@@ -154,6 +168,12 @@ namespace Model
      * <p>The default group ID for the file share (unless the files have another group
      * ID specified). The default value is nfsnobody. </p>
      */
+    inline bool GroupIdHasBeenSet() const { return m_groupIdHasBeenSet; }
+
+    /**
+     * <p>The default group ID for the file share (unless the files have another group
+     * ID specified). The default value is nfsnobody. </p>
+     */
     inline void SetGroupId(long long value) { m_groupIdHasBeenSet = true; m_groupId = value; }
 
     /**
@@ -168,6 +188,12 @@ namespace Model
      * another owner ID specified). The default value is nfsnobody. </p>
      */
     inline long long GetOwnerId() const{ return m_ownerId; }
+
+    /**
+     * <p>The default owner ID for files in the file share (unless the files have
+     * another owner ID specified). The default value is nfsnobody. </p>
+     */
+    inline bool OwnerIdHasBeenSet() const { return m_ownerIdHasBeenSet; }
 
     /**
      * <p>The default owner ID for files in the file share (unless the files have

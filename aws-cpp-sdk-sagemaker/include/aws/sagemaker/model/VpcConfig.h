@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -36,8 +37,12 @@ namespace Model
   /**
    * <p>Specifies a VPC that your training jobs and hosted models have access to.
    * Control access to and from your training and model containers by configuring the
-   * VPC. For more information, see <a>host-vpc</a> and
-   * <a>train-vpc</a>.</p><p><h3>See Also:</h3>   <a
+   * VPC. For more information, see <a
+   * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect
+   * Endpoints by Using an Amazon Virtual Private Cloud</a> and <a
+   * href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect
+   * Training Jobs by Using an Amazon Virtual Private Cloud</a>. </p><p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/VpcConfig">AWS
    * API Reference</a></p>
    */
@@ -45,8 +50,8 @@ namespace Model
   {
   public:
     VpcConfig();
-    VpcConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    VpcConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VpcConfig(Aws::Utils::Json::JsonView jsonValue);
+    VpcConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +60,12 @@ namespace Model
      * groups for the VPC that is specified in the <code>Subnets</code> field.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSecurityGroupIds() const{ return m_securityGroupIds; }
+
+    /**
+     * <p>The VPC security group IDs, in the form sg-xxxxxxxx. Specify the security
+     * groups for the VPC that is specified in the <code>Subnets</code> field.</p>
+     */
+    inline bool SecurityGroupIdsHasBeenSet() const { return m_securityGroupIdsHasBeenSet; }
 
     /**
      * <p>The VPC security group IDs, in the form sg-xxxxxxxx. Specify the security
@@ -101,49 +112,82 @@ namespace Model
 
     /**
      * <p>The ID of the subnets in the VPC to which you want to connect your training
-     * job or model.</p>
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
      */
     inline const Aws::Vector<Aws::String>& GetSubnets() const{ return m_subnets; }
 
     /**
      * <p>The ID of the subnets in the VPC to which you want to connect your training
-     * job or model.</p>
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
+     */
+    inline bool SubnetsHasBeenSet() const { return m_subnetsHasBeenSet; }
+
+    /**
+     * <p>The ID of the subnets in the VPC to which you want to connect your training
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
      */
     inline void SetSubnets(const Aws::Vector<Aws::String>& value) { m_subnetsHasBeenSet = true; m_subnets = value; }
 
     /**
      * <p>The ID of the subnets in the VPC to which you want to connect your training
-     * job or model.</p>
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
      */
     inline void SetSubnets(Aws::Vector<Aws::String>&& value) { m_subnetsHasBeenSet = true; m_subnets = std::move(value); }
 
     /**
      * <p>The ID of the subnets in the VPC to which you want to connect your training
-     * job or model.</p>
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
      */
     inline VpcConfig& WithSubnets(const Aws::Vector<Aws::String>& value) { SetSubnets(value); return *this;}
 
     /**
      * <p>The ID of the subnets in the VPC to which you want to connect your training
-     * job or model.</p>
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
      */
     inline VpcConfig& WithSubnets(Aws::Vector<Aws::String>&& value) { SetSubnets(std::move(value)); return *this;}
 
     /**
      * <p>The ID of the subnets in the VPC to which you want to connect your training
-     * job or model.</p>
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
      */
     inline VpcConfig& AddSubnets(const Aws::String& value) { m_subnetsHasBeenSet = true; m_subnets.push_back(value); return *this; }
 
     /**
      * <p>The ID of the subnets in the VPC to which you want to connect your training
-     * job or model.</p>
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
      */
     inline VpcConfig& AddSubnets(Aws::String&& value) { m_subnetsHasBeenSet = true; m_subnets.push_back(std::move(value)); return *this; }
 
     /**
      * <p>The ID of the subnets in the VPC to which you want to connect your training
-     * job or model.</p>
+     * job or model. </p> <note> <p>Amazon EC2 P3 accelerated computing instances are
+     * not available in the c/d/e availability zones of region us-east-1. If you want
+     * to create endpoints with P3 instances in VPC mode in region us-east-1, create
+     * subnets in a/b/f availability zones instead.</p> </note>
      */
     inline VpcConfig& AddSubnets(const char* value) { m_subnetsHasBeenSet = true; m_subnets.push_back(value); return *this; }
 

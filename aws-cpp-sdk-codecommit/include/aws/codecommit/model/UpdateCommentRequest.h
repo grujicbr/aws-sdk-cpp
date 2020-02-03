@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     UpdateCommentRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +49,12 @@ namespace Model
      * use <a>GetCommentsForComparedCommit</a> or <a>GetCommentsForPullRequest</a>.</p>
      */
     inline const Aws::String& GetCommentId() const{ return m_commentId; }
+
+    /**
+     * <p>The system-generated ID of the comment you want to update. To get this ID,
+     * use <a>GetCommentsForComparedCommit</a> or <a>GetCommentsForPullRequest</a>.</p>
+     */
+    inline bool CommentIdHasBeenSet() const { return m_commentIdHasBeenSet; }
 
     /**
      * <p>The system-generated ID of the comment you want to update. To get this ID,
@@ -88,44 +94,42 @@ namespace Model
 
 
     /**
-     * <p>The updated content with which you want to replace the existing content of
-     * the comment.</p>
+     * <p>The updated content to replace the existing content of the comment.</p>
      */
     inline const Aws::String& GetContent() const{ return m_content; }
 
     /**
-     * <p>The updated content with which you want to replace the existing content of
-     * the comment.</p>
+     * <p>The updated content to replace the existing content of the comment.</p>
+     */
+    inline bool ContentHasBeenSet() const { return m_contentHasBeenSet; }
+
+    /**
+     * <p>The updated content to replace the existing content of the comment.</p>
      */
     inline void SetContent(const Aws::String& value) { m_contentHasBeenSet = true; m_content = value; }
 
     /**
-     * <p>The updated content with which you want to replace the existing content of
-     * the comment.</p>
+     * <p>The updated content to replace the existing content of the comment.</p>
      */
     inline void SetContent(Aws::String&& value) { m_contentHasBeenSet = true; m_content = std::move(value); }
 
     /**
-     * <p>The updated content with which you want to replace the existing content of
-     * the comment.</p>
+     * <p>The updated content to replace the existing content of the comment.</p>
      */
     inline void SetContent(const char* value) { m_contentHasBeenSet = true; m_content.assign(value); }
 
     /**
-     * <p>The updated content with which you want to replace the existing content of
-     * the comment.</p>
+     * <p>The updated content to replace the existing content of the comment.</p>
      */
     inline UpdateCommentRequest& WithContent(const Aws::String& value) { SetContent(value); return *this;}
 
     /**
-     * <p>The updated content with which you want to replace the existing content of
-     * the comment.</p>
+     * <p>The updated content to replace the existing content of the comment.</p>
      */
     inline UpdateCommentRequest& WithContent(Aws::String&& value) { SetContent(std::move(value)); return *this;}
 
     /**
-     * <p>The updated content with which you want to replace the existing content of
-     * the comment.</p>
+     * <p>The updated content to replace the existing content of the comment.</p>
      */
     inline UpdateCommentRequest& WithContent(const char* value) { SetContent(value); return *this;}
 

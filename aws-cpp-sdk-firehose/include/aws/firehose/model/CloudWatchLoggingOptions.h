@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CloudWatchLoggingOptions();
-    CloudWatchLoggingOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    CloudWatchLoggingOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CloudWatchLoggingOptions(Aws::Utils::Json::JsonView jsonValue);
+    CloudWatchLoggingOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Enables or disables CloudWatch logging.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Enables or disables CloudWatch logging.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Enables or disables CloudWatch logging.</p>
@@ -68,6 +74,12 @@ namespace Model
      * logging is enabled.</p>
      */
     inline const Aws::String& GetLogGroupName() const{ return m_logGroupName; }
+
+    /**
+     * <p>The CloudWatch group name for logging. This value is required if CloudWatch
+     * logging is enabled.</p>
+     */
+    inline bool LogGroupNameHasBeenSet() const { return m_logGroupNameHasBeenSet; }
 
     /**
      * <p>The CloudWatch group name for logging. This value is required if CloudWatch
@@ -111,6 +123,12 @@ namespace Model
      * CloudWatch logging is enabled.</p>
      */
     inline const Aws::String& GetLogStreamName() const{ return m_logStreamName; }
+
+    /**
+     * <p>The CloudWatch log stream name for logging. This value is required if
+     * CloudWatch logging is enabled.</p>
+     */
+    inline bool LogStreamNameHasBeenSet() const { return m_logStreamNameHasBeenSet; }
 
     /**
      * <p>The CloudWatch log stream name for logging. This value is required if

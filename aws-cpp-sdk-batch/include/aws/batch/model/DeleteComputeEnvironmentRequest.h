@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     DeleteComputeEnvironmentRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -43,44 +43,50 @@ namespace Model
 
 
     /**
-     * <p>The name or Amazon Resource Name (ARN) of the compute environment to delete.
-     * </p>
+     * <p>The name or Amazon Resource Name (ARN) of the compute environment to
+     * delete.</p>
      */
     inline const Aws::String& GetComputeEnvironment() const{ return m_computeEnvironment; }
 
     /**
-     * <p>The name or Amazon Resource Name (ARN) of the compute environment to delete.
-     * </p>
+     * <p>The name or Amazon Resource Name (ARN) of the compute environment to
+     * delete.</p>
+     */
+    inline bool ComputeEnvironmentHasBeenSet() const { return m_computeEnvironmentHasBeenSet; }
+
+    /**
+     * <p>The name or Amazon Resource Name (ARN) of the compute environment to
+     * delete.</p>
      */
     inline void SetComputeEnvironment(const Aws::String& value) { m_computeEnvironmentHasBeenSet = true; m_computeEnvironment = value; }
 
     /**
-     * <p>The name or Amazon Resource Name (ARN) of the compute environment to delete.
-     * </p>
+     * <p>The name or Amazon Resource Name (ARN) of the compute environment to
+     * delete.</p>
      */
     inline void SetComputeEnvironment(Aws::String&& value) { m_computeEnvironmentHasBeenSet = true; m_computeEnvironment = std::move(value); }
 
     /**
-     * <p>The name or Amazon Resource Name (ARN) of the compute environment to delete.
-     * </p>
+     * <p>The name or Amazon Resource Name (ARN) of the compute environment to
+     * delete.</p>
      */
     inline void SetComputeEnvironment(const char* value) { m_computeEnvironmentHasBeenSet = true; m_computeEnvironment.assign(value); }
 
     /**
-     * <p>The name or Amazon Resource Name (ARN) of the compute environment to delete.
-     * </p>
+     * <p>The name or Amazon Resource Name (ARN) of the compute environment to
+     * delete.</p>
      */
     inline DeleteComputeEnvironmentRequest& WithComputeEnvironment(const Aws::String& value) { SetComputeEnvironment(value); return *this;}
 
     /**
-     * <p>The name or Amazon Resource Name (ARN) of the compute environment to delete.
-     * </p>
+     * <p>The name or Amazon Resource Name (ARN) of the compute environment to
+     * delete.</p>
      */
     inline DeleteComputeEnvironmentRequest& WithComputeEnvironment(Aws::String&& value) { SetComputeEnvironment(std::move(value)); return *this;}
 
     /**
-     * <p>The name or Amazon Resource Name (ARN) of the compute environment to delete.
-     * </p>
+     * <p>The name or Amazon Resource Name (ARN) of the compute environment to
+     * delete.</p>
      */
     inline DeleteComputeEnvironmentRequest& WithComputeEnvironment(const char* value) { SetComputeEnvironment(value); return *this;}
 

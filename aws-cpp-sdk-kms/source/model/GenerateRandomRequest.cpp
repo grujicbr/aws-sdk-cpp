@@ -24,7 +24,8 @@ using namespace Aws::Utils;
 
 GenerateRandomRequest::GenerateRandomRequest() : 
     m_numberOfBytes(0),
-    m_numberOfBytesHasBeenSet(false)
+    m_numberOfBytesHasBeenSet(false),
+    m_customKeyStoreIdHasBeenSet(false)
 {
 }
 
@@ -38,7 +39,13 @@ Aws::String GenerateRandomRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_customKeyStoreIdHasBeenSet)
+  {
+   payload.WithString("CustomKeyStoreId", m_customKeyStoreId);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection GenerateRandomRequest::GetRequestSpecificHeaders() const

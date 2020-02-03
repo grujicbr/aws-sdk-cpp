@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DeviceMinutes();
-    DeviceMinutes(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceMinutes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceMinutes(Aws::Utils::Json::JsonView jsonValue);
+    DeviceMinutes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * tests.</p>
      */
     inline double GetTotal() const{ return m_total; }
+
+    /**
+     * <p>When specified, represents the total minutes used by the resource to run
+     * tests.</p>
+     */
+    inline bool TotalHasBeenSet() const { return m_totalHasBeenSet; }
 
     /**
      * <p>When specified, represents the total minutes used by the resource to run
@@ -75,6 +82,12 @@ namespace Model
      * <p>When specified, represents only the sum of metered minutes used by the
      * resource to run tests.</p>
      */
+    inline bool MeteredHasBeenSet() const { return m_meteredHasBeenSet; }
+
+    /**
+     * <p>When specified, represents only the sum of metered minutes used by the
+     * resource to run tests.</p>
+     */
     inline void SetMetered(double value) { m_meteredHasBeenSet = true; m_metered = value; }
 
     /**
@@ -89,6 +102,12 @@ namespace Model
      * resource to run tests.</p>
      */
     inline double GetUnmetered() const{ return m_unmetered; }
+
+    /**
+     * <p>When specified, represents only the sum of unmetered minutes used by the
+     * resource to run tests.</p>
+     */
+    inline bool UnmeteredHasBeenSet() const { return m_unmeteredHasBeenSet; }
 
     /**
      * <p>When specified, represents only the sum of unmetered minutes used by the

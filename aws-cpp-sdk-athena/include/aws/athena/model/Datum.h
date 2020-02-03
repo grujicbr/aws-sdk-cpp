@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Athena
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Datum();
-    Datum(const Aws::Utils::Json::JsonValue& jsonValue);
-    Datum& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Datum(Aws::Utils::Json::JsonView jsonValue);
+    Datum& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The value of the datum.</p>
      */
     inline const Aws::String& GetVarCharValue() const{ return m_varCharValue; }
+
+    /**
+     * <p>The value of the datum.</p>
+     */
+    inline bool VarCharValueHasBeenSet() const { return m_varCharValueHasBeenSet; }
 
     /**
      * <p>The value of the datum.</p>

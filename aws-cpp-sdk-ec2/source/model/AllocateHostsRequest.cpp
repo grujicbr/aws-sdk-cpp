@@ -26,8 +26,12 @@ AllocateHostsRequest::AllocateHostsRequest() :
     m_availabilityZoneHasBeenSet(false),
     m_clientTokenHasBeenSet(false),
     m_instanceTypeHasBeenSet(false),
+    m_instanceFamilyHasBeenSet(false),
     m_quantity(0),
-    m_quantityHasBeenSet(false)
+    m_quantityHasBeenSet(false),
+    m_tagSpecificationsHasBeenSet(false),
+    m_hostRecovery(HostRecovery::NOT_SET),
+    m_hostRecoveryHasBeenSet(false)
 {
 }
 
@@ -55,9 +59,29 @@ Aws::String AllocateHostsRequest::SerializePayload() const
     ss << "InstanceType=" << StringUtils::URLEncode(m_instanceType.c_str()) << "&";
   }
 
+  if(m_instanceFamilyHasBeenSet)
+  {
+    ss << "InstanceFamily=" << StringUtils::URLEncode(m_instanceFamily.c_str()) << "&";
+  }
+
   if(m_quantityHasBeenSet)
   {
     ss << "Quantity=" << m_quantity << "&";
+  }
+
+  if(m_tagSpecificationsHasBeenSet)
+  {
+    unsigned tagSpecificationsCount = 1;
+    for(auto& item : m_tagSpecifications)
+    {
+      item.OutputToStream(ss, "TagSpecification.", tagSpecificationsCount, "");
+      tagSpecificationsCount++;
+    }
+  }
+
+  if(m_hostRecoveryHasBeenSet)
+  {
+    ss << "HostRecovery=" << HostRecoveryMapper::GetNameForHostRecovery(m_hostRecovery) << "&";
   }
 
   ss << "Version=2016-11-15";

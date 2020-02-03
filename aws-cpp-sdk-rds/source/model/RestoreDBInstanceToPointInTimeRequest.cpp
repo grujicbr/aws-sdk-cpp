@@ -49,6 +49,7 @@ RestoreDBInstanceToPointInTimeRequest::RestoreDBInstanceToPointInTimeRequest() :
     m_storageTypeHasBeenSet(false),
     m_tdeCredentialArnHasBeenSet(false),
     m_tdeCredentialPasswordHasBeenSet(false),
+    m_vpcSecurityGroupIdsHasBeenSet(false),
     m_domainHasBeenSet(false),
     m_domainIAMRoleNameHasBeenSet(false),
     m_enableIAMDatabaseAuthentication(false),
@@ -56,7 +57,11 @@ RestoreDBInstanceToPointInTimeRequest::RestoreDBInstanceToPointInTimeRequest() :
     m_enableCloudwatchLogsExportsHasBeenSet(false),
     m_processorFeaturesHasBeenSet(false),
     m_useDefaultProcessorFeatures(false),
-    m_useDefaultProcessorFeaturesHasBeenSet(false)
+    m_useDefaultProcessorFeaturesHasBeenSet(false),
+    m_dBParameterGroupNameHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false),
+    m_sourceDbiResourceIdHasBeenSet(false)
 {
 }
 
@@ -174,6 +179,17 @@ Aws::String RestoreDBInstanceToPointInTimeRequest::SerializePayload() const
     ss << "TdeCredentialPassword=" << StringUtils::URLEncode(m_tdeCredentialPassword.c_str()) << "&";
   }
 
+  if(m_vpcSecurityGroupIdsHasBeenSet)
+  {
+    unsigned vpcSecurityGroupIdsCount = 1;
+    for(auto& item : m_vpcSecurityGroupIds)
+    {
+      ss << "VpcSecurityGroupIds.member." << vpcSecurityGroupIdsCount << "="
+          << StringUtils::URLEncode(item.c_str()) << "&";
+      vpcSecurityGroupIdsCount++;
+    }
+  }
+
   if(m_domainHasBeenSet)
   {
     ss << "Domain=" << StringUtils::URLEncode(m_domain.c_str()) << "&";
@@ -213,6 +229,21 @@ Aws::String RestoreDBInstanceToPointInTimeRequest::SerializePayload() const
   if(m_useDefaultProcessorFeaturesHasBeenSet)
   {
     ss << "UseDefaultProcessorFeatures=" << std::boolalpha << m_useDefaultProcessorFeatures << "&";
+  }
+
+  if(m_dBParameterGroupNameHasBeenSet)
+  {
+    ss << "DBParameterGroupName=" << StringUtils::URLEncode(m_dBParameterGroupName.c_str()) << "&";
+  }
+
+  if(m_deletionProtectionHasBeenSet)
+  {
+    ss << "DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
+  }
+
+  if(m_sourceDbiResourceIdHasBeenSet)
+  {
+    ss << "SourceDbiResourceId=" << StringUtils::URLEncode(m_sourceDbiResourceId.c_str()) << "&";
   }
 
   ss << "Version=2014-10-31";

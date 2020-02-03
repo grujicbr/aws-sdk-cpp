@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     StageExecution();
-    StageExecution(const Aws::Utils::Json::JsonValue& jsonValue);
-    StageExecution& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StageExecution(Aws::Utils::Json::JsonView jsonValue);
+    StageExecution& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ID of the pipeline execution associated with the stage.</p>
      */
     inline const Aws::String& GetPipelineExecutionId() const{ return m_pipelineExecutionId; }
+
+    /**
+     * <p>The ID of the pipeline execution associated with the stage.</p>
+     */
+    inline bool PipelineExecutionIdHasBeenSet() const { return m_pipelineExecutionIdHasBeenSet; }
 
     /**
      * <p>The ID of the pipeline execution associated with the stage.</p>
@@ -89,6 +95,12 @@ namespace Model
      * stage.</p>
      */
     inline const StageExecutionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the stage, or for a completed stage, the last status of the
+     * stage.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the stage, or for a completed stage, the last status of the

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     EncryptionConfig();
-    EncryptionConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    EncryptionConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EncryptionConfig(Aws::Utils::Json::JsonView jsonValue);
+    EncryptionConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * applicable.</p>
      */
     inline const Aws::String& GetKeyId() const{ return m_keyId; }
+
+    /**
+     * <p>The ID of the customer master key (CMK) used for encryption, if
+     * applicable.</p>
+     */
+    inline bool KeyIdHasBeenSet() const { return m_keyIdHasBeenSet; }
 
     /**
      * <p>The ID of the customer master key (CMK) used for encryption, if
@@ -93,37 +100,38 @@ namespace Model
 
 
     /**
-     * <p>The encryption status. After modifying encryption configuration with
-     * <a>PutEncryptionConfig</a>, the status can be <code>UPDATING</code> for up to
-     * one hour before X-Ray starts encrypting data with the new key.</p>
+     * <p>The encryption status. While the status is <code>UPDATING</code>, X-Ray may
+     * encrypt data with a combination of the new and old settings.</p>
      */
     inline const EncryptionStatus& GetStatus() const{ return m_status; }
 
     /**
-     * <p>The encryption status. After modifying encryption configuration with
-     * <a>PutEncryptionConfig</a>, the status can be <code>UPDATING</code> for up to
-     * one hour before X-Ray starts encrypting data with the new key.</p>
+     * <p>The encryption status. While the status is <code>UPDATING</code>, X-Ray may
+     * encrypt data with a combination of the new and old settings.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The encryption status. While the status is <code>UPDATING</code>, X-Ray may
+     * encrypt data with a combination of the new and old settings.</p>
      */
     inline void SetStatus(const EncryptionStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
-     * <p>The encryption status. After modifying encryption configuration with
-     * <a>PutEncryptionConfig</a>, the status can be <code>UPDATING</code> for up to
-     * one hour before X-Ray starts encrypting data with the new key.</p>
+     * <p>The encryption status. While the status is <code>UPDATING</code>, X-Ray may
+     * encrypt data with a combination of the new and old settings.</p>
      */
     inline void SetStatus(EncryptionStatus&& value) { m_statusHasBeenSet = true; m_status = std::move(value); }
 
     /**
-     * <p>The encryption status. After modifying encryption configuration with
-     * <a>PutEncryptionConfig</a>, the status can be <code>UPDATING</code> for up to
-     * one hour before X-Ray starts encrypting data with the new key.</p>
+     * <p>The encryption status. While the status is <code>UPDATING</code>, X-Ray may
+     * encrypt data with a combination of the new and old settings.</p>
      */
     inline EncryptionConfig& WithStatus(const EncryptionStatus& value) { SetStatus(value); return *this;}
 
     /**
-     * <p>The encryption status. After modifying encryption configuration with
-     * <a>PutEncryptionConfig</a>, the status can be <code>UPDATING</code> for up to
-     * one hour before X-Ray starts encrypting data with the new key.</p>
+     * <p>The encryption status. While the status is <code>UPDATING</code>, X-Ray may
+     * encrypt data with a combination of the new and old settings.</p>
      */
     inline EncryptionConfig& WithStatus(EncryptionStatus&& value) { SetStatus(std::move(value)); return *this;}
 
@@ -133,6 +141,12 @@ namespace Model
      * to <code>NONE</code> for default encryption.</p>
      */
     inline const EncryptionType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of encryption. Set to <code>KMS</code> for encryption with CMKs. Set
+     * to <code>NONE</code> for default encryption.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of encryption. Set to <code>KMS</code> for encryption with CMKs. Set

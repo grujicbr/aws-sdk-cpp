@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -33,8 +34,8 @@ namespace Model
 {
 
   /**
-   * <p>Contains the information needed to join a Microsoft Active Directory
-   * domain.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes the configuration information required to join fleets and image
+   * builders to Microsoft Active Directory domains.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DomainJoinInfo">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DomainJoinInfo();
-    DomainJoinInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainJoinInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainJoinInfo(Aws::Utils::Json::JsonView jsonValue);
+    DomainJoinInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * corp.example.com).</p>
      */
     inline const Aws::String& GetDirectoryName() const{ return m_directoryName; }
+
+    /**
+     * <p>The fully qualified name of the directory (for example,
+     * corp.example.com).</p>
+     */
+    inline bool DirectoryNameHasBeenSet() const { return m_directoryNameHasBeenSet; }
 
     /**
      * <p>The fully qualified name of the directory (for example,
@@ -94,6 +101,11 @@ namespace Model
      * <p>The distinguished name of the organizational unit for computer accounts.</p>
      */
     inline const Aws::String& GetOrganizationalUnitDistinguishedName() const{ return m_organizationalUnitDistinguishedName; }
+
+    /**
+     * <p>The distinguished name of the organizational unit for computer accounts.</p>
+     */
+    inline bool OrganizationalUnitDistinguishedNameHasBeenSet() const { return m_organizationalUnitDistinguishedNameHasBeenSet; }
 
     /**
      * <p>The distinguished name of the organizational unit for computer accounts.</p>

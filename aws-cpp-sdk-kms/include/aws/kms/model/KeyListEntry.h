@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KMS
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     KeyListEntry();
-    KeyListEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    KeyListEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KeyListEntry(Aws::Utils::Json::JsonView jsonValue);
+    KeyListEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Unique identifier of the key.</p>
      */
     inline const Aws::String& GetKeyId() const{ return m_keyId; }
+
+    /**
+     * <p>Unique identifier of the key.</p>
+     */
+    inline bool KeyIdHasBeenSet() const { return m_keyIdHasBeenSet; }
 
     /**
      * <p>Unique identifier of the key.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>ARN of the key.</p>
      */
     inline const Aws::String& GetKeyArn() const{ return m_keyArn; }
+
+    /**
+     * <p>ARN of the key.</p>
+     */
+    inline bool KeyArnHasBeenSet() const { return m_keyArnHasBeenSet; }
 
     /**
      * <p>ARN of the key.</p>

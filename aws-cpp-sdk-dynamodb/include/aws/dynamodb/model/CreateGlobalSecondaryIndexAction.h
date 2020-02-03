@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     CreateGlobalSecondaryIndexAction();
-    CreateGlobalSecondaryIndexAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    CreateGlobalSecondaryIndexAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CreateGlobalSecondaryIndexAction(Aws::Utils::Json::JsonView jsonValue);
+    CreateGlobalSecondaryIndexAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The name of the global secondary index to be created.</p>
      */
     inline const Aws::String& GetIndexName() const{ return m_indexName; }
+
+    /**
+     * <p>The name of the global secondary index to be created.</p>
+     */
+    inline bool IndexNameHasBeenSet() const { return m_indexNameHasBeenSet; }
 
     /**
      * <p>The name of the global secondary index to be created.</p>
@@ -91,6 +97,11 @@ namespace Model
      * <p>The key schema for the global secondary index.</p>
      */
     inline const Aws::Vector<KeySchemaElement>& GetKeySchema() const{ return m_keySchema; }
+
+    /**
+     * <p>The key schema for the global secondary index.</p>
+     */
+    inline bool KeySchemaHasBeenSet() const { return m_keySchemaHasBeenSet; }
 
     /**
      * <p>The key schema for the global secondary index.</p>
@@ -135,6 +146,13 @@ namespace Model
      * index. These are in addition to the primary key attributes and index key
      * attributes, which are automatically projected.</p>
      */
+    inline bool ProjectionHasBeenSet() const { return m_projectionHasBeenSet; }
+
+    /**
+     * <p>Represents attributes that are copied (projected) from the table into an
+     * index. These are in addition to the primary key attributes and index key
+     * attributes, which are automatically projected.</p>
+     */
     inline void SetProjection(const Projection& value) { m_projectionHasBeenSet = true; m_projection = value; }
 
     /**
@@ -163,7 +181,7 @@ namespace Model
      * <p>Represents the provisioned throughput settings for the specified global
      * secondary index.</p> <p>For current minimum and maximum provisioned throughput
      * values, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
      * in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline const ProvisionedThroughput& GetProvisionedThroughput() const{ return m_provisionedThroughput; }
@@ -172,7 +190,16 @@ namespace Model
      * <p>Represents the provisioned throughput settings for the specified global
      * secondary index.</p> <p>For current minimum and maximum provisioned throughput
      * values, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
+     * in the <i>Amazon DynamoDB Developer Guide</i>.</p>
+     */
+    inline bool ProvisionedThroughputHasBeenSet() const { return m_provisionedThroughputHasBeenSet; }
+
+    /**
+     * <p>Represents the provisioned throughput settings for the specified global
+     * secondary index.</p> <p>For current minimum and maximum provisioned throughput
+     * values, see <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
      * in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline void SetProvisionedThroughput(const ProvisionedThroughput& value) { m_provisionedThroughputHasBeenSet = true; m_provisionedThroughput = value; }
@@ -181,7 +208,7 @@ namespace Model
      * <p>Represents the provisioned throughput settings for the specified global
      * secondary index.</p> <p>For current minimum and maximum provisioned throughput
      * values, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
      * in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline void SetProvisionedThroughput(ProvisionedThroughput&& value) { m_provisionedThroughputHasBeenSet = true; m_provisionedThroughput = std::move(value); }
@@ -190,7 +217,7 @@ namespace Model
      * <p>Represents the provisioned throughput settings for the specified global
      * secondary index.</p> <p>For current minimum and maximum provisioned throughput
      * values, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
      * in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline CreateGlobalSecondaryIndexAction& WithProvisionedThroughput(const ProvisionedThroughput& value) { SetProvisionedThroughput(value); return *this;}
@@ -199,7 +226,7 @@ namespace Model
      * <p>Represents the provisioned throughput settings for the specified global
      * secondary index.</p> <p>For current minimum and maximum provisioned throughput
      * values, see <a
-     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
      * in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      */
     inline CreateGlobalSecondaryIndexAction& WithProvisionedThroughput(ProvisionedThroughput&& value) { SetProvisionedThroughput(std::move(value)); return *this;}

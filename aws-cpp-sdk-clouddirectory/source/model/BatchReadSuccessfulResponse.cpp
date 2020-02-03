@@ -41,11 +41,12 @@ BatchReadSuccessfulResponse::BatchReadSuccessfulResponse() :
     m_listIndexHasBeenSet(false),
     m_listOutgoingTypedLinksHasBeenSet(false),
     m_listIncomingTypedLinksHasBeenSet(false),
-    m_getLinkAttributesHasBeenSet(false)
+    m_getLinkAttributesHasBeenSet(false),
+    m_listObjectParentsHasBeenSet(false)
 {
 }
 
-BatchReadSuccessfulResponse::BatchReadSuccessfulResponse(const JsonValue& jsonValue) : 
+BatchReadSuccessfulResponse::BatchReadSuccessfulResponse(JsonView jsonValue) : 
     m_listObjectAttributesHasBeenSet(false),
     m_listObjectChildrenHasBeenSet(false),
     m_getObjectInformationHasBeenSet(false),
@@ -58,12 +59,13 @@ BatchReadSuccessfulResponse::BatchReadSuccessfulResponse(const JsonValue& jsonVa
     m_listIndexHasBeenSet(false),
     m_listOutgoingTypedLinksHasBeenSet(false),
     m_listIncomingTypedLinksHasBeenSet(false),
-    m_getLinkAttributesHasBeenSet(false)
+    m_getLinkAttributesHasBeenSet(false),
+    m_listObjectParentsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-BatchReadSuccessfulResponse& BatchReadSuccessfulResponse::operator =(const JsonValue& jsonValue)
+BatchReadSuccessfulResponse& BatchReadSuccessfulResponse::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ListObjectAttributes"))
   {
@@ -156,6 +158,13 @@ BatchReadSuccessfulResponse& BatchReadSuccessfulResponse::operator =(const JsonV
     m_getLinkAttributesHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("ListObjectParents"))
+  {
+    m_listObjectParents = jsonValue.GetObject("ListObjectParents");
+
+    m_listObjectParentsHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -238,6 +247,12 @@ JsonValue BatchReadSuccessfulResponse::Jsonize() const
   if(m_getLinkAttributesHasBeenSet)
   {
    payload.WithObject("GetLinkAttributes", m_getLinkAttributes.Jsonize());
+
+  }
+
+  if(m_listObjectParentsHasBeenSet)
+  {
+   payload.WithObject("ListObjectParents", m_listObjectParents.Jsonize());
 
   }
 

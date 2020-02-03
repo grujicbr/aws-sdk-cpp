@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 AdminUpdateUserAttributesRequest::AdminUpdateUserAttributesRequest() : 
     m_userPoolIdHasBeenSet(false),
     m_usernameHasBeenSet(false),
-    m_userAttributesHasBeenSet(false)
+    m_userAttributesHasBeenSet(false),
+    m_clientMetadataHasBeenSet(false)
 {
 }
 
@@ -56,7 +57,18 @@ Aws::String AdminUpdateUserAttributesRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_clientMetadataHasBeenSet)
+  {
+   JsonValue clientMetadataJsonMap;
+   for(auto& clientMetadataItem : m_clientMetadata)
+   {
+     clientMetadataJsonMap.WithString(clientMetadataItem.first, clientMetadataItem.second);
+   }
+   payload.WithObject("ClientMetadata", std::move(clientMetadataJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection AdminUpdateUserAttributesRequest::GetRequestSpecificHeaders() const

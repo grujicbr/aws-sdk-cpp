@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     DeleteRequest();
-    DeleteRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeleteRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeleteRequest(Aws::Utils::Json::JsonView jsonValue);
+    DeleteRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,13 @@ namespace Model
      * and their data types must match those of the table's key schema.</p>
      */
     inline const Aws::Map<Aws::String, AttributeValue>& GetKey() const{ return m_key; }
+
+    /**
+     * <p>A map of attribute name to attribute values, representing the primary key of
+     * the item to delete. All of the table's primary key attributes must be specified,
+     * and their data types must match those of the table's key schema.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>A map of attribute name to attribute values, representing the primary key of

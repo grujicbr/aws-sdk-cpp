@@ -18,6 +18,7 @@
 #include <aws/ssm/SSMRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/ssm/model/ResourceDataSyncS3Destination.h>
+#include <aws/ssm/model/ResourceDataSyncSource.h>
 #include <utility>
 
 namespace Aws
@@ -33,7 +34,7 @@ namespace Model
   {
   public:
     CreateResourceDataSyncRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +50,11 @@ namespace Model
      * <p>A name for the configuration.</p>
      */
     inline const Aws::String& GetSyncName() const{ return m_syncName; }
+
+    /**
+     * <p>A name for the configuration.</p>
+     */
+    inline bool SyncNameHasBeenSet() const { return m_syncNameHasBeenSet; }
 
     /**
      * <p>A name for the configuration.</p>
@@ -89,6 +95,11 @@ namespace Model
     /**
      * <p>Amazon S3 configuration details for the sync.</p>
      */
+    inline bool S3DestinationHasBeenSet() const { return m_s3DestinationHasBeenSet; }
+
+    /**
+     * <p>Amazon S3 configuration details for the sync.</p>
+     */
     inline void SetS3Destination(const ResourceDataSyncS3Destination& value) { m_s3DestinationHasBeenSet = true; m_s3Destination = value; }
 
     /**
@@ -106,6 +117,102 @@ namespace Model
      */
     inline CreateResourceDataSyncRequest& WithS3Destination(ResourceDataSyncS3Destination&& value) { SetS3Destination(std::move(value)); return *this;}
 
+
+    /**
+     * <p>Specify <code>SyncToDestination</code> to create a resource data sync that
+     * synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify
+     * <code>SyncFromSource</code> to synchronize data from multiple AWS accounts and
+     * Regions, as listed in AWS Organizations.</p>
+     */
+    inline const Aws::String& GetSyncType() const{ return m_syncType; }
+
+    /**
+     * <p>Specify <code>SyncToDestination</code> to create a resource data sync that
+     * synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify
+     * <code>SyncFromSource</code> to synchronize data from multiple AWS accounts and
+     * Regions, as listed in AWS Organizations.</p>
+     */
+    inline bool SyncTypeHasBeenSet() const { return m_syncTypeHasBeenSet; }
+
+    /**
+     * <p>Specify <code>SyncToDestination</code> to create a resource data sync that
+     * synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify
+     * <code>SyncFromSource</code> to synchronize data from multiple AWS accounts and
+     * Regions, as listed in AWS Organizations.</p>
+     */
+    inline void SetSyncType(const Aws::String& value) { m_syncTypeHasBeenSet = true; m_syncType = value; }
+
+    /**
+     * <p>Specify <code>SyncToDestination</code> to create a resource data sync that
+     * synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify
+     * <code>SyncFromSource</code> to synchronize data from multiple AWS accounts and
+     * Regions, as listed in AWS Organizations.</p>
+     */
+    inline void SetSyncType(Aws::String&& value) { m_syncTypeHasBeenSet = true; m_syncType = std::move(value); }
+
+    /**
+     * <p>Specify <code>SyncToDestination</code> to create a resource data sync that
+     * synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify
+     * <code>SyncFromSource</code> to synchronize data from multiple AWS accounts and
+     * Regions, as listed in AWS Organizations.</p>
+     */
+    inline void SetSyncType(const char* value) { m_syncTypeHasBeenSet = true; m_syncType.assign(value); }
+
+    /**
+     * <p>Specify <code>SyncToDestination</code> to create a resource data sync that
+     * synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify
+     * <code>SyncFromSource</code> to synchronize data from multiple AWS accounts and
+     * Regions, as listed in AWS Organizations.</p>
+     */
+    inline CreateResourceDataSyncRequest& WithSyncType(const Aws::String& value) { SetSyncType(value); return *this;}
+
+    /**
+     * <p>Specify <code>SyncToDestination</code> to create a resource data sync that
+     * synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify
+     * <code>SyncFromSource</code> to synchronize data from multiple AWS accounts and
+     * Regions, as listed in AWS Organizations.</p>
+     */
+    inline CreateResourceDataSyncRequest& WithSyncType(Aws::String&& value) { SetSyncType(std::move(value)); return *this;}
+
+    /**
+     * <p>Specify <code>SyncToDestination</code> to create a resource data sync that
+     * synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify
+     * <code>SyncFromSource</code> to synchronize data from multiple AWS accounts and
+     * Regions, as listed in AWS Organizations.</p>
+     */
+    inline CreateResourceDataSyncRequest& WithSyncType(const char* value) { SetSyncType(value); return *this;}
+
+
+    /**
+     * <p>Specify information about the data sources to synchronize.</p>
+     */
+    inline const ResourceDataSyncSource& GetSyncSource() const{ return m_syncSource; }
+
+    /**
+     * <p>Specify information about the data sources to synchronize.</p>
+     */
+    inline bool SyncSourceHasBeenSet() const { return m_syncSourceHasBeenSet; }
+
+    /**
+     * <p>Specify information about the data sources to synchronize.</p>
+     */
+    inline void SetSyncSource(const ResourceDataSyncSource& value) { m_syncSourceHasBeenSet = true; m_syncSource = value; }
+
+    /**
+     * <p>Specify information about the data sources to synchronize.</p>
+     */
+    inline void SetSyncSource(ResourceDataSyncSource&& value) { m_syncSourceHasBeenSet = true; m_syncSource = std::move(value); }
+
+    /**
+     * <p>Specify information about the data sources to synchronize.</p>
+     */
+    inline CreateResourceDataSyncRequest& WithSyncSource(const ResourceDataSyncSource& value) { SetSyncSource(value); return *this;}
+
+    /**
+     * <p>Specify information about the data sources to synchronize.</p>
+     */
+    inline CreateResourceDataSyncRequest& WithSyncSource(ResourceDataSyncSource&& value) { SetSyncSource(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_syncName;
@@ -113,6 +220,12 @@ namespace Model
 
     ResourceDataSyncS3Destination m_s3Destination;
     bool m_s3DestinationHasBeenSet;
+
+    Aws::String m_syncType;
+    bool m_syncTypeHasBeenSet;
+
+    ResourceDataSyncSource m_syncSource;
+    bool m_syncSourceHasBeenSet;
   };
 
 } // namespace Model

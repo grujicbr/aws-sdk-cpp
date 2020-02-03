@@ -24,7 +24,8 @@ using namespace Aws::Utils;
 
 GetUserAttributeVerificationCodeRequest::GetUserAttributeVerificationCodeRequest() : 
     m_accessTokenHasBeenSet(false),
-    m_attributeNameHasBeenSet(false)
+    m_attributeNameHasBeenSet(false),
+    m_clientMetadataHasBeenSet(false)
 {
 }
 
@@ -44,7 +45,18 @@ Aws::String GetUserAttributeVerificationCodeRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_clientMetadataHasBeenSet)
+  {
+   JsonValue clientMetadataJsonMap;
+   for(auto& clientMetadataItem : m_clientMetadata)
+   {
+     clientMetadataJsonMap.WithString(clientMetadataItem.first, clientMetadataItem.second);
+   }
+   payload.WithObject("ClientMetadata", std::move(clientMetadataJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection GetUserAttributeVerificationCodeRequest::GetRequestSpecificHeaders() const

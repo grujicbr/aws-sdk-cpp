@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DirectoryConnectSettingsDescription();
-    DirectoryConnectSettingsDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    DirectoryConnectSettingsDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DirectoryConnectSettingsDescription(Aws::Utils::Json::JsonView jsonValue);
+    DirectoryConnectSettingsDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The identifier of the VPC that the AD Connector is in.</p>
      */
     inline const Aws::String& GetVpcId() const{ return m_vpcId; }
+
+    /**
+     * <p>The identifier of the VPC that the AD Connector is in.</p>
+     */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
 
     /**
      * <p>The identifier of the VPC that the AD Connector is in.</p>
@@ -85,78 +91,88 @@ namespace Model
 
 
     /**
-     * <p>A list of subnet identifiers in the VPC that the AD connector is in.</p>
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSubnetIds() const{ return m_subnetIds; }
 
     /**
-     * <p>A list of subnet identifiers in the VPC that the AD connector is in.</p>
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
+     */
+    inline bool SubnetIdsHasBeenSet() const { return m_subnetIdsHasBeenSet; }
+
+    /**
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
      */
     inline void SetSubnetIds(const Aws::Vector<Aws::String>& value) { m_subnetIdsHasBeenSet = true; m_subnetIds = value; }
 
     /**
-     * <p>A list of subnet identifiers in the VPC that the AD connector is in.</p>
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
      */
     inline void SetSubnetIds(Aws::Vector<Aws::String>&& value) { m_subnetIdsHasBeenSet = true; m_subnetIds = std::move(value); }
 
     /**
-     * <p>A list of subnet identifiers in the VPC that the AD connector is in.</p>
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
      */
     inline DirectoryConnectSettingsDescription& WithSubnetIds(const Aws::Vector<Aws::String>& value) { SetSubnetIds(value); return *this;}
 
     /**
-     * <p>A list of subnet identifiers in the VPC that the AD connector is in.</p>
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
      */
     inline DirectoryConnectSettingsDescription& WithSubnetIds(Aws::Vector<Aws::String>&& value) { SetSubnetIds(std::move(value)); return *this;}
 
     /**
-     * <p>A list of subnet identifiers in the VPC that the AD connector is in.</p>
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
      */
     inline DirectoryConnectSettingsDescription& AddSubnetIds(const Aws::String& value) { m_subnetIdsHasBeenSet = true; m_subnetIds.push_back(value); return *this; }
 
     /**
-     * <p>A list of subnet identifiers in the VPC that the AD connector is in.</p>
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
      */
     inline DirectoryConnectSettingsDescription& AddSubnetIds(Aws::String&& value) { m_subnetIdsHasBeenSet = true; m_subnetIds.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>A list of subnet identifiers in the VPC that the AD connector is in.</p>
+     * <p>A list of subnet identifiers in the VPC that the AD Connector is in.</p>
      */
     inline DirectoryConnectSettingsDescription& AddSubnetIds(const char* value) { m_subnetIdsHasBeenSet = true; m_subnetIds.push_back(value); return *this; }
 
 
     /**
-     * <p>The username of the service account in the on-premises directory.</p>
+     * <p>The user name of the service account in the on-premises directory.</p>
      */
     inline const Aws::String& GetCustomerUserName() const{ return m_customerUserName; }
 
     /**
-     * <p>The username of the service account in the on-premises directory.</p>
+     * <p>The user name of the service account in the on-premises directory.</p>
+     */
+    inline bool CustomerUserNameHasBeenSet() const { return m_customerUserNameHasBeenSet; }
+
+    /**
+     * <p>The user name of the service account in the on-premises directory.</p>
      */
     inline void SetCustomerUserName(const Aws::String& value) { m_customerUserNameHasBeenSet = true; m_customerUserName = value; }
 
     /**
-     * <p>The username of the service account in the on-premises directory.</p>
+     * <p>The user name of the service account in the on-premises directory.</p>
      */
     inline void SetCustomerUserName(Aws::String&& value) { m_customerUserNameHasBeenSet = true; m_customerUserName = std::move(value); }
 
     /**
-     * <p>The username of the service account in the on-premises directory.</p>
+     * <p>The user name of the service account in the on-premises directory.</p>
      */
     inline void SetCustomerUserName(const char* value) { m_customerUserNameHasBeenSet = true; m_customerUserName.assign(value); }
 
     /**
-     * <p>The username of the service account in the on-premises directory.</p>
+     * <p>The user name of the service account in the on-premises directory.</p>
      */
     inline DirectoryConnectSettingsDescription& WithCustomerUserName(const Aws::String& value) { SetCustomerUserName(value); return *this;}
 
     /**
-     * <p>The username of the service account in the on-premises directory.</p>
+     * <p>The user name of the service account in the on-premises directory.</p>
      */
     inline DirectoryConnectSettingsDescription& WithCustomerUserName(Aws::String&& value) { SetCustomerUserName(std::move(value)); return *this;}
 
     /**
-     * <p>The username of the service account in the on-premises directory.</p>
+     * <p>The user name of the service account in the on-premises directory.</p>
      */
     inline DirectoryConnectSettingsDescription& WithCustomerUserName(const char* value) { SetCustomerUserName(value); return *this;}
 
@@ -165,6 +181,11 @@ namespace Model
      * <p>The security group identifier for the AD Connector directory.</p>
      */
     inline const Aws::String& GetSecurityGroupId() const{ return m_securityGroupId; }
+
+    /**
+     * <p>The security group identifier for the AD Connector directory.</p>
+     */
+    inline bool SecurityGroupIdHasBeenSet() const { return m_securityGroupIdHasBeenSet; }
 
     /**
      * <p>The security group identifier for the AD Connector directory.</p>
@@ -201,6 +222,11 @@ namespace Model
      * <p>A list of the Availability Zones that the directory is in.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAvailabilityZones() const{ return m_availabilityZones; }
+
+    /**
+     * <p>A list of the Availability Zones that the directory is in.</p>
+     */
+    inline bool AvailabilityZonesHasBeenSet() const { return m_availabilityZonesHasBeenSet; }
 
     /**
      * <p>A list of the Availability Zones that the directory is in.</p>
@@ -242,6 +268,11 @@ namespace Model
      * <p>The IP addresses of the AD Connector servers.</p>
      */
     inline const Aws::Vector<Aws::String>& GetConnectIps() const{ return m_connectIps; }
+
+    /**
+     * <p>The IP addresses of the AD Connector servers.</p>
+     */
+    inline bool ConnectIpsHasBeenSet() const { return m_connectIpsHasBeenSet; }
 
     /**
      * <p>The IP addresses of the AD Connector servers.</p>

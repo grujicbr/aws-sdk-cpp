@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     SetSMBGuestPasswordRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +52,12 @@ namespace Model
      * associated with.</p>
      */
     inline const Aws::String& GetGatewayARN() const{ return m_gatewayARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the file gateway the SMB file share is
+     * associated with.</p>
+     */
+    inline bool GatewayARNHasBeenSet() const { return m_gatewayARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the file gateway the SMB file share is
@@ -91,37 +97,42 @@ namespace Model
 
 
     /**
-     * <p>The password you want to set for your SMB Server.</p>
+     * <p>The password that you want to set for your SMB Server.</p>
      */
     inline const Aws::String& GetPassword() const{ return m_password; }
 
     /**
-     * <p>The password you want to set for your SMB Server.</p>
+     * <p>The password that you want to set for your SMB Server.</p>
+     */
+    inline bool PasswordHasBeenSet() const { return m_passwordHasBeenSet; }
+
+    /**
+     * <p>The password that you want to set for your SMB Server.</p>
      */
     inline void SetPassword(const Aws::String& value) { m_passwordHasBeenSet = true; m_password = value; }
 
     /**
-     * <p>The password you want to set for your SMB Server.</p>
+     * <p>The password that you want to set for your SMB Server.</p>
      */
     inline void SetPassword(Aws::String&& value) { m_passwordHasBeenSet = true; m_password = std::move(value); }
 
     /**
-     * <p>The password you want to set for your SMB Server.</p>
+     * <p>The password that you want to set for your SMB Server.</p>
      */
     inline void SetPassword(const char* value) { m_passwordHasBeenSet = true; m_password.assign(value); }
 
     /**
-     * <p>The password you want to set for your SMB Server.</p>
+     * <p>The password that you want to set for your SMB Server.</p>
      */
     inline SetSMBGuestPasswordRequest& WithPassword(const Aws::String& value) { SetPassword(value); return *this;}
 
     /**
-     * <p>The password you want to set for your SMB Server.</p>
+     * <p>The password that you want to set for your SMB Server.</p>
      */
     inline SetSMBGuestPasswordRequest& WithPassword(Aws::String&& value) { SetPassword(std::move(value)); return *this;}
 
     /**
-     * <p>The password you want to set for your SMB Server.</p>
+     * <p>The password that you want to set for your SMB Server.</p>
      */
     inline SetSMBGuestPasswordRequest& WithPassword(const char* value) { SetPassword(value); return *this;}
 

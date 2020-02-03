@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     AuthorizerSummary();
-    AuthorizerSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    AuthorizerSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AuthorizerSummary(Aws::Utils::Json::JsonView jsonValue);
+    AuthorizerSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The authorizer name.</p>
      */
     inline const Aws::String& GetAuthorizerName() const{ return m_authorizerName; }
+
+    /**
+     * <p>The authorizer name.</p>
+     */
+    inline bool AuthorizerNameHasBeenSet() const { return m_authorizerNameHasBeenSet; }
 
     /**
      * <p>The authorizer name.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The authorizer ARN.</p>
      */
     inline const Aws::String& GetAuthorizerArn() const{ return m_authorizerArn; }
+
+    /**
+     * <p>The authorizer ARN.</p>
+     */
+    inline bool AuthorizerArnHasBeenSet() const { return m_authorizerArnHasBeenSet; }
 
     /**
      * <p>The authorizer ARN.</p>

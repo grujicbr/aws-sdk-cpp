@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     BlobMetadata();
-    BlobMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    BlobMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BlobMetadata(Aws::Utils::Json::JsonView jsonValue);
+    BlobMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The full ID of the blob.</p>
      */
     inline const Aws::String& GetBlobId() const{ return m_blobId; }
+
+    /**
+     * <p>The full ID of the blob.</p>
+     */
+    inline bool BlobIdHasBeenSet() const { return m_blobIdHasBeenSet; }
 
     /**
      * <p>The full ID of the blob.</p>
@@ -84,37 +90,42 @@ namespace Model
 
 
     /**
-     * <p>The path to the blob and any associated file name, if any.</p>
+     * <p>The path to the blob and associated file name, if any.</p>
      */
     inline const Aws::String& GetPath() const{ return m_path; }
 
     /**
-     * <p>The path to the blob and any associated file name, if any.</p>
+     * <p>The path to the blob and associated file name, if any.</p>
+     */
+    inline bool PathHasBeenSet() const { return m_pathHasBeenSet; }
+
+    /**
+     * <p>The path to the blob and associated file name, if any.</p>
      */
     inline void SetPath(const Aws::String& value) { m_pathHasBeenSet = true; m_path = value; }
 
     /**
-     * <p>The path to the blob and any associated file name, if any.</p>
+     * <p>The path to the blob and associated file name, if any.</p>
      */
     inline void SetPath(Aws::String&& value) { m_pathHasBeenSet = true; m_path = std::move(value); }
 
     /**
-     * <p>The path to the blob and any associated file name, if any.</p>
+     * <p>The path to the blob and associated file name, if any.</p>
      */
     inline void SetPath(const char* value) { m_pathHasBeenSet = true; m_path.assign(value); }
 
     /**
-     * <p>The path to the blob and any associated file name, if any.</p>
+     * <p>The path to the blob and associated file name, if any.</p>
      */
     inline BlobMetadata& WithPath(const Aws::String& value) { SetPath(value); return *this;}
 
     /**
-     * <p>The path to the blob and any associated file name, if any.</p>
+     * <p>The path to the blob and associated file name, if any.</p>
      */
     inline BlobMetadata& WithPath(Aws::String&& value) { SetPath(std::move(value)); return *this;}
 
     /**
-     * <p>The path to the blob and any associated file name, if any.</p>
+     * <p>The path to the blob and associated file name, if any.</p>
      */
     inline BlobMetadata& WithPath(const char* value) { SetPath(value); return *this;}
 
@@ -127,6 +138,15 @@ namespace Model
      * indicates a symlink</p> </li> </ul>
      */
     inline const Aws::String& GetMode() const{ return m_mode; }
+
+    /**
+     * <p>The file mode permissions of the blob. File mode permission codes
+     * include:</p> <ul> <li> <p> <code>100644</code> indicates read/write</p> </li>
+     * <li> <p> <code>100755</code> indicates read/write/execute</p> </li> <li> <p>
+     * <code>160000</code> indicates a submodule</p> </li> <li> <p> <code>120000</code>
+     * indicates a symlink</p> </li> </ul>
+     */
+    inline bool ModeHasBeenSet() const { return m_modeHasBeenSet; }
 
     /**
      * <p>The file mode permissions of the blob. File mode permission codes

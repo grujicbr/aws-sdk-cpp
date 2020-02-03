@@ -85,10 +85,20 @@ bool StringUtils::CaselessCompare(const char* value1, const char* value2)
 
 Aws::Vector<Aws::String> StringUtils::Split(const Aws::String& toSplit, char splitOn)
 {
-    return Split(toSplit, splitOn, SIZE_MAX);
+    return Split(toSplit, splitOn, SIZE_MAX, SplitOptions::NOT_SET);
+}
+
+Aws::Vector<Aws::String> StringUtils::Split(const Aws::String& toSplit, char splitOn, SplitOptions option)
+{
+    return Split(toSplit, splitOn, SIZE_MAX, option);
 }
 
 Aws::Vector<Aws::String> StringUtils::Split(const Aws::String& toSplit, char splitOn, size_t numOfTargetParts)
+{
+    return Split(toSplit, splitOn, numOfTargetParts, SplitOptions::NOT_SET);
+}
+
+Aws::Vector<Aws::String> StringUtils::Split(const Aws::String& toSplit, char splitOn, size_t numOfTargetParts, SplitOptions option)
 {
     Aws::Vector<Aws::String> returnValues;
     Aws::StringStream input(toSplit);
@@ -96,16 +106,35 @@ Aws::Vector<Aws::String> StringUtils::Split(const Aws::String& toSplit, char spl
 
     while(returnValues.size() < numOfTargetParts - 1 && std::getline(input, item, splitOn))
     {
-        if (item.size())
+        if (!item.empty() || option == SplitOptions::INCLUDE_EMPTY_ENTRIES)
         {
             returnValues.emplace_back(std::move(item));
         }
     }
 
-    if (std::getline(input, item, static_cast<char>(EOF)) && item.size())
+    if (std::getline(input, item, static_cast<char>(EOF)))
     {
-        returnValues.emplace_back(std::move(item));
+        if (option != SplitOptions::INCLUDE_EMPTY_ENTRIES)
+        {
+            // Trim all leading delimiters.
+            item.erase(item.begin(), std::find_if(item.begin(), item.end(), [splitOn](int ch) { return ch != splitOn; }));
+            if (!item.empty())
+            {
+                returnValues.emplace_back(std::move(item));
+            }
+        }
+        else
+        {
+            returnValues.emplace_back(std::move(item));
+        }
+
     }
+    // To handle the case when there are trailing delimiters.
+    else if (!toSplit.empty() && toSplit.back() == splitOn && option == SplitOptions::INCLUDE_EMPTY_ENTRIES)
+    {
+        returnValues.emplace_back();
+    }
+
     return returnValues;
 }
 
@@ -136,10 +165,8 @@ Aws::String StringUtils::URLEncode(const char* unsafe)
     size_t unsafeLength = strlen(unsafe);
     for (auto i = unsafe, n = unsafe + unsafeLength; i != n; ++i)
     {
-        int c = *i;
-		//MSVC 2015 has an assertion that c is positive in isalnum(). This breaks unicode support.
-		//bypass that with the first check.
-        if (c >= 0 && (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~'))
+        char c = *i;
+        if (IsAlnum(c) || c == '-' || c == '_' || c == '.' || c == '~')
         {
             escaped << (char)c;
         }
@@ -163,8 +190,6 @@ Aws::String StringUtils::UTF8Escape(const char* unicodeString, const char* delim
     for (auto i = unicodeString, n = unicodeString + unsafeLength; i != n; ++i)
     {
         int c = *i;
-        //MSVC 2015 has an assertion that c is positive in isalnum(). This breaks unicode support.
-        //bypass that with the first check.
         if (c >= ' ' && c < 127 )
         {
             escaped << (char)c;
@@ -194,37 +219,93 @@ Aws::String StringUtils::URLEncode(double unsafe)
 
 Aws::String StringUtils::URLDecode(const char* safe)
 {
-    Aws::StringStream unescaped;
-    unescaped.fill('0');
-    unescaped << std::hex;
+    Aws::String unescaped;
 
-    size_t safeLength = strlen(safe);
-    for (auto i = safe, n = safe + safeLength; i != n; ++i)
+    for (; *safe; safe++)
     {
-        char c = *i;
-        if(c == '%')
+        switch(*safe)
         {
-            char hex[3];
-            hex[0] = *(i + 1);
-            hex[1] = *(i + 2);
-            hex[2] = 0;
-            i += 2;
-            auto hexAsInteger = strtol(hex, nullptr, 16);
-            unescaped << (char)hexAsInteger;
-        }
-        else
-        {
-            unescaped << *i;
+            case '%':
+            {
+                int hex = 0;
+                auto ch = *++safe;
+                if (ch >= '0' && ch <= '9')
+                {
+                    hex = (ch - '0') * 16;
+                }
+                else if (ch >= 'A' && ch <= 'F')
+                {
+                    hex = (ch - 'A' + 10) * 16;
+                }
+                else if (ch >= 'a' && ch <= 'f')
+                {
+                    hex = (ch - 'a' + 10) * 16;
+                }
+                else
+                {
+                    unescaped.push_back('%');
+                    if (ch == 0)
+                    {
+                        return unescaped;
+                    }
+                    unescaped.push_back(ch);
+                    break;
+                }
+
+                ch = *++safe;
+                if (ch >= '0' && ch <= '9')
+                {
+                    hex += (ch - '0');
+                }
+                else if (ch >= 'A' && ch <= 'F')
+                {
+                    hex += (ch - 'A' + 10);
+                }
+                else if (ch >= 'a' && ch <= 'f')
+                {
+                    hex += (ch - 'a' + 10);
+                }
+                else
+                {
+                    unescaped.push_back('%');
+                    unescaped.push_back(*(safe - 1));
+                    if (ch == 0)
+                    {
+                        return unescaped;
+                    }
+                    unescaped.push_back(ch);
+                    break;
+                }
+
+                unescaped.push_back(char(hex));
+                break;
+            }
+            case '+':
+                unescaped.push_back(' ');
+                break;
+            default:
+                unescaped.push_back(*safe);
+                break;
         }
     }
 
-    return unescaped.str();
+    return unescaped;
+}
+
+static bool IsSpace(int ch)
+{
+    if (ch < -1 || ch > 255)
+    {
+        return false;
+    }
+
+    return ::isspace(ch) != 0;
 }
 
 Aws::String StringUtils::LTrim(const char* source)
 {
     Aws::String copy(source);
-    copy.erase(copy.begin(), std::find_if(copy.begin(), copy.end(), [](int ch) { return !::isspace(ch); }));
+    copy.erase(copy.begin(), std::find_if(copy.begin(), copy.end(), [](int ch) { return !IsSpace(ch); }));
     return copy;
 }
 
@@ -232,7 +313,7 @@ Aws::String StringUtils::LTrim(const char* source)
 Aws::String StringUtils::RTrim(const char* source)
 {
     Aws::String copy(source);
-    copy.erase(std::find_if(copy.rbegin(), copy.rend(), [](int ch) { return !::isspace(ch); }).base(), copy.end());
+    copy.erase(std::find_if(copy.rbegin(), copy.rend(), [](int ch) { return !IsSpace(ch); }).base(), copy.end());
     return copy;
 }
 

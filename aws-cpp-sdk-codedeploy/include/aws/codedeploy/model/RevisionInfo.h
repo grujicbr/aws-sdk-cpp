@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     RevisionInfo();
-    RevisionInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    RevisionInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RevisionInfo(Aws::Utils::Json::JsonView jsonValue);
+    RevisionInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Information about the location and type of an application revision.</p>
      */
     inline const RevisionLocation& GetRevisionLocation() const{ return m_revisionLocation; }
+
+    /**
+     * <p>Information about the location and type of an application revision.</p>
+     */
+    inline bool RevisionLocationHasBeenSet() const { return m_revisionLocationHasBeenSet; }
 
     /**
      * <p>Information about the location and type of an application revision.</p>
@@ -78,6 +84,12 @@ namespace Model
      * associated deployment groups.</p>
      */
     inline const GenericRevisionInfo& GetGenericRevisionInfo() const{ return m_genericRevisionInfo; }
+
+    /**
+     * <p>Information about an application revision, including usage details and
+     * associated deployment groups.</p>
+     */
+    inline bool GenericRevisionInfoHasBeenSet() const { return m_genericRevisionInfoHasBeenSet; }
 
     /**
      * <p>Information about an application revision, including usage details and

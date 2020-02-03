@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Shield
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Contributor();
-    Contributor(const Aws::Utils::Json::JsonValue& jsonValue);
-    Contributor& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Contributor(Aws::Utils::Json::JsonView jsonValue);
+    Contributor& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * <code>Name</code> could be <code>United States</code>.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the contributor. This is dependent on the
+     * <code>AttackPropertyIdentifier</code>. For example, if the
+     * <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the
+     * <code>Name</code> could be <code>United States</code>.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the contributor. This is dependent on the
@@ -109,6 +118,12 @@ namespace Model
      * For example <code>10,000</code>.</p>
      */
     inline long long GetValue() const{ return m_value; }
+
+    /**
+     * <p>The contribution of this contributor expressed in <a>Protection</a> units.
+     * For example <code>10,000</code>.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The contribution of this contributor expressed in <a>Protection</a> units.

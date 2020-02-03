@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UserData();
-    UserData(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserData& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserData(Aws::Utils::Json::JsonView jsonValue);
+    UserData& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ARN of a user.</p>
      */
     inline const Aws::String& GetUserArn() const{ return m_userArn; }
+
+    /**
+     * <p>The ARN of a user.</p>
+     */
+    inline bool UserArnHasBeenSet() const { return m_userArnHasBeenSet; }
 
     /**
      * <p>The ARN of a user.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The first name of a user.</p>
      */
+    inline bool FirstNameHasBeenSet() const { return m_firstNameHasBeenSet; }
+
+    /**
+     * <p>The first name of a user.</p>
+     */
     inline void SetFirstName(const Aws::String& value) { m_firstNameHasBeenSet = true; m_firstName = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The last name of a user.</p>
      */
     inline const Aws::String& GetLastName() const{ return m_lastName; }
+
+    /**
+     * <p>The last name of a user.</p>
+     */
+    inline bool LastNameHasBeenSet() const { return m_lastNameHasBeenSet; }
 
     /**
      * <p>The last name of a user.</p>
@@ -163,6 +179,11 @@ namespace Model
     /**
      * <p>The email of a user.</p>
      */
+    inline bool EmailHasBeenSet() const { return m_emailHasBeenSet; }
+
+    /**
+     * <p>The email of a user.</p>
+     */
     inline void SetEmail(const Aws::String& value) { m_emailHasBeenSet = true; m_email = value; }
 
     /**
@@ -199,6 +220,11 @@ namespace Model
     /**
      * <p>The enrollment status of a user.</p>
      */
+    inline bool EnrollmentStatusHasBeenSet() const { return m_enrollmentStatusHasBeenSet; }
+
+    /**
+     * <p>The enrollment status of a user.</p>
+     */
     inline void SetEnrollmentStatus(const EnrollmentStatus& value) { m_enrollmentStatusHasBeenSet = true; m_enrollmentStatus = value; }
 
     /**
@@ -221,6 +247,11 @@ namespace Model
      * <p>The enrollment ARN of a user.</p>
      */
     inline const Aws::String& GetEnrollmentId() const{ return m_enrollmentId; }
+
+    /**
+     * <p>The enrollment ARN of a user.</p>
+     */
+    inline bool EnrollmentIdHasBeenSet() const { return m_enrollmentIdHasBeenSet; }
 
     /**
      * <p>The enrollment ARN of a user.</p>

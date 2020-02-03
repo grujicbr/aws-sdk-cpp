@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     KeyUsage();
-    KeyUsage(const Aws::Utils::Json::JsonValue& jsonValue);
-    KeyUsage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KeyUsage(Aws::Utils::Json::JsonView jsonValue);
+    KeyUsage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>A string value that contains a Key Usage extension name.</p>
      */
     inline const KeyUsageName& GetName() const{ return m_name; }
+
+    /**
+     * <p>A string value that contains a Key Usage extension name.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A string value that contains a Key Usage extension name.</p>

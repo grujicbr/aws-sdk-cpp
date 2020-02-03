@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     InputSerialization();
-    InputSerialization(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputSerialization& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputSerialization(Aws::Utils::Json::JsonView jsonValue);
+    InputSerialization& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>Describes the serialization of a CSV-encoded object.</p>
      */
     inline const CSVInput& GetCsv() const{ return m_csv; }
+
+    /**
+     * <p>Describes the serialization of a CSV-encoded object.</p>
+     */
+    inline bool CsvHasBeenSet() const { return m_csvHasBeenSet; }
 
     /**
      * <p>Describes the serialization of a CSV-encoded object.</p>

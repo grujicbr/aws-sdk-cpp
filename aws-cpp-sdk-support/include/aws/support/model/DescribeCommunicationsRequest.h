@@ -27,15 +27,12 @@ namespace Model
 {
 
   /**
-   * <p/><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/support-2013-04-15/DescribeCommunicationsRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_SUPPORT_API DescribeCommunicationsRequest : public SupportRequest
   {
   public:
     DescribeCommunicationsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -53,6 +50,13 @@ namespace Model
      * case-<i>12345678910-2013-c4c1d2bf33c5cf47</i> </p>
      */
     inline const Aws::String& GetCaseId() const{ return m_caseId; }
+
+    /**
+     * <p>The AWS Support case ID requested or returned in the call. The case ID is an
+     * alphanumeric string formatted as shown in this example:
+     * case-<i>12345678910-2013-c4c1d2bf33c5cf47</i> </p>
+     */
+    inline bool CaseIdHasBeenSet() const { return m_caseIdHasBeenSet; }
 
     /**
      * <p>The AWS Support case ID requested or returned in the call. The case ID is an
@@ -107,6 +111,12 @@ namespace Model
      * <p>The end date for a filtered date search on support case communications. Case
      * communications are available for 12 months after creation.</p>
      */
+    inline bool BeforeTimeHasBeenSet() const { return m_beforeTimeHasBeenSet; }
+
+    /**
+     * <p>The end date for a filtered date search on support case communications. Case
+     * communications are available for 12 months after creation.</p>
+     */
     inline void SetBeforeTime(const Aws::String& value) { m_beforeTimeHasBeenSet = true; m_beforeTime = value; }
 
     /**
@@ -145,6 +155,12 @@ namespace Model
      * Case communications are available for 12 months after creation.</p>
      */
     inline const Aws::String& GetAfterTime() const{ return m_afterTime; }
+
+    /**
+     * <p>The start date for a filtered date search on support case communications.
+     * Case communications are available for 12 months after creation.</p>
+     */
+    inline bool AfterTimeHasBeenSet() const { return m_afterTimeHasBeenSet; }
 
     /**
      * <p>The start date for a filtered date search on support case communications.
@@ -191,6 +207,11 @@ namespace Model
     /**
      * <p>A resumption point for pagination.</p>
      */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>A resumption point for pagination.</p>
+     */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
@@ -223,6 +244,11 @@ namespace Model
      * <p>The maximum number of results to return before paginating.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>The maximum number of results to return before paginating.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>The maximum number of results to return before paginating.</p>

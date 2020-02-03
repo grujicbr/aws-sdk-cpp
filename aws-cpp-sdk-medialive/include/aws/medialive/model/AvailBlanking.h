@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for AvailBlanking<p><h3>See Also:</h3>   <a
+   * Avail Blanking<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailBlanking">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AvailBlanking();
-    AvailBlanking(const Aws::Utils::Json::JsonValue& jsonValue);
-    AvailBlanking& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AvailBlanking(Aws::Utils::Json::JsonView jsonValue);
+    AvailBlanking& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * are supported.
      */
     inline const InputLocation& GetAvailBlankingImage() const{ return m_availBlankingImage; }
+
+    /**
+     * Blanking image to be used. Leave empty for solid black. Only bmp and png images
+     * are supported.
+     */
+    inline bool AvailBlankingImageHasBeenSet() const { return m_availBlankingImageHasBeenSet; }
 
     /**
      * Blanking image to be used. Leave empty for solid black. Only bmp and png images
@@ -83,6 +90,12 @@ namespace Model
      * insertion metadata is added.
      */
     inline const AvailBlankingState& GetState() const{ return m_state; }
+
+    /**
+     * When set to enabled, causes video, audio and captions to be blanked when
+     * insertion metadata is added.
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * When set to enabled, causes video, audio and captions to be blanked when

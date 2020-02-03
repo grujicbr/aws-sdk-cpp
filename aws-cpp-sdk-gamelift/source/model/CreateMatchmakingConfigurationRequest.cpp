@@ -38,7 +38,10 @@ CreateMatchmakingConfigurationRequest::CreateMatchmakingConfigurationRequest() :
     m_additionalPlayerCountHasBeenSet(false),
     m_customEventDataHasBeenSet(false),
     m_gamePropertiesHasBeenSet(false),
-    m_gameSessionDataHasBeenSet(false)
+    m_gameSessionDataHasBeenSet(false),
+    m_backfillMode(BackfillMode::NOT_SET),
+    m_backfillModeHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -128,7 +131,23 @@ Aws::String CreateMatchmakingConfigurationRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_backfillModeHasBeenSet)
+  {
+   payload.WithString("BackfillMode", BackfillModeMapper::GetNameForBackfillMode(m_backfillMode));
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateMatchmakingConfigurationRequest::GetRequestSpecificHeaders() const

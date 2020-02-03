@@ -54,17 +54,20 @@ using namespace Aws::DynamoDB::Model;
 #define TEST_TABLE_PREFIX  "IntegrationTest_"
 
 //fill these in before running the test.
-static const char* HASH_KEY_NAME = "HashKey";
-static const char* ENDPOINT_OVERRIDE = ""; // Use localhost:8000 for DynamoDb Local
+static const char HASH_KEY_NAME[] = "HashKey";
+static const char ENDPOINT_OVERRIDE[] = ""; // Use localhost:8000 for DynamoDb Local
 
-static const char* BASE_SIMPLE_TABLE = "Simple";
-static const char* BASE_CRUD_TEST_TABLE = "Crud";
-static const char* BASE_CRUD_CALLBACKS_TEST_TABLE = "Crud_WithCallbacks";
-static const char* BASE_THROTTLED_TEST_TABLE = "Throttled";
-static const char* BASE_LIMITER_TEST_TABLE = "Limiter";
-static const char* BASE_ATTRIBUTEVALUE_TEST_TABLE = "AttributeValue";
+static const char BASE_SIMPLE_TABLE[] = "Simple";
+static const char BASE_THROUGHPUT_TABLE[] = "Throughput";
+static const char BASE_CONDITION_TABLE[] = "ConditionCheck";
+static const char BASE_VALIDATION_TABLE[] = "Validation";
+static const char BASE_CRUD_TEST_TABLE[] = "Crud";
+static const char BASE_CRUD_CALLBACKS_TEST_TABLE[] = "Crud_WithCallbacks";
+static const char BASE_THROTTLED_TEST_TABLE[] = "Throttled";
+static const char BASE_LIMITER_TEST_TABLE[] = "Limiter";
+static const char BASE_ATTRIBUTEVALUE_TEST_TABLE[] = "AttributeValue";
 
-static const char* ALLOCATION_TAG = "TableOperationTest";
+static const char ALLOCATION_TAG[] = "TableOperationTest";
 
 namespace {
 
@@ -180,6 +183,7 @@ protected:
         config.writeRateLimiter = m_limiter;
         config.httpLibOverride = transferType;
         config.executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>(ALLOCATION_TAG, 4);
+        config.disableExpectHeader = true;
 
         //to test proxy functionality, uncomment the next two lines.
         //config.proxyHost = "localhost";
@@ -192,8 +196,6 @@ protected:
         m_limiter = Aws::MakeShared<Aws::Utils::RateLimits::DefaultRateLimiter<>>(ALLOCATION_TAG, 200000);
         SetUpClient(Aws::Http::TransferLibType::DEFAULT_CLIENT);
         DYNAMODB_INTEGRATION_TEST_ID = Aws::String(Aws::Utils::UUID::RandomUUID()).c_str();
-        // delete all tables, just in case
-        DeleteAllTables();
     }
 
     static void TearDownTestCase()
@@ -206,6 +208,9 @@ protected:
     static void DeleteAllTables()
     {
         DeleteTable(BuildTableName(BASE_SIMPLE_TABLE));
+        DeleteTable(BuildTableName(BASE_THROUGHPUT_TABLE));
+        DeleteTable(BuildTableName(BASE_CONDITION_TABLE));
+        DeleteTable(BuildTableName(BASE_VALIDATION_TABLE));
         DeleteTable(BuildTableName(BASE_CRUD_TEST_TABLE));
         DeleteTable(BuildTableName(BASE_CRUD_CALLBACKS_TEST_TABLE));
         DeleteTable(BuildTableName(BASE_THROTTLED_TEST_TABLE));
@@ -250,31 +255,7 @@ protected:
         deleteTableRequest.SetTableName(tableName);
 
         DeleteTableOutcome deleteTableOutcome = m_client->DeleteTable(deleteTableRequest);
-
-        if (!deleteTableOutcome.IsSuccess())
-        {
-            // It's okay if the table has already beed deleted
-            EXPECT_EQ(DynamoDBErrors::RESOURCE_NOT_FOUND, deleteTableOutcome.GetError().GetErrorType());
-            return;
-        }
-
-        DescribeTableRequest describeTableRequest;
-        describeTableRequest.SetTableName(tableName);
-        bool shouldContinue = true;
-        while (shouldContinue) 
-        {
-            DescribeTableOutcome outcome = m_client->DescribeTable(describeTableRequest);
-            if (outcome.IsSuccess())
-            {
-                EXPECT_EQ(TableStatus::DELETING, outcome.GetResult().GetTable().GetTableStatus());
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-            }
-            else
-            {
-                EXPECT_EQ(DynamoDBErrors::RESOURCE_NOT_FOUND, outcome.GetError().GetErrorType());
-                break;
-            }
-        }
+        ASSERT_TRUE(deleteTableOutcome.IsSuccess());
     }
 
     DescribeTableResult WaitUntilActive(const Aws::String tableName)
@@ -286,8 +267,7 @@ protected:
 
         while (shouldContinue)
         {     
-            EXPECT_TRUE(outcome.IsSuccess());
-            if (outcome.GetResult().GetTable().GetTableStatus() == TableStatus::ACTIVE)
+            if (outcome.IsSuccess() && outcome.GetResult().GetTable().GetTableStatus() == TableStatus::ACTIVE)
             {
                 break;
             }
@@ -310,7 +290,6 @@ TEST_F(TableOperationTest, TestListTable)
 {
     AWS_LOGSTREAM_TRACE(ALLOCATION_TAG, "TestListTable")
 
-    DeleteAllTables();
     Aws::String simpleTableName = BuildTableName(BASE_SIMPLE_TABLE);
     CreateTable(simpleTableName, 10, 10);
 
@@ -346,7 +325,7 @@ TEST_F(TableOperationTest, TestUpdateThroughput)
 {
     AWS_LOGSTREAM_TRACE(ALLOCATION_TAG, "TestUpdateThroughput")
 
-    Aws::String simpleTableName = BuildTableName(BASE_SIMPLE_TABLE);
+    Aws::String simpleTableName = BuildTableName(BASE_THROUGHPUT_TABLE);
     CreateTable(simpleTableName, 10, 10);
 
     // Update the table and make sure it works.
@@ -370,7 +349,7 @@ TEST_F(TableOperationTest, TestConditionalCheckFailure)
 {
     AWS_LOGSTREAM_TRACE(ALLOCATION_TAG, "TestConditionalCheckFailure")
 
-    Aws::String simpleTableName = BuildTableName(BASE_SIMPLE_TABLE);
+    Aws::String simpleTableName = BuildTableName(BASE_CONDITION_TABLE);
     CreateTable(simpleTableName, 10, 10);
 
     AttributeValue homer;
@@ -409,7 +388,7 @@ TEST_F(TableOperationTest, TestValidationError)
 {
     AWS_LOGSTREAM_TRACE(ALLOCATION_TAG, "TestValidationError")
 
-    Aws::String simpleTableName = BuildTableName(BASE_SIMPLE_TABLE);
+    Aws::String simpleTableName = BuildTableName(BASE_VALIDATION_TABLE);
     CreateTable(simpleTableName, 10, 10);
 
     AttributeValue hashKeyAttribute;
@@ -1011,6 +990,41 @@ TEST_F(TableOperationTest, TestAttributeValues)
         EXPECT_EQ("String Value", returnedItemCollection["String"].GetS());
         EXPECT_EQ("1001", returnedItemCollection["Number"].GetN());
     }
+    // Number Value (numeric type)
+    {
+        // Update
+        UpdateItemRequest updateItemRequest;
+        updateItemRequest.SetTableName(attributeValueTestTableName);
+        updateItemRequest.AddKey(HASH_KEY_NAME, hashKey);
+
+        AttributeValue valueAttribute;
+        valueAttribute.SetN(1001);
+
+        AttributeValueUpdate testValueAttribute;
+        testValueAttribute.SetValue(valueAttribute);
+
+        updateItemRequest.AddAttributeUpdates("Number", testValueAttribute);
+
+        UpdateItemOutcome updateOutcome = m_client->UpdateItem(updateItemRequest);
+        ASSERT_TRUE(updateOutcome.IsSuccess());
+
+        // Get
+        GetItemRequest getItemRequest;
+        getItemRequest.AddKey(HASH_KEY_NAME, hashKey);
+        getItemRequest.SetTableName(attributeValueTestTableName);
+
+        Aws::Vector<Aws::String> attributesToGet;
+        attributesToGet.push_back(HASH_KEY_NAME);
+        GetItemOutcome getOutcome = m_client->GetItem(getItemRequest);
+        ASSERT_TRUE(getOutcome.IsSuccess());
+
+        // Parse
+        GetItemResult result = getOutcome.GetResult();
+        auto returnedItemCollection = result.GetItem();
+        EXPECT_EQ("TestValue", returnedItemCollection[HASH_KEY_NAME].GetS());
+        EXPECT_EQ("String Value", returnedItemCollection["String"].GetS());
+        EXPECT_EQ("1001", returnedItemCollection["Number"].GetN());
+    }
 
     // ByteBuffer
     {
@@ -1245,6 +1259,42 @@ TEST_F(TableOperationTest, TestAttributeValues)
         ASSERT_EQ("ernie", m.find("bert")->second->GetS());
     }
 
+    // Empty Map
+    {
+        // Update
+        UpdateItemRequest updateItemRequest;
+        updateItemRequest.SetTableName(attributeValueTestTableName);
+        updateItemRequest.AddKey(HASH_KEY_NAME, hashKey);
+
+        Aws::String updateExpression = "SET EmptyMap = :map";
+        updateItemRequest.SetUpdateExpression(updateExpression);
+
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> expressionAttributeValues;
+        AttributeValue mapValueAttribute;
+        Aws::Map<Aws::String, const std::shared_ptr<Aws::DynamoDB::Model::AttributeValue>> emptyMap;
+        mapValueAttribute.SetM(emptyMap);
+        expressionAttributeValues[":map"] = mapValueAttribute;
+        updateItemRequest.SetExpressionAttributeValues(expressionAttributeValues);
+
+        UpdateItemOutcome updateOutcome = m_client->UpdateItem(updateItemRequest);
+        ASSERT_TRUE(updateOutcome.IsSuccess());
+
+        // Get
+        GetItemRequest getItemRequest;
+        getItemRequest.AddKey(HASH_KEY_NAME, hashKey);
+        getItemRequest.SetTableName(attributeValueTestTableName);
+
+        GetItemOutcome getOutcome = m_client->GetItem(getItemRequest);
+        ASSERT_TRUE(getOutcome.IsSuccess());
+
+        // Parse
+        GetItemResult result = getOutcome.GetResult();
+        auto returnedItemCollection = result.GetItem();
+        ASSERT_TRUE(returnedItemCollection.find("EmptyMap") != returnedItemCollection.end());
+        auto map = returnedItemCollection["EmptyMap"].GetM();
+        ASSERT_EQ(0u, map.size());
+    }
+
     // Attribute List
     {
         // Update
@@ -1304,6 +1354,42 @@ TEST_F(TableOperationTest, TestAttributeValues)
         ASSERT_EQ(2u, list.size());
         ASSERT_EQ("foo", list[0]->GetS());
         ASSERT_EQ("bar", list[1]->GetS());
+    }
+
+    // Empty List
+    {
+        // Update
+        UpdateItemRequest updateItemRequest;
+        updateItemRequest.SetTableName(attributeValueTestTableName);
+        updateItemRequest.AddKey(HASH_KEY_NAME, hashKey);
+
+        Aws::String updateExpression = "SET EmptyList = :list";
+        updateItemRequest.SetUpdateExpression(updateExpression);
+
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> expressionAttributeValues;
+        AttributeValue listValueAttribute;
+        Aws::Vector<std::shared_ptr<Aws::DynamoDB::Model::AttributeValue>> emptyList;
+        listValueAttribute.SetL(emptyList);
+        expressionAttributeValues[":list"] = listValueAttribute;
+        updateItemRequest.SetExpressionAttributeValues(expressionAttributeValues);
+
+        UpdateItemOutcome updateOutcome = m_client->UpdateItem(updateItemRequest);
+        ASSERT_TRUE(updateOutcome.IsSuccess());
+
+        // Get
+        GetItemRequest getItemRequest;
+        getItemRequest.AddKey(HASH_KEY_NAME, hashKey);
+        getItemRequest.SetTableName(attributeValueTestTableName);
+
+        GetItemOutcome getOutcome = m_client->GetItem(getItemRequest);
+        ASSERT_TRUE(getOutcome.IsSuccess());
+
+        // Parse
+        GetItemResult result = getOutcome.GetResult();
+        auto returnedItemCollection = result.GetItem();
+        ASSERT_TRUE(returnedItemCollection.find("EmptyList") != returnedItemCollection.end());
+        auto list = returnedItemCollection["EmptyList"].GetL();
+        ASSERT_EQ(0u, list.size());
     }
 
     // Bool

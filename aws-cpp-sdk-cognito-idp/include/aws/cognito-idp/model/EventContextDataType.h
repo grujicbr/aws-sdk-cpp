@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     EventContextDataType();
-    EventContextDataType(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventContextDataType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventContextDataType(Aws::Utils::Json::JsonView jsonValue);
+    EventContextDataType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The user's IP address.</p>
      */
     inline const Aws::String& GetIpAddress() const{ return m_ipAddress; }
+
+    /**
+     * <p>The user's IP address.</p>
+     */
+    inline bool IpAddressHasBeenSet() const { return m_ipAddressHasBeenSet; }
 
     /**
      * <p>The user's IP address.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The user's device name.</p>
      */
+    inline bool DeviceNameHasBeenSet() const { return m_deviceNameHasBeenSet; }
+
+    /**
+     * <p>The user's device name.</p>
+     */
     inline void SetDeviceName(const Aws::String& value) { m_deviceNameHasBeenSet = true; m_deviceName = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The user's time zone.</p>
      */
     inline const Aws::String& GetTimezone() const{ return m_timezone; }
+
+    /**
+     * <p>The user's time zone.</p>
+     */
+    inline bool TimezoneHasBeenSet() const { return m_timezoneHasBeenSet; }
 
     /**
      * <p>The user's time zone.</p>
@@ -163,6 +179,11 @@ namespace Model
     /**
      * <p>The user's city.</p>
      */
+    inline bool CityHasBeenSet() const { return m_cityHasBeenSet; }
+
+    /**
+     * <p>The user's city.</p>
+     */
     inline void SetCity(const Aws::String& value) { m_cityHasBeenSet = true; m_city = value; }
 
     /**
@@ -195,6 +216,11 @@ namespace Model
      * <p>The user's country.</p>
      */
     inline const Aws::String& GetCountry() const{ return m_country; }
+
+    /**
+     * <p>The user's country.</p>
+     */
+    inline bool CountryHasBeenSet() const { return m_countryHasBeenSet; }
 
     /**
      * <p>The user's country.</p>

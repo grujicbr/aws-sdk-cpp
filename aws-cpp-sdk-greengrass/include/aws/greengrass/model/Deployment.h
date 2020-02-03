@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Deployment();
-    Deployment(const Aws::Utils::Json::JsonValue& jsonValue);
-    Deployment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Deployment(Aws::Utils::Json::JsonView jsonValue);
+    Deployment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * The time, in milliseconds since the epoch, when the deployment was created.
      */
     inline const Aws::String& GetCreatedAt() const{ return m_createdAt; }
+
+    /**
+     * The time, in milliseconds since the epoch, when the deployment was created.
+     */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
 
     /**
      * The time, in milliseconds since the epoch, when the deployment was created.
@@ -91,6 +97,11 @@ namespace Model
     /**
      * The ARN of the deployment.
      */
+    inline bool DeploymentArnHasBeenSet() const { return m_deploymentArnHasBeenSet; }
+
+    /**
+     * The ARN of the deployment.
+     */
     inline void SetDeploymentArn(const Aws::String& value) { m_deploymentArnHasBeenSet = true; m_deploymentArn = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * The ID of the deployment.
      */
     inline const Aws::String& GetDeploymentId() const{ return m_deploymentId; }
+
+    /**
+     * The ID of the deployment.
+     */
+    inline bool DeploymentIdHasBeenSet() const { return m_deploymentIdHasBeenSet; }
 
     /**
      * The ID of the deployment.
@@ -163,6 +179,11 @@ namespace Model
     /**
      * The type of the deployment.
      */
+    inline bool DeploymentTypeHasBeenSet() const { return m_deploymentTypeHasBeenSet; }
+
+    /**
+     * The type of the deployment.
+     */
     inline void SetDeploymentType(const DeploymentType& value) { m_deploymentTypeHasBeenSet = true; m_deploymentType = value; }
 
     /**
@@ -185,6 +206,11 @@ namespace Model
      * The ARN of the group for this deployment.
      */
     inline const Aws::String& GetGroupArn() const{ return m_groupArn; }
+
+    /**
+     * The ARN of the group for this deployment.
+     */
+    inline bool GroupArnHasBeenSet() const { return m_groupArnHasBeenSet; }
 
     /**
      * The ARN of the group for this deployment.

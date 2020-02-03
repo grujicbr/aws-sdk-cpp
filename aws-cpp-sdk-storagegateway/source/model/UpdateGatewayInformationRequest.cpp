@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 UpdateGatewayInformationRequest::UpdateGatewayInformationRequest() : 
     m_gatewayARNHasBeenSet(false),
     m_gatewayNameHasBeenSet(false),
-    m_gatewayTimezoneHasBeenSet(false)
+    m_gatewayTimezoneHasBeenSet(false),
+    m_cloudWatchLogGroupARNHasBeenSet(false)
 {
 }
 
@@ -51,7 +52,13 @@ Aws::String UpdateGatewayInformationRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_cloudWatchLogGroupARNHasBeenSet)
+  {
+   payload.WithString("CloudWatchLogGroupARN", m_cloudWatchLogGroupARN);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateGatewayInformationRequest::GetRequestSpecificHeaders() const

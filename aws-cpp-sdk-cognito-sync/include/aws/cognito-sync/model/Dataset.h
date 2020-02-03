@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoSync
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     Dataset();
-    Dataset(const Aws::Utils::Json::JsonValue& jsonValue);
-    Dataset& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Dataset(Aws::Utils::Json::JsonView jsonValue);
+    Dataset& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,12 @@ namespace Model
      * created by Amazon Cognito. GUID generation is unique within a region.
      */
     inline const Aws::String& GetIdentityId() const{ return m_identityId; }
+
+    /**
+     * A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE)
+     * created by Amazon Cognito. GUID generation is unique within a region.
+     */
+    inline bool IdentityIdHasBeenSet() const { return m_identityIdHasBeenSet; }
 
     /**
      * A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE)
@@ -104,6 +111,12 @@ namespace Model
      * A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, '_'
      * (underscore), '-' (dash), and '.' (dot).
      */
+    inline bool DatasetNameHasBeenSet() const { return m_datasetNameHasBeenSet; }
+
+    /**
+     * A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, '_'
+     * (underscore), '-' (dash), and '.' (dot).
+     */
     inline void SetDatasetName(const Aws::String& value) { m_datasetNameHasBeenSet = true; m_datasetName = value; }
 
     /**
@@ -145,6 +158,11 @@ namespace Model
     /**
      * Date on which the dataset was created.
      */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
+
+    /**
+     * Date on which the dataset was created.
+     */
     inline void SetCreationDate(const Aws::Utils::DateTime& value) { m_creationDateHasBeenSet = true; m_creationDate = value; }
 
     /**
@@ -171,6 +189,11 @@ namespace Model
     /**
      * Date when the dataset was last modified.
      */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
+
+    /**
+     * Date when the dataset was last modified.
+     */
     inline void SetLastModifiedDate(const Aws::Utils::DateTime& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = value; }
 
     /**
@@ -193,6 +216,11 @@ namespace Model
      * The device that made the last change to this dataset.
      */
     inline const Aws::String& GetLastModifiedBy() const{ return m_lastModifiedBy; }
+
+    /**
+     * The device that made the last change to this dataset.
+     */
+    inline bool LastModifiedByHasBeenSet() const { return m_lastModifiedByHasBeenSet; }
 
     /**
      * The device that made the last change to this dataset.
@@ -233,6 +261,11 @@ namespace Model
     /**
      * Total size in bytes of the records in this dataset.
      */
+    inline bool DataStorageHasBeenSet() const { return m_dataStorageHasBeenSet; }
+
+    /**
+     * Total size in bytes of the records in this dataset.
+     */
     inline void SetDataStorage(long long value) { m_dataStorageHasBeenSet = true; m_dataStorage = value; }
 
     /**
@@ -245,6 +278,11 @@ namespace Model
      * Number of records in this dataset.
      */
     inline long long GetNumRecords() const{ return m_numRecords; }
+
+    /**
+     * Number of records in this dataset.
+     */
+    inline bool NumRecordsHasBeenSet() const { return m_numRecordsHasBeenSet; }
 
     /**
      * Number of records in this dataset.

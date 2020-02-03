@@ -37,14 +37,26 @@ DetectModerationLabelsResult::DetectModerationLabelsResult(const Aws::AmazonWebS
 
 DetectModerationLabelsResult& DetectModerationLabelsResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("ModerationLabels"))
   {
-    Array<JsonValue> moderationLabelsJsonList = jsonValue.GetArray("ModerationLabels");
+    Array<JsonView> moderationLabelsJsonList = jsonValue.GetArray("ModerationLabels");
     for(unsigned moderationLabelsIndex = 0; moderationLabelsIndex < moderationLabelsJsonList.GetLength(); ++moderationLabelsIndex)
     {
       m_moderationLabels.push_back(moderationLabelsJsonList[moderationLabelsIndex].AsObject());
     }
+  }
+
+  if(jsonValue.ValueExists("ModerationModelVersion"))
+  {
+    m_moderationModelVersion = jsonValue.GetString("ModerationModelVersion");
+
+  }
+
+  if(jsonValue.ValueExists("HumanLoopActivationOutput"))
+  {
+    m_humanLoopActivationOutput = jsonValue.GetObject("HumanLoopActivationOutput");
+
   }
 
 

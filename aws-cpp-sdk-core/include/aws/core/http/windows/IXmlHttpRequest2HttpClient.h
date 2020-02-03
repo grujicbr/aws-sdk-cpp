@@ -65,6 +65,11 @@ namespace Aws
              * called CoInit elsewhere in your system.
              */
             static void InitCOM();
+            
+            /**
+             * IXMLHTTPRequest2 doesn't support transfer-encoding:chunked
+             */
+            virtual bool SupportsChunkedTransferEncoding() const override { return false; }
 
         private:
             void MakeRequestInternal(HttpRequest& request,
@@ -73,6 +78,9 @@ namespace Aws
                     Aws::Utils::RateLimits::RateLimiterInterface* writeLimiter) const;
 
             void FillClientSettings(const HttpRequestComHandle&) const;
+
+            //we can't reuse these com objects like we do in other http clients, just put a new one back into the resource manager.
+            void ReturnHandleToResourceManager() const;
 
             mutable Aws::Utils::ExclusiveOwnershipResourceManager<HttpRequestComHandle> m_resourceManager;
             Aws::String m_proxyUserName;

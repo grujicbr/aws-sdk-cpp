@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/states/SFN_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/states/model/StateMachineType.h>
 #include <aws/core/utils/DateTime.h>
 #include <utility>
 
@@ -26,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -42,8 +44,8 @@ namespace Model
   {
   public:
     StateMachineListItem();
-    StateMachineListItem(const Aws::Utils::Json::JsonValue& jsonValue);
-    StateMachineListItem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StateMachineListItem(Aws::Utils::Json::JsonView jsonValue);
+    StateMachineListItem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +53,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) that identifies the state machine.</p>
      */
     inline const Aws::String& GetStateMachineArn() const{ return m_stateMachineArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that identifies the state machine.</p>
+     */
+    inline bool StateMachineArnHasBeenSet() const { return m_stateMachineArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that identifies the state machine.</p>
@@ -85,7 +92,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -95,7 +102,17 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
+     * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
+     * <li> <p>control characters (<code>U+0000-001F</code>,
+     * <code>U+007F-009F</code>)</p> </li> </ul>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -105,7 +122,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -115,7 +132,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -125,7 +142,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -135,7 +152,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -145,7 +162,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -155,9 +172,45 @@ namespace Model
 
 
     /**
+     * <p/>
+     */
+    inline const StateMachineType& GetType() const{ return m_type; }
+
+    /**
+     * <p/>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p/>
+     */
+    inline void SetType(const StateMachineType& value) { m_typeHasBeenSet = true; m_type = value; }
+
+    /**
+     * <p/>
+     */
+    inline void SetType(StateMachineType&& value) { m_typeHasBeenSet = true; m_type = std::move(value); }
+
+    /**
+     * <p/>
+     */
+    inline StateMachineListItem& WithType(const StateMachineType& value) { SetType(value); return *this;}
+
+    /**
+     * <p/>
+     */
+    inline StateMachineListItem& WithType(StateMachineType&& value) { SetType(std::move(value)); return *this;}
+
+
+    /**
      * <p>The date the state machine is created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The date the state machine is created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The date the state machine is created.</p>
@@ -186,6 +239,9 @@ namespace Model
 
     Aws::String m_name;
     bool m_nameHasBeenSet;
+
+    StateMachineType m_type;
+    bool m_typeHasBeenSet;
 
     Aws::Utils::DateTime m_creationDate;
     bool m_creationDateHasBeenSet;

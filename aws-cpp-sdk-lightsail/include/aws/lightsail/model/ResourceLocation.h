@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ResourceLocation();
-    ResourceLocation(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceLocation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceLocation(Aws::Utils::Json::JsonView jsonValue);
+    ResourceLocation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * (case-sensitive).</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
+
+    /**
+     * <p>The Availability Zone. Follows the format <code>us-east-2a</code>
+     * (case-sensitive).</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
 
     /**
      * <p>The Availability Zone. Follows the format <code>us-east-2a</code>
@@ -94,6 +101,11 @@ namespace Model
      * <p>The AWS Region name.</p>
      */
     inline const RegionName& GetRegionName() const{ return m_regionName; }
+
+    /**
+     * <p>The AWS Region name.</p>
+     */
+    inline bool RegionNameHasBeenSet() const { return m_regionNameHasBeenSet; }
 
     /**
      * <p>The AWS Region name.</p>

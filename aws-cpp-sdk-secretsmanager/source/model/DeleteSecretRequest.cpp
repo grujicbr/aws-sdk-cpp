@@ -25,7 +25,9 @@ using namespace Aws::Utils;
 DeleteSecretRequest::DeleteSecretRequest() : 
     m_secretIdHasBeenSet(false),
     m_recoveryWindowInDays(0),
-    m_recoveryWindowInDaysHasBeenSet(false)
+    m_recoveryWindowInDaysHasBeenSet(false),
+    m_forceDeleteWithoutRecovery(false),
+    m_forceDeleteWithoutRecoveryHasBeenSet(false)
 {
 }
 
@@ -45,7 +47,13 @@ Aws::String DeleteSecretRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_forceDeleteWithoutRecoveryHasBeenSet)
+  {
+   payload.WithBool("ForceDeleteWithoutRecovery", m_forceDeleteWithoutRecovery);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DeleteSecretRequest::GetRequestSpecificHeaders() const

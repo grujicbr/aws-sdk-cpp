@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 UpdateClassifierRequest::UpdateClassifierRequest() : 
     m_grokClassifierHasBeenSet(false),
     m_xMLClassifierHasBeenSet(false),
-    m_jsonClassifierHasBeenSet(false)
+    m_jsonClassifierHasBeenSet(false),
+    m_csvClassifierHasBeenSet(false)
 {
 }
 
@@ -51,7 +52,13 @@ Aws::String UpdateClassifierRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_csvClassifierHasBeenSet)
+  {
+   payload.WithObject("CsvClassifier", m_csvClassifier.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateClassifierRequest::GetRequestSpecificHeaders() const

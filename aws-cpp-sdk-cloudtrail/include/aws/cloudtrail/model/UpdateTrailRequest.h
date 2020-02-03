@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     UpdateTrailRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -57,7 +57,7 @@ namespace Model
      * <code>my-_namespace</code> and <code>my--namespace</code> are invalid.</p> </li>
      * <li> <p>Not be in IP address format (for example, 192.168.5.4)</p> </li> </ul>
      * <p>If <code>Name</code> is a trail ARN, it must be in the format:</p> <p>
-     * <code>arn:aws:cloudtrail:us-east-1:123456789012:trail/MyTrail</code> </p>
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code> </p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
@@ -71,7 +71,21 @@ namespace Model
      * <code>my-_namespace</code> and <code>my--namespace</code> are invalid.</p> </li>
      * <li> <p>Not be in IP address format (for example, 192.168.5.4)</p> </li> </ul>
      * <p>If <code>Name</code> is a trail ARN, it must be in the format:</p> <p>
-     * <code>arn:aws:cloudtrail:us-east-1:123456789012:trail/MyTrail</code> </p>
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code> </p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>Specifies the name of the trail or trail ARN. If <code>Name</code> is a trail
+     * name, the string must meet the following requirements:</p> <ul> <li> <p>Contain
+     * only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or
+     * dashes (-)</p> </li> <li> <p>Start with a letter or number, and end with a
+     * letter or number</p> </li> <li> <p>Be between 3 and 128 characters</p> </li>
+     * <li> <p>Have no adjacent periods, underscores or dashes. Names like
+     * <code>my-_namespace</code> and <code>my--namespace</code> are invalid.</p> </li>
+     * <li> <p>Not be in IP address format (for example, 192.168.5.4)</p> </li> </ul>
+     * <p>If <code>Name</code> is a trail ARN, it must be in the format:</p> <p>
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code> </p>
      */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
@@ -85,7 +99,7 @@ namespace Model
      * <code>my-_namespace</code> and <code>my--namespace</code> are invalid.</p> </li>
      * <li> <p>Not be in IP address format (for example, 192.168.5.4)</p> </li> </ul>
      * <p>If <code>Name</code> is a trail ARN, it must be in the format:</p> <p>
-     * <code>arn:aws:cloudtrail:us-east-1:123456789012:trail/MyTrail</code> </p>
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code> </p>
      */
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
@@ -99,7 +113,7 @@ namespace Model
      * <code>my-_namespace</code> and <code>my--namespace</code> are invalid.</p> </li>
      * <li> <p>Not be in IP address format (for example, 192.168.5.4)</p> </li> </ul>
      * <p>If <code>Name</code> is a trail ARN, it must be in the format:</p> <p>
-     * <code>arn:aws:cloudtrail:us-east-1:123456789012:trail/MyTrail</code> </p>
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code> </p>
      */
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
@@ -113,7 +127,7 @@ namespace Model
      * <code>my-_namespace</code> and <code>my--namespace</code> are invalid.</p> </li>
      * <li> <p>Not be in IP address format (for example, 192.168.5.4)</p> </li> </ul>
      * <p>If <code>Name</code> is a trail ARN, it must be in the format:</p> <p>
-     * <code>arn:aws:cloudtrail:us-east-1:123456789012:trail/MyTrail</code> </p>
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code> </p>
      */
     inline UpdateTrailRequest& WithName(const Aws::String& value) { SetName(value); return *this;}
 
@@ -127,7 +141,7 @@ namespace Model
      * <code>my-_namespace</code> and <code>my--namespace</code> are invalid.</p> </li>
      * <li> <p>Not be in IP address format (for example, 192.168.5.4)</p> </li> </ul>
      * <p>If <code>Name</code> is a trail ARN, it must be in the format:</p> <p>
-     * <code>arn:aws:cloudtrail:us-east-1:123456789012:trail/MyTrail</code> </p>
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code> </p>
      */
     inline UpdateTrailRequest& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
@@ -141,7 +155,7 @@ namespace Model
      * <code>my-_namespace</code> and <code>my--namespace</code> are invalid.</p> </li>
      * <li> <p>Not be in IP address format (for example, 192.168.5.4)</p> </li> </ul>
      * <p>If <code>Name</code> is a trail ARN, it must be in the format:</p> <p>
-     * <code>arn:aws:cloudtrail:us-east-1:123456789012:trail/MyTrail</code> </p>
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code> </p>
      */
     inline UpdateTrailRequest& WithName(const char* value) { SetName(value); return *this;}
 
@@ -149,7 +163,7 @@ namespace Model
     /**
      * <p>Specifies the name of the Amazon S3 bucket designated for publishing log
      * files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
      * S3 Bucket Naming Requirements</a>.</p>
      */
     inline const Aws::String& GetS3BucketName() const{ return m_s3BucketName; }
@@ -157,7 +171,15 @@ namespace Model
     /**
      * <p>Specifies the name of the Amazon S3 bucket designated for publishing log
      * files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
+     * S3 Bucket Naming Requirements</a>.</p>
+     */
+    inline bool S3BucketNameHasBeenSet() const { return m_s3BucketNameHasBeenSet; }
+
+    /**
+     * <p>Specifies the name of the Amazon S3 bucket designated for publishing log
+     * files. See <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
      * S3 Bucket Naming Requirements</a>.</p>
      */
     inline void SetS3BucketName(const Aws::String& value) { m_s3BucketNameHasBeenSet = true; m_s3BucketName = value; }
@@ -165,7 +187,7 @@ namespace Model
     /**
      * <p>Specifies the name of the Amazon S3 bucket designated for publishing log
      * files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
      * S3 Bucket Naming Requirements</a>.</p>
      */
     inline void SetS3BucketName(Aws::String&& value) { m_s3BucketNameHasBeenSet = true; m_s3BucketName = std::move(value); }
@@ -173,7 +195,7 @@ namespace Model
     /**
      * <p>Specifies the name of the Amazon S3 bucket designated for publishing log
      * files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
      * S3 Bucket Naming Requirements</a>.</p>
      */
     inline void SetS3BucketName(const char* value) { m_s3BucketNameHasBeenSet = true; m_s3BucketName.assign(value); }
@@ -181,7 +203,7 @@ namespace Model
     /**
      * <p>Specifies the name of the Amazon S3 bucket designated for publishing log
      * files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
      * S3 Bucket Naming Requirements</a>.</p>
      */
     inline UpdateTrailRequest& WithS3BucketName(const Aws::String& value) { SetS3BucketName(value); return *this;}
@@ -189,7 +211,7 @@ namespace Model
     /**
      * <p>Specifies the name of the Amazon S3 bucket designated for publishing log
      * files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
      * S3 Bucket Naming Requirements</a>.</p>
      */
     inline UpdateTrailRequest& WithS3BucketName(Aws::String&& value) { SetS3BucketName(std::move(value)); return *this;}
@@ -197,7 +219,7 @@ namespace Model
     /**
      * <p>Specifies the name of the Amazon S3 bucket designated for publishing log
      * files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
      * S3 Bucket Naming Requirements</a>.</p>
      */
     inline UpdateTrailRequest& WithS3BucketName(const char* value) { SetS3BucketName(value); return *this;}
@@ -206,7 +228,7 @@ namespace Model
     /**
      * <p>Specifies the Amazon S3 key prefix that comes after the name of the bucket
      * you have designated for log file delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
      * Your CloudTrail Log Files</a>. The maximum length is 200 characters.</p>
      */
     inline const Aws::String& GetS3KeyPrefix() const{ return m_s3KeyPrefix; }
@@ -214,7 +236,15 @@ namespace Model
     /**
      * <p>Specifies the Amazon S3 key prefix that comes after the name of the bucket
      * you have designated for log file delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
+     * Your CloudTrail Log Files</a>. The maximum length is 200 characters.</p>
+     */
+    inline bool S3KeyPrefixHasBeenSet() const { return m_s3KeyPrefixHasBeenSet; }
+
+    /**
+     * <p>Specifies the Amazon S3 key prefix that comes after the name of the bucket
+     * you have designated for log file delivery. For more information, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
      * Your CloudTrail Log Files</a>. The maximum length is 200 characters.</p>
      */
     inline void SetS3KeyPrefix(const Aws::String& value) { m_s3KeyPrefixHasBeenSet = true; m_s3KeyPrefix = value; }
@@ -222,7 +252,7 @@ namespace Model
     /**
      * <p>Specifies the Amazon S3 key prefix that comes after the name of the bucket
      * you have designated for log file delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
      * Your CloudTrail Log Files</a>. The maximum length is 200 characters.</p>
      */
     inline void SetS3KeyPrefix(Aws::String&& value) { m_s3KeyPrefixHasBeenSet = true; m_s3KeyPrefix = std::move(value); }
@@ -230,7 +260,7 @@ namespace Model
     /**
      * <p>Specifies the Amazon S3 key prefix that comes after the name of the bucket
      * you have designated for log file delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
      * Your CloudTrail Log Files</a>. The maximum length is 200 characters.</p>
      */
     inline void SetS3KeyPrefix(const char* value) { m_s3KeyPrefixHasBeenSet = true; m_s3KeyPrefix.assign(value); }
@@ -238,7 +268,7 @@ namespace Model
     /**
      * <p>Specifies the Amazon S3 key prefix that comes after the name of the bucket
      * you have designated for log file delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
      * Your CloudTrail Log Files</a>. The maximum length is 200 characters.</p>
      */
     inline UpdateTrailRequest& WithS3KeyPrefix(const Aws::String& value) { SetS3KeyPrefix(value); return *this;}
@@ -246,7 +276,7 @@ namespace Model
     /**
      * <p>Specifies the Amazon S3 key prefix that comes after the name of the bucket
      * you have designated for log file delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
      * Your CloudTrail Log Files</a>. The maximum length is 200 characters.</p>
      */
     inline UpdateTrailRequest& WithS3KeyPrefix(Aws::String&& value) { SetS3KeyPrefix(std::move(value)); return *this;}
@@ -254,7 +284,7 @@ namespace Model
     /**
      * <p>Specifies the Amazon S3 key prefix that comes after the name of the bucket
      * you have designated for log file delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
      * Your CloudTrail Log Files</a>. The maximum length is 200 characters.</p>
      */
     inline UpdateTrailRequest& WithS3KeyPrefix(const char* value) { SetS3KeyPrefix(value); return *this;}
@@ -265,6 +295,12 @@ namespace Model
      * file delivery. The maximum length is 256 characters.</p>
      */
     inline const Aws::String& GetSnsTopicName() const{ return m_snsTopicName; }
+
+    /**
+     * <p>Specifies the name of the Amazon SNS topic defined for notification of log
+     * file delivery. The maximum length is 256 characters.</p>
+     */
+    inline bool SnsTopicNameHasBeenSet() const { return m_snsTopicNameHasBeenSet; }
 
     /**
      * <p>Specifies the name of the Amazon SNS topic defined for notification of log
@@ -313,6 +349,12 @@ namespace Model
      * <p>Specifies whether the trail is publishing events from global services such as
      * IAM to the log files.</p>
      */
+    inline bool IncludeGlobalServiceEventsHasBeenSet() const { return m_includeGlobalServiceEventsHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the trail is publishing events from global services such as
+     * IAM to the log files.</p>
+     */
     inline void SetIncludeGlobalServiceEvents(bool value) { m_includeGlobalServiceEventsHasBeenSet = true; m_includeGlobalServiceEvents = value; }
 
     /**
@@ -328,7 +370,8 @@ namespace Model
      * and this value is set to true, shadow trails (replications of the trail) will be
      * created in the other regions. If the trail exists in all regions and this value
      * is set to false, the trail will remain in the region where it was created, and
-     * its shadow trails in other regions will be deleted.</p>
+     * its shadow trails in other regions will be deleted. As a best practice, consider
+     * using trails that log events in all regions.</p>
      */
     inline bool GetIsMultiRegionTrail() const{ return m_isMultiRegionTrail; }
 
@@ -338,7 +381,19 @@ namespace Model
      * and this value is set to true, shadow trails (replications of the trail) will be
      * created in the other regions. If the trail exists in all regions and this value
      * is set to false, the trail will remain in the region where it was created, and
-     * its shadow trails in other regions will be deleted.</p>
+     * its shadow trails in other regions will be deleted. As a best practice, consider
+     * using trails that log events in all regions.</p>
+     */
+    inline bool IsMultiRegionTrailHasBeenSet() const { return m_isMultiRegionTrailHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the trail applies only to the current region or to all
+     * regions. The default is false. If the trail exists only in the current region
+     * and this value is set to true, shadow trails (replications of the trail) will be
+     * created in the other regions. If the trail exists in all regions and this value
+     * is set to false, the trail will remain in the region where it was created, and
+     * its shadow trails in other regions will be deleted. As a best practice, consider
+     * using trails that log events in all regions.</p>
      */
     inline void SetIsMultiRegionTrail(bool value) { m_isMultiRegionTrailHasBeenSet = true; m_isMultiRegionTrail = value; }
 
@@ -348,7 +403,8 @@ namespace Model
      * and this value is set to true, shadow trails (replications of the trail) will be
      * created in the other regions. If the trail exists in all regions and this value
      * is set to false, the trail will remain in the region where it was created, and
-     * its shadow trails in other regions will be deleted.</p>
+     * its shadow trails in other regions will be deleted. As a best practice, consider
+     * using trails that log events in all regions.</p>
      */
     inline UpdateTrailRequest& WithIsMultiRegionTrail(bool value) { SetIsMultiRegionTrail(value); return *this;}
 
@@ -365,6 +421,19 @@ namespace Model
      * CloudTrail logging or delete a trail.</p> </note>
      */
     inline bool GetEnableLogFileValidation() const{ return m_enableLogFileValidation; }
+
+    /**
+     * <p>Specifies whether log file validation is enabled. The default is false.</p>
+     * <note> <p>When you disable log file integrity validation, the chain of digest
+     * files is broken after one hour. CloudTrail will not create digest files for log
+     * files that were delivered during a period in which log file integrity validation
+     * was disabled. For example, if you enable log file integrity validation at noon
+     * on January 1, disable it at noon on January 2, and re-enable it at noon on
+     * January 10, digest files will not be created for the log files delivered from
+     * noon on January 2 to noon on January 10. The same applies whenever you stop
+     * CloudTrail logging or delete a trail.</p> </note>
+     */
+    inline bool EnableLogFileValidationHasBeenSet() const { return m_enableLogFileValidationHasBeenSet; }
 
     /**
      * <p>Specifies whether log file validation is enabled. The default is false.</p>
@@ -399,6 +468,13 @@ namespace Model
      * delivered. Not required unless you specify CloudWatchLogsRoleArn.</p>
      */
     inline const Aws::String& GetCloudWatchLogsLogGroupArn() const{ return m_cloudWatchLogsLogGroupArn; }
+
+    /**
+     * <p>Specifies a log group name using an Amazon Resource Name (ARN), a unique
+     * identifier that represents the log group to which CloudTrail logs will be
+     * delivered. Not required unless you specify CloudWatchLogsRoleArn.</p>
+     */
+    inline bool CloudWatchLogsLogGroupArnHasBeenSet() const { return m_cloudWatchLogsLogGroupArnHasBeenSet; }
 
     /**
      * <p>Specifies a log group name using an Amazon Resource Name (ARN), a unique
@@ -453,6 +529,12 @@ namespace Model
      * <p>Specifies the role for the CloudWatch Logs endpoint to assume to write to a
      * user's log group.</p>
      */
+    inline bool CloudWatchLogsRoleArnHasBeenSet() const { return m_cloudWatchLogsRoleArnHasBeenSet; }
+
+    /**
+     * <p>Specifies the role for the CloudWatch Logs endpoint to assume to write to a
+     * user's log group.</p>
+     */
     inline void SetCloudWatchLogsRoleArn(const Aws::String& value) { m_cloudWatchLogsRoleArnHasBeenSet = true; m_cloudWatchLogsRoleArn = value; }
 
     /**
@@ -491,8 +573,8 @@ namespace Model
      * The value can be an alias name prefixed by "alias/", a fully specified ARN to an
      * alias, a fully specified ARN to a key, or a globally unique identifier.</p>
      * <p>Examples:</p> <ul> <li> <p>alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</p>
+     * <p>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</p>
      * </li> <li> <p>12345678-1234-1234-1234-123456789012</p> </li> </ul>
      */
     inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
@@ -502,8 +584,19 @@ namespace Model
      * The value can be an alias name prefixed by "alias/", a fully specified ARN to an
      * alias, a fully specified ARN to a key, or a globally unique identifier.</p>
      * <p>Examples:</p> <ul> <li> <p>alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</p>
+     * <p>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</p>
+     * </li> <li> <p>12345678-1234-1234-1234-123456789012</p> </li> </ul>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
+
+    /**
+     * <p>Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail.
+     * The value can be an alias name prefixed by "alias/", a fully specified ARN to an
+     * alias, a fully specified ARN to a key, or a globally unique identifier.</p>
+     * <p>Examples:</p> <ul> <li> <p>alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</p>
      * </li> <li> <p>12345678-1234-1234-1234-123456789012</p> </li> </ul>
      */
     inline void SetKmsKeyId(const Aws::String& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = value; }
@@ -513,8 +606,8 @@ namespace Model
      * The value can be an alias name prefixed by "alias/", a fully specified ARN to an
      * alias, a fully specified ARN to a key, or a globally unique identifier.</p>
      * <p>Examples:</p> <ul> <li> <p>alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</p>
+     * <p>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</p>
      * </li> <li> <p>12345678-1234-1234-1234-123456789012</p> </li> </ul>
      */
     inline void SetKmsKeyId(Aws::String&& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = std::move(value); }
@@ -524,8 +617,8 @@ namespace Model
      * The value can be an alias name prefixed by "alias/", a fully specified ARN to an
      * alias, a fully specified ARN to a key, or a globally unique identifier.</p>
      * <p>Examples:</p> <ul> <li> <p>alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</p>
+     * <p>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</p>
      * </li> <li> <p>12345678-1234-1234-1234-123456789012</p> </li> </ul>
      */
     inline void SetKmsKeyId(const char* value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId.assign(value); }
@@ -535,8 +628,8 @@ namespace Model
      * The value can be an alias name prefixed by "alias/", a fully specified ARN to an
      * alias, a fully specified ARN to a key, or a globally unique identifier.</p>
      * <p>Examples:</p> <ul> <li> <p>alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</p>
+     * <p>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</p>
      * </li> <li> <p>12345678-1234-1234-1234-123456789012</p> </li> </ul>
      */
     inline UpdateTrailRequest& WithKmsKeyId(const Aws::String& value) { SetKmsKeyId(value); return *this;}
@@ -546,8 +639,8 @@ namespace Model
      * The value can be an alias name prefixed by "alias/", a fully specified ARN to an
      * alias, a fully specified ARN to a key, or a globally unique identifier.</p>
      * <p>Examples:</p> <ul> <li> <p>alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</p>
+     * <p>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</p>
      * </li> <li> <p>12345678-1234-1234-1234-123456789012</p> </li> </ul>
      */
     inline UpdateTrailRequest& WithKmsKeyId(Aws::String&& value) { SetKmsKeyId(std::move(value)); return *this;}
@@ -557,11 +650,60 @@ namespace Model
      * The value can be an alias name prefixed by "alias/", a fully specified ARN to an
      * alias, a fully specified ARN to a key, or a globally unique identifier.</p>
      * <p>Examples:</p> <ul> <li> <p>alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:alias/MyAliasName</p> </li> <li>
-     * <p>arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</p>
+     * <p>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</p> </li> <li>
+     * <p>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</p>
      * </li> <li> <p>12345678-1234-1234-1234-123456789012</p> </li> </ul>
      */
     inline UpdateTrailRequest& WithKmsKeyId(const char* value) { SetKmsKeyId(value); return *this;}
+
+
+    /**
+     * <p>Specifies whether the trail is applied to all accounts in an organization in
+     * AWS Organizations, or only for the current AWS account. The default is false,
+     * and cannot be true unless the call is made on behalf of an AWS account that is
+     * the master account for an organization in AWS Organizations. If the trail is not
+     * an organization trail and this is set to true, the trail will be created in all
+     * AWS accounts that belong to the organization. If the trail is an organization
+     * trail and this is set to false, the trail will remain in the current AWS account
+     * but be deleted from all member accounts in the organization.</p>
+     */
+    inline bool GetIsOrganizationTrail() const{ return m_isOrganizationTrail; }
+
+    /**
+     * <p>Specifies whether the trail is applied to all accounts in an organization in
+     * AWS Organizations, or only for the current AWS account. The default is false,
+     * and cannot be true unless the call is made on behalf of an AWS account that is
+     * the master account for an organization in AWS Organizations. If the trail is not
+     * an organization trail and this is set to true, the trail will be created in all
+     * AWS accounts that belong to the organization. If the trail is an organization
+     * trail and this is set to false, the trail will remain in the current AWS account
+     * but be deleted from all member accounts in the organization.</p>
+     */
+    inline bool IsOrganizationTrailHasBeenSet() const { return m_isOrganizationTrailHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the trail is applied to all accounts in an organization in
+     * AWS Organizations, or only for the current AWS account. The default is false,
+     * and cannot be true unless the call is made on behalf of an AWS account that is
+     * the master account for an organization in AWS Organizations. If the trail is not
+     * an organization trail and this is set to true, the trail will be created in all
+     * AWS accounts that belong to the organization. If the trail is an organization
+     * trail and this is set to false, the trail will remain in the current AWS account
+     * but be deleted from all member accounts in the organization.</p>
+     */
+    inline void SetIsOrganizationTrail(bool value) { m_isOrganizationTrailHasBeenSet = true; m_isOrganizationTrail = value; }
+
+    /**
+     * <p>Specifies whether the trail is applied to all accounts in an organization in
+     * AWS Organizations, or only for the current AWS account. The default is false,
+     * and cannot be true unless the call is made on behalf of an AWS account that is
+     * the master account for an organization in AWS Organizations. If the trail is not
+     * an organization trail and this is set to true, the trail will be created in all
+     * AWS accounts that belong to the organization. If the trail is an organization
+     * trail and this is set to false, the trail will remain in the current AWS account
+     * but be deleted from all member accounts in the organization.</p>
+     */
+    inline UpdateTrailRequest& WithIsOrganizationTrail(bool value) { SetIsOrganizationTrail(value); return *this;}
 
   private:
 
@@ -594,6 +736,9 @@ namespace Model
 
     Aws::String m_kmsKeyId;
     bool m_kmsKeyIdHasBeenSet;
+
+    bool m_isOrganizationTrail;
+    bool m_isOrganizationTrailHasBeenSet;
   };
 
 } // namespace Model

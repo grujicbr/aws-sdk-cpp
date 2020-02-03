@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     NotificationChannel();
-    NotificationChannel(const Aws::Utils::Json::JsonValue& jsonValue);
-    NotificationChannel& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NotificationChannel(Aws::Utils::Json::JsonView jsonValue);
+    NotificationChannel& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * status.</p>
      */
     inline const Aws::String& GetSNSTopicArn() const{ return m_sNSTopicArn; }
+
+    /**
+     * <p>The Amazon SNS topic to which Amazon Rekognition to posts the completion
+     * status.</p>
+     */
+    inline bool SNSTopicArnHasBeenSet() const { return m_sNSTopicArnHasBeenSet; }
 
     /**
      * <p>The Amazon SNS topic to which Amazon Rekognition to posts the completion
@@ -96,6 +103,12 @@ namespace Model
      * to the Amazon SNS topic. </p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The ARN of an IAM role that gives Amazon Rekognition publishing permissions
+     * to the Amazon SNS topic. </p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The ARN of an IAM role that gives Amazon Rekognition publishing permissions

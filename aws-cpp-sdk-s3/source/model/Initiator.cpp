@@ -52,13 +52,13 @@ Initiator& Initiator::operator =(const XmlNode& xmlNode)
     XmlNode iDNode = resultNode.FirstChild("ID");
     if(!iDNode.IsNull())
     {
-      m_iD = StringUtils::Trim(iDNode.GetText().c_str());
+      m_iD = Aws::Utils::Xml::DecodeEscapedXmlText(iDNode.GetText());
       m_iDHasBeenSet = true;
     }
     XmlNode displayNameNode = resultNode.FirstChild("DisplayName");
     if(!displayNameNode.IsNull())
     {
-      m_displayName = StringUtils::Trim(displayNameNode.GetText().c_str());
+      m_displayName = Aws::Utils::Xml::DecodeEscapedXmlText(displayNameNode.GetText());
       m_displayNameHasBeenSet = true;
     }
   }

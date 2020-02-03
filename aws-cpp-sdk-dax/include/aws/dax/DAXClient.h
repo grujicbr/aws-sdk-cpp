@@ -59,16 +59,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -212,7 +206,7 @@ namespace Model
 
         virtual ~DAXClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "dax"; }
+        inline virtual const char* GetServiceClientName() const override { return "DAX"; }
 
 
         /**
@@ -513,8 +507,8 @@ namespace Model
          * <p>Returns events related to DAX clusters and parameter groups. You can obtain
          * events specific to a particular DAX cluster or parameter group by providing the
          * name as a parameter.</p> <p>By default, only the events occurring within the
-         * last hour are returned; however, you can retrieve up to 14 days' worth of events
-         * if necessary.</p><p><h3>See Also:</h3>   <a
+         * last 24 hours are returned; however, you can retrieve up to 14 days' worth of
+         * events if necessary.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/dax-2017-04-19/DescribeEvents">AWS
          * API Reference</a></p>
          */
@@ -524,8 +518,8 @@ namespace Model
          * <p>Returns events related to DAX clusters and parameter groups. You can obtain
          * events specific to a particular DAX cluster or parameter group by providing the
          * name as a parameter.</p> <p>By default, only the events occurring within the
-         * last hour are returned; however, you can retrieve up to 14 days' worth of events
-         * if necessary.</p><p><h3>See Also:</h3>   <a
+         * last 24 hours are returned; however, you can retrieve up to 14 days' worth of
+         * events if necessary.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/dax-2017-04-19/DescribeEvents">AWS
          * API Reference</a></p>
          *
@@ -537,8 +531,8 @@ namespace Model
          * <p>Returns events related to DAX clusters and parameter groups. You can obtain
          * events specific to a particular DAX cluster or parameter group by providing the
          * name as a parameter.</p> <p>By default, only the events occurring within the
-         * last hour are returned; however, you can retrieve up to 14 days' worth of events
-         * if necessary.</p><p><h3>See Also:</h3>   <a
+         * last 24 hours are returned; however, you can retrieve up to 14 days' worth of
+         * events if necessary.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/dax-2017-04-19/DescribeEvents">AWS
          * API Reference</a></p>
          *
@@ -691,8 +685,9 @@ namespace Model
 
         /**
          * <p>Reboots a single node of a DAX cluster. The reboot action takes place as soon
-         * as possible. During the reboot, the node status is set to
-         * REBOOTING.</p><p><h3>See Also:</h3>   <a
+         * as possible. During the reboot, the node status is set to REBOOTING.</p> <note>
+         * <p> <code>RebootNode</code> restarts the DAX engine process and does not remove
+         * the contents of the cache. </p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/dax-2017-04-19/RebootNode">AWS API
          * Reference</a></p>
          */
@@ -700,8 +695,9 @@ namespace Model
 
         /**
          * <p>Reboots a single node of a DAX cluster. The reboot action takes place as soon
-         * as possible. During the reboot, the node status is set to
-         * REBOOTING.</p><p><h3>See Also:</h3>   <a
+         * as possible. During the reboot, the node status is set to REBOOTING.</p> <note>
+         * <p> <code>RebootNode</code> restarts the DAX engine process and does not remove
+         * the contents of the cache. </p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/dax-2017-04-19/RebootNode">AWS API
          * Reference</a></p>
          *
@@ -711,8 +707,9 @@ namespace Model
 
         /**
          * <p>Reboots a single node of a DAX cluster. The reboot action takes place as soon
-         * as possible. During the reboot, the node status is set to
-         * REBOOTING.</p><p><h3>See Also:</h3>   <a
+         * as possible. During the reboot, the node status is set to REBOOTING.</p> <note>
+         * <p> <code>RebootNode</code> restarts the DAX engine process and does not remove
+         * the contents of the cache. </p> </note><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/dax-2017-04-19/RebootNode">AWS API
          * Reference</a></p>
          *
@@ -870,10 +867,9 @@ namespace Model
         virtual void UpdateSubnetGroupAsync(const Model::UpdateSubnetGroupRequest& request, const UpdateSubnetGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void CreateClusterAsyncHelper(const Model::CreateClusterRequest& request, const CreateClusterResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateParameterGroupAsyncHelper(const Model::CreateParameterGroupRequest& request, const CreateParameterGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateSubnetGroupAsyncHelper(const Model::CreateSubnetGroupRequest& request, const CreateSubnetGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -897,6 +893,7 @@ namespace Model
         void UpdateSubnetGroupAsyncHelper(const Model::UpdateSubnetGroupRequest& request, const UpdateSubnetGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

@@ -32,7 +32,9 @@ StartTranscriptionJobRequest::StartTranscriptionJobRequest() :
     m_mediaFormatHasBeenSet(false),
     m_mediaHasBeenSet(false),
     m_outputBucketNameHasBeenSet(false),
-    m_settingsHasBeenSet(false)
+    m_outputEncryptionKMSKeyIdHasBeenSet(false),
+    m_settingsHasBeenSet(false),
+    m_jobExecutionSettingsHasBeenSet(false)
 {
 }
 
@@ -74,13 +76,25 @@ Aws::String StartTranscriptionJobRequest::SerializePayload() const
 
   }
 
+  if(m_outputEncryptionKMSKeyIdHasBeenSet)
+  {
+   payload.WithString("OutputEncryptionKMSKeyId", m_outputEncryptionKMSKeyId);
+
+  }
+
   if(m_settingsHasBeenSet)
   {
    payload.WithObject("Settings", m_settings.Jsonize());
 
   }
 
-  return payload.WriteReadable();
+  if(m_jobExecutionSettingsHasBeenSet)
+  {
+   payload.WithObject("JobExecutionSettings", m_jobExecutionSettings.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection StartTranscriptionJobRequest::GetRequestSpecificHeaders() const

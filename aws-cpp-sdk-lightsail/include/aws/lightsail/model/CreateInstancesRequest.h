@@ -18,6 +18,8 @@
 #include <aws/lightsail/LightsailRequest.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/lightsail/model/Tag.h>
+#include <aws/lightsail/model/AddOnRequest.h>
 #include <utility>
 
 namespace Aws
@@ -33,7 +35,7 @@ namespace Model
   {
   public:
     CreateInstancesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +53,13 @@ namespace Model
      * <code>["MyFirstInstance","MySecondInstance"]</code> </p>
      */
     inline const Aws::Vector<Aws::String>& GetInstanceNames() const{ return m_instanceNames; }
+
+    /**
+     * <p>The names to use for your new Lightsail instances. Separate multiple values
+     * using quotation marks and commas, for example:
+     * <code>["MyFirstInstance","MySecondInstance"]</code> </p>
+     */
+    inline bool InstanceNamesHasBeenSet() const { return m_instanceNamesHasBeenSet; }
 
     /**
      * <p>The names to use for your new Lightsail instances. Separate multiple values
@@ -105,127 +114,177 @@ namespace Model
     /**
      * <p>The Availability Zone in which to create your instance. Use the following
      * format: <code>us-east-2a</code> (case sensitive). You can get a list of
-     * availability zones by using the <a
+     * Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
 
     /**
      * <p>The Availability Zone in which to create your instance. Use the following
      * format: <code>us-east-2a</code> (case sensitive). You can get a list of
-     * availability zones by using the <a
+     * Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The Availability Zone in which to create your instance. Use the following
+     * format: <code>us-east-2a</code> (case sensitive). You can get a list of
+     * Availability Zones by using the <a
+     * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline void SetAvailabilityZone(const Aws::String& value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone = value; }
 
     /**
      * <p>The Availability Zone in which to create your instance. Use the following
      * format: <code>us-east-2a</code> (case sensitive). You can get a list of
-     * availability zones by using the <a
+     * Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline void SetAvailabilityZone(Aws::String&& value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone = std::move(value); }
 
     /**
      * <p>The Availability Zone in which to create your instance. Use the following
      * format: <code>us-east-2a</code> (case sensitive). You can get a list of
-     * availability zones by using the <a
+     * Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline void SetAvailabilityZone(const char* value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone.assign(value); }
 
     /**
      * <p>The Availability Zone in which to create your instance. Use the following
      * format: <code>us-east-2a</code> (case sensitive). You can get a list of
-     * availability zones by using the <a
+     * Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline CreateInstancesRequest& WithAvailabilityZone(const Aws::String& value) { SetAvailabilityZone(value); return *this;}
 
     /**
      * <p>The Availability Zone in which to create your instance. Use the following
      * format: <code>us-east-2a</code> (case sensitive). You can get a list of
-     * availability zones by using the <a
+     * Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline CreateInstancesRequest& WithAvailabilityZone(Aws::String&& value) { SetAvailabilityZone(std::move(value)); return *this;}
 
     /**
      * <p>The Availability Zone in which to create your instance. Use the following
      * format: <code>us-east-2a</code> (case sensitive). You can get a list of
-     * availability zones by using the <a
+     * Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline CreateInstancesRequest& WithAvailabilityZone(const char* value) { SetAvailabilityZone(value); return *this;}
 
 
     /**
      * <p>The ID for a virtual private server image (e.g.,
-     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the get
-     * blueprints operation to return a list of available images (or
-     * <i>blueprints</i>).</p>
+     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the <code>get
+     * blueprints</code> operation to return a list of available images (or
+     * <i>blueprints</i>).</p> <note> <p>Use active blueprints when creating new
+     * instances. Inactive blueprints are listed to support customers with existing
+     * instances and are not necessarily available to create new instances. Blueprints
+     * are marked inactive when they become outdated due to operating system updates or
+     * new application releases.</p> </note>
      */
     inline const Aws::String& GetBlueprintId() const{ return m_blueprintId; }
 
     /**
      * <p>The ID for a virtual private server image (e.g.,
-     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the get
-     * blueprints operation to return a list of available images (or
-     * <i>blueprints</i>).</p>
+     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the <code>get
+     * blueprints</code> operation to return a list of available images (or
+     * <i>blueprints</i>).</p> <note> <p>Use active blueprints when creating new
+     * instances. Inactive blueprints are listed to support customers with existing
+     * instances and are not necessarily available to create new instances. Blueprints
+     * are marked inactive when they become outdated due to operating system updates or
+     * new application releases.</p> </note>
+     */
+    inline bool BlueprintIdHasBeenSet() const { return m_blueprintIdHasBeenSet; }
+
+    /**
+     * <p>The ID for a virtual private server image (e.g.,
+     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the <code>get
+     * blueprints</code> operation to return a list of available images (or
+     * <i>blueprints</i>).</p> <note> <p>Use active blueprints when creating new
+     * instances. Inactive blueprints are listed to support customers with existing
+     * instances and are not necessarily available to create new instances. Blueprints
+     * are marked inactive when they become outdated due to operating system updates or
+     * new application releases.</p> </note>
      */
     inline void SetBlueprintId(const Aws::String& value) { m_blueprintIdHasBeenSet = true; m_blueprintId = value; }
 
     /**
      * <p>The ID for a virtual private server image (e.g.,
-     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the get
-     * blueprints operation to return a list of available images (or
-     * <i>blueprints</i>).</p>
+     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the <code>get
+     * blueprints</code> operation to return a list of available images (or
+     * <i>blueprints</i>).</p> <note> <p>Use active blueprints when creating new
+     * instances. Inactive blueprints are listed to support customers with existing
+     * instances and are not necessarily available to create new instances. Blueprints
+     * are marked inactive when they become outdated due to operating system updates or
+     * new application releases.</p> </note>
      */
     inline void SetBlueprintId(Aws::String&& value) { m_blueprintIdHasBeenSet = true; m_blueprintId = std::move(value); }
 
     /**
      * <p>The ID for a virtual private server image (e.g.,
-     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the get
-     * blueprints operation to return a list of available images (or
-     * <i>blueprints</i>).</p>
+     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the <code>get
+     * blueprints</code> operation to return a list of available images (or
+     * <i>blueprints</i>).</p> <note> <p>Use active blueprints when creating new
+     * instances. Inactive blueprints are listed to support customers with existing
+     * instances and are not necessarily available to create new instances. Blueprints
+     * are marked inactive when they become outdated due to operating system updates or
+     * new application releases.</p> </note>
      */
     inline void SetBlueprintId(const char* value) { m_blueprintIdHasBeenSet = true; m_blueprintId.assign(value); }
 
     /**
      * <p>The ID for a virtual private server image (e.g.,
-     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the get
-     * blueprints operation to return a list of available images (or
-     * <i>blueprints</i>).</p>
+     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the <code>get
+     * blueprints</code> operation to return a list of available images (or
+     * <i>blueprints</i>).</p> <note> <p>Use active blueprints when creating new
+     * instances. Inactive blueprints are listed to support customers with existing
+     * instances and are not necessarily available to create new instances. Blueprints
+     * are marked inactive when they become outdated due to operating system updates or
+     * new application releases.</p> </note>
      */
     inline CreateInstancesRequest& WithBlueprintId(const Aws::String& value) { SetBlueprintId(value); return *this;}
 
     /**
      * <p>The ID for a virtual private server image (e.g.,
-     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the get
-     * blueprints operation to return a list of available images (or
-     * <i>blueprints</i>).</p>
+     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the <code>get
+     * blueprints</code> operation to return a list of available images (or
+     * <i>blueprints</i>).</p> <note> <p>Use active blueprints when creating new
+     * instances. Inactive blueprints are listed to support customers with existing
+     * instances and are not necessarily available to create new instances. Blueprints
+     * are marked inactive when they become outdated due to operating system updates or
+     * new application releases.</p> </note>
      */
     inline CreateInstancesRequest& WithBlueprintId(Aws::String&& value) { SetBlueprintId(std::move(value)); return *this;}
 
     /**
      * <p>The ID for a virtual private server image (e.g.,
-     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the get
-     * blueprints operation to return a list of available images (or
-     * <i>blueprints</i>).</p>
+     * <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>). Use the <code>get
+     * blueprints</code> operation to return a list of available images (or
+     * <i>blueprints</i>).</p> <note> <p>Use active blueprints when creating new
+     * instances. Inactive blueprints are listed to support customers with existing
+     * instances and are not necessarily available to create new instances. Blueprints
+     * are marked inactive when they become outdated due to operating system updates or
+     * new application releases.</p> </note>
      */
     inline CreateInstancesRequest& WithBlueprintId(const char* value) { SetBlueprintId(value); return *this;}
 
@@ -235,6 +294,12 @@ namespace Model
      * <i>instance</i>), including the pricing plan (e.g., <code>micro_1_0</code>).</p>
      */
     inline const Aws::String& GetBundleId() const{ return m_bundleId; }
+
+    /**
+     * <p>The bundle of specification information for your virtual private server (or
+     * <i>instance</i>), including the pricing plan (e.g., <code>micro_1_0</code>).</p>
+     */
+    inline bool BundleIdHasBeenSet() const { return m_bundleIdHasBeenSet; }
 
     /**
      * <p>The bundle of specification information for your virtual private server (or
@@ -284,6 +349,18 @@ namespace Model
      * Guide</a>.</p> </note>
      */
     inline const Aws::String& GetUserData() const{ return m_userData; }
+
+    /**
+     * <p>A launch script you can create that configures a server with additional user
+     * data. For example, you might want to run <code>apt-get -y update</code>.</p>
+     * <note> <p>Depending on the machine image you choose, the command to get software
+     * on your instance varies. Amazon Linux and CentOS use <code>yum</code>, Debian
+     * and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a
+     * complete list, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
+     * Guide</a>.</p> </note>
+     */
+    inline bool UserDataHasBeenSet() const { return m_userDataHasBeenSet; }
 
     /**
      * <p>A launch script you can create that configures a server with additional user
@@ -366,6 +443,11 @@ namespace Model
     /**
      * <p>The name of your key pair.</p>
      */
+    inline bool KeyPairNameHasBeenSet() const { return m_keyPairNameHasBeenSet; }
+
+    /**
+     * <p>The name of your key pair.</p>
+     */
     inline void SetKeyPairName(const Aws::String& value) { m_keyPairNameHasBeenSet = true; m_keyPairName = value; }
 
     /**
@@ -393,6 +475,112 @@ namespace Model
      */
     inline CreateInstancesRequest& WithKeyPairName(const char* value) { SetKeyPairName(value); return *this;}
 
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline CreateInstancesRequest& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline CreateInstancesRequest& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline CreateInstancesRequest& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline CreateInstancesRequest& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline const Aws::Vector<AddOnRequest>& GetAddOns() const{ return m_addOns; }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline bool AddOnsHasBeenSet() const { return m_addOnsHasBeenSet; }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline void SetAddOns(const Aws::Vector<AddOnRequest>& value) { m_addOnsHasBeenSet = true; m_addOns = value; }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline void SetAddOns(Aws::Vector<AddOnRequest>&& value) { m_addOnsHasBeenSet = true; m_addOns = std::move(value); }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline CreateInstancesRequest& WithAddOns(const Aws::Vector<AddOnRequest>& value) { SetAddOns(value); return *this;}
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline CreateInstancesRequest& WithAddOns(Aws::Vector<AddOnRequest>&& value) { SetAddOns(std::move(value)); return *this;}
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline CreateInstancesRequest& AddAddOns(const AddOnRequest& value) { m_addOnsHasBeenSet = true; m_addOns.push_back(value); return *this; }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline CreateInstancesRequest& AddAddOns(AddOnRequest&& value) { m_addOnsHasBeenSet = true; m_addOns.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::Vector<Aws::String> m_instanceNames;
@@ -412,6 +600,12 @@ namespace Model
 
     Aws::String m_keyPairName;
     bool m_keyPairNameHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
+
+    Aws::Vector<AddOnRequest> m_addOns;
+    bool m_addOnsHasBeenSet;
   };
 
 } // namespace Model

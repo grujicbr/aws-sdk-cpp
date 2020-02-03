@@ -31,23 +31,25 @@ namespace Model
 DeviceStatusInfo::DeviceStatusInfo() : 
     m_deviceStatusDetailsHasBeenSet(false),
     m_connectionStatus(ConnectionStatus::NOT_SET),
-    m_connectionStatusHasBeenSet(false)
+    m_connectionStatusHasBeenSet(false),
+    m_connectionStatusUpdatedTimeHasBeenSet(false)
 {
 }
 
-DeviceStatusInfo::DeviceStatusInfo(const JsonValue& jsonValue) : 
+DeviceStatusInfo::DeviceStatusInfo(JsonView jsonValue) : 
     m_deviceStatusDetailsHasBeenSet(false),
     m_connectionStatus(ConnectionStatus::NOT_SET),
-    m_connectionStatusHasBeenSet(false)
+    m_connectionStatusHasBeenSet(false),
+    m_connectionStatusUpdatedTimeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DeviceStatusInfo& DeviceStatusInfo::operator =(const JsonValue& jsonValue)
+DeviceStatusInfo& DeviceStatusInfo::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DeviceStatusDetails"))
   {
-    Array<JsonValue> deviceStatusDetailsJsonList = jsonValue.GetArray("DeviceStatusDetails");
+    Array<JsonView> deviceStatusDetailsJsonList = jsonValue.GetArray("DeviceStatusDetails");
     for(unsigned deviceStatusDetailsIndex = 0; deviceStatusDetailsIndex < deviceStatusDetailsJsonList.GetLength(); ++deviceStatusDetailsIndex)
     {
       m_deviceStatusDetails.push_back(deviceStatusDetailsJsonList[deviceStatusDetailsIndex].AsObject());
@@ -60,6 +62,13 @@ DeviceStatusInfo& DeviceStatusInfo::operator =(const JsonValue& jsonValue)
     m_connectionStatus = ConnectionStatusMapper::GetConnectionStatusForName(jsonValue.GetString("ConnectionStatus"));
 
     m_connectionStatusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ConnectionStatusUpdatedTime"))
+  {
+    m_connectionStatusUpdatedTime = jsonValue.GetDouble("ConnectionStatusUpdatedTime");
+
+    m_connectionStatusUpdatedTimeHasBeenSet = true;
   }
 
   return *this;
@@ -83,6 +92,11 @@ JsonValue DeviceStatusInfo::Jsonize() const
   if(m_connectionStatusHasBeenSet)
   {
    payload.WithString("ConnectionStatus", ConnectionStatusMapper::GetNameForConnectionStatus(m_connectionStatus));
+  }
+
+  if(m_connectionStatusUpdatedTimeHasBeenSet)
+  {
+   payload.WithDouble("ConnectionStatusUpdatedTime", m_connectionStatusUpdatedTime.SecondsWithMSPrecision());
   }
 
   return payload;

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     EyeOpen();
-    EyeOpen(const Aws::Utils::Json::JsonValue& jsonValue);
-    EyeOpen& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EyeOpen(Aws::Utils::Json::JsonView jsonValue);
+    EyeOpen& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>Boolean value that indicates whether the eyes on the face are open.</p>
      */
     inline bool GetValue() const{ return m_value; }
+
+    /**
+     * <p>Boolean value that indicates whether the eyes on the face are open.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>Boolean value that indicates whether the eyes on the face are open.</p>
@@ -65,6 +71,11 @@ namespace Model
      * <p>Level of confidence in the determination.</p>
      */
     inline double GetConfidence() const{ return m_confidence; }
+
+    /**
+     * <p>Level of confidence in the determination.</p>
+     */
+    inline bool ConfidenceHasBeenSet() const { return m_confidenceHasBeenSet; }
 
     /**
      * <p>Level of confidence in the determination.</p>

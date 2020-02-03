@@ -34,10 +34,12 @@ DocumentDescription::DocumentDescription() :
     m_hashType(DocumentHashType::NOT_SET),
     m_hashTypeHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_versionNameHasBeenSet(false),
     m_ownerHasBeenSet(false),
     m_createdDateHasBeenSet(false),
     m_status(DocumentStatus::NOT_SET),
     m_statusHasBeenSet(false),
+    m_statusInformationHasBeenSet(false),
     m_documentVersionHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_parametersHasBeenSet(false),
@@ -50,20 +52,24 @@ DocumentDescription::DocumentDescription() :
     m_documentFormat(DocumentFormat::NOT_SET),
     m_documentFormatHasBeenSet(false),
     m_targetTypeHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_attachmentsInformationHasBeenSet(false),
+    m_requiresHasBeenSet(false)
 {
 }
 
-DocumentDescription::DocumentDescription(const JsonValue& jsonValue) : 
+DocumentDescription::DocumentDescription(JsonView jsonValue) : 
     m_sha1HasBeenSet(false),
     m_hashHasBeenSet(false),
     m_hashType(DocumentHashType::NOT_SET),
     m_hashTypeHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_versionNameHasBeenSet(false),
     m_ownerHasBeenSet(false),
     m_createdDateHasBeenSet(false),
     m_status(DocumentStatus::NOT_SET),
     m_statusHasBeenSet(false),
+    m_statusInformationHasBeenSet(false),
     m_documentVersionHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_parametersHasBeenSet(false),
@@ -76,12 +82,14 @@ DocumentDescription::DocumentDescription(const JsonValue& jsonValue) :
     m_documentFormat(DocumentFormat::NOT_SET),
     m_documentFormatHasBeenSet(false),
     m_targetTypeHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_attachmentsInformationHasBeenSet(false),
+    m_requiresHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DocumentDescription& DocumentDescription::operator =(const JsonValue& jsonValue)
+DocumentDescription& DocumentDescription::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Sha1"))
   {
@@ -111,6 +119,13 @@ DocumentDescription& DocumentDescription::operator =(const JsonValue& jsonValue)
     m_nameHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("VersionName"))
+  {
+    m_versionName = jsonValue.GetString("VersionName");
+
+    m_versionNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("Owner"))
   {
     m_owner = jsonValue.GetString("Owner");
@@ -132,6 +147,13 @@ DocumentDescription& DocumentDescription::operator =(const JsonValue& jsonValue)
     m_statusHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("StatusInformation"))
+  {
+    m_statusInformation = jsonValue.GetString("StatusInformation");
+
+    m_statusInformationHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("DocumentVersion"))
   {
     m_documentVersion = jsonValue.GetString("DocumentVersion");
@@ -148,7 +170,7 @@ DocumentDescription& DocumentDescription::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Parameters"))
   {
-    Array<JsonValue> parametersJsonList = jsonValue.GetArray("Parameters");
+    Array<JsonView> parametersJsonList = jsonValue.GetArray("Parameters");
     for(unsigned parametersIndex = 0; parametersIndex < parametersJsonList.GetLength(); ++parametersIndex)
     {
       m_parameters.push_back(parametersJsonList[parametersIndex].AsObject());
@@ -158,7 +180,7 @@ DocumentDescription& DocumentDescription::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("PlatformTypes"))
   {
-    Array<JsonValue> platformTypesJsonList = jsonValue.GetArray("PlatformTypes");
+    Array<JsonView> platformTypesJsonList = jsonValue.GetArray("PlatformTypes");
     for(unsigned platformTypesIndex = 0; platformTypesIndex < platformTypesJsonList.GetLength(); ++platformTypesIndex)
     {
       m_platformTypes.push_back(PlatformTypeMapper::GetPlatformTypeForName(platformTypesJsonList[platformTypesIndex].AsString()));
@@ -210,12 +232,32 @@ DocumentDescription& DocumentDescription::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Tags"))
   {
-    Array<JsonValue> tagsJsonList = jsonValue.GetArray("Tags");
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("Tags");
     for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
     {
       m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
     }
     m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("AttachmentsInformation"))
+  {
+    Array<JsonView> attachmentsInformationJsonList = jsonValue.GetArray("AttachmentsInformation");
+    for(unsigned attachmentsInformationIndex = 0; attachmentsInformationIndex < attachmentsInformationJsonList.GetLength(); ++attachmentsInformationIndex)
+    {
+      m_attachmentsInformation.push_back(attachmentsInformationJsonList[attachmentsInformationIndex].AsObject());
+    }
+    m_attachmentsInformationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Requires"))
+  {
+    Array<JsonView> requiresJsonList = jsonValue.GetArray("Requires");
+    for(unsigned requiresIndex = 0; requiresIndex < requiresJsonList.GetLength(); ++requiresIndex)
+    {
+      m_requires.push_back(requiresJsonList[requiresIndex].AsObject());
+    }
+    m_requiresHasBeenSet = true;
   }
 
   return *this;
@@ -248,6 +290,12 @@ JsonValue DocumentDescription::Jsonize() const
 
   }
 
+  if(m_versionNameHasBeenSet)
+  {
+   payload.WithString("VersionName", m_versionName);
+
+  }
+
   if(m_ownerHasBeenSet)
   {
    payload.WithString("Owner", m_owner);
@@ -262,6 +310,12 @@ JsonValue DocumentDescription::Jsonize() const
   if(m_statusHasBeenSet)
   {
    payload.WithString("Status", DocumentStatusMapper::GetNameForDocumentStatus(m_status));
+  }
+
+  if(m_statusInformationHasBeenSet)
+  {
+   payload.WithString("StatusInformation", m_statusInformation);
+
   }
 
   if(m_documentVersionHasBeenSet)
@@ -340,6 +394,28 @@ JsonValue DocumentDescription::Jsonize() const
      tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
    }
    payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_attachmentsInformationHasBeenSet)
+  {
+   Array<JsonValue> attachmentsInformationJsonList(m_attachmentsInformation.size());
+   for(unsigned attachmentsInformationIndex = 0; attachmentsInformationIndex < attachmentsInformationJsonList.GetLength(); ++attachmentsInformationIndex)
+   {
+     attachmentsInformationJsonList[attachmentsInformationIndex].AsObject(m_attachmentsInformation[attachmentsInformationIndex].Jsonize());
+   }
+   payload.WithArray("AttachmentsInformation", std::move(attachmentsInformationJsonList));
+
+  }
+
+  if(m_requiresHasBeenSet)
+  {
+   Array<JsonValue> requiresJsonList(m_requires.size());
+   for(unsigned requiresIndex = 0; requiresIndex < requiresJsonList.GetLength(); ++requiresIndex)
+   {
+     requiresJsonList[requiresIndex].AsObject(m_requires[requiresIndex].Jsonize());
+   }
+   payload.WithArray("Requires", std::move(requiresJsonList));
 
   }
 

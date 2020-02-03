@@ -28,7 +28,13 @@ namespace Model
     NOT_SET,
     Command,
     Policy,
-    Automation
+    Automation,
+    Session,
+    Package,
+    ApplicationConfiguration,
+    ApplicationConfigurationSchema,
+    DeploymentStrategy,
+    ChangeCalendar
   };
 
 namespace DocumentTypeMapper

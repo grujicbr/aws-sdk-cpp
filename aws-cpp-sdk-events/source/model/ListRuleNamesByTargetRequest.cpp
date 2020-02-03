@@ -24,6 +24,7 @@ using namespace Aws::Utils;
 
 ListRuleNamesByTargetRequest::ListRuleNamesByTargetRequest() : 
     m_targetArnHasBeenSet(false),
+    m_eventBusNameHasBeenSet(false),
     m_nextTokenHasBeenSet(false),
     m_limit(0),
     m_limitHasBeenSet(false)
@@ -40,6 +41,12 @@ Aws::String ListRuleNamesByTargetRequest::SerializePayload() const
 
   }
 
+  if(m_eventBusNameHasBeenSet)
+  {
+   payload.WithString("EventBusName", m_eventBusName);
+
+  }
+
   if(m_nextTokenHasBeenSet)
   {
    payload.WithString("NextToken", m_nextToken);
@@ -52,7 +59,7 @@ Aws::String ListRuleNamesByTargetRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection ListRuleNamesByTargetRequest::GetRequestSpecificHeaders() const

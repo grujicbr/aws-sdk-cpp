@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -31,7 +32,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for VideoSelectorPid<p><h3>See Also:</h3>   <a
+   * Video Selector Pid<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelectorPid">AWS
    * API Reference</a></p>
    */
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     VideoSelectorPid();
-    VideoSelectorPid(const Aws::Utils::Json::JsonValue& jsonValue);
-    VideoSelectorPid& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VideoSelectorPid(Aws::Utils::Json::JsonView jsonValue);
+    VideoSelectorPid& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * Selects a specific PID from within a video source.
      */
     inline int GetPid() const{ return m_pid; }
+
+    /**
+     * Selects a specific PID from within a video source.
+     */
+    inline bool PidHasBeenSet() const { return m_pidHasBeenSet; }
 
     /**
      * Selects a specific PID from within a video source.

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ComplianceSummary();
-    ComplianceSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComplianceSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComplianceSummary(Aws::Utils::Json::JsonView jsonValue);
+    ComplianceSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * maximum of 25 for rules and 100 for resources.</p>
      */
     inline const ComplianceContributorCount& GetCompliantResourceCount() const{ return m_compliantResourceCount; }
+
+    /**
+     * <p>The number of AWS Config rules or AWS resources that are compliant, up to a
+     * maximum of 25 for rules and 100 for resources.</p>
+     */
+    inline bool CompliantResourceCountHasBeenSet() const { return m_compliantResourceCountHasBeenSet; }
 
     /**
      * <p>The number of AWS Config rules or AWS resources that are compliant, up to a
@@ -89,6 +96,12 @@ namespace Model
      * <p>The number of AWS Config rules or AWS resources that are noncompliant, up to
      * a maximum of 25 for rules and 100 for resources.</p>
      */
+    inline bool NonCompliantResourceCountHasBeenSet() const { return m_nonCompliantResourceCountHasBeenSet; }
+
+    /**
+     * <p>The number of AWS Config rules or AWS resources that are noncompliant, up to
+     * a maximum of 25 for rules and 100 for resources.</p>
+     */
     inline void SetNonCompliantResourceCount(const ComplianceContributorCount& value) { m_nonCompliantResourceCountHasBeenSet = true; m_nonCompliantResourceCount = value; }
 
     /**
@@ -114,6 +127,11 @@ namespace Model
      * <p>The time that AWS Config created the compliance summary.</p>
      */
     inline const Aws::Utils::DateTime& GetComplianceSummaryTimestamp() const{ return m_complianceSummaryTimestamp; }
+
+    /**
+     * <p>The time that AWS Config created the compliance summary.</p>
+     */
+    inline bool ComplianceSummaryTimestampHasBeenSet() const { return m_complianceSummaryTimestampHasBeenSet; }
 
     /**
      * <p>The time that AWS Config created the compliance summary.</p>

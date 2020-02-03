@@ -30,20 +30,28 @@ namespace Model
 
 AlgorithmSpecification::AlgorithmSpecification() : 
     m_trainingImageHasBeenSet(false),
+    m_algorithmNameHasBeenSet(false),
     m_trainingInputMode(TrainingInputMode::NOT_SET),
-    m_trainingInputModeHasBeenSet(false)
+    m_trainingInputModeHasBeenSet(false),
+    m_metricDefinitionsHasBeenSet(false),
+    m_enableSageMakerMetricsTimeSeries(false),
+    m_enableSageMakerMetricsTimeSeriesHasBeenSet(false)
 {
 }
 
-AlgorithmSpecification::AlgorithmSpecification(const JsonValue& jsonValue) : 
+AlgorithmSpecification::AlgorithmSpecification(JsonView jsonValue) : 
     m_trainingImageHasBeenSet(false),
+    m_algorithmNameHasBeenSet(false),
     m_trainingInputMode(TrainingInputMode::NOT_SET),
-    m_trainingInputModeHasBeenSet(false)
+    m_trainingInputModeHasBeenSet(false),
+    m_metricDefinitionsHasBeenSet(false),
+    m_enableSageMakerMetricsTimeSeries(false),
+    m_enableSageMakerMetricsTimeSeriesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-AlgorithmSpecification& AlgorithmSpecification::operator =(const JsonValue& jsonValue)
+AlgorithmSpecification& AlgorithmSpecification::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TrainingImage"))
   {
@@ -52,11 +60,35 @@ AlgorithmSpecification& AlgorithmSpecification::operator =(const JsonValue& json
     m_trainingImageHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("AlgorithmName"))
+  {
+    m_algorithmName = jsonValue.GetString("AlgorithmName");
+
+    m_algorithmNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("TrainingInputMode"))
   {
     m_trainingInputMode = TrainingInputModeMapper::GetTrainingInputModeForName(jsonValue.GetString("TrainingInputMode"));
 
     m_trainingInputModeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("MetricDefinitions"))
+  {
+    Array<JsonView> metricDefinitionsJsonList = jsonValue.GetArray("MetricDefinitions");
+    for(unsigned metricDefinitionsIndex = 0; metricDefinitionsIndex < metricDefinitionsJsonList.GetLength(); ++metricDefinitionsIndex)
+    {
+      m_metricDefinitions.push_back(metricDefinitionsJsonList[metricDefinitionsIndex].AsObject());
+    }
+    m_metricDefinitionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("EnableSageMakerMetricsTimeSeries"))
+  {
+    m_enableSageMakerMetricsTimeSeries = jsonValue.GetBool("EnableSageMakerMetricsTimeSeries");
+
+    m_enableSageMakerMetricsTimeSeriesHasBeenSet = true;
   }
 
   return *this;
@@ -72,9 +104,32 @@ JsonValue AlgorithmSpecification::Jsonize() const
 
   }
 
+  if(m_algorithmNameHasBeenSet)
+  {
+   payload.WithString("AlgorithmName", m_algorithmName);
+
+  }
+
   if(m_trainingInputModeHasBeenSet)
   {
    payload.WithString("TrainingInputMode", TrainingInputModeMapper::GetNameForTrainingInputMode(m_trainingInputMode));
+  }
+
+  if(m_metricDefinitionsHasBeenSet)
+  {
+   Array<JsonValue> metricDefinitionsJsonList(m_metricDefinitions.size());
+   for(unsigned metricDefinitionsIndex = 0; metricDefinitionsIndex < metricDefinitionsJsonList.GetLength(); ++metricDefinitionsIndex)
+   {
+     metricDefinitionsJsonList[metricDefinitionsIndex].AsObject(m_metricDefinitions[metricDefinitionsIndex].Jsonize());
+   }
+   payload.WithArray("MetricDefinitions", std::move(metricDefinitionsJsonList));
+
+  }
+
+  if(m_enableSageMakerMetricsTimeSeriesHasBeenSet)
+  {
+   payload.WithBool("EnableSageMakerMetricsTimeSeries", m_enableSageMakerMetricsTimeSeries);
+
   }
 
   return payload;

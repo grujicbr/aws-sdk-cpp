@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     PurchaseHostReservationRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,65 +49,66 @@ namespace Model
   public:
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure idempotency of the
-     * request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How
-     * to Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.</p>
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How
+     * to Ensure Idempotency</a>.</p>
      */
     inline const Aws::String& GetClientToken() const{ return m_clientToken; }
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure idempotency of the
-     * request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How
-     * to Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.</p>
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How
+     * to Ensure Idempotency</a>.</p>
+     */
+    inline bool ClientTokenHasBeenSet() const { return m_clientTokenHasBeenSet; }
+
+    /**
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How
+     * to Ensure Idempotency</a>.</p>
      */
     inline void SetClientToken(const Aws::String& value) { m_clientTokenHasBeenSet = true; m_clientToken = value; }
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure idempotency of the
-     * request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How
-     * to Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.</p>
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How
+     * to Ensure Idempotency</a>.</p>
      */
     inline void SetClientToken(Aws::String&& value) { m_clientTokenHasBeenSet = true; m_clientToken = std::move(value); }
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure idempotency of the
-     * request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How
-     * to Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.</p>
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How
+     * to Ensure Idempotency</a>.</p>
      */
     inline void SetClientToken(const char* value) { m_clientTokenHasBeenSet = true; m_clientToken.assign(value); }
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure idempotency of the
-     * request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How
-     * to Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.</p>
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How
+     * to Ensure Idempotency</a>.</p>
      */
     inline PurchaseHostReservationRequest& WithClientToken(const Aws::String& value) { SetClientToken(value); return *this;}
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure idempotency of the
-     * request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How
-     * to Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.</p>
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How
+     * to Ensure Idempotency</a>.</p>
      */
     inline PurchaseHostReservationRequest& WithClientToken(Aws::String&& value) { SetClientToken(std::move(value)); return *this;}
 
     /**
-     * <p>Unique, case-sensitive identifier you provide to ensure idempotency of the
-     * request. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How
-     * to Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.</p>
+     * <p>Unique, case-sensitive identifier that you provide to ensure the idempotency
+     * of the request. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How
+     * to Ensure Idempotency</a>.</p>
      */
     inline PurchaseHostReservationRequest& WithClientToken(const char* value) { SetClientToken(value); return *this;}
 
@@ -118,6 +119,13 @@ namespace Model
      * specified. At this time, the only supported currency is <code>USD</code>.</p>
      */
     inline const CurrencyCodeValues& GetCurrencyCode() const{ return m_currencyCode; }
+
+    /**
+     * <p>The currency in which the <code>totalUpfrontPrice</code>,
+     * <code>LimitPrice</code>, and <code>totalHourlyPrice</code> amounts are
+     * specified. At this time, the only supported currency is <code>USD</code>.</p>
+     */
+    inline bool CurrencyCodeHasBeenSet() const { return m_currencyCodeHasBeenSet; }
 
     /**
      * <p>The currency in which the <code>totalUpfrontPrice</code>,
@@ -149,50 +157,56 @@ namespace Model
 
 
     /**
-     * <p>The ID/s of the Dedicated Host/s that the reservation will be associated
-     * with.</p>
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
      */
     inline const Aws::Vector<Aws::String>& GetHostIdSet() const{ return m_hostIdSet; }
 
     /**
-     * <p>The ID/s of the Dedicated Host/s that the reservation will be associated
-     * with.</p>
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
+     */
+    inline bool HostIdSetHasBeenSet() const { return m_hostIdSetHasBeenSet; }
+
+    /**
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
      */
     inline void SetHostIdSet(const Aws::Vector<Aws::String>& value) { m_hostIdSetHasBeenSet = true; m_hostIdSet = value; }
 
     /**
-     * <p>The ID/s of the Dedicated Host/s that the reservation will be associated
-     * with.</p>
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
      */
     inline void SetHostIdSet(Aws::Vector<Aws::String>&& value) { m_hostIdSetHasBeenSet = true; m_hostIdSet = std::move(value); }
 
     /**
-     * <p>The ID/s of the Dedicated Host/s that the reservation will be associated
-     * with.</p>
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
      */
     inline PurchaseHostReservationRequest& WithHostIdSet(const Aws::Vector<Aws::String>& value) { SetHostIdSet(value); return *this;}
 
     /**
-     * <p>The ID/s of the Dedicated Host/s that the reservation will be associated
-     * with.</p>
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
      */
     inline PurchaseHostReservationRequest& WithHostIdSet(Aws::Vector<Aws::String>&& value) { SetHostIdSet(std::move(value)); return *this;}
 
     /**
-     * <p>The ID/s of the Dedicated Host/s that the reservation will be associated
-     * with.</p>
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
      */
     inline PurchaseHostReservationRequest& AddHostIdSet(const Aws::String& value) { m_hostIdSetHasBeenSet = true; m_hostIdSet.push_back(value); return *this; }
 
     /**
-     * <p>The ID/s of the Dedicated Host/s that the reservation will be associated
-     * with.</p>
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
      */
     inline PurchaseHostReservationRequest& AddHostIdSet(Aws::String&& value) { m_hostIdSetHasBeenSet = true; m_hostIdSet.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>The ID/s of the Dedicated Host/s that the reservation will be associated
-     * with.</p>
+     * <p>The IDs of the Dedicated Hosts with which the reservation will be
+     * associated.</p>
      */
     inline PurchaseHostReservationRequest& AddHostIdSet(const char* value) { m_hostIdSetHasBeenSet = true; m_hostIdSet.push_back(value); return *this; }
 
@@ -201,7 +215,7 @@ namespace Model
      * <p>The specified limit is checked against the total upfront cost of the
      * reservation (calculated as the offering's upfront cost multiplied by the host
      * count). If the total upfront cost is greater than the specified price limit, the
-     * request will fail. This is used to ensure that the purchase does not exceed the
+     * request fails. This is used to ensure that the purchase does not exceed the
      * expected upfront cost of the purchase. At this time, the only supported currency
      * is <code>USD</code>. For example, to indicate a limit price of USD 100, specify
      * 100.00.</p>
@@ -212,7 +226,18 @@ namespace Model
      * <p>The specified limit is checked against the total upfront cost of the
      * reservation (calculated as the offering's upfront cost multiplied by the host
      * count). If the total upfront cost is greater than the specified price limit, the
-     * request will fail. This is used to ensure that the purchase does not exceed the
+     * request fails. This is used to ensure that the purchase does not exceed the
+     * expected upfront cost of the purchase. At this time, the only supported currency
+     * is <code>USD</code>. For example, to indicate a limit price of USD 100, specify
+     * 100.00.</p>
+     */
+    inline bool LimitPriceHasBeenSet() const { return m_limitPriceHasBeenSet; }
+
+    /**
+     * <p>The specified limit is checked against the total upfront cost of the
+     * reservation (calculated as the offering's upfront cost multiplied by the host
+     * count). If the total upfront cost is greater than the specified price limit, the
+     * request fails. This is used to ensure that the purchase does not exceed the
      * expected upfront cost of the purchase. At this time, the only supported currency
      * is <code>USD</code>. For example, to indicate a limit price of USD 100, specify
      * 100.00.</p>
@@ -223,7 +248,7 @@ namespace Model
      * <p>The specified limit is checked against the total upfront cost of the
      * reservation (calculated as the offering's upfront cost multiplied by the host
      * count). If the total upfront cost is greater than the specified price limit, the
-     * request will fail. This is used to ensure that the purchase does not exceed the
+     * request fails. This is used to ensure that the purchase does not exceed the
      * expected upfront cost of the purchase. At this time, the only supported currency
      * is <code>USD</code>. For example, to indicate a limit price of USD 100, specify
      * 100.00.</p>
@@ -234,7 +259,7 @@ namespace Model
      * <p>The specified limit is checked against the total upfront cost of the
      * reservation (calculated as the offering's upfront cost multiplied by the host
      * count). If the total upfront cost is greater than the specified price limit, the
-     * request will fail. This is used to ensure that the purchase does not exceed the
+     * request fails. This is used to ensure that the purchase does not exceed the
      * expected upfront cost of the purchase. At this time, the only supported currency
      * is <code>USD</code>. For example, to indicate a limit price of USD 100, specify
      * 100.00.</p>
@@ -245,7 +270,7 @@ namespace Model
      * <p>The specified limit is checked against the total upfront cost of the
      * reservation (calculated as the offering's upfront cost multiplied by the host
      * count). If the total upfront cost is greater than the specified price limit, the
-     * request will fail. This is used to ensure that the purchase does not exceed the
+     * request fails. This is used to ensure that the purchase does not exceed the
      * expected upfront cost of the purchase. At this time, the only supported currency
      * is <code>USD</code>. For example, to indicate a limit price of USD 100, specify
      * 100.00.</p>
@@ -256,7 +281,7 @@ namespace Model
      * <p>The specified limit is checked against the total upfront cost of the
      * reservation (calculated as the offering's upfront cost multiplied by the host
      * count). If the total upfront cost is greater than the specified price limit, the
-     * request will fail. This is used to ensure that the purchase does not exceed the
+     * request fails. This is used to ensure that the purchase does not exceed the
      * expected upfront cost of the purchase. At this time, the only supported currency
      * is <code>USD</code>. For example, to indicate a limit price of USD 100, specify
      * 100.00.</p>
@@ -267,7 +292,7 @@ namespace Model
      * <p>The specified limit is checked against the total upfront cost of the
      * reservation (calculated as the offering's upfront cost multiplied by the host
      * count). If the total upfront cost is greater than the specified price limit, the
-     * request will fail. This is used to ensure that the purchase does not exceed the
+     * request fails. This is used to ensure that the purchase does not exceed the
      * expected upfront cost of the purchase. At this time, the only supported currency
      * is <code>USD</code>. For example, to indicate a limit price of USD 100, specify
      * 100.00.</p>
@@ -279,6 +304,11 @@ namespace Model
      * <p>The ID of the offering.</p>
      */
     inline const Aws::String& GetOfferingId() const{ return m_offeringId; }
+
+    /**
+     * <p>The ID of the offering.</p>
+     */
+    inline bool OfferingIdHasBeenSet() const { return m_offeringIdHasBeenSet; }
 
     /**
      * <p>The ID of the offering.</p>

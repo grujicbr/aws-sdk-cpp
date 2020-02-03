@@ -24,6 +24,7 @@ UpdateAutoScalingGroupRequest::UpdateAutoScalingGroupRequest() :
     m_autoScalingGroupNameHasBeenSet(false),
     m_launchConfigurationNameHasBeenSet(false),
     m_launchTemplateHasBeenSet(false),
+    m_mixedInstancesPolicyHasBeenSet(false),
     m_minSize(0),
     m_minSizeHasBeenSet(false),
     m_maxSize(0),
@@ -41,7 +42,9 @@ UpdateAutoScalingGroupRequest::UpdateAutoScalingGroupRequest() :
     m_terminationPoliciesHasBeenSet(false),
     m_newInstancesProtectedFromScaleIn(false),
     m_newInstancesProtectedFromScaleInHasBeenSet(false),
-    m_serviceLinkedRoleARNHasBeenSet(false)
+    m_serviceLinkedRoleARNHasBeenSet(false),
+    m_maxInstanceLifetime(0),
+    m_maxInstanceLifetimeHasBeenSet(false)
 {
 }
 
@@ -62,6 +65,11 @@ Aws::String UpdateAutoScalingGroupRequest::SerializePayload() const
   if(m_launchTemplateHasBeenSet)
   {
     m_launchTemplate.OutputToStream(ss, "LaunchTemplate");
+  }
+
+  if(m_mixedInstancesPolicyHasBeenSet)
+  {
+    m_mixedInstancesPolicy.OutputToStream(ss, "MixedInstancesPolicy");
   }
 
   if(m_minSizeHasBeenSet)
@@ -134,6 +142,11 @@ Aws::String UpdateAutoScalingGroupRequest::SerializePayload() const
   if(m_serviceLinkedRoleARNHasBeenSet)
   {
     ss << "ServiceLinkedRoleARN=" << StringUtils::URLEncode(m_serviceLinkedRoleARN.c_str()) << "&";
+  }
+
+  if(m_maxInstanceLifetimeHasBeenSet)
+  {
+    ss << "MaxInstanceLifetime=" << m_maxInstanceLifetime << "&";
   }
 
   ss << "Version=2011-01-01";

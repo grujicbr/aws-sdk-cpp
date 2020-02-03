@@ -66,19 +66,19 @@ ReservedInstancesModification& ReservedInstancesModification::operator =(const X
     XmlNode clientTokenNode = resultNode.FirstChild("clientToken");
     if(!clientTokenNode.IsNull())
     {
-      m_clientToken = StringUtils::Trim(clientTokenNode.GetText().c_str());
+      m_clientToken = Aws::Utils::Xml::DecodeEscapedXmlText(clientTokenNode.GetText());
       m_clientTokenHasBeenSet = true;
     }
     XmlNode createDateNode = resultNode.FirstChild("createDate");
     if(!createDateNode.IsNull())
     {
-      m_createDate = DateTime(StringUtils::Trim(createDateNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_createDate = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(createDateNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_createDateHasBeenSet = true;
     }
     XmlNode effectiveDateNode = resultNode.FirstChild("effectiveDate");
     if(!effectiveDateNode.IsNull())
     {
-      m_effectiveDate = DateTime(StringUtils::Trim(effectiveDateNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_effectiveDate = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(effectiveDateNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_effectiveDateHasBeenSet = true;
     }
     XmlNode modificationResultsNode = resultNode.FirstChild("modificationResultSet");
@@ -108,25 +108,25 @@ ReservedInstancesModification& ReservedInstancesModification::operator =(const X
     XmlNode reservedInstancesModificationIdNode = resultNode.FirstChild("reservedInstancesModificationId");
     if(!reservedInstancesModificationIdNode.IsNull())
     {
-      m_reservedInstancesModificationId = StringUtils::Trim(reservedInstancesModificationIdNode.GetText().c_str());
+      m_reservedInstancesModificationId = Aws::Utils::Xml::DecodeEscapedXmlText(reservedInstancesModificationIdNode.GetText());
       m_reservedInstancesModificationIdHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode statusMessageNode = resultNode.FirstChild("statusMessage");
     if(!statusMessageNode.IsNull())
     {
-      m_statusMessage = StringUtils::Trim(statusMessageNode.GetText().c_str());
+      m_statusMessage = Aws::Utils::Xml::DecodeEscapedXmlText(statusMessageNode.GetText());
       m_statusMessageHasBeenSet = true;
     }
     XmlNode updateDateNode = resultNode.FirstChild("updateDate");
     if(!updateDateNode.IsNull())
     {
-      m_updateDate = DateTime(StringUtils::Trim(updateDateNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_updateDate = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(updateDateNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_updateDateHasBeenSet = true;
     }
   }

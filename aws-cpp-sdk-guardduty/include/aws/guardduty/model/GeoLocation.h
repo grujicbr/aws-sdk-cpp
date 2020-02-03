@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace GuardDuty
@@ -31,7 +32,8 @@ namespace Model
 {
 
   /**
-   * Location information of the remote IP address.<p><h3>See Also:</h3>   <a
+   * <p>Contains information about the location of the remote IP
+   * address.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GeoLocation">AWS
    * API Reference</a></p>
    */
@@ -39,39 +41,49 @@ namespace Model
   {
   public:
     GeoLocation();
-    GeoLocation(const Aws::Utils::Json::JsonValue& jsonValue);
-    GeoLocation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GeoLocation(Aws::Utils::Json::JsonView jsonValue);
+    GeoLocation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * Latitude information of remote IP address.
+     * <p>Latitude information of remote IP address.</p>
      */
     inline double GetLat() const{ return m_lat; }
 
     /**
-     * Latitude information of remote IP address.
+     * <p>Latitude information of remote IP address.</p>
+     */
+    inline bool LatHasBeenSet() const { return m_latHasBeenSet; }
+
+    /**
+     * <p>Latitude information of remote IP address.</p>
      */
     inline void SetLat(double value) { m_latHasBeenSet = true; m_lat = value; }
 
     /**
-     * Latitude information of remote IP address.
+     * <p>Latitude information of remote IP address.</p>
      */
     inline GeoLocation& WithLat(double value) { SetLat(value); return *this;}
 
 
     /**
-     * Longitude information of remote IP address.
+     * <p>Longitude information of remote IP address.</p>
      */
     inline double GetLon() const{ return m_lon; }
 
     /**
-     * Longitude information of remote IP address.
+     * <p>Longitude information of remote IP address.</p>
+     */
+    inline bool LonHasBeenSet() const { return m_lonHasBeenSet; }
+
+    /**
+     * <p>Longitude information of remote IP address.</p>
      */
     inline void SetLon(double value) { m_lonHasBeenSet = true; m_lon = value; }
 
     /**
-     * Longitude information of remote IP address.
+     * <p>Longitude information of remote IP address.</p>
      */
     inline GeoLocation& WithLon(double value) { SetLon(value); return *this;}
 

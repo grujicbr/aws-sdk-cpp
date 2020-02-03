@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     RotateSecretRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,43 +48,137 @@ namespace Model
 
     /**
      * <p>Specifies the secret that you want to rotate. You can specify either the
-     * Amazon Resource Name (ARN) or the friendly name of the secret.</p>
+     * Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note> <p>If
+     * you specify an ARN, we generally recommend that you specify a complete ARN. You
+     * can specify a partial ARN too—for example, if you don’t include the final hyphen
+     * and six random characters that Secrets Manager adds at the end of the ARN when
+     * you created the secret. A partial ARN match can work as long as it uniquely
+     * matches only one secret. However, if your secret has a name that ends in a
+     * hyphen followed by six characters (before Secrets Manager adds the hyphen and
+     * six characters to the ARN) and you try to use that as a partial ARN, then those
+     * characters cause Secrets Manager to assume that you’re specifying a complete
+     * ARN. This confusion can cause unexpected results. To avoid this situation, we
+     * recommend that you don’t create secret names that end with a hyphen followed by
+     * six characters.</p> </note>
      */
     inline const Aws::String& GetSecretId() const{ return m_secretId; }
 
     /**
      * <p>Specifies the secret that you want to rotate. You can specify either the
-     * Amazon Resource Name (ARN) or the friendly name of the secret.</p>
+     * Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note> <p>If
+     * you specify an ARN, we generally recommend that you specify a complete ARN. You
+     * can specify a partial ARN too—for example, if you don’t include the final hyphen
+     * and six random characters that Secrets Manager adds at the end of the ARN when
+     * you created the secret. A partial ARN match can work as long as it uniquely
+     * matches only one secret. However, if your secret has a name that ends in a
+     * hyphen followed by six characters (before Secrets Manager adds the hyphen and
+     * six characters to the ARN) and you try to use that as a partial ARN, then those
+     * characters cause Secrets Manager to assume that you’re specifying a complete
+     * ARN. This confusion can cause unexpected results. To avoid this situation, we
+     * recommend that you don’t create secret names that end with a hyphen followed by
+     * six characters.</p> </note>
+     */
+    inline bool SecretIdHasBeenSet() const { return m_secretIdHasBeenSet; }
+
+    /**
+     * <p>Specifies the secret that you want to rotate. You can specify either the
+     * Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note> <p>If
+     * you specify an ARN, we generally recommend that you specify a complete ARN. You
+     * can specify a partial ARN too—for example, if you don’t include the final hyphen
+     * and six random characters that Secrets Manager adds at the end of the ARN when
+     * you created the secret. A partial ARN match can work as long as it uniquely
+     * matches only one secret. However, if your secret has a name that ends in a
+     * hyphen followed by six characters (before Secrets Manager adds the hyphen and
+     * six characters to the ARN) and you try to use that as a partial ARN, then those
+     * characters cause Secrets Manager to assume that you’re specifying a complete
+     * ARN. This confusion can cause unexpected results. To avoid this situation, we
+     * recommend that you don’t create secret names that end with a hyphen followed by
+     * six characters.</p> </note>
      */
     inline void SetSecretId(const Aws::String& value) { m_secretIdHasBeenSet = true; m_secretId = value; }
 
     /**
      * <p>Specifies the secret that you want to rotate. You can specify either the
-     * Amazon Resource Name (ARN) or the friendly name of the secret.</p>
+     * Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note> <p>If
+     * you specify an ARN, we generally recommend that you specify a complete ARN. You
+     * can specify a partial ARN too—for example, if you don’t include the final hyphen
+     * and six random characters that Secrets Manager adds at the end of the ARN when
+     * you created the secret. A partial ARN match can work as long as it uniquely
+     * matches only one secret. However, if your secret has a name that ends in a
+     * hyphen followed by six characters (before Secrets Manager adds the hyphen and
+     * six characters to the ARN) and you try to use that as a partial ARN, then those
+     * characters cause Secrets Manager to assume that you’re specifying a complete
+     * ARN. This confusion can cause unexpected results. To avoid this situation, we
+     * recommend that you don’t create secret names that end with a hyphen followed by
+     * six characters.</p> </note>
      */
     inline void SetSecretId(Aws::String&& value) { m_secretIdHasBeenSet = true; m_secretId = std::move(value); }
 
     /**
      * <p>Specifies the secret that you want to rotate. You can specify either the
-     * Amazon Resource Name (ARN) or the friendly name of the secret.</p>
+     * Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note> <p>If
+     * you specify an ARN, we generally recommend that you specify a complete ARN. You
+     * can specify a partial ARN too—for example, if you don’t include the final hyphen
+     * and six random characters that Secrets Manager adds at the end of the ARN when
+     * you created the secret. A partial ARN match can work as long as it uniquely
+     * matches only one secret. However, if your secret has a name that ends in a
+     * hyphen followed by six characters (before Secrets Manager adds the hyphen and
+     * six characters to the ARN) and you try to use that as a partial ARN, then those
+     * characters cause Secrets Manager to assume that you’re specifying a complete
+     * ARN. This confusion can cause unexpected results. To avoid this situation, we
+     * recommend that you don’t create secret names that end with a hyphen followed by
+     * six characters.</p> </note>
      */
     inline void SetSecretId(const char* value) { m_secretIdHasBeenSet = true; m_secretId.assign(value); }
 
     /**
      * <p>Specifies the secret that you want to rotate. You can specify either the
-     * Amazon Resource Name (ARN) or the friendly name of the secret.</p>
+     * Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note> <p>If
+     * you specify an ARN, we generally recommend that you specify a complete ARN. You
+     * can specify a partial ARN too—for example, if you don’t include the final hyphen
+     * and six random characters that Secrets Manager adds at the end of the ARN when
+     * you created the secret. A partial ARN match can work as long as it uniquely
+     * matches only one secret. However, if your secret has a name that ends in a
+     * hyphen followed by six characters (before Secrets Manager adds the hyphen and
+     * six characters to the ARN) and you try to use that as a partial ARN, then those
+     * characters cause Secrets Manager to assume that you’re specifying a complete
+     * ARN. This confusion can cause unexpected results. To avoid this situation, we
+     * recommend that you don’t create secret names that end with a hyphen followed by
+     * six characters.</p> </note>
      */
     inline RotateSecretRequest& WithSecretId(const Aws::String& value) { SetSecretId(value); return *this;}
 
     /**
      * <p>Specifies the secret that you want to rotate. You can specify either the
-     * Amazon Resource Name (ARN) or the friendly name of the secret.</p>
+     * Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note> <p>If
+     * you specify an ARN, we generally recommend that you specify a complete ARN. You
+     * can specify a partial ARN too—for example, if you don’t include the final hyphen
+     * and six random characters that Secrets Manager adds at the end of the ARN when
+     * you created the secret. A partial ARN match can work as long as it uniquely
+     * matches only one secret. However, if your secret has a name that ends in a
+     * hyphen followed by six characters (before Secrets Manager adds the hyphen and
+     * six characters to the ARN) and you try to use that as a partial ARN, then those
+     * characters cause Secrets Manager to assume that you’re specifying a complete
+     * ARN. This confusion can cause unexpected results. To avoid this situation, we
+     * recommend that you don’t create secret names that end with a hyphen followed by
+     * six characters.</p> </note>
      */
     inline RotateSecretRequest& WithSecretId(Aws::String&& value) { SetSecretId(std::move(value)); return *this;}
 
     /**
      * <p>Specifies the secret that you want to rotate. You can specify either the
-     * Amazon Resource Name (ARN) or the friendly name of the secret.</p>
+     * Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note> <p>If
+     * you specify an ARN, we generally recommend that you specify a complete ARN. You
+     * can specify a partial ARN too—for example, if you don’t include the final hyphen
+     * and six random characters that Secrets Manager adds at the end of the ARN when
+     * you created the secret. A partial ARN match can work as long as it uniquely
+     * matches only one secret. However, if your secret has a name that ends in a
+     * hyphen followed by six characters (before Secrets Manager adds the hyphen and
+     * six characters to the ARN) and you try to use that as a partial ARN, then those
+     * characters cause Secrets Manager to assume that you’re specifying a complete
+     * ARN. This confusion can cause unexpected results. To avoid this situation, we
+     * recommend that you don’t create secret names that end with a hyphen followed by
+     * six characters.</p> </note>
      */
     inline RotateSecretRequest& WithSecretId(const char* value) { SetSecretId(value); return *this;}
 
@@ -103,17 +197,8 @@ namespace Model
      * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a>
      * value to ensure uniqueness within the specified secret. </p> <p>Secrets Manager
      * uses this value to prevent the accidental creation of duplicate versions if
-     * there are failures and retries during the function's processing.</p> <ul> <li>
-     * <p>If the <code>ClientRequestToken</code> value isn't already associated with a
-     * version of the secret then a new version of the secret is created. </p> </li>
-     * <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are the same as
-     * the request, then the request is ignored (the operation is idempotent). </p>
-     * </li> <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are different
-     * from the request then an error occurs because you cannot modify an existing
-     * secret value.</p> </li> </ul> <p>This value becomes the
-     * <code>SecretVersionId</code> of the new version.</p>
+     * there are failures and retries during the function's processing. This value
+     * becomes the <code>VersionId</code> of the new version.</p>
      */
     inline const Aws::String& GetClientRequestToken() const{ return m_clientRequestToken; }
 
@@ -131,17 +216,27 @@ namespace Model
      * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a>
      * value to ensure uniqueness within the specified secret. </p> <p>Secrets Manager
      * uses this value to prevent the accidental creation of duplicate versions if
-     * there are failures and retries during the function's processing.</p> <ul> <li>
-     * <p>If the <code>ClientRequestToken</code> value isn't already associated with a
-     * version of the secret then a new version of the secret is created. </p> </li>
-     * <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are the same as
-     * the request, then the request is ignored (the operation is idempotent). </p>
-     * </li> <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are different
-     * from the request then an error occurs because you cannot modify an existing
-     * secret value.</p> </li> </ul> <p>This value becomes the
-     * <code>SecretVersionId</code> of the new version.</p>
+     * there are failures and retries during the function's processing. This value
+     * becomes the <code>VersionId</code> of the new version.</p>
+     */
+    inline bool ClientRequestTokenHasBeenSet() const { return m_clientRequestTokenHasBeenSet; }
+
+    /**
+     * <p>(Optional) Specifies a unique identifier for the new version of the secret
+     * that helps ensure idempotency. </p> <p>If you use the AWS CLI or one of the AWS
+     * SDK to call this operation, then you can leave this parameter empty. The CLI or
+     * SDK generates a random UUID for you and includes that in the request for this
+     * parameter. If you don't use the SDK and instead generate a raw HTTP request to
+     * the Secrets Manager service endpoint, then you must generate a
+     * <code>ClientRequestToken</code> yourself for new versions and include that value
+     * in the request.</p> <p>You only need to specify your own value if you are
+     * implementing your own retry logic and want to ensure that a given secret is not
+     * created twice. We recommend that you generate a <a
+     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a>
+     * value to ensure uniqueness within the specified secret. </p> <p>Secrets Manager
+     * uses this value to prevent the accidental creation of duplicate versions if
+     * there are failures and retries during the function's processing. This value
+     * becomes the <code>VersionId</code> of the new version.</p>
      */
     inline void SetClientRequestToken(const Aws::String& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = value; }
 
@@ -159,17 +254,8 @@ namespace Model
      * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a>
      * value to ensure uniqueness within the specified secret. </p> <p>Secrets Manager
      * uses this value to prevent the accidental creation of duplicate versions if
-     * there are failures and retries during the function's processing.</p> <ul> <li>
-     * <p>If the <code>ClientRequestToken</code> value isn't already associated with a
-     * version of the secret then a new version of the secret is created. </p> </li>
-     * <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are the same as
-     * the request, then the request is ignored (the operation is idempotent). </p>
-     * </li> <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are different
-     * from the request then an error occurs because you cannot modify an existing
-     * secret value.</p> </li> </ul> <p>This value becomes the
-     * <code>SecretVersionId</code> of the new version.</p>
+     * there are failures and retries during the function's processing. This value
+     * becomes the <code>VersionId</code> of the new version.</p>
      */
     inline void SetClientRequestToken(Aws::String&& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = std::move(value); }
 
@@ -187,17 +273,8 @@ namespace Model
      * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a>
      * value to ensure uniqueness within the specified secret. </p> <p>Secrets Manager
      * uses this value to prevent the accidental creation of duplicate versions if
-     * there are failures and retries during the function's processing.</p> <ul> <li>
-     * <p>If the <code>ClientRequestToken</code> value isn't already associated with a
-     * version of the secret then a new version of the secret is created. </p> </li>
-     * <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are the same as
-     * the request, then the request is ignored (the operation is idempotent). </p>
-     * </li> <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are different
-     * from the request then an error occurs because you cannot modify an existing
-     * secret value.</p> </li> </ul> <p>This value becomes the
-     * <code>SecretVersionId</code> of the new version.</p>
+     * there are failures and retries during the function's processing. This value
+     * becomes the <code>VersionId</code> of the new version.</p>
      */
     inline void SetClientRequestToken(const char* value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken.assign(value); }
 
@@ -215,17 +292,8 @@ namespace Model
      * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a>
      * value to ensure uniqueness within the specified secret. </p> <p>Secrets Manager
      * uses this value to prevent the accidental creation of duplicate versions if
-     * there are failures and retries during the function's processing.</p> <ul> <li>
-     * <p>If the <code>ClientRequestToken</code> value isn't already associated with a
-     * version of the secret then a new version of the secret is created. </p> </li>
-     * <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are the same as
-     * the request, then the request is ignored (the operation is idempotent). </p>
-     * </li> <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are different
-     * from the request then an error occurs because you cannot modify an existing
-     * secret value.</p> </li> </ul> <p>This value becomes the
-     * <code>SecretVersionId</code> of the new version.</p>
+     * there are failures and retries during the function's processing. This value
+     * becomes the <code>VersionId</code> of the new version.</p>
      */
     inline RotateSecretRequest& WithClientRequestToken(const Aws::String& value) { SetClientRequestToken(value); return *this;}
 
@@ -243,17 +311,8 @@ namespace Model
      * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a>
      * value to ensure uniqueness within the specified secret. </p> <p>Secrets Manager
      * uses this value to prevent the accidental creation of duplicate versions if
-     * there are failures and retries during the function's processing.</p> <ul> <li>
-     * <p>If the <code>ClientRequestToken</code> value isn't already associated with a
-     * version of the secret then a new version of the secret is created. </p> </li>
-     * <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are the same as
-     * the request, then the request is ignored (the operation is idempotent). </p>
-     * </li> <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are different
-     * from the request then an error occurs because you cannot modify an existing
-     * secret value.</p> </li> </ul> <p>This value becomes the
-     * <code>SecretVersionId</code> of the new version.</p>
+     * there are failures and retries during the function's processing. This value
+     * becomes the <code>VersionId</code> of the new version.</p>
      */
     inline RotateSecretRequest& WithClientRequestToken(Aws::String&& value) { SetClientRequestToken(std::move(value)); return *this;}
 
@@ -271,17 +330,8 @@ namespace Model
      * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a>
      * value to ensure uniqueness within the specified secret. </p> <p>Secrets Manager
      * uses this value to prevent the accidental creation of duplicate versions if
-     * there are failures and retries during the function's processing.</p> <ul> <li>
-     * <p>If the <code>ClientRequestToken</code> value isn't already associated with a
-     * version of the secret then a new version of the secret is created. </p> </li>
-     * <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are the same as
-     * the request, then the request is ignored (the operation is idempotent). </p>
-     * </li> <li> <p>If a version with this value already exists and that version's
-     * <code>SecretString</code> and <code>SecretBinary</code> values are different
-     * from the request then an error occurs because you cannot modify an existing
-     * secret value.</p> </li> </ul> <p>This value becomes the
-     * <code>SecretVersionId</code> of the new version.</p>
+     * there are failures and retries during the function's processing. This value
+     * becomes the <code>VersionId</code> of the new version.</p>
      */
     inline RotateSecretRequest& WithClientRequestToken(const char* value) { SetClientRequestToken(value); return *this;}
 
@@ -291,6 +341,12 @@ namespace Model
      * secret.</p>
      */
     inline const Aws::String& GetRotationLambdaARN() const{ return m_rotationLambdaARN; }
+
+    /**
+     * <p>(Optional) Specifies the ARN of the Lambda function that can rotate the
+     * secret.</p>
+     */
+    inline bool RotationLambdaARNHasBeenSet() const { return m_rotationLambdaARNHasBeenSet; }
 
     /**
      * <p>(Optional) Specifies the ARN of the Lambda function that can rotate the
@@ -333,6 +389,11 @@ namespace Model
      * <p>A structure that defines the rotation configuration for this secret.</p>
      */
     inline const RotationRulesType& GetRotationRules() const{ return m_rotationRules; }
+
+    /**
+     * <p>A structure that defines the rotation configuration for this secret.</p>
+     */
+    inline bool RotationRulesHasBeenSet() const { return m_rotationRulesHasBeenSet; }
 
     /**
      * <p>A structure that defines the rotation configuration for this secret.</p>

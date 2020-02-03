@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ProvisionedProductPlanSummary();
-    ProvisionedProductPlanSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProvisionedProductPlanSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProvisionedProductPlanSummary(Aws::Utils::Json::JsonView jsonValue);
+    ProvisionedProductPlanSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the plan.</p>
      */
     inline const Aws::String& GetPlanName() const{ return m_planName; }
+
+    /**
+     * <p>The name of the plan.</p>
+     */
+    inline bool PlanNameHasBeenSet() const { return m_planNameHasBeenSet; }
 
     /**
      * <p>The name of the plan.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The plan identifier.</p>
      */
+    inline bool PlanIdHasBeenSet() const { return m_planIdHasBeenSet; }
+
+    /**
+     * <p>The plan identifier.</p>
+     */
     inline void SetPlanId(const Aws::String& value) { m_planIdHasBeenSet = true; m_planId = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The product identifier.</p>
      */
     inline const Aws::String& GetProvisionProductId() const{ return m_provisionProductId; }
+
+    /**
+     * <p>The product identifier.</p>
+     */
+    inline bool ProvisionProductIdHasBeenSet() const { return m_provisionProductIdHasBeenSet; }
 
     /**
      * <p>The product identifier.</p>
@@ -163,6 +179,11 @@ namespace Model
     /**
      * <p>The user-friendly name of the provisioned product.</p>
      */
+    inline bool ProvisionProductNameHasBeenSet() const { return m_provisionProductNameHasBeenSet; }
+
+    /**
+     * <p>The user-friendly name of the provisioned product.</p>
+     */
     inline void SetProvisionProductName(const Aws::String& value) { m_provisionProductNameHasBeenSet = true; m_provisionProductName = value; }
 
     /**
@@ -199,6 +220,11 @@ namespace Model
     /**
      * <p>The plan type.</p>
      */
+    inline bool PlanTypeHasBeenSet() const { return m_planTypeHasBeenSet; }
+
+    /**
+     * <p>The plan type.</p>
+     */
     inline void SetPlanType(const ProvisionedProductPlanType& value) { m_planTypeHasBeenSet = true; m_planType = value; }
 
     /**
@@ -221,6 +247,11 @@ namespace Model
      * <p>The identifier of the provisioning artifact.</p>
      */
     inline const Aws::String& GetProvisioningArtifactId() const{ return m_provisioningArtifactId; }
+
+    /**
+     * <p>The identifier of the provisioning artifact.</p>
+     */
+    inline bool ProvisioningArtifactIdHasBeenSet() const { return m_provisioningArtifactIdHasBeenSet; }
 
     /**
      * <p>The identifier of the provisioning artifact.</p>

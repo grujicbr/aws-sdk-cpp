@@ -34,6 +34,12 @@ namespace S3
 namespace Model
 {
 
+  /**
+   * <p>Contains the bucket name, file format, bucket owner (optional), and prefix
+   * (optional) where inventory results are published.</p><p><h3>See Also:</h3>   <a
+   * href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryS3BucketDestination">AWS
+   * API Reference</a></p>
+   */
   class AWS_S3_API InventoryS3BucketDestination
   {
   public:
@@ -48,6 +54,11 @@ namespace Model
      * <p>The ID of the account that owns the destination bucket.</p>
      */
     inline const Aws::String& GetAccountId() const{ return m_accountId; }
+
+    /**
+     * <p>The ID of the account that owns the destination bucket.</p>
+     */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
 
     /**
      * <p>The ID of the account that owns the destination bucket.</p>
@@ -81,43 +92,49 @@ namespace Model
 
 
     /**
-     * <p>The Amazon resource name (ARN) of the bucket where inventory results will be
+     * <p>The Amazon Resource Name (ARN) of the bucket where inventory results will be
      * published.</p>
      */
     inline const Aws::String& GetBucket() const{ return m_bucket; }
 
     /**
-     * <p>The Amazon resource name (ARN) of the bucket where inventory results will be
+     * <p>The Amazon Resource Name (ARN) of the bucket where inventory results will be
+     * published.</p>
+     */
+    inline bool BucketHasBeenSet() const { return m_bucketHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the bucket where inventory results will be
      * published.</p>
      */
     inline void SetBucket(const Aws::String& value) { m_bucketHasBeenSet = true; m_bucket = value; }
 
     /**
-     * <p>The Amazon resource name (ARN) of the bucket where inventory results will be
+     * <p>The Amazon Resource Name (ARN) of the bucket where inventory results will be
      * published.</p>
      */
     inline void SetBucket(Aws::String&& value) { m_bucketHasBeenSet = true; m_bucket = std::move(value); }
 
     /**
-     * <p>The Amazon resource name (ARN) of the bucket where inventory results will be
+     * <p>The Amazon Resource Name (ARN) of the bucket where inventory results will be
      * published.</p>
      */
     inline void SetBucket(const char* value) { m_bucketHasBeenSet = true; m_bucket.assign(value); }
 
     /**
-     * <p>The Amazon resource name (ARN) of the bucket where inventory results will be
+     * <p>The Amazon Resource Name (ARN) of the bucket where inventory results will be
      * published.</p>
      */
     inline InventoryS3BucketDestination& WithBucket(const Aws::String& value) { SetBucket(value); return *this;}
 
     /**
-     * <p>The Amazon resource name (ARN) of the bucket where inventory results will be
+     * <p>The Amazon Resource Name (ARN) of the bucket where inventory results will be
      * published.</p>
      */
     inline InventoryS3BucketDestination& WithBucket(Aws::String&& value) { SetBucket(std::move(value)); return *this;}
 
     /**
-     * <p>The Amazon resource name (ARN) of the bucket where inventory results will be
+     * <p>The Amazon Resource Name (ARN) of the bucket where inventory results will be
      * published.</p>
      */
     inline InventoryS3BucketDestination& WithBucket(const char* value) { SetBucket(value); return *this;}
@@ -127,6 +144,11 @@ namespace Model
      * <p>Specifies the output format of the inventory results.</p>
      */
     inline const InventoryFormat& GetFormat() const{ return m_format; }
+
+    /**
+     * <p>Specifies the output format of the inventory results.</p>
+     */
+    inline bool FormatHasBeenSet() const { return m_formatHasBeenSet; }
 
     /**
      * <p>Specifies the output format of the inventory results.</p>
@@ -153,6 +175,11 @@ namespace Model
      * <p>The prefix that is prepended to all inventory results.</p>
      */
     inline const Aws::String& GetPrefix() const{ return m_prefix; }
+
+    /**
+     * <p>The prefix that is prepended to all inventory results.</p>
+     */
+    inline bool PrefixHasBeenSet() const { return m_prefixHasBeenSet; }
 
     /**
      * <p>The prefix that is prepended to all inventory results.</p>
@@ -190,6 +217,12 @@ namespace Model
      * results.</p>
      */
     inline const InventoryEncryption& GetEncryption() const{ return m_encryption; }
+
+    /**
+     * <p>Contains the type of server-side encryption used to encrypt the inventory
+     * results.</p>
+     */
+    inline bool EncryptionHasBeenSet() const { return m_encryptionHasBeenSet; }
 
     /**
      * <p>Contains the type of server-side encryption used to encrypt the inventory

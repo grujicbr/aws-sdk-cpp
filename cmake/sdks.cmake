@@ -18,6 +18,9 @@ endif()
 
 
 if(BUILD_ONLY)
+    # Sanitize input client list, for example removing empty elements
+    # that may be introduced by trailing semicolons
+    set(BUILD_ONLY ${BUILD_ONLY})
     set(SDK_BUILD_LIST ${BUILD_ONLY})
     foreach(TARGET IN LISTS BUILD_ONLY)
         message(STATUS "Considering ${TARGET}")
@@ -74,6 +77,13 @@ if(ADD_CUSTOM_CLIENTS OR REGENERATE_CLIENTS)
     )
 endif()
 
+            
+if(ENABLE_VIRTUAL_OPERATIONS) # it could be set to 0/1 or ON/OFF
+    set(ENABLE_VIRTUAL_OPERATIONS_ARG "--enableVirtualOperations")
+else()
+    set(ENABLE_VIRTUAL_OPERATIONS_ARG "")
+endif()
+
 if(REGENERATE_CLIENTS)
     message(STATUS "Regenerating clients that have been selected for build.")
     set(MERGED_BUILD_LIST ${SDK_BUILD_LIST})
@@ -88,9 +98,9 @@ if(REGENERATE_CLIENTS)
         if(EXISTS ${SDK_C2J_FILE})
             message(STATUS "Clearing existing directory for ${SDK} to prepare for generation.")
             file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/aws-cpp-sdk-${SDK}")
-            
+
             execute_process(
-                COMMAND ${PYTHON_CMD} scripts/generate_sdks.py --serviceName ${SDK} --apiVersion ${C2J_DATE} --outputLocation ./
+                COMMAND ${PYTHON_CMD} scripts/generate_sdks.py --serviceName ${SDK} --apiVersion ${C2J_DATE} ${ENABLE_VIRTUAL_OPERATIONS_ARG} --outputLocation ./
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
             )
             message(STATUS "Generated service: ${SDK}, version: ${C2J_DATE}")
@@ -98,25 +108,6 @@ if(REGENERATE_CLIENTS)
            message(STATUS "Directory for ${SDK} is either missing a service definition, is a custom client, or it is not a generated client. Skipping.")
         endif()
     endforeach()
-
-    foreach(SDK IN LISTS HIGH_LEVEL_SDK_LIST)
-        if (BUILD_ONLY) 
-            list(FIND BUILD_ONLY ${SDK} INDEX)
-            # when BUILD_ONLY is set only update high level sdks specified in it.
-            if ((INDEX GREATER 0) OR (INDEX EQUAL 0))
-                execute_process(
-                    COMMAND ${PYTHON_CMD} scripts/prepare_regenerate_high_level_sdks.py --highLevelSdkName ${SDK}
-                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                )
-            endif()
-        else()
-            execute_process(
-                COMMAND ${PYTHON_CMD} scripts/prepare_regenerate_high_level_sdks.py --highLevelSdkName ${SDK}
-                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-            )
-        endif()
-    endforeach()
-
 endif()
 
 #at this point, if user has specified some customized clients, generate them and add them to the build here.
@@ -138,7 +129,7 @@ foreach(custom_client ${ADD_CUSTOM_CLIENTS})
         file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/aws-cpp-sdk-${C_SERVICE_NAME}")
         message(STATUS "generating client for ${C_SERVICE_NAME} version ${C_VERSION}")
         execute_process(
-            COMMAND ${PYTHON_CMD} scripts/generate_sdks.py --serviceName ${C_SERVICE_NAME} --apiVersion ${C_VERSION} --outputLocation ./
+            COMMAND ${PYTHON_CMD} scripts/generate_sdks.py --serviceName ${C_SERVICE_NAME} --apiVersion ${C_VERSION} ${ENABLE_VIRTUAL_OPERATIONS_ARG} --outputLocation ./
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
         LIST(APPEND SDK_BUILD_LIST ${C_SERVICE_NAME})        
@@ -202,6 +193,16 @@ function(add_sdks)
             foreach(SDK IN LISTS SDK_BUILD_LIST)
                 get_test_projects_for_service(${SDK} TEST_PROJECTS)
                 if(TEST_PROJECTS)
+                    if (NO_HTTP_CLIENT AND NOT "${SDK}" STREQUAL "core")
+                        set(NO_HTTP_CLIENT_SKIP_INTEGRATION_TEST ON)
+                        continue()
+                    endif()
+                    if (NOT ENABLE_VIRTUAL_OPERATIONS)
+                        if ("${SDK}" STREQUAL "transfer" OR "${SDK}" STREQUAL "s3-encryption")
+                            message(STATUS "Skip building ${SDK} integration tests because some tests need to override service operations, but ENABLE_VIRTUAL_OPERATIONS is switched off.")
+                            continue()
+                        endif()
+                    endif()
                     STRING(REPLACE "," ";" LIST_RESULT ${TEST_PROJECTS})
                     foreach(TEST_PROJECT IN LISTS LIST_RESULT)
                         if(TEST_PROJECT)                         
@@ -226,6 +227,10 @@ function(add_sdks)
                     endforeach()
                 endif()
              endforeach()
+             if (NO_HTTP_CLIENT_SKIP_INTEGRATION_TEST)
+                 message(STATUS "No http client is specified, SDK will not build integration tests")
+             endif()
+             unset(NO_HTTP_CLIENT_SKIP_INTEGRATION_TEST)
         endif()
     endif()
 

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PartListElement();
-    PartListElement(const Aws::Utils::Json::JsonValue& jsonValue);
-    PartListElement& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PartListElement(Aws::Utils::Json::JsonView jsonValue);
+    PartListElement& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The byte range of a part, inclusive of the upper value of the range.</p>
      */
     inline const Aws::String& GetRangeInBytes() const{ return m_rangeInBytes; }
+
+    /**
+     * <p>The byte range of a part, inclusive of the upper value of the range.</p>
+     */
+    inline bool RangeInBytesHasBeenSet() const { return m_rangeInBytesHasBeenSet; }
 
     /**
      * <p>The byte range of a part, inclusive of the upper value of the range.</p>
@@ -84,44 +90,50 @@ namespace Model
 
 
     /**
-     * <p>The SHA256 tree hash value that Amazon Glacier calculated for the part. This
-     * field is never <code>null</code>.</p>
+     * <p>The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+     * This field is never <code>null</code>.</p>
      */
     inline const Aws::String& GetSHA256TreeHash() const{ return m_sHA256TreeHash; }
 
     /**
-     * <p>The SHA256 tree hash value that Amazon Glacier calculated for the part. This
-     * field is never <code>null</code>.</p>
+     * <p>The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+     * This field is never <code>null</code>.</p>
+     */
+    inline bool SHA256TreeHashHasBeenSet() const { return m_sHA256TreeHashHasBeenSet; }
+
+    /**
+     * <p>The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+     * This field is never <code>null</code>.</p>
      */
     inline void SetSHA256TreeHash(const Aws::String& value) { m_sHA256TreeHashHasBeenSet = true; m_sHA256TreeHash = value; }
 
     /**
-     * <p>The SHA256 tree hash value that Amazon Glacier calculated for the part. This
-     * field is never <code>null</code>.</p>
+     * <p>The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+     * This field is never <code>null</code>.</p>
      */
     inline void SetSHA256TreeHash(Aws::String&& value) { m_sHA256TreeHashHasBeenSet = true; m_sHA256TreeHash = std::move(value); }
 
     /**
-     * <p>The SHA256 tree hash value that Amazon Glacier calculated for the part. This
-     * field is never <code>null</code>.</p>
+     * <p>The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+     * This field is never <code>null</code>.</p>
      */
     inline void SetSHA256TreeHash(const char* value) { m_sHA256TreeHashHasBeenSet = true; m_sHA256TreeHash.assign(value); }
 
     /**
-     * <p>The SHA256 tree hash value that Amazon Glacier calculated for the part. This
-     * field is never <code>null</code>.</p>
+     * <p>The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+     * This field is never <code>null</code>.</p>
      */
     inline PartListElement& WithSHA256TreeHash(const Aws::String& value) { SetSHA256TreeHash(value); return *this;}
 
     /**
-     * <p>The SHA256 tree hash value that Amazon Glacier calculated for the part. This
-     * field is never <code>null</code>.</p>
+     * <p>The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+     * This field is never <code>null</code>.</p>
      */
     inline PartListElement& WithSHA256TreeHash(Aws::String&& value) { SetSHA256TreeHash(std::move(value)); return *this;}
 
     /**
-     * <p>The SHA256 tree hash value that Amazon Glacier calculated for the part. This
-     * field is never <code>null</code>.</p>
+     * <p>The SHA256 tree hash value that Amazon S3 Glacier calculated for the part.
+     * This field is never <code>null</code>.</p>
      */
     inline PartListElement& WithSHA256TreeHash(const char* value) { SetSHA256TreeHash(value); return *this;}
 

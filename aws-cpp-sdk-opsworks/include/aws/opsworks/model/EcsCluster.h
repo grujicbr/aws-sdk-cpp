@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     EcsCluster();
-    EcsCluster(const Aws::Utils::Json::JsonValue& jsonValue);
-    EcsCluster& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EcsCluster(Aws::Utils::Json::JsonView jsonValue);
+    EcsCluster& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The cluster's ARN.</p>
      */
     inline const Aws::String& GetEcsClusterArn() const{ return m_ecsClusterArn; }
+
+    /**
+     * <p>The cluster's ARN.</p>
+     */
+    inline bool EcsClusterArnHasBeenSet() const { return m_ecsClusterArnHasBeenSet; }
 
     /**
      * <p>The cluster's ARN.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The cluster name.</p>
      */
+    inline bool EcsClusterNameHasBeenSet() const { return m_ecsClusterNameHasBeenSet; }
+
+    /**
+     * <p>The cluster name.</p>
+     */
     inline void SetEcsClusterName(const Aws::String& value) { m_ecsClusterNameHasBeenSet = true; m_ecsClusterName = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
     /**
      * <p>The stack ID.</p>
      */
+    inline bool StackIdHasBeenSet() const { return m_stackIdHasBeenSet; }
+
+    /**
+     * <p>The stack ID.</p>
+     */
     inline void SetStackId(const Aws::String& value) { m_stackIdHasBeenSet = true; m_stackId = value; }
 
     /**
@@ -158,6 +174,11 @@ namespace Model
      * <p>The time and date that the cluster was registered with the stack.</p>
      */
     inline const Aws::String& GetRegisteredAt() const{ return m_registeredAt; }
+
+    /**
+     * <p>The time and date that the cluster was registered with the stack.</p>
+     */
+    inline bool RegisteredAtHasBeenSet() const { return m_registeredAtHasBeenSet; }
 
     /**
      * <p>The time and date that the cluster was registered with the stack.</p>

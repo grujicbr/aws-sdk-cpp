@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * <p>Sends messge data to an AWS IoT Analytics channel.</p><p><h3>See Also:</h3>  
+   * <p>Sends message data to an AWS IoT Analytics channel.</p><p><h3>See Also:</h3> 
    * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/iot-2015-05-28/IotAnalyticsAction">AWS
    * API Reference</a></p>
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     IotAnalyticsAction();
-    IotAnalyticsAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    IotAnalyticsAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IotAnalyticsAction(Aws::Utils::Json::JsonView jsonValue);
+    IotAnalyticsAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * be sent.</p>
      */
     inline const Aws::String& GetChannelArn() const{ return m_channelArn; }
+
+    /**
+     * <p>(deprecated) The ARN of the IoT Analytics channel to which message data will
+     * be sent.</p>
+     */
+    inline bool ChannelArnHasBeenSet() const { return m_channelArnHasBeenSet; }
 
     /**
      * <p>(deprecated) The ARN of the IoT Analytics channel to which message data will
@@ -98,6 +105,11 @@ namespace Model
     /**
      * <p>The name of the IoT Analytics channel to which message data will be sent.</p>
      */
+    inline bool ChannelNameHasBeenSet() const { return m_channelNameHasBeenSet; }
+
+    /**
+     * <p>The name of the IoT Analytics channel to which message data will be sent.</p>
+     */
     inline void SetChannelName(const Aws::String& value) { m_channelNameHasBeenSet = true; m_channelName = value; }
 
     /**
@@ -131,6 +143,12 @@ namespace Model
      * to send message data via IoT Analytics (iotanalytics:BatchPutMessage).</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The ARN of the role which has a policy that grants IoT Analytics permission
+     * to send message data via IoT Analytics (iotanalytics:BatchPutMessage).</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The ARN of the role which has a policy that grants IoT Analytics permission

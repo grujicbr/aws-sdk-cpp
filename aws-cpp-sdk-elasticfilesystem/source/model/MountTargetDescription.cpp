@@ -36,11 +36,13 @@ MountTargetDescription::MountTargetDescription() :
     m_lifeCycleState(LifeCycleState::NOT_SET),
     m_lifeCycleStateHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
-    m_networkInterfaceIdHasBeenSet(false)
+    m_networkInterfaceIdHasBeenSet(false),
+    m_availabilityZoneIdHasBeenSet(false),
+    m_availabilityZoneNameHasBeenSet(false)
 {
 }
 
-MountTargetDescription::MountTargetDescription(const JsonValue& jsonValue) : 
+MountTargetDescription::MountTargetDescription(JsonView jsonValue) : 
     m_ownerIdHasBeenSet(false),
     m_mountTargetIdHasBeenSet(false),
     m_fileSystemIdHasBeenSet(false),
@@ -48,12 +50,14 @@ MountTargetDescription::MountTargetDescription(const JsonValue& jsonValue) :
     m_lifeCycleState(LifeCycleState::NOT_SET),
     m_lifeCycleStateHasBeenSet(false),
     m_ipAddressHasBeenSet(false),
-    m_networkInterfaceIdHasBeenSet(false)
+    m_networkInterfaceIdHasBeenSet(false),
+    m_availabilityZoneIdHasBeenSet(false),
+    m_availabilityZoneNameHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-MountTargetDescription& MountTargetDescription::operator =(const JsonValue& jsonValue)
+MountTargetDescription& MountTargetDescription::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("OwnerId"))
   {
@@ -104,6 +108,20 @@ MountTargetDescription& MountTargetDescription::operator =(const JsonValue& json
     m_networkInterfaceIdHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("AvailabilityZoneId"))
+  {
+    m_availabilityZoneId = jsonValue.GetString("AvailabilityZoneId");
+
+    m_availabilityZoneIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("AvailabilityZoneName"))
+  {
+    m_availabilityZoneName = jsonValue.GetString("AvailabilityZoneName");
+
+    m_availabilityZoneNameHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -149,6 +167,18 @@ JsonValue MountTargetDescription::Jsonize() const
   if(m_networkInterfaceIdHasBeenSet)
   {
    payload.WithString("NetworkInterfaceId", m_networkInterfaceId);
+
+  }
+
+  if(m_availabilityZoneIdHasBeenSet)
+  {
+   payload.WithString("AvailabilityZoneId", m_availabilityZoneId);
+
+  }
+
+  if(m_availabilityZoneNameHasBeenSet)
+  {
+   payload.WithString("AvailabilityZoneName", m_availabilityZoneName);
 
   }
 

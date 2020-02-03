@@ -50,7 +50,7 @@ AdjustmentType& AdjustmentType::operator =(const XmlNode& xmlNode)
     XmlNode adjustmentTypeNode = resultNode.FirstChild("AdjustmentType");
     if(!adjustmentTypeNode.IsNull())
     {
-      m_adjustmentType = StringUtils::Trim(adjustmentTypeNode.GetText().c_str());
+      m_adjustmentType = Aws::Utils::Xml::DecodeEscapedXmlText(adjustmentTypeNode.GetText());
       m_adjustmentTypeHasBeenSet = true;
     }
   }

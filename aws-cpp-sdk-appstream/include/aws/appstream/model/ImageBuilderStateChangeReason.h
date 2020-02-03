@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ImageBuilderStateChangeReason();
-    ImageBuilderStateChangeReason(const Aws::Utils::Json::JsonValue& jsonValue);
-    ImageBuilderStateChangeReason& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ImageBuilderStateChangeReason(Aws::Utils::Json::JsonView jsonValue);
+    ImageBuilderStateChangeReason& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The state change reason code.</p>
      */
     inline const ImageBuilderStateChangeReasonCode& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The state change reason code.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The state change reason code.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The state change reason message.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The state change reason message.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The state change reason message.</p>

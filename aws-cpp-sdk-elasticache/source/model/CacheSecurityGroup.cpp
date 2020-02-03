@@ -56,19 +56,19 @@ CacheSecurityGroup& CacheSecurityGroup::operator =(const XmlNode& xmlNode)
     XmlNode ownerIdNode = resultNode.FirstChild("OwnerId");
     if(!ownerIdNode.IsNull())
     {
-      m_ownerId = StringUtils::Trim(ownerIdNode.GetText().c_str());
+      m_ownerId = Aws::Utils::Xml::DecodeEscapedXmlText(ownerIdNode.GetText());
       m_ownerIdHasBeenSet = true;
     }
     XmlNode cacheSecurityGroupNameNode = resultNode.FirstChild("CacheSecurityGroupName");
     if(!cacheSecurityGroupNameNode.IsNull())
     {
-      m_cacheSecurityGroupName = StringUtils::Trim(cacheSecurityGroupNameNode.GetText().c_str());
+      m_cacheSecurityGroupName = Aws::Utils::Xml::DecodeEscapedXmlText(cacheSecurityGroupNameNode.GetText());
       m_cacheSecurityGroupNameHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode eC2SecurityGroupsNode = resultNode.FirstChild("EC2SecurityGroups");

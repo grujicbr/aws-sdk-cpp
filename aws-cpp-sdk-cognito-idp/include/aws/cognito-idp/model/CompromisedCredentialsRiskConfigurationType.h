@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     CompromisedCredentialsRiskConfigurationType();
-    CompromisedCredentialsRiskConfigurationType(const Aws::Utils::Json::JsonValue& jsonValue);
-    CompromisedCredentialsRiskConfigurationType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CompromisedCredentialsRiskConfigurationType(Aws::Utils::Json::JsonView jsonValue);
+    CompromisedCredentialsRiskConfigurationType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * no event filter is specified.</p>
      */
     inline const Aws::Vector<EventFilterType>& GetEventFilter() const{ return m_eventFilter; }
+
+    /**
+     * <p>Perform the action for these events. The default is to perform all events if
+     * no event filter is specified.</p>
+     */
+    inline bool EventFilterHasBeenSet() const { return m_eventFilterHasBeenSet; }
 
     /**
      * <p>Perform the action for these events. The default is to perform all events if
@@ -96,6 +103,11 @@ namespace Model
      * <p>The compromised credentials risk configuration actions.</p>
      */
     inline const CompromisedCredentialsActionsType& GetActions() const{ return m_actions; }
+
+    /**
+     * <p>The compromised credentials risk configuration actions.</p>
+     */
+    inline bool ActionsHasBeenSet() const { return m_actionsHasBeenSet; }
 
     /**
      * <p>The compromised credentials risk configuration actions.</p>

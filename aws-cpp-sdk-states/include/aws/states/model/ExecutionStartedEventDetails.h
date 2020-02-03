@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ExecutionStartedEventDetails();
-    ExecutionStartedEventDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExecutionStartedEventDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExecutionStartedEventDetails(Aws::Utils::Json::JsonView jsonValue);
+    ExecutionStartedEventDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The JSON data input to the execution.</p>
      */
     inline const Aws::String& GetInput() const{ return m_input; }
+
+    /**
+     * <p>The JSON data input to the execution.</p>
+     */
+    inline bool InputHasBeenSet() const { return m_inputHasBeenSet; }
 
     /**
      * <p>The JSON data input to the execution.</p>
@@ -88,6 +94,12 @@ namespace Model
      * tasks.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role used for executing AWS Lambda
+     * tasks.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role used for executing AWS Lambda

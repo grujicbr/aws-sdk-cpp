@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     BootstrapActionConfig();
-    BootstrapActionConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    BootstrapActionConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BootstrapActionConfig(Aws::Utils::Json::JsonView jsonValue);
+    BootstrapActionConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the bootstrap action.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the bootstrap action.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the bootstrap action.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The script run by the bootstrap action.</p>
      */
     inline const ScriptBootstrapActionConfig& GetScriptBootstrapAction() const{ return m_scriptBootstrapAction; }
+
+    /**
+     * <p>The script run by the bootstrap action.</p>
+     */
+    inline bool ScriptBootstrapActionHasBeenSet() const { return m_scriptBootstrapActionHasBeenSet; }
 
     /**
      * <p>The script run by the bootstrap action.</p>

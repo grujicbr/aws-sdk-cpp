@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     BatchAttachToIndexResponse();
-    BatchAttachToIndexResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchAttachToIndexResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchAttachToIndexResponse(Aws::Utils::Json::JsonView jsonValue);
+    BatchAttachToIndexResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * index.</p>
      */
     inline const Aws::String& GetAttachedObjectIdentifier() const{ return m_attachedObjectIdentifier; }
+
+    /**
+     * <p>The <code>ObjectIdentifier</code> of the object that was attached to the
+     * index.</p>
+     */
+    inline bool AttachedObjectIdentifierHasBeenSet() const { return m_attachedObjectIdentifierHasBeenSet; }
 
     /**
      * <p>The <code>ObjectIdentifier</code> of the object that was attached to the

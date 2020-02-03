@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -35,7 +36,8 @@ namespace Model
 {
 
   /**
-   * Creating application setting request<p><h3>See Also:</h3>   <a
+   * <p>Specifies the default settings for an application.</p><p><h3>See Also:</h3>  
+   * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/WriteApplicationSettingsRequest">AWS
    * API Reference</a></p>
    */
@@ -43,116 +45,257 @@ namespace Model
   {
   public:
     WriteApplicationSettingsRequest();
-    WriteApplicationSettingsRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    WriteApplicationSettingsRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WriteApplicationSettingsRequest(Aws::Utils::Json::JsonView jsonValue);
+    WriteApplicationSettingsRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * Default campaign hook information.
+     * <p>The settings for the AWS Lambda function to use by default as a code hook for
+     * campaigns in the application. To override these settings for a specific
+     * campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom Lambda function settings for the campaign.</p>
      */
     inline const CampaignHook& GetCampaignHook() const{ return m_campaignHook; }
 
     /**
-     * Default campaign hook information.
+     * <p>The settings for the AWS Lambda function to use by default as a code hook for
+     * campaigns in the application. To override these settings for a specific
+     * campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom Lambda function settings for the campaign.</p>
+     */
+    inline bool CampaignHookHasBeenSet() const { return m_campaignHookHasBeenSet; }
+
+    /**
+     * <p>The settings for the AWS Lambda function to use by default as a code hook for
+     * campaigns in the application. To override these settings for a specific
+     * campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom Lambda function settings for the campaign.</p>
      */
     inline void SetCampaignHook(const CampaignHook& value) { m_campaignHookHasBeenSet = true; m_campaignHook = value; }
 
     /**
-     * Default campaign hook information.
+     * <p>The settings for the AWS Lambda function to use by default as a code hook for
+     * campaigns in the application. To override these settings for a specific
+     * campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom Lambda function settings for the campaign.</p>
      */
     inline void SetCampaignHook(CampaignHook&& value) { m_campaignHookHasBeenSet = true; m_campaignHook = std::move(value); }
 
     /**
-     * Default campaign hook information.
+     * <p>The settings for the AWS Lambda function to use by default as a code hook for
+     * campaigns in the application. To override these settings for a specific
+     * campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom Lambda function settings for the campaign.</p>
      */
     inline WriteApplicationSettingsRequest& WithCampaignHook(const CampaignHook& value) { SetCampaignHook(value); return *this;}
 
     /**
-     * Default campaign hook information.
+     * <p>The settings for the AWS Lambda function to use by default as a code hook for
+     * campaigns in the application. To override these settings for a specific
+     * campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom Lambda function settings for the campaign.</p>
      */
     inline WriteApplicationSettingsRequest& WithCampaignHook(CampaignHook&& value) { SetCampaignHook(std::move(value)); return *this;}
 
 
     /**
-     * The CloudWatchMetrics settings for the app.
+     * <p>Specifies whether to enable application-related alarms in Amazon
+     * CloudWatch.</p>
      */
     inline bool GetCloudWatchMetricsEnabled() const{ return m_cloudWatchMetricsEnabled; }
 
     /**
-     * The CloudWatchMetrics settings for the app.
+     * <p>Specifies whether to enable application-related alarms in Amazon
+     * CloudWatch.</p>
+     */
+    inline bool CloudWatchMetricsEnabledHasBeenSet() const { return m_cloudWatchMetricsEnabledHasBeenSet; }
+
+    /**
+     * <p>Specifies whether to enable application-related alarms in Amazon
+     * CloudWatch.</p>
      */
     inline void SetCloudWatchMetricsEnabled(bool value) { m_cloudWatchMetricsEnabledHasBeenSet = true; m_cloudWatchMetricsEnabled = value; }
 
     /**
-     * The CloudWatchMetrics settings for the app.
+     * <p>Specifies whether to enable application-related alarms in Amazon
+     * CloudWatch.</p>
      */
     inline WriteApplicationSettingsRequest& WithCloudWatchMetricsEnabled(bool value) { SetCloudWatchMetricsEnabled(value); return *this;}
 
 
     /**
-     * The default campaign limits for the app. These limits apply to each campaign for
-     * the app, unless the campaign overrides the default with limits of its own.
+     * <p>The default sending limits for campaigns in the application. To override
+     * these limits for a specific campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom limits for the campaign.</p>
      */
     inline const CampaignLimits& GetLimits() const{ return m_limits; }
 
     /**
-     * The default campaign limits for the app. These limits apply to each campaign for
-     * the app, unless the campaign overrides the default with limits of its own.
+     * <p>The default sending limits for campaigns in the application. To override
+     * these limits for a specific campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom limits for the campaign.</p>
+     */
+    inline bool LimitsHasBeenSet() const { return m_limitsHasBeenSet; }
+
+    /**
+     * <p>The default sending limits for campaigns in the application. To override
+     * these limits for a specific campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom limits for the campaign.</p>
      */
     inline void SetLimits(const CampaignLimits& value) { m_limitsHasBeenSet = true; m_limits = value; }
 
     /**
-     * The default campaign limits for the app. These limits apply to each campaign for
-     * the app, unless the campaign overrides the default with limits of its own.
+     * <p>The default sending limits for campaigns in the application. To override
+     * these limits for a specific campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom limits for the campaign.</p>
      */
     inline void SetLimits(CampaignLimits&& value) { m_limitsHasBeenSet = true; m_limits = std::move(value); }
 
     /**
-     * The default campaign limits for the app. These limits apply to each campaign for
-     * the app, unless the campaign overrides the default with limits of its own.
+     * <p>The default sending limits for campaigns in the application. To override
+     * these limits for a specific campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom limits for the campaign.</p>
      */
     inline WriteApplicationSettingsRequest& WithLimits(const CampaignLimits& value) { SetLimits(value); return *this;}
 
     /**
-     * The default campaign limits for the app. These limits apply to each campaign for
-     * the app, unless the campaign overrides the default with limits of its own.
+     * <p>The default sending limits for campaigns in the application. To override
+     * these limits for a specific campaign, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
+     * define custom limits for the campaign.</p>
      */
     inline WriteApplicationSettingsRequest& WithLimits(CampaignLimits&& value) { SetLimits(std::move(value)); return *this;}
 
 
     /**
-     * The default quiet time for the app. Each campaign for this app sends no messages
-     * during this time unless the campaign overrides the default with a quiet time of
-     * its own.
+     * <p>The default quiet time for campaigns and journeys in the application. Quiet
+     * time is a specific time range when messages aren't sent to endpoints, if all the
+     * following conditions are met:</p> <ul><li><p>The EndpointDemographic.Timezone
+     * property of the endpoint is set to a valid value.</p></li> <li><p>The current
+     * time in the endpoint's time zone is later than or equal to the time specified by
+     * the QuietTime.Start property for the application (or a campaign or journey that
+     * has custom quiet time settings).</p></li> <li><p>The current time in the
+     * endpoint's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the application (or a campaign or journey that has
+     * custom quiet time settings).</p></li></ul> <p>If any of the preceding conditions
+     * isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.</p> <p>To override the default quiet time settings for
+     * a specific campaign or journey, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or
+     * the <link  linkend="apps-application-id-journeys-journey-id">Journey</link>
+     * resource to define a custom quiet time for the campaign or journey.</p>
      */
     inline const QuietTime& GetQuietTime() const{ return m_quietTime; }
 
     /**
-     * The default quiet time for the app. Each campaign for this app sends no messages
-     * during this time unless the campaign overrides the default with a quiet time of
-     * its own.
+     * <p>The default quiet time for campaigns and journeys in the application. Quiet
+     * time is a specific time range when messages aren't sent to endpoints, if all the
+     * following conditions are met:</p> <ul><li><p>The EndpointDemographic.Timezone
+     * property of the endpoint is set to a valid value.</p></li> <li><p>The current
+     * time in the endpoint's time zone is later than or equal to the time specified by
+     * the QuietTime.Start property for the application (or a campaign or journey that
+     * has custom quiet time settings).</p></li> <li><p>The current time in the
+     * endpoint's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the application (or a campaign or journey that has
+     * custom quiet time settings).</p></li></ul> <p>If any of the preceding conditions
+     * isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.</p> <p>To override the default quiet time settings for
+     * a specific campaign or journey, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or
+     * the <link  linkend="apps-application-id-journeys-journey-id">Journey</link>
+     * resource to define a custom quiet time for the campaign or journey.</p>
+     */
+    inline bool QuietTimeHasBeenSet() const { return m_quietTimeHasBeenSet; }
+
+    /**
+     * <p>The default quiet time for campaigns and journeys in the application. Quiet
+     * time is a specific time range when messages aren't sent to endpoints, if all the
+     * following conditions are met:</p> <ul><li><p>The EndpointDemographic.Timezone
+     * property of the endpoint is set to a valid value.</p></li> <li><p>The current
+     * time in the endpoint's time zone is later than or equal to the time specified by
+     * the QuietTime.Start property for the application (or a campaign or journey that
+     * has custom quiet time settings).</p></li> <li><p>The current time in the
+     * endpoint's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the application (or a campaign or journey that has
+     * custom quiet time settings).</p></li></ul> <p>If any of the preceding conditions
+     * isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.</p> <p>To override the default quiet time settings for
+     * a specific campaign or journey, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or
+     * the <link  linkend="apps-application-id-journeys-journey-id">Journey</link>
+     * resource to define a custom quiet time for the campaign or journey.</p>
      */
     inline void SetQuietTime(const QuietTime& value) { m_quietTimeHasBeenSet = true; m_quietTime = value; }
 
     /**
-     * The default quiet time for the app. Each campaign for this app sends no messages
-     * during this time unless the campaign overrides the default with a quiet time of
-     * its own.
+     * <p>The default quiet time for campaigns and journeys in the application. Quiet
+     * time is a specific time range when messages aren't sent to endpoints, if all the
+     * following conditions are met:</p> <ul><li><p>The EndpointDemographic.Timezone
+     * property of the endpoint is set to a valid value.</p></li> <li><p>The current
+     * time in the endpoint's time zone is later than or equal to the time specified by
+     * the QuietTime.Start property for the application (or a campaign or journey that
+     * has custom quiet time settings).</p></li> <li><p>The current time in the
+     * endpoint's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the application (or a campaign or journey that has
+     * custom quiet time settings).</p></li></ul> <p>If any of the preceding conditions
+     * isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.</p> <p>To override the default quiet time settings for
+     * a specific campaign or journey, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or
+     * the <link  linkend="apps-application-id-journeys-journey-id">Journey</link>
+     * resource to define a custom quiet time for the campaign or journey.</p>
      */
     inline void SetQuietTime(QuietTime&& value) { m_quietTimeHasBeenSet = true; m_quietTime = std::move(value); }
 
     /**
-     * The default quiet time for the app. Each campaign for this app sends no messages
-     * during this time unless the campaign overrides the default with a quiet time of
-     * its own.
+     * <p>The default quiet time for campaigns and journeys in the application. Quiet
+     * time is a specific time range when messages aren't sent to endpoints, if all the
+     * following conditions are met:</p> <ul><li><p>The EndpointDemographic.Timezone
+     * property of the endpoint is set to a valid value.</p></li> <li><p>The current
+     * time in the endpoint's time zone is later than or equal to the time specified by
+     * the QuietTime.Start property for the application (or a campaign or journey that
+     * has custom quiet time settings).</p></li> <li><p>The current time in the
+     * endpoint's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the application (or a campaign or journey that has
+     * custom quiet time settings).</p></li></ul> <p>If any of the preceding conditions
+     * isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.</p> <p>To override the default quiet time settings for
+     * a specific campaign or journey, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or
+     * the <link  linkend="apps-application-id-journeys-journey-id">Journey</link>
+     * resource to define a custom quiet time for the campaign or journey.</p>
      */
     inline WriteApplicationSettingsRequest& WithQuietTime(const QuietTime& value) { SetQuietTime(value); return *this;}
 
     /**
-     * The default quiet time for the app. Each campaign for this app sends no messages
-     * during this time unless the campaign overrides the default with a quiet time of
-     * its own.
+     * <p>The default quiet time for campaigns and journeys in the application. Quiet
+     * time is a specific time range when messages aren't sent to endpoints, if all the
+     * following conditions are met:</p> <ul><li><p>The EndpointDemographic.Timezone
+     * property of the endpoint is set to a valid value.</p></li> <li><p>The current
+     * time in the endpoint's time zone is later than or equal to the time specified by
+     * the QuietTime.Start property for the application (or a campaign or journey that
+     * has custom quiet time settings).</p></li> <li><p>The current time in the
+     * endpoint's time zone is earlier than or equal to the time specified by the
+     * QuietTime.End property for the application (or a campaign or journey that has
+     * custom quiet time settings).</p></li></ul> <p>If any of the preceding conditions
+     * isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.</p> <p>To override the default quiet time settings for
+     * a specific campaign or journey, use the <link 
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or
+     * the <link  linkend="apps-application-id-journeys-journey-id">Journey</link>
+     * resource to define a custom quiet time for the campaign or journey.</p>
      */
     inline WriteApplicationSettingsRequest& WithQuietTime(QuietTime&& value) { SetQuietTime(std::move(value)); return *this;}
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * <p>Object containing both the face metadata (stored in the back-end database)
+   * <p>Object containing both the face metadata (stored in the backend database),
    * and facial attributes that are detected but aren't stored in the
    * database.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/FaceRecord">AWS
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     FaceRecord();
-    FaceRecord(const Aws::Utils::Json::JsonValue& jsonValue);
-    FaceRecord& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FaceRecord(Aws::Utils::Json::JsonView jsonValue);
+    FaceRecord& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * the input image, and external image ID that you assigned. </p>
      */
     inline const Face& GetFace() const{ return m_face; }
+
+    /**
+     * <p>Describes the face properties such as the bounding box, face ID, image ID of
+     * the input image, and external image ID that you assigned. </p>
+     */
+    inline bool FaceHasBeenSet() const { return m_faceHasBeenSet; }
 
     /**
      * <p>Describes the face properties such as the bounding box, face ID, image ID of
@@ -84,6 +91,11 @@ namespace Model
      * <p>Structure containing attributes of the face that the algorithm detected.</p>
      */
     inline const FaceDetail& GetFaceDetail() const{ return m_faceDetail; }
+
+    /**
+     * <p>Structure containing attributes of the face that the algorithm detected.</p>
+     */
+    inline bool FaceDetailHasBeenSet() const { return m_faceDetailHasBeenSet; }
 
     /**
      * <p>Structure containing attributes of the face that the algorithm detected.</p>

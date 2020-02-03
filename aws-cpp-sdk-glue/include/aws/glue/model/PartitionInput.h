@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -37,7 +38,7 @@ namespace Model
 {
 
   /**
-   * <p>The structure used to create and update a partion.</p><p><h3>See Also:</h3>  
+   * <p>The structure used to create and update a partition.</p><p><h3>See Also:</h3>
    * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/PartitionInput">AWS
    * API Reference</a></p>
@@ -46,48 +47,89 @@ namespace Model
   {
   public:
     PartitionInput();
-    PartitionInput(const Aws::Utils::Json::JsonValue& jsonValue);
-    PartitionInput& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PartitionInput(Aws::Utils::Json::JsonView jsonValue);
+    PartitionInput& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The values of the partition.</p>
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
 
     /**
-     * <p>The values of the partition.</p>
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
+
+    /**
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
      */
     inline void SetValues(const Aws::Vector<Aws::String>& value) { m_valuesHasBeenSet = true; m_values = value; }
 
     /**
-     * <p>The values of the partition.</p>
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
      */
     inline void SetValues(Aws::Vector<Aws::String>&& value) { m_valuesHasBeenSet = true; m_values = std::move(value); }
 
     /**
-     * <p>The values of the partition.</p>
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
      */
     inline PartitionInput& WithValues(const Aws::Vector<Aws::String>& value) { SetValues(value); return *this;}
 
     /**
-     * <p>The values of the partition.</p>
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
      */
     inline PartitionInput& WithValues(Aws::Vector<Aws::String>&& value) { SetValues(std::move(value)); return *this;}
 
     /**
-     * <p>The values of the partition.</p>
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
      */
     inline PartitionInput& AddValues(const Aws::String& value) { m_valuesHasBeenSet = true; m_values.push_back(value); return *this; }
 
     /**
-     * <p>The values of the partition.</p>
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
      */
     inline PartitionInput& AddValues(Aws::String&& value) { m_valuesHasBeenSet = true; m_values.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>The values of the partition.</p>
+     * <p>The values of the partition. Although this parameter is not required by the
+     * SDK, you must specify this parameter for a valid input.</p> <p>The values for
+     * the keys for the new partition must be passed as an array of String objects that
+     * must be ordered in the same order as the partition keys appearing in the Amazon
+     * S3 prefix. Otherwise AWS Glue will add the values to the wrong keys.</p>
      */
     inline PartitionInput& AddValues(const char* value) { m_valuesHasBeenSet = true; m_values.push_back(value); return *this; }
 
@@ -96,6 +138,11 @@ namespace Model
      * <p>The last time at which the partition was accessed.</p>
      */
     inline const Aws::Utils::DateTime& GetLastAccessTime() const{ return m_lastAccessTime; }
+
+    /**
+     * <p>The last time at which the partition was accessed.</p>
+     */
+    inline bool LastAccessTimeHasBeenSet() const { return m_lastAccessTimeHasBeenSet; }
 
     /**
      * <p>The last time at which the partition was accessed.</p>
@@ -128,6 +175,12 @@ namespace Model
      * <p>Provides information about the physical location where the partition is
      * stored.</p>
      */
+    inline bool StorageDescriptorHasBeenSet() const { return m_storageDescriptorHasBeenSet; }
+
+    /**
+     * <p>Provides information about the physical location where the partition is
+     * stored.</p>
+     */
     inline void SetStorageDescriptor(const StorageDescriptor& value) { m_storageDescriptorHasBeenSet = true; m_storageDescriptor = value; }
 
     /**
@@ -150,62 +203,67 @@ namespace Model
 
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetParameters() const{ return m_parameters; }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
+     */
+    inline bool ParametersHasBeenSet() const { return m_parametersHasBeenSet; }
+
+    /**
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline void SetParameters(const Aws::Map<Aws::String, Aws::String>& value) { m_parametersHasBeenSet = true; m_parameters = value; }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline void SetParameters(Aws::Map<Aws::String, Aws::String>&& value) { m_parametersHasBeenSet = true; m_parameters = std::move(value); }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& WithParameters(const Aws::Map<Aws::String, Aws::String>& value) { SetParameters(value); return *this;}
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& WithParameters(Aws::Map<Aws::String, Aws::String>&& value) { SetParameters(std::move(value)); return *this;}
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& AddParameters(const Aws::String& key, const Aws::String& value) { m_parametersHasBeenSet = true; m_parameters.emplace(key, value); return *this; }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& AddParameters(Aws::String&& key, const Aws::String& value) { m_parametersHasBeenSet = true; m_parameters.emplace(std::move(key), value); return *this; }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& AddParameters(const Aws::String& key, Aws::String&& value) { m_parametersHasBeenSet = true; m_parameters.emplace(key, std::move(value)); return *this; }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& AddParameters(Aws::String&& key, Aws::String&& value) { m_parametersHasBeenSet = true; m_parameters.emplace(std::move(key), std::move(value)); return *this; }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& AddParameters(const char* key, Aws::String&& value) { m_parametersHasBeenSet = true; m_parameters.emplace(key, std::move(value)); return *this; }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& AddParameters(Aws::String&& key, const char* value) { m_parametersHasBeenSet = true; m_parameters.emplace(std::move(key), value); return *this; }
 
     /**
-     * <p>Partition parameters, in the form of a list of key-value pairs.</p>
+     * <p>These key-value pairs define partition parameters.</p>
      */
     inline PartitionInput& AddParameters(const char* key, const char* value) { m_parametersHasBeenSet = true; m_parameters.emplace(key, value); return *this; }
 
@@ -215,6 +273,12 @@ namespace Model
      * partition.</p>
      */
     inline const Aws::Utils::DateTime& GetLastAnalyzedTime() const{ return m_lastAnalyzedTime; }
+
+    /**
+     * <p>The last time at which column statistics were computed for this
+     * partition.</p>
+     */
+    inline bool LastAnalyzedTimeHasBeenSet() const { return m_lastAnalyzedTimeHasBeenSet; }
 
     /**
      * <p>The last time at which column statistics were computed for this

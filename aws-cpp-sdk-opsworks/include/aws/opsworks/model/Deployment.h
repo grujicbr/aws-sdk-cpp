@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Deployment();
-    Deployment(const Aws::Utils::Json::JsonValue& jsonValue);
-    Deployment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Deployment(Aws::Utils::Json::JsonView jsonValue);
+    Deployment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The deployment ID.</p>
      */
     inline const Aws::String& GetDeploymentId() const{ return m_deploymentId; }
+
+    /**
+     * <p>The deployment ID.</p>
+     */
+    inline bool DeploymentIdHasBeenSet() const { return m_deploymentIdHasBeenSet; }
 
     /**
      * <p>The deployment ID.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The stack ID.</p>
      */
+    inline bool StackIdHasBeenSet() const { return m_stackIdHasBeenSet; }
+
+    /**
+     * <p>The stack ID.</p>
+     */
     inline void SetStackId(const Aws::String& value) { m_stackIdHasBeenSet = true; m_stackId = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The app ID.</p>
      */
     inline const Aws::String& GetAppId() const{ return m_appId; }
+
+    /**
+     * <p>The app ID.</p>
+     */
+    inline bool AppIdHasBeenSet() const { return m_appIdHasBeenSet; }
 
     /**
      * <p>The app ID.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>Date when the deployment was created.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>Date when the deployment was created.</p>
+     */
     inline void SetCreatedAt(const Aws::String& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -196,6 +217,11 @@ namespace Model
      * <p>Date when the deployment completed.</p>
      */
     inline const Aws::String& GetCompletedAt() const{ return m_completedAt; }
+
+    /**
+     * <p>Date when the deployment completed.</p>
+     */
+    inline bool CompletedAtHasBeenSet() const { return m_completedAtHasBeenSet; }
 
     /**
      * <p>Date when the deployment completed.</p>
@@ -236,6 +262,11 @@ namespace Model
     /**
      * <p>The deployment duration.</p>
      */
+    inline bool DurationHasBeenSet() const { return m_durationHasBeenSet; }
+
+    /**
+     * <p>The deployment duration.</p>
+     */
     inline void SetDuration(int value) { m_durationHasBeenSet = true; m_duration = value; }
 
     /**
@@ -248,6 +279,11 @@ namespace Model
      * <p>The user's IAM ARN.</p>
      */
     inline const Aws::String& GetIamUserArn() const{ return m_iamUserArn; }
+
+    /**
+     * <p>The user's IAM ARN.</p>
+     */
+    inline bool IamUserArnHasBeenSet() const { return m_iamUserArnHasBeenSet; }
 
     /**
      * <p>The user's IAM ARN.</p>
@@ -288,6 +324,11 @@ namespace Model
     /**
      * <p>A user-defined comment.</p>
      */
+    inline bool CommentHasBeenSet() const { return m_commentHasBeenSet; }
+
+    /**
+     * <p>A user-defined comment.</p>
+     */
     inline void SetComment(const Aws::String& value) { m_commentHasBeenSet = true; m_comment = value; }
 
     /**
@@ -316,19 +357,34 @@ namespace Model
     inline Deployment& WithComment(const char* value) { SetComment(value); return *this;}
 
 
-    
+    /**
+     * <p>Used to specify a stack or deployment command.</p>
+     */
     inline const DeploymentCommand& GetCommand() const{ return m_command; }
 
-    
+    /**
+     * <p>Used to specify a stack or deployment command.</p>
+     */
+    inline bool CommandHasBeenSet() const { return m_commandHasBeenSet; }
+
+    /**
+     * <p>Used to specify a stack or deployment command.</p>
+     */
     inline void SetCommand(const DeploymentCommand& value) { m_commandHasBeenSet = true; m_command = value; }
 
-    
+    /**
+     * <p>Used to specify a stack or deployment command.</p>
+     */
     inline void SetCommand(DeploymentCommand&& value) { m_commandHasBeenSet = true; m_command = std::move(value); }
 
-    
+    /**
+     * <p>Used to specify a stack or deployment command.</p>
+     */
     inline Deployment& WithCommand(const DeploymentCommand& value) { SetCommand(value); return *this;}
 
-    
+    /**
+     * <p>Used to specify a stack or deployment command.</p>
+     */
     inline Deployment& WithCommand(DeploymentCommand&& value) { SetCommand(std::move(value)); return *this;}
 
 
@@ -337,6 +393,12 @@ namespace Model
      * <p>successful</p> </li> <li> <p>failed</p> </li> </ul>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The deployment status:</p> <ul> <li> <p>running</p> </li> <li>
+     * <p>successful</p> </li> <li> <p>failed</p> </li> </ul>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The deployment status:</p> <ul> <li> <p>running</p> </li> <li>
@@ -381,7 +443,7 @@ namespace Model
      * pass data to recipes. The string should be in the following format:</p> <p>
      * <code>"{\"key1\": \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more
      * information on custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline const Aws::String& GetCustomJson() const{ return m_customJson; }
@@ -392,7 +454,18 @@ namespace Model
      * pass data to recipes. The string should be in the following format:</p> <p>
      * <code>"{\"key1\": \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more
      * information on custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
+     */
+    inline bool CustomJsonHasBeenSet() const { return m_customJsonHasBeenSet; }
+
+    /**
+     * <p>A string that contains user-defined custom JSON. It can be used to override
+     * the corresponding default stack configuration attribute values for stack or to
+     * pass data to recipes. The string should be in the following format:</p> <p>
+     * <code>"{\"key1\": \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more
+     * information on custom JSON, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline void SetCustomJson(const Aws::String& value) { m_customJsonHasBeenSet = true; m_customJson = value; }
@@ -403,7 +476,7 @@ namespace Model
      * pass data to recipes. The string should be in the following format:</p> <p>
      * <code>"{\"key1\": \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more
      * information on custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline void SetCustomJson(Aws::String&& value) { m_customJsonHasBeenSet = true; m_customJson = std::move(value); }
@@ -414,7 +487,7 @@ namespace Model
      * pass data to recipes. The string should be in the following format:</p> <p>
      * <code>"{\"key1\": \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more
      * information on custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline void SetCustomJson(const char* value) { m_customJsonHasBeenSet = true; m_customJson.assign(value); }
@@ -425,7 +498,7 @@ namespace Model
      * pass data to recipes. The string should be in the following format:</p> <p>
      * <code>"{\"key1\": \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more
      * information on custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline Deployment& WithCustomJson(const Aws::String& value) { SetCustomJson(value); return *this;}
@@ -436,7 +509,7 @@ namespace Model
      * pass data to recipes. The string should be in the following format:</p> <p>
      * <code>"{\"key1\": \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more
      * information on custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline Deployment& WithCustomJson(Aws::String&& value) { SetCustomJson(std::move(value)); return *this;}
@@ -447,7 +520,7 @@ namespace Model
      * pass data to recipes. The string should be in the following format:</p> <p>
      * <code>"{\"key1\": \"value1\", \"key2\": \"value2\",...}"</code> </p> <p>For more
      * information on custom JSON, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration Attributes</a>.</p>
      */
     inline Deployment& WithCustomJson(const char* value) { SetCustomJson(value); return *this;}
@@ -457,6 +530,11 @@ namespace Model
      * <p>The IDs of the target instances.</p>
      */
     inline const Aws::Vector<Aws::String>& GetInstanceIds() const{ return m_instanceIds; }
+
+    /**
+     * <p>The IDs of the target instances.</p>
+     */
+    inline bool InstanceIdsHasBeenSet() const { return m_instanceIdsHasBeenSet; }
 
     /**
      * <p>The IDs of the target instances.</p>

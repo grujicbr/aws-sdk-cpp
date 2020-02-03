@@ -25,6 +25,7 @@ using namespace Aws::Utils;
 FilterLogEventsRequest::FilterLogEventsRequest() : 
     m_logGroupNameHasBeenSet(false),
     m_logStreamNamesHasBeenSet(false),
+    m_logStreamNamePrefixHasBeenSet(false),
     m_startTime(0),
     m_startTimeHasBeenSet(false),
     m_endTime(0),
@@ -32,9 +33,7 @@ FilterLogEventsRequest::FilterLogEventsRequest() :
     m_filterPatternHasBeenSet(false),
     m_nextTokenHasBeenSet(false),
     m_limit(0),
-    m_limitHasBeenSet(false),
-    m_interleaved(false),
-    m_interleavedHasBeenSet(false)
+    m_limitHasBeenSet(false)
 {
 }
 
@@ -56,6 +55,12 @@ Aws::String FilterLogEventsRequest::SerializePayload() const
      logStreamNamesJsonList[logStreamNamesIndex].AsString(m_logStreamNames[logStreamNamesIndex]);
    }
    payload.WithArray("logStreamNames", std::move(logStreamNamesJsonList));
+
+  }
+
+  if(m_logStreamNamePrefixHasBeenSet)
+  {
+   payload.WithString("logStreamNamePrefix", m_logStreamNamePrefix);
 
   }
 
@@ -89,13 +94,7 @@ Aws::String FilterLogEventsRequest::SerializePayload() const
 
   }
 
-  if(m_interleavedHasBeenSet)
-  {
-   payload.WithBool("interleaved", m_interleaved);
-
-  }
-
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection FilterLogEventsRequest::GetRequestSpecificHeaders() const

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ThingAttribute();
-    ThingAttribute(const Aws::Utils::Json::JsonValue& jsonValue);
-    ThingAttribute& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ThingAttribute(Aws::Utils::Json::JsonView jsonValue);
+    ThingAttribute& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the thing.</p>
      */
     inline const Aws::String& GetThingName() const{ return m_thingName; }
+
+    /**
+     * <p>The name of the thing.</p>
+     */
+    inline bool ThingNameHasBeenSet() const { return m_thingNameHasBeenSet; }
 
     /**
      * <p>The name of the thing.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The name of the thing type, if the thing has been associated with a type.</p>
      */
+    inline bool ThingTypeNameHasBeenSet() const { return m_thingTypeNameHasBeenSet; }
+
+    /**
+     * <p>The name of the thing type, if the thing has been associated with a type.</p>
+     */
     inline void SetThingTypeName(const Aws::String& value) { m_thingTypeNameHasBeenSet = true; m_thingTypeName = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
     /**
      * <p>The thing ARN.</p>
      */
+    inline bool ThingArnHasBeenSet() const { return m_thingArnHasBeenSet; }
+
+    /**
+     * <p>The thing ARN.</p>
+     */
     inline void SetThingArn(const Aws::String& value) { m_thingArnHasBeenSet = true; m_thingArn = value; }
 
     /**
@@ -160,6 +176,11 @@ namespace Model
      * <p>A list of thing attributes which are name-value pairs.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>A list of thing attributes which are name-value pairs.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>A list of thing attributes which are name-value pairs.</p>
@@ -221,6 +242,11 @@ namespace Model
      * <p>The version of the thing record in the registry.</p>
      */
     inline long long GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version of the thing record in the registry.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version of the thing record in the registry.</p>

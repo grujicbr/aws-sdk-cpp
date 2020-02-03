@@ -24,6 +24,7 @@ using namespace Aws::Utils;
 
 PutTargetsRequest::PutTargetsRequest() : 
     m_ruleHasBeenSet(false),
+    m_eventBusNameHasBeenSet(false),
     m_targetsHasBeenSet(false)
 {
 }
@@ -38,6 +39,12 @@ Aws::String PutTargetsRequest::SerializePayload() const
 
   }
 
+  if(m_eventBusNameHasBeenSet)
+  {
+   payload.WithString("EventBusName", m_eventBusName);
+
+  }
+
   if(m_targetsHasBeenSet)
   {
    Array<JsonValue> targetsJsonList(m_targets.size());
@@ -49,7 +56,7 @@ Aws::String PutTargetsRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection PutTargetsRequest::GetRequestSpecificHeaders() const

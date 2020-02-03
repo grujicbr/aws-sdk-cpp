@@ -28,7 +28,8 @@ CreateStreamRequest::CreateStreamRequest() :
     m_mediaTypeHasBeenSet(false),
     m_kmsKeyIdHasBeenSet(false),
     m_dataRetentionInHours(0),
-    m_dataRetentionInHoursHasBeenSet(false)
+    m_dataRetentionInHoursHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -66,7 +67,18 @@ Aws::String CreateStreamRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("Tags", std::move(tagsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

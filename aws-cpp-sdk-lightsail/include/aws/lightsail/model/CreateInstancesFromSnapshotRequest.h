@@ -19,6 +19,8 @@
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/core/utils/memory/stl/AWSMap.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/lightsail/model/Tag.h>
+#include <aws/lightsail/model/AddOnRequest.h>
 #include <aws/lightsail/model/DiskMap.h>
 #include <utility>
 
@@ -35,7 +37,7 @@ namespace Model
   {
   public:
     CreateInstancesFromSnapshotRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +53,11 @@ namespace Model
      * <p>The names for your new instances.</p>
      */
     inline const Aws::Vector<Aws::String>& GetInstanceNames() const{ return m_instanceNames; }
+
+    /**
+     * <p>The names for your new instances.</p>
+     */
+    inline bool InstanceNamesHasBeenSet() const { return m_instanceNamesHasBeenSet; }
 
     /**
      * <p>The names for your new instances.</p>
@@ -92,6 +99,11 @@ namespace Model
      * <p>An object containing information about one or more disk mappings.</p>
      */
     inline const Aws::Map<Aws::String, Aws::Vector<DiskMap>>& GetAttachedDiskMapping() const{ return m_attachedDiskMapping; }
+
+    /**
+     * <p>An object containing information about one or more disk mappings.</p>
+     */
+    inline bool AttachedDiskMappingHasBeenSet() const { return m_attachedDiskMappingHasBeenSet; }
 
     /**
      * <p>An object containing information about one or more disk mappings.</p>
@@ -147,70 +159,80 @@ namespace Model
     /**
      * <p>The Availability Zone where you want to create your instances. Use the
      * following formatting: <code>us-east-2a</code> (case sensitive). You can get a
-     * list of availability zones by using the <a
+     * list of Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
 
     /**
      * <p>The Availability Zone where you want to create your instances. Use the
      * following formatting: <code>us-east-2a</code> (case sensitive). You can get a
-     * list of availability zones by using the <a
+     * list of Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The Availability Zone where you want to create your instances. Use the
+     * following formatting: <code>us-east-2a</code> (case sensitive). You can get a
+     * list of Availability Zones by using the <a
+     * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline void SetAvailabilityZone(const Aws::String& value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone = value; }
 
     /**
      * <p>The Availability Zone where you want to create your instances. Use the
      * following formatting: <code>us-east-2a</code> (case sensitive). You can get a
-     * list of availability zones by using the <a
+     * list of Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline void SetAvailabilityZone(Aws::String&& value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone = std::move(value); }
 
     /**
      * <p>The Availability Zone where you want to create your instances. Use the
      * following formatting: <code>us-east-2a</code> (case sensitive). You can get a
-     * list of availability zones by using the <a
+     * list of Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline void SetAvailabilityZone(const char* value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone.assign(value); }
 
     /**
      * <p>The Availability Zone where you want to create your instances. Use the
      * following formatting: <code>us-east-2a</code> (case sensitive). You can get a
-     * list of availability zones by using the <a
+     * list of Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline CreateInstancesFromSnapshotRequest& WithAvailabilityZone(const Aws::String& value) { SetAvailabilityZone(value); return *this;}
 
     /**
      * <p>The Availability Zone where you want to create your instances. Use the
      * following formatting: <code>us-east-2a</code> (case sensitive). You can get a
-     * list of availability zones by using the <a
+     * list of Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline CreateInstancesFromSnapshotRequest& WithAvailabilityZone(Aws::String&& value) { SetAvailabilityZone(std::move(value)); return *this;}
 
     /**
      * <p>The Availability Zone where you want to create your instances. Use the
      * following formatting: <code>us-east-2a</code> (case sensitive). You can get a
-     * list of availability zones by using the <a
+     * list of Availability Zones by using the <a
      * href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
-     * regions</a> operation. Be sure to add the <code>include availability
-     * zones</code> parameter to your request.</p>
+     * regions</a> operation. Be sure to add the <code>include Availability
+     * Zones</code> parameter to your request.</p>
      */
     inline CreateInstancesFromSnapshotRequest& WithAvailabilityZone(const char* value) { SetAvailabilityZone(value); return *this;}
 
@@ -218,49 +240,80 @@ namespace Model
     /**
      * <p>The name of the instance snapshot on which you are basing your new instances.
      * Use the get instance snapshots operation to return information about your
-     * existing snapshots.</p>
+     * existing snapshots.</p> <p>Constraint:</p> <ul> <li> <p>This parameter cannot be
+     * defined together with the <code>source instance name</code> parameter. The
+     * <code>instance snapshot name</code> and <code>source instance name</code>
+     * parameters are mutually exclusive.</p> </li> </ul>
      */
     inline const Aws::String& GetInstanceSnapshotName() const{ return m_instanceSnapshotName; }
 
     /**
      * <p>The name of the instance snapshot on which you are basing your new instances.
      * Use the get instance snapshots operation to return information about your
-     * existing snapshots.</p>
+     * existing snapshots.</p> <p>Constraint:</p> <ul> <li> <p>This parameter cannot be
+     * defined together with the <code>source instance name</code> parameter. The
+     * <code>instance snapshot name</code> and <code>source instance name</code>
+     * parameters are mutually exclusive.</p> </li> </ul>
+     */
+    inline bool InstanceSnapshotNameHasBeenSet() const { return m_instanceSnapshotNameHasBeenSet; }
+
+    /**
+     * <p>The name of the instance snapshot on which you are basing your new instances.
+     * Use the get instance snapshots operation to return information about your
+     * existing snapshots.</p> <p>Constraint:</p> <ul> <li> <p>This parameter cannot be
+     * defined together with the <code>source instance name</code> parameter. The
+     * <code>instance snapshot name</code> and <code>source instance name</code>
+     * parameters are mutually exclusive.</p> </li> </ul>
      */
     inline void SetInstanceSnapshotName(const Aws::String& value) { m_instanceSnapshotNameHasBeenSet = true; m_instanceSnapshotName = value; }
 
     /**
      * <p>The name of the instance snapshot on which you are basing your new instances.
      * Use the get instance snapshots operation to return information about your
-     * existing snapshots.</p>
+     * existing snapshots.</p> <p>Constraint:</p> <ul> <li> <p>This parameter cannot be
+     * defined together with the <code>source instance name</code> parameter. The
+     * <code>instance snapshot name</code> and <code>source instance name</code>
+     * parameters are mutually exclusive.</p> </li> </ul>
      */
     inline void SetInstanceSnapshotName(Aws::String&& value) { m_instanceSnapshotNameHasBeenSet = true; m_instanceSnapshotName = std::move(value); }
 
     /**
      * <p>The name of the instance snapshot on which you are basing your new instances.
      * Use the get instance snapshots operation to return information about your
-     * existing snapshots.</p>
+     * existing snapshots.</p> <p>Constraint:</p> <ul> <li> <p>This parameter cannot be
+     * defined together with the <code>source instance name</code> parameter. The
+     * <code>instance snapshot name</code> and <code>source instance name</code>
+     * parameters are mutually exclusive.</p> </li> </ul>
      */
     inline void SetInstanceSnapshotName(const char* value) { m_instanceSnapshotNameHasBeenSet = true; m_instanceSnapshotName.assign(value); }
 
     /**
      * <p>The name of the instance snapshot on which you are basing your new instances.
      * Use the get instance snapshots operation to return information about your
-     * existing snapshots.</p>
+     * existing snapshots.</p> <p>Constraint:</p> <ul> <li> <p>This parameter cannot be
+     * defined together with the <code>source instance name</code> parameter. The
+     * <code>instance snapshot name</code> and <code>source instance name</code>
+     * parameters are mutually exclusive.</p> </li> </ul>
      */
     inline CreateInstancesFromSnapshotRequest& WithInstanceSnapshotName(const Aws::String& value) { SetInstanceSnapshotName(value); return *this;}
 
     /**
      * <p>The name of the instance snapshot on which you are basing your new instances.
      * Use the get instance snapshots operation to return information about your
-     * existing snapshots.</p>
+     * existing snapshots.</p> <p>Constraint:</p> <ul> <li> <p>This parameter cannot be
+     * defined together with the <code>source instance name</code> parameter. The
+     * <code>instance snapshot name</code> and <code>source instance name</code>
+     * parameters are mutually exclusive.</p> </li> </ul>
      */
     inline CreateInstancesFromSnapshotRequest& WithInstanceSnapshotName(Aws::String&& value) { SetInstanceSnapshotName(std::move(value)); return *this;}
 
     /**
      * <p>The name of the instance snapshot on which you are basing your new instances.
      * Use the get instance snapshots operation to return information about your
-     * existing snapshots.</p>
+     * existing snapshots.</p> <p>Constraint:</p> <ul> <li> <p>This parameter cannot be
+     * defined together with the <code>source instance name</code> parameter. The
+     * <code>instance snapshot name</code> and <code>source instance name</code>
+     * parameters are mutually exclusive.</p> </li> </ul>
      */
     inline CreateInstancesFromSnapshotRequest& WithInstanceSnapshotName(const char* value) { SetInstanceSnapshotName(value); return *this;}
 
@@ -270,6 +323,12 @@ namespace Model
      * <i>instance</i>), including the pricing plan (e.g., <code>micro_1_0</code>).</p>
      */
     inline const Aws::String& GetBundleId() const{ return m_bundleId; }
+
+    /**
+     * <p>The bundle of specification information for your virtual private server (or
+     * <i>instance</i>), including the pricing plan (e.g., <code>micro_1_0</code>).</p>
+     */
+    inline bool BundleIdHasBeenSet() const { return m_bundleIdHasBeenSet; }
 
     /**
      * <p>The bundle of specification information for your virtual private server (or
@@ -315,7 +374,7 @@ namespace Model
      * varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
      * <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list,
      * see the <a
-     * href="http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps">Dev
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
      * Guide</a>.</p> </note>
      */
     inline const Aws::String& GetUserData() const{ return m_userData; }
@@ -327,7 +386,19 @@ namespace Model
      * varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
      * <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list,
      * see the <a
-     * href="http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps">Dev
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
+     * Guide</a>.</p> </note>
+     */
+    inline bool UserDataHasBeenSet() const { return m_userDataHasBeenSet; }
+
+    /**
+     * <p>You can create a launch script that configures a server with additional user
+     * data. For example, <code>apt-get -y update</code>.</p> <note> <p>Depending on
+     * the machine image you choose, the command to get software on your instance
+     * varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
+     * <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
      * Guide</a>.</p> </note>
      */
     inline void SetUserData(const Aws::String& value) { m_userDataHasBeenSet = true; m_userData = value; }
@@ -339,7 +410,7 @@ namespace Model
      * varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
      * <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list,
      * see the <a
-     * href="http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps">Dev
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
      * Guide</a>.</p> </note>
      */
     inline void SetUserData(Aws::String&& value) { m_userDataHasBeenSet = true; m_userData = std::move(value); }
@@ -351,7 +422,7 @@ namespace Model
      * varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
      * <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list,
      * see the <a
-     * href="http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps">Dev
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
      * Guide</a>.</p> </note>
      */
     inline void SetUserData(const char* value) { m_userDataHasBeenSet = true; m_userData.assign(value); }
@@ -363,7 +434,7 @@ namespace Model
      * varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
      * <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list,
      * see the <a
-     * href="http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps">Dev
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
      * Guide</a>.</p> </note>
      */
     inline CreateInstancesFromSnapshotRequest& WithUserData(const Aws::String& value) { SetUserData(value); return *this;}
@@ -375,7 +446,7 @@ namespace Model
      * varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
      * <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list,
      * see the <a
-     * href="http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps">Dev
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
      * Guide</a>.</p> </note>
      */
     inline CreateInstancesFromSnapshotRequest& WithUserData(Aws::String&& value) { SetUserData(std::move(value)); return *this;}
@@ -387,7 +458,7 @@ namespace Model
      * varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
      * <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list,
      * see the <a
-     * href="http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps">Dev
+     * href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev
      * Guide</a>.</p> </note>
      */
     inline CreateInstancesFromSnapshotRequest& WithUserData(const char* value) { SetUserData(value); return *this;}
@@ -397,6 +468,11 @@ namespace Model
      * <p>The name for your key pair.</p>
      */
     inline const Aws::String& GetKeyPairName() const{ return m_keyPairName; }
+
+    /**
+     * <p>The name for your key pair.</p>
+     */
+    inline bool KeyPairNameHasBeenSet() const { return m_keyPairNameHasBeenSet; }
 
     /**
      * <p>The name for your key pair.</p>
@@ -428,6 +504,387 @@ namespace Model
      */
     inline CreateInstancesFromSnapshotRequest& WithKeyPairName(const char* value) { SetKeyPairName(value); return *this;}
 
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline CreateInstancesFromSnapshotRequest& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>The tag keys and optional values to add to the resource during create.</p>
+     * <p>To tag a resource after it has been created, see the <code>tag
+     * resource</code> operation.</p>
+     */
+    inline CreateInstancesFromSnapshotRequest& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline const Aws::Vector<AddOnRequest>& GetAddOns() const{ return m_addOns; }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline bool AddOnsHasBeenSet() const { return m_addOnsHasBeenSet; }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline void SetAddOns(const Aws::Vector<AddOnRequest>& value) { m_addOnsHasBeenSet = true; m_addOns = value; }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline void SetAddOns(Aws::Vector<AddOnRequest>&& value) { m_addOnsHasBeenSet = true; m_addOns = std::move(value); }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithAddOns(const Aws::Vector<AddOnRequest>& value) { SetAddOns(value); return *this;}
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithAddOns(Aws::Vector<AddOnRequest>&& value) { SetAddOns(std::move(value)); return *this;}
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline CreateInstancesFromSnapshotRequest& AddAddOns(const AddOnRequest& value) { m_addOnsHasBeenSet = true; m_addOns.push_back(value); return *this; }
+
+    /**
+     * <p>An array of objects representing the add-ons to enable for the new
+     * instance.</p>
+     */
+    inline CreateInstancesFromSnapshotRequest& AddAddOns(AddOnRequest&& value) { m_addOnsHasBeenSet = true; m_addOns.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>The name of the source instance from which the source automatic snapshot was
+     * created.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>instance snapshot name</code> parameter. The
+     * <code>source instance name</code> and <code>instance snapshot name</code>
+     * parameters are mutually exclusive.</p> </li> <li> <p>Define this parameter only
+     * when creating a new instance from an automatic snapshot. For more information,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline const Aws::String& GetSourceInstanceName() const{ return m_sourceInstanceName; }
+
+    /**
+     * <p>The name of the source instance from which the source automatic snapshot was
+     * created.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>instance snapshot name</code> parameter. The
+     * <code>source instance name</code> and <code>instance snapshot name</code>
+     * parameters are mutually exclusive.</p> </li> <li> <p>Define this parameter only
+     * when creating a new instance from an automatic snapshot. For more information,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline bool SourceInstanceNameHasBeenSet() const { return m_sourceInstanceNameHasBeenSet; }
+
+    /**
+     * <p>The name of the source instance from which the source automatic snapshot was
+     * created.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>instance snapshot name</code> parameter. The
+     * <code>source instance name</code> and <code>instance snapshot name</code>
+     * parameters are mutually exclusive.</p> </li> <li> <p>Define this parameter only
+     * when creating a new instance from an automatic snapshot. For more information,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline void SetSourceInstanceName(const Aws::String& value) { m_sourceInstanceNameHasBeenSet = true; m_sourceInstanceName = value; }
+
+    /**
+     * <p>The name of the source instance from which the source automatic snapshot was
+     * created.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>instance snapshot name</code> parameter. The
+     * <code>source instance name</code> and <code>instance snapshot name</code>
+     * parameters are mutually exclusive.</p> </li> <li> <p>Define this parameter only
+     * when creating a new instance from an automatic snapshot. For more information,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline void SetSourceInstanceName(Aws::String&& value) { m_sourceInstanceNameHasBeenSet = true; m_sourceInstanceName = std::move(value); }
+
+    /**
+     * <p>The name of the source instance from which the source automatic snapshot was
+     * created.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>instance snapshot name</code> parameter. The
+     * <code>source instance name</code> and <code>instance snapshot name</code>
+     * parameters are mutually exclusive.</p> </li> <li> <p>Define this parameter only
+     * when creating a new instance from an automatic snapshot. For more information,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline void SetSourceInstanceName(const char* value) { m_sourceInstanceNameHasBeenSet = true; m_sourceInstanceName.assign(value); }
+
+    /**
+     * <p>The name of the source instance from which the source automatic snapshot was
+     * created.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>instance snapshot name</code> parameter. The
+     * <code>source instance name</code> and <code>instance snapshot name</code>
+     * parameters are mutually exclusive.</p> </li> <li> <p>Define this parameter only
+     * when creating a new instance from an automatic snapshot. For more information,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithSourceInstanceName(const Aws::String& value) { SetSourceInstanceName(value); return *this;}
+
+    /**
+     * <p>The name of the source instance from which the source automatic snapshot was
+     * created.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>instance snapshot name</code> parameter. The
+     * <code>source instance name</code> and <code>instance snapshot name</code>
+     * parameters are mutually exclusive.</p> </li> <li> <p>Define this parameter only
+     * when creating a new instance from an automatic snapshot. For more information,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithSourceInstanceName(Aws::String&& value) { SetSourceInstanceName(std::move(value)); return *this;}
+
+    /**
+     * <p>The name of the source instance from which the source automatic snapshot was
+     * created.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>instance snapshot name</code> parameter. The
+     * <code>source instance name</code> and <code>instance snapshot name</code>
+     * parameters are mutually exclusive.</p> </li> <li> <p>Define this parameter only
+     * when creating a new instance from an automatic snapshot. For more information,
+     * see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithSourceInstanceName(const char* value) { SetSourceInstanceName(value); return *this;}
+
+
+    /**
+     * <p>The date of the automatic snapshot to use for the new instance. Use the
+     * <code>get auto snapshots</code> operation to identify the dates of the available
+     * automatic snapshots.</p> <p>Constraints:</p> <ul> <li> <p>Must be specified in
+     * <code>YYYY-MM-DD</code> format.</p> </li> <li> <p>This parameter cannot be
+     * defined together with the <code>use latest restorable auto snapshot</code>
+     * parameter. The <code>restore date</code> and <code>use latest restorable auto
+     * snapshot</code> parameters are mutually exclusive.</p> </li> <li> <p>Define this
+     * parameter only when creating a new instance from an automatic snapshot. For more
+     * information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline const Aws::String& GetRestoreDate() const{ return m_restoreDate; }
+
+    /**
+     * <p>The date of the automatic snapshot to use for the new instance. Use the
+     * <code>get auto snapshots</code> operation to identify the dates of the available
+     * automatic snapshots.</p> <p>Constraints:</p> <ul> <li> <p>Must be specified in
+     * <code>YYYY-MM-DD</code> format.</p> </li> <li> <p>This parameter cannot be
+     * defined together with the <code>use latest restorable auto snapshot</code>
+     * parameter. The <code>restore date</code> and <code>use latest restorable auto
+     * snapshot</code> parameters are mutually exclusive.</p> </li> <li> <p>Define this
+     * parameter only when creating a new instance from an automatic snapshot. For more
+     * information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline bool RestoreDateHasBeenSet() const { return m_restoreDateHasBeenSet; }
+
+    /**
+     * <p>The date of the automatic snapshot to use for the new instance. Use the
+     * <code>get auto snapshots</code> operation to identify the dates of the available
+     * automatic snapshots.</p> <p>Constraints:</p> <ul> <li> <p>Must be specified in
+     * <code>YYYY-MM-DD</code> format.</p> </li> <li> <p>This parameter cannot be
+     * defined together with the <code>use latest restorable auto snapshot</code>
+     * parameter. The <code>restore date</code> and <code>use latest restorable auto
+     * snapshot</code> parameters are mutually exclusive.</p> </li> <li> <p>Define this
+     * parameter only when creating a new instance from an automatic snapshot. For more
+     * information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline void SetRestoreDate(const Aws::String& value) { m_restoreDateHasBeenSet = true; m_restoreDate = value; }
+
+    /**
+     * <p>The date of the automatic snapshot to use for the new instance. Use the
+     * <code>get auto snapshots</code> operation to identify the dates of the available
+     * automatic snapshots.</p> <p>Constraints:</p> <ul> <li> <p>Must be specified in
+     * <code>YYYY-MM-DD</code> format.</p> </li> <li> <p>This parameter cannot be
+     * defined together with the <code>use latest restorable auto snapshot</code>
+     * parameter. The <code>restore date</code> and <code>use latest restorable auto
+     * snapshot</code> parameters are mutually exclusive.</p> </li> <li> <p>Define this
+     * parameter only when creating a new instance from an automatic snapshot. For more
+     * information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline void SetRestoreDate(Aws::String&& value) { m_restoreDateHasBeenSet = true; m_restoreDate = std::move(value); }
+
+    /**
+     * <p>The date of the automatic snapshot to use for the new instance. Use the
+     * <code>get auto snapshots</code> operation to identify the dates of the available
+     * automatic snapshots.</p> <p>Constraints:</p> <ul> <li> <p>Must be specified in
+     * <code>YYYY-MM-DD</code> format.</p> </li> <li> <p>This parameter cannot be
+     * defined together with the <code>use latest restorable auto snapshot</code>
+     * parameter. The <code>restore date</code> and <code>use latest restorable auto
+     * snapshot</code> parameters are mutually exclusive.</p> </li> <li> <p>Define this
+     * parameter only when creating a new instance from an automatic snapshot. For more
+     * information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline void SetRestoreDate(const char* value) { m_restoreDateHasBeenSet = true; m_restoreDate.assign(value); }
+
+    /**
+     * <p>The date of the automatic snapshot to use for the new instance. Use the
+     * <code>get auto snapshots</code> operation to identify the dates of the available
+     * automatic snapshots.</p> <p>Constraints:</p> <ul> <li> <p>Must be specified in
+     * <code>YYYY-MM-DD</code> format.</p> </li> <li> <p>This parameter cannot be
+     * defined together with the <code>use latest restorable auto snapshot</code>
+     * parameter. The <code>restore date</code> and <code>use latest restorable auto
+     * snapshot</code> parameters are mutually exclusive.</p> </li> <li> <p>Define this
+     * parameter only when creating a new instance from an automatic snapshot. For more
+     * information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithRestoreDate(const Aws::String& value) { SetRestoreDate(value); return *this;}
+
+    /**
+     * <p>The date of the automatic snapshot to use for the new instance. Use the
+     * <code>get auto snapshots</code> operation to identify the dates of the available
+     * automatic snapshots.</p> <p>Constraints:</p> <ul> <li> <p>Must be specified in
+     * <code>YYYY-MM-DD</code> format.</p> </li> <li> <p>This parameter cannot be
+     * defined together with the <code>use latest restorable auto snapshot</code>
+     * parameter. The <code>restore date</code> and <code>use latest restorable auto
+     * snapshot</code> parameters are mutually exclusive.</p> </li> <li> <p>Define this
+     * parameter only when creating a new instance from an automatic snapshot. For more
+     * information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithRestoreDate(Aws::String&& value) { SetRestoreDate(std::move(value)); return *this;}
+
+    /**
+     * <p>The date of the automatic snapshot to use for the new instance. Use the
+     * <code>get auto snapshots</code> operation to identify the dates of the available
+     * automatic snapshots.</p> <p>Constraints:</p> <ul> <li> <p>Must be specified in
+     * <code>YYYY-MM-DD</code> format.</p> </li> <li> <p>This parameter cannot be
+     * defined together with the <code>use latest restorable auto snapshot</code>
+     * parameter. The <code>restore date</code> and <code>use latest restorable auto
+     * snapshot</code> parameters are mutually exclusive.</p> </li> <li> <p>Define this
+     * parameter only when creating a new instance from an automatic snapshot. For more
+     * information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithRestoreDate(const char* value) { SetRestoreDate(value); return *this;}
+
+
+    /**
+     * <p>A Boolean value to indicate whether to use the latest available automatic
+     * snapshot.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>restore date</code> parameter. The <code>use latest
+     * restorable auto snapshot</code> and <code>restore date</code> parameters are
+     * mutually exclusive.</p> </li> <li> <p>Define this parameter only when creating a
+     * new instance from an automatic snapshot. For more information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline bool GetUseLatestRestorableAutoSnapshot() const{ return m_useLatestRestorableAutoSnapshot; }
+
+    /**
+     * <p>A Boolean value to indicate whether to use the latest available automatic
+     * snapshot.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>restore date</code> parameter. The <code>use latest
+     * restorable auto snapshot</code> and <code>restore date</code> parameters are
+     * mutually exclusive.</p> </li> <li> <p>Define this parameter only when creating a
+     * new instance from an automatic snapshot. For more information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline bool UseLatestRestorableAutoSnapshotHasBeenSet() const { return m_useLatestRestorableAutoSnapshotHasBeenSet; }
+
+    /**
+     * <p>A Boolean value to indicate whether to use the latest available automatic
+     * snapshot.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>restore date</code> parameter. The <code>use latest
+     * restorable auto snapshot</code> and <code>restore date</code> parameters are
+     * mutually exclusive.</p> </li> <li> <p>Define this parameter only when creating a
+     * new instance from an automatic snapshot. For more information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline void SetUseLatestRestorableAutoSnapshot(bool value) { m_useLatestRestorableAutoSnapshotHasBeenSet = true; m_useLatestRestorableAutoSnapshot = value; }
+
+    /**
+     * <p>A Boolean value to indicate whether to use the latest available automatic
+     * snapshot.</p> <p>Constraints:</p> <ul> <li> <p>This parameter cannot be defined
+     * together with the <code>restore date</code> parameter. The <code>use latest
+     * restorable auto snapshot</code> and <code>restore date</code> parameters are
+     * mutually exclusive.</p> </li> <li> <p>Define this parameter only when creating a
+     * new instance from an automatic snapshot. For more information, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail
+     * Dev Guide</a>.</p> </li> </ul>
+     */
+    inline CreateInstancesFromSnapshotRequest& WithUseLatestRestorableAutoSnapshot(bool value) { SetUseLatestRestorableAutoSnapshot(value); return *this;}
+
   private:
 
     Aws::Vector<Aws::String> m_instanceNames;
@@ -450,6 +907,21 @@ namespace Model
 
     Aws::String m_keyPairName;
     bool m_keyPairNameHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
+
+    Aws::Vector<AddOnRequest> m_addOns;
+    bool m_addOnsHasBeenSet;
+
+    Aws::String m_sourceInstanceName;
+    bool m_sourceInstanceNameHasBeenSet;
+
+    Aws::String m_restoreDate;
+    bool m_restoreDateHasBeenSet;
+
+    bool m_useLatestRestorableAutoSnapshot;
+    bool m_useLatestRestorableAutoSnapshotHasBeenSet;
   };
 
 } // namespace Model

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudSearchDomain
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BucketInfo();
-    BucketInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    BucketInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BucketInfo(Aws::Utils::Json::JsonView jsonValue);
+    BucketInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A list of the calculated facet values and counts.</p>
      */
     inline const Aws::Vector<Bucket>& GetBuckets() const{ return m_buckets; }
+
+    /**
+     * <p>A list of the calculated facet values and counts.</p>
+     */
+    inline bool BucketsHasBeenSet() const { return m_bucketsHasBeenSet; }
 
     /**
      * <p>A list of the calculated facet values and counts.</p>

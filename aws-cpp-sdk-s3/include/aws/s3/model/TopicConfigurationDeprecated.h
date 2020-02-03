@@ -34,6 +34,14 @@ namespace S3
 namespace Model
 {
 
+  /**
+   * <p>A container for specifying the configuration for publication of messages to
+   * an Amazon Simple Notification Service (Amazon SNS) topic when Amazon S3 detects
+   * specified events. This data type is deprecated. Use <a>TopicConfiguration</a>
+   * instead.</p><p><h3>See Also:</h3>   <a
+   * href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/TopicConfigurationDeprecated">AWS
+   * API Reference</a></p>
+   */
   class AWS_S3_API TopicConfigurationDeprecated
   {
   public:
@@ -46,6 +54,9 @@ namespace Model
 
     
     inline const Aws::String& GetId() const{ return m_id; }
+
+    
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
@@ -66,25 +77,44 @@ namespace Model
     inline TopicConfigurationDeprecated& WithId(const char* value) { SetId(value); return *this;}
 
 
-    
+    /**
+     * <p>A collection of events related to objects</p>
+     */
     inline const Aws::Vector<Event>& GetEvents() const{ return m_events; }
 
-    
+    /**
+     * <p>A collection of events related to objects</p>
+     */
+    inline bool EventsHasBeenSet() const { return m_eventsHasBeenSet; }
+
+    /**
+     * <p>A collection of events related to objects</p>
+     */
     inline void SetEvents(const Aws::Vector<Event>& value) { m_eventsHasBeenSet = true; m_events = value; }
 
-    
+    /**
+     * <p>A collection of events related to objects</p>
+     */
     inline void SetEvents(Aws::Vector<Event>&& value) { m_eventsHasBeenSet = true; m_events = std::move(value); }
 
-    
+    /**
+     * <p>A collection of events related to objects</p>
+     */
     inline TopicConfigurationDeprecated& WithEvents(const Aws::Vector<Event>& value) { SetEvents(value); return *this;}
 
-    
+    /**
+     * <p>A collection of events related to objects</p>
+     */
     inline TopicConfigurationDeprecated& WithEvents(Aws::Vector<Event>&& value) { SetEvents(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>A collection of events related to objects</p>
+     */
     inline TopicConfigurationDeprecated& AddEvents(const Event& value) { m_eventsHasBeenSet = true; m_events.push_back(value); return *this; }
 
-    
+    /**
+     * <p>A collection of events related to objects</p>
+     */
     inline TopicConfigurationDeprecated& AddEvents(Event&& value) { m_eventsHasBeenSet = true; m_events.push_back(std::move(value)); return *this; }
 
 
@@ -93,6 +123,12 @@ namespace Model
      * specified events for the bucket.</p>
      */
     inline const Aws::String& GetTopic() const{ return m_topic; }
+
+    /**
+     * <p>Amazon SNS topic to which Amazon S3 will publish a message to report the
+     * specified events for the bucket.</p>
+     */
+    inline bool TopicHasBeenSet() const { return m_topicHasBeenSet; }
 
     /**
      * <p>Amazon SNS topic to which Amazon S3 will publish a message to report the

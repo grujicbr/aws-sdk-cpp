@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     PostContentRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +49,11 @@ namespace Model
      * <p>Name of the Amazon Lex bot.</p>
      */
     inline const Aws::String& GetBotName() const{ return m_botName; }
+
+    /**
+     * <p>Name of the Amazon Lex bot.</p>
+     */
+    inline bool BotNameHasBeenSet() const { return m_botNameHasBeenSet; }
 
     /**
      * <p>Name of the Amazon Lex bot.</p>
@@ -85,6 +90,11 @@ namespace Model
      * <p>Alias of the Amazon Lex bot.</p>
      */
     inline const Aws::String& GetBotAlias() const{ return m_botAlias; }
+
+    /**
+     * <p>Alias of the Amazon Lex bot.</p>
+     */
+    inline bool BotAliasHasBeenSet() const { return m_botAliasHasBeenSet; }
 
     /**
      * <p>Alias of the Amazon Lex bot.</p>
@@ -136,6 +146,26 @@ namespace Model
      * separate the two conversations.</p> </li> </ul>
      */
     inline const Aws::String& GetUserId() const{ return m_userId; }
+
+    /**
+     * <p>The ID of the client application user. Amazon Lex uses this to identify a
+     * user's conversation with your bot. At runtime, each request must contain the
+     * <code>userID</code> field.</p> <p>To decide the user ID to use for your
+     * application, consider the following factors.</p> <ul> <li> <p>The
+     * <code>userID</code> field must not contain any personally identifiable
+     * information of the user, for example, name, personal identification numbers, or
+     * other end user personal information.</p> </li> <li> <p>If you want a user to
+     * start a conversation on one device and continue on another device, use a
+     * user-specific identifier.</p> </li> <li> <p>If you want the same user to be able
+     * to have two independent conversations on two different devices, choose a
+     * device-specific identifier.</p> </li> <li> <p>A user can't have two independent
+     * conversations with two different versions of the same bot. For example, a user
+     * can't have a conversation with the PROD and BETA versions of the same bot. If
+     * you anticipate that a user will need to have conversation with two different
+     * versions, for example, while testing, include the bot alias in the user ID to
+     * separate the two conversations.</p> </li> </ul>
+     */
+    inline bool UserIdHasBeenSet() const { return m_userIdHasBeenSet; }
 
     /**
      * <p>The ID of the client application user. Amazon Lex uses this to identify a
@@ -265,7 +295,7 @@ namespace Model
      * with string keys and values. The total size of the
      * <code>sessionAttributes</code> and <code>requestAttributes</code> headers is
      * limited to 12 KB.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
      * Session Attributes</a>.</p>
      */
     inline const Aws::String& GetSessionAttributes() const{ return m_sessionAttributes; }
@@ -277,7 +307,19 @@ namespace Model
      * with string keys and values. The total size of the
      * <code>sessionAttributes</code> and <code>requestAttributes</code> headers is
      * limited to 12 KB.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
+     * Session Attributes</a>.</p>
+     */
+    inline bool SessionAttributesHasBeenSet() const { return m_sessionAttributesHasBeenSet; }
+
+    /**
+     * <p>You pass this value as the <code>x-amz-lex-session-attributes</code> HTTP
+     * header.</p> <p>Application-specific information passed between Amazon Lex and a
+     * client application. The value must be a JSON serialized and base64 encoded map
+     * with string keys and values. The total size of the
+     * <code>sessionAttributes</code> and <code>requestAttributes</code> headers is
+     * limited to 12 KB.</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
      * Session Attributes</a>.</p>
      */
     inline void SetSessionAttributes(const Aws::String& value) { m_sessionAttributesHasBeenSet = true; m_sessionAttributes = value; }
@@ -289,7 +331,7 @@ namespace Model
      * with string keys and values. The total size of the
      * <code>sessionAttributes</code> and <code>requestAttributes</code> headers is
      * limited to 12 KB.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
      * Session Attributes</a>.</p>
      */
     inline void SetSessionAttributes(Aws::String&& value) { m_sessionAttributesHasBeenSet = true; m_sessionAttributes = std::move(value); }
@@ -301,7 +343,7 @@ namespace Model
      * with string keys and values. The total size of the
      * <code>sessionAttributes</code> and <code>requestAttributes</code> headers is
      * limited to 12 KB.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
      * Session Attributes</a>.</p>
      */
     inline void SetSessionAttributes(const char* value) { m_sessionAttributesHasBeenSet = true; m_sessionAttributes.assign(value); }
@@ -313,7 +355,7 @@ namespace Model
      * with string keys and values. The total size of the
      * <code>sessionAttributes</code> and <code>requestAttributes</code> headers is
      * limited to 12 KB.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
      * Session Attributes</a>.</p>
      */
     inline PostContentRequest& WithSessionAttributes(const Aws::String& value) { SetSessionAttributes(value); return *this;}
@@ -325,7 +367,7 @@ namespace Model
      * with string keys and values. The total size of the
      * <code>sessionAttributes</code> and <code>requestAttributes</code> headers is
      * limited to 12 KB.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
      * Session Attributes</a>.</p>
      */
     inline PostContentRequest& WithSessionAttributes(Aws::String&& value) { SetSessionAttributes(std::move(value)); return *this;}
@@ -337,7 +379,7 @@ namespace Model
      * with string keys and values. The total size of the
      * <code>sessionAttributes</code> and <code>requestAttributes</code> headers is
      * limited to 12 KB.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting
      * Session Attributes</a>.</p>
      */
     inline PostContentRequest& WithSessionAttributes(const char* value) { SetSessionAttributes(value); return *this;}
@@ -352,7 +394,7 @@ namespace Model
      * limited to 12 KB.</p> <p>The namespace <code>x-amz-lex:</code> is reserved for
      * special attributes. Don't create any request attributes with the prefix
      * <code>x-amz-lex:</code>.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
      * Request Attributes</a>.</p>
      */
     inline const Aws::String& GetRequestAttributes() const{ return m_requestAttributes; }
@@ -366,7 +408,21 @@ namespace Model
      * limited to 12 KB.</p> <p>The namespace <code>x-amz-lex:</code> is reserved for
      * special attributes. Don't create any request attributes with the prefix
      * <code>x-amz-lex:</code>.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
+     * Request Attributes</a>.</p>
+     */
+    inline bool RequestAttributesHasBeenSet() const { return m_requestAttributesHasBeenSet; }
+
+    /**
+     * <p>You pass this value as the <code>x-amz-lex-request-attributes</code> HTTP
+     * header.</p> <p>Request-specific information passed between Amazon Lex and a
+     * client application. The value must be a JSON serialized and base64 encoded map
+     * with string keys and values. The total size of the
+     * <code>requestAttributes</code> and <code>sessionAttributes</code> headers is
+     * limited to 12 KB.</p> <p>The namespace <code>x-amz-lex:</code> is reserved for
+     * special attributes. Don't create any request attributes with the prefix
+     * <code>x-amz-lex:</code>.</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
      * Request Attributes</a>.</p>
      */
     inline void SetRequestAttributes(const Aws::String& value) { m_requestAttributesHasBeenSet = true; m_requestAttributes = value; }
@@ -380,7 +436,7 @@ namespace Model
      * limited to 12 KB.</p> <p>The namespace <code>x-amz-lex:</code> is reserved for
      * special attributes. Don't create any request attributes with the prefix
      * <code>x-amz-lex:</code>.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
      * Request Attributes</a>.</p>
      */
     inline void SetRequestAttributes(Aws::String&& value) { m_requestAttributesHasBeenSet = true; m_requestAttributes = std::move(value); }
@@ -394,7 +450,7 @@ namespace Model
      * limited to 12 KB.</p> <p>The namespace <code>x-amz-lex:</code> is reserved for
      * special attributes. Don't create any request attributes with the prefix
      * <code>x-amz-lex:</code>.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
      * Request Attributes</a>.</p>
      */
     inline void SetRequestAttributes(const char* value) { m_requestAttributesHasBeenSet = true; m_requestAttributes.assign(value); }
@@ -408,7 +464,7 @@ namespace Model
      * limited to 12 KB.</p> <p>The namespace <code>x-amz-lex:</code> is reserved for
      * special attributes. Don't create any request attributes with the prefix
      * <code>x-amz-lex:</code>.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
      * Request Attributes</a>.</p>
      */
     inline PostContentRequest& WithRequestAttributes(const Aws::String& value) { SetRequestAttributes(value); return *this;}
@@ -422,7 +478,7 @@ namespace Model
      * limited to 12 KB.</p> <p>The namespace <code>x-amz-lex:</code> is reserved for
      * special attributes. Don't create any request attributes with the prefix
      * <code>x-amz-lex:</code>.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
      * Request Attributes</a>.</p>
      */
     inline PostContentRequest& WithRequestAttributes(Aws::String&& value) { SetRequestAttributes(std::move(value)); return *this;}
@@ -436,7 +492,7 @@ namespace Model
      * limited to 12 KB.</p> <p>The namespace <code>x-amz-lex:</code> is reserved for
      * special attributes. Don't create any request attributes with the prefix
      * <code>x-amz-lex:</code>.</p> <p>For more information, see <a
-     * href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
+     * href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting
      * Request Attributes</a>.</p>
      */
     inline PostContentRequest& WithRequestAttributes(const char* value) { SetRequestAttributes(value); return *this;}
@@ -451,8 +507,10 @@ namespace Model
      * Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to
      * generate the speech (using the configuration you specified in the
      * <code>Accept</code> header). For example, if you specify <code>audio/mpeg</code>
-     * as the value, Amazon Lex returns speech in the MPEG format.</p> <p>The following
-     * are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
+     * as the value, Amazon Lex returns speech in the MPEG format.</p> </li> <li> <p>If
+     * the value is <code>audio/pcm</code>, the speech returned is
+     * <code>audio/pcm</code> in 16-bit, little endian format. </p> </li> <li> <p>The
+     * following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
      * <p>audio/ogg</p> </li> <li> <p>audio/pcm</p> </li> <li> <p>text/plain;
      * charset=utf-8</p> </li> <li> <p>audio/ * (defaults to mpeg)</p> </li> </ul> </li>
      * </ul>
@@ -468,8 +526,29 @@ namespace Model
      * Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to
      * generate the speech (using the configuration you specified in the
      * <code>Accept</code> header). For example, if you specify <code>audio/mpeg</code>
-     * as the value, Amazon Lex returns speech in the MPEG format.</p> <p>The following
-     * are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
+     * as the value, Amazon Lex returns speech in the MPEG format.</p> </li> <li> <p>If
+     * the value is <code>audio/pcm</code>, the speech returned is
+     * <code>audio/pcm</code> in 16-bit, little endian format. </p> </li> <li> <p>The
+     * following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
+     * <p>audio/ogg</p> </li> <li> <p>audio/pcm</p> </li> <li> <p>text/plain;
+     * charset=utf-8</p> </li> <li> <p>audio/ * (defaults to mpeg)</p> </li> </ul> </li>
+     * </ul>
+     */
+    inline bool AcceptHasBeenSet() const { return m_acceptHasBeenSet; }
+
+    /**
+     * <p> You pass this value as the <code>Accept</code> HTTP header. </p> <p> The
+     * message Amazon Lex returns in the response can be either text or speech based on
+     * the <code>Accept</code> HTTP header value in the request. </p> <ul> <li> <p> If
+     * the value is <code>text/plain; charset=utf-8</code>, Amazon Lex returns text in
+     * the response. </p> </li> <li> <p> If the value begins with <code>audio/</code>,
+     * Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to
+     * generate the speech (using the configuration you specified in the
+     * <code>Accept</code> header). For example, if you specify <code>audio/mpeg</code>
+     * as the value, Amazon Lex returns speech in the MPEG format.</p> </li> <li> <p>If
+     * the value is <code>audio/pcm</code>, the speech returned is
+     * <code>audio/pcm</code> in 16-bit, little endian format. </p> </li> <li> <p>The
+     * following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
      * <p>audio/ogg</p> </li> <li> <p>audio/pcm</p> </li> <li> <p>text/plain;
      * charset=utf-8</p> </li> <li> <p>audio/ * (defaults to mpeg)</p> </li> </ul> </li>
      * </ul>
@@ -485,8 +564,10 @@ namespace Model
      * Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to
      * generate the speech (using the configuration you specified in the
      * <code>Accept</code> header). For example, if you specify <code>audio/mpeg</code>
-     * as the value, Amazon Lex returns speech in the MPEG format.</p> <p>The following
-     * are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
+     * as the value, Amazon Lex returns speech in the MPEG format.</p> </li> <li> <p>If
+     * the value is <code>audio/pcm</code>, the speech returned is
+     * <code>audio/pcm</code> in 16-bit, little endian format. </p> </li> <li> <p>The
+     * following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
      * <p>audio/ogg</p> </li> <li> <p>audio/pcm</p> </li> <li> <p>text/plain;
      * charset=utf-8</p> </li> <li> <p>audio/ * (defaults to mpeg)</p> </li> </ul> </li>
      * </ul>
@@ -502,8 +583,10 @@ namespace Model
      * Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to
      * generate the speech (using the configuration you specified in the
      * <code>Accept</code> header). For example, if you specify <code>audio/mpeg</code>
-     * as the value, Amazon Lex returns speech in the MPEG format.</p> <p>The following
-     * are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
+     * as the value, Amazon Lex returns speech in the MPEG format.</p> </li> <li> <p>If
+     * the value is <code>audio/pcm</code>, the speech returned is
+     * <code>audio/pcm</code> in 16-bit, little endian format. </p> </li> <li> <p>The
+     * following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
      * <p>audio/ogg</p> </li> <li> <p>audio/pcm</p> </li> <li> <p>text/plain;
      * charset=utf-8</p> </li> <li> <p>audio/ * (defaults to mpeg)</p> </li> </ul> </li>
      * </ul>
@@ -519,8 +602,10 @@ namespace Model
      * Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to
      * generate the speech (using the configuration you specified in the
      * <code>Accept</code> header). For example, if you specify <code>audio/mpeg</code>
-     * as the value, Amazon Lex returns speech in the MPEG format.</p> <p>The following
-     * are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
+     * as the value, Amazon Lex returns speech in the MPEG format.</p> </li> <li> <p>If
+     * the value is <code>audio/pcm</code>, the speech returned is
+     * <code>audio/pcm</code> in 16-bit, little endian format. </p> </li> <li> <p>The
+     * following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
      * <p>audio/ogg</p> </li> <li> <p>audio/pcm</p> </li> <li> <p>text/plain;
      * charset=utf-8</p> </li> <li> <p>audio/ * (defaults to mpeg)</p> </li> </ul> </li>
      * </ul>
@@ -536,8 +621,10 @@ namespace Model
      * Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to
      * generate the speech (using the configuration you specified in the
      * <code>Accept</code> header). For example, if you specify <code>audio/mpeg</code>
-     * as the value, Amazon Lex returns speech in the MPEG format.</p> <p>The following
-     * are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
+     * as the value, Amazon Lex returns speech in the MPEG format.</p> </li> <li> <p>If
+     * the value is <code>audio/pcm</code>, the speech returned is
+     * <code>audio/pcm</code> in 16-bit, little endian format. </p> </li> <li> <p>The
+     * following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
      * <p>audio/ogg</p> </li> <li> <p>audio/pcm</p> </li> <li> <p>text/plain;
      * charset=utf-8</p> </li> <li> <p>audio/ * (defaults to mpeg)</p> </li> </ul> </li>
      * </ul>
@@ -553,8 +640,10 @@ namespace Model
      * Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to
      * generate the speech (using the configuration you specified in the
      * <code>Accept</code> header). For example, if you specify <code>audio/mpeg</code>
-     * as the value, Amazon Lex returns speech in the MPEG format.</p> <p>The following
-     * are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
+     * as the value, Amazon Lex returns speech in the MPEG format.</p> </li> <li> <p>If
+     * the value is <code>audio/pcm</code>, the speech returned is
+     * <code>audio/pcm</code> in 16-bit, little endian format. </p> </li> <li> <p>The
+     * following are the accepted values:</p> <ul> <li> <p>audio/mpeg</p> </li> <li>
      * <p>audio/ogg</p> </li> <li> <p>audio/pcm</p> </li> <li> <p>text/plain;
      * charset=utf-8</p> </li> <li> <p>audio/ * (defaults to mpeg)</p> </li> </ul> </li>
      * </ul>

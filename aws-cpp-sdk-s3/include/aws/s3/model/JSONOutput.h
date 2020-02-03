@@ -32,6 +32,12 @@ namespace S3
 namespace Model
 {
 
+  /**
+   * <p>Specifies JSON as request's output serialization format.</p><p><h3>See
+   * Also:</h3>   <a
+   * href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/JSONOutput">AWS API
+   * Reference</a></p>
+   */
   class AWS_S3_API JSONOutput
   {
   public:
@@ -46,6 +52,11 @@ namespace Model
      * <p>The value used to separate individual records in the output.</p>
      */
     inline const Aws::String& GetRecordDelimiter() const{ return m_recordDelimiter; }
+
+    /**
+     * <p>The value used to separate individual records in the output.</p>
+     */
+    inline bool RecordDelimiterHasBeenSet() const { return m_recordDelimiterHasBeenSet; }
 
     /**
      * <p>The value used to separate individual records in the output.</p>

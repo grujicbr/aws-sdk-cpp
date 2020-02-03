@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AccountTakeoverRiskConfigurationType();
-    AccountTakeoverRiskConfigurationType(const Aws::Utils::Json::JsonValue& jsonValue);
-    AccountTakeoverRiskConfigurationType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AccountTakeoverRiskConfigurationType(Aws::Utils::Json::JsonView jsonValue);
+    AccountTakeoverRiskConfigurationType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The notify configuration used to construct email notifications.</p>
      */
     inline const NotifyConfigurationType& GetNotifyConfiguration() const{ return m_notifyConfiguration; }
+
+    /**
+     * <p>The notify configuration used to construct email notifications.</p>
+     */
+    inline bool NotifyConfigurationHasBeenSet() const { return m_notifyConfigurationHasBeenSet; }
 
     /**
      * <p>The notify configuration used to construct email notifications.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>Account takeover risk configuration actions</p>
      */
     inline const AccountTakeoverActionsType& GetActions() const{ return m_actions; }
+
+    /**
+     * <p>Account takeover risk configuration actions</p>
+     */
+    inline bool ActionsHasBeenSet() const { return m_actionsHasBeenSet; }
 
     /**
      * <p>Account takeover risk configuration actions</p>

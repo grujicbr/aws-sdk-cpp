@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDBStreams
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     Stream();
-    Stream(const Aws::Utils::Json::JsonValue& jsonValue);
-    Stream& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Stream(Aws::Utils::Json::JsonView jsonValue);
+    Stream& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) for the stream.</p>
      */
     inline const Aws::String& GetStreamArn() const{ return m_streamArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the stream.</p>
+     */
+    inline bool StreamArnHasBeenSet() const { return m_streamArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) for the stream.</p>
@@ -84,6 +90,11 @@ namespace Model
      * <p>The DynamoDB table with which the stream is associated.</p>
      */
     inline const Aws::String& GetTableName() const{ return m_tableName; }
+
+    /**
+     * <p>The DynamoDB table with which the stream is associated.</p>
+     */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
 
     /**
      * <p>The DynamoDB table with which the stream is associated.</p>
@@ -125,6 +136,16 @@ namespace Model
      * name</p></li> <li><p>the <i>StreamLabel</i></p></li> </ul>
      */
     inline const Aws::String& GetStreamLabel() const{ return m_streamLabel; }
+
+    /**
+     * <p>A timestamp, in ISO 8601 format, for this stream.</p> <p>Note that
+     * <i>LatestStreamLabel</i> is not a unique identifier for the stream, because it
+     * is possible that a stream from another table might have the same timestamp.
+     * However, the combination of the following three elements is guaranteed to be
+     * unique:</p> <ul> <li><p>the AWS customer ID.</p></li> <li><p>the table
+     * name</p></li> <li><p>the <i>StreamLabel</i></p></li> </ul>
+     */
+    inline bool StreamLabelHasBeenSet() const { return m_streamLabelHasBeenSet; }
 
     /**
      * <p>A timestamp, in ISO 8601 format, for this stream.</p> <p>Note that

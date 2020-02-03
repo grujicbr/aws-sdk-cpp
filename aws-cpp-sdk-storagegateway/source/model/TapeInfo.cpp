@@ -34,22 +34,24 @@ TapeInfo::TapeInfo() :
     m_tapeSizeInBytes(0),
     m_tapeSizeInBytesHasBeenSet(false),
     m_tapeStatusHasBeenSet(false),
-    m_gatewayARNHasBeenSet(false)
+    m_gatewayARNHasBeenSet(false),
+    m_poolIdHasBeenSet(false)
 {
 }
 
-TapeInfo::TapeInfo(const JsonValue& jsonValue) : 
+TapeInfo::TapeInfo(JsonView jsonValue) : 
     m_tapeARNHasBeenSet(false),
     m_tapeBarcodeHasBeenSet(false),
     m_tapeSizeInBytes(0),
     m_tapeSizeInBytesHasBeenSet(false),
     m_tapeStatusHasBeenSet(false),
-    m_gatewayARNHasBeenSet(false)
+    m_gatewayARNHasBeenSet(false),
+    m_poolIdHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-TapeInfo& TapeInfo::operator =(const JsonValue& jsonValue)
+TapeInfo& TapeInfo::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TapeARN"))
   {
@@ -86,6 +88,13 @@ TapeInfo& TapeInfo::operator =(const JsonValue& jsonValue)
     m_gatewayARNHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("PoolId"))
+  {
+    m_poolId = jsonValue.GetString("PoolId");
+
+    m_poolIdHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -120,6 +129,12 @@ JsonValue TapeInfo::Jsonize() const
   if(m_gatewayARNHasBeenSet)
   {
    payload.WithString("GatewayARN", m_gatewayARN);
+
+  }
+
+  if(m_poolIdHasBeenSet)
+  {
+   payload.WithString("PoolId", m_poolId);
 
   }
 

@@ -27,7 +27,7 @@ namespace Model
 {
 
   /**
-   * Request of DeleteReportDefinition<p><h3>See Also:</h3>   <a
+   * <p>Deletes the specified report.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/cur-2017-01-06/DeleteReportDefinitionRequest">AWS
    * API Reference</a></p>
    */
@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     DeleteReportDefinitionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +49,9 @@ namespace Model
 
     
     inline const Aws::String& GetReportName() const{ return m_reportName; }
+
+    
+    inline bool ReportNameHasBeenSet() const { return m_reportNameHasBeenSet; }
 
     
     inline void SetReportName(const Aws::String& value) { m_reportNameHasBeenSet = true; m_reportName = value; }

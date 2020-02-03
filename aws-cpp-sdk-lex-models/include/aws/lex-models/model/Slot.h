@@ -19,6 +19,7 @@
 #include <aws/lex-models/model/SlotConstraint.h>
 #include <aws/lex-models/model/Prompt.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/lex-models/model/ObfuscationSetting.h>
 #include <utility>
 
 namespace Aws
@@ -28,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -44,8 +46,8 @@ namespace Model
   {
   public:
     Slot();
-    Slot(const Aws::Utils::Json::JsonValue& jsonValue);
-    Slot& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Slot(Aws::Utils::Json::JsonView jsonValue);
+    Slot& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +55,11 @@ namespace Model
      * <p>The name of the slot.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the slot.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the slot.</p>
@@ -93,6 +100,11 @@ namespace Model
     /**
      * <p>A description of the slot.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A description of the slot.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -129,6 +141,11 @@ namespace Model
     /**
      * <p>Specifies whether the slot is required or optional. </p>
      */
+    inline bool SlotConstraintHasBeenSet() const { return m_slotConstraintHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the slot is required or optional. </p>
+     */
     inline void SetSlotConstraint(const SlotConstraint& value) { m_slotConstraintHasBeenSet = true; m_slotConstraint = value; }
 
     /**
@@ -152,6 +169,12 @@ namespace Model
      * the built-in slot types.</p>
      */
     inline const Aws::String& GetSlotType() const{ return m_slotType; }
+
+    /**
+     * <p>The type of the slot, either a custom slot type that you defined or one of
+     * the built-in slot types.</p>
+     */
+    inline bool SlotTypeHasBeenSet() const { return m_slotTypeHasBeenSet; }
 
     /**
      * <p>The type of the slot, either a custom slot type that you defined or one of
@@ -198,6 +221,11 @@ namespace Model
     /**
      * <p>The version of the slot type.</p>
      */
+    inline bool SlotTypeVersionHasBeenSet() const { return m_slotTypeVersionHasBeenSet; }
+
+    /**
+     * <p>The version of the slot type.</p>
+     */
     inline void SetSlotTypeVersion(const Aws::String& value) { m_slotTypeVersionHasBeenSet = true; m_slotTypeVersion = value; }
 
     /**
@@ -234,6 +262,11 @@ namespace Model
     /**
      * <p>The prompt that Amazon Lex uses to elicit the slot value from the user.</p>
      */
+    inline bool ValueElicitationPromptHasBeenSet() const { return m_valueElicitationPromptHasBeenSet; }
+
+    /**
+     * <p>The prompt that Amazon Lex uses to elicit the slot value from the user.</p>
+     */
     inline void SetValueElicitationPrompt(const Prompt& value) { m_valueElicitationPromptHasBeenSet = true; m_valueElicitationPrompt = value; }
 
     /**
@@ -266,6 +299,14 @@ namespace Model
      * elicits a value for the slot with priority 1.</p> <p>If multiple slots share the
      * same priority, the order in which Lex elicits values is arbitrary.</p>
      */
+    inline bool PriorityHasBeenSet() const { return m_priorityHasBeenSet; }
+
+    /**
+     * <p> Directs Lex the order in which to elicit this slot value from the user. For
+     * example, if the intent has two slots with priorities 1 and 2, AWS Lex first
+     * elicits a value for the slot with priority 1.</p> <p>If multiple slots share the
+     * same priority, the order in which Lex elicits values is arbitrary.</p>
+     */
     inline void SetPriority(int value) { m_priorityHasBeenSet = true; m_priority = value; }
 
     /**
@@ -284,6 +325,14 @@ namespace Model
      * understanding user utterances. </p>
      */
     inline const Aws::Vector<Aws::String>& GetSampleUtterances() const{ return m_sampleUtterances; }
+
+    /**
+     * <p> If you know a specific pattern with which users might respond to an Amazon
+     * Lex request for a slot value, you can provide those utterances to improve
+     * accuracy. This is optional. In most cases, Amazon Lex is capable of
+     * understanding user utterances. </p>
+     */
+    inline bool SampleUtterancesHasBeenSet() const { return m_sampleUtterancesHasBeenSet; }
 
     /**
      * <p> If you know a specific pattern with which users might respond to an Amazon
@@ -354,6 +403,13 @@ namespace Model
      * user chooses an option from the response card, instead of using text to reply.
      * </p>
      */
+    inline bool ResponseCardHasBeenSet() const { return m_responseCardHasBeenSet; }
+
+    /**
+     * <p> A set of possible responses for the slot type used by text-based clients. A
+     * user chooses an option from the response card, instead of using text to reply.
+     * </p>
+     */
     inline void SetResponseCard(const Aws::String& value) { m_responseCardHasBeenSet = true; m_responseCard = value; }
 
     /**
@@ -391,6 +447,67 @@ namespace Model
      */
     inline Slot& WithResponseCard(const char* value) { SetResponseCard(value); return *this;}
 
+
+    /**
+     * <p>Determines whether a slot is obfuscated in conversation logs and stored
+     * utterances. When you obfuscate a slot, the value is replaced by the slot name in
+     * curly braces ({}). For example, if the slot name is "full_name", obfuscated
+     * values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot
+     * Obfuscation </a>. </p>
+     */
+    inline const ObfuscationSetting& GetObfuscationSetting() const{ return m_obfuscationSetting; }
+
+    /**
+     * <p>Determines whether a slot is obfuscated in conversation logs and stored
+     * utterances. When you obfuscate a slot, the value is replaced by the slot name in
+     * curly braces ({}). For example, if the slot name is "full_name", obfuscated
+     * values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot
+     * Obfuscation </a>. </p>
+     */
+    inline bool ObfuscationSettingHasBeenSet() const { return m_obfuscationSettingHasBeenSet; }
+
+    /**
+     * <p>Determines whether a slot is obfuscated in conversation logs and stored
+     * utterances. When you obfuscate a slot, the value is replaced by the slot name in
+     * curly braces ({}). For example, if the slot name is "full_name", obfuscated
+     * values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot
+     * Obfuscation </a>. </p>
+     */
+    inline void SetObfuscationSetting(const ObfuscationSetting& value) { m_obfuscationSettingHasBeenSet = true; m_obfuscationSetting = value; }
+
+    /**
+     * <p>Determines whether a slot is obfuscated in conversation logs and stored
+     * utterances. When you obfuscate a slot, the value is replaced by the slot name in
+     * curly braces ({}). For example, if the slot name is "full_name", obfuscated
+     * values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot
+     * Obfuscation </a>. </p>
+     */
+    inline void SetObfuscationSetting(ObfuscationSetting&& value) { m_obfuscationSettingHasBeenSet = true; m_obfuscationSetting = std::move(value); }
+
+    /**
+     * <p>Determines whether a slot is obfuscated in conversation logs and stored
+     * utterances. When you obfuscate a slot, the value is replaced by the slot name in
+     * curly braces ({}). For example, if the slot name is "full_name", obfuscated
+     * values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot
+     * Obfuscation </a>. </p>
+     */
+    inline Slot& WithObfuscationSetting(const ObfuscationSetting& value) { SetObfuscationSetting(value); return *this;}
+
+    /**
+     * <p>Determines whether a slot is obfuscated in conversation logs and stored
+     * utterances. When you obfuscate a slot, the value is replaced by the slot name in
+     * curly braces ({}). For example, if the slot name is "full_name", obfuscated
+     * values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot
+     * Obfuscation </a>. </p>
+     */
+    inline Slot& WithObfuscationSetting(ObfuscationSetting&& value) { SetObfuscationSetting(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_name;
@@ -419,6 +536,9 @@ namespace Model
 
     Aws::String m_responseCard;
     bool m_responseCardHasBeenSet;
+
+    ObfuscationSetting m_obfuscationSetting;
+    bool m_obfuscationSettingHasBeenSet;
   };
 
 } // namespace Model

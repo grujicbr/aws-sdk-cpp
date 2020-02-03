@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     TrialMinutes();
-    TrialMinutes(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrialMinutes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrialMinutes(Aws::Utils::Json::JsonView jsonValue);
+    TrialMinutes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The total number of free trial minutes that the account started with.</p>
      */
     inline double GetTotal() const{ return m_total; }
+
+    /**
+     * <p>The total number of free trial minutes that the account started with.</p>
+     */
+    inline bool TotalHasBeenSet() const { return m_totalHasBeenSet; }
 
     /**
      * <p>The total number of free trial minutes that the account started with.</p>
@@ -65,6 +71,11 @@ namespace Model
      * <p>The number of free trial minutes remaining in the account.</p>
      */
     inline double GetRemaining() const{ return m_remaining; }
+
+    /**
+     * <p>The number of free trial minutes remaining in the account.</p>
+     */
+    inline bool RemainingHasBeenSet() const { return m_remainingHasBeenSet; }
 
     /**
      * <p>The number of free trial minutes remaining in the account.</p>

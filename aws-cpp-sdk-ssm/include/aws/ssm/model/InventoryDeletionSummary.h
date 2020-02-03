@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     InventoryDeletionSummary();
-    InventoryDeletionSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    InventoryDeletionSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InventoryDeletionSummary(Aws::Utils::Json::JsonView jsonValue);
+    InventoryDeletionSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * delete operation.</p>
      */
     inline int GetTotalCount() const{ return m_totalCount; }
+
+    /**
+     * <p>The total number of items to delete. This count does not change during the
+     * delete operation.</p>
+     */
+    inline bool TotalCountHasBeenSet() const { return m_totalCountHasBeenSet; }
 
     /**
      * <p>The total number of items to delete. This count does not change during the
@@ -74,6 +81,11 @@ namespace Model
     /**
      * <p>Remaining number of items to delete.</p>
      */
+    inline bool RemainingCountHasBeenSet() const { return m_remainingCountHasBeenSet; }
+
+    /**
+     * <p>Remaining number of items to delete.</p>
+     */
     inline void SetRemainingCount(int value) { m_remainingCountHasBeenSet = true; m_remainingCount = value; }
 
     /**
@@ -86,6 +98,11 @@ namespace Model
      * <p>A list of counts and versions for deleted items.</p>
      */
     inline const Aws::Vector<InventoryDeletionSummaryItem>& GetSummaryItems() const{ return m_summaryItems; }
+
+    /**
+     * <p>A list of counts and versions for deleted items.</p>
+     */
+    inline bool SummaryItemsHasBeenSet() const { return m_summaryItemsHasBeenSet; }
 
     /**
      * <p>A list of counts and versions for deleted items.</p>

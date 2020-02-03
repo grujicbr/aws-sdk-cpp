@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Shield
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     AttackSummary();
-    AttackSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    AttackSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AttackSummary(Aws::Utils::Json::JsonView jsonValue);
+    AttackSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The unique identifier (ID) of the attack.</p>
      */
     inline const Aws::String& GetAttackId() const{ return m_attackId; }
+
+    /**
+     * <p>The unique identifier (ID) of the attack.</p>
+     */
+    inline bool AttackIdHasBeenSet() const { return m_attackIdHasBeenSet; }
 
     /**
      * <p>The unique identifier (ID) of the attack.</p>
@@ -90,6 +96,11 @@ namespace Model
      * <p>The ARN (Amazon Resource Name) of the resource that was attacked.</p>
      */
     inline const Aws::String& GetResourceArn() const{ return m_resourceArn; }
+
+    /**
+     * <p>The ARN (Amazon Resource Name) of the resource that was attacked.</p>
+     */
+    inline bool ResourceArnHasBeenSet() const { return m_resourceArnHasBeenSet; }
 
     /**
      * <p>The ARN (Amazon Resource Name) of the resource that was attacked.</p>
@@ -134,6 +145,13 @@ namespace Model
      * see <a
      * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
      */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
+
+    /**
+     * <p>The start time of the attack, in Unix time in seconds. For more information
+     * see <a
+     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
+     */
     inline void SetStartTime(const Aws::Utils::DateTime& value) { m_startTimeHasBeenSet = true; m_startTime = value; }
 
     /**
@@ -170,6 +188,13 @@ namespace Model
      * <a
      * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
      */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
+
+    /**
+     * <p>The end time of the attack, in Unix time in seconds. For more information see
+     * <a
+     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
+     */
     inline void SetEndTime(const Aws::Utils::DateTime& value) { m_endTimeHasBeenSet = true; m_endTime = value; }
 
     /**
@@ -198,6 +223,11 @@ namespace Model
      * <p>The list of attacks for a specified time period.</p>
      */
     inline const Aws::Vector<AttackVectorDescription>& GetAttackVectors() const{ return m_attackVectors; }
+
+    /**
+     * <p>The list of attacks for a specified time period.</p>
+     */
+    inline bool AttackVectorsHasBeenSet() const { return m_attackVectorsHasBeenSet; }
 
     /**
      * <p>The list of attacks for a specified time period.</p>

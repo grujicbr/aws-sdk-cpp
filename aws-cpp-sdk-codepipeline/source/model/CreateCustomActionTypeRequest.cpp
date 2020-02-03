@@ -30,7 +30,8 @@ CreateCustomActionTypeRequest::CreateCustomActionTypeRequest() :
     m_settingsHasBeenSet(false),
     m_configurationPropertiesHasBeenSet(false),
     m_inputArtifactDetailsHasBeenSet(false),
-    m_outputArtifactDetailsHasBeenSet(false)
+    m_outputArtifactDetailsHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -84,7 +85,18 @@ Aws::String CreateCustomActionTypeRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateCustomActionTypeRequest::GetRequestSpecificHeaders() const

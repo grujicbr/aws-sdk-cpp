@@ -41,10 +41,10 @@ GetFilterResult::GetFilterResult(const Aws::AmazonWebServiceResult<JsonValue>& r
 
 GetFilterResult& GetFilterResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
-  if(jsonValue.ValueExists("action"))
+  JsonView jsonValue = result.GetPayload().View();
+  if(jsonValue.ValueExists("name"))
   {
-    m_action = FilterActionMapper::GetFilterActionForName(jsonValue.GetString("action"));
+    m_name = jsonValue.GetString("name");
 
   }
 
@@ -54,15 +54,9 @@ GetFilterResult& GetFilterResult::operator =(const Aws::AmazonWebServiceResult<J
 
   }
 
-  if(jsonValue.ValueExists("findingCriteria"))
+  if(jsonValue.ValueExists("action"))
   {
-    m_findingCriteria = jsonValue.GetObject("findingCriteria");
-
-  }
-
-  if(jsonValue.ValueExists("name"))
-  {
-    m_name = jsonValue.GetString("name");
+    m_action = FilterActionMapper::GetFilterActionForName(jsonValue.GetString("action"));
 
   }
 
@@ -70,6 +64,21 @@ GetFilterResult& GetFilterResult::operator =(const Aws::AmazonWebServiceResult<J
   {
     m_rank = jsonValue.GetInteger("rank");
 
+  }
+
+  if(jsonValue.ValueExists("findingCriteria"))
+  {
+    m_findingCriteria = jsonValue.GetObject("findingCriteria");
+
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
   }
 
 

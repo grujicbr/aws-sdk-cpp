@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ClusterStateChangeReason();
-    ClusterStateChangeReason(const Aws::Utils::Json::JsonValue& jsonValue);
-    ClusterStateChangeReason& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ClusterStateChangeReason(Aws::Utils::Json::JsonView jsonValue);
+    ClusterStateChangeReason& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The programmatic code for the state change reason.</p>
      */
     inline const ClusterStateChangeReasonCode& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The programmatic code for the state change reason.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The programmatic code for the state change reason.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The descriptive message for the state change reason.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The descriptive message for the state change reason.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The descriptive message for the state change reason.</p>

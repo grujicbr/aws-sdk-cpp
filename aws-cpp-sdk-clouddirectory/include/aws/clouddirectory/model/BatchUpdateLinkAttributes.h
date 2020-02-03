@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     BatchUpdateLinkAttributes();
-    BatchUpdateLinkAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchUpdateLinkAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchUpdateLinkAttributes(Aws::Utils::Json::JsonView jsonValue);
+    BatchUpdateLinkAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>Allows a typed link specifier to be accepted as input.</p>
      */
     inline const TypedLinkSpecifier& GetTypedLinkSpecifier() const{ return m_typedLinkSpecifier; }
+
+    /**
+     * <p>Allows a typed link specifier to be accepted as input.</p>
+     */
+    inline bool TypedLinkSpecifierHasBeenSet() const { return m_typedLinkSpecifierHasBeenSet; }
 
     /**
      * <p>Allows a typed link specifier to be accepted as input.</p>
@@ -82,6 +88,11 @@ namespace Model
      * <p>The attributes update structure.</p>
      */
     inline const Aws::Vector<LinkAttributeUpdate>& GetAttributeUpdates() const{ return m_attributeUpdates; }
+
+    /**
+     * <p>The attributes update structure.</p>
+     */
+    inline bool AttributeUpdatesHasBeenSet() const { return m_attributeUpdatesHasBeenSet; }
 
     /**
      * <p>The attributes update structure.</p>

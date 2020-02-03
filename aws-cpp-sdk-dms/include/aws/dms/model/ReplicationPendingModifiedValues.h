@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ReplicationPendingModifiedValues();
-    ReplicationPendingModifiedValues(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReplicationPendingModifiedValues& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReplicationPendingModifiedValues(Aws::Utils::Json::JsonView jsonValue);
+    ReplicationPendingModifiedValues& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,13 @@ namespace Model
      * dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code> </p>
      */
     inline const Aws::String& GetReplicationInstanceClass() const{ return m_replicationInstanceClass; }
+
+    /**
+     * <p>The compute and memory capacity of the replication instance.</p> <p> Valid
+     * Values: <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large |
+     * dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code> </p>
+     */
+    inline bool ReplicationInstanceClassHasBeenSet() const { return m_replicationInstanceClassHasBeenSet; }
 
     /**
      * <p>The compute and memory capacity of the replication instance.</p> <p> Valid
@@ -106,6 +114,12 @@ namespace Model
      * <p>The amount of storage (in gigabytes) that is allocated for the replication
      * instance.</p>
      */
+    inline bool AllocatedStorageHasBeenSet() const { return m_allocatedStorageHasBeenSet; }
+
+    /**
+     * <p>The amount of storage (in gigabytes) that is allocated for the replication
+     * instance.</p>
+     */
     inline void SetAllocatedStorage(int value) { m_allocatedStorageHasBeenSet = true; m_allocatedStorage = value; }
 
     /**
@@ -116,23 +130,30 @@ namespace Model
 
 
     /**
-     * <p> Specifies if the replication instance is a Multi-AZ deployment. You cannot
-     * set the <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set
-     * to <code>true</code>. </p>
+     * <p> Specifies whether the replication instance is a Multi-AZ deployment. You
+     * cannot set the <code>AvailabilityZone</code> parameter if the Multi-AZ parameter
+     * is set to <code>true</code>. </p>
      */
     inline bool GetMultiAZ() const{ return m_multiAZ; }
 
     /**
-     * <p> Specifies if the replication instance is a Multi-AZ deployment. You cannot
-     * set the <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set
-     * to <code>true</code>. </p>
+     * <p> Specifies whether the replication instance is a Multi-AZ deployment. You
+     * cannot set the <code>AvailabilityZone</code> parameter if the Multi-AZ parameter
+     * is set to <code>true</code>. </p>
+     */
+    inline bool MultiAZHasBeenSet() const { return m_multiAZHasBeenSet; }
+
+    /**
+     * <p> Specifies whether the replication instance is a Multi-AZ deployment. You
+     * cannot set the <code>AvailabilityZone</code> parameter if the Multi-AZ parameter
+     * is set to <code>true</code>. </p>
      */
     inline void SetMultiAZ(bool value) { m_multiAZHasBeenSet = true; m_multiAZ = value; }
 
     /**
-     * <p> Specifies if the replication instance is a Multi-AZ deployment. You cannot
-     * set the <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set
-     * to <code>true</code>. </p>
+     * <p> Specifies whether the replication instance is a Multi-AZ deployment. You
+     * cannot set the <code>AvailabilityZone</code> parameter if the Multi-AZ parameter
+     * is set to <code>true</code>. </p>
      */
     inline ReplicationPendingModifiedValues& WithMultiAZ(bool value) { SetMultiAZ(value); return *this;}
 
@@ -141,6 +162,11 @@ namespace Model
      * <p>The engine version number of the replication instance.</p>
      */
     inline const Aws::String& GetEngineVersion() const{ return m_engineVersion; }
+
+    /**
+     * <p>The engine version number of the replication instance.</p>
+     */
+    inline bool EngineVersionHasBeenSet() const { return m_engineVersionHasBeenSet; }
 
     /**
      * <p>The engine version number of the replication instance.</p>

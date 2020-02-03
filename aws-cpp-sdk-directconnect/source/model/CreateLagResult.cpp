@@ -30,7 +30,9 @@ CreateLagResult::CreateLagResult() :
     m_numberOfConnections(0),
     m_lagState(LagState::NOT_SET),
     m_minimumLinks(0),
-    m_allowsHostedConnections(false)
+    m_allowsHostedConnections(false),
+    m_jumboFrameCapable(false),
+    m_hasLogicalRedundancy(HasLogicalRedundancy::NOT_SET)
 {
 }
 
@@ -38,14 +40,16 @@ CreateLagResult::CreateLagResult(const Aws::AmazonWebServiceResult<JsonValue>& r
     m_numberOfConnections(0),
     m_lagState(LagState::NOT_SET),
     m_minimumLinks(0),
-    m_allowsHostedConnections(false)
+    m_allowsHostedConnections(false),
+    m_jumboFrameCapable(false),
+    m_hasLogicalRedundancy(HasLogicalRedundancy::NOT_SET)
 {
   *this = result;
 }
 
 CreateLagResult& CreateLagResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("connectionsBandwidth"))
   {
     m_connectionsBandwidth = jsonValue.GetString("connectionsBandwidth");
@@ -106,9 +110,15 @@ CreateLagResult& CreateLagResult::operator =(const Aws::AmazonWebServiceResult<J
 
   }
 
+  if(jsonValue.ValueExists("awsDeviceV2"))
+  {
+    m_awsDeviceV2 = jsonValue.GetString("awsDeviceV2");
+
+  }
+
   if(jsonValue.ValueExists("connections"))
   {
-    Array<JsonValue> connectionsJsonList = jsonValue.GetArray("connections");
+    Array<JsonView> connectionsJsonList = jsonValue.GetArray("connections");
     for(unsigned connectionsIndex = 0; connectionsIndex < connectionsJsonList.GetLength(); ++connectionsIndex)
     {
       m_connections.push_back(connectionsJsonList[connectionsIndex].AsObject());
@@ -118,6 +128,33 @@ CreateLagResult& CreateLagResult::operator =(const Aws::AmazonWebServiceResult<J
   if(jsonValue.ValueExists("allowsHostedConnections"))
   {
     m_allowsHostedConnections = jsonValue.GetBool("allowsHostedConnections");
+
+  }
+
+  if(jsonValue.ValueExists("jumboFrameCapable"))
+  {
+    m_jumboFrameCapable = jsonValue.GetBool("jumboFrameCapable");
+
+  }
+
+  if(jsonValue.ValueExists("hasLogicalRedundancy"))
+  {
+    m_hasLogicalRedundancy = HasLogicalRedundancyMapper::GetHasLogicalRedundancyForName(jsonValue.GetString("hasLogicalRedundancy"));
+
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+  }
+
+  if(jsonValue.ValueExists("providerName"))
+  {
+    m_providerName = jsonValue.GetString("providerName");
 
   }
 

@@ -27,7 +27,8 @@ PutBotAliasRequest::PutBotAliasRequest() :
     m_descriptionHasBeenSet(false),
     m_botVersionHasBeenSet(false),
     m_botNameHasBeenSet(false),
-    m_checksumHasBeenSet(false)
+    m_checksumHasBeenSet(false),
+    m_conversationLogsHasBeenSet(false)
 {
 }
 
@@ -53,7 +54,13 @@ Aws::String PutBotAliasRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_conversationLogsHasBeenSet)
+  {
+   payload.WithObject("conversationLogs", m_conversationLogs.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

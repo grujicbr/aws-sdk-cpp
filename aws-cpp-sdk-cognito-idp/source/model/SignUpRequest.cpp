@@ -30,7 +30,8 @@ SignUpRequest::SignUpRequest() :
     m_userAttributesHasBeenSet(false),
     m_validationDataHasBeenSet(false),
     m_analyticsMetadataHasBeenSet(false),
-    m_userContextDataHasBeenSet(false)
+    m_userContextDataHasBeenSet(false),
+    m_clientMetadataHasBeenSet(false)
 {
 }
 
@@ -96,7 +97,18 @@ Aws::String SignUpRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_clientMetadataHasBeenSet)
+  {
+   JsonValue clientMetadataJsonMap;
+   for(auto& clientMetadataItem : m_clientMetadata)
+   {
+     clientMetadataJsonMap.WithString(clientMetadataItem.first, clientMetadataItem.second);
+   }
+   payload.WithObject("ClientMetadata", std::move(clientMetadataJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection SignUpRequest::GetRequestSpecificHeaders() const

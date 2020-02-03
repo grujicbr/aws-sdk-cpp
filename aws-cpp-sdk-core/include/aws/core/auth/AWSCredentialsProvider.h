@@ -1,5 +1,5 @@
 /*
-  * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
   *
   * Licensed under the Apache License, Version 2.0 (the "License").
   * You may not use this file except in compliance with the License.
@@ -23,115 +23,35 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/threading/ReaderWriterLock.h>
 #include <aws/core/internal/AWSHttpResourceClient.h>
+#include <aws/core/auth/AWSCredentials.h>
+#include <aws/core/config/AWSProfileConfigLoader.h>
+#include <aws/core/client/RetryStrategy.h>
 #include <memory>
 
 namespace Aws
 {
-    namespace Config
-    {
-        class AWSProfileConfigLoader;
-        class EC2InstanceProfileConfigLoader;
-    }
-
     namespace Auth
     {
-        static int REFRESH_THRESHOLD = 1000 * 60 * 5;
+        constexpr int REFRESH_THRESHOLD = 1000 * 60 * 5;
 
         /**
-         * Simple data object around aws credentials
+         * Returns the full path of the config file.
          */
-        class AWS_CORE_API AWSCredentials
-        {
-        public:
-            AWSCredentials()
-            {
-            }
+        AWS_CORE_API Aws::String GetConfigProfileFilename(); //defaults to "config"
 
-            /**
-             * Initializes object with accessKeyId, secretKey, and sessionToken. Session token defaults to empty.
-             */
-            AWSCredentials(const Aws::String& accessKeyId, const Aws::String& secretKey, const Aws::String& sessionToken = "") :
-                m_accessKeyId(accessKeyId), m_secretKey(secretKey), m_sessionToken(sessionToken)
-            {
-            }
+        /**
+         * Returns the default profile name.
+         * The value is the first non-empty value of the following:
+         * 1. AWS_PROFILE environment variable
+         * 2. AWS_DEFAULT_PROFILE environment variable
+         * 3. The literal name "default"
+         */
+        AWS_CORE_API Aws::String GetConfigProfileName(); //defaults to "default"
 
-            /**
-             * Gets the underlying access key credential
-             */
-            inline const Aws::String& GetAWSAccessKeyId() const
-            {
-                return m_accessKeyId;
-            }
-
-            /**
-             * Gets the underlying secret key credential
-             */
-            inline const Aws::String& GetAWSSecretKey() const
-            {
-                return m_secretKey;
-            }
-
-            /**
-             * Gets the underlying session token
-             */
-            inline const Aws::String& GetSessionToken() const
-            {
-                return m_sessionToken;
-            }
-
-            /**
-             * Sets the underlying access key credential. Copies from parameter accessKeyId.
-             */
-            inline void SetAWSAccessKeyId(const Aws::String& accessKeyId)
-            {
-                m_accessKeyId = accessKeyId;
-            }
-
-            /**
-             * Sets the underlying secret key credential. Copies from parameter secretKey
-             */
-            inline void SetAWSSecretKey(const Aws::String& secretKey)
-            {
-                m_secretKey = secretKey;
-            }
-
-            /**
-             * Sets the underlyint session token. Copies from parameter sessionToken
-             */
-            inline void SetSessionToken(const Aws::String& sessionToken)
-            {
-                m_sessionToken = sessionToken;
-            }
-
-            /**
-            * Sets the underlying access key credential. Copies from parameter accessKeyId.
-            */
-            inline void SetAWSAccessKeyId(const char* accessKeyId)
-            {
-                m_accessKeyId = accessKeyId;
-            }
-
-            /**
-            * Sets the underlying secret key credential. Copies from parameter secretKey
-            */
-            inline void SetAWSSecretKey(const char* secretKey)
-            {
-                m_secretKey = secretKey;
-            }
-
-            /**
-            * Sets the underlying secret key credential. Copies from parameter secretKey
-            */
-            inline void SetSessionToken(const char* sessionToken)
-            {
-                m_sessionToken = sessionToken;
-            }
-
-        private:
-            Aws::String m_accessKeyId;
-            Aws::String m_secretKey;
-            Aws::String m_sessionToken;
-        };
+        /*
+         * Fetches credentials by executing the process in the parameter
+         */
+        AWS_CORE_API AWSCredentials GetCredentialsFromProcess(const Aws::String& process);
 
         /**
           * Abstract class for retrieving AWS credentials. Create a derived class from this to allow
@@ -177,7 +97,7 @@ namespace Aws
             /**
              * Returns empty credentials object.
              */
-            inline AWSCredentials GetAWSCredentials() override { return AWSCredentials("", ""); }
+            inline AWSCredentials GetAWSCredentials() override { return AWSCredentials(); }
         };
 
         /**
@@ -192,15 +112,14 @@ namespace Aws
              * Initializes object from awsAccessKeyId, awsSecretAccessKey, and sessionToken parameters. sessionToken parameter is defaulted to empty.
              */
             inline SimpleAWSCredentialsProvider(const Aws::String& awsAccessKeyId, const Aws::String& awsSecretAccessKey, const Aws::String& sessionToken = "")
-                : m_accessKeyId(awsAccessKeyId), m_secretAccessKey(awsSecretAccessKey), m_sessionToken(sessionToken)
+                : m_credentials(awsAccessKeyId, awsSecretAccessKey, sessionToken)
             { }
 
             /**
             * Initializes object from credentials object. everything is copied.
             */
             inline SimpleAWSCredentialsProvider(const AWSCredentials& credentials)
-                : m_accessKeyId(credentials.GetAWSAccessKeyId()), m_secretAccessKey(credentials.GetAWSSecretKey()),
-                m_sessionToken(credentials.GetSessionToken())
+                : m_credentials(credentials)
             { }
 
             /**
@@ -208,13 +127,11 @@ namespace Aws
              */
             inline AWSCredentials GetAWSCredentials() override
             {
-                return AWSCredentials(m_accessKeyId, m_secretAccessKey, m_sessionToken);
+                return m_credentials;
             }
 
         private:
-            Aws::String m_accessKeyId;
-            Aws::String m_secretAccessKey;
-            Aws::String m_sessionToken;
+            AWSCredentials m_credentials;
         };
 
         /**
@@ -234,7 +151,7 @@ namespace Aws
         /**
         * Reads credentials profile from the default Profile Config File. Refreshes at set interval for credential rotation.
         * Looks for environment variables AWS_SHARED_CREDENTIALS_FILE and AWS_PROFILE. If they aren't found, then it defaults
-        * to ~/.aws/credentials and default; if nothing is found at that location, it will look for ~/.aws/config.
+        * to the default profile in ~/.aws/credentials.
         * Optionally a user can specify the profile and it will override the environment variable
         * and defaults. To alter the file this pulls from, then the user should alter the AWS_SHARED_CREDENTIALS_FILE variable.
         */
@@ -259,11 +176,6 @@ namespace Aws
             AWSCredentials GetAWSCredentials() override;
 
             /**
-             * Returns the fullpath of the calculated config profile file
-             */
-            static Aws::String GetConfigProfileFilename();
-
-            /**
              * Returns the fullpath of the calculated credentials profile file
              */
             static Aws::String GetCredentialsProfileFilename();
@@ -278,13 +190,12 @@ namespace Aws
         private:
 
             /**
-            * Checks to see if the refresh interval has expired and reparses the file if it has.
-            */
+             * Checks to see if the refresh interval has expired and reparses the file if it has.
+             */
             void RefreshIfExpired();
 
             Aws::String m_profileToUse;
-            std::shared_ptr<Aws::Config::AWSProfileConfigLoader> m_configFileLoader;
-            std::shared_ptr<Aws::Config::AWSProfileConfigLoader> m_credentialsFileLoader;
+            Aws::Config::AWSConfigFileProfileConfigLoader m_credentialsFileLoader;
             long m_loadFrequencyMs;
         };
 
@@ -367,9 +278,49 @@ namespace Aws
         private:
             std::shared_ptr<Aws::Internal::ECSCredentialsClient> m_ecsCredentialsClient;
             long m_loadFrequencyMs;
-            Aws::Utils::DateTime m_expirationDate;
             Aws::Auth::AWSCredentials m_credentials;
         };
 
+        /**
+         * Process credentials provider that loads credentials by running another command (or program) configured in config file
+         * The configuration format is as following:
+         * credential_process = command_path <arguments_list>
+         * Each time the credentials needs to be refreshed, this command will be executed with configured arguments.
+         * The default profile name to look up this configuration is "default", same as normal aws credentials configuration and other configurations.
+         * The expected valid output of the command is a Json doc output to stdout:
+         * {"Version": 1, "AccessKeyId": "AccessKey123", "SecretAccessKey": "SecretKey321", "SessionToken": "Token123", "Expiration": "1970-01-01T00:00:01Z"}
+         * The Version key specifies the version of the JSON payload and must be set to 1 for now (as an integer type).
+         * If the Version key is bumped to 2, SDKs would support both versions of the returned payload.
+         * Value of Expiration field should be an valid ISO8601 formatted date string as above example.
+         * The expected error message of the command is a string to output to stderr.
+         */
+        class AWS_CORE_API ProcessCredentialsProvider : public AWSCredentialsProvider
+        {
+        public:
+            /**
+             * Initializes the provider by checking default profile
+             */
+            ProcessCredentialsProvider();
+
+            /**
+             * Initializes the provider by checking specified profile
+             * @param profile which profile in config file to use.
+             */
+            ProcessCredentialsProvider(const Aws::String& profile);
+
+            /**
+             * Retrieves the credentials if found, otherwise returns empty credential set.
+             */
+            AWSCredentials GetAWSCredentials() override;
+
+        protected:
+            void Reload() override;
+        private:
+            void RefreshIfExpired();
+
+        private:
+            Aws::String m_profileToUse;
+            Aws::Auth::AWSCredentials m_credentials;
+        };
     } // namespace Auth
 } // namespace Aws

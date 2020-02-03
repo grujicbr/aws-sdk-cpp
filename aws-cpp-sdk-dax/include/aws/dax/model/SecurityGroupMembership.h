@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     SecurityGroupMembership();
-    SecurityGroupMembership(const Aws::Utils::Json::JsonValue& jsonValue);
-    SecurityGroupMembership& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SecurityGroupMembership(Aws::Utils::Json::JsonView jsonValue);
+    SecurityGroupMembership& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The unique ID for this security group.</p>
      */
     inline const Aws::String& GetSecurityGroupIdentifier() const{ return m_securityGroupIdentifier; }
+
+    /**
+     * <p>The unique ID for this security group.</p>
+     */
+    inline bool SecurityGroupIdentifierHasBeenSet() const { return m_securityGroupIdentifierHasBeenSet; }
 
     /**
      * <p>The unique ID for this security group.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The status of this security group.</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of this security group.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of this security group.</p>

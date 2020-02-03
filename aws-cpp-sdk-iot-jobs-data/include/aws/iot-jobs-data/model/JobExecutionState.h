@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTJobsDataPlane
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     JobExecutionState();
-    JobExecutionState(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobExecutionState& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobExecutionState(Aws::Utils::Json::JsonView jsonValue);
+    JobExecutionState& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * "FAILED", "SUCCESS", "CANCELED", "REJECTED", or "REMOVED".</p>
      */
     inline const JobExecutionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the job execution. Can be one of: "QUEUED", "IN_PROGRESS",
+     * "FAILED", "SUCCESS", "CANCELED", "REJECTED", or "REMOVED".</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the job execution. Can be one of: "QUEUED", "IN_PROGRESS",
@@ -85,6 +92,12 @@ namespace Model
      * execution.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetStatusDetails() const{ return m_statusDetails; }
+
+    /**
+     * <p>A collection of name/value pairs that describe the status of the job
+     * execution.</p>
+     */
+    inline bool StatusDetailsHasBeenSet() const { return m_statusDetailsHasBeenSet; }
 
     /**
      * <p>A collection of name/value pairs that describe the status of the job
@@ -158,6 +171,12 @@ namespace Model
      * time they are updated by a device.</p>
      */
     inline long long GetVersionNumber() const{ return m_versionNumber; }
+
+    /**
+     * <p>The version of the job execution. Job execution versions are incremented each
+     * time they are updated by a device.</p>
+     */
+    inline bool VersionNumberHasBeenSet() const { return m_versionNumberHasBeenSet; }
 
     /**
      * <p>The version of the job execution. Job execution versions are incremented each

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Alarm();
-    Alarm(const Aws::Utils::Json::JsonValue& jsonValue);
-    Alarm& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Alarm(Aws::Utils::Json::JsonView jsonValue);
+    Alarm& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * be used only once in a list of alarms.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the alarm. Maximum length is 255 characters. Each alarm name can
+     * be used only once in a list of alarms.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the alarm. Maximum length is 255 characters. Each alarm name can

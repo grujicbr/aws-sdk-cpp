@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     CompromisedCredentialsActionsType();
-    CompromisedCredentialsActionsType(const Aws::Utils::Json::JsonValue& jsonValue);
-    CompromisedCredentialsActionsType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CompromisedCredentialsActionsType(Aws::Utils::Json::JsonView jsonValue);
+    CompromisedCredentialsActionsType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The event action.</p>
      */
     inline const CompromisedCredentialsEventActionType& GetEventAction() const{ return m_eventAction; }
+
+    /**
+     * <p>The event action.</p>
+     */
+    inline bool EventActionHasBeenSet() const { return m_eventActionHasBeenSet; }
 
     /**
      * <p>The event action.</p>

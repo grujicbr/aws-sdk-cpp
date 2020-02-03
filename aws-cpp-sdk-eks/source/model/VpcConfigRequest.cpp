@@ -30,22 +30,32 @@ namespace Model
 
 VpcConfigRequest::VpcConfigRequest() : 
     m_subnetIdsHasBeenSet(false),
-    m_securityGroupIdsHasBeenSet(false)
+    m_securityGroupIdsHasBeenSet(false),
+    m_endpointPublicAccess(false),
+    m_endpointPublicAccessHasBeenSet(false),
+    m_endpointPrivateAccess(false),
+    m_endpointPrivateAccessHasBeenSet(false),
+    m_publicAccessCidrsHasBeenSet(false)
 {
 }
 
-VpcConfigRequest::VpcConfigRequest(const JsonValue& jsonValue) : 
+VpcConfigRequest::VpcConfigRequest(JsonView jsonValue) : 
     m_subnetIdsHasBeenSet(false),
-    m_securityGroupIdsHasBeenSet(false)
+    m_securityGroupIdsHasBeenSet(false),
+    m_endpointPublicAccess(false),
+    m_endpointPublicAccessHasBeenSet(false),
+    m_endpointPrivateAccess(false),
+    m_endpointPrivateAccessHasBeenSet(false),
+    m_publicAccessCidrsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-VpcConfigRequest& VpcConfigRequest::operator =(const JsonValue& jsonValue)
+VpcConfigRequest& VpcConfigRequest::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("subnetIds"))
   {
-    Array<JsonValue> subnetIdsJsonList = jsonValue.GetArray("subnetIds");
+    Array<JsonView> subnetIdsJsonList = jsonValue.GetArray("subnetIds");
     for(unsigned subnetIdsIndex = 0; subnetIdsIndex < subnetIdsJsonList.GetLength(); ++subnetIdsIndex)
     {
       m_subnetIds.push_back(subnetIdsJsonList[subnetIdsIndex].AsString());
@@ -55,12 +65,36 @@ VpcConfigRequest& VpcConfigRequest::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("securityGroupIds"))
   {
-    Array<JsonValue> securityGroupIdsJsonList = jsonValue.GetArray("securityGroupIds");
+    Array<JsonView> securityGroupIdsJsonList = jsonValue.GetArray("securityGroupIds");
     for(unsigned securityGroupIdsIndex = 0; securityGroupIdsIndex < securityGroupIdsJsonList.GetLength(); ++securityGroupIdsIndex)
     {
       m_securityGroupIds.push_back(securityGroupIdsJsonList[securityGroupIdsIndex].AsString());
     }
     m_securityGroupIdsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("endpointPublicAccess"))
+  {
+    m_endpointPublicAccess = jsonValue.GetBool("endpointPublicAccess");
+
+    m_endpointPublicAccessHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("endpointPrivateAccess"))
+  {
+    m_endpointPrivateAccess = jsonValue.GetBool("endpointPrivateAccess");
+
+    m_endpointPrivateAccessHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("publicAccessCidrs"))
+  {
+    Array<JsonView> publicAccessCidrsJsonList = jsonValue.GetArray("publicAccessCidrs");
+    for(unsigned publicAccessCidrsIndex = 0; publicAccessCidrsIndex < publicAccessCidrsJsonList.GetLength(); ++publicAccessCidrsIndex)
+    {
+      m_publicAccessCidrs.push_back(publicAccessCidrsJsonList[publicAccessCidrsIndex].AsString());
+    }
+    m_publicAccessCidrsHasBeenSet = true;
   }
 
   return *this;
@@ -89,6 +123,29 @@ JsonValue VpcConfigRequest::Jsonize() const
      securityGroupIdsJsonList[securityGroupIdsIndex].AsString(m_securityGroupIds[securityGroupIdsIndex]);
    }
    payload.WithArray("securityGroupIds", std::move(securityGroupIdsJsonList));
+
+  }
+
+  if(m_endpointPublicAccessHasBeenSet)
+  {
+   payload.WithBool("endpointPublicAccess", m_endpointPublicAccess);
+
+  }
+
+  if(m_endpointPrivateAccessHasBeenSet)
+  {
+   payload.WithBool("endpointPrivateAccess", m_endpointPrivateAccess);
+
+  }
+
+  if(m_publicAccessCidrsHasBeenSet)
+  {
+   Array<JsonValue> publicAccessCidrsJsonList(m_publicAccessCidrs.size());
+   for(unsigned publicAccessCidrsIndex = 0; publicAccessCidrsIndex < publicAccessCidrsJsonList.GetLength(); ++publicAccessCidrsIndex)
+   {
+     publicAccessCidrsJsonList[publicAccessCidrsIndex].AsString(m_publicAccessCidrs[publicAccessCidrsIndex]);
+   }
+   payload.WithArray("publicAccessCidrs", std::move(publicAccessCidrsJsonList));
 
   }
 

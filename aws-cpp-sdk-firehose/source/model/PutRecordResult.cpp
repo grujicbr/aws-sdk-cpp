@@ -26,21 +26,29 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-PutRecordResult::PutRecordResult()
+PutRecordResult::PutRecordResult() : 
+    m_encrypted(false)
 {
 }
 
-PutRecordResult::PutRecordResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+PutRecordResult::PutRecordResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_encrypted(false)
 {
   *this = result;
 }
 
 PutRecordResult& PutRecordResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("RecordId"))
   {
     m_recordId = jsonValue.GetString("RecordId");
+
+  }
+
+  if(jsonValue.ValueExists("Encrypted"))
+  {
+    m_encrypted = jsonValue.GetBool("Encrypted");
 
   }
 

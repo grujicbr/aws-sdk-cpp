@@ -38,6 +38,7 @@ DistributionSummary::DistributionSummary() :
     m_domainNameHasBeenSet(false),
     m_aliasesHasBeenSet(false),
     m_originsHasBeenSet(false),
+    m_originGroupsHasBeenSet(false),
     m_defaultCacheBehaviorHasBeenSet(false),
     m_cacheBehaviorsHasBeenSet(false),
     m_customErrorResponsesHasBeenSet(false),
@@ -52,7 +53,8 @@ DistributionSummary::DistributionSummary() :
     m_httpVersion(HttpVersion::NOT_SET),
     m_httpVersionHasBeenSet(false),
     m_isIPV6Enabled(false),
-    m_isIPV6EnabledHasBeenSet(false)
+    m_isIPV6EnabledHasBeenSet(false),
+    m_aliasICPRecordalsHasBeenSet(false)
 {
 }
 
@@ -64,6 +66,7 @@ DistributionSummary::DistributionSummary(const XmlNode& xmlNode) :
     m_domainNameHasBeenSet(false),
     m_aliasesHasBeenSet(false),
     m_originsHasBeenSet(false),
+    m_originGroupsHasBeenSet(false),
     m_defaultCacheBehaviorHasBeenSet(false),
     m_cacheBehaviorsHasBeenSet(false),
     m_customErrorResponsesHasBeenSet(false),
@@ -78,7 +81,8 @@ DistributionSummary::DistributionSummary(const XmlNode& xmlNode) :
     m_httpVersion(HttpVersion::NOT_SET),
     m_httpVersionHasBeenSet(false),
     m_isIPV6Enabled(false),
-    m_isIPV6EnabledHasBeenSet(false)
+    m_isIPV6EnabledHasBeenSet(false),
+    m_aliasICPRecordalsHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -92,31 +96,31 @@ DistributionSummary& DistributionSummary::operator =(const XmlNode& xmlNode)
     XmlNode idNode = resultNode.FirstChild("Id");
     if(!idNode.IsNull())
     {
-      m_id = StringUtils::Trim(idNode.GetText().c_str());
+      m_id = Aws::Utils::Xml::DecodeEscapedXmlText(idNode.GetText());
       m_idHasBeenSet = true;
     }
     XmlNode aRNNode = resultNode.FirstChild("ARN");
     if(!aRNNode.IsNull())
     {
-      m_aRN = StringUtils::Trim(aRNNode.GetText().c_str());
+      m_aRN = Aws::Utils::Xml::DecodeEscapedXmlText(aRNNode.GetText());
       m_aRNHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode lastModifiedTimeNode = resultNode.FirstChild("LastModifiedTime");
     if(!lastModifiedTimeNode.IsNull())
     {
-      m_lastModifiedTime = DateTime(StringUtils::Trim(lastModifiedTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_lastModifiedTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(lastModifiedTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_lastModifiedTimeHasBeenSet = true;
     }
     XmlNode domainNameNode = resultNode.FirstChild("DomainName");
     if(!domainNameNode.IsNull())
     {
-      m_domainName = StringUtils::Trim(domainNameNode.GetText().c_str());
+      m_domainName = Aws::Utils::Xml::DecodeEscapedXmlText(domainNameNode.GetText());
       m_domainNameHasBeenSet = true;
     }
     XmlNode aliasesNode = resultNode.FirstChild("Aliases");
@@ -130,6 +134,12 @@ DistributionSummary& DistributionSummary::operator =(const XmlNode& xmlNode)
     {
       m_origins = originsNode;
       m_originsHasBeenSet = true;
+    }
+    XmlNode originGroupsNode = resultNode.FirstChild("OriginGroups");
+    if(!originGroupsNode.IsNull())
+    {
+      m_originGroups = originGroupsNode;
+      m_originGroupsHasBeenSet = true;
     }
     XmlNode defaultCacheBehaviorNode = resultNode.FirstChild("DefaultCacheBehavior");
     if(!defaultCacheBehaviorNode.IsNull())
@@ -152,19 +162,19 @@ DistributionSummary& DistributionSummary::operator =(const XmlNode& xmlNode)
     XmlNode commentNode = resultNode.FirstChild("Comment");
     if(!commentNode.IsNull())
     {
-      m_comment = StringUtils::Trim(commentNode.GetText().c_str());
+      m_comment = Aws::Utils::Xml::DecodeEscapedXmlText(commentNode.GetText());
       m_commentHasBeenSet = true;
     }
     XmlNode priceClassNode = resultNode.FirstChild("PriceClass");
     if(!priceClassNode.IsNull())
     {
-      m_priceClass = PriceClassMapper::GetPriceClassForName(StringUtils::Trim(priceClassNode.GetText().c_str()).c_str());
+      m_priceClass = PriceClassMapper::GetPriceClassForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(priceClassNode.GetText()).c_str()).c_str());
       m_priceClassHasBeenSet = true;
     }
     XmlNode enabledNode = resultNode.FirstChild("Enabled");
     if(!enabledNode.IsNull())
     {
-      m_enabled = StringUtils::ConvertToBool(StringUtils::Trim(enabledNode.GetText().c_str()).c_str());
+      m_enabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(enabledNode.GetText()).c_str()).c_str());
       m_enabledHasBeenSet = true;
     }
     XmlNode viewerCertificateNode = resultNode.FirstChild("ViewerCertificate");
@@ -182,20 +192,32 @@ DistributionSummary& DistributionSummary::operator =(const XmlNode& xmlNode)
     XmlNode webACLIdNode = resultNode.FirstChild("WebACLId");
     if(!webACLIdNode.IsNull())
     {
-      m_webACLId = StringUtils::Trim(webACLIdNode.GetText().c_str());
+      m_webACLId = Aws::Utils::Xml::DecodeEscapedXmlText(webACLIdNode.GetText());
       m_webACLIdHasBeenSet = true;
     }
     XmlNode httpVersionNode = resultNode.FirstChild("HttpVersion");
     if(!httpVersionNode.IsNull())
     {
-      m_httpVersion = HttpVersionMapper::GetHttpVersionForName(StringUtils::Trim(httpVersionNode.GetText().c_str()).c_str());
+      m_httpVersion = HttpVersionMapper::GetHttpVersionForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(httpVersionNode.GetText()).c_str()).c_str());
       m_httpVersionHasBeenSet = true;
     }
     XmlNode isIPV6EnabledNode = resultNode.FirstChild("IsIPV6Enabled");
     if(!isIPV6EnabledNode.IsNull())
     {
-      m_isIPV6Enabled = StringUtils::ConvertToBool(StringUtils::Trim(isIPV6EnabledNode.GetText().c_str()).c_str());
+      m_isIPV6Enabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isIPV6EnabledNode.GetText()).c_str()).c_str());
       m_isIPV6EnabledHasBeenSet = true;
+    }
+    XmlNode aliasICPRecordalsNode = resultNode.FirstChild("AliasICPRecordals");
+    if(!aliasICPRecordalsNode.IsNull())
+    {
+      XmlNode aliasICPRecordalsMember = aliasICPRecordalsNode.FirstChild("AliasICPRecordal");
+      while(!aliasICPRecordalsMember.IsNull())
+      {
+        m_aliasICPRecordals.push_back(aliasICPRecordalsMember);
+        aliasICPRecordalsMember = aliasICPRecordalsMember.NextNode("AliasICPRecordal");
+      }
+
+      m_aliasICPRecordalsHasBeenSet = true;
     }
   }
 
@@ -245,6 +267,12 @@ void DistributionSummary::AddToNode(XmlNode& parentNode) const
   {
    XmlNode originsNode = parentNode.CreateChildElement("Origins");
    m_origins.AddToNode(originsNode);
+  }
+
+  if(m_originGroupsHasBeenSet)
+  {
+   XmlNode originGroupsNode = parentNode.CreateChildElement("OriginGroups");
+   m_originGroups.AddToNode(originGroupsNode);
   }
 
   if(m_defaultCacheBehaviorHasBeenSet)
@@ -315,6 +343,16 @@ void DistributionSummary::AddToNode(XmlNode& parentNode) const
    ss << std::boolalpha << m_isIPV6Enabled;
    isIPV6EnabledNode.SetText(ss.str());
    ss.str("");
+  }
+
+  if(m_aliasICPRecordalsHasBeenSet)
+  {
+   XmlNode aliasICPRecordalsParentNode = parentNode.CreateChildElement("AliasICPRecordals");
+   for(const auto& item : m_aliasICPRecordals)
+   {
+     XmlNode aliasICPRecordalsNode = aliasICPRecordalsParentNode.CreateChildElement("AliasICPRecordal");
+     item.AddToNode(aliasICPRecordalsNode);
+   }
   }
 
 }

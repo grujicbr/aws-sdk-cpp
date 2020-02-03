@@ -80,37 +80,37 @@ ConfigurationOptionDescription& ConfigurationOptionDescription::operator =(const
     XmlNode namespaceNode = resultNode.FirstChild("Namespace");
     if(!namespaceNode.IsNull())
     {
-      m_namespace = StringUtils::Trim(namespaceNode.GetText().c_str());
+      m_namespace = Aws::Utils::Xml::DecodeEscapedXmlText(namespaceNode.GetText());
       m_namespaceHasBeenSet = true;
     }
     XmlNode nameNode = resultNode.FirstChild("Name");
     if(!nameNode.IsNull())
     {
-      m_name = StringUtils::Trim(nameNode.GetText().c_str());
+      m_name = Aws::Utils::Xml::DecodeEscapedXmlText(nameNode.GetText());
       m_nameHasBeenSet = true;
     }
     XmlNode defaultValueNode = resultNode.FirstChild("DefaultValue");
     if(!defaultValueNode.IsNull())
     {
-      m_defaultValue = StringUtils::Trim(defaultValueNode.GetText().c_str());
+      m_defaultValue = Aws::Utils::Xml::DecodeEscapedXmlText(defaultValueNode.GetText());
       m_defaultValueHasBeenSet = true;
     }
     XmlNode changeSeverityNode = resultNode.FirstChild("ChangeSeverity");
     if(!changeSeverityNode.IsNull())
     {
-      m_changeSeverity = StringUtils::Trim(changeSeverityNode.GetText().c_str());
+      m_changeSeverity = Aws::Utils::Xml::DecodeEscapedXmlText(changeSeverityNode.GetText());
       m_changeSeverityHasBeenSet = true;
     }
     XmlNode userDefinedNode = resultNode.FirstChild("UserDefined");
     if(!userDefinedNode.IsNull())
     {
-      m_userDefined = StringUtils::ConvertToBool(StringUtils::Trim(userDefinedNode.GetText().c_str()).c_str());
+      m_userDefined = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(userDefinedNode.GetText()).c_str()).c_str());
       m_userDefinedHasBeenSet = true;
     }
     XmlNode valueTypeNode = resultNode.FirstChild("ValueType");
     if(!valueTypeNode.IsNull())
     {
-      m_valueType = ConfigurationOptionValueTypeMapper::GetConfigurationOptionValueTypeForName(StringUtils::Trim(valueTypeNode.GetText().c_str()).c_str());
+      m_valueType = ConfigurationOptionValueTypeMapper::GetConfigurationOptionValueTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(valueTypeNode.GetText()).c_str()).c_str());
       m_valueTypeHasBeenSet = true;
     }
     XmlNode valueOptionsNode = resultNode.FirstChild("ValueOptions");
@@ -119,7 +119,7 @@ ConfigurationOptionDescription& ConfigurationOptionDescription::operator =(const
       XmlNode valueOptionsMember = valueOptionsNode.FirstChild("member");
       while(!valueOptionsMember.IsNull())
       {
-        m_valueOptions.push_back(StringUtils::Trim(valueOptionsMember.GetText().c_str()));
+        m_valueOptions.push_back(valueOptionsMember.GetText());
         valueOptionsMember = valueOptionsMember.NextNode("member");
       }
 
@@ -128,19 +128,19 @@ ConfigurationOptionDescription& ConfigurationOptionDescription::operator =(const
     XmlNode minValueNode = resultNode.FirstChild("MinValue");
     if(!minValueNode.IsNull())
     {
-      m_minValue = StringUtils::ConvertToInt32(StringUtils::Trim(minValueNode.GetText().c_str()).c_str());
+      m_minValue = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(minValueNode.GetText()).c_str()).c_str());
       m_minValueHasBeenSet = true;
     }
     XmlNode maxValueNode = resultNode.FirstChild("MaxValue");
     if(!maxValueNode.IsNull())
     {
-      m_maxValue = StringUtils::ConvertToInt32(StringUtils::Trim(maxValueNode.GetText().c_str()).c_str());
+      m_maxValue = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(maxValueNode.GetText()).c_str()).c_str());
       m_maxValueHasBeenSet = true;
     }
     XmlNode maxLengthNode = resultNode.FirstChild("MaxLength");
     if(!maxLengthNode.IsNull())
     {
-      m_maxLength = StringUtils::ConvertToInt32(StringUtils::Trim(maxLengthNode.GetText().c_str()).c_str());
+      m_maxLength = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(maxLengthNode.GetText()).c_str()).c_str());
       m_maxLengthHasBeenSet = true;
     }
     XmlNode regexNode = resultNode.FirstChild("Regex");

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ComplianceSummaryByResourceType();
-    ComplianceSummaryByResourceType(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComplianceSummaryByResourceType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComplianceSummaryByResourceType(Aws::Utils::Json::JsonView jsonValue);
+    ComplianceSummaryByResourceType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The type of AWS resource.</p>
      */
     inline const Aws::String& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The type of AWS resource.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The type of AWS resource.</p>
@@ -89,6 +95,12 @@ namespace Model
      * maximum of 100 for each.</p>
      */
     inline const ComplianceSummary& GetComplianceSummary() const{ return m_complianceSummary; }
+
+    /**
+     * <p>The number of AWS resources that are compliant or noncompliant, up to a
+     * maximum of 100 for each.</p>
+     */
+    inline bool ComplianceSummaryHasBeenSet() const { return m_complianceSummaryHasBeenSet; }
 
     /**
      * <p>The number of AWS resources that are compliant or noncompliant, up to a

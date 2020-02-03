@@ -39,9 +39,13 @@ CreateSMBFileShareRequest::CreateSMBFileShareRequest() :
     m_guessMIMETypeEnabledHasBeenSet(false),
     m_requesterPays(false),
     m_requesterPaysHasBeenSet(false),
+    m_sMBACLEnabled(false),
+    m_sMBACLEnabledHasBeenSet(false),
+    m_adminUserListHasBeenSet(false),
     m_validUserListHasBeenSet(false),
     m_invalidUserListHasBeenSet(false),
-    m_authenticationHasBeenSet(false)
+    m_authenticationHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -114,6 +118,23 @@ Aws::String CreateSMBFileShareRequest::SerializePayload() const
 
   }
 
+  if(m_sMBACLEnabledHasBeenSet)
+  {
+   payload.WithBool("SMBACLEnabled", m_sMBACLEnabled);
+
+  }
+
+  if(m_adminUserListHasBeenSet)
+  {
+   Array<JsonValue> adminUserListJsonList(m_adminUserList.size());
+   for(unsigned adminUserListIndex = 0; adminUserListIndex < adminUserListJsonList.GetLength(); ++adminUserListIndex)
+   {
+     adminUserListJsonList[adminUserListIndex].AsString(m_adminUserList[adminUserListIndex]);
+   }
+   payload.WithArray("AdminUserList", std::move(adminUserListJsonList));
+
+  }
+
   if(m_validUserListHasBeenSet)
   {
    Array<JsonValue> validUserListJsonList(m_validUserList.size());
@@ -142,7 +163,18 @@ Aws::String CreateSMBFileShareRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateSMBFileShareRequest::GetRequestSpecificHeaders() const

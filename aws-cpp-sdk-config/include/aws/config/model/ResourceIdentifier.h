@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ResourceIdentifier();
-    ResourceIdentifier(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceIdentifier& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceIdentifier(Aws::Utils::Json::JsonView jsonValue);
+    ResourceIdentifier& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The type of resource.</p>
      */
     inline const ResourceType& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The type of resource.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The type of resource.</p>
@@ -80,6 +86,11 @@ namespace Model
      * <p>The ID of the resource (for example, <code>sg-xxxxxx</code>).</p>
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
+
+    /**
+     * <p>The ID of the resource (for example, <code>sg-xxxxxx</code>).</p>
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
 
     /**
      * <p>The ID of the resource (for example, <code>sg-xxxxxx</code>).</p>
@@ -120,6 +131,11 @@ namespace Model
     /**
      * <p>The custom name of the resource (if available).</p>
      */
+    inline bool ResourceNameHasBeenSet() const { return m_resourceNameHasBeenSet; }
+
+    /**
+     * <p>The custom name of the resource (if available).</p>
+     */
     inline void SetResourceName(const Aws::String& value) { m_resourceNameHasBeenSet = true; m_resourceName = value; }
 
     /**
@@ -152,6 +168,11 @@ namespace Model
      * <p>The time that the resource was deleted.</p>
      */
     inline const Aws::Utils::DateTime& GetResourceDeletionTime() const{ return m_resourceDeletionTime; }
+
+    /**
+     * <p>The time that the resource was deleted.</p>
+     */
+    inline bool ResourceDeletionTimeHasBeenSet() const { return m_resourceDeletionTimeHasBeenSet; }
 
     /**
      * <p>The time that the resource was deleted.</p>

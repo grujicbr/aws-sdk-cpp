@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Allowed();
-    Allowed(const Aws::Utils::Json::JsonValue& jsonValue);
-    Allowed& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Allowed(Aws::Utils::Json::JsonView jsonValue);
+    Allowed& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>A list of policies that allowed the authentication.</p>
      */
     inline const Aws::Vector<Policy>& GetPolicies() const{ return m_policies; }
+
+    /**
+     * <p>A list of policies that allowed the authentication.</p>
+     */
+    inline bool PoliciesHasBeenSet() const { return m_policiesHasBeenSet; }
 
     /**
      * <p>A list of policies that allowed the authentication.</p>

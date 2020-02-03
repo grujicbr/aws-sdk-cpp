@@ -40,7 +40,7 @@ namespace Model
   {
   public:
     DescribeReservedInstancesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -82,13 +82,14 @@ namespace Model
      * 2014-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>state</code> - The state of
      * the Reserved Instance (<code>payment-pending</code> | <code>active</code> |
      * <code>payment-failed</code> | <code>retired</code>).</p> </li> <li> <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag
-     * assigned to the resource. Specify the key of the tag in the filter name and the
-     * value of the tag in the filter value. For example, for the tag Purpose=X,
-     * specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     * filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag
-     * assigned to the resource. Use this filter to find all resources assigned a tag
-     * with a specific key, regardless of the tag value.</p> </li> <li> <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to
+     * the resource. Use the tag key in the filter name and the tag value as the filter
+     * value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify
+     * <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter
+     * value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to
+     * the resource. Use this filter to find all resources assigned a tag with a
+     * specific key, regardless of the tag value.</p> </li> <li> <p>
      * <code>usage-price</code> - The usage price of the Reserved Instance, per hour
      * (for example, 0.84).</p> </li> </ul>
      */
@@ -122,13 +123,55 @@ namespace Model
      * 2014-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>state</code> - The state of
      * the Reserved Instance (<code>payment-pending</code> | <code>active</code> |
      * <code>payment-failed</code> | <code>retired</code>).</p> </li> <li> <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag
-     * assigned to the resource. Specify the key of the tag in the filter name and the
-     * value of the tag in the filter value. For example, for the tag Purpose=X,
-     * specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     * filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag
-     * assigned to the resource. Use this filter to find all resources assigned a tag
-     * with a specific key, regardless of the tag value.</p> </li> <li> <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to
+     * the resource. Use the tag key in the filter name and the tag value as the filter
+     * value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify
+     * <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter
+     * value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to
+     * the resource. Use this filter to find all resources assigned a tag with a
+     * specific key, regardless of the tag value.</p> </li> <li> <p>
+     * <code>usage-price</code> - The usage price of the Reserved Instance, per hour
+     * (for example, 0.84).</p> </li> </ul>
+     */
+    inline bool FiltersHasBeenSet() const { return m_filtersHasBeenSet; }
+
+    /**
+     * <p>One or more filters.</p> <ul> <li> <p> <code>availability-zone</code> - The
+     * Availability Zone where the Reserved Instance can be used.</p> </li> <li> <p>
+     * <code>duration</code> - The duration of the Reserved Instance (one year or three
+     * years), in seconds (<code>31536000</code> | <code>94608000</code>).</p> </li>
+     * <li> <p> <code>end</code> - The time when the Reserved Instance expires (for
+     * example, 2015-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>fixed-price</code>
+     * - The purchase price of the Reserved Instance (for example, 9800.0).</p> </li>
+     * <li> <p> <code>instance-type</code> - The instance type that is covered by the
+     * reservation.</p> </li> <li> <p> <code>scope</code> - The scope of the Reserved
+     * Instance (<code>Region</code> or <code>Availability Zone</code>).</p> </li> <li>
+     * <p> <code>product-description</code> - The Reserved Instance product platform
+     * description. Instances that include <code>(Amazon VPC)</code> in the product
+     * platform description will only be displayed to EC2-Classic account holders and
+     * are for use with Amazon VPC (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
+     * VPC)</code> | <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux (Amazon
+     * VPC)</code> | <code>Windows</code> | <code>Windows (Amazon VPC)</code> |
+     * <code>Windows with SQL Server Standard</code> | <code>Windows with SQL Server
+     * Standard (Amazon VPC)</code> | <code>Windows with SQL Server Web</code> |
+     * <code>Windows with SQL Server Web (Amazon VPC)</code> | <code>Windows with SQL
+     * Server Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
+     * VPC)</code>).</p> </li> <li> <p> <code>reserved-instances-id</code> - The ID of
+     * the Reserved Instance.</p> </li> <li> <p> <code>start</code> - The time at which
+     * the Reserved Instance purchase request was placed (for example,
+     * 2014-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>state</code> - The state of
+     * the Reserved Instance (<code>payment-pending</code> | <code>active</code> |
+     * <code>payment-failed</code> | <code>retired</code>).</p> </li> <li> <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to
+     * the resource. Use the tag key in the filter name and the tag value as the filter
+     * value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify
+     * <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter
+     * value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to
+     * the resource. Use this filter to find all resources assigned a tag with a
+     * specific key, regardless of the tag value.</p> </li> <li> <p>
      * <code>usage-price</code> - The usage price of the Reserved Instance, per hour
      * (for example, 0.84).</p> </li> </ul>
      */
@@ -162,13 +205,14 @@ namespace Model
      * 2014-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>state</code> - The state of
      * the Reserved Instance (<code>payment-pending</code> | <code>active</code> |
      * <code>payment-failed</code> | <code>retired</code>).</p> </li> <li> <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag
-     * assigned to the resource. Specify the key of the tag in the filter name and the
-     * value of the tag in the filter value. For example, for the tag Purpose=X,
-     * specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     * filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag
-     * assigned to the resource. Use this filter to find all resources assigned a tag
-     * with a specific key, regardless of the tag value.</p> </li> <li> <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to
+     * the resource. Use the tag key in the filter name and the tag value as the filter
+     * value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify
+     * <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter
+     * value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to
+     * the resource. Use this filter to find all resources assigned a tag with a
+     * specific key, regardless of the tag value.</p> </li> <li> <p>
      * <code>usage-price</code> - The usage price of the Reserved Instance, per hour
      * (for example, 0.84).</p> </li> </ul>
      */
@@ -202,13 +246,14 @@ namespace Model
      * 2014-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>state</code> - The state of
      * the Reserved Instance (<code>payment-pending</code> | <code>active</code> |
      * <code>payment-failed</code> | <code>retired</code>).</p> </li> <li> <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag
-     * assigned to the resource. Specify the key of the tag in the filter name and the
-     * value of the tag in the filter value. For example, for the tag Purpose=X,
-     * specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     * filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag
-     * assigned to the resource. Use this filter to find all resources assigned a tag
-     * with a specific key, regardless of the tag value.</p> </li> <li> <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to
+     * the resource. Use the tag key in the filter name and the tag value as the filter
+     * value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify
+     * <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter
+     * value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to
+     * the resource. Use this filter to find all resources assigned a tag with a
+     * specific key, regardless of the tag value.</p> </li> <li> <p>
      * <code>usage-price</code> - The usage price of the Reserved Instance, per hour
      * (for example, 0.84).</p> </li> </ul>
      */
@@ -242,13 +287,14 @@ namespace Model
      * 2014-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>state</code> - The state of
      * the Reserved Instance (<code>payment-pending</code> | <code>active</code> |
      * <code>payment-failed</code> | <code>retired</code>).</p> </li> <li> <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag
-     * assigned to the resource. Specify the key of the tag in the filter name and the
-     * value of the tag in the filter value. For example, for the tag Purpose=X,
-     * specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     * filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag
-     * assigned to the resource. Use this filter to find all resources assigned a tag
-     * with a specific key, regardless of the tag value.</p> </li> <li> <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to
+     * the resource. Use the tag key in the filter name and the tag value as the filter
+     * value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify
+     * <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter
+     * value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to
+     * the resource. Use this filter to find all resources assigned a tag with a
+     * specific key, regardless of the tag value.</p> </li> <li> <p>
      * <code>usage-price</code> - The usage price of the Reserved Instance, per hour
      * (for example, 0.84).</p> </li> </ul>
      */
@@ -282,13 +328,14 @@ namespace Model
      * 2014-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>state</code> - The state of
      * the Reserved Instance (<code>payment-pending</code> | <code>active</code> |
      * <code>payment-failed</code> | <code>retired</code>).</p> </li> <li> <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag
-     * assigned to the resource. Specify the key of the tag in the filter name and the
-     * value of the tag in the filter value. For example, for the tag Purpose=X,
-     * specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     * filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag
-     * assigned to the resource. Use this filter to find all resources assigned a tag
-     * with a specific key, regardless of the tag value.</p> </li> <li> <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to
+     * the resource. Use the tag key in the filter name and the tag value as the filter
+     * value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify
+     * <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter
+     * value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to
+     * the resource. Use this filter to find all resources assigned a tag with a
+     * specific key, regardless of the tag value.</p> </li> <li> <p>
      * <code>usage-price</code> - The usage price of the Reserved Instance, per hour
      * (for example, 0.84).</p> </li> </ul>
      */
@@ -322,13 +369,14 @@ namespace Model
      * 2014-08-07T11:54:42.000Z).</p> </li> <li> <p> <code>state</code> - The state of
      * the Reserved Instance (<code>payment-pending</code> | <code>active</code> |
      * <code>payment-failed</code> | <code>retired</code>).</p> </li> <li> <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag
-     * assigned to the resource. Specify the key of the tag in the filter name and the
-     * value of the tag in the filter value. For example, for the tag Purpose=X,
-     * specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     * filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag
-     * assigned to the resource. Use this filter to find all resources assigned a tag
-     * with a specific key, regardless of the tag value.</p> </li> <li> <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to
+     * the resource. Use the tag key in the filter name and the tag value as the filter
+     * value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify
+     * <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter
+     * value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to
+     * the resource. Use this filter to find all resources assigned a tag with a
+     * specific key, regardless of the tag value.</p> </li> <li> <p>
      * <code>usage-price</code> - The usage price of the Reserved Instance, per hour
      * (for example, 0.84).</p> </li> </ul>
      */
@@ -339,6 +387,11 @@ namespace Model
      * <p>Describes whether the Reserved Instance is Standard or Convertible.</p>
      */
     inline const OfferingClassType& GetOfferingClass() const{ return m_offeringClass; }
+
+    /**
+     * <p>Describes whether the Reserved Instance is Standard or Convertible.</p>
+     */
+    inline bool OfferingClassHasBeenSet() const { return m_offeringClassHasBeenSet; }
 
     /**
      * <p>Describes whether the Reserved Instance is Standard or Convertible.</p>
@@ -366,6 +419,12 @@ namespace Model
      * Reserved Instances, or only those otherwise specified.</p>
      */
     inline const Aws::Vector<Aws::String>& GetReservedInstancesIds() const{ return m_reservedInstancesIds; }
+
+    /**
+     * <p>One or more Reserved Instance IDs.</p> <p>Default: Describes all your
+     * Reserved Instances, or only those otherwise specified.</p>
+     */
+    inline bool ReservedInstancesIdsHasBeenSet() const { return m_reservedInstancesIdsHasBeenSet; }
 
     /**
      * <p>One or more Reserved Instance IDs.</p> <p>Default: Describes all your
@@ -424,6 +483,14 @@ namespace Model
      * required permissions, the error response is <code>DryRunOperation</code>.
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
     inline void SetDryRun(bool value) { m_dryRunHasBeenSet = true; m_dryRun = value; }
 
     /**
@@ -441,6 +508,13 @@ namespace Model
      * Utilization</code> Reserved Instance offering type.</p>
      */
     inline const OfferingTypeValues& GetOfferingType() const{ return m_offeringType; }
+
+    /**
+     * <p>The Reserved Instance offering type. If you are using tools that predate the
+     * 2011-11-01 API version, you only have access to the <code>Medium
+     * Utilization</code> Reserved Instance offering type.</p>
+     */
+    inline bool OfferingTypeHasBeenSet() const { return m_offeringTypeHasBeenSet; }
 
     /**
      * <p>The Reserved Instance offering type. If you are using tools that predate the

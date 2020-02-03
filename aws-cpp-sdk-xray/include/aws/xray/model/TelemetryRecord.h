@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TelemetryRecord();
-    TelemetryRecord(const Aws::Utils::Json::JsonValue& jsonValue);
-    TelemetryRecord& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TelemetryRecord(Aws::Utils::Json::JsonView jsonValue);
+    TelemetryRecord& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p/>
      */
     inline const Aws::Utils::DateTime& GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p/>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p/>
@@ -81,6 +87,11 @@ namespace Model
     /**
      * <p/>
      */
+    inline bool SegmentsReceivedCountHasBeenSet() const { return m_segmentsReceivedCountHasBeenSet; }
+
+    /**
+     * <p/>
+     */
     inline void SetSegmentsReceivedCount(int value) { m_segmentsReceivedCountHasBeenSet = true; m_segmentsReceivedCount = value; }
 
     /**
@@ -93,6 +104,11 @@ namespace Model
      * <p/>
      */
     inline int GetSegmentsSentCount() const{ return m_segmentsSentCount; }
+
+    /**
+     * <p/>
+     */
+    inline bool SegmentsSentCountHasBeenSet() const { return m_segmentsSentCountHasBeenSet; }
 
     /**
      * <p/>
@@ -113,6 +129,11 @@ namespace Model
     /**
      * <p/>
      */
+    inline bool SegmentsSpilloverCountHasBeenSet() const { return m_segmentsSpilloverCountHasBeenSet; }
+
+    /**
+     * <p/>
+     */
     inline void SetSegmentsSpilloverCount(int value) { m_segmentsSpilloverCountHasBeenSet = true; m_segmentsSpilloverCount = value; }
 
     /**
@@ -129,6 +150,11 @@ namespace Model
     /**
      * <p/>
      */
+    inline bool SegmentsRejectedCountHasBeenSet() const { return m_segmentsRejectedCountHasBeenSet; }
+
+    /**
+     * <p/>
+     */
     inline void SetSegmentsRejectedCount(int value) { m_segmentsRejectedCountHasBeenSet = true; m_segmentsRejectedCount = value; }
 
     /**
@@ -141,6 +167,11 @@ namespace Model
      * <p/>
      */
     inline const BackendConnectionErrors& GetBackendConnectionErrors() const{ return m_backendConnectionErrors; }
+
+    /**
+     * <p/>
+     */
+    inline bool BackendConnectionErrorsHasBeenSet() const { return m_backendConnectionErrorsHasBeenSet; }
 
     /**
      * <p/>

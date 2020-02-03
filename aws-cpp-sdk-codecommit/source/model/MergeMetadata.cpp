@@ -31,19 +31,25 @@ namespace Model
 MergeMetadata::MergeMetadata() : 
     m_isMerged(false),
     m_isMergedHasBeenSet(false),
-    m_mergedByHasBeenSet(false)
+    m_mergedByHasBeenSet(false),
+    m_mergeCommitIdHasBeenSet(false),
+    m_mergeOption(MergeOptionTypeEnum::NOT_SET),
+    m_mergeOptionHasBeenSet(false)
 {
 }
 
-MergeMetadata::MergeMetadata(const JsonValue& jsonValue) : 
+MergeMetadata::MergeMetadata(JsonView jsonValue) : 
     m_isMerged(false),
     m_isMergedHasBeenSet(false),
-    m_mergedByHasBeenSet(false)
+    m_mergedByHasBeenSet(false),
+    m_mergeCommitIdHasBeenSet(false),
+    m_mergeOption(MergeOptionTypeEnum::NOT_SET),
+    m_mergeOptionHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-MergeMetadata& MergeMetadata::operator =(const JsonValue& jsonValue)
+MergeMetadata& MergeMetadata::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("isMerged"))
   {
@@ -57,6 +63,20 @@ MergeMetadata& MergeMetadata::operator =(const JsonValue& jsonValue)
     m_mergedBy = jsonValue.GetString("mergedBy");
 
     m_mergedByHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mergeCommitId"))
+  {
+    m_mergeCommitId = jsonValue.GetString("mergeCommitId");
+
+    m_mergeCommitIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mergeOption"))
+  {
+    m_mergeOption = MergeOptionTypeEnumMapper::GetMergeOptionTypeEnumForName(jsonValue.GetString("mergeOption"));
+
+    m_mergeOptionHasBeenSet = true;
   }
 
   return *this;
@@ -76,6 +96,17 @@ JsonValue MergeMetadata::Jsonize() const
   {
    payload.WithString("mergedBy", m_mergedBy);
 
+  }
+
+  if(m_mergeCommitIdHasBeenSet)
+  {
+   payload.WithString("mergeCommitId", m_mergeCommitId);
+
+  }
+
+  if(m_mergeOptionHasBeenSet)
+  {
+   payload.WithString("mergeOption", MergeOptionTypeEnumMapper::GetNameForMergeOptionTypeEnum(m_mergeOption));
   }
 
   return payload;

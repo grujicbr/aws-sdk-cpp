@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchEvents
@@ -31,7 +32,7 @@ namespace Model
 {
 
   /**
-   * <p>The retry strategy to use for failed jobs, if the target is an AWS Batch job.
+   * <p>The retry strategy to use for failed jobs if the target is an AWS Batch job.
    * If you specify a retry strategy here, it overrides the retry strategy defined in
    * the job definition.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/events-2015-10-07/BatchRetryStrategy">AWS
@@ -41,26 +42,32 @@ namespace Model
   {
   public:
     BatchRetryStrategy();
-    BatchRetryStrategy(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchRetryStrategy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchRetryStrategy(Aws::Utils::Json::JsonView jsonValue);
+    BatchRetryStrategy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The number of times to attempt to retry, if the job fails. Valid values are 1
-     * to 10.</p>
+     * <p>The number of times to attempt to retry, if the job fails. Valid values are
+     * 1–10.</p>
      */
     inline int GetAttempts() const{ return m_attempts; }
 
     /**
-     * <p>The number of times to attempt to retry, if the job fails. Valid values are 1
-     * to 10.</p>
+     * <p>The number of times to attempt to retry, if the job fails. Valid values are
+     * 1–10.</p>
+     */
+    inline bool AttemptsHasBeenSet() const { return m_attemptsHasBeenSet; }
+
+    /**
+     * <p>The number of times to attempt to retry, if the job fails. Valid values are
+     * 1–10.</p>
      */
     inline void SetAttempts(int value) { m_attemptsHasBeenSet = true; m_attempts = value; }
 
     /**
-     * <p>The number of times to attempt to retry, if the job fails. Valid values are 1
-     * to 10.</p>
+     * <p>The number of times to attempt to retry, if the job fails. Valid values are
+     * 1–10.</p>
      */
     inline BatchRetryStrategy& WithAttempts(int value) { SetAttempts(value); return *this;}
 

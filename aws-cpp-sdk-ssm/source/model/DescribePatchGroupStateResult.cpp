@@ -30,9 +30,12 @@ DescribePatchGroupStateResult::DescribePatchGroupStateResult() :
     m_instances(0),
     m_instancesWithInstalledPatches(0),
     m_instancesWithInstalledOtherPatches(0),
+    m_instancesWithInstalledPendingRebootPatches(0),
+    m_instancesWithInstalledRejectedPatches(0),
     m_instancesWithMissingPatches(0),
     m_instancesWithFailedPatches(0),
-    m_instancesWithNotApplicablePatches(0)
+    m_instancesWithNotApplicablePatches(0),
+    m_instancesWithUnreportedNotApplicablePatches(0)
 {
 }
 
@@ -40,16 +43,19 @@ DescribePatchGroupStateResult::DescribePatchGroupStateResult(const Aws::AmazonWe
     m_instances(0),
     m_instancesWithInstalledPatches(0),
     m_instancesWithInstalledOtherPatches(0),
+    m_instancesWithInstalledPendingRebootPatches(0),
+    m_instancesWithInstalledRejectedPatches(0),
     m_instancesWithMissingPatches(0),
     m_instancesWithFailedPatches(0),
-    m_instancesWithNotApplicablePatches(0)
+    m_instancesWithNotApplicablePatches(0),
+    m_instancesWithUnreportedNotApplicablePatches(0)
 {
   *this = result;
 }
 
 DescribePatchGroupStateResult& DescribePatchGroupStateResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("Instances"))
   {
     m_instances = jsonValue.GetInteger("Instances");
@@ -68,6 +74,18 @@ DescribePatchGroupStateResult& DescribePatchGroupStateResult::operator =(const A
 
   }
 
+  if(jsonValue.ValueExists("InstancesWithInstalledPendingRebootPatches"))
+  {
+    m_instancesWithInstalledPendingRebootPatches = jsonValue.GetInteger("InstancesWithInstalledPendingRebootPatches");
+
+  }
+
+  if(jsonValue.ValueExists("InstancesWithInstalledRejectedPatches"))
+  {
+    m_instancesWithInstalledRejectedPatches = jsonValue.GetInteger("InstancesWithInstalledRejectedPatches");
+
+  }
+
   if(jsonValue.ValueExists("InstancesWithMissingPatches"))
   {
     m_instancesWithMissingPatches = jsonValue.GetInteger("InstancesWithMissingPatches");
@@ -83,6 +101,12 @@ DescribePatchGroupStateResult& DescribePatchGroupStateResult::operator =(const A
   if(jsonValue.ValueExists("InstancesWithNotApplicablePatches"))
   {
     m_instancesWithNotApplicablePatches = jsonValue.GetInteger("InstancesWithNotApplicablePatches");
+
+  }
+
+  if(jsonValue.ValueExists("InstancesWithUnreportedNotApplicablePatches"))
+  {
+    m_instancesWithUnreportedNotApplicablePatches = jsonValue.GetInteger("InstancesWithUnreportedNotApplicablePatches");
 
   }
 

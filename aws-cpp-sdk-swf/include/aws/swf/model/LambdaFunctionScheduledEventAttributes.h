@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LambdaFunctionScheduledEventAttributes();
-    LambdaFunctionScheduledEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    LambdaFunctionScheduledEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LambdaFunctionScheduledEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    LambdaFunctionScheduledEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The unique ID of the Lambda task.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique ID of the Lambda task.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique ID of the Lambda task.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The name of the Lambda function.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the Lambda function.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -124,6 +135,12 @@ namespace Model
      * tasks. This data isn't sent to the Lambda task.</p>
      */
     inline const Aws::String& GetControl() const{ return m_control; }
+
+    /**
+     * <p>Data attached to the event that the decider can use in subsequent workflow
+     * tasks. This data isn't sent to the Lambda task.</p>
+     */
+    inline bool ControlHasBeenSet() const { return m_controlHasBeenSet; }
 
     /**
      * <p>Data attached to the event that the decider can use in subsequent workflow
@@ -170,6 +187,11 @@ namespace Model
     /**
      * <p>The input provided to the Lambda task.</p>
      */
+    inline bool InputHasBeenSet() const { return m_inputHasBeenSet; }
+
+    /**
+     * <p>The input provided to the Lambda task.</p>
+     */
     inline void SetInput(const Aws::String& value) { m_inputHasBeenSet = true; m_input = value; }
 
     /**
@@ -202,6 +224,11 @@ namespace Model
      * <p>The maximum amount of time a worker can take to process the Lambda task.</p>
      */
     inline const Aws::String& GetStartToCloseTimeout() const{ return m_startToCloseTimeout; }
+
+    /**
+     * <p>The maximum amount of time a worker can take to process the Lambda task.</p>
+     */
+    inline bool StartToCloseTimeoutHasBeenSet() const { return m_startToCloseTimeoutHasBeenSet; }
 
     /**
      * <p>The maximum amount of time a worker can take to process the Lambda task.</p>
@@ -241,6 +268,14 @@ namespace Model
      * this event.</p>
      */
     inline long long GetDecisionTaskCompletedEventId() const{ return m_decisionTaskCompletedEventId; }
+
+    /**
+     * <p>The ID of the <code>LambdaFunctionCompleted</code> event corresponding to the
+     * decision that resulted in scheduling this activity task. To help diagnose
+     * issues, use this information to trace back the chain of events leading up to
+     * this event.</p>
+     */
+    inline bool DecisionTaskCompletedEventIdHasBeenSet() const { return m_decisionTaskCompletedEventIdHasBeenSet; }
 
     /**
      * <p>The ID of the <code>LambdaFunctionCompleted</code> event corresponding to the

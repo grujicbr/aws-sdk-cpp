@@ -64,6 +64,11 @@ namespace Model
     /**
      * <p>Information about the volume attachments.</p>
      */
+    inline bool AttachmentsHasBeenSet() const { return m_attachmentsHasBeenSet; }
+
+    /**
+     * <p>Information about the volume attachments.</p>
+     */
     inline void SetAttachments(const Aws::Vector<VolumeAttachment>& value) { m_attachmentsHasBeenSet = true; m_attachments = value; }
 
     /**
@@ -96,6 +101,11 @@ namespace Model
      * <p>The Availability Zone for the volume.</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
+
+    /**
+     * <p>The Availability Zone for the volume.</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
 
     /**
      * <p>The Availability Zone for the volume.</p>
@@ -136,6 +146,11 @@ namespace Model
     /**
      * <p>The time stamp when volume creation was initiated.</p>
      */
+    inline bool CreateTimeHasBeenSet() const { return m_createTimeHasBeenSet; }
+
+    /**
+     * <p>The time stamp when volume creation was initiated.</p>
+     */
     inline void SetCreateTime(const Aws::Utils::DateTime& value) { m_createTimeHasBeenSet = true; m_createTime = value; }
 
     /**
@@ -155,68 +170,133 @@ namespace Model
 
 
     /**
-     * <p>Indicates whether the volume will be encrypted.</p>
+     * <p>Indicates whether the volume is encrypted.</p>
      */
     inline bool GetEncrypted() const{ return m_encrypted; }
 
     /**
-     * <p>Indicates whether the volume will be encrypted.</p>
+     * <p>Indicates whether the volume is encrypted.</p>
+     */
+    inline bool EncryptedHasBeenSet() const { return m_encryptedHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the volume is encrypted.</p>
      */
     inline void SetEncrypted(bool value) { m_encryptedHasBeenSet = true; m_encrypted = value; }
 
     /**
-     * <p>Indicates whether the volume will be encrypted.</p>
+     * <p>Indicates whether the volume is encrypted.</p>
      */
     inline Volume& WithEncrypted(bool value) { SetEncrypted(value); return *this;}
 
 
     /**
-     * <p>The full ARN of the AWS Key Management Service (AWS KMS) customer master key
-     * (CMK) that was used to protect the volume encryption key for the volume.</p>
+     * <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS)
+     * customer master key (CMK) that was used to protect the volume encryption key for
+     * the volume.</p>
      */
     inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
 
     /**
-     * <p>The full ARN of the AWS Key Management Service (AWS KMS) customer master key
-     * (CMK) that was used to protect the volume encryption key for the volume.</p>
+     * <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS)
+     * customer master key (CMK) that was used to protect the volume encryption key for
+     * the volume.</p>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS)
+     * customer master key (CMK) that was used to protect the volume encryption key for
+     * the volume.</p>
      */
     inline void SetKmsKeyId(const Aws::String& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = value; }
 
     /**
-     * <p>The full ARN of the AWS Key Management Service (AWS KMS) customer master key
-     * (CMK) that was used to protect the volume encryption key for the volume.</p>
+     * <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS)
+     * customer master key (CMK) that was used to protect the volume encryption key for
+     * the volume.</p>
      */
     inline void SetKmsKeyId(Aws::String&& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = std::move(value); }
 
     /**
-     * <p>The full ARN of the AWS Key Management Service (AWS KMS) customer master key
-     * (CMK) that was used to protect the volume encryption key for the volume.</p>
+     * <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS)
+     * customer master key (CMK) that was used to protect the volume encryption key for
+     * the volume.</p>
      */
     inline void SetKmsKeyId(const char* value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId.assign(value); }
 
     /**
-     * <p>The full ARN of the AWS Key Management Service (AWS KMS) customer master key
-     * (CMK) that was used to protect the volume encryption key for the volume.</p>
+     * <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS)
+     * customer master key (CMK) that was used to protect the volume encryption key for
+     * the volume.</p>
      */
     inline Volume& WithKmsKeyId(const Aws::String& value) { SetKmsKeyId(value); return *this;}
 
     /**
-     * <p>The full ARN of the AWS Key Management Service (AWS KMS) customer master key
-     * (CMK) that was used to protect the volume encryption key for the volume.</p>
+     * <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS)
+     * customer master key (CMK) that was used to protect the volume encryption key for
+     * the volume.</p>
      */
     inline Volume& WithKmsKeyId(Aws::String&& value) { SetKmsKeyId(std::move(value)); return *this;}
 
     /**
-     * <p>The full ARN of the AWS Key Management Service (AWS KMS) customer master key
-     * (CMK) that was used to protect the volume encryption key for the volume.</p>
+     * <p>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS)
+     * customer master key (CMK) that was used to protect the volume encryption key for
+     * the volume.</p>
      */
     inline Volume& WithKmsKeyId(const char* value) { SetKmsKeyId(value); return *this;}
+
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline const Aws::String& GetOutpostArn() const{ return m_outpostArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline bool OutpostArnHasBeenSet() const { return m_outpostArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline void SetOutpostArn(const Aws::String& value) { m_outpostArnHasBeenSet = true; m_outpostArn = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline void SetOutpostArn(Aws::String&& value) { m_outpostArnHasBeenSet = true; m_outpostArn = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline void SetOutpostArn(const char* value) { m_outpostArnHasBeenSet = true; m_outpostArn.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline Volume& WithOutpostArn(const Aws::String& value) { SetOutpostArn(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline Volume& WithOutpostArn(Aws::String&& value) { SetOutpostArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline Volume& WithOutpostArn(const char* value) { SetOutpostArn(value); return *this;}
 
 
     /**
      * <p>The size of the volume, in GiBs.</p>
      */
     inline int GetSize() const{ return m_size; }
+
+    /**
+     * <p>The size of the volume, in GiBs.</p>
+     */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
 
     /**
      * <p>The size of the volume, in GiBs.</p>
@@ -233,6 +313,11 @@ namespace Model
      * <p>The snapshot from which the volume was created, if applicable.</p>
      */
     inline const Aws::String& GetSnapshotId() const{ return m_snapshotId; }
+
+    /**
+     * <p>The snapshot from which the volume was created, if applicable.</p>
+     */
+    inline bool SnapshotIdHasBeenSet() const { return m_snapshotIdHasBeenSet; }
 
     /**
      * <p>The snapshot from which the volume was created, if applicable.</p>
@@ -273,6 +358,11 @@ namespace Model
     /**
      * <p>The volume state.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The volume state.</p>
+     */
     inline void SetState(const VolumeState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -295,6 +385,11 @@ namespace Model
      * <p>The ID of the volume.</p>
      */
     inline const Aws::String& GetVolumeId() const{ return m_volumeId; }
+
+    /**
+     * <p>The ID of the volume.</p>
+     */
+    inline bool VolumeIdHasBeenSet() const { return m_volumeIdHasBeenSet; }
 
     /**
      * <p>The ID of the volume.</p>
@@ -332,15 +427,17 @@ namespace Model
      * Provisioned IOPS SSD volumes, this represents the number of IOPS that are
      * provisioned for the volume. For General Purpose SSD volumes, this represents the
      * baseline performance of the volume and the rate at which the volume accumulates
-     * I/O credits for bursting. For more information about General Purpose SSD
-     * baseline performance, I/O credits, and bursting, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
+     * I/O credits for bursting. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
      * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     * <p>Constraint: Range is 100-32000 IOPS for io1 volumes and 100-10000 IOPS for
-     * <code>gp2</code> volumes.</p> <p>Condition: This parameter is required for
-     * requests to create <code>io1</code> volumes; it is not used in requests to
-     * create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or
-     * <code>standard</code> volumes.</p>
+     * <p>Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to
+     * 64,000IOPS for <code>io1</code> volumes, in most Regions. The maximum IOPS for
+     * <code>io1</code> of 64,000 is guaranteed only on <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
+     * instances</a>. Other instance families guarantee performance up to 32,000
+     * IOPS.</p> <p>Condition: This parameter is required for requests to create
+     * <code>io1</code> volumes; it is not used in requests to create <code>gp2</code>,
+     * <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.</p>
      */
     inline int GetIops() const{ return m_iops; }
 
@@ -349,15 +446,36 @@ namespace Model
      * Provisioned IOPS SSD volumes, this represents the number of IOPS that are
      * provisioned for the volume. For General Purpose SSD volumes, this represents the
      * baseline performance of the volume and the rate at which the volume accumulates
-     * I/O credits for bursting. For more information about General Purpose SSD
-     * baseline performance, I/O credits, and bursting, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
+     * I/O credits for bursting. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
      * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     * <p>Constraint: Range is 100-32000 IOPS for io1 volumes and 100-10000 IOPS for
-     * <code>gp2</code> volumes.</p> <p>Condition: This parameter is required for
-     * requests to create <code>io1</code> volumes; it is not used in requests to
-     * create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or
-     * <code>standard</code> volumes.</p>
+     * <p>Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to
+     * 64,000IOPS for <code>io1</code> volumes, in most Regions. The maximum IOPS for
+     * <code>io1</code> of 64,000 is guaranteed only on <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
+     * instances</a>. Other instance families guarantee performance up to 32,000
+     * IOPS.</p> <p>Condition: This parameter is required for requests to create
+     * <code>io1</code> volumes; it is not used in requests to create <code>gp2</code>,
+     * <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.</p>
+     */
+    inline bool IopsHasBeenSet() const { return m_iopsHasBeenSet; }
+
+    /**
+     * <p>The number of I/O operations per second (IOPS) that the volume supports. For
+     * Provisioned IOPS SSD volumes, this represents the number of IOPS that are
+     * provisioned for the volume. For General Purpose SSD volumes, this represents the
+     * baseline performance of the volume and the rate at which the volume accumulates
+     * I/O credits for bursting. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
+     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     * <p>Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to
+     * 64,000IOPS for <code>io1</code> volumes, in most Regions. The maximum IOPS for
+     * <code>io1</code> of 64,000 is guaranteed only on <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
+     * instances</a>. Other instance families guarantee performance up to 32,000
+     * IOPS.</p> <p>Condition: This parameter is required for requests to create
+     * <code>io1</code> volumes; it is not used in requests to create <code>gp2</code>,
+     * <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.</p>
      */
     inline void SetIops(int value) { m_iopsHasBeenSet = true; m_iops = value; }
 
@@ -366,15 +484,17 @@ namespace Model
      * Provisioned IOPS SSD volumes, this represents the number of IOPS that are
      * provisioned for the volume. For General Purpose SSD volumes, this represents the
      * baseline performance of the volume and the rate at which the volume accumulates
-     * I/O credits for bursting. For more information about General Purpose SSD
-     * baseline performance, I/O credits, and bursting, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
+     * I/O credits for bursting. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
      * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     * <p>Constraint: Range is 100-32000 IOPS for io1 volumes and 100-10000 IOPS for
-     * <code>gp2</code> volumes.</p> <p>Condition: This parameter is required for
-     * requests to create <code>io1</code> volumes; it is not used in requests to
-     * create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or
-     * <code>standard</code> volumes.</p>
+     * <p>Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to
+     * 64,000IOPS for <code>io1</code> volumes, in most Regions. The maximum IOPS for
+     * <code>io1</code> of 64,000 is guaranteed only on <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
+     * instances</a>. Other instance families guarantee performance up to 32,000
+     * IOPS.</p> <p>Condition: This parameter is required for requests to create
+     * <code>io1</code> volumes; it is not used in requests to create <code>gp2</code>,
+     * <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.</p>
      */
     inline Volume& WithIops(int value) { SetIops(value); return *this;}
 
@@ -383,6 +503,11 @@ namespace Model
      * <p>Any tags assigned to the volume.</p>
      */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>Any tags assigned to the volume.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>Any tags assigned to the volume.</p>
@@ -429,6 +554,14 @@ namespace Model
      * Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
      * Magnetic volumes.</p>
      */
+    inline bool VolumeTypeHasBeenSet() const { return m_volumeTypeHasBeenSet; }
+
+    /**
+     * <p>The volume type. This can be <code>gp2</code> for General Purpose SSD,
+     * <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput
+     * Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     * Magnetic volumes.</p>
+     */
     inline void SetVolumeType(const VolumeType& value) { m_volumeTypeHasBeenSet = true; m_volumeType = value; }
 
     /**
@@ -456,8 +589,32 @@ namespace Model
     inline Volume& WithVolumeType(VolumeType&& value) { SetVolumeType(std::move(value)); return *this;}
 
 
+    /**
+     * <p>Indicates whether the volume was created using fast snapshot restore.</p>
+     */
+    inline bool GetFastRestored() const{ return m_fastRestored; }
+
+    /**
+     * <p>Indicates whether the volume was created using fast snapshot restore.</p>
+     */
+    inline bool FastRestoredHasBeenSet() const { return m_fastRestoredHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the volume was created using fast snapshot restore.</p>
+     */
+    inline void SetFastRestored(bool value) { m_fastRestoredHasBeenSet = true; m_fastRestored = value; }
+
+    /**
+     * <p>Indicates whether the volume was created using fast snapshot restore.</p>
+     */
+    inline Volume& WithFastRestored(bool value) { SetFastRestored(value); return *this;}
+
+
     
     inline const ResponseMetadata& GetResponseMetadata() const{ return m_responseMetadata; }
+
+    
+    inline bool ResponseMetadataHasBeenSet() const { return m_responseMetadataHasBeenSet; }
 
     
     inline void SetResponseMetadata(const ResponseMetadata& value) { m_responseMetadataHasBeenSet = true; m_responseMetadata = value; }
@@ -488,6 +645,9 @@ namespace Model
     Aws::String m_kmsKeyId;
     bool m_kmsKeyIdHasBeenSet;
 
+    Aws::String m_outpostArn;
+    bool m_outpostArnHasBeenSet;
+
     int m_size;
     bool m_sizeHasBeenSet;
 
@@ -508,6 +668,9 @@ namespace Model
 
     VolumeType m_volumeType;
     bool m_volumeTypeHasBeenSet;
+
+    bool m_fastRestored;
+    bool m_fastRestoredHasBeenSet;
 
     ResponseMetadata m_responseMetadata;
     bool m_responseMetadataHasBeenSet;

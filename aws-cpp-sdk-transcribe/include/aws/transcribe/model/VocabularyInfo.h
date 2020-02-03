@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace TranscribeService
@@ -36,7 +37,8 @@ namespace Model
 {
 
   /**
-   * <p>Provides information about a custom vocabulary.</p><p><h3>See Also:</h3>   <a
+   * <p>Provides information about a custom vocabulary. </p><p><h3>See Also:</h3>  
+   * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/transcribe-2017-10-26/VocabularyInfo">AWS
    * API Reference</a></p>
    */
@@ -44,8 +46,8 @@ namespace Model
   {
   public:
     VocabularyInfo();
-    VocabularyInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    VocabularyInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VocabularyInfo(Aws::Utils::Json::JsonView jsonValue);
+    VocabularyInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +55,11 @@ namespace Model
      * <p>The name of the vocabulary.</p>
      */
     inline const Aws::String& GetVocabularyName() const{ return m_vocabularyName; }
+
+    /**
+     * <p>The name of the vocabulary.</p>
+     */
+    inline bool VocabularyNameHasBeenSet() const { return m_vocabularyNameHasBeenSet; }
 
     /**
      * <p>The name of the vocabulary.</p>
@@ -93,6 +100,11 @@ namespace Model
     /**
      * <p>The language code of the vocabulary entries.</p>
      */
+    inline bool LanguageCodeHasBeenSet() const { return m_languageCodeHasBeenSet; }
+
+    /**
+     * <p>The language code of the vocabulary entries.</p>
+     */
     inline void SetLanguageCode(const LanguageCode& value) { m_languageCodeHasBeenSet = true; m_languageCode = value; }
 
     /**
@@ -115,6 +127,11 @@ namespace Model
      * <p>The date and time that the vocabulary was last modified.</p>
      */
     inline const Aws::Utils::DateTime& GetLastModifiedTime() const{ return m_lastModifiedTime; }
+
+    /**
+     * <p>The date and time that the vocabulary was last modified.</p>
+     */
+    inline bool LastModifiedTimeHasBeenSet() const { return m_lastModifiedTimeHasBeenSet; }
 
     /**
      * <p>The date and time that the vocabulary was last modified.</p>
@@ -142,6 +159,12 @@ namespace Model
      * you can use the vocabulary in a <code>StartTranscriptionJob</code> request.</p>
      */
     inline const VocabularyState& GetVocabularyState() const{ return m_vocabularyState; }
+
+    /**
+     * <p>The processing state of the vocabulary. If the state is <code>READY</code>
+     * you can use the vocabulary in a <code>StartTranscriptionJob</code> request.</p>
+     */
+    inline bool VocabularyStateHasBeenSet() const { return m_vocabularyStateHasBeenSet; }
 
     /**
      * <p>The processing state of the vocabulary. If the state is <code>READY</code>

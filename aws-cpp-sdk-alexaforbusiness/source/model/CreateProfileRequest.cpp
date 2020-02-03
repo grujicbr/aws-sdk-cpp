@@ -32,6 +32,7 @@ CreateProfileRequest::CreateProfileRequest() :
     m_temperatureUnitHasBeenSet(false),
     m_wakeWord(WakeWord::NOT_SET),
     m_wakeWordHasBeenSet(false),
+    m_localeHasBeenSet(false),
     m_clientRequestToken(Aws::Utils::UUID::RandomUUID()),
     m_clientRequestTokenHasBeenSet(true),
     m_setupModeDisabled(false),
@@ -39,7 +40,8 @@ CreateProfileRequest::CreateProfileRequest() :
     m_maxVolumeLimit(0),
     m_maxVolumeLimitHasBeenSet(false),
     m_pSTNEnabled(false),
-    m_pSTNEnabledHasBeenSet(false)
+    m_pSTNEnabledHasBeenSet(false),
+    m_meetingRoomConfigurationHasBeenSet(false)
 {
 }
 
@@ -80,6 +82,12 @@ Aws::String CreateProfileRequest::SerializePayload() const
    payload.WithString("WakeWord", WakeWordMapper::GetNameForWakeWord(m_wakeWord));
   }
 
+  if(m_localeHasBeenSet)
+  {
+   payload.WithString("Locale", m_locale);
+
+  }
+
   if(m_clientRequestTokenHasBeenSet)
   {
    payload.WithString("ClientRequestToken", m_clientRequestToken);
@@ -104,7 +112,13 @@ Aws::String CreateProfileRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_meetingRoomConfigurationHasBeenSet)
+  {
+   payload.WithObject("MeetingRoomConfiguration", m_meetingRoomConfiguration.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateProfileRequest::GetRequestSpecificHeaders() const

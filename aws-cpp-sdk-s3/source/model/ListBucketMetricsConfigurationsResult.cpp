@@ -46,17 +46,17 @@ ListBucketMetricsConfigurationsResult& ListBucketMetricsConfigurationsResult::op
     XmlNode isTruncatedNode = resultNode.FirstChild("IsTruncated");
     if(!isTruncatedNode.IsNull())
     {
-      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(isTruncatedNode.GetText().c_str()).c_str());
+      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isTruncatedNode.GetText()).c_str()).c_str());
     }
     XmlNode continuationTokenNode = resultNode.FirstChild("ContinuationToken");
     if(!continuationTokenNode.IsNull())
     {
-      m_continuationToken = StringUtils::Trim(continuationTokenNode.GetText().c_str());
+      m_continuationToken = Aws::Utils::Xml::DecodeEscapedXmlText(continuationTokenNode.GetText());
     }
     XmlNode nextContinuationTokenNode = resultNode.FirstChild("NextContinuationToken");
     if(!nextContinuationTokenNode.IsNull())
     {
-      m_nextContinuationToken = StringUtils::Trim(nextContinuationTokenNode.GetText().c_str());
+      m_nextContinuationToken = Aws::Utils::Xml::DecodeEscapedXmlText(nextContinuationTokenNode.GetText());
     }
     XmlNode metricsConfigurationListNode = resultNode.FirstChild("MetricsConfiguration");
     if(!metricsConfigurationListNode.IsNull())

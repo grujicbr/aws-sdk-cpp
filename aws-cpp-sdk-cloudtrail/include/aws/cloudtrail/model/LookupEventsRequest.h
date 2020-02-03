@@ -18,6 +18,7 @@
 #include <aws/cloudtrail/CloudTrailRequest.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/core/utils/DateTime.h>
+#include <aws/cloudtrail/model/EventCategory.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/cloudtrail/model/LookupAttribute.h>
 #include <utility>
@@ -38,7 +39,7 @@ namespace Model
   {
   public:
     LookupEventsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -55,6 +56,12 @@ namespace Model
      * item.</p>
      */
     inline const Aws::Vector<LookupAttribute>& GetLookupAttributes() const{ return m_lookupAttributes; }
+
+    /**
+     * <p>Contains a list of lookup attributes. Currently the list can contain only one
+     * item.</p>
+     */
+    inline bool LookupAttributesHasBeenSet() const { return m_lookupAttributesHasBeenSet; }
 
     /**
      * <p>Contains a list of lookup attributes. Currently the list can contain only one
@@ -105,6 +112,13 @@ namespace Model
      * returned. If the specified start time is after the specified end time, an error
      * is returned.</p>
      */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
+
+    /**
+     * <p>Specifies that only events that occur after or at the specified time are
+     * returned. If the specified start time is after the specified end time, an error
+     * is returned.</p>
+     */
     inline void SetStartTime(const Aws::Utils::DateTime& value) { m_startTimeHasBeenSet = true; m_startTime = value; }
 
     /**
@@ -141,6 +155,13 @@ namespace Model
      * returned. If the specified end time is before the specified start time, an error
      * is returned.</p>
      */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
+
+    /**
+     * <p>Specifies that only events that occur before or at the specified time are
+     * returned. If the specified end time is before the specified start time, an error
+     * is returned.</p>
+     */
     inline void SetEndTime(const Aws::Utils::DateTime& value) { m_endTimeHasBeenSet = true; m_endTime = value; }
 
     /**
@@ -166,20 +187,75 @@ namespace Model
 
 
     /**
+     * <p>Specifies the event category. If you do not specify an event category, events
+     * of the category are not returned in the response. For example, if you do not
+     * specify <code>insight</code> as the value of <code>EventCategory</code>, no
+     * Insights events are returned.</p>
+     */
+    inline const EventCategory& GetEventCategory() const{ return m_eventCategory; }
+
+    /**
+     * <p>Specifies the event category. If you do not specify an event category, events
+     * of the category are not returned in the response. For example, if you do not
+     * specify <code>insight</code> as the value of <code>EventCategory</code>, no
+     * Insights events are returned.</p>
+     */
+    inline bool EventCategoryHasBeenSet() const { return m_eventCategoryHasBeenSet; }
+
+    /**
+     * <p>Specifies the event category. If you do not specify an event category, events
+     * of the category are not returned in the response. For example, if you do not
+     * specify <code>insight</code> as the value of <code>EventCategory</code>, no
+     * Insights events are returned.</p>
+     */
+    inline void SetEventCategory(const EventCategory& value) { m_eventCategoryHasBeenSet = true; m_eventCategory = value; }
+
+    /**
+     * <p>Specifies the event category. If you do not specify an event category, events
+     * of the category are not returned in the response. For example, if you do not
+     * specify <code>insight</code> as the value of <code>EventCategory</code>, no
+     * Insights events are returned.</p>
+     */
+    inline void SetEventCategory(EventCategory&& value) { m_eventCategoryHasBeenSet = true; m_eventCategory = std::move(value); }
+
+    /**
+     * <p>Specifies the event category. If you do not specify an event category, events
+     * of the category are not returned in the response. For example, if you do not
+     * specify <code>insight</code> as the value of <code>EventCategory</code>, no
+     * Insights events are returned.</p>
+     */
+    inline LookupEventsRequest& WithEventCategory(const EventCategory& value) { SetEventCategory(value); return *this;}
+
+    /**
+     * <p>Specifies the event category. If you do not specify an event category, events
+     * of the category are not returned in the response. For example, if you do not
+     * specify <code>insight</code> as the value of <code>EventCategory</code>, no
+     * Insights events are returned.</p>
+     */
+    inline LookupEventsRequest& WithEventCategory(EventCategory&& value) { SetEventCategory(std::move(value)); return *this;}
+
+
+    /**
      * <p>The number of events to return. Possible values are 1 through 50. The default
-     * is 10.</p>
+     * is 50.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
 
     /**
      * <p>The number of events to return. Possible values are 1 through 50. The default
-     * is 10.</p>
+     * is 50.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
+
+    /**
+     * <p>The number of events to return. Possible values are 1 through 50. The default
+     * is 50.</p>
      */
     inline void SetMaxResults(int value) { m_maxResultsHasBeenSet = true; m_maxResults = value; }
 
     /**
      * <p>The number of events to return. Possible values are 1 through 50. The default
-     * is 10.</p>
+     * is 50.</p>
      */
     inline LookupEventsRequest& WithMaxResults(int value) { SetMaxResults(value); return *this;}
 
@@ -192,6 +268,15 @@ namespace Model
      * those same parameters.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The token to use to get the next page of results after a previous API call.
+     * This token must be passed in with the same parameters that were specified in the
+     * the original call. For example, if the original call specified an AttributeKey
+     * of 'Username' with a value of 'root', the call with NextToken should include
+     * those same parameters.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The token to use to get the next page of results after a previous API call.
@@ -257,6 +342,9 @@ namespace Model
 
     Aws::Utils::DateTime m_endTime;
     bool m_endTimeHasBeenSet;
+
+    EventCategory m_eventCategory;
+    bool m_eventCategoryHasBeenSet;
 
     int m_maxResults;
     bool m_maxResultsHasBeenSet;

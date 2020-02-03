@@ -33,6 +33,9 @@ public class C2jModelToGeneratorModelTransformer {
     Map<String, Operation> operations;
     Set<Error> allErrors;
     boolean standalone;
+    boolean hasEndpointTrait;
+    boolean hasEndpointDiscoveryTrait;
+    String endpointOperationName;
 
     public C2jModelToGeneratorModelTransformer(C2jServiceModel c2jServiceModel, boolean standalone) {
         this.c2jServiceModel = c2jServiceModel;
@@ -44,6 +47,7 @@ public class C2jModelToGeneratorModelTransformer {
         serviceModel.setMetadata(convertMetadata());
         serviceModel.setVersion(c2jServiceModel.getVersion());
         serviceModel.setDocumentation(formatDocumentation(c2jServiceModel.getDocumentation(), 3));
+        serviceModel.setServiceName(c2jServiceModel.getServiceName());
 
         convertShapes();
         convertOperations();
@@ -54,6 +58,10 @@ public class C2jModelToGeneratorModelTransformer {
         serviceModel.setShapes(shapes);
         serviceModel.setOperations(operations);
         serviceModel.setServiceErrors(filterOutCoreErrors(allErrors));
+        serviceModel.getMetadata().setHasEndpointTrait(hasEndpointTrait);
+        serviceModel.getMetadata().setHasEndpointDiscoveryTrait(hasEndpointDiscoveryTrait && !endpointOperationName.isEmpty());
+        serviceModel.getMetadata().setEndpointOperationName(endpointOperationName);
+
         return serviceModel;
     }
 
@@ -63,7 +71,7 @@ public class C2jModelToGeneratorModelTransformer {
             for(int i = 0; i < indentDepth; ++i) {
                 tabString += " ";
             }
-            String wrappedString = WordUtils.wrap(documentation, 80, System.lineSeparator() + tabString + "* ", false);
+            String wrappedString = WordUtils.wrap(documentation, 80, "\n" + tabString + "* ", false);
             return wrappedString.replace("/*", "/ *").replace("*/", "* /");
         }
         return null;
@@ -97,11 +105,13 @@ public class C2jModelToGeneratorModelTransformer {
         metadata.setApiVersion(c2jMetadata.getApiVersion());
         metadata.setConcatAPIVersion(c2jMetadata.getApiVersion().replace("-", ""));
         metadata.setSigningName(c2jMetadata.getSigningName() != null ? c2jMetadata.getSigningName() : c2jMetadata.getEndpointPrefix());
+        metadata.setServiceId(c2jMetadata.getServiceId() != null ? c2jMetadata.getServiceId() : c2jMetadata.getEndpointPrefix());
+
         metadata.setJsonVersion(c2jMetadata.getJsonVersion());
         if("api-gateway".equalsIgnoreCase(c2jMetadata.getProtocol())) {
             metadata.setEndpointPrefix(c2jMetadata.getEndpointPrefix() + ".execute-api");
             metadata.setProtocol("application-json");
-            metadata.setStandalone(true);
+            metadata.setApigateway(true);
         } else {
             metadata.setEndpointPrefix(c2jMetadata.getEndpointPrefix());
             metadata.setProtocol(c2jMetadata.getProtocol());
@@ -187,25 +197,28 @@ public class C2jModelToGeneratorModelTransformer {
             shape.setEnumValues(Collections.emptyList());
         }
 
-        // All shapes only related to shapes enable "eventstream" or "event" should be removed, there are two cases:
-        // 1. The removed shape is the only ancestor of this shape.
-        // 2. This shape is the ancestor of the removed shape.
-        if (c2jShape.isEventstream() || c2jShape.isEvent()) {
-            // shape.setIgnored(true);
-            removedShapes.add(shape.getName());
-        }
-
         shape.setMax(c2jShape.getMax());
         shape.setMin(c2jShape.getMin());
         shape.setType(c2jShape.getType());
         shape.setLocationName(c2jShape.getLocationName());
         shape.setPayload(c2jShape.getPayload());
         shape.setFlattened(c2jShape.isFlattened());
+        shape.setSensitive(c2jShape.isSensitive());
         if("timestamp".equalsIgnoreCase(shape.getType())) {
             // shape's specific timestampFormat overrides the timestampFormat specified in metadata (if any)
             shape.setTimestampFormat(c2jShape.getTimestampFormat() != null ?
                     c2jShape.getTimestampFormat() :
                     c2jServiceModel.getMetadata().getTimestampFormat());
+        }
+        shape.setEventStream(c2jShape.isEventstream());
+        shape.setEvent(c2jShape.isEvent());
+        shape.setException(c2jShape.isException());
+
+        if (c2jShape.getXmlNamespace() != null) {
+            XmlNamespace xmlns = new XmlNamespace();
+            xmlns.setUri(c2jShape.getXmlNamespace().getUri());
+            xmlns.setPrefix(c2jShape.getXmlNamespace().getPrefix());
+            shape.setXmlNamespace(xmlns);
         }
         return shape;
     }
@@ -215,7 +228,7 @@ public class C2jModelToGeneratorModelTransformer {
         if (removedShapes.contains(shape.getName())) {
             return;
         }
-        
+
         Map<String, ShapeMember> shapeMemberMap = new LinkedHashMap<>();
 
         Set<String> required;
@@ -229,6 +242,12 @@ public class C2jModelToGeneratorModelTransformer {
             c2jShape.getMembers().entrySet().stream().filter(entry -> !entry.getValue().isDeprecated()).forEach(entry -> {
                 ShapeMember shapeMember = convertMember(entry.getValue(), shape, required.contains(entry.getKey()));
                 shapeMemberMap.put(entry.getKey(), shapeMember);
+                if (shapeMember.isHostLabel() && !shapeMember.getShape().isString()) {
+                    throw new RuntimeException("Shape marked with 'hostLabel' should be of type 'string': " + shape.getName());
+                }
+                if (shapeMember.isEndpointDiscoveryId() && !shapeMember.getShape().isString()) {
+                    throw new RuntimeException("Shape marked with 'endpointdiscoveryid' should be of type 'string': " + shape.getName());
+                }
             });
         }
 
@@ -251,6 +270,7 @@ public class C2jModelToGeneratorModelTransformer {
     ShapeMember convertMember(C2jShapeMember c2jShapeMember, Shape shape, boolean required) {
         ShapeMember shapeMember = new ShapeMember();
         shapeMember.setRequired(required);
+        shapeMember.setValidationNeeded(required);
         shapeMember.setDocumentation(formatDocumentation(c2jShapeMember.getDocumentation(), 5));
         shapeMember.setFlattened(c2jShapeMember.isFlattened());
         Shape referencedShape = shapes.get(CppViewHelper.convertToUpperCamel(c2jShapeMember.getShape()));
@@ -262,8 +282,13 @@ public class C2jModelToGeneratorModelTransformer {
         shapeMember.setQueryName(c2jShapeMember.getQueryName());
         shapeMember.setStreaming(c2jShapeMember.isStreaming());
         shapeMember.setIdempotencyToken(c2jShapeMember.isIdempotencyToken());
+        shapeMember.setEventPayload(c2jShapeMember.isEventpayload());
+        shapeMember.setHostLabel(c2jShapeMember.isHostLabel());
+        shapeMember.setEndpointDiscoveryId(c2jShapeMember.isEndpointdiscoveryid());
+        shapeMember.setXmlAttribute(c2jShapeMember.isXmlAttribute());
         if(shapeMember.isStreaming()) {
             shapeMember.setRequired(true);
+            shapeMember.setValidationNeeded(true);
         }
 
         if(shapeMember.isUsedForHeader()) {
@@ -271,7 +296,10 @@ public class C2jModelToGeneratorModelTransformer {
         }
 
         if(c2jShapeMember.getXmlNamespace() != null) {
-            shapeMember.setXmlnsUri(c2jShapeMember.getXmlNamespace().getUri());
+            XmlNamespace xmlns = new XmlNamespace();
+            xmlns.setPrefix(c2jShapeMember.getXmlNamespace().getPrefix());
+            xmlns.setUri(c2jShapeMember.getXmlNamespace().getUri());
+            shapeMember.setXmlNamespace(xmlns);
         }
 
         return shapeMember;
@@ -279,7 +307,7 @@ public class C2jModelToGeneratorModelTransformer {
 
     void removeIgnoredOperations() {
         // Backward propagation to mark all operations containing removed shapes.
-        for (String shapeName : removedShapes) {            
+        for (String shapeName : removedShapes) {
             markRemovedOperations(shapeName);
         }
 
@@ -332,6 +360,20 @@ public class C2jModelToGeneratorModelTransformer {
     Operation convertOperation(C2jOperation c2jOperation) {
         Operation operation = new Operation();
 
+        // name
+        operation.setName(c2jOperation.getName());
+
+        operation.setEndpointOperation(c2jOperation.isEndpointoperation());
+        operation.setHasEndpointDiscoveryTrait(c2jOperation.getEndpointdiscovery() == null ? false :true);
+        operation.setRequireEndpointDiscovery(operation.hasEndpointDiscoveryTrait() ? c2jOperation.getEndpointdiscovery().isRequired() : false);
+
+        if (operation.isEndpointOperation()) {
+            endpointOperationName = operation.getName();
+        }
+        if (operation.hasEndpointDiscoveryTrait()) {
+            hasEndpointDiscoveryTrait = true;
+        }
+
         // Documentation
         String crossLinkedShapeDocs =
                 addDocCrossLinks(c2jOperation.getDocumentation(), c2jServiceModel.getMetadata().getUid(), c2jOperation.getName());
@@ -339,6 +381,11 @@ public class C2jModelToGeneratorModelTransformer {
         operation.setDocumentation(formatDocumentation(crossLinkedShapeDocs, 9));
         operation.setAuthtype(c2jOperation.getAuthtype());
         operation.setAuthorizer(c2jOperation.getAuthorizer());
+        if (c2jOperation.getEndpoint() != null) {
+            operation.setEndpoint(convertEndpoint(c2jOperation.getEndpoint()));
+            hasEndpointTrait = true;
+            operation.setHasEndpointTrait(true);
+        }
 
         // input
         if (c2jOperation.getInput() != null) {
@@ -348,8 +395,12 @@ public class C2jModelToGeneratorModelTransformer {
             requestShape.setReferenced(true);
             requestShape.getReferencedBy().add(c2jOperation.getName());
             requestShape.setLocationName(c2jOperation.getInput().getLocationName());
-            requestShape.setXmlNamespace(c2jOperation.getInput().getXmlNamespace() != null ? c2jOperation.getInput().getXmlNamespace().getUri() : null);
-
+            if (c2jOperation.getInput().getXmlNamespace() != null) {
+                XmlNamespace xmlns = new XmlNamespace();
+                xmlns.setUri(c2jOperation.getInput().getXmlNamespace().getUri());
+                xmlns.setPrefix(c2jOperation.getInput().getXmlNamespace().getPrefix());
+                requestShape.setXmlNamespace(xmlns);
+            }
             if(requestShape.getLocationName() != null && requestShape.getLocationName().length() > 0 &&
                     (requestShape.getPayload() == null || requestShape.getPayload().length() == 0) ) {
                 requestShape.setPayload(requestName);
@@ -372,7 +423,19 @@ public class C2jModelToGeneratorModelTransformer {
             requestMember.setShape(requestShape);
             requestMember.setDocumentation(formatDocumentation(c2jOperation.getInput().getDocumentation(), 3));
 
+            // verify that member-refs in hostPrefix are all required members.
             operation.setRequest(requestMember);
+            if (operation.getEndpoint() != null) {
+                List<String> requiredMembers = operation.getEndpoint().getMemberReferences();
+                for (int i = 0; i < requiredMembers.size(); i++) {
+                    if (!requestShape.getMembers().get(requiredMembers.get(i)).isRequired()) {
+                        throw new RuntimeException("HostPrefix member-ref should be Required. Operation: " + operation.getName() + ", member in Request: " + requiredMembers.get(i));
+                    }
+                    if (!requestShape.getMembers().get(requiredMembers.get(i)).isHostLabel()) {
+                        throw new RuntimeException("HostPrefix member-ref should be marked with 'hostLabel'. Operation: " + operation.getName() + ", member in Request: " + requiredMembers.get(i));
+                    }
+                }
+            }
         }
 
         // output
@@ -389,9 +452,6 @@ public class C2jModelToGeneratorModelTransformer {
         }
         // http
         operation.setHttp(convertHttp(c2jOperation.getHttp()));
-
-        // name
-        operation.setName(c2jOperation.getName());
 
         // errors
 
@@ -415,11 +475,14 @@ public class C2jModelToGeneratorModelTransformer {
             switch(name) {
                 case "CopyObjectResult":
                     newName = "CopyObjectResultDetails";
+                    renameShapeMember(shape, name, newName);
+                    break;
+                case "BatchUpdateScheduleResult":
+                    shapes.remove(name);
                     break;
                 default:
                     throw new RuntimeException("Unhandled shape name conflict: " + name);
             }
-            renameShapeMember(shape, name, newName);
         }
 
         Shape cloned = cloneShape(shape);
@@ -444,6 +507,15 @@ public class C2jModelToGeneratorModelTransformer {
         cloned.setType(shape.getType());
         cloned.setPayload(shape.getPayload());
         cloned.setFlattened(shape.isFlattened());
+        cloned.setTimestampFormat(shape.getTimestampFormat());
+        cloned.setComputeContentMd5(shape.isComputeContentMd5());
+        cloned.setSupportsPresigning(shape.isSupportsPresigning());
+        cloned.setSignBody(shape.isSignBody());
+        cloned.setSignerName(shape.getSignerName());
+        cloned.setEventStream(shape.isEventStream());
+        cloned.setEvent(shape.isEvent());
+        cloned.setException(shape.isException());
+        cloned.setXmlNamespace(shape.getXmlNamespace());
         return cloned;
     }
     void renameShapeMember(Shape parentShape, String originalName, String newName) {
@@ -461,6 +533,12 @@ public class C2jModelToGeneratorModelTransformer {
         http.setRequestUri(c2jHttp.getRequestUri());
         http.setResponseCode(c2jHttp.getResponseCode());
         return http;
+    }
+
+    Endpoint convertEndpoint(C2jEndpoint c2jEndpoint) {
+        Endpoint endpoint = new Endpoint();
+        endpoint.setHostPrefix(c2jEndpoint.getHostPrefix());
+        return endpoint;
     }
 
     Error convertError(C2jError c2jError) {

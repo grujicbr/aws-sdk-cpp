@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -35,11 +36,12 @@ namespace Model
 {
 
   /**
-   * <p>Information about a person whose face matches a face(s) in a Amazon
+   * <p>Information about a person whose face matches a face(s) in an Amazon
    * Rekognition collection. Includes information about the faces in the Amazon
-   * Rekognition collection (, information about the person (<a>PersonDetail</a>) and
-   * the timestamp for when the person was detected in a video. An array of
-   * <code>PersonMatch</code> objects is returned by . </p><p><h3>See Also:</h3>   <a
+   * Rekognition collection (<a>FaceMatch</a>), information about the person
+   * (<a>PersonDetail</a>), and the time stamp for when the person was detected in a
+   * video. An array of <code>PersonMatch</code> objects is returned by
+   * <a>GetFaceSearch</a>. </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/PersonMatch">AWS
    * API Reference</a></p>
    */
@@ -47,8 +49,8 @@ namespace Model
   {
   public:
     PersonMatch();
-    PersonMatch(const Aws::Utils::Json::JsonValue& jsonValue);
-    PersonMatch& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PersonMatch(Aws::Utils::Json::JsonView jsonValue);
+    PersonMatch& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +59,12 @@ namespace Model
      * was matched in the video.</p>
      */
     inline long long GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>The time, in milliseconds from the beginning of the video, that the person
+     * was matched in the video.</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>The time, in milliseconds from the beginning of the video, that the person
@@ -75,6 +83,11 @@ namespace Model
      * <p>Information about the matched person.</p>
      */
     inline const PersonDetail& GetPerson() const{ return m_person; }
+
+    /**
+     * <p>Information about the matched person.</p>
+     */
+    inline bool PersonHasBeenSet() const { return m_personHasBeenSet; }
 
     /**
      * <p>Information about the matched person.</p>
@@ -102,6 +115,12 @@ namespace Model
      * person in the video.</p>
      */
     inline const Aws::Vector<FaceMatch>& GetFaceMatches() const{ return m_faceMatches; }
+
+    /**
+     * <p>Information about the faces in the input collection that match the face of a
+     * person in the video.</p>
+     */
+    inline bool FaceMatchesHasBeenSet() const { return m_faceMatchesHasBeenSet; }
 
     /**
      * <p>Information about the faces in the input collection that match the face of a

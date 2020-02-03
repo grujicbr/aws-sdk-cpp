@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     CreateCustomerGatewayRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -61,6 +61,12 @@ namespace Model
      * <p>For devices that support BGP, the customer gateway's BGP ASN.</p> <p>Default:
      * 65000</p>
      */
+    inline bool BgpAsnHasBeenSet() const { return m_bgpAsnHasBeenSet; }
+
+    /**
+     * <p>For devices that support BGP, the customer gateway's BGP ASN.</p> <p>Default:
+     * 65000</p>
+     */
     inline void SetBgpAsn(int value) { m_bgpAsnHasBeenSet = true; m_bgpAsn = value; }
 
     /**
@@ -75,6 +81,12 @@ namespace Model
      * interface. The address must be static.</p>
      */
     inline const Aws::String& GetPublicIp() const{ return m_publicIp; }
+
+    /**
+     * <p>The Internet-routable IP address for the customer gateway's outside
+     * interface. The address must be static.</p>
+     */
+    inline bool PublicIpHasBeenSet() const { return m_publicIpHasBeenSet; }
 
     /**
      * <p>The Internet-routable IP address for the customer gateway's outside
@@ -114,10 +126,57 @@ namespace Model
 
 
     /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline const Aws::String& GetCertificateArn() const{ return m_certificateArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline bool CertificateArnHasBeenSet() const { return m_certificateArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline void SetCertificateArn(const Aws::String& value) { m_certificateArnHasBeenSet = true; m_certificateArn = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline void SetCertificateArn(Aws::String&& value) { m_certificateArnHasBeenSet = true; m_certificateArn = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline void SetCertificateArn(const char* value) { m_certificateArnHasBeenSet = true; m_certificateArn.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline CreateCustomerGatewayRequest& WithCertificateArn(const Aws::String& value) { SetCertificateArn(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline CreateCustomerGatewayRequest& WithCertificateArn(Aws::String&& value) { SetCertificateArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline CreateCustomerGatewayRequest& WithCertificateArn(const char* value) { SetCertificateArn(value); return *this;}
+
+
+    /**
      * <p>The type of VPN connection that this customer gateway supports
      * (<code>ipsec.1</code>).</p>
      */
     inline const GatewayType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of VPN connection that this customer gateway supports
+     * (<code>ipsec.1</code>).</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of VPN connection that this customer gateway supports
@@ -145,12 +204,69 @@ namespace Model
 
 
     /**
+     * <p>A name for the customer gateway device.</p> <p>Length Constraints: Up to 255
+     * characters.</p>
+     */
+    inline const Aws::String& GetDeviceName() const{ return m_deviceName; }
+
+    /**
+     * <p>A name for the customer gateway device.</p> <p>Length Constraints: Up to 255
+     * characters.</p>
+     */
+    inline bool DeviceNameHasBeenSet() const { return m_deviceNameHasBeenSet; }
+
+    /**
+     * <p>A name for the customer gateway device.</p> <p>Length Constraints: Up to 255
+     * characters.</p>
+     */
+    inline void SetDeviceName(const Aws::String& value) { m_deviceNameHasBeenSet = true; m_deviceName = value; }
+
+    /**
+     * <p>A name for the customer gateway device.</p> <p>Length Constraints: Up to 255
+     * characters.</p>
+     */
+    inline void SetDeviceName(Aws::String&& value) { m_deviceNameHasBeenSet = true; m_deviceName = std::move(value); }
+
+    /**
+     * <p>A name for the customer gateway device.</p> <p>Length Constraints: Up to 255
+     * characters.</p>
+     */
+    inline void SetDeviceName(const char* value) { m_deviceNameHasBeenSet = true; m_deviceName.assign(value); }
+
+    /**
+     * <p>A name for the customer gateway device.</p> <p>Length Constraints: Up to 255
+     * characters.</p>
+     */
+    inline CreateCustomerGatewayRequest& WithDeviceName(const Aws::String& value) { SetDeviceName(value); return *this;}
+
+    /**
+     * <p>A name for the customer gateway device.</p> <p>Length Constraints: Up to 255
+     * characters.</p>
+     */
+    inline CreateCustomerGatewayRequest& WithDeviceName(Aws::String&& value) { SetDeviceName(std::move(value)); return *this;}
+
+    /**
+     * <p>A name for the customer gateway device.</p> <p>Length Constraints: Up to 255
+     * characters.</p>
+     */
+    inline CreateCustomerGatewayRequest& WithDeviceName(const char* value) { SetDeviceName(value); return *this;}
+
+
+    /**
      * <p>Checks whether you have the required permissions for the action, without
      * actually making the request, and provides an error response. If you have the
      * required permissions, the error response is <code>DryRunOperation</code>.
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
     inline bool GetDryRun() const{ return m_dryRun; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
 
     /**
      * <p>Checks whether you have the required permissions for the action, without
@@ -176,8 +292,14 @@ namespace Model
     Aws::String m_publicIp;
     bool m_publicIpHasBeenSet;
 
+    Aws::String m_certificateArn;
+    bool m_certificateArnHasBeenSet;
+
     GatewayType m_type;
     bool m_typeHasBeenSet;
+
+    Aws::String m_deviceName;
+    bool m_deviceNameHasBeenSet;
 
     bool m_dryRun;
     bool m_dryRunHasBeenSet;

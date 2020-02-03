@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ResourceChangeDetail();
-    ResourceChangeDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceChangeDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceChangeDetail(Aws::Utils::Json::JsonView jsonValue);
+    ResourceChangeDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Information about the resource attribute to be modified.</p>
      */
     inline const ResourceTargetDefinition& GetTarget() const{ return m_target; }
+
+    /**
+     * <p>Information about the resource attribute to be modified.</p>
+     */
+    inline bool TargetHasBeenSet() const { return m_targetHasBeenSet; }
 
     /**
      * <p>Information about the resource attribute to be modified.</p>
@@ -87,6 +93,13 @@ namespace Model
      * the new value is known. For dynamic evaluations, the value might change, and any
      * new value will be determined when the plan is updated.</p>
      */
+    inline bool EvaluationHasBeenSet() const { return m_evaluationHasBeenSet; }
+
+    /**
+     * <p>For static evaluations, the value of the resource attribute will change and
+     * the new value is known. For dynamic evaluations, the value might change, and any
+     * new value will be determined when the plan is updated.</p>
+     */
     inline void SetEvaluation(const EvaluationType& value) { m_evaluationHasBeenSet = true; m_evaluation = value; }
 
     /**
@@ -115,6 +128,11 @@ namespace Model
      * <p>The ID of the entity that caused the change.</p>
      */
     inline const Aws::String& GetCausingEntity() const{ return m_causingEntity; }
+
+    /**
+     * <p>The ID of the entity that caused the change.</p>
+     */
+    inline bool CausingEntityHasBeenSet() const { return m_causingEntityHasBeenSet; }
 
     /**
      * <p>The ID of the entity that caused the change.</p>

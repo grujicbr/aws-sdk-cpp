@@ -61,6 +61,12 @@ namespace Model
      * <p>The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number
      * (ASN).</p>
      */
+    inline bool BgpAsnHasBeenSet() const { return m_bgpAsnHasBeenSet; }
+
+    /**
+     * <p>The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number
+     * (ASN).</p>
+     */
     inline void SetBgpAsn(const Aws::String& value) { m_bgpAsnHasBeenSet = true; m_bgpAsn = value; }
 
     /**
@@ -98,6 +104,11 @@ namespace Model
      * <p>The ID of the customer gateway.</p>
      */
     inline const Aws::String& GetCustomerGatewayId() const{ return m_customerGatewayId; }
+
+    /**
+     * <p>The ID of the customer gateway.</p>
+     */
+    inline bool CustomerGatewayIdHasBeenSet() const { return m_customerGatewayIdHasBeenSet; }
 
     /**
      * <p>The ID of the customer gateway.</p>
@@ -140,6 +151,12 @@ namespace Model
      * <p>The Internet-routable IP address of the customer gateway's outside
      * interface.</p>
      */
+    inline bool IpAddressHasBeenSet() const { return m_ipAddressHasBeenSet; }
+
+    /**
+     * <p>The Internet-routable IP address of the customer gateway's outside
+     * interface.</p>
+     */
     inline void SetIpAddress(const Aws::String& value) { m_ipAddressHasBeenSet = true; m_ipAddress = value; }
 
     /**
@@ -174,10 +191,57 @@ namespace Model
 
 
     /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline const Aws::String& GetCertificateArn() const{ return m_certificateArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline bool CertificateArnHasBeenSet() const { return m_certificateArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline void SetCertificateArn(const Aws::String& value) { m_certificateArnHasBeenSet = true; m_certificateArn = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline void SetCertificateArn(Aws::String&& value) { m_certificateArnHasBeenSet = true; m_certificateArn = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline void SetCertificateArn(const char* value) { m_certificateArnHasBeenSet = true; m_certificateArn.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline CustomerGateway& WithCertificateArn(const Aws::String& value) { SetCertificateArn(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline CustomerGateway& WithCertificateArn(Aws::String&& value) { SetCertificateArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the customer gateway certificate.</p>
+     */
+    inline CustomerGateway& WithCertificateArn(const char* value) { SetCertificateArn(value); return *this;}
+
+
+    /**
      * <p>The current state of the customer gateway (<code>pending | available |
      * deleting | deleted</code>).</p>
      */
     inline const Aws::String& GetState() const{ return m_state; }
+
+    /**
+     * <p>The current state of the customer gateway (<code>pending | available |
+     * deleting | deleted</code>).</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The current state of the customer gateway (<code>pending | available |
@@ -226,6 +290,12 @@ namespace Model
      * <p>The type of VPN connection the customer gateway supports
      * (<code>ipsec.1</code>).</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of VPN connection the customer gateway supports
+     * (<code>ipsec.1</code>).</p>
+     */
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -260,9 +330,55 @@ namespace Model
 
 
     /**
+     * <p>The name of customer gateway device.</p>
+     */
+    inline const Aws::String& GetDeviceName() const{ return m_deviceName; }
+
+    /**
+     * <p>The name of customer gateway device.</p>
+     */
+    inline bool DeviceNameHasBeenSet() const { return m_deviceNameHasBeenSet; }
+
+    /**
+     * <p>The name of customer gateway device.</p>
+     */
+    inline void SetDeviceName(const Aws::String& value) { m_deviceNameHasBeenSet = true; m_deviceName = value; }
+
+    /**
+     * <p>The name of customer gateway device.</p>
+     */
+    inline void SetDeviceName(Aws::String&& value) { m_deviceNameHasBeenSet = true; m_deviceName = std::move(value); }
+
+    /**
+     * <p>The name of customer gateway device.</p>
+     */
+    inline void SetDeviceName(const char* value) { m_deviceNameHasBeenSet = true; m_deviceName.assign(value); }
+
+    /**
+     * <p>The name of customer gateway device.</p>
+     */
+    inline CustomerGateway& WithDeviceName(const Aws::String& value) { SetDeviceName(value); return *this;}
+
+    /**
+     * <p>The name of customer gateway device.</p>
+     */
+    inline CustomerGateway& WithDeviceName(Aws::String&& value) { SetDeviceName(std::move(value)); return *this;}
+
+    /**
+     * <p>The name of customer gateway device.</p>
+     */
+    inline CustomerGateway& WithDeviceName(const char* value) { SetDeviceName(value); return *this;}
+
+
+    /**
      * <p>Any tags assigned to the customer gateway.</p>
      */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>Any tags assigned to the customer gateway.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>Any tags assigned to the customer gateway.</p>
@@ -305,11 +421,17 @@ namespace Model
     Aws::String m_ipAddress;
     bool m_ipAddressHasBeenSet;
 
+    Aws::String m_certificateArn;
+    bool m_certificateArnHasBeenSet;
+
     Aws::String m_state;
     bool m_stateHasBeenSet;
 
     Aws::String m_type;
     bool m_typeHasBeenSet;
+
+    Aws::String m_deviceName;
+    bool m_deviceNameHasBeenSet;
 
     Aws::Vector<Tag> m_tags;
     bool m_tagsHasBeenSet;

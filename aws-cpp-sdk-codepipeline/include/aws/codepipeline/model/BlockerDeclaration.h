@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     BlockerDeclaration();
-    BlockerDeclaration(const Aws::Utils::Json::JsonValue& jsonValue);
-    BlockerDeclaration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BlockerDeclaration(Aws::Utils::Json::JsonView jsonValue);
+    BlockerDeclaration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Reserved for future use.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>Reserved for future use.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>Reserved for future use.</p>
      */
     inline const BlockerType& GetType() const{ return m_type; }
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>Reserved for future use.</p>

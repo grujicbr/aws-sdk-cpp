@@ -1,12 +1,12 @@
 /*
   * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  * 
+  *
   * Licensed under the Apache License, Version 2.0 (the "License").
   * You may not use this file except in compliance with the License.
   * A copy of the License is located at
-  * 
+  *
   *  http://aws.amazon.com/apache2.0
-  * 
+  *
   * or in the "license" file accompanying this file. This file is distributed
   * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
   * express or implied. See the License for the specific language governing
@@ -15,14 +15,25 @@
 #include <aws/external/gtest.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/core/auth/AWSAuthSignerProvider.h>
+#if STANDALONE
 #include <aws/custom-service/PetStoreClient.h>
 #include <aws/custom-service/model/CreatePetRequest.h>
 #include <aws/custom-service/model/GetPetRequest.h>
 #include <aws/custom-service/model/GetPetsRequest.h>
 
-using namespace Aws::Auth;
 using namespace Custom::PetStore;
 using namespace Custom::PetStore::Model;
+#else
+#include <aws/petstore/PetStoreClient.h>
+#include <aws/petstore/model/CreatePetRequest.h>
+#include <aws/petstore/model/GetPetRequest.h>
+#include <aws/petstore/model/GetPetsRequest.h>
+
+using namespace Aws::PetStore;
+using namespace Aws::PetStore::Model;
+#endif
+
+using namespace Aws::Auth;
 
 namespace
 {
@@ -38,6 +49,11 @@ namespace
         {
             AWS_UNREFERENCED_PARAM(signerName);
             return m_defaultSigner;
+        }
+
+        void AddSigner(std::shared_ptr<Aws::Client::AWSAuthSigner>&) override
+        {
+            // no-op
         }
 
     private:
@@ -69,7 +85,7 @@ namespace
 
         // Test GetPetRequest
         GetPetRequest getPetRequest;
-        getPetRequest.SetPetId("1");
+        getPetRequest.SetPetId(1);
 
         auto getPetOutcome = client.GetPet(getPetRequest);
         ASSERT_TRUE(getPetOutcome.IsSuccess());
@@ -84,7 +100,7 @@ namespace
         auto pets = getPetsOutcome.GetResult().GetPets();
         ASSERT_EQ(3u, pets.size());
         auto pet = pets[1];
-        ASSERT_EQ("2" , pet.GetId());
+        ASSERT_EQ(2 , pet.GetId());
         ASSERT_EQ("cat", pet.GetType());
         ASSERT_EQ(124.99, pet.GetPrice());
     }

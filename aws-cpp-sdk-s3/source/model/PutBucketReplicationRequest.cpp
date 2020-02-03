@@ -30,6 +30,7 @@ PutBucketReplicationRequest::PutBucketReplicationRequest() :
     m_bucketHasBeenSet(false),
     m_contentMD5HasBeenSet(false),
     m_replicationConfigurationHasBeenSet(false),
+    m_tokenHasBeenSet(false),
     m_customizedAccessLogTagHasBeenSet(false)
 {
 }
@@ -47,7 +48,7 @@ Aws::String PutBucketReplicationRequest::SerializePayload() const
     return payloadDoc.ConvertToString();
   }
 
-  return "";
+  return {};
 }
 
 void PutBucketReplicationRequest::AddQueryStringParameters(URI& uri) const
@@ -79,7 +80,14 @@ Aws::Http::HeaderValueCollection PutBucketReplicationRequest::GetRequestSpecific
   if(m_contentMD5HasBeenSet)
   {
     ss << m_contentMD5;
-    headers.insert(Aws::Http::HeaderValuePair("content-md5", ss.str()));
+    headers.emplace("content-md5",  ss.str());
+    ss.str("");
+  }
+
+  if(m_tokenHasBeenSet)
+  {
+    ss << m_token;
+    headers.emplace("x-amz-bucket-object-lock-token",  ss.str());
     ss.str("");
   }
 

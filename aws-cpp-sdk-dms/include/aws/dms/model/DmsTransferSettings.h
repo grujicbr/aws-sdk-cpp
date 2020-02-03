@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DmsTransferSettings();
-    DmsTransferSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    DmsTransferSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DmsTransferSettings(Aws::Utils::Json::JsonView jsonValue);
+    DmsTransferSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p> The IAM role that has permission to access the Amazon S3 bucket. </p>
      */
     inline const Aws::String& GetServiceAccessRoleArn() const{ return m_serviceAccessRoleArn; }
+
+    /**
+     * <p> The IAM role that has permission to access the Amazon S3 bucket. </p>
+     */
+    inline bool ServiceAccessRoleArnHasBeenSet() const { return m_serviceAccessRoleArnHasBeenSet; }
 
     /**
      * <p> The IAM role that has permission to access the Amazon S3 bucket. </p>
@@ -87,6 +93,11 @@ namespace Model
      * <p> The name of the S3 bucket to use. </p>
      */
     inline const Aws::String& GetBucketName() const{ return m_bucketName; }
+
+    /**
+     * <p> The name of the S3 bucket to use. </p>
+     */
+    inline bool BucketNameHasBeenSet() const { return m_bucketNameHasBeenSet; }
 
     /**
      * <p> The name of the S3 bucket to use. </p>

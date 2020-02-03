@@ -1,12 +1,12 @@
 /*
   * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  * 
+  *
   * Licensed under the Apache License, Version 2.0 (the "License").
   * You may not use this file except in compliance with the License.
   * A copy of the License is located at
-  * 
+  *
   *  http://aws.amazon.com/apache2.0
-  * 
+  *
   * or in the "license" file accompanying this file. This file is distributed
   * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
   * express or implied. See the License for the specific language governing
@@ -47,9 +47,12 @@
 #include <aws/kinesis/model/DeleteStreamRequest.h>
 
 #include <aws/iam/IAMClient.h>
+#include <aws/iam/model/GetRoleRequest.h>
+
 #include <aws/access-management/AccessManagementClient.h>
 #include <aws/cognito-identity/CognitoIdentityClient.h>
 #include <aws/testing/TestingEnvironment.h>
+#include <aws/core/utils/UUID.h>
 
 using namespace Aws::Auth;
 using namespace Aws::Http;
@@ -58,32 +61,19 @@ using namespace Aws::Lambda;
 using namespace Aws::Lambda::Model;
 using namespace Aws::Kinesis;
 using namespace Aws::Kinesis::Model;
+using namespace Aws::IAM;
+using namespace Aws::IAM::Model;
 using namespace Aws::CognitoIdentity;
-
-
-#define TEST_FUNCTION_PREFIX  "IntegrationTest_"
-#define BASE_KINESIS_STREAM_NAME  "AWSNativeSDKIntegrationTest"
-
-//fill these in before running the test.
-static const char* BASE_SIMPLE_FUNCTION = TEST_FUNCTION_PREFIX "Simple";
-static const char* BASE_HANDLED_ERROR_FUNCTION = TEST_FUNCTION_PREFIX "HandledError";
-
-static const char* SIMPLE_FUNCTION_CODE = RESOURCES_DIR "/succeed.zip";
-static const char* HANDLED_ERROR_FUNCTION_CODE = RESOURCES_DIR "/handled.zip";
-
-static const char* ALLOCATION_TAG = "FunctionTest";
-
-static const char* BASE_IAM_ROLE_NAME = "AWSNativeSDKLambdaIntegrationTestRole";
-static const char* IAM_POLICY_ARN = "arn:aws:iam::aws:policy/service-role/AWSLambdaKinesisExecutionRole";
-
 
 namespace {
 
-// role + functions only; policy can be shared since it's permanent and read only
-Aws::String BuildResourceName(const char* baseName)
-{
-    return Aws::Testing::GetAwsResourcePrefix() + baseName;
-}
+static const char BASE_KINESIS_STREAM_NAME[] = "AWSNativeSDKIntegrationTest";
+static const char BASE_SIMPLE_FUNCTION[] = "TestSimple";
+static const char BASE_UNHANDLED_ERROR_FUNCTION[] = "TestUnhandledError";
+static const char SIMPLE_FUNCTION_CODE[] = RESOURCES_DIR "/succeed.zip";
+static const char UNHANDLED_ERROR_FUNCTION_CODE[] = RESOURCES_DIR "/unhandled.zip";
+static const char ALLOCATION_TAG[] = "FunctionTest";
+static const char BASE_IAM_ROLE_NAME[] = "AWSNativeSDKLambdaIntegrationTestRole";
 
 class FunctionTest : public ::testing::Test {
 
@@ -92,10 +82,16 @@ public:
     static std::shared_ptr<KinesisClient> m_kinesis_client;
     static std::shared_ptr<Aws::Utils::RateLimits::RateLimiterInterface> m_limiter;
     static std::shared_ptr<Aws::IAM::Model::Role> m_role;
+    static std::shared_ptr<Aws::IAM::IAMClient> m_iamClient;
     static std::shared_ptr<Aws::AccessManagement::AccessManagementClient> m_accessManagementClient;
     static std::map<Aws::String, Aws::String> functionArnMapping;
+    Aws::String m_UUID;
 
 protected:
+    Aws::String BuildResourceName(const char* baseName)
+    {
+        return Aws::Testing::GetAwsResourcePrefix() + baseName + m_UUID;
+    }
 
     static Aws::String MakeFilePath(const Aws::String& localFile)
     {
@@ -104,6 +100,17 @@ protected:
         #else
             return localFile;
         #endif
+    }
+
+    void SetUp()
+    {
+        m_UUID = Aws::Utils::UUID::RandomUUID();
+        CreateFunction(BuildResourceName(BASE_SIMPLE_FUNCTION), SIMPLE_FUNCTION_CODE);
+    }
+
+    void TearDown()
+    {
+        DeleteFunction(BuildResourceName(BASE_SIMPLE_FUNCTION));
     }
 
     static void SetUpTestCase()
@@ -125,26 +132,14 @@ protected:
         //Create our IAM Role, so that the Lambda tests have the right policies.
         m_role = Aws::MakeShared<Aws::IAM::Model::Role>(ALLOCATION_TAG);
         ClientConfiguration clientConfig;
-        auto iamClient = Aws::MakeShared<Aws::IAM::IAMClient>(ALLOCATION_TAG, clientConfig);
+        m_iamClient = Aws::MakeShared<Aws::IAM::IAMClient>(ALLOCATION_TAG, clientConfig);
         auto cognitoClient = Aws::MakeShared<CognitoIdentityClient>(ALLOCATION_TAG);
-        m_accessManagementClient = Aws::MakeShared<Aws::AccessManagement::AccessManagementClient>(ALLOCATION_TAG, iamClient, cognitoClient);
-        
-        DeleteIAMRole();
-        CreateIAMRole();
-
-        DeleteKinesisStream();
-        CreateKinesisStream();
-
-        // delete all functions, just in case
-        DeleteAllFunctions();
-        CreateAllFunctions();
+        m_accessManagementClient = Aws::MakeShared<Aws::AccessManagement::AccessManagementClient>(ALLOCATION_TAG, m_iamClient, cognitoClient);
+        m_accessManagementClient->GetRole(BASE_IAM_ROLE_NAME, *m_role);
     }
 
     static void TearDownTestCase()
     {
-        DeleteAllFunctions();
-        DeleteKinesisStream();
-        DeleteIAMRole();
         // Return the memory claimed for static variables to memory manager before shutting down memory manager.
         // Otherwise there will be double free crash.
         functionArnMapping.clear();
@@ -152,19 +147,8 @@ protected:
         m_client = nullptr;
         m_kinesis_client = nullptr;
         m_role = nullptr;
+        m_iamClient = nullptr;
         m_accessManagementClient = nullptr;
-    }
-
-    static void CreateAllFunctions()
-    {
-        CreateFunction(BuildResourceName(BASE_SIMPLE_FUNCTION), SIMPLE_FUNCTION_CODE);
-        CreateFunction(BuildResourceName(BASE_HANDLED_ERROR_FUNCTION), HANDLED_ERROR_FUNCTION_CODE);
-    }
-
-    static void DeleteAllFunctions()
-    {
-        DeleteFunction(BuildResourceName(BASE_SIMPLE_FUNCTION));
-        DeleteFunction(BuildResourceName(BASE_HANDLED_ERROR_FUNCTION));
     }
 
     enum class ResourceStatusType
@@ -185,8 +169,8 @@ protected:
 
             auto functions = listFunctionsOutcome.GetResult().GetFunctions();
 
-            auto iter = std::find_if(functions.cbegin(), 
-                                     functions.cend(), 
+            auto iter = std::find_if(functions.cbegin(),
+                                     functions.cend(),
                                      [=](const FunctionConfiguration& function){ return function.GetFunctionName() == functionName; });
 
             switch(status)
@@ -206,7 +190,7 @@ protected:
                 break;
             }
 
-            std::this_thread::sleep_for(std::chrono::seconds(1));	    
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
     }
 
@@ -214,7 +198,6 @@ protected:
     {
         DeleteFunctionRequest deleteFunctionRequest;
         deleteFunctionRequest.SetFunctionName(functionName);
-
         bool done = false;
         while(!done)
         {
@@ -230,22 +213,20 @@ protected:
                 auto errCode = deleteFunctionOutcome.GetError().GetErrorType();
                 switch (errCode)
                 {
-                case LambdaErrors::RESOURCE_NOT_FOUND:
-                    //The function was already deleted or not present.
-                    done = true;
-                    break;
-                case LambdaErrors::TOO_MANY_REQUESTS:
-                    //This is OK; Keep spinning.
-                    break;
-                default:
-                    //Something bad happened, and we can't commit to this being successful.
-                    FAIL();
-                    break;
+                    case LambdaErrors::RESOURCE_NOT_FOUND:
+                        //The function was already deleted or not present.
+                        done = true;
+                        break;
+                    case LambdaErrors::TOO_MANY_REQUESTS:
+                        //This is OK; Keep spinning.
+                        break;
+                    default:
+                        //Something bad happened, and we can't commit to this being successful.
+                        FAIL();
+                        break;
                 }
             }
         }
-
-        WaitForFunctionStatus(functionName, ResourceStatusType::NOT_FOUND);
     }
 
     static void CreateFunction(Aws::String functionName,Aws::String zipLocation)
@@ -267,114 +248,17 @@ protected:
 
         functionCode.SetZipFile(Aws::Utils::ByteBuffer((unsigned char*)buffer.str().c_str(), buffer.str().length()));
         createFunctionRequest.SetCode(functionCode);
-        createFunctionRequest.SetRuntime(Aws::Lambda::Model::Runtime::nodejs4_3);
+        createFunctionRequest.SetRuntime(Aws::Lambda::Model::Runtime::nodejs12_x);
 
         CreateFunctionOutcome createFunctionOutcome = m_client->CreateFunction(createFunctionRequest);
         ASSERT_TRUE(createFunctionOutcome.IsSuccess());
         ASSERT_EQ(functionName,createFunctionOutcome.GetResult().GetFunctionName());
         ASSERT_EQ("test.handler",createFunctionOutcome.GetResult().GetHandler());
         ASSERT_EQ(roleARN,createFunctionOutcome.GetResult().GetRole());
-        ASSERT_EQ(Aws::Lambda::Model::Runtime::nodejs4_3, createFunctionOutcome.GetResult().GetRuntime());
+        ASSERT_EQ(Aws::Lambda::Model::Runtime::nodejs12_x, createFunctionOutcome.GetResult().GetRuntime());
         functionArnMapping[functionName] = createFunctionOutcome.GetResult().GetFunctionArn();
 
         WaitForFunctionStatus(functionName, ResourceStatusType::READY);
-    }
-
-    static void CreateKinesisStream()
-    {
-        Aws::String streamName = BuildResourceName(BASE_KINESIS_STREAM_NAME);
-
-        CreateStreamRequest createStreamRequest;
-        createStreamRequest.SetStreamName(streamName);
-        createStreamRequest.SetShardCount(1);
-        CreateStreamOutcome createOutcome = m_kinesis_client->CreateStream(createStreamRequest);
-        if(!createOutcome.IsSuccess())
-        {
-            ASSERT_EQ(KinesisErrors::RESOURCE_IN_USE, createOutcome.GetError().GetErrorType());
-        }
-
-        WaitForKinesisStream(streamName, ResourceStatusType::READY);
-
-    }
-
-    static void WaitForKinesisStream(const Aws::String& streamName, ResourceStatusType status)
-    {
-        DescribeStreamRequest describeStreamRequest;
-        describeStreamRequest.SetStreamName(streamName);
-
-        bool done = false;
-        while(!done)
-        {
-            DescribeStreamOutcome describeStreamOutcome = m_kinesis_client->DescribeStream(describeStreamRequest);
-
-            switch(status)
-            {
-            case ResourceStatusType::NOT_FOUND:
-                if(!describeStreamOutcome.IsSuccess())
-                {
-                    return;
-                }
-                break;
-
-            case ResourceStatusType::READY:
-                if(describeStreamOutcome.IsSuccess())
-                {
-                    auto streamStatus = describeStreamOutcome.GetResult().GetStreamDescription().GetStreamStatus();
-                    if(streamStatus == StreamStatus::ACTIVE)
-                    {
-                        return;
-                    }
-                }
-                break;
-            }
-
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-        }
-    }
-
-    static void DeleteKinesisStream()
-    {
-        Aws::String streamName = BuildResourceName(BASE_KINESIS_STREAM_NAME);
-
-        DeleteStreamRequest deleteStreamRequest;
-        deleteStreamRequest.SetStreamName(streamName);
-        m_kinesis_client->DeleteStream(deleteStreamRequest);
-
-        WaitForKinesisStream(streamName, ResourceStatusType::NOT_FOUND);
-    }
-
-    static void CreateIAMRole()
-    {
-        //Who can assume this role, and what access conditions exist?
-        char const * trustRelationship = 
-            "{"
-              "\"Version\": \"2012-10-17\","
-              "\"Statement\": ["
-                "{"
-                   "\"Sid\": \"\","
-                   "\"Effect\": \"Allow\","
-                   "\"Principal\": {"
-                     "\"Service\": \"lambda.amazonaws.com\""
-                   "},"
-                   "\"Action\": \"sts:AssumeRole\""
-                "}"
-              "]"
-            "}";
-
-        Aws::String iamRoleName = BuildResourceName(BASE_IAM_ROLE_NAME);
-        const bool roleCreationSuccessful = m_accessManagementClient->CreateRole(iamRoleName, trustRelationship, *m_role);
-        ASSERT_TRUE(roleCreationSuccessful);
-
-        //Apply the policy ARN saying what this role is allowed to do.
-        const bool policyApplied = m_accessManagementClient->AttachPolicyToRole(IAM_POLICY_ARN, iamRoleName);
-        ASSERT_TRUE(policyApplied);
-    }
-
-    static void DeleteIAMRole()
-    {
-        //This will return true even if the IAM role never existed.
-        const bool removedSuccessfully = m_accessManagementClient->DeleteRole(BuildResourceName(BASE_IAM_ROLE_NAME));
-        ASSERT_TRUE(removedSuccessfully);
     }
 };
 
@@ -382,9 +266,9 @@ std::shared_ptr<LambdaClient> FunctionTest::m_client(nullptr);
 std::shared_ptr<KinesisClient> FunctionTest::m_kinesis_client(nullptr);
 std::shared_ptr<Aws::Utils::RateLimits::RateLimiterInterface> FunctionTest::m_limiter(nullptr);
 std::shared_ptr<Aws::IAM::Model::Role> FunctionTest::m_role(nullptr);
+std::shared_ptr<Aws::IAM::IAMClient> FunctionTest::m_iamClient(nullptr);
 std::shared_ptr< Aws::AccessManagement::AccessManagementClient > FunctionTest::m_accessManagementClient(nullptr);
 std::map<Aws::String, Aws::String> FunctionTest::functionArnMapping;
-
 
 TEST_F(FunctionTest, TestListFunction)
 {
@@ -414,7 +298,7 @@ TEST_F(FunctionTest, TestGetFunction)
     EXPECT_TRUE(getFunctionOutcome.IsSuccess());
 
     GetFunctionResult getFunctionResult = getFunctionOutcome.GetResult();
-    EXPECT_EQ(Runtime::nodejs4_3, getFunctionResult.GetConfiguration().GetRuntime());
+    EXPECT_EQ(Runtime::nodejs12_x, getFunctionResult.GetConfiguration().GetRuntime());
     EXPECT_EQ("test.handler",getFunctionResult.GetConfiguration().GetHandler());
     EXPECT_EQ(simpleFunctionName,getFunctionResult.GetConfiguration().GetFunctionName());
     //Just see that is looks like an aws url
@@ -428,11 +312,11 @@ TEST_F(FunctionTest, TestGetFunctionConfiguration)
 
     GetFunctionConfigurationRequest getFunctionConfigurationRequest;
     getFunctionConfigurationRequest.SetFunctionName(simpleFunctionName);
-    GetFunctionConfigurationOutcome getFunctionConfigurationOutcome = m_client->GetFunctionConfiguration(getFunctionConfigurationRequest); 
+    GetFunctionConfigurationOutcome getFunctionConfigurationOutcome = m_client->GetFunctionConfiguration(getFunctionConfigurationRequest);
     EXPECT_TRUE(getFunctionConfigurationOutcome.IsSuccess());
 
     GetFunctionConfigurationResult getFunctionConfigurationResult = getFunctionConfigurationOutcome.GetResult();
-    EXPECT_EQ(Runtime::nodejs4_3, getFunctionConfigurationResult.GetRuntime());
+    EXPECT_EQ(Runtime::nodejs12_x, getFunctionConfigurationResult.GetRuntime());
     EXPECT_EQ("test.handler",getFunctionConfigurationResult.GetHandler());
     EXPECT_EQ(simpleFunctionName,getFunctionConfigurationResult.GetFunctionName());
 }
@@ -486,7 +370,7 @@ TEST_F(FunctionTest, TestInvokeSync)
     std::shared_ptr<Aws::IOStream> payload = Aws::MakeShared<Aws::StringStream>("FunctionTest");
     Aws::Utils::Json::JsonValue jsonPayload;
     jsonPayload.WithString("input", "ThePayload");
-    *payload << jsonPayload.WriteReadable();
+    *payload << jsonPayload.View().WriteReadable();
     invokeRequest.SetBody(payload);
 
 
@@ -512,21 +396,23 @@ TEST_F(FunctionTest, TestInvokeSync)
     //Our 'happy case' script simply echos the input to the output, so we should get the same thing here that we
     //sent above
     auto jsonResponse = Aws::Utils::Json::JsonValue(result.GetPayload());
-    EXPECT_EQ("ThePayload", jsonResponse.GetString("input"));
+    EXPECT_EQ("ThePayload", jsonResponse.View().GetString("input"));
 }
 
 
-TEST_F(FunctionTest, TestInvokeSyncHandledFunctionError)
+TEST_F(FunctionTest, TestInvokeSyncUnhandledFunctionError)
 {
+    CreateFunction(BuildResourceName(BASE_UNHANDLED_ERROR_FUNCTION), UNHANDLED_ERROR_FUNCTION_CODE);
+
     InvokeRequest invokeRequest;
-    invokeRequest.SetFunctionName(BuildResourceName(BASE_HANDLED_ERROR_FUNCTION));
+    invokeRequest.SetFunctionName(BuildResourceName(BASE_UNHANDLED_ERROR_FUNCTION));
     invokeRequest.SetInvocationType(InvocationType::RequestResponse);
     invokeRequest.SetContentType("application/javascript");
     invokeRequest.SetLogType(LogType::Tail);
     std::shared_ptr<Aws::IOStream> payload = Aws::MakeShared<Aws::StringStream>("FunctionTest");
     Aws::Utils::Json::JsonValue jsonPayload;
     jsonPayload.WithString("input", "ThePayload");
-    *payload << jsonPayload.WriteReadable();
+    *payload << jsonPayload.View().WriteReadable();
     invokeRequest.SetBody(payload);
 
 
@@ -536,8 +422,9 @@ TEST_F(FunctionTest, TestInvokeSyncHandledFunctionError)
     EXPECT_EQ(200,result.GetStatusCode());
 
     //This is the same as the last test, but we should have a FunctionError
-    EXPECT_EQ("Handled", result.GetFunctionError());
+    EXPECT_EQ("Unhandled", result.GetFunctionError());
 
+    DeleteFunction(BuildResourceName(BASE_UNHANDLED_ERROR_FUNCTION));
 }
 
 TEST_F(FunctionTest, TestPermissions)
@@ -556,20 +443,20 @@ TEST_F(FunctionTest, TestPermissions)
     AddPermissionResult result = outcome.GetResult();
     auto statement = Aws::Utils::Json::JsonValue(result.GetStatement());
 
-    EXPECT_EQ("12345",statement.GetString("Sid"));
-    EXPECT_NE(std::string::npos, statement.GetString("Resource").find(simpleFunctionName));
+    EXPECT_EQ("12345",statement.View().GetString("Sid"));
+    EXPECT_NE(std::string::npos, statement.View().GetString("Resource").find(simpleFunctionName));
 
 
-    GetPolicyRequest getPolicyRequest;
+    Aws::Lambda::Model::GetPolicyRequest getPolicyRequest;
     getPolicyRequest.SetFunctionName(simpleFunctionName);
     auto getPolicyOutcome = m_client->GetPolicy(getPolicyRequest);
     //If this fails, stop.
     ASSERT_TRUE(getPolicyOutcome.IsSuccess());
-    GetPolicyResult getPolicyResult = getPolicyOutcome.GetResult();
+    Aws::Lambda::Model::GetPolicyResult getPolicyResult = getPolicyOutcome.GetResult();
     auto getPolicyStatement = Aws::Utils::Json::JsonValue(getPolicyResult.GetPolicy());
 
-    EXPECT_EQ("12345", getPolicyStatement.GetArray("Statement").GetItem(0).GetString("Sid"));
-    EXPECT_EQ("lambda:Invoke", getPolicyStatement.GetArray("Statement").GetItem(0).GetString("Action"));
+    EXPECT_EQ("12345", getPolicyStatement.View().GetArray("Statement").GetItem(0).GetString("Sid"));
+    EXPECT_EQ("lambda:Invoke", getPolicyStatement.View().GetArray("Statement").GetItem(0).GetString("Action"));
 
     RemovePermissionRequest removePermissionRequest;
     removePermissionRequest.SetFunctionName(simpleFunctionName);
@@ -577,7 +464,7 @@ TEST_F(FunctionTest, TestPermissions)
     auto removePermissionOutcome = m_client->RemovePermission(removePermissionRequest);
     EXPECT_TRUE(removePermissionOutcome.IsSuccess());
 
-    
+
     auto getRemovedPolicyOutcome = m_client->GetPolicy(getPolicyRequest);
     //lambda used to return an empty string here, now it doesn't but we aren't entirely sure if this is the expected behavior
     //or a regression. For now just handle both gracefully.
@@ -588,20 +475,19 @@ TEST_F(FunctionTest, TestPermissions)
     //Now we should get an empty policy a GetPolicy because we just removed it
     else
     {
-        GetPolicyResult getRemovedPolicyResult = getRemovedPolicyOutcome.GetResult();
+        Aws::Lambda::Model::GetPolicyResult getRemovedPolicyResult = getRemovedPolicyOutcome.GetResult();
         auto getNewPolicy = Aws::Utils::Json::JsonValue(getRemovedPolicyResult.GetPolicy());
-        EXPECT_EQ(0uL, getNewPolicy.GetArray("Statement").GetLength());
+        EXPECT_EQ(0uL, getNewPolicy.View().GetArray("Statement").GetLength());
     }
 }
 
-TEST_F(FunctionTest, TestEventSources) 
+TEST_F(FunctionTest, TestEventSources)
 {
     Aws::String simpleFunctionName = BuildResourceName(BASE_SIMPLE_FUNCTION);
-    Aws::String streamName = BuildResourceName(BASE_KINESIS_STREAM_NAME);
 
     //Attempt to get the ARN of the stream we created during the init.
     DescribeStreamRequest describeStreamRequest;
-    describeStreamRequest.SetStreamName(streamName);
+    describeStreamRequest.SetStreamName(BASE_KINESIS_STREAM_NAME);
 
     Aws::String streamARN;
     bool done = false;

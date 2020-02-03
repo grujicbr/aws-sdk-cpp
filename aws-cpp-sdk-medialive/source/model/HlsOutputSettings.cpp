@@ -29,13 +29,17 @@ namespace Model
 {
 
 HlsOutputSettings::HlsOutputSettings() : 
+    m_h265PackagingType(HlsH265PackagingType::NOT_SET),
+    m_h265PackagingTypeHasBeenSet(false),
     m_hlsSettingsHasBeenSet(false),
     m_nameModifierHasBeenSet(false),
     m_segmentModifierHasBeenSet(false)
 {
 }
 
-HlsOutputSettings::HlsOutputSettings(const JsonValue& jsonValue) : 
+HlsOutputSettings::HlsOutputSettings(JsonView jsonValue) : 
+    m_h265PackagingType(HlsH265PackagingType::NOT_SET),
+    m_h265PackagingTypeHasBeenSet(false),
     m_hlsSettingsHasBeenSet(false),
     m_nameModifierHasBeenSet(false),
     m_segmentModifierHasBeenSet(false)
@@ -43,8 +47,15 @@ HlsOutputSettings::HlsOutputSettings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-HlsOutputSettings& HlsOutputSettings::operator =(const JsonValue& jsonValue)
+HlsOutputSettings& HlsOutputSettings::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("h265PackagingType"))
+  {
+    m_h265PackagingType = HlsH265PackagingTypeMapper::GetHlsH265PackagingTypeForName(jsonValue.GetString("h265PackagingType"));
+
+    m_h265PackagingTypeHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("hlsSettings"))
   {
     m_hlsSettings = jsonValue.GetObject("hlsSettings");
@@ -72,6 +83,11 @@ HlsOutputSettings& HlsOutputSettings::operator =(const JsonValue& jsonValue)
 JsonValue HlsOutputSettings::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_h265PackagingTypeHasBeenSet)
+  {
+   payload.WithString("h265PackagingType", HlsH265PackagingTypeMapper::GetNameForHlsH265PackagingType(m_h265PackagingType));
+  }
 
   if(m_hlsSettingsHasBeenSet)
   {

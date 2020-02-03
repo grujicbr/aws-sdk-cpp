@@ -32,6 +32,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -49,8 +50,8 @@ namespace Model
   {
   public:
     ElasticsearchDestinationConfiguration();
-    ElasticsearchDestinationConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    ElasticsearchDestinationConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ElasticsearchDestinationConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    ElasticsearchDestinationConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,7 +59,7 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data
      * Firehose for calling the Amazon ES Configuration API and for indexing documents.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
      * Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
@@ -69,7 +70,18 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data
      * Firehose for calling the Amazon ES Configuration API and for indexing documents.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
+     * Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data
+     * Firehose for calling the Amazon ES Configuration API and for indexing documents.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
      * Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
@@ -80,7 +92,7 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data
      * Firehose for calling the Amazon ES Configuration API and for indexing documents.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
      * Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
@@ -91,7 +103,7 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data
      * Firehose for calling the Amazon ES Configuration API and for indexing documents.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
      * Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
@@ -102,7 +114,7 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data
      * Firehose for calling the Amazon ES Configuration API and for indexing documents.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
      * Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
@@ -113,7 +125,7 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data
      * Firehose for calling the Amazon ES Configuration API and for indexing documents.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
      * Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
@@ -124,7 +136,7 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data
      * Firehose for calling the Amazon ES Configuration API and for indexing documents.
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant
      * Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
@@ -139,7 +151,8 @@ namespace Model
      * <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified
      * in <b>RoleARN</b>. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Specify either
+     * <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
      */
     inline const Aws::String& GetDomainARN() const{ return m_domainARN; }
 
@@ -150,7 +163,20 @@ namespace Model
      * <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified
      * in <b>RoleARN</b>. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Specify either
+     * <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
+     */
+    inline bool DomainARNHasBeenSet() const { return m_domainARNHasBeenSet; }
+
+    /**
+     * <p>The ARN of the Amazon ES domain. The IAM role must have permissions
+     * for <code>DescribeElasticsearchDomain</code>,
+     * <code>DescribeElasticsearchDomains</code>, and
+     * <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified
+     * in <b>RoleARN</b>. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Specify either
+     * <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
      */
     inline void SetDomainARN(const Aws::String& value) { m_domainARNHasBeenSet = true; m_domainARN = value; }
 
@@ -161,7 +187,8 @@ namespace Model
      * <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified
      * in <b>RoleARN</b>. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Specify either
+     * <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
      */
     inline void SetDomainARN(Aws::String&& value) { m_domainARNHasBeenSet = true; m_domainARN = std::move(value); }
 
@@ -172,7 +199,8 @@ namespace Model
      * <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified
      * in <b>RoleARN</b>. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Specify either
+     * <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
      */
     inline void SetDomainARN(const char* value) { m_domainARNHasBeenSet = true; m_domainARN.assign(value); }
 
@@ -183,7 +211,8 @@ namespace Model
      * <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified
      * in <b>RoleARN</b>. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Specify either
+     * <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
      */
     inline ElasticsearchDestinationConfiguration& WithDomainARN(const Aws::String& value) { SetDomainARN(value); return *this;}
 
@@ -194,7 +223,8 @@ namespace Model
      * <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified
      * in <b>RoleARN</b>. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Specify either
+     * <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
      */
     inline ElasticsearchDestinationConfiguration& WithDomainARN(Aws::String&& value) { SetDomainARN(std::move(value)); return *this;}
 
@@ -205,15 +235,70 @@ namespace Model
      * <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified
      * in <b>RoleARN</b>. For more information, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
-     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p> <p>Specify either
+     * <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
      */
     inline ElasticsearchDestinationConfiguration& WithDomainARN(const char* value) { SetDomainARN(value); return *this;}
+
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Specify either this
+     * <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+     */
+    inline const Aws::String& GetClusterEndpoint() const{ return m_clusterEndpoint; }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Specify either this
+     * <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+     */
+    inline bool ClusterEndpointHasBeenSet() const { return m_clusterEndpointHasBeenSet; }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Specify either this
+     * <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+     */
+    inline void SetClusterEndpoint(const Aws::String& value) { m_clusterEndpointHasBeenSet = true; m_clusterEndpoint = value; }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Specify either this
+     * <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+     */
+    inline void SetClusterEndpoint(Aws::String&& value) { m_clusterEndpointHasBeenSet = true; m_clusterEndpoint = std::move(value); }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Specify either this
+     * <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+     */
+    inline void SetClusterEndpoint(const char* value) { m_clusterEndpointHasBeenSet = true; m_clusterEndpoint.assign(value); }
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Specify either this
+     * <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+     */
+    inline ElasticsearchDestinationConfiguration& WithClusterEndpoint(const Aws::String& value) { SetClusterEndpoint(value); return *this;}
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Specify either this
+     * <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+     */
+    inline ElasticsearchDestinationConfiguration& WithClusterEndpoint(Aws::String&& value) { SetClusterEndpoint(std::move(value)); return *this;}
+
+    /**
+     * <p>The endpoint to use when communicating with the cluster. Specify either this
+     * <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+     */
+    inline ElasticsearchDestinationConfiguration& WithClusterEndpoint(const char* value) { SetClusterEndpoint(value); return *this;}
 
 
     /**
      * <p>The Elasticsearch index name.</p>
      */
     inline const Aws::String& GetIndexName() const{ return m_indexName; }
+
+    /**
+     * <p>The Elasticsearch index name.</p>
+     */
+    inline bool IndexNameHasBeenSet() const { return m_indexNameHasBeenSet; }
 
     /**
      * <p>The Elasticsearch index name.</p>
@@ -250,7 +335,7 @@ namespace Model
      * <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
      * type per index. If you try to specify a new type for an existing index that
      * already has another type, Kinesis Data Firehose returns an error during run
-     * time.</p>
+     * time.</p> <p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
      */
     inline const Aws::String& GetTypeName() const{ return m_typeName; }
 
@@ -258,7 +343,15 @@ namespace Model
      * <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
      * type per index. If you try to specify a new type for an existing index that
      * already has another type, Kinesis Data Firehose returns an error during run
-     * time.</p>
+     * time.</p> <p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
+     */
+    inline bool TypeNameHasBeenSet() const { return m_typeNameHasBeenSet; }
+
+    /**
+     * <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
+     * type per index. If you try to specify a new type for an existing index that
+     * already has another type, Kinesis Data Firehose returns an error during run
+     * time.</p> <p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
      */
     inline void SetTypeName(const Aws::String& value) { m_typeNameHasBeenSet = true; m_typeName = value; }
 
@@ -266,7 +359,7 @@ namespace Model
      * <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
      * type per index. If you try to specify a new type for an existing index that
      * already has another type, Kinesis Data Firehose returns an error during run
-     * time.</p>
+     * time.</p> <p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
      */
     inline void SetTypeName(Aws::String&& value) { m_typeNameHasBeenSet = true; m_typeName = std::move(value); }
 
@@ -274,7 +367,7 @@ namespace Model
      * <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
      * type per index. If you try to specify a new type for an existing index that
      * already has another type, Kinesis Data Firehose returns an error during run
-     * time.</p>
+     * time.</p> <p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
      */
     inline void SetTypeName(const char* value) { m_typeNameHasBeenSet = true; m_typeName.assign(value); }
 
@@ -282,7 +375,7 @@ namespace Model
      * <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
      * type per index. If you try to specify a new type for an existing index that
      * already has another type, Kinesis Data Firehose returns an error during run
-     * time.</p>
+     * time.</p> <p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
      */
     inline ElasticsearchDestinationConfiguration& WithTypeName(const Aws::String& value) { SetTypeName(value); return *this;}
 
@@ -290,7 +383,7 @@ namespace Model
      * <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
      * type per index. If you try to specify a new type for an existing index that
      * already has another type, Kinesis Data Firehose returns an error during run
-     * time.</p>
+     * time.</p> <p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
      */
     inline ElasticsearchDestinationConfiguration& WithTypeName(Aws::String&& value) { SetTypeName(std::move(value)); return *this;}
 
@@ -298,56 +391,66 @@ namespace Model
      * <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one
      * type per index. If you try to specify a new type for an existing index that
      * already has another type, Kinesis Data Firehose returns an error during run
-     * time.</p>
+     * time.</p> <p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
      */
     inline ElasticsearchDestinationConfiguration& WithTypeName(const char* value) { SetTypeName(value); return *this;}
 
 
     /**
-     * <p>The Elasticsearch index rotation period. Index rotation appends a time stamp
+     * <p>The Elasticsearch index rotation period. Index rotation appends a timestamp
      * to the <code>IndexName</code> to facilitate the expiration of old data. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
      * Rotation for the Amazon ES Destination</a>. The default value
      * is <code>OneDay</code>.</p>
      */
     inline const ElasticsearchIndexRotationPeriod& GetIndexRotationPeriod() const{ return m_indexRotationPeriod; }
 
     /**
-     * <p>The Elasticsearch index rotation period. Index rotation appends a time stamp
+     * <p>The Elasticsearch index rotation period. Index rotation appends a timestamp
      * to the <code>IndexName</code> to facilitate the expiration of old data. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
+     * Rotation for the Amazon ES Destination</a>. The default value
+     * is <code>OneDay</code>.</p>
+     */
+    inline bool IndexRotationPeriodHasBeenSet() const { return m_indexRotationPeriodHasBeenSet; }
+
+    /**
+     * <p>The Elasticsearch index rotation period. Index rotation appends a timestamp
+     * to the <code>IndexName</code> to facilitate the expiration of old data. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
      * Rotation for the Amazon ES Destination</a>. The default value
      * is <code>OneDay</code>.</p>
      */
     inline void SetIndexRotationPeriod(const ElasticsearchIndexRotationPeriod& value) { m_indexRotationPeriodHasBeenSet = true; m_indexRotationPeriod = value; }
 
     /**
-     * <p>The Elasticsearch index rotation period. Index rotation appends a time stamp
+     * <p>The Elasticsearch index rotation period. Index rotation appends a timestamp
      * to the <code>IndexName</code> to facilitate the expiration of old data. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
      * Rotation for the Amazon ES Destination</a>. The default value
      * is <code>OneDay</code>.</p>
      */
     inline void SetIndexRotationPeriod(ElasticsearchIndexRotationPeriod&& value) { m_indexRotationPeriodHasBeenSet = true; m_indexRotationPeriod = std::move(value); }
 
     /**
-     * <p>The Elasticsearch index rotation period. Index rotation appends a time stamp
+     * <p>The Elasticsearch index rotation period. Index rotation appends a timestamp
      * to the <code>IndexName</code> to facilitate the expiration of old data. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
      * Rotation for the Amazon ES Destination</a>. The default value
      * is <code>OneDay</code>.</p>
      */
     inline ElasticsearchDestinationConfiguration& WithIndexRotationPeriod(const ElasticsearchIndexRotationPeriod& value) { SetIndexRotationPeriod(value); return *this;}
 
     /**
-     * <p>The Elasticsearch index rotation period. Index rotation appends a time stamp
+     * <p>The Elasticsearch index rotation period. Index rotation appends a timestamp
      * to the <code>IndexName</code> to facilitate the expiration of old data. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index
      * Rotation for the Amazon ES Destination</a>. The default value
      * is <code>OneDay</code>.</p>
      */
@@ -359,6 +462,12 @@ namespace Model
      * <code>ElasticsearchBufferingHints</code> are used.</p>
      */
     inline const ElasticsearchBufferingHints& GetBufferingHints() const{ return m_bufferingHints; }
+
+    /**
+     * <p>The buffering options. If no value is specified, the default values for
+     * <code>ElasticsearchBufferingHints</code> are used.</p>
+     */
+    inline bool BufferingHintsHasBeenSet() const { return m_bufferingHintsHasBeenSet; }
 
     /**
      * <p>The buffering options. If no value is specified, the default values for
@@ -395,6 +504,12 @@ namespace Model
      * <p>The retry behavior in case Kinesis Data Firehose is unable to deliver
      * documents to Amazon ES. The default value is 300 (5 minutes).</p>
      */
+    inline bool RetryOptionsHasBeenSet() const { return m_retryOptionsHasBeenSet; }
+
+    /**
+     * <p>The retry behavior in case Kinesis Data Firehose is unable to deliver
+     * documents to Amazon ES. The default value is 300 (5 minutes).</p>
+     */
     inline void SetRetryOptions(const ElasticsearchRetryOptions& value) { m_retryOptionsHasBeenSet = true; m_retryOptions = value; }
 
     /**
@@ -425,7 +540,7 @@ namespace Model
      * to Amazon S3, and also writes failed documents with
      * <code>elasticsearch-failed/</code> appended to the prefix. For more information,
      * see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
      * S3 Backup for the Amazon ES Destination</a>. Default value is
      * <code>FailedDocumentsOnly</code>.</p>
      */
@@ -440,7 +555,22 @@ namespace Model
      * to Amazon S3, and also writes failed documents with
      * <code>elasticsearch-failed/</code> appended to the prefix. For more information,
      * see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
+     * S3 Backup for the Amazon ES Destination</a>. Default value is
+     * <code>FailedDocumentsOnly</code>.</p>
+     */
+    inline bool S3BackupModeHasBeenSet() const { return m_s3BackupModeHasBeenSet; }
+
+    /**
+     * <p>Defines how documents should be delivered to Amazon S3. When it is set to
+     * <code>FailedDocumentsOnly</code>, Kinesis Data Firehose writes any documents
+     * that could not be indexed to the configured Amazon S3 destination, with
+     * <code>elasticsearch-failed/</code> appended to the key prefix. When set to
+     * <code>AllDocuments</code>, Kinesis Data Firehose delivers all incoming records
+     * to Amazon S3, and also writes failed documents with
+     * <code>elasticsearch-failed/</code> appended to the prefix. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
      * S3 Backup for the Amazon ES Destination</a>. Default value is
      * <code>FailedDocumentsOnly</code>.</p>
      */
@@ -455,7 +585,7 @@ namespace Model
      * to Amazon S3, and also writes failed documents with
      * <code>elasticsearch-failed/</code> appended to the prefix. For more information,
      * see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
      * S3 Backup for the Amazon ES Destination</a>. Default value is
      * <code>FailedDocumentsOnly</code>.</p>
      */
@@ -470,7 +600,7 @@ namespace Model
      * to Amazon S3, and also writes failed documents with
      * <code>elasticsearch-failed/</code> appended to the prefix. For more information,
      * see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
      * S3 Backup for the Amazon ES Destination</a>. Default value is
      * <code>FailedDocumentsOnly</code>.</p>
      */
@@ -485,7 +615,7 @@ namespace Model
      * to Amazon S3, and also writes failed documents with
      * <code>elasticsearch-failed/</code> appended to the prefix. For more information,
      * see <a
-     * href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
+     * href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon
      * S3 Backup for the Amazon ES Destination</a>. Default value is
      * <code>FailedDocumentsOnly</code>.</p>
      */
@@ -496,6 +626,11 @@ namespace Model
      * <p>The configuration for the backup Amazon S3 location.</p>
      */
     inline const S3DestinationConfiguration& GetS3Configuration() const{ return m_s3Configuration; }
+
+    /**
+     * <p>The configuration for the backup Amazon S3 location.</p>
+     */
+    inline bool S3ConfigurationHasBeenSet() const { return m_s3ConfigurationHasBeenSet; }
 
     /**
      * <p>The configuration for the backup Amazon S3 location.</p>
@@ -526,6 +661,11 @@ namespace Model
     /**
      * <p>The data processing configuration.</p>
      */
+    inline bool ProcessingConfigurationHasBeenSet() const { return m_processingConfigurationHasBeenSet; }
+
+    /**
+     * <p>The data processing configuration.</p>
+     */
     inline void SetProcessingConfiguration(const ProcessingConfiguration& value) { m_processingConfigurationHasBeenSet = true; m_processingConfiguration = value; }
 
     /**
@@ -548,6 +688,11 @@ namespace Model
      * <p>The Amazon CloudWatch logging options for your delivery stream.</p>
      */
     inline const CloudWatchLoggingOptions& GetCloudWatchLoggingOptions() const{ return m_cloudWatchLoggingOptions; }
+
+    /**
+     * <p>The Amazon CloudWatch logging options for your delivery stream.</p>
+     */
+    inline bool CloudWatchLoggingOptionsHasBeenSet() const { return m_cloudWatchLoggingOptionsHasBeenSet; }
 
     /**
      * <p>The Amazon CloudWatch logging options for your delivery stream.</p>
@@ -576,6 +721,9 @@ namespace Model
 
     Aws::String m_domainARN;
     bool m_domainARNHasBeenSet;
+
+    Aws::String m_clusterEndpoint;
+    bool m_clusterEndpointHasBeenSet;
 
     Aws::String m_indexName;
     bool m_indexNameHasBeenSet;

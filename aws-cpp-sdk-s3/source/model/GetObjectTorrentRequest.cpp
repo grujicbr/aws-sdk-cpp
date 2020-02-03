@@ -37,7 +37,7 @@ GetObjectTorrentRequest::GetObjectTorrentRequest() :
 
 Aws::String GetObjectTorrentRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 void GetObjectTorrentRequest::AddQueryStringParameters(URI& uri) const
@@ -68,7 +68,7 @@ Aws::Http::HeaderValueCollection GetObjectTorrentRequest::GetRequestSpecificHead
   Aws::StringStream ss;
   if(m_requestPayerHasBeenSet)
   {
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-request-payer", RequestPayerMapper::GetNameForRequestPayer(m_requestPayer)));
+    headers.emplace("x-amz-request-payer", RequestPayerMapper::GetNameForRequestPayer(m_requestPayer));
   }
 
   return headers;

@@ -29,6 +29,7 @@ ProvisionProductRequest::ProvisionProductRequest() :
     m_pathIdHasBeenSet(false),
     m_provisionedProductNameHasBeenSet(false),
     m_provisioningParametersHasBeenSet(false),
+    m_provisioningPreferencesHasBeenSet(false),
     m_tagsHasBeenSet(false),
     m_notificationArnsHasBeenSet(false),
     m_provisionToken(Aws::Utils::UUID::RandomUUID()),
@@ -81,6 +82,12 @@ Aws::String ProvisionProductRequest::SerializePayload() const
 
   }
 
+  if(m_provisioningPreferencesHasBeenSet)
+  {
+   payload.WithObject("ProvisioningPreferences", m_provisioningPreferences.Jsonize());
+
+  }
+
   if(m_tagsHasBeenSet)
   {
    Array<JsonValue> tagsJsonList(m_tags.size());
@@ -109,7 +116,7 @@ Aws::String ProvisionProductRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection ProvisionProductRequest::GetRequestSpecificHeaders() const

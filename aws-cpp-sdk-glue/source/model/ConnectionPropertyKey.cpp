@@ -34,6 +34,7 @@ namespace Aws
         static const int PORT_HASH = HashingUtils::HashString("PORT");
         static const int USERNAME_HASH = HashingUtils::HashString("USERNAME");
         static const int PASSWORD_HASH = HashingUtils::HashString("PASSWORD");
+        static const int ENCRYPTED_PASSWORD_HASH = HashingUtils::HashString("ENCRYPTED_PASSWORD");
         static const int JDBC_DRIVER_JAR_URI_HASH = HashingUtils::HashString("JDBC_DRIVER_JAR_URI");
         static const int JDBC_DRIVER_CLASS_NAME_HASH = HashingUtils::HashString("JDBC_DRIVER_CLASS_NAME");
         static const int JDBC_ENGINE_HASH = HashingUtils::HashString("JDBC_ENGINE");
@@ -41,6 +42,10 @@ namespace Aws
         static const int CONFIG_FILES_HASH = HashingUtils::HashString("CONFIG_FILES");
         static const int INSTANCE_ID_HASH = HashingUtils::HashString("INSTANCE_ID");
         static const int JDBC_CONNECTION_URL_HASH = HashingUtils::HashString("JDBC_CONNECTION_URL");
+        static const int JDBC_ENFORCE_SSL_HASH = HashingUtils::HashString("JDBC_ENFORCE_SSL");
+        static const int CUSTOM_JDBC_CERT_HASH = HashingUtils::HashString("CUSTOM_JDBC_CERT");
+        static const int SKIP_CUSTOM_JDBC_CERT_VALIDATION_HASH = HashingUtils::HashString("SKIP_CUSTOM_JDBC_CERT_VALIDATION");
+        static const int CUSTOM_JDBC_CERT_STRING_HASH = HashingUtils::HashString("CUSTOM_JDBC_CERT_STRING");
 
 
         ConnectionPropertyKey GetConnectionPropertyKeyForName(const Aws::String& name)
@@ -61,6 +66,10 @@ namespace Aws
           else if (hashCode == PASSWORD_HASH)
           {
             return ConnectionPropertyKey::PASSWORD;
+          }
+          else if (hashCode == ENCRYPTED_PASSWORD_HASH)
+          {
+            return ConnectionPropertyKey::ENCRYPTED_PASSWORD;
           }
           else if (hashCode == JDBC_DRIVER_JAR_URI_HASH)
           {
@@ -90,6 +99,22 @@ namespace Aws
           {
             return ConnectionPropertyKey::JDBC_CONNECTION_URL;
           }
+          else if (hashCode == JDBC_ENFORCE_SSL_HASH)
+          {
+            return ConnectionPropertyKey::JDBC_ENFORCE_SSL;
+          }
+          else if (hashCode == CUSTOM_JDBC_CERT_HASH)
+          {
+            return ConnectionPropertyKey::CUSTOM_JDBC_CERT;
+          }
+          else if (hashCode == SKIP_CUSTOM_JDBC_CERT_VALIDATION_HASH)
+          {
+            return ConnectionPropertyKey::SKIP_CUSTOM_JDBC_CERT_VALIDATION;
+          }
+          else if (hashCode == CUSTOM_JDBC_CERT_STRING_HASH)
+          {
+            return ConnectionPropertyKey::CUSTOM_JDBC_CERT_STRING;
+          }
           EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
           if(overflowContainer)
           {
@@ -112,6 +137,8 @@ namespace Aws
             return "USERNAME";
           case ConnectionPropertyKey::PASSWORD:
             return "PASSWORD";
+          case ConnectionPropertyKey::ENCRYPTED_PASSWORD:
+            return "ENCRYPTED_PASSWORD";
           case ConnectionPropertyKey::JDBC_DRIVER_JAR_URI:
             return "JDBC_DRIVER_JAR_URI";
           case ConnectionPropertyKey::JDBC_DRIVER_CLASS_NAME:
@@ -126,6 +153,14 @@ namespace Aws
             return "INSTANCE_ID";
           case ConnectionPropertyKey::JDBC_CONNECTION_URL:
             return "JDBC_CONNECTION_URL";
+          case ConnectionPropertyKey::JDBC_ENFORCE_SSL:
+            return "JDBC_ENFORCE_SSL";
+          case ConnectionPropertyKey::CUSTOM_JDBC_CERT:
+            return "CUSTOM_JDBC_CERT";
+          case ConnectionPropertyKey::SKIP_CUSTOM_JDBC_CERT_VALIDATION:
+            return "SKIP_CUSTOM_JDBC_CERT_VALIDATION";
+          case ConnectionPropertyKey::CUSTOM_JDBC_CERT_STRING:
+            return "CUSTOM_JDBC_CERT_STRING";
           default:
             EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
             if(overflowContainer)
@@ -133,7 +168,7 @@ namespace Aws
               return overflowContainer->RetrieveOverflow(static_cast<int>(enumValue));
             }
 
-            return "";
+            return {};
           }
         }
 

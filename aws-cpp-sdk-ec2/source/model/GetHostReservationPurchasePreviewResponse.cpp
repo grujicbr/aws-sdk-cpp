@@ -53,7 +53,7 @@ GetHostReservationPurchasePreviewResponse& GetHostReservationPurchasePreviewResp
     XmlNode currencyCodeNode = resultNode.FirstChild("currencyCode");
     if(!currencyCodeNode.IsNull())
     {
-      m_currencyCode = CurrencyCodeValuesMapper::GetCurrencyCodeValuesForName(StringUtils::Trim(currencyCodeNode.GetText().c_str()).c_str());
+      m_currencyCode = CurrencyCodeValuesMapper::GetCurrencyCodeValuesForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(currencyCodeNode.GetText()).c_str()).c_str());
     }
     XmlNode purchaseNode = resultNode.FirstChild("purchase");
     if(!purchaseNode.IsNull())
@@ -69,18 +69,21 @@ GetHostReservationPurchasePreviewResponse& GetHostReservationPurchasePreviewResp
     XmlNode totalHourlyPriceNode = resultNode.FirstChild("totalHourlyPrice");
     if(!totalHourlyPriceNode.IsNull())
     {
-      m_totalHourlyPrice = StringUtils::Trim(totalHourlyPriceNode.GetText().c_str());
+      m_totalHourlyPrice = Aws::Utils::Xml::DecodeEscapedXmlText(totalHourlyPriceNode.GetText());
     }
     XmlNode totalUpfrontPriceNode = resultNode.FirstChild("totalUpfrontPrice");
     if(!totalUpfrontPriceNode.IsNull())
     {
-      m_totalUpfrontPrice = StringUtils::Trim(totalUpfrontPriceNode.GetText().c_str());
+      m_totalUpfrontPrice = Aws::Utils::Xml::DecodeEscapedXmlText(totalUpfrontPriceNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::GetHostReservationPurchasePreviewResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

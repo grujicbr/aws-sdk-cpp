@@ -27,7 +27,8 @@ StartQueryExecutionRequest::StartQueryExecutionRequest() :
     m_clientRequestToken(Aws::Utils::UUID::RandomUUID()),
     m_clientRequestTokenHasBeenSet(true),
     m_queryExecutionContextHasBeenSet(false),
-    m_resultConfigurationHasBeenSet(false)
+    m_resultConfigurationHasBeenSet(false),
+    m_workGroupHasBeenSet(false)
 {
 }
 
@@ -59,7 +60,13 @@ Aws::String StartQueryExecutionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_workGroupHasBeenSet)
+  {
+   payload.WithString("WorkGroup", m_workGroup);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection StartQueryExecutionRequest::GetRequestSpecificHeaders() const

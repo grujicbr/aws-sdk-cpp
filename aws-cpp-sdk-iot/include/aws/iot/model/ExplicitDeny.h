@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ExplicitDeny();
-    ExplicitDeny(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExplicitDeny& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExplicitDeny(Aws::Utils::Json::JsonView jsonValue);
+    ExplicitDeny& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The policies that denied the authorization.</p>
      */
     inline const Aws::Vector<Policy>& GetPolicies() const{ return m_policies; }
+
+    /**
+     * <p>The policies that denied the authorization.</p>
+     */
+    inline bool PoliciesHasBeenSet() const { return m_policiesHasBeenSet; }
 
     /**
      * <p>The policies that denied the authorization.</p>

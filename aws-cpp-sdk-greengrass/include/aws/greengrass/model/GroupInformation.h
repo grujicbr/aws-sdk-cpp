@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     GroupInformation();
-    GroupInformation(const Aws::Utils::Json::JsonValue& jsonValue);
-    GroupInformation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GroupInformation(Aws::Utils::Json::JsonView jsonValue);
+    GroupInformation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * The ARN of the group.
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * The ARN of the group.
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * The ARN of the group.
@@ -90,6 +96,11 @@ namespace Model
     /**
      * The time, in milliseconds since the epoch, when the group was created.
      */
+    inline bool CreationTimestampHasBeenSet() const { return m_creationTimestampHasBeenSet; }
+
+    /**
+     * The time, in milliseconds since the epoch, when the group was created.
+     */
     inline void SetCreationTimestamp(const Aws::String& value) { m_creationTimestampHasBeenSet = true; m_creationTimestamp = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * The ID of the group.
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * The ID of the group.
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * The ID of the group.
@@ -162,6 +178,11 @@ namespace Model
     /**
      * The time, in milliseconds since the epoch, when the group was last updated.
      */
+    inline bool LastUpdatedTimestampHasBeenSet() const { return m_lastUpdatedTimestampHasBeenSet; }
+
+    /**
+     * The time, in milliseconds since the epoch, when the group was last updated.
+     */
     inline void SetLastUpdatedTimestamp(const Aws::String& value) { m_lastUpdatedTimestampHasBeenSet = true; m_lastUpdatedTimestamp = value; }
 
     /**
@@ -191,73 +212,83 @@ namespace Model
 
 
     /**
-     * The latest version of the group.
+     * The ID of the latest version associated with the group.
      */
     inline const Aws::String& GetLatestVersion() const{ return m_latestVersion; }
 
     /**
-     * The latest version of the group.
+     * The ID of the latest version associated with the group.
+     */
+    inline bool LatestVersionHasBeenSet() const { return m_latestVersionHasBeenSet; }
+
+    /**
+     * The ID of the latest version associated with the group.
      */
     inline void SetLatestVersion(const Aws::String& value) { m_latestVersionHasBeenSet = true; m_latestVersion = value; }
 
     /**
-     * The latest version of the group.
+     * The ID of the latest version associated with the group.
      */
     inline void SetLatestVersion(Aws::String&& value) { m_latestVersionHasBeenSet = true; m_latestVersion = std::move(value); }
 
     /**
-     * The latest version of the group.
+     * The ID of the latest version associated with the group.
      */
     inline void SetLatestVersion(const char* value) { m_latestVersionHasBeenSet = true; m_latestVersion.assign(value); }
 
     /**
-     * The latest version of the group.
+     * The ID of the latest version associated with the group.
      */
     inline GroupInformation& WithLatestVersion(const Aws::String& value) { SetLatestVersion(value); return *this;}
 
     /**
-     * The latest version of the group.
+     * The ID of the latest version associated with the group.
      */
     inline GroupInformation& WithLatestVersion(Aws::String&& value) { SetLatestVersion(std::move(value)); return *this;}
 
     /**
-     * The latest version of the group.
+     * The ID of the latest version associated with the group.
      */
     inline GroupInformation& WithLatestVersion(const char* value) { SetLatestVersion(value); return *this;}
 
 
     /**
-     * The ARN of the latest version of the group.
+     * The ARN of the latest version associated with the group.
      */
     inline const Aws::String& GetLatestVersionArn() const{ return m_latestVersionArn; }
 
     /**
-     * The ARN of the latest version of the group.
+     * The ARN of the latest version associated with the group.
+     */
+    inline bool LatestVersionArnHasBeenSet() const { return m_latestVersionArnHasBeenSet; }
+
+    /**
+     * The ARN of the latest version associated with the group.
      */
     inline void SetLatestVersionArn(const Aws::String& value) { m_latestVersionArnHasBeenSet = true; m_latestVersionArn = value; }
 
     /**
-     * The ARN of the latest version of the group.
+     * The ARN of the latest version associated with the group.
      */
     inline void SetLatestVersionArn(Aws::String&& value) { m_latestVersionArnHasBeenSet = true; m_latestVersionArn = std::move(value); }
 
     /**
-     * The ARN of the latest version of the group.
+     * The ARN of the latest version associated with the group.
      */
     inline void SetLatestVersionArn(const char* value) { m_latestVersionArnHasBeenSet = true; m_latestVersionArn.assign(value); }
 
     /**
-     * The ARN of the latest version of the group.
+     * The ARN of the latest version associated with the group.
      */
     inline GroupInformation& WithLatestVersionArn(const Aws::String& value) { SetLatestVersionArn(value); return *this;}
 
     /**
-     * The ARN of the latest version of the group.
+     * The ARN of the latest version associated with the group.
      */
     inline GroupInformation& WithLatestVersionArn(Aws::String&& value) { SetLatestVersionArn(std::move(value)); return *this;}
 
     /**
-     * The ARN of the latest version of the group.
+     * The ARN of the latest version associated with the group.
      */
     inline GroupInformation& WithLatestVersionArn(const char* value) { SetLatestVersionArn(value); return *this;}
 
@@ -266,6 +297,11 @@ namespace Model
      * The name of the group.
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * The name of the group.
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * The name of the group.

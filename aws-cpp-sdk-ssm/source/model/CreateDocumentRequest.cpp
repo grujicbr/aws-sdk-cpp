@@ -24,12 +24,16 @@ using namespace Aws::Utils;
 
 CreateDocumentRequest::CreateDocumentRequest() : 
     m_contentHasBeenSet(false),
+    m_requiresHasBeenSet(false),
+    m_attachmentsHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_versionNameHasBeenSet(false),
     m_documentType(DocumentType::NOT_SET),
     m_documentTypeHasBeenSet(false),
     m_documentFormat(DocumentFormat::NOT_SET),
     m_documentFormatHasBeenSet(false),
-    m_targetTypeHasBeenSet(false)
+    m_targetTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -43,9 +47,37 @@ Aws::String CreateDocumentRequest::SerializePayload() const
 
   }
 
+  if(m_requiresHasBeenSet)
+  {
+   Array<JsonValue> requiresJsonList(m_requires.size());
+   for(unsigned requiresIndex = 0; requiresIndex < requiresJsonList.GetLength(); ++requiresIndex)
+   {
+     requiresJsonList[requiresIndex].AsObject(m_requires[requiresIndex].Jsonize());
+   }
+   payload.WithArray("Requires", std::move(requiresJsonList));
+
+  }
+
+  if(m_attachmentsHasBeenSet)
+  {
+   Array<JsonValue> attachmentsJsonList(m_attachments.size());
+   for(unsigned attachmentsIndex = 0; attachmentsIndex < attachmentsJsonList.GetLength(); ++attachmentsIndex)
+   {
+     attachmentsJsonList[attachmentsIndex].AsObject(m_attachments[attachmentsIndex].Jsonize());
+   }
+   payload.WithArray("Attachments", std::move(attachmentsJsonList));
+
+  }
+
   if(m_nameHasBeenSet)
   {
    payload.WithString("Name", m_name);
+
+  }
+
+  if(m_versionNameHasBeenSet)
+  {
+   payload.WithString("VersionName", m_versionName);
 
   }
 
@@ -65,7 +97,18 @@ Aws::String CreateDocumentRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateDocumentRequest::GetRequestSpecificHeaders() const

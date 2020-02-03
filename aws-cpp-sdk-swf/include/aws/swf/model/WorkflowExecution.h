@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     WorkflowExecution();
-    WorkflowExecution(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkflowExecution& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkflowExecution(Aws::Utils::Json::JsonView jsonValue);
+    WorkflowExecution& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The user defined identifier associated with the workflow execution.</p>
      */
     inline const Aws::String& GetWorkflowId() const{ return m_workflowId; }
+
+    /**
+     * <p>The user defined identifier associated with the workflow execution.</p>
+     */
+    inline bool WorkflowIdHasBeenSet() const { return m_workflowIdHasBeenSet; }
 
     /**
      * <p>The user defined identifier associated with the workflow execution.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>A system-generated unique identifier for the workflow execution.</p>
      */
     inline const Aws::String& GetRunId() const{ return m_runId; }
+
+    /**
+     * <p>A system-generated unique identifier for the workflow execution.</p>
+     */
+    inline bool RunIdHasBeenSet() const { return m_runIdHasBeenSet; }
 
     /**
      * <p>A system-generated unique identifier for the workflow execution.</p>

@@ -35,7 +35,9 @@ CreateTransformJobRequest::CreateTransformJobRequest() :
     m_transformInputHasBeenSet(false),
     m_transformOutputHasBeenSet(false),
     m_transformResourcesHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_dataProcessingHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_experimentConfigHasBeenSet(false)
 {
 }
 
@@ -101,6 +103,12 @@ Aws::String CreateTransformJobRequest::SerializePayload() const
 
   }
 
+  if(m_dataProcessingHasBeenSet)
+  {
+   payload.WithObject("DataProcessing", m_dataProcessing.Jsonize());
+
+  }
+
   if(m_tagsHasBeenSet)
   {
    Array<JsonValue> tagsJsonList(m_tags.size());
@@ -112,7 +120,13 @@ Aws::String CreateTransformJobRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_experimentConfigHasBeenSet)
+  {
+   payload.WithObject("ExperimentConfig", m_experimentConfig.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateTransformJobRequest::GetRequestSpecificHeaders() const

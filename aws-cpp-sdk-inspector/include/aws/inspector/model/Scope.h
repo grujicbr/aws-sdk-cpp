@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Scope();
-    Scope(const Aws::Utils::Json::JsonValue& jsonValue);
-    Scope& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Scope(Aws::Utils::Json::JsonView jsonValue);
+    Scope& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The type of the scope.</p>
      */
     inline const ScopeType& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The type of the scope.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The type of the scope.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The resource identifier for the specified scope type.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The resource identifier for the specified scope type.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The resource identifier for the specified scope type.</p>

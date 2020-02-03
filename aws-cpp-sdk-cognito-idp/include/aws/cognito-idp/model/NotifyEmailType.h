@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     NotifyEmailType();
-    NotifyEmailType(const Aws::Utils::Json::JsonValue& jsonValue);
-    NotifyEmailType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NotifyEmailType(Aws::Utils::Json::JsonView jsonValue);
+    NotifyEmailType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The subject.</p>
      */
     inline const Aws::String& GetSubject() const{ return m_subject; }
+
+    /**
+     * <p>The subject.</p>
+     */
+    inline bool SubjectHasBeenSet() const { return m_subjectHasBeenSet; }
 
     /**
      * <p>The subject.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The HTML body.</p>
      */
+    inline bool HtmlBodyHasBeenSet() const { return m_htmlBodyHasBeenSet; }
+
+    /**
+     * <p>The HTML body.</p>
+     */
     inline void SetHtmlBody(const Aws::String& value) { m_htmlBodyHasBeenSet = true; m_htmlBody = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The text body.</p>
      */
     inline const Aws::String& GetTextBody() const{ return m_textBody; }
+
+    /**
+     * <p>The text body.</p>
+     */
+    inline bool TextBodyHasBeenSet() const { return m_textBodyHasBeenSet; }
 
     /**
      * <p>The text body.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchListObjectChildren();
-    BatchListObjectChildren(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchListObjectChildren& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchListObjectChildren(Aws::Utils::Json::JsonView jsonValue);
+    BatchListObjectChildren& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Reference of the object for which child objects are being listed.</p>
      */
     inline const ObjectReference& GetObjectReference() const{ return m_objectReference; }
+
+    /**
+     * <p>Reference of the object for which child objects are being listed.</p>
+     */
+    inline bool ObjectReferenceHasBeenSet() const { return m_objectReferenceHasBeenSet; }
 
     /**
      * <p>Reference of the object for which child objects are being listed.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The pagination token.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The pagination token.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The pagination token.</p>
@@ -115,6 +126,12 @@ namespace Model
      * approximate number.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>Maximum number of items to be retrieved in a single call. This is an
+     * approximate number.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>Maximum number of items to be retrieved in a single call. This is an

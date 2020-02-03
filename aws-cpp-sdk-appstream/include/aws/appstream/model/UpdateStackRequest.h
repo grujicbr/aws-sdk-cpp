@@ -18,9 +18,11 @@
 #include <aws/appstream/AppStreamRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/appstream/model/ApplicationSettings.h>
 #include <aws/appstream/model/StorageConnector.h>
 #include <aws/appstream/model/StackAttribute.h>
 #include <aws/appstream/model/UserSetting.h>
+#include <aws/appstream/model/AccessEndpoint.h>
 #include <utility>
 
 namespace Aws
@@ -36,7 +38,7 @@ namespace Model
   {
   public:
     UpdateStackRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,73 +51,83 @@ namespace Model
 
 
     /**
-     * <p>The stack name for display.</p>
+     * <p>The stack name to display.</p>
      */
     inline const Aws::String& GetDisplayName() const{ return m_displayName; }
 
     /**
-     * <p>The stack name for display.</p>
+     * <p>The stack name to display.</p>
+     */
+    inline bool DisplayNameHasBeenSet() const { return m_displayNameHasBeenSet; }
+
+    /**
+     * <p>The stack name to display.</p>
      */
     inline void SetDisplayName(const Aws::String& value) { m_displayNameHasBeenSet = true; m_displayName = value; }
 
     /**
-     * <p>The stack name for display.</p>
+     * <p>The stack name to display.</p>
      */
     inline void SetDisplayName(Aws::String&& value) { m_displayNameHasBeenSet = true; m_displayName = std::move(value); }
 
     /**
-     * <p>The stack name for display.</p>
+     * <p>The stack name to display.</p>
      */
     inline void SetDisplayName(const char* value) { m_displayNameHasBeenSet = true; m_displayName.assign(value); }
 
     /**
-     * <p>The stack name for display.</p>
+     * <p>The stack name to display.</p>
      */
     inline UpdateStackRequest& WithDisplayName(const Aws::String& value) { SetDisplayName(value); return *this;}
 
     /**
-     * <p>The stack name for display.</p>
+     * <p>The stack name to display.</p>
      */
     inline UpdateStackRequest& WithDisplayName(Aws::String&& value) { SetDisplayName(std::move(value)); return *this;}
 
     /**
-     * <p>The stack name for display.</p>
+     * <p>The stack name to display.</p>
      */
     inline UpdateStackRequest& WithDisplayName(const char* value) { SetDisplayName(value); return *this;}
 
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description to display.</p>
      */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline void SetDescription(Aws::String&& value) { m_descriptionHasBeenSet = true; m_description = std::move(value); }
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline void SetDescription(const char* value) { m_descriptionHasBeenSet = true; m_description.assign(value); }
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline UpdateStackRequest& WithDescription(const Aws::String& value) { SetDescription(value); return *this;}
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline UpdateStackRequest& WithDescription(Aws::String&& value) { SetDescription(std::move(value)); return *this;}
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline UpdateStackRequest& WithDescription(const char* value) { SetDescription(value); return *this;}
 
@@ -124,6 +136,11 @@ namespace Model
      * <p>The name of the stack.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the stack.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the stack.</p>
@@ -164,6 +181,11 @@ namespace Model
     /**
      * <p>The storage connectors to enable.</p>
      */
+    inline bool StorageConnectorsHasBeenSet() const { return m_storageConnectorsHasBeenSet; }
+
+    /**
+     * <p>The storage connectors to enable.</p>
+     */
     inline void SetStorageConnectors(const Aws::Vector<StorageConnector>& value) { m_storageConnectorsHasBeenSet = true; m_storageConnectors = value; }
 
     /**
@@ -200,6 +222,11 @@ namespace Model
     /**
      * <p>The URL that users are redirected to after their streaming session ends.</p>
      */
+    inline bool RedirectURLHasBeenSet() const { return m_redirectURLHasBeenSet; }
+
+    /**
+     * <p>The URL that users are redirected to after their streaming session ends.</p>
+     */
     inline void SetRedirectURL(const Aws::String& value) { m_redirectURLHasBeenSet = true; m_redirectURL = value; }
 
     /**
@@ -229,44 +256,50 @@ namespace Model
 
 
     /**
-     * <p>The URL that users are redirected to after they click the Send Feedback link.
-     * If no URL is specified, no Send Feedback link is displayed.</p>
+     * <p>The URL that users are redirected to after they choose the Send Feedback
+     * link. If no URL is specified, no Send Feedback link is displayed.</p>
      */
     inline const Aws::String& GetFeedbackURL() const{ return m_feedbackURL; }
 
     /**
-     * <p>The URL that users are redirected to after they click the Send Feedback link.
-     * If no URL is specified, no Send Feedback link is displayed.</p>
+     * <p>The URL that users are redirected to after they choose the Send Feedback
+     * link. If no URL is specified, no Send Feedback link is displayed.</p>
+     */
+    inline bool FeedbackURLHasBeenSet() const { return m_feedbackURLHasBeenSet; }
+
+    /**
+     * <p>The URL that users are redirected to after they choose the Send Feedback
+     * link. If no URL is specified, no Send Feedback link is displayed.</p>
      */
     inline void SetFeedbackURL(const Aws::String& value) { m_feedbackURLHasBeenSet = true; m_feedbackURL = value; }
 
     /**
-     * <p>The URL that users are redirected to after they click the Send Feedback link.
-     * If no URL is specified, no Send Feedback link is displayed.</p>
+     * <p>The URL that users are redirected to after they choose the Send Feedback
+     * link. If no URL is specified, no Send Feedback link is displayed.</p>
      */
     inline void SetFeedbackURL(Aws::String&& value) { m_feedbackURLHasBeenSet = true; m_feedbackURL = std::move(value); }
 
     /**
-     * <p>The URL that users are redirected to after they click the Send Feedback link.
-     * If no URL is specified, no Send Feedback link is displayed.</p>
+     * <p>The URL that users are redirected to after they choose the Send Feedback
+     * link. If no URL is specified, no Send Feedback link is displayed.</p>
      */
     inline void SetFeedbackURL(const char* value) { m_feedbackURLHasBeenSet = true; m_feedbackURL.assign(value); }
 
     /**
-     * <p>The URL that users are redirected to after they click the Send Feedback link.
-     * If no URL is specified, no Send Feedback link is displayed.</p>
+     * <p>The URL that users are redirected to after they choose the Send Feedback
+     * link. If no URL is specified, no Send Feedback link is displayed.</p>
      */
     inline UpdateStackRequest& WithFeedbackURL(const Aws::String& value) { SetFeedbackURL(value); return *this;}
 
     /**
-     * <p>The URL that users are redirected to after they click the Send Feedback link.
-     * If no URL is specified, no Send Feedback link is displayed.</p>
+     * <p>The URL that users are redirected to after they choose the Send Feedback
+     * link. If no URL is specified, no Send Feedback link is displayed.</p>
      */
     inline UpdateStackRequest& WithFeedbackURL(Aws::String&& value) { SetFeedbackURL(std::move(value)); return *this;}
 
     /**
-     * <p>The URL that users are redirected to after they click the Send Feedback link.
-     * If no URL is specified, no Send Feedback link is displayed.</p>
+     * <p>The URL that users are redirected to after they choose the Send Feedback
+     * link. If no URL is specified, no Send Feedback link is displayed.</p>
      */
     inline UpdateStackRequest& WithFeedbackURL(const char* value) { SetFeedbackURL(value); return *this;}
 
@@ -275,6 +308,11 @@ namespace Model
      * <p>The stack attributes to delete.</p>
      */
     inline const Aws::Vector<StackAttribute>& GetAttributesToDelete() const{ return m_attributesToDelete; }
+
+    /**
+     * <p>The stack attributes to delete.</p>
+     */
+    inline bool AttributesToDeleteHasBeenSet() const { return m_attributesToDeleteHasBeenSet; }
 
     /**
      * <p>The stack attributes to delete.</p>
@@ -317,6 +355,12 @@ namespace Model
      * <p>The actions that are enabled or disabled for users during their streaming
      * sessions. By default, these actions are enabled.</p>
      */
+    inline bool UserSettingsHasBeenSet() const { return m_userSettingsHasBeenSet; }
+
+    /**
+     * <p>The actions that are enabled or disabled for users during their streaming
+     * sessions. By default, these actions are enabled.</p>
+     */
     inline void SetUserSettings(const Aws::Vector<UserSetting>& value) { m_userSettingsHasBeenSet = true; m_userSettings = value; }
 
     /**
@@ -349,6 +393,162 @@ namespace Model
      */
     inline UpdateStackRequest& AddUserSettings(UserSetting&& value) { m_userSettingsHasBeenSet = true; m_userSettings.push_back(std::move(value)); return *this; }
 
+
+    /**
+     * <p>The persistent application settings for users of a stack. When these settings
+     * are enabled, changes that users make to applications and Windows settings are
+     * automatically saved after each session and applied to the next session.</p>
+     */
+    inline const ApplicationSettings& GetApplicationSettings() const{ return m_applicationSettings; }
+
+    /**
+     * <p>The persistent application settings for users of a stack. When these settings
+     * are enabled, changes that users make to applications and Windows settings are
+     * automatically saved after each session and applied to the next session.</p>
+     */
+    inline bool ApplicationSettingsHasBeenSet() const { return m_applicationSettingsHasBeenSet; }
+
+    /**
+     * <p>The persistent application settings for users of a stack. When these settings
+     * are enabled, changes that users make to applications and Windows settings are
+     * automatically saved after each session and applied to the next session.</p>
+     */
+    inline void SetApplicationSettings(const ApplicationSettings& value) { m_applicationSettingsHasBeenSet = true; m_applicationSettings = value; }
+
+    /**
+     * <p>The persistent application settings for users of a stack. When these settings
+     * are enabled, changes that users make to applications and Windows settings are
+     * automatically saved after each session and applied to the next session.</p>
+     */
+    inline void SetApplicationSettings(ApplicationSettings&& value) { m_applicationSettingsHasBeenSet = true; m_applicationSettings = std::move(value); }
+
+    /**
+     * <p>The persistent application settings for users of a stack. When these settings
+     * are enabled, changes that users make to applications and Windows settings are
+     * automatically saved after each session and applied to the next session.</p>
+     */
+    inline UpdateStackRequest& WithApplicationSettings(const ApplicationSettings& value) { SetApplicationSettings(value); return *this;}
+
+    /**
+     * <p>The persistent application settings for users of a stack. When these settings
+     * are enabled, changes that users make to applications and Windows settings are
+     * automatically saved after each session and applied to the next session.</p>
+     */
+    inline UpdateStackRequest& WithApplicationSettings(ApplicationSettings&& value) { SetApplicationSettings(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The list of interface VPC endpoint (interface endpoint) objects. Users of the
+     * stack can connect to AppStream 2.0 only through the specified endpoints.</p>
+     */
+    inline const Aws::Vector<AccessEndpoint>& GetAccessEndpoints() const{ return m_accessEndpoints; }
+
+    /**
+     * <p>The list of interface VPC endpoint (interface endpoint) objects. Users of the
+     * stack can connect to AppStream 2.0 only through the specified endpoints.</p>
+     */
+    inline bool AccessEndpointsHasBeenSet() const { return m_accessEndpointsHasBeenSet; }
+
+    /**
+     * <p>The list of interface VPC endpoint (interface endpoint) objects. Users of the
+     * stack can connect to AppStream 2.0 only through the specified endpoints.</p>
+     */
+    inline void SetAccessEndpoints(const Aws::Vector<AccessEndpoint>& value) { m_accessEndpointsHasBeenSet = true; m_accessEndpoints = value; }
+
+    /**
+     * <p>The list of interface VPC endpoint (interface endpoint) objects. Users of the
+     * stack can connect to AppStream 2.0 only through the specified endpoints.</p>
+     */
+    inline void SetAccessEndpoints(Aws::Vector<AccessEndpoint>&& value) { m_accessEndpointsHasBeenSet = true; m_accessEndpoints = std::move(value); }
+
+    /**
+     * <p>The list of interface VPC endpoint (interface endpoint) objects. Users of the
+     * stack can connect to AppStream 2.0 only through the specified endpoints.</p>
+     */
+    inline UpdateStackRequest& WithAccessEndpoints(const Aws::Vector<AccessEndpoint>& value) { SetAccessEndpoints(value); return *this;}
+
+    /**
+     * <p>The list of interface VPC endpoint (interface endpoint) objects. Users of the
+     * stack can connect to AppStream 2.0 only through the specified endpoints.</p>
+     */
+    inline UpdateStackRequest& WithAccessEndpoints(Aws::Vector<AccessEndpoint>&& value) { SetAccessEndpoints(std::move(value)); return *this;}
+
+    /**
+     * <p>The list of interface VPC endpoint (interface endpoint) objects. Users of the
+     * stack can connect to AppStream 2.0 only through the specified endpoints.</p>
+     */
+    inline UpdateStackRequest& AddAccessEndpoints(const AccessEndpoint& value) { m_accessEndpointsHasBeenSet = true; m_accessEndpoints.push_back(value); return *this; }
+
+    /**
+     * <p>The list of interface VPC endpoint (interface endpoint) objects. Users of the
+     * stack can connect to AppStream 2.0 only through the specified endpoints.</p>
+     */
+    inline UpdateStackRequest& AddAccessEndpoints(AccessEndpoint&& value) { m_accessEndpointsHasBeenSet = true; m_accessEndpoints.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline const Aws::Vector<Aws::String>& GetEmbedHostDomains() const{ return m_embedHostDomains; }
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline bool EmbedHostDomainsHasBeenSet() const { return m_embedHostDomainsHasBeenSet; }
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline void SetEmbedHostDomains(const Aws::Vector<Aws::String>& value) { m_embedHostDomainsHasBeenSet = true; m_embedHostDomains = value; }
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline void SetEmbedHostDomains(Aws::Vector<Aws::String>&& value) { m_embedHostDomainsHasBeenSet = true; m_embedHostDomains = std::move(value); }
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline UpdateStackRequest& WithEmbedHostDomains(const Aws::Vector<Aws::String>& value) { SetEmbedHostDomains(value); return *this;}
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline UpdateStackRequest& WithEmbedHostDomains(Aws::Vector<Aws::String>&& value) { SetEmbedHostDomains(std::move(value)); return *this;}
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline UpdateStackRequest& AddEmbedHostDomains(const Aws::String& value) { m_embedHostDomainsHasBeenSet = true; m_embedHostDomains.push_back(value); return *this; }
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline UpdateStackRequest& AddEmbedHostDomains(Aws::String&& value) { m_embedHostDomainsHasBeenSet = true; m_embedHostDomains.push_back(std::move(value)); return *this; }
+
+    /**
+     * <p>The domains where AppStream 2.0 streaming sessions can be embedded in an
+     * iframe. You must approve the domains that you want to host embedded AppStream
+     * 2.0 streaming sessions.</p>
+     */
+    inline UpdateStackRequest& AddEmbedHostDomains(const char* value) { m_embedHostDomainsHasBeenSet = true; m_embedHostDomains.push_back(value); return *this; }
+
   private:
 
     Aws::String m_displayName;
@@ -374,6 +574,15 @@ namespace Model
 
     Aws::Vector<UserSetting> m_userSettings;
     bool m_userSettingsHasBeenSet;
+
+    ApplicationSettings m_applicationSettings;
+    bool m_applicationSettingsHasBeenSet;
+
+    Aws::Vector<AccessEndpoint> m_accessEndpoints;
+    bool m_accessEndpointsHasBeenSet;
+
+    Aws::Vector<Aws::String> m_embedHostDomains;
+    bool m_embedHostDomainsHasBeenSet;
   };
 
 } // namespace Model

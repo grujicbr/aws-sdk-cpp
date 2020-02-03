@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     Pose();
-    Pose(const Aws::Utils::Json::JsonValue& jsonValue);
-    Pose& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Pose(Aws::Utils::Json::JsonView jsonValue);
+    Pose& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>Value representing the face rotation on the roll axis.</p>
      */
     inline double GetRoll() const{ return m_roll; }
+
+    /**
+     * <p>Value representing the face rotation on the roll axis.</p>
+     */
+    inline bool RollHasBeenSet() const { return m_rollHasBeenSet; }
 
     /**
      * <p>Value representing the face rotation on the roll axis.</p>
@@ -69,6 +75,11 @@ namespace Model
     /**
      * <p>Value representing the face rotation on the yaw axis.</p>
      */
+    inline bool YawHasBeenSet() const { return m_yawHasBeenSet; }
+
+    /**
+     * <p>Value representing the face rotation on the yaw axis.</p>
+     */
     inline void SetYaw(double value) { m_yawHasBeenSet = true; m_yaw = value; }
 
     /**
@@ -81,6 +92,11 @@ namespace Model
      * <p>Value representing the face rotation on the pitch axis.</p>
      */
     inline double GetPitch() const{ return m_pitch; }
+
+    /**
+     * <p>Value representing the face rotation on the pitch axis.</p>
+     */
+    inline bool PitchHasBeenSet() const { return m_pitchHasBeenSet; }
 
     /**
      * <p>Value representing the face rotation on the pitch axis.</p>

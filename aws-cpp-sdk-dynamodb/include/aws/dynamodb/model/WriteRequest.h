@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -37,7 +38,7 @@ namespace Model
    * <p>Represents an operation to perform - either <code>DeleteItem</code> or
    * <code>PutItem</code>. You can only request one of these operations, not both, in
    * a single <code>WriteRequest</code>. If you do need to perform both of these
-   * operations, you will need to provide two separate <code>WriteRequest</code>
+   * operations, you need to provide two separate <code>WriteRequest</code>
    * objects.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/WriteRequest">AWS
    * API Reference</a></p>
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     WriteRequest();
-    WriteRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    WriteRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WriteRequest(Aws::Utils::Json::JsonView jsonValue);
+    WriteRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>A request to perform a <code>PutItem</code> operation.</p>
      */
     inline const PutRequest& GetPutRequest() const{ return m_putRequest; }
+
+    /**
+     * <p>A request to perform a <code>PutItem</code> operation.</p>
+     */
+    inline bool PutRequestHasBeenSet() const { return m_putRequestHasBeenSet; }
 
     /**
      * <p>A request to perform a <code>PutItem</code> operation.</p>
@@ -81,6 +87,11 @@ namespace Model
      * <p>A request to perform a <code>DeleteItem</code> operation.</p>
      */
     inline const DeleteRequest& GetDeleteRequest() const{ return m_deleteRequest; }
+
+    /**
+     * <p>A request to perform a <code>DeleteItem</code> operation.</p>
+     */
+    inline bool DeleteRequestHasBeenSet() const { return m_deleteRequestHasBeenSet; }
 
     /**
      * <p>A request to perform a <code>DeleteItem</code> operation.</p>

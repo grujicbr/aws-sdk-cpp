@@ -50,16 +50,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -185,7 +179,7 @@ namespace Model
 
         virtual ~ResourceGroupsClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "resource-groups"; }
+        inline virtual const char* GetServiceClientName() const override { return "Resource Groups"; }
 
 
         /**
@@ -304,16 +298,16 @@ namespace Model
         virtual void GetGroupQueryAsync(const Model::GetGroupQueryRequest& request, const GetGroupQueryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Returns a list of tags that are associated with a resource, specified by an
-         * ARN.</p><p><h3>See Also:</h3>   <a
+         * <p>Returns a list of tags that are associated with a resource group, specified
+         * by an ARN.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/resource-groups-2017-11-27/GetTags">AWS
          * API Reference</a></p>
          */
         virtual Model::GetTagsOutcome GetTags(const Model::GetTagsRequest& request) const;
 
         /**
-         * <p>Returns a list of tags that are associated with a resource, specified by an
-         * ARN.</p><p><h3>See Also:</h3>   <a
+         * <p>Returns a list of tags that are associated with a resource group, specified
+         * by an ARN.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/resource-groups-2017-11-27/GetTags">AWS
          * API Reference</a></p>
          *
@@ -322,8 +316,8 @@ namespace Model
         virtual Model::GetTagsOutcomeCallable GetTagsCallable(const Model::GetTagsRequest& request) const;
 
         /**
-         * <p>Returns a list of tags that are associated with a resource, specified by an
-         * ARN.</p><p><h3>See Also:</h3>   <a
+         * <p>Returns a list of tags that are associated with a resource group, specified
+         * by an ARN.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/resource-groups-2017-11-27/GetTags">AWS
          * API Reference</a></p>
          *
@@ -419,8 +413,8 @@ namespace Model
         virtual void SearchResourcesAsync(const Model::SearchResourcesRequest& request, const SearchResourcesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Adds specified tags to a resource with the specified ARN. Existing tags on a
-         * resource are not changed if they are not specified in the request
+         * <p>Adds tags to a resource group with the specified ARN. Existing tags on a
+         * resource group are not changed if they are not specified in the request
          * parameters.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/resource-groups-2017-11-27/Tag">AWS
          * API Reference</a></p>
@@ -428,8 +422,8 @@ namespace Model
         virtual Model::TagOutcome Tag(const Model::TagRequest& request) const;
 
         /**
-         * <p>Adds specified tags to a resource with the specified ARN. Existing tags on a
-         * resource are not changed if they are not specified in the request
+         * <p>Adds tags to a resource group with the specified ARN. Existing tags on a
+         * resource group are not changed if they are not specified in the request
          * parameters.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/resource-groups-2017-11-27/Tag">AWS
          * API Reference</a></p>
@@ -439,8 +433,8 @@ namespace Model
         virtual Model::TagOutcomeCallable TagCallable(const Model::TagRequest& request) const;
 
         /**
-         * <p>Adds specified tags to a resource with the specified ARN. Existing tags on a
-         * resource are not changed if they are not specified in the request
+         * <p>Adds tags to a resource group with the specified ARN. Existing tags on a
+         * resource group are not changed if they are not specified in the request
          * parameters.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/resource-groups-2017-11-27/Tag">AWS
          * API Reference</a></p>
@@ -531,10 +525,9 @@ namespace Model
         virtual void UpdateGroupQueryAsync(const Model::UpdateGroupQueryRequest& request, const UpdateGroupQueryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void CreateGroupAsyncHelper(const Model::CreateGroupRequest& request, const CreateGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteGroupAsyncHelper(const Model::DeleteGroupRequest& request, const DeleteGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetGroupAsyncHelper(const Model::GetGroupRequest& request, const GetGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -549,6 +542,7 @@ namespace Model
         void UpdateGroupQueryAsyncHelper(const Model::UpdateGroupQueryRequest& request, const UpdateGroupQueryResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

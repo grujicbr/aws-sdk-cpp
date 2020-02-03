@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for StandardHlsSettings<p><h3>See Also:</h3>   <a
+   * Standard Hls Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StandardHlsSettings">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     StandardHlsSettings();
-    StandardHlsSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    StandardHlsSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StandardHlsSettings(Aws::Utils::Json::JsonView jsonValue);
+    StandardHlsSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * the audio GROUP-IDs that are associated to the video, separate by ','.
      */
     inline const Aws::String& GetAudioRenditionSets() const{ return m_audioRenditionSets; }
+
+    /**
+     * List all the audio groups that are used with the video output stream. Input all
+     * the audio GROUP-IDs that are associated to the video, separate by ','.
+     */
+    inline bool AudioRenditionSetsHasBeenSet() const { return m_audioRenditionSetsHasBeenSet; }
 
     /**
      * List all the audio groups that are used with the video output stream. Input all
@@ -92,6 +99,9 @@ namespace Model
 
     
     inline const M3u8Settings& GetM3u8Settings() const{ return m_m3u8Settings; }
+
+    
+    inline bool M3u8SettingsHasBeenSet() const { return m_m3u8SettingsHasBeenSet; }
 
     
     inline void SetM3u8Settings(const M3u8Settings& value) { m_m3u8SettingsHasBeenSet = true; m_m3u8Settings = value; }

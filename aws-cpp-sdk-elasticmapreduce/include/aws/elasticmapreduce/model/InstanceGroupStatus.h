@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     InstanceGroupStatus();
-    InstanceGroupStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceGroupStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceGroupStatus(Aws::Utils::Json::JsonView jsonValue);
+    InstanceGroupStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The current state of the instance group.</p>
      */
     inline const InstanceGroupState& GetState() const{ return m_state; }
+
+    /**
+     * <p>The current state of the instance group.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The current state of the instance group.</p>
@@ -82,6 +88,11 @@ namespace Model
     /**
      * <p>The status change reason details for the instance group.</p>
      */
+    inline bool StateChangeReasonHasBeenSet() const { return m_stateChangeReasonHasBeenSet; }
+
+    /**
+     * <p>The status change reason details for the instance group.</p>
+     */
     inline void SetStateChangeReason(const InstanceGroupStateChangeReason& value) { m_stateChangeReasonHasBeenSet = true; m_stateChangeReason = value; }
 
     /**
@@ -104,6 +115,11 @@ namespace Model
      * <p>The timeline of the instance group status over time.</p>
      */
     inline const InstanceGroupTimeline& GetTimeline() const{ return m_timeline; }
+
+    /**
+     * <p>The timeline of the instance group status over time.</p>
+     */
+    inline bool TimelineHasBeenSet() const { return m_timelineHasBeenSet; }
 
     /**
      * <p>The timeline of the instance group status over time.</p>

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationAutoScaling
@@ -56,8 +57,8 @@ namespace Model
   {
   public:
     StepAdjustment();
-    StepAdjustment(const Aws::Utils::Json::JsonValue& jsonValue);
-    StepAdjustment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StepAdjustment(Aws::Utils::Json::JsonView jsonValue);
+    StepAdjustment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -70,6 +71,16 @@ namespace Model
      * infinity.</p>
      */
     inline double GetMetricIntervalLowerBound() const{ return m_metricIntervalLowerBound; }
+
+    /**
+     * <p>The lower bound for the difference between the alarm threshold and the
+     * CloudWatch metric. If the metric value is above the breach threshold, the lower
+     * bound is inclusive (the metric must be greater than or equal to the threshold
+     * plus the lower bound). Otherwise, it is exclusive (the metric must be greater
+     * than the threshold plus the lower bound). A null value indicates negative
+     * infinity.</p>
+     */
+    inline bool MetricIntervalLowerBoundHasBeenSet() const { return m_metricIntervalLowerBoundHasBeenSet; }
 
     /**
      * <p>The lower bound for the difference between the alarm threshold and the
@@ -110,6 +121,16 @@ namespace Model
      * threshold plus the upper bound). A null value indicates positive infinity.</p>
      * <p>The upper bound must be greater than the lower bound.</p>
      */
+    inline bool MetricIntervalUpperBoundHasBeenSet() const { return m_metricIntervalUpperBoundHasBeenSet; }
+
+    /**
+     * <p>The upper bound for the difference between the alarm threshold and the
+     * CloudWatch metric. If the metric value is above the breach threshold, the upper
+     * bound is exclusive (the metric must be less than the threshold plus the upper
+     * bound). Otherwise, it is inclusive (the metric must be less than or equal to the
+     * threshold plus the upper bound). A null value indicates positive infinity.</p>
+     * <p>The upper bound must be greater than the lower bound.</p>
+     */
     inline void SetMetricIntervalUpperBound(double value) { m_metricIntervalUpperBoundHasBeenSet = true; m_metricIntervalUpperBound = value; }
 
     /**
@@ -129,6 +150,13 @@ namespace Model
      * removes from the current scalable dimension.</p>
      */
     inline int GetScalingAdjustment() const{ return m_scalingAdjustment; }
+
+    /**
+     * <p>The amount by which to scale, based on the specified adjustment type. A
+     * positive value adds to the current scalable dimension while a negative number
+     * removes from the current scalable dimension.</p>
+     */
+    inline bool ScalingAdjustmentHasBeenSet() const { return m_scalingAdjustmentHasBeenSet; }
 
     /**
      * <p>The amount by which to scale, based on the specified adjustment type. A

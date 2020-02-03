@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     DocumentMetadata();
-    DocumentMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    DocumentMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DocumentMetadata(Aws::Utils::Json::JsonView jsonValue);
+    DocumentMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The ID of the document.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the document.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the document.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The ID of the creator.</p>
      */
+    inline bool CreatorIdHasBeenSet() const { return m_creatorIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the creator.</p>
+     */
     inline void SetCreatorId(const Aws::String& value) { m_creatorIdHasBeenSet = true; m_creatorId = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>The ID of the parent folder.</p>
      */
     inline const Aws::String& GetParentFolderId() const{ return m_parentFolderId; }
+
+    /**
+     * <p>The ID of the parent folder.</p>
+     */
+    inline bool ParentFolderIdHasBeenSet() const { return m_parentFolderIdHasBeenSet; }
 
     /**
      * <p>The ID of the parent folder.</p>
@@ -166,6 +182,11 @@ namespace Model
     /**
      * <p>The time when the document was created.</p>
      */
+    inline bool CreatedTimestampHasBeenSet() const { return m_createdTimestampHasBeenSet; }
+
+    /**
+     * <p>The time when the document was created.</p>
+     */
     inline void SetCreatedTimestamp(const Aws::Utils::DateTime& value) { m_createdTimestampHasBeenSet = true; m_createdTimestamp = value; }
 
     /**
@@ -188,6 +209,11 @@ namespace Model
      * <p>The time when the document was updated.</p>
      */
     inline const Aws::Utils::DateTime& GetModifiedTimestamp() const{ return m_modifiedTimestamp; }
+
+    /**
+     * <p>The time when the document was updated.</p>
+     */
+    inline bool ModifiedTimestampHasBeenSet() const { return m_modifiedTimestampHasBeenSet; }
 
     /**
      * <p>The time when the document was updated.</p>
@@ -218,6 +244,11 @@ namespace Model
     /**
      * <p>The latest version of the document.</p>
      */
+    inline bool LatestVersionMetadataHasBeenSet() const { return m_latestVersionMetadataHasBeenSet; }
+
+    /**
+     * <p>The latest version of the document.</p>
+     */
     inline void SetLatestVersionMetadata(const DocumentVersionMetadata& value) { m_latestVersionMetadataHasBeenSet = true; m_latestVersionMetadata = value; }
 
     /**
@@ -244,6 +275,11 @@ namespace Model
     /**
      * <p>The resource state.</p>
      */
+    inline bool ResourceStateHasBeenSet() const { return m_resourceStateHasBeenSet; }
+
+    /**
+     * <p>The resource state.</p>
+     */
     inline void SetResourceState(const ResourceStateType& value) { m_resourceStateHasBeenSet = true; m_resourceState = value; }
 
     /**
@@ -266,6 +302,11 @@ namespace Model
      * <p>List of labels on the document.</p>
      */
     inline const Aws::Vector<Aws::String>& GetLabels() const{ return m_labels; }
+
+    /**
+     * <p>List of labels on the document.</p>
+     */
+    inline bool LabelsHasBeenSet() const { return m_labelsHasBeenSet; }
 
     /**
      * <p>List of labels on the document.</p>

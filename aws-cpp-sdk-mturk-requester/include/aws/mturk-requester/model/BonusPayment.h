@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BonusPayment();
-    BonusPayment(const Aws::Utils::Json::JsonValue& jsonValue);
-    BonusPayment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BonusPayment(Aws::Utils::Json::JsonView jsonValue);
+    BonusPayment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ID of the Worker to whom the bonus was paid.</p>
      */
     inline const Aws::String& GetWorkerId() const{ return m_workerId; }
+
+    /**
+     * <p>The ID of the Worker to whom the bonus was paid.</p>
+     */
+    inline bool WorkerIdHasBeenSet() const { return m_workerIdHasBeenSet; }
 
     /**
      * <p>The ID of the Worker to whom the bonus was paid.</p>
@@ -88,6 +94,9 @@ namespace Model
     inline const Aws::String& GetBonusAmount() const{ return m_bonusAmount; }
 
     
+    inline bool BonusAmountHasBeenSet() const { return m_bonusAmountHasBeenSet; }
+
+    
     inline void SetBonusAmount(const Aws::String& value) { m_bonusAmountHasBeenSet = true; m_bonusAmount = value; }
 
     
@@ -110,6 +119,11 @@ namespace Model
      * <p>The ID of the assignment associated with this bonus payment.</p>
      */
     inline const Aws::String& GetAssignmentId() const{ return m_assignmentId; }
+
+    /**
+     * <p>The ID of the assignment associated with this bonus payment.</p>
+     */
+    inline bool AssignmentIdHasBeenSet() const { return m_assignmentIdHasBeenSet; }
 
     /**
      * <p>The ID of the assignment associated with this bonus payment.</p>
@@ -150,6 +164,11 @@ namespace Model
     /**
      * <p>The Reason text given when the bonus was granted, if any.</p>
      */
+    inline bool ReasonHasBeenSet() const { return m_reasonHasBeenSet; }
+
+    /**
+     * <p>The Reason text given when the bonus was granted, if any.</p>
+     */
     inline void SetReason(const Aws::String& value) { m_reasonHasBeenSet = true; m_reason = value; }
 
     /**
@@ -182,6 +201,11 @@ namespace Model
      * <p>The date and time of when the bonus was granted.</p>
      */
     inline const Aws::Utils::DateTime& GetGrantTime() const{ return m_grantTime; }
+
+    /**
+     * <p>The date and time of when the bonus was granted.</p>
+     */
+    inline bool GrantTimeHasBeenSet() const { return m_grantTimeHasBeenSet; }
 
     /**
      * <p>The date and time of when the bonus was granted.</p>

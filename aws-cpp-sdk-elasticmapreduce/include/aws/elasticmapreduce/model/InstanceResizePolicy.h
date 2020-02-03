@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     InstanceResizePolicy();
-    InstanceResizePolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceResizePolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceResizePolicy(Aws::Utils::Json::JsonView jsonValue);
+    InstanceResizePolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * group.</p>
      */
     inline const Aws::Vector<Aws::String>& GetInstancesToTerminate() const{ return m_instancesToTerminate; }
+
+    /**
+     * <p>Specific list of instances to be terminated when shrinking an instance
+     * group.</p>
+     */
+    inline bool InstancesToTerminateHasBeenSet() const { return m_instancesToTerminateHasBeenSet; }
 
     /**
      * <p>Specific list of instances to be terminated when shrinking an instance
@@ -108,6 +115,12 @@ namespace Model
      * <p>Specific list of instances to be protected when shrinking an instance
      * group.</p>
      */
+    inline bool InstancesToProtectHasBeenSet() const { return m_instancesToProtectHasBeenSet; }
+
+    /**
+     * <p>Specific list of instances to be protected when shrinking an instance
+     * group.</p>
+     */
     inline void SetInstancesToProtect(const Aws::Vector<Aws::String>& value) { m_instancesToProtectHasBeenSet = true; m_instancesToProtect = value; }
 
     /**
@@ -152,6 +165,12 @@ namespace Model
      * terminated.</p>
      */
     inline int GetInstanceTerminationTimeout() const{ return m_instanceTerminationTimeout; }
+
+    /**
+     * <p>Decommissioning timeout override for the specific list of instances to be
+     * terminated.</p>
+     */
+    inline bool InstanceTerminationTimeoutHasBeenSet() const { return m_instanceTerminationTimeoutHasBeenSet; }
 
     /**
      * <p>Decommissioning timeout override for the specific list of instances to be

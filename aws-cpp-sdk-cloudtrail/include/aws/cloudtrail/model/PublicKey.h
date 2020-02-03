@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudTrail
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     PublicKey();
-    PublicKey(const Aws::Utils::Json::JsonValue& jsonValue);
-    PublicKey& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PublicKey(Aws::Utils::Json::JsonView jsonValue);
+    PublicKey& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The DER encoded public key value in PKCS#1 format.</p>
      */
     inline const Aws::Utils::ByteBuffer& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The DER encoded public key value in PKCS#1 format.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The DER encoded public key value in PKCS#1 format.</p>
@@ -83,6 +89,11 @@ namespace Model
     /**
      * <p>The starting time of validity of the public key.</p>
      */
+    inline bool ValidityStartTimeHasBeenSet() const { return m_validityStartTimeHasBeenSet; }
+
+    /**
+     * <p>The starting time of validity of the public key.</p>
+     */
     inline void SetValidityStartTime(const Aws::Utils::DateTime& value) { m_validityStartTimeHasBeenSet = true; m_validityStartTime = value; }
 
     /**
@@ -109,6 +120,11 @@ namespace Model
     /**
      * <p>The ending time of validity of the public key.</p>
      */
+    inline bool ValidityEndTimeHasBeenSet() const { return m_validityEndTimeHasBeenSet; }
+
+    /**
+     * <p>The ending time of validity of the public key.</p>
+     */
     inline void SetValidityEndTime(const Aws::Utils::DateTime& value) { m_validityEndTimeHasBeenSet = true; m_validityEndTime = value; }
 
     /**
@@ -131,6 +147,11 @@ namespace Model
      * <p>The fingerprint of the public key.</p>
      */
     inline const Aws::String& GetFingerprint() const{ return m_fingerprint; }
+
+    /**
+     * <p>The fingerprint of the public key.</p>
+     */
+    inline bool FingerprintHasBeenSet() const { return m_fingerprintHasBeenSet; }
 
     /**
      * <p>The fingerprint of the public key.</p>

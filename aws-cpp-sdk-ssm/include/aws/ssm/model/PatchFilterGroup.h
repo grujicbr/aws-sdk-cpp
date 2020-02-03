@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PatchFilterGroup();
-    PatchFilterGroup(const Aws::Utils::Json::JsonValue& jsonValue);
-    PatchFilterGroup& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PatchFilterGroup(Aws::Utils::Json::JsonView jsonValue);
+    PatchFilterGroup& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The set of patch filters that make up the group.</p>
      */
     inline const Aws::Vector<PatchFilter>& GetPatchFilters() const{ return m_patchFilters; }
+
+    /**
+     * <p>The set of patch filters that make up the group.</p>
+     */
+    inline bool PatchFiltersHasBeenSet() const { return m_patchFiltersHasBeenSet; }
 
     /**
      * <p>The set of patch filters that make up the group.</p>

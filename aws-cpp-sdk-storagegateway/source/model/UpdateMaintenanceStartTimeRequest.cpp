@@ -29,7 +29,9 @@ UpdateMaintenanceStartTimeRequest::UpdateMaintenanceStartTimeRequest() :
     m_minuteOfHour(0),
     m_minuteOfHourHasBeenSet(false),
     m_dayOfWeek(0),
-    m_dayOfWeekHasBeenSet(false)
+    m_dayOfWeekHasBeenSet(false),
+    m_dayOfMonth(0),
+    m_dayOfMonthHasBeenSet(false)
 {
 }
 
@@ -61,7 +63,13 @@ Aws::String UpdateMaintenanceStartTimeRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_dayOfMonthHasBeenSet)
+  {
+   payload.WithInteger("DayOfMonth", m_dayOfMonth);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateMaintenanceStartTimeRequest::GetRequestSpecificHeaders() const

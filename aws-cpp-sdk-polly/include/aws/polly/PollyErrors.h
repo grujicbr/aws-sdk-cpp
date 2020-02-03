@@ -50,12 +50,14 @@ enum class PollyErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  INVALID_LEXICON= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  ENGINE_NOT_SUPPORTED= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  INVALID_LEXICON,
   INVALID_NEXT_TOKEN,
   INVALID_S3_BUCKET,
   INVALID_S3_KEY,
@@ -63,6 +65,7 @@ enum class PollyErrors
   INVALID_SNS_TOPIC_ARN,
   INVALID_SSML,
   INVALID_TASK_ID,
+  LANGUAGE_NOT_SUPPORTED,
   LEXICON_NOT_FOUND,
   LEXICON_SIZE_EXCEEDED,
   MARKS_NOT_SUPPORTED_FOR_FORMAT,

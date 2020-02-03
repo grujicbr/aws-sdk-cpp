@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ProcessorParameter();
-    ProcessorParameter(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProcessorParameter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProcessorParameter(Aws::Utils::Json::JsonView jsonValue);
+    ProcessorParameter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the parameter.</p>
      */
     inline const ProcessorParameterName& GetParameterName() const{ return m_parameterName; }
+
+    /**
+     * <p>The name of the parameter.</p>
+     */
+    inline bool ParameterNameHasBeenSet() const { return m_parameterNameHasBeenSet; }
 
     /**
      * <p>The name of the parameter.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The parameter value.</p>
      */
     inline const Aws::String& GetParameterValue() const{ return m_parameterValue; }
+
+    /**
+     * <p>The parameter value.</p>
+     */
+    inline bool ParameterValueHasBeenSet() const { return m_parameterValueHasBeenSet; }
 
     /**
      * <p>The parameter value.</p>

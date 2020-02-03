@@ -57,32 +57,32 @@ ListHostedZonesByNameResult& ListHostedZonesByNameResult::operator =(const Aws::
     XmlNode dNSNameNode = resultNode.FirstChild("DNSName");
     if(!dNSNameNode.IsNull())
     {
-      m_dNSName = StringUtils::Trim(dNSNameNode.GetText().c_str());
+      m_dNSName = Aws::Utils::Xml::DecodeEscapedXmlText(dNSNameNode.GetText());
     }
     XmlNode hostedZoneIdNode = resultNode.FirstChild("HostedZoneId");
     if(!hostedZoneIdNode.IsNull())
     {
-      m_hostedZoneId = StringUtils::Trim(hostedZoneIdNode.GetText().c_str());
+      m_hostedZoneId = Aws::Utils::Xml::DecodeEscapedXmlText(hostedZoneIdNode.GetText());
     }
     XmlNode isTruncatedNode = resultNode.FirstChild("IsTruncated");
     if(!isTruncatedNode.IsNull())
     {
-      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(isTruncatedNode.GetText().c_str()).c_str());
+      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isTruncatedNode.GetText()).c_str()).c_str());
     }
     XmlNode nextDNSNameNode = resultNode.FirstChild("NextDNSName");
     if(!nextDNSNameNode.IsNull())
     {
-      m_nextDNSName = StringUtils::Trim(nextDNSNameNode.GetText().c_str());
+      m_nextDNSName = Aws::Utils::Xml::DecodeEscapedXmlText(nextDNSNameNode.GetText());
     }
     XmlNode nextHostedZoneIdNode = resultNode.FirstChild("NextHostedZoneId");
     if(!nextHostedZoneIdNode.IsNull())
     {
-      m_nextHostedZoneId = StringUtils::Trim(nextHostedZoneIdNode.GetText().c_str());
+      m_nextHostedZoneId = Aws::Utils::Xml::DecodeEscapedXmlText(nextHostedZoneIdNode.GetText());
     }
     XmlNode maxItemsNode = resultNode.FirstChild("MaxItems");
     if(!maxItemsNode.IsNull())
     {
-      m_maxItems = StringUtils::Trim(maxItemsNode.GetText().c_str());
+      m_maxItems = Aws::Utils::Xml::DecodeEscapedXmlText(maxItemsNode.GetText());
     }
   }
 

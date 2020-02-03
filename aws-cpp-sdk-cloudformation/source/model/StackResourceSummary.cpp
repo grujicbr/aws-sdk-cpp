@@ -37,7 +37,8 @@ StackResourceSummary::StackResourceSummary() :
     m_lastUpdatedTimestampHasBeenSet(false),
     m_resourceStatus(ResourceStatus::NOT_SET),
     m_resourceStatusHasBeenSet(false),
-    m_resourceStatusReasonHasBeenSet(false)
+    m_resourceStatusReasonHasBeenSet(false),
+    m_driftInformationHasBeenSet(false)
 {
 }
 
@@ -48,7 +49,8 @@ StackResourceSummary::StackResourceSummary(const XmlNode& xmlNode) :
     m_lastUpdatedTimestampHasBeenSet(false),
     m_resourceStatus(ResourceStatus::NOT_SET),
     m_resourceStatusHasBeenSet(false),
-    m_resourceStatusReasonHasBeenSet(false)
+    m_resourceStatusReasonHasBeenSet(false),
+    m_driftInformationHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -62,38 +64,44 @@ StackResourceSummary& StackResourceSummary::operator =(const XmlNode& xmlNode)
     XmlNode logicalResourceIdNode = resultNode.FirstChild("LogicalResourceId");
     if(!logicalResourceIdNode.IsNull())
     {
-      m_logicalResourceId = StringUtils::Trim(logicalResourceIdNode.GetText().c_str());
+      m_logicalResourceId = Aws::Utils::Xml::DecodeEscapedXmlText(logicalResourceIdNode.GetText());
       m_logicalResourceIdHasBeenSet = true;
     }
     XmlNode physicalResourceIdNode = resultNode.FirstChild("PhysicalResourceId");
     if(!physicalResourceIdNode.IsNull())
     {
-      m_physicalResourceId = StringUtils::Trim(physicalResourceIdNode.GetText().c_str());
+      m_physicalResourceId = Aws::Utils::Xml::DecodeEscapedXmlText(physicalResourceIdNode.GetText());
       m_physicalResourceIdHasBeenSet = true;
     }
     XmlNode resourceTypeNode = resultNode.FirstChild("ResourceType");
     if(!resourceTypeNode.IsNull())
     {
-      m_resourceType = StringUtils::Trim(resourceTypeNode.GetText().c_str());
+      m_resourceType = Aws::Utils::Xml::DecodeEscapedXmlText(resourceTypeNode.GetText());
       m_resourceTypeHasBeenSet = true;
     }
     XmlNode lastUpdatedTimestampNode = resultNode.FirstChild("LastUpdatedTimestamp");
     if(!lastUpdatedTimestampNode.IsNull())
     {
-      m_lastUpdatedTimestamp = DateTime(StringUtils::Trim(lastUpdatedTimestampNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_lastUpdatedTimestamp = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(lastUpdatedTimestampNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_lastUpdatedTimestampHasBeenSet = true;
     }
     XmlNode resourceStatusNode = resultNode.FirstChild("ResourceStatus");
     if(!resourceStatusNode.IsNull())
     {
-      m_resourceStatus = ResourceStatusMapper::GetResourceStatusForName(StringUtils::Trim(resourceStatusNode.GetText().c_str()).c_str());
+      m_resourceStatus = ResourceStatusMapper::GetResourceStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(resourceStatusNode.GetText()).c_str()).c_str());
       m_resourceStatusHasBeenSet = true;
     }
     XmlNode resourceStatusReasonNode = resultNode.FirstChild("ResourceStatusReason");
     if(!resourceStatusReasonNode.IsNull())
     {
-      m_resourceStatusReason = StringUtils::Trim(resourceStatusReasonNode.GetText().c_str());
+      m_resourceStatusReason = Aws::Utils::Xml::DecodeEscapedXmlText(resourceStatusReasonNode.GetText());
       m_resourceStatusReasonHasBeenSet = true;
+    }
+    XmlNode driftInformationNode = resultNode.FirstChild("DriftInformation");
+    if(!driftInformationNode.IsNull())
+    {
+      m_driftInformation = driftInformationNode;
+      m_driftInformationHasBeenSet = true;
     }
   }
 
@@ -132,6 +140,13 @@ void StackResourceSummary::OutputToStream(Aws::OStream& oStream, const char* loc
       oStream << location << index << locationValue << ".ResourceStatusReason=" << StringUtils::URLEncode(m_resourceStatusReason.c_str()) << "&";
   }
 
+  if(m_driftInformationHasBeenSet)
+  {
+      Aws::StringStream driftInformationLocationAndMemberSs;
+      driftInformationLocationAndMemberSs << location << index << locationValue << ".DriftInformation";
+      m_driftInformation.OutputToStream(oStream, driftInformationLocationAndMemberSs.str().c_str());
+  }
+
 }
 
 void StackResourceSummary::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -159,6 +174,12 @@ void StackResourceSummary::OutputToStream(Aws::OStream& oStream, const char* loc
   if(m_resourceStatusReasonHasBeenSet)
   {
       oStream << location << ".ResourceStatusReason=" << StringUtils::URLEncode(m_resourceStatusReason.c_str()) << "&";
+  }
+  if(m_driftInformationHasBeenSet)
+  {
+      Aws::String driftInformationLocationAndMember(location);
+      driftInformationLocationAndMember += ".DriftInformation";
+      m_driftInformation.OutputToStream(oStream, driftInformationLocationAndMember.c_str());
   }
 }
 

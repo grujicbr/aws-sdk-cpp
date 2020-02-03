@@ -24,9 +24,13 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/kinesis-video-archived-media/KinesisVideoArchivedMediaClient.h>
 #include <aws/kinesis-video-archived-media/KinesisVideoArchivedMediaEndpoint.h>
 #include <aws/kinesis-video-archived-media/KinesisVideoArchivedMediaErrorMarshaller.h>
+#include <aws/kinesis-video-archived-media/model/GetDASHStreamingSessionURLRequest.h>
 #include <aws/kinesis-video-archived-media/model/GetHLSStreamingSessionURLRequest.h>
 #include <aws/kinesis-video-archived-media/model/GetMediaForFragmentListRequest.h>
 #include <aws/kinesis-video-archived-media/model/ListFragmentsRequest.h>
@@ -80,28 +84,71 @@ KinesisVideoArchivedMediaClient::~KinesisVideoArchivedMediaClient()
 
 void KinesisVideoArchivedMediaClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << KinesisVideoArchivedMediaEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + KinesisVideoArchivedMediaEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void KinesisVideoArchivedMediaClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
+}
+
+GetDASHStreamingSessionURLOutcome KinesisVideoArchivedMediaClient::GetDASHStreamingSessionURL(const GetDASHStreamingSessionURLRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/getDASHStreamingSessionURL";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return GetDASHStreamingSessionURLOutcome(GetDASHStreamingSessionURLResult(outcome.GetResult()));
+  }
+  else
+  {
+    return GetDASHStreamingSessionURLOutcome(outcome.GetError());
+  }
+}
+
+GetDASHStreamingSessionURLOutcomeCallable KinesisVideoArchivedMediaClient::GetDASHStreamingSessionURLCallable(const GetDASHStreamingSessionURLRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< GetDASHStreamingSessionURLOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->GetDASHStreamingSessionURL(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void KinesisVideoArchivedMediaClient::GetDASHStreamingSessionURLAsync(const GetDASHStreamingSessionURLRequest& request, const GetDASHStreamingSessionURLResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->GetDASHStreamingSessionURLAsyncHelper( request, handler, context ); } );
+}
+
+void KinesisVideoArchivedMediaClient::GetDASHStreamingSessionURLAsyncHelper(const GetDASHStreamingSessionURLRequest& request, const GetDASHStreamingSessionURLResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, GetDASHStreamingSessionURL(request), context);
 }
 
 GetHLSStreamingSessionURLOutcome KinesisVideoArchivedMediaClient::GetHLSStreamingSessionURL(const GetHLSStreamingSessionURLRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/getHLSStreamingSessionURL";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetHLSStreamingSessionURLOutcome(GetHLSStreamingSessionURLResult(outcome.GetResult()));
@@ -132,11 +179,11 @@ void KinesisVideoArchivedMediaClient::GetHLSStreamingSessionURLAsyncHelper(const
 
 GetMediaForFragmentListOutcome KinesisVideoArchivedMediaClient::GetMediaForFragmentList(const GetMediaForFragmentListRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/getMediaForFragmentList";
   uri.SetPath(uri.GetPath() + ss.str());
-  StreamOutcome outcome = MakeRequestWithUnparsedResponse(uri, request, HttpMethod::HTTP_POST);
+  StreamOutcome outcome = MakeRequestWithUnparsedResponse(uri, request, Aws::Http::HttpMethod::HTTP_POST);
   if(outcome.IsSuccess())
   {
     return GetMediaForFragmentListOutcome(GetMediaForFragmentListResult(outcome.GetResultWithOwnership()));
@@ -167,11 +214,11 @@ void KinesisVideoArchivedMediaClient::GetMediaForFragmentListAsyncHelper(const G
 
 ListFragmentsOutcome KinesisVideoArchivedMediaClient::ListFragments(const ListFragmentsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/listFragments";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListFragmentsOutcome(ListFragmentsResult(outcome.GetResult()));

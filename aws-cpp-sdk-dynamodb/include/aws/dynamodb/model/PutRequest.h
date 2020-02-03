@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     PutRequest();
-    PutRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    PutRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PutRequest(Aws::Utils::Json::JsonView jsonValue);
+    PutRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,7 +54,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -63,7 +64,17 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
+     * an index key schema for the table, their types must match the index key
+     * schema.</p>
+     */
+    inline bool ItemHasBeenSet() const { return m_itemHasBeenSet; }
+
+    /**
+     * <p>A map of attribute name to attribute values, representing the primary key of
+     * an item to be processed by <code>PutItem</code>. All of the table's primary key
+     * attributes must be specified, and their data types must match those of the
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -73,7 +84,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -83,7 +94,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -93,7 +104,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -103,7 +114,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -113,7 +124,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -123,7 +134,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -133,7 +144,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -143,7 +154,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */
@@ -153,7 +164,7 @@ namespace Model
      * <p>A map of attribute name to attribute values, representing the primary key of
      * an item to be processed by <code>PutItem</code>. All of the table's primary key
      * attributes must be specified, and their data types must match those of the
-     * table's key schema. If any attributes are present in the item which are part of
+     * table's key schema. If any attributes are present in the item that are part of
      * an index key schema for the table, their types must match the index key
      * schema.</p>
      */

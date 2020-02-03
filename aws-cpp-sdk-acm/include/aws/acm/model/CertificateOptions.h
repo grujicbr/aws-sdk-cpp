@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACM
@@ -40,7 +41,7 @@ namespace Model
    * browser error. Transparency makes it possible for you to detect SSL/TLS
    * certificates that have been mistakenly or maliciously issued for your domain.
    * For general information, see <a
-   * href="http://docs.aws.amazon.com/acm/latest/userguide/acm-concepts.html#concept-transparency">Certificate
+   * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-concepts.html#concept-transparency">Certificate
    * Transparency Logging</a>. </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/CertificateOptions">AWS
    * API Reference</a></p>
@@ -49,8 +50,8 @@ namespace Model
   {
   public:
     CertificateOptions();
-    CertificateOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    CertificateOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CertificateOptions(Aws::Utils::Json::JsonView jsonValue);
+    CertificateOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +60,12 @@ namespace Model
      * <code>DISABLED</code> option. Opt in by specifying <code>ENABLED</code>. </p>
      */
     inline const CertificateTransparencyLoggingPreference& GetCertificateTransparencyLoggingPreference() const{ return m_certificateTransparencyLoggingPreference; }
+
+    /**
+     * <p>You can opt out of certificate transparency logging by specifying the
+     * <code>DISABLED</code> option. Opt in by specifying <code>ENABLED</code>. </p>
+     */
+    inline bool CertificateTransparencyLoggingPreferenceHasBeenSet() const { return m_certificateTransparencyLoggingPreferenceHasBeenSet; }
 
     /**
      * <p>You can opt out of certificate transparency logging by specifying the

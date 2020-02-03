@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     GroupCertificateAuthorityProperties();
-    GroupCertificateAuthorityProperties(const Aws::Utils::Json::JsonValue& jsonValue);
-    GroupCertificateAuthorityProperties& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GroupCertificateAuthorityProperties(Aws::Utils::Json::JsonView jsonValue);
+    GroupCertificateAuthorityProperties& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * The ARN of the certificate authority for the group.
      */
     inline const Aws::String& GetGroupCertificateAuthorityArn() const{ return m_groupCertificateAuthorityArn; }
+
+    /**
+     * The ARN of the certificate authority for the group.
+     */
+    inline bool GroupCertificateAuthorityArnHasBeenSet() const { return m_groupCertificateAuthorityArnHasBeenSet; }
 
     /**
      * The ARN of the certificate authority for the group.
@@ -86,6 +92,11 @@ namespace Model
      * The ID of the certificate authority for the group.
      */
     inline const Aws::String& GetGroupCertificateAuthorityId() const{ return m_groupCertificateAuthorityId; }
+
+    /**
+     * The ID of the certificate authority for the group.
+     */
+    inline bool GroupCertificateAuthorityIdHasBeenSet() const { return m_groupCertificateAuthorityIdHasBeenSet; }
 
     /**
      * The ID of the certificate authority for the group.

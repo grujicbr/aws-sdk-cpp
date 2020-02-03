@@ -56,7 +56,7 @@ ContextEntry& ContextEntry::operator =(const XmlNode& xmlNode)
     XmlNode contextKeyNameNode = resultNode.FirstChild("ContextKeyName");
     if(!contextKeyNameNode.IsNull())
     {
-      m_contextKeyName = StringUtils::Trim(contextKeyNameNode.GetText().c_str());
+      m_contextKeyName = Aws::Utils::Xml::DecodeEscapedXmlText(contextKeyNameNode.GetText());
       m_contextKeyNameHasBeenSet = true;
     }
     XmlNode contextKeyValuesNode = resultNode.FirstChild("ContextKeyValues");
@@ -65,7 +65,7 @@ ContextEntry& ContextEntry::operator =(const XmlNode& xmlNode)
       XmlNode contextKeyValuesMember = contextKeyValuesNode.FirstChild("member");
       while(!contextKeyValuesMember.IsNull())
       {
-        m_contextKeyValues.push_back(StringUtils::Trim(contextKeyValuesMember.GetText().c_str()));
+        m_contextKeyValues.push_back(contextKeyValuesMember.GetText());
         contextKeyValuesMember = contextKeyValuesMember.NextNode("member");
       }
 
@@ -74,7 +74,7 @@ ContextEntry& ContextEntry::operator =(const XmlNode& xmlNode)
     XmlNode contextKeyTypeNode = resultNode.FirstChild("ContextKeyType");
     if(!contextKeyTypeNode.IsNull())
     {
-      m_contextKeyType = ContextKeyTypeEnumMapper::GetContextKeyTypeEnumForName(StringUtils::Trim(contextKeyTypeNode.GetText().c_str()).c_str());
+      m_contextKeyType = ContextKeyTypeEnumMapper::GetContextKeyTypeEnumForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(contextKeyTypeNode.GetText()).c_str()).c_str());
       m_contextKeyTypeHasBeenSet = true;
     }
   }

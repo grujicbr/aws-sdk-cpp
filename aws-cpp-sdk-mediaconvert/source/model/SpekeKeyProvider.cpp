@@ -29,13 +29,15 @@ namespace Model
 {
 
 SpekeKeyProvider::SpekeKeyProvider() : 
+    m_certificateArnHasBeenSet(false),
     m_resourceIdHasBeenSet(false),
     m_systemIdsHasBeenSet(false),
     m_urlHasBeenSet(false)
 {
 }
 
-SpekeKeyProvider::SpekeKeyProvider(const JsonValue& jsonValue) : 
+SpekeKeyProvider::SpekeKeyProvider(JsonView jsonValue) : 
+    m_certificateArnHasBeenSet(false),
     m_resourceIdHasBeenSet(false),
     m_systemIdsHasBeenSet(false),
     m_urlHasBeenSet(false)
@@ -43,8 +45,15 @@ SpekeKeyProvider::SpekeKeyProvider(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-SpekeKeyProvider& SpekeKeyProvider::operator =(const JsonValue& jsonValue)
+SpekeKeyProvider& SpekeKeyProvider::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("certificateArn"))
+  {
+    m_certificateArn = jsonValue.GetString("certificateArn");
+
+    m_certificateArnHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("resourceId"))
   {
     m_resourceId = jsonValue.GetString("resourceId");
@@ -54,7 +63,7 @@ SpekeKeyProvider& SpekeKeyProvider::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("systemIds"))
   {
-    Array<JsonValue> systemIdsJsonList = jsonValue.GetArray("systemIds");
+    Array<JsonView> systemIdsJsonList = jsonValue.GetArray("systemIds");
     for(unsigned systemIdsIndex = 0; systemIdsIndex < systemIdsJsonList.GetLength(); ++systemIdsIndex)
     {
       m_systemIds.push_back(systemIdsJsonList[systemIdsIndex].AsString());
@@ -75,6 +84,12 @@ SpekeKeyProvider& SpekeKeyProvider::operator =(const JsonValue& jsonValue)
 JsonValue SpekeKeyProvider::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_certificateArnHasBeenSet)
+  {
+   payload.WithString("certificateArn", m_certificateArn);
+
+  }
 
   if(m_resourceIdHasBeenSet)
   {

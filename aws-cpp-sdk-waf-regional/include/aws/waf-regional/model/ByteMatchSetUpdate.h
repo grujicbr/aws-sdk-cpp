@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ByteMatchSetUpdate();
-    ByteMatchSetUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    ByteMatchSetUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ByteMatchSetUpdate(Aws::Utils::Json::JsonView jsonValue);
+    ByteMatchSetUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Specifies whether to insert or delete a <a>ByteMatchTuple</a>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specifies whether to insert or delete a <a>ByteMatchTuple</a>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specifies whether to insert or delete a <a>ByteMatchTuple</a>.</p>
@@ -84,6 +90,16 @@ namespace Model
      * <code>ByteMatchSet</code>.</p>
      */
     inline const ByteMatchTuple& GetByteMatchTuple() const{ return m_byteMatchTuple; }
+
+    /**
+     * <p>Information about the part of a web request that you want AWS WAF to inspect
+     * and the value that you want AWS WAF to search for. If you specify
+     * <code>DELETE</code> for the value of <code>Action</code>, the
+     * <code>ByteMatchTuple</code> values must exactly match the values in the
+     * <code>ByteMatchTuple</code> that you want to delete from the
+     * <code>ByteMatchSet</code>.</p>
+     */
+    inline bool ByteMatchTupleHasBeenSet() const { return m_byteMatchTupleHasBeenSet; }
 
     /**
      * <p>Information about the part of a web request that you want AWS WAF to inspect

@@ -51,7 +51,7 @@ DescribeDBClusterParameterGroupsResult& DescribeDBClusterParameterGroupsResult::
     XmlNode markerNode = resultNode.FirstChild("Marker");
     if(!markerNode.IsNull())
     {
-      m_marker = StringUtils::Trim(markerNode.GetText().c_str());
+      m_marker = Aws::Utils::Xml::DecodeEscapedXmlText(markerNode.GetText());
     }
     XmlNode dBClusterParameterGroupsNode = resultNode.FirstChild("DBClusterParameterGroups");
     if(!dBClusterParameterGroupsNode.IsNull())

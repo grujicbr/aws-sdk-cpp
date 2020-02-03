@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ObjectiveStatusCounters();
-    ObjectiveStatusCounters(const Aws::Utils::Json::JsonValue& jsonValue);
-    ObjectiveStatusCounters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ObjectiveStatusCounters(Aws::Utils::Json::JsonView jsonValue);
+    ObjectiveStatusCounters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * hyperparameter tuning job and used in the hyperparameter tuning process.</p>
      */
     inline int GetSucceeded() const{ return m_succeeded; }
+
+    /**
+     * <p>The number of training jobs whose final objective metric was evaluated by the
+     * hyperparameter tuning job and used in the hyperparameter tuning process.</p>
+     */
+    inline bool SucceededHasBeenSet() const { return m_succeededHasBeenSet; }
 
     /**
      * <p>The number of training jobs whose final objective metric was evaluated by the
@@ -77,6 +84,12 @@ namespace Model
      * <p>The number of training jobs that are in progress and pending evaluation of
      * their final objective metric.</p>
      */
+    inline bool PendingHasBeenSet() const { return m_pendingHasBeenSet; }
+
+    /**
+     * <p>The number of training jobs that are in progress and pending evaluation of
+     * their final objective metric.</p>
+     */
     inline void SetPending(int value) { m_pendingHasBeenSet = true; m_pending = value; }
 
     /**
@@ -92,6 +105,13 @@ namespace Model
      * training job failed or did not emit an objective metric.</p>
      */
     inline int GetFailed() const{ return m_failed; }
+
+    /**
+     * <p>The number of training jobs whose final objective metric was not evaluated
+     * and used in the hyperparameter tuning process. This typically occurs when the
+     * training job failed or did not emit an objective metric.</p>
+     */
+    inline bool FailedHasBeenSet() const { return m_failedHasBeenSet; }
 
     /**
      * <p>The number of training jobs whose final objective metric was not evaluated

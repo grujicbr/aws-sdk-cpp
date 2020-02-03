@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -44,50 +45,72 @@ namespace Model
   {
   public:
     EncryptionKey();
-    EncryptionKey(const Aws::Utils::Json::JsonValue& jsonValue);
-    EncryptionKey& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EncryptionKey(Aws::Utils::Json::JsonView jsonValue);
+    EncryptionKey& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The ID used to identify the key. For an AWS KMS key, this is the key ID or
-     * key ARN.</p>
+     * <p>The ID used to identify the key. For an AWS KMS key, you can use the key ID,
+     * the key ARN, or the alias ARN.</p> <note> <p>Aliases are recognized only in the
+     * account that created the customer master key (CMK). For cross-account actions,
+     * you can only use the key ID or key ARN to identify the key.</p> </note>
      */
     inline const Aws::String& GetId() const{ return m_id; }
 
     /**
-     * <p>The ID used to identify the key. For an AWS KMS key, this is the key ID or
-     * key ARN.</p>
+     * <p>The ID used to identify the key. For an AWS KMS key, you can use the key ID,
+     * the key ARN, or the alias ARN.</p> <note> <p>Aliases are recognized only in the
+     * account that created the customer master key (CMK). For cross-account actions,
+     * you can only use the key ID or key ARN to identify the key.</p> </note>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * <p>The ID used to identify the key. For an AWS KMS key, you can use the key ID,
+     * the key ARN, or the alias ARN.</p> <note> <p>Aliases are recognized only in the
+     * account that created the customer master key (CMK). For cross-account actions,
+     * you can only use the key ID or key ARN to identify the key.</p> </note>
      */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
 
     /**
-     * <p>The ID used to identify the key. For an AWS KMS key, this is the key ID or
-     * key ARN.</p>
+     * <p>The ID used to identify the key. For an AWS KMS key, you can use the key ID,
+     * the key ARN, or the alias ARN.</p> <note> <p>Aliases are recognized only in the
+     * account that created the customer master key (CMK). For cross-account actions,
+     * you can only use the key ID or key ARN to identify the key.</p> </note>
      */
     inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
 
     /**
-     * <p>The ID used to identify the key. For an AWS KMS key, this is the key ID or
-     * key ARN.</p>
+     * <p>The ID used to identify the key. For an AWS KMS key, you can use the key ID,
+     * the key ARN, or the alias ARN.</p> <note> <p>Aliases are recognized only in the
+     * account that created the customer master key (CMK). For cross-account actions,
+     * you can only use the key ID or key ARN to identify the key.</p> </note>
      */
     inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
 
     /**
-     * <p>The ID used to identify the key. For an AWS KMS key, this is the key ID or
-     * key ARN.</p>
+     * <p>The ID used to identify the key. For an AWS KMS key, you can use the key ID,
+     * the key ARN, or the alias ARN.</p> <note> <p>Aliases are recognized only in the
+     * account that created the customer master key (CMK). For cross-account actions,
+     * you can only use the key ID or key ARN to identify the key.</p> </note>
      */
     inline EncryptionKey& WithId(const Aws::String& value) { SetId(value); return *this;}
 
     /**
-     * <p>The ID used to identify the key. For an AWS KMS key, this is the key ID or
-     * key ARN.</p>
+     * <p>The ID used to identify the key. For an AWS KMS key, you can use the key ID,
+     * the key ARN, or the alias ARN.</p> <note> <p>Aliases are recognized only in the
+     * account that created the customer master key (CMK). For cross-account actions,
+     * you can only use the key ID or key ARN to identify the key.</p> </note>
      */
     inline EncryptionKey& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID used to identify the key. For an AWS KMS key, this is the key ID or
-     * key ARN.</p>
+     * <p>The ID used to identify the key. For an AWS KMS key, you can use the key ID,
+     * the key ARN, or the alias ARN.</p> <note> <p>Aliases are recognized only in the
+     * account that created the customer master key (CMK). For cross-account actions,
+     * you can only use the key ID or key ARN to identify the key.</p> </note>
      */
     inline EncryptionKey& WithId(const char* value) { SetId(value); return *this;}
 
@@ -97,6 +120,12 @@ namespace Model
      * key. When creating or updating a pipeline, the value must be set to 'KMS'.</p>
      */
     inline const EncryptionKeyType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of encryption key, such as an AWS Key Management Service (AWS KMS)
+     * key. When creating or updating a pipeline, the value must be set to 'KMS'.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of encryption key, such as an AWS Key Management Service (AWS KMS)

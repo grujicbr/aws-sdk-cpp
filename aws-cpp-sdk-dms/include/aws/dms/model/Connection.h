@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Connection();
-    Connection(const Aws::Utils::Json::JsonValue& jsonValue);
-    Connection& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Connection(Aws::Utils::Json::JsonView jsonValue);
+    Connection& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the replication instance.</p>
      */
     inline const Aws::String& GetReplicationInstanceArn() const{ return m_replicationInstanceArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the replication instance.</p>
+     */
+    inline bool ReplicationInstanceArnHasBeenSet() const { return m_replicationInstanceArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the replication instance.</p>
@@ -87,6 +93,12 @@ namespace Model
      * endpoint.</p>
      */
     inline const Aws::String& GetEndpointArn() const{ return m_endpointArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) string that uniquely identifies the
+     * endpoint.</p>
+     */
+    inline bool EndpointArnHasBeenSet() const { return m_endpointArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) string that uniquely identifies the
@@ -133,6 +145,11 @@ namespace Model
     /**
      * <p>The connection status.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The connection status.</p>
+     */
     inline void SetStatus(const Aws::String& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -165,6 +182,11 @@ namespace Model
      * <p>The error message when the connection last failed.</p>
      */
     inline const Aws::String& GetLastFailureMessage() const{ return m_lastFailureMessage; }
+
+    /**
+     * <p>The error message when the connection last failed.</p>
+     */
+    inline bool LastFailureMessageHasBeenSet() const { return m_lastFailureMessageHasBeenSet; }
 
     /**
      * <p>The error message when the connection last failed.</p>
@@ -203,6 +225,13 @@ namespace Model
      * or contain two consecutive hyphens.</p>
      */
     inline const Aws::String& GetEndpointIdentifier() const{ return m_endpointIdentifier; }
+
+    /**
+     * <p>The identifier of the endpoint. Identifiers must begin with a letter; must
+     * contain only ASCII letters, digits, and hyphens; and must not end with a hyphen
+     * or contain two consecutive hyphens.</p>
+     */
+    inline bool EndpointIdentifierHasBeenSet() const { return m_endpointIdentifierHasBeenSet; }
 
     /**
      * <p>The identifier of the endpoint. Identifiers must begin with a letter; must
@@ -252,6 +281,12 @@ namespace Model
      * string.</p>
      */
     inline const Aws::String& GetReplicationInstanceIdentifier() const{ return m_replicationInstanceIdentifier; }
+
+    /**
+     * <p>The replication instance identifier. This parameter is stored as a lowercase
+     * string.</p>
+     */
+    inline bool ReplicationInstanceIdentifierHasBeenSet() const { return m_replicationInstanceIdentifierHasBeenSet; }
 
     /**
      * <p>The replication instance identifier. This parameter is stored as a lowercase

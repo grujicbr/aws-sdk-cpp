@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaPackage
@@ -46,13 +47,16 @@ namespace Model
   {
   public:
     CmafPackage();
-    CmafPackage(const Aws::Utils::Json::JsonValue& jsonValue);
-    CmafPackage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CmafPackage(Aws::Utils::Json::JsonView jsonValue);
+    CmafPackage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const CmafEncryption& GetEncryption() const{ return m_encryption; }
+
+    
+    inline bool EncryptionHasBeenSet() const { return m_encryptionHasBeenSet; }
 
     
     inline void SetEncryption(const CmafEncryption& value) { m_encryptionHasBeenSet = true; m_encryption = value; }
@@ -71,6 +75,11 @@ namespace Model
      * A list of HLS manifest configurations
      */
     inline const Aws::Vector<HlsManifest>& GetHlsManifests() const{ return m_hlsManifests; }
+
+    /**
+     * A list of HLS manifest configurations
+     */
+    inline bool HlsManifestsHasBeenSet() const { return m_hlsManifestsHasBeenSet; }
 
     /**
      * A list of HLS manifest configurations
@@ -117,6 +126,14 @@ rounded to the
      * nearest multiple of the source segment duration.
 
      */
+    inline bool SegmentDurationSecondsHasBeenSet() const { return m_segmentDurationSecondsHasBeenSet; }
+
+    /**
+     * Duration (in seconds) of each segment. Actual segments will be
+rounded to the
+     * nearest multiple of the source segment duration.
+
+     */
     inline void SetSegmentDurationSeconds(int value) { m_segmentDurationSecondsHasBeenSet = true; m_segmentDurationSeconds = value; }
 
     /**
@@ -133,6 +150,12 @@ rounded to the
      * specified, it defaults to the ChannelId.
      */
     inline const Aws::String& GetSegmentPrefix() const{ return m_segmentPrefix; }
+
+    /**
+     * An optional custom string that is prepended to the name of each segment. If not
+     * specified, it defaults to the ChannelId.
+     */
+    inline bool SegmentPrefixHasBeenSet() const { return m_segmentPrefixHasBeenSet; }
 
     /**
      * An optional custom string that is prepended to the name of each segment. If not
@@ -173,6 +196,9 @@ rounded to the
 
     
     inline const StreamSelection& GetStreamSelection() const{ return m_streamSelection; }
+
+    
+    inline bool StreamSelectionHasBeenSet() const { return m_streamSelectionHasBeenSet; }
 
     
     inline void SetStreamSelection(const StreamSelection& value) { m_streamSelectionHasBeenSet = true; m_streamSelection = value; }

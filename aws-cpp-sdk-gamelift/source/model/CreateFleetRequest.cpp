@@ -26,6 +26,7 @@ CreateFleetRequest::CreateFleetRequest() :
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_buildIdHasBeenSet(false),
+    m_scriptIdHasBeenSet(false),
     m_serverLaunchPathHasBeenSet(false),
     m_serverLaunchParametersHasBeenSet(false),
     m_logPathsHasBeenSet(false),
@@ -40,7 +41,10 @@ CreateFleetRequest::CreateFleetRequest() :
     m_peerVpcAwsAccountIdHasBeenSet(false),
     m_peerVpcIdHasBeenSet(false),
     m_fleetType(FleetType::NOT_SET),
-    m_fleetTypeHasBeenSet(false)
+    m_fleetTypeHasBeenSet(false),
+    m_instanceRoleArnHasBeenSet(false),
+    m_certificateConfigurationHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -63,6 +67,12 @@ Aws::String CreateFleetRequest::SerializePayload() const
   if(m_buildIdHasBeenSet)
   {
    payload.WithString("BuildId", m_buildId);
+
+  }
+
+  if(m_scriptIdHasBeenSet)
+  {
+   payload.WithString("ScriptId", m_scriptId);
 
   }
 
@@ -150,7 +160,30 @@ Aws::String CreateFleetRequest::SerializePayload() const
    payload.WithString("FleetType", FleetTypeMapper::GetNameForFleetType(m_fleetType));
   }
 
-  return payload.WriteReadable();
+  if(m_instanceRoleArnHasBeenSet)
+  {
+   payload.WithString("InstanceRoleArn", m_instanceRoleArn);
+
+  }
+
+  if(m_certificateConfigurationHasBeenSet)
+  {
+   payload.WithObject("CertificateConfiguration", m_certificateConfiguration.Jsonize());
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateFleetRequest::GetRequestSpecificHeaders() const

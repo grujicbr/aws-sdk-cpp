@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LambdaOutputDescription();
-    LambdaOutputDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    LambdaOutputDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LambdaOutputDescription(Aws::Utils::Json::JsonView jsonValue);
+    LambdaOutputDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Amazon Resource Name (ARN) of the destination Lambda function.</p>
      */
     inline const Aws::String& GetResourceARN() const{ return m_resourceARN; }
+
+    /**
+     * <p>Amazon Resource Name (ARN) of the destination Lambda function.</p>
+     */
+    inline bool ResourceARNHasBeenSet() const { return m_resourceARNHasBeenSet; }
 
     /**
      * <p>Amazon Resource Name (ARN) of the destination Lambda function.</p>
@@ -88,6 +94,12 @@ namespace Model
      * destination function.</p>
      */
     inline const Aws::String& GetRoleARN() const{ return m_roleARN; }
+
+    /**
+     * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to write to the
+     * destination function.</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
 
     /**
      * <p>ARN of the IAM role that Amazon Kinesis Analytics can assume to write to the

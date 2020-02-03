@@ -17,7 +17,9 @@
 #include <aws/states/SFN_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/states/model/StateMachineStatus.h>
+#include <aws/states/model/StateMachineType.h>
 #include <aws/core/utils/DateTime.h>
+#include <aws/states/model/LoggingConfiguration.h>
 #include <utility>
 
 namespace Aws
@@ -82,7 +84,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -92,7 +94,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -102,7 +104,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -112,7 +114,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -122,7 +124,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -132,7 +134,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -142,7 +144,7 @@ namespace Model
 
     /**
      * <p>The name of the state machine.</p> <p>A name must <i>not</i> contain:</p>
-     * <ul> <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
+     * <ul> <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [
      * ]</code> </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -178,37 +180,51 @@ namespace Model
 
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline const Aws::String& GetDefinition() const{ return m_definition; }
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline void SetDefinition(const Aws::String& value) { m_definition = value; }
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline void SetDefinition(Aws::String&& value) { m_definition = std::move(value); }
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline void SetDefinition(const char* value) { m_definition.assign(value); }
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline DescribeStateMachineResult& WithDefinition(const Aws::String& value) { SetDefinition(value); return *this;}
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline DescribeStateMachineResult& WithDefinition(Aws::String&& value) { SetDefinition(std::move(value)); return *this;}
 
     /**
-     * <p>The Amazon States Language definition of the state machine.</p>
+     * <p>The Amazon States Language definition of the state machine. See <a
+     * href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html">Amazon
+     * States Language</a>.</p>
      */
     inline DescribeStateMachineResult& WithDefinition(const char* value) { SetDefinition(value); return *this;}
 
@@ -264,6 +280,32 @@ namespace Model
 
 
     /**
+     * <p/>
+     */
+    inline const StateMachineType& GetType() const{ return m_type; }
+
+    /**
+     * <p/>
+     */
+    inline void SetType(const StateMachineType& value) { m_type = value; }
+
+    /**
+     * <p/>
+     */
+    inline void SetType(StateMachineType&& value) { m_type = std::move(value); }
+
+    /**
+     * <p/>
+     */
+    inline DescribeStateMachineResult& WithType(const StateMachineType& value) { SetType(value); return *this;}
+
+    /**
+     * <p/>
+     */
+    inline DescribeStateMachineResult& WithType(StateMachineType&& value) { SetType(std::move(value)); return *this;}
+
+
+    /**
      * <p>The date the state machine is created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
@@ -288,6 +330,32 @@ namespace Model
      */
     inline DescribeStateMachineResult& WithCreationDate(Aws::Utils::DateTime&& value) { SetCreationDate(std::move(value)); return *this;}
 
+
+    /**
+     * <p/>
+     */
+    inline const LoggingConfiguration& GetLoggingConfiguration() const{ return m_loggingConfiguration; }
+
+    /**
+     * <p/>
+     */
+    inline void SetLoggingConfiguration(const LoggingConfiguration& value) { m_loggingConfiguration = value; }
+
+    /**
+     * <p/>
+     */
+    inline void SetLoggingConfiguration(LoggingConfiguration&& value) { m_loggingConfiguration = std::move(value); }
+
+    /**
+     * <p/>
+     */
+    inline DescribeStateMachineResult& WithLoggingConfiguration(const LoggingConfiguration& value) { SetLoggingConfiguration(value); return *this;}
+
+    /**
+     * <p/>
+     */
+    inline DescribeStateMachineResult& WithLoggingConfiguration(LoggingConfiguration&& value) { SetLoggingConfiguration(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_stateMachineArn;
@@ -300,7 +368,11 @@ namespace Model
 
     Aws::String m_roleArn;
 
+    StateMachineType m_type;
+
     Aws::Utils::DateTime m_creationDate;
+
+    LoggingConfiguration m_loggingConfiguration;
   };
 
 } // namespace Model

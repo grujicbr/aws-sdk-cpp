@@ -17,6 +17,7 @@
 #include <aws/medialive/MediaLive_EXPORTS.h>
 #include <aws/medialive/model/GlobalConfigurationInputEndAction.h>
 #include <aws/medialive/model/InputLossBehavior.h>
+#include <aws/medialive/model/GlobalConfigurationOutputLockingMode.h>
 #include <aws/medialive/model/GlobalConfigurationOutputTimingSource.h>
 #include <aws/medialive/model/GlobalConfigurationLowFramerateInputs.h>
 #include <utility>
@@ -28,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -36,7 +38,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for GlobalConfiguration<p><h3>See Also:</h3>   <a
+   * Global Configuration<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/GlobalConfiguration">AWS
    * API Reference</a></p>
    */
@@ -44,8 +46,8 @@ namespace Model
   {
   public:
     GlobalConfiguration();
-    GlobalConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    GlobalConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GlobalConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    GlobalConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +55,11 @@ namespace Model
      * Value to set the initial audio gain for the Live Event.
      */
     inline int GetInitialAudioGain() const{ return m_initialAudioGain; }
+
+    /**
+     * Value to set the initial audio gain for the Live Event.
+     */
+    inline bool InitialAudioGainHasBeenSet() const { return m_initialAudioGainHasBeenSet; }
 
     /**
      * Value to set the initial audio gain for the Live Event.
@@ -66,52 +73,62 @@ namespace Model
 
 
     /**
-     * Indicates the action to take when an input completes (e.g. end-of-file.) Options
-     * include immediately switching to the next sequential input (via "switchInput"),
-     * switching to the next input and looping back to the first input when last input
-     * ends (via "switchAndLoopInputs") or not switching inputs and instead transcoding
-     * black / color / slate images per the "Input Loss Behavior" configuration until
-     * an activateInput REST command is received (via "none").
+     * Indicates the action to take when the current input completes (e.g.
+     * end-of-file). When switchAndLoopInputs is configured the encoder will restart at
+     * the beginning of the first input.  When "none" is configured the encoder will
+     * transcode either black, a solid color, or a user specified slate images per the
+     * "Input Loss Behavior" configuration until the next input switch occurs (which is
+     * controlled through the Channel Schedule API).
      */
     inline const GlobalConfigurationInputEndAction& GetInputEndAction() const{ return m_inputEndAction; }
 
     /**
-     * Indicates the action to take when an input completes (e.g. end-of-file.) Options
-     * include immediately switching to the next sequential input (via "switchInput"),
-     * switching to the next input and looping back to the first input when last input
-     * ends (via "switchAndLoopInputs") or not switching inputs and instead transcoding
-     * black / color / slate images per the "Input Loss Behavior" configuration until
-     * an activateInput REST command is received (via "none").
+     * Indicates the action to take when the current input completes (e.g.
+     * end-of-file). When switchAndLoopInputs is configured the encoder will restart at
+     * the beginning of the first input.  When "none" is configured the encoder will
+     * transcode either black, a solid color, or a user specified slate images per the
+     * "Input Loss Behavior" configuration until the next input switch occurs (which is
+     * controlled through the Channel Schedule API).
+     */
+    inline bool InputEndActionHasBeenSet() const { return m_inputEndActionHasBeenSet; }
+
+    /**
+     * Indicates the action to take when the current input completes (e.g.
+     * end-of-file). When switchAndLoopInputs is configured the encoder will restart at
+     * the beginning of the first input.  When "none" is configured the encoder will
+     * transcode either black, a solid color, or a user specified slate images per the
+     * "Input Loss Behavior" configuration until the next input switch occurs (which is
+     * controlled through the Channel Schedule API).
      */
     inline void SetInputEndAction(const GlobalConfigurationInputEndAction& value) { m_inputEndActionHasBeenSet = true; m_inputEndAction = value; }
 
     /**
-     * Indicates the action to take when an input completes (e.g. end-of-file.) Options
-     * include immediately switching to the next sequential input (via "switchInput"),
-     * switching to the next input and looping back to the first input when last input
-     * ends (via "switchAndLoopInputs") or not switching inputs and instead transcoding
-     * black / color / slate images per the "Input Loss Behavior" configuration until
-     * an activateInput REST command is received (via "none").
+     * Indicates the action to take when the current input completes (e.g.
+     * end-of-file). When switchAndLoopInputs is configured the encoder will restart at
+     * the beginning of the first input.  When "none" is configured the encoder will
+     * transcode either black, a solid color, or a user specified slate images per the
+     * "Input Loss Behavior" configuration until the next input switch occurs (which is
+     * controlled through the Channel Schedule API).
      */
     inline void SetInputEndAction(GlobalConfigurationInputEndAction&& value) { m_inputEndActionHasBeenSet = true; m_inputEndAction = std::move(value); }
 
     /**
-     * Indicates the action to take when an input completes (e.g. end-of-file.) Options
-     * include immediately switching to the next sequential input (via "switchInput"),
-     * switching to the next input and looping back to the first input when last input
-     * ends (via "switchAndLoopInputs") or not switching inputs and instead transcoding
-     * black / color / slate images per the "Input Loss Behavior" configuration until
-     * an activateInput REST command is received (via "none").
+     * Indicates the action to take when the current input completes (e.g.
+     * end-of-file). When switchAndLoopInputs is configured the encoder will restart at
+     * the beginning of the first input.  When "none" is configured the encoder will
+     * transcode either black, a solid color, or a user specified slate images per the
+     * "Input Loss Behavior" configuration until the next input switch occurs (which is
+     * controlled through the Channel Schedule API).
      */
     inline GlobalConfiguration& WithInputEndAction(const GlobalConfigurationInputEndAction& value) { SetInputEndAction(value); return *this;}
 
     /**
-     * Indicates the action to take when an input completes (e.g. end-of-file.) Options
-     * include immediately switching to the next sequential input (via "switchInput"),
-     * switching to the next input and looping back to the first input when last input
-     * ends (via "switchAndLoopInputs") or not switching inputs and instead transcoding
-     * black / color / slate images per the "Input Loss Behavior" configuration until
-     * an activateInput REST command is received (via "none").
+     * Indicates the action to take when the current input completes (e.g.
+     * end-of-file). When switchAndLoopInputs is configured the encoder will restart at
+     * the beginning of the first input.  When "none" is configured the encoder will
+     * transcode either black, a solid color, or a user specified slate images per the
+     * "Input Loss Behavior" configuration until the next input switch occurs (which is
+     * controlled through the Channel Schedule API).
      */
     inline GlobalConfiguration& WithInputEndAction(GlobalConfigurationInputEndAction&& value) { SetInputEndAction(std::move(value)); return *this;}
 
@@ -120,6 +137,11 @@ namespace Model
      * Settings for system actions when input is lost.
      */
     inline const InputLossBehavior& GetInputLossBehavior() const{ return m_inputLossBehavior; }
+
+    /**
+     * Settings for system actions when input is lost.
+     */
+    inline bool InputLossBehaviorHasBeenSet() const { return m_inputLossBehaviorHasBeenSet; }
 
     /**
      * Settings for system actions when input is lost.
@@ -143,12 +165,87 @@ namespace Model
 
 
     /**
+     * Indicates how MediaLive pipelines are synchronized.
+
+PIPELINELOCKING - MediaLive
+     * will attempt to synchronize the output of each pipeline to the
+     * other.
+EPOCHLOCKING - MediaLive will attempt to synchronize the output of each
+     * pipeline to the Unix epoch.
+     */
+    inline const GlobalConfigurationOutputLockingMode& GetOutputLockingMode() const{ return m_outputLockingMode; }
+
+    /**
+     * Indicates how MediaLive pipelines are synchronized.
+
+PIPELINELOCKING - MediaLive
+     * will attempt to synchronize the output of each pipeline to the
+     * other.
+EPOCHLOCKING - MediaLive will attempt to synchronize the output of each
+     * pipeline to the Unix epoch.
+     */
+    inline bool OutputLockingModeHasBeenSet() const { return m_outputLockingModeHasBeenSet; }
+
+    /**
+     * Indicates how MediaLive pipelines are synchronized.
+
+PIPELINELOCKING - MediaLive
+     * will attempt to synchronize the output of each pipeline to the
+     * other.
+EPOCHLOCKING - MediaLive will attempt to synchronize the output of each
+     * pipeline to the Unix epoch.
+     */
+    inline void SetOutputLockingMode(const GlobalConfigurationOutputLockingMode& value) { m_outputLockingModeHasBeenSet = true; m_outputLockingMode = value; }
+
+    /**
+     * Indicates how MediaLive pipelines are synchronized.
+
+PIPELINELOCKING - MediaLive
+     * will attempt to synchronize the output of each pipeline to the
+     * other.
+EPOCHLOCKING - MediaLive will attempt to synchronize the output of each
+     * pipeline to the Unix epoch.
+     */
+    inline void SetOutputLockingMode(GlobalConfigurationOutputLockingMode&& value) { m_outputLockingModeHasBeenSet = true; m_outputLockingMode = std::move(value); }
+
+    /**
+     * Indicates how MediaLive pipelines are synchronized.
+
+PIPELINELOCKING - MediaLive
+     * will attempt to synchronize the output of each pipeline to the
+     * other.
+EPOCHLOCKING - MediaLive will attempt to synchronize the output of each
+     * pipeline to the Unix epoch.
+     */
+    inline GlobalConfiguration& WithOutputLockingMode(const GlobalConfigurationOutputLockingMode& value) { SetOutputLockingMode(value); return *this;}
+
+    /**
+     * Indicates how MediaLive pipelines are synchronized.
+
+PIPELINELOCKING - MediaLive
+     * will attempt to synchronize the output of each pipeline to the
+     * other.
+EPOCHLOCKING - MediaLive will attempt to synchronize the output of each
+     * pipeline to the Unix epoch.
+     */
+    inline GlobalConfiguration& WithOutputLockingMode(GlobalConfigurationOutputLockingMode&& value) { SetOutputLockingMode(std::move(value)); return *this;}
+
+
+    /**
      * Indicates whether the rate of frames emitted by the Live encoder should be paced
      * by its system clock (which optionally may be locked to another source via NTP)
      * or should be locked to the clock of the source that is providing the input
      * stream.
      */
     inline const GlobalConfigurationOutputTimingSource& GetOutputTimingSource() const{ return m_outputTimingSource; }
+
+    /**
+     * Indicates whether the rate of frames emitted by the Live encoder should be paced
+     * by its system clock (which optionally may be locked to another source via NTP)
+     * or should be locked to the clock of the source that is providing the input
+     * stream.
+     */
+    inline bool OutputTimingSourceHasBeenSet() const { return m_outputTimingSourceHasBeenSet; }
 
     /**
      * Indicates whether the rate of frames emitted by the Live encoder should be paced
@@ -195,6 +292,13 @@ namespace Model
      * commonly set to enabled for music channels with less than one video frame per
      * second.
      */
+    inline bool SupportLowFramerateInputsHasBeenSet() const { return m_supportLowFramerateInputsHasBeenSet; }
+
+    /**
+     * Adjusts video input buffer for streams with very low video framerates. This is
+     * commonly set to enabled for music channels with less than one video frame per
+     * second.
+     */
     inline void SetSupportLowFramerateInputs(const GlobalConfigurationLowFramerateInputs& value) { m_supportLowFramerateInputsHasBeenSet = true; m_supportLowFramerateInputs = value; }
 
     /**
@@ -228,6 +332,9 @@ namespace Model
 
     InputLossBehavior m_inputLossBehavior;
     bool m_inputLossBehaviorHasBeenSet;
+
+    GlobalConfigurationOutputLockingMode m_outputLockingMode;
+    bool m_outputLockingModeHasBeenSet;
 
     GlobalConfigurationOutputTimingSource m_outputTimingSource;
     bool m_outputTimingSourceHasBeenSet;

@@ -59,6 +59,11 @@ namespace Model
     /**
      * <p>The ID of the cluster to which the node belongs.</p>
      */
+    inline bool CacheClusterIdHasBeenSet() const { return m_cacheClusterIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the cluster to which the node belongs.</p>
+     */
     inline void SetCacheClusterId(const Aws::String& value) { m_cacheClusterIdHasBeenSet = true; m_cacheClusterId = value; }
 
     /**
@@ -97,6 +102,12 @@ namespace Model
      * <p>The ID of the node within its cluster. A node ID is a numeric identifier
      * (0001, 0002, etc.).</p>
      */
+    inline bool CacheNodeIdHasBeenSet() const { return m_cacheNodeIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the node within its cluster. A node ID is a numeric identifier
+     * (0001, 0002, etc.).</p>
+     */
     inline void SetCacheNodeId(const Aws::String& value) { m_cacheNodeIdHasBeenSet = true; m_cacheNodeId = value; }
 
     /**
@@ -130,19 +141,46 @@ namespace Model
     inline NodeGroupMember& WithCacheNodeId(const char* value) { SetCacheNodeId(value); return *this;}
 
 
-    
+    /**
+     * <p>The information required for client programs to connect to a node for read
+     * operations. The read endpoint is only applicable on Redis (cluster mode
+     * disabled) clusters.</p>
+     */
     inline const Endpoint& GetReadEndpoint() const{ return m_readEndpoint; }
 
-    
+    /**
+     * <p>The information required for client programs to connect to a node for read
+     * operations. The read endpoint is only applicable on Redis (cluster mode
+     * disabled) clusters.</p>
+     */
+    inline bool ReadEndpointHasBeenSet() const { return m_readEndpointHasBeenSet; }
+
+    /**
+     * <p>The information required for client programs to connect to a node for read
+     * operations. The read endpoint is only applicable on Redis (cluster mode
+     * disabled) clusters.</p>
+     */
     inline void SetReadEndpoint(const Endpoint& value) { m_readEndpointHasBeenSet = true; m_readEndpoint = value; }
 
-    
+    /**
+     * <p>The information required for client programs to connect to a node for read
+     * operations. The read endpoint is only applicable on Redis (cluster mode
+     * disabled) clusters.</p>
+     */
     inline void SetReadEndpoint(Endpoint&& value) { m_readEndpointHasBeenSet = true; m_readEndpoint = std::move(value); }
 
-    
+    /**
+     * <p>The information required for client programs to connect to a node for read
+     * operations. The read endpoint is only applicable on Redis (cluster mode
+     * disabled) clusters.</p>
+     */
     inline NodeGroupMember& WithReadEndpoint(const Endpoint& value) { SetReadEndpoint(value); return *this;}
 
-    
+    /**
+     * <p>The information required for client programs to connect to a node for read
+     * operations. The read endpoint is only applicable on Redis (cluster mode
+     * disabled) clusters.</p>
+     */
     inline NodeGroupMember& WithReadEndpoint(Endpoint&& value) { SetReadEndpoint(std::move(value)); return *this;}
 
 
@@ -150,6 +188,11 @@ namespace Model
      * <p>The name of the Availability Zone in which the node is located.</p>
      */
     inline const Aws::String& GetPreferredAvailabilityZone() const{ return m_preferredAvailabilityZone; }
+
+    /**
+     * <p>The name of the Availability Zone in which the node is located.</p>
+     */
+    inline bool PreferredAvailabilityZoneHasBeenSet() const { return m_preferredAvailabilityZoneHasBeenSet; }
 
     /**
      * <p>The name of the Availability Zone in which the node is located.</p>
@@ -184,43 +227,57 @@ namespace Model
 
     /**
      * <p>The role that is currently assigned to the node - <code>primary</code> or
-     * <code>replica</code>.</p>
+     * <code>replica</code>. This member is only applicable for Redis (cluster mode
+     * disabled) replication groups.</p>
      */
     inline const Aws::String& GetCurrentRole() const{ return m_currentRole; }
 
     /**
      * <p>The role that is currently assigned to the node - <code>primary</code> or
-     * <code>replica</code>.</p>
+     * <code>replica</code>. This member is only applicable for Redis (cluster mode
+     * disabled) replication groups.</p>
+     */
+    inline bool CurrentRoleHasBeenSet() const { return m_currentRoleHasBeenSet; }
+
+    /**
+     * <p>The role that is currently assigned to the node - <code>primary</code> or
+     * <code>replica</code>. This member is only applicable for Redis (cluster mode
+     * disabled) replication groups.</p>
      */
     inline void SetCurrentRole(const Aws::String& value) { m_currentRoleHasBeenSet = true; m_currentRole = value; }
 
     /**
      * <p>The role that is currently assigned to the node - <code>primary</code> or
-     * <code>replica</code>.</p>
+     * <code>replica</code>. This member is only applicable for Redis (cluster mode
+     * disabled) replication groups.</p>
      */
     inline void SetCurrentRole(Aws::String&& value) { m_currentRoleHasBeenSet = true; m_currentRole = std::move(value); }
 
     /**
      * <p>The role that is currently assigned to the node - <code>primary</code> or
-     * <code>replica</code>.</p>
+     * <code>replica</code>. This member is only applicable for Redis (cluster mode
+     * disabled) replication groups.</p>
      */
     inline void SetCurrentRole(const char* value) { m_currentRoleHasBeenSet = true; m_currentRole.assign(value); }
 
     /**
      * <p>The role that is currently assigned to the node - <code>primary</code> or
-     * <code>replica</code>.</p>
+     * <code>replica</code>. This member is only applicable for Redis (cluster mode
+     * disabled) replication groups.</p>
      */
     inline NodeGroupMember& WithCurrentRole(const Aws::String& value) { SetCurrentRole(value); return *this;}
 
     /**
      * <p>The role that is currently assigned to the node - <code>primary</code> or
-     * <code>replica</code>.</p>
+     * <code>replica</code>. This member is only applicable for Redis (cluster mode
+     * disabled) replication groups.</p>
      */
     inline NodeGroupMember& WithCurrentRole(Aws::String&& value) { SetCurrentRole(std::move(value)); return *this;}
 
     /**
      * <p>The role that is currently assigned to the node - <code>primary</code> or
-     * <code>replica</code>.</p>
+     * <code>replica</code>. This member is only applicable for Redis (cluster mode
+     * disabled) replication groups.</p>
      */
     inline NodeGroupMember& WithCurrentRole(const char* value) { SetCurrentRole(value); return *this;}
 

@@ -97,7 +97,8 @@ namespace Aws
 
             virtual void* OpenRequest(const Aws::Http::HttpRequest& request, void* connection, const Aws::StringStream& ss) const = 0;
             virtual void DoAddHeaders(void* hHttpRequest, Aws::String& headerStr) const = 0;
-            virtual uint64_t DoWriteData(void* hHttpRequest, char* streamBuffer, uint64_t bytesRead) const = 0;
+            virtual uint64_t DoWriteData(void* hHttpRequest, char* streamBuffer, uint64_t bytesRead, bool isChunked) const = 0;
+            virtual uint64_t FinalizeWriteData(void* hHttpRequest) const = 0;
             virtual bool DoReceiveResponse(void* hHttpRequest) const = 0;
             virtual bool DoQueryHeaders(void* hHttpRequest, std::shared_ptr<Aws::Http::HttpResponse>& response, Aws::StringStream& ss, uint64_t& read) const = 0;
             virtual bool DoSendRequest(void* hHttpRequest) const = 0;
@@ -106,7 +107,7 @@ namespace Aws
 
             bool StreamPayloadToRequest(const HttpRequest& request, void* hHttpRequest, Aws::Utils::RateLimits::RateLimiterInterface* writeLimiter) const;
             void LogRequestInternalFailure() const;
-            void BuildSuccessResponse(const Aws::Http::HttpRequest& request, std::shared_ptr<Aws::Http::HttpResponse>& response, void* hHttpRequest, Aws::Utils::RateLimits::RateLimiterInterface* readLimiter) const;
+            bool BuildSuccessResponse(const Aws::Http::HttpRequest& request, std::shared_ptr<Aws::Http::HttpResponse>& response, void* hHttpRequest, Aws::Utils::RateLimits::RateLimiterInterface* readLimiter) const;
             void AddHeadersToRequest(const HttpRequest& request, void* hHttpRequest) const;
 
             void* m_openHandle;

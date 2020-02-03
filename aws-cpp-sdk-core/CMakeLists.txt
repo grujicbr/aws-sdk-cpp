@@ -21,7 +21,7 @@ endif()
 # If building shared libraries, custom memory management enabled is the default, otherwise regular memory management is the default.
 # We make custom memory management the default on shared library builds because it is safer and much more difficult to accidentally
 # allocate in one DLLs heap while freeing in another (which will lead to runtime crashes)
-if(("${CUSTOM_MEMORY_MANAGEMENT}" STREQUAL "1") OR (BUILD_SHARED_LIBS AND NOT ("${CUSTOM_MEMORY_MANAGEMENT}" STREQUAL "0")))
+if(CUSTOM_MEMORY_MANAGEMENT OR (BUILD_SHARED_LIBS AND NOT DEFINED CUSTOM_MEMORY_MANAGEMENT))
     set(USE_AWS_MEMORY_MANAGEMENT ON)
     message(STATUS "Custom memory management enabled; stl objects now using custom allocators")
 else()
@@ -29,7 +29,7 @@ else()
     message(STATUS "Custom memory management disabled")
 endif()
 
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/include/aws/core/SDKConfig.h.in" 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/include/aws/core/SDKConfig.h.in"
                "${CMAKE_CURRENT_SOURCE_DIR}/include/aws/core/SDKConfig.h")
 
 # Pretty sure we can use a regex here...
@@ -38,9 +38,11 @@ file(GLOB AWS_HEADERS "include/aws/core/*.h")
 file(GLOB AWS_AUTH_HEADERS "include/aws/core/auth/*.h")
 file(GLOB AWS_CLIENT_HEADERS "include/aws/core/client/*.h")
 file(GLOB AWS_INTERNAL_HEADERS "include/aws/core/internal/*.h")
+file(GLOB NET_HEADERS "include/aws/core/net/*.h")
 file(GLOB HTTP_HEADERS "include/aws/core/http/*.h")
 file(GLOB HTTP_STANDARD_HEADERS "include/aws/core/http/standard/*.h")
 file(GLOB CONFIG_HEADERS "include/aws/core/config/*.h")
+file(GLOB MONITORING_HEADERS "include/aws/core/monitoring/*.h")
 file(GLOB PLATFORM_HEADERS "include/aws/core/platform/*.h")
 file(GLOB UTILS_HEADERS "include/aws/core/utils/*.h")
 file(GLOB UTILS_EVENT_HEADERS "include/aws/core/utils/event/*.h")
@@ -54,12 +56,12 @@ file(GLOB UTILS_STL_HEADERS "include/aws/core/utils/memory/stl/*.h")
 file(GLOB UTILS_LOGGING_HEADERS "include/aws/core/utils/logging/*.h")
 file(GLOB UTILS_RATE_LIMITER_HEADERS "include/aws/core/utils/ratelimiter/*.h")
 file(GLOB UTILS_STREAM_HEADERS "include/aws/core/utils/stream/*.h")
-file(GLOB JSONCPP_HEADERS "include/aws/core/external/json-cpp/*.h")
+file(GLOB CJSON_HEADERS "include/aws/core/external/cjson/*.h")
 file(GLOB TINYXML2_HEADERS "include/aws/core/external/tinyxml2/tinyxml2.h")
 
 file(GLOB AWS_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
 file(GLOB AWS_TINYXML2_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/external/tinyxml2/*.cpp")
-file(GLOB AWS_JSONCPP_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/external/json-cpp/*.cpp")
+file(GLOB CJSON_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/external/cjson/*.cpp")
 file(GLOB AWS_AUTH_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/auth/*.cpp")
 file(GLOB AWS_CLIENT_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/client/*.cpp")
 file(GLOB AWS_INTERNAL_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/internal/*.cpp")
@@ -67,6 +69,7 @@ file(GLOB AWS_MODEL_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/aws/model/*.cpp")
 file(GLOB HTTP_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/http/*.cpp")
 file(GLOB HTTP_STANDARD_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/http/standard/*.cpp")
 file(GLOB CONFIG_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/config/*.cpp")
+file(GLOB MONITORING_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/monitoring/*.cpp")
 file(GLOB UTILS_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/utils/*.cpp")
 file(GLOB UTILS_EVENT_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/utils/event/*.cpp")
 file(GLOB UTILS_BASE64_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/utils/base64/*.cpp")
@@ -80,11 +83,28 @@ file(GLOB UTILS_MEMORY_STL_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/utils/memo
 file(GLOB UTILS_STREAM_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/utils/stream/*.cpp")
 file(GLOB UTILS_CRYPTO_FACTORY_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/utils/crypto/factory/*.cpp")
 
+include(CheckCXXSourceCompiles)
+include(CheckCSourceRuns)
+include(CheckCXXSourceRuns)
+
 # http client implementations
 if(ENABLE_CURL_CLIENT)
     file(GLOB HTTP_CURL_CLIENT_HEADERS "include/aws/core/http/curl/*.h")
     file(GLOB HTTP_CURL_CLIENT_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/http/curl/*.cpp")
+    set(CMAKE_REQUIRED_LIBRARIES ${CURL_LIBRARIES})
+    check_c_source_runs("
+    #include <curl/curl.h>
+    int main() {
+    CURL* handle = curl_easy_init();
+    return curl_easy_setopt(handle, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_2_0); }" CURL_HAS_H2)
+    check_c_source_runs("
+    #include <curl/curl.h>
+    int main() {
+    CURL* handle = curl_easy_init();
+    return curl_easy_setopt(handle, CURLOPT_PROXY_SSLCERT, \"client.pem\"); }" CURL_HAS_TLS_PROXY)
+    unset(CMAKE_REQUIRED_LIBRARIES)
 elseif(ENABLE_WINDOWS_CLIENT)
+    # NOTE: HTTP/2 is not supported when using IXML_HTTP_REQUEST_2
     if(USE_IXML_HTTP_REQUEST_2)
         set(HTTP_WINDOWS_CLIENT_HEADERS "include/aws/core/http/windows/IXmlHttpRequest2HttpClient.h")
         set(HTTP_WINDOWS_CLIENT_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/http/windows/IXmlHttpRequest2HttpClient.cpp")
@@ -105,7 +125,59 @@ elseif(ENABLE_WINDOWS_CLIENT)
     else()
         file(GLOB HTTP_WINDOWS_CLIENT_HEADERS "include/aws/core/http/windows/Win*.h")
         file(GLOB HTTP_WINDOWS_CLIENT_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/http/windows/Win*.cpp")
+
+        # Strating with Windows 10, version 1507, WinINet supports HTTP2.
+        # https://docs.microsoft.com/en-us/windows/desktop/WinInet/option-flags#INTERNET_OPTION_ENABLE_HTTP_PROTOCOL
+        # Starting with Windows 10, version 1607, WinHttp supports HTTP2.
+        # https://docs.microsoft.com/en-us/windows/desktop/WinHttp/option-flags#WINHTTP_OPTION_ENABLE_HTTP_PROTOCOL
+        set(CMAKE_REQUIRED_LIBRARIES "WinHttp.lib")
+        check_cxx_source_runs("
+        #include <Windows.h>
+        #include <winhttp.h>
+        int main() {
+
+        auto handle = WinHttpOpen(L\"aws-cpp-sdk\"/*user-agent*/,
+        WINHTTP_ACCESS_TYPE_NO_PROXY,
+        nullptr/*pszProxyW*/,
+        nullptr/*pszProxyBypassW*/,
+        0/*dwFlags*/);
+
+        DWORD http2 = WINHTTP_PROTOCOL_FLAG_HTTP2;
+        if (WinHttpSetOption(handle, WINHTTP_OPTION_ENABLE_HTTP_PROTOCOL, &http2, sizeof(http2)))
+        {
+            return 0;
+        }
+        return 1;
+        }" WINHTTP_HAS_H2)
+
+        set(CMAKE_REQUIRED_LIBRARIES "Wininet.lib")
+        check_cxx_source_runs("
+        #include <Windows.h>
+        #include <WinInet.h>
+        int main() {
+        auto handle = InternetOpenA(\"aws-cpp-sdk\"/*lpszAgent*/,
+            INTERNET_OPEN_TYPE_DIRECT /*dwAccessType*/,
+            nullptr /*lpszProxy*/,
+            nullptr /*lpszProxyBypass*/,
+            0 /*dwFlags*/);
+        DWORD http2 = HTTP_PROTOCOL_FLAG_HTTP2;
+        if (InternetSetOptionA(handle, INTERNET_OPTION_ENABLE_HTTP_PROTOCOL, &http2, sizeof(http2)))
+        {
+            return 0;
+        }
+        return 1;
+        }" WININET_HAS_H2)
+        unset(CMAKE_REQUIRED_LIBRARIES)
+
     endif()
+endif()
+
+if (PLATFORM_WINDOWS)
+    file(GLOB NET_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/net/windows/*.cpp")
+elseif(PLATFORM_LINUX OR PLATFORM_APPLE OR PLATFORM_ANDROID)
+    file(GLOB NET_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/net/linux-shared/*.cpp")
+else()
+    file(GLOB NET_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/net/*.cpp")
 endif()
 
 # encryption implementations
@@ -118,7 +190,7 @@ elseif(ENABLE_OPENSSL_ENCRYPTION)
 elseif(ENABLE_COMMONCRYPTO_ENCRYPTION)
     file(GLOB UTILS_CRYPTO_COMMONCRYPTO_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/aws/core/utils/crypto/commoncrypto/*.h")
     file(GLOB UTILS_CRYPTO_COMMONCRYPTO_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/utils/crypto/commoncrypto/*.cpp")
-endif()   
+endif()
 
 
 file(GLOB AWS_NATIVE_SDK_COMMON_SRC
@@ -130,7 +202,7 @@ file(GLOB AWS_NATIVE_SDK_COMMON_SRC
     ${HTTP_STANDARD_SOURCE}
     ${HTTP_CLIENT_SOURCE}
     ${CONFIG_SOURCE}
-    ${UTILS_EVENT_SOURCE}
+    ${MONITORING_SOURCE}
     ${UTILS_BASE64_SOURCE}
     ${UTILS_CRYPTO_SOURCE}
     ${UTILS_JSON_SOURCE}
@@ -150,9 +222,11 @@ file(GLOB AWS_NATIVE_SDK_COMMON_HEADERS
   ${AWS_AUTH_HEADERS}
   ${AWS_CLIENT_HEADERS}
   ${AWS_INTERNAL_HEADERS}
+  ${NET_HEADERS}
   ${HTTP_HEADERS}
   ${HTTP_STANDARD_HEADERS}
   ${CONFIG_HEADERS}
+  ${MONITORING_HEADERS}
   ${HTTP_CLIENT_HEADERS}
   ${PLATFORM_HEADERS}
   ${UTILS_HEADERS}
@@ -168,14 +242,14 @@ file(GLOB AWS_NATIVE_SDK_COMMON_HEADERS
   ${UTILS_STL_HEADERS}
   ${UTILS_STREAM_HEADERS}
   ${UTILS_RATE_LIMITER_HEADERS}
-  ${JSONCPP_HEADERS}
+  ${CJSON_HEADERS}
   ${TINYXML2_HEADERS}
   ${HTTP_CURL_CLIENT_HEADERS}
   ${HTTP_WINDOWS_CLIENT_HEADERS}
   ${UTILS_CRYPTO_BCRYPT_HEADERS}
   ${UTILS_CRYPTO_OPENSSL_HEADERS}
   ${UTILS_CRYPTO_COMMONCRYPTO_HEADERS}
-) 
+)
 
 # misc platform-specific, not related to features (encryption/http clients)
 if(PLATFORM_WINDOWS)
@@ -183,7 +257,7 @@ if(PLATFORM_WINDOWS)
   #add your windows specific impl stuff here.
   file(GLOB PLATFORM_WINDOWS_SOURCE = "${CMAKE_CURRENT_SOURCE_DIR}/source/platform/windows/*.cpp")
 
-  file(GLOB AWS_NATIVE_SDK_WINDOWS_SRC 
+  file(GLOB AWS_NATIVE_SDK_WINDOWS_SRC
     ${PLATFORM_WINDOWS_SOURCE}
   )
 elseif(PLATFORM_LINUX OR PLATFORM_APPLE)
@@ -192,14 +266,14 @@ elseif(PLATFORM_LINUX OR PLATFORM_APPLE)
 
   file(GLOB PLATFORM_LINUX_SHARED_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/platform/linux-shared/*.cpp")
 
-  file(GLOB AWS_NATIVE_SDK_LINUX_SHARED_SRC 
+  file(GLOB AWS_NATIVE_SDK_LINUX_SHARED_SRC
      ${PLATFORM_LINUX_SHARED_SOURCE}
    )
 elseif(PLATFORM_ANDROID)
   file(GLOB UTILS_LOGGING_ANDROID_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/aws/core/utils/logging/android/*.h")
   file(GLOB PLATFORM_ANDROID_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/source/platform/android/*.cpp")
 
-  file(GLOB AWS_NATIVE_SDK_ANDROID_SRC 
+  file(GLOB AWS_NATIVE_SDK_ANDROID_SRC
      ${PLATFORM_ANDROID_SOURCE}
   )
   file(GLOB AWS_NATIVE_SDK_ANDROID_HEADERS
@@ -215,9 +289,11 @@ file(GLOB AWS_NATIVE_SDK_NON_UNITY_SRC
     ${UTILS_CRYPTO_BCRYPT_SOURCE}
     ${AWS_NATIVE_SDK_WINDOWS_SRC}
     ${UTILS_CRYPTO_FACTORY_SOURCE}
+    ${UTILS_EVENT_SOURCE}
     ${UTILS_SOURCE}
+    ${NET_SOURCE}
     ${HTTP_SOURCE}
-    ${AWS_JSONCPP_SOURCE}
+    ${CJSON_SOURCE}
     ${AWS_NATIVE_SDK_CUSTOM_SRC}
 )
 
@@ -250,13 +326,16 @@ if(MSVC)
     source_group("Header Files\\aws\\core\\auth" FILES ${AWS_AUTH_HEADERS})
     source_group("Header Files\\aws\\core\\client" FILES ${AWS_CLIENT_HEADERS})
     source_group("Header Files\\aws\\core\\internal" FILES ${AWS_INTERNAL_HEADERS})
+    source_group("Header Files\\aws\\core\\net" FILES ${NET_HEADERS})
     source_group("Header Files\\aws\\core\\http" FILES ${HTTP_HEADERS})
     source_group("Header Files\\aws\\core\\http\\standard" FILES ${HTTP_STANDARD_HEADERS})
     source_group("Header Files\\aws\\core\\config" FILES ${CONFIG_HEADERS})
+    source_group("Header Files\\aws\\core\\monitoring" FILES ${MONITORING_HEADERS})
     source_group("Header Files\\aws\\core\\platform" FILES ${PLATFORM_HEADERS})
     source_group("Header Files\\aws\\core\\utils" FILES ${UTILS_HEADERS})
     source_group("Header Files\\aws\\core\\utils\\base64" FILES ${UTILS_BASE64_HEADERS})
     source_group("Header Files\\aws\\core\\utils\\crypto" FILES ${UTILS_CRYPTO_HEADERS})
+    source_group("Header Files\\aws\\core\\utils\\event" FILES ${UTILS_EVENT_HEADERS})
     source_group("Header Files\\aws\\core\\utils\\exceptions" FILES ${UTILS_EXCEPTIONS_HEADERS})
     source_group("Header Files\\aws\\core\\utils\\json" FILES ${UTILS_JSON_HEADERS})
     source_group("Header Files\\aws\\core\\utils\\threading" FILES ${UTILS_THREADING_HEADERS})
@@ -266,7 +345,7 @@ if(MSVC)
     source_group("Header Files\\aws\\core\\utils\\memory\\stl" FILES ${UTILS_STL_HEADERS})
     source_group("Header Files\\aws\\core\\utils\\stream" FILES ${UTILS_STREAM_HEADERS})
     source_group("Header Files\\aws\\core\\utils\\ratelimiter" FILES ${UTILS_RATE_LIMITER_HEADERS})
-    source_group("Header Files\\aws\\core\\external\\json-cpp" FILES ${JSONCPP_HEADERS})
+    source_group("Header Files\\aws\\core\\external\\cjson" FILES ${CJSON_HEADERS})
     source_group("Header Files\\aws\\core\\external\\tinyxml2" FILES ${TINYXML2_HEADERS})
 
     # http client conditional headers
@@ -286,19 +365,22 @@ if(MSVC)
     endif()
 
     source_group("Source Files" FILES ${AWS_SOURCE})
-    source_group("Source Files\\external\\json-cpp" FILES ${AWS_JSONCPP_SOURCE})
+    source_group("Source Files\\external\\cjson" FILES ${CJSON_SOURCE})
     source_group("Source Files\\external\\tinyxml2" FILES ${AWS_TINYXML2_SOURCE})
     source_group("Source Files\\auth" FILES ${AWS_AUTH_SOURCE})
     source_group("Source Files\\client" FILES ${AWS_CLIENT_SOURCE})
     source_group("Source Files\\internal" FILES ${AWS_INTERNAL_SOURCE})
+    source_group("Source Files\\net\\windows" FILES ${NET_SOURCE})
     source_group("Source Files\\http" FILES ${HTTP_SOURCE})
     source_group("Source Files\\http\\standard" FILES ${HTTP_STANDARD_SOURCE})
     source_group("Source Files\\config" FILES ${CONFIG_SOURCE})
+    source_group("Source Files\\monitoring" FILES ${MONITORING_SOURCE})
     source_group("Source Files\\platform\\windows" FILES ${PLATFORM_WINDOWS_SOURCE})
     source_group("Source Files\\utils" FILES ${UTILS_SOURCE})
     source_group("Source Files\\utils\\base64" FILES ${UTILS_BASE64_SOURCE})
     source_group("Source Files\\utils\\crypto" FILES ${UTILS_CRYPTO_SOURCE})
     source_group("Source Files\\utils\\crypto\\factory" FILES ${UTILS_CRYPTO_FACTORY_SOURCE})
+    source_group("Source Files\\utils\\event" FILES ${UTILS_EVENT_SOURCE})
     source_group("Source Files\\utils\\exceptions" FILES ${UTILS_EXCEPTIONS_SOURCE})
     source_group("Source Files\\utils\\json" FILES ${UTILS_JSON_SOURCE})
     source_group("Source Files\\utils\\threading" FILES ${UTILS_THREADING_SOURCE})
@@ -327,12 +409,28 @@ if(MSVC)
 
 endif(MSVC)
 
-add_library(${PROJECT_NAME} ${LIBTYPE} ${AWS_NATIVE_SDK_SRC})
+add_library(${PROJECT_NAME} ${AWS_NATIVE_SDK_SRC})
 add_library(AWS::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC "AWS_SDK_VERSION_MAJOR=${AWSSDK_VERSION_MAJOR}")
 target_compile_definitions(${PROJECT_NAME} PUBLIC "AWS_SDK_VERSION_MINOR=${AWSSDK_VERSION_MINOR}")
 target_compile_definitions(${PROJECT_NAME} PUBLIC "AWS_SDK_VERSION_PATCH=${AWSSDK_VERSION_PATCH}")
+
+if (WININET_HAS_H2)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "WININET_HAS_H2")
+endif()
+
+if (WINHTTP_HAS_H2)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "WINHTTP_HAS_H2")
+endif()
+
+if (CURL_HAS_H2)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "CURL_HAS_H2")
+endif()
+
+if (CURL_HAS_TLS_PROXY)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "CURL_HAS_TLS_PROXY")
+endif()
 
 set(Core_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
@@ -360,12 +458,12 @@ if(BUILD_OPENSSL)
     target_include_directories(${PROJECT_NAME} PRIVATE "${OPENSSL_INCLUDE_DIR}")
 endif()
 
-if(BUILD_ZLIB)
-    target_include_directories(${PROJECT_NAME} PRIVATE "${ZLIB_INCLUDE_DIR}")
+set(PKG_CONFIG_LIB "-l${PROJECT_NAME}")
+
+if (ENABLE_CURL_LOGGING)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "ENABLE_CURL_LOGGING")
 endif()
 
-
-set(PKG_CONFIG_LIB "-l${PROJECT_NAME}")
 
 if(ENABLE_CURL_CLIENT AND BUILD_CURL)
     add_dependencies(${PROJECT_NAME} CURL)
@@ -384,7 +482,21 @@ endif()
 target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
+
+if (EXTERNAL_DEPS_INCLUDE_DIRS)
+    foreach(DIR IN LISTS EXTERNAL_DEPS_INCLUDE_DIRS)
+        target_include_directories(${PROJECT_NAME} PUBLIC
+            $<BUILD_INTERFACE:${DIR}>
+            $<INSTALL_INTERFACE:include>)
+    endforeach()
+endif()
+
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PLATFORM_DEP_LIBS} ${CLIENT_LIBS} ${CRYPTO_LIBS} ${AWS_SDK_ADDITIONAL_LIBRARIES})
+
+find_package(aws-c-event-stream REQUIRED)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC AWS::aws-c-event-stream)
+
 
 if(USE_WINDOWS_DLL_SEMANTICS)
     target_compile_definitions(${PROJECT_NAME} PUBLIC "USE_WINDOWS_DLL_SEMANTICS")
@@ -417,6 +529,10 @@ else()
 endif()
 
 if(SIMPLE_INSTALL)
+    # These libs are needed by aws-cpp-sdk-core only.
+    set(ALL_DEP_LIBS ${THIRD_PARTY_LIBS} ${PLATFORM_DEP_LIBS_ABSTRACT_NAME} ${CLIENT_LIBS_ABSTRACT_NAME} ${CRYPTO_LIBS_ABSTRACT_NAME})
+    generate_pkgconfig_link_flags(ALL_DEP_LIBS ALL_DEP_LIBS_LINK_FLAGS)
+    set(ALL_DEP_LIBS_LINK_FLAGS "${ALL_DEP_LIBS_LINK_FLAGS}")
     configure_file("${AWS_NATIVE_SDK_ROOT}/toolchains/pkg-config.pc.in" "${PROJECT_NAME}.pc" @ONLY)
 
     if(BUILD_SHARED_LIBS)
@@ -430,9 +546,11 @@ install (FILES ${AWS_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core)
 install (FILES ${AWS_AUTH_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/auth)
 install (FILES ${AWS_CLIENT_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/client)
 install (FILES ${AWS_INTERNAL_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/internal)
+install (FILES ${NET_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/net)
 install (FILES ${HTTP_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/http)
 install (FILES ${HTTP_STANDARD_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/http/standard)
 install (FILES ${CONFIG_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/config/)
+install (FILES ${MONITORING_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/monitoring)
 install (FILES ${PLATFORM_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/platform)
 install (FILES ${UTILS_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/utils)
 install (FILES ${UTILS_EVENT_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/utils/event)
@@ -447,8 +565,13 @@ install (FILES ${UTILS_STL_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/ut
 install (FILES ${UTILS_RATE_LIMITER_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/utils/ratelimiter)
 install (FILES ${UTILS_STREAM_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/utils/stream)
 install (FILES ${UTILS_THREADING_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/utils/threading)
-install (FILES ${JSONCPP_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/external/json-cpp)
+install (FILES ${CJSON_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/external/cjson)
 install (FILES ${TINYXML2_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/external/tinyxml2)
+
+# android logcat headers
+if(PLATFORM_ANDROID)
+    install (FILES ${UTILS_LOGGING_ANDROID_HEADERS} DESTINATION ${INCLUDE_DIRECTORY}/aws/core/utils/logging/android)
+endif()
 
 # http client headers
 if(ENABLE_CURL_CLIENT)

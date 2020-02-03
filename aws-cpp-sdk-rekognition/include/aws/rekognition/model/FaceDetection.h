@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     FaceDetection();
-    FaceDetection(const Aws::Utils::Json::JsonValue& jsonValue);
-    FaceDetection& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FaceDetection(Aws::Utils::Json::JsonView jsonValue);
+    FaceDetection& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * detected.</p>
      */
     inline long long GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>Time, in milliseconds from the start of the video, that the face was
+     * detected.</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>Time, in milliseconds from the start of the video, that the face was
@@ -70,6 +77,11 @@ namespace Model
      * <p>The face properties for the detected face.</p>
      */
     inline const FaceDetail& GetFace() const{ return m_face; }
+
+    /**
+     * <p>The face properties for the detected face.</p>
+     */
+    inline bool FaceHasBeenSet() const { return m_faceHasBeenSet; }
 
     /**
      * <p>The face properties for the detected face.</p>

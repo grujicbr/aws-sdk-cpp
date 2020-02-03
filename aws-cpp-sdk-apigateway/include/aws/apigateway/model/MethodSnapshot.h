@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     MethodSnapshot();
-    MethodSnapshot(const Aws::Utils::Json::JsonValue& jsonValue);
-    MethodSnapshot& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MethodSnapshot(Aws::Utils::Json::JsonView jsonValue);
+    MethodSnapshot& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * Cognito user pool.</p>
      */
     inline const Aws::String& GetAuthorizationType() const{ return m_authorizationType; }
+
+    /**
+     * <p>The method's authorization type. Valid values are <code>NONE</code> for open
+     * access, <code>AWS_IAM</code> for using AWS IAM permissions, <code>CUSTOM</code>
+     * for using a custom authorizer, or <code>COGNITO_USER_POOLS</code> for using a
+     * Cognito user pool.</p>
+     */
+    inline bool AuthorizationTypeHasBeenSet() const { return m_authorizationTypeHasBeenSet; }
 
     /**
      * <p>The method's authorization type. Valid values are <code>NONE</code> for open
@@ -108,6 +117,11 @@ namespace Model
      * <p>Specifies whether the method requires a valid <a>ApiKey</a>.</p>
      */
     inline bool GetApiKeyRequired() const{ return m_apiKeyRequired; }
+
+    /**
+     * <p>Specifies whether the method requires a valid <a>ApiKey</a>.</p>
+     */
+    inline bool ApiKeyRequiredHasBeenSet() const { return m_apiKeyRequiredHasBeenSet; }
 
     /**
      * <p>Specifies whether the method requires a valid <a>ApiKey</a>.</p>

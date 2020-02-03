@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchEvents
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     BatchArrayProperties();
-    BatchArrayProperties(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchArrayProperties& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchArrayProperties(Aws::Utils::Json::JsonView jsonValue);
+    BatchArrayProperties& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * integers between 2 and 10,000.</p>
      */
     inline int GetSize() const{ return m_size; }
+
+    /**
+     * <p>The size of the array, if this is an array batch job. Valid values are
+     * integers between 2 and 10,000.</p>
+     */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
 
     /**
      * <p>The size of the array, if this is an array batch job. Valid values are

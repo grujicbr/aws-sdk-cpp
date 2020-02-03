@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MobileAnalytics
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     Session();
-    Session(const Aws::Utils::Json::JsonValue& jsonValue);
-    Session& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Session(Aws::Utils::Json::JsonView jsonValue);
+    Session& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p>A unique identifier for the session</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>A unique identifier for the session</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>A unique identifier for the session</p>
@@ -88,6 +94,11 @@ namespace Model
     /**
      * <p>The duration of the session.</p>
      */
+    inline bool DurationHasBeenSet() const { return m_durationHasBeenSet; }
+
+    /**
+     * <p>The duration of the session.</p>
+     */
     inline void SetDuration(long long value) { m_durationHasBeenSet = true; m_duration = value; }
 
     /**
@@ -101,6 +112,12 @@ namespace Model
      * example, 2014-06-30T19:07:47.885Z</p>
      */
     inline const Aws::String& GetStartTimestamp() const{ return m_startTimestamp; }
+
+    /**
+     * <p>The time the event started in ISO 8601 standard date time format. For
+     * example, 2014-06-30T19:07:47.885Z</p>
+     */
+    inline bool StartTimestampHasBeenSet() const { return m_startTimestampHasBeenSet; }
 
     /**
      * <p>The time the event started in ISO 8601 standard date time format. For
@@ -144,6 +161,12 @@ namespace Model
      * example, 2014-06-30T19:07:47.885Z</p>
      */
     inline const Aws::String& GetStopTimestamp() const{ return m_stopTimestamp; }
+
+    /**
+     * <p>The time the event terminated in ISO 8601 standard date time format. For
+     * example, 2014-06-30T19:07:47.885Z</p>
+     */
+    inline bool StopTimestampHasBeenSet() const { return m_stopTimestampHasBeenSet; }
 
     /**
      * <p>The time the event terminated in ISO 8601 standard date time format. For

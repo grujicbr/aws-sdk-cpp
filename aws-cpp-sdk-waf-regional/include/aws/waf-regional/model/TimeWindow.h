@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -50,8 +51,8 @@ namespace Model
   {
   public:
     TimeWindow();
-    TimeWindow(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimeWindow& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimeWindow(Aws::Utils::Json::JsonView jsonValue);
+    TimeWindow& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -63,6 +64,15 @@ namespace Model
      * three hours.</p>
      */
     inline const Aws::Utils::DateTime& GetStartTime() const{ return m_startTime; }
+
+    /**
+     * <p>The beginning of the time range from which you want
+     * <code>GetSampledRequests</code> to return a sample of the requests that your AWS
+     * resource received. Specify the date and time in the following format:
+     * <code>"2016-09-27T14:50Z"</code>. You can specify any time range in the previous
+     * three hours.</p>
+     */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
 
     /**
      * <p>The beginning of the time range from which you want
@@ -108,6 +118,14 @@ namespace Model
      * specify any time range in the previous three hours.</p>
      */
     inline const Aws::Utils::DateTime& GetEndTime() const{ return m_endTime; }
+
+    /**
+     * <p>The end of the time range from which you want <code>GetSampledRequests</code>
+     * to return a sample of the requests that your AWS resource received. Specify the
+     * date and time in the following format: <code>"2016-09-27T14:50Z"</code>. You can
+     * specify any time range in the previous three hours.</p>
+     */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
 
     /**
      * <p>The end of the time range from which you want <code>GetSampledRequests</code>

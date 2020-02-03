@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     ComputeCapacityStatus();
-    ComputeCapacityStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComputeCapacityStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComputeCapacityStatus(Aws::Utils::Json::JsonView jsonValue);
+    ComputeCapacityStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p>The desired number of streaming instances.</p>
      */
     inline int GetDesired() const{ return m_desired; }
+
+    /**
+     * <p>The desired number of streaming instances.</p>
+     */
+    inline bool DesiredHasBeenSet() const { return m_desiredHasBeenSet; }
 
     /**
      * <p>The desired number of streaming instances.</p>
@@ -68,6 +74,11 @@ namespace Model
     /**
      * <p>The total number of simultaneous streaming instances that are running.</p>
      */
+    inline bool RunningHasBeenSet() const { return m_runningHasBeenSet; }
+
+    /**
+     * <p>The total number of simultaneous streaming instances that are running.</p>
+     */
     inline void SetRunning(int value) { m_runningHasBeenSet = true; m_running = value; }
 
     /**
@@ -80,6 +91,11 @@ namespace Model
      * <p>The number of instances in use for streaming.</p>
      */
     inline int GetInUse() const{ return m_inUse; }
+
+    /**
+     * <p>The number of instances in use for streaming.</p>
+     */
+    inline bool InUseHasBeenSet() const { return m_inUseHasBeenSet; }
 
     /**
      * <p>The number of instances in use for streaming.</p>
@@ -97,6 +113,12 @@ namespace Model
      * sessions.</p>
      */
     inline int GetAvailable() const{ return m_available; }
+
+    /**
+     * <p>The number of currently available instances that can be used to stream
+     * sessions.</p>
+     */
+    inline bool AvailableHasBeenSet() const { return m_availableHasBeenSet; }
 
     /**
      * <p>The number of currently available instances that can be used to stream

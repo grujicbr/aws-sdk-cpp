@@ -24,15 +24,20 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/servicediscovery/ServiceDiscoveryClient.h>
 #include <aws/servicediscovery/ServiceDiscoveryEndpoint.h>
 #include <aws/servicediscovery/ServiceDiscoveryErrorMarshaller.h>
+#include <aws/servicediscovery/model/CreateHttpNamespaceRequest.h>
 #include <aws/servicediscovery/model/CreatePrivateDnsNamespaceRequest.h>
 #include <aws/servicediscovery/model/CreatePublicDnsNamespaceRequest.h>
 #include <aws/servicediscovery/model/CreateServiceRequest.h>
 #include <aws/servicediscovery/model/DeleteNamespaceRequest.h>
 #include <aws/servicediscovery/model/DeleteServiceRequest.h>
 #include <aws/servicediscovery/model/DeregisterInstanceRequest.h>
+#include <aws/servicediscovery/model/DiscoverInstancesRequest.h>
 #include <aws/servicediscovery/model/GetInstanceRequest.h>
 #include <aws/servicediscovery/model/GetInstancesHealthStatusRequest.h>
 #include <aws/servicediscovery/model/GetNamespaceRequest.h>
@@ -95,28 +100,80 @@ ServiceDiscoveryClient::~ServiceDiscoveryClient()
 
 void ServiceDiscoveryClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  m_scheme = m_configScheme;
+  if (config.endpointOverride.empty())
   {
-    ss << ServiceDiscoveryEndpoint::ForRegion(config.region, config.useDualStack);
+      m_baseUri = ServiceDiscoveryEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+  m_enableHostPrefixInjection = config.enableHostPrefixInjection;
+}
 
-  m_uri = ss.str();
+void ServiceDiscoveryClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0)
+  {
+      m_scheme = "http";
+      m_baseUri = endpoint.substr(7);
+  }
+  else if (endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_scheme = "https";
+      m_baseUri = endpoint.substr(8);
+  }
+  else
+  {
+      m_scheme = m_configScheme;
+      m_baseUri = endpoint;
+  }
+}
+
+CreateHttpNamespaceOutcome ServiceDiscoveryClient::CreateHttpNamespace(const CreateHttpNamespaceRequest& request) const
+{
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return CreateHttpNamespaceOutcome(CreateHttpNamespaceResult(outcome.GetResult()));
+  }
+  else
+  {
+    return CreateHttpNamespaceOutcome(outcome.GetError());
+  }
+}
+
+CreateHttpNamespaceOutcomeCallable ServiceDiscoveryClient::CreateHttpNamespaceCallable(const CreateHttpNamespaceRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< CreateHttpNamespaceOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->CreateHttpNamespace(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void ServiceDiscoveryClient::CreateHttpNamespaceAsync(const CreateHttpNamespaceRequest& request, const CreateHttpNamespaceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->CreateHttpNamespaceAsyncHelper( request, handler, context ); } );
+}
+
+void ServiceDiscoveryClient::CreateHttpNamespaceAsyncHelper(const CreateHttpNamespaceRequest& request, const CreateHttpNamespaceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, CreateHttpNamespace(request), context);
 }
 
 CreatePrivateDnsNamespaceOutcome ServiceDiscoveryClient::CreatePrivateDnsNamespace(const CreatePrivateDnsNamespaceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreatePrivateDnsNamespaceOutcome(CreatePrivateDnsNamespaceResult(outcome.GetResult()));
@@ -147,11 +204,11 @@ void ServiceDiscoveryClient::CreatePrivateDnsNamespaceAsyncHelper(const CreatePr
 
 CreatePublicDnsNamespaceOutcome ServiceDiscoveryClient::CreatePublicDnsNamespace(const CreatePublicDnsNamespaceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreatePublicDnsNamespaceOutcome(CreatePublicDnsNamespaceResult(outcome.GetResult()));
@@ -182,11 +239,11 @@ void ServiceDiscoveryClient::CreatePublicDnsNamespaceAsyncHelper(const CreatePub
 
 CreateServiceOutcome ServiceDiscoveryClient::CreateService(const CreateServiceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateServiceOutcome(CreateServiceResult(outcome.GetResult()));
@@ -217,11 +274,11 @@ void ServiceDiscoveryClient::CreateServiceAsyncHelper(const CreateServiceRequest
 
 DeleteNamespaceOutcome ServiceDiscoveryClient::DeleteNamespace(const DeleteNamespaceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteNamespaceOutcome(DeleteNamespaceResult(outcome.GetResult()));
@@ -252,11 +309,11 @@ void ServiceDiscoveryClient::DeleteNamespaceAsyncHelper(const DeleteNamespaceReq
 
 DeleteServiceOutcome ServiceDiscoveryClient::DeleteService(const DeleteServiceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteServiceOutcome(DeleteServiceResult(outcome.GetResult()));
@@ -287,11 +344,11 @@ void ServiceDiscoveryClient::DeleteServiceAsyncHelper(const DeleteServiceRequest
 
 DeregisterInstanceOutcome ServiceDiscoveryClient::DeregisterInstance(const DeregisterInstanceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeregisterInstanceOutcome(DeregisterInstanceResult(outcome.GetResult()));
@@ -320,13 +377,57 @@ void ServiceDiscoveryClient::DeregisterInstanceAsyncHelper(const DeregisterInsta
   handler(this, request, DeregisterInstance(request), context);
 }
 
-GetInstanceOutcome ServiceDiscoveryClient::GetInstance(const GetInstanceRequest& request) const
+DiscoverInstancesOutcome ServiceDiscoveryClient::DiscoverInstances(const DiscoverInstancesRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
+  if (m_enableHostPrefixInjection)
+  {
+    uri.SetAuthority("data-" + uri.GetAuthority());
+    if (!Aws::Utils::IsValidHost(uri.GetAuthority()))
+    {
+      AWS_LOGSTREAM_ERROR("DiscoverInstances", "Invalid DNS host: " << uri.GetAuthority());
+      return DiscoverInstancesOutcome(Aws::Client::AWSError<ServiceDiscoveryErrors>(ServiceDiscoveryErrors::INVALID_PARAMETER_VALUE, "INVALID_PARAMETER", "Host is invalid", false));
+    }
+  }
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DiscoverInstancesOutcome(DiscoverInstancesResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DiscoverInstancesOutcome(outcome.GetError());
+  }
+}
+
+DiscoverInstancesOutcomeCallable ServiceDiscoveryClient::DiscoverInstancesCallable(const DiscoverInstancesRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DiscoverInstancesOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DiscoverInstances(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void ServiceDiscoveryClient::DiscoverInstancesAsync(const DiscoverInstancesRequest& request, const DiscoverInstancesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DiscoverInstancesAsyncHelper( request, handler, context ); } );
+}
+
+void ServiceDiscoveryClient::DiscoverInstancesAsyncHelper(const DiscoverInstancesRequest& request, const DiscoverInstancesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DiscoverInstances(request), context);
+}
+
+GetInstanceOutcome ServiceDiscoveryClient::GetInstance(const GetInstanceRequest& request) const
+{
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetInstanceOutcome(GetInstanceResult(outcome.GetResult()));
@@ -357,11 +458,11 @@ void ServiceDiscoveryClient::GetInstanceAsyncHelper(const GetInstanceRequest& re
 
 GetInstancesHealthStatusOutcome ServiceDiscoveryClient::GetInstancesHealthStatus(const GetInstancesHealthStatusRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetInstancesHealthStatusOutcome(GetInstancesHealthStatusResult(outcome.GetResult()));
@@ -392,11 +493,11 @@ void ServiceDiscoveryClient::GetInstancesHealthStatusAsyncHelper(const GetInstan
 
 GetNamespaceOutcome ServiceDiscoveryClient::GetNamespace(const GetNamespaceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetNamespaceOutcome(GetNamespaceResult(outcome.GetResult()));
@@ -427,11 +528,11 @@ void ServiceDiscoveryClient::GetNamespaceAsyncHelper(const GetNamespaceRequest& 
 
 GetOperationOutcome ServiceDiscoveryClient::GetOperation(const GetOperationRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetOperationOutcome(GetOperationResult(outcome.GetResult()));
@@ -462,11 +563,11 @@ void ServiceDiscoveryClient::GetOperationAsyncHelper(const GetOperationRequest& 
 
 GetServiceOutcome ServiceDiscoveryClient::GetService(const GetServiceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return GetServiceOutcome(GetServiceResult(outcome.GetResult()));
@@ -497,11 +598,11 @@ void ServiceDiscoveryClient::GetServiceAsyncHelper(const GetServiceRequest& requ
 
 ListInstancesOutcome ServiceDiscoveryClient::ListInstances(const ListInstancesRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListInstancesOutcome(ListInstancesResult(outcome.GetResult()));
@@ -532,11 +633,11 @@ void ServiceDiscoveryClient::ListInstancesAsyncHelper(const ListInstancesRequest
 
 ListNamespacesOutcome ServiceDiscoveryClient::ListNamespaces(const ListNamespacesRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListNamespacesOutcome(ListNamespacesResult(outcome.GetResult()));
@@ -567,11 +668,11 @@ void ServiceDiscoveryClient::ListNamespacesAsyncHelper(const ListNamespacesReque
 
 ListOperationsOutcome ServiceDiscoveryClient::ListOperations(const ListOperationsRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListOperationsOutcome(ListOperationsResult(outcome.GetResult()));
@@ -602,11 +703,11 @@ void ServiceDiscoveryClient::ListOperationsAsyncHelper(const ListOperationsReque
 
 ListServicesOutcome ServiceDiscoveryClient::ListServices(const ListServicesRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListServicesOutcome(ListServicesResult(outcome.GetResult()));
@@ -637,11 +738,11 @@ void ServiceDiscoveryClient::ListServicesAsyncHelper(const ListServicesRequest& 
 
 RegisterInstanceOutcome ServiceDiscoveryClient::RegisterInstance(const RegisterInstanceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return RegisterInstanceOutcome(RegisterInstanceResult(outcome.GetResult()));
@@ -672,11 +773,11 @@ void ServiceDiscoveryClient::RegisterInstanceAsyncHelper(const RegisterInstanceR
 
 UpdateInstanceCustomHealthStatusOutcome ServiceDiscoveryClient::UpdateInstanceCustomHealthStatus(const UpdateInstanceCustomHealthStatusRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateInstanceCustomHealthStatusOutcome(NoResult());
@@ -707,11 +808,11 @@ void ServiceDiscoveryClient::UpdateInstanceCustomHealthStatusAsyncHelper(const U
 
 UpdateServiceOutcome ServiceDiscoveryClient::UpdateService(const UpdateServiceRequest& request) const
 {
+  Aws::Http::URI uri = m_scheme + "://" + m_baseUri;
   Aws::StringStream ss;
-  Aws::Http::URI uri = m_uri;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateServiceOutcome(UpdateServiceResult(outcome.GetResult()));

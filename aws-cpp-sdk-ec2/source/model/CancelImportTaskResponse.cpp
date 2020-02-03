@@ -51,23 +51,26 @@ CancelImportTaskResponse& CancelImportTaskResponse::operator =(const Aws::Amazon
     XmlNode importTaskIdNode = resultNode.FirstChild("importTaskId");
     if(!importTaskIdNode.IsNull())
     {
-      m_importTaskId = StringUtils::Trim(importTaskIdNode.GetText().c_str());
+      m_importTaskId = Aws::Utils::Xml::DecodeEscapedXmlText(importTaskIdNode.GetText());
     }
     XmlNode previousStateNode = resultNode.FirstChild("previousState");
     if(!previousStateNode.IsNull())
     {
-      m_previousState = StringUtils::Trim(previousStateNode.GetText().c_str());
+      m_previousState = Aws::Utils::Xml::DecodeEscapedXmlText(previousStateNode.GetText());
     }
     XmlNode stateNode = resultNode.FirstChild("state");
     if(!stateNode.IsNull())
     {
-      m_state = StringUtils::Trim(stateNode.GetText().c_str());
+      m_state = Aws::Utils::Xml::DecodeEscapedXmlText(stateNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::CancelImportTaskResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

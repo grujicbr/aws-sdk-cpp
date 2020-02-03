@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     DeliveryChannelStatus();
-    DeliveryChannelStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeliveryChannelStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeliveryChannelStatus(Aws::Utils::Json::JsonView jsonValue);
+    DeliveryChannelStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the delivery channel.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the delivery channel.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the delivery channel.</p>
@@ -95,6 +101,12 @@ namespace Model
      * <p>A list containing the status of the delivery of the snapshot to the specified
      * Amazon S3 bucket.</p>
      */
+    inline bool ConfigSnapshotDeliveryInfoHasBeenSet() const { return m_configSnapshotDeliveryInfoHasBeenSet; }
+
+    /**
+     * <p>A list containing the status of the delivery of the snapshot to the specified
+     * Amazon S3 bucket.</p>
+     */
     inline void SetConfigSnapshotDeliveryInfo(const ConfigExportDeliveryInfo& value) { m_configSnapshotDeliveryInfoHasBeenSet = true; m_configSnapshotDeliveryInfo = value; }
 
     /**
@@ -126,6 +138,12 @@ namespace Model
      * <p>A list that contains the status of the delivery of the configuration history
      * to the specified Amazon S3 bucket.</p>
      */
+    inline bool ConfigHistoryDeliveryInfoHasBeenSet() const { return m_configHistoryDeliveryInfoHasBeenSet; }
+
+    /**
+     * <p>A list that contains the status of the delivery of the configuration history
+     * to the specified Amazon S3 bucket.</p>
+     */
     inline void SetConfigHistoryDeliveryInfo(const ConfigExportDeliveryInfo& value) { m_configHistoryDeliveryInfoHasBeenSet = true; m_configHistoryDeliveryInfo = value; }
 
     /**
@@ -152,6 +170,12 @@ namespace Model
      * notification to the specified Amazon SNS topic.</p>
      */
     inline const ConfigStreamDeliveryInfo& GetConfigStreamDeliveryInfo() const{ return m_configStreamDeliveryInfo; }
+
+    /**
+     * <p>A list containing the status of the delivery of the configuration stream
+     * notification to the specified Amazon SNS topic.</p>
+     */
+    inline bool ConfigStreamDeliveryInfoHasBeenSet() const { return m_configStreamDeliveryInfoHasBeenSet; }
 
     /**
      * <p>A list containing the status of the delivery of the configuration stream

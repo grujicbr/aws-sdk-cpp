@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TaskList();
-    TaskList(const Aws::Utils::Json::JsonValue& jsonValue);
-    TaskList& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TaskList(Aws::Utils::Json::JsonView jsonValue);
+    TaskList& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the task list.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the task list.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the task list.</p>

@@ -37,7 +37,10 @@ Action::Action() :
     m_authenticateOidcConfigHasBeenSet(false),
     m_authenticateCognitoConfigHasBeenSet(false),
     m_order(0),
-    m_orderHasBeenSet(false)
+    m_orderHasBeenSet(false),
+    m_redirectConfigHasBeenSet(false),
+    m_fixedResponseConfigHasBeenSet(false),
+    m_forwardConfigHasBeenSet(false)
 {
 }
 
@@ -48,7 +51,10 @@ Action::Action(const XmlNode& xmlNode) :
     m_authenticateOidcConfigHasBeenSet(false),
     m_authenticateCognitoConfigHasBeenSet(false),
     m_order(0),
-    m_orderHasBeenSet(false)
+    m_orderHasBeenSet(false),
+    m_redirectConfigHasBeenSet(false),
+    m_fixedResponseConfigHasBeenSet(false),
+    m_forwardConfigHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -62,13 +68,13 @@ Action& Action::operator =(const XmlNode& xmlNode)
     XmlNode typeNode = resultNode.FirstChild("Type");
     if(!typeNode.IsNull())
     {
-      m_type = ActionTypeEnumMapper::GetActionTypeEnumForName(StringUtils::Trim(typeNode.GetText().c_str()).c_str());
+      m_type = ActionTypeEnumMapper::GetActionTypeEnumForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(typeNode.GetText()).c_str()).c_str());
       m_typeHasBeenSet = true;
     }
     XmlNode targetGroupArnNode = resultNode.FirstChild("TargetGroupArn");
     if(!targetGroupArnNode.IsNull())
     {
-      m_targetGroupArn = StringUtils::Trim(targetGroupArnNode.GetText().c_str());
+      m_targetGroupArn = Aws::Utils::Xml::DecodeEscapedXmlText(targetGroupArnNode.GetText());
       m_targetGroupArnHasBeenSet = true;
     }
     XmlNode authenticateOidcConfigNode = resultNode.FirstChild("AuthenticateOidcConfig");
@@ -86,8 +92,26 @@ Action& Action::operator =(const XmlNode& xmlNode)
     XmlNode orderNode = resultNode.FirstChild("Order");
     if(!orderNode.IsNull())
     {
-      m_order = StringUtils::ConvertToInt32(StringUtils::Trim(orderNode.GetText().c_str()).c_str());
+      m_order = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(orderNode.GetText()).c_str()).c_str());
       m_orderHasBeenSet = true;
+    }
+    XmlNode redirectConfigNode = resultNode.FirstChild("RedirectConfig");
+    if(!redirectConfigNode.IsNull())
+    {
+      m_redirectConfig = redirectConfigNode;
+      m_redirectConfigHasBeenSet = true;
+    }
+    XmlNode fixedResponseConfigNode = resultNode.FirstChild("FixedResponseConfig");
+    if(!fixedResponseConfigNode.IsNull())
+    {
+      m_fixedResponseConfig = fixedResponseConfigNode;
+      m_fixedResponseConfigHasBeenSet = true;
+    }
+    XmlNode forwardConfigNode = resultNode.FirstChild("ForwardConfig");
+    if(!forwardConfigNode.IsNull())
+    {
+      m_forwardConfig = forwardConfigNode;
+      m_forwardConfigHasBeenSet = true;
     }
   }
 
@@ -125,6 +149,27 @@ void Action::OutputToStream(Aws::OStream& oStream, const char* location, unsigne
       oStream << location << index << locationValue << ".Order=" << m_order << "&";
   }
 
+  if(m_redirectConfigHasBeenSet)
+  {
+      Aws::StringStream redirectConfigLocationAndMemberSs;
+      redirectConfigLocationAndMemberSs << location << index << locationValue << ".RedirectConfig";
+      m_redirectConfig.OutputToStream(oStream, redirectConfigLocationAndMemberSs.str().c_str());
+  }
+
+  if(m_fixedResponseConfigHasBeenSet)
+  {
+      Aws::StringStream fixedResponseConfigLocationAndMemberSs;
+      fixedResponseConfigLocationAndMemberSs << location << index << locationValue << ".FixedResponseConfig";
+      m_fixedResponseConfig.OutputToStream(oStream, fixedResponseConfigLocationAndMemberSs.str().c_str());
+  }
+
+  if(m_forwardConfigHasBeenSet)
+  {
+      Aws::StringStream forwardConfigLocationAndMemberSs;
+      forwardConfigLocationAndMemberSs << location << index << locationValue << ".ForwardConfig";
+      m_forwardConfig.OutputToStream(oStream, forwardConfigLocationAndMemberSs.str().c_str());
+  }
+
 }
 
 void Action::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -152,6 +197,24 @@ void Action::OutputToStream(Aws::OStream& oStream, const char* location) const
   if(m_orderHasBeenSet)
   {
       oStream << location << ".Order=" << m_order << "&";
+  }
+  if(m_redirectConfigHasBeenSet)
+  {
+      Aws::String redirectConfigLocationAndMember(location);
+      redirectConfigLocationAndMember += ".RedirectConfig";
+      m_redirectConfig.OutputToStream(oStream, redirectConfigLocationAndMember.c_str());
+  }
+  if(m_fixedResponseConfigHasBeenSet)
+  {
+      Aws::String fixedResponseConfigLocationAndMember(location);
+      fixedResponseConfigLocationAndMember += ".FixedResponseConfig";
+      m_fixedResponseConfig.OutputToStream(oStream, fixedResponseConfigLocationAndMember.c_str());
+  }
+  if(m_forwardConfigHasBeenSet)
+  {
+      Aws::String forwardConfigLocationAndMember(location);
+      forwardConfigLocationAndMember += ".ForwardConfig";
+      m_forwardConfig.OutputToStream(oStream, forwardConfigLocationAndMember.c_str());
   }
 }
 

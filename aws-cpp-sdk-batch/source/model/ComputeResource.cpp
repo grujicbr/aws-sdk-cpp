@@ -31,6 +31,8 @@ namespace Model
 ComputeResource::ComputeResource() : 
     m_type(CRType::NOT_SET),
     m_typeHasBeenSet(false),
+    m_allocationStrategy(CRAllocationStrategy::NOT_SET),
+    m_allocationStrategyHasBeenSet(false),
     m_minvCpus(0),
     m_minvCpusHasBeenSet(false),
     m_maxvCpus(0),
@@ -44,15 +46,19 @@ ComputeResource::ComputeResource() :
     m_ec2KeyPairHasBeenSet(false),
     m_instanceRoleHasBeenSet(false),
     m_tagsHasBeenSet(false),
+    m_placementGroupHasBeenSet(false),
     m_bidPercentage(0),
     m_bidPercentageHasBeenSet(false),
-    m_spotIamFleetRoleHasBeenSet(false)
+    m_spotIamFleetRoleHasBeenSet(false),
+    m_launchTemplateHasBeenSet(false)
 {
 }
 
-ComputeResource::ComputeResource(const JsonValue& jsonValue) : 
+ComputeResource::ComputeResource(JsonView jsonValue) : 
     m_type(CRType::NOT_SET),
     m_typeHasBeenSet(false),
+    m_allocationStrategy(CRAllocationStrategy::NOT_SET),
+    m_allocationStrategyHasBeenSet(false),
     m_minvCpus(0),
     m_minvCpusHasBeenSet(false),
     m_maxvCpus(0),
@@ -66,20 +72,29 @@ ComputeResource::ComputeResource(const JsonValue& jsonValue) :
     m_ec2KeyPairHasBeenSet(false),
     m_instanceRoleHasBeenSet(false),
     m_tagsHasBeenSet(false),
+    m_placementGroupHasBeenSet(false),
     m_bidPercentage(0),
     m_bidPercentageHasBeenSet(false),
-    m_spotIamFleetRoleHasBeenSet(false)
+    m_spotIamFleetRoleHasBeenSet(false),
+    m_launchTemplateHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ComputeResource& ComputeResource::operator =(const JsonValue& jsonValue)
+ComputeResource& ComputeResource::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("type"))
   {
     m_type = CRTypeMapper::GetCRTypeForName(jsonValue.GetString("type"));
 
     m_typeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("allocationStrategy"))
+  {
+    m_allocationStrategy = CRAllocationStrategyMapper::GetCRAllocationStrategyForName(jsonValue.GetString("allocationStrategy"));
+
+    m_allocationStrategyHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("minvCpus"))
@@ -105,7 +120,7 @@ ComputeResource& ComputeResource::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("instanceTypes"))
   {
-    Array<JsonValue> instanceTypesJsonList = jsonValue.GetArray("instanceTypes");
+    Array<JsonView> instanceTypesJsonList = jsonValue.GetArray("instanceTypes");
     for(unsigned instanceTypesIndex = 0; instanceTypesIndex < instanceTypesJsonList.GetLength(); ++instanceTypesIndex)
     {
       m_instanceTypes.push_back(instanceTypesJsonList[instanceTypesIndex].AsString());
@@ -122,7 +137,7 @@ ComputeResource& ComputeResource::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("subnets"))
   {
-    Array<JsonValue> subnetsJsonList = jsonValue.GetArray("subnets");
+    Array<JsonView> subnetsJsonList = jsonValue.GetArray("subnets");
     for(unsigned subnetsIndex = 0; subnetsIndex < subnetsJsonList.GetLength(); ++subnetsIndex)
     {
       m_subnets.push_back(subnetsJsonList[subnetsIndex].AsString());
@@ -132,7 +147,7 @@ ComputeResource& ComputeResource::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("securityGroupIds"))
   {
-    Array<JsonValue> securityGroupIdsJsonList = jsonValue.GetArray("securityGroupIds");
+    Array<JsonView> securityGroupIdsJsonList = jsonValue.GetArray("securityGroupIds");
     for(unsigned securityGroupIdsIndex = 0; securityGroupIdsIndex < securityGroupIdsJsonList.GetLength(); ++securityGroupIdsIndex)
     {
       m_securityGroupIds.push_back(securityGroupIdsJsonList[securityGroupIdsIndex].AsString());
@@ -156,12 +171,19 @@ ComputeResource& ComputeResource::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("tags"))
   {
-    Aws::Map<Aws::String, JsonValue> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
     for(auto& tagsItem : tagsJsonMap)
     {
       m_tags[tagsItem.first] = tagsItem.second.AsString();
     }
     m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("placementGroup"))
+  {
+    m_placementGroup = jsonValue.GetString("placementGroup");
+
+    m_placementGroupHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("bidPercentage"))
@@ -178,6 +200,13 @@ ComputeResource& ComputeResource::operator =(const JsonValue& jsonValue)
     m_spotIamFleetRoleHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("launchTemplate"))
+  {
+    m_launchTemplate = jsonValue.GetObject("launchTemplate");
+
+    m_launchTemplateHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -188,6 +217,11 @@ JsonValue ComputeResource::Jsonize() const
   if(m_typeHasBeenSet)
   {
    payload.WithString("type", CRTypeMapper::GetNameForCRType(m_type));
+  }
+
+  if(m_allocationStrategyHasBeenSet)
+  {
+   payload.WithString("allocationStrategy", CRAllocationStrategyMapper::GetNameForCRAllocationStrategy(m_allocationStrategy));
   }
 
   if(m_minvCpusHasBeenSet)
@@ -270,6 +304,12 @@ JsonValue ComputeResource::Jsonize() const
 
   }
 
+  if(m_placementGroupHasBeenSet)
+  {
+   payload.WithString("placementGroup", m_placementGroup);
+
+  }
+
   if(m_bidPercentageHasBeenSet)
   {
    payload.WithInteger("bidPercentage", m_bidPercentage);
@@ -279,6 +319,12 @@ JsonValue ComputeResource::Jsonize() const
   if(m_spotIamFleetRoleHasBeenSet)
   {
    payload.WithString("spotIamFleetRole", m_spotIamFleetRole);
+
+  }
+
+  if(m_launchTemplateHasBeenSet)
+  {
+   payload.WithObject("launchTemplate", m_launchTemplate.Jsonize());
 
   }
 

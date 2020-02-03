@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     AssessmentTemplateFilter();
-    AssessmentTemplateFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssessmentTemplateFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssessmentTemplateFilter(Aws::Utils::Json::JsonView jsonValue);
+    AssessmentTemplateFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,14 @@ namespace Model
      * type.</p>
      */
     inline const Aws::String& GetNamePattern() const{ return m_namePattern; }
+
+    /**
+     * <p>For a record to match a filter, an explicit value or a string that contains a
+     * wildcard that is specified for this data type property must match the value of
+     * the <b>assessmentTemplateName</b> property of the <a>AssessmentTemplate</a> data
+     * type.</p>
+     */
+    inline bool NamePatternHasBeenSet() const { return m_namePatternHasBeenSet; }
 
     /**
      * <p>For a record to match a filter, an explicit value or a string that contains a
@@ -120,6 +129,14 @@ namespace Model
      * maximum values of the <b>durationInSeconds</b> property of the
      * <a>AssessmentTemplate</a> data type.</p>
      */
+    inline bool DurationRangeHasBeenSet() const { return m_durationRangeHasBeenSet; }
+
+    /**
+     * <p>For a record to match a filter, the value specified for this data type
+     * property must inclusively match any value between the specified minimum and
+     * maximum values of the <b>durationInSeconds</b> property of the
+     * <a>AssessmentTemplate</a> data type.</p>
+     */
     inline void SetDurationRange(const DurationRange& value) { m_durationRangeHasBeenSet = true; m_durationRange = value; }
 
     /**
@@ -153,6 +170,13 @@ namespace Model
      * <b>rulesPackageArns</b> property of the <a>AssessmentTemplate</a> data type.</p>
      */
     inline const Aws::Vector<Aws::String>& GetRulesPackageArns() const{ return m_rulesPackageArns; }
+
+    /**
+     * <p>For a record to match a filter, the values that are specified for this data
+     * type property must be contained in the list of values of the
+     * <b>rulesPackageArns</b> property of the <a>AssessmentTemplate</a> data type.</p>
+     */
+    inline bool RulesPackageArnsHasBeenSet() const { return m_rulesPackageArnsHasBeenSet; }
 
     /**
      * <p>For a record to match a filter, the values that are specified for this data

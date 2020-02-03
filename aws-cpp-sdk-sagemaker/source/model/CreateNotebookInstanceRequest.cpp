@@ -33,7 +33,14 @@ CreateNotebookInstanceRequest::CreateNotebookInstanceRequest() :
     m_tagsHasBeenSet(false),
     m_lifecycleConfigNameHasBeenSet(false),
     m_directInternetAccess(DirectInternetAccess::NOT_SET),
-    m_directInternetAccessHasBeenSet(false)
+    m_directInternetAccessHasBeenSet(false),
+    m_volumeSizeInGB(0),
+    m_volumeSizeInGBHasBeenSet(false),
+    m_acceleratorTypesHasBeenSet(false),
+    m_defaultCodeRepositoryHasBeenSet(false),
+    m_additionalCodeRepositoriesHasBeenSet(false),
+    m_rootAccess(RootAccess::NOT_SET),
+    m_rootAccessHasBeenSet(false)
 {
 }
 
@@ -103,7 +110,46 @@ Aws::String CreateNotebookInstanceRequest::SerializePayload() const
    payload.WithString("DirectInternetAccess", DirectInternetAccessMapper::GetNameForDirectInternetAccess(m_directInternetAccess));
   }
 
-  return payload.WriteReadable();
+  if(m_volumeSizeInGBHasBeenSet)
+  {
+   payload.WithInteger("VolumeSizeInGB", m_volumeSizeInGB);
+
+  }
+
+  if(m_acceleratorTypesHasBeenSet)
+  {
+   Array<JsonValue> acceleratorTypesJsonList(m_acceleratorTypes.size());
+   for(unsigned acceleratorTypesIndex = 0; acceleratorTypesIndex < acceleratorTypesJsonList.GetLength(); ++acceleratorTypesIndex)
+   {
+     acceleratorTypesJsonList[acceleratorTypesIndex].AsString(NotebookInstanceAcceleratorTypeMapper::GetNameForNotebookInstanceAcceleratorType(m_acceleratorTypes[acceleratorTypesIndex]));
+   }
+   payload.WithArray("AcceleratorTypes", std::move(acceleratorTypesJsonList));
+
+  }
+
+  if(m_defaultCodeRepositoryHasBeenSet)
+  {
+   payload.WithString("DefaultCodeRepository", m_defaultCodeRepository);
+
+  }
+
+  if(m_additionalCodeRepositoriesHasBeenSet)
+  {
+   Array<JsonValue> additionalCodeRepositoriesJsonList(m_additionalCodeRepositories.size());
+   for(unsigned additionalCodeRepositoriesIndex = 0; additionalCodeRepositoriesIndex < additionalCodeRepositoriesJsonList.GetLength(); ++additionalCodeRepositoriesIndex)
+   {
+     additionalCodeRepositoriesJsonList[additionalCodeRepositoriesIndex].AsString(m_additionalCodeRepositories[additionalCodeRepositoriesIndex]);
+   }
+   payload.WithArray("AdditionalCodeRepositories", std::move(additionalCodeRepositoriesJsonList));
+
+  }
+
+  if(m_rootAccessHasBeenSet)
+  {
+   payload.WithString("RootAccess", RootAccessMapper::GetNameForRootAccess(m_rootAccess));
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateNotebookInstanceRequest::GetRequestSpecificHeaders() const

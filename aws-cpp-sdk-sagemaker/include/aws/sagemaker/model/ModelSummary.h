@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ModelSummary();
-    ModelSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ModelSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ModelSummary(Aws::Utils::Json::JsonView jsonValue);
+    ModelSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the model that you want a summary for.</p>
      */
     inline const Aws::String& GetModelName() const{ return m_modelName; }
+
+    /**
+     * <p>The name of the model that you want a summary for.</p>
+     */
+    inline bool ModelNameHasBeenSet() const { return m_modelNameHasBeenSet; }
 
     /**
      * <p>The name of the model that you want a summary for.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the model.</p>
      */
+    inline bool ModelArnHasBeenSet() const { return m_modelArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the model.</p>
+     */
     inline void SetModelArn(const Aws::String& value) { m_modelArnHasBeenSet = true; m_modelArn = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>A timestamp that indicates when the model was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationTime() const{ return m_creationTime; }
+
+    /**
+     * <p>A timestamp that indicates when the model was created.</p>
+     */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
 
     /**
      * <p>A timestamp that indicates when the model was created.</p>

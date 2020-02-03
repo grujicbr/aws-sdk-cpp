@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     RemovePermissionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,43 +51,49 @@ namespace Model
 
     /**
      * <p>The URL of the Amazon SQS queue from which permissions are removed.</p>
-     * <p>Queue URLs are case-sensitive.</p>
+     * <p>Queue URLs and names are case-sensitive.</p>
      */
     inline const Aws::String& GetQueueUrl() const{ return m_queueUrl; }
 
     /**
      * <p>The URL of the Amazon SQS queue from which permissions are removed.</p>
-     * <p>Queue URLs are case-sensitive.</p>
+     * <p>Queue URLs and names are case-sensitive.</p>
+     */
+    inline bool QueueUrlHasBeenSet() const { return m_queueUrlHasBeenSet; }
+
+    /**
+     * <p>The URL of the Amazon SQS queue from which permissions are removed.</p>
+     * <p>Queue URLs and names are case-sensitive.</p>
      */
     inline void SetQueueUrl(const Aws::String& value) { m_queueUrlHasBeenSet = true; m_queueUrl = value; }
 
     /**
      * <p>The URL of the Amazon SQS queue from which permissions are removed.</p>
-     * <p>Queue URLs are case-sensitive.</p>
+     * <p>Queue URLs and names are case-sensitive.</p>
      */
     inline void SetQueueUrl(Aws::String&& value) { m_queueUrlHasBeenSet = true; m_queueUrl = std::move(value); }
 
     /**
      * <p>The URL of the Amazon SQS queue from which permissions are removed.</p>
-     * <p>Queue URLs are case-sensitive.</p>
+     * <p>Queue URLs and names are case-sensitive.</p>
      */
     inline void SetQueueUrl(const char* value) { m_queueUrlHasBeenSet = true; m_queueUrl.assign(value); }
 
     /**
      * <p>The URL of the Amazon SQS queue from which permissions are removed.</p>
-     * <p>Queue URLs are case-sensitive.</p>
+     * <p>Queue URLs and names are case-sensitive.</p>
      */
     inline RemovePermissionRequest& WithQueueUrl(const Aws::String& value) { SetQueueUrl(value); return *this;}
 
     /**
      * <p>The URL of the Amazon SQS queue from which permissions are removed.</p>
-     * <p>Queue URLs are case-sensitive.</p>
+     * <p>Queue URLs and names are case-sensitive.</p>
      */
     inline RemovePermissionRequest& WithQueueUrl(Aws::String&& value) { SetQueueUrl(std::move(value)); return *this;}
 
     /**
      * <p>The URL of the Amazon SQS queue from which permissions are removed.</p>
-     * <p>Queue URLs are case-sensitive.</p>
+     * <p>Queue URLs and names are case-sensitive.</p>
      */
     inline RemovePermissionRequest& WithQueueUrl(const char* value) { SetQueueUrl(value); return *this;}
 
@@ -97,6 +103,12 @@ namespace Model
      * the <code> <a>AddPermission</a> </code> action.</p>
      */
     inline const Aws::String& GetLabel() const{ return m_label; }
+
+    /**
+     * <p>The identification of the permission to remove. This is the label added using
+     * the <code> <a>AddPermission</a> </code> action.</p>
+     */
+    inline bool LabelHasBeenSet() const { return m_labelHasBeenSet; }
 
     /**
      * <p>The identification of the permission to remove. This is the label added using

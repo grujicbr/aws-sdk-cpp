@@ -31,23 +31,25 @@ namespace Model
 CrawlerTargets::CrawlerTargets() : 
     m_s3TargetsHasBeenSet(false),
     m_jdbcTargetsHasBeenSet(false),
-    m_dynamoDBTargetsHasBeenSet(false)
+    m_dynamoDBTargetsHasBeenSet(false),
+    m_catalogTargetsHasBeenSet(false)
 {
 }
 
-CrawlerTargets::CrawlerTargets(const JsonValue& jsonValue) : 
+CrawlerTargets::CrawlerTargets(JsonView jsonValue) : 
     m_s3TargetsHasBeenSet(false),
     m_jdbcTargetsHasBeenSet(false),
-    m_dynamoDBTargetsHasBeenSet(false)
+    m_dynamoDBTargetsHasBeenSet(false),
+    m_catalogTargetsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-CrawlerTargets& CrawlerTargets::operator =(const JsonValue& jsonValue)
+CrawlerTargets& CrawlerTargets::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("S3Targets"))
   {
-    Array<JsonValue> s3TargetsJsonList = jsonValue.GetArray("S3Targets");
+    Array<JsonView> s3TargetsJsonList = jsonValue.GetArray("S3Targets");
     for(unsigned s3TargetsIndex = 0; s3TargetsIndex < s3TargetsJsonList.GetLength(); ++s3TargetsIndex)
     {
       m_s3Targets.push_back(s3TargetsJsonList[s3TargetsIndex].AsObject());
@@ -57,7 +59,7 @@ CrawlerTargets& CrawlerTargets::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("JdbcTargets"))
   {
-    Array<JsonValue> jdbcTargetsJsonList = jsonValue.GetArray("JdbcTargets");
+    Array<JsonView> jdbcTargetsJsonList = jsonValue.GetArray("JdbcTargets");
     for(unsigned jdbcTargetsIndex = 0; jdbcTargetsIndex < jdbcTargetsJsonList.GetLength(); ++jdbcTargetsIndex)
     {
       m_jdbcTargets.push_back(jdbcTargetsJsonList[jdbcTargetsIndex].AsObject());
@@ -67,12 +69,22 @@ CrawlerTargets& CrawlerTargets::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("DynamoDBTargets"))
   {
-    Array<JsonValue> dynamoDBTargetsJsonList = jsonValue.GetArray("DynamoDBTargets");
+    Array<JsonView> dynamoDBTargetsJsonList = jsonValue.GetArray("DynamoDBTargets");
     for(unsigned dynamoDBTargetsIndex = 0; dynamoDBTargetsIndex < dynamoDBTargetsJsonList.GetLength(); ++dynamoDBTargetsIndex)
     {
       m_dynamoDBTargets.push_back(dynamoDBTargetsJsonList[dynamoDBTargetsIndex].AsObject());
     }
     m_dynamoDBTargetsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CatalogTargets"))
+  {
+    Array<JsonView> catalogTargetsJsonList = jsonValue.GetArray("CatalogTargets");
+    for(unsigned catalogTargetsIndex = 0; catalogTargetsIndex < catalogTargetsJsonList.GetLength(); ++catalogTargetsIndex)
+    {
+      m_catalogTargets.push_back(catalogTargetsJsonList[catalogTargetsIndex].AsObject());
+    }
+    m_catalogTargetsHasBeenSet = true;
   }
 
   return *this;
@@ -112,6 +124,17 @@ JsonValue CrawlerTargets::Jsonize() const
      dynamoDBTargetsJsonList[dynamoDBTargetsIndex].AsObject(m_dynamoDBTargets[dynamoDBTargetsIndex].Jsonize());
    }
    payload.WithArray("DynamoDBTargets", std::move(dynamoDBTargetsJsonList));
+
+  }
+
+  if(m_catalogTargetsHasBeenSet)
+  {
+   Array<JsonValue> catalogTargetsJsonList(m_catalogTargets.size());
+   for(unsigned catalogTargetsIndex = 0; catalogTargetsIndex < catalogTargetsJsonList.GetLength(); ++catalogTargetsIndex)
+   {
+     catalogTargetsJsonList[catalogTargetsIndex].AsObject(m_catalogTargets[catalogTargetsIndex].Jsonize());
+   }
+   payload.WithArray("CatalogTargets", std::move(catalogTargetsJsonList));
 
   }
 

@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     DescribeImagesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,42 +47,47 @@ namespace Model
 
 
     /**
-     * <p>The names of the images to describe.</p>
+     * <p>The names of the public or private images to describe.</p>
      */
     inline const Aws::Vector<Aws::String>& GetNames() const{ return m_names; }
 
     /**
-     * <p>The names of the images to describe.</p>
+     * <p>The names of the public or private images to describe.</p>
+     */
+    inline bool NamesHasBeenSet() const { return m_namesHasBeenSet; }
+
+    /**
+     * <p>The names of the public or private images to describe.</p>
      */
     inline void SetNames(const Aws::Vector<Aws::String>& value) { m_namesHasBeenSet = true; m_names = value; }
 
     /**
-     * <p>The names of the images to describe.</p>
+     * <p>The names of the public or private images to describe.</p>
      */
     inline void SetNames(Aws::Vector<Aws::String>&& value) { m_namesHasBeenSet = true; m_names = std::move(value); }
 
     /**
-     * <p>The names of the images to describe.</p>
+     * <p>The names of the public or private images to describe.</p>
      */
     inline DescribeImagesRequest& WithNames(const Aws::Vector<Aws::String>& value) { SetNames(value); return *this;}
 
     /**
-     * <p>The names of the images to describe.</p>
+     * <p>The names of the public or private images to describe.</p>
      */
     inline DescribeImagesRequest& WithNames(Aws::Vector<Aws::String>&& value) { SetNames(std::move(value)); return *this;}
 
     /**
-     * <p>The names of the images to describe.</p>
+     * <p>The names of the public or private images to describe.</p>
      */
     inline DescribeImagesRequest& AddNames(const Aws::String& value) { m_namesHasBeenSet = true; m_names.push_back(value); return *this; }
 
     /**
-     * <p>The names of the images to describe.</p>
+     * <p>The names of the public or private images to describe.</p>
      */
     inline DescribeImagesRequest& AddNames(Aws::String&& value) { m_namesHasBeenSet = true; m_names.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>The names of the images to describe.</p>
+     * <p>The names of the public or private images to describe.</p>
      */
     inline DescribeImagesRequest& AddNames(const char* value) { m_namesHasBeenSet = true; m_names.push_back(value); return *this; }
 
@@ -91,6 +96,11 @@ namespace Model
      * <p>The ARNs of the public, private, and shared images to describe.</p>
      */
     inline const Aws::Vector<Aws::String>& GetArns() const{ return m_arns; }
+
+    /**
+     * <p>The ARNs of the public, private, and shared images to describe.</p>
+     */
+    inline bool ArnsHasBeenSet() const { return m_arnsHasBeenSet; }
 
     /**
      * <p>The ARNs of the public, private, and shared images to describe.</p>
@@ -136,6 +146,11 @@ namespace Model
     /**
      * <p>The type of image (public, private, or shared) to describe. </p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of image (public, private, or shared) to describe. </p>
+     */
     inline void SetType(const VisibilityType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -155,44 +170,50 @@ namespace Model
 
 
     /**
-     * <p>The pagination token to use to retrieve the next page of results. If this
-     * value is empty, only the first page is retrieved.</p>
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
-     * <p>The pagination token to use to retrieve the next page of results. If this
-     * value is empty, only the first page is retrieved.</p>
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
-     * <p>The pagination token to use to retrieve the next page of results. If this
-     * value is empty, only the first page is retrieved.</p>
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
     /**
-     * <p>The pagination token to use to retrieve the next page of results. If this
-     * value is empty, only the first page is retrieved.</p>
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
     /**
-     * <p>The pagination token to use to retrieve the next page of results. If this
-     * value is empty, only the first page is retrieved.</p>
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
      */
     inline DescribeImagesRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
-     * <p>The pagination token to use to retrieve the next page of results. If this
-     * value is empty, only the first page is retrieved.</p>
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
      */
     inline DescribeImagesRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
-     * <p>The pagination token to use to retrieve the next page of results. If this
-     * value is empty, only the first page is retrieved.</p>
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
      */
     inline DescribeImagesRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
@@ -201,6 +222,11 @@ namespace Model
      * <p>The maximum size of each page of results.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>The maximum size of each page of results.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>The maximum size of each page of results.</p>

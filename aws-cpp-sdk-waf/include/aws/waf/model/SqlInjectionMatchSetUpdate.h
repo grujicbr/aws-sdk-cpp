@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     SqlInjectionMatchSetUpdate();
-    SqlInjectionMatchSetUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    SqlInjectionMatchSetUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SqlInjectionMatchSetUpdate(Aws::Utils::Json::JsonView jsonValue);
+    SqlInjectionMatchSetUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,14 @@ namespace Model
      * <code>SqlInjectionMatchSet</code>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specify <code>INSERT</code> to add a <a>SqlInjectionMatchSetUpdate</a> to a
+     * <a>SqlInjectionMatchSet</a>. Use <code>DELETE</code> to remove a
+     * <code>SqlInjectionMatchSetUpdate</code> from a
+     * <code>SqlInjectionMatchSet</code>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specify <code>INSERT</code> to add a <a>SqlInjectionMatchSetUpdate</a> to a
@@ -97,6 +106,13 @@ namespace Model
      * name of the header.</p>
      */
     inline const SqlInjectionMatchTuple& GetSqlInjectionMatchTuple() const{ return m_sqlInjectionMatchTuple; }
+
+    /**
+     * <p>Specifies the part of a web request that you want AWS WAF to inspect for
+     * snippets of malicious SQL code and, if you want AWS WAF to inspect a header, the
+     * name of the header.</p>
+     */
+    inline bool SqlInjectionMatchTupleHasBeenSet() const { return m_sqlInjectionMatchTupleHasBeenSet; }
 
     /**
      * <p>Specifies the part of a web request that you want AWS WAF to inspect for

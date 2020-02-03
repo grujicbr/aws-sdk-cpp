@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -44,13 +45,16 @@ namespace Model
   {
   public:
     LogPublishingOption();
-    LogPublishingOption(const Aws::Utils::Json::JsonValue& jsonValue);
-    LogPublishingOption& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LogPublishingOption(Aws::Utils::Json::JsonView jsonValue);
+    LogPublishingOption& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Aws::String& GetCloudWatchLogsLogGroupArn() const{ return m_cloudWatchLogsLogGroupArn; }
+
+    
+    inline bool CloudWatchLogsLogGroupArnHasBeenSet() const { return m_cloudWatchLogsLogGroupArnHasBeenSet; }
 
     
     inline void SetCloudWatchLogsLogGroupArn(const Aws::String& value) { m_cloudWatchLogsLogGroupArnHasBeenSet = true; m_cloudWatchLogsLogGroupArn = value; }
@@ -75,6 +79,11 @@ namespace Model
      * <p> Specifies whether given log publishing option is enabled or not.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p> Specifies whether given log publishing option is enabled or not.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p> Specifies whether given log publishing option is enabled or not.</p>

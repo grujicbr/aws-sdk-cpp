@@ -29,7 +29,11 @@ CreateStorediSCSIVolumeRequest::CreateStorediSCSIVolumeRequest() :
     m_preserveExistingData(false),
     m_preserveExistingDataHasBeenSet(false),
     m_targetNameHasBeenSet(false),
-    m_networkInterfaceIdHasBeenSet(false)
+    m_networkInterfaceIdHasBeenSet(false),
+    m_kMSEncrypted(false),
+    m_kMSEncryptedHasBeenSet(false),
+    m_kMSKeyHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -73,7 +77,30 @@ Aws::String CreateStorediSCSIVolumeRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_kMSEncryptedHasBeenSet)
+  {
+   payload.WithBool("KMSEncrypted", m_kMSEncrypted);
+
+  }
+
+  if(m_kMSKeyHasBeenSet)
+  {
+   payload.WithString("KMSKey", m_kMSKey);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateStorediSCSIVolumeRequest::GetRequestSpecificHeaders() const

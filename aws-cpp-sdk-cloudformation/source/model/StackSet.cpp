@@ -42,7 +42,8 @@ StackSet::StackSet() :
     m_tagsHasBeenSet(false),
     m_stackSetARNHasBeenSet(false),
     m_administrationRoleARNHasBeenSet(false),
-    m_executionRoleNameHasBeenSet(false)
+    m_executionRoleNameHasBeenSet(false),
+    m_stackSetDriftDetectionDetailsHasBeenSet(false)
 {
 }
 
@@ -58,7 +59,8 @@ StackSet::StackSet(const XmlNode& xmlNode) :
     m_tagsHasBeenSet(false),
     m_stackSetARNHasBeenSet(false),
     m_administrationRoleARNHasBeenSet(false),
-    m_executionRoleNameHasBeenSet(false)
+    m_executionRoleNameHasBeenSet(false),
+    m_stackSetDriftDetectionDetailsHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -72,31 +74,31 @@ StackSet& StackSet::operator =(const XmlNode& xmlNode)
     XmlNode stackSetNameNode = resultNode.FirstChild("StackSetName");
     if(!stackSetNameNode.IsNull())
     {
-      m_stackSetName = StringUtils::Trim(stackSetNameNode.GetText().c_str());
+      m_stackSetName = Aws::Utils::Xml::DecodeEscapedXmlText(stackSetNameNode.GetText());
       m_stackSetNameHasBeenSet = true;
     }
     XmlNode stackSetIdNode = resultNode.FirstChild("StackSetId");
     if(!stackSetIdNode.IsNull())
     {
-      m_stackSetId = StringUtils::Trim(stackSetIdNode.GetText().c_str());
+      m_stackSetId = Aws::Utils::Xml::DecodeEscapedXmlText(stackSetIdNode.GetText());
       m_stackSetIdHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = StackSetStatusMapper::GetStackSetStatusForName(StringUtils::Trim(statusNode.GetText().c_str()).c_str());
+      m_status = StackSetStatusMapper::GetStackSetStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText()).c_str()).c_str());
       m_statusHasBeenSet = true;
     }
     XmlNode templateBodyNode = resultNode.FirstChild("TemplateBody");
     if(!templateBodyNode.IsNull())
     {
-      m_templateBody = StringUtils::Trim(templateBodyNode.GetText().c_str());
+      m_templateBody = Aws::Utils::Xml::DecodeEscapedXmlText(templateBodyNode.GetText());
       m_templateBodyHasBeenSet = true;
     }
     XmlNode parametersNode = resultNode.FirstChild("Parameters");
@@ -138,20 +140,26 @@ StackSet& StackSet::operator =(const XmlNode& xmlNode)
     XmlNode stackSetARNNode = resultNode.FirstChild("StackSetARN");
     if(!stackSetARNNode.IsNull())
     {
-      m_stackSetARN = StringUtils::Trim(stackSetARNNode.GetText().c_str());
+      m_stackSetARN = Aws::Utils::Xml::DecodeEscapedXmlText(stackSetARNNode.GetText());
       m_stackSetARNHasBeenSet = true;
     }
     XmlNode administrationRoleARNNode = resultNode.FirstChild("AdministrationRoleARN");
     if(!administrationRoleARNNode.IsNull())
     {
-      m_administrationRoleARN = StringUtils::Trim(administrationRoleARNNode.GetText().c_str());
+      m_administrationRoleARN = Aws::Utils::Xml::DecodeEscapedXmlText(administrationRoleARNNode.GetText());
       m_administrationRoleARNHasBeenSet = true;
     }
     XmlNode executionRoleNameNode = resultNode.FirstChild("ExecutionRoleName");
     if(!executionRoleNameNode.IsNull())
     {
-      m_executionRoleName = StringUtils::Trim(executionRoleNameNode.GetText().c_str());
+      m_executionRoleName = Aws::Utils::Xml::DecodeEscapedXmlText(executionRoleNameNode.GetText());
       m_executionRoleNameHasBeenSet = true;
+    }
+    XmlNode stackSetDriftDetectionDetailsNode = resultNode.FirstChild("StackSetDriftDetectionDetails");
+    if(!stackSetDriftDetectionDetailsNode.IsNull())
+    {
+      m_stackSetDriftDetectionDetails = stackSetDriftDetectionDetailsNode;
+      m_stackSetDriftDetectionDetailsHasBeenSet = true;
     }
   }
 
@@ -231,6 +239,13 @@ void StackSet::OutputToStream(Aws::OStream& oStream, const char* location, unsig
       oStream << location << index << locationValue << ".ExecutionRoleName=" << StringUtils::URLEncode(m_executionRoleName.c_str()) << "&";
   }
 
+  if(m_stackSetDriftDetectionDetailsHasBeenSet)
+  {
+      Aws::StringStream stackSetDriftDetectionDetailsLocationAndMemberSs;
+      stackSetDriftDetectionDetailsLocationAndMemberSs << location << index << locationValue << ".StackSetDriftDetectionDetails";
+      m_stackSetDriftDetectionDetails.OutputToStream(oStream, stackSetDriftDetectionDetailsLocationAndMemberSs.str().c_str());
+  }
+
 }
 
 void StackSet::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -294,6 +309,12 @@ void StackSet::OutputToStream(Aws::OStream& oStream, const char* location) const
   if(m_executionRoleNameHasBeenSet)
   {
       oStream << location << ".ExecutionRoleName=" << StringUtils::URLEncode(m_executionRoleName.c_str()) << "&";
+  }
+  if(m_stackSetDriftDetectionDetailsHasBeenSet)
+  {
+      Aws::String stackSetDriftDetectionDetailsLocationAndMember(location);
+      stackSetDriftDetectionDetailsLocationAndMember += ".StackSetDriftDetectionDetails";
+      m_stackSetDriftDetectionDetails.OutputToStream(oStream, stackSetDriftDetectionDetailsLocationAndMember.c_str());
   }
 }
 

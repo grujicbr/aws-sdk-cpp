@@ -18,6 +18,7 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/DateTime.h>
 #include <aws/ssm/model/PatchOperationType.h>
+#include <aws/ssm/model/RebootOption.h>
 #include <utility>
 
 namespace Aws
@@ -27,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -46,8 +48,8 @@ namespace Model
   {
   public:
     InstancePatchState();
-    InstancePatchState(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstancePatchState& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstancePatchState(Aws::Utils::Json::JsonView jsonValue);
+    InstancePatchState& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +58,12 @@ namespace Model
      * was collected for.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The ID of the managed instance the high-level patch compliance information
+     * was collected for.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The ID of the managed instance the high-level patch compliance information
@@ -102,6 +110,11 @@ namespace Model
     /**
      * <p>The name of the patch group the managed instance belongs to.</p>
      */
+    inline bool PatchGroupHasBeenSet() const { return m_patchGroupHasBeenSet; }
+
+    /**
+     * <p>The name of the patch group the managed instance belongs to.</p>
+     */
     inline void SetPatchGroup(const Aws::String& value) { m_patchGroupHasBeenSet = true; m_patchGroup = value; }
 
     /**
@@ -134,6 +147,11 @@ namespace Model
      * <p>The ID of the patch baseline used to patch the instance.</p>
      */
     inline const Aws::String& GetBaselineId() const{ return m_baselineId; }
+
+    /**
+     * <p>The ID of the patch baseline used to patch the instance.</p>
+     */
+    inline bool BaselineIdHasBeenSet() const { return m_baselineIdHasBeenSet; }
 
     /**
      * <p>The ID of the patch baseline used to patch the instance.</p>
@@ -176,6 +194,12 @@ namespace Model
      * <p>The ID of the patch baseline snapshot used during the patching operation when
      * this compliance data was collected.</p>
      */
+    inline bool SnapshotIdHasBeenSet() const { return m_snapshotIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the patch baseline snapshot used during the patching operation when
+     * this compliance data was collected.</p>
+     */
     inline void SetSnapshotId(const Aws::String& value) { m_snapshotIdHasBeenSet = true; m_snapshotId = value; }
 
     /**
@@ -210,10 +234,121 @@ namespace Model
 
 
     /**
+     * <p>An https URL or an Amazon S3 path-style URL to a list of patches to be
+     * installed. This patch installation list, which you maintain in an Amazon S3
+     * bucket in YAML format and specify in the SSM document
+     * <code>AWS-RunPatchBaseline</code>, overrides the patches specified by the
+     * default patch baseline.</p> <p>For more information about the
+     * <code>InstallOverrideList</code> parameter, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html">About
+     * the SSM Document AWS-RunPatchBaseline</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline const Aws::String& GetInstallOverrideList() const{ return m_installOverrideList; }
+
+    /**
+     * <p>An https URL or an Amazon S3 path-style URL to a list of patches to be
+     * installed. This patch installation list, which you maintain in an Amazon S3
+     * bucket in YAML format and specify in the SSM document
+     * <code>AWS-RunPatchBaseline</code>, overrides the patches specified by the
+     * default patch baseline.</p> <p>For more information about the
+     * <code>InstallOverrideList</code> parameter, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html">About
+     * the SSM Document AWS-RunPatchBaseline</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline bool InstallOverrideListHasBeenSet() const { return m_installOverrideListHasBeenSet; }
+
+    /**
+     * <p>An https URL or an Amazon S3 path-style URL to a list of patches to be
+     * installed. This patch installation list, which you maintain in an Amazon S3
+     * bucket in YAML format and specify in the SSM document
+     * <code>AWS-RunPatchBaseline</code>, overrides the patches specified by the
+     * default patch baseline.</p> <p>For more information about the
+     * <code>InstallOverrideList</code> parameter, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html">About
+     * the SSM Document AWS-RunPatchBaseline</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline void SetInstallOverrideList(const Aws::String& value) { m_installOverrideListHasBeenSet = true; m_installOverrideList = value; }
+
+    /**
+     * <p>An https URL or an Amazon S3 path-style URL to a list of patches to be
+     * installed. This patch installation list, which you maintain in an Amazon S3
+     * bucket in YAML format and specify in the SSM document
+     * <code>AWS-RunPatchBaseline</code>, overrides the patches specified by the
+     * default patch baseline.</p> <p>For more information about the
+     * <code>InstallOverrideList</code> parameter, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html">About
+     * the SSM Document AWS-RunPatchBaseline</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline void SetInstallOverrideList(Aws::String&& value) { m_installOverrideListHasBeenSet = true; m_installOverrideList = std::move(value); }
+
+    /**
+     * <p>An https URL or an Amazon S3 path-style URL to a list of patches to be
+     * installed. This patch installation list, which you maintain in an Amazon S3
+     * bucket in YAML format and specify in the SSM document
+     * <code>AWS-RunPatchBaseline</code>, overrides the patches specified by the
+     * default patch baseline.</p> <p>For more information about the
+     * <code>InstallOverrideList</code> parameter, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html">About
+     * the SSM Document AWS-RunPatchBaseline</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline void SetInstallOverrideList(const char* value) { m_installOverrideListHasBeenSet = true; m_installOverrideList.assign(value); }
+
+    /**
+     * <p>An https URL or an Amazon S3 path-style URL to a list of patches to be
+     * installed. This patch installation list, which you maintain in an Amazon S3
+     * bucket in YAML format and specify in the SSM document
+     * <code>AWS-RunPatchBaseline</code>, overrides the patches specified by the
+     * default patch baseline.</p> <p>For more information about the
+     * <code>InstallOverrideList</code> parameter, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html">About
+     * the SSM Document AWS-RunPatchBaseline</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline InstancePatchState& WithInstallOverrideList(const Aws::String& value) { SetInstallOverrideList(value); return *this;}
+
+    /**
+     * <p>An https URL or an Amazon S3 path-style URL to a list of patches to be
+     * installed. This patch installation list, which you maintain in an Amazon S3
+     * bucket in YAML format and specify in the SSM document
+     * <code>AWS-RunPatchBaseline</code>, overrides the patches specified by the
+     * default patch baseline.</p> <p>For more information about the
+     * <code>InstallOverrideList</code> parameter, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html">About
+     * the SSM Document AWS-RunPatchBaseline</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline InstancePatchState& WithInstallOverrideList(Aws::String&& value) { SetInstallOverrideList(std::move(value)); return *this;}
+
+    /**
+     * <p>An https URL or an Amazon S3 path-style URL to a list of patches to be
+     * installed. This patch installation list, which you maintain in an Amazon S3
+     * bucket in YAML format and specify in the SSM document
+     * <code>AWS-RunPatchBaseline</code>, overrides the patches specified by the
+     * default patch baseline.</p> <p>For more information about the
+     * <code>InstallOverrideList</code> parameter, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html">About
+     * the SSM Document AWS-RunPatchBaseline</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline InstancePatchState& WithInstallOverrideList(const char* value) { SetInstallOverrideList(value); return *this;}
+
+
+    /**
      * <p>Placeholder information. This field will always be empty in the current
      * release of the service.</p>
      */
     inline const Aws::String& GetOwnerInformation() const{ return m_ownerInformation; }
+
+    /**
+     * <p>Placeholder information. This field will always be empty in the current
+     * release of the service.</p>
+     */
+    inline bool OwnerInformationHasBeenSet() const { return m_ownerInformationHasBeenSet; }
 
     /**
      * <p>Placeholder information. This field will always be empty in the current
@@ -262,6 +397,12 @@ namespace Model
      * <p>The number of patches from the patch baseline that are installed on the
      * instance.</p>
      */
+    inline bool InstalledCountHasBeenSet() const { return m_installedCountHasBeenSet; }
+
+    /**
+     * <p>The number of patches from the patch baseline that are installed on the
+     * instance.</p>
+     */
     inline void SetInstalledCount(int value) { m_installedCountHasBeenSet = true; m_installedCount = value; }
 
     /**
@@ -281,6 +422,12 @@ namespace Model
      * <p>The number of patches not specified in the patch baseline that are installed
      * on the instance.</p>
      */
+    inline bool InstalledOtherCountHasBeenSet() const { return m_installedOtherCountHasBeenSet; }
+
+    /**
+     * <p>The number of patches not specified in the patch baseline that are installed
+     * on the instance.</p>
+     */
     inline void SetInstalledOtherCount(int value) { m_installedOtherCountHasBeenSet = true; m_installedOtherCount = value; }
 
     /**
@@ -291,10 +438,78 @@ namespace Model
 
 
     /**
+     * <p>The number of patches installed by Patch Manager since the last time the
+     * instance was rebooted.</p>
+     */
+    inline int GetInstalledPendingRebootCount() const{ return m_installedPendingRebootCount; }
+
+    /**
+     * <p>The number of patches installed by Patch Manager since the last time the
+     * instance was rebooted.</p>
+     */
+    inline bool InstalledPendingRebootCountHasBeenSet() const { return m_installedPendingRebootCountHasBeenSet; }
+
+    /**
+     * <p>The number of patches installed by Patch Manager since the last time the
+     * instance was rebooted.</p>
+     */
+    inline void SetInstalledPendingRebootCount(int value) { m_installedPendingRebootCountHasBeenSet = true; m_installedPendingRebootCount = value; }
+
+    /**
+     * <p>The number of patches installed by Patch Manager since the last time the
+     * instance was rebooted.</p>
+     */
+    inline InstancePatchState& WithInstalledPendingRebootCount(int value) { SetInstalledPendingRebootCount(value); return *this;}
+
+
+    /**
+     * <p>The number of instances with patches installed that are specified in a
+     * RejectedPatches list. Patches with a status of <i>InstalledRejected</i> were
+     * typically installed before they were added to a RejectedPatches list.</p> <note>
+     * <p>If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the
+     * value of InstalledRejectedCount will always be 0 (zero).</p> </note>
+     */
+    inline int GetInstalledRejectedCount() const{ return m_installedRejectedCount; }
+
+    /**
+     * <p>The number of instances with patches installed that are specified in a
+     * RejectedPatches list. Patches with a status of <i>InstalledRejected</i> were
+     * typically installed before they were added to a RejectedPatches list.</p> <note>
+     * <p>If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the
+     * value of InstalledRejectedCount will always be 0 (zero).</p> </note>
+     */
+    inline bool InstalledRejectedCountHasBeenSet() const { return m_installedRejectedCountHasBeenSet; }
+
+    /**
+     * <p>The number of instances with patches installed that are specified in a
+     * RejectedPatches list. Patches with a status of <i>InstalledRejected</i> were
+     * typically installed before they were added to a RejectedPatches list.</p> <note>
+     * <p>If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the
+     * value of InstalledRejectedCount will always be 0 (zero).</p> </note>
+     */
+    inline void SetInstalledRejectedCount(int value) { m_installedRejectedCountHasBeenSet = true; m_installedRejectedCount = value; }
+
+    /**
+     * <p>The number of instances with patches installed that are specified in a
+     * RejectedPatches list. Patches with a status of <i>InstalledRejected</i> were
+     * typically installed before they were added to a RejectedPatches list.</p> <note>
+     * <p>If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the
+     * value of InstalledRejectedCount will always be 0 (zero).</p> </note>
+     */
+    inline InstancePatchState& WithInstalledRejectedCount(int value) { SetInstalledRejectedCount(value); return *this;}
+
+
+    /**
      * <p>The number of patches from the patch baseline that are applicable for the
      * instance but aren't currently installed.</p>
      */
     inline int GetMissingCount() const{ return m_missingCount; }
+
+    /**
+     * <p>The number of patches from the patch baseline that are applicable for the
+     * instance but aren't currently installed.</p>
+     */
+    inline bool MissingCountHasBeenSet() const { return m_missingCountHasBeenSet; }
 
     /**
      * <p>The number of patches from the patch baseline that are applicable for the
@@ -319,6 +534,12 @@ namespace Model
      * <p>The number of patches from the patch baseline that were attempted to be
      * installed during the last patching operation, but failed to install.</p>
      */
+    inline bool FailedCountHasBeenSet() const { return m_failedCountHasBeenSet; }
+
+    /**
+     * <p>The number of patches from the patch baseline that were attempted to be
+     * installed during the last patching operation, but failed to install.</p>
+     */
     inline void SetFailedCount(int value) { m_failedCountHasBeenSet = true; m_failedCount = value; }
 
     /**
@@ -329,20 +550,63 @@ namespace Model
 
 
     /**
+     * <p>The number of patches beyond the supported limit of
+     * <code>NotApplicableCount</code> that are not reported by name to Systems Manager
+     * Inventory.</p>
+     */
+    inline int GetUnreportedNotApplicableCount() const{ return m_unreportedNotApplicableCount; }
+
+    /**
+     * <p>The number of patches beyond the supported limit of
+     * <code>NotApplicableCount</code> that are not reported by name to Systems Manager
+     * Inventory.</p>
+     */
+    inline bool UnreportedNotApplicableCountHasBeenSet() const { return m_unreportedNotApplicableCountHasBeenSet; }
+
+    /**
+     * <p>The number of patches beyond the supported limit of
+     * <code>NotApplicableCount</code> that are not reported by name to Systems Manager
+     * Inventory.</p>
+     */
+    inline void SetUnreportedNotApplicableCount(int value) { m_unreportedNotApplicableCountHasBeenSet = true; m_unreportedNotApplicableCount = value; }
+
+    /**
+     * <p>The number of patches beyond the supported limit of
+     * <code>NotApplicableCount</code> that are not reported by name to Systems Manager
+     * Inventory.</p>
+     */
+    inline InstancePatchState& WithUnreportedNotApplicableCount(int value) { SetUnreportedNotApplicableCount(value); return *this;}
+
+
+    /**
      * <p>The number of patches from the patch baseline that aren't applicable for the
-     * instance and hence aren't installed on the instance.</p>
+     * instance and therefore aren't installed on the instance. This number may be
+     * truncated if the list of patch names is very large. The number of patches beyond
+     * this limit are reported in <code>UnreportedNotApplicableCount</code>.</p>
      */
     inline int GetNotApplicableCount() const{ return m_notApplicableCount; }
 
     /**
      * <p>The number of patches from the patch baseline that aren't applicable for the
-     * instance and hence aren't installed on the instance.</p>
+     * instance and therefore aren't installed on the instance. This number may be
+     * truncated if the list of patch names is very large. The number of patches beyond
+     * this limit are reported in <code>UnreportedNotApplicableCount</code>.</p>
+     */
+    inline bool NotApplicableCountHasBeenSet() const { return m_notApplicableCountHasBeenSet; }
+
+    /**
+     * <p>The number of patches from the patch baseline that aren't applicable for the
+     * instance and therefore aren't installed on the instance. This number may be
+     * truncated if the list of patch names is very large. The number of patches beyond
+     * this limit are reported in <code>UnreportedNotApplicableCount</code>.</p>
      */
     inline void SetNotApplicableCount(int value) { m_notApplicableCountHasBeenSet = true; m_notApplicableCount = value; }
 
     /**
      * <p>The number of patches from the patch baseline that aren't applicable for the
-     * instance and hence aren't installed on the instance.</p>
+     * instance and therefore aren't installed on the instance. This number may be
+     * truncated if the list of patch names is very large. The number of patches beyond
+     * this limit are reported in <code>UnreportedNotApplicableCount</code>.</p>
      */
     inline InstancePatchState& WithNotApplicableCount(int value) { SetNotApplicableCount(value); return *this;}
 
@@ -351,6 +615,11 @@ namespace Model
      * <p>The time the most recent patching operation was started on the instance.</p>
      */
     inline const Aws::Utils::DateTime& GetOperationStartTime() const{ return m_operationStartTime; }
+
+    /**
+     * <p>The time the most recent patching operation was started on the instance.</p>
+     */
+    inline bool OperationStartTimeHasBeenSet() const { return m_operationStartTimeHasBeenSet; }
 
     /**
      * <p>The time the most recent patching operation was started on the instance.</p>
@@ -377,6 +646,11 @@ namespace Model
      * <p>The time the most recent patching operation completed on the instance.</p>
      */
     inline const Aws::Utils::DateTime& GetOperationEndTime() const{ return m_operationEndTime; }
+
+    /**
+     * <p>The time the most recent patching operation completed on the instance.</p>
+     */
+    inline bool OperationEndTimeHasBeenSet() const { return m_operationEndTimeHasBeenSet; }
 
     /**
      * <p>The time the most recent patching operation completed on the instance.</p>
@@ -409,6 +683,12 @@ namespace Model
      * <p>The type of patching operation that was performed: SCAN (assess patch
      * compliance state) or INSTALL (install missing patches).</p>
      */
+    inline bool OperationHasBeenSet() const { return m_operationHasBeenSet; }
+
+    /**
+     * <p>The type of patching operation that was performed: SCAN (assess patch
+     * compliance state) or INSTALL (install missing patches).</p>
+     */
     inline void SetOperation(const PatchOperationType& value) { m_operationHasBeenSet = true; m_operation = value; }
 
     /**
@@ -429,6 +709,128 @@ namespace Model
      */
     inline InstancePatchState& WithOperation(PatchOperationType&& value) { SetOperation(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The time of the last attempt to patch the instance with <code>NoReboot</code>
+     * specified as the reboot option.</p>
+     */
+    inline const Aws::Utils::DateTime& GetLastNoRebootInstallOperationTime() const{ return m_lastNoRebootInstallOperationTime; }
+
+    /**
+     * <p>The time of the last attempt to patch the instance with <code>NoReboot</code>
+     * specified as the reboot option.</p>
+     */
+    inline bool LastNoRebootInstallOperationTimeHasBeenSet() const { return m_lastNoRebootInstallOperationTimeHasBeenSet; }
+
+    /**
+     * <p>The time of the last attempt to patch the instance with <code>NoReboot</code>
+     * specified as the reboot option.</p>
+     */
+    inline void SetLastNoRebootInstallOperationTime(const Aws::Utils::DateTime& value) { m_lastNoRebootInstallOperationTimeHasBeenSet = true; m_lastNoRebootInstallOperationTime = value; }
+
+    /**
+     * <p>The time of the last attempt to patch the instance with <code>NoReboot</code>
+     * specified as the reboot option.</p>
+     */
+    inline void SetLastNoRebootInstallOperationTime(Aws::Utils::DateTime&& value) { m_lastNoRebootInstallOperationTimeHasBeenSet = true; m_lastNoRebootInstallOperationTime = std::move(value); }
+
+    /**
+     * <p>The time of the last attempt to patch the instance with <code>NoReboot</code>
+     * specified as the reboot option.</p>
+     */
+    inline InstancePatchState& WithLastNoRebootInstallOperationTime(const Aws::Utils::DateTime& value) { SetLastNoRebootInstallOperationTime(value); return *this;}
+
+    /**
+     * <p>The time of the last attempt to patch the instance with <code>NoReboot</code>
+     * specified as the reboot option.</p>
+     */
+    inline InstancePatchState& WithLastNoRebootInstallOperationTime(Aws::Utils::DateTime&& value) { SetLastNoRebootInstallOperationTime(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Indicates the reboot option specified in the patch baseline.</p> <note>
+     * <p>Reboot options apply to <code>Install</code> operations only. Reboots are not
+     * attempted for Patch Manager <code>Scan</code> operations.</p> </note> <ul> <li>
+     * <p> <b>RebootIfNeeded</b>: Patch Manager tries to reboot the instance if it
+     * installed any patches, or if any patches are detected with a status of
+     * <code>InstalledPendingReboot</code>.</p> </li> <li> <p> <b>NoReboot</b>: Patch
+     * Manager attempts to install missing packages without trying to reboot the
+     * system. Patches installed with this option are assigned a status of
+     * <code>InstalledPendingReboot</code>. These patches might not be in effect until
+     * a reboot is performed.</p> </li> </ul>
+     */
+    inline const RebootOption& GetRebootOption() const{ return m_rebootOption; }
+
+    /**
+     * <p>Indicates the reboot option specified in the patch baseline.</p> <note>
+     * <p>Reboot options apply to <code>Install</code> operations only. Reboots are not
+     * attempted for Patch Manager <code>Scan</code> operations.</p> </note> <ul> <li>
+     * <p> <b>RebootIfNeeded</b>: Patch Manager tries to reboot the instance if it
+     * installed any patches, or if any patches are detected with a status of
+     * <code>InstalledPendingReboot</code>.</p> </li> <li> <p> <b>NoReboot</b>: Patch
+     * Manager attempts to install missing packages without trying to reboot the
+     * system. Patches installed with this option are assigned a status of
+     * <code>InstalledPendingReboot</code>. These patches might not be in effect until
+     * a reboot is performed.</p> </li> </ul>
+     */
+    inline bool RebootOptionHasBeenSet() const { return m_rebootOptionHasBeenSet; }
+
+    /**
+     * <p>Indicates the reboot option specified in the patch baseline.</p> <note>
+     * <p>Reboot options apply to <code>Install</code> operations only. Reboots are not
+     * attempted for Patch Manager <code>Scan</code> operations.</p> </note> <ul> <li>
+     * <p> <b>RebootIfNeeded</b>: Patch Manager tries to reboot the instance if it
+     * installed any patches, or if any patches are detected with a status of
+     * <code>InstalledPendingReboot</code>.</p> </li> <li> <p> <b>NoReboot</b>: Patch
+     * Manager attempts to install missing packages without trying to reboot the
+     * system. Patches installed with this option are assigned a status of
+     * <code>InstalledPendingReboot</code>. These patches might not be in effect until
+     * a reboot is performed.</p> </li> </ul>
+     */
+    inline void SetRebootOption(const RebootOption& value) { m_rebootOptionHasBeenSet = true; m_rebootOption = value; }
+
+    /**
+     * <p>Indicates the reboot option specified in the patch baseline.</p> <note>
+     * <p>Reboot options apply to <code>Install</code> operations only. Reboots are not
+     * attempted for Patch Manager <code>Scan</code> operations.</p> </note> <ul> <li>
+     * <p> <b>RebootIfNeeded</b>: Patch Manager tries to reboot the instance if it
+     * installed any patches, or if any patches are detected with a status of
+     * <code>InstalledPendingReboot</code>.</p> </li> <li> <p> <b>NoReboot</b>: Patch
+     * Manager attempts to install missing packages without trying to reboot the
+     * system. Patches installed with this option are assigned a status of
+     * <code>InstalledPendingReboot</code>. These patches might not be in effect until
+     * a reboot is performed.</p> </li> </ul>
+     */
+    inline void SetRebootOption(RebootOption&& value) { m_rebootOptionHasBeenSet = true; m_rebootOption = std::move(value); }
+
+    /**
+     * <p>Indicates the reboot option specified in the patch baseline.</p> <note>
+     * <p>Reboot options apply to <code>Install</code> operations only. Reboots are not
+     * attempted for Patch Manager <code>Scan</code> operations.</p> </note> <ul> <li>
+     * <p> <b>RebootIfNeeded</b>: Patch Manager tries to reboot the instance if it
+     * installed any patches, or if any patches are detected with a status of
+     * <code>InstalledPendingReboot</code>.</p> </li> <li> <p> <b>NoReboot</b>: Patch
+     * Manager attempts to install missing packages without trying to reboot the
+     * system. Patches installed with this option are assigned a status of
+     * <code>InstalledPendingReboot</code>. These patches might not be in effect until
+     * a reboot is performed.</p> </li> </ul>
+     */
+    inline InstancePatchState& WithRebootOption(const RebootOption& value) { SetRebootOption(value); return *this;}
+
+    /**
+     * <p>Indicates the reboot option specified in the patch baseline.</p> <note>
+     * <p>Reboot options apply to <code>Install</code> operations only. Reboots are not
+     * attempted for Patch Manager <code>Scan</code> operations.</p> </note> <ul> <li>
+     * <p> <b>RebootIfNeeded</b>: Patch Manager tries to reboot the instance if it
+     * installed any patches, or if any patches are detected with a status of
+     * <code>InstalledPendingReboot</code>.</p> </li> <li> <p> <b>NoReboot</b>: Patch
+     * Manager attempts to install missing packages without trying to reboot the
+     * system. Patches installed with this option are assigned a status of
+     * <code>InstalledPendingReboot</code>. These patches might not be in effect until
+     * a reboot is performed.</p> </li> </ul>
+     */
+    inline InstancePatchState& WithRebootOption(RebootOption&& value) { SetRebootOption(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_instanceId;
@@ -443,6 +845,9 @@ namespace Model
     Aws::String m_snapshotId;
     bool m_snapshotIdHasBeenSet;
 
+    Aws::String m_installOverrideList;
+    bool m_installOverrideListHasBeenSet;
+
     Aws::String m_ownerInformation;
     bool m_ownerInformationHasBeenSet;
 
@@ -452,11 +857,20 @@ namespace Model
     int m_installedOtherCount;
     bool m_installedOtherCountHasBeenSet;
 
+    int m_installedPendingRebootCount;
+    bool m_installedPendingRebootCountHasBeenSet;
+
+    int m_installedRejectedCount;
+    bool m_installedRejectedCountHasBeenSet;
+
     int m_missingCount;
     bool m_missingCountHasBeenSet;
 
     int m_failedCount;
     bool m_failedCountHasBeenSet;
+
+    int m_unreportedNotApplicableCount;
+    bool m_unreportedNotApplicableCountHasBeenSet;
 
     int m_notApplicableCount;
     bool m_notApplicableCountHasBeenSet;
@@ -469,6 +883,12 @@ namespace Model
 
     PatchOperationType m_operation;
     bool m_operationHasBeenSet;
+
+    Aws::Utils::DateTime m_lastNoRebootInstallOperationTime;
+    bool m_lastNoRebootInstallOperationTimeHasBeenSet;
+
+    RebootOption m_rebootOption;
+    bool m_rebootOptionHasBeenSet;
   };
 
 } // namespace Model

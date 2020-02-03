@@ -34,8 +34,8 @@ namespace Model
 {
 
   /**
-   * <p>Describes the credit option for CPU usage of a T2 instance.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>Describes the credit option for CPU usage of a burstable performance
+   * instance.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceCreditSpecificationRequest">AWS
    * API Reference</a></p>
    */
@@ -54,6 +54,11 @@ namespace Model
      * <p>The ID of the instance.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The ID of the instance.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The ID of the instance.</p>
@@ -91,6 +96,12 @@ namespace Model
      * <code>standard</code> and <code>unlimited</code>.</p>
      */
     inline const Aws::String& GetCpuCredits() const{ return m_cpuCredits; }
+
+    /**
+     * <p>The credit option for CPU usage of the instance. Valid values are
+     * <code>standard</code> and <code>unlimited</code>.</p>
+     */
+    inline bool CpuCreditsHasBeenSet() const { return m_cpuCreditsHasBeenSet; }
 
     /**
      * <p>The credit option for CPU usage of the instance. Valid values are

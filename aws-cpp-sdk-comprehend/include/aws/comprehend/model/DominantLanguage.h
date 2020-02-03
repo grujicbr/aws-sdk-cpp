@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Comprehend
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DominantLanguage();
-    DominantLanguage(const Aws::Utils::Json::JsonValue& jsonValue);
-    DominantLanguage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DominantLanguage(Aws::Utils::Json::JsonView jsonValue);
+    DominantLanguage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * Identifying Languages</a> on the <i>IETF Tools</i> web site.</p>
      */
     inline const Aws::String& GetLanguageCode() const{ return m_languageCode; }
+
+    /**
+     * <p>The RFC 5646 language code for the dominant language. For more information
+     * about RFC 5646, see <a href="https://tools.ietf.org/html/rfc5646">Tags for
+     * Identifying Languages</a> on the <i>IETF Tools</i> web site.</p>
+     */
+    inline bool LanguageCodeHasBeenSet() const { return m_languageCodeHasBeenSet; }
 
     /**
      * <p>The RFC 5646 language code for the dominant language. For more information
@@ -103,6 +111,12 @@ namespace Model
      * detection.</p>
      */
     inline double GetScore() const{ return m_score; }
+
+    /**
+     * <p>The level of confidence that Amazon Comprehend has in the accuracy of the
+     * detection.</p>
+     */
+    inline bool ScoreHasBeenSet() const { return m_scoreHasBeenSet; }
 
     /**
      * <p>The level of confidence that Amazon Comprehend has in the accuracy of the

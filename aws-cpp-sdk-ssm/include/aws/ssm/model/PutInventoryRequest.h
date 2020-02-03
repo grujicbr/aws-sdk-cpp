@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     PutInventoryRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,37 +47,42 @@ namespace Model
 
 
     /**
-     * <p>One or more instance IDs where you want to add or update inventory items.</p>
+     * <p>An instance ID where you want to add or update inventory items.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
 
     /**
-     * <p>One or more instance IDs where you want to add or update inventory items.</p>
+     * <p>An instance ID where you want to add or update inventory items.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
+
+    /**
+     * <p>An instance ID where you want to add or update inventory items.</p>
      */
     inline void SetInstanceId(const Aws::String& value) { m_instanceIdHasBeenSet = true; m_instanceId = value; }
 
     /**
-     * <p>One or more instance IDs where you want to add or update inventory items.</p>
+     * <p>An instance ID where you want to add or update inventory items.</p>
      */
     inline void SetInstanceId(Aws::String&& value) { m_instanceIdHasBeenSet = true; m_instanceId = std::move(value); }
 
     /**
-     * <p>One or more instance IDs where you want to add or update inventory items.</p>
+     * <p>An instance ID where you want to add or update inventory items.</p>
      */
     inline void SetInstanceId(const char* value) { m_instanceIdHasBeenSet = true; m_instanceId.assign(value); }
 
     /**
-     * <p>One or more instance IDs where you want to add or update inventory items.</p>
+     * <p>An instance ID where you want to add or update inventory items.</p>
      */
     inline PutInventoryRequest& WithInstanceId(const Aws::String& value) { SetInstanceId(value); return *this;}
 
     /**
-     * <p>One or more instance IDs where you want to add or update inventory items.</p>
+     * <p>An instance ID where you want to add or update inventory items.</p>
      */
     inline PutInventoryRequest& WithInstanceId(Aws::String&& value) { SetInstanceId(std::move(value)); return *this;}
 
     /**
-     * <p>One or more instance IDs where you want to add or update inventory items.</p>
+     * <p>An instance ID where you want to add or update inventory items.</p>
      */
     inline PutInventoryRequest& WithInstanceId(const char* value) { SetInstanceId(value); return *this;}
 
@@ -86,6 +91,11 @@ namespace Model
      * <p>The inventory items that you want to add or update on instances.</p>
      */
     inline const Aws::Vector<InventoryItem>& GetItems() const{ return m_items; }
+
+    /**
+     * <p>The inventory items that you want to add or update on instances.</p>
+     */
+    inline bool ItemsHasBeenSet() const { return m_itemsHasBeenSet; }
 
     /**
      * <p>The inventory items that you want to add or update on instances.</p>

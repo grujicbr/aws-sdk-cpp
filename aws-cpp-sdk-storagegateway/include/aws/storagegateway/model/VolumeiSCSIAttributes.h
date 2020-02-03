@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     VolumeiSCSIAttributes();
-    VolumeiSCSIAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    VolumeiSCSIAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VolumeiSCSIAttributes(Aws::Utils::Json::JsonView jsonValue);
+    VolumeiSCSIAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the volume target.</p>
      */
     inline const Aws::String& GetTargetARN() const{ return m_targetARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the volume target.</p>
+     */
+    inline bool TargetARNHasBeenSet() const { return m_targetARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the volume target.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The network interface identifier.</p>
      */
+    inline bool NetworkInterfaceIdHasBeenSet() const { return m_networkInterfaceIdHasBeenSet; }
+
+    /**
+     * <p>The network interface identifier.</p>
+     */
     inline void SetNetworkInterfaceId(const Aws::String& value) { m_networkInterfaceIdHasBeenSet = true; m_networkInterfaceId = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
     /**
      * <p>The port used to communicate with iSCSI targets.</p>
      */
+    inline bool NetworkInterfacePortHasBeenSet() const { return m_networkInterfacePortHasBeenSet; }
+
+    /**
+     * <p>The port used to communicate with iSCSI targets.</p>
+     */
     inline void SetNetworkInterfacePort(int value) { m_networkInterfacePortHasBeenSet = true; m_networkInterfacePort = value; }
 
     /**
@@ -142,6 +158,11 @@ namespace Model
     /**
      * <p>The logical disk number.</p>
      */
+    inline bool LunNumberHasBeenSet() const { return m_lunNumberHasBeenSet; }
+
+    /**
+     * <p>The logical disk number.</p>
+     */
     inline void SetLunNumber(int value) { m_lunNumberHasBeenSet = true; m_lunNumber = value; }
 
     /**
@@ -154,6 +175,11 @@ namespace Model
      * <p>Indicates whether mutual CHAP is enabled for the iSCSI target.</p>
      */
     inline bool GetChapEnabled() const{ return m_chapEnabled; }
+
+    /**
+     * <p>Indicates whether mutual CHAP is enabled for the iSCSI target.</p>
+     */
+    inline bool ChapEnabledHasBeenSet() const { return m_chapEnabledHasBeenSet; }
 
     /**
      * <p>Indicates whether mutual CHAP is enabled for the iSCSI target.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Command();
-    Command(const Aws::Utils::Json::JsonValue& jsonValue);
-    Command& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Command(Aws::Utils::Json::JsonView jsonValue);
+    Command& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The command ID.</p>
      */
     inline const Aws::String& GetCommandId() const{ return m_commandId; }
+
+    /**
+     * <p>The command ID.</p>
+     */
+    inline bool CommandIdHasBeenSet() const { return m_commandIdHasBeenSet; }
 
     /**
      * <p>The command ID.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The ID of the instance where the command was executed.</p>
      */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the instance where the command was executed.</p>
+     */
     inline void SetInstanceId(const Aws::String& value) { m_instanceIdHasBeenSet = true; m_instanceId = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The command deployment ID.</p>
      */
     inline const Aws::String& GetDeploymentId() const{ return m_deploymentId; }
+
+    /**
+     * <p>The command deployment ID.</p>
+     */
+    inline bool DeploymentIdHasBeenSet() const { return m_deploymentIdHasBeenSet; }
 
     /**
      * <p>The command deployment ID.</p>
@@ -162,6 +178,11 @@ namespace Model
     /**
      * <p>Date and time when the command was run.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>Date and time when the command was run.</p>
+     */
     inline void SetCreatedAt(const Aws::String& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -194,6 +215,11 @@ namespace Model
      * <p>Date and time when the command was acknowledged.</p>
      */
     inline const Aws::String& GetAcknowledgedAt() const{ return m_acknowledgedAt; }
+
+    /**
+     * <p>Date and time when the command was acknowledged.</p>
+     */
+    inline bool AcknowledgedAtHasBeenSet() const { return m_acknowledgedAtHasBeenSet; }
 
     /**
      * <p>Date and time when the command was acknowledged.</p>
@@ -234,6 +260,11 @@ namespace Model
     /**
      * <p>Date when the command completed.</p>
      */
+    inline bool CompletedAtHasBeenSet() const { return m_completedAtHasBeenSet; }
+
+    /**
+     * <p>Date when the command completed.</p>
+     */
     inline void SetCompletedAt(const Aws::String& value) { m_completedAtHasBeenSet = true; m_completedAt = value; }
 
     /**
@@ -267,6 +298,12 @@ namespace Model
      * </li> <li> <p>skipped</p> </li> <li> <p>pending</p> </li> </ul>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The command status:</p> <ul> <li> <p>failed</p> </li> <li> <p>successful</p>
+     * </li> <li> <p>skipped</p> </li> <li> <p>pending</p> </li> </ul>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The command status:</p> <ul> <li> <p>failed</p> </li> <li> <p>successful</p>
@@ -313,6 +350,11 @@ namespace Model
     /**
      * <p>The command exit code.</p>
      */
+    inline bool ExitCodeHasBeenSet() const { return m_exitCodeHasBeenSet; }
+
+    /**
+     * <p>The command exit code.</p>
+     */
     inline void SetExitCode(int value) { m_exitCodeHasBeenSet = true; m_exitCode = value; }
 
     /**
@@ -325,6 +367,11 @@ namespace Model
      * <p>The URL of the command log.</p>
      */
     inline const Aws::String& GetLogUrl() const{ return m_logUrl; }
+
+    /**
+     * <p>The URL of the command log.</p>
+     */
+    inline bool LogUrlHasBeenSet() const { return m_logUrlHasBeenSet; }
 
     /**
      * <p>The URL of the command log.</p>
@@ -368,6 +415,18 @@ namespace Model
      * <code>update_dependencies</code> </p> </li> </ul>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p>The command type:</p> <ul> <li> <p> <code>configure</code> </p> </li> <li>
+     * <p> <code>deploy</code> </p> </li> <li> <p> <code>execute_recipes</code> </p>
+     * </li> <li> <p> <code>install_dependencies</code> </p> </li> <li> <p>
+     * <code>restart</code> </p> </li> <li> <p> <code>rollback</code> </p> </li> <li>
+     * <p> <code>setup</code> </p> </li> <li> <p> <code>start</code> </p> </li> <li>
+     * <p> <code>stop</code> </p> </li> <li> <p> <code>undeploy</code> </p> </li> <li>
+     * <p> <code>update_custom_cookbooks</code> </p> </li> <li> <p>
+     * <code>update_dependencies</code> </p> </li> </ul>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The command type:</p> <ul> <li> <p> <code>configure</code> </p> </li> <li>

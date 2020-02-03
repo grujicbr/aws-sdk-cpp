@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ResourceGroups
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ResourceIdentifier();
-    ResourceIdentifier(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceIdentifier& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceIdentifier(Aws::Utils::Json::JsonView jsonValue);
+    ResourceIdentifier& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ARN of a resource.</p>
      */
     inline const Aws::String& GetResourceArn() const{ return m_resourceArn; }
+
+    /**
+     * <p>The ARN of a resource.</p>
+     */
+    inline bool ResourceArnHasBeenSet() const { return m_resourceArnHasBeenSet; }
 
     /**
      * <p>The ARN of a resource.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The resource type of a resource, such as <code>AWS::EC2::Instance</code>.</p>
      */
     inline const Aws::String& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The resource type of a resource, such as <code>AWS::EC2::Instance</code>.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The resource type of a resource, such as <code>AWS::EC2::Instance</code>.</p>

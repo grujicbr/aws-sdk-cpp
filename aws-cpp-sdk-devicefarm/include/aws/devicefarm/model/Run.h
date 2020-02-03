@@ -29,6 +29,7 @@
 #include <aws/devicefarm/model/Radios.h>
 #include <aws/devicefarm/model/Location.h>
 #include <aws/devicefarm/model/CustomerArtifactPaths.h>
+#include <aws/devicefarm/model/DeviceSelectionResult.h>
 #include <utility>
 
 namespace Aws
@@ -38,6 +39,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -47,7 +49,7 @@ namespace Model
 
   /**
    * <p>Represents a test run on a set of devices with a given app package, test
-   * parameters, etc.</p><p><h3>See Also:</h3>   <a
+   * parameters, and so on.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/Run">AWS API
    * Reference</a></p>
    */
@@ -55,8 +57,8 @@ namespace Model
   {
   public:
     Run();
-    Run(const Aws::Utils::Json::JsonValue& jsonValue);
-    Run& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Run(Aws::Utils::Json::JsonView jsonValue);
+    Run& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -64,6 +66,11 @@ namespace Model
      * <p>The run's ARN.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The run's ARN.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The run's ARN.</p>
@@ -104,6 +111,11 @@ namespace Model
     /**
      * <p>The run's name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The run's name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -134,122 +146,134 @@ namespace Model
 
     /**
      * <p>The run's type.</p> <p>Must be one of the following values:</p> <ul> <li>
-     * <p>BUILTIN_FUZZ: The built-in fuzz type.</p> </li> <li> <p>BUILTIN_EXPLORER: For
-     * Android, an app explorer that will traverse an Android app, interacting with it
-     * and capturing screenshots at the same time.</p> </li> <li> <p>APPIUM_JAVA_JUNIT:
-     * The Appium Java JUnit type.</p> </li> <li> <p>APPIUM_JAVA_TESTNG: The Appium
-     * Java TestNG type.</p> </li> <li> <p>APPIUM_PYTHON: The Appium Python type.</p>
-     * </li> <li> <p>APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for Web
-     * apps.</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for
-     * Web apps.</p> </li> <li> <p>APPIUM_WEB_PYTHON: The Appium Python type for Web
-     * apps.</p> </li> <li> <p>CALABASH: The Calabash type.</p> </li> <li>
-     * <p>INSTRUMENTATION: The Instrumentation type.</p> </li> <li> <p>UIAUTOMATION:
-     * The uiautomation type.</p> </li> <li> <p>UIAUTOMATOR: The uiautomator type.</p>
-     * </li> <li> <p>XCTEST: The XCode test type.</p> </li> <li> <p>XCTEST_UI: The
-     * XCode UI test type.</p> </li> </ul>
+     * <p>BUILTIN_FUZZ</p> </li> <li> <p>BUILTIN_EXPLORER</p> <note> <p>For Android, an
+     * app explorer that traverses an Android app, interacting with it and capturing
+     * screenshots at the same time.</p> </note> </li> <li> <p>APPIUM_JAVA_JUNIT</p>
+     * </li> <li> <p>APPIUM_JAVA_TESTNG</p> </li> <li> <p>APPIUM_PYTHON</p> </li> <li>
+     * <p>APPIUM_NODE</p> </li> <li> <p>APPIUM_RUBY</p> </li> <li>
+     * <p>APPIUM_WEB_JAVA_JUNIT</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG</p> </li> <li>
+     * <p>APPIUM_WEB_PYTHON</p> </li> <li> <p>APPIUM_WEB_NODE</p> </li> <li>
+     * <p>APPIUM_WEB_RUBY</p> </li> <li> <p>CALABASH</p> </li> <li>
+     * <p>INSTRUMENTATION</p> </li> <li> <p>UIAUTOMATION</p> </li> <li>
+     * <p>UIAUTOMATOR</p> </li> <li> <p>XCTEST</p> </li> <li> <p>XCTEST_UI</p> </li>
+     * </ul>
      */
     inline const TestType& GetType() const{ return m_type; }
 
     /**
      * <p>The run's type.</p> <p>Must be one of the following values:</p> <ul> <li>
-     * <p>BUILTIN_FUZZ: The built-in fuzz type.</p> </li> <li> <p>BUILTIN_EXPLORER: For
-     * Android, an app explorer that will traverse an Android app, interacting with it
-     * and capturing screenshots at the same time.</p> </li> <li> <p>APPIUM_JAVA_JUNIT:
-     * The Appium Java JUnit type.</p> </li> <li> <p>APPIUM_JAVA_TESTNG: The Appium
-     * Java TestNG type.</p> </li> <li> <p>APPIUM_PYTHON: The Appium Python type.</p>
-     * </li> <li> <p>APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for Web
-     * apps.</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for
-     * Web apps.</p> </li> <li> <p>APPIUM_WEB_PYTHON: The Appium Python type for Web
-     * apps.</p> </li> <li> <p>CALABASH: The Calabash type.</p> </li> <li>
-     * <p>INSTRUMENTATION: The Instrumentation type.</p> </li> <li> <p>UIAUTOMATION:
-     * The uiautomation type.</p> </li> <li> <p>UIAUTOMATOR: The uiautomator type.</p>
-     * </li> <li> <p>XCTEST: The XCode test type.</p> </li> <li> <p>XCTEST_UI: The
-     * XCode UI test type.</p> </li> </ul>
+     * <p>BUILTIN_FUZZ</p> </li> <li> <p>BUILTIN_EXPLORER</p> <note> <p>For Android, an
+     * app explorer that traverses an Android app, interacting with it and capturing
+     * screenshots at the same time.</p> </note> </li> <li> <p>APPIUM_JAVA_JUNIT</p>
+     * </li> <li> <p>APPIUM_JAVA_TESTNG</p> </li> <li> <p>APPIUM_PYTHON</p> </li> <li>
+     * <p>APPIUM_NODE</p> </li> <li> <p>APPIUM_RUBY</p> </li> <li>
+     * <p>APPIUM_WEB_JAVA_JUNIT</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG</p> </li> <li>
+     * <p>APPIUM_WEB_PYTHON</p> </li> <li> <p>APPIUM_WEB_NODE</p> </li> <li>
+     * <p>APPIUM_WEB_RUBY</p> </li> <li> <p>CALABASH</p> </li> <li>
+     * <p>INSTRUMENTATION</p> </li> <li> <p>UIAUTOMATION</p> </li> <li>
+     * <p>UIAUTOMATOR</p> </li> <li> <p>XCTEST</p> </li> <li> <p>XCTEST_UI</p> </li>
+     * </ul>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The run's type.</p> <p>Must be one of the following values:</p> <ul> <li>
+     * <p>BUILTIN_FUZZ</p> </li> <li> <p>BUILTIN_EXPLORER</p> <note> <p>For Android, an
+     * app explorer that traverses an Android app, interacting with it and capturing
+     * screenshots at the same time.</p> </note> </li> <li> <p>APPIUM_JAVA_JUNIT</p>
+     * </li> <li> <p>APPIUM_JAVA_TESTNG</p> </li> <li> <p>APPIUM_PYTHON</p> </li> <li>
+     * <p>APPIUM_NODE</p> </li> <li> <p>APPIUM_RUBY</p> </li> <li>
+     * <p>APPIUM_WEB_JAVA_JUNIT</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG</p> </li> <li>
+     * <p>APPIUM_WEB_PYTHON</p> </li> <li> <p>APPIUM_WEB_NODE</p> </li> <li>
+     * <p>APPIUM_WEB_RUBY</p> </li> <li> <p>CALABASH</p> </li> <li>
+     * <p>INSTRUMENTATION</p> </li> <li> <p>UIAUTOMATION</p> </li> <li>
+     * <p>UIAUTOMATOR</p> </li> <li> <p>XCTEST</p> </li> <li> <p>XCTEST_UI</p> </li>
+     * </ul>
      */
     inline void SetType(const TestType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
      * <p>The run's type.</p> <p>Must be one of the following values:</p> <ul> <li>
-     * <p>BUILTIN_FUZZ: The built-in fuzz type.</p> </li> <li> <p>BUILTIN_EXPLORER: For
-     * Android, an app explorer that will traverse an Android app, interacting with it
-     * and capturing screenshots at the same time.</p> </li> <li> <p>APPIUM_JAVA_JUNIT:
-     * The Appium Java JUnit type.</p> </li> <li> <p>APPIUM_JAVA_TESTNG: The Appium
-     * Java TestNG type.</p> </li> <li> <p>APPIUM_PYTHON: The Appium Python type.</p>
-     * </li> <li> <p>APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for Web
-     * apps.</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for
-     * Web apps.</p> </li> <li> <p>APPIUM_WEB_PYTHON: The Appium Python type for Web
-     * apps.</p> </li> <li> <p>CALABASH: The Calabash type.</p> </li> <li>
-     * <p>INSTRUMENTATION: The Instrumentation type.</p> </li> <li> <p>UIAUTOMATION:
-     * The uiautomation type.</p> </li> <li> <p>UIAUTOMATOR: The uiautomator type.</p>
-     * </li> <li> <p>XCTEST: The XCode test type.</p> </li> <li> <p>XCTEST_UI: The
-     * XCode UI test type.</p> </li> </ul>
+     * <p>BUILTIN_FUZZ</p> </li> <li> <p>BUILTIN_EXPLORER</p> <note> <p>For Android, an
+     * app explorer that traverses an Android app, interacting with it and capturing
+     * screenshots at the same time.</p> </note> </li> <li> <p>APPIUM_JAVA_JUNIT</p>
+     * </li> <li> <p>APPIUM_JAVA_TESTNG</p> </li> <li> <p>APPIUM_PYTHON</p> </li> <li>
+     * <p>APPIUM_NODE</p> </li> <li> <p>APPIUM_RUBY</p> </li> <li>
+     * <p>APPIUM_WEB_JAVA_JUNIT</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG</p> </li> <li>
+     * <p>APPIUM_WEB_PYTHON</p> </li> <li> <p>APPIUM_WEB_NODE</p> </li> <li>
+     * <p>APPIUM_WEB_RUBY</p> </li> <li> <p>CALABASH</p> </li> <li>
+     * <p>INSTRUMENTATION</p> </li> <li> <p>UIAUTOMATION</p> </li> <li>
+     * <p>UIAUTOMATOR</p> </li> <li> <p>XCTEST</p> </li> <li> <p>XCTEST_UI</p> </li>
+     * </ul>
      */
     inline void SetType(TestType&& value) { m_typeHasBeenSet = true; m_type = std::move(value); }
 
     /**
      * <p>The run's type.</p> <p>Must be one of the following values:</p> <ul> <li>
-     * <p>BUILTIN_FUZZ: The built-in fuzz type.</p> </li> <li> <p>BUILTIN_EXPLORER: For
-     * Android, an app explorer that will traverse an Android app, interacting with it
-     * and capturing screenshots at the same time.</p> </li> <li> <p>APPIUM_JAVA_JUNIT:
-     * The Appium Java JUnit type.</p> </li> <li> <p>APPIUM_JAVA_TESTNG: The Appium
-     * Java TestNG type.</p> </li> <li> <p>APPIUM_PYTHON: The Appium Python type.</p>
-     * </li> <li> <p>APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for Web
-     * apps.</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for
-     * Web apps.</p> </li> <li> <p>APPIUM_WEB_PYTHON: The Appium Python type for Web
-     * apps.</p> </li> <li> <p>CALABASH: The Calabash type.</p> </li> <li>
-     * <p>INSTRUMENTATION: The Instrumentation type.</p> </li> <li> <p>UIAUTOMATION:
-     * The uiautomation type.</p> </li> <li> <p>UIAUTOMATOR: The uiautomator type.</p>
-     * </li> <li> <p>XCTEST: The XCode test type.</p> </li> <li> <p>XCTEST_UI: The
-     * XCode UI test type.</p> </li> </ul>
+     * <p>BUILTIN_FUZZ</p> </li> <li> <p>BUILTIN_EXPLORER</p> <note> <p>For Android, an
+     * app explorer that traverses an Android app, interacting with it and capturing
+     * screenshots at the same time.</p> </note> </li> <li> <p>APPIUM_JAVA_JUNIT</p>
+     * </li> <li> <p>APPIUM_JAVA_TESTNG</p> </li> <li> <p>APPIUM_PYTHON</p> </li> <li>
+     * <p>APPIUM_NODE</p> </li> <li> <p>APPIUM_RUBY</p> </li> <li>
+     * <p>APPIUM_WEB_JAVA_JUNIT</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG</p> </li> <li>
+     * <p>APPIUM_WEB_PYTHON</p> </li> <li> <p>APPIUM_WEB_NODE</p> </li> <li>
+     * <p>APPIUM_WEB_RUBY</p> </li> <li> <p>CALABASH</p> </li> <li>
+     * <p>INSTRUMENTATION</p> </li> <li> <p>UIAUTOMATION</p> </li> <li>
+     * <p>UIAUTOMATOR</p> </li> <li> <p>XCTEST</p> </li> <li> <p>XCTEST_UI</p> </li>
+     * </ul>
      */
     inline Run& WithType(const TestType& value) { SetType(value); return *this;}
 
     /**
      * <p>The run's type.</p> <p>Must be one of the following values:</p> <ul> <li>
-     * <p>BUILTIN_FUZZ: The built-in fuzz type.</p> </li> <li> <p>BUILTIN_EXPLORER: For
-     * Android, an app explorer that will traverse an Android app, interacting with it
-     * and capturing screenshots at the same time.</p> </li> <li> <p>APPIUM_JAVA_JUNIT:
-     * The Appium Java JUnit type.</p> </li> <li> <p>APPIUM_JAVA_TESTNG: The Appium
-     * Java TestNG type.</p> </li> <li> <p>APPIUM_PYTHON: The Appium Python type.</p>
-     * </li> <li> <p>APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for Web
-     * apps.</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for
-     * Web apps.</p> </li> <li> <p>APPIUM_WEB_PYTHON: The Appium Python type for Web
-     * apps.</p> </li> <li> <p>CALABASH: The Calabash type.</p> </li> <li>
-     * <p>INSTRUMENTATION: The Instrumentation type.</p> </li> <li> <p>UIAUTOMATION:
-     * The uiautomation type.</p> </li> <li> <p>UIAUTOMATOR: The uiautomator type.</p>
-     * </li> <li> <p>XCTEST: The XCode test type.</p> </li> <li> <p>XCTEST_UI: The
-     * XCode UI test type.</p> </li> </ul>
+     * <p>BUILTIN_FUZZ</p> </li> <li> <p>BUILTIN_EXPLORER</p> <note> <p>For Android, an
+     * app explorer that traverses an Android app, interacting with it and capturing
+     * screenshots at the same time.</p> </note> </li> <li> <p>APPIUM_JAVA_JUNIT</p>
+     * </li> <li> <p>APPIUM_JAVA_TESTNG</p> </li> <li> <p>APPIUM_PYTHON</p> </li> <li>
+     * <p>APPIUM_NODE</p> </li> <li> <p>APPIUM_RUBY</p> </li> <li>
+     * <p>APPIUM_WEB_JAVA_JUNIT</p> </li> <li> <p>APPIUM_WEB_JAVA_TESTNG</p> </li> <li>
+     * <p>APPIUM_WEB_PYTHON</p> </li> <li> <p>APPIUM_WEB_NODE</p> </li> <li>
+     * <p>APPIUM_WEB_RUBY</p> </li> <li> <p>CALABASH</p> </li> <li>
+     * <p>INSTRUMENTATION</p> </li> <li> <p>UIAUTOMATION</p> </li> <li>
+     * <p>UIAUTOMATOR</p> </li> <li> <p>XCTEST</p> </li> <li> <p>XCTEST_UI</p> </li>
+     * </ul>
      */
     inline Run& WithType(TestType&& value) { SetType(std::move(value)); return *this;}
 
 
     /**
-     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li> <p>ANDROID:
-     * The Android platform.</p> </li> <li> <p>IOS: The iOS platform.</p> </li> </ul>
+     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li>
+     * <p>ANDROID</p> </li> <li> <p>IOS</p> </li> </ul>
      */
     inline const DevicePlatform& GetPlatform() const{ return m_platform; }
 
     /**
-     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li> <p>ANDROID:
-     * The Android platform.</p> </li> <li> <p>IOS: The iOS platform.</p> </li> </ul>
+     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li>
+     * <p>ANDROID</p> </li> <li> <p>IOS</p> </li> </ul>
+     */
+    inline bool PlatformHasBeenSet() const { return m_platformHasBeenSet; }
+
+    /**
+     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li>
+     * <p>ANDROID</p> </li> <li> <p>IOS</p> </li> </ul>
      */
     inline void SetPlatform(const DevicePlatform& value) { m_platformHasBeenSet = true; m_platform = value; }
 
     /**
-     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li> <p>ANDROID:
-     * The Android platform.</p> </li> <li> <p>IOS: The iOS platform.</p> </li> </ul>
+     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li>
+     * <p>ANDROID</p> </li> <li> <p>IOS</p> </li> </ul>
      */
     inline void SetPlatform(DevicePlatform&& value) { m_platformHasBeenSet = true; m_platform = std::move(value); }
 
     /**
-     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li> <p>ANDROID:
-     * The Android platform.</p> </li> <li> <p>IOS: The iOS platform.</p> </li> </ul>
+     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li>
+     * <p>ANDROID</p> </li> <li> <p>IOS</p> </li> </ul>
      */
     inline Run& WithPlatform(const DevicePlatform& value) { SetPlatform(value); return *this;}
 
     /**
-     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li> <p>ANDROID:
-     * The Android platform.</p> </li> <li> <p>IOS: The iOS platform.</p> </li> </ul>
+     * <p>The run's platform.</p> <p>Allowed values include:</p> <ul> <li>
+     * <p>ANDROID</p> </li> <li> <p>IOS</p> </li> </ul>
      */
     inline Run& WithPlatform(DevicePlatform&& value) { SetPlatform(std::move(value)); return *this;}
 
@@ -258,6 +282,11 @@ namespace Model
      * <p>When the run was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreated() const{ return m_created; }
+
+    /**
+     * <p>When the run was created.</p>
+     */
+    inline bool CreatedHasBeenSet() const { return m_createdHasBeenSet; }
 
     /**
      * <p>When the run was created.</p>
@@ -281,108 +310,105 @@ namespace Model
 
 
     /**
-     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending status.</p> </li> <li> <p>PENDING_CONCURRENCY: A pending concurrency
-     * status.</p> </li> <li> <p>PENDING_DEVICE: A pending device status.</p> </li>
-     * <li> <p>PROCESSING: A processing status.</p> </li> <li> <p>SCHEDULING: A
-     * scheduling status.</p> </li> <li> <p>PREPARING: A preparing status.</p> </li>
-     * <li> <p>RUNNING: A running status.</p> </li> <li> <p>COMPLETED: A completed
-     * status.</p> </li> <li> <p>STOPPING: A stopping status.</p> </li> </ul>
+     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PENDING_CONCURRENCY</p> </li> <li> <p>PENDING_DEVICE</p> </li>
+     * <li> <p>PROCESSING</p> </li> <li> <p>SCHEDULING</p> </li> <li> <p>PREPARING</p>
+     * </li> <li> <p>RUNNING</p> </li> <li> <p>COMPLETED</p> </li> <li> <p>STOPPING</p>
+     * </li> </ul>
      */
     inline const ExecutionStatus& GetStatus() const{ return m_status; }
 
     /**
-     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending status.</p> </li> <li> <p>PENDING_CONCURRENCY: A pending concurrency
-     * status.</p> </li> <li> <p>PENDING_DEVICE: A pending device status.</p> </li>
-     * <li> <p>PROCESSING: A processing status.</p> </li> <li> <p>SCHEDULING: A
-     * scheduling status.</p> </li> <li> <p>PREPARING: A preparing status.</p> </li>
-     * <li> <p>RUNNING: A running status.</p> </li> <li> <p>COMPLETED: A completed
-     * status.</p> </li> <li> <p>STOPPING: A stopping status.</p> </li> </ul>
+     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PENDING_CONCURRENCY</p> </li> <li> <p>PENDING_DEVICE</p> </li>
+     * <li> <p>PROCESSING</p> </li> <li> <p>SCHEDULING</p> </li> <li> <p>PREPARING</p>
+     * </li> <li> <p>RUNNING</p> </li> <li> <p>COMPLETED</p> </li> <li> <p>STOPPING</p>
+     * </li> </ul>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PENDING_CONCURRENCY</p> </li> <li> <p>PENDING_DEVICE</p> </li>
+     * <li> <p>PROCESSING</p> </li> <li> <p>SCHEDULING</p> </li> <li> <p>PREPARING</p>
+     * </li> <li> <p>RUNNING</p> </li> <li> <p>COMPLETED</p> </li> <li> <p>STOPPING</p>
+     * </li> </ul>
      */
     inline void SetStatus(const ExecutionStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
-     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending status.</p> </li> <li> <p>PENDING_CONCURRENCY: A pending concurrency
-     * status.</p> </li> <li> <p>PENDING_DEVICE: A pending device status.</p> </li>
-     * <li> <p>PROCESSING: A processing status.</p> </li> <li> <p>SCHEDULING: A
-     * scheduling status.</p> </li> <li> <p>PREPARING: A preparing status.</p> </li>
-     * <li> <p>RUNNING: A running status.</p> </li> <li> <p>COMPLETED: A completed
-     * status.</p> </li> <li> <p>STOPPING: A stopping status.</p> </li> </ul>
+     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PENDING_CONCURRENCY</p> </li> <li> <p>PENDING_DEVICE</p> </li>
+     * <li> <p>PROCESSING</p> </li> <li> <p>SCHEDULING</p> </li> <li> <p>PREPARING</p>
+     * </li> <li> <p>RUNNING</p> </li> <li> <p>COMPLETED</p> </li> <li> <p>STOPPING</p>
+     * </li> </ul>
      */
     inline void SetStatus(ExecutionStatus&& value) { m_statusHasBeenSet = true; m_status = std::move(value); }
 
     /**
-     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending status.</p> </li> <li> <p>PENDING_CONCURRENCY: A pending concurrency
-     * status.</p> </li> <li> <p>PENDING_DEVICE: A pending device status.</p> </li>
-     * <li> <p>PROCESSING: A processing status.</p> </li> <li> <p>SCHEDULING: A
-     * scheduling status.</p> </li> <li> <p>PREPARING: A preparing status.</p> </li>
-     * <li> <p>RUNNING: A running status.</p> </li> <li> <p>COMPLETED: A completed
-     * status.</p> </li> <li> <p>STOPPING: A stopping status.</p> </li> </ul>
+     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PENDING_CONCURRENCY</p> </li> <li> <p>PENDING_DEVICE</p> </li>
+     * <li> <p>PROCESSING</p> </li> <li> <p>SCHEDULING</p> </li> <li> <p>PREPARING</p>
+     * </li> <li> <p>RUNNING</p> </li> <li> <p>COMPLETED</p> </li> <li> <p>STOPPING</p>
+     * </li> </ul>
      */
     inline Run& WithStatus(const ExecutionStatus& value) { SetStatus(value); return *this;}
 
     /**
-     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending status.</p> </li> <li> <p>PENDING_CONCURRENCY: A pending concurrency
-     * status.</p> </li> <li> <p>PENDING_DEVICE: A pending device status.</p> </li>
-     * <li> <p>PROCESSING: A processing status.</p> </li> <li> <p>SCHEDULING: A
-     * scheduling status.</p> </li> <li> <p>PREPARING: A preparing status.</p> </li>
-     * <li> <p>RUNNING: A running status.</p> </li> <li> <p>COMPLETED: A completed
-     * status.</p> </li> <li> <p>STOPPING: A stopping status.</p> </li> </ul>
+     * <p>The run's status.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PENDING_CONCURRENCY</p> </li> <li> <p>PENDING_DEVICE</p> </li>
+     * <li> <p>PROCESSING</p> </li> <li> <p>SCHEDULING</p> </li> <li> <p>PREPARING</p>
+     * </li> <li> <p>RUNNING</p> </li> <li> <p>COMPLETED</p> </li> <li> <p>STOPPING</p>
+     * </li> </ul>
      */
     inline Run& WithStatus(ExecutionStatus&& value) { SetStatus(std::move(value)); return *this;}
 
 
     /**
-     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending condition.</p> </li> <li> <p>PASSED: A passing condition.</p> </li> <li>
-     * <p>WARNED: A warning condition.</p> </li> <li> <p>FAILED: A failed
-     * condition.</p> </li> <li> <p>SKIPPED: A skipped condition.</p> </li> <li>
-     * <p>ERRORED: An error condition.</p> </li> <li> <p>STOPPED: A stopped
-     * condition.</p> </li> </ul>
+     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li> <p>FAILED</p> </li>
+     * <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li> <p>STOPPED</p> </li>
+     * </ul>
      */
     inline const ExecutionResult& GetResult() const{ return m_result; }
 
     /**
-     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending condition.</p> </li> <li> <p>PASSED: A passing condition.</p> </li> <li>
-     * <p>WARNED: A warning condition.</p> </li> <li> <p>FAILED: A failed
-     * condition.</p> </li> <li> <p>SKIPPED: A skipped condition.</p> </li> <li>
-     * <p>ERRORED: An error condition.</p> </li> <li> <p>STOPPED: A stopped
-     * condition.</p> </li> </ul>
+     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li> <p>FAILED</p> </li>
+     * <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li> <p>STOPPED</p> </li>
+     * </ul>
+     */
+    inline bool ResultHasBeenSet() const { return m_resultHasBeenSet; }
+
+    /**
+     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li> <p>FAILED</p> </li>
+     * <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li> <p>STOPPED</p> </li>
+     * </ul>
      */
     inline void SetResult(const ExecutionResult& value) { m_resultHasBeenSet = true; m_result = value; }
 
     /**
-     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending condition.</p> </li> <li> <p>PASSED: A passing condition.</p> </li> <li>
-     * <p>WARNED: A warning condition.</p> </li> <li> <p>FAILED: A failed
-     * condition.</p> </li> <li> <p>SKIPPED: A skipped condition.</p> </li> <li>
-     * <p>ERRORED: An error condition.</p> </li> <li> <p>STOPPED: A stopped
-     * condition.</p> </li> </ul>
+     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li> <p>FAILED</p> </li>
+     * <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li> <p>STOPPED</p> </li>
+     * </ul>
      */
     inline void SetResult(ExecutionResult&& value) { m_resultHasBeenSet = true; m_result = std::move(value); }
 
     /**
-     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending condition.</p> </li> <li> <p>PASSED: A passing condition.</p> </li> <li>
-     * <p>WARNED: A warning condition.</p> </li> <li> <p>FAILED: A failed
-     * condition.</p> </li> <li> <p>SKIPPED: A skipped condition.</p> </li> <li>
-     * <p>ERRORED: An error condition.</p> </li> <li> <p>STOPPED: A stopped
-     * condition.</p> </li> </ul>
+     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li> <p>FAILED</p> </li>
+     * <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li> <p>STOPPED</p> </li>
+     * </ul>
      */
     inline Run& WithResult(const ExecutionResult& value) { SetResult(value); return *this;}
 
     /**
-     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING: A
-     * pending condition.</p> </li> <li> <p>PASSED: A passing condition.</p> </li> <li>
-     * <p>WARNED: A warning condition.</p> </li> <li> <p>FAILED: A failed
-     * condition.</p> </li> <li> <p>SKIPPED: A skipped condition.</p> </li> <li>
-     * <p>ERRORED: An error condition.</p> </li> <li> <p>STOPPED: A stopped
-     * condition.</p> </li> </ul>
+     * <p>The run's result.</p> <p>Allowed values include:</p> <ul> <li> <p>PENDING</p>
+     * </li> <li> <p>PASSED</p> </li> <li> <p>WARNED</p> </li> <li> <p>FAILED</p> </li>
+     * <li> <p>SKIPPED</p> </li> <li> <p>ERRORED</p> </li> <li> <p>STOPPED</p> </li>
+     * </ul>
      */
     inline Run& WithResult(ExecutionResult&& value) { SetResult(std::move(value)); return *this;}
 
@@ -391,6 +417,11 @@ namespace Model
      * <p>The run's start time.</p>
      */
     inline const Aws::Utils::DateTime& GetStarted() const{ return m_started; }
+
+    /**
+     * <p>The run's start time.</p>
+     */
+    inline bool StartedHasBeenSet() const { return m_startedHasBeenSet; }
 
     /**
      * <p>The run's start time.</p>
@@ -421,6 +452,11 @@ namespace Model
     /**
      * <p>The run's stop time.</p>
      */
+    inline bool StoppedHasBeenSet() const { return m_stoppedHasBeenSet; }
+
+    /**
+     * <p>The run's stop time.</p>
+     */
     inline void SetStopped(const Aws::Utils::DateTime& value) { m_stoppedHasBeenSet = true; m_stopped = value; }
 
     /**
@@ -447,6 +483,11 @@ namespace Model
     /**
      * <p>The run's result counters.</p>
      */
+    inline bool CountersHasBeenSet() const { return m_countersHasBeenSet; }
+
+    /**
+     * <p>The run's result counters.</p>
+     */
     inline void SetCounters(const Counters& value) { m_countersHasBeenSet = true; m_counters = value; }
 
     /**
@@ -469,6 +510,11 @@ namespace Model
      * <p>A message about the run's result.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>A message about the run's result.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>A message about the run's result.</p>
@@ -509,6 +555,11 @@ namespace Model
     /**
      * <p>The total number of jobs for the run.</p>
      */
+    inline bool TotalJobsHasBeenSet() const { return m_totalJobsHasBeenSet; }
+
+    /**
+     * <p>The total number of jobs for the run.</p>
+     */
     inline void SetTotalJobs(int value) { m_totalJobsHasBeenSet = true; m_totalJobs = value; }
 
     /**
@@ -525,6 +576,11 @@ namespace Model
     /**
      * <p>The total number of completed jobs.</p>
      */
+    inline bool CompletedJobsHasBeenSet() const { return m_completedJobsHasBeenSet; }
+
+    /**
+     * <p>The total number of completed jobs.</p>
+     */
     inline void SetCompletedJobs(int value) { m_completedJobsHasBeenSet = true; m_completedJobs = value; }
 
     /**
@@ -536,35 +592,54 @@ namespace Model
     /**
      * <p>Specifies the billing method for a test run: <code>metered</code> or
      * <code>unmetered</code>. If the parameter is not specified, the default value is
-     * <code>metered</code>.</p>
+     * <code>metered</code>.</p> <note> <p>If you have unmetered device slots, you must
+     * set this to <code>unmetered</code> to use them. Otherwise, the run is counted
+     * toward metered device minutes.</p> </note>
      */
     inline const BillingMethod& GetBillingMethod() const{ return m_billingMethod; }
 
     /**
      * <p>Specifies the billing method for a test run: <code>metered</code> or
      * <code>unmetered</code>. If the parameter is not specified, the default value is
-     * <code>metered</code>.</p>
+     * <code>metered</code>.</p> <note> <p>If you have unmetered device slots, you must
+     * set this to <code>unmetered</code> to use them. Otherwise, the run is counted
+     * toward metered device minutes.</p> </note>
+     */
+    inline bool BillingMethodHasBeenSet() const { return m_billingMethodHasBeenSet; }
+
+    /**
+     * <p>Specifies the billing method for a test run: <code>metered</code> or
+     * <code>unmetered</code>. If the parameter is not specified, the default value is
+     * <code>metered</code>.</p> <note> <p>If you have unmetered device slots, you must
+     * set this to <code>unmetered</code> to use them. Otherwise, the run is counted
+     * toward metered device minutes.</p> </note>
      */
     inline void SetBillingMethod(const BillingMethod& value) { m_billingMethodHasBeenSet = true; m_billingMethod = value; }
 
     /**
      * <p>Specifies the billing method for a test run: <code>metered</code> or
      * <code>unmetered</code>. If the parameter is not specified, the default value is
-     * <code>metered</code>.</p>
+     * <code>metered</code>.</p> <note> <p>If you have unmetered device slots, you must
+     * set this to <code>unmetered</code> to use them. Otherwise, the run is counted
+     * toward metered device minutes.</p> </note>
      */
     inline void SetBillingMethod(BillingMethod&& value) { m_billingMethodHasBeenSet = true; m_billingMethod = std::move(value); }
 
     /**
      * <p>Specifies the billing method for a test run: <code>metered</code> or
      * <code>unmetered</code>. If the parameter is not specified, the default value is
-     * <code>metered</code>.</p>
+     * <code>metered</code>.</p> <note> <p>If you have unmetered device slots, you must
+     * set this to <code>unmetered</code> to use them. Otherwise, the run is counted
+     * toward metered device minutes.</p> </note>
      */
     inline Run& WithBillingMethod(const BillingMethod& value) { SetBillingMethod(value); return *this;}
 
     /**
      * <p>Specifies the billing method for a test run: <code>metered</code> or
      * <code>unmetered</code>. If the parameter is not specified, the default value is
-     * <code>metered</code>.</p>
+     * <code>metered</code>.</p> <note> <p>If you have unmetered device slots, you must
+     * set this to <code>unmetered</code> to use them. Otherwise, the run is counted
+     * toward metered device minutes.</p> </note>
      */
     inline Run& WithBillingMethod(BillingMethod&& value) { SetBillingMethod(std::move(value)); return *this;}
 
@@ -573,6 +648,11 @@ namespace Model
      * <p>Represents the total (metered or unmetered) minutes used by the test run.</p>
      */
     inline const DeviceMinutes& GetDeviceMinutes() const{ return m_deviceMinutes; }
+
+    /**
+     * <p>Represents the total (metered or unmetered) minutes used by the test run.</p>
+     */
+    inline bool DeviceMinutesHasBeenSet() const { return m_deviceMinutesHasBeenSet; }
 
     /**
      * <p>Represents the total (metered or unmetered) minutes used by the test run.</p>
@@ -603,6 +683,11 @@ namespace Model
     /**
      * <p>The network profile being used for a test run.</p>
      */
+    inline bool NetworkProfileHasBeenSet() const { return m_networkProfileHasBeenSet; }
+
+    /**
+     * <p>The network profile being used for a test run.</p>
+     */
     inline void SetNetworkProfile(const NetworkProfile& value) { m_networkProfileHasBeenSet = true; m_networkProfile = value; }
 
     /**
@@ -622,49 +707,56 @@ namespace Model
 
 
     /**
-     * <p>Read-only URL for an object in S3 bucket where you can get the parsing
+     * <p>Read-only URL for an object in an S3 bucket where you can get the parsing
      * results of the test package. If the test package doesn't parse, the reason why
      * it doesn't parse appears in the file that this URL points to.</p>
      */
     inline const Aws::String& GetParsingResultUrl() const{ return m_parsingResultUrl; }
 
     /**
-     * <p>Read-only URL for an object in S3 bucket where you can get the parsing
+     * <p>Read-only URL for an object in an S3 bucket where you can get the parsing
+     * results of the test package. If the test package doesn't parse, the reason why
+     * it doesn't parse appears in the file that this URL points to.</p>
+     */
+    inline bool ParsingResultUrlHasBeenSet() const { return m_parsingResultUrlHasBeenSet; }
+
+    /**
+     * <p>Read-only URL for an object in an S3 bucket where you can get the parsing
      * results of the test package. If the test package doesn't parse, the reason why
      * it doesn't parse appears in the file that this URL points to.</p>
      */
     inline void SetParsingResultUrl(const Aws::String& value) { m_parsingResultUrlHasBeenSet = true; m_parsingResultUrl = value; }
 
     /**
-     * <p>Read-only URL for an object in S3 bucket where you can get the parsing
+     * <p>Read-only URL for an object in an S3 bucket where you can get the parsing
      * results of the test package. If the test package doesn't parse, the reason why
      * it doesn't parse appears in the file that this URL points to.</p>
      */
     inline void SetParsingResultUrl(Aws::String&& value) { m_parsingResultUrlHasBeenSet = true; m_parsingResultUrl = std::move(value); }
 
     /**
-     * <p>Read-only URL for an object in S3 bucket where you can get the parsing
+     * <p>Read-only URL for an object in an S3 bucket where you can get the parsing
      * results of the test package. If the test package doesn't parse, the reason why
      * it doesn't parse appears in the file that this URL points to.</p>
      */
     inline void SetParsingResultUrl(const char* value) { m_parsingResultUrlHasBeenSet = true; m_parsingResultUrl.assign(value); }
 
     /**
-     * <p>Read-only URL for an object in S3 bucket where you can get the parsing
+     * <p>Read-only URL for an object in an S3 bucket where you can get the parsing
      * results of the test package. If the test package doesn't parse, the reason why
      * it doesn't parse appears in the file that this URL points to.</p>
      */
     inline Run& WithParsingResultUrl(const Aws::String& value) { SetParsingResultUrl(value); return *this;}
 
     /**
-     * <p>Read-only URL for an object in S3 bucket where you can get the parsing
+     * <p>Read-only URL for an object in an S3 bucket where you can get the parsing
      * results of the test package. If the test package doesn't parse, the reason why
      * it doesn't parse appears in the file that this URL points to.</p>
      */
     inline Run& WithParsingResultUrl(Aws::String&& value) { SetParsingResultUrl(std::move(value)); return *this;}
 
     /**
-     * <p>Read-only URL for an object in S3 bucket where you can get the parsing
+     * <p>Read-only URL for an object in an S3 bucket where you can get the parsing
      * results of the test package. If the test package doesn't parse, the reason why
      * it doesn't parse appears in the file that this URL points to.</p>
      */
@@ -677,6 +769,13 @@ namespace Model
      * because of test package parsing failure.</p>
      */
     inline const ExecutionResultCode& GetResultCode() const{ return m_resultCode; }
+
+    /**
+     * <p>Supporting field for the result field. Set only if <code>result</code> is
+     * <code>SKIPPED</code>. <code>PARSING_FAILED</code> if the result is skipped
+     * because of test package parsing failure.</p>
+     */
+    inline bool ResultCodeHasBeenSet() const { return m_resultCodeHasBeenSet; }
 
     /**
      * <p>Supporting field for the result field. Set only if <code>result</code> is
@@ -717,6 +816,12 @@ namespace Model
      * <p>For fuzz tests, this is a seed to use for randomizing the UI fuzz test. Using
      * the same seed value between tests ensures identical event sequences.</p>
      */
+    inline bool SeedHasBeenSet() const { return m_seedHasBeenSet; }
+
+    /**
+     * <p>For fuzz tests, this is a seed to use for randomizing the UI fuzz test. Using
+     * the same seed value between tests ensures identical event sequences.</p>
+     */
     inline void SetSeed(int value) { m_seedHasBeenSet = true; m_seed = value; }
 
     /**
@@ -730,6 +835,11 @@ namespace Model
      * <p>An app to upload or that has been uploaded.</p>
      */
     inline const Aws::String& GetAppUpload() const{ return m_appUpload; }
+
+    /**
+     * <p>An app to upload or that has been uploaded.</p>
+     */
+    inline bool AppUploadHasBeenSet() const { return m_appUploadHasBeenSet; }
 
     /**
      * <p>An app to upload or that has been uploaded.</p>
@@ -772,6 +882,12 @@ namespace Model
      * <p>For fuzz tests, this is the number of events, between 1 and 10000, that the
      * UI fuzz test should perform.</p>
      */
+    inline bool EventCountHasBeenSet() const { return m_eventCountHasBeenSet; }
+
+    /**
+     * <p>For fuzz tests, this is the number of events, between 1 and 10000, that the
+     * UI fuzz test should perform.</p>
+     */
     inline void SetEventCount(int value) { m_eventCountHasBeenSet = true; m_eventCount = value; }
 
     /**
@@ -782,17 +898,22 @@ namespace Model
 
 
     /**
-     * <p>The number of minutes the job will execute before it times out.</p>
+     * <p>The number of minutes the job executes before it times out.</p>
      */
     inline int GetJobTimeoutMinutes() const{ return m_jobTimeoutMinutes; }
 
     /**
-     * <p>The number of minutes the job will execute before it times out.</p>
+     * <p>The number of minutes the job executes before it times out.</p>
+     */
+    inline bool JobTimeoutMinutesHasBeenSet() const { return m_jobTimeoutMinutesHasBeenSet; }
+
+    /**
+     * <p>The number of minutes the job executes before it times out.</p>
      */
     inline void SetJobTimeoutMinutes(int value) { m_jobTimeoutMinutesHasBeenSet = true; m_jobTimeoutMinutes = value; }
 
     /**
-     * <p>The number of minutes the job will execute before it times out.</p>
+     * <p>The number of minutes the job executes before it times out.</p>
      */
     inline Run& WithJobTimeoutMinutes(int value) { SetJobTimeoutMinutes(value); return *this;}
 
@@ -801,6 +922,11 @@ namespace Model
      * <p>The ARN of the device pool for the run.</p>
      */
     inline const Aws::String& GetDevicePoolArn() const{ return m_devicePoolArn; }
+
+    /**
+     * <p>The ARN of the device pool for the run.</p>
+     */
+    inline bool DevicePoolArnHasBeenSet() const { return m_devicePoolArnHasBeenSet; }
 
     /**
      * <p>The ARN of the device pool for the run.</p>
@@ -841,6 +967,11 @@ namespace Model
     /**
      * <p>Information about the locale that is used for the run.</p>
      */
+    inline bool LocaleHasBeenSet() const { return m_localeHasBeenSet; }
+
+    /**
+     * <p>Information about the locale that is used for the run.</p>
+     */
     inline void SetLocale(const Aws::String& value) { m_localeHasBeenSet = true; m_locale = value; }
 
     /**
@@ -877,6 +1008,11 @@ namespace Model
     /**
      * <p>Information about the radio states for the run.</p>
      */
+    inline bool RadiosHasBeenSet() const { return m_radiosHasBeenSet; }
+
+    /**
+     * <p>Information about the radio states for the run.</p>
+     */
     inline void SetRadios(const Radios& value) { m_radiosHasBeenSet = true; m_radios = value; }
 
     /**
@@ -899,6 +1035,11 @@ namespace Model
      * <p>Information about the location that is used for the run.</p>
      */
     inline const Location& GetLocation() const{ return m_location; }
+
+    /**
+     * <p>Information about the location that is used for the run.</p>
+     */
+    inline bool LocationHasBeenSet() const { return m_locationHasBeenSet; }
 
     /**
      * <p>Information about the location that is used for the run.</p>
@@ -929,6 +1070,11 @@ namespace Model
     /**
      * <p>Output <code>CustomerArtifactPaths</code> object for the test run.</p>
      */
+    inline bool CustomerArtifactPathsHasBeenSet() const { return m_customerArtifactPathsHasBeenSet; }
+
+    /**
+     * <p>Output <code>CustomerArtifactPaths</code> object for the test run.</p>
+     */
     inline void SetCustomerArtifactPaths(const CustomerArtifactPaths& value) { m_customerArtifactPathsHasBeenSet = true; m_customerArtifactPaths = value; }
 
     /**
@@ -951,6 +1097,11 @@ namespace Model
      * <p>The Device Farm console URL for the recording of the run.</p>
      */
     inline const Aws::String& GetWebUrl() const{ return m_webUrl; }
+
+    /**
+     * <p>The Device Farm console URL for the recording of the run.</p>
+     */
+    inline bool WebUrlHasBeenSet() const { return m_webUrlHasBeenSet; }
 
     /**
      * <p>The Device Farm console URL for the recording of the run.</p>
@@ -984,31 +1135,112 @@ namespace Model
 
 
     /**
-     * <p>When set to <code>true</code>, for private devices, Device Farm will not sign
-     * your app again. For public devices, Device Farm always signs your apps again and
-     * this parameter has no effect.</p> <p>For more information about how Device Farm
-     * re-signs your app(s), see <a href="https://aws.amazon.com/device-farm/faq/">Do
-     * you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.</p>
+     * <p>When set to <code>true</code>, for private devices, Device Farm does not sign
+     * your app again. For public devices, Device Farm always signs your apps
+     * again.</p> <p>For more information about how Device Farm re-signs your apps, see
+     * <a href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in
+     * the <i>AWS Device Farm FAQs</i>.</p>
      */
     inline bool GetSkipAppResign() const{ return m_skipAppResign; }
 
     /**
-     * <p>When set to <code>true</code>, for private devices, Device Farm will not sign
-     * your app again. For public devices, Device Farm always signs your apps again and
-     * this parameter has no effect.</p> <p>For more information about how Device Farm
-     * re-signs your app(s), see <a href="https://aws.amazon.com/device-farm/faq/">Do
-     * you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.</p>
+     * <p>When set to <code>true</code>, for private devices, Device Farm does not sign
+     * your app again. For public devices, Device Farm always signs your apps
+     * again.</p> <p>For more information about how Device Farm re-signs your apps, see
+     * <a href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in
+     * the <i>AWS Device Farm FAQs</i>.</p>
+     */
+    inline bool SkipAppResignHasBeenSet() const { return m_skipAppResignHasBeenSet; }
+
+    /**
+     * <p>When set to <code>true</code>, for private devices, Device Farm does not sign
+     * your app again. For public devices, Device Farm always signs your apps
+     * again.</p> <p>For more information about how Device Farm re-signs your apps, see
+     * <a href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in
+     * the <i>AWS Device Farm FAQs</i>.</p>
      */
     inline void SetSkipAppResign(bool value) { m_skipAppResignHasBeenSet = true; m_skipAppResign = value; }
 
     /**
-     * <p>When set to <code>true</code>, for private devices, Device Farm will not sign
-     * your app again. For public devices, Device Farm always signs your apps again and
-     * this parameter has no effect.</p> <p>For more information about how Device Farm
-     * re-signs your app(s), see <a href="https://aws.amazon.com/device-farm/faq/">Do
-     * you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.</p>
+     * <p>When set to <code>true</code>, for private devices, Device Farm does not sign
+     * your app again. For public devices, Device Farm always signs your apps
+     * again.</p> <p>For more information about how Device Farm re-signs your apps, see
+     * <a href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in
+     * the <i>AWS Device Farm FAQs</i>.</p>
      */
     inline Run& WithSkipAppResign(bool value) { SetSkipAppResign(value); return *this;}
+
+
+    /**
+     * <p>The ARN of the YAML-formatted test specification for the run.</p>
+     */
+    inline const Aws::String& GetTestSpecArn() const{ return m_testSpecArn; }
+
+    /**
+     * <p>The ARN of the YAML-formatted test specification for the run.</p>
+     */
+    inline bool TestSpecArnHasBeenSet() const { return m_testSpecArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the YAML-formatted test specification for the run.</p>
+     */
+    inline void SetTestSpecArn(const Aws::String& value) { m_testSpecArnHasBeenSet = true; m_testSpecArn = value; }
+
+    /**
+     * <p>The ARN of the YAML-formatted test specification for the run.</p>
+     */
+    inline void SetTestSpecArn(Aws::String&& value) { m_testSpecArnHasBeenSet = true; m_testSpecArn = std::move(value); }
+
+    /**
+     * <p>The ARN of the YAML-formatted test specification for the run.</p>
+     */
+    inline void SetTestSpecArn(const char* value) { m_testSpecArnHasBeenSet = true; m_testSpecArn.assign(value); }
+
+    /**
+     * <p>The ARN of the YAML-formatted test specification for the run.</p>
+     */
+    inline Run& WithTestSpecArn(const Aws::String& value) { SetTestSpecArn(value); return *this;}
+
+    /**
+     * <p>The ARN of the YAML-formatted test specification for the run.</p>
+     */
+    inline Run& WithTestSpecArn(Aws::String&& value) { SetTestSpecArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The ARN of the YAML-formatted test specification for the run.</p>
+     */
+    inline Run& WithTestSpecArn(const char* value) { SetTestSpecArn(value); return *this;}
+
+
+    /**
+     * <p>The results of a device filter used to select the devices for a test run.</p>
+     */
+    inline const DeviceSelectionResult& GetDeviceSelectionResult() const{ return m_deviceSelectionResult; }
+
+    /**
+     * <p>The results of a device filter used to select the devices for a test run.</p>
+     */
+    inline bool DeviceSelectionResultHasBeenSet() const { return m_deviceSelectionResultHasBeenSet; }
+
+    /**
+     * <p>The results of a device filter used to select the devices for a test run.</p>
+     */
+    inline void SetDeviceSelectionResult(const DeviceSelectionResult& value) { m_deviceSelectionResultHasBeenSet = true; m_deviceSelectionResult = value; }
+
+    /**
+     * <p>The results of a device filter used to select the devices for a test run.</p>
+     */
+    inline void SetDeviceSelectionResult(DeviceSelectionResult&& value) { m_deviceSelectionResultHasBeenSet = true; m_deviceSelectionResult = std::move(value); }
+
+    /**
+     * <p>The results of a device filter used to select the devices for a test run.</p>
+     */
+    inline Run& WithDeviceSelectionResult(const DeviceSelectionResult& value) { SetDeviceSelectionResult(value); return *this;}
+
+    /**
+     * <p>The results of a device filter used to select the devices for a test run.</p>
+     */
+    inline Run& WithDeviceSelectionResult(DeviceSelectionResult&& value) { SetDeviceSelectionResult(std::move(value)); return *this;}
 
   private:
 
@@ -1098,6 +1330,12 @@ namespace Model
 
     bool m_skipAppResign;
     bool m_skipAppResignHasBeenSet;
+
+    Aws::String m_testSpecArn;
+    bool m_testSpecArnHasBeenSet;
+
+    DeviceSelectionResult m_deviceSelectionResult;
+    bool m_deviceSelectionResultHasBeenSet;
   };
 
 } // namespace Model

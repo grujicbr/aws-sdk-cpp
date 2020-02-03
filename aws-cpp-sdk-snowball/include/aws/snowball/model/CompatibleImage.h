@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     CompatibleImage();
-    CompatibleImage(const Aws::Utils::Json::JsonValue& jsonValue);
-    CompatibleImage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CompatibleImage(Aws::Utils::Json::JsonView jsonValue);
+    CompatibleImage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The unique identifier for an individual Snowball Edge AMI.</p>
      */
     inline const Aws::String& GetAmiId() const{ return m_amiId; }
+
+    /**
+     * <p>The unique identifier for an individual Snowball Edge AMI.</p>
+     */
+    inline bool AmiIdHasBeenSet() const { return m_amiIdHasBeenSet; }
 
     /**
      * <p>The unique identifier for an individual Snowball Edge AMI.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The optional name of a compatible image.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The optional name of a compatible image.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The optional name of a compatible image.</p>

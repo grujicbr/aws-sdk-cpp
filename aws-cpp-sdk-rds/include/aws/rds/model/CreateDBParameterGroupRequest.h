@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     CreateDBParameterGroupRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,63 +54,72 @@ namespace Model
     /**
      * <p>The name of the DB parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must
      * be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must
-     * be a letter</p> </li> <li> <p>Cannot end with a hyphen or contain two
-     * consecutive hyphens</p> </li> </ul> <note> <p>This value is stored as a
-     * lowercase string.</p> </note>
+     * be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <note> <p>This value is stored as a lowercase
+     * string.</p> </note>
      */
     inline const Aws::String& GetDBParameterGroupName() const{ return m_dBParameterGroupName; }
 
     /**
      * <p>The name of the DB parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must
      * be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must
-     * be a letter</p> </li> <li> <p>Cannot end with a hyphen or contain two
-     * consecutive hyphens</p> </li> </ul> <note> <p>This value is stored as a
-     * lowercase string.</p> </note>
+     * be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <note> <p>This value is stored as a lowercase
+     * string.</p> </note>
+     */
+    inline bool DBParameterGroupNameHasBeenSet() const { return m_dBParameterGroupNameHasBeenSet; }
+
+    /**
+     * <p>The name of the DB parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must
+     * be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must
+     * be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <note> <p>This value is stored as a lowercase
+     * string.</p> </note>
      */
     inline void SetDBParameterGroupName(const Aws::String& value) { m_dBParameterGroupNameHasBeenSet = true; m_dBParameterGroupName = value; }
 
     /**
      * <p>The name of the DB parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must
      * be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must
-     * be a letter</p> </li> <li> <p>Cannot end with a hyphen or contain two
-     * consecutive hyphens</p> </li> </ul> <note> <p>This value is stored as a
-     * lowercase string.</p> </note>
+     * be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <note> <p>This value is stored as a lowercase
+     * string.</p> </note>
      */
     inline void SetDBParameterGroupName(Aws::String&& value) { m_dBParameterGroupNameHasBeenSet = true; m_dBParameterGroupName = std::move(value); }
 
     /**
      * <p>The name of the DB parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must
      * be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must
-     * be a letter</p> </li> <li> <p>Cannot end with a hyphen or contain two
-     * consecutive hyphens</p> </li> </ul> <note> <p>This value is stored as a
-     * lowercase string.</p> </note>
+     * be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <note> <p>This value is stored as a lowercase
+     * string.</p> </note>
      */
     inline void SetDBParameterGroupName(const char* value) { m_dBParameterGroupNameHasBeenSet = true; m_dBParameterGroupName.assign(value); }
 
     /**
      * <p>The name of the DB parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must
      * be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must
-     * be a letter</p> </li> <li> <p>Cannot end with a hyphen or contain two
-     * consecutive hyphens</p> </li> </ul> <note> <p>This value is stored as a
-     * lowercase string.</p> </note>
+     * be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <note> <p>This value is stored as a lowercase
+     * string.</p> </note>
      */
     inline CreateDBParameterGroupRequest& WithDBParameterGroupName(const Aws::String& value) { SetDBParameterGroupName(value); return *this;}
 
     /**
      * <p>The name of the DB parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must
      * be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must
-     * be a letter</p> </li> <li> <p>Cannot end with a hyphen or contain two
-     * consecutive hyphens</p> </li> </ul> <note> <p>This value is stored as a
-     * lowercase string.</p> </note>
+     * be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <note> <p>This value is stored as a lowercase
+     * string.</p> </note>
      */
     inline CreateDBParameterGroupRequest& WithDBParameterGroupName(Aws::String&& value) { SetDBParameterGroupName(std::move(value)); return *this;}
 
     /**
      * <p>The name of the DB parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must
      * be 1 to 255 letters, numbers, or hyphens.</p> </li> <li> <p>First character must
-     * be a letter</p> </li> <li> <p>Cannot end with a hyphen or contain two
-     * consecutive hyphens</p> </li> </ul> <note> <p>This value is stored as a
-     * lowercase string.</p> </note>
+     * be a letter</p> </li> <li> <p>Can't end with a hyphen or contain two consecutive
+     * hyphens</p> </li> </ul> <note> <p>This value is stored as a lowercase
+     * string.</p> </note>
      */
     inline CreateDBParameterGroupRequest& WithDBParameterGroupName(const char* value) { SetDBParameterGroupName(value); return *this;}
 
@@ -126,6 +135,18 @@ namespace Model
      * contains duplicates.</p> </note>
      */
     inline const Aws::String& GetDBParameterGroupFamily() const{ return m_dBParameterGroupFamily; }
+
+    /**
+     * <p>The DB parameter group family name. A DB parameter group can be associated
+     * with one and only one DB parameter group family, and can be applied only to a DB
+     * instance running a database engine and engine version compatible with that DB
+     * parameter group family.</p> <p>To list all of the available parameter group
+     * families, use the following command:</p> <p> <code>aws rds
+     * describe-db-engine-versions --query
+     * "DBEngineVersions[].DBParameterGroupFamily"</code> </p> <note> <p>The output
+     * contains duplicates.</p> </note>
+     */
+    inline bool DBParameterGroupFamilyHasBeenSet() const { return m_dBParameterGroupFamilyHasBeenSet; }
 
     /**
      * <p>The DB parameter group family name. A DB parameter group can be associated
@@ -208,6 +229,11 @@ namespace Model
     /**
      * <p>The description for the DB parameter group.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description for the DB parameter group.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -236,25 +262,44 @@ namespace Model
     inline CreateDBParameterGroupRequest& WithDescription(const char* value) { SetDescription(value); return *this;}
 
 
-    
+    /**
+     * <p>Tags to assign to the DB parameter group.</p>
+     */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
 
-    
+    /**
+     * <p>Tags to assign to the DB parameter group.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>Tags to assign to the DB parameter group.</p>
+     */
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
-    
+    /**
+     * <p>Tags to assign to the DB parameter group.</p>
+     */
     inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
 
-    
+    /**
+     * <p>Tags to assign to the DB parameter group.</p>
+     */
     inline CreateDBParameterGroupRequest& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
 
-    
+    /**
+     * <p>Tags to assign to the DB parameter group.</p>
+     */
     inline CreateDBParameterGroupRequest& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
 
-    
+    /**
+     * <p>Tags to assign to the DB parameter group.</p>
+     */
     inline CreateDBParameterGroupRequest& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
 
-    
+    /**
+     * <p>Tags to assign to the DB parameter group.</p>
+     */
     inline CreateDBParameterGroupRequest& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
 
   private:

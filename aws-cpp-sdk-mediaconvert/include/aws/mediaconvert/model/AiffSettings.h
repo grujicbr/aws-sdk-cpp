@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     AiffSettings();
-    AiffSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    AiffSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AiffSettings(Aws::Utils::Json::JsonView jsonValue);
+    AiffSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * for this audio track.
      */
     inline int GetBitDepth() const{ return m_bitDepth; }
+
+    /**
+     * Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality
+     * for this audio track.
+     */
+    inline bool BitDepthHasBeenSet() const { return m_bitDepthHasBeenSet; }
 
     /**
      * Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality
@@ -65,23 +72,26 @@ namespace Model
 
 
     /**
-     * Set Channels to specify the number of channels in this output audio track.
-     * Choosing Mono in the console will give you 1 output channel; choosing Stereo
-     * will give you 2. In the API, valid values are 1 and 2.
+     * Specify the number of channels in this output audio track. Valid values are 1
+     * and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up to 64.
      */
     inline int GetChannels() const{ return m_channels; }
 
     /**
-     * Set Channels to specify the number of channels in this output audio track.
-     * Choosing Mono in the console will give you 1 output channel; choosing Stereo
-     * will give you 2. In the API, valid values are 1 and 2.
+     * Specify the number of channels in this output audio track. Valid values are 1
+     * and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up to 64.
+     */
+    inline bool ChannelsHasBeenSet() const { return m_channelsHasBeenSet; }
+
+    /**
+     * Specify the number of channels in this output audio track. Valid values are 1
+     * and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up to 64.
      */
     inline void SetChannels(int value) { m_channelsHasBeenSet = true; m_channels = value; }
 
     /**
-     * Set Channels to specify the number of channels in this output audio track.
-     * Choosing Mono in the console will give you 1 output channel; choosing Stereo
-     * will give you 2. In the API, valid values are 1 and 2.
+     * Specify the number of channels in this output audio track. Valid values are 1
+     * and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up to 64.
      */
     inline AiffSettings& WithChannels(int value) { SetChannels(value); return *this;}
 
@@ -90,6 +100,11 @@ namespace Model
      * Sample rate in hz.
      */
     inline int GetSampleRate() const{ return m_sampleRate; }
+
+    /**
+     * Sample rate in hz.
+     */
+    inline bool SampleRateHasBeenSet() const { return m_sampleRateHasBeenSet; }
 
     /**
      * Sample rate in hz.

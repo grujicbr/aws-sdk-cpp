@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT1ClickProjects
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DeviceTemplate();
-    DeviceTemplate(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceTemplate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceTemplate(Aws::Utils::Json::JsonView jsonValue);
+    DeviceTemplate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The device type, which currently must be <code>"button"</code>.</p>
      */
     inline const Aws::String& GetDeviceType() const{ return m_deviceType; }
+
+    /**
+     * <p>The device type, which currently must be <code>"button"</code>.</p>
+     */
+    inline bool DeviceTypeHasBeenSet() const { return m_deviceTypeHasBeenSet; }
 
     /**
      * <p>The device type, which currently must be <code>"button"</code>.</p>
@@ -89,6 +95,12 @@ namespace Model
      * provided by the placement template.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetCallbackOverrides() const{ return m_callbackOverrides; }
+
+    /**
+     * <p>An optional Lambda function to invoke instead of the default Lambda function
+     * provided by the placement template.</p>
+     */
+    inline bool CallbackOverridesHasBeenSet() const { return m_callbackOverridesHasBeenSet; }
 
     /**
      * <p>An optional Lambda function to invoke instead of the default Lambda function

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Health
@@ -36,10 +37,7 @@ namespace Model
 {
 
   /**
-   * <p>Summary information about an event, returned by the <a>DescribeEvents</a>
-   * operation. The <a>DescribeEventDetails</a> operation also returns this
-   * information, as well as the <a>EventDescription</a> and additional event
-   * metadata.</p><p><h3>See Also:</h3>   <a
+   * <p>Summary information about an AWS Health event.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/health-2016-08-04/Event">AWS API
    * Reference</a></p>
    */
@@ -47,64 +45,80 @@ namespace Model
   {
   public:
     Event();
-    Event(const Aws::Utils::Json::JsonValue& jsonValue);
-    Event& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Event(Aws::Utils::Json::JsonView jsonValue);
+    Event& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>The unique identifier for the event. Format:
-     * <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
-     * </code>. Example:
-     * <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> </p>
+     * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i>
+     * </code>. Example: <code>Example:
+     * arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * </p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
 
     /**
      * <p>The unique identifier for the event. Format:
-     * <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
-     * </code>. Example:
-     * <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> </p>
+     * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i>
+     * </code>. Example: <code>Example:
+     * arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * </p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The unique identifier for the event. Format:
+     * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i>
+     * </code>. Example: <code>Example:
+     * arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * </p>
      */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
      * <p>The unique identifier for the event. Format:
-     * <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
-     * </code>. Example:
-     * <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> </p>
+     * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i>
+     * </code>. Example: <code>Example:
+     * arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * </p>
      */
     inline void SetArn(Aws::String&& value) { m_arnHasBeenSet = true; m_arn = std::move(value); }
 
     /**
      * <p>The unique identifier for the event. Format:
-     * <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
-     * </code>. Example:
-     * <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> </p>
+     * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i>
+     * </code>. Example: <code>Example:
+     * arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * </p>
      */
     inline void SetArn(const char* value) { m_arnHasBeenSet = true; m_arn.assign(value); }
 
     /**
      * <p>The unique identifier for the event. Format:
-     * <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
-     * </code>. Example:
-     * <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> </p>
+     * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i>
+     * </code>. Example: <code>Example:
+     * arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * </p>
      */
     inline Event& WithArn(const Aws::String& value) { SetArn(value); return *this;}
 
     /**
      * <p>The unique identifier for the event. Format:
-     * <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
-     * </code>. Example:
-     * <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> </p>
+     * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i>
+     * </code>. Example: <code>Example:
+     * arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * </p>
      */
     inline Event& WithArn(Aws::String&& value) { SetArn(std::move(value)); return *this;}
 
     /**
      * <p>The unique identifier for the event. Format:
-     * <code>arn:aws:health:<i>event-region</i>::event/<i>EVENT_TYPE_PLUS_ID</i>
-     * </code>. Example:
-     * <code>arn:aws:health:us-east-1::event/AWS_EC2_MAINTENANCE_5331</code> </p>
+     * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i>
+     * </code>. Example: <code>Example:
+     * arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * </p>
      */
     inline Event& WithArn(const char* value) { SetArn(value); return *this;}
 
@@ -114,6 +128,12 @@ namespace Model
      * <code>RDS</code>.</p>
      */
     inline const Aws::String& GetService() const{ return m_service; }
+
+    /**
+     * <p>The AWS service that is affected by the event. For example, <code>EC2</code>,
+     * <code>RDS</code>.</p>
+     */
+    inline bool ServiceHasBeenSet() const { return m_serviceHasBeenSet; }
 
     /**
      * <p>The AWS service that is affected by the event. For example, <code>EC2</code>,
@@ -164,6 +184,13 @@ namespace Model
      * <code>AWS_<i>SERVICE</i>_<i>DESCRIPTION</i> </code>; for example,
      * <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>.</p>
      */
+    inline bool EventTypeCodeHasBeenSet() const { return m_eventTypeCodeHasBeenSet; }
+
+    /**
+     * <p>The unique identifier for the event type. The format is
+     * <code>AWS_<i>SERVICE</i>_<i>DESCRIPTION</i> </code>; for example,
+     * <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>.</p>
+     */
     inline void SetEventTypeCode(const Aws::String& value) { m_eventTypeCodeHasBeenSet = true; m_eventTypeCode = value; }
 
     /**
@@ -203,27 +230,38 @@ namespace Model
 
 
     /**
-     * <p>The </p>
+     * <p>The category of the event. Possible values are <code>issue</code>,
+     * <code>scheduledChange</code>, and <code>accountNotification</code>.</p>
      */
     inline const EventTypeCategory& GetEventTypeCategory() const{ return m_eventTypeCategory; }
 
     /**
-     * <p>The </p>
+     * <p>The category of the event. Possible values are <code>issue</code>,
+     * <code>scheduledChange</code>, and <code>accountNotification</code>.</p>
+     */
+    inline bool EventTypeCategoryHasBeenSet() const { return m_eventTypeCategoryHasBeenSet; }
+
+    /**
+     * <p>The category of the event. Possible values are <code>issue</code>,
+     * <code>scheduledChange</code>, and <code>accountNotification</code>.</p>
      */
     inline void SetEventTypeCategory(const EventTypeCategory& value) { m_eventTypeCategoryHasBeenSet = true; m_eventTypeCategory = value; }
 
     /**
-     * <p>The </p>
+     * <p>The category of the event. Possible values are <code>issue</code>,
+     * <code>scheduledChange</code>, and <code>accountNotification</code>.</p>
      */
     inline void SetEventTypeCategory(EventTypeCategory&& value) { m_eventTypeCategoryHasBeenSet = true; m_eventTypeCategory = std::move(value); }
 
     /**
-     * <p>The </p>
+     * <p>The category of the event. Possible values are <code>issue</code>,
+     * <code>scheduledChange</code>, and <code>accountNotification</code>.</p>
      */
     inline Event& WithEventTypeCategory(const EventTypeCategory& value) { SetEventTypeCategory(value); return *this;}
 
     /**
-     * <p>The </p>
+     * <p>The category of the event. Possible values are <code>issue</code>,
+     * <code>scheduledChange</code>, and <code>accountNotification</code>.</p>
      */
     inline Event& WithEventTypeCategory(EventTypeCategory&& value) { SetEventTypeCategory(std::move(value)); return *this;}
 
@@ -232,6 +270,11 @@ namespace Model
      * <p>The AWS region name of the event.</p>
      */
     inline const Aws::String& GetRegion() const{ return m_region; }
+
+    /**
+     * <p>The AWS region name of the event.</p>
+     */
+    inline bool RegionHasBeenSet() const { return m_regionHasBeenSet; }
 
     /**
      * <p>The AWS region name of the event.</p>
@@ -272,6 +315,11 @@ namespace Model
     /**
      * <p>The AWS Availability Zone of the event. For example, us-east-1a.</p>
      */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The AWS Availability Zone of the event. For example, us-east-1a.</p>
+     */
     inline void SetAvailabilityZone(const Aws::String& value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone = value; }
 
     /**
@@ -308,6 +356,11 @@ namespace Model
     /**
      * <p>The date and time that the event began.</p>
      */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time that the event began.</p>
+     */
     inline void SetStartTime(const Aws::Utils::DateTime& value) { m_startTimeHasBeenSet = true; m_startTime = value; }
 
     /**
@@ -330,6 +383,11 @@ namespace Model
      * <p>The date and time that the event ended.</p>
      */
     inline const Aws::Utils::DateTime& GetEndTime() const{ return m_endTime; }
+
+    /**
+     * <p>The date and time that the event ended.</p>
+     */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
 
     /**
      * <p>The date and time that the event ended.</p>
@@ -360,6 +418,11 @@ namespace Model
     /**
      * <p>The most recent date and time that the event was updated.</p>
      */
+    inline bool LastUpdatedTimeHasBeenSet() const { return m_lastUpdatedTimeHasBeenSet; }
+
+    /**
+     * <p>The most recent date and time that the event was updated.</p>
+     */
     inline void SetLastUpdatedTime(const Aws::Utils::DateTime& value) { m_lastUpdatedTimeHasBeenSet = true; m_lastUpdatedTime = value; }
 
     /**
@@ -383,6 +446,12 @@ namespace Model
      * <code>closed</code>, and <code>upcoming</code>.</p>
      */
     inline const EventStatusCode& GetStatusCode() const{ return m_statusCode; }
+
+    /**
+     * <p>The most recent status of the event. Possible values are <code>open</code>,
+     * <code>closed</code>, and <code>upcoming</code>.</p>
+     */
+    inline bool StatusCodeHasBeenSet() const { return m_statusCodeHasBeenSet; }
 
     /**
      * <p>The most recent status of the event. Possible values are <code>open</code>,

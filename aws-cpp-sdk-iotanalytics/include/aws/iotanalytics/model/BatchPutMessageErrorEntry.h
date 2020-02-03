@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     BatchPutMessageErrorEntry();
-    BatchPutMessageErrorEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchPutMessageErrorEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchPutMessageErrorEntry(Aws::Utils::Json::JsonView jsonValue);
+    BatchPutMessageErrorEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * the "messageId" key in the message object.)</p>
      */
     inline const Aws::String& GetMessageId() const{ return m_messageId; }
+
+    /**
+     * <p>The ID of the message that caused the error. (See the value corresponding to
+     * the "messageId" key in the message object.)</p>
+     */
+    inline bool MessageIdHasBeenSet() const { return m_messageIdHasBeenSet; }
 
     /**
      * <p>The ID of the message that caused the error. (See the value corresponding to
@@ -97,6 +104,11 @@ namespace Model
     /**
      * <p>The code associated with the error.</p>
      */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
+
+    /**
+     * <p>The code associated with the error.</p>
+     */
     inline void SetErrorCode(const Aws::String& value) { m_errorCodeHasBeenSet = true; m_errorCode = value; }
 
     /**
@@ -129,6 +141,11 @@ namespace Model
      * <p>The message associated with the error.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The message associated with the error.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The message associated with the error.</p>

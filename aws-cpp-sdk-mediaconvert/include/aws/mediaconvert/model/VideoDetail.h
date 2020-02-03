@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     VideoDetail();
-    VideoDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    VideoDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VideoDetail(Aws::Utils::Json::JsonView jsonValue);
+    VideoDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * Height in pixels for the output
      */
     inline int GetHeightInPx() const{ return m_heightInPx; }
+
+    /**
+     * Height in pixels for the output
+     */
+    inline bool HeightInPxHasBeenSet() const { return m_heightInPxHasBeenSet; }
 
     /**
      * Height in pixels for the output
@@ -64,6 +70,11 @@ namespace Model
      * Width in pixels for the output
      */
     inline int GetWidthInPx() const{ return m_widthInPx; }
+
+    /**
+     * Width in pixels for the output
+     */
+    inline bool WidthInPxHasBeenSet() const { return m_widthInPxHasBeenSet; }
 
     /**
      * Width in pixels for the output

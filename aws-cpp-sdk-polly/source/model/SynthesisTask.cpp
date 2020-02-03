@@ -29,6 +29,8 @@ namespace Model
 {
 
 SynthesisTask::SynthesisTask() : 
+    m_engine(Engine::NOT_SET),
+    m_engineHasBeenSet(false),
     m_taskIdHasBeenSet(false),
     m_taskStatus(TaskStatus::NOT_SET),
     m_taskStatusHasBeenSet(false),
@@ -46,11 +48,15 @@ SynthesisTask::SynthesisTask() :
     m_textType(TextType::NOT_SET),
     m_textTypeHasBeenSet(false),
     m_voiceId(VoiceId::NOT_SET),
-    m_voiceIdHasBeenSet(false)
+    m_voiceIdHasBeenSet(false),
+    m_languageCode(LanguageCode::NOT_SET),
+    m_languageCodeHasBeenSet(false)
 {
 }
 
-SynthesisTask::SynthesisTask(const JsonValue& jsonValue) : 
+SynthesisTask::SynthesisTask(JsonView jsonValue) : 
+    m_engine(Engine::NOT_SET),
+    m_engineHasBeenSet(false),
     m_taskIdHasBeenSet(false),
     m_taskStatus(TaskStatus::NOT_SET),
     m_taskStatusHasBeenSet(false),
@@ -68,13 +74,22 @@ SynthesisTask::SynthesisTask(const JsonValue& jsonValue) :
     m_textType(TextType::NOT_SET),
     m_textTypeHasBeenSet(false),
     m_voiceId(VoiceId::NOT_SET),
-    m_voiceIdHasBeenSet(false)
+    m_voiceIdHasBeenSet(false),
+    m_languageCode(LanguageCode::NOT_SET),
+    m_languageCodeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-SynthesisTask& SynthesisTask::operator =(const JsonValue& jsonValue)
+SynthesisTask& SynthesisTask::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("Engine"))
+  {
+    m_engine = EngineMapper::GetEngineForName(jsonValue.GetString("Engine"));
+
+    m_engineHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("TaskId"))
   {
     m_taskId = jsonValue.GetString("TaskId");
@@ -126,7 +141,7 @@ SynthesisTask& SynthesisTask::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("LexiconNames"))
   {
-    Array<JsonValue> lexiconNamesJsonList = jsonValue.GetArray("LexiconNames");
+    Array<JsonView> lexiconNamesJsonList = jsonValue.GetArray("LexiconNames");
     for(unsigned lexiconNamesIndex = 0; lexiconNamesIndex < lexiconNamesJsonList.GetLength(); ++lexiconNamesIndex)
     {
       m_lexiconNames.push_back(lexiconNamesJsonList[lexiconNamesIndex].AsString());
@@ -150,7 +165,7 @@ SynthesisTask& SynthesisTask::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("SpeechMarkTypes"))
   {
-    Array<JsonValue> speechMarkTypesJsonList = jsonValue.GetArray("SpeechMarkTypes");
+    Array<JsonView> speechMarkTypesJsonList = jsonValue.GetArray("SpeechMarkTypes");
     for(unsigned speechMarkTypesIndex = 0; speechMarkTypesIndex < speechMarkTypesJsonList.GetLength(); ++speechMarkTypesIndex)
     {
       m_speechMarkTypes.push_back(SpeechMarkTypeMapper::GetSpeechMarkTypeForName(speechMarkTypesJsonList[speechMarkTypesIndex].AsString()));
@@ -172,12 +187,24 @@ SynthesisTask& SynthesisTask::operator =(const JsonValue& jsonValue)
     m_voiceIdHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("LanguageCode"))
+  {
+    m_languageCode = LanguageCodeMapper::GetLanguageCodeForName(jsonValue.GetString("LanguageCode"));
+
+    m_languageCodeHasBeenSet = true;
+  }
+
   return *this;
 }
 
 JsonValue SynthesisTask::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_engineHasBeenSet)
+  {
+   payload.WithString("Engine", EngineMapper::GetNameForEngine(m_engine));
+  }
 
   if(m_taskIdHasBeenSet)
   {
@@ -260,6 +287,11 @@ JsonValue SynthesisTask::Jsonize() const
   if(m_voiceIdHasBeenSet)
   {
    payload.WithString("VoiceId", VoiceIdMapper::GetNameForVoiceId(m_voiceId));
+  }
+
+  if(m_languageCodeHasBeenSet)
+  {
+   payload.WithString("LanguageCode", LanguageCodeMapper::GetNameForLanguageCode(m_languageCode));
   }
 
   return payload;

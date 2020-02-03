@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     AutomationExecutionFilter();
-    AutomationExecutionFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    AutomationExecutionFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AutomationExecutionFilter(Aws::Utils::Json::JsonView jsonValue);
+    AutomationExecutionFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,13 @@ namespace Model
      * CurrentAction, StartTimeBefore, StartTimeAfter.</p>
      */
     inline const AutomationExecutionFilterKey& GetKey() const{ return m_key; }
+
+    /**
+     * <p>One or more keys to limit the results. Valid filter keys include the
+     * following: DocumentNamePrefix, ExecutionStatus, ExecutionId, ParentExecutionId,
+     * CurrentAction, StartTimeBefore, StartTimeAfter.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>One or more keys to limit the results. Valid filter keys include the
@@ -91,6 +99,12 @@ namespace Model
      * filter's key.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>The values used to limit the execution information associated with the
+     * filter's key.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>The values used to limit the execution information associated with the

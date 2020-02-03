@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     SoftwareTokenMfaSettingsType();
-    SoftwareTokenMfaSettingsType(const Aws::Utils::Json::JsonValue& jsonValue);
-    SoftwareTokenMfaSettingsType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SoftwareTokenMfaSettingsType(Aws::Utils::Json::JsonView jsonValue);
+    SoftwareTokenMfaSettingsType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>Specifies whether software token MFA is enabled.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Specifies whether software token MFA is enabled.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Specifies whether software token MFA is enabled.</p>
@@ -62,17 +68,22 @@ namespace Model
 
 
     /**
-     * <p>The preferred MFA method.</p>
+     * <p>Specifies whether software token MFA is the preferred MFA method.</p>
      */
     inline bool GetPreferredMfa() const{ return m_preferredMfa; }
 
     /**
-     * <p>The preferred MFA method.</p>
+     * <p>Specifies whether software token MFA is the preferred MFA method.</p>
+     */
+    inline bool PreferredMfaHasBeenSet() const { return m_preferredMfaHasBeenSet; }
+
+    /**
+     * <p>Specifies whether software token MFA is the preferred MFA method.</p>
      */
     inline void SetPreferredMfa(bool value) { m_preferredMfaHasBeenSet = true; m_preferredMfa = value; }
 
     /**
-     * <p>The preferred MFA method.</p>
+     * <p>Specifies whether software token MFA is the preferred MFA method.</p>
      */
     inline SoftwareTokenMfaSettingsType& WithPreferredMfa(bool value) { SetPreferredMfa(value); return *this;}
 

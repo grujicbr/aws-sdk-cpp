@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace GuardDuty
@@ -33,8 +34,8 @@ namespace Model
 {
 
   /**
-   * Information about the DNS_REQUEST action described in this finding.<p><h3>See
-   * Also:</h3>   <a
+   * <p>Contains information about the DNS_REQUEST action described in this
+   * finding.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DnsRequestAction">AWS
    * API Reference</a></p>
    */
@@ -42,43 +43,48 @@ namespace Model
   {
   public:
     DnsRequestAction();
-    DnsRequestAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    DnsRequestAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DnsRequestAction(Aws::Utils::Json::JsonView jsonValue);
+    DnsRequestAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * Domain information for the DNS request.
+     * <p>Domain information for the API request.</p>
      */
     inline const Aws::String& GetDomain() const{ return m_domain; }
 
     /**
-     * Domain information for the DNS request.
+     * <p>Domain information for the API request.</p>
+     */
+    inline bool DomainHasBeenSet() const { return m_domainHasBeenSet; }
+
+    /**
+     * <p>Domain information for the API request.</p>
      */
     inline void SetDomain(const Aws::String& value) { m_domainHasBeenSet = true; m_domain = value; }
 
     /**
-     * Domain information for the DNS request.
+     * <p>Domain information for the API request.</p>
      */
     inline void SetDomain(Aws::String&& value) { m_domainHasBeenSet = true; m_domain = std::move(value); }
 
     /**
-     * Domain information for the DNS request.
+     * <p>Domain information for the API request.</p>
      */
     inline void SetDomain(const char* value) { m_domainHasBeenSet = true; m_domain.assign(value); }
 
     /**
-     * Domain information for the DNS request.
+     * <p>Domain information for the API request.</p>
      */
     inline DnsRequestAction& WithDomain(const Aws::String& value) { SetDomain(value); return *this;}
 
     /**
-     * Domain information for the DNS request.
+     * <p>Domain information for the API request.</p>
      */
     inline DnsRequestAction& WithDomain(Aws::String&& value) { SetDomain(std::move(value)); return *this;}
 
     /**
-     * Domain information for the DNS request.
+     * <p>Domain information for the API request.</p>
      */
     inline DnsRequestAction& WithDomain(const char* value) { SetDomain(value); return *this;}
 

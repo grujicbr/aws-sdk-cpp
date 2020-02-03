@@ -51,7 +51,7 @@ DescribeScheduledInstanceAvailabilityResponse& DescribeScheduledInstanceAvailabi
     XmlNode nextTokenNode = resultNode.FirstChild("nextToken");
     if(!nextTokenNode.IsNull())
     {
-      m_nextToken = StringUtils::Trim(nextTokenNode.GetText().c_str());
+      m_nextToken = Aws::Utils::Xml::DecodeEscapedXmlText(nextTokenNode.GetText());
     }
     XmlNode scheduledInstanceAvailabilitySetNode = resultNode.FirstChild("scheduledInstanceAvailabilitySet");
     if(!scheduledInstanceAvailabilitySetNode.IsNull())
@@ -67,8 +67,11 @@ DescribeScheduledInstanceAvailabilityResponse& DescribeScheduledInstanceAvailabi
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::DescribeScheduledInstanceAvailabilityResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

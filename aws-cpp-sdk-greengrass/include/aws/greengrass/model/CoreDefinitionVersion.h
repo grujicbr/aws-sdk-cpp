@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CoreDefinitionVersion();
-    CoreDefinitionVersion(const Aws::Utils::Json::JsonValue& jsonValue);
-    CoreDefinitionVersion& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CoreDefinitionVersion(Aws::Utils::Json::JsonView jsonValue);
+    CoreDefinitionVersion& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * A list of cores in the core definition version.
      */
     inline const Aws::Vector<Core>& GetCores() const{ return m_cores; }
+
+    /**
+     * A list of cores in the core definition version.
+     */
+    inline bool CoresHasBeenSet() const { return m_coresHasBeenSet; }
 
     /**
      * A list of cores in the core definition version.

@@ -51,7 +51,7 @@ DescribeSourceRegionsResult& DescribeSourceRegionsResult::operator =(const Aws::
     XmlNode markerNode = resultNode.FirstChild("Marker");
     if(!markerNode.IsNull())
     {
-      m_marker = StringUtils::Trim(markerNode.GetText().c_str());
+      m_marker = Aws::Utils::Xml::DecodeEscapedXmlText(markerNode.GetText());
     }
     XmlNode sourceRegionsNode = resultNode.FirstChild("SourceRegions");
     if(!sourceRegionsNode.IsNull())

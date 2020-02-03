@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     DeleteNotificationConfigurationRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,6 +50,11 @@ namespace Model
      * <p>The name of the Auto Scaling group.</p>
      */
     inline const Aws::String& GetAutoScalingGroupName() const{ return m_autoScalingGroupName; }
+
+    /**
+     * <p>The name of the Auto Scaling group.</p>
+     */
+    inline bool AutoScalingGroupNameHasBeenSet() const { return m_autoScalingGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the Auto Scaling group.</p>
@@ -84,43 +89,49 @@ namespace Model
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
-     * (SNS) topic.</p>
+     * (Amazon SNS) topic.</p>
      */
     inline const Aws::String& GetTopicARN() const{ return m_topicARN; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
-     * (SNS) topic.</p>
+     * (Amazon SNS) topic.</p>
+     */
+    inline bool TopicARNHasBeenSet() const { return m_topicARNHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+     * (Amazon SNS) topic.</p>
      */
     inline void SetTopicARN(const Aws::String& value) { m_topicARNHasBeenSet = true; m_topicARN = value; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
-     * (SNS) topic.</p>
+     * (Amazon SNS) topic.</p>
      */
     inline void SetTopicARN(Aws::String&& value) { m_topicARNHasBeenSet = true; m_topicARN = std::move(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
-     * (SNS) topic.</p>
+     * (Amazon SNS) topic.</p>
      */
     inline void SetTopicARN(const char* value) { m_topicARNHasBeenSet = true; m_topicARN.assign(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
-     * (SNS) topic.</p>
+     * (Amazon SNS) topic.</p>
      */
     inline DeleteNotificationConfigurationRequest& WithTopicARN(const Aws::String& value) { SetTopicARN(value); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
-     * (SNS) topic.</p>
+     * (Amazon SNS) topic.</p>
      */
     inline DeleteNotificationConfigurationRequest& WithTopicARN(Aws::String&& value) { SetTopicARN(std::move(value)); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
-     * (SNS) topic.</p>
+     * (Amazon SNS) topic.</p>
      */
     inline DeleteNotificationConfigurationRequest& WithTopicARN(const char* value) { SetTopicARN(value); return *this;}
 

@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetTableVersionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -45,43 +45,49 @@ namespace Model
 
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline const Aws::String& GetCatalogId() const{ return m_catalogId; }
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
+     * AWS account ID is used by default.</p>
+     */
+    inline bool CatalogIdHasBeenSet() const { return m_catalogIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const Aws::String& value) { m_catalogIdHasBeenSet = true; m_catalogId = value; }
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(Aws::String&& value) { m_catalogIdHasBeenSet = true; m_catalogId = std::move(value); }
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const char* value) { m_catalogIdHasBeenSet = true; m_catalogId.assign(value); }
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableVersionRequest& WithCatalogId(const Aws::String& value) { SetCatalogId(value); return *this;}
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableVersionRequest& WithCatalogId(Aws::String&& value) { SetCatalogId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableVersionRequest& WithCatalogId(const char* value) { SetCatalogId(value); return *this;}
@@ -92,6 +98,12 @@ namespace Model
      * compatibility, this name is entirely lowercase.</p>
      */
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    /**
+     * <p>The database in the catalog in which the table resides. For Hive
+     * compatibility, this name is entirely lowercase.</p>
+     */
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     /**
      * <p>The database in the catalog in which the table resides. For Hive
@@ -140,6 +152,12 @@ namespace Model
      * <p>The name of the table. For Hive compatibility, this name is entirely
      * lowercase.</p>
      */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
+
+    /**
+     * <p>The name of the table. For Hive compatibility, this name is entirely
+     * lowercase.</p>
+     */
     inline void SetTableName(const Aws::String& value) { m_tableNameHasBeenSet = true; m_tableName = value; }
 
     /**
@@ -174,37 +192,50 @@ namespace Model
 
 
     /**
-     * <p>The ID value of the table version to be retrieved.</p>
+     * <p>The ID value of the table version to be retrieved. A <code>VersionID</code>
+     * is a string representation of an integer. Each version is incremented by 1. </p>
      */
     inline const Aws::String& GetVersionId() const{ return m_versionId; }
 
     /**
-     * <p>The ID value of the table version to be retrieved.</p>
+     * <p>The ID value of the table version to be retrieved. A <code>VersionID</code>
+     * is a string representation of an integer. Each version is incremented by 1. </p>
+     */
+    inline bool VersionIdHasBeenSet() const { return m_versionIdHasBeenSet; }
+
+    /**
+     * <p>The ID value of the table version to be retrieved. A <code>VersionID</code>
+     * is a string representation of an integer. Each version is incremented by 1. </p>
      */
     inline void SetVersionId(const Aws::String& value) { m_versionIdHasBeenSet = true; m_versionId = value; }
 
     /**
-     * <p>The ID value of the table version to be retrieved.</p>
+     * <p>The ID value of the table version to be retrieved. A <code>VersionID</code>
+     * is a string representation of an integer. Each version is incremented by 1. </p>
      */
     inline void SetVersionId(Aws::String&& value) { m_versionIdHasBeenSet = true; m_versionId = std::move(value); }
 
     /**
-     * <p>The ID value of the table version to be retrieved.</p>
+     * <p>The ID value of the table version to be retrieved. A <code>VersionID</code>
+     * is a string representation of an integer. Each version is incremented by 1. </p>
      */
     inline void SetVersionId(const char* value) { m_versionIdHasBeenSet = true; m_versionId.assign(value); }
 
     /**
-     * <p>The ID value of the table version to be retrieved.</p>
+     * <p>The ID value of the table version to be retrieved. A <code>VersionID</code>
+     * is a string representation of an integer. Each version is incremented by 1. </p>
      */
     inline GetTableVersionRequest& WithVersionId(const Aws::String& value) { SetVersionId(value); return *this;}
 
     /**
-     * <p>The ID value of the table version to be retrieved.</p>
+     * <p>The ID value of the table version to be retrieved. A <code>VersionID</code>
+     * is a string representation of an integer. Each version is incremented by 1. </p>
      */
     inline GetTableVersionRequest& WithVersionId(Aws::String&& value) { SetVersionId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID value of the table version to be retrieved.</p>
+     * <p>The ID value of the table version to be retrieved. A <code>VersionID</code>
+     * is a string representation of an integer. Each version is incremented by 1. </p>
      */
     inline GetTableVersionRequest& WithVersionId(const char* value) { SetVersionId(value); return *this;}
 

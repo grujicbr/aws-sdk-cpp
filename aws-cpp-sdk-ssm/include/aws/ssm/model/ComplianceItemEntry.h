@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ComplianceItemEntry();
-    ComplianceItemEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComplianceItemEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComplianceItemEntry(Aws::Utils::Json::JsonView jsonValue);
+    ComplianceItemEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * patch, the ID could be the number of the KB article.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The compliance item ID. For example, if the compliance item is a Windows
+     * patch, the ID could be the number of the KB article.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The compliance item ID. For example, if the compliance item is a Windows
@@ -98,6 +105,13 @@ namespace Model
      * example: Security Update for Active Directory Federation Services. </p>
      */
     inline const Aws::String& GetTitle() const{ return m_title; }
+
+    /**
+     * <p>The title of the compliance item. For example, if the compliance item is a
+     * Windows patch, the title could be the title of the KB article for the patch; for
+     * example: Security Update for Active Directory Federation Services. </p>
+     */
+    inline bool TitleHasBeenSet() const { return m_titleHasBeenSet; }
 
     /**
      * <p>The title of the compliance item. For example, if the compliance item is a
@@ -152,6 +166,12 @@ namespace Model
      * <p>The severity of the compliance status. Severity can be one of the following:
      * Critical, High, Medium, Low, Informational, Unspecified.</p>
      */
+    inline bool SeverityHasBeenSet() const { return m_severityHasBeenSet; }
+
+    /**
+     * <p>The severity of the compliance status. Severity can be one of the following:
+     * Critical, High, Medium, Low, Informational, Unspecified.</p>
+     */
     inline void SetSeverity(const ComplianceSeverity& value) { m_severityHasBeenSet = true; m_severity = value; }
 
     /**
@@ -183,6 +203,12 @@ namespace Model
      * <p>The status of the compliance item. An item is either COMPLIANT or
      * NON_COMPLIANT.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the compliance item. An item is either COMPLIANT or
+     * NON_COMPLIANT.</p>
+     */
     inline void SetStatus(const ComplianceStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -208,6 +234,11 @@ namespace Model
      * <p>A "Key": "Value" tag combination for the compliance item.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetDetails() const{ return m_details; }
+
+    /**
+     * <p>A "Key": "Value" tag combination for the compliance item.</p>
+     */
+    inline bool DetailsHasBeenSet() const { return m_detailsHasBeenSet; }
 
     /**
      * <p>A "Key": "Value" tag combination for the compliance item.</p>

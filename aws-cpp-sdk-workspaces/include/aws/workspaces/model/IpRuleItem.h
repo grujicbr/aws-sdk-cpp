@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkSpaces
@@ -33,8 +34,8 @@ namespace Model
 {
 
   /**
-   * <p>Information about a rule for an IP access control group.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>Describes a rule for an IP access control group.</p><p><h3>See Also:</h3>  
+   * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/IpRuleItem">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     IpRuleItem();
-    IpRuleItem(const Aws::Utils::Json::JsonValue& jsonValue);
-    IpRuleItem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IpRuleItem(Aws::Utils::Json::JsonView jsonValue);
+    IpRuleItem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The IP address range, in CIDR notation.</p>
      */
     inline const Aws::String& GetIpRule() const{ return m_ipRule; }
+
+    /**
+     * <p>The IP address range, in CIDR notation.</p>
+     */
+    inline bool IpRuleHasBeenSet() const { return m_ipRuleHasBeenSet; }
 
     /**
      * <p>The IP address range, in CIDR notation.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The description.</p>
      */
     inline const Aws::String& GetRuleDesc() const{ return m_ruleDesc; }
+
+    /**
+     * <p>The description.</p>
+     */
+    inline bool RuleDescHasBeenSet() const { return m_ruleDescHasBeenSet; }
 
     /**
      * <p>The description.</p>

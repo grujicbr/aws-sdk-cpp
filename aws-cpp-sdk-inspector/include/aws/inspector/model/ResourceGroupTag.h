@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ResourceGroupTag();
-    ResourceGroupTag(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceGroupTag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceGroupTag(Aws::Utils::Json::JsonView jsonValue);
+    ResourceGroupTag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>A tag key.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>A tag key.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>A tag key.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The value assigned to a tag key.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value assigned to a tag key.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value assigned to a tag key.</p>

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     InventoryDeletionStatusItem();
-    InventoryDeletionStatusItem(const Aws::Utils::Json::JsonValue& jsonValue);
-    InventoryDeletionStatusItem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InventoryDeletionStatusItem(Aws::Utils::Json::JsonView jsonValue);
+    InventoryDeletionStatusItem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The deletion ID returned by the <code>DeleteInventory</code> action.</p>
      */
     inline const Aws::String& GetDeletionId() const{ return m_deletionId; }
+
+    /**
+     * <p>The deletion ID returned by the <code>DeleteInventory</code> action.</p>
+     */
+    inline bool DeletionIdHasBeenSet() const { return m_deletionIdHasBeenSet; }
 
     /**
      * <p>The deletion ID returned by the <code>DeleteInventory</code> action.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The name of the inventory data type.</p>
      */
+    inline bool TypeNameHasBeenSet() const { return m_typeNameHasBeenSet; }
+
+    /**
+     * <p>The name of the inventory data type.</p>
+     */
     inline void SetTypeName(const Aws::String& value) { m_typeNameHasBeenSet = true; m_typeName = value; }
 
     /**
@@ -130,6 +141,11 @@ namespace Model
     /**
      * <p>The UTC timestamp when the delete operation started.</p>
      */
+    inline bool DeletionStartTimeHasBeenSet() const { return m_deletionStartTimeHasBeenSet; }
+
+    /**
+     * <p>The UTC timestamp when the delete operation started.</p>
+     */
     inline void SetDeletionStartTime(const Aws::Utils::DateTime& value) { m_deletionStartTimeHasBeenSet = true; m_deletionStartTime = value; }
 
     /**
@@ -156,6 +172,11 @@ namespace Model
     /**
      * <p>The status of the operation. Possible values are InProgress and Complete.</p>
      */
+    inline bool LastStatusHasBeenSet() const { return m_lastStatusHasBeenSet; }
+
+    /**
+     * <p>The status of the operation. Possible values are InProgress and Complete.</p>
+     */
     inline void SetLastStatus(const InventoryDeletionStatus& value) { m_lastStatusHasBeenSet = true; m_lastStatus = value; }
 
     /**
@@ -178,6 +199,11 @@ namespace Model
      * <p>Information about the status.</p>
      */
     inline const Aws::String& GetLastStatusMessage() const{ return m_lastStatusMessage; }
+
+    /**
+     * <p>Information about the status.</p>
+     */
+    inline bool LastStatusMessageHasBeenSet() const { return m_lastStatusMessageHasBeenSet; }
 
     /**
      * <p>Information about the status.</p>
@@ -213,7 +239,7 @@ namespace Model
     /**
      * <p>Information about the delete operation. For more information about this
      * summary, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary">Understanding
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete">Understanding
      * the Delete Inventory Summary</a> in the <i>AWS Systems Manager User
      * Guide</i>.</p>
      */
@@ -222,7 +248,16 @@ namespace Model
     /**
      * <p>Information about the delete operation. For more information about this
      * summary, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary">Understanding
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete">Understanding
+     * the Delete Inventory Summary</a> in the <i>AWS Systems Manager User
+     * Guide</i>.</p>
+     */
+    inline bool DeletionSummaryHasBeenSet() const { return m_deletionSummaryHasBeenSet; }
+
+    /**
+     * <p>Information about the delete operation. For more information about this
+     * summary, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete">Understanding
      * the Delete Inventory Summary</a> in the <i>AWS Systems Manager User
      * Guide</i>.</p>
      */
@@ -231,7 +266,7 @@ namespace Model
     /**
      * <p>Information about the delete operation. For more information about this
      * summary, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary">Understanding
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete">Understanding
      * the Delete Inventory Summary</a> in the <i>AWS Systems Manager User
      * Guide</i>.</p>
      */
@@ -240,7 +275,7 @@ namespace Model
     /**
      * <p>Information about the delete operation. For more information about this
      * summary, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary">Understanding
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete">Understanding
      * the Delete Inventory Summary</a> in the <i>AWS Systems Manager User
      * Guide</i>.</p>
      */
@@ -249,7 +284,7 @@ namespace Model
     /**
      * <p>Information about the delete operation. For more information about this
      * summary, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary">Understanding
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete">Understanding
      * the Delete Inventory Summary</a> in the <i>AWS Systems Manager User
      * Guide</i>.</p>
      */
@@ -260,6 +295,11 @@ namespace Model
      * <p>The UTC timestamp of when the last status report.</p>
      */
     inline const Aws::Utils::DateTime& GetLastStatusUpdateTime() const{ return m_lastStatusUpdateTime; }
+
+    /**
+     * <p>The UTC timestamp of when the last status report.</p>
+     */
+    inline bool LastStatusUpdateTimeHasBeenSet() const { return m_lastStatusUpdateTimeHasBeenSet; }
 
     /**
      * <p>The UTC timestamp of when the last status report.</p>

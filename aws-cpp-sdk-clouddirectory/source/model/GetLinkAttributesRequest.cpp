@@ -58,7 +58,7 @@ Aws::String GetLinkAttributesRequest::SerializePayload() const
    payload.WithString("ConsistencyLevel", ConsistencyLevelMapper::GetNameForConsistencyLevel(m_consistencyLevel));
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection GetLinkAttributesRequest::GetRequestSpecificHeaders() const
@@ -68,7 +68,7 @@ Aws::Http::HeaderValueCollection GetLinkAttributesRequest::GetRequestSpecificHea
   if(m_directoryArnHasBeenSet)
   {
     ss << m_directoryArn;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-data-partition", ss.str()));
+    headers.emplace("x-amz-data-partition",  ss.str());
     ss.str("");
   }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Grantee();
-    Grantee(const Aws::Utils::Json::JsonValue& jsonValue);
-    Grantee& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Grantee(Aws::Utils::Json::JsonView jsonValue);
+    Grantee& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Type of grantee</p>
      */
     inline const Type& GetType() const{ return m_type; }
+
+    /**
+     * <p>Type of grantee</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>Type of grantee</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>Screen name of the grantee.</p>
      */
     inline const Aws::String& GetDisplayName() const{ return m_displayName; }
+
+    /**
+     * <p>Screen name of the grantee.</p>
+     */
+    inline bool DisplayNameHasBeenSet() const { return m_displayNameHasBeenSet; }
 
     /**
      * <p>Screen name of the grantee.</p>
@@ -117,6 +128,11 @@ namespace Model
     /**
      * <p>URI of the grantee group.</p>
      */
+    inline bool URIHasBeenSet() const { return m_uRIHasBeenSet; }
+
+    /**
+     * <p>URI of the grantee group.</p>
+     */
     inline void SetURI(const Aws::String& value) { m_uRIHasBeenSet = true; m_uRI = value; }
 
     /**
@@ -153,6 +169,11 @@ namespace Model
     /**
      * <p>The canonical user ID of the grantee.</p>
      */
+    inline bool IDHasBeenSet() const { return m_iDHasBeenSet; }
+
+    /**
+     * <p>The canonical user ID of the grantee.</p>
+     */
     inline void SetID(const Aws::String& value) { m_iDHasBeenSet = true; m_iD = value; }
 
     /**
@@ -185,6 +206,11 @@ namespace Model
      * <p>Email address of the grantee.</p>
      */
     inline const Aws::String& GetEmailAddress() const{ return m_emailAddress; }
+
+    /**
+     * <p>Email address of the grantee.</p>
+     */
+    inline bool EmailAddressHasBeenSet() const { return m_emailAddressHasBeenSet; }
 
     /**
      * <p>Email address of the grantee.</p>

@@ -20,6 +20,7 @@
 #include <aws/iam/model/PolicyEvaluationDecisionType.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/iam/model/OrganizationsDecisionDetail.h>
+#include <aws/iam/model/PermissionsBoundaryDecisionDetail.h>
 #include <aws/core/utils/memory/stl/AWSMap.h>
 #include <aws/iam/model/Statement.h>
 #include <aws/iam/model/ResourceSpecificResult.h>
@@ -65,6 +66,11 @@ namespace Model
     /**
      * <p>The name of the API operation tested on the indicated resource.</p>
      */
+    inline bool EvalActionNameHasBeenSet() const { return m_evalActionNameHasBeenSet; }
+
+    /**
+     * <p>The name of the API operation tested on the indicated resource.</p>
+     */
     inline void SetEvalActionName(const Aws::String& value) { m_evalActionNameHasBeenSet = true; m_evalActionName = value; }
 
     /**
@@ -97,6 +103,11 @@ namespace Model
      * <p>The ARN of the resource that the indicated API operation was tested on.</p>
      */
     inline const Aws::String& GetEvalResourceName() const{ return m_evalResourceName; }
+
+    /**
+     * <p>The ARN of the resource that the indicated API operation was tested on.</p>
+     */
+    inline bool EvalResourceNameHasBeenSet() const { return m_evalResourceNameHasBeenSet; }
 
     /**
      * <p>The ARN of the resource that the indicated API operation was tested on.</p>
@@ -137,6 +148,11 @@ namespace Model
     /**
      * <p>The result of the simulation.</p>
      */
+    inline bool EvalDecisionHasBeenSet() const { return m_evalDecisionHasBeenSet; }
+
+    /**
+     * <p>The result of the simulation.</p>
+     */
     inline void SetEvalDecision(const PolicyEvaluationDecisionType& value) { m_evalDecisionHasBeenSet = true; m_evalDecision = value; }
 
     /**
@@ -159,8 +175,8 @@ namespace Model
      * <p>A list of the statements in the input policies that determine the result for
      * this scenario. Remember that even if multiple statements allow the operation on
      * the resource, if only one statement denies that operation, then the explicit
-     * deny overrides any allow, and the deny statement is the only entry included in
-     * the result.</p>
+     * deny overrides any allow. In addition, the deny statement is the only entry
+     * included in the result.</p>
      */
     inline const Aws::Vector<Statement>& GetMatchedStatements() const{ return m_matchedStatements; }
 
@@ -168,8 +184,17 @@ namespace Model
      * <p>A list of the statements in the input policies that determine the result for
      * this scenario. Remember that even if multiple statements allow the operation on
      * the resource, if only one statement denies that operation, then the explicit
-     * deny overrides any allow, and the deny statement is the only entry included in
-     * the result.</p>
+     * deny overrides any allow. In addition, the deny statement is the only entry
+     * included in the result.</p>
+     */
+    inline bool MatchedStatementsHasBeenSet() const { return m_matchedStatementsHasBeenSet; }
+
+    /**
+     * <p>A list of the statements in the input policies that determine the result for
+     * this scenario. Remember that even if multiple statements allow the operation on
+     * the resource, if only one statement denies that operation, then the explicit
+     * deny overrides any allow. In addition, the deny statement is the only entry
+     * included in the result.</p>
      */
     inline void SetMatchedStatements(const Aws::Vector<Statement>& value) { m_matchedStatementsHasBeenSet = true; m_matchedStatements = value; }
 
@@ -177,8 +202,8 @@ namespace Model
      * <p>A list of the statements in the input policies that determine the result for
      * this scenario. Remember that even if multiple statements allow the operation on
      * the resource, if only one statement denies that operation, then the explicit
-     * deny overrides any allow, and the deny statement is the only entry included in
-     * the result.</p>
+     * deny overrides any allow. In addition, the deny statement is the only entry
+     * included in the result.</p>
      */
     inline void SetMatchedStatements(Aws::Vector<Statement>&& value) { m_matchedStatementsHasBeenSet = true; m_matchedStatements = std::move(value); }
 
@@ -186,8 +211,8 @@ namespace Model
      * <p>A list of the statements in the input policies that determine the result for
      * this scenario. Remember that even if multiple statements allow the operation on
      * the resource, if only one statement denies that operation, then the explicit
-     * deny overrides any allow, and the deny statement is the only entry included in
-     * the result.</p>
+     * deny overrides any allow. In addition, the deny statement is the only entry
+     * included in the result.</p>
      */
     inline EvaluationResult& WithMatchedStatements(const Aws::Vector<Statement>& value) { SetMatchedStatements(value); return *this;}
 
@@ -195,8 +220,8 @@ namespace Model
      * <p>A list of the statements in the input policies that determine the result for
      * this scenario. Remember that even if multiple statements allow the operation on
      * the resource, if only one statement denies that operation, then the explicit
-     * deny overrides any allow, and the deny statement is the only entry included in
-     * the result.</p>
+     * deny overrides any allow. In addition, the deny statement is the only entry
+     * included in the result.</p>
      */
     inline EvaluationResult& WithMatchedStatements(Aws::Vector<Statement>&& value) { SetMatchedStatements(std::move(value)); return *this;}
 
@@ -204,8 +229,8 @@ namespace Model
      * <p>A list of the statements in the input policies that determine the result for
      * this scenario. Remember that even if multiple statements allow the operation on
      * the resource, if only one statement denies that operation, then the explicit
-     * deny overrides any allow, and the deny statement is the only entry included in
-     * the result.</p>
+     * deny overrides any allow. In addition, the deny statement is the only entry
+     * included in the result.</p>
      */
     inline EvaluationResult& AddMatchedStatements(const Statement& value) { m_matchedStatementsHasBeenSet = true; m_matchedStatements.push_back(value); return *this; }
 
@@ -213,8 +238,8 @@ namespace Model
      * <p>A list of the statements in the input policies that determine the result for
      * this scenario. Remember that even if multiple statements allow the operation on
      * the resource, if only one statement denies that operation, then the explicit
-     * deny overrides any allow, and the deny statement is the only entry included in
-     * the result.</p>
+     * deny overrides any allow. In addition, the deny statement is the only entry
+     * included in the result.</p>
      */
     inline EvaluationResult& AddMatchedStatements(Statement&& value) { m_matchedStatementsHasBeenSet = true; m_matchedStatements.push_back(std::move(value)); return *this; }
 
@@ -230,6 +255,18 @@ namespace Model
      * <a>GetContextKeysForPrincipalPolicy</a>.</p>
      */
     inline const Aws::Vector<Aws::String>& GetMissingContextValues() const{ return m_missingContextValues; }
+
+    /**
+     * <p>A list of context keys that are required by the included input policies but
+     * that were not provided by one of the input parameters. This list is used when
+     * the resource in a simulation is "*", either explicitly, or when the
+     * <code>ResourceArns</code> parameter blank. If you include a list of resources,
+     * then any missing context values are instead included under the
+     * <code>ResourceSpecificResults</code> section. To discover the context keys used
+     * by a set of policies, you can call <a>GetContextKeysForCustomPolicy</a> or
+     * <a>GetContextKeysForPrincipalPolicy</a>.</p>
+     */
+    inline bool MissingContextValuesHasBeenSet() const { return m_missingContextValuesHasBeenSet; }
 
     /**
      * <p>A list of context keys that are required by the included input policies but
@@ -317,159 +354,322 @@ namespace Model
 
 
     /**
-     * <p>A structure that details how AWS Organizations and its service control
-     * policies affect the results of the simulation. Only applies if the simulated
-     * user's account is part of an organization.</p>
+     * <p>A structure that details how Organizations and its service control policies
+     * affect the results of the simulation. Only applies if the simulated user's
+     * account is part of an organization.</p>
      */
     inline const OrganizationsDecisionDetail& GetOrganizationsDecisionDetail() const{ return m_organizationsDecisionDetail; }
 
     /**
-     * <p>A structure that details how AWS Organizations and its service control
-     * policies affect the results of the simulation. Only applies if the simulated
-     * user's account is part of an organization.</p>
+     * <p>A structure that details how Organizations and its service control policies
+     * affect the results of the simulation. Only applies if the simulated user's
+     * account is part of an organization.</p>
+     */
+    inline bool OrganizationsDecisionDetailHasBeenSet() const { return m_organizationsDecisionDetailHasBeenSet; }
+
+    /**
+     * <p>A structure that details how Organizations and its service control policies
+     * affect the results of the simulation. Only applies if the simulated user's
+     * account is part of an organization.</p>
      */
     inline void SetOrganizationsDecisionDetail(const OrganizationsDecisionDetail& value) { m_organizationsDecisionDetailHasBeenSet = true; m_organizationsDecisionDetail = value; }
 
     /**
-     * <p>A structure that details how AWS Organizations and its service control
-     * policies affect the results of the simulation. Only applies if the simulated
-     * user's account is part of an organization.</p>
+     * <p>A structure that details how Organizations and its service control policies
+     * affect the results of the simulation. Only applies if the simulated user's
+     * account is part of an organization.</p>
      */
     inline void SetOrganizationsDecisionDetail(OrganizationsDecisionDetail&& value) { m_organizationsDecisionDetailHasBeenSet = true; m_organizationsDecisionDetail = std::move(value); }
 
     /**
-     * <p>A structure that details how AWS Organizations and its service control
-     * policies affect the results of the simulation. Only applies if the simulated
-     * user's account is part of an organization.</p>
+     * <p>A structure that details how Organizations and its service control policies
+     * affect the results of the simulation. Only applies if the simulated user's
+     * account is part of an organization.</p>
      */
     inline EvaluationResult& WithOrganizationsDecisionDetail(const OrganizationsDecisionDetail& value) { SetOrganizationsDecisionDetail(value); return *this;}
 
     /**
-     * <p>A structure that details how AWS Organizations and its service control
-     * policies affect the results of the simulation. Only applies if the simulated
-     * user's account is part of an organization.</p>
+     * <p>A structure that details how Organizations and its service control policies
+     * affect the results of the simulation. Only applies if the simulated user's
+     * account is part of an organization.</p>
      */
     inline EvaluationResult& WithOrganizationsDecisionDetail(OrganizationsDecisionDetail&& value) { SetOrganizationsDecisionDetail(std::move(value)); return *this;}
 
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Contains information about the effect that a permissions boundary has on a
+     * policy simulation when the boundary is applied to an IAM entity.</p>
+     */
+    inline const PermissionsBoundaryDecisionDetail& GetPermissionsBoundaryDecisionDetail() const{ return m_permissionsBoundaryDecisionDetail; }
+
+    /**
+     * <p>Contains information about the effect that a permissions boundary has on a
+     * policy simulation when the boundary is applied to an IAM entity.</p>
+     */
+    inline bool PermissionsBoundaryDecisionDetailHasBeenSet() const { return m_permissionsBoundaryDecisionDetailHasBeenSet; }
+
+    /**
+     * <p>Contains information about the effect that a permissions boundary has on a
+     * policy simulation when the boundary is applied to an IAM entity.</p>
+     */
+    inline void SetPermissionsBoundaryDecisionDetail(const PermissionsBoundaryDecisionDetail& value) { m_permissionsBoundaryDecisionDetailHasBeenSet = true; m_permissionsBoundaryDecisionDetail = value; }
+
+    /**
+     * <p>Contains information about the effect that a permissions boundary has on a
+     * policy simulation when the boundary is applied to an IAM entity.</p>
+     */
+    inline void SetPermissionsBoundaryDecisionDetail(PermissionsBoundaryDecisionDetail&& value) { m_permissionsBoundaryDecisionDetailHasBeenSet = true; m_permissionsBoundaryDecisionDetail = std::move(value); }
+
+    /**
+     * <p>Contains information about the effect that a permissions boundary has on a
+     * policy simulation when the boundary is applied to an IAM entity.</p>
+     */
+    inline EvaluationResult& WithPermissionsBoundaryDecisionDetail(const PermissionsBoundaryDecisionDetail& value) { SetPermissionsBoundaryDecisionDetail(value); return *this;}
+
+    /**
+     * <p>Contains information about the effect that a permissions boundary has on a
+     * policy simulation when the boundary is applied to an IAM entity.</p>
+     */
+    inline EvaluationResult& WithPermissionsBoundaryDecisionDetail(PermissionsBoundaryDecisionDetail&& value) { SetPermissionsBoundaryDecisionDetail(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline const Aws::Map<Aws::String, PolicyEvaluationDecisionType>& GetEvalDecisionDetails() const{ return m_evalDecisionDetails; }
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
+     */
+    inline bool EvalDecisionDetailsHasBeenSet() const { return m_evalDecisionDetailsHasBeenSet; }
+
+    /**
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline void SetEvalDecisionDetails(const Aws::Map<Aws::String, PolicyEvaluationDecisionType>& value) { m_evalDecisionDetailsHasBeenSet = true; m_evalDecisionDetails = value; }
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline void SetEvalDecisionDetails(Aws::Map<Aws::String, PolicyEvaluationDecisionType>&& value) { m_evalDecisionDetailsHasBeenSet = true; m_evalDecisionDetails = std::move(value); }
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline EvaluationResult& WithEvalDecisionDetails(const Aws::Map<Aws::String, PolicyEvaluationDecisionType>& value) { SetEvalDecisionDetails(value); return *this;}
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline EvaluationResult& WithEvalDecisionDetails(Aws::Map<Aws::String, PolicyEvaluationDecisionType>&& value) { SetEvalDecisionDetails(std::move(value)); return *this;}
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline EvaluationResult& AddEvalDecisionDetails(const Aws::String& key, const PolicyEvaluationDecisionType& value) { m_evalDecisionDetailsHasBeenSet = true; m_evalDecisionDetails.emplace(key, value); return *this; }
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline EvaluationResult& AddEvalDecisionDetails(Aws::String&& key, const PolicyEvaluationDecisionType& value) { m_evalDecisionDetailsHasBeenSet = true; m_evalDecisionDetails.emplace(std::move(key), value); return *this; }
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline EvaluationResult& AddEvalDecisionDetails(const Aws::String& key, PolicyEvaluationDecisionType&& value) { m_evalDecisionDetailsHasBeenSet = true; m_evalDecisionDetails.emplace(key, std::move(value)); return *this; }
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline EvaluationResult& AddEvalDecisionDetails(Aws::String&& key, PolicyEvaluationDecisionType&& value) { m_evalDecisionDetailsHasBeenSet = true; m_evalDecisionDetails.emplace(std::move(key), std::move(value)); return *this; }
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline EvaluationResult& AddEvalDecisionDetails(const char* key, PolicyEvaluationDecisionType&& value) { m_evalDecisionDetailsHasBeenSet = true; m_evalDecisionDetails.emplace(key, std::move(value)); return *this; }
 
     /**
-     * <p>Additional details about the results of the evaluation decision. When there
-     * are both IAM policies and resource policies, this parameter explains how each
-     * set of policies contributes to the final evaluation decision. When simulating
-     * cross-account access to a resource, both the resource-based policy and the
-     * caller's IAM policy must grant access. See <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
-     * IAM Roles Differ from Resource-based Policies</a> </p>
+     * <p>Additional details about the results of the cross-account evaluation
+     * decision. This parameter is populated for only cross-account simulations. It
+     * contains a brief summary of how each policy type contributes to the final
+     * evaluation decision.</p> <p>If the simulation evaluates policies within the same
+     * account and includes a resource ARN, then the parameter is present but the
+     * response is empty. If the simulation evaluates policies within the same account
+     * and specifies all resources (<code>*</code>), then the parameter is not
+     * returned.</p> <p>When you make a cross-account request, AWS evaluates the
+     * request in the trusting account and the trusted account. The request is allowed
+     * only if both evaluations return <code>true</code>. For more information about
+     * how policies are evaluated, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating
+     * Policies Within a Single Account</a>.</p> <p>If an AWS Organizations SCP
+     * included in the evaluation denies access, the simulation ends. In this case,
+     * policy evaluation does not proceed any further and this parameter is not
+     * returned.</p>
      */
     inline EvaluationResult& AddEvalDecisionDetails(const char* key, const PolicyEvaluationDecisionType& value) { m_evalDecisionDetailsHasBeenSet = true; m_evalDecisionDetails.emplace(key, value); return *this; }
 
@@ -479,6 +679,12 @@ namespace Model
      * EvalActionName on each resource.</p>
      */
     inline const Aws::Vector<ResourceSpecificResult>& GetResourceSpecificResults() const{ return m_resourceSpecificResults; }
+
+    /**
+     * <p>The individual results of the simulation of the API operation specified in
+     * EvalActionName on each resource.</p>
+     */
+    inline bool ResourceSpecificResultsHasBeenSet() const { return m_resourceSpecificResultsHasBeenSet; }
 
     /**
      * <p>The individual results of the simulation of the API operation specified in
@@ -535,6 +741,9 @@ namespace Model
 
     OrganizationsDecisionDetail m_organizationsDecisionDetail;
     bool m_organizationsDecisionDetailHasBeenSet;
+
+    PermissionsBoundaryDecisionDetail m_permissionsBoundaryDecisionDetail;
+    bool m_permissionsBoundaryDecisionDetailHasBeenSet;
 
     Aws::Map<Aws::String, PolicyEvaluationDecisionType> m_evalDecisionDetails;
     bool m_evalDecisionDetailsHasBeenSet;

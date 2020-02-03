@@ -38,7 +38,7 @@ namespace Model
   {
   public:
     UpdateNFSFileShareRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +54,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the file share to be updated. </p>
      */
     inline const Aws::String& GetFileShareARN() const{ return m_fileShareARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the file share to be updated. </p>
+     */
+    inline bool FileShareARNHasBeenSet() const { return m_fileShareARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the file share to be updated. </p>
@@ -96,6 +101,12 @@ namespace Model
      * <p>True to use Amazon S3 server side encryption with your own AWS KMS key, or
      * false to use a key managed by Amazon S3. Optional. </p>
      */
+    inline bool KMSEncryptedHasBeenSet() const { return m_kMSEncryptedHasBeenSet; }
+
+    /**
+     * <p>True to use Amazon S3 server side encryption with your own AWS KMS key, or
+     * false to use a key managed by Amazon S3. Optional. </p>
+     */
     inline void SetKMSEncrypted(bool value) { m_kMSEncryptedHasBeenSet = true; m_kMSEncrypted = value; }
 
     /**
@@ -106,44 +117,58 @@ namespace Model
 
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the KMS key used for Amazon S3 server side
-     * encryption. This value can only be set when KMSEncrypted is true. Optional. </p>
+     * <p>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server
+     * side encryption. This value can only be set when KMSEncrypted is true. Optional.
+     * </p>
      */
     inline const Aws::String& GetKMSKey() const{ return m_kMSKey; }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the KMS key used for Amazon S3 server side
-     * encryption. This value can only be set when KMSEncrypted is true. Optional. </p>
+     * <p>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server
+     * side encryption. This value can only be set when KMSEncrypted is true. Optional.
+     * </p>
+     */
+    inline bool KMSKeyHasBeenSet() const { return m_kMSKeyHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server
+     * side encryption. This value can only be set when KMSEncrypted is true. Optional.
+     * </p>
      */
     inline void SetKMSKey(const Aws::String& value) { m_kMSKeyHasBeenSet = true; m_kMSKey = value; }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the KMS key used for Amazon S3 server side
-     * encryption. This value can only be set when KMSEncrypted is true. Optional. </p>
+     * <p>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server
+     * side encryption. This value can only be set when KMSEncrypted is true. Optional.
+     * </p>
      */
     inline void SetKMSKey(Aws::String&& value) { m_kMSKeyHasBeenSet = true; m_kMSKey = std::move(value); }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the KMS key used for Amazon S3 server side
-     * encryption. This value can only be set when KMSEncrypted is true. Optional. </p>
+     * <p>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server
+     * side encryption. This value can only be set when KMSEncrypted is true. Optional.
+     * </p>
      */
     inline void SetKMSKey(const char* value) { m_kMSKeyHasBeenSet = true; m_kMSKey.assign(value); }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the KMS key used for Amazon S3 server side
-     * encryption. This value can only be set when KMSEncrypted is true. Optional. </p>
+     * <p>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server
+     * side encryption. This value can only be set when KMSEncrypted is true. Optional.
+     * </p>
      */
     inline UpdateNFSFileShareRequest& WithKMSKey(const Aws::String& value) { SetKMSKey(value); return *this;}
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the KMS key used for Amazon S3 server side
-     * encryption. This value can only be set when KMSEncrypted is true. Optional. </p>
+     * <p>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server
+     * side encryption. This value can only be set when KMSEncrypted is true. Optional.
+     * </p>
      */
     inline UpdateNFSFileShareRequest& WithKMSKey(Aws::String&& value) { SetKMSKey(std::move(value)); return *this;}
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the KMS key used for Amazon S3 server side
-     * encryption. This value can only be set when KMSEncrypted is true. Optional. </p>
+     * <p>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server
+     * side encryption. This value can only be set when KMSEncrypted is true. Optional.
+     * </p>
      */
     inline UpdateNFSFileShareRequest& WithKMSKey(const char* value) { SetKMSKey(value); return *this;}
 
@@ -152,6 +177,11 @@ namespace Model
      * <p>The default values for the file share. Optional.</p>
      */
     inline const NFSFileShareDefaults& GetNFSFileShareDefaults() const{ return m_nFSFileShareDefaults; }
+
+    /**
+     * <p>The default values for the file share. Optional.</p>
+     */
+    inline bool NFSFileShareDefaultsHasBeenSet() const { return m_nFSFileShareDefaultsHasBeenSet; }
 
     /**
      * <p>The default values for the file share. Optional.</p>
@@ -175,89 +205,109 @@ namespace Model
 
 
     /**
-     * <p>The default storage class for objects put into an Amazon S3 bucket by a file
-     * gateway. Possible values are S3_STANDARD, S3_STANDARD_IA or S3_ONEZONE_IA. If
-     * this field is not populated, the default value S3_STANDARD is used.
-     * Optional.</p>
+     * <p>The default storage class for objects put into an Amazon S3 bucket by the
+     * file gateway. Possible values are <code>S3_STANDARD</code>,
+     * <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.</p>
      */
     inline const Aws::String& GetDefaultStorageClass() const{ return m_defaultStorageClass; }
 
     /**
-     * <p>The default storage class for objects put into an Amazon S3 bucket by a file
-     * gateway. Possible values are S3_STANDARD, S3_STANDARD_IA or S3_ONEZONE_IA. If
-     * this field is not populated, the default value S3_STANDARD is used.
-     * Optional.</p>
+     * <p>The default storage class for objects put into an Amazon S3 bucket by the
+     * file gateway. Possible values are <code>S3_STANDARD</code>,
+     * <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.</p>
+     */
+    inline bool DefaultStorageClassHasBeenSet() const { return m_defaultStorageClassHasBeenSet; }
+
+    /**
+     * <p>The default storage class for objects put into an Amazon S3 bucket by the
+     * file gateway. Possible values are <code>S3_STANDARD</code>,
+     * <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.</p>
      */
     inline void SetDefaultStorageClass(const Aws::String& value) { m_defaultStorageClassHasBeenSet = true; m_defaultStorageClass = value; }
 
     /**
-     * <p>The default storage class for objects put into an Amazon S3 bucket by a file
-     * gateway. Possible values are S3_STANDARD, S3_STANDARD_IA or S3_ONEZONE_IA. If
-     * this field is not populated, the default value S3_STANDARD is used.
-     * Optional.</p>
+     * <p>The default storage class for objects put into an Amazon S3 bucket by the
+     * file gateway. Possible values are <code>S3_STANDARD</code>,
+     * <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.</p>
      */
     inline void SetDefaultStorageClass(Aws::String&& value) { m_defaultStorageClassHasBeenSet = true; m_defaultStorageClass = std::move(value); }
 
     /**
-     * <p>The default storage class for objects put into an Amazon S3 bucket by a file
-     * gateway. Possible values are S3_STANDARD, S3_STANDARD_IA or S3_ONEZONE_IA. If
-     * this field is not populated, the default value S3_STANDARD is used.
-     * Optional.</p>
+     * <p>The default storage class for objects put into an Amazon S3 bucket by the
+     * file gateway. Possible values are <code>S3_STANDARD</code>,
+     * <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.</p>
      */
     inline void SetDefaultStorageClass(const char* value) { m_defaultStorageClassHasBeenSet = true; m_defaultStorageClass.assign(value); }
 
     /**
-     * <p>The default storage class for objects put into an Amazon S3 bucket by a file
-     * gateway. Possible values are S3_STANDARD, S3_STANDARD_IA or S3_ONEZONE_IA. If
-     * this field is not populated, the default value S3_STANDARD is used.
-     * Optional.</p>
+     * <p>The default storage class for objects put into an Amazon S3 bucket by the
+     * file gateway. Possible values are <code>S3_STANDARD</code>,
+     * <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.</p>
      */
     inline UpdateNFSFileShareRequest& WithDefaultStorageClass(const Aws::String& value) { SetDefaultStorageClass(value); return *this;}
 
     /**
-     * <p>The default storage class for objects put into an Amazon S3 bucket by a file
-     * gateway. Possible values are S3_STANDARD, S3_STANDARD_IA or S3_ONEZONE_IA. If
-     * this field is not populated, the default value S3_STANDARD is used.
-     * Optional.</p>
+     * <p>The default storage class for objects put into an Amazon S3 bucket by the
+     * file gateway. Possible values are <code>S3_STANDARD</code>,
+     * <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.</p>
      */
     inline UpdateNFSFileShareRequest& WithDefaultStorageClass(Aws::String&& value) { SetDefaultStorageClass(std::move(value)); return *this;}
 
     /**
-     * <p>The default storage class for objects put into an Amazon S3 bucket by a file
-     * gateway. Possible values are S3_STANDARD, S3_STANDARD_IA or S3_ONEZONE_IA. If
-     * this field is not populated, the default value S3_STANDARD is used.
-     * Optional.</p>
+     * <p>The default storage class for objects put into an Amazon S3 bucket by the
+     * file gateway. Possible values are <code>S3_STANDARD</code>,
+     * <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.</p>
      */
     inline UpdateNFSFileShareRequest& WithDefaultStorageClass(const char* value) { SetDefaultStorageClass(value); return *this;}
 
 
     /**
-     * <p>Sets the access control list permission for objects in the S3 bucket that a
-     * file gateway puts objects into. The default value is "private".</p>
+     * <p>A value that sets the access control list permission for objects in the S3
+     * bucket that a file gateway puts objects into. The default value is
+     * "private".</p>
      */
     inline const ObjectACL& GetObjectACL() const{ return m_objectACL; }
 
     /**
-     * <p>Sets the access control list permission for objects in the S3 bucket that a
-     * file gateway puts objects into. The default value is "private".</p>
+     * <p>A value that sets the access control list permission for objects in the S3
+     * bucket that a file gateway puts objects into. The default value is
+     * "private".</p>
+     */
+    inline bool ObjectACLHasBeenSet() const { return m_objectACLHasBeenSet; }
+
+    /**
+     * <p>A value that sets the access control list permission for objects in the S3
+     * bucket that a file gateway puts objects into. The default value is
+     * "private".</p>
      */
     inline void SetObjectACL(const ObjectACL& value) { m_objectACLHasBeenSet = true; m_objectACL = value; }
 
     /**
-     * <p>Sets the access control list permission for objects in the S3 bucket that a
-     * file gateway puts objects into. The default value is "private".</p>
+     * <p>A value that sets the access control list permission for objects in the S3
+     * bucket that a file gateway puts objects into. The default value is
+     * "private".</p>
      */
     inline void SetObjectACL(ObjectACL&& value) { m_objectACLHasBeenSet = true; m_objectACL = std::move(value); }
 
     /**
-     * <p>Sets the access control list permission for objects in the S3 bucket that a
-     * file gateway puts objects into. The default value is "private".</p>
+     * <p>A value that sets the access control list permission for objects in the S3
+     * bucket that a file gateway puts objects into. The default value is
+     * "private".</p>
      */
     inline UpdateNFSFileShareRequest& WithObjectACL(const ObjectACL& value) { SetObjectACL(value); return *this;}
 
     /**
-     * <p>Sets the access control list permission for objects in the S3 bucket that a
-     * file gateway puts objects into. The default value is "private".</p>
+     * <p>A value that sets the access control list permission for objects in the S3
+     * bucket that a file gateway puts objects into. The default value is
+     * "private".</p>
      */
     inline UpdateNFSFileShareRequest& WithObjectACL(ObjectACL&& value) { SetObjectACL(std::move(value)); return *this;}
 
@@ -267,6 +317,12 @@ namespace Model
      * must contain either valid IP addresses or valid CIDR blocks.</p>
      */
     inline const Aws::Vector<Aws::String>& GetClientList() const{ return m_clientList; }
+
+    /**
+     * <p>The list of clients that are allowed to access the file gateway. The list
+     * must contain either valid IP addresses or valid CIDR blocks.</p>
+     */
+    inline bool ClientListHasBeenSet() const { return m_clientListHasBeenSet; }
 
     /**
      * <p>The list of clients that are allowed to access the file gateway. The list
@@ -313,120 +369,172 @@ namespace Model
 
     /**
      * <p>The user mapped to anonymous user. Valid options are the following:</p> <ul>
-     * <li> <p>"RootSquash" - Only root is mapped to anonymous user.</p> </li> <li>
-     * <p>"NoSquash" - No one is mapped to anonymous user</p> </li> <li> <p>"AllSquash"
-     * - Everyone is mapped to anonymous user.</p> </li> </ul>
+     * <li> <p> <code>RootSquash</code> - Only root is mapped to anonymous user.</p>
+     * </li> <li> <p> <code>NoSquash</code> - No one is mapped to anonymous user</p>
+     * </li> <li> <p> <code>AllSquash</code> - Everyone is mapped to anonymous
+     * user.</p> </li> </ul>
      */
     inline const Aws::String& GetSquash() const{ return m_squash; }
 
     /**
      * <p>The user mapped to anonymous user. Valid options are the following:</p> <ul>
-     * <li> <p>"RootSquash" - Only root is mapped to anonymous user.</p> </li> <li>
-     * <p>"NoSquash" - No one is mapped to anonymous user</p> </li> <li> <p>"AllSquash"
-     * - Everyone is mapped to anonymous user.</p> </li> </ul>
+     * <li> <p> <code>RootSquash</code> - Only root is mapped to anonymous user.</p>
+     * </li> <li> <p> <code>NoSquash</code> - No one is mapped to anonymous user</p>
+     * </li> <li> <p> <code>AllSquash</code> - Everyone is mapped to anonymous
+     * user.</p> </li> </ul>
+     */
+    inline bool SquashHasBeenSet() const { return m_squashHasBeenSet; }
+
+    /**
+     * <p>The user mapped to anonymous user. Valid options are the following:</p> <ul>
+     * <li> <p> <code>RootSquash</code> - Only root is mapped to anonymous user.</p>
+     * </li> <li> <p> <code>NoSquash</code> - No one is mapped to anonymous user</p>
+     * </li> <li> <p> <code>AllSquash</code> - Everyone is mapped to anonymous
+     * user.</p> </li> </ul>
      */
     inline void SetSquash(const Aws::String& value) { m_squashHasBeenSet = true; m_squash = value; }
 
     /**
      * <p>The user mapped to anonymous user. Valid options are the following:</p> <ul>
-     * <li> <p>"RootSquash" - Only root is mapped to anonymous user.</p> </li> <li>
-     * <p>"NoSquash" - No one is mapped to anonymous user</p> </li> <li> <p>"AllSquash"
-     * - Everyone is mapped to anonymous user.</p> </li> </ul>
+     * <li> <p> <code>RootSquash</code> - Only root is mapped to anonymous user.</p>
+     * </li> <li> <p> <code>NoSquash</code> - No one is mapped to anonymous user</p>
+     * </li> <li> <p> <code>AllSquash</code> - Everyone is mapped to anonymous
+     * user.</p> </li> </ul>
      */
     inline void SetSquash(Aws::String&& value) { m_squashHasBeenSet = true; m_squash = std::move(value); }
 
     /**
      * <p>The user mapped to anonymous user. Valid options are the following:</p> <ul>
-     * <li> <p>"RootSquash" - Only root is mapped to anonymous user.</p> </li> <li>
-     * <p>"NoSquash" - No one is mapped to anonymous user</p> </li> <li> <p>"AllSquash"
-     * - Everyone is mapped to anonymous user.</p> </li> </ul>
+     * <li> <p> <code>RootSquash</code> - Only root is mapped to anonymous user.</p>
+     * </li> <li> <p> <code>NoSquash</code> - No one is mapped to anonymous user</p>
+     * </li> <li> <p> <code>AllSquash</code> - Everyone is mapped to anonymous
+     * user.</p> </li> </ul>
      */
     inline void SetSquash(const char* value) { m_squashHasBeenSet = true; m_squash.assign(value); }
 
     /**
      * <p>The user mapped to anonymous user. Valid options are the following:</p> <ul>
-     * <li> <p>"RootSquash" - Only root is mapped to anonymous user.</p> </li> <li>
-     * <p>"NoSquash" - No one is mapped to anonymous user</p> </li> <li> <p>"AllSquash"
-     * - Everyone is mapped to anonymous user.</p> </li> </ul>
+     * <li> <p> <code>RootSquash</code> - Only root is mapped to anonymous user.</p>
+     * </li> <li> <p> <code>NoSquash</code> - No one is mapped to anonymous user</p>
+     * </li> <li> <p> <code>AllSquash</code> - Everyone is mapped to anonymous
+     * user.</p> </li> </ul>
      */
     inline UpdateNFSFileShareRequest& WithSquash(const Aws::String& value) { SetSquash(value); return *this;}
 
     /**
      * <p>The user mapped to anonymous user. Valid options are the following:</p> <ul>
-     * <li> <p>"RootSquash" - Only root is mapped to anonymous user.</p> </li> <li>
-     * <p>"NoSquash" - No one is mapped to anonymous user</p> </li> <li> <p>"AllSquash"
-     * - Everyone is mapped to anonymous user.</p> </li> </ul>
+     * <li> <p> <code>RootSquash</code> - Only root is mapped to anonymous user.</p>
+     * </li> <li> <p> <code>NoSquash</code> - No one is mapped to anonymous user</p>
+     * </li> <li> <p> <code>AllSquash</code> - Everyone is mapped to anonymous
+     * user.</p> </li> </ul>
      */
     inline UpdateNFSFileShareRequest& WithSquash(Aws::String&& value) { SetSquash(std::move(value)); return *this;}
 
     /**
      * <p>The user mapped to anonymous user. Valid options are the following:</p> <ul>
-     * <li> <p>"RootSquash" - Only root is mapped to anonymous user.</p> </li> <li>
-     * <p>"NoSquash" - No one is mapped to anonymous user</p> </li> <li> <p>"AllSquash"
-     * - Everyone is mapped to anonymous user.</p> </li> </ul>
+     * <li> <p> <code>RootSquash</code> - Only root is mapped to anonymous user.</p>
+     * </li> <li> <p> <code>NoSquash</code> - No one is mapped to anonymous user</p>
+     * </li> <li> <p> <code>AllSquash</code> - Everyone is mapped to anonymous
+     * user.</p> </li> </ul>
      */
     inline UpdateNFSFileShareRequest& WithSquash(const char* value) { SetSquash(value); return *this;}
 
 
     /**
-     * <p>Sets the write status of a file share. This value is true if the write status
-     * is read-only, and otherwise false.</p>
+     * <p>A value that sets the write status of a file share. This value is true if the
+     * write status is read-only, and otherwise false.</p>
      */
     inline bool GetReadOnly() const{ return m_readOnly; }
 
     /**
-     * <p>Sets the write status of a file share. This value is true if the write status
-     * is read-only, and otherwise false.</p>
+     * <p>A value that sets the write status of a file share. This value is true if the
+     * write status is read-only, and otherwise false.</p>
+     */
+    inline bool ReadOnlyHasBeenSet() const { return m_readOnlyHasBeenSet; }
+
+    /**
+     * <p>A value that sets the write status of a file share. This value is true if the
+     * write status is read-only, and otherwise false.</p>
      */
     inline void SetReadOnly(bool value) { m_readOnlyHasBeenSet = true; m_readOnly = value; }
 
     /**
-     * <p>Sets the write status of a file share. This value is true if the write status
-     * is read-only, and otherwise false.</p>
+     * <p>A value that sets the write status of a file share. This value is true if the
+     * write status is read-only, and otherwise false.</p>
      */
     inline UpdateNFSFileShareRequest& WithReadOnly(bool value) { SetReadOnly(value); return *this;}
 
 
     /**
-     * <p>Enables guessing of the MIME type for uploaded objects based on file
-     * extensions. Set this value to true to enable MIME type guessing, and otherwise
-     * to false. The default value is true.</p>
+     * <p>A value that enables guessing of the MIME type for uploaded objects based on
+     * file extensions. Set this value to true to enable MIME type guessing, and
+     * otherwise to false. The default value is true.</p>
      */
     inline bool GetGuessMIMETypeEnabled() const{ return m_guessMIMETypeEnabled; }
 
     /**
-     * <p>Enables guessing of the MIME type for uploaded objects based on file
-     * extensions. Set this value to true to enable MIME type guessing, and otherwise
-     * to false. The default value is true.</p>
+     * <p>A value that enables guessing of the MIME type for uploaded objects based on
+     * file extensions. Set this value to true to enable MIME type guessing, and
+     * otherwise to false. The default value is true.</p>
+     */
+    inline bool GuessMIMETypeEnabledHasBeenSet() const { return m_guessMIMETypeEnabledHasBeenSet; }
+
+    /**
+     * <p>A value that enables guessing of the MIME type for uploaded objects based on
+     * file extensions. Set this value to true to enable MIME type guessing, and
+     * otherwise to false. The default value is true.</p>
      */
     inline void SetGuessMIMETypeEnabled(bool value) { m_guessMIMETypeEnabledHasBeenSet = true; m_guessMIMETypeEnabled = value; }
 
     /**
-     * <p>Enables guessing of the MIME type for uploaded objects based on file
-     * extensions. Set this value to true to enable MIME type guessing, and otherwise
-     * to false. The default value is true.</p>
+     * <p>A value that enables guessing of the MIME type for uploaded objects based on
+     * file extensions. Set this value to true to enable MIME type guessing, and
+     * otherwise to false. The default value is true.</p>
      */
     inline UpdateNFSFileShareRequest& WithGuessMIMETypeEnabled(bool value) { SetGuessMIMETypeEnabled(value); return *this;}
 
 
     /**
-     * <p>Sets who pays the cost of the request and the data download from the Amazon
-     * S3 bucket. Set this value to true if you want the requester to pay instead of
-     * the bucket owner, and otherwise to false.</p>
+     * <p>A value that sets who pays the cost of the request and the cost associated
+     * with data download from the S3 bucket. If this value is set to true, the
+     * requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
+     * bucket owner always pays the cost of storing data.</p> <note> <p>
+     * <code>RequesterPays</code> is a configuration for the S3 bucket that backs the
+     * file share, so make sure that the configuration on the file share is the same as
+     * the S3 bucket configuration.</p> </note>
      */
     inline bool GetRequesterPays() const{ return m_requesterPays; }
 
     /**
-     * <p>Sets who pays the cost of the request and the data download from the Amazon
-     * S3 bucket. Set this value to true if you want the requester to pay instead of
-     * the bucket owner, and otherwise to false.</p>
+     * <p>A value that sets who pays the cost of the request and the cost associated
+     * with data download from the S3 bucket. If this value is set to true, the
+     * requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
+     * bucket owner always pays the cost of storing data.</p> <note> <p>
+     * <code>RequesterPays</code> is a configuration for the S3 bucket that backs the
+     * file share, so make sure that the configuration on the file share is the same as
+     * the S3 bucket configuration.</p> </note>
+     */
+    inline bool RequesterPaysHasBeenSet() const { return m_requesterPaysHasBeenSet; }
+
+    /**
+     * <p>A value that sets who pays the cost of the request and the cost associated
+     * with data download from the S3 bucket. If this value is set to true, the
+     * requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
+     * bucket owner always pays the cost of storing data.</p> <note> <p>
+     * <code>RequesterPays</code> is a configuration for the S3 bucket that backs the
+     * file share, so make sure that the configuration on the file share is the same as
+     * the S3 bucket configuration.</p> </note>
      */
     inline void SetRequesterPays(bool value) { m_requesterPaysHasBeenSet = true; m_requesterPays = value; }
 
     /**
-     * <p>Sets who pays the cost of the request and the data download from the Amazon
-     * S3 bucket. Set this value to true if you want the requester to pay instead of
-     * the bucket owner, and otherwise to false.</p>
+     * <p>A value that sets who pays the cost of the request and the cost associated
+     * with data download from the S3 bucket. If this value is set to true, the
+     * requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
+     * bucket owner always pays the cost of storing data.</p> <note> <p>
+     * <code>RequesterPays</code> is a configuration for the S3 bucket that backs the
+     * file share, so make sure that the configuration on the file share is the same as
+     * the S3 bucket configuration.</p> </note>
      */
     inline UpdateNFSFileShareRequest& WithRequesterPays(bool value) { SetRequesterPays(value); return *this;}
 

@@ -35,23 +35,27 @@ ImageDetail::ImageDetail() :
     m_imageTagsHasBeenSet(false),
     m_imageSizeInBytes(0),
     m_imageSizeInBytesHasBeenSet(false),
-    m_imagePushedAtHasBeenSet(false)
+    m_imagePushedAtHasBeenSet(false),
+    m_imageScanStatusHasBeenSet(false),
+    m_imageScanFindingsSummaryHasBeenSet(false)
 {
 }
 
-ImageDetail::ImageDetail(const JsonValue& jsonValue) : 
+ImageDetail::ImageDetail(JsonView jsonValue) : 
     m_registryIdHasBeenSet(false),
     m_repositoryNameHasBeenSet(false),
     m_imageDigestHasBeenSet(false),
     m_imageTagsHasBeenSet(false),
     m_imageSizeInBytes(0),
     m_imageSizeInBytesHasBeenSet(false),
-    m_imagePushedAtHasBeenSet(false)
+    m_imagePushedAtHasBeenSet(false),
+    m_imageScanStatusHasBeenSet(false),
+    m_imageScanFindingsSummaryHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ImageDetail& ImageDetail::operator =(const JsonValue& jsonValue)
+ImageDetail& ImageDetail::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("registryId"))
   {
@@ -76,7 +80,7 @@ ImageDetail& ImageDetail::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("imageTags"))
   {
-    Array<JsonValue> imageTagsJsonList = jsonValue.GetArray("imageTags");
+    Array<JsonView> imageTagsJsonList = jsonValue.GetArray("imageTags");
     for(unsigned imageTagsIndex = 0; imageTagsIndex < imageTagsJsonList.GetLength(); ++imageTagsIndex)
     {
       m_imageTags.push_back(imageTagsJsonList[imageTagsIndex].AsString());
@@ -96,6 +100,20 @@ ImageDetail& ImageDetail::operator =(const JsonValue& jsonValue)
     m_imagePushedAt = jsonValue.GetDouble("imagePushedAt");
 
     m_imagePushedAtHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("imageScanStatus"))
+  {
+    m_imageScanStatus = jsonValue.GetObject("imageScanStatus");
+
+    m_imageScanStatusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("imageScanFindingsSummary"))
+  {
+    m_imageScanFindingsSummary = jsonValue.GetObject("imageScanFindingsSummary");
+
+    m_imageScanFindingsSummaryHasBeenSet = true;
   }
 
   return *this;
@@ -143,6 +161,18 @@ JsonValue ImageDetail::Jsonize() const
   if(m_imagePushedAtHasBeenSet)
   {
    payload.WithDouble("imagePushedAt", m_imagePushedAt.SecondsWithMSPrecision());
+  }
+
+  if(m_imageScanStatusHasBeenSet)
+  {
+   payload.WithObject("imageScanStatus", m_imageScanStatus.Jsonize());
+
+  }
+
+  if(m_imageScanFindingsSummaryHasBeenSet)
+  {
+   payload.WithObject("imageScanFindingsSummary", m_imageScanFindingsSummary.Jsonize());
+
   }
 
   return payload;

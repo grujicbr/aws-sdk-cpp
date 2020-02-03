@@ -20,9 +20,11 @@
 #include <aws/core/utils/DateTime.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/iam/model/AttachedPermissionsBoundary.h>
+#include <aws/iam/model/RoleLastUsed.h>
 #include <aws/iam/model/InstanceProfile.h>
 #include <aws/iam/model/PolicyDetail.h>
 #include <aws/iam/model/AttachedPolicy.h>
+#include <aws/iam/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -59,50 +61,57 @@ namespace Model
 
     /**
      * <p>The path to the role. For more information about paths, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline const Aws::String& GetPath() const{ return m_path; }
 
     /**
      * <p>The path to the role. For more information about paths, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline bool PathHasBeenSet() const { return m_pathHasBeenSet; }
+
+    /**
+     * <p>The path to the role. For more information about paths, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline void SetPath(const Aws::String& value) { m_pathHasBeenSet = true; m_path = value; }
 
     /**
      * <p>The path to the role. For more information about paths, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline void SetPath(Aws::String&& value) { m_pathHasBeenSet = true; m_path = std::move(value); }
 
     /**
      * <p>The path to the role. For more information about paths, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline void SetPath(const char* value) { m_pathHasBeenSet = true; m_path.assign(value); }
 
     /**
      * <p>The path to the role. For more information about paths, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline RoleDetail& WithPath(const Aws::String& value) { SetPath(value); return *this;}
 
     /**
      * <p>The path to the role. For more information about paths, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline RoleDetail& WithPath(Aws::String&& value) { SetPath(std::move(value)); return *this;}
 
     /**
      * <p>The path to the role. For more information about paths, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline RoleDetail& WithPath(const char* value) { SetPath(value); return *this;}
 
@@ -111,6 +120,11 @@ namespace Model
      * <p>The friendly name that identifies the role.</p>
      */
     inline const Aws::String& GetRoleName() const{ return m_roleName; }
+
+    /**
+     * <p>The friendly name that identifies the role.</p>
+     */
+    inline bool RoleNameHasBeenSet() const { return m_roleNameHasBeenSet; }
 
     /**
      * <p>The friendly name that identifies the role.</p>
@@ -146,62 +160,73 @@ namespace Model
     /**
      * <p>The stable and unique string identifying the role. For more information about
      * IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline const Aws::String& GetRoleId() const{ return m_roleId; }
 
     /**
      * <p>The stable and unique string identifying the role. For more information about
      * IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline bool RoleIdHasBeenSet() const { return m_roleIdHasBeenSet; }
+
+    /**
+     * <p>The stable and unique string identifying the role. For more information about
+     * IDs, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline void SetRoleId(const Aws::String& value) { m_roleIdHasBeenSet = true; m_roleId = value; }
 
     /**
      * <p>The stable and unique string identifying the role. For more information about
      * IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline void SetRoleId(Aws::String&& value) { m_roleIdHasBeenSet = true; m_roleId = std::move(value); }
 
     /**
      * <p>The stable and unique string identifying the role. For more information about
      * IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline void SetRoleId(const char* value) { m_roleIdHasBeenSet = true; m_roleId.assign(value); }
 
     /**
      * <p>The stable and unique string identifying the role. For more information about
      * IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline RoleDetail& WithRoleId(const Aws::String& value) { SetRoleId(value); return *this;}
 
     /**
      * <p>The stable and unique string identifying the role. For more information about
      * IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline RoleDetail& WithRoleId(Aws::String&& value) { SetRoleId(std::move(value)); return *this;}
 
     /**
      * <p>The stable and unique string identifying the role. For more information about
      * IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide.</p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>.</p>
      */
     inline RoleDetail& WithRoleId(const char* value) { SetRoleId(value); return *this;}
 
 
     
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
@@ -232,6 +257,12 @@ namespace Model
      * <p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601
      * date-time format</a>, when the role was created.</p>
      */
+    inline bool CreateDateHasBeenSet() const { return m_createDateHasBeenSet; }
+
+    /**
+     * <p>The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601
+     * date-time format</a>, when the role was created.</p>
+     */
     inline void SetCreateDate(const Aws::Utils::DateTime& value) { m_createDateHasBeenSet = true; m_createDate = value; }
 
     /**
@@ -257,6 +288,11 @@ namespace Model
      * <p>The trust policy that grants permission to assume the role.</p>
      */
     inline const Aws::String& GetAssumeRolePolicyDocument() const{ return m_assumeRolePolicyDocument; }
+
+    /**
+     * <p>The trust policy that grants permission to assume the role.</p>
+     */
+    inline bool AssumeRolePolicyDocumentHasBeenSet() const { return m_assumeRolePolicyDocumentHasBeenSet; }
 
     /**
      * <p>The trust policy that grants permission to assume the role.</p>
@@ -297,6 +333,11 @@ namespace Model
     /**
      * <p>A list of instance profiles that contain this role.</p>
      */
+    inline bool InstanceProfileListHasBeenSet() const { return m_instanceProfileListHasBeenSet; }
+
+    /**
+     * <p>A list of instance profiles that contain this role.</p>
+     */
     inline void SetInstanceProfileList(const Aws::Vector<InstanceProfile>& value) { m_instanceProfileListHasBeenSet = true; m_instanceProfileList = value; }
 
     /**
@@ -330,6 +371,12 @@ namespace Model
      * access (permissions) policies.</p>
      */
     inline const Aws::Vector<PolicyDetail>& GetRolePolicyList() const{ return m_rolePolicyList; }
+
+    /**
+     * <p>A list of inline policies embedded in the role. These policies are the role's
+     * access (permissions) policies.</p>
+     */
+    inline bool RolePolicyListHasBeenSet() const { return m_rolePolicyListHasBeenSet; }
 
     /**
      * <p>A list of inline policies embedded in the role. These policies are the role's
@@ -373,6 +420,12 @@ namespace Model
      * role's access (permissions) policies.</p>
      */
     inline const Aws::Vector<AttachedPolicy>& GetAttachedManagedPolicies() const{ return m_attachedManagedPolicies; }
+
+    /**
+     * <p>A list of managed policies attached to the role. These policies are the
+     * role's access (permissions) policies.</p>
+     */
+    inline bool AttachedManagedPoliciesHasBeenSet() const { return m_attachedManagedPoliciesHasBeenSet; }
 
     /**
      * <p>A list of managed policies attached to the role. These policies are the
@@ -425,6 +478,14 @@ namespace Model
      * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions
      * Boundaries for IAM Identities </a> in the <i>IAM User Guide</i>.</p>
      */
+    inline bool PermissionsBoundaryHasBeenSet() const { return m_permissionsBoundaryHasBeenSet; }
+
+    /**
+     * <p>The ARN of the policy used to set the permissions boundary for the role.</p>
+     * <p>For more information about permissions boundaries, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions
+     * Boundaries for IAM Identities </a> in the <i>IAM User Guide</i>.</p>
+     */
     inline void SetPermissionsBoundary(const AttachedPermissionsBoundary& value) { m_permissionsBoundaryHasBeenSet = true; m_permissionsBoundary = value; }
 
     /**
@@ -450,6 +511,138 @@ namespace Model
      * Boundaries for IAM Identities </a> in the <i>IAM User Guide</i>.</p>
      */
     inline RoleDetail& WithPermissionsBoundary(AttachedPermissionsBoundary&& value) { SetPermissionsBoundary(std::move(value)); return *this;}
+
+
+    /**
+     * <p>A list of tags that are attached to the specified role. For more information
+     * about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM
+     * Identities</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>A list of tags that are attached to the specified role. For more information
+     * about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM
+     * Identities</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>A list of tags that are attached to the specified role. For more information
+     * about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM
+     * Identities</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>A list of tags that are attached to the specified role. For more information
+     * about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM
+     * Identities</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>A list of tags that are attached to the specified role. For more information
+     * about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM
+     * Identities</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline RoleDetail& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>A list of tags that are attached to the specified role. For more information
+     * about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM
+     * Identities</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline RoleDetail& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>A list of tags that are attached to the specified role. For more information
+     * about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM
+     * Identities</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline RoleDetail& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>A list of tags that are attached to the specified role. For more information
+     * about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM
+     * Identities</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline RoleDetail& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>Contains information about the last time that an IAM role was used. This
+     * includes the date and time and the Region in which the role was last used.
+     * Activity is only reported for the trailing 400 days. This period can be shorter
+     * if your Region began supporting these features within the last year. The role
+     * might have been used more than 400 days ago. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period">Regions
+     * Where Data Is Tracked</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline const RoleLastUsed& GetRoleLastUsed() const{ return m_roleLastUsed; }
+
+    /**
+     * <p>Contains information about the last time that an IAM role was used. This
+     * includes the date and time and the Region in which the role was last used.
+     * Activity is only reported for the trailing 400 days. This period can be shorter
+     * if your Region began supporting these features within the last year. The role
+     * might have been used more than 400 days ago. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period">Regions
+     * Where Data Is Tracked</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline bool RoleLastUsedHasBeenSet() const { return m_roleLastUsedHasBeenSet; }
+
+    /**
+     * <p>Contains information about the last time that an IAM role was used. This
+     * includes the date and time and the Region in which the role was last used.
+     * Activity is only reported for the trailing 400 days. This period can be shorter
+     * if your Region began supporting these features within the last year. The role
+     * might have been used more than 400 days ago. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period">Regions
+     * Where Data Is Tracked</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline void SetRoleLastUsed(const RoleLastUsed& value) { m_roleLastUsedHasBeenSet = true; m_roleLastUsed = value; }
+
+    /**
+     * <p>Contains information about the last time that an IAM role was used. This
+     * includes the date and time and the Region in which the role was last used.
+     * Activity is only reported for the trailing 400 days. This period can be shorter
+     * if your Region began supporting these features within the last year. The role
+     * might have been used more than 400 days ago. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period">Regions
+     * Where Data Is Tracked</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline void SetRoleLastUsed(RoleLastUsed&& value) { m_roleLastUsedHasBeenSet = true; m_roleLastUsed = std::move(value); }
+
+    /**
+     * <p>Contains information about the last time that an IAM role was used. This
+     * includes the date and time and the Region in which the role was last used.
+     * Activity is only reported for the trailing 400 days. This period can be shorter
+     * if your Region began supporting these features within the last year. The role
+     * might have been used more than 400 days ago. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period">Regions
+     * Where Data Is Tracked</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline RoleDetail& WithRoleLastUsed(const RoleLastUsed& value) { SetRoleLastUsed(value); return *this;}
+
+    /**
+     * <p>Contains information about the last time that an IAM role was used. This
+     * includes the date and time and the Region in which the role was last used.
+     * Activity is only reported for the trailing 400 days. This period can be shorter
+     * if your Region began supporting these features within the last year. The role
+     * might have been used more than 400 days ago. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period">Regions
+     * Where Data Is Tracked</a> in the <i>IAM User Guide</i>.</p>
+     */
+    inline RoleDetail& WithRoleLastUsed(RoleLastUsed&& value) { SetRoleLastUsed(std::move(value)); return *this;}
 
   private:
 
@@ -482,6 +675,12 @@ namespace Model
 
     AttachedPermissionsBoundary m_permissionsBoundary;
     bool m_permissionsBoundaryHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
+
+    RoleLastUsed m_roleLastUsed;
+    bool m_roleLastUsedHasBeenSet;
   };
 
 } // namespace Model

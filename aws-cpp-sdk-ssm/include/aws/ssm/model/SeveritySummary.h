@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     SeveritySummary();
-    SeveritySummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    SeveritySummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SeveritySummary(Aws::Utils::Json::JsonView jsonValue);
+    SeveritySummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,13 @@ namespace Model
      * the compliance items.</p>
      */
     inline int GetCriticalCount() const{ return m_criticalCount; }
+
+    /**
+     * <p>The total number of resources or compliance items that have a severity level
+     * of critical. Critical severity is determined by the organization that published
+     * the compliance items.</p>
+     */
+    inline bool CriticalCountHasBeenSet() const { return m_criticalCountHasBeenSet; }
 
     /**
      * <p>The total number of resources or compliance items that have a severity level
@@ -79,6 +87,13 @@ namespace Model
      * of high. High severity is determined by the organization that published the
      * compliance items.</p>
      */
+    inline bool HighCountHasBeenSet() const { return m_highCountHasBeenSet; }
+
+    /**
+     * <p>The total number of resources or compliance items that have a severity level
+     * of high. High severity is determined by the organization that published the
+     * compliance items.</p>
+     */
     inline void SetHighCount(int value) { m_highCountHasBeenSet = true; m_highCount = value; }
 
     /**
@@ -95,6 +110,13 @@ namespace Model
      * compliance items.</p>
      */
     inline int GetMediumCount() const{ return m_mediumCount; }
+
+    /**
+     * <p>The total number of resources or compliance items that have a severity level
+     * of medium. Medium severity is determined by the organization that published the
+     * compliance items.</p>
+     */
+    inline bool MediumCountHasBeenSet() const { return m_mediumCountHasBeenSet; }
 
     /**
      * <p>The total number of resources or compliance items that have a severity level
@@ -123,6 +145,13 @@ namespace Model
      * of low. Low severity is determined by the organization that published the
      * compliance items.</p>
      */
+    inline bool LowCountHasBeenSet() const { return m_lowCountHasBeenSet; }
+
+    /**
+     * <p>The total number of resources or compliance items that have a severity level
+     * of low. Low severity is determined by the organization that published the
+     * compliance items.</p>
+     */
     inline void SetLowCount(int value) { m_lowCountHasBeenSet = true; m_lowCount = value; }
 
     /**
@@ -145,6 +174,13 @@ namespace Model
      * of informational. Informational severity is determined by the organization that
      * published the compliance items.</p>
      */
+    inline bool InformationalCountHasBeenSet() const { return m_informationalCountHasBeenSet; }
+
+    /**
+     * <p>The total number of resources or compliance items that have a severity level
+     * of informational. Informational severity is determined by the organization that
+     * published the compliance items.</p>
+     */
     inline void SetInformationalCount(int value) { m_informationalCountHasBeenSet = true; m_informationalCount = value; }
 
     /**
@@ -161,6 +197,13 @@ namespace Model
      * published the compliance items.</p>
      */
     inline int GetUnspecifiedCount() const{ return m_unspecifiedCount; }
+
+    /**
+     * <p>The total number of resources or compliance items that have a severity level
+     * of unspecified. Unspecified severity is determined by the organization that
+     * published the compliance items.</p>
+     */
+    inline bool UnspecifiedCountHasBeenSet() const { return m_unspecifiedCountHasBeenSet; }
 
     /**
      * <p>The total number of resources or compliance items that have a severity level

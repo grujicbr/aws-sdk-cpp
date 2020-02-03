@@ -28,15 +28,12 @@ namespace Model
 {
 
   /**
-   * <p/><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/support-2013-04-15/DescribeServicesRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_SUPPORT_API DescribeServicesRequest : public SupportRequest
   {
   public:
     DescribeServicesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +49,11 @@ namespace Model
      * <p>A JSON-formatted list of service codes available for AWS services.</p>
      */
     inline const Aws::Vector<Aws::String>& GetServiceCodeList() const{ return m_serviceCodeList; }
+
+    /**
+     * <p>A JSON-formatted list of service codes available for AWS services.</p>
+     */
+    inline bool ServiceCodeListHasBeenSet() const { return m_serviceCodeListHasBeenSet; }
 
     /**
      * <p>A JSON-formatted list of service codes available for AWS services.</p>
@@ -95,6 +97,13 @@ namespace Model
      * parameters must be passed explicitly for operations that take them.</p>
      */
     inline const Aws::String& GetLanguage() const{ return m_language; }
+
+    /**
+     * <p>The ISO 639-1 code for the language in which AWS provides support. AWS
+     * Support currently supports English ("en") and Japanese ("ja"). Language
+     * parameters must be passed explicitly for operations that take them.</p>
+     */
+    inline bool LanguageHasBeenSet() const { return m_languageHasBeenSet; }
 
     /**
      * <p>The ISO 639-1 code for the language in which AWS provides support. AWS

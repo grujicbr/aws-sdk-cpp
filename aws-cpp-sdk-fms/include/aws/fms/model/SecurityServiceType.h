@@ -26,7 +26,11 @@ namespace Model
   enum class SecurityServiceType
   {
     NOT_SET,
-    WAF
+    WAF,
+    SHIELD_ADVANCED,
+    SECURITY_GROUPS_COMMON,
+    SECURITY_GROUPS_CONTENT_AUDIT,
+    SECURITY_GROUPS_USAGE_AUDIT
   };
 
 namespace SecurityServiceTypeMapper

@@ -26,29 +26,21 @@ namespace Organizations
 {
 namespace OrganizationsEndpoint
 {
-  static const int CN_REGION_HASH = Aws::Utils::HashingUtils::HashString("cn-north-1");
-  
+
+  static const int US_GOV_WEST_1_HASH = Aws::Utils::HashingUtils::HashString("us-gov-west-1");
 
   Aws::String ForRegion(const Aws::String& regionName, bool useDualStack)
   {
     auto hash = Aws::Utils::HashingUtils::HashString(regionName.c_str());
-    
-    Aws::StringStream ss;
-    ss << "organizations" << ".";
 
-    if(useDualStack)
+    if(!useDualStack)
     {
-      ss << "dualstack.";
+      if(hash == US_GOV_WEST_1_HASH)
+      {
+        return "organizations.us-gov-west-1.amazonaws.com";
+      }
     }
-
-    ss << regionName << ".amazonaws.com";
-    
-    if(hash == CN_REGION_HASH)
-    {
-      ss << ".cn"; 
-    }
-    
-    return ss.str();
+    return "organizations.us-east-1.amazonaws.com";
   }
 
 } // namespace OrganizationsEndpoint

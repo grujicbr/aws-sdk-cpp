@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     LaunchPathSummary();
-    LaunchPathSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    LaunchPathSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LaunchPathSummary(Aws::Utils::Json::JsonView jsonValue);
+    LaunchPathSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The identifier of the product path.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The identifier of the product path.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The identifier of the product path.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The constraints on the portfolio-product relationship.</p>
      */
+    inline bool ConstraintSummariesHasBeenSet() const { return m_constraintSummariesHasBeenSet; }
+
+    /**
+     * <p>The constraints on the portfolio-product relationship.</p>
+     */
     inline void SetConstraintSummaries(const Aws::Vector<ConstraintSummary>& value) { m_constraintSummariesHasBeenSet = true; m_constraintSummaries = value; }
 
     /**
@@ -130,6 +141,11 @@ namespace Model
     /**
      * <p>The tags associated with this product path.</p>
      */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags associated with this product path.</p>
+     */
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
     /**
@@ -162,6 +178,11 @@ namespace Model
      * <p>The name of the portfolio to which the user was assigned.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the portfolio to which the user was assigned.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the portfolio to which the user was assigned.</p>

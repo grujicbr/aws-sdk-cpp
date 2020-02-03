@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for RemixSettings<p><h3>See Also:</h3>   <a
+   * Remix Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/RemixSettings">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     RemixSettings();
-    RemixSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    RemixSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RemixSettings(Aws::Utils::Json::JsonView jsonValue);
+    RemixSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * Mapping of input channels to output channels, with appropriate gain adjustments.
      */
     inline const Aws::Vector<AudioChannelMapping>& GetChannelMappings() const{ return m_channelMappings; }
+
+    /**
+     * Mapping of input channels to output channels, with appropriate gain adjustments.
+     */
+    inline bool ChannelMappingsHasBeenSet() const { return m_channelMappingsHasBeenSet; }
 
     /**
      * Mapping of input channels to output channels, with appropriate gain adjustments.
@@ -91,6 +97,11 @@ namespace Model
     /**
      * Number of input channels to be used.
      */
+    inline bool ChannelsInHasBeenSet() const { return m_channelsInHasBeenSet; }
+
+    /**
+     * Number of input channels to be used.
+     */
     inline void SetChannelsIn(int value) { m_channelsInHasBeenSet = true; m_channelsIn = value; }
 
     /**
@@ -104,6 +115,12 @@ namespace Model
 Valid values: 1, 2, 4, 6, 8
      */
     inline int GetChannelsOut() const{ return m_channelsOut; }
+
+    /**
+     * Number of output channels to be produced.
+Valid values: 1, 2, 4, 6, 8
+     */
+    inline bool ChannelsOutHasBeenSet() const { return m_channelsOutHasBeenSet; }
 
     /**
      * Number of output channels to be produced.

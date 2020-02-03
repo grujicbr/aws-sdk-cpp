@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     RoleAliasDescription();
-    RoleAliasDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    RoleAliasDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RoleAliasDescription(Aws::Utils::Json::JsonView jsonValue);
+    RoleAliasDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The role alias.</p>
      */
     inline const Aws::String& GetRoleAlias() const{ return m_roleAlias; }
+
+    /**
+     * <p>The role alias.</p>
+     */
+    inline bool RoleAliasHasBeenSet() const { return m_roleAliasHasBeenSet; }
 
     /**
      * <p>The role alias.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The ARN of the role alias.</p>
      */
+    inline bool RoleAliasArnHasBeenSet() const { return m_roleAliasArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the role alias.</p>
+     */
     inline void SetRoleAliasArn(const Aws::String& value) { m_roleAliasArnHasBeenSet = true; m_roleAliasArn = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The role ARN.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The role ARN.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The role ARN.</p>
@@ -163,6 +179,11 @@ namespace Model
     /**
      * <p>The role alias owner.</p>
      */
+    inline bool OwnerHasBeenSet() const { return m_ownerHasBeenSet; }
+
+    /**
+     * <p>The role alias owner.</p>
+     */
     inline void SetOwner(const Aws::String& value) { m_ownerHasBeenSet = true; m_owner = value; }
 
     /**
@@ -199,6 +220,11 @@ namespace Model
     /**
      * <p>The number of seconds for which the credential is valid.</p>
      */
+    inline bool CredentialDurationSecondsHasBeenSet() const { return m_credentialDurationSecondsHasBeenSet; }
+
+    /**
+     * <p>The number of seconds for which the credential is valid.</p>
+     */
     inline void SetCredentialDurationSeconds(int value) { m_credentialDurationSecondsHasBeenSet = true; m_credentialDurationSeconds = value; }
 
     /**
@@ -211,6 +237,11 @@ namespace Model
      * <p>The UNIX timestamp of when the role alias was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The UNIX timestamp of when the role alias was created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The UNIX timestamp of when the role alias was created.</p>
@@ -237,6 +268,11 @@ namespace Model
      * <p>The UNIX timestamp of when the role alias was last modified.</p>
      */
     inline const Aws::Utils::DateTime& GetLastModifiedDate() const{ return m_lastModifiedDate; }
+
+    /**
+     * <p>The UNIX timestamp of when the role alias was last modified.</p>
+     */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
 
     /**
      * <p>The UNIX timestamp of when the role alias was last modified.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticTranscoder
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Captions();
-    Captions(const Aws::Utils::Json::JsonValue& jsonValue);
-    Captions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Captions(Aws::Utils::Json::JsonView jsonValue);
+    Captions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * blank, Elastic Transcoder returns an error.</p>
      */
     inline const Aws::Vector<CaptionFormat>& GetCaptionFormats() const{ return m_captionFormats; }
+
+    /**
+     * <p>The array of file formats for the output captions. If you leave this value
+     * blank, Elastic Transcoder returns an error.</p>
+     */
+    inline bool CaptionFormatsHasBeenSet() const { return m_captionFormatsHasBeenSet; }
 
     /**
      * <p>The array of file formats for the output captions. If you leave this value

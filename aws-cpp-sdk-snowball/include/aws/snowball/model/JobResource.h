@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     JobResource();
-    JobResource(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobResource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobResource(Aws::Utils::Json::JsonView jsonValue);
+    JobResource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>An array of <code>S3Resource</code> objects.</p>
      */
     inline const Aws::Vector<S3Resource>& GetS3Resources() const{ return m_s3Resources; }
+
+    /**
+     * <p>An array of <code>S3Resource</code> objects.</p>
+     */
+    inline bool S3ResourcesHasBeenSet() const { return m_s3ResourcesHasBeenSet; }
 
     /**
      * <p>An array of <code>S3Resource</code> objects.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>The Python-language Lambda functions for this job.</p>
      */
+    inline bool LambdaResourcesHasBeenSet() const { return m_lambdaResourcesHasBeenSet; }
+
+    /**
+     * <p>The Python-language Lambda functions for this job.</p>
+     */
     inline void SetLambdaResources(const Aws::Vector<LambdaResource>& value) { m_lambdaResourcesHasBeenSet = true; m_lambdaResources = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
      * <p>The Amazon Machine Images (AMIs) associated with this job.</p>
      */
     inline const Aws::Vector<Ec2AmiResource>& GetEc2AmiResources() const{ return m_ec2AmiResources; }
+
+    /**
+     * <p>The Amazon Machine Images (AMIs) associated with this job.</p>
+     */
+    inline bool Ec2AmiResourcesHasBeenSet() const { return m_ec2AmiResourcesHasBeenSet; }
 
     /**
      * <p>The Amazon Machine Images (AMIs) associated with this job.</p>

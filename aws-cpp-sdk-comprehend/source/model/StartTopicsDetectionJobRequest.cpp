@@ -30,7 +30,9 @@ StartTopicsDetectionJobRequest::StartTopicsDetectionJobRequest() :
     m_numberOfTopics(0),
     m_numberOfTopicsHasBeenSet(false),
     m_clientRequestToken(Aws::Utils::UUID::RandomUUID()),
-    m_clientRequestTokenHasBeenSet(true)
+    m_clientRequestTokenHasBeenSet(true),
+    m_volumeKmsKeyIdHasBeenSet(false),
+    m_vpcConfigHasBeenSet(false)
 {
 }
 
@@ -74,7 +76,19 @@ Aws::String StartTopicsDetectionJobRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_volumeKmsKeyIdHasBeenSet)
+  {
+   payload.WithString("VolumeKmsKeyId", m_volumeKmsKeyId);
+
+  }
+
+  if(m_vpcConfigHasBeenSet)
+  {
+   payload.WithObject("VpcConfig", m_vpcConfig.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection StartTopicsDetectionJobRequest::GetRequestSpecificHeaders() const

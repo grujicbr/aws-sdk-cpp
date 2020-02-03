@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAFRegional
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     RegexPatternSetUpdate();
-    RegexPatternSetUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    RegexPatternSetUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RegexPatternSetUpdate(Aws::Utils::Json::JsonView jsonValue);
+    RegexPatternSetUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Specifies whether to insert or delete a <code>RegexPatternString</code>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specifies whether to insert or delete a <code>RegexPatternString</code>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specifies whether to insert or delete a <code>RegexPatternString</code>.</p>
@@ -81,6 +87,12 @@ namespace Model
      * search for, such as <code>B[a@]dB[o0]t</code>.</p>
      */
     inline const Aws::String& GetRegexPatternString() const{ return m_regexPatternString; }
+
+    /**
+     * <p>Specifies the regular expression (regex) pattern that you want AWS WAF to
+     * search for, such as <code>B[a@]dB[o0]t</code>.</p>
+     */
+    inline bool RegexPatternStringHasBeenSet() const { return m_regexPatternStringHasBeenSet; }
 
     /**
      * <p>Specifies the regular expression (regex) pattern that you want AWS WAF to

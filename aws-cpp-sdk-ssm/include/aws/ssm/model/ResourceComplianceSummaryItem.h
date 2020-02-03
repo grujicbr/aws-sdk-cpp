@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     ResourceComplianceSummaryItem();
-    ResourceComplianceSummaryItem(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceComplianceSummaryItem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceComplianceSummaryItem(Aws::Utils::Json::JsonView jsonValue);
+    ResourceComplianceSummaryItem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The compliance type.</p>
      */
     inline const Aws::String& GetComplianceType() const{ return m_complianceType; }
+
+    /**
+     * <p>The compliance type.</p>
+     */
+    inline bool ComplianceTypeHasBeenSet() const { return m_complianceTypeHasBeenSet; }
 
     /**
      * <p>The compliance type.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>The resource type.</p>
      */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
+
+    /**
+     * <p>The resource type.</p>
+     */
     inline void SetResourceType(const Aws::String& value) { m_resourceTypeHasBeenSet = true; m_resourceType = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
      * <p>The resource ID.</p>
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
+
+    /**
+     * <p>The resource ID.</p>
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
 
     /**
      * <p>The resource ID.</p>
@@ -168,6 +184,11 @@ namespace Model
     /**
      * <p>The compliance status for the resource.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The compliance status for the resource.</p>
+     */
     inline void SetStatus(const ComplianceStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -191,6 +212,12 @@ namespace Model
      * for this item.</p>
      */
     inline const ComplianceSeverity& GetOverallSeverity() const{ return m_overallSeverity; }
+
+    /**
+     * <p>The highest severity item found for the resource. The resource is compliant
+     * for this item.</p>
+     */
+    inline bool OverallSeverityHasBeenSet() const { return m_overallSeverityHasBeenSet; }
 
     /**
      * <p>The highest severity item found for the resource. The resource is compliant
@@ -225,6 +252,11 @@ namespace Model
     /**
      * <p>Information about the execution.</p>
      */
+    inline bool ExecutionSummaryHasBeenSet() const { return m_executionSummaryHasBeenSet; }
+
+    /**
+     * <p>Information about the execution.</p>
+     */
     inline void SetExecutionSummary(const ComplianceExecutionSummary& value) { m_executionSummaryHasBeenSet = true; m_executionSummary = value; }
 
     /**
@@ -251,6 +283,11 @@ namespace Model
     /**
      * <p>A list of items that are compliant for the resource.</p>
      */
+    inline bool CompliantSummaryHasBeenSet() const { return m_compliantSummaryHasBeenSet; }
+
+    /**
+     * <p>A list of items that are compliant for the resource.</p>
+     */
     inline void SetCompliantSummary(const CompliantSummary& value) { m_compliantSummaryHasBeenSet = true; m_compliantSummary = value; }
 
     /**
@@ -273,6 +310,11 @@ namespace Model
      * <p>A list of items that aren't compliant for the resource.</p>
      */
     inline const NonCompliantSummary& GetNonCompliantSummary() const{ return m_nonCompliantSummary; }
+
+    /**
+     * <p>A list of items that aren't compliant for the resource.</p>
+     */
+    inline bool NonCompliantSummaryHasBeenSet() const { return m_nonCompliantSummaryHasBeenSet; }
 
     /**
      * <p>A list of items that aren't compliant for the resource.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AssociationExecutionTargetsFilter();
-    AssociationExecutionTargetsFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssociationExecutionTargetsFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssociationExecutionTargetsFilter(Aws::Utils::Json::JsonView jsonValue);
+    AssociationExecutionTargetsFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The key value used in the request.</p>
      */
     inline const AssociationExecutionTargetsFilterKey& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The key value used in the request.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The key value used in the request.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The value specified for the key.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value specified for the key.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value specified for the key.</p>

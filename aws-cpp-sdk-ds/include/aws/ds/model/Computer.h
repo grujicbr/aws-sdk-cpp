@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Computer();
-    Computer(const Aws::Utils::Json::JsonValue& jsonValue);
-    Computer& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Computer(Aws::Utils::Json::JsonView jsonValue);
+    Computer& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The identifier of the computer.</p>
      */
     inline const Aws::String& GetComputerId() const{ return m_computerId; }
+
+    /**
+     * <p>The identifier of the computer.</p>
+     */
+    inline bool ComputerIdHasBeenSet() const { return m_computerIdHasBeenSet; }
 
     /**
      * <p>The identifier of the computer.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The computer name.</p>
      */
+    inline bool ComputerNameHasBeenSet() const { return m_computerNameHasBeenSet; }
+
+    /**
+     * <p>The computer name.</p>
+     */
     inline void SetComputerName(const Aws::String& value) { m_computerNameHasBeenSet = true; m_computerName = value; }
 
     /**
@@ -126,6 +137,12 @@ namespace Model
      * belong to the computer account.</p>
      */
     inline const Aws::Vector<Attribute>& GetComputerAttributes() const{ return m_computerAttributes; }
+
+    /**
+     * <p>An array of <a>Attribute</a> objects containing the LDAP attributes that
+     * belong to the computer account.</p>
+     */
+    inline bool ComputerAttributesHasBeenSet() const { return m_computerAttributesHasBeenSet; }
 
     /**
      * <p>An array of <a>Attribute</a> objects containing the LDAP attributes that

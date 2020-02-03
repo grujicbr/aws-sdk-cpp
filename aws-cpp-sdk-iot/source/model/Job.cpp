@@ -37,20 +37,22 @@ Job::Job() :
     m_statusHasBeenSet(false),
     m_forceCanceled(false),
     m_forceCanceledHasBeenSet(false),
+    m_reasonCodeHasBeenSet(false),
     m_commentHasBeenSet(false),
     m_targetsHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_presignedUrlConfigHasBeenSet(false),
     m_jobExecutionsRolloutConfigHasBeenSet(false),
+    m_abortConfigHasBeenSet(false),
     m_createdAtHasBeenSet(false),
     m_lastUpdatedAtHasBeenSet(false),
     m_completedAtHasBeenSet(false),
     m_jobProcessDetailsHasBeenSet(false),
-    m_documentParametersHasBeenSet(false)
+    m_timeoutConfigHasBeenSet(false)
 {
 }
 
-Job::Job(const JsonValue& jsonValue) : 
+Job::Job(JsonView jsonValue) : 
     m_jobArnHasBeenSet(false),
     m_jobIdHasBeenSet(false),
     m_targetSelection(TargetSelection::NOT_SET),
@@ -59,21 +61,23 @@ Job::Job(const JsonValue& jsonValue) :
     m_statusHasBeenSet(false),
     m_forceCanceled(false),
     m_forceCanceledHasBeenSet(false),
+    m_reasonCodeHasBeenSet(false),
     m_commentHasBeenSet(false),
     m_targetsHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_presignedUrlConfigHasBeenSet(false),
     m_jobExecutionsRolloutConfigHasBeenSet(false),
+    m_abortConfigHasBeenSet(false),
     m_createdAtHasBeenSet(false),
     m_lastUpdatedAtHasBeenSet(false),
     m_completedAtHasBeenSet(false),
     m_jobProcessDetailsHasBeenSet(false),
-    m_documentParametersHasBeenSet(false)
+    m_timeoutConfigHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Job& Job::operator =(const JsonValue& jsonValue)
+Job& Job::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("jobArn"))
   {
@@ -110,6 +114,13 @@ Job& Job::operator =(const JsonValue& jsonValue)
     m_forceCanceledHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("reasonCode"))
+  {
+    m_reasonCode = jsonValue.GetString("reasonCode");
+
+    m_reasonCodeHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("comment"))
   {
     m_comment = jsonValue.GetString("comment");
@@ -119,7 +130,7 @@ Job& Job::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("targets"))
   {
-    Array<JsonValue> targetsJsonList = jsonValue.GetArray("targets");
+    Array<JsonView> targetsJsonList = jsonValue.GetArray("targets");
     for(unsigned targetsIndex = 0; targetsIndex < targetsJsonList.GetLength(); ++targetsIndex)
     {
       m_targets.push_back(targetsJsonList[targetsIndex].AsString());
@@ -146,6 +157,13 @@ Job& Job::operator =(const JsonValue& jsonValue)
     m_jobExecutionsRolloutConfig = jsonValue.GetObject("jobExecutionsRolloutConfig");
 
     m_jobExecutionsRolloutConfigHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("abortConfig"))
+  {
+    m_abortConfig = jsonValue.GetObject("abortConfig");
+
+    m_abortConfigHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("createdAt"))
@@ -176,14 +194,11 @@ Job& Job::operator =(const JsonValue& jsonValue)
     m_jobProcessDetailsHasBeenSet = true;
   }
 
-  if(jsonValue.ValueExists("documentParameters"))
+  if(jsonValue.ValueExists("timeoutConfig"))
   {
-    Aws::Map<Aws::String, JsonValue> documentParametersJsonMap = jsonValue.GetObject("documentParameters").GetAllObjects();
-    for(auto& documentParametersItem : documentParametersJsonMap)
-    {
-      m_documentParameters[documentParametersItem.first] = documentParametersItem.second.AsString();
-    }
-    m_documentParametersHasBeenSet = true;
+    m_timeoutConfig = jsonValue.GetObject("timeoutConfig");
+
+    m_timeoutConfigHasBeenSet = true;
   }
 
   return *this;
@@ -218,6 +233,12 @@ JsonValue Job::Jsonize() const
   if(m_forceCanceledHasBeenSet)
   {
    payload.WithBool("forceCanceled", m_forceCanceled);
+
+  }
+
+  if(m_reasonCodeHasBeenSet)
+  {
+   payload.WithString("reasonCode", m_reasonCode);
 
   }
 
@@ -256,6 +277,12 @@ JsonValue Job::Jsonize() const
 
   }
 
+  if(m_abortConfigHasBeenSet)
+  {
+   payload.WithObject("abortConfig", m_abortConfig.Jsonize());
+
+  }
+
   if(m_createdAtHasBeenSet)
   {
    payload.WithDouble("createdAt", m_createdAt.SecondsWithMSPrecision());
@@ -277,14 +304,9 @@ JsonValue Job::Jsonize() const
 
   }
 
-  if(m_documentParametersHasBeenSet)
+  if(m_timeoutConfigHasBeenSet)
   {
-   JsonValue documentParametersJsonMap;
-   for(auto& documentParametersItem : m_documentParameters)
-   {
-     documentParametersJsonMap.WithString(documentParametersItem.first, documentParametersItem.second);
-   }
-   payload.WithObject("documentParameters", std::move(documentParametersJsonMap));
+   payload.WithObject("timeoutConfig", m_timeoutConfig.Jsonize());
 
   }
 

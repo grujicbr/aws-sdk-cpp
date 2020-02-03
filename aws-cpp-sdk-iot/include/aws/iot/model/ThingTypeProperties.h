@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ThingTypeProperties();
-    ThingTypeProperties(const Aws::Utils::Json::JsonValue& jsonValue);
-    ThingTypeProperties& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ThingTypeProperties(Aws::Utils::Json::JsonView jsonValue);
+    ThingTypeProperties& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The description of the thing type.</p>
      */
     inline const Aws::String& GetThingTypeDescription() const{ return m_thingTypeDescription; }
+
+    /**
+     * <p>The description of the thing type.</p>
+     */
+    inline bool ThingTypeDescriptionHasBeenSet() const { return m_thingTypeDescriptionHasBeenSet; }
 
     /**
      * <p>The description of the thing type.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>A list of searchable thing attribute names.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSearchableAttributes() const{ return m_searchableAttributes; }
+
+    /**
+     * <p>A list of searchable thing attribute names.</p>
+     */
+    inline bool SearchableAttributesHasBeenSet() const { return m_searchableAttributesHasBeenSet; }
 
     /**
      * <p>A list of searchable thing attribute names.</p>

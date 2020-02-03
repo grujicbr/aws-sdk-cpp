@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RawString();
-    RawString(const Aws::Utils::Json::JsonValue& jsonValue);
-    RawString& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RawString(Aws::Utils::Json::JsonView jsonValue);
+    RawString& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * validate deployment lifecycle events.</p>
      */
     inline const Aws::String& GetContent() const{ return m_content; }
+
+    /**
+     * <p>The YAML-formatted or JSON-formatted revision string. It includes information
+     * about which Lambda function to update and optional Lambda functions that
+     * validate deployment lifecycle events.</p>
+     */
+    inline bool ContentHasBeenSet() const { return m_contentHasBeenSet; }
 
     /**
      * <p>The YAML-formatted or JSON-formatted revision string. It includes information
@@ -99,37 +107,42 @@ namespace Model
 
 
     /**
-     * <p>The SHA256 hash value of the revision that is specified as a RawString.</p>
+     * <p>The SHA256 hash value of the revision content.</p>
      */
     inline const Aws::String& GetSha256() const{ return m_sha256; }
 
     /**
-     * <p>The SHA256 hash value of the revision that is specified as a RawString.</p>
+     * <p>The SHA256 hash value of the revision content.</p>
+     */
+    inline bool Sha256HasBeenSet() const { return m_sha256HasBeenSet; }
+
+    /**
+     * <p>The SHA256 hash value of the revision content.</p>
      */
     inline void SetSha256(const Aws::String& value) { m_sha256HasBeenSet = true; m_sha256 = value; }
 
     /**
-     * <p>The SHA256 hash value of the revision that is specified as a RawString.</p>
+     * <p>The SHA256 hash value of the revision content.</p>
      */
     inline void SetSha256(Aws::String&& value) { m_sha256HasBeenSet = true; m_sha256 = std::move(value); }
 
     /**
-     * <p>The SHA256 hash value of the revision that is specified as a RawString.</p>
+     * <p>The SHA256 hash value of the revision content.</p>
      */
     inline void SetSha256(const char* value) { m_sha256HasBeenSet = true; m_sha256.assign(value); }
 
     /**
-     * <p>The SHA256 hash value of the revision that is specified as a RawString.</p>
+     * <p>The SHA256 hash value of the revision content.</p>
      */
     inline RawString& WithSha256(const Aws::String& value) { SetSha256(value); return *this;}
 
     /**
-     * <p>The SHA256 hash value of the revision that is specified as a RawString.</p>
+     * <p>The SHA256 hash value of the revision content.</p>
      */
     inline RawString& WithSha256(Aws::String&& value) { SetSha256(std::move(value)); return *this;}
 
     /**
-     * <p>The SHA256 hash value of the revision that is specified as a RawString.</p>
+     * <p>The SHA256 hash value of the revision content.</p>
      */
     inline RawString& WithSha256(const char* value) { SetSha256(value); return *this;}
 

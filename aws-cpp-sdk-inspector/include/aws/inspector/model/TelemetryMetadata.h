@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     TelemetryMetadata();
-    TelemetryMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    TelemetryMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TelemetryMetadata(Aws::Utils::Json::JsonView jsonValue);
+    TelemetryMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>A specific type of behavioral data that is collected by the agent.</p>
      */
     inline const Aws::String& GetMessageType() const{ return m_messageType; }
+
+    /**
+     * <p>A specific type of behavioral data that is collected by the agent.</p>
+     */
+    inline bool MessageTypeHasBeenSet() const { return m_messageTypeHasBeenSet; }
 
     /**
      * <p>A specific type of behavioral data that is collected by the agent.</p>
@@ -94,6 +100,12 @@ namespace Model
      * <p>The count of messages that the agent sends to the Amazon Inspector
      * service.</p>
      */
+    inline bool CountHasBeenSet() const { return m_countHasBeenSet; }
+
+    /**
+     * <p>The count of messages that the agent sends to the Amazon Inspector
+     * service.</p>
+     */
     inline void SetCount(long long value) { m_countHasBeenSet = true; m_count = value; }
 
     /**
@@ -108,6 +120,12 @@ namespace Model
      * service.</p>
      */
     inline long long GetDataSize() const{ return m_dataSize; }
+
+    /**
+     * <p>The data size of messages that the agent sends to the Amazon Inspector
+     * service.</p>
+     */
+    inline bool DataSizeHasBeenSet() const { return m_dataSizeHasBeenSet; }
 
     /**
      * <p>The data size of messages that the agent sends to the Amazon Inspector

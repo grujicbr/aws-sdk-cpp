@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Attachment();
-    Attachment(const Aws::Utils::Json::JsonValue& jsonValue);
-    Attachment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Attachment(Aws::Utils::Json::JsonView jsonValue);
+    Attachment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The unique identifier for the attachment.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier for the attachment.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier for the attachment.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The type of the attachment, such as <code>ElasticNetworkInterface</code>.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of the attachment, such as <code>ElasticNetworkInterface</code>.</p>
+     */
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -127,6 +138,13 @@ namespace Model
      * <code>DETACHING</code>, <code>DETACHED</code>, and <code>DELETED</code>.</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p> The status of the attachment. Valid values are <code>PRECREATED</code>,
+     * <code>CREATED</code>, <code>ATTACHING</code>, <code>ATTACHED</code>,
+     * <code>DETACHING</code>, <code>DETACHED</code>, and <code>DELETED</code>.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p> The status of the attachment. Valid values are <code>PRECREATED</code>,
@@ -172,49 +190,56 @@ namespace Model
 
 
     /**
-     * <p>Details of the attachment. For Elastic Network Interfaces, this includes the
+     * <p>Details of the attachment. For elastic network interfaces, this includes the
      * network interface ID, the MAC address, the subnet ID, and the private IPv4
      * address.</p>
      */
     inline const Aws::Vector<KeyValuePair>& GetDetails() const{ return m_details; }
 
     /**
-     * <p>Details of the attachment. For Elastic Network Interfaces, this includes the
+     * <p>Details of the attachment. For elastic network interfaces, this includes the
+     * network interface ID, the MAC address, the subnet ID, and the private IPv4
+     * address.</p>
+     */
+    inline bool DetailsHasBeenSet() const { return m_detailsHasBeenSet; }
+
+    /**
+     * <p>Details of the attachment. For elastic network interfaces, this includes the
      * network interface ID, the MAC address, the subnet ID, and the private IPv4
      * address.</p>
      */
     inline void SetDetails(const Aws::Vector<KeyValuePair>& value) { m_detailsHasBeenSet = true; m_details = value; }
 
     /**
-     * <p>Details of the attachment. For Elastic Network Interfaces, this includes the
+     * <p>Details of the attachment. For elastic network interfaces, this includes the
      * network interface ID, the MAC address, the subnet ID, and the private IPv4
      * address.</p>
      */
     inline void SetDetails(Aws::Vector<KeyValuePair>&& value) { m_detailsHasBeenSet = true; m_details = std::move(value); }
 
     /**
-     * <p>Details of the attachment. For Elastic Network Interfaces, this includes the
+     * <p>Details of the attachment. For elastic network interfaces, this includes the
      * network interface ID, the MAC address, the subnet ID, and the private IPv4
      * address.</p>
      */
     inline Attachment& WithDetails(const Aws::Vector<KeyValuePair>& value) { SetDetails(value); return *this;}
 
     /**
-     * <p>Details of the attachment. For Elastic Network Interfaces, this includes the
+     * <p>Details of the attachment. For elastic network interfaces, this includes the
      * network interface ID, the MAC address, the subnet ID, and the private IPv4
      * address.</p>
      */
     inline Attachment& WithDetails(Aws::Vector<KeyValuePair>&& value) { SetDetails(std::move(value)); return *this;}
 
     /**
-     * <p>Details of the attachment. For Elastic Network Interfaces, this includes the
+     * <p>Details of the attachment. For elastic network interfaces, this includes the
      * network interface ID, the MAC address, the subnet ID, and the private IPv4
      * address.</p>
      */
     inline Attachment& AddDetails(const KeyValuePair& value) { m_detailsHasBeenSet = true; m_details.push_back(value); return *this; }
 
     /**
-     * <p>Details of the attachment. For Elastic Network Interfaces, this includes the
+     * <p>Details of the attachment. For elastic network interfaces, this includes the
      * network interface ID, the MAC address, the subnet ID, and the private IPv4
      * address.</p>
      */

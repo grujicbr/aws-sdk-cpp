@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 CreateIpGroupRequest::CreateIpGroupRequest() : 
     m_groupNameHasBeenSet(false),
     m_groupDescHasBeenSet(false),
-    m_userRulesHasBeenSet(false)
+    m_userRulesHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -56,7 +57,18 @@ Aws::String CreateIpGroupRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateIpGroupRequest::GetRequestSpecificHeaders() const

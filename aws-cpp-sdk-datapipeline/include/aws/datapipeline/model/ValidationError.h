@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DataPipeline
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ValidationError();
-    ValidationError(const Aws::Utils::Json::JsonValue& jsonValue);
-    ValidationError& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ValidationError(Aws::Utils::Json::JsonView jsonValue);
+    ValidationError& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The identifier of the object that contains the validation error.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The identifier of the object that contains the validation error.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The identifier of the object that contains the validation error.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>A description of the validation error.</p>
      */
     inline const Aws::Vector<Aws::String>& GetErrors() const{ return m_errors; }
+
+    /**
+     * <p>A description of the validation error.</p>
+     */
+    inline bool ErrorsHasBeenSet() const { return m_errorsHasBeenSet; }
 
     /**
      * <p>A description of the validation error.</p>

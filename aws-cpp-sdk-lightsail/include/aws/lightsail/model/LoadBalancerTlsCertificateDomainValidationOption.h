@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     LoadBalancerTlsCertificateDomainValidationOption();
-    LoadBalancerTlsCertificateDomainValidationOption(const Aws::Utils::Json::JsonValue& jsonValue);
-    LoadBalancerTlsCertificateDomainValidationOption& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LoadBalancerTlsCertificateDomainValidationOption(Aws::Utils::Json::JsonView jsonValue);
+    LoadBalancerTlsCertificateDomainValidationOption& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The fully qualified domain name in the certificate request.</p>
      */
     inline const Aws::String& GetDomainName() const{ return m_domainName; }
+
+    /**
+     * <p>The fully qualified domain name in the certificate request.</p>
+     */
+    inline bool DomainNameHasBeenSet() const { return m_domainNameHasBeenSet; }
 
     /**
      * <p>The fully qualified domain name in the certificate request.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The status of the domain validation. Valid values are listed below.</p>
      */
     inline const LoadBalancerTlsCertificateDomainStatus& GetValidationStatus() const{ return m_validationStatus; }
+
+    /**
+     * <p>The status of the domain validation. Valid values are listed below.</p>
+     */
+    inline bool ValidationStatusHasBeenSet() const { return m_validationStatusHasBeenSet; }
 
     /**
      * <p>The status of the domain validation. Valid values are listed below.</p>

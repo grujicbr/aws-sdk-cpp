@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace GuardDuty
@@ -33,7 +34,8 @@ namespace Model
 {
 
   /**
-   * A tag of the EC2 instance.<p><h3>See Also:</h3>   <a
+   * <p>Contains information about a tag associated with the Ec2
+   * instance.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/Tag">AWS API
    * Reference</a></p>
    */
@@ -41,79 +43,89 @@ namespace Model
   {
   public:
     Tag();
-    Tag(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tag(Aws::Utils::Json::JsonView jsonValue);
+    Tag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * EC2 instance tag key.
+     * <p>EC2 instance tag key.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
 
     /**
-     * EC2 instance tag key.
+     * <p>EC2 instance tag key.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
+
+    /**
+     * <p>EC2 instance tag key.</p>
      */
     inline void SetKey(const Aws::String& value) { m_keyHasBeenSet = true; m_key = value; }
 
     /**
-     * EC2 instance tag key.
+     * <p>EC2 instance tag key.</p>
      */
     inline void SetKey(Aws::String&& value) { m_keyHasBeenSet = true; m_key = std::move(value); }
 
     /**
-     * EC2 instance tag key.
+     * <p>EC2 instance tag key.</p>
      */
     inline void SetKey(const char* value) { m_keyHasBeenSet = true; m_key.assign(value); }
 
     /**
-     * EC2 instance tag key.
+     * <p>EC2 instance tag key.</p>
      */
     inline Tag& WithKey(const Aws::String& value) { SetKey(value); return *this;}
 
     /**
-     * EC2 instance tag key.
+     * <p>EC2 instance tag key.</p>
      */
     inline Tag& WithKey(Aws::String&& value) { SetKey(std::move(value)); return *this;}
 
     /**
-     * EC2 instance tag key.
+     * <p>EC2 instance tag key.</p>
      */
     inline Tag& WithKey(const char* value) { SetKey(value); return *this;}
 
 
     /**
-     * EC2 instance tag value.
+     * <p>EC2 instance tag value.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
 
     /**
-     * EC2 instance tag value.
+     * <p>EC2 instance tag value.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>EC2 instance tag value.</p>
      */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
-     * EC2 instance tag value.
+     * <p>EC2 instance tag value.</p>
      */
     inline void SetValue(Aws::String&& value) { m_valueHasBeenSet = true; m_value = std::move(value); }
 
     /**
-     * EC2 instance tag value.
+     * <p>EC2 instance tag value.</p>
      */
     inline void SetValue(const char* value) { m_valueHasBeenSet = true; m_value.assign(value); }
 
     /**
-     * EC2 instance tag value.
+     * <p>EC2 instance tag value.</p>
      */
     inline Tag& WithValue(const Aws::String& value) { SetValue(value); return *this;}
 
     /**
-     * EC2 instance tag value.
+     * <p>EC2 instance tag value.</p>
      */
     inline Tag& WithValue(Aws::String&& value) { SetValue(std::move(value)); return *this;}
 
     /**
-     * EC2 instance tag value.
+     * <p>EC2 instance tag value.</p>
      */
     inline Tag& WithValue(const char* value) { SetValue(value); return *this;}
 

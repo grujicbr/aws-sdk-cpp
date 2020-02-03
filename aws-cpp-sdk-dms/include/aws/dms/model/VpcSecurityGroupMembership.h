@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     VpcSecurityGroupMembership();
-    VpcSecurityGroupMembership(const Aws::Utils::Json::JsonValue& jsonValue);
-    VpcSecurityGroupMembership& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VpcSecurityGroupMembership(Aws::Utils::Json::JsonView jsonValue);
+    VpcSecurityGroupMembership& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The VPC security group Id.</p>
      */
     inline const Aws::String& GetVpcSecurityGroupId() const{ return m_vpcSecurityGroupId; }
+
+    /**
+     * <p>The VPC security group Id.</p>
+     */
+    inline bool VpcSecurityGroupIdHasBeenSet() const { return m_vpcSecurityGroupIdHasBeenSet; }
 
     /**
      * <p>The VPC security group Id.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The status of the VPC security group.</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the VPC security group.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the VPC security group.</p>

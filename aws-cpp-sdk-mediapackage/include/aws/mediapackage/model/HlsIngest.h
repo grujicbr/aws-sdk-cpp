@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaPackage
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     HlsIngest();
-    HlsIngest(const Aws::Utils::Json::JsonValue& jsonValue);
-    HlsIngest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HlsIngest(Aws::Utils::Json::JsonView jsonValue);
+    HlsIngest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * A list of endpoints to which the source stream should be sent.
      */
     inline const Aws::Vector<IngestEndpoint>& GetIngestEndpoints() const{ return m_ingestEndpoints; }
+
+    /**
+     * A list of endpoints to which the source stream should be sent.
+     */
+    inline bool IngestEndpointsHasBeenSet() const { return m_ingestEndpointsHasBeenSet; }
 
     /**
      * A list of endpoints to which the source stream should be sent.

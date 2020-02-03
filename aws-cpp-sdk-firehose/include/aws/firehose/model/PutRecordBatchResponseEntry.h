@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     PutRecordBatchResponseEntry();
-    PutRecordBatchResponseEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    PutRecordBatchResponseEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PutRecordBatchResponseEntry(Aws::Utils::Json::JsonView jsonValue);
+    PutRecordBatchResponseEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The ID of the record.</p>
      */
     inline const Aws::String& GetRecordId() const{ return m_recordId; }
+
+    /**
+     * <p>The ID of the record.</p>
+     */
+    inline bool RecordIdHasBeenSet() const { return m_recordIdHasBeenSet; }
 
     /**
      * <p>The ID of the record.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The error code for an individual record result.</p>
      */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
+
+    /**
+     * <p>The error code for an individual record result.</p>
+     */
     inline void SetErrorCode(const Aws::String& value) { m_errorCodeHasBeenSet = true; m_errorCode = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>The error message for an individual record result.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>The error message for an individual record result.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>The error message for an individual record result.</p>

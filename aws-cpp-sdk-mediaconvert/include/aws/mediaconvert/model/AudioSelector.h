@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     AudioSelector();
-    AudioSelector(const Aws::Utils::Json::JsonValue& jsonValue);
-    AudioSelector& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AudioSelector(Aws::Utils::Json::JsonView jsonValue);
+    AudioSelector& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,12 @@ namespace Model
      * 639-2 or ISO 639-3 three-letter language code
      */
     inline const Aws::String& GetCustomLanguageCode() const{ return m_customLanguageCode; }
+
+    /**
+     * Selects a specific language code from within an audio source, using the ISO
+     * 639-2 or ISO 639-3 three-letter language code
+     */
+    inline bool CustomLanguageCodeHasBeenSet() const { return m_customLanguageCodeHasBeenSet; }
 
     /**
      * Selects a specific language code from within an audio source, using the ISO
@@ -94,19 +101,46 @@ namespace Model
     inline AudioSelector& WithCustomLanguageCode(const char* value) { SetCustomLanguageCode(value); return *this;}
 
 
-    
+    /**
+     * Enable this setting on one audio selector to set it as the default for the job.
+     * The service uses this default for outputs where it can't find the specified
+     * input audio. If you don't set a default, those outputs have no audio.
+     */
     inline const AudioDefaultSelection& GetDefaultSelection() const{ return m_defaultSelection; }
 
-    
+    /**
+     * Enable this setting on one audio selector to set it as the default for the job.
+     * The service uses this default for outputs where it can't find the specified
+     * input audio. If you don't set a default, those outputs have no audio.
+     */
+    inline bool DefaultSelectionHasBeenSet() const { return m_defaultSelectionHasBeenSet; }
+
+    /**
+     * Enable this setting on one audio selector to set it as the default for the job.
+     * The service uses this default for outputs where it can't find the specified
+     * input audio. If you don't set a default, those outputs have no audio.
+     */
     inline void SetDefaultSelection(const AudioDefaultSelection& value) { m_defaultSelectionHasBeenSet = true; m_defaultSelection = value; }
 
-    
+    /**
+     * Enable this setting on one audio selector to set it as the default for the job.
+     * The service uses this default for outputs where it can't find the specified
+     * input audio. If you don't set a default, those outputs have no audio.
+     */
     inline void SetDefaultSelection(AudioDefaultSelection&& value) { m_defaultSelectionHasBeenSet = true; m_defaultSelection = std::move(value); }
 
-    
+    /**
+     * Enable this setting on one audio selector to set it as the default for the job.
+     * The service uses this default for outputs where it can't find the specified
+     * input audio. If you don't set a default, those outputs have no audio.
+     */
     inline AudioSelector& WithDefaultSelection(const AudioDefaultSelection& value) { SetDefaultSelection(value); return *this;}
 
-    
+    /**
+     * Enable this setting on one audio selector to set it as the default for the job.
+     * The service uses this default for outputs where it can't find the specified
+     * input audio. If you don't set a default, those outputs have no audio.
+     */
     inline AudioSelector& WithDefaultSelection(AudioDefaultSelection&& value) { SetDefaultSelection(std::move(value)); return *this;}
 
 
@@ -114,6 +148,11 @@ namespace Model
      * Specifies audio data from an external file source.
      */
     inline const Aws::String& GetExternalAudioFileInput() const{ return m_externalAudioFileInput; }
+
+    /**
+     * Specifies audio data from an external file source.
+     */
+    inline bool ExternalAudioFileInputHasBeenSet() const { return m_externalAudioFileInputHasBeenSet; }
 
     /**
      * Specifies audio data from an external file source.
@@ -154,6 +193,11 @@ namespace Model
     /**
      * Selects a specific language code from within an audio source.
      */
+    inline bool LanguageCodeHasBeenSet() const { return m_languageCodeHasBeenSet; }
+
+    /**
+     * Selects a specific language code from within an audio source.
+     */
     inline void SetLanguageCode(const LanguageCode& value) { m_languageCodeHasBeenSet = true; m_languageCode = value; }
 
     /**
@@ -180,6 +224,11 @@ namespace Model
     /**
      * Specifies a time delta in milliseconds to offset the audio from the input video.
      */
+    inline bool OffsetHasBeenSet() const { return m_offsetHasBeenSet; }
+
+    /**
+     * Specifies a time delta in milliseconds to offset the audio from the input video.
+     */
     inline void SetOffset(int value) { m_offsetHasBeenSet = true; m_offset = value; }
 
     /**
@@ -192,6 +241,11 @@ namespace Model
      * Selects a specific PID from within an audio source (e.g. 257 selects PID 0x101).
      */
     inline const Aws::Vector<int>& GetPids() const{ return m_pids; }
+
+    /**
+     * Selects a specific PID from within an audio source (e.g. 257 selects PID 0x101).
+     */
+    inline bool PidsHasBeenSet() const { return m_pidsHasBeenSet; }
 
     /**
      * Selects a specific PID from within an audio source (e.g. 257 selects PID 0x101).
@@ -243,6 +297,19 @@ namespace Model
      * to have the service ignore the program IDs and include all the programs in the
      * track.
      */
+    inline bool ProgramSelectionHasBeenSet() const { return m_programSelectionHasBeenSet; }
+
+    /**
+     * Use this setting for input streams that contain Dolby E, to have the service
+     * extract specific program data from the track. To select multiple programs,
+     * create multiple selectors with the same Track and different Program numbers. In
+     * the console, this setting is visible when you set Selector type to Track. Choose
+     * the program number from the dropdown list. If you are sending a JSON file,
+     * provide the program ID, which is part of the audio metadata. If your input file
+     * has incorrect metadata, you can choose All channels instead of a program number
+     * to have the service ignore the program IDs and include all the programs in the
+     * track.
+     */
     inline void SetProgramSelection(int value) { m_programSelectionHasBeenSet = true; m_programSelection = value; }
 
     /**
@@ -265,6 +332,13 @@ namespace Model
      * one after the other.
      */
     inline const RemixSettings& GetRemixSettings() const{ return m_remixSettings; }
+
+    /**
+     * Use these settings to reorder the audio channels of one input to match those of
+     * another input. This allows you to combine the two files into a single output,
+     * one after the other.
+     */
+    inline bool RemixSettingsHasBeenSet() const { return m_remixSettingsHasBeenSet; }
 
     /**
      * Use these settings to reorder the audio channels of one input to match those of
@@ -295,19 +369,34 @@ namespace Model
     inline AudioSelector& WithRemixSettings(RemixSettings&& value) { SetRemixSettings(std::move(value)); return *this;}
 
 
-    
+    /**
+     * Specifies the type of the audio selector.
+     */
     inline const AudioSelectorType& GetSelectorType() const{ return m_selectorType; }
 
-    
+    /**
+     * Specifies the type of the audio selector.
+     */
+    inline bool SelectorTypeHasBeenSet() const { return m_selectorTypeHasBeenSet; }
+
+    /**
+     * Specifies the type of the audio selector.
+     */
     inline void SetSelectorType(const AudioSelectorType& value) { m_selectorTypeHasBeenSet = true; m_selectorType = value; }
 
-    
+    /**
+     * Specifies the type of the audio selector.
+     */
     inline void SetSelectorType(AudioSelectorType&& value) { m_selectorTypeHasBeenSet = true; m_selectorType = std::move(value); }
 
-    
+    /**
+     * Specifies the type of the audio selector.
+     */
     inline AudioSelector& WithSelectorType(const AudioSelectorType& value) { SetSelectorType(value); return *this;}
 
-    
+    /**
+     * Specifies the type of the audio selector.
+     */
     inline AudioSelector& WithSelectorType(AudioSelectorType&& value) { SetSelectorType(std::move(value)); return *this;}
 
 
@@ -320,6 +409,16 @@ namespace Model
      * example, "tracks": [1,2,3].
      */
     inline const Aws::Vector<int>& GetTracks() const{ return m_tracks; }
+
+    /**
+     * Identify a track from the input audio to include in this selector by entering
+     * the track index number. To include several tracks in a single audio selector,
+     * specify multiple tracks as follows. Using the console, enter a comma-separated
+     * list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying
+     * directly in your JSON job file, provide the track numbers in an array. For
+     * example, "tracks": [1,2,3].
+     */
+    inline bool TracksHasBeenSet() const { return m_tracksHasBeenSet; }
 
     /**
      * Identify a track from the input audio to include in this selector by entering

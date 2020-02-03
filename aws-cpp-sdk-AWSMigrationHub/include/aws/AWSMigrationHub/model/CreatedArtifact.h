@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MigrationHub
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CreatedArtifact();
-    CreatedArtifact(const Aws::Utils::Json::JsonValue& jsonValue);
-    CreatedArtifact& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CreatedArtifact(Aws::Utils::Json::JsonView jsonValue);
+    CreatedArtifact& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>An ARN that uniquely identifies the result of a migration task.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>An ARN that uniquely identifies the result of a migration task.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>An ARN that uniquely identifies the result of a migration task.</p>
@@ -88,6 +94,12 @@ namespace Model
      * the artifact for clarity or for later reference.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description that can be free-form text to record additional detail about
+     * the artifact for clarity or for later reference.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description that can be free-form text to record additional detail about

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     RejectedLogEventsInfo();
-    RejectedLogEventsInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    RejectedLogEventsInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RejectedLogEventsInfo(Aws::Utils::Json::JsonView jsonValue);
+    RejectedLogEventsInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p>The log events that are too new.</p>
      */
     inline int GetTooNewLogEventStartIndex() const{ return m_tooNewLogEventStartIndex; }
+
+    /**
+     * <p>The log events that are too new.</p>
+     */
+    inline bool TooNewLogEventStartIndexHasBeenSet() const { return m_tooNewLogEventStartIndexHasBeenSet; }
 
     /**
      * <p>The log events that are too new.</p>
@@ -68,6 +74,11 @@ namespace Model
     /**
      * <p>The log events that are too old.</p>
      */
+    inline bool TooOldLogEventEndIndexHasBeenSet() const { return m_tooOldLogEventEndIndexHasBeenSet; }
+
+    /**
+     * <p>The log events that are too old.</p>
+     */
     inline void SetTooOldLogEventEndIndex(int value) { m_tooOldLogEventEndIndexHasBeenSet = true; m_tooOldLogEventEndIndex = value; }
 
     /**
@@ -80,6 +91,11 @@ namespace Model
      * <p>The expired log events.</p>
      */
     inline int GetExpiredLogEventEndIndex() const{ return m_expiredLogEventEndIndex; }
+
+    /**
+     * <p>The expired log events.</p>
+     */
+    inline bool ExpiredLogEventEndIndexHasBeenSet() const { return m_expiredLogEventEndIndexHasBeenSet; }
 
     /**
      * <p>The expired log events.</p>

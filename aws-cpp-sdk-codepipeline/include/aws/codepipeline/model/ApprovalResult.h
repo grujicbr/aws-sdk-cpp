@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ApprovalResult();
-    ApprovalResult(const Aws::Utils::Json::JsonValue& jsonValue);
-    ApprovalResult& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ApprovalResult(Aws::Utils::Json::JsonView jsonValue);
+    ApprovalResult& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The summary of the current status of the approval request.</p>
      */
     inline const Aws::String& GetSummary() const{ return m_summary; }
+
+    /**
+     * <p>The summary of the current status of the approval request.</p>
+     */
+    inline bool SummaryHasBeenSet() const { return m_summaryHasBeenSet; }
 
     /**
      * <p>The summary of the current status of the approval request.</p>
@@ -89,6 +95,12 @@ namespace Model
      * request.</p>
      */
     inline const ApprovalStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The response submitted by a reviewer assigned to an approval action
+     * request.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The response submitted by a reviewer assigned to an approval action

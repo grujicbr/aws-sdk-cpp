@@ -41,11 +41,12 @@ CACertificateDescription::CACertificateDescription() :
     m_lastModifiedDateHasBeenSet(false),
     m_customerVersion(0),
     m_customerVersionHasBeenSet(false),
-    m_generationIdHasBeenSet(false)
+    m_generationIdHasBeenSet(false),
+    m_validityHasBeenSet(false)
 {
 }
 
-CACertificateDescription::CACertificateDescription(const JsonValue& jsonValue) : 
+CACertificateDescription::CACertificateDescription(JsonView jsonValue) : 
     m_certificateArnHasBeenSet(false),
     m_certificateIdHasBeenSet(false),
     m_status(CACertificateStatus::NOT_SET),
@@ -58,12 +59,13 @@ CACertificateDescription::CACertificateDescription(const JsonValue& jsonValue) :
     m_lastModifiedDateHasBeenSet(false),
     m_customerVersion(0),
     m_customerVersionHasBeenSet(false),
-    m_generationIdHasBeenSet(false)
+    m_generationIdHasBeenSet(false),
+    m_validityHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-CACertificateDescription& CACertificateDescription::operator =(const JsonValue& jsonValue)
+CACertificateDescription& CACertificateDescription::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("certificateArn"))
   {
@@ -135,6 +137,13 @@ CACertificateDescription& CACertificateDescription::operator =(const JsonValue& 
     m_generationIdHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("validity"))
+  {
+    m_validity = jsonValue.GetObject("validity");
+
+    m_validityHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -195,6 +204,12 @@ JsonValue CACertificateDescription::Jsonize() const
   if(m_generationIdHasBeenSet)
   {
    payload.WithString("generationId", m_generationId);
+
+  }
+
+  if(m_validityHasBeenSet)
+  {
+   payload.WithObject("validity", m_validity.Jsonize());
 
   }
 

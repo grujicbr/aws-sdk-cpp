@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TableToReload();
-    TableToReload(const Aws::Utils::Json::JsonValue& jsonValue);
-    TableToReload& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TableToReload(Aws::Utils::Json::JsonView jsonValue);
+    TableToReload& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The schema name of the table to be reloaded.</p>
      */
     inline const Aws::String& GetSchemaName() const{ return m_schemaName; }
+
+    /**
+     * <p>The schema name of the table to be reloaded.</p>
+     */
+    inline bool SchemaNameHasBeenSet() const { return m_schemaNameHasBeenSet; }
 
     /**
      * <p>The schema name of the table to be reloaded.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The table name of the table to be reloaded.</p>
      */
     inline const Aws::String& GetTableName() const{ return m_tableName; }
+
+    /**
+     * <p>The table name of the table to be reloaded.</p>
+     */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
 
     /**
      * <p>The table name of the table to be reloaded.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexRuntimeService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Button();
-    Button(const Aws::Utils::Json::JsonValue& jsonValue);
-    Button& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Button(Aws::Utils::Json::JsonView jsonValue);
+    Button& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Text that is visible to the user on the button.</p>
      */
     inline const Aws::String& GetText() const{ return m_text; }
+
+    /**
+     * <p>Text that is visible to the user on the button.</p>
+     */
+    inline bool TextHasBeenSet() const { return m_textHasBeenSet; }
 
     /**
      * <p>Text that is visible to the user on the button.</p>
@@ -89,6 +95,13 @@ namespace Model
      * be "New York City."</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value sent to Amazon Lex when a user chooses the button. For example,
+     * consider button text "NYC." When the user chooses the button, the value sent can
+     * be "New York City."</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value sent to Amazon Lex when a user chooses the button. For example,

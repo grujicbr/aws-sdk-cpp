@@ -59,27 +59,27 @@ ListResourceRecordSetsResult& ListResourceRecordSetsResult::operator =(const Aws
     XmlNode isTruncatedNode = resultNode.FirstChild("IsTruncated");
     if(!isTruncatedNode.IsNull())
     {
-      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(isTruncatedNode.GetText().c_str()).c_str());
+      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isTruncatedNode.GetText()).c_str()).c_str());
     }
     XmlNode nextRecordNameNode = resultNode.FirstChild("NextRecordName");
     if(!nextRecordNameNode.IsNull())
     {
-      m_nextRecordName = StringUtils::Trim(nextRecordNameNode.GetText().c_str());
+      m_nextRecordName = Aws::Utils::Xml::DecodeEscapedXmlText(nextRecordNameNode.GetText());
     }
     XmlNode nextRecordTypeNode = resultNode.FirstChild("NextRecordType");
     if(!nextRecordTypeNode.IsNull())
     {
-      m_nextRecordType = RRTypeMapper::GetRRTypeForName(StringUtils::Trim(nextRecordTypeNode.GetText().c_str()).c_str());
+      m_nextRecordType = RRTypeMapper::GetRRTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(nextRecordTypeNode.GetText()).c_str()).c_str());
     }
     XmlNode nextRecordIdentifierNode = resultNode.FirstChild("NextRecordIdentifier");
     if(!nextRecordIdentifierNode.IsNull())
     {
-      m_nextRecordIdentifier = StringUtils::Trim(nextRecordIdentifierNode.GetText().c_str());
+      m_nextRecordIdentifier = Aws::Utils::Xml::DecodeEscapedXmlText(nextRecordIdentifierNode.GetText());
     }
     XmlNode maxItemsNode = resultNode.FirstChild("MaxItems");
     if(!maxItemsNode.IsNull())
     {
-      m_maxItems = StringUtils::Trim(maxItemsNode.GetText().c_str());
+      m_maxItems = Aws::Utils::Xml::DecodeEscapedXmlText(maxItemsNode.GetText());
     }
   }
 

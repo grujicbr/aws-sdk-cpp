@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECR
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     LifecyclePolicyPreviewSummary();
-    LifecyclePolicyPreviewSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    LifecyclePolicyPreviewSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LifecyclePolicyPreviewSummary(Aws::Utils::Json::JsonView jsonValue);
+    LifecyclePolicyPreviewSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The number of expiring images.</p>
      */
     inline int GetExpiringImageTotalCount() const{ return m_expiringImageTotalCount; }
+
+    /**
+     * <p>The number of expiring images.</p>
+     */
+    inline bool ExpiringImageTotalCountHasBeenSet() const { return m_expiringImageTotalCountHasBeenSet; }
 
     /**
      * <p>The number of expiring images.</p>

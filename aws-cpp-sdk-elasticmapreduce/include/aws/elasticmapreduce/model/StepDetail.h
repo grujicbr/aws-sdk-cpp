@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     StepDetail();
-    StepDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    StepDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StepDetail(Aws::Utils::Json::JsonView jsonValue);
+    StepDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The step configuration.</p>
      */
     inline const StepConfig& GetStepConfig() const{ return m_stepConfig; }
+
+    /**
+     * <p>The step configuration.</p>
+     */
+    inline bool StepConfigHasBeenSet() const { return m_stepConfigHasBeenSet; }
 
     /**
      * <p>The step configuration.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The description of the step status.</p>
      */
     inline const StepExecutionStatusDetail& GetExecutionStatusDetail() const{ return m_executionStatusDetail; }
+
+    /**
+     * <p>The description of the step status.</p>
+     */
+    inline bool ExecutionStatusDetailHasBeenSet() const { return m_executionStatusDetailHasBeenSet; }
 
     /**
      * <p>The description of the step status.</p>

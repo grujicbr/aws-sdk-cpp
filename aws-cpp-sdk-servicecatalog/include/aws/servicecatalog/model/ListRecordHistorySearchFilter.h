@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ListRecordHistorySearchFilter();
-    ListRecordHistorySearchFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    ListRecordHistorySearchFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ListRecordHistorySearchFilter(Aws::Utils::Json::JsonView jsonValue);
+    ListRecordHistorySearchFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * product identifier.</p> </li> </ul>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The filter key.</p> <ul> <li> <p> <code>product</code> - Filter results based
+     * on the specified product identifier.</p> </li> <li> <p>
+     * <code>provisionedproduct</code> - Filter results based on the provisioned
+     * product identifier.</p> </li> </ul>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The filter key.</p> <ul> <li> <p> <code>product</code> - Filter results based
@@ -108,6 +117,11 @@ namespace Model
      * <p>The filter value.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The filter value.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The filter value.</p>

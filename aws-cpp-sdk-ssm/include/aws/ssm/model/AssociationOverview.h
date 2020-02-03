@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AssociationOverview();
-    AssociationOverview(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssociationOverview& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssociationOverview(Aws::Utils::Json::JsonView jsonValue);
+    AssociationOverview& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * Failed.</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the association. Status can be: Pending, Success, or
+     * Failed.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the association. Status can be: Pending, Success, or
@@ -98,6 +105,11 @@ namespace Model
     /**
      * <p>A detailed status of the association.</p>
      */
+    inline bool DetailedStatusHasBeenSet() const { return m_detailedStatusHasBeenSet; }
+
+    /**
+     * <p>A detailed status of the association.</p>
+     */
     inline void SetDetailedStatus(const Aws::String& value) { m_detailedStatusHasBeenSet = true; m_detailedStatus = value; }
 
     /**
@@ -132,6 +144,13 @@ namespace Model
      * would return the count of instances by status.</p>
      */
     inline const Aws::Map<Aws::String, int>& GetAssociationStatusAggregatedCount() const{ return m_associationStatusAggregatedCount; }
+
+    /**
+     * <p>Returns the number of targets for the association status. For example, if you
+     * created an association with two instances, and one of them was successful, this
+     * would return the count of instances by status.</p>
+     */
+    inline bool AssociationStatusAggregatedCountHasBeenSet() const { return m_associationStatusAggregatedCountHasBeenSet; }
 
     /**
      * <p>Returns the number of targets for the association status. For example, if you

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ExternalWorkflowExecutionCancelRequestedEventAttributes();
-    ExternalWorkflowExecutionCancelRequestedEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExternalWorkflowExecutionCancelRequestedEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExternalWorkflowExecutionCancelRequestedEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    ExternalWorkflowExecutionCancelRequestedEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * delivered.</p>
      */
     inline const WorkflowExecution& GetWorkflowExecution() const{ return m_workflowExecution; }
+
+    /**
+     * <p>The external workflow execution to which the cancellation request was
+     * delivered.</p>
+     */
+    inline bool WorkflowExecutionHasBeenSet() const { return m_workflowExecutionHasBeenSet; }
 
     /**
      * <p>The external workflow execution to which the cancellation request was
@@ -87,6 +94,15 @@ namespace Model
      * this event.</p>
      */
     inline long long GetInitiatedEventId() const{ return m_initiatedEventId; }
+
+    /**
+     * <p>The ID of the <code>RequestCancelExternalWorkflowExecutionInitiated</code>
+     * event corresponding to the <code>RequestCancelExternalWorkflowExecution</code>
+     * decision to cancel this external workflow execution. This information can be
+     * useful for diagnosing problems by tracing back the chain of events leading up to
+     * this event.</p>
+     */
+    inline bool InitiatedEventIdHasBeenSet() const { return m_initiatedEventIdHasBeenSet; }
 
     /**
      * <p>The ID of the <code>RequestCancelExternalWorkflowExecutionInitiated</code>

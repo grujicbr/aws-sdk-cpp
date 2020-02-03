@@ -27,18 +27,22 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-ReEncryptResult::ReEncryptResult()
+ReEncryptResult::ReEncryptResult() : 
+    m_sourceEncryptionAlgorithm(EncryptionAlgorithmSpec::NOT_SET),
+    m_destinationEncryptionAlgorithm(EncryptionAlgorithmSpec::NOT_SET)
 {
 }
 
-ReEncryptResult::ReEncryptResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+ReEncryptResult::ReEncryptResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_sourceEncryptionAlgorithm(EncryptionAlgorithmSpec::NOT_SET),
+    m_destinationEncryptionAlgorithm(EncryptionAlgorithmSpec::NOT_SET)
 {
   *this = result;
 }
 
 ReEncryptResult& ReEncryptResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("CiphertextBlob"))
   {
     m_ciphertextBlob = HashingUtils::Base64Decode(jsonValue.GetString("CiphertextBlob"));
@@ -53,6 +57,18 @@ ReEncryptResult& ReEncryptResult::operator =(const Aws::AmazonWebServiceResult<J
   if(jsonValue.ValueExists("KeyId"))
   {
     m_keyId = jsonValue.GetString("KeyId");
+
+  }
+
+  if(jsonValue.ValueExists("SourceEncryptionAlgorithm"))
+  {
+    m_sourceEncryptionAlgorithm = EncryptionAlgorithmSpecMapper::GetEncryptionAlgorithmSpecForName(jsonValue.GetString("SourceEncryptionAlgorithm"));
+
+  }
+
+  if(jsonValue.ValueExists("DestinationEncryptionAlgorithm"))
+  {
+    m_destinationEncryptionAlgorithm = EncryptionAlgorithmSpecMapper::GetEncryptionAlgorithmSpecForName(jsonValue.GetString("DestinationEncryptionAlgorithm"));
 
   }
 

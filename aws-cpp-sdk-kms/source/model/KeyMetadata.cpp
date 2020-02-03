@@ -44,14 +44,20 @@ KeyMetadata::KeyMetadata() :
     m_validToHasBeenSet(false),
     m_origin(OriginType::NOT_SET),
     m_originHasBeenSet(false),
+    m_customKeyStoreIdHasBeenSet(false),
+    m_cloudHsmClusterIdHasBeenSet(false),
     m_expirationModel(ExpirationModelType::NOT_SET),
     m_expirationModelHasBeenSet(false),
     m_keyManager(KeyManagerType::NOT_SET),
-    m_keyManagerHasBeenSet(false)
+    m_keyManagerHasBeenSet(false),
+    m_customerMasterKeySpec(CustomerMasterKeySpec::NOT_SET),
+    m_customerMasterKeySpecHasBeenSet(false),
+    m_encryptionAlgorithmsHasBeenSet(false),
+    m_signingAlgorithmsHasBeenSet(false)
 {
 }
 
-KeyMetadata::KeyMetadata(const JsonValue& jsonValue) : 
+KeyMetadata::KeyMetadata(JsonView jsonValue) : 
     m_aWSAccountIdHasBeenSet(false),
     m_keyIdHasBeenSet(false),
     m_arnHasBeenSet(false),
@@ -67,15 +73,21 @@ KeyMetadata::KeyMetadata(const JsonValue& jsonValue) :
     m_validToHasBeenSet(false),
     m_origin(OriginType::NOT_SET),
     m_originHasBeenSet(false),
+    m_customKeyStoreIdHasBeenSet(false),
+    m_cloudHsmClusterIdHasBeenSet(false),
     m_expirationModel(ExpirationModelType::NOT_SET),
     m_expirationModelHasBeenSet(false),
     m_keyManager(KeyManagerType::NOT_SET),
-    m_keyManagerHasBeenSet(false)
+    m_keyManagerHasBeenSet(false),
+    m_customerMasterKeySpec(CustomerMasterKeySpec::NOT_SET),
+    m_customerMasterKeySpecHasBeenSet(false),
+    m_encryptionAlgorithmsHasBeenSet(false),
+    m_signingAlgorithmsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-KeyMetadata& KeyMetadata::operator =(const JsonValue& jsonValue)
+KeyMetadata& KeyMetadata::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("AWSAccountId"))
   {
@@ -154,6 +166,20 @@ KeyMetadata& KeyMetadata::operator =(const JsonValue& jsonValue)
     m_originHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("CustomKeyStoreId"))
+  {
+    m_customKeyStoreId = jsonValue.GetString("CustomKeyStoreId");
+
+    m_customKeyStoreIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CloudHsmClusterId"))
+  {
+    m_cloudHsmClusterId = jsonValue.GetString("CloudHsmClusterId");
+
+    m_cloudHsmClusterIdHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ExpirationModel"))
   {
     m_expirationModel = ExpirationModelTypeMapper::GetExpirationModelTypeForName(jsonValue.GetString("ExpirationModel"));
@@ -166,6 +192,33 @@ KeyMetadata& KeyMetadata::operator =(const JsonValue& jsonValue)
     m_keyManager = KeyManagerTypeMapper::GetKeyManagerTypeForName(jsonValue.GetString("KeyManager"));
 
     m_keyManagerHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CustomerMasterKeySpec"))
+  {
+    m_customerMasterKeySpec = CustomerMasterKeySpecMapper::GetCustomerMasterKeySpecForName(jsonValue.GetString("CustomerMasterKeySpec"));
+
+    m_customerMasterKeySpecHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("EncryptionAlgorithms"))
+  {
+    Array<JsonView> encryptionAlgorithmsJsonList = jsonValue.GetArray("EncryptionAlgorithms");
+    for(unsigned encryptionAlgorithmsIndex = 0; encryptionAlgorithmsIndex < encryptionAlgorithmsJsonList.GetLength(); ++encryptionAlgorithmsIndex)
+    {
+      m_encryptionAlgorithms.push_back(EncryptionAlgorithmSpecMapper::GetEncryptionAlgorithmSpecForName(encryptionAlgorithmsJsonList[encryptionAlgorithmsIndex].AsString()));
+    }
+    m_encryptionAlgorithmsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("SigningAlgorithms"))
+  {
+    Array<JsonView> signingAlgorithmsJsonList = jsonValue.GetArray("SigningAlgorithms");
+    for(unsigned signingAlgorithmsIndex = 0; signingAlgorithmsIndex < signingAlgorithmsJsonList.GetLength(); ++signingAlgorithmsIndex)
+    {
+      m_signingAlgorithms.push_back(SigningAlgorithmSpecMapper::GetSigningAlgorithmSpecForName(signingAlgorithmsJsonList[signingAlgorithmsIndex].AsString()));
+    }
+    m_signingAlgorithmsHasBeenSet = true;
   }
 
   return *this;
@@ -235,6 +288,18 @@ JsonValue KeyMetadata::Jsonize() const
    payload.WithString("Origin", OriginTypeMapper::GetNameForOriginType(m_origin));
   }
 
+  if(m_customKeyStoreIdHasBeenSet)
+  {
+   payload.WithString("CustomKeyStoreId", m_customKeyStoreId);
+
+  }
+
+  if(m_cloudHsmClusterIdHasBeenSet)
+  {
+   payload.WithString("CloudHsmClusterId", m_cloudHsmClusterId);
+
+  }
+
   if(m_expirationModelHasBeenSet)
   {
    payload.WithString("ExpirationModel", ExpirationModelTypeMapper::GetNameForExpirationModelType(m_expirationModel));
@@ -243,6 +308,33 @@ JsonValue KeyMetadata::Jsonize() const
   if(m_keyManagerHasBeenSet)
   {
    payload.WithString("KeyManager", KeyManagerTypeMapper::GetNameForKeyManagerType(m_keyManager));
+  }
+
+  if(m_customerMasterKeySpecHasBeenSet)
+  {
+   payload.WithString("CustomerMasterKeySpec", CustomerMasterKeySpecMapper::GetNameForCustomerMasterKeySpec(m_customerMasterKeySpec));
+  }
+
+  if(m_encryptionAlgorithmsHasBeenSet)
+  {
+   Array<JsonValue> encryptionAlgorithmsJsonList(m_encryptionAlgorithms.size());
+   for(unsigned encryptionAlgorithmsIndex = 0; encryptionAlgorithmsIndex < encryptionAlgorithmsJsonList.GetLength(); ++encryptionAlgorithmsIndex)
+   {
+     encryptionAlgorithmsJsonList[encryptionAlgorithmsIndex].AsString(EncryptionAlgorithmSpecMapper::GetNameForEncryptionAlgorithmSpec(m_encryptionAlgorithms[encryptionAlgorithmsIndex]));
+   }
+   payload.WithArray("EncryptionAlgorithms", std::move(encryptionAlgorithmsJsonList));
+
+  }
+
+  if(m_signingAlgorithmsHasBeenSet)
+  {
+   Array<JsonValue> signingAlgorithmsJsonList(m_signingAlgorithms.size());
+   for(unsigned signingAlgorithmsIndex = 0; signingAlgorithmsIndex < signingAlgorithmsJsonList.GetLength(); ++signingAlgorithmsIndex)
+   {
+     signingAlgorithmsJsonList[signingAlgorithmsIndex].AsString(SigningAlgorithmSpecMapper::GetNameForSigningAlgorithmSpec(m_signingAlgorithms[signingAlgorithmsIndex]));
+   }
+   payload.WithArray("SigningAlgorithms", std::move(signingAlgorithmsJsonList));
+
   }
 
   return payload;

@@ -40,7 +40,7 @@ namespace Model
   {
   public:
     ListHealthChecksRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -63,6 +63,18 @@ namespace Model
      * are no more health checks to get.</p>
      */
     inline const Aws::String& GetMarker() const{ return m_marker; }
+
+    /**
+     * <p>If the value of <code>IsTruncated</code> in the previous response was
+     * <code>true</code>, you have more health checks. To get another group, submit
+     * another <code>ListHealthChecks</code> request. </p> <p>For the value of
+     * <code>marker</code>, specify the value of <code>NextMarker</code> from the
+     * previous response, which is the ID of the first health check that Amazon Route
+     * 53 will return if you submit another request.</p> <p>If the value of
+     * <code>IsTruncated</code> in the previous response was <code>false</code>, there
+     * are no more health checks to get.</p>
+     */
+    inline bool MarkerHasBeenSet() const { return m_markerHasBeenSet; }
 
     /**
      * <p>If the value of <code>IsTruncated</code> in the previous response was
@@ -141,8 +153,8 @@ namespace Model
      * <p>The maximum number of health checks that you want
      * <code>ListHealthChecks</code> to return in response to the current request.
      * Amazon Route 53 returns a maximum of 100 items. If you set <code>MaxItems</code>
-     * to a value greater than 100, Amazon Route 53 returns only the first 100 health
-     * checks. </p>
+     * to a value greater than 100, Route 53 returns only the first 100 health checks.
+     * </p>
      */
     inline const Aws::String& GetMaxItems() const{ return m_maxItems; }
 
@@ -150,8 +162,17 @@ namespace Model
      * <p>The maximum number of health checks that you want
      * <code>ListHealthChecks</code> to return in response to the current request.
      * Amazon Route 53 returns a maximum of 100 items. If you set <code>MaxItems</code>
-     * to a value greater than 100, Amazon Route 53 returns only the first 100 health
-     * checks. </p>
+     * to a value greater than 100, Route 53 returns only the first 100 health checks.
+     * </p>
+     */
+    inline bool MaxItemsHasBeenSet() const { return m_maxItemsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of health checks that you want
+     * <code>ListHealthChecks</code> to return in response to the current request.
+     * Amazon Route 53 returns a maximum of 100 items. If you set <code>MaxItems</code>
+     * to a value greater than 100, Route 53 returns only the first 100 health checks.
+     * </p>
      */
     inline void SetMaxItems(const Aws::String& value) { m_maxItemsHasBeenSet = true; m_maxItems = value; }
 
@@ -159,8 +180,8 @@ namespace Model
      * <p>The maximum number of health checks that you want
      * <code>ListHealthChecks</code> to return in response to the current request.
      * Amazon Route 53 returns a maximum of 100 items. If you set <code>MaxItems</code>
-     * to a value greater than 100, Amazon Route 53 returns only the first 100 health
-     * checks. </p>
+     * to a value greater than 100, Route 53 returns only the first 100 health checks.
+     * </p>
      */
     inline void SetMaxItems(Aws::String&& value) { m_maxItemsHasBeenSet = true; m_maxItems = std::move(value); }
 
@@ -168,8 +189,8 @@ namespace Model
      * <p>The maximum number of health checks that you want
      * <code>ListHealthChecks</code> to return in response to the current request.
      * Amazon Route 53 returns a maximum of 100 items. If you set <code>MaxItems</code>
-     * to a value greater than 100, Amazon Route 53 returns only the first 100 health
-     * checks. </p>
+     * to a value greater than 100, Route 53 returns only the first 100 health checks.
+     * </p>
      */
     inline void SetMaxItems(const char* value) { m_maxItemsHasBeenSet = true; m_maxItems.assign(value); }
 
@@ -177,8 +198,8 @@ namespace Model
      * <p>The maximum number of health checks that you want
      * <code>ListHealthChecks</code> to return in response to the current request.
      * Amazon Route 53 returns a maximum of 100 items. If you set <code>MaxItems</code>
-     * to a value greater than 100, Amazon Route 53 returns only the first 100 health
-     * checks. </p>
+     * to a value greater than 100, Route 53 returns only the first 100 health checks.
+     * </p>
      */
     inline ListHealthChecksRequest& WithMaxItems(const Aws::String& value) { SetMaxItems(value); return *this;}
 
@@ -186,8 +207,8 @@ namespace Model
      * <p>The maximum number of health checks that you want
      * <code>ListHealthChecks</code> to return in response to the current request.
      * Amazon Route 53 returns a maximum of 100 items. If you set <code>MaxItems</code>
-     * to a value greater than 100, Amazon Route 53 returns only the first 100 health
-     * checks. </p>
+     * to a value greater than 100, Route 53 returns only the first 100 health checks.
+     * </p>
      */
     inline ListHealthChecksRequest& WithMaxItems(Aws::String&& value) { SetMaxItems(std::move(value)); return *this;}
 
@@ -195,8 +216,8 @@ namespace Model
      * <p>The maximum number of health checks that you want
      * <code>ListHealthChecks</code> to return in response to the current request.
      * Amazon Route 53 returns a maximum of 100 items. If you set <code>MaxItems</code>
-     * to a value greater than 100, Amazon Route 53 returns only the first 100 health
-     * checks. </p>
+     * to a value greater than 100, Route 53 returns only the first 100 health checks.
+     * </p>
      */
     inline ListHealthChecksRequest& WithMaxItems(const char* value) { SetMaxItems(value); return *this;}
 

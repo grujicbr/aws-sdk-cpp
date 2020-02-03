@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -45,7 +46,7 @@ namespace Model
    * the specified deployment resource
    * (<code>/restapis/{restapi_id}/deployments/{deployment_id}</code>).</div> <div
    * class="seeAlso"><a>RestApi</a>, <a>Deployments</a>, <a>Stage</a>, <a
-   * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-deployment.html">AWS
+   * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-deployment.html">AWS
    * CLI</a>, <a href="https://aws.amazon.com/tools/">AWS SDKs</a> </div><p><h3>See
    * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/Deployment">AWS
@@ -55,8 +56,8 @@ namespace Model
   {
   public:
     Deployment();
-    Deployment(const Aws::Utils::Json::JsonValue& jsonValue);
-    Deployment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Deployment(Aws::Utils::Json::JsonView jsonValue);
+    Deployment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -64,6 +65,11 @@ namespace Model
      * <p>The identifier for the deployment resource.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The identifier for the deployment resource.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The identifier for the deployment resource.</p>
@@ -104,6 +110,11 @@ namespace Model
     /**
      * <p>The description for the deployment resource.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description for the deployment resource.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -140,6 +151,11 @@ namespace Model
     /**
      * <p>The date and time that the deployment resource was created.</p>
      */
+    inline bool CreatedDateHasBeenSet() const { return m_createdDateHasBeenSet; }
+
+    /**
+     * <p>The date and time that the deployment resource was created.</p>
+     */
     inline void SetCreatedDate(const Aws::Utils::DateTime& value) { m_createdDateHasBeenSet = true; m_createdDate = value; }
 
     /**
@@ -163,6 +179,12 @@ namespace Model
      * resource was created.</p>
      */
     inline const Aws::Map<Aws::String, Aws::Map<Aws::String, MethodSnapshot>>& GetApiSummary() const{ return m_apiSummary; }
+
+    /**
+     * <p>A summary of the <a>RestApi</a> at the date and time that the deployment
+     * resource was created.</p>
+     */
+    inline bool ApiSummaryHasBeenSet() const { return m_apiSummaryHasBeenSet; }
 
     /**
      * <p>A summary of the <a>RestApi</a> at the date and time that the deployment

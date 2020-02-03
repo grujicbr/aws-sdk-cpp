@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     AutoScalingGroup();
-    AutoScalingGroup(const Aws::Utils::Json::JsonValue& jsonValue);
-    AutoScalingGroup& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AutoScalingGroup(Aws::Utils::Json::JsonView jsonValue);
+    AutoScalingGroup& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The Auto Scaling group name.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The Auto Scaling group name.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The Auto Scaling group name.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>An Auto Scaling lifecycle event hook name.</p>
      */
     inline const Aws::String& GetHook() const{ return m_hook; }
+
+    /**
+     * <p>An Auto Scaling lifecycle event hook name.</p>
+     */
+    inline bool HookHasBeenSet() const { return m_hookHasBeenSet; }
 
     /**
      * <p>An Auto Scaling lifecycle event hook name.</p>

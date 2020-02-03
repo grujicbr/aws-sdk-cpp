@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TypedLinkSchemaAndFacetName();
-    TypedLinkSchemaAndFacetName(const Aws::Utils::Json::JsonValue& jsonValue);
-    TypedLinkSchemaAndFacetName& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TypedLinkSchemaAndFacetName(Aws::Utils::Json::JsonView jsonValue);
+    TypedLinkSchemaAndFacetName& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * information, see <a>arns</a>.</p>
      */
     inline const Aws::String& GetSchemaArn() const{ return m_schemaArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that is associated with the schema. For more
+     * information, see <a>arns</a>.</p>
+     */
+    inline bool SchemaArnHasBeenSet() const { return m_schemaArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that is associated with the schema. For more
@@ -94,6 +101,11 @@ namespace Model
      * <p>The unique name of the typed link facet.</p>
      */
     inline const Aws::String& GetTypedLinkName() const{ return m_typedLinkName; }
+
+    /**
+     * <p>The unique name of the typed link facet.</p>
+     */
+    inline bool TypedLinkNameHasBeenSet() const { return m_typedLinkNameHasBeenSet; }
 
     /**
      * <p>The unique name of the typed link facet.</p>

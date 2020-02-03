@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     LayerFailure();
-    LayerFailure(const Aws::Utils::Json::JsonValue& jsonValue);
-    LayerFailure& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LayerFailure(Aws::Utils::Json::JsonView jsonValue);
+    LayerFailure& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The layer digest associated with the failure.</p>
      */
     inline const Aws::String& GetLayerDigest() const{ return m_layerDigest; }
+
+    /**
+     * <p>The layer digest associated with the failure.</p>
+     */
+    inline bool LayerDigestHasBeenSet() const { return m_layerDigestHasBeenSet; }
 
     /**
      * <p>The layer digest associated with the failure.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The failure code associated with the failure.</p>
      */
+    inline bool FailureCodeHasBeenSet() const { return m_failureCodeHasBeenSet; }
+
+    /**
+     * <p>The failure code associated with the failure.</p>
+     */
     inline void SetFailureCode(const LayerFailureCode& value) { m_failureCodeHasBeenSet = true; m_failureCode = value; }
 
     /**
@@ -114,6 +125,11 @@ namespace Model
      * <p>The reason for the failure.</p>
      */
     inline const Aws::String& GetFailureReason() const{ return m_failureReason; }
+
+    /**
+     * <p>The reason for the failure.</p>
+     */
+    inline bool FailureReasonHasBeenSet() const { return m_failureReasonHasBeenSet; }
 
     /**
      * <p>The reason for the failure.</p>

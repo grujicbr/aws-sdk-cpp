@@ -26,18 +26,20 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-CreateApplicationResult::CreateApplicationResult()
+CreateApplicationResult::CreateApplicationResult() : 
+    m_isVerifiedAuthor(false)
 {
 }
 
-CreateApplicationResult::CreateApplicationResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+CreateApplicationResult::CreateApplicationResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_isVerifiedAuthor(false)
 {
   *this = result;
 }
 
 CreateApplicationResult& CreateApplicationResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("applicationId"))
   {
     m_applicationId = jsonValue.GetString("applicationId");
@@ -68,9 +70,15 @@ CreateApplicationResult& CreateApplicationResult::operator =(const Aws::AmazonWe
 
   }
 
+  if(jsonValue.ValueExists("isVerifiedAuthor"))
+  {
+    m_isVerifiedAuthor = jsonValue.GetBool("isVerifiedAuthor");
+
+  }
+
   if(jsonValue.ValueExists("labels"))
   {
-    Array<JsonValue> labelsJsonList = jsonValue.GetArray("labels");
+    Array<JsonView> labelsJsonList = jsonValue.GetArray("labels");
     for(unsigned labelsIndex = 0; labelsIndex < labelsJsonList.GetLength(); ++labelsIndex)
     {
       m_labels.push_back(labelsJsonList[labelsIndex].AsString());
@@ -98,6 +106,12 @@ CreateApplicationResult& CreateApplicationResult::operator =(const Aws::AmazonWe
   if(jsonValue.ValueExists("spdxLicenseId"))
   {
     m_spdxLicenseId = jsonValue.GetString("spdxLicenseId");
+
+  }
+
+  if(jsonValue.ValueExists("verifiedAuthorUrl"))
+  {
+    m_verifiedAuthorUrl = jsonValue.GetString("verifiedAuthorUrl");
 
   }
 

@@ -26,6 +26,8 @@ CreateHyperParameterTuningJobRequest::CreateHyperParameterTuningJobRequest() :
     m_hyperParameterTuningJobNameHasBeenSet(false),
     m_hyperParameterTuningJobConfigHasBeenSet(false),
     m_trainingJobDefinitionHasBeenSet(false),
+    m_trainingJobDefinitionsHasBeenSet(false),
+    m_warmStartConfigHasBeenSet(false),
     m_tagsHasBeenSet(false)
 {
 }
@@ -52,6 +54,23 @@ Aws::String CreateHyperParameterTuningJobRequest::SerializePayload() const
 
   }
 
+  if(m_trainingJobDefinitionsHasBeenSet)
+  {
+   Array<JsonValue> trainingJobDefinitionsJsonList(m_trainingJobDefinitions.size());
+   for(unsigned trainingJobDefinitionsIndex = 0; trainingJobDefinitionsIndex < trainingJobDefinitionsJsonList.GetLength(); ++trainingJobDefinitionsIndex)
+   {
+     trainingJobDefinitionsJsonList[trainingJobDefinitionsIndex].AsObject(m_trainingJobDefinitions[trainingJobDefinitionsIndex].Jsonize());
+   }
+   payload.WithArray("TrainingJobDefinitions", std::move(trainingJobDefinitionsJsonList));
+
+  }
+
+  if(m_warmStartConfigHasBeenSet)
+  {
+   payload.WithObject("WarmStartConfig", m_warmStartConfig.Jsonize());
+
+  }
+
   if(m_tagsHasBeenSet)
   {
    Array<JsonValue> tagsJsonList(m_tags.size());
@@ -63,7 +82,7 @@ Aws::String CreateHyperParameterTuningJobRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateHyperParameterTuningJobRequest::GetRequestSpecificHeaders() const

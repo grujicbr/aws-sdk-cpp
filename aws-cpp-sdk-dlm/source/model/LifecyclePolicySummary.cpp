@@ -32,20 +32,22 @@ LifecyclePolicySummary::LifecyclePolicySummary() :
     m_policyIdHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_state(GettablePolicyStateValues::NOT_SET),
-    m_stateHasBeenSet(false)
+    m_stateHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-LifecyclePolicySummary::LifecyclePolicySummary(const JsonValue& jsonValue) : 
+LifecyclePolicySummary::LifecyclePolicySummary(JsonView jsonValue) : 
     m_policyIdHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_state(GettablePolicyStateValues::NOT_SET),
-    m_stateHasBeenSet(false)
+    m_stateHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-LifecyclePolicySummary& LifecyclePolicySummary::operator =(const JsonValue& jsonValue)
+LifecyclePolicySummary& LifecyclePolicySummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("PolicyId"))
   {
@@ -66,6 +68,16 @@ LifecyclePolicySummary& LifecyclePolicySummary::operator =(const JsonValue& json
     m_state = GettablePolicyStateValuesMapper::GetGettablePolicyStateValuesForName(jsonValue.GetString("State"));
 
     m_stateHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("Tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
   }
 
   return *this;
@@ -90,6 +102,17 @@ JsonValue LifecyclePolicySummary::Jsonize() const
   if(m_stateHasBeenSet)
   {
    payload.WithString("State", GettablePolicyStateValuesMapper::GetNameForGettablePolicyStateValues(m_state));
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("Tags", std::move(tagsJsonMap));
+
   }
 
   return payload;

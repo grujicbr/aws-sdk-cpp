@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudSearchDomain
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     FieldStats();
-    FieldStats(const Aws::Utils::Json::JsonValue& jsonValue);
-    FieldStats& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FieldStats(Aws::Utils::Json::JsonView jsonValue);
+    FieldStats& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,18 @@ namespace Model
      * yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
      */
     inline const Aws::String& GetMin() const{ return m_min; }
+
+    /**
+     * <p>The minimum value found in the specified field in the result set.</p> <p>If
+     * the field is numeric (<code>int</code>, <code>int-array</code>,
+     * <code>double</code>, or <code>double-array</code>), <code>min</code> is the
+     * string representation of a double-precision 64-bit floating point value. If the
+     * field is <code>date</code> or <code>date-array</code>, <code>min</code> is the
+     * string representation of a date with the format specified in <a
+     * href="http://tools.ietf.org/html/rfc3339">IETF RFC3339</a>:
+     * yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
+     */
+    inline bool MinHasBeenSet() const { return m_minHasBeenSet; }
 
     /**
      * <p>The minimum value found in the specified field in the result set.</p> <p>If
@@ -154,6 +167,18 @@ namespace Model
      * href="http://tools.ietf.org/html/rfc3339">IETF RFC3339</a>:
      * yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
      */
+    inline bool MaxHasBeenSet() const { return m_maxHasBeenSet; }
+
+    /**
+     * <p>The maximum value found in the specified field in the result set.</p> <p>If
+     * the field is numeric (<code>int</code>, <code>int-array</code>,
+     * <code>double</code>, or <code>double-array</code>), <code>max</code> is the
+     * string representation of a double-precision 64-bit floating point value. If the
+     * field is <code>date</code> or <code>date-array</code>, <code>max</code> is the
+     * string representation of a date with the format specified in <a
+     * href="http://tools.ietf.org/html/rfc3339">IETF RFC3339</a>:
+     * yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
+     */
     inline void SetMax(const Aws::String& value) { m_maxHasBeenSet = true; m_max = value; }
 
     /**
@@ -227,6 +252,12 @@ namespace Model
      * <p>The number of documents that contain a value in the specified field in the
      * result set.</p>
      */
+    inline bool CountHasBeenSet() const { return m_countHasBeenSet; }
+
+    /**
+     * <p>The number of documents that contain a value in the specified field in the
+     * result set.</p>
+     */
     inline void SetCount(long long value) { m_countHasBeenSet = true; m_count = value; }
 
     /**
@@ -241,6 +272,12 @@ namespace Model
      * the result set.</p>
      */
     inline long long GetMissing() const{ return m_missing; }
+
+    /**
+     * <p>The number of documents that do not contain a value in the specified field in
+     * the result set.</p>
+     */
+    inline bool MissingHasBeenSet() const { return m_missingHasBeenSet; }
 
     /**
      * <p>The number of documents that do not contain a value in the specified field in
@@ -265,6 +302,12 @@ namespace Model
      * <p>The sum of the field values across the documents in the result set.
      * <code>null</code> for date fields.</p>
      */
+    inline bool SumHasBeenSet() const { return m_sumHasBeenSet; }
+
+    /**
+     * <p>The sum of the field values across the documents in the result set.
+     * <code>null</code> for date fields.</p>
+     */
     inline void SetSum(double value) { m_sumHasBeenSet = true; m_sum = value; }
 
     /**
@@ -278,6 +321,11 @@ namespace Model
      * <p>The sum of all field values in the result set squared.</p>
      */
     inline double GetSumOfSquares() const{ return m_sumOfSquares; }
+
+    /**
+     * <p>The sum of all field values in the result set squared.</p>
+     */
+    inline bool SumOfSquaresHasBeenSet() const { return m_sumOfSquaresHasBeenSet; }
 
     /**
      * <p>The sum of all field values in the result set squared.</p>
@@ -301,6 +349,18 @@ namespace Model
      * yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
      */
     inline const Aws::String& GetMean() const{ return m_mean; }
+
+    /**
+     * <p>The average of the values found in the specified field in the result set.</p>
+     * <p>If the field is numeric (<code>int</code>, <code>int-array</code>,
+     * <code>double</code>, or <code>double-array</code>), <code>mean</code> is the
+     * string representation of a double-precision 64-bit floating point value. If the
+     * field is <code>date</code> or <code>date-array</code>, <code>mean</code> is the
+     * string representation of a date with the format specified in <a
+     * href="http://tools.ietf.org/html/rfc3339">IETF RFC3339</a>:
+     * yyyy-mm-ddTHH:mm:ss.SSSZ.</p>
+     */
+    inline bool MeanHasBeenSet() const { return m_meanHasBeenSet; }
 
     /**
      * <p>The average of the values found in the specified field in the result set.</p>
@@ -380,6 +440,12 @@ namespace Model
      * set.</p>
      */
     inline double GetStddev() const{ return m_stddev; }
+
+    /**
+     * <p>The standard deviation of the values in the specified field in the result
+     * set.</p>
+     */
+    inline bool StddevHasBeenSet() const { return m_stddevHasBeenSet; }
 
     /**
      * <p>The standard deviation of the values in the specified field in the result

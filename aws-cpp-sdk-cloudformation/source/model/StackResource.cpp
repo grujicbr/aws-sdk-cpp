@@ -40,7 +40,8 @@ StackResource::StackResource() :
     m_resourceStatus(ResourceStatus::NOT_SET),
     m_resourceStatusHasBeenSet(false),
     m_resourceStatusReasonHasBeenSet(false),
-    m_descriptionHasBeenSet(false)
+    m_descriptionHasBeenSet(false),
+    m_driftInformationHasBeenSet(false)
 {
 }
 
@@ -54,7 +55,8 @@ StackResource::StackResource(const XmlNode& xmlNode) :
     m_resourceStatus(ResourceStatus::NOT_SET),
     m_resourceStatusHasBeenSet(false),
     m_resourceStatusReasonHasBeenSet(false),
-    m_descriptionHasBeenSet(false)
+    m_descriptionHasBeenSet(false),
+    m_driftInformationHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -68,56 +70,62 @@ StackResource& StackResource::operator =(const XmlNode& xmlNode)
     XmlNode stackNameNode = resultNode.FirstChild("StackName");
     if(!stackNameNode.IsNull())
     {
-      m_stackName = StringUtils::Trim(stackNameNode.GetText().c_str());
+      m_stackName = Aws::Utils::Xml::DecodeEscapedXmlText(stackNameNode.GetText());
       m_stackNameHasBeenSet = true;
     }
     XmlNode stackIdNode = resultNode.FirstChild("StackId");
     if(!stackIdNode.IsNull())
     {
-      m_stackId = StringUtils::Trim(stackIdNode.GetText().c_str());
+      m_stackId = Aws::Utils::Xml::DecodeEscapedXmlText(stackIdNode.GetText());
       m_stackIdHasBeenSet = true;
     }
     XmlNode logicalResourceIdNode = resultNode.FirstChild("LogicalResourceId");
     if(!logicalResourceIdNode.IsNull())
     {
-      m_logicalResourceId = StringUtils::Trim(logicalResourceIdNode.GetText().c_str());
+      m_logicalResourceId = Aws::Utils::Xml::DecodeEscapedXmlText(logicalResourceIdNode.GetText());
       m_logicalResourceIdHasBeenSet = true;
     }
     XmlNode physicalResourceIdNode = resultNode.FirstChild("PhysicalResourceId");
     if(!physicalResourceIdNode.IsNull())
     {
-      m_physicalResourceId = StringUtils::Trim(physicalResourceIdNode.GetText().c_str());
+      m_physicalResourceId = Aws::Utils::Xml::DecodeEscapedXmlText(physicalResourceIdNode.GetText());
       m_physicalResourceIdHasBeenSet = true;
     }
     XmlNode resourceTypeNode = resultNode.FirstChild("ResourceType");
     if(!resourceTypeNode.IsNull())
     {
-      m_resourceType = StringUtils::Trim(resourceTypeNode.GetText().c_str());
+      m_resourceType = Aws::Utils::Xml::DecodeEscapedXmlText(resourceTypeNode.GetText());
       m_resourceTypeHasBeenSet = true;
     }
     XmlNode timestampNode = resultNode.FirstChild("Timestamp");
     if(!timestampNode.IsNull())
     {
-      m_timestamp = DateTime(StringUtils::Trim(timestampNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_timestamp = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(timestampNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_timestampHasBeenSet = true;
     }
     XmlNode resourceStatusNode = resultNode.FirstChild("ResourceStatus");
     if(!resourceStatusNode.IsNull())
     {
-      m_resourceStatus = ResourceStatusMapper::GetResourceStatusForName(StringUtils::Trim(resourceStatusNode.GetText().c_str()).c_str());
+      m_resourceStatus = ResourceStatusMapper::GetResourceStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(resourceStatusNode.GetText()).c_str()).c_str());
       m_resourceStatusHasBeenSet = true;
     }
     XmlNode resourceStatusReasonNode = resultNode.FirstChild("ResourceStatusReason");
     if(!resourceStatusReasonNode.IsNull())
     {
-      m_resourceStatusReason = StringUtils::Trim(resourceStatusReasonNode.GetText().c_str());
+      m_resourceStatusReason = Aws::Utils::Xml::DecodeEscapedXmlText(resourceStatusReasonNode.GetText());
       m_resourceStatusReasonHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
+    }
+    XmlNode driftInformationNode = resultNode.FirstChild("DriftInformation");
+    if(!driftInformationNode.IsNull())
+    {
+      m_driftInformation = driftInformationNode;
+      m_driftInformationHasBeenSet = true;
     }
   }
 
@@ -171,6 +179,13 @@ void StackResource::OutputToStream(Aws::OStream& oStream, const char* location, 
       oStream << location << index << locationValue << ".Description=" << StringUtils::URLEncode(m_description.c_str()) << "&";
   }
 
+  if(m_driftInformationHasBeenSet)
+  {
+      Aws::StringStream driftInformationLocationAndMemberSs;
+      driftInformationLocationAndMemberSs << location << index << locationValue << ".DriftInformation";
+      m_driftInformation.OutputToStream(oStream, driftInformationLocationAndMemberSs.str().c_str());
+  }
+
 }
 
 void StackResource::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -210,6 +225,12 @@ void StackResource::OutputToStream(Aws::OStream& oStream, const char* location) 
   if(m_descriptionHasBeenSet)
   {
       oStream << location << ".Description=" << StringUtils::URLEncode(m_description.c_str()) << "&";
+  }
+  if(m_driftInformationHasBeenSet)
+  {
+      Aws::String driftInformationLocationAndMember(location);
+      driftInformationLocationAndMember += ".DriftInformation";
+      m_driftInformation.OutputToStream(oStream, driftInformationLocationAndMember.c_str());
   }
 }
 

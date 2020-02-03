@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ScalingConstraints();
-    ScalingConstraints(const Aws::Utils::Json::JsonValue& jsonValue);
-    ScalingConstraints& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ScalingConstraints(Aws::Utils::Json::JsonView jsonValue);
+    ScalingConstraints& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * instances below this boundary.</p>
      */
     inline int GetMinCapacity() const{ return m_minCapacity; }
+
+    /**
+     * <p>The lower boundary of EC2 instances in an instance group below which scaling
+     * activities are not allowed to shrink. Scale-in activities will not terminate
+     * instances below this boundary.</p>
+     */
+    inline bool MinCapacityHasBeenSet() const { return m_minCapacityHasBeenSet; }
 
     /**
      * <p>The lower boundary of EC2 instances in an instance group below which scaling
@@ -75,6 +83,13 @@ namespace Model
      * beyond this boundary.</p>
      */
     inline int GetMaxCapacity() const{ return m_maxCapacity; }
+
+    /**
+     * <p>The upper boundary of EC2 instances in an instance group beyond which scaling
+     * activities are not allowed to grow. Scale-out activities will not add instances
+     * beyond this boundary.</p>
+     */
+    inline bool MaxCapacityHasBeenSet() const { return m_maxCapacityHasBeenSet; }
 
     /**
      * <p>The upper boundary of EC2 instances in an instance group beyond which scaling

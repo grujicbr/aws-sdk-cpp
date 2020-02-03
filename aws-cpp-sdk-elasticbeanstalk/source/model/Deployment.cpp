@@ -58,25 +58,25 @@ Deployment& Deployment::operator =(const XmlNode& xmlNode)
     XmlNode versionLabelNode = resultNode.FirstChild("VersionLabel");
     if(!versionLabelNode.IsNull())
     {
-      m_versionLabel = StringUtils::Trim(versionLabelNode.GetText().c_str());
+      m_versionLabel = Aws::Utils::Xml::DecodeEscapedXmlText(versionLabelNode.GetText());
       m_versionLabelHasBeenSet = true;
     }
     XmlNode deploymentIdNode = resultNode.FirstChild("DeploymentId");
     if(!deploymentIdNode.IsNull())
     {
-      m_deploymentId = StringUtils::ConvertToInt64(StringUtils::Trim(deploymentIdNode.GetText().c_str()).c_str());
+      m_deploymentId = StringUtils::ConvertToInt64(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(deploymentIdNode.GetText()).c_str()).c_str());
       m_deploymentIdHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode deploymentTimeNode = resultNode.FirstChild("DeploymentTime");
     if(!deploymentTimeNode.IsNull())
     {
-      m_deploymentTime = DateTime(StringUtils::Trim(deploymentTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_deploymentTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(deploymentTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_deploymentTimeHasBeenSet = true;
     }
   }

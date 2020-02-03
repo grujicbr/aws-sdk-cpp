@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     UserProfile();
-    UserProfile(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserProfile& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserProfile(Aws::Utils::Json::JsonView jsonValue);
+    UserProfile& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The user's IAM ARN.</p>
      */
     inline const Aws::String& GetIamUserArn() const{ return m_iamUserArn; }
+
+    /**
+     * <p>The user's IAM ARN.</p>
+     */
+    inline bool IamUserArnHasBeenSet() const { return m_iamUserArnHasBeenSet; }
 
     /**
      * <p>The user's IAM ARN.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The user's name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The user's name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The user's SSH user name.</p>
      */
     inline const Aws::String& GetSshUsername() const{ return m_sshUsername; }
+
+    /**
+     * <p>The user's SSH user name.</p>
+     */
+    inline bool SshUsernameHasBeenSet() const { return m_sshUsernameHasBeenSet; }
 
     /**
      * <p>The user's SSH user name.</p>
@@ -162,6 +178,11 @@ namespace Model
     /**
      * <p>The user's SSH public key.</p>
      */
+    inline bool SshPublicKeyHasBeenSet() const { return m_sshPublicKeyHasBeenSet; }
+
+    /**
+     * <p>The user's SSH public key.</p>
+     */
     inline void SetSshPublicKey(const Aws::String& value) { m_sshPublicKeyHasBeenSet = true; m_sshPublicKey = value; }
 
     /**
@@ -193,7 +214,7 @@ namespace Model
     /**
      * <p>Whether users can specify their own SSH public key through the My Settings
      * page. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Managing
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Managing
      * User Permissions</a>.</p>
      */
     inline bool GetAllowSelfManagement() const{ return m_allowSelfManagement; }
@@ -201,7 +222,15 @@ namespace Model
     /**
      * <p>Whether users can specify their own SSH public key through the My Settings
      * page. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Managing
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Managing
+     * User Permissions</a>.</p>
+     */
+    inline bool AllowSelfManagementHasBeenSet() const { return m_allowSelfManagementHasBeenSet; }
+
+    /**
+     * <p>Whether users can specify their own SSH public key through the My Settings
+     * page. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Managing
      * User Permissions</a>.</p>
      */
     inline void SetAllowSelfManagement(bool value) { m_allowSelfManagementHasBeenSet = true; m_allowSelfManagement = value; }
@@ -209,7 +238,7 @@ namespace Model
     /**
      * <p>Whether users can specify their own SSH public key through the My Settings
      * page. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Managing
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Managing
      * User Permissions</a>.</p>
      */
     inline UserProfile& WithAllowSelfManagement(bool value) { SetAllowSelfManagement(value); return *this;}

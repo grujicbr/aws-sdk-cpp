@@ -20,6 +20,7 @@
 #include <aws/pinpoint/model/SegmentImportResource.h>
 #include <aws/pinpoint/model/SegmentGroupList.h>
 #include <aws/pinpoint/model/SegmentType.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <utility>
 
 namespace Aws
@@ -29,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -37,7 +39,8 @@ namespace Model
 {
 
   /**
-   * Segment definition.<p><h3>See Also:</h3>   <a
+   * <p>Provides information about the configuration, dimension, and other settings
+   * for a segment.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/SegmentResponse">AWS
    * API Reference</a></p>
    */
@@ -45,352 +48,546 @@ namespace Model
   {
   public:
     SegmentResponse();
-    SegmentResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    SegmentResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SegmentResponse(Aws::Utils::Json::JsonView jsonValue);
+    SegmentResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * The ID of the application to which the segment applies.
+     * <p>The unique identifier for the application that the segment is associated
+     * with.</p>
      */
     inline const Aws::String& GetApplicationId() const{ return m_applicationId; }
 
     /**
-     * The ID of the application to which the segment applies.
+     * <p>The unique identifier for the application that the segment is associated
+     * with.</p>
+     */
+    inline bool ApplicationIdHasBeenSet() const { return m_applicationIdHasBeenSet; }
+
+    /**
+     * <p>The unique identifier for the application that the segment is associated
+     * with.</p>
      */
     inline void SetApplicationId(const Aws::String& value) { m_applicationIdHasBeenSet = true; m_applicationId = value; }
 
     /**
-     * The ID of the application to which the segment applies.
+     * <p>The unique identifier for the application that the segment is associated
+     * with.</p>
      */
     inline void SetApplicationId(Aws::String&& value) { m_applicationIdHasBeenSet = true; m_applicationId = std::move(value); }
 
     /**
-     * The ID of the application to which the segment applies.
+     * <p>The unique identifier for the application that the segment is associated
+     * with.</p>
      */
     inline void SetApplicationId(const char* value) { m_applicationIdHasBeenSet = true; m_applicationId.assign(value); }
 
     /**
-     * The ID of the application to which the segment applies.
+     * <p>The unique identifier for the application that the segment is associated
+     * with.</p>
      */
     inline SegmentResponse& WithApplicationId(const Aws::String& value) { SetApplicationId(value); return *this;}
 
     /**
-     * The ID of the application to which the segment applies.
+     * <p>The unique identifier for the application that the segment is associated
+     * with.</p>
      */
     inline SegmentResponse& WithApplicationId(Aws::String&& value) { SetApplicationId(std::move(value)); return *this;}
 
     /**
-     * The ID of the application to which the segment applies.
+     * <p>The unique identifier for the application that the segment is associated
+     * with.</p>
      */
     inline SegmentResponse& WithApplicationId(const char* value) { SetApplicationId(value); return *this;}
 
 
     /**
-     * The date the segment was created in ISO 8601 format.
+     * <p>The Amazon Resource Name (ARN) of the segment.</p>
+     */
+    inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the segment.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the segment.</p>
+     */
+    inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the segment.</p>
+     */
+    inline void SetArn(Aws::String&& value) { m_arnHasBeenSet = true; m_arn = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the segment.</p>
+     */
+    inline void SetArn(const char* value) { m_arnHasBeenSet = true; m_arn.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the segment.</p>
+     */
+    inline SegmentResponse& WithArn(const Aws::String& value) { SetArn(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the segment.</p>
+     */
+    inline SegmentResponse& WithArn(Aws::String&& value) { SetArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the segment.</p>
+     */
+    inline SegmentResponse& WithArn(const char* value) { SetArn(value); return *this;}
+
+
+    /**
+     * <p>The date and time when the segment was created.</p>
      */
     inline const Aws::String& GetCreationDate() const{ return m_creationDate; }
 
     /**
-     * The date the segment was created in ISO 8601 format.
+     * <p>The date and time when the segment was created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
+
+    /**
+     * <p>The date and time when the segment was created.</p>
      */
     inline void SetCreationDate(const Aws::String& value) { m_creationDateHasBeenSet = true; m_creationDate = value; }
 
     /**
-     * The date the segment was created in ISO 8601 format.
+     * <p>The date and time when the segment was created.</p>
      */
     inline void SetCreationDate(Aws::String&& value) { m_creationDateHasBeenSet = true; m_creationDate = std::move(value); }
 
     /**
-     * The date the segment was created in ISO 8601 format.
+     * <p>The date and time when the segment was created.</p>
      */
     inline void SetCreationDate(const char* value) { m_creationDateHasBeenSet = true; m_creationDate.assign(value); }
 
     /**
-     * The date the segment was created in ISO 8601 format.
+     * <p>The date and time when the segment was created.</p>
      */
     inline SegmentResponse& WithCreationDate(const Aws::String& value) { SetCreationDate(value); return *this;}
 
     /**
-     * The date the segment was created in ISO 8601 format.
+     * <p>The date and time when the segment was created.</p>
      */
     inline SegmentResponse& WithCreationDate(Aws::String&& value) { SetCreationDate(std::move(value)); return *this;}
 
     /**
-     * The date the segment was created in ISO 8601 format.
+     * <p>The date and time when the segment was created.</p>
      */
     inline SegmentResponse& WithCreationDate(const char* value) { SetCreationDate(value); return *this;}
 
 
     /**
-     * The segment dimensions attributes.
+     * <p>The dimension settings for the segment.</p>
      */
     inline const SegmentDimensions& GetDimensions() const{ return m_dimensions; }
 
     /**
-     * The segment dimensions attributes.
+     * <p>The dimension settings for the segment.</p>
+     */
+    inline bool DimensionsHasBeenSet() const { return m_dimensionsHasBeenSet; }
+
+    /**
+     * <p>The dimension settings for the segment.</p>
      */
     inline void SetDimensions(const SegmentDimensions& value) { m_dimensionsHasBeenSet = true; m_dimensions = value; }
 
     /**
-     * The segment dimensions attributes.
+     * <p>The dimension settings for the segment.</p>
      */
     inline void SetDimensions(SegmentDimensions&& value) { m_dimensionsHasBeenSet = true; m_dimensions = std::move(value); }
 
     /**
-     * The segment dimensions attributes.
+     * <p>The dimension settings for the segment.</p>
      */
     inline SegmentResponse& WithDimensions(const SegmentDimensions& value) { SetDimensions(value); return *this;}
 
     /**
-     * The segment dimensions attributes.
+     * <p>The dimension settings for the segment.</p>
      */
     inline SegmentResponse& WithDimensions(SegmentDimensions&& value) { SetDimensions(std::move(value)); return *this;}
 
 
     /**
-     * The unique segment ID.
+     * <p>The unique identifier for the segment.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
 
     /**
-     * The unique segment ID.
+     * <p>The unique identifier for the segment.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * <p>The unique identifier for the segment.</p>
      */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
 
     /**
-     * The unique segment ID.
+     * <p>The unique identifier for the segment.</p>
      */
     inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
 
     /**
-     * The unique segment ID.
+     * <p>The unique identifier for the segment.</p>
      */
     inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
 
     /**
-     * The unique segment ID.
+     * <p>The unique identifier for the segment.</p>
      */
     inline SegmentResponse& WithId(const Aws::String& value) { SetId(value); return *this;}
 
     /**
-     * The unique segment ID.
+     * <p>The unique identifier for the segment.</p>
      */
     inline SegmentResponse& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
 
     /**
-     * The unique segment ID.
+     * <p>The unique identifier for the segment.</p>
      */
     inline SegmentResponse& WithId(const char* value) { SetId(value); return *this;}
 
 
     /**
-     * The import job settings.
+     * <p>The settings for the import job that's associated with the segment.</p>
      */
     inline const SegmentImportResource& GetImportDefinition() const{ return m_importDefinition; }
 
     /**
-     * The import job settings.
+     * <p>The settings for the import job that's associated with the segment.</p>
+     */
+    inline bool ImportDefinitionHasBeenSet() const { return m_importDefinitionHasBeenSet; }
+
+    /**
+     * <p>The settings for the import job that's associated with the segment.</p>
      */
     inline void SetImportDefinition(const SegmentImportResource& value) { m_importDefinitionHasBeenSet = true; m_importDefinition = value; }
 
     /**
-     * The import job settings.
+     * <p>The settings for the import job that's associated with the segment.</p>
      */
     inline void SetImportDefinition(SegmentImportResource&& value) { m_importDefinitionHasBeenSet = true; m_importDefinition = std::move(value); }
 
     /**
-     * The import job settings.
+     * <p>The settings for the import job that's associated with the segment.</p>
      */
     inline SegmentResponse& WithImportDefinition(const SegmentImportResource& value) { SetImportDefinition(value); return *this;}
 
     /**
-     * The import job settings.
+     * <p>The settings for the import job that's associated with the segment.</p>
      */
     inline SegmentResponse& WithImportDefinition(SegmentImportResource&& value) { SetImportDefinition(std::move(value)); return *this;}
 
 
     /**
-     * The date the segment was last updated in ISO 8601 format.
+     * <p>The date and time when the segment was last modified.</p>
      */
     inline const Aws::String& GetLastModifiedDate() const{ return m_lastModifiedDate; }
 
     /**
-     * The date the segment was last updated in ISO 8601 format.
+     * <p>The date and time when the segment was last modified.</p>
+     */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
+
+    /**
+     * <p>The date and time when the segment was last modified.</p>
      */
     inline void SetLastModifiedDate(const Aws::String& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = value; }
 
     /**
-     * The date the segment was last updated in ISO 8601 format.
+     * <p>The date and time when the segment was last modified.</p>
      */
     inline void SetLastModifiedDate(Aws::String&& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = std::move(value); }
 
     /**
-     * The date the segment was last updated in ISO 8601 format.
+     * <p>The date and time when the segment was last modified.</p>
      */
     inline void SetLastModifiedDate(const char* value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate.assign(value); }
 
     /**
-     * The date the segment was last updated in ISO 8601 format.
+     * <p>The date and time when the segment was last modified.</p>
      */
     inline SegmentResponse& WithLastModifiedDate(const Aws::String& value) { SetLastModifiedDate(value); return *this;}
 
     /**
-     * The date the segment was last updated in ISO 8601 format.
+     * <p>The date and time when the segment was last modified.</p>
      */
     inline SegmentResponse& WithLastModifiedDate(Aws::String&& value) { SetLastModifiedDate(std::move(value)); return *this;}
 
     /**
-     * The date the segment was last updated in ISO 8601 format.
+     * <p>The date and time when the segment was last modified.</p>
      */
     inline SegmentResponse& WithLastModifiedDate(const char* value) { SetLastModifiedDate(value); return *this;}
 
 
     /**
-     * The name of segment
+     * <p>The name of the segment.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
-     * The name of segment
+     * <p>The name of the segment.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the segment.</p>
      */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
-     * The name of segment
+     * <p>The name of the segment.</p>
      */
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
     /**
-     * The name of segment
+     * <p>The name of the segment.</p>
      */
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
     /**
-     * The name of segment
+     * <p>The name of the segment.</p>
      */
     inline SegmentResponse& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
-     * The name of segment
+     * <p>The name of the segment.</p>
      */
     inline SegmentResponse& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
-     * The name of segment
+     * <p>The name of the segment.</p>
      */
     inline SegmentResponse& WithName(const char* value) { SetName(value); return *this;}
 
 
     /**
-     * Segment definition groups. We currently only support one. If specified
-     * Dimensions must be empty.
+     * <p>A list of one or more segment groups that apply to the segment. Each segment
+     * group consists of zero or more base segments and the dimensions that are applied
+     * to those base segments.</p>
      */
     inline const SegmentGroupList& GetSegmentGroups() const{ return m_segmentGroups; }
 
     /**
-     * Segment definition groups. We currently only support one. If specified
-     * Dimensions must be empty.
+     * <p>A list of one or more segment groups that apply to the segment. Each segment
+     * group consists of zero or more base segments and the dimensions that are applied
+     * to those base segments.</p>
+     */
+    inline bool SegmentGroupsHasBeenSet() const { return m_segmentGroupsHasBeenSet; }
+
+    /**
+     * <p>A list of one or more segment groups that apply to the segment. Each segment
+     * group consists of zero or more base segments and the dimensions that are applied
+     * to those base segments.</p>
      */
     inline void SetSegmentGroups(const SegmentGroupList& value) { m_segmentGroupsHasBeenSet = true; m_segmentGroups = value; }
 
     /**
-     * Segment definition groups. We currently only support one. If specified
-     * Dimensions must be empty.
+     * <p>A list of one or more segment groups that apply to the segment. Each segment
+     * group consists of zero or more base segments and the dimensions that are applied
+     * to those base segments.</p>
      */
     inline void SetSegmentGroups(SegmentGroupList&& value) { m_segmentGroupsHasBeenSet = true; m_segmentGroups = std::move(value); }
 
     /**
-     * Segment definition groups. We currently only support one. If specified
-     * Dimensions must be empty.
+     * <p>A list of one or more segment groups that apply to the segment. Each segment
+     * group consists of zero or more base segments and the dimensions that are applied
+     * to those base segments.</p>
      */
     inline SegmentResponse& WithSegmentGroups(const SegmentGroupList& value) { SetSegmentGroups(value); return *this;}
 
     /**
-     * Segment definition groups. We currently only support one. If specified
-     * Dimensions must be empty.
+     * <p>A list of one or more segment groups that apply to the segment. Each segment
+     * group consists of zero or more base segments and the dimensions that are applied
+     * to those base segments.</p>
      */
     inline SegmentResponse& WithSegmentGroups(SegmentGroupList&& value) { SetSegmentGroups(std::move(value)); return *this;}
 
 
     /**
-     * The segment type:
-DIMENSIONAL - A dynamic segment built from selection criteria
-     * based on endpoint data reported by your app. You create this type of segment by
-     * using the segment builder in the Amazon Pinpoint console or by making a POST
-     * request to the segments resource.
-IMPORT - A static segment built from an
-     * imported set of endpoint definitions. You create this type of segment by
-     * importing a segment in the Amazon Pinpoint console or by making a POST request
-     * to the jobs/import resource.
+     * <p>The segment type. Valid values are:</p> <ul><li><p>DIMENSIONAL - A dynamic
+     * segment, which is a segment that uses selection criteria that you specify and is
+     * based on endpoint data that's reported by your app. Dynamic segments can change
+     * over time.</p></li> <li><p>IMPORT - A static segment, which is a segment that
+     * uses selection criteria that you specify and is based on endpoint definitions
+     * that you import from a file. Imported segments are static; they don't change
+     * over time.</p></li></ul>
      */
     inline const SegmentType& GetSegmentType() const{ return m_segmentType; }
 
     /**
-     * The segment type:
-DIMENSIONAL - A dynamic segment built from selection criteria
-     * based on endpoint data reported by your app. You create this type of segment by
-     * using the segment builder in the Amazon Pinpoint console or by making a POST
-     * request to the segments resource.
-IMPORT - A static segment built from an
-     * imported set of endpoint definitions. You create this type of segment by
-     * importing a segment in the Amazon Pinpoint console or by making a POST request
-     * to the jobs/import resource.
+     * <p>The segment type. Valid values are:</p> <ul><li><p>DIMENSIONAL - A dynamic
+     * segment, which is a segment that uses selection criteria that you specify and is
+     * based on endpoint data that's reported by your app. Dynamic segments can change
+     * over time.</p></li> <li><p>IMPORT - A static segment, which is a segment that
+     * uses selection criteria that you specify and is based on endpoint definitions
+     * that you import from a file. Imported segments are static; they don't change
+     * over time.</p></li></ul>
+     */
+    inline bool SegmentTypeHasBeenSet() const { return m_segmentTypeHasBeenSet; }
+
+    /**
+     * <p>The segment type. Valid values are:</p> <ul><li><p>DIMENSIONAL - A dynamic
+     * segment, which is a segment that uses selection criteria that you specify and is
+     * based on endpoint data that's reported by your app. Dynamic segments can change
+     * over time.</p></li> <li><p>IMPORT - A static segment, which is a segment that
+     * uses selection criteria that you specify and is based on endpoint definitions
+     * that you import from a file. Imported segments are static; they don't change
+     * over time.</p></li></ul>
      */
     inline void SetSegmentType(const SegmentType& value) { m_segmentTypeHasBeenSet = true; m_segmentType = value; }
 
     /**
-     * The segment type:
-DIMENSIONAL - A dynamic segment built from selection criteria
-     * based on endpoint data reported by your app. You create this type of segment by
-     * using the segment builder in the Amazon Pinpoint console or by making a POST
-     * request to the segments resource.
-IMPORT - A static segment built from an
-     * imported set of endpoint definitions. You create this type of segment by
-     * importing a segment in the Amazon Pinpoint console or by making a POST request
-     * to the jobs/import resource.
+     * <p>The segment type. Valid values are:</p> <ul><li><p>DIMENSIONAL - A dynamic
+     * segment, which is a segment that uses selection criteria that you specify and is
+     * based on endpoint data that's reported by your app. Dynamic segments can change
+     * over time.</p></li> <li><p>IMPORT - A static segment, which is a segment that
+     * uses selection criteria that you specify and is based on endpoint definitions
+     * that you import from a file. Imported segments are static; they don't change
+     * over time.</p></li></ul>
      */
     inline void SetSegmentType(SegmentType&& value) { m_segmentTypeHasBeenSet = true; m_segmentType = std::move(value); }
 
     /**
-     * The segment type:
-DIMENSIONAL - A dynamic segment built from selection criteria
-     * based on endpoint data reported by your app. You create this type of segment by
-     * using the segment builder in the Amazon Pinpoint console or by making a POST
-     * request to the segments resource.
-IMPORT - A static segment built from an
-     * imported set of endpoint definitions. You create this type of segment by
-     * importing a segment in the Amazon Pinpoint console or by making a POST request
-     * to the jobs/import resource.
+     * <p>The segment type. Valid values are:</p> <ul><li><p>DIMENSIONAL - A dynamic
+     * segment, which is a segment that uses selection criteria that you specify and is
+     * based on endpoint data that's reported by your app. Dynamic segments can change
+     * over time.</p></li> <li><p>IMPORT - A static segment, which is a segment that
+     * uses selection criteria that you specify and is based on endpoint definitions
+     * that you import from a file. Imported segments are static; they don't change
+     * over time.</p></li></ul>
      */
     inline SegmentResponse& WithSegmentType(const SegmentType& value) { SetSegmentType(value); return *this;}
 
     /**
-     * The segment type:
-DIMENSIONAL - A dynamic segment built from selection criteria
-     * based on endpoint data reported by your app. You create this type of segment by
-     * using the segment builder in the Amazon Pinpoint console or by making a POST
-     * request to the segments resource.
-IMPORT - A static segment built from an
-     * imported set of endpoint definitions. You create this type of segment by
-     * importing a segment in the Amazon Pinpoint console or by making a POST request
-     * to the jobs/import resource.
+     * <p>The segment type. Valid values are:</p> <ul><li><p>DIMENSIONAL - A dynamic
+     * segment, which is a segment that uses selection criteria that you specify and is
+     * based on endpoint data that's reported by your app. Dynamic segments can change
+     * over time.</p></li> <li><p>IMPORT - A static segment, which is a segment that
+     * uses selection criteria that you specify and is based on endpoint definitions
+     * that you import from a file. Imported segments are static; they don't change
+     * over time.</p></li></ul>
      */
     inline SegmentResponse& WithSegmentType(SegmentType&& value) { SetSegmentType(std::move(value)); return *this;}
 
 
     /**
-     * The segment version number.
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>A string-to-string map of key-value pairs that identifies the tags that are
+     * associated with the segment. Each tag consists of a required tag key and an
+     * associated tag value.</p>
+     */
+    inline SegmentResponse& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+
+    /**
+     * <p>The version number of the segment.</p>
      */
     inline int GetVersion() const{ return m_version; }
 
     /**
-     * The segment version number.
+     * <p>The version number of the segment.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
+
+    /**
+     * <p>The version number of the segment.</p>
      */
     inline void SetVersion(int value) { m_versionHasBeenSet = true; m_version = value; }
 
     /**
-     * The segment version number.
+     * <p>The version number of the segment.</p>
      */
     inline SegmentResponse& WithVersion(int value) { SetVersion(value); return *this;}
 
@@ -398,6 +595,9 @@ IMPORT - A static segment built from an
 
     Aws::String m_applicationId;
     bool m_applicationIdHasBeenSet;
+
+    Aws::String m_arn;
+    bool m_arnHasBeenSet;
 
     Aws::String m_creationDate;
     bool m_creationDateHasBeenSet;
@@ -422,6 +622,9 @@ IMPORT - A static segment built from an
 
     SegmentType m_segmentType;
     bool m_segmentTypeHasBeenSet;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
+    bool m_tagsHasBeenSet;
 
     int m_version;
     bool m_versionHasBeenSet;

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ProviderDescription();
-    ProviderDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProviderDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProviderDescription(Aws::Utils::Json::JsonView jsonValue);
+    ProviderDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The identity provider name.</p>
      */
     inline const Aws::String& GetProviderName() const{ return m_providerName; }
+
+    /**
+     * <p>The identity provider name.</p>
+     */
+    inline bool ProviderNameHasBeenSet() const { return m_providerNameHasBeenSet; }
 
     /**
      * <p>The identity provider name.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The identity provider type.</p>
      */
+    inline bool ProviderTypeHasBeenSet() const { return m_providerTypeHasBeenSet; }
+
+    /**
+     * <p>The identity provider type.</p>
+     */
     inline void SetProviderType(const IdentityProviderTypeType& value) { m_providerTypeHasBeenSet = true; m_providerType = value; }
 
     /**
@@ -118,6 +129,11 @@ namespace Model
     /**
      * <p>The date the provider was last modified.</p>
      */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
+
+    /**
+     * <p>The date the provider was last modified.</p>
+     */
     inline void SetLastModifiedDate(const Aws::Utils::DateTime& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = value; }
 
     /**
@@ -140,6 +156,11 @@ namespace Model
      * <p>The date the provider was added to the user pool.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The date the provider was added to the user pool.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The date the provider was added to the user pool.</p>

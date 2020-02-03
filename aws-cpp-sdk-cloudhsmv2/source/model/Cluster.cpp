@@ -43,11 +43,12 @@ Cluster::Cluster() :
     m_stateMessageHasBeenSet(false),
     m_subnetMappingHasBeenSet(false),
     m_vpcIdHasBeenSet(false),
-    m_certificatesHasBeenSet(false)
+    m_certificatesHasBeenSet(false),
+    m_tagListHasBeenSet(false)
 {
 }
 
-Cluster::Cluster(const JsonValue& jsonValue) : 
+Cluster::Cluster(JsonView jsonValue) : 
     m_backupPolicy(BackupPolicy::NOT_SET),
     m_backupPolicyHasBeenSet(false),
     m_clusterIdHasBeenSet(false),
@@ -62,12 +63,13 @@ Cluster::Cluster(const JsonValue& jsonValue) :
     m_stateMessageHasBeenSet(false),
     m_subnetMappingHasBeenSet(false),
     m_vpcIdHasBeenSet(false),
-    m_certificatesHasBeenSet(false)
+    m_certificatesHasBeenSet(false),
+    m_tagListHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Cluster& Cluster::operator =(const JsonValue& jsonValue)
+Cluster& Cluster::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("BackupPolicy"))
   {
@@ -92,7 +94,7 @@ Cluster& Cluster::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Hsms"))
   {
-    Array<JsonValue> hsmsJsonList = jsonValue.GetArray("Hsms");
+    Array<JsonView> hsmsJsonList = jsonValue.GetArray("Hsms");
     for(unsigned hsmsIndex = 0; hsmsIndex < hsmsJsonList.GetLength(); ++hsmsIndex)
     {
       m_hsms.push_back(hsmsJsonList[hsmsIndex].AsObject());
@@ -144,7 +146,7 @@ Cluster& Cluster::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("SubnetMapping"))
   {
-    Aws::Map<Aws::String, JsonValue> subnetMappingJsonMap = jsonValue.GetObject("SubnetMapping").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> subnetMappingJsonMap = jsonValue.GetObject("SubnetMapping").GetAllObjects();
     for(auto& subnetMappingItem : subnetMappingJsonMap)
     {
       m_subnetMapping[subnetMappingItem.first] = subnetMappingItem.second.AsString();
@@ -164,6 +166,16 @@ Cluster& Cluster::operator =(const JsonValue& jsonValue)
     m_certificates = jsonValue.GetObject("Certificates");
 
     m_certificatesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("TagList"))
+  {
+    Array<JsonView> tagListJsonList = jsonValue.GetArray("TagList");
+    for(unsigned tagListIndex = 0; tagListIndex < tagListJsonList.GetLength(); ++tagListIndex)
+    {
+      m_tagList.push_back(tagListJsonList[tagListIndex].AsObject());
+    }
+    m_tagListHasBeenSet = true;
   }
 
   return *this;
@@ -255,6 +267,17 @@ JsonValue Cluster::Jsonize() const
   if(m_certificatesHasBeenSet)
   {
    payload.WithObject("Certificates", m_certificates.Jsonize());
+
+  }
+
+  if(m_tagListHasBeenSet)
+  {
+   Array<JsonValue> tagListJsonList(m_tagList.size());
+   for(unsigned tagListIndex = 0; tagListIndex < tagListJsonList.GetLength(); ++tagListIndex)
+   {
+     tagListJsonList[tagListIndex].AsObject(m_tagList[tagListIndex].Jsonize());
+   }
+   payload.WithArray("TagList", std::move(tagListJsonList));
 
   }
 

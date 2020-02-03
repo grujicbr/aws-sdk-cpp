@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ComplianceByConfigRule();
-    ComplianceByConfigRule(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComplianceByConfigRule& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComplianceByConfigRule(Aws::Utils::Json::JsonView jsonValue);
+    ComplianceByConfigRule& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the AWS Config rule.</p>
      */
     inline const Aws::String& GetConfigRuleName() const{ return m_configRuleName; }
+
+    /**
+     * <p>The name of the AWS Config rule.</p>
+     */
+    inline bool ConfigRuleNameHasBeenSet() const { return m_configRuleNameHasBeenSet; }
 
     /**
      * <p>The name of the AWS Config rule.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>Indicates whether the AWS Config rule is compliant.</p>
      */
     inline const Compliance& GetCompliance() const{ return m_compliance; }
+
+    /**
+     * <p>Indicates whether the AWS Config rule is compliant.</p>
+     */
+    inline bool ComplianceHasBeenSet() const { return m_complianceHasBeenSet; }
 
     /**
      * <p>Indicates whether the AWS Config rule is compliant.</p>

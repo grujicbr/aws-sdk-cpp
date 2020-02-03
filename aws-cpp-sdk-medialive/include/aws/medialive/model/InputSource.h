@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     InputSource();
-    InputSource(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputSource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputSource(Aws::Utils::Json::JsonView jsonValue);
+    InputSource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * The key used to extract the password from EC2 Parameter store.
      */
     inline const Aws::String& GetPasswordParam() const{ return m_passwordParam; }
+
+    /**
+     * The key used to extract the password from EC2 Parameter store.
+     */
+    inline bool PasswordParamHasBeenSet() const { return m_passwordParamHasBeenSet; }
 
     /**
      * The key used to extract the password from EC2 Parameter store.
@@ -88,6 +94,13 @@ pulled from.
 
      */
     inline const Aws::String& GetUrl() const{ return m_url; }
+
+    /**
+     * This represents the customer's source URL where stream is
+pulled from.
+
+     */
+    inline bool UrlHasBeenSet() const { return m_urlHasBeenSet; }
 
     /**
      * This represents the customer's source URL where stream is
@@ -136,6 +149,11 @@ pulled from.
      * The username for the input source.
      */
     inline const Aws::String& GetUsername() const{ return m_username; }
+
+    /**
+     * The username for the input source.
+     */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
 
     /**
      * The username for the input source.

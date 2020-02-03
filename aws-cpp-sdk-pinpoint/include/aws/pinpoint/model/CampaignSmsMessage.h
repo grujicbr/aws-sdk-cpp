@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -34,7 +35,8 @@ namespace Model
 {
 
   /**
-   * SMS message configuration.<p><h3>See Also:</h3>   <a
+   * <p>Specifies the content and settings for an SMS message that's sent to
+   * recipients of a campaign.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CampaignSmsMessage">AWS
    * API Reference</a></p>
    */
@@ -42,105 +44,146 @@ namespace Model
   {
   public:
     CampaignSmsMessage();
-    CampaignSmsMessage(const Aws::Utils::Json::JsonValue& jsonValue);
-    CampaignSmsMessage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CampaignSmsMessage(Aws::Utils::Json::JsonView jsonValue);
+    CampaignSmsMessage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * The SMS text body.
+     * <p>The body of the SMS message.</p>
      */
     inline const Aws::String& GetBody() const{ return m_body; }
 
     /**
-     * The SMS text body.
+     * <p>The body of the SMS message.</p>
+     */
+    inline bool BodyHasBeenSet() const { return m_bodyHasBeenSet; }
+
+    /**
+     * <p>The body of the SMS message.</p>
      */
     inline void SetBody(const Aws::String& value) { m_bodyHasBeenSet = true; m_body = value; }
 
     /**
-     * The SMS text body.
+     * <p>The body of the SMS message.</p>
      */
     inline void SetBody(Aws::String&& value) { m_bodyHasBeenSet = true; m_body = std::move(value); }
 
     /**
-     * The SMS text body.
+     * <p>The body of the SMS message.</p>
      */
     inline void SetBody(const char* value) { m_bodyHasBeenSet = true; m_body.assign(value); }
 
     /**
-     * The SMS text body.
+     * <p>The body of the SMS message.</p>
      */
     inline CampaignSmsMessage& WithBody(const Aws::String& value) { SetBody(value); return *this;}
 
     /**
-     * The SMS text body.
+     * <p>The body of the SMS message.</p>
      */
     inline CampaignSmsMessage& WithBody(Aws::String&& value) { SetBody(std::move(value)); return *this;}
 
     /**
-     * The SMS text body.
+     * <p>The body of the SMS message.</p>
      */
     inline CampaignSmsMessage& WithBody(const char* value) { SetBody(value); return *this;}
 
 
     /**
-     * Is this is a transactional SMS message, otherwise a promotional message.
+     * <p>The type of SMS message. Valid values are: TRANSACTIONAL, the message is
+     * critical or time-sensitive, such as a one-time password that supports a customer
+     * transaction; and, PROMOTIONAL, the message isn't critical or time-sensitive,
+     * such as a marketing message.</p>
      */
     inline const MessageType& GetMessageType() const{ return m_messageType; }
 
     /**
-     * Is this is a transactional SMS message, otherwise a promotional message.
+     * <p>The type of SMS message. Valid values are: TRANSACTIONAL, the message is
+     * critical or time-sensitive, such as a one-time password that supports a customer
+     * transaction; and, PROMOTIONAL, the message isn't critical or time-sensitive,
+     * such as a marketing message.</p>
+     */
+    inline bool MessageTypeHasBeenSet() const { return m_messageTypeHasBeenSet; }
+
+    /**
+     * <p>The type of SMS message. Valid values are: TRANSACTIONAL, the message is
+     * critical or time-sensitive, such as a one-time password that supports a customer
+     * transaction; and, PROMOTIONAL, the message isn't critical or time-sensitive,
+     * such as a marketing message.</p>
      */
     inline void SetMessageType(const MessageType& value) { m_messageTypeHasBeenSet = true; m_messageType = value; }
 
     /**
-     * Is this is a transactional SMS message, otherwise a promotional message.
+     * <p>The type of SMS message. Valid values are: TRANSACTIONAL, the message is
+     * critical or time-sensitive, such as a one-time password that supports a customer
+     * transaction; and, PROMOTIONAL, the message isn't critical or time-sensitive,
+     * such as a marketing message.</p>
      */
     inline void SetMessageType(MessageType&& value) { m_messageTypeHasBeenSet = true; m_messageType = std::move(value); }
 
     /**
-     * Is this is a transactional SMS message, otherwise a promotional message.
+     * <p>The type of SMS message. Valid values are: TRANSACTIONAL, the message is
+     * critical or time-sensitive, such as a one-time password that supports a customer
+     * transaction; and, PROMOTIONAL, the message isn't critical or time-sensitive,
+     * such as a marketing message.</p>
      */
     inline CampaignSmsMessage& WithMessageType(const MessageType& value) { SetMessageType(value); return *this;}
 
     /**
-     * Is this is a transactional SMS message, otherwise a promotional message.
+     * <p>The type of SMS message. Valid values are: TRANSACTIONAL, the message is
+     * critical or time-sensitive, such as a one-time password that supports a customer
+     * transaction; and, PROMOTIONAL, the message isn't critical or time-sensitive,
+     * such as a marketing message.</p>
      */
     inline CampaignSmsMessage& WithMessageType(MessageType&& value) { SetMessageType(std::move(value)); return *this;}
 
 
     /**
-     * Sender ID of sent message.
+     * <p>The sender ID to display on recipients' devices when they receive the SMS
+     * message.</p>
      */
     inline const Aws::String& GetSenderId() const{ return m_senderId; }
 
     /**
-     * Sender ID of sent message.
+     * <p>The sender ID to display on recipients' devices when they receive the SMS
+     * message.</p>
+     */
+    inline bool SenderIdHasBeenSet() const { return m_senderIdHasBeenSet; }
+
+    /**
+     * <p>The sender ID to display on recipients' devices when they receive the SMS
+     * message.</p>
      */
     inline void SetSenderId(const Aws::String& value) { m_senderIdHasBeenSet = true; m_senderId = value; }
 
     /**
-     * Sender ID of sent message.
+     * <p>The sender ID to display on recipients' devices when they receive the SMS
+     * message.</p>
      */
     inline void SetSenderId(Aws::String&& value) { m_senderIdHasBeenSet = true; m_senderId = std::move(value); }
 
     /**
-     * Sender ID of sent message.
+     * <p>The sender ID to display on recipients' devices when they receive the SMS
+     * message.</p>
      */
     inline void SetSenderId(const char* value) { m_senderIdHasBeenSet = true; m_senderId.assign(value); }
 
     /**
-     * Sender ID of sent message.
+     * <p>The sender ID to display on recipients' devices when they receive the SMS
+     * message.</p>
      */
     inline CampaignSmsMessage& WithSenderId(const Aws::String& value) { SetSenderId(value); return *this;}
 
     /**
-     * Sender ID of sent message.
+     * <p>The sender ID to display on recipients' devices when they receive the SMS
+     * message.</p>
      */
     inline CampaignSmsMessage& WithSenderId(Aws::String&& value) { SetSenderId(std::move(value)); return *this;}
 
     /**
-     * Sender ID of sent message.
+     * <p>The sender ID to display on recipients' devices when they receive the SMS
+     * message.</p>
      */
     inline CampaignSmsMessage& WithSenderId(const char* value) { SetSenderId(value); return *this;}
 

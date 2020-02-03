@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 ResetJobBookmarkRequest::ResetJobBookmarkRequest() : 
-    m_jobNameHasBeenSet(false)
+    m_jobNameHasBeenSet(false),
+    m_runIdHasBeenSet(false)
 {
 }
 
@@ -37,7 +38,13 @@ Aws::String ResetJobBookmarkRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_runIdHasBeenSet)
+  {
+   payload.WithString("RunId", m_runId);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection ResetJobBookmarkRequest::GetRequestSpecificHeaders() const

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -47,7 +48,7 @@ namespace Model
    * SignedHeaders=content-type;host;x-amz-date, Signature={sig4_hash}</code></pre>
    * <h5>Response</h5> <p>The successful response returns <code>200 OK</code> status
    * and a payload as follows:</p> <pre><code>{ "_links": { "curies": { "href":
-   * "http://docs.aws.amazon.com/apigateway/latest/developerguide/restapi-method-response-{rel}.html",
+   * "https://docs.aws.amazon.com/apigateway/latest/developerguide/restapi-method-response-{rel}.html",
    * "name": "methodresponse", "templated": true }, "self": { "href":
    * "/restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200", "title":
    * "200" }, "methodresponse:delete": { "href":
@@ -58,7 +59,7 @@ namespace Model
    * "method.response.header.Content-Type": false }, "statusCode": "200"
    * }</code></pre> <p/> </div> <div class="seeAlso"> <a>Method</a>,
    * <a>IntegrationResponse</a>, <a>Integration</a> <a
-   * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-create-api.html">Creating
+   * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-create-api.html">Creating
    * an API</a> </div><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/MethodResponse">AWS
    * API Reference</a></p>
@@ -67,8 +68,8 @@ namespace Model
   {
   public:
     MethodResponse();
-    MethodResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    MethodResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MethodResponse(Aws::Utils::Json::JsonView jsonValue);
+    MethodResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -76,6 +77,11 @@ namespace Model
      * <p>The method response's status code.</p>
      */
     inline const Aws::String& GetStatusCode() const{ return m_statusCode; }
+
+    /**
+     * <p>The method response's status code.</p>
+     */
+    inline bool StatusCodeHasBeenSet() const { return m_statusCodeHasBeenSet; }
 
     /**
      * <p>The method response's status code.</p>
@@ -126,6 +132,25 @@ namespace Model
      * <code>$</code> prefix.)</p>
      */
     inline const Aws::Map<Aws::String, bool>& GetResponseParameters() const{ return m_responseParameters; }
+
+    /**
+     * <p>A key-value map specifying required or optional response parameters that API
+     * Gateway can send back to the caller. A key defines a method response header and
+     * the value specifies whether the associated method response header is required or
+     * not. The expression of the key must match the pattern
+     * <code>method.response.header.{name}</code>, where <code>name</code> is a valid
+     * and unique header name. API Gateway passes certain integration response data to
+     * the method response headers specified here according to the mapping you
+     * prescribe in the API's <a>IntegrationResponse</a>. The integration response data
+     * that can be mapped include an integration response header expressed in
+     * <code>integration.response.header.{name}</code>, a static value enclosed within
+     * a pair of single quotes (e.g., <code>'application/json'</code>), or a JSON
+     * expression from the back-end response payload in the form of
+     * <code>integration.response.body.{JSON-expression}</code>, where
+     * <code>JSON-expression</code> is a valid JSON expression without the
+     * <code>$</code> prefix.)</p>
+     */
+    inline bool ResponseParametersHasBeenSet() const { return m_responseParametersHasBeenSet; }
 
     /**
      * <p>A key-value map specifying required or optional response parameters that API
@@ -267,6 +292,13 @@ namespace Model
      * key and a <a>Model</a> name as the value.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetResponseModels() const{ return m_responseModels; }
+
+    /**
+     * <p>Specifies the <a>Model</a> resources used for the response's content-type.
+     * Response models are represented as a key/value map, with a content-type as the
+     * key and a <a>Model</a> name as the value.</p>
+     */
+    inline bool ResponseModelsHasBeenSet() const { return m_responseModelsHasBeenSet; }
 
     /**
      * <p>Specifies the <a>Model</a> resources used for the response's content-type.

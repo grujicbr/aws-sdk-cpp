@@ -54,11 +54,13 @@ Device::Device() :
     m_remoteDebugEnabledHasBeenSet(false),
     m_fleetTypeHasBeenSet(false),
     m_fleetNameHasBeenSet(false),
-    m_instancesHasBeenSet(false)
+    m_instancesHasBeenSet(false),
+    m_availability(DeviceAvailability::NOT_SET),
+    m_availabilityHasBeenSet(false)
 {
 }
 
-Device::Device(const JsonValue& jsonValue) : 
+Device::Device(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_manufacturerHasBeenSet(false),
@@ -84,12 +86,14 @@ Device::Device(const JsonValue& jsonValue) :
     m_remoteDebugEnabledHasBeenSet(false),
     m_fleetTypeHasBeenSet(false),
     m_fleetNameHasBeenSet(false),
-    m_instancesHasBeenSet(false)
+    m_instancesHasBeenSet(false),
+    m_availability(DeviceAvailability::NOT_SET),
+    m_availabilityHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Device& Device::operator =(const JsonValue& jsonValue)
+Device& Device::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("arn"))
   {
@@ -226,12 +230,19 @@ Device& Device::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("instances"))
   {
-    Array<JsonValue> instancesJsonList = jsonValue.GetArray("instances");
+    Array<JsonView> instancesJsonList = jsonValue.GetArray("instances");
     for(unsigned instancesIndex = 0; instancesIndex < instancesJsonList.GetLength(); ++instancesIndex)
     {
       m_instances.push_back(instancesJsonList[instancesIndex].AsObject());
     }
     m_instancesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("availability"))
+  {
+    m_availability = DeviceAvailabilityMapper::GetDeviceAvailabilityForName(jsonValue.GetString("availability"));
+
+    m_availabilityHasBeenSet = true;
   }
 
   return *this;
@@ -362,6 +373,11 @@ JsonValue Device::Jsonize() const
    }
    payload.WithArray("instances", std::move(instancesJsonList));
 
+  }
+
+  if(m_availabilityHasBeenSet)
+  {
+   payload.WithString("availability", DeviceAvailabilityMapper::GetNameForDeviceAvailability(m_availability));
   }
 
   return payload;

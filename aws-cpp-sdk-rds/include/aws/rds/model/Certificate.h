@@ -58,6 +58,11 @@ namespace Model
     /**
      * <p>The unique key that identifies a certificate.</p>
      */
+    inline bool CertificateIdentifierHasBeenSet() const { return m_certificateIdentifierHasBeenSet; }
+
+    /**
+     * <p>The unique key that identifies a certificate.</p>
+     */
     inline void SetCertificateIdentifier(const Aws::String& value) { m_certificateIdentifierHasBeenSet = true; m_certificateIdentifier = value; }
 
     /**
@@ -90,6 +95,11 @@ namespace Model
      * <p>The type of the certificate.</p>
      */
     inline const Aws::String& GetCertificateType() const{ return m_certificateType; }
+
+    /**
+     * <p>The type of the certificate.</p>
+     */
+    inline bool CertificateTypeHasBeenSet() const { return m_certificateTypeHasBeenSet; }
 
     /**
      * <p>The type of the certificate.</p>
@@ -130,6 +140,11 @@ namespace Model
     /**
      * <p>The thumbprint of the certificate.</p>
      */
+    inline bool ThumbprintHasBeenSet() const { return m_thumbprintHasBeenSet; }
+
+    /**
+     * <p>The thumbprint of the certificate.</p>
+     */
     inline void SetThumbprint(const Aws::String& value) { m_thumbprintHasBeenSet = true; m_thumbprint = value; }
 
     /**
@@ -166,6 +181,11 @@ namespace Model
     /**
      * <p>The starting date from which the certificate is valid.</p>
      */
+    inline bool ValidFromHasBeenSet() const { return m_validFromHasBeenSet; }
+
+    /**
+     * <p>The starting date from which the certificate is valid.</p>
+     */
     inline void SetValidFrom(const Aws::Utils::DateTime& value) { m_validFromHasBeenSet = true; m_validFrom = value; }
 
     /**
@@ -192,6 +212,11 @@ namespace Model
     /**
      * <p>The final date that the certificate continues to be valid.</p>
      */
+    inline bool ValidTillHasBeenSet() const { return m_validTillHasBeenSet; }
+
+    /**
+     * <p>The final date that the certificate continues to be valid.</p>
+     */
     inline void SetValidTill(const Aws::Utils::DateTime& value) { m_validTillHasBeenSet = true; m_validTill = value; }
 
     /**
@@ -214,6 +239,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) for the certificate.</p>
      */
     inline const Aws::String& GetCertificateArn() const{ return m_certificateArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the certificate.</p>
+     */
+    inline bool CertificateArnHasBeenSet() const { return m_certificateArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) for the certificate.</p>
@@ -245,6 +275,64 @@ namespace Model
      */
     inline Certificate& WithCertificateArn(const char* value) { SetCertificateArn(value); return *this;}
 
+
+    /**
+     * <p>Whether there is an override for the default certificate identifier.</p>
+     */
+    inline bool GetCustomerOverride() const{ return m_customerOverride; }
+
+    /**
+     * <p>Whether there is an override for the default certificate identifier.</p>
+     */
+    inline bool CustomerOverrideHasBeenSet() const { return m_customerOverrideHasBeenSet; }
+
+    /**
+     * <p>Whether there is an override for the default certificate identifier.</p>
+     */
+    inline void SetCustomerOverride(bool value) { m_customerOverrideHasBeenSet = true; m_customerOverride = value; }
+
+    /**
+     * <p>Whether there is an override for the default certificate identifier.</p>
+     */
+    inline Certificate& WithCustomerOverride(bool value) { SetCustomerOverride(value); return *this;}
+
+
+    /**
+     * <p>If there is an override for the default certificate identifier, when the
+     * override expires.</p>
+     */
+    inline const Aws::Utils::DateTime& GetCustomerOverrideValidTill() const{ return m_customerOverrideValidTill; }
+
+    /**
+     * <p>If there is an override for the default certificate identifier, when the
+     * override expires.</p>
+     */
+    inline bool CustomerOverrideValidTillHasBeenSet() const { return m_customerOverrideValidTillHasBeenSet; }
+
+    /**
+     * <p>If there is an override for the default certificate identifier, when the
+     * override expires.</p>
+     */
+    inline void SetCustomerOverrideValidTill(const Aws::Utils::DateTime& value) { m_customerOverrideValidTillHasBeenSet = true; m_customerOverrideValidTill = value; }
+
+    /**
+     * <p>If there is an override for the default certificate identifier, when the
+     * override expires.</p>
+     */
+    inline void SetCustomerOverrideValidTill(Aws::Utils::DateTime&& value) { m_customerOverrideValidTillHasBeenSet = true; m_customerOverrideValidTill = std::move(value); }
+
+    /**
+     * <p>If there is an override for the default certificate identifier, when the
+     * override expires.</p>
+     */
+    inline Certificate& WithCustomerOverrideValidTill(const Aws::Utils::DateTime& value) { SetCustomerOverrideValidTill(value); return *this;}
+
+    /**
+     * <p>If there is an override for the default certificate identifier, when the
+     * override expires.</p>
+     */
+    inline Certificate& WithCustomerOverrideValidTill(Aws::Utils::DateTime&& value) { SetCustomerOverrideValidTill(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_certificateIdentifier;
@@ -264,6 +352,12 @@ namespace Model
 
     Aws::String m_certificateArn;
     bool m_certificateArnHasBeenSet;
+
+    bool m_customerOverride;
+    bool m_customerOverrideHasBeenSet;
+
+    Aws::Utils::DateTime m_customerOverrideValidTill;
+    bool m_customerOverrideValidTillHasBeenSet;
   };
 
 } // namespace Model

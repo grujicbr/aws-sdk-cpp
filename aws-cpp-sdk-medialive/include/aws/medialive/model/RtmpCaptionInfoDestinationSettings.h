@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -31,8 +32,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for RtmpCaptionInfoDestinationSettings<p><h3>See
-   * Also:</h3>   <a
+   * Rtmp Caption Info Destination Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/RtmpCaptionInfoDestinationSettings">AWS
    * API Reference</a></p>
    */
@@ -40,8 +40,8 @@ namespace Model
   {
   public:
     RtmpCaptionInfoDestinationSettings();
-    RtmpCaptionInfoDestinationSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    RtmpCaptionInfoDestinationSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RtmpCaptionInfoDestinationSettings(Aws::Utils::Json::JsonView jsonValue);
+    RtmpCaptionInfoDestinationSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
   };

@@ -34,22 +34,32 @@ Resolver::Resolver() :
     m_dataSourceNameHasBeenSet(false),
     m_resolverArnHasBeenSet(false),
     m_requestMappingTemplateHasBeenSet(false),
-    m_responseMappingTemplateHasBeenSet(false)
+    m_responseMappingTemplateHasBeenSet(false),
+    m_kind(ResolverKind::NOT_SET),
+    m_kindHasBeenSet(false),
+    m_pipelineConfigHasBeenSet(false),
+    m_syncConfigHasBeenSet(false),
+    m_cachingConfigHasBeenSet(false)
 {
 }
 
-Resolver::Resolver(const JsonValue& jsonValue) : 
+Resolver::Resolver(JsonView jsonValue) : 
     m_typeNameHasBeenSet(false),
     m_fieldNameHasBeenSet(false),
     m_dataSourceNameHasBeenSet(false),
     m_resolverArnHasBeenSet(false),
     m_requestMappingTemplateHasBeenSet(false),
-    m_responseMappingTemplateHasBeenSet(false)
+    m_responseMappingTemplateHasBeenSet(false),
+    m_kind(ResolverKind::NOT_SET),
+    m_kindHasBeenSet(false),
+    m_pipelineConfigHasBeenSet(false),
+    m_syncConfigHasBeenSet(false),
+    m_cachingConfigHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Resolver& Resolver::operator =(const JsonValue& jsonValue)
+Resolver& Resolver::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("typeName"))
   {
@@ -93,6 +103,34 @@ Resolver& Resolver::operator =(const JsonValue& jsonValue)
     m_responseMappingTemplateHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("kind"))
+  {
+    m_kind = ResolverKindMapper::GetResolverKindForName(jsonValue.GetString("kind"));
+
+    m_kindHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("pipelineConfig"))
+  {
+    m_pipelineConfig = jsonValue.GetObject("pipelineConfig");
+
+    m_pipelineConfigHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("syncConfig"))
+  {
+    m_syncConfig = jsonValue.GetObject("syncConfig");
+
+    m_syncConfigHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("cachingConfig"))
+  {
+    m_cachingConfig = jsonValue.GetObject("cachingConfig");
+
+    m_cachingConfigHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -133,6 +171,29 @@ JsonValue Resolver::Jsonize() const
   if(m_responseMappingTemplateHasBeenSet)
   {
    payload.WithString("responseMappingTemplate", m_responseMappingTemplate);
+
+  }
+
+  if(m_kindHasBeenSet)
+  {
+   payload.WithString("kind", ResolverKindMapper::GetNameForResolverKind(m_kind));
+  }
+
+  if(m_pipelineConfigHasBeenSet)
+  {
+   payload.WithObject("pipelineConfig", m_pipelineConfig.Jsonize());
+
+  }
+
+  if(m_syncConfigHasBeenSet)
+  {
+   payload.WithObject("syncConfig", m_syncConfig.Jsonize());
+
+  }
+
+  if(m_cachingConfigHasBeenSet)
+  {
+   payload.WithObject("cachingConfig", m_cachingConfig.Jsonize());
 
   }
 

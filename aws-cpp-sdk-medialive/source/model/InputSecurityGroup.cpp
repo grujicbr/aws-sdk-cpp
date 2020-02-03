@@ -34,22 +34,24 @@ InputSecurityGroup::InputSecurityGroup() :
     m_inputsHasBeenSet(false),
     m_state(InputSecurityGroupState::NOT_SET),
     m_stateHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_whitelistRulesHasBeenSet(false)
 {
 }
 
-InputSecurityGroup::InputSecurityGroup(const JsonValue& jsonValue) : 
+InputSecurityGroup::InputSecurityGroup(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
     m_idHasBeenSet(false),
     m_inputsHasBeenSet(false),
     m_state(InputSecurityGroupState::NOT_SET),
     m_stateHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_whitelistRulesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-InputSecurityGroup& InputSecurityGroup::operator =(const JsonValue& jsonValue)
+InputSecurityGroup& InputSecurityGroup::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("arn"))
   {
@@ -67,7 +69,7 @@ InputSecurityGroup& InputSecurityGroup::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("inputs"))
   {
-    Array<JsonValue> inputsJsonList = jsonValue.GetArray("inputs");
+    Array<JsonView> inputsJsonList = jsonValue.GetArray("inputs");
     for(unsigned inputsIndex = 0; inputsIndex < inputsJsonList.GetLength(); ++inputsIndex)
     {
       m_inputs.push_back(inputsJsonList[inputsIndex].AsString());
@@ -82,9 +84,19 @@ InputSecurityGroup& InputSecurityGroup::operator =(const JsonValue& jsonValue)
     m_stateHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("whitelistRules"))
   {
-    Array<JsonValue> whitelistRulesJsonList = jsonValue.GetArray("whitelistRules");
+    Array<JsonView> whitelistRulesJsonList = jsonValue.GetArray("whitelistRules");
     for(unsigned whitelistRulesIndex = 0; whitelistRulesIndex < whitelistRulesJsonList.GetLength(); ++whitelistRulesIndex)
     {
       m_whitelistRules.push_back(whitelistRulesJsonList[whitelistRulesIndex].AsObject());
@@ -125,6 +137,17 @@ JsonValue InputSecurityGroup::Jsonize() const
   if(m_stateHasBeenSet)
   {
    payload.WithString("state", InputSecurityGroupStateMapper::GetNameForInputSecurityGroupState(m_state));
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
   }
 
   if(m_whitelistRulesHasBeenSet)

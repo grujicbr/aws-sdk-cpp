@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -35,7 +36,7 @@ namespace Model
   /**
    * <p>Describes the data format when records are written to the destination. For
    * more information, see <a
-   * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
+   * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
    * Application Output</a>. </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DestinationSchema">AWS
    * API Reference</a></p>
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     DestinationSchema();
-    DestinationSchema(const Aws::Utils::Json::JsonValue& jsonValue);
-    DestinationSchema& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DestinationSchema(Aws::Utils::Json::JsonView jsonValue);
+    DestinationSchema& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Specifies the format of the records on the output stream.</p>
      */
     inline const RecordFormatType& GetRecordFormatType() const{ return m_recordFormatType; }
+
+    /**
+     * <p>Specifies the format of the records on the output stream.</p>
+     */
+    inline bool RecordFormatTypeHasBeenSet() const { return m_recordFormatTypeHasBeenSet; }
 
     /**
      * <p>Specifies the format of the records on the output stream.</p>

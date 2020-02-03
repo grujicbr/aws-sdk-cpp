@@ -26,6 +26,7 @@ public class CoreErrors
         VARIANTS.add("IncompleteSignature");
         VARIANTS.add("IncompleteSignatureException");
         VARIANTS.add("InternalFailure");
+        VARIANTS.add("InternalError");
         VARIANTS.add("InternalFailureException");
         VARIANTS.add("InvalidAction");
         VARIANTS.add("InvalidActionException");
@@ -46,6 +47,7 @@ public class CoreErrors
         VARIANTS.add("MissingParameter");
         VARIANTS.add("MissingParameterException");
         VARIANTS.add("OptInRequired");
+        VARIANTS.add("OptInRequiredException");
         VARIANTS.add("RequestExpired");
         VARIANTS.add("RequestExpiredException");
         VARIANTS.add("ServiceUnavailable");
@@ -53,6 +55,9 @@ public class CoreErrors
         VARIANTS.add("ServiceUnavailableError");
         VARIANTS.add("Throttling");
         VARIANTS.add("ThrottlingException");
+        VARIANTS.add("ThrottledException");
+        VARIANTS.add("RequestThrottledException");
+        VARIANTS.add("RequestThrottled");
         VARIANTS.add("ValidationError");
         VARIANTS.add("ValidationErrorException");
         VARIANTS.add("ValidationException");
@@ -73,6 +78,8 @@ public class CoreErrors
         VARIANTS.add("SignatureDoesNotMatchException");
         VARIANTS.add("InvalidAccessKeyId");
         VARIANTS.add("InvalidAccessKeyIdException");
+        VARIANTS.add("RequestTimeout");
+        VARIANTS.add("RequestTimeoutException");
     }
 
 }

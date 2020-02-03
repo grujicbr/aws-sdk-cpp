@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ListImagesFilter();
-    ListImagesFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    ListImagesFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ListImagesFilter(Aws::Utils::Json::JsonView jsonValue);
+    ListImagesFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * <code>UNTAGGED</code>.</p>
      */
     inline const TagStatus& GetTagStatus() const{ return m_tagStatus; }
+
+    /**
+     * <p>The tag status with which to filter your <a>ListImages</a> results. You can
+     * filter results based on whether they are <code>TAGGED</code> or
+     * <code>UNTAGGED</code>.</p>
+     */
+    inline bool TagStatusHasBeenSet() const { return m_tagStatusHasBeenSet; }
 
     /**
      * <p>The tag status with which to filter your <a>ListImages</a> results. You can

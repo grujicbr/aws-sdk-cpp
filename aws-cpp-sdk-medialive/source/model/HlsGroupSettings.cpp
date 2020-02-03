@@ -31,7 +31,9 @@ namespace Model
 HlsGroupSettings::HlsGroupSettings() : 
     m_adMarkersHasBeenSet(false),
     m_baseUrlContentHasBeenSet(false),
+    m_baseUrlContent1HasBeenSet(false),
     m_baseUrlManifestHasBeenSet(false),
+    m_baseUrlManifest1HasBeenSet(false),
     m_captionLanguageMappingsHasBeenSet(false),
     m_captionLanguageSetting(HlsCaptionLanguageSetting::NOT_SET),
     m_captionLanguageSettingHasBeenSet(false),
@@ -46,6 +48,10 @@ HlsGroupSettings::HlsGroupSettings() :
     m_encryptionType(HlsEncryptionType::NOT_SET),
     m_encryptionTypeHasBeenSet(false),
     m_hlsCdnSettingsHasBeenSet(false),
+    m_hlsId3SegmentTagging(HlsId3SegmentTaggingState::NOT_SET),
+    m_hlsId3SegmentTaggingHasBeenSet(false),
+    m_iFrameOnlyPlaylists(IFrameOnlyPlaylistType::NOT_SET),
+    m_iFrameOnlyPlaylistsHasBeenSet(false),
     m_indexNSegments(0),
     m_indexNSegmentsHasBeenSet(false),
     m_inputLossAction(InputLossActionForHlsOut::NOT_SET),
@@ -73,6 +79,8 @@ HlsGroupSettings::HlsGroupSettings() :
     m_programDateTimeHasBeenSet(false),
     m_programDateTimePeriod(0),
     m_programDateTimePeriodHasBeenSet(false),
+    m_redundantManifest(HlsRedundantManifest::NOT_SET),
+    m_redundantManifestHasBeenSet(false),
     m_segmentLength(0),
     m_segmentLengthHasBeenSet(false),
     m_segmentationMode(HlsSegmentationMode::NOT_SET),
@@ -92,10 +100,12 @@ HlsGroupSettings::HlsGroupSettings() :
 {
 }
 
-HlsGroupSettings::HlsGroupSettings(const JsonValue& jsonValue) : 
+HlsGroupSettings::HlsGroupSettings(JsonView jsonValue) : 
     m_adMarkersHasBeenSet(false),
     m_baseUrlContentHasBeenSet(false),
+    m_baseUrlContent1HasBeenSet(false),
     m_baseUrlManifestHasBeenSet(false),
+    m_baseUrlManifest1HasBeenSet(false),
     m_captionLanguageMappingsHasBeenSet(false),
     m_captionLanguageSetting(HlsCaptionLanguageSetting::NOT_SET),
     m_captionLanguageSettingHasBeenSet(false),
@@ -110,6 +120,10 @@ HlsGroupSettings::HlsGroupSettings(const JsonValue& jsonValue) :
     m_encryptionType(HlsEncryptionType::NOT_SET),
     m_encryptionTypeHasBeenSet(false),
     m_hlsCdnSettingsHasBeenSet(false),
+    m_hlsId3SegmentTagging(HlsId3SegmentTaggingState::NOT_SET),
+    m_hlsId3SegmentTaggingHasBeenSet(false),
+    m_iFrameOnlyPlaylists(IFrameOnlyPlaylistType::NOT_SET),
+    m_iFrameOnlyPlaylistsHasBeenSet(false),
     m_indexNSegments(0),
     m_indexNSegmentsHasBeenSet(false),
     m_inputLossAction(InputLossActionForHlsOut::NOT_SET),
@@ -137,6 +151,8 @@ HlsGroupSettings::HlsGroupSettings(const JsonValue& jsonValue) :
     m_programDateTimeHasBeenSet(false),
     m_programDateTimePeriod(0),
     m_programDateTimePeriodHasBeenSet(false),
+    m_redundantManifest(HlsRedundantManifest::NOT_SET),
+    m_redundantManifestHasBeenSet(false),
     m_segmentLength(0),
     m_segmentLengthHasBeenSet(false),
     m_segmentationMode(HlsSegmentationMode::NOT_SET),
@@ -157,11 +173,11 @@ HlsGroupSettings::HlsGroupSettings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
+HlsGroupSettings& HlsGroupSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("adMarkers"))
   {
-    Array<JsonValue> adMarkersJsonList = jsonValue.GetArray("adMarkers");
+    Array<JsonView> adMarkersJsonList = jsonValue.GetArray("adMarkers");
     for(unsigned adMarkersIndex = 0; adMarkersIndex < adMarkersJsonList.GetLength(); ++adMarkersIndex)
     {
       m_adMarkers.push_back(HlsAdMarkersMapper::GetHlsAdMarkersForName(adMarkersJsonList[adMarkersIndex].AsString()));
@@ -176,6 +192,13 @@ HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
     m_baseUrlContentHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("baseUrlContent1"))
+  {
+    m_baseUrlContent1 = jsonValue.GetString("baseUrlContent1");
+
+    m_baseUrlContent1HasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("baseUrlManifest"))
   {
     m_baseUrlManifest = jsonValue.GetString("baseUrlManifest");
@@ -183,9 +206,16 @@ HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
     m_baseUrlManifestHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("baseUrlManifest1"))
+  {
+    m_baseUrlManifest1 = jsonValue.GetString("baseUrlManifest1");
+
+    m_baseUrlManifest1HasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("captionLanguageMappings"))
   {
-    Array<JsonValue> captionLanguageMappingsJsonList = jsonValue.GetArray("captionLanguageMappings");
+    Array<JsonView> captionLanguageMappingsJsonList = jsonValue.GetArray("captionLanguageMappings");
     for(unsigned captionLanguageMappingsIndex = 0; captionLanguageMappingsIndex < captionLanguageMappingsJsonList.GetLength(); ++captionLanguageMappingsIndex)
     {
       m_captionLanguageMappings.push_back(captionLanguageMappingsJsonList[captionLanguageMappingsIndex].AsObject());
@@ -247,6 +277,20 @@ HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
     m_hlsCdnSettings = jsonValue.GetObject("hlsCdnSettings");
 
     m_hlsCdnSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("hlsId3SegmentTagging"))
+  {
+    m_hlsId3SegmentTagging = HlsId3SegmentTaggingStateMapper::GetHlsId3SegmentTaggingStateForName(jsonValue.GetString("hlsId3SegmentTagging"));
+
+    m_hlsId3SegmentTaggingHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("iFrameOnlyPlaylists"))
+  {
+    m_iFrameOnlyPlaylists = IFrameOnlyPlaylistTypeMapper::GetIFrameOnlyPlaylistTypeForName(jsonValue.GetString("iFrameOnlyPlaylists"));
+
+    m_iFrameOnlyPlaylistsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("indexNSegments"))
@@ -354,6 +398,13 @@ HlsGroupSettings& HlsGroupSettings::operator =(const JsonValue& jsonValue)
     m_programDateTimePeriodHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("redundantManifest"))
+  {
+    m_redundantManifest = HlsRedundantManifestMapper::GetHlsRedundantManifestForName(jsonValue.GetString("redundantManifest"));
+
+    m_redundantManifestHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("segmentLength"))
   {
     m_segmentLength = jsonValue.GetInteger("segmentLength");
@@ -434,9 +485,21 @@ JsonValue HlsGroupSettings::Jsonize() const
 
   }
 
+  if(m_baseUrlContent1HasBeenSet)
+  {
+   payload.WithString("baseUrlContent1", m_baseUrlContent1);
+
+  }
+
   if(m_baseUrlManifestHasBeenSet)
   {
    payload.WithString("baseUrlManifest", m_baseUrlManifest);
+
+  }
+
+  if(m_baseUrlManifest1HasBeenSet)
+  {
+   payload.WithString("baseUrlManifest1", m_baseUrlManifest1);
 
   }
 
@@ -492,6 +555,16 @@ JsonValue HlsGroupSettings::Jsonize() const
   {
    payload.WithObject("hlsCdnSettings", m_hlsCdnSettings.Jsonize());
 
+  }
+
+  if(m_hlsId3SegmentTaggingHasBeenSet)
+  {
+   payload.WithString("hlsId3SegmentTagging", HlsId3SegmentTaggingStateMapper::GetNameForHlsId3SegmentTaggingState(m_hlsId3SegmentTagging));
+  }
+
+  if(m_iFrameOnlyPlaylistsHasBeenSet)
+  {
+   payload.WithString("iFrameOnlyPlaylists", IFrameOnlyPlaylistTypeMapper::GetNameForIFrameOnlyPlaylistType(m_iFrameOnlyPlaylists));
   }
 
   if(m_indexNSegmentsHasBeenSet)
@@ -574,6 +647,11 @@ JsonValue HlsGroupSettings::Jsonize() const
   {
    payload.WithInteger("programDateTimePeriod", m_programDateTimePeriod);
 
+  }
+
+  if(m_redundantManifestHasBeenSet)
+  {
+   payload.WithString("redundantManifest", HlsRedundantManifestMapper::GetNameForHlsRedundantManifest(m_redundantManifest));
   }
 
   if(m_segmentLengthHasBeenSet)

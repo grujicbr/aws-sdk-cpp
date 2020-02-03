@@ -25,9 +25,14 @@
 #include <aws/fms/model/GetComplianceDetailResult.h>
 #include <aws/fms/model/GetNotificationChannelResult.h>
 #include <aws/fms/model/GetPolicyResult.h>
+#include <aws/fms/model/GetProtectionStatusResult.h>
 #include <aws/fms/model/ListComplianceStatusResult.h>
+#include <aws/fms/model/ListMemberAccountsResult.h>
 #include <aws/fms/model/ListPoliciesResult.h>
+#include <aws/fms/model/ListTagsForResourceResult.h>
 #include <aws/fms/model/PutPolicyResult.h>
+#include <aws/fms/model/TagResourceResult.h>
+#include <aws/fms/model/UntagResourceResult.h>
 #include <aws/core/NoResult.h>
 #include <aws/core/client/AsyncCallerContext.h>
 #include <aws/core/http/HttpTypes.h>
@@ -46,16 +51,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -82,10 +81,15 @@ namespace Model
         class GetComplianceDetailRequest;
         class GetNotificationChannelRequest;
         class GetPolicyRequest;
+        class GetProtectionStatusRequest;
         class ListComplianceStatusRequest;
+        class ListMemberAccountsRequest;
         class ListPoliciesRequest;
+        class ListTagsForResourceRequest;
         class PutNotificationChannelRequest;
         class PutPolicyRequest;
+        class TagResourceRequest;
+        class UntagResourceRequest;
 
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<FMSErrors>> AssociateAdminAccountOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<FMSErrors>> DeleteNotificationChannelOutcome;
@@ -95,10 +99,15 @@ namespace Model
         typedef Aws::Utils::Outcome<GetComplianceDetailResult, Aws::Client::AWSError<FMSErrors>> GetComplianceDetailOutcome;
         typedef Aws::Utils::Outcome<GetNotificationChannelResult, Aws::Client::AWSError<FMSErrors>> GetNotificationChannelOutcome;
         typedef Aws::Utils::Outcome<GetPolicyResult, Aws::Client::AWSError<FMSErrors>> GetPolicyOutcome;
+        typedef Aws::Utils::Outcome<GetProtectionStatusResult, Aws::Client::AWSError<FMSErrors>> GetProtectionStatusOutcome;
         typedef Aws::Utils::Outcome<ListComplianceStatusResult, Aws::Client::AWSError<FMSErrors>> ListComplianceStatusOutcome;
+        typedef Aws::Utils::Outcome<ListMemberAccountsResult, Aws::Client::AWSError<FMSErrors>> ListMemberAccountsOutcome;
         typedef Aws::Utils::Outcome<ListPoliciesResult, Aws::Client::AWSError<FMSErrors>> ListPoliciesOutcome;
+        typedef Aws::Utils::Outcome<ListTagsForResourceResult, Aws::Client::AWSError<FMSErrors>> ListTagsForResourceOutcome;
         typedef Aws::Utils::Outcome<Aws::NoResult, Aws::Client::AWSError<FMSErrors>> PutNotificationChannelOutcome;
         typedef Aws::Utils::Outcome<PutPolicyResult, Aws::Client::AWSError<FMSErrors>> PutPolicyOutcome;
+        typedef Aws::Utils::Outcome<TagResourceResult, Aws::Client::AWSError<FMSErrors>> TagResourceOutcome;
+        typedef Aws::Utils::Outcome<UntagResourceResult, Aws::Client::AWSError<FMSErrors>> UntagResourceOutcome;
 
         typedef std::future<AssociateAdminAccountOutcome> AssociateAdminAccountOutcomeCallable;
         typedef std::future<DeleteNotificationChannelOutcome> DeleteNotificationChannelOutcomeCallable;
@@ -108,10 +117,15 @@ namespace Model
         typedef std::future<GetComplianceDetailOutcome> GetComplianceDetailOutcomeCallable;
         typedef std::future<GetNotificationChannelOutcome> GetNotificationChannelOutcomeCallable;
         typedef std::future<GetPolicyOutcome> GetPolicyOutcomeCallable;
+        typedef std::future<GetProtectionStatusOutcome> GetProtectionStatusOutcomeCallable;
         typedef std::future<ListComplianceStatusOutcome> ListComplianceStatusOutcomeCallable;
+        typedef std::future<ListMemberAccountsOutcome> ListMemberAccountsOutcomeCallable;
         typedef std::future<ListPoliciesOutcome> ListPoliciesOutcomeCallable;
+        typedef std::future<ListTagsForResourceOutcome> ListTagsForResourceOutcomeCallable;
         typedef std::future<PutNotificationChannelOutcome> PutNotificationChannelOutcomeCallable;
         typedef std::future<PutPolicyOutcome> PutPolicyOutcomeCallable;
+        typedef std::future<TagResourceOutcome> TagResourceOutcomeCallable;
+        typedef std::future<UntagResourceOutcome> UntagResourceOutcomeCallable;
 } // namespace Model
 
   class FMSClient;
@@ -124,17 +138,22 @@ namespace Model
     typedef std::function<void(const FMSClient*, const Model::GetComplianceDetailRequest&, const Model::GetComplianceDetailOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetComplianceDetailResponseReceivedHandler;
     typedef std::function<void(const FMSClient*, const Model::GetNotificationChannelRequest&, const Model::GetNotificationChannelOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetNotificationChannelResponseReceivedHandler;
     typedef std::function<void(const FMSClient*, const Model::GetPolicyRequest&, const Model::GetPolicyOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetPolicyResponseReceivedHandler;
+    typedef std::function<void(const FMSClient*, const Model::GetProtectionStatusRequest&, const Model::GetProtectionStatusOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetProtectionStatusResponseReceivedHandler;
     typedef std::function<void(const FMSClient*, const Model::ListComplianceStatusRequest&, const Model::ListComplianceStatusOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListComplianceStatusResponseReceivedHandler;
+    typedef std::function<void(const FMSClient*, const Model::ListMemberAccountsRequest&, const Model::ListMemberAccountsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListMemberAccountsResponseReceivedHandler;
     typedef std::function<void(const FMSClient*, const Model::ListPoliciesRequest&, const Model::ListPoliciesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListPoliciesResponseReceivedHandler;
+    typedef std::function<void(const FMSClient*, const Model::ListTagsForResourceRequest&, const Model::ListTagsForResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListTagsForResourceResponseReceivedHandler;
     typedef std::function<void(const FMSClient*, const Model::PutNotificationChannelRequest&, const Model::PutNotificationChannelOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutNotificationChannelResponseReceivedHandler;
     typedef std::function<void(const FMSClient*, const Model::PutPolicyRequest&, const Model::PutPolicyOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutPolicyResponseReceivedHandler;
+    typedef std::function<void(const FMSClient*, const Model::TagResourceRequest&, const Model::TagResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > TagResourceResponseReceivedHandler;
+    typedef std::function<void(const FMSClient*, const Model::UntagResourceRequest&, const Model::UntagResourceOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > UntagResourceResponseReceivedHandler;
 
   /**
    * <fullname>AWS Firewall Manager</fullname> <p>This is the <i>AWS Firewall Manager
    * API Reference</i>. This guide is for developers who need detailed information
    * about the AWS Firewall Manager API actions, data types, and errors. For detailed
    * information about AWS Firewall Manager features, see the <a
-   * href="http://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html">AWS
+   * href="https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html">AWS
    * Firewall Manager Developer Guide</a>.</p>
    */
   class AWS_FMS_API FMSClient : public Aws::Client::AWSJsonClient
@@ -163,17 +182,18 @@ namespace Model
 
         virtual ~FMSClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "fms"; }
+        inline virtual const char* GetServiceClientName() const override { return "FMS"; }
 
 
         /**
          * <p>Sets the AWS Firewall Manager administrator account. AWS Firewall Manager
-         * must be associated with a master account in AWS Organizations or associated with
-         * a member account that has the appropriate permissions. If the account ID that
-         * you submit is not an AWS Organizations master account, AWS Firewall Manager will
-         * set the appropriate permissions for the given member account.</p> <p>The account
-         * that you associate with AWS Firewall Manager is called the AWS Firewall manager
-         * administrator account. </p><p><h3>See Also:</h3>   <a
+         * must be associated with the master account of your AWS organization or
+         * associated with a member account that has the appropriate permissions. If the
+         * account ID that you submit is not an AWS Organizations master account, AWS
+         * Firewall Manager will set the appropriate permissions for the given member
+         * account.</p> <p>The account that you associate with AWS Firewall Manager is
+         * called the AWS Firewall Manager administrator account. </p><p><h3>See Also:</h3>
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/AssociateAdminAccount">AWS
          * API Reference</a></p>
          */
@@ -181,12 +201,13 @@ namespace Model
 
         /**
          * <p>Sets the AWS Firewall Manager administrator account. AWS Firewall Manager
-         * must be associated with a master account in AWS Organizations or associated with
-         * a member account that has the appropriate permissions. If the account ID that
-         * you submit is not an AWS Organizations master account, AWS Firewall Manager will
-         * set the appropriate permissions for the given member account.</p> <p>The account
-         * that you associate with AWS Firewall Manager is called the AWS Firewall manager
-         * administrator account. </p><p><h3>See Also:</h3>   <a
+         * must be associated with the master account of your AWS organization or
+         * associated with a member account that has the appropriate permissions. If the
+         * account ID that you submit is not an AWS Organizations master account, AWS
+         * Firewall Manager will set the appropriate permissions for the given member
+         * account.</p> <p>The account that you associate with AWS Firewall Manager is
+         * called the AWS Firewall Manager administrator account. </p><p><h3>See Also:</h3>
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/AssociateAdminAccount">AWS
          * API Reference</a></p>
          *
@@ -196,12 +217,13 @@ namespace Model
 
         /**
          * <p>Sets the AWS Firewall Manager administrator account. AWS Firewall Manager
-         * must be associated with a master account in AWS Organizations or associated with
-         * a member account that has the appropriate permissions. If the account ID that
-         * you submit is not an AWS Organizations master account, AWS Firewall Manager will
-         * set the appropriate permissions for the given member account.</p> <p>The account
-         * that you associate with AWS Firewall Manager is called the AWS Firewall manager
-         * administrator account. </p><p><h3>See Also:</h3>   <a
+         * must be associated with the master account of your AWS organization or
+         * associated with a member account that has the appropriate permissions. If the
+         * account ID that you submit is not an AWS Organizations master account, AWS
+         * Firewall Manager will set the appropriate permissions for the given member
+         * account.</p> <p>The account that you associate with AWS Firewall Manager is
+         * called the AWS Firewall Manager administrator account. </p><p><h3>See Also:</h3>
+         * <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/AssociateAdminAccount">AWS
          * API Reference</a></p>
          *
@@ -267,9 +289,9 @@ namespace Model
 
         /**
          * <p>Disassociates the account that has been set as the AWS Firewall Manager
-         * administrator account. You will need to submit an
-         * <code>AssociateAdminAccount</code> request to set a new account as the AWS
-         * Firewall administrator.</p><p><h3>See Also:</h3>   <a
+         * administrator account. To set a different account as the administrator account,
+         * you must submit an <code>AssociateAdminAccount</code> request.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/DisassociateAdminAccount">AWS
          * API Reference</a></p>
          */
@@ -277,9 +299,9 @@ namespace Model
 
         /**
          * <p>Disassociates the account that has been set as the AWS Firewall Manager
-         * administrator account. You will need to submit an
-         * <code>AssociateAdminAccount</code> request to set a new account as the AWS
-         * Firewall administrator.</p><p><h3>See Also:</h3>   <a
+         * administrator account. To set a different account as the administrator account,
+         * you must submit an <code>AssociateAdminAccount</code> request.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/DisassociateAdminAccount">AWS
          * API Reference</a></p>
          *
@@ -289,9 +311,9 @@ namespace Model
 
         /**
          * <p>Disassociates the account that has been set as the AWS Firewall Manager
-         * administrator account. You will need to submit an
-         * <code>AssociateAdminAccount</code> request to set a new account as the AWS
-         * Firewall administrator.</p><p><h3>See Also:</h3>   <a
+         * administrator account. To set a different account as the administrator account,
+         * you must submit an <code>AssociateAdminAccount</code> request.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/DisassociateAdminAccount">AWS
          * API Reference</a></p>
          *
@@ -333,8 +355,11 @@ namespace Model
         /**
          * <p>Returns detailed compliance information about the specified member account.
          * Details include resources that are in and out of compliance with the specified
-         * policy. Resources are considered non-compliant if the specified policy has not
-         * been applied to them.</p><p><h3>See Also:</h3>   <a
+         * policy. Resources are considered noncompliant for AWS WAF and Shield Advanced
+         * policies if the specified policy has not been applied to them. Resources are
+         * considered noncompliant for security group policies if they are in scope of the
+         * policy, they violate one or more of the policy rules, and remediation is
+         * disabled or not possible. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetComplianceDetail">AWS
          * API Reference</a></p>
          */
@@ -343,8 +368,11 @@ namespace Model
         /**
          * <p>Returns detailed compliance information about the specified member account.
          * Details include resources that are in and out of compliance with the specified
-         * policy. Resources are considered non-compliant if the specified policy has not
-         * been applied to them.</p><p><h3>See Also:</h3>   <a
+         * policy. Resources are considered noncompliant for AWS WAF and Shield Advanced
+         * policies if the specified policy has not been applied to them. Resources are
+         * considered noncompliant for security group policies if they are in scope of the
+         * policy, they violate one or more of the policy rules, and remediation is
+         * disabled or not possible. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetComplianceDetail">AWS
          * API Reference</a></p>
          *
@@ -355,8 +383,11 @@ namespace Model
         /**
          * <p>Returns detailed compliance information about the specified member account.
          * Details include resources that are in and out of compliance with the specified
-         * policy. Resources are considered non-compliant if the specified policy has not
-         * been applied to them.</p><p><h3>See Also:</h3>   <a
+         * policy. Resources are considered noncompliant for AWS WAF and Shield Advanced
+         * policies if the specified policy has not been applied to them. Resources are
+         * considered noncompliant for security group policies if they are in scope of the
+         * policy, they violate one or more of the policy rules, and remediation is
+         * disabled or not possible. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetComplianceDetail">AWS
          * API Reference</a></p>
          *
@@ -365,18 +396,16 @@ namespace Model
         virtual void GetComplianceDetailAsync(const Model::GetComplianceDetailRequest& request, const GetComplianceDetailResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Returns information about the Amazon Simple Notification Service (SNS) topic
-         * that is used to record AWS Firewall Manager SNS logs.</p><p><h3>See Also:</h3>  
-         * <a
+         * <p>Information about the Amazon Simple Notification Service (SNS) topic that is
+         * used to record AWS Firewall Manager SNS logs.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetNotificationChannel">AWS
          * API Reference</a></p>
          */
         virtual Model::GetNotificationChannelOutcome GetNotificationChannel(const Model::GetNotificationChannelRequest& request) const;
 
         /**
-         * <p>Returns information about the Amazon Simple Notification Service (SNS) topic
-         * that is used to record AWS Firewall Manager SNS logs.</p><p><h3>See Also:</h3>  
-         * <a
+         * <p>Information about the Amazon Simple Notification Service (SNS) topic that is
+         * used to record AWS Firewall Manager SNS logs.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetNotificationChannel">AWS
          * API Reference</a></p>
          *
@@ -385,9 +414,8 @@ namespace Model
         virtual Model::GetNotificationChannelOutcomeCallable GetNotificationChannelCallable(const Model::GetNotificationChannelRequest& request) const;
 
         /**
-         * <p>Returns information about the Amazon Simple Notification Service (SNS) topic
-         * that is used to record AWS Firewall Manager SNS logs.</p><p><h3>See Also:</h3>  
-         * <a
+         * <p>Information about the Amazon Simple Notification Service (SNS) topic that is
+         * used to record AWS Firewall Manager SNS logs.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetNotificationChannel">AWS
          * API Reference</a></p>
          *
@@ -424,6 +452,37 @@ namespace Model
         virtual void GetPolicyAsync(const Model::GetPolicyRequest& request, const GetPolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>If you created a Shield Advanced policy, returns policy-level attack summary
+         * information in the event of a potential DDoS attack. Other policy types are
+         * currently unsupported.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetProtectionStatus">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::GetProtectionStatusOutcome GetProtectionStatus(const Model::GetProtectionStatusRequest& request) const;
+
+        /**
+         * <p>If you created a Shield Advanced policy, returns policy-level attack summary
+         * information in the event of a potential DDoS attack. Other policy types are
+         * currently unsupported.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetProtectionStatus">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::GetProtectionStatusOutcomeCallable GetProtectionStatusCallable(const Model::GetProtectionStatusRequest& request) const;
+
+        /**
+         * <p>If you created a Shield Advanced policy, returns policy-level attack summary
+         * information in the event of a potential DDoS attack. Other policy types are
+         * currently unsupported.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/GetProtectionStatus">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void GetProtectionStatusAsync(const Model::GetProtectionStatusRequest& request, const GetProtectionStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Returns an array of <code>PolicyComplianceStatus</code> objects in the
          * response. Use <code>PolicyComplianceStatus</code> to get a summary of which
          * member accounts are protected by the specified policy. </p><p><h3>See Also:</h3>
@@ -458,6 +517,40 @@ namespace Model
         virtual void ListComplianceStatusAsync(const Model::ListComplianceStatusRequest& request, const ListComplianceStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
+         * <p>Returns a <code>MemberAccounts</code> object that lists the member accounts
+         * in the administrator's AWS organization.</p> <p>The
+         * <code>ListMemberAccounts</code> must be submitted by the account that is set as
+         * the AWS Firewall Manager administrator.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/ListMemberAccounts">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::ListMemberAccountsOutcome ListMemberAccounts(const Model::ListMemberAccountsRequest& request) const;
+
+        /**
+         * <p>Returns a <code>MemberAccounts</code> object that lists the member accounts
+         * in the administrator's AWS organization.</p> <p>The
+         * <code>ListMemberAccounts</code> must be submitted by the account that is set as
+         * the AWS Firewall Manager administrator.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/ListMemberAccounts">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ListMemberAccountsOutcomeCallable ListMemberAccountsCallable(const Model::ListMemberAccountsRequest& request) const;
+
+        /**
+         * <p>Returns a <code>MemberAccounts</code> object that lists the member accounts
+         * in the administrator's AWS organization.</p> <p>The
+         * <code>ListMemberAccounts</code> must be submitted by the account that is set as
+         * the AWS Firewall Manager administrator.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/ListMemberAccounts">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ListMemberAccountsAsync(const Model::ListMemberAccountsRequest& request, const ListMemberAccountsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
          * <p>Returns an array of <code>PolicySummary</code> objects in the
          * response.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/ListPolicies">AWS
@@ -484,6 +577,34 @@ namespace Model
          * Queues the request into a thread executor and triggers associated callback when operation has finished.
          */
         virtual void ListPoliciesAsync(const Model::ListPoliciesRequest& request, const ListPoliciesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Retrieves the list of tags for the specified AWS resource. </p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/ListTagsForResource">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::ListTagsForResourceOutcome ListTagsForResource(const Model::ListTagsForResourceRequest& request) const;
+
+        /**
+         * <p>Retrieves the list of tags for the specified AWS resource. </p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/ListTagsForResource">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::ListTagsForResourceOutcomeCallable ListTagsForResourceCallable(const Model::ListTagsForResourceRequest& request) const;
+
+        /**
+         * <p>Retrieves the list of tags for the specified AWS resource. </p><p><h3>See
+         * Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/ListTagsForResource">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void ListTagsForResourceAsync(const Model::ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
          * <p>Designates the IAM role and Amazon Simple Notification Service (SNS) topic
@@ -514,14 +635,38 @@ namespace Model
         virtual void PutNotificationChannelAsync(const Model::PutNotificationChannelRequest& request, const PutNotificationChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Creates an AWS Firewall Manager policy.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates an AWS Firewall Manager policy.</p> <p>Firewall Manager provides the
+         * following types of policies: </p> <ul> <li> <p>A Shield Advanced policy, which
+         * applies Shield Advanced protection to specified accounts and resources</p> </li>
+         * <li> <p>An AWS WAF policy, which contains a rule group and defines which
+         * resources are to be protected by that rule group</p> </li> <li> <p>A security
+         * group policy, which manages VPC security groups across your AWS organization.
+         * </p> </li> </ul> <p>Each policy is specific to one of the three types. If you
+         * want to enforce more than one policy type across accounts, you can create
+         * multiple policies. You can create multiple policies for each type.</p> <p>You
+         * must be subscribed to Shield Advanced to create a Shield Advanced policy. For
+         * more information about subscribing to Shield Advanced, see <a
+         * href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_CreateSubscription.html">CreateSubscription</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/PutPolicy">AWS API
          * Reference</a></p>
          */
         virtual Model::PutPolicyOutcome PutPolicy(const Model::PutPolicyRequest& request) const;
 
         /**
-         * <p>Creates an AWS Firewall Manager policy.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates an AWS Firewall Manager policy.</p> <p>Firewall Manager provides the
+         * following types of policies: </p> <ul> <li> <p>A Shield Advanced policy, which
+         * applies Shield Advanced protection to specified accounts and resources</p> </li>
+         * <li> <p>An AWS WAF policy, which contains a rule group and defines which
+         * resources are to be protected by that rule group</p> </li> <li> <p>A security
+         * group policy, which manages VPC security groups across your AWS organization.
+         * </p> </li> </ul> <p>Each policy is specific to one of the three types. If you
+         * want to enforce more than one policy type across accounts, you can create
+         * multiple policies. You can create multiple policies for each type.</p> <p>You
+         * must be subscribed to Shield Advanced to create a Shield Advanced policy. For
+         * more information about subscribing to Shield Advanced, see <a
+         * href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_CreateSubscription.html">CreateSubscription</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/PutPolicy">AWS API
          * Reference</a></p>
          *
@@ -530,7 +675,19 @@ namespace Model
         virtual Model::PutPolicyOutcomeCallable PutPolicyCallable(const Model::PutPolicyRequest& request) const;
 
         /**
-         * <p>Creates an AWS Firewall Manager policy.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates an AWS Firewall Manager policy.</p> <p>Firewall Manager provides the
+         * following types of policies: </p> <ul> <li> <p>A Shield Advanced policy, which
+         * applies Shield Advanced protection to specified accounts and resources</p> </li>
+         * <li> <p>An AWS WAF policy, which contains a rule group and defines which
+         * resources are to be protected by that rule group</p> </li> <li> <p>A security
+         * group policy, which manages VPC security groups across your AWS organization.
+         * </p> </li> </ul> <p>Each policy is specific to one of the three types. If you
+         * want to enforce more than one policy type across accounts, you can create
+         * multiple policies. You can create multiple policies for each type.</p> <p>You
+         * must be subscribed to Shield Advanced to create a Shield Advanced policy. For
+         * more information about subscribing to Shield Advanced, see <a
+         * href="https://docs.aws.amazon.com/waf/latest/DDOSAPIReference/API_CreateSubscription.html">CreateSubscription</a>.</p><p><h3>See
+         * Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/PutPolicy">AWS API
          * Reference</a></p>
          *
@@ -538,11 +695,60 @@ namespace Model
          */
         virtual void PutPolicyAsync(const Model::PutPolicyRequest& request, const PutPolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
+        /**
+         * <p>Adds one or more tags to an AWS resource.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/TagResource">AWS API
+         * Reference</a></p>
+         */
+        virtual Model::TagResourceOutcome TagResource(const Model::TagResourceRequest& request) const;
 
+        /**
+         * <p>Adds one or more tags to an AWS resource.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/TagResource">AWS API
+         * Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::TagResourceOutcomeCallable TagResourceCallable(const Model::TagResourceRequest& request) const;
+
+        /**
+         * <p>Adds one or more tags to an AWS resource.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/TagResource">AWS API
+         * Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void TagResourceAsync(const Model::TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+        /**
+         * <p>Removes one or more tags from an AWS resource.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/UntagResource">AWS
+         * API Reference</a></p>
+         */
+        virtual Model::UntagResourceOutcome UntagResource(const Model::UntagResourceRequest& request) const;
+
+        /**
+         * <p>Removes one or more tags from an AWS resource.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/UntagResource">AWS
+         * API Reference</a></p>
+         *
+         * returns a future to the operation so that it can be executed in parallel to other requests.
+         */
+        virtual Model::UntagResourceOutcomeCallable UntagResourceCallable(const Model::UntagResourceRequest& request) const;
+
+        /**
+         * <p>Removes one or more tags from an AWS resource.</p><p><h3>See Also:</h3>   <a
+         * href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/UntagResource">AWS
+         * API Reference</a></p>
+         *
+         * Queues the request into a thread executor and triggers associated callback when operation has finished.
+         */
+        virtual void UntagResourceAsync(const Model::UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
+
+
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void AssociateAdminAccountAsyncHelper(const Model::AssociateAdminAccountRequest& request, const AssociateAdminAccountResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeleteNotificationChannelAsyncHelper(const Model::DeleteNotificationChannelRequest& request, const DeleteNotificationChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DeletePolicyAsyncHelper(const Model::DeletePolicyRequest& request, const DeletePolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -551,12 +757,18 @@ namespace Model
         void GetComplianceDetailAsyncHelper(const Model::GetComplianceDetailRequest& request, const GetComplianceDetailResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetNotificationChannelAsyncHelper(const Model::GetNotificationChannelRequest& request, const GetNotificationChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetPolicyAsyncHelper(const Model::GetPolicyRequest& request, const GetPolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void GetProtectionStatusAsyncHelper(const Model::GetProtectionStatusRequest& request, const GetProtectionStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListComplianceStatusAsyncHelper(const Model::ListComplianceStatusRequest& request, const ListComplianceStatusResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ListMemberAccountsAsyncHelper(const Model::ListMemberAccountsRequest& request, const ListMemberAccountsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void ListPoliciesAsyncHelper(const Model::ListPoliciesRequest& request, const ListPoliciesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void ListTagsForResourceAsyncHelper(const Model::ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void PutNotificationChannelAsyncHelper(const Model::PutNotificationChannelRequest& request, const PutNotificationChannelResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void PutPolicyAsyncHelper(const Model::PutPolicyRequest& request, const PutPolicyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void TagResourceAsyncHelper(const Model::TagResourceRequest& request, const TagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
+        void UntagResourceAsyncHelper(const Model::UntagResourceRequest& request, const UntagResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

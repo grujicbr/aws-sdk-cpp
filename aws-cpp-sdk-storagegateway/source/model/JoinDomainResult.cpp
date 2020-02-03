@@ -26,21 +26,29 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-JoinDomainResult::JoinDomainResult()
+JoinDomainResult::JoinDomainResult() : 
+    m_activeDirectoryStatus(ActiveDirectoryStatus::NOT_SET)
 {
 }
 
-JoinDomainResult::JoinDomainResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+JoinDomainResult::JoinDomainResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_activeDirectoryStatus(ActiveDirectoryStatus::NOT_SET)
 {
   *this = result;
 }
 
 JoinDomainResult& JoinDomainResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("GatewayARN"))
   {
     m_gatewayARN = jsonValue.GetString("GatewayARN");
+
+  }
+
+  if(jsonValue.ValueExists("ActiveDirectoryStatus"))
+  {
+    m_activeDirectoryStatus = ActiveDirectoryStatusMapper::GetActiveDirectoryStatusForName(jsonValue.GetString("ActiveDirectoryStatus"));
 
   }
 

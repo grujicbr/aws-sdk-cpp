@@ -36,7 +36,7 @@ namespace Model
   {
   public:
     CreateModelRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +52,11 @@ namespace Model
      * <p>The name of the new model.</p>
      */
     inline const Aws::String& GetModelName() const{ return m_modelName; }
+
+    /**
+     * <p>The name of the new model.</p>
+     */
+    inline bool ModelNameHasBeenSet() const { return m_modelNameHasBeenSet; }
 
     /**
      * <p>The name of the new model.</p>
@@ -87,45 +92,93 @@ namespace Model
     /**
      * <p>The location of the primary docker image containing inference code,
      * associated artifacts, and custom environment map that the inference code uses
-     * when the model is deployed into production. </p>
+     * when the model is deployed for predictions. </p>
      */
     inline const ContainerDefinition& GetPrimaryContainer() const{ return m_primaryContainer; }
 
     /**
      * <p>The location of the primary docker image containing inference code,
      * associated artifacts, and custom environment map that the inference code uses
-     * when the model is deployed into production. </p>
+     * when the model is deployed for predictions. </p>
+     */
+    inline bool PrimaryContainerHasBeenSet() const { return m_primaryContainerHasBeenSet; }
+
+    /**
+     * <p>The location of the primary docker image containing inference code,
+     * associated artifacts, and custom environment map that the inference code uses
+     * when the model is deployed for predictions. </p>
      */
     inline void SetPrimaryContainer(const ContainerDefinition& value) { m_primaryContainerHasBeenSet = true; m_primaryContainer = value; }
 
     /**
      * <p>The location of the primary docker image containing inference code,
      * associated artifacts, and custom environment map that the inference code uses
-     * when the model is deployed into production. </p>
+     * when the model is deployed for predictions. </p>
      */
     inline void SetPrimaryContainer(ContainerDefinition&& value) { m_primaryContainerHasBeenSet = true; m_primaryContainer = std::move(value); }
 
     /**
      * <p>The location of the primary docker image containing inference code,
      * associated artifacts, and custom environment map that the inference code uses
-     * when the model is deployed into production. </p>
+     * when the model is deployed for predictions. </p>
      */
     inline CreateModelRequest& WithPrimaryContainer(const ContainerDefinition& value) { SetPrimaryContainer(value); return *this;}
 
     /**
      * <p>The location of the primary docker image containing inference code,
      * associated artifacts, and custom environment map that the inference code uses
-     * when the model is deployed into production. </p>
+     * when the model is deployed for predictions. </p>
      */
     inline CreateModelRequest& WithPrimaryContainer(ContainerDefinition&& value) { SetPrimaryContainer(std::move(value)); return *this;}
 
 
     /**
+     * <p>Specifies the containers in the inference pipeline.</p>
+     */
+    inline const Aws::Vector<ContainerDefinition>& GetContainers() const{ return m_containers; }
+
+    /**
+     * <p>Specifies the containers in the inference pipeline.</p>
+     */
+    inline bool ContainersHasBeenSet() const { return m_containersHasBeenSet; }
+
+    /**
+     * <p>Specifies the containers in the inference pipeline.</p>
+     */
+    inline void SetContainers(const Aws::Vector<ContainerDefinition>& value) { m_containersHasBeenSet = true; m_containers = value; }
+
+    /**
+     * <p>Specifies the containers in the inference pipeline.</p>
+     */
+    inline void SetContainers(Aws::Vector<ContainerDefinition>&& value) { m_containersHasBeenSet = true; m_containers = std::move(value); }
+
+    /**
+     * <p>Specifies the containers in the inference pipeline.</p>
+     */
+    inline CreateModelRequest& WithContainers(const Aws::Vector<ContainerDefinition>& value) { SetContainers(value); return *this;}
+
+    /**
+     * <p>Specifies the containers in the inference pipeline.</p>
+     */
+    inline CreateModelRequest& WithContainers(Aws::Vector<ContainerDefinition>&& value) { SetContainers(std::move(value)); return *this;}
+
+    /**
+     * <p>Specifies the containers in the inference pipeline.</p>
+     */
+    inline CreateModelRequest& AddContainers(const ContainerDefinition& value) { m_containersHasBeenSet = true; m_containers.push_back(value); return *this; }
+
+    /**
+     * <p>Specifies the containers in the inference pipeline.</p>
+     */
+    inline CreateModelRequest& AddContainers(ContainerDefinition&& value) { m_containersHasBeenSet = true; m_containers.push_back(std::move(value)); return *this; }
+
+
+    /**
      * <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can
      * assume to access model artifacts and docker image for deployment on ML compute
-     * instances. Deploying on ML compute instances is part of model hosting. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
+     * instances or for batch transform jobs. Deploying on ML compute instances is part
+     * of model hosting. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
      * SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon
      * SageMaker, the caller of this API must have the <code>iam:PassRole</code>
      * permission.</p> </note>
@@ -135,9 +188,21 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can
      * assume to access model artifacts and docker image for deployment on ML compute
-     * instances. Deploying on ML compute instances is part of model hosting. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
+     * instances or for batch transform jobs. Deploying on ML compute instances is part
+     * of model hosting. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
+     * SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon
+     * SageMaker, the caller of this API must have the <code>iam:PassRole</code>
+     * permission.</p> </note>
+     */
+    inline bool ExecutionRoleArnHasBeenSet() const { return m_executionRoleArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can
+     * assume to access model artifacts and docker image for deployment on ML compute
+     * instances or for batch transform jobs. Deploying on ML compute instances is part
+     * of model hosting. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
      * SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon
      * SageMaker, the caller of this API must have the <code>iam:PassRole</code>
      * permission.</p> </note>
@@ -147,9 +212,9 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can
      * assume to access model artifacts and docker image for deployment on ML compute
-     * instances. Deploying on ML compute instances is part of model hosting. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
+     * instances or for batch transform jobs. Deploying on ML compute instances is part
+     * of model hosting. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
      * SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon
      * SageMaker, the caller of this API must have the <code>iam:PassRole</code>
      * permission.</p> </note>
@@ -159,9 +224,9 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can
      * assume to access model artifacts and docker image for deployment on ML compute
-     * instances. Deploying on ML compute instances is part of model hosting. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
+     * instances or for batch transform jobs. Deploying on ML compute instances is part
+     * of model hosting. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
      * SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon
      * SageMaker, the caller of this API must have the <code>iam:PassRole</code>
      * permission.</p> </note>
@@ -171,9 +236,9 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can
      * assume to access model artifacts and docker image for deployment on ML compute
-     * instances. Deploying on ML compute instances is part of model hosting. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
+     * instances or for batch transform jobs. Deploying on ML compute instances is part
+     * of model hosting. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
      * SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon
      * SageMaker, the caller of this API must have the <code>iam:PassRole</code>
      * permission.</p> </note>
@@ -183,9 +248,9 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can
      * assume to access model artifacts and docker image for deployment on ML compute
-     * instances. Deploying on ML compute instances is part of model hosting. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
+     * instances or for batch transform jobs. Deploying on ML compute instances is part
+     * of model hosting. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
      * SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon
      * SageMaker, the caller of this API must have the <code>iam:PassRole</code>
      * permission.</p> </note>
@@ -195,9 +260,9 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can
      * assume to access model artifacts and docker image for deployment on ML compute
-     * instances. Deploying on ML compute instances is part of model hosting. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
+     * instances or for batch transform jobs. Deploying on ML compute instances is part
+     * of model hosting. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon
      * SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon
      * SageMaker, the caller of this API must have the <code>iam:PassRole</code>
      * permission.</p> </note>
@@ -207,7 +272,7 @@ namespace Model
 
     /**
      * <p>An array of key-value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
      * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
      * Guide</i>. </p>
      */
@@ -215,7 +280,15 @@ namespace Model
 
     /**
      * <p>An array of key-value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
+     * Guide</i>. </p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>An array of key-value pairs. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
      * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
      * Guide</i>. </p>
      */
@@ -223,7 +296,7 @@ namespace Model
 
     /**
      * <p>An array of key-value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
      * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
      * Guide</i>. </p>
      */
@@ -231,7 +304,7 @@ namespace Model
 
     /**
      * <p>An array of key-value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
      * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
      * Guide</i>. </p>
      */
@@ -239,7 +312,7 @@ namespace Model
 
     /**
      * <p>An array of key-value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
      * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
      * Guide</i>. </p>
      */
@@ -247,7 +320,7 @@ namespace Model
 
     /**
      * <p>An array of key-value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
      * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
      * Guide</i>. </p>
      */
@@ -255,7 +328,7 @@ namespace Model
 
     /**
      * <p>An array of key-value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
      * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User
      * Guide</i>. </p>
      */
@@ -263,39 +336,113 @@ namespace Model
 
 
     /**
-     * <p>A <a>VpcConfig</a> object that specifies the VPC that you want your model to
-     * connect to. Control access to and from your model container by configuring the
-     * VPC. For more information, see <a>host-vpc</a>.</p>
+     * <p>A <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_VpcConfig.html">VpcConfig</a>
+     * object that specifies the VPC that you want your model to connect to. Control
+     * access to and from your model container by configuring the VPC.
+     * <code>VpcConfig</code> is used in hosting services and in batch transform. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect
+     * Endpoints by Using an Amazon Virtual Private Cloud</a> and <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html">Protect
+     * Data in Batch Transform Jobs by Using an Amazon Virtual Private Cloud</a>.</p>
      */
     inline const VpcConfig& GetVpcConfig() const{ return m_vpcConfig; }
 
     /**
-     * <p>A <a>VpcConfig</a> object that specifies the VPC that you want your model to
-     * connect to. Control access to and from your model container by configuring the
-     * VPC. For more information, see <a>host-vpc</a>.</p>
+     * <p>A <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_VpcConfig.html">VpcConfig</a>
+     * object that specifies the VPC that you want your model to connect to. Control
+     * access to and from your model container by configuring the VPC.
+     * <code>VpcConfig</code> is used in hosting services and in batch transform. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect
+     * Endpoints by Using an Amazon Virtual Private Cloud</a> and <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html">Protect
+     * Data in Batch Transform Jobs by Using an Amazon Virtual Private Cloud</a>.</p>
+     */
+    inline bool VpcConfigHasBeenSet() const { return m_vpcConfigHasBeenSet; }
+
+    /**
+     * <p>A <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_VpcConfig.html">VpcConfig</a>
+     * object that specifies the VPC that you want your model to connect to. Control
+     * access to and from your model container by configuring the VPC.
+     * <code>VpcConfig</code> is used in hosting services and in batch transform. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect
+     * Endpoints by Using an Amazon Virtual Private Cloud</a> and <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html">Protect
+     * Data in Batch Transform Jobs by Using an Amazon Virtual Private Cloud</a>.</p>
      */
     inline void SetVpcConfig(const VpcConfig& value) { m_vpcConfigHasBeenSet = true; m_vpcConfig = value; }
 
     /**
-     * <p>A <a>VpcConfig</a> object that specifies the VPC that you want your model to
-     * connect to. Control access to and from your model container by configuring the
-     * VPC. For more information, see <a>host-vpc</a>.</p>
+     * <p>A <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_VpcConfig.html">VpcConfig</a>
+     * object that specifies the VPC that you want your model to connect to. Control
+     * access to and from your model container by configuring the VPC.
+     * <code>VpcConfig</code> is used in hosting services and in batch transform. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect
+     * Endpoints by Using an Amazon Virtual Private Cloud</a> and <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html">Protect
+     * Data in Batch Transform Jobs by Using an Amazon Virtual Private Cloud</a>.</p>
      */
     inline void SetVpcConfig(VpcConfig&& value) { m_vpcConfigHasBeenSet = true; m_vpcConfig = std::move(value); }
 
     /**
-     * <p>A <a>VpcConfig</a> object that specifies the VPC that you want your model to
-     * connect to. Control access to and from your model container by configuring the
-     * VPC. For more information, see <a>host-vpc</a>.</p>
+     * <p>A <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_VpcConfig.html">VpcConfig</a>
+     * object that specifies the VPC that you want your model to connect to. Control
+     * access to and from your model container by configuring the VPC.
+     * <code>VpcConfig</code> is used in hosting services and in batch transform. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect
+     * Endpoints by Using an Amazon Virtual Private Cloud</a> and <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html">Protect
+     * Data in Batch Transform Jobs by Using an Amazon Virtual Private Cloud</a>.</p>
      */
     inline CreateModelRequest& WithVpcConfig(const VpcConfig& value) { SetVpcConfig(value); return *this;}
 
     /**
-     * <p>A <a>VpcConfig</a> object that specifies the VPC that you want your model to
-     * connect to. Control access to and from your model container by configuring the
-     * VPC. For more information, see <a>host-vpc</a>.</p>
+     * <p>A <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_VpcConfig.html">VpcConfig</a>
+     * object that specifies the VPC that you want your model to connect to. Control
+     * access to and from your model container by configuring the VPC.
+     * <code>VpcConfig</code> is used in hosting services and in batch transform. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect
+     * Endpoints by Using an Amazon Virtual Private Cloud</a> and <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html">Protect
+     * Data in Batch Transform Jobs by Using an Amazon Virtual Private Cloud</a>.</p>
      */
     inline CreateModelRequest& WithVpcConfig(VpcConfig&& value) { SetVpcConfig(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Isolates the model container. No inbound or outbound network calls can be
+     * made to or from the model container.</p>
+     */
+    inline bool GetEnableNetworkIsolation() const{ return m_enableNetworkIsolation; }
+
+    /**
+     * <p>Isolates the model container. No inbound or outbound network calls can be
+     * made to or from the model container.</p>
+     */
+    inline bool EnableNetworkIsolationHasBeenSet() const { return m_enableNetworkIsolationHasBeenSet; }
+
+    /**
+     * <p>Isolates the model container. No inbound or outbound network calls can be
+     * made to or from the model container.</p>
+     */
+    inline void SetEnableNetworkIsolation(bool value) { m_enableNetworkIsolationHasBeenSet = true; m_enableNetworkIsolation = value; }
+
+    /**
+     * <p>Isolates the model container. No inbound or outbound network calls can be
+     * made to or from the model container.</p>
+     */
+    inline CreateModelRequest& WithEnableNetworkIsolation(bool value) { SetEnableNetworkIsolation(value); return *this;}
 
   private:
 
@@ -305,6 +452,9 @@ namespace Model
     ContainerDefinition m_primaryContainer;
     bool m_primaryContainerHasBeenSet;
 
+    Aws::Vector<ContainerDefinition> m_containers;
+    bool m_containersHasBeenSet;
+
     Aws::String m_executionRoleArn;
     bool m_executionRoleArnHasBeenSet;
 
@@ -313,6 +463,9 @@ namespace Model
 
     VpcConfig m_vpcConfig;
     bool m_vpcConfigHasBeenSet;
+
+    bool m_enableNetworkIsolation;
+    bool m_enableNetworkIsolationHasBeenSet;
   };
 
 } // namespace Model

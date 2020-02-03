@@ -36,11 +36,13 @@ Voice::Voice() :
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
     m_languageNameHasBeenSet(false),
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_additionalLanguageCodesHasBeenSet(false),
+    m_supportedEnginesHasBeenSet(false)
 {
 }
 
-Voice::Voice(const JsonValue& jsonValue) : 
+Voice::Voice(JsonView jsonValue) : 
     m_gender(Gender::NOT_SET),
     m_genderHasBeenSet(false),
     m_id(VoiceId::NOT_SET),
@@ -48,12 +50,14 @@ Voice::Voice(const JsonValue& jsonValue) :
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
     m_languageNameHasBeenSet(false),
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_additionalLanguageCodesHasBeenSet(false),
+    m_supportedEnginesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Voice& Voice::operator =(const JsonValue& jsonValue)
+Voice& Voice::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Gender"))
   {
@@ -90,6 +94,26 @@ Voice& Voice::operator =(const JsonValue& jsonValue)
     m_nameHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("AdditionalLanguageCodes"))
+  {
+    Array<JsonView> additionalLanguageCodesJsonList = jsonValue.GetArray("AdditionalLanguageCodes");
+    for(unsigned additionalLanguageCodesIndex = 0; additionalLanguageCodesIndex < additionalLanguageCodesJsonList.GetLength(); ++additionalLanguageCodesIndex)
+    {
+      m_additionalLanguageCodes.push_back(LanguageCodeMapper::GetLanguageCodeForName(additionalLanguageCodesJsonList[additionalLanguageCodesIndex].AsString()));
+    }
+    m_additionalLanguageCodesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("SupportedEngines"))
+  {
+    Array<JsonView> supportedEnginesJsonList = jsonValue.GetArray("SupportedEngines");
+    for(unsigned supportedEnginesIndex = 0; supportedEnginesIndex < supportedEnginesJsonList.GetLength(); ++supportedEnginesIndex)
+    {
+      m_supportedEngines.push_back(EngineMapper::GetEngineForName(supportedEnginesJsonList[supportedEnginesIndex].AsString()));
+    }
+    m_supportedEnginesHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -121,6 +145,28 @@ JsonValue Voice::Jsonize() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("Name", m_name);
+
+  }
+
+  if(m_additionalLanguageCodesHasBeenSet)
+  {
+   Array<JsonValue> additionalLanguageCodesJsonList(m_additionalLanguageCodes.size());
+   for(unsigned additionalLanguageCodesIndex = 0; additionalLanguageCodesIndex < additionalLanguageCodesJsonList.GetLength(); ++additionalLanguageCodesIndex)
+   {
+     additionalLanguageCodesJsonList[additionalLanguageCodesIndex].AsString(LanguageCodeMapper::GetNameForLanguageCode(m_additionalLanguageCodes[additionalLanguageCodesIndex]));
+   }
+   payload.WithArray("AdditionalLanguageCodes", std::move(additionalLanguageCodesJsonList));
+
+  }
+
+  if(m_supportedEnginesHasBeenSet)
+  {
+   Array<JsonValue> supportedEnginesJsonList(m_supportedEngines.size());
+   for(unsigned supportedEnginesIndex = 0; supportedEnginesIndex < supportedEnginesJsonList.GetLength(); ++supportedEnginesIndex)
+   {
+     supportedEnginesJsonList[supportedEnginesIndex].AsString(EngineMapper::GetNameForEngine(m_supportedEngines[supportedEnginesIndex]));
+   }
+   payload.WithArray("SupportedEngines", std::move(supportedEnginesJsonList));
 
   }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Macie
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ClassificationType();
-    ClassificationType(const Aws::Utils::Json::JsonValue& jsonValue);
-    ClassificationType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ClassificationType(Aws::Utils::Json::JsonView jsonValue);
+    ClassificationType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * bucket. </p>
      */
     inline const S3OneTimeClassificationType& GetOneTime() const{ return m_oneTime; }
+
+    /**
+     * <p>A one-time classification of all of the existing objects in a specified S3
+     * bucket. </p>
+     */
+    inline bool OneTimeHasBeenSet() const { return m_oneTimeHasBeenSet; }
 
     /**
      * <p>A one-time classification of all of the existing objects in a specified S3
@@ -85,6 +92,13 @@ namespace Model
      * is successfully associated with Amazon Macie. </p>
      */
     inline const S3ContinuousClassificationType& GetContinuous() const{ return m_continuous; }
+
+    /**
+     * <p>A continuous classification of the objects that are added to a specified S3
+     * bucket. Amazon Macie begins performing continuous classification after a bucket
+     * is successfully associated with Amazon Macie. </p>
+     */
+    inline bool ContinuousHasBeenSet() const { return m_continuousHasBeenSet; }
 
     /**
      * <p>A continuous classification of the objects that are added to a specified S3

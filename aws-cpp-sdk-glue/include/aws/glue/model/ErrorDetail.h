@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ErrorDetail();
-    ErrorDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ErrorDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ErrorDetail(Aws::Utils::Json::JsonView jsonValue);
+    ErrorDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The code associated with this error.</p>
      */
     inline const Aws::String& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p>The code associated with this error.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p>The code associated with this error.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>A message describing the error.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>A message describing the error.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>A message describing the error.</p>

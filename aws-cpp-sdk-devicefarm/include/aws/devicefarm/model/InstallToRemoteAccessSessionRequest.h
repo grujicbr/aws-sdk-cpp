@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     InstallToRemoteAccessSessionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +54,12 @@ namespace Model
      * are requesting information.</p>
      */
     inline const Aws::String& GetRemoteAccessSessionArn() const{ return m_remoteAccessSessionArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the remote access session about which you
+     * are requesting information.</p>
+     */
+    inline bool RemoteAccessSessionArnHasBeenSet() const { return m_remoteAccessSessionArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the remote access session about which you
@@ -93,44 +99,42 @@ namespace Model
 
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the app about which you are requesting
-     * information.</p>
+     * <p>The ARN of the app about which you are requesting information.</p>
      */
     inline const Aws::String& GetAppArn() const{ return m_appArn; }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the app about which you are requesting
-     * information.</p>
+     * <p>The ARN of the app about which you are requesting information.</p>
+     */
+    inline bool AppArnHasBeenSet() const { return m_appArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the app about which you are requesting information.</p>
      */
     inline void SetAppArn(const Aws::String& value) { m_appArnHasBeenSet = true; m_appArn = value; }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the app about which you are requesting
-     * information.</p>
+     * <p>The ARN of the app about which you are requesting information.</p>
      */
     inline void SetAppArn(Aws::String&& value) { m_appArnHasBeenSet = true; m_appArn = std::move(value); }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the app about which you are requesting
-     * information.</p>
+     * <p>The ARN of the app about which you are requesting information.</p>
      */
     inline void SetAppArn(const char* value) { m_appArnHasBeenSet = true; m_appArn.assign(value); }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the app about which you are requesting
-     * information.</p>
+     * <p>The ARN of the app about which you are requesting information.</p>
      */
     inline InstallToRemoteAccessSessionRequest& WithAppArn(const Aws::String& value) { SetAppArn(value); return *this;}
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the app about which you are requesting
-     * information.</p>
+     * <p>The ARN of the app about which you are requesting information.</p>
      */
     inline InstallToRemoteAccessSessionRequest& WithAppArn(Aws::String&& value) { SetAppArn(std::move(value)); return *this;}
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the app about which you are requesting
-     * information.</p>
+     * <p>The ARN of the app about which you are requesting information.</p>
      */
     inline InstallToRemoteAccessSessionRequest& WithAppArn(const char* value) { SetAppArn(value); return *this;}
 

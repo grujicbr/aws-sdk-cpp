@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PendingAggregationRequest();
-    PendingAggregationRequest(const Aws::Utils::Json::JsonValue& jsonValue);
-    PendingAggregationRequest& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PendingAggregationRequest(Aws::Utils::Json::JsonView jsonValue);
+    PendingAggregationRequest& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The 12-digit account ID of the account requesting to aggregate data.</p>
      */
     inline const Aws::String& GetRequesterAccountId() const{ return m_requesterAccountId; }
+
+    /**
+     * <p>The 12-digit account ID of the account requesting to aggregate data.</p>
+     */
+    inline bool RequesterAccountIdHasBeenSet() const { return m_requesterAccountIdHasBeenSet; }
 
     /**
      * <p>The 12-digit account ID of the account requesting to aggregate data.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The region requesting to aggregate data. </p>
      */
     inline const Aws::String& GetRequesterAwsRegion() const{ return m_requesterAwsRegion; }
+
+    /**
+     * <p>The region requesting to aggregate data. </p>
+     */
+    inline bool RequesterAwsRegionHasBeenSet() const { return m_requesterAwsRegionHasBeenSet; }
 
     /**
      * <p>The region requesting to aggregate data. </p>

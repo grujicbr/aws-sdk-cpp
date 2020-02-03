@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     ListDeadLetterSourceQueuesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,37 +50,50 @@ namespace Model
   public:
 
     /**
-     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs are case-sensitive.</p>
+     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs and names are
+     * case-sensitive.</p>
      */
     inline const Aws::String& GetQueueUrl() const{ return m_queueUrl; }
 
     /**
-     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs are case-sensitive.</p>
+     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs and names are
+     * case-sensitive.</p>
+     */
+    inline bool QueueUrlHasBeenSet() const { return m_queueUrlHasBeenSet; }
+
+    /**
+     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs and names are
+     * case-sensitive.</p>
      */
     inline void SetQueueUrl(const Aws::String& value) { m_queueUrlHasBeenSet = true; m_queueUrl = value; }
 
     /**
-     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs are case-sensitive.</p>
+     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs and names are
+     * case-sensitive.</p>
      */
     inline void SetQueueUrl(Aws::String&& value) { m_queueUrlHasBeenSet = true; m_queueUrl = std::move(value); }
 
     /**
-     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs are case-sensitive.</p>
+     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs and names are
+     * case-sensitive.</p>
      */
     inline void SetQueueUrl(const char* value) { m_queueUrlHasBeenSet = true; m_queueUrl.assign(value); }
 
     /**
-     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs are case-sensitive.</p>
+     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs and names are
+     * case-sensitive.</p>
      */
     inline ListDeadLetterSourceQueuesRequest& WithQueueUrl(const Aws::String& value) { SetQueueUrl(value); return *this;}
 
     /**
-     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs are case-sensitive.</p>
+     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs and names are
+     * case-sensitive.</p>
      */
     inline ListDeadLetterSourceQueuesRequest& WithQueueUrl(Aws::String&& value) { SetQueueUrl(std::move(value)); return *this;}
 
     /**
-     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs are case-sensitive.</p>
+     * <p>The URL of a dead-letter queue.</p> <p>Queue URLs and names are
+     * case-sensitive.</p>
      */
     inline ListDeadLetterSourceQueuesRequest& WithQueueUrl(const char* value) { SetQueueUrl(value); return *this;}
 

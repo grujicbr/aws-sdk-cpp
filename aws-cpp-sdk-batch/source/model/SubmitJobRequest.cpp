@@ -30,6 +30,7 @@ SubmitJobRequest::SubmitJobRequest() :
     m_jobDefinitionHasBeenSet(false),
     m_parametersHasBeenSet(false),
     m_containerOverridesHasBeenSet(false),
+    m_nodeOverridesHasBeenSet(false),
     m_retryStrategyHasBeenSet(false),
     m_timeoutHasBeenSet(false)
 {
@@ -91,6 +92,12 @@ Aws::String SubmitJobRequest::SerializePayload() const
 
   }
 
+  if(m_nodeOverridesHasBeenSet)
+  {
+   payload.WithObject("nodeOverrides", m_nodeOverrides.Jsonize());
+
+  }
+
   if(m_retryStrategyHasBeenSet)
   {
    payload.WithObject("retryStrategy", m_retryStrategy.Jsonize());
@@ -103,7 +110,7 @@ Aws::String SubmitJobRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

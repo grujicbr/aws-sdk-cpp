@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EndpointConfigSummary();
-    EndpointConfigSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    EndpointConfigSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EndpointConfigSummary(Aws::Utils::Json::JsonView jsonValue);
+    EndpointConfigSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the endpoint configuration.</p>
      */
     inline const Aws::String& GetEndpointConfigName() const{ return m_endpointConfigName; }
+
+    /**
+     * <p>The name of the endpoint configuration.</p>
+     */
+    inline bool EndpointConfigNameHasBeenSet() const { return m_endpointConfigNameHasBeenSet; }
 
     /**
      * <p>The name of the endpoint configuration.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the endpoint configuration.</p>
      */
+    inline bool EndpointConfigArnHasBeenSet() const { return m_endpointConfigArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the endpoint configuration.</p>
+     */
     inline void SetEndpointConfigArn(const Aws::String& value) { m_endpointConfigArnHasBeenSet = true; m_endpointConfigArn = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>A timestamp that shows when the endpoint configuration was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationTime() const{ return m_creationTime; }
+
+    /**
+     * <p>A timestamp that shows when the endpoint configuration was created.</p>
+     */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
 
     /**
      * <p>A timestamp that shows when the endpoint configuration was created.</p>

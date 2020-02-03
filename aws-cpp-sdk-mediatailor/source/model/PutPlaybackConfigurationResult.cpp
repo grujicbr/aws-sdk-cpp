@@ -37,7 +37,7 @@ PutPlaybackConfigurationResult::PutPlaybackConfigurationResult(const Aws::Amazon
 
 PutPlaybackConfigurationResult& PutPlaybackConfigurationResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("AdDecisionServerUrl"))
   {
     m_adDecisionServerUrl = jsonValue.GetString("AdDecisionServerUrl");
@@ -50,15 +50,33 @@ PutPlaybackConfigurationResult& PutPlaybackConfigurationResult::operator =(const
 
   }
 
+  if(jsonValue.ValueExists("DashConfiguration"))
+  {
+    m_dashConfiguration = jsonValue.GetObject("DashConfiguration");
+
+  }
+
   if(jsonValue.ValueExists("HlsConfiguration"))
   {
     m_hlsConfiguration = jsonValue.GetObject("HlsConfiguration");
 
   }
 
+  if(jsonValue.ValueExists("LivePreRollConfiguration"))
+  {
+    m_livePreRollConfiguration = jsonValue.GetObject("LivePreRollConfiguration");
+
+  }
+
   if(jsonValue.ValueExists("Name"))
   {
     m_name = jsonValue.GetString("Name");
+
+  }
+
+  if(jsonValue.ValueExists("PlaybackConfigurationArn"))
+  {
+    m_playbackConfigurationArn = jsonValue.GetString("PlaybackConfigurationArn");
 
   }
 
@@ -77,6 +95,21 @@ PutPlaybackConfigurationResult& PutPlaybackConfigurationResult::operator =(const
   if(jsonValue.ValueExists("SlateAdUrl"))
   {
     m_slateAdUrl = jsonValue.GetString("SlateAdUrl");
+
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+  }
+
+  if(jsonValue.ValueExists("TranscodeProfileName"))
+  {
+    m_transcodeProfileName = jsonValue.GetString("TranscodeProfileName");
 
   }
 

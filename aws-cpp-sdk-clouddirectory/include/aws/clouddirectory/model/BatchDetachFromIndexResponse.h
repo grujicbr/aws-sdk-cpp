@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     BatchDetachFromIndexResponse();
-    BatchDetachFromIndexResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchDetachFromIndexResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchDetachFromIndexResponse(Aws::Utils::Json::JsonView jsonValue);
+    BatchDetachFromIndexResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * index.</p>
      */
     inline const Aws::String& GetDetachedObjectIdentifier() const{ return m_detachedObjectIdentifier; }
+
+    /**
+     * <p>The <code>ObjectIdentifier</code> of the object that was detached from the
+     * index.</p>
+     */
+    inline bool DetachedObjectIdentifierHasBeenSet() const { return m_detachedObjectIdentifierHasBeenSet; }
 
     /**
      * <p>The <code>ObjectIdentifier</code> of the object that was detached from the

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RetentionConfiguration();
-    RetentionConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    RetentionConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RetentionConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    RetentionConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the retention configuration object.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the retention configuration object.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the retention configuration object.</p>
@@ -89,6 +95,12 @@ namespace Model
      * <p>Currently, only applicable to the configuration item history.</p> </note>
      */
     inline int GetRetentionPeriodInDays() const{ return m_retentionPeriodInDays; }
+
+    /**
+     * <p>Number of days AWS Config stores your historical information.</p> <note>
+     * <p>Currently, only applicable to the configuration item history.</p> </note>
+     */
+    inline bool RetentionPeriodInDaysHasBeenSet() const { return m_retentionPeriodInDaysHasBeenSet; }
 
     /**
      * <p>Number of days AWS Config stores your historical information.</p> <note>

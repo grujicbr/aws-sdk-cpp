@@ -31,23 +31,35 @@ namespace Model
 VpcConfigResponse::VpcConfigResponse() : 
     m_subnetIdsHasBeenSet(false),
     m_securityGroupIdsHasBeenSet(false),
-    m_vpcIdHasBeenSet(false)
+    m_clusterSecurityGroupIdHasBeenSet(false),
+    m_vpcIdHasBeenSet(false),
+    m_endpointPublicAccess(false),
+    m_endpointPublicAccessHasBeenSet(false),
+    m_endpointPrivateAccess(false),
+    m_endpointPrivateAccessHasBeenSet(false),
+    m_publicAccessCidrsHasBeenSet(false)
 {
 }
 
-VpcConfigResponse::VpcConfigResponse(const JsonValue& jsonValue) : 
+VpcConfigResponse::VpcConfigResponse(JsonView jsonValue) : 
     m_subnetIdsHasBeenSet(false),
     m_securityGroupIdsHasBeenSet(false),
-    m_vpcIdHasBeenSet(false)
+    m_clusterSecurityGroupIdHasBeenSet(false),
+    m_vpcIdHasBeenSet(false),
+    m_endpointPublicAccess(false),
+    m_endpointPublicAccessHasBeenSet(false),
+    m_endpointPrivateAccess(false),
+    m_endpointPrivateAccessHasBeenSet(false),
+    m_publicAccessCidrsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-VpcConfigResponse& VpcConfigResponse::operator =(const JsonValue& jsonValue)
+VpcConfigResponse& VpcConfigResponse::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("subnetIds"))
   {
-    Array<JsonValue> subnetIdsJsonList = jsonValue.GetArray("subnetIds");
+    Array<JsonView> subnetIdsJsonList = jsonValue.GetArray("subnetIds");
     for(unsigned subnetIdsIndex = 0; subnetIdsIndex < subnetIdsJsonList.GetLength(); ++subnetIdsIndex)
     {
       m_subnetIds.push_back(subnetIdsJsonList[subnetIdsIndex].AsString());
@@ -57,7 +69,7 @@ VpcConfigResponse& VpcConfigResponse::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("securityGroupIds"))
   {
-    Array<JsonValue> securityGroupIdsJsonList = jsonValue.GetArray("securityGroupIds");
+    Array<JsonView> securityGroupIdsJsonList = jsonValue.GetArray("securityGroupIds");
     for(unsigned securityGroupIdsIndex = 0; securityGroupIdsIndex < securityGroupIdsJsonList.GetLength(); ++securityGroupIdsIndex)
     {
       m_securityGroupIds.push_back(securityGroupIdsJsonList[securityGroupIdsIndex].AsString());
@@ -65,11 +77,42 @@ VpcConfigResponse& VpcConfigResponse::operator =(const JsonValue& jsonValue)
     m_securityGroupIdsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("clusterSecurityGroupId"))
+  {
+    m_clusterSecurityGroupId = jsonValue.GetString("clusterSecurityGroupId");
+
+    m_clusterSecurityGroupIdHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("vpcId"))
   {
     m_vpcId = jsonValue.GetString("vpcId");
 
     m_vpcIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("endpointPublicAccess"))
+  {
+    m_endpointPublicAccess = jsonValue.GetBool("endpointPublicAccess");
+
+    m_endpointPublicAccessHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("endpointPrivateAccess"))
+  {
+    m_endpointPrivateAccess = jsonValue.GetBool("endpointPrivateAccess");
+
+    m_endpointPrivateAccessHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("publicAccessCidrs"))
+  {
+    Array<JsonView> publicAccessCidrsJsonList = jsonValue.GetArray("publicAccessCidrs");
+    for(unsigned publicAccessCidrsIndex = 0; publicAccessCidrsIndex < publicAccessCidrsJsonList.GetLength(); ++publicAccessCidrsIndex)
+    {
+      m_publicAccessCidrs.push_back(publicAccessCidrsJsonList[publicAccessCidrsIndex].AsString());
+    }
+    m_publicAccessCidrsHasBeenSet = true;
   }
 
   return *this;
@@ -101,9 +144,38 @@ JsonValue VpcConfigResponse::Jsonize() const
 
   }
 
+  if(m_clusterSecurityGroupIdHasBeenSet)
+  {
+   payload.WithString("clusterSecurityGroupId", m_clusterSecurityGroupId);
+
+  }
+
   if(m_vpcIdHasBeenSet)
   {
    payload.WithString("vpcId", m_vpcId);
+
+  }
+
+  if(m_endpointPublicAccessHasBeenSet)
+  {
+   payload.WithBool("endpointPublicAccess", m_endpointPublicAccess);
+
+  }
+
+  if(m_endpointPrivateAccessHasBeenSet)
+  {
+   payload.WithBool("endpointPrivateAccess", m_endpointPrivateAccess);
+
+  }
+
+  if(m_publicAccessCidrsHasBeenSet)
+  {
+   Array<JsonValue> publicAccessCidrsJsonList(m_publicAccessCidrs.size());
+   for(unsigned publicAccessCidrsIndex = 0; publicAccessCidrsIndex < publicAccessCidrsJsonList.GetLength(); ++publicAccessCidrsIndex)
+   {
+     publicAccessCidrsJsonList[publicAccessCidrsIndex].AsString(m_publicAccessCidrs[publicAccessCidrsIndex]);
+   }
+   payload.WithArray("publicAccessCidrs", std::move(publicAccessCidrsJsonList));
 
   }
 

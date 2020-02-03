@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Tag();
-    Tag(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tag(Aws::Utils::Json::JsonView jsonValue);
+    Tag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-]*)$").</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>Required name of the tag. The string value can be Unicode characters and
+     * cannot be prefixed with "aws:". The string can contain only the set of Unicode
+     * letters, digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex:
+     * "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-]*)$").</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>Required name of the tag. The string value can be Unicode characters and
@@ -111,6 +120,14 @@ namespace Model
      * "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-]*)$").</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The optional value of the tag. The string value can be Unicode characters.
+     * The string can contain only the set of Unicode letters, digits, white-space,
+     * '_', '.', '/', '=', '+', '-' (Java regex:
+     * "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-]*)$").</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The optional value of the tag. The string value can be Unicode characters.

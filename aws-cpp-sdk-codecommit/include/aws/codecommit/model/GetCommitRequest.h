@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     GetCommitRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +51,11 @@ namespace Model
      * <p>The name of the repository to which the commit was made.</p>
      */
     inline const Aws::String& GetRepositoryName() const{ return m_repositoryName; }
+
+    /**
+     * <p>The name of the repository to which the commit was made.</p>
+     */
+    inline bool RepositoryNameHasBeenSet() const { return m_repositoryNameHasBeenSet; }
 
     /**
      * <p>The name of the repository to which the commit was made.</p>
@@ -84,37 +89,42 @@ namespace Model
 
 
     /**
-     * <p>The commit ID. Commit IDs are the full SHA of the commit.</p>
+     * <p>The commit ID. Commit IDs are the full SHA ID of the commit.</p>
      */
     inline const Aws::String& GetCommitId() const{ return m_commitId; }
 
     /**
-     * <p>The commit ID. Commit IDs are the full SHA of the commit.</p>
+     * <p>The commit ID. Commit IDs are the full SHA ID of the commit.</p>
+     */
+    inline bool CommitIdHasBeenSet() const { return m_commitIdHasBeenSet; }
+
+    /**
+     * <p>The commit ID. Commit IDs are the full SHA ID of the commit.</p>
      */
     inline void SetCommitId(const Aws::String& value) { m_commitIdHasBeenSet = true; m_commitId = value; }
 
     /**
-     * <p>The commit ID. Commit IDs are the full SHA of the commit.</p>
+     * <p>The commit ID. Commit IDs are the full SHA ID of the commit.</p>
      */
     inline void SetCommitId(Aws::String&& value) { m_commitIdHasBeenSet = true; m_commitId = std::move(value); }
 
     /**
-     * <p>The commit ID. Commit IDs are the full SHA of the commit.</p>
+     * <p>The commit ID. Commit IDs are the full SHA ID of the commit.</p>
      */
     inline void SetCommitId(const char* value) { m_commitIdHasBeenSet = true; m_commitId.assign(value); }
 
     /**
-     * <p>The commit ID. Commit IDs are the full SHA of the commit.</p>
+     * <p>The commit ID. Commit IDs are the full SHA ID of the commit.</p>
      */
     inline GetCommitRequest& WithCommitId(const Aws::String& value) { SetCommitId(value); return *this;}
 
     /**
-     * <p>The commit ID. Commit IDs are the full SHA of the commit.</p>
+     * <p>The commit ID. Commit IDs are the full SHA ID of the commit.</p>
      */
     inline GetCommitRequest& WithCommitId(Aws::String&& value) { SetCommitId(std::move(value)); return *this;}
 
     /**
-     * <p>The commit ID. Commit IDs are the full SHA of the commit.</p>
+     * <p>The commit ID. Commit IDs are the full SHA ID of the commit.</p>
      */
     inline GetCommitRequest& WithCommitId(const char* value) { SetCommitId(value); return *this;}
 

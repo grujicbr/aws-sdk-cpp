@@ -1,12 +1,12 @@
 /*
   * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  * 
+  *
   * Licensed under the Apache License, Version 2.0 (the "License").
   * You may not use this file except in compliance with the License.
   * A copy of the License is located at
-  * 
+  *
   *  http://aws.amazon.com/apache2.0
-  * 
+  *
   * or in the "license" file accompanying this file. This file is distributed
   * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
   * express or implied. See the License for the specific language governing
@@ -127,7 +127,8 @@ Aws::String URI::URLEncodePathRFC3986(const Aws::String& path)
         ss << '/';
         for(unsigned char c : segment) // alnum results in UB if the value of c is not unsigned char & is not EOF
         {
-            if(std::isalnum(c)) // §2.3 unreserved characters
+            // §2.3 unreserved characters
+            if (StringUtils::IsAlnum(c))
             {
                 ss << c;
                 continue;
@@ -140,12 +141,12 @@ Aws::String URI::URLEncodePathRFC3986(const Aws::String& path)
                 // RFC 3986 §2.2 Reserved characters
                 // NOTE: this implementation does not accurately implement the RFC on purpose to accommodate for
                 // discrepancies in the implementations of URL encoding between AWS services for legacy reasons.
-                case '$': case '&': case ',': case '/':
-                case ':': case ';': case '=': case '@':
+                case '$': case '&': case ',':
+                case ':': case '=': case '@':
                     ss << c;
                     break;
                 default:
-                    ss << '%' << std::setw(2) << (int)((unsigned char)c) << std::setw(0);
+                    ss << '%' << std::setfill('0') << std::setw(2) << (int)((unsigned char)c) << std::setw(0);
             }
         }
     }
@@ -179,12 +180,26 @@ Aws::String URI::URLEncodePath(const Aws::String& path)
 }
 
 void URI::SetPath(const Aws::String& value)
-{    
-   m_path = value;
+{
+    const Aws::Vector<Aws::String> pathParts = StringUtils::Split(value, '/');
+    Aws::String path;
+    path.reserve(value.length() + 1/* in case we have to append slash before the path. */);
+
+    for (const auto& segment : pathParts)
+    {
+        path.push_back('/');
+        path.append(segment);
+    }
+
+    if (value.back() == '/')
+    {
+        path.push_back('/');
+    }
+    m_path = std::move(path);
 }
 
 //ugh, this isn't even part of the canonicalization spec. It is part of how our services have implemented their signers though....
-//it doesn't really hurt anything to reorder it though, so go ahead and sort the values for parameters with the same key 
+//it doesn't really hurt anything to reorder it though, so go ahead and sort the values for parameters with the same key
 void InsertValueOrderedParameter(QueryStringParameterCollection& queryParams, const Aws::String& key, const Aws::String& value)
 {
     auto entriesAtKey = queryParams.equal_range(key);
@@ -192,7 +207,7 @@ void InsertValueOrderedParameter(QueryStringParameterCollection& queryParams, co
     {
         if (entry->second > value)
         {
-            queryParams.emplace_hint(entry, key, value);            
+            queryParams.emplace_hint(entry, key, value);
             return;
         }
     }
@@ -263,7 +278,7 @@ void URI::CanonicalizeQueryString()
         queryStringStream << "?";
     }
 
-    if(m_queryString.find("=") != std::string::npos)
+    if(m_queryString.find('=') != std::string::npos)
     {
         for (QueryStringParameterCollection::iterator iter = sortedParameters.begin();
              iter != sortedParameters.end(); ++iter)
@@ -308,7 +323,7 @@ void URI::SetQueryString(const Aws::String& str)
     m_queryString = "";
 
     if (str.empty()) return;
-    
+
     if (str.front() != '?')
     {
         m_queryString.append("?").append(str);
@@ -316,7 +331,7 @@ void URI::SetQueryString(const Aws::String& str)
     else
     {
        m_queryString = str;
-    }    
+    }
 }
 
 Aws::String URI::GetURIString(bool includeQueryString) const

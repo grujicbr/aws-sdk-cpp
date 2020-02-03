@@ -19,9 +19,14 @@
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/mq/model/BrokerState.h>
 #include <aws/mq/model/Configurations.h>
+#include <aws/core/utils/DateTime.h>
 #include <aws/mq/model/DeploymentMode.h>
+#include <aws/mq/model/EncryptionOptions.h>
 #include <aws/mq/model/EngineType.h>
+#include <aws/mq/model/LogsSummary.h>
 #include <aws/mq/model/WeeklyStartTime.h>
+#include <aws/mq/model/BrokerStorageType.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <aws/mq/model/BrokerInstance.h>
 #include <aws/mq/model/UserSummary.h>
 #include <utility>
@@ -238,32 +243,27 @@ namespace Model
 
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline const BrokerState& GetBrokerState() const{ return m_brokerState; }
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline void SetBrokerState(const BrokerState& value) { m_brokerState = value; }
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline void SetBrokerState(BrokerState&& value) { m_brokerState = std::move(value); }
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline DescribeBrokerResult& WithBrokerState(const BrokerState& value) { SetBrokerState(value); return *this;}
 
     /**
-     * The status of the broker. Possible values: CREATION_IN_PROGRESS,
-     * CREATION_FAILED, DELETION_IN_PROGRESS, RUNNING, REBOOT_IN_PROGRESS
+     * The status of the broker.
      */
     inline DescribeBrokerResult& WithBrokerState(BrokerState&& value) { SetBrokerState(std::move(value)); return *this;}
 
@@ -295,44 +295,81 @@ namespace Model
 
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * The time when the broker was created.
+     */
+    inline const Aws::Utils::DateTime& GetCreated() const{ return m_created; }
+
+    /**
+     * The time when the broker was created.
+     */
+    inline void SetCreated(const Aws::Utils::DateTime& value) { m_created = value; }
+
+    /**
+     * The time when the broker was created.
+     */
+    inline void SetCreated(Aws::Utils::DateTime&& value) { m_created = std::move(value); }
+
+    /**
+     * The time when the broker was created.
+     */
+    inline DescribeBrokerResult& WithCreated(const Aws::Utils::DateTime& value) { SetCreated(value); return *this;}
+
+    /**
+     * The time when the broker was created.
+     */
+    inline DescribeBrokerResult& WithCreated(Aws::Utils::DateTime&& value) { SetCreated(std::move(value)); return *this;}
+
+
+    /**
+     * Required. The deployment mode of the broker.
      */
     inline const DeploymentMode& GetDeploymentMode() const{ return m_deploymentMode; }
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * Required. The deployment mode of the broker.
      */
     inline void SetDeploymentMode(const DeploymentMode& value) { m_deploymentMode = value; }
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * Required. The deployment mode of the broker.
      */
     inline void SetDeploymentMode(DeploymentMode&& value) { m_deploymentMode = std::move(value); }
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * Required. The deployment mode of the broker.
      */
     inline DescribeBrokerResult& WithDeploymentMode(const DeploymentMode& value) { SetDeploymentMode(value); return *this;}
 
     /**
-     * Required. The deployment mode of the broker. Possible values: SINGLE_INSTANCE,
-     * ACTIVE_STANDBY_MULTI_AZ SINGLE_INSTANCE creates a single-instance broker in a
-     * single Availability Zone. ACTIVE_STANDBY_MULTI_AZ creates an active/standby
-     * broker for high availability.
+     * Required. The deployment mode of the broker.
      */
     inline DescribeBrokerResult& WithDeploymentMode(DeploymentMode&& value) { SetDeploymentMode(std::move(value)); return *this;}
+
+
+    /**
+     * Encryption options for the broker.
+     */
+    inline const EncryptionOptions& GetEncryptionOptions() const{ return m_encryptionOptions; }
+
+    /**
+     * Encryption options for the broker.
+     */
+    inline void SetEncryptionOptions(const EncryptionOptions& value) { m_encryptionOptions = value; }
+
+    /**
+     * Encryption options for the broker.
+     */
+    inline void SetEncryptionOptions(EncryptionOptions&& value) { m_encryptionOptions = std::move(value); }
+
+    /**
+     * Encryption options for the broker.
+     */
+    inline DescribeBrokerResult& WithEncryptionOptions(const EncryptionOptions& value) { SetEncryptionOptions(value); return *this;}
+
+    /**
+     * Encryption options for the broker.
+     */
+    inline DescribeBrokerResult& WithEncryptionOptions(EncryptionOptions&& value) { SetEncryptionOptions(std::move(value)); return *this;}
 
 
     /**
@@ -367,82 +404,113 @@ namespace Model
 
 
     /**
-     * The version of the broker engine. Note: Currently, Amazon MQ supports only
-     * 5.15.0.
+     * The version of the broker engine. For a list of supported engine versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
      */
     inline const Aws::String& GetEngineVersion() const{ return m_engineVersion; }
 
     /**
-     * The version of the broker engine. Note: Currently, Amazon MQ supports only
-     * 5.15.0.
+     * The version of the broker engine. For a list of supported engine versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
      */
     inline void SetEngineVersion(const Aws::String& value) { m_engineVersion = value; }
 
     /**
-     * The version of the broker engine. Note: Currently, Amazon MQ supports only
-     * 5.15.0.
+     * The version of the broker engine. For a list of supported engine versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
      */
     inline void SetEngineVersion(Aws::String&& value) { m_engineVersion = std::move(value); }
 
     /**
-     * The version of the broker engine. Note: Currently, Amazon MQ supports only
-     * 5.15.0.
+     * The version of the broker engine. For a list of supported engine versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
      */
     inline void SetEngineVersion(const char* value) { m_engineVersion.assign(value); }
 
     /**
-     * The version of the broker engine. Note: Currently, Amazon MQ supports only
-     * 5.15.0.
+     * The version of the broker engine. For a list of supported engine versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
      */
     inline DescribeBrokerResult& WithEngineVersion(const Aws::String& value) { SetEngineVersion(value); return *this;}
 
     /**
-     * The version of the broker engine. Note: Currently, Amazon MQ supports only
-     * 5.15.0.
+     * The version of the broker engine. For a list of supported engine versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
      */
     inline DescribeBrokerResult& WithEngineVersion(Aws::String&& value) { SetEngineVersion(std::move(value)); return *this;}
 
     /**
-     * The version of the broker engine. Note: Currently, Amazon MQ supports only
-     * 5.15.0.
+     * The version of the broker engine. For a list of supported engine versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
      */
     inline DescribeBrokerResult& WithEngineVersion(const char* value) { SetEngineVersion(value); return *this;}
 
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline const Aws::String& GetHostInstanceType() const{ return m_hostInstanceType; }
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline void SetHostInstanceType(const Aws::String& value) { m_hostInstanceType = value; }
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline void SetHostInstanceType(Aws::String&& value) { m_hostInstanceType = std::move(value); }
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline void SetHostInstanceType(const char* value) { m_hostInstanceType.assign(value); }
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline DescribeBrokerResult& WithHostInstanceType(const Aws::String& value) { SetHostInstanceType(value); return *this;}
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline DescribeBrokerResult& WithHostInstanceType(Aws::String&& value) { SetHostInstanceType(std::move(value)); return *this;}
 
     /**
-     * The broker's instance type. Possible values: mq.t2.micro, mq.m4.large
+     * The broker's instance type.
      */
     inline DescribeBrokerResult& WithHostInstanceType(const char* value) { SetHostInstanceType(value); return *this;}
+
+
+    /**
+     * The list of information about logs currently enabled and pending to be deployed
+     * for the specified broker.
+     */
+    inline const LogsSummary& GetLogs() const{ return m_logs; }
+
+    /**
+     * The list of information about logs currently enabled and pending to be deployed
+     * for the specified broker.
+     */
+    inline void SetLogs(const LogsSummary& value) { m_logs = value; }
+
+    /**
+     * The list of information about logs currently enabled and pending to be deployed
+     * for the specified broker.
+     */
+    inline void SetLogs(LogsSummary&& value) { m_logs = std::move(value); }
+
+    /**
+     * The list of information about logs currently enabled and pending to be deployed
+     * for the specified broker.
+     */
+    inline DescribeBrokerResult& WithLogs(const LogsSummary& value) { SetLogs(value); return *this;}
+
+    /**
+     * The list of information about logs currently enabled and pending to be deployed
+     * for the specified broker.
+     */
+    inline DescribeBrokerResult& WithLogs(LogsSummary&& value) { SetLogs(std::move(value)); return *this;}
 
 
     /**
@@ -472,6 +540,147 @@ namespace Model
 
 
     /**
+     * The version of the broker engine to upgrade to. For a list of supported engine
+     * versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     */
+    inline const Aws::String& GetPendingEngineVersion() const{ return m_pendingEngineVersion; }
+
+    /**
+     * The version of the broker engine to upgrade to. For a list of supported engine
+     * versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     */
+    inline void SetPendingEngineVersion(const Aws::String& value) { m_pendingEngineVersion = value; }
+
+    /**
+     * The version of the broker engine to upgrade to. For a list of supported engine
+     * versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     */
+    inline void SetPendingEngineVersion(Aws::String&& value) { m_pendingEngineVersion = std::move(value); }
+
+    /**
+     * The version of the broker engine to upgrade to. For a list of supported engine
+     * versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     */
+    inline void SetPendingEngineVersion(const char* value) { m_pendingEngineVersion.assign(value); }
+
+    /**
+     * The version of the broker engine to upgrade to. For a list of supported engine
+     * versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     */
+    inline DescribeBrokerResult& WithPendingEngineVersion(const Aws::String& value) { SetPendingEngineVersion(value); return *this;}
+
+    /**
+     * The version of the broker engine to upgrade to. For a list of supported engine
+     * versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     */
+    inline DescribeBrokerResult& WithPendingEngineVersion(Aws::String&& value) { SetPendingEngineVersion(std::move(value)); return *this;}
+
+    /**
+     * The version of the broker engine to upgrade to. For a list of supported engine
+     * versions, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     */
+    inline DescribeBrokerResult& WithPendingEngineVersion(const char* value) { SetPendingEngineVersion(value); return *this;}
+
+
+    /**
+     * The host instance type of the broker to upgrade to. For a list of supported
+     * instance types, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide//broker.html#broker-instance-types
+     */
+    inline const Aws::String& GetPendingHostInstanceType() const{ return m_pendingHostInstanceType; }
+
+    /**
+     * The host instance type of the broker to upgrade to. For a list of supported
+     * instance types, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide//broker.html#broker-instance-types
+     */
+    inline void SetPendingHostInstanceType(const Aws::String& value) { m_pendingHostInstanceType = value; }
+
+    /**
+     * The host instance type of the broker to upgrade to. For a list of supported
+     * instance types, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide//broker.html#broker-instance-types
+     */
+    inline void SetPendingHostInstanceType(Aws::String&& value) { m_pendingHostInstanceType = std::move(value); }
+
+    /**
+     * The host instance type of the broker to upgrade to. For a list of supported
+     * instance types, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide//broker.html#broker-instance-types
+     */
+    inline void SetPendingHostInstanceType(const char* value) { m_pendingHostInstanceType.assign(value); }
+
+    /**
+     * The host instance type of the broker to upgrade to. For a list of supported
+     * instance types, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide//broker.html#broker-instance-types
+     */
+    inline DescribeBrokerResult& WithPendingHostInstanceType(const Aws::String& value) { SetPendingHostInstanceType(value); return *this;}
+
+    /**
+     * The host instance type of the broker to upgrade to. For a list of supported
+     * instance types, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide//broker.html#broker-instance-types
+     */
+    inline DescribeBrokerResult& WithPendingHostInstanceType(Aws::String&& value) { SetPendingHostInstanceType(std::move(value)); return *this;}
+
+    /**
+     * The host instance type of the broker to upgrade to. For a list of supported
+     * instance types, see
+     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide//broker.html#broker-instance-types
+     */
+    inline DescribeBrokerResult& WithPendingHostInstanceType(const char* value) { SetPendingHostInstanceType(value); return *this;}
+
+
+    /**
+     * The list of pending security groups to authorize connections to brokers.
+     */
+    inline const Aws::Vector<Aws::String>& GetPendingSecurityGroups() const{ return m_pendingSecurityGroups; }
+
+    /**
+     * The list of pending security groups to authorize connections to brokers.
+     */
+    inline void SetPendingSecurityGroups(const Aws::Vector<Aws::String>& value) { m_pendingSecurityGroups = value; }
+
+    /**
+     * The list of pending security groups to authorize connections to brokers.
+     */
+    inline void SetPendingSecurityGroups(Aws::Vector<Aws::String>&& value) { m_pendingSecurityGroups = std::move(value); }
+
+    /**
+     * The list of pending security groups to authorize connections to brokers.
+     */
+    inline DescribeBrokerResult& WithPendingSecurityGroups(const Aws::Vector<Aws::String>& value) { SetPendingSecurityGroups(value); return *this;}
+
+    /**
+     * The list of pending security groups to authorize connections to brokers.
+     */
+    inline DescribeBrokerResult& WithPendingSecurityGroups(Aws::Vector<Aws::String>&& value) { SetPendingSecurityGroups(std::move(value)); return *this;}
+
+    /**
+     * The list of pending security groups to authorize connections to brokers.
+     */
+    inline DescribeBrokerResult& AddPendingSecurityGroups(const Aws::String& value) { m_pendingSecurityGroups.push_back(value); return *this; }
+
+    /**
+     * The list of pending security groups to authorize connections to brokers.
+     */
+    inline DescribeBrokerResult& AddPendingSecurityGroups(Aws::String&& value) { m_pendingSecurityGroups.push_back(std::move(value)); return *this; }
+
+    /**
+     * The list of pending security groups to authorize connections to brokers.
+     */
+    inline DescribeBrokerResult& AddPendingSecurityGroups(const char* value) { m_pendingSecurityGroups.push_back(value); return *this; }
+
+
+    /**
      * Required. Enables connections from applications outside of the VPC that hosts
      * the broker's subnets.
      */
@@ -491,52 +700,78 @@ namespace Model
 
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections
      * to brokers.
      */
     inline const Aws::Vector<Aws::String>& GetSecurityGroups() const{ return m_securityGroups; }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections
      * to brokers.
      */
     inline void SetSecurityGroups(const Aws::Vector<Aws::String>& value) { m_securityGroups = value; }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections
      * to brokers.
      */
     inline void SetSecurityGroups(Aws::Vector<Aws::String>&& value) { m_securityGroups = std::move(value); }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections
      * to brokers.
      */
     inline DescribeBrokerResult& WithSecurityGroups(const Aws::Vector<Aws::String>& value) { SetSecurityGroups(value); return *this;}
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections
      * to brokers.
      */
     inline DescribeBrokerResult& WithSecurityGroups(Aws::Vector<Aws::String>&& value) { SetSecurityGroups(std::move(value)); return *this;}
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections
      * to brokers.
      */
     inline DescribeBrokerResult& AddSecurityGroups(const Aws::String& value) { m_securityGroups.push_back(value); return *this; }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections
      * to brokers.
      */
     inline DescribeBrokerResult& AddSecurityGroups(Aws::String&& value) { m_securityGroups.push_back(std::move(value)); return *this; }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections
      * to brokers.
      */
     inline DescribeBrokerResult& AddSecurityGroups(const char* value) { m_securityGroups.push_back(value); return *this; }
+
+
+    /**
+     * The broker's storage type.
+     */
+    inline const BrokerStorageType& GetStorageType() const{ return m_storageType; }
+
+    /**
+     * The broker's storage type.
+     */
+    inline void SetStorageType(const BrokerStorageType& value) { m_storageType = value; }
+
+    /**
+     * The broker's storage type.
+     */
+    inline void SetStorageType(BrokerStorageType&& value) { m_storageType = std::move(value); }
+
+    /**
+     * The broker's storage type.
+     */
+    inline DescribeBrokerResult& WithStorageType(const BrokerStorageType& value) { SetStorageType(value); return *this;}
+
+    /**
+     * The broker's storage type.
+     */
+    inline DescribeBrokerResult& WithStorageType(BrokerStorageType&& value) { SetStorageType(std::move(value)); return *this;}
 
 
     /**
@@ -605,6 +840,67 @@ namespace Model
 
 
     /**
+     * The list of all tags associated with this broker.
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tags = value; }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tags = std::move(value); }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& AddTags(const Aws::String& key, const Aws::String& value) { m_tags.emplace(key, value); return *this; }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& AddTags(Aws::String&& key, const Aws::String& value) { m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& AddTags(const Aws::String& key, Aws::String&& value) { m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& AddTags(Aws::String&& key, Aws::String&& value) { m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& AddTags(const char* key, Aws::String&& value) { m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& AddTags(Aws::String&& key, const char* value) { m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * The list of all tags associated with this broker.
+     */
+    inline DescribeBrokerResult& AddTags(const char* key, const char* value) { m_tags.emplace(key, value); return *this; }
+
+
+    /**
      * The list of all ActiveMQ usernames for the specified broker.
      */
     inline const Aws::Vector<UserSummary>& GetUsers() const{ return m_users; }
@@ -655,7 +951,11 @@ namespace Model
 
     Configurations m_configurations;
 
+    Aws::Utils::DateTime m_created;
+
     DeploymentMode m_deploymentMode;
+
+    EncryptionOptions m_encryptionOptions;
 
     EngineType m_engineType;
 
@@ -663,13 +963,25 @@ namespace Model
 
     Aws::String m_hostInstanceType;
 
+    LogsSummary m_logs;
+
     WeeklyStartTime m_maintenanceWindowStartTime;
+
+    Aws::String m_pendingEngineVersion;
+
+    Aws::String m_pendingHostInstanceType;
+
+    Aws::Vector<Aws::String> m_pendingSecurityGroups;
 
     bool m_publiclyAccessible;
 
     Aws::Vector<Aws::String> m_securityGroups;
 
+    BrokerStorageType m_storageType;
+
     Aws::Vector<Aws::String> m_subnetIds;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
 
     Aws::Vector<UserSummary> m_users;
   };

@@ -66,37 +66,37 @@ VolumeAttachment& VolumeAttachment::operator =(const XmlNode& xmlNode)
     XmlNode attachTimeNode = resultNode.FirstChild("attachTime");
     if(!attachTimeNode.IsNull())
     {
-      m_attachTime = DateTime(StringUtils::Trim(attachTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_attachTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(attachTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_attachTimeHasBeenSet = true;
     }
     XmlNode deviceNode = resultNode.FirstChild("device");
     if(!deviceNode.IsNull())
     {
-      m_device = StringUtils::Trim(deviceNode.GetText().c_str());
+      m_device = Aws::Utils::Xml::DecodeEscapedXmlText(deviceNode.GetText());
       m_deviceHasBeenSet = true;
     }
     XmlNode instanceIdNode = resultNode.FirstChild("instanceId");
     if(!instanceIdNode.IsNull())
     {
-      m_instanceId = StringUtils::Trim(instanceIdNode.GetText().c_str());
+      m_instanceId = Aws::Utils::Xml::DecodeEscapedXmlText(instanceIdNode.GetText());
       m_instanceIdHasBeenSet = true;
     }
     XmlNode stateNode = resultNode.FirstChild("status");
     if(!stateNode.IsNull())
     {
-      m_state = VolumeAttachmentStateMapper::GetVolumeAttachmentStateForName(StringUtils::Trim(stateNode.GetText().c_str()).c_str());
+      m_state = VolumeAttachmentStateMapper::GetVolumeAttachmentStateForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(stateNode.GetText()).c_str()).c_str());
       m_stateHasBeenSet = true;
     }
     XmlNode volumeIdNode = resultNode.FirstChild("volumeId");
     if(!volumeIdNode.IsNull())
     {
-      m_volumeId = StringUtils::Trim(volumeIdNode.GetText().c_str());
+      m_volumeId = Aws::Utils::Xml::DecodeEscapedXmlText(volumeIdNode.GetText());
       m_volumeIdHasBeenSet = true;
     }
     XmlNode deleteOnTerminationNode = resultNode.FirstChild("deleteOnTermination");
     if(!deleteOnTerminationNode.IsNull())
     {
-      m_deleteOnTermination = StringUtils::ConvertToBool(StringUtils::Trim(deleteOnTerminationNode.GetText().c_str()).c_str());
+      m_deleteOnTermination = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(deleteOnTerminationNode.GetText()).c_str()).c_str());
       m_deleteOnTerminationHasBeenSet = true;
     }
   }

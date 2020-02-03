@@ -50,14 +50,18 @@ enum class ApplicationDiscoveryServiceErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
   AUTHORIZATION_ERROR= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  CONFLICT_ERROR,
+  HOME_REGION_NOT_SET,
   INVALID_PARAMETER,
   OPERATION_NOT_PERMITTED,
+  RESOURCE_IN_USE,
   SERVER_INTERNAL_ERROR
 };
 namespace ApplicationDiscoveryServiceErrorMapper

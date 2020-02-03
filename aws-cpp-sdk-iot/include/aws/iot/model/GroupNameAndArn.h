@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     GroupNameAndArn();
-    GroupNameAndArn(const Aws::Utils::Json::JsonValue& jsonValue);
-    GroupNameAndArn& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GroupNameAndArn(Aws::Utils::Json::JsonView jsonValue);
+    GroupNameAndArn& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The group name.</p>
      */
     inline const Aws::String& GetGroupName() const{ return m_groupName; }
+
+    /**
+     * <p>The group name.</p>
+     */
+    inline bool GroupNameHasBeenSet() const { return m_groupNameHasBeenSet; }
 
     /**
      * <p>The group name.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The group ARN.</p>
      */
     inline const Aws::String& GetGroupArn() const{ return m_groupArn; }
+
+    /**
+     * <p>The group ARN.</p>
+     */
+    inline bool GroupArnHasBeenSet() const { return m_groupArnHasBeenSet; }
 
     /**
      * <p>The group ARN.</p>

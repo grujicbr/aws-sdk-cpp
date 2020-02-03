@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     OutgoingCertificate();
-    OutgoingCertificate(const Aws::Utils::Json::JsonValue& jsonValue);
-    OutgoingCertificate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OutgoingCertificate(Aws::Utils::Json::JsonView jsonValue);
+    OutgoingCertificate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The certificate ARN.</p>
      */
     inline const Aws::String& GetCertificateArn() const{ return m_certificateArn; }
+
+    /**
+     * <p>The certificate ARN.</p>
+     */
+    inline bool CertificateArnHasBeenSet() const { return m_certificateArnHasBeenSet; }
 
     /**
      * <p>The certificate ARN.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The certificate ID.</p>
      */
+    inline bool CertificateIdHasBeenSet() const { return m_certificateIdHasBeenSet; }
+
+    /**
+     * <p>The certificate ID.</p>
+     */
     inline void SetCertificateId(const Aws::String& value) { m_certificateIdHasBeenSet = true; m_certificateId = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The AWS account to which the transfer was made.</p>
      */
     inline const Aws::String& GetTransferredTo() const{ return m_transferredTo; }
+
+    /**
+     * <p>The AWS account to which the transfer was made.</p>
+     */
+    inline bool TransferredToHasBeenSet() const { return m_transferredToHasBeenSet; }
 
     /**
      * <p>The AWS account to which the transfer was made.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>The date the transfer was initiated.</p>
      */
+    inline bool TransferDateHasBeenSet() const { return m_transferDateHasBeenSet; }
+
+    /**
+     * <p>The date the transfer was initiated.</p>
+     */
     inline void SetTransferDate(const Aws::Utils::DateTime& value) { m_transferDateHasBeenSet = true; m_transferDate = value; }
 
     /**
@@ -186,6 +207,11 @@ namespace Model
      * <p>The transfer message.</p>
      */
     inline const Aws::String& GetTransferMessage() const{ return m_transferMessage; }
+
+    /**
+     * <p>The transfer message.</p>
+     */
+    inline bool TransferMessageHasBeenSet() const { return m_transferMessageHasBeenSet; }
 
     /**
      * <p>The transfer message.</p>
@@ -222,6 +248,11 @@ namespace Model
      * <p>The certificate creation date.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The certificate creation date.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The certificate creation date.</p>

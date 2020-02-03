@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -42,14 +43,14 @@ namespace Model
   {
   public:
     StateExitedEventDetails();
-    StateExitedEventDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    StateExitedEventDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StateExitedEventDetails(Aws::Utils::Json::JsonView jsonValue);
+    StateExitedEventDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>The name of the state.</p> <p>A name must <i>not</i> contain:</p> <ul> <li>
-     * <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
+     * <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
      * </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li> <p>special
      * characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li> <li>
      * <p>control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)</p>
@@ -59,7 +60,17 @@ namespace Model
 
     /**
      * <p>The name of the state.</p> <p>A name must <i>not</i> contain:</p> <ul> <li>
-     * <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
+     * <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
+     * </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li> <p>special
+     * characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li> <li>
+     * <p>control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)</p>
+     * </li> </ul>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the state.</p> <p>A name must <i>not</i> contain:</p> <ul> <li>
+     * <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
      * </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li> <p>special
      * characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li> <li>
      * <p>control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)</p>
@@ -69,7 +80,7 @@ namespace Model
 
     /**
      * <p>The name of the state.</p> <p>A name must <i>not</i> contain:</p> <ul> <li>
-     * <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
+     * <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
      * </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li> <p>special
      * characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li> <li>
      * <p>control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)</p>
@@ -79,7 +90,7 @@ namespace Model
 
     /**
      * <p>The name of the state.</p> <p>A name must <i>not</i> contain:</p> <ul> <li>
-     * <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
+     * <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
      * </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li> <p>special
      * characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li> <li>
      * <p>control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)</p>
@@ -89,7 +100,7 @@ namespace Model
 
     /**
      * <p>The name of the state.</p> <p>A name must <i>not</i> contain:</p> <ul> <li>
-     * <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
+     * <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
      * </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li> <p>special
      * characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li> <li>
      * <p>control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)</p>
@@ -99,7 +110,7 @@ namespace Model
 
     /**
      * <p>The name of the state.</p> <p>A name must <i>not</i> contain:</p> <ul> <li>
-     * <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
+     * <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
      * </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li> <p>special
      * characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li> <li>
      * <p>control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)</p>
@@ -109,7 +120,7 @@ namespace Model
 
     /**
      * <p>The name of the state.</p> <p>A name must <i>not</i> contain:</p> <ul> <li>
-     * <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
+     * <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code> </p>
      * </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li> <p>special
      * characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li> <li>
      * <p>control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)</p>
@@ -122,6 +133,11 @@ namespace Model
      * <p>The JSON output data of the state.</p>
      */
     inline const Aws::String& GetOutput() const{ return m_output; }
+
+    /**
+     * <p>The JSON output data of the state.</p>
+     */
+    inline bool OutputHasBeenSet() const { return m_outputHasBeenSet; }
 
     /**
      * <p>The JSON output data of the state.</p>

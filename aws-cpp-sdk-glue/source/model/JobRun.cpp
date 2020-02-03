@@ -43,17 +43,24 @@ JobRun::JobRun() :
     m_argumentsHasBeenSet(false),
     m_errorMessageHasBeenSet(false),
     m_predecessorRunsHasBeenSet(false),
-    m_allocatedCapacity(0),
-    m_allocatedCapacityHasBeenSet(false),
     m_executionTime(0),
     m_executionTimeHasBeenSet(false),
     m_timeout(0),
     m_timeoutHasBeenSet(false),
-    m_notificationPropertyHasBeenSet(false)
+    m_maxCapacity(0.0),
+    m_maxCapacityHasBeenSet(false),
+    m_workerType(WorkerType::NOT_SET),
+    m_workerTypeHasBeenSet(false),
+    m_numberOfWorkers(0),
+    m_numberOfWorkersHasBeenSet(false),
+    m_securityConfigurationHasBeenSet(false),
+    m_logGroupNameHasBeenSet(false),
+    m_notificationPropertyHasBeenSet(false),
+    m_glueVersionHasBeenSet(false)
 {
 }
 
-JobRun::JobRun(const JsonValue& jsonValue) : 
+JobRun::JobRun(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_attempt(0),
     m_attemptHasBeenSet(false),
@@ -68,18 +75,25 @@ JobRun::JobRun(const JsonValue& jsonValue) :
     m_argumentsHasBeenSet(false),
     m_errorMessageHasBeenSet(false),
     m_predecessorRunsHasBeenSet(false),
-    m_allocatedCapacity(0),
-    m_allocatedCapacityHasBeenSet(false),
     m_executionTime(0),
     m_executionTimeHasBeenSet(false),
     m_timeout(0),
     m_timeoutHasBeenSet(false),
-    m_notificationPropertyHasBeenSet(false)
+    m_maxCapacity(0.0),
+    m_maxCapacityHasBeenSet(false),
+    m_workerType(WorkerType::NOT_SET),
+    m_workerTypeHasBeenSet(false),
+    m_numberOfWorkers(0),
+    m_numberOfWorkersHasBeenSet(false),
+    m_securityConfigurationHasBeenSet(false),
+    m_logGroupNameHasBeenSet(false),
+    m_notificationPropertyHasBeenSet(false),
+    m_glueVersionHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-JobRun& JobRun::operator =(const JsonValue& jsonValue)
+JobRun& JobRun::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -146,7 +160,7 @@ JobRun& JobRun::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Arguments"))
   {
-    Aws::Map<Aws::String, JsonValue> argumentsJsonMap = jsonValue.GetObject("Arguments").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> argumentsJsonMap = jsonValue.GetObject("Arguments").GetAllObjects();
     for(auto& argumentsItem : argumentsJsonMap)
     {
       m_arguments[argumentsItem.first] = argumentsItem.second.AsString();
@@ -163,19 +177,12 @@ JobRun& JobRun::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("PredecessorRuns"))
   {
-    Array<JsonValue> predecessorRunsJsonList = jsonValue.GetArray("PredecessorRuns");
+    Array<JsonView> predecessorRunsJsonList = jsonValue.GetArray("PredecessorRuns");
     for(unsigned predecessorRunsIndex = 0; predecessorRunsIndex < predecessorRunsJsonList.GetLength(); ++predecessorRunsIndex)
     {
       m_predecessorRuns.push_back(predecessorRunsJsonList[predecessorRunsIndex].AsObject());
     }
     m_predecessorRunsHasBeenSet = true;
-  }
-
-  if(jsonValue.ValueExists("AllocatedCapacity"))
-  {
-    m_allocatedCapacity = jsonValue.GetInteger("AllocatedCapacity");
-
-    m_allocatedCapacityHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("ExecutionTime"))
@@ -192,11 +199,53 @@ JobRun& JobRun::operator =(const JsonValue& jsonValue)
     m_timeoutHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("MaxCapacity"))
+  {
+    m_maxCapacity = jsonValue.GetDouble("MaxCapacity");
+
+    m_maxCapacityHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WorkerType"))
+  {
+    m_workerType = WorkerTypeMapper::GetWorkerTypeForName(jsonValue.GetString("WorkerType"));
+
+    m_workerTypeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("NumberOfWorkers"))
+  {
+    m_numberOfWorkers = jsonValue.GetInteger("NumberOfWorkers");
+
+    m_numberOfWorkersHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("SecurityConfiguration"))
+  {
+    m_securityConfiguration = jsonValue.GetString("SecurityConfiguration");
+
+    m_securityConfigurationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("LogGroupName"))
+  {
+    m_logGroupName = jsonValue.GetString("LogGroupName");
+
+    m_logGroupNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("NotificationProperty"))
   {
     m_notificationProperty = jsonValue.GetObject("NotificationProperty");
 
     m_notificationPropertyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("GlueVersion"))
+  {
+    m_glueVersion = jsonValue.GetString("GlueVersion");
+
+    m_glueVersionHasBeenSet = true;
   }
 
   return *this;
@@ -284,12 +333,6 @@ JsonValue JobRun::Jsonize() const
 
   }
 
-  if(m_allocatedCapacityHasBeenSet)
-  {
-   payload.WithInteger("AllocatedCapacity", m_allocatedCapacity);
-
-  }
-
   if(m_executionTimeHasBeenSet)
   {
    payload.WithInteger("ExecutionTime", m_executionTime);
@@ -302,9 +345,44 @@ JsonValue JobRun::Jsonize() const
 
   }
 
+  if(m_maxCapacityHasBeenSet)
+  {
+   payload.WithDouble("MaxCapacity", m_maxCapacity);
+
+  }
+
+  if(m_workerTypeHasBeenSet)
+  {
+   payload.WithString("WorkerType", WorkerTypeMapper::GetNameForWorkerType(m_workerType));
+  }
+
+  if(m_numberOfWorkersHasBeenSet)
+  {
+   payload.WithInteger("NumberOfWorkers", m_numberOfWorkers);
+
+  }
+
+  if(m_securityConfigurationHasBeenSet)
+  {
+   payload.WithString("SecurityConfiguration", m_securityConfiguration);
+
+  }
+
+  if(m_logGroupNameHasBeenSet)
+  {
+   payload.WithString("LogGroupName", m_logGroupName);
+
+  }
+
   if(m_notificationPropertyHasBeenSet)
   {
    payload.WithObject("NotificationProperty", m_notificationProperty.Jsonize());
+
+  }
+
+  if(m_glueVersionHasBeenSet)
+  {
+   payload.WithString("GlueVersion", m_glueVersion);
 
   }
 

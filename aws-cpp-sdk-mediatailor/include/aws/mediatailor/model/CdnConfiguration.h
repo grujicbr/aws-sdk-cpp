@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaTailor
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CdnConfiguration();
-    CdnConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    CdnConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CdnConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    CdnConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,17 @@ namespace Model
      * segments.</p>
      */
     inline const Aws::String& GetAdSegmentUrlPrefix() const{ return m_adSegmentUrlPrefix; }
+
+    /**
+     * <p>A non-default content delivery network (CDN) to serve ad segments. By
+     * default, AWS Elemental MediaTailor uses Amazon CloudFront with default cache
+     * settings as its CDN for ad segments. To set up an alternate CDN, create a rule
+     * in your CDN for the following origin: ads.mediatailor.&lt;region>.amazonaws.com.
+     * Then specify the rule's name in this AdSegmentUrlPrefix. When AWS Elemental
+     * MediaTailor serves a manifest, it reports your CDN as the source for ad
+     * segments.</p>
+     */
+    inline bool AdSegmentUrlPrefixHasBeenSet() const { return m_adSegmentUrlPrefixHasBeenSet; }
 
     /**
      * <p>A non-default content delivery network (CDN) to serve ad segments. By
@@ -134,6 +146,15 @@ namespace Model
      * it reports your CDN as the source for content segments.</p>
      */
     inline const Aws::String& GetContentSegmentUrlPrefix() const{ return m_contentSegmentUrlPrefix; }
+
+    /**
+     * <p>A content delivery network (CDN) to cache content segments, so that content
+     * requests don’t always have to go to the origin server. First, create a rule in
+     * your CDN for the content segment origin server. Then specify the rule's name in
+     * this ContentSegmentUrlPrefix. When AWS Elemental MediaTailor serves a manifest,
+     * it reports your CDN as the source for content segments.</p>
+     */
+    inline bool ContentSegmentUrlPrefixHasBeenSet() const { return m_contentSegmentUrlPrefixHasBeenSet; }
 
     /**
      * <p>A content delivery network (CDN) to cache content segments, so that content

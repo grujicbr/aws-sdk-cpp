@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     UserPoolPolicyType();
-    UserPoolPolicyType(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserPoolPolicyType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserPoolPolicyType(Aws::Utils::Json::JsonView jsonValue);
+    UserPoolPolicyType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The password policy.</p>
      */
     inline const PasswordPolicyType& GetPasswordPolicy() const{ return m_passwordPolicy; }
+
+    /**
+     * <p>The password policy.</p>
+     */
+    inline bool PasswordPolicyHasBeenSet() const { return m_passwordPolicyHasBeenSet; }
 
     /**
      * <p>The password policy.</p>

@@ -46,11 +46,17 @@ TaskDefinition::TaskDefinition() :
     m_compatibilitiesHasBeenSet(false),
     m_requiresCompatibilitiesHasBeenSet(false),
     m_cpuHasBeenSet(false),
-    m_memoryHasBeenSet(false)
+    m_memoryHasBeenSet(false),
+    m_inferenceAcceleratorsHasBeenSet(false),
+    m_pidMode(PidMode::NOT_SET),
+    m_pidModeHasBeenSet(false),
+    m_ipcMode(IpcMode::NOT_SET),
+    m_ipcModeHasBeenSet(false),
+    m_proxyConfigurationHasBeenSet(false)
 {
 }
 
-TaskDefinition::TaskDefinition(const JsonValue& jsonValue) : 
+TaskDefinition::TaskDefinition(JsonView jsonValue) : 
     m_taskDefinitionArnHasBeenSet(false),
     m_containerDefinitionsHasBeenSet(false),
     m_familyHasBeenSet(false),
@@ -68,12 +74,18 @@ TaskDefinition::TaskDefinition(const JsonValue& jsonValue) :
     m_compatibilitiesHasBeenSet(false),
     m_requiresCompatibilitiesHasBeenSet(false),
     m_cpuHasBeenSet(false),
-    m_memoryHasBeenSet(false)
+    m_memoryHasBeenSet(false),
+    m_inferenceAcceleratorsHasBeenSet(false),
+    m_pidMode(PidMode::NOT_SET),
+    m_pidModeHasBeenSet(false),
+    m_ipcMode(IpcMode::NOT_SET),
+    m_ipcModeHasBeenSet(false),
+    m_proxyConfigurationHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-TaskDefinition& TaskDefinition::operator =(const JsonValue& jsonValue)
+TaskDefinition& TaskDefinition::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("taskDefinitionArn"))
   {
@@ -84,7 +96,7 @@ TaskDefinition& TaskDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("containerDefinitions"))
   {
-    Array<JsonValue> containerDefinitionsJsonList = jsonValue.GetArray("containerDefinitions");
+    Array<JsonView> containerDefinitionsJsonList = jsonValue.GetArray("containerDefinitions");
     for(unsigned containerDefinitionsIndex = 0; containerDefinitionsIndex < containerDefinitionsJsonList.GetLength(); ++containerDefinitionsIndex)
     {
       m_containerDefinitions.push_back(containerDefinitionsJsonList[containerDefinitionsIndex].AsObject());
@@ -129,7 +141,7 @@ TaskDefinition& TaskDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("volumes"))
   {
-    Array<JsonValue> volumesJsonList = jsonValue.GetArray("volumes");
+    Array<JsonView> volumesJsonList = jsonValue.GetArray("volumes");
     for(unsigned volumesIndex = 0; volumesIndex < volumesJsonList.GetLength(); ++volumesIndex)
     {
       m_volumes.push_back(volumesJsonList[volumesIndex].AsObject());
@@ -146,7 +158,7 @@ TaskDefinition& TaskDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("requiresAttributes"))
   {
-    Array<JsonValue> requiresAttributesJsonList = jsonValue.GetArray("requiresAttributes");
+    Array<JsonView> requiresAttributesJsonList = jsonValue.GetArray("requiresAttributes");
     for(unsigned requiresAttributesIndex = 0; requiresAttributesIndex < requiresAttributesJsonList.GetLength(); ++requiresAttributesIndex)
     {
       m_requiresAttributes.push_back(requiresAttributesJsonList[requiresAttributesIndex].AsObject());
@@ -156,7 +168,7 @@ TaskDefinition& TaskDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("placementConstraints"))
   {
-    Array<JsonValue> placementConstraintsJsonList = jsonValue.GetArray("placementConstraints");
+    Array<JsonView> placementConstraintsJsonList = jsonValue.GetArray("placementConstraints");
     for(unsigned placementConstraintsIndex = 0; placementConstraintsIndex < placementConstraintsJsonList.GetLength(); ++placementConstraintsIndex)
     {
       m_placementConstraints.push_back(placementConstraintsJsonList[placementConstraintsIndex].AsObject());
@@ -166,7 +178,7 @@ TaskDefinition& TaskDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("compatibilities"))
   {
-    Array<JsonValue> compatibilitiesJsonList = jsonValue.GetArray("compatibilities");
+    Array<JsonView> compatibilitiesJsonList = jsonValue.GetArray("compatibilities");
     for(unsigned compatibilitiesIndex = 0; compatibilitiesIndex < compatibilitiesJsonList.GetLength(); ++compatibilitiesIndex)
     {
       m_compatibilities.push_back(CompatibilityMapper::GetCompatibilityForName(compatibilitiesJsonList[compatibilitiesIndex].AsString()));
@@ -176,7 +188,7 @@ TaskDefinition& TaskDefinition::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("requiresCompatibilities"))
   {
-    Array<JsonValue> requiresCompatibilitiesJsonList = jsonValue.GetArray("requiresCompatibilities");
+    Array<JsonView> requiresCompatibilitiesJsonList = jsonValue.GetArray("requiresCompatibilities");
     for(unsigned requiresCompatibilitiesIndex = 0; requiresCompatibilitiesIndex < requiresCompatibilitiesJsonList.GetLength(); ++requiresCompatibilitiesIndex)
     {
       m_requiresCompatibilities.push_back(CompatibilityMapper::GetCompatibilityForName(requiresCompatibilitiesJsonList[requiresCompatibilitiesIndex].AsString()));
@@ -196,6 +208,37 @@ TaskDefinition& TaskDefinition::operator =(const JsonValue& jsonValue)
     m_memory = jsonValue.GetString("memory");
 
     m_memoryHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("inferenceAccelerators"))
+  {
+    Array<JsonView> inferenceAcceleratorsJsonList = jsonValue.GetArray("inferenceAccelerators");
+    for(unsigned inferenceAcceleratorsIndex = 0; inferenceAcceleratorsIndex < inferenceAcceleratorsJsonList.GetLength(); ++inferenceAcceleratorsIndex)
+    {
+      m_inferenceAccelerators.push_back(inferenceAcceleratorsJsonList[inferenceAcceleratorsIndex].AsObject());
+    }
+    m_inferenceAcceleratorsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("pidMode"))
+  {
+    m_pidMode = PidModeMapper::GetPidModeForName(jsonValue.GetString("pidMode"));
+
+    m_pidModeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ipcMode"))
+  {
+    m_ipcMode = IpcModeMapper::GetIpcModeForName(jsonValue.GetString("ipcMode"));
+
+    m_ipcModeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("proxyConfiguration"))
+  {
+    m_proxyConfiguration = jsonValue.GetObject("proxyConfiguration");
+
+    m_proxyConfigurationHasBeenSet = true;
   }
 
   return *this;
@@ -320,6 +363,33 @@ JsonValue TaskDefinition::Jsonize() const
   if(m_memoryHasBeenSet)
   {
    payload.WithString("memory", m_memory);
+
+  }
+
+  if(m_inferenceAcceleratorsHasBeenSet)
+  {
+   Array<JsonValue> inferenceAcceleratorsJsonList(m_inferenceAccelerators.size());
+   for(unsigned inferenceAcceleratorsIndex = 0; inferenceAcceleratorsIndex < inferenceAcceleratorsJsonList.GetLength(); ++inferenceAcceleratorsIndex)
+   {
+     inferenceAcceleratorsJsonList[inferenceAcceleratorsIndex].AsObject(m_inferenceAccelerators[inferenceAcceleratorsIndex].Jsonize());
+   }
+   payload.WithArray("inferenceAccelerators", std::move(inferenceAcceleratorsJsonList));
+
+  }
+
+  if(m_pidModeHasBeenSet)
+  {
+   payload.WithString("pidMode", PidModeMapper::GetNameForPidMode(m_pidMode));
+  }
+
+  if(m_ipcModeHasBeenSet)
+  {
+   payload.WithString("ipcMode", IpcModeMapper::GetNameForIpcMode(m_ipcMode));
+  }
+
+  if(m_proxyConfigurationHasBeenSet)
+  {
+   payload.WithObject("proxyConfiguration", m_proxyConfiguration.Jsonize());
 
   }
 

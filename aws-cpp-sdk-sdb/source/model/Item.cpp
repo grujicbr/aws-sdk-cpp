@@ -54,13 +54,13 @@ Item& Item::operator =(const XmlNode& xmlNode)
     XmlNode nameNode = resultNode.FirstChild("Name");
     if(!nameNode.IsNull())
     {
-      m_name = StringUtils::Trim(nameNode.GetText().c_str());
+      m_name = Aws::Utils::Xml::DecodeEscapedXmlText(nameNode.GetText());
       m_nameHasBeenSet = true;
     }
     XmlNode alternateNameEncodingNode = resultNode.FirstChild("AlternateNameEncoding");
     if(!alternateNameEncodingNode.IsNull())
     {
-      m_alternateNameEncoding = StringUtils::Trim(alternateNameEncodingNode.GetText().c_str());
+      m_alternateNameEncoding = Aws::Utils::Xml::DecodeEscapedXmlText(alternateNameEncodingNode.GetText());
       m_alternateNameEncodingHasBeenSet = true;
     }
     XmlNode attributesNode = resultNode.FirstChild("Attribute");

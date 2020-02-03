@@ -38,11 +38,12 @@ ApiKey::ApiKey() :
     m_enabledHasBeenSet(false),
     m_createdDateHasBeenSet(false),
     m_lastUpdatedDateHasBeenSet(false),
-    m_stageKeysHasBeenSet(false)
+    m_stageKeysHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-ApiKey::ApiKey(const JsonValue& jsonValue) : 
+ApiKey::ApiKey(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_valueHasBeenSet(false),
     m_nameHasBeenSet(false),
@@ -52,12 +53,13 @@ ApiKey::ApiKey(const JsonValue& jsonValue) :
     m_enabledHasBeenSet(false),
     m_createdDateHasBeenSet(false),
     m_lastUpdatedDateHasBeenSet(false),
-    m_stageKeysHasBeenSet(false)
+    m_stageKeysHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ApiKey& ApiKey::operator =(const JsonValue& jsonValue)
+ApiKey& ApiKey::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("id"))
   {
@@ -117,12 +119,22 @@ ApiKey& ApiKey::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("stageKeys"))
   {
-    Array<JsonValue> stageKeysJsonList = jsonValue.GetArray("stageKeys");
+    Array<JsonView> stageKeysJsonList = jsonValue.GetArray("stageKeys");
     for(unsigned stageKeysIndex = 0; stageKeysIndex < stageKeysJsonList.GetLength(); ++stageKeysIndex)
     {
       m_stageKeys.push_back(stageKeysJsonList[stageKeysIndex].AsString());
     }
     m_stageKeysHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
   }
 
   return *this;
@@ -186,6 +198,17 @@ JsonValue ApiKey::Jsonize() const
      stageKeysJsonList[stageKeysIndex].AsString(m_stageKeys[stageKeysIndex]);
    }
    payload.WithArray("stageKeys", std::move(stageKeysJsonList));
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
 
   }
 

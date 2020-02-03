@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     StreamFile();
-    StreamFile(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamFile& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamFile(Aws::Utils::Json::JsonView jsonValue);
+    StreamFile& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The file ID.</p>
      */
     inline int GetFileId() const{ return m_fileId; }
+
+    /**
+     * <p>The file ID.</p>
+     */
+    inline bool FileIdHasBeenSet() const { return m_fileIdHasBeenSet; }
 
     /**
      * <p>The file ID.</p>
@@ -66,6 +72,11 @@ namespace Model
      * <p>The location of the file in S3.</p>
      */
     inline const S3Location& GetS3Location() const{ return m_s3Location; }
+
+    /**
+     * <p>The location of the file in S3.</p>
+     */
+    inline bool S3LocationHasBeenSet() const { return m_s3LocationHasBeenSet; }
 
     /**
      * <p>The location of the file in S3.</p>

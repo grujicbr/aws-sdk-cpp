@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ConstraintDetail();
-    ConstraintDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConstraintDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConstraintDetail(Aws::Utils::Json::JsonView jsonValue);
+    ConstraintDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The identifier of the constraint.</p>
      */
     inline const Aws::String& GetConstraintId() const{ return m_constraintId; }
+
+    /**
+     * <p>The identifier of the constraint.</p>
+     */
+    inline bool ConstraintIdHasBeenSet() const { return m_constraintIdHasBeenSet; }
 
     /**
      * <p>The identifier of the constraint.</p>
@@ -84,50 +90,57 @@ namespace Model
 
     /**
      * <p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li>
-     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p>
-     * </li> </ul>
+     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p>STACKSET</p> </li> <li> <p>
+     * <code>TEMPLATE</code> </p> </li> </ul>
      */
     inline const Aws::String& GetType() const{ return m_type; }
 
     /**
      * <p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li>
-     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p>
-     * </li> </ul>
+     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p>STACKSET</p> </li> <li> <p>
+     * <code>TEMPLATE</code> </p> </li> </ul>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li>
+     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p>STACKSET</p> </li> <li> <p>
+     * <code>TEMPLATE</code> </p> </li> </ul>
      */
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
      * <p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li>
-     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p>
-     * </li> </ul>
+     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p>STACKSET</p> </li> <li> <p>
+     * <code>TEMPLATE</code> </p> </li> </ul>
      */
     inline void SetType(Aws::String&& value) { m_typeHasBeenSet = true; m_type = std::move(value); }
 
     /**
      * <p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li>
-     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p>
-     * </li> </ul>
+     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p>STACKSET</p> </li> <li> <p>
+     * <code>TEMPLATE</code> </p> </li> </ul>
      */
     inline void SetType(const char* value) { m_typeHasBeenSet = true; m_type.assign(value); }
 
     /**
      * <p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li>
-     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p>
-     * </li> </ul>
+     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p>STACKSET</p> </li> <li> <p>
+     * <code>TEMPLATE</code> </p> </li> </ul>
      */
     inline ConstraintDetail& WithType(const Aws::String& value) { SetType(value); return *this;}
 
     /**
      * <p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li>
-     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p>
-     * </li> </ul>
+     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p>STACKSET</p> </li> <li> <p>
+     * <code>TEMPLATE</code> </p> </li> </ul>
      */
     inline ConstraintDetail& WithType(Aws::String&& value) { SetType(std::move(value)); return *this;}
 
     /**
      * <p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li>
-     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p>
-     * </li> </ul>
+     * <p> <code>NOTIFICATION</code> </p> </li> <li> <p>STACKSET</p> </li> <li> <p>
+     * <code>TEMPLATE</code> </p> </li> </ul>
      */
     inline ConstraintDetail& WithType(const char* value) { SetType(value); return *this;}
 
@@ -136,6 +149,11 @@ namespace Model
      * <p>The description of the constraint.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the constraint.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the constraint.</p>
@@ -172,6 +190,11 @@ namespace Model
      * <p>The owner of the constraint.</p>
      */
     inline const Aws::String& GetOwner() const{ return m_owner; }
+
+    /**
+     * <p>The owner of the constraint.</p>
+     */
+    inline bool OwnerHasBeenSet() const { return m_ownerHasBeenSet; }
 
     /**
      * <p>The owner of the constraint.</p>

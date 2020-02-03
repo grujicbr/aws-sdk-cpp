@@ -23,7 +23,11 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 CreateClusterRequest::CreateClusterRequest() : 
-    m_clusterNameHasBeenSet(false)
+    m_clusterNameHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_settingsHasBeenSet(false),
+    m_capacityProvidersHasBeenSet(false),
+    m_defaultCapacityProviderStrategyHasBeenSet(false)
 {
 }
 
@@ -37,7 +41,51 @@ Aws::String CreateClusterRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_settingsHasBeenSet)
+  {
+   Array<JsonValue> settingsJsonList(m_settings.size());
+   for(unsigned settingsIndex = 0; settingsIndex < settingsJsonList.GetLength(); ++settingsIndex)
+   {
+     settingsJsonList[settingsIndex].AsObject(m_settings[settingsIndex].Jsonize());
+   }
+   payload.WithArray("settings", std::move(settingsJsonList));
+
+  }
+
+  if(m_capacityProvidersHasBeenSet)
+  {
+   Array<JsonValue> capacityProvidersJsonList(m_capacityProviders.size());
+   for(unsigned capacityProvidersIndex = 0; capacityProvidersIndex < capacityProvidersJsonList.GetLength(); ++capacityProvidersIndex)
+   {
+     capacityProvidersJsonList[capacityProvidersIndex].AsString(m_capacityProviders[capacityProvidersIndex]);
+   }
+   payload.WithArray("capacityProviders", std::move(capacityProvidersJsonList));
+
+  }
+
+  if(m_defaultCapacityProviderStrategyHasBeenSet)
+  {
+   Array<JsonValue> defaultCapacityProviderStrategyJsonList(m_defaultCapacityProviderStrategy.size());
+   for(unsigned defaultCapacityProviderStrategyIndex = 0; defaultCapacityProviderStrategyIndex < defaultCapacityProviderStrategyJsonList.GetLength(); ++defaultCapacityProviderStrategyIndex)
+   {
+     defaultCapacityProviderStrategyJsonList[defaultCapacityProviderStrategyIndex].AsObject(m_defaultCapacityProviderStrategy[defaultCapacityProviderStrategyIndex].Jsonize());
+   }
+   payload.WithArray("defaultCapacityProviderStrategy", std::move(defaultCapacityProviderStrategyJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateClusterRequest::GetRequestSpecificHeaders() const

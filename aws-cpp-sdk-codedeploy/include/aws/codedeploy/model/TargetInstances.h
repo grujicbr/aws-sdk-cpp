@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     TargetInstances();
-    TargetInstances(const Aws::Utils::Json::JsonValue& jsonValue);
-    TargetInstances& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TargetInstances(Aws::Utils::Json::JsonView jsonValue);
+    TargetInstances& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,13 @@ namespace Model
      * same call as ec2TagSet.</p>
      */
     inline const Aws::Vector<EC2TagFilter>& GetTagFilters() const{ return m_tagFilters; }
+
+    /**
+     * <p>The tag filter key, type, and value used to identify Amazon EC2 instances in
+     * a replacement environment for a blue/green deployment. Cannot be used in the
+     * same call as ec2TagSet.</p>
+     */
+    inline bool TagFiltersHasBeenSet() const { return m_tagFiltersHasBeenSet; }
 
     /**
      * <p>The tag filter key, type, and value used to identify Amazon EC2 instances in
@@ -110,6 +118,12 @@ namespace Model
      * <p>The names of one or more Auto Scaling groups to identify a replacement
      * environment for a blue/green deployment.</p>
      */
+    inline bool AutoScalingGroupsHasBeenSet() const { return m_autoScalingGroupsHasBeenSet; }
+
+    /**
+     * <p>The names of one or more Auto Scaling groups to identify a replacement
+     * environment for a blue/green deployment.</p>
+     */
     inline void SetAutoScalingGroups(const Aws::Vector<Aws::String>& value) { m_autoScalingGroupsHasBeenSet = true; m_autoScalingGroups = value; }
 
     /**
@@ -155,6 +169,13 @@ namespace Model
      * a blue/green deployment. Cannot be used in the same call as tagFilters.</p>
      */
     inline const EC2TagSet& GetEc2TagSet() const{ return m_ec2TagSet; }
+
+    /**
+     * <p>Information about the groups of EC2 instance tags that an instance must be
+     * identified by in order for it to be included in the replacement environment for
+     * a blue/green deployment. Cannot be used in the same call as tagFilters.</p>
+     */
+    inline bool Ec2TagSetHasBeenSet() const { return m_ec2TagSetHasBeenSet; }
 
     /**
      * <p>Information about the groups of EC2 instance tags that an instance must be

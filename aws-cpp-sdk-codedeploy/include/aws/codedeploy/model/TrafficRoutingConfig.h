@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     TrafficRoutingConfig();
-    TrafficRoutingConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrafficRoutingConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrafficRoutingConfig(Aws::Utils::Json::JsonView jsonValue);
+    TrafficRoutingConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * <code>TimeBasedLinear</code>) used by a deployment configuration .</p>
      */
     inline const TrafficRoutingType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of traffic shifting (<code>TimeBasedCanary</code> or
+     * <code>TimeBasedLinear</code>) used by a deployment configuration .</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of traffic shifting (<code>TimeBasedCanary</code> or
@@ -93,6 +100,13 @@ namespace Model
      * another in two increments. The original and target Lambda function versions are
      * specified in the deployment's AppSpec file.</p>
      */
+    inline bool TimeBasedCanaryHasBeenSet() const { return m_timeBasedCanaryHasBeenSet; }
+
+    /**
+     * <p>A configuration that shifts traffic from one version of a Lambda function to
+     * another in two increments. The original and target Lambda function versions are
+     * specified in the deployment's AppSpec file.</p>
+     */
     inline void SetTimeBasedCanary(const TimeBasedCanary& value) { m_timeBasedCanaryHasBeenSet = true; m_timeBasedCanary = value; }
 
     /**
@@ -124,6 +138,14 @@ namespace Model
      * deployment's AppSpec file.</p>
      */
     inline const TimeBasedLinear& GetTimeBasedLinear() const{ return m_timeBasedLinear; }
+
+    /**
+     * <p>A configuration that shifts traffic from one version of a Lambda function to
+     * another in equal increments, with an equal number of minutes between each
+     * increment. The original and target Lambda function versions are specified in the
+     * deployment's AppSpec file.</p>
+     */
+    inline bool TimeBasedLinearHasBeenSet() const { return m_timeBasedLinearHasBeenSet; }
 
     /**
      * <p>A configuration that shifts traffic from one version of a Lambda function to

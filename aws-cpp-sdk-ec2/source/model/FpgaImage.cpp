@@ -45,7 +45,9 @@ FpgaImage::FpgaImage() :
     m_productCodesHasBeenSet(false),
     m_tagsHasBeenSet(false),
     m_public(false),
-    m_publicHasBeenSet(false)
+    m_publicHasBeenSet(false),
+    m_dataRetentionSupport(false),
+    m_dataRetentionSupportHasBeenSet(false)
 {
 }
 
@@ -64,7 +66,9 @@ FpgaImage::FpgaImage(const XmlNode& xmlNode) :
     m_productCodesHasBeenSet(false),
     m_tagsHasBeenSet(false),
     m_public(false),
-    m_publicHasBeenSet(false)
+    m_publicHasBeenSet(false),
+    m_dataRetentionSupport(false),
+    m_dataRetentionSupportHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -78,31 +82,31 @@ FpgaImage& FpgaImage::operator =(const XmlNode& xmlNode)
     XmlNode fpgaImageIdNode = resultNode.FirstChild("fpgaImageId");
     if(!fpgaImageIdNode.IsNull())
     {
-      m_fpgaImageId = StringUtils::Trim(fpgaImageIdNode.GetText().c_str());
+      m_fpgaImageId = Aws::Utils::Xml::DecodeEscapedXmlText(fpgaImageIdNode.GetText());
       m_fpgaImageIdHasBeenSet = true;
     }
     XmlNode fpgaImageGlobalIdNode = resultNode.FirstChild("fpgaImageGlobalId");
     if(!fpgaImageGlobalIdNode.IsNull())
     {
-      m_fpgaImageGlobalId = StringUtils::Trim(fpgaImageGlobalIdNode.GetText().c_str());
+      m_fpgaImageGlobalId = Aws::Utils::Xml::DecodeEscapedXmlText(fpgaImageGlobalIdNode.GetText());
       m_fpgaImageGlobalIdHasBeenSet = true;
     }
     XmlNode nameNode = resultNode.FirstChild("name");
     if(!nameNode.IsNull())
     {
-      m_name = StringUtils::Trim(nameNode.GetText().c_str());
+      m_name = Aws::Utils::Xml::DecodeEscapedXmlText(nameNode.GetText());
       m_nameHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode shellVersionNode = resultNode.FirstChild("shellVersion");
     if(!shellVersionNode.IsNull())
     {
-      m_shellVersion = StringUtils::Trim(shellVersionNode.GetText().c_str());
+      m_shellVersion = Aws::Utils::Xml::DecodeEscapedXmlText(shellVersionNode.GetText());
       m_shellVersionHasBeenSet = true;
     }
     XmlNode pciIdNode = resultNode.FirstChild("pciId");
@@ -120,25 +124,25 @@ FpgaImage& FpgaImage::operator =(const XmlNode& xmlNode)
     XmlNode createTimeNode = resultNode.FirstChild("createTime");
     if(!createTimeNode.IsNull())
     {
-      m_createTime = DateTime(StringUtils::Trim(createTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_createTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(createTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_createTimeHasBeenSet = true;
     }
     XmlNode updateTimeNode = resultNode.FirstChild("updateTime");
     if(!updateTimeNode.IsNull())
     {
-      m_updateTime = DateTime(StringUtils::Trim(updateTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_updateTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(updateTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_updateTimeHasBeenSet = true;
     }
     XmlNode ownerIdNode = resultNode.FirstChild("ownerId");
     if(!ownerIdNode.IsNull())
     {
-      m_ownerId = StringUtils::Trim(ownerIdNode.GetText().c_str());
+      m_ownerId = Aws::Utils::Xml::DecodeEscapedXmlText(ownerIdNode.GetText());
       m_ownerIdHasBeenSet = true;
     }
     XmlNode ownerAliasNode = resultNode.FirstChild("ownerAlias");
     if(!ownerAliasNode.IsNull())
     {
-      m_ownerAlias = StringUtils::Trim(ownerAliasNode.GetText().c_str());
+      m_ownerAlias = Aws::Utils::Xml::DecodeEscapedXmlText(ownerAliasNode.GetText());
       m_ownerAliasHasBeenSet = true;
     }
     XmlNode productCodesNode = resultNode.FirstChild("productCodes");
@@ -168,8 +172,14 @@ FpgaImage& FpgaImage::operator =(const XmlNode& xmlNode)
     XmlNode publicNode = resultNode.FirstChild("public");
     if(!publicNode.IsNull())
     {
-      m_public = StringUtils::ConvertToBool(StringUtils::Trim(publicNode.GetText().c_str()).c_str());
+      m_public = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(publicNode.GetText()).c_str()).c_str());
       m_publicHasBeenSet = true;
+    }
+    XmlNode dataRetentionSupportNode = resultNode.FirstChild("dataRetentionSupport");
+    if(!dataRetentionSupportNode.IsNull())
+    {
+      m_dataRetentionSupport = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(dataRetentionSupportNode.GetText()).c_str()).c_str());
+      m_dataRetentionSupportHasBeenSet = true;
     }
   }
 
@@ -264,6 +274,11 @@ void FpgaImage::OutputToStream(Aws::OStream& oStream, const char* location, unsi
       oStream << location << index << locationValue << ".Public=" << std::boolalpha << m_public << "&";
   }
 
+  if(m_dataRetentionSupportHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".DataRetentionSupport=" << std::boolalpha << m_dataRetentionSupport << "&";
+  }
+
 }
 
 void FpgaImage::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -339,6 +354,10 @@ void FpgaImage::OutputToStream(Aws::OStream& oStream, const char* location) cons
   if(m_publicHasBeenSet)
   {
       oStream << location << ".Public=" << std::boolalpha << m_public << "&";
+  }
+  if(m_dataRetentionSupportHasBeenSet)
+  {
+      oStream << location << ".DataRetentionSupport=" << std::boolalpha << m_dataRetentionSupport << "&";
   }
 }
 

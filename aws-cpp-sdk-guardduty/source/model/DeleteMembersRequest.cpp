@@ -23,8 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 DeleteMembersRequest::DeleteMembersRequest() : 
-    m_accountIdsHasBeenSet(false),
-    m_detectorIdHasBeenSet(false)
+    m_detectorIdHasBeenSet(false),
+    m_accountIdsHasBeenSet(false)
 {
 }
 
@@ -43,7 +43,7 @@ Aws::String DeleteMembersRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

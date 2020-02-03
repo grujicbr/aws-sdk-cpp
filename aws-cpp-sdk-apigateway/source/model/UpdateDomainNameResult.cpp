@@ -26,18 +26,22 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-UpdateDomainNameResult::UpdateDomainNameResult()
+UpdateDomainNameResult::UpdateDomainNameResult() : 
+    m_domainNameStatus(DomainNameStatus::NOT_SET),
+    m_securityPolicy(SecurityPolicy::NOT_SET)
 {
 }
 
-UpdateDomainNameResult::UpdateDomainNameResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+UpdateDomainNameResult::UpdateDomainNameResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_domainNameStatus(DomainNameStatus::NOT_SET),
+    m_securityPolicy(SecurityPolicy::NOT_SET)
 {
   *this = result;
 }
 
 UpdateDomainNameResult& UpdateDomainNameResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("domainName"))
   {
     m_domainName = jsonValue.GetString("domainName");
@@ -102,6 +106,33 @@ UpdateDomainNameResult& UpdateDomainNameResult::operator =(const Aws::AmazonWebS
   {
     m_endpointConfiguration = jsonValue.GetObject("endpointConfiguration");
 
+  }
+
+  if(jsonValue.ValueExists("domainNameStatus"))
+  {
+    m_domainNameStatus = DomainNameStatusMapper::GetDomainNameStatusForName(jsonValue.GetString("domainNameStatus"));
+
+  }
+
+  if(jsonValue.ValueExists("domainNameStatusMessage"))
+  {
+    m_domainNameStatusMessage = jsonValue.GetString("domainNameStatusMessage");
+
+  }
+
+  if(jsonValue.ValueExists("securityPolicy"))
+  {
+    m_securityPolicy = SecurityPolicyMapper::GetSecurityPolicyForName(jsonValue.GetString("securityPolicy"));
+
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
   }
 
 

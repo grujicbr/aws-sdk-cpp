@@ -33,21 +33,25 @@ ProvisioningArtifactProperties::ProvisioningArtifactProperties() :
     m_descriptionHasBeenSet(false),
     m_infoHasBeenSet(false),
     m_type(ProvisioningArtifactType::NOT_SET),
-    m_typeHasBeenSet(false)
+    m_typeHasBeenSet(false),
+    m_disableTemplateValidation(false),
+    m_disableTemplateValidationHasBeenSet(false)
 {
 }
 
-ProvisioningArtifactProperties::ProvisioningArtifactProperties(const JsonValue& jsonValue) : 
+ProvisioningArtifactProperties::ProvisioningArtifactProperties(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_infoHasBeenSet(false),
     m_type(ProvisioningArtifactType::NOT_SET),
-    m_typeHasBeenSet(false)
+    m_typeHasBeenSet(false),
+    m_disableTemplateValidation(false),
+    m_disableTemplateValidationHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ProvisioningArtifactProperties& ProvisioningArtifactProperties::operator =(const JsonValue& jsonValue)
+ProvisioningArtifactProperties& ProvisioningArtifactProperties::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -65,7 +69,7 @@ ProvisioningArtifactProperties& ProvisioningArtifactProperties::operator =(const
 
   if(jsonValue.ValueExists("Info"))
   {
-    Aws::Map<Aws::String, JsonValue> infoJsonMap = jsonValue.GetObject("Info").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> infoJsonMap = jsonValue.GetObject("Info").GetAllObjects();
     for(auto& infoItem : infoJsonMap)
     {
       m_info[infoItem.first] = infoItem.second.AsString();
@@ -78,6 +82,13 @@ ProvisioningArtifactProperties& ProvisioningArtifactProperties::operator =(const
     m_type = ProvisioningArtifactTypeMapper::GetProvisioningArtifactTypeForName(jsonValue.GetString("Type"));
 
     m_typeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("DisableTemplateValidation"))
+  {
+    m_disableTemplateValidation = jsonValue.GetBool("DisableTemplateValidation");
+
+    m_disableTemplateValidationHasBeenSet = true;
   }
 
   return *this;
@@ -113,6 +124,12 @@ JsonValue ProvisioningArtifactProperties::Jsonize() const
   if(m_typeHasBeenSet)
   {
    payload.WithString("Type", ProvisioningArtifactTypeMapper::GetNameForProvisioningArtifactType(m_type));
+  }
+
+  if(m_disableTemplateValidationHasBeenSet)
+  {
+   payload.WithBool("DisableTemplateValidation", m_disableTemplateValidation);
+
   }
 
   return payload;

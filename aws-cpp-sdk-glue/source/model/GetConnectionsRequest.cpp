@@ -25,6 +25,8 @@ using namespace Aws::Utils;
 GetConnectionsRequest::GetConnectionsRequest() : 
     m_catalogIdHasBeenSet(false),
     m_filterHasBeenSet(false),
+    m_hidePassword(false),
+    m_hidePasswordHasBeenSet(false),
     m_nextTokenHasBeenSet(false),
     m_maxResults(0),
     m_maxResultsHasBeenSet(false)
@@ -47,6 +49,12 @@ Aws::String GetConnectionsRequest::SerializePayload() const
 
   }
 
+  if(m_hidePasswordHasBeenSet)
+  {
+   payload.WithBool("HidePassword", m_hidePassword);
+
+  }
+
   if(m_nextTokenHasBeenSet)
   {
    payload.WithString("NextToken", m_nextToken);
@@ -59,7 +67,7 @@ Aws::String GetConnectionsRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection GetConnectionsRequest::GetRequestSpecificHeaders() const

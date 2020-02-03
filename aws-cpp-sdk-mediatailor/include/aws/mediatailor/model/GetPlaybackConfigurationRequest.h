@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetPlaybackConfigurationRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -43,37 +43,42 @@ namespace Model
 
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The identifier for the playback configuration.</p>
      */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline GetPlaybackConfigurationRequest& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline GetPlaybackConfigurationRequest& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
-     * <p>The identifier for the configuration.</p>
+     * <p>The identifier for the playback configuration.</p>
      */
     inline GetPlaybackConfigurationRequest& WithName(const char* value) { SetName(value); return *this;}
 

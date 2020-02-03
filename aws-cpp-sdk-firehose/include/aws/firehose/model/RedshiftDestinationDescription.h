@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     RedshiftDestinationDescription();
-    RedshiftDestinationDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    RedshiftDestinationDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RedshiftDestinationDescription(Aws::Utils::Json::JsonView jsonValue);
+    RedshiftDestinationDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +60,14 @@ namespace Model
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
      */
     inline const Aws::String& GetRoleARN() const{ return m_roleARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the AWS credentials. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the AWS credentials. For more information,
@@ -117,6 +126,11 @@ namespace Model
     /**
      * <p>The database connection string.</p>
      */
+    inline bool ClusterJDBCURLHasBeenSet() const { return m_clusterJDBCURLHasBeenSet; }
+
+    /**
+     * <p>The database connection string.</p>
+     */
     inline void SetClusterJDBCURL(const Aws::String& value) { m_clusterJDBCURLHasBeenSet = true; m_clusterJDBCURL = value; }
 
     /**
@@ -153,6 +167,11 @@ namespace Model
     /**
      * <p>The <code>COPY</code> command.</p>
      */
+    inline bool CopyCommandHasBeenSet() const { return m_copyCommandHasBeenSet; }
+
+    /**
+     * <p>The <code>COPY</code> command.</p>
+     */
     inline void SetCopyCommand(const CopyCommand& value) { m_copyCommandHasBeenSet = true; m_copyCommand = value; }
 
     /**
@@ -175,6 +194,11 @@ namespace Model
      * <p>The name of the user.</p>
      */
     inline const Aws::String& GetUsername() const{ return m_username; }
+
+    /**
+     * <p>The name of the user.</p>
+     */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
 
     /**
      * <p>The name of the user.</p>
@@ -217,6 +241,12 @@ namespace Model
      * <p>The retry behavior in case Kinesis Data Firehose is unable to deliver
      * documents to Amazon Redshift. Default value is 3600 (60 minutes).</p>
      */
+    inline bool RetryOptionsHasBeenSet() const { return m_retryOptionsHasBeenSet; }
+
+    /**
+     * <p>The retry behavior in case Kinesis Data Firehose is unable to deliver
+     * documents to Amazon Redshift. Default value is 3600 (60 minutes).</p>
+     */
     inline void SetRetryOptions(const RedshiftRetryOptions& value) { m_retryOptionsHasBeenSet = true; m_retryOptions = value; }
 
     /**
@@ -242,6 +272,11 @@ namespace Model
      * <p>The Amazon S3 destination.</p>
      */
     inline const S3DestinationDescription& GetS3DestinationDescription() const{ return m_s3DestinationDescription; }
+
+    /**
+     * <p>The Amazon S3 destination.</p>
+     */
+    inline bool S3DestinationDescriptionHasBeenSet() const { return m_s3DestinationDescriptionHasBeenSet; }
 
     /**
      * <p>The Amazon S3 destination.</p>
@@ -272,6 +307,11 @@ namespace Model
     /**
      * <p>The data processing configuration.</p>
      */
+    inline bool ProcessingConfigurationHasBeenSet() const { return m_processingConfigurationHasBeenSet; }
+
+    /**
+     * <p>The data processing configuration.</p>
+     */
     inline void SetProcessingConfiguration(const ProcessingConfiguration& value) { m_processingConfigurationHasBeenSet = true; m_processingConfiguration = value; }
 
     /**
@@ -294,6 +334,11 @@ namespace Model
      * <p>The Amazon S3 backup mode.</p>
      */
     inline const RedshiftS3BackupMode& GetS3BackupMode() const{ return m_s3BackupMode; }
+
+    /**
+     * <p>The Amazon S3 backup mode.</p>
+     */
+    inline bool S3BackupModeHasBeenSet() const { return m_s3BackupModeHasBeenSet; }
 
     /**
      * <p>The Amazon S3 backup mode.</p>
@@ -324,6 +369,11 @@ namespace Model
     /**
      * <p>The configuration for backup in Amazon S3.</p>
      */
+    inline bool S3BackupDescriptionHasBeenSet() const { return m_s3BackupDescriptionHasBeenSet; }
+
+    /**
+     * <p>The configuration for backup in Amazon S3.</p>
+     */
     inline void SetS3BackupDescription(const S3DestinationDescription& value) { m_s3BackupDescriptionHasBeenSet = true; m_s3BackupDescription = value; }
 
     /**
@@ -346,6 +396,11 @@ namespace Model
      * <p>The Amazon CloudWatch logging options for your delivery stream.</p>
      */
     inline const CloudWatchLoggingOptions& GetCloudWatchLoggingOptions() const{ return m_cloudWatchLoggingOptions; }
+
+    /**
+     * <p>The Amazon CloudWatch logging options for your delivery stream.</p>
+     */
+    inline bool CloudWatchLoggingOptionsHasBeenSet() const { return m_cloudWatchLoggingOptionsHasBeenSet; }
 
     /**
      * <p>The Amazon CloudWatch logging options for your delivery stream.</p>

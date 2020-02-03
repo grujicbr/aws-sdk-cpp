@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -34,8 +35,8 @@ namespace Model
 
   /**
    * <p>Input face recognition parameters for an Amazon Rekognition stream processor.
-   * <code>FaceRecognitionSettings</code> is a request parameter for .</p><p><h3>See
-   * Also:</h3>   <a
+   * <code>FaceRecognitionSettings</code> is a request parameter for
+   * <a>CreateStreamProcessor</a>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/FaceSearchSettings">AWS
    * API Reference</a></p>
    */
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     FaceSearchSettings();
-    FaceSearchSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    FaceSearchSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FaceSearchSettings(Aws::Utils::Json::JsonView jsonValue);
+    FaceSearchSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ID of a collection that contains faces that you want to search for.</p>
      */
     inline const Aws::String& GetCollectionId() const{ return m_collectionId; }
+
+    /**
+     * <p>The ID of a collection that contains faces that you want to search for.</p>
+     */
+    inline bool CollectionIdHasBeenSet() const { return m_collectionIdHasBeenSet; }
 
     /**
      * <p>The ID of a collection that contains faces that you want to search for.</p>
@@ -90,6 +96,13 @@ namespace Model
      * confidence.</p>
      */
     inline double GetFaceMatchThreshold() const{ return m_faceMatchThreshold; }
+
+    /**
+     * <p>Minimum face match confidence score that must be met to return a result for a
+     * recognized face. Default is 70. 0 is the lowest confidence. 100 is the highest
+     * confidence.</p>
+     */
+    inline bool FaceMatchThresholdHasBeenSet() const { return m_faceMatchThresholdHasBeenSet; }
 
     /**
      * <p>Minimum face match confidence score that must be met to return a result for a

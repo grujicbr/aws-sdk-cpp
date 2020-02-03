@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ProvisioningParameter();
-    ProvisioningParameter(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProvisioningParameter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProvisioningParameter(Aws::Utils::Json::JsonView jsonValue);
+    ProvisioningParameter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The parameter key.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The parameter key.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The parameter key.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The parameter value.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The parameter value.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The parameter value.</p>

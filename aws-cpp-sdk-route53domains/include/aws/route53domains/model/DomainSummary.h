@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Route53Domains
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DomainSummary();
-    DomainSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainSummary(Aws::Utils::Json::JsonView jsonValue);
+    DomainSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the domain that the summary information applies to.</p>
      */
     inline const Aws::String& GetDomainName() const{ return m_domainName; }
+
+    /**
+     * <p>The name of the domain that the summary information applies to.</p>
+     */
+    inline bool DomainNameHasBeenSet() const { return m_domainNameHasBeenSet; }
 
     /**
      * <p>The name of the domain that the summary information applies to.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>Indicates whether the domain is automatically renewed upon expiration.</p>
      */
+    inline bool AutoRenewHasBeenSet() const { return m_autoRenewHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the domain is automatically renewed upon expiration.</p>
+     */
     inline void SetAutoRenew(bool value) { m_autoRenewHasBeenSet = true; m_autoRenew = value; }
 
     /**
@@ -109,6 +120,12 @@ namespace Model
      * <p>Indicates whether a domain is locked from unauthorized transfer to another
      * party.</p>
      */
+    inline bool TransferLockHasBeenSet() const { return m_transferLockHasBeenSet; }
+
+    /**
+     * <p>Indicates whether a domain is locked from unauthorized transfer to another
+     * party.</p>
+     */
     inline void SetTransferLock(bool value) { m_transferLockHasBeenSet = true; m_transferLock = value; }
 
     /**
@@ -122,6 +139,11 @@ namespace Model
      * <p>Expiration date of the domain in Coordinated Universal Time (UTC).</p>
      */
     inline const Aws::Utils::DateTime& GetExpiry() const{ return m_expiry; }
+
+    /**
+     * <p>Expiration date of the domain in Coordinated Universal Time (UTC).</p>
+     */
+    inline bool ExpiryHasBeenSet() const { return m_expiryHasBeenSet; }
 
     /**
      * <p>Expiration date of the domain in Coordinated Universal Time (UTC).</p>

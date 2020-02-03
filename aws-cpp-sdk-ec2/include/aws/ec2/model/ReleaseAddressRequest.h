@@ -27,15 +27,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for ReleaseAddress.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ReleaseAddressRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API ReleaseAddressRequest : public EC2Request
   {
   public:
     ReleaseAddressRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -53,6 +50,11 @@ namespace Model
      * <p>[EC2-VPC] The allocation ID. Required for EC2-VPC.</p>
      */
     inline const Aws::String& GetAllocationId() const{ return m_allocationId; }
+
+    /**
+     * <p>[EC2-VPC] The allocation ID. Required for EC2-VPC.</p>
+     */
+    inline bool AllocationIdHasBeenSet() const { return m_allocationIdHasBeenSet; }
 
     /**
      * <p>[EC2-VPC] The allocation ID. Required for EC2-VPC.</p>
@@ -93,6 +95,11 @@ namespace Model
     /**
      * <p>[EC2-Classic] The Elastic IP address. Required for EC2-Classic.</p>
      */
+    inline bool PublicIpHasBeenSet() const { return m_publicIpHasBeenSet; }
+
+    /**
+     * <p>[EC2-Classic] The Elastic IP address. Required for EC2-Classic.</p>
+     */
     inline void SetPublicIp(const Aws::String& value) { m_publicIpHasBeenSet = true; m_publicIp = value; }
 
     /**
@@ -122,12 +129,125 @@ namespace Model
 
 
     /**
+     * <p>The location that the IP address is released from.</p> <p>If you provide an
+     * incorrect network border group, you will receive an
+     * <code>InvalidAddress.NotFound</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> <note> <p>You cannot use a network border group with EC2 Classic.
+     * If you attempt this operation on EC2 classic, you will receive an
+     * <code>InvalidParameterCombination</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline const Aws::String& GetNetworkBorderGroup() const{ return m_networkBorderGroup; }
+
+    /**
+     * <p>The location that the IP address is released from.</p> <p>If you provide an
+     * incorrect network border group, you will receive an
+     * <code>InvalidAddress.NotFound</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> <note> <p>You cannot use a network border group with EC2 Classic.
+     * If you attempt this operation on EC2 classic, you will receive an
+     * <code>InvalidParameterCombination</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline bool NetworkBorderGroupHasBeenSet() const { return m_networkBorderGroupHasBeenSet; }
+
+    /**
+     * <p>The location that the IP address is released from.</p> <p>If you provide an
+     * incorrect network border group, you will receive an
+     * <code>InvalidAddress.NotFound</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> <note> <p>You cannot use a network border group with EC2 Classic.
+     * If you attempt this operation on EC2 classic, you will receive an
+     * <code>InvalidParameterCombination</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline void SetNetworkBorderGroup(const Aws::String& value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup = value; }
+
+    /**
+     * <p>The location that the IP address is released from.</p> <p>If you provide an
+     * incorrect network border group, you will receive an
+     * <code>InvalidAddress.NotFound</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> <note> <p>You cannot use a network border group with EC2 Classic.
+     * If you attempt this operation on EC2 classic, you will receive an
+     * <code>InvalidParameterCombination</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline void SetNetworkBorderGroup(Aws::String&& value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup = std::move(value); }
+
+    /**
+     * <p>The location that the IP address is released from.</p> <p>If you provide an
+     * incorrect network border group, you will receive an
+     * <code>InvalidAddress.NotFound</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> <note> <p>You cannot use a network border group with EC2 Classic.
+     * If you attempt this operation on EC2 classic, you will receive an
+     * <code>InvalidParameterCombination</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline void SetNetworkBorderGroup(const char* value) { m_networkBorderGroupHasBeenSet = true; m_networkBorderGroup.assign(value); }
+
+    /**
+     * <p>The location that the IP address is released from.</p> <p>If you provide an
+     * incorrect network border group, you will receive an
+     * <code>InvalidAddress.NotFound</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> <note> <p>You cannot use a network border group with EC2 Classic.
+     * If you attempt this operation on EC2 classic, you will receive an
+     * <code>InvalidParameterCombination</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline ReleaseAddressRequest& WithNetworkBorderGroup(const Aws::String& value) { SetNetworkBorderGroup(value); return *this;}
+
+    /**
+     * <p>The location that the IP address is released from.</p> <p>If you provide an
+     * incorrect network border group, you will receive an
+     * <code>InvalidAddress.NotFound</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> <note> <p>You cannot use a network border group with EC2 Classic.
+     * If you attempt this operation on EC2 classic, you will receive an
+     * <code>InvalidParameterCombination</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline ReleaseAddressRequest& WithNetworkBorderGroup(Aws::String&& value) { SetNetworkBorderGroup(std::move(value)); return *this;}
+
+    /**
+     * <p>The location that the IP address is released from.</p> <p>If you provide an
+     * incorrect network border group, you will receive an
+     * <code>InvalidAddress.NotFound</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> <note> <p>You cannot use a network border group with EC2 Classic.
+     * If you attempt this operation on EC2 classic, you will receive an
+     * <code>InvalidParameterCombination</code> error. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html">Error
+     * Codes</a>.</p> </note>
+     */
+    inline ReleaseAddressRequest& WithNetworkBorderGroup(const char* value) { SetNetworkBorderGroup(value); return *this;}
+
+
+    /**
      * <p>Checks whether you have the required permissions for the action, without
      * actually making the request, and provides an error response. If you have the
      * required permissions, the error response is <code>DryRunOperation</code>.
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
     inline bool GetDryRun() const{ return m_dryRun; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
 
     /**
      * <p>Checks whether you have the required permissions for the action, without
@@ -152,6 +272,9 @@ namespace Model
 
     Aws::String m_publicIp;
     bool m_publicIpHasBeenSet;
+
+    Aws::String m_networkBorderGroup;
+    bool m_networkBorderGroupHasBeenSet;
 
     bool m_dryRun;
     bool m_dryRunHasBeenSet;

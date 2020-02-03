@@ -50,15 +50,17 @@ enum class ResourceGroupsTaggingAPIErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  INTERNAL_SERVICE= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  CONCURRENT_MODIFICATION= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  CONSTRAINT_VIOLATION,
+  INTERNAL_SERVICE,
   INVALID_PARAMETER,
-  PAGINATION_TOKEN_EXPIRED,
-  THROTTLED
+  PAGINATION_TOKEN_EXPIRED
 };
 namespace ResourceGroupsTaggingAPIErrorMapper
 {

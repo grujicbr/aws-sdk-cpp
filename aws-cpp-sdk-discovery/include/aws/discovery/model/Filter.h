@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationDiscoveryService
@@ -36,8 +37,9 @@ namespace Model
   /**
    * <p>A filter that can use conditional operators.</p> <p>For more information
    * about filters, see <a
-   * href="http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html">Querying
-   * Discovered Configuration Items</a>. </p><p><h3>See Also:</h3>   <a
+   * href="https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-api-queries.html">Querying
+   * Discovered Configuration Items</a> in the <i>AWS Application Discovery Service
+   * User Guide</i>. </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/discovery-2015-11-01/Filter">AWS
    * API Reference</a></p>
    */
@@ -45,8 +47,8 @@ namespace Model
   {
   public:
     Filter();
-    Filter(const Aws::Utils::Json::JsonValue& jsonValue);
-    Filter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Filter(Aws::Utils::Json::JsonView jsonValue);
+    Filter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +56,11 @@ namespace Model
      * <p>The name of the filter.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the filter.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the filter.</p>
@@ -92,6 +99,13 @@ namespace Model
      * <code>Ubuntu</code> for the value.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>A string value on which to filter. For example, if you choose the
+     * <code>destinationServer.osVersion</code> filter name, you could specify
+     * <code>Ubuntu</code> for the value.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>A string value on which to filter. For example, if you choose the
@@ -153,6 +167,17 @@ namespace Model
      * items.</p>
      */
     inline const Aws::String& GetCondition() const{ return m_condition; }
+
+    /**
+     * <p>A conditional operator. The following operators are valid: EQUALS,
+     * NOT_EQUALS, CONTAINS, NOT_CONTAINS. If you specify multiple filters, the system
+     * utilizes all filters as though concatenated by <i>AND</i>. If you specify
+     * multiple values for a particular filter, the system differentiates the values
+     * using <i>OR</i>. Calling either <i>DescribeConfigurations</i> or
+     * <i>ListConfigurations</i> returns attributes of matching configuration
+     * items.</p>
+     */
+    inline bool ConditionHasBeenSet() const { return m_conditionHasBeenSet; }
 
     /**
      * <p>A conditional operator. The following operators are valid: EQUALS,

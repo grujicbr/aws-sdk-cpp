@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -35,7 +36,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for InputLossBehavior<p><h3>See Also:</h3>   <a
+   * Input Loss Behavior<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputLossBehavior">AWS
    * API Reference</a></p>
    */
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     InputLossBehavior();
-    InputLossBehavior(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputLossBehavior& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputLossBehavior(Aws::Utils::Json::JsonView jsonValue);
+    InputLossBehavior& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * Documentation update needed
      */
     inline int GetBlackFrameMsec() const{ return m_blackFrameMsec; }
+
+    /**
+     * Documentation update needed
+     */
+    inline bool BlackFrameMsecHasBeenSet() const { return m_blackFrameMsecHasBeenSet; }
 
     /**
      * Documentation update needed
@@ -69,6 +75,12 @@ namespace Model
      * Value: 6 hex characters representing the values of RGB.
      */
     inline const Aws::String& GetInputLossImageColor() const{ return m_inputLossImageColor; }
+
+    /**
+     * When input loss image type is "color" this field specifies the color to use.
+     * Value: 6 hex characters representing the values of RGB.
+     */
+    inline bool InputLossImageColorHasBeenSet() const { return m_inputLossImageColorHasBeenSet; }
 
     /**
      * When input loss image type is "color" this field specifies the color to use.
@@ -117,6 +129,12 @@ namespace Model
      * When input loss image type is "slate" these fields specify the parameters for
      * accessing the slate.
      */
+    inline bool InputLossImageSlateHasBeenSet() const { return m_inputLossImageSlateHasBeenSet; }
+
+    /**
+     * When input loss image type is "slate" these fields specify the parameters for
+     * accessing the slate.
+     */
     inline void SetInputLossImageSlate(const InputLocation& value) { m_inputLossImageSlateHasBeenSet = true; m_inputLossImageSlate = value; }
 
     /**
@@ -148,6 +166,12 @@ namespace Model
      * Indicates whether to substitute a solid color or a slate into the output after
      * input loss exceeds blackFrameMsec.
      */
+    inline bool InputLossImageTypeHasBeenSet() const { return m_inputLossImageTypeHasBeenSet; }
+
+    /**
+     * Indicates whether to substitute a solid color or a slate into the output after
+     * input loss exceeds blackFrameMsec.
+     */
     inline void SetInputLossImageType(const InputLossImageType& value) { m_inputLossImageTypeHasBeenSet = true; m_inputLossImageType = value; }
 
     /**
@@ -173,6 +197,11 @@ namespace Model
      * Documentation update needed
      */
     inline int GetRepeatFrameMsec() const{ return m_repeatFrameMsec; }
+
+    /**
+     * Documentation update needed
+     */
+    inline bool RepeatFrameMsecHasBeenSet() const { return m_repeatFrameMsecHasBeenSet; }
 
     /**
      * Documentation update needed

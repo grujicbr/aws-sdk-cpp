@@ -32,6 +32,7 @@ S3DestinationConfiguration::S3DestinationConfiguration() :
     m_roleARNHasBeenSet(false),
     m_bucketARNHasBeenSet(false),
     m_prefixHasBeenSet(false),
+    m_errorOutputPrefixHasBeenSet(false),
     m_bufferingHintsHasBeenSet(false),
     m_compressionFormat(CompressionFormat::NOT_SET),
     m_compressionFormatHasBeenSet(false),
@@ -40,10 +41,11 @@ S3DestinationConfiguration::S3DestinationConfiguration() :
 {
 }
 
-S3DestinationConfiguration::S3DestinationConfiguration(const JsonValue& jsonValue) : 
+S3DestinationConfiguration::S3DestinationConfiguration(JsonView jsonValue) : 
     m_roleARNHasBeenSet(false),
     m_bucketARNHasBeenSet(false),
     m_prefixHasBeenSet(false),
+    m_errorOutputPrefixHasBeenSet(false),
     m_bufferingHintsHasBeenSet(false),
     m_compressionFormat(CompressionFormat::NOT_SET),
     m_compressionFormatHasBeenSet(false),
@@ -53,7 +55,7 @@ S3DestinationConfiguration::S3DestinationConfiguration(const JsonValue& jsonValu
   *this = jsonValue;
 }
 
-S3DestinationConfiguration& S3DestinationConfiguration::operator =(const JsonValue& jsonValue)
+S3DestinationConfiguration& S3DestinationConfiguration::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("RoleARN"))
   {
@@ -74,6 +76,13 @@ S3DestinationConfiguration& S3DestinationConfiguration::operator =(const JsonVal
     m_prefix = jsonValue.GetString("Prefix");
 
     m_prefixHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ErrorOutputPrefix"))
+  {
+    m_errorOutputPrefix = jsonValue.GetString("ErrorOutputPrefix");
+
+    m_errorOutputPrefixHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("BufferingHints"))
@@ -126,6 +135,12 @@ JsonValue S3DestinationConfiguration::Jsonize() const
   if(m_prefixHasBeenSet)
   {
    payload.WithString("Prefix", m_prefix);
+
+  }
+
+  if(m_errorOutputPrefixHasBeenSet)
+  {
+   payload.WithString("ErrorOutputPrefix", m_errorOutputPrefix);
 
   }
 

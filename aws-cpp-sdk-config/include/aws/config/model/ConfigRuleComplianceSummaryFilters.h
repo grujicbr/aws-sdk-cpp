@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ConfigRuleComplianceSummaryFilters();
-    ConfigRuleComplianceSummaryFilters(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConfigRuleComplianceSummaryFilters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConfigRuleComplianceSummaryFilters(Aws::Utils::Json::JsonView jsonValue);
+    ConfigRuleComplianceSummaryFilters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The 12-digit account ID of the source account.</p>
      */
     inline const Aws::String& GetAccountId() const{ return m_accountId; }
+
+    /**
+     * <p>The 12-digit account ID of the source account.</p>
+     */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
 
     /**
      * <p>The 12-digit account ID of the source account.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The source region where the data is aggregated.</p>
      */
     inline const Aws::String& GetAwsRegion() const{ return m_awsRegion; }
+
+    /**
+     * <p>The source region where the data is aggregated.</p>
+     */
+    inline bool AwsRegionHasBeenSet() const { return m_awsRegionHasBeenSet; }
 
     /**
      * <p>The source region where the data is aggregated.</p>

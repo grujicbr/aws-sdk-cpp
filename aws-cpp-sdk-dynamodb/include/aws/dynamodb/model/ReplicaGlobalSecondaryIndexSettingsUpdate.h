@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/dynamodb/DynamoDB_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/dynamodb/model/AutoScalingSettingsUpdate.h>
 #include <utility>
 
 namespace Aws
@@ -25,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -42,8 +44,8 @@ namespace Model
   {
   public:
     ReplicaGlobalSecondaryIndexSettingsUpdate();
-    ReplicaGlobalSecondaryIndexSettingsUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReplicaGlobalSecondaryIndexSettingsUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReplicaGlobalSecondaryIndexSettingsUpdate(Aws::Utils::Json::JsonView jsonValue);
+    ReplicaGlobalSecondaryIndexSettingsUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +54,12 @@ namespace Model
      * other indexes on this table.</p>
      */
     inline const Aws::String& GetIndexName() const{ return m_indexName; }
+
+    /**
+     * <p>The name of the global secondary index. The name must be unique among all
+     * other indexes on this table.</p>
+     */
+    inline bool IndexNameHasBeenSet() const { return m_indexNameHasBeenSet; }
 
     /**
      * <p>The name of the global secondary index. The name must be unique among all
@@ -100,6 +108,12 @@ namespace Model
      * <p>The maximum number of strongly consistent reads consumed per second before
      * DynamoDB returns a <code>ThrottlingException</code>.</p>
      */
+    inline bool ProvisionedReadCapacityUnitsHasBeenSet() const { return m_provisionedReadCapacityUnitsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of strongly consistent reads consumed per second before
+     * DynamoDB returns a <code>ThrottlingException</code>.</p>
+     */
     inline void SetProvisionedReadCapacityUnits(long long value) { m_provisionedReadCapacityUnitsHasBeenSet = true; m_provisionedReadCapacityUnits = value; }
 
     /**
@@ -108,6 +122,43 @@ namespace Model
      */
     inline ReplicaGlobalSecondaryIndexSettingsUpdate& WithProvisionedReadCapacityUnits(long long value) { SetProvisionedReadCapacityUnits(value); return *this;}
 
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index replica's read
+     * capacity units.</p>
+     */
+    inline const AutoScalingSettingsUpdate& GetProvisionedReadCapacityAutoScalingSettingsUpdate() const{ return m_provisionedReadCapacityAutoScalingSettingsUpdate; }
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index replica's read
+     * capacity units.</p>
+     */
+    inline bool ProvisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet() const { return m_provisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet; }
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index replica's read
+     * capacity units.</p>
+     */
+    inline void SetProvisionedReadCapacityAutoScalingSettingsUpdate(const AutoScalingSettingsUpdate& value) { m_provisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet = true; m_provisionedReadCapacityAutoScalingSettingsUpdate = value; }
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index replica's read
+     * capacity units.</p>
+     */
+    inline void SetProvisionedReadCapacityAutoScalingSettingsUpdate(AutoScalingSettingsUpdate&& value) { m_provisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet = true; m_provisionedReadCapacityAutoScalingSettingsUpdate = std::move(value); }
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index replica's read
+     * capacity units.</p>
+     */
+    inline ReplicaGlobalSecondaryIndexSettingsUpdate& WithProvisionedReadCapacityAutoScalingSettingsUpdate(const AutoScalingSettingsUpdate& value) { SetProvisionedReadCapacityAutoScalingSettingsUpdate(value); return *this;}
+
+    /**
+     * <p>Auto scaling settings for managing a global secondary index replica's read
+     * capacity units.</p>
+     */
+    inline ReplicaGlobalSecondaryIndexSettingsUpdate& WithProvisionedReadCapacityAutoScalingSettingsUpdate(AutoScalingSettingsUpdate&& value) { SetProvisionedReadCapacityAutoScalingSettingsUpdate(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_indexName;
@@ -115,6 +166,9 @@ namespace Model
 
     long long m_provisionedReadCapacityUnits;
     bool m_provisionedReadCapacityUnitsHasBeenSet;
+
+    AutoScalingSettingsUpdate m_provisionedReadCapacityAutoScalingSettingsUpdate;
+    bool m_provisionedReadCapacityAutoScalingSettingsUpdateHasBeenSet;
   };
 
 } // namespace Model

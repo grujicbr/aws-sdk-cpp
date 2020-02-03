@@ -35,8 +35,8 @@ namespace Model
 {
 
   /**
-   * <p>Information about the error for the T2 instance whose credit option for CPU
-   * usage was not modified.</p><p><h3>See Also:</h3>   <a
+   * <p>Information about the error for the burstable performance instance whose
+   * credit option for CPU usage was not modified.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UnsuccessfulInstanceCreditSpecificationItemError">AWS
    * API Reference</a></p>
    */
@@ -55,6 +55,11 @@ namespace Model
      * <p>The error code.</p>
      */
     inline const UnsuccessfulInstanceCreditSpecificationErrorCode& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The error code.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The error code.</p>
@@ -81,6 +86,11 @@ namespace Model
      * <p>The applicable error message.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The applicable error message.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The applicable error message.</p>

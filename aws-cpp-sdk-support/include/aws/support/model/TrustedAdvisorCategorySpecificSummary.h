@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TrustedAdvisorCategorySpecificSummary();
-    TrustedAdvisorCategorySpecificSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrustedAdvisorCategorySpecificSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrustedAdvisorCategorySpecificSummary(Aws::Utils::Json::JsonView jsonValue);
+    TrustedAdvisorCategorySpecificSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * is in the Cost Optimizing category.</p>
      */
     inline const TrustedAdvisorCostOptimizingSummary& GetCostOptimizing() const{ return m_costOptimizing; }
+
+    /**
+     * <p>The summary information about cost savings for a Trusted Advisor check that
+     * is in the Cost Optimizing category.</p>
+     */
+    inline bool CostOptimizingHasBeenSet() const { return m_costOptimizingHasBeenSet; }
 
     /**
      * <p>The summary information about cost savings for a Trusted Advisor check that

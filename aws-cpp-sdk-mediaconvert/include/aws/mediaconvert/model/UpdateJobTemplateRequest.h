@@ -16,8 +16,10 @@
 #pragma once
 #include <aws/mediaconvert/MediaConvert_EXPORTS.h>
 #include <aws/mediaconvert/MediaConvertRequest.h>
+#include <aws/mediaconvert/model/AccelerationSettings.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/mediaconvert/model/JobTemplateSettings.h>
+#include <aws/mediaconvert/model/StatusUpdateInterval.h>
 #include <utility>
 
 namespace Aws
@@ -33,7 +35,7 @@ namespace Model
   {
   public:
     UpdateJobTemplateRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -44,9 +46,63 @@ namespace Model
 
 
     /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline const AccelerationSettings& GetAccelerationSettings() const{ return m_accelerationSettings; }
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline bool AccelerationSettingsHasBeenSet() const { return m_accelerationSettingsHasBeenSet; }
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline void SetAccelerationSettings(const AccelerationSettings& value) { m_accelerationSettingsHasBeenSet = true; m_accelerationSettings = value; }
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline void SetAccelerationSettings(AccelerationSettings&& value) { m_accelerationSettingsHasBeenSet = true; m_accelerationSettings = std::move(value); }
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline UpdateJobTemplateRequest& WithAccelerationSettings(const AccelerationSettings& value) { SetAccelerationSettings(value); return *this;}
+
+    /**
+     * Accelerated transcoding can significantly speed up jobs with long, visually
+     * complex content. Outputs that use this feature incur pro-tier pricing. For
+     * information about feature limitations, see the AWS Elemental MediaConvert User
+     * Guide.
+     */
+    inline UpdateJobTemplateRequest& WithAccelerationSettings(AccelerationSettings&& value) { SetAccelerationSettings(std::move(value)); return *this;}
+
+
+    /**
      * The new category for the job template, if you are changing it.
      */
     inline const Aws::String& GetCategory() const{ return m_category; }
+
+    /**
+     * The new category for the job template, if you are changing it.
+     */
+    inline bool CategoryHasBeenSet() const { return m_categoryHasBeenSet; }
 
     /**
      * The new category for the job template, if you are changing it.
@@ -87,6 +143,11 @@ namespace Model
     /**
      * The new description for the job template, if you are changing it.
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * The new description for the job template, if you are changing it.
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -123,6 +184,11 @@ namespace Model
     /**
      * The name of the job template you are modifying
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * The name of the job template you are modifying
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -152,9 +218,47 @@ namespace Model
 
 
     /**
+     * Specify the relative priority for this job. In any given queue, the service
+     * begins processing the job with the highest value first. When more than one job
+     * has the same priority, the service begins processing the job that you submitted
+     * first. If you don't specify a priority, the service uses the default value 0.
+     */
+    inline int GetPriority() const{ return m_priority; }
+
+    /**
+     * Specify the relative priority for this job. In any given queue, the service
+     * begins processing the job with the highest value first. When more than one job
+     * has the same priority, the service begins processing the job that you submitted
+     * first. If you don't specify a priority, the service uses the default value 0.
+     */
+    inline bool PriorityHasBeenSet() const { return m_priorityHasBeenSet; }
+
+    /**
+     * Specify the relative priority for this job. In any given queue, the service
+     * begins processing the job with the highest value first. When more than one job
+     * has the same priority, the service begins processing the job that you submitted
+     * first. If you don't specify a priority, the service uses the default value 0.
+     */
+    inline void SetPriority(int value) { m_priorityHasBeenSet = true; m_priority = value; }
+
+    /**
+     * Specify the relative priority for this job. In any given queue, the service
+     * begins processing the job with the highest value first. When more than one job
+     * has the same priority, the service begins processing the job that you submitted
+     * first. If you don't specify a priority, the service uses the default value 0.
+     */
+    inline UpdateJobTemplateRequest& WithPriority(int value) { SetPriority(value); return *this;}
+
+
+    /**
      * The new queue for the job template, if you are changing it.
      */
     inline const Aws::String& GetQueue() const{ return m_queue; }
+
+    /**
+     * The new queue for the job template, if you are changing it.
+     */
+    inline bool QueueHasBeenSet() const { return m_queueHasBeenSet; }
 
     /**
      * The new queue for the job template, if you are changing it.
@@ -187,22 +291,95 @@ namespace Model
     inline UpdateJobTemplateRequest& WithQueue(const char* value) { SetQueue(value); return *this;}
 
 
-    
+    /**
+     * JobTemplateSettings contains all the transcode settings saved in the template
+     * that will be applied to jobs created from it.
+     */
     inline const JobTemplateSettings& GetSettings() const{ return m_settings; }
 
-    
+    /**
+     * JobTemplateSettings contains all the transcode settings saved in the template
+     * that will be applied to jobs created from it.
+     */
+    inline bool SettingsHasBeenSet() const { return m_settingsHasBeenSet; }
+
+    /**
+     * JobTemplateSettings contains all the transcode settings saved in the template
+     * that will be applied to jobs created from it.
+     */
     inline void SetSettings(const JobTemplateSettings& value) { m_settingsHasBeenSet = true; m_settings = value; }
 
-    
+    /**
+     * JobTemplateSettings contains all the transcode settings saved in the template
+     * that will be applied to jobs created from it.
+     */
     inline void SetSettings(JobTemplateSettings&& value) { m_settingsHasBeenSet = true; m_settings = std::move(value); }
 
-    
+    /**
+     * JobTemplateSettings contains all the transcode settings saved in the template
+     * that will be applied to jobs created from it.
+     */
     inline UpdateJobTemplateRequest& WithSettings(const JobTemplateSettings& value) { SetSettings(value); return *this;}
 
-    
+    /**
+     * JobTemplateSettings contains all the transcode settings saved in the template
+     * that will be applied to jobs created from it.
+     */
     inline UpdateJobTemplateRequest& WithSettings(JobTemplateSettings&& value) { SetSettings(std::move(value)); return *this;}
 
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline const StatusUpdateInterval& GetStatusUpdateInterval() const{ return m_statusUpdateInterval; }
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline bool StatusUpdateIntervalHasBeenSet() const { return m_statusUpdateIntervalHasBeenSet; }
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline void SetStatusUpdateInterval(const StatusUpdateInterval& value) { m_statusUpdateIntervalHasBeenSet = true; m_statusUpdateInterval = value; }
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline void SetStatusUpdateInterval(StatusUpdateInterval&& value) { m_statusUpdateIntervalHasBeenSet = true; m_statusUpdateInterval = std::move(value); }
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline UpdateJobTemplateRequest& WithStatusUpdateInterval(const StatusUpdateInterval& value) { SetStatusUpdateInterval(value); return *this;}
+
+    /**
+     * Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch
+     * Events. Set the interval, in seconds, between status updates. MediaConvert sends
+     * an update at this interval from the time the service begins processing your job
+     * to the time it completes the transcode or encounters an error.
+     */
+    inline UpdateJobTemplateRequest& WithStatusUpdateInterval(StatusUpdateInterval&& value) { SetStatusUpdateInterval(std::move(value)); return *this;}
+
   private:
+
+    AccelerationSettings m_accelerationSettings;
+    bool m_accelerationSettingsHasBeenSet;
 
     Aws::String m_category;
     bool m_categoryHasBeenSet;
@@ -213,11 +390,17 @@ namespace Model
     Aws::String m_name;
     bool m_nameHasBeenSet;
 
+    int m_priority;
+    bool m_priorityHasBeenSet;
+
     Aws::String m_queue;
     bool m_queueHasBeenSet;
 
     JobTemplateSettings m_settings;
     bool m_settingsHasBeenSet;
+
+    StatusUpdateInterval m_statusUpdateInterval;
+    bool m_statusUpdateIntervalHasBeenSet;
   };
 
 } // namespace Model

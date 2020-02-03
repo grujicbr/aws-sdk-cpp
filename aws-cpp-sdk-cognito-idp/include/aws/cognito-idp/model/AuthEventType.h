@@ -33,6 +33,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -49,8 +50,8 @@ namespace Model
   {
   public:
     AuthEventType();
-    AuthEventType(const Aws::Utils::Json::JsonValue& jsonValue);
-    AuthEventType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AuthEventType(Aws::Utils::Json::JsonView jsonValue);
+    AuthEventType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,11 @@ namespace Model
      * <p>The event ID.</p>
      */
     inline const Aws::String& GetEventId() const{ return m_eventId; }
+
+    /**
+     * <p>The event ID.</p>
+     */
+    inline bool EventIdHasBeenSet() const { return m_eventIdHasBeenSet; }
 
     /**
      * <p>The event ID.</p>
@@ -98,6 +104,11 @@ namespace Model
     /**
      * <p>The event type.</p>
      */
+    inline bool EventTypeHasBeenSet() const { return m_eventTypeHasBeenSet; }
+
+    /**
+     * <p>The event type.</p>
+     */
     inline void SetEventType(const EventType& value) { m_eventTypeHasBeenSet = true; m_eventType = value; }
 
     /**
@@ -120,6 +131,11 @@ namespace Model
      * <p>The creation date</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The creation date</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The creation date</p>
@@ -150,6 +166,11 @@ namespace Model
     /**
      * <p>The event response.</p>
      */
+    inline bool EventResponseHasBeenSet() const { return m_eventResponseHasBeenSet; }
+
+    /**
+     * <p>The event response.</p>
+     */
     inline void SetEventResponse(const EventResponseType& value) { m_eventResponseHasBeenSet = true; m_eventResponse = value; }
 
     /**
@@ -176,6 +197,11 @@ namespace Model
     /**
      * <p>The event risk.</p>
      */
+    inline bool EventRiskHasBeenSet() const { return m_eventRiskHasBeenSet; }
+
+    /**
+     * <p>The event risk.</p>
+     */
     inline void SetEventRisk(const EventRiskType& value) { m_eventRiskHasBeenSet = true; m_eventRisk = value; }
 
     /**
@@ -198,6 +224,11 @@ namespace Model
      * <p>The challenge responses.</p>
      */
     inline const Aws::Vector<ChallengeResponseType>& GetChallengeResponses() const{ return m_challengeResponses; }
+
+    /**
+     * <p>The challenge responses.</p>
+     */
+    inline bool ChallengeResponsesHasBeenSet() const { return m_challengeResponsesHasBeenSet; }
 
     /**
      * <p>The challenge responses.</p>
@@ -242,6 +273,13 @@ namespace Model
      * additional information about the client from which event the request is
      * received.</p>
      */
+    inline bool EventContextDataHasBeenSet() const { return m_eventContextDataHasBeenSet; }
+
+    /**
+     * <p>The user context data captured at the time of an event request. It provides
+     * additional information about the client from which event the request is
+     * received.</p>
+     */
     inline void SetEventContextData(const EventContextDataType& value) { m_eventContextDataHasBeenSet = true; m_eventContextData = value; }
 
     /**
@@ -271,6 +309,12 @@ namespace Model
      * is good or bad. </p>
      */
     inline const EventFeedbackType& GetEventFeedback() const{ return m_eventFeedback; }
+
+    /**
+     * <p>A flag specifying the user feedback captured at the time of an event request
+     * is good or bad. </p>
+     */
+    inline bool EventFeedbackHasBeenSet() const { return m_eventFeedbackHasBeenSet; }
 
     /**
      * <p>A flag specifying the user feedback captured at the time of an event request

@@ -51,7 +51,7 @@ DescribeVpcAttributeResponse& DescribeVpcAttributeResponse::operator =(const Aws
     XmlNode vpcIdNode = resultNode.FirstChild("vpcId");
     if(!vpcIdNode.IsNull())
     {
-      m_vpcId = StringUtils::Trim(vpcIdNode.GetText().c_str());
+      m_vpcId = Aws::Utils::Xml::DecodeEscapedXmlText(vpcIdNode.GetText());
     }
     XmlNode enableDnsHostnamesNode = resultNode.FirstChild("enableDnsHostnames");
     if(!enableDnsHostnamesNode.IsNull())
@@ -66,8 +66,11 @@ DescribeVpcAttributeResponse& DescribeVpcAttributeResponse::operator =(const Aws
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::DescribeVpcAttributeResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

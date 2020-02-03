@@ -42,11 +42,24 @@ HistoryEvent::HistoryEvent() :
     m_activityStartedEventDetailsHasBeenSet(false),
     m_activitySucceededEventDetailsHasBeenSet(false),
     m_activityTimedOutEventDetailsHasBeenSet(false),
+    m_taskFailedEventDetailsHasBeenSet(false),
+    m_taskScheduledEventDetailsHasBeenSet(false),
+    m_taskStartFailedEventDetailsHasBeenSet(false),
+    m_taskStartedEventDetailsHasBeenSet(false),
+    m_taskSubmitFailedEventDetailsHasBeenSet(false),
+    m_taskSubmittedEventDetailsHasBeenSet(false),
+    m_taskSucceededEventDetailsHasBeenSet(false),
+    m_taskTimedOutEventDetailsHasBeenSet(false),
     m_executionFailedEventDetailsHasBeenSet(false),
     m_executionStartedEventDetailsHasBeenSet(false),
     m_executionSucceededEventDetailsHasBeenSet(false),
     m_executionAbortedEventDetailsHasBeenSet(false),
     m_executionTimedOutEventDetailsHasBeenSet(false),
+    m_mapStateStartedEventDetailsHasBeenSet(false),
+    m_mapIterationStartedEventDetailsHasBeenSet(false),
+    m_mapIterationSucceededEventDetailsHasBeenSet(false),
+    m_mapIterationFailedEventDetailsHasBeenSet(false),
+    m_mapIterationAbortedEventDetailsHasBeenSet(false),
     m_lambdaFunctionFailedEventDetailsHasBeenSet(false),
     m_lambdaFunctionScheduleFailedEventDetailsHasBeenSet(false),
     m_lambdaFunctionScheduledEventDetailsHasBeenSet(false),
@@ -58,7 +71,7 @@ HistoryEvent::HistoryEvent() :
 {
 }
 
-HistoryEvent::HistoryEvent(const JsonValue& jsonValue) : 
+HistoryEvent::HistoryEvent(JsonView jsonValue) : 
     m_timestampHasBeenSet(false),
     m_type(HistoryEventType::NOT_SET),
     m_typeHasBeenSet(false),
@@ -72,11 +85,24 @@ HistoryEvent::HistoryEvent(const JsonValue& jsonValue) :
     m_activityStartedEventDetailsHasBeenSet(false),
     m_activitySucceededEventDetailsHasBeenSet(false),
     m_activityTimedOutEventDetailsHasBeenSet(false),
+    m_taskFailedEventDetailsHasBeenSet(false),
+    m_taskScheduledEventDetailsHasBeenSet(false),
+    m_taskStartFailedEventDetailsHasBeenSet(false),
+    m_taskStartedEventDetailsHasBeenSet(false),
+    m_taskSubmitFailedEventDetailsHasBeenSet(false),
+    m_taskSubmittedEventDetailsHasBeenSet(false),
+    m_taskSucceededEventDetailsHasBeenSet(false),
+    m_taskTimedOutEventDetailsHasBeenSet(false),
     m_executionFailedEventDetailsHasBeenSet(false),
     m_executionStartedEventDetailsHasBeenSet(false),
     m_executionSucceededEventDetailsHasBeenSet(false),
     m_executionAbortedEventDetailsHasBeenSet(false),
     m_executionTimedOutEventDetailsHasBeenSet(false),
+    m_mapStateStartedEventDetailsHasBeenSet(false),
+    m_mapIterationStartedEventDetailsHasBeenSet(false),
+    m_mapIterationSucceededEventDetailsHasBeenSet(false),
+    m_mapIterationFailedEventDetailsHasBeenSet(false),
+    m_mapIterationAbortedEventDetailsHasBeenSet(false),
     m_lambdaFunctionFailedEventDetailsHasBeenSet(false),
     m_lambdaFunctionScheduleFailedEventDetailsHasBeenSet(false),
     m_lambdaFunctionScheduledEventDetailsHasBeenSet(false),
@@ -89,7 +115,7 @@ HistoryEvent::HistoryEvent(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-HistoryEvent& HistoryEvent::operator =(const JsonValue& jsonValue)
+HistoryEvent& HistoryEvent::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("timestamp"))
   {
@@ -161,6 +187,62 @@ HistoryEvent& HistoryEvent::operator =(const JsonValue& jsonValue)
     m_activityTimedOutEventDetailsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("taskFailedEventDetails"))
+  {
+    m_taskFailedEventDetails = jsonValue.GetObject("taskFailedEventDetails");
+
+    m_taskFailedEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("taskScheduledEventDetails"))
+  {
+    m_taskScheduledEventDetails = jsonValue.GetObject("taskScheduledEventDetails");
+
+    m_taskScheduledEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("taskStartFailedEventDetails"))
+  {
+    m_taskStartFailedEventDetails = jsonValue.GetObject("taskStartFailedEventDetails");
+
+    m_taskStartFailedEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("taskStartedEventDetails"))
+  {
+    m_taskStartedEventDetails = jsonValue.GetObject("taskStartedEventDetails");
+
+    m_taskStartedEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("taskSubmitFailedEventDetails"))
+  {
+    m_taskSubmitFailedEventDetails = jsonValue.GetObject("taskSubmitFailedEventDetails");
+
+    m_taskSubmitFailedEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("taskSubmittedEventDetails"))
+  {
+    m_taskSubmittedEventDetails = jsonValue.GetObject("taskSubmittedEventDetails");
+
+    m_taskSubmittedEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("taskSucceededEventDetails"))
+  {
+    m_taskSucceededEventDetails = jsonValue.GetObject("taskSucceededEventDetails");
+
+    m_taskSucceededEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("taskTimedOutEventDetails"))
+  {
+    m_taskTimedOutEventDetails = jsonValue.GetObject("taskTimedOutEventDetails");
+
+    m_taskTimedOutEventDetailsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("executionFailedEventDetails"))
   {
     m_executionFailedEventDetails = jsonValue.GetObject("executionFailedEventDetails");
@@ -194,6 +276,41 @@ HistoryEvent& HistoryEvent::operator =(const JsonValue& jsonValue)
     m_executionTimedOutEventDetails = jsonValue.GetObject("executionTimedOutEventDetails");
 
     m_executionTimedOutEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mapStateStartedEventDetails"))
+  {
+    m_mapStateStartedEventDetails = jsonValue.GetObject("mapStateStartedEventDetails");
+
+    m_mapStateStartedEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mapIterationStartedEventDetails"))
+  {
+    m_mapIterationStartedEventDetails = jsonValue.GetObject("mapIterationStartedEventDetails");
+
+    m_mapIterationStartedEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mapIterationSucceededEventDetails"))
+  {
+    m_mapIterationSucceededEventDetails = jsonValue.GetObject("mapIterationSucceededEventDetails");
+
+    m_mapIterationSucceededEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mapIterationFailedEventDetails"))
+  {
+    m_mapIterationFailedEventDetails = jsonValue.GetObject("mapIterationFailedEventDetails");
+
+    m_mapIterationFailedEventDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mapIterationAbortedEventDetails"))
+  {
+    m_mapIterationAbortedEventDetails = jsonValue.GetObject("mapIterationAbortedEventDetails");
+
+    m_mapIterationAbortedEventDetailsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("lambdaFunctionFailedEventDetails"))
@@ -317,6 +434,54 @@ JsonValue HistoryEvent::Jsonize() const
 
   }
 
+  if(m_taskFailedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("taskFailedEventDetails", m_taskFailedEventDetails.Jsonize());
+
+  }
+
+  if(m_taskScheduledEventDetailsHasBeenSet)
+  {
+   payload.WithObject("taskScheduledEventDetails", m_taskScheduledEventDetails.Jsonize());
+
+  }
+
+  if(m_taskStartFailedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("taskStartFailedEventDetails", m_taskStartFailedEventDetails.Jsonize());
+
+  }
+
+  if(m_taskStartedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("taskStartedEventDetails", m_taskStartedEventDetails.Jsonize());
+
+  }
+
+  if(m_taskSubmitFailedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("taskSubmitFailedEventDetails", m_taskSubmitFailedEventDetails.Jsonize());
+
+  }
+
+  if(m_taskSubmittedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("taskSubmittedEventDetails", m_taskSubmittedEventDetails.Jsonize());
+
+  }
+
+  if(m_taskSucceededEventDetailsHasBeenSet)
+  {
+   payload.WithObject("taskSucceededEventDetails", m_taskSucceededEventDetails.Jsonize());
+
+  }
+
+  if(m_taskTimedOutEventDetailsHasBeenSet)
+  {
+   payload.WithObject("taskTimedOutEventDetails", m_taskTimedOutEventDetails.Jsonize());
+
+  }
+
   if(m_executionFailedEventDetailsHasBeenSet)
   {
    payload.WithObject("executionFailedEventDetails", m_executionFailedEventDetails.Jsonize());
@@ -344,6 +509,36 @@ JsonValue HistoryEvent::Jsonize() const
   if(m_executionTimedOutEventDetailsHasBeenSet)
   {
    payload.WithObject("executionTimedOutEventDetails", m_executionTimedOutEventDetails.Jsonize());
+
+  }
+
+  if(m_mapStateStartedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("mapStateStartedEventDetails", m_mapStateStartedEventDetails.Jsonize());
+
+  }
+
+  if(m_mapIterationStartedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("mapIterationStartedEventDetails", m_mapIterationStartedEventDetails.Jsonize());
+
+  }
+
+  if(m_mapIterationSucceededEventDetailsHasBeenSet)
+  {
+   payload.WithObject("mapIterationSucceededEventDetails", m_mapIterationSucceededEventDetails.Jsonize());
+
+  }
+
+  if(m_mapIterationFailedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("mapIterationFailedEventDetails", m_mapIterationFailedEventDetails.Jsonize());
+
+  }
+
+  if(m_mapIterationAbortedEventDetailsHasBeenSet)
+  {
+   payload.WithObject("mapIterationAbortedEventDetails", m_mapIterationAbortedEventDetails.Jsonize());
 
   }
 

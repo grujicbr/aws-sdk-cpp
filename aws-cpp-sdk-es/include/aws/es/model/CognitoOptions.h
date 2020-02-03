@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     CognitoOptions();
-    CognitoOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    CognitoOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CognitoOptions(Aws::Utils::Json::JsonView jsonValue);
+    CognitoOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Specifies the option to enable Cognito for Kibana authentication.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Specifies the option to enable Cognito for Kibana authentication.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Specifies the option to enable Cognito for Kibana authentication.</p>
@@ -70,6 +76,11 @@ namespace Model
      * <p>Specifies the Cognito user pool ID for Kibana authentication.</p>
      */
     inline const Aws::String& GetUserPoolId() const{ return m_userPoolId; }
+
+    /**
+     * <p>Specifies the Cognito user pool ID for Kibana authentication.</p>
+     */
+    inline bool UserPoolIdHasBeenSet() const { return m_userPoolIdHasBeenSet; }
 
     /**
      * <p>Specifies the Cognito user pool ID for Kibana authentication.</p>
@@ -110,6 +121,11 @@ namespace Model
     /**
      * <p>Specifies the Cognito identity pool ID for Kibana authentication.</p>
      */
+    inline bool IdentityPoolIdHasBeenSet() const { return m_identityPoolIdHasBeenSet; }
+
+    /**
+     * <p>Specifies the Cognito identity pool ID for Kibana authentication.</p>
+     */
     inline void SetIdentityPoolId(const Aws::String& value) { m_identityPoolIdHasBeenSet = true; m_identityPoolId = value; }
 
     /**
@@ -143,6 +159,12 @@ namespace Model
      * Cognito resources.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>Specifies the role ARN that provides Elasticsearch permissions for accessing
+     * Cognito resources.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>Specifies the role ARN that provides Elasticsearch permissions for accessing

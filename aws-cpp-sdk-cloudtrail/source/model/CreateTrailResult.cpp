@@ -29,21 +29,23 @@ using namespace Aws;
 CreateTrailResult::CreateTrailResult() : 
     m_includeGlobalServiceEvents(false),
     m_isMultiRegionTrail(false),
-    m_logFileValidationEnabled(false)
+    m_logFileValidationEnabled(false),
+    m_isOrganizationTrail(false)
 {
 }
 
 CreateTrailResult::CreateTrailResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
     m_includeGlobalServiceEvents(false),
     m_isMultiRegionTrail(false),
-    m_logFileValidationEnabled(false)
+    m_logFileValidationEnabled(false),
+    m_isOrganizationTrail(false)
 {
   *this = result;
 }
 
 CreateTrailResult& CreateTrailResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("Name"))
   {
     m_name = jsonValue.GetString("Name");
@@ -107,6 +109,12 @@ CreateTrailResult& CreateTrailResult::operator =(const Aws::AmazonWebServiceResu
   if(jsonValue.ValueExists("KmsKeyId"))
   {
     m_kmsKeyId = jsonValue.GetString("KmsKeyId");
+
+  }
+
+  if(jsonValue.ValueExists("IsOrganizationTrail"))
+  {
+    m_isOrganizationTrail = jsonValue.GetBool("IsOrganizationTrail");
 
   }
 

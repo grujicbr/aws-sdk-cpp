@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Batch
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Volume();
-    Volume(const Aws::Utils::Json::JsonValue& jsonValue);
-    Volume& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Volume(Aws::Utils::Json::JsonView jsonValue);
+    Volume& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,15 @@ namespace Model
      * associated with it stop running.</p>
      */
     inline const Host& GetHost() const{ return m_host; }
+
+    /**
+     * <p>The contents of the <code>host</code> parameter determine whether your data
+     * volume persists on the host container instance and where it is stored. If the
+     * host parameter is empty, then the Docker daemon assigns a host path for your
+     * data volume. However, the data is not guaranteed to persist after the containers
+     * associated with it stop running.</p>
+     */
+    inline bool HostHasBeenSet() const { return m_hostHasBeenSet; }
 
     /**
      * <p>The contents of the <code>host</code> parameter determine whether your data
@@ -100,6 +110,14 @@ namespace Model
      * <code>mountPoints</code>.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the volume. Up to 255 letters (uppercase and lowercase), numbers,
+     * hyphens, and underscores are allowed. This name is referenced in the
+     * <code>sourceVolume</code> parameter of container definition
+     * <code>mountPoints</code>.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the volume. Up to 255 letters (uppercase and lowercase), numbers,

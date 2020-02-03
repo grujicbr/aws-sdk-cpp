@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     GetPartitionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,43 +47,49 @@ namespace Model
 
     /**
      * <p>The ID of the Data Catalog where the partition in question resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline const Aws::String& GetCatalogId() const{ return m_catalogId; }
 
     /**
      * <p>The ID of the Data Catalog where the partition in question resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
+     */
+    inline bool CatalogIdHasBeenSet() const { return m_catalogIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Data Catalog where the partition in question resides. If none
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const Aws::String& value) { m_catalogIdHasBeenSet = true; m_catalogId = value; }
 
     /**
      * <p>The ID of the Data Catalog where the partition in question resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(Aws::String&& value) { m_catalogIdHasBeenSet = true; m_catalogId = std::move(value); }
 
     /**
      * <p>The ID of the Data Catalog where the partition in question resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const char* value) { m_catalogIdHasBeenSet = true; m_catalogId.assign(value); }
 
     /**
      * <p>The ID of the Data Catalog where the partition in question resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline GetPartitionRequest& WithCatalogId(const Aws::String& value) { SetCatalogId(value); return *this;}
 
     /**
      * <p>The ID of the Data Catalog where the partition in question resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline GetPartitionRequest& WithCatalogId(Aws::String&& value) { SetCatalogId(std::move(value)); return *this;}
 
     /**
      * <p>The ID of the Data Catalog where the partition in question resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline GetPartitionRequest& WithCatalogId(const char* value) { SetCatalogId(value); return *this;}
 
@@ -92,6 +98,11 @@ namespace Model
      * <p>The name of the catalog database where the partition resides.</p>
      */
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    /**
+     * <p>The name of the catalog database where the partition resides.</p>
+     */
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     /**
      * <p>The name of the catalog database where the partition resides.</p>
@@ -132,6 +143,11 @@ namespace Model
     /**
      * <p>The name of the partition's table.</p>
      */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
+
+    /**
+     * <p>The name of the partition's table.</p>
+     */
     inline void SetTableName(const Aws::String& value) { m_tableNameHasBeenSet = true; m_tableName = value; }
 
     /**
@@ -164,6 +180,11 @@ namespace Model
      * <p>The values that define the partition.</p>
      */
     inline const Aws::Vector<Aws::String>& GetPartitionValues() const{ return m_partitionValues; }
+
+    /**
+     * <p>The values that define the partition.</p>
+     */
+    inline bool PartitionValuesHasBeenSet() const { return m_partitionValuesHasBeenSet; }
 
     /**
      * <p>The values that define the partition.</p>

@@ -51,7 +51,7 @@ GetOpenIDConnectProviderResult& GetOpenIDConnectProviderResult::operator =(const
     XmlNode urlNode = resultNode.FirstChild("Url");
     if(!urlNode.IsNull())
     {
-      m_url = StringUtils::Trim(urlNode.GetText().c_str());
+      m_url = Aws::Utils::Xml::DecodeEscapedXmlText(urlNode.GetText());
     }
     XmlNode clientIDListNode = resultNode.FirstChild("ClientIDList");
     if(!clientIDListNode.IsNull())
@@ -59,7 +59,7 @@ GetOpenIDConnectProviderResult& GetOpenIDConnectProviderResult::operator =(const
       XmlNode clientIDListMember = clientIDListNode.FirstChild("member");
       while(!clientIDListMember.IsNull())
       {
-        m_clientIDList.push_back(StringUtils::Trim(clientIDListMember.GetText().c_str()));
+        m_clientIDList.push_back(clientIDListMember.GetText());
         clientIDListMember = clientIDListMember.NextNode("member");
       }
 
@@ -70,7 +70,7 @@ GetOpenIDConnectProviderResult& GetOpenIDConnectProviderResult::operator =(const
       XmlNode thumbprintListMember = thumbprintListNode.FirstChild("member");
       while(!thumbprintListMember.IsNull())
       {
-        m_thumbprintList.push_back(StringUtils::Trim(thumbprintListMember.GetText().c_str()));
+        m_thumbprintList.push_back(thumbprintListMember.GetText());
         thumbprintListMember = thumbprintListMember.NextNode("member");
       }
 
@@ -78,7 +78,7 @@ GetOpenIDConnectProviderResult& GetOpenIDConnectProviderResult::operator =(const
     XmlNode createDateNode = resultNode.FirstChild("CreateDate");
     if(!createDateNode.IsNull())
     {
-      m_createDate = DateTime(StringUtils::Trim(createDateNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_createDate = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(createDateNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
     }
   }
 

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for TeletextSourceSettings<p><h3>See Also:</h3>   <a
+   * Teletext Source Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TeletextSourceSettings">AWS
    * API Reference</a></p>
    */
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TeletextSourceSettings();
-    TeletextSourceSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    TeletextSourceSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TeletextSourceSettings(Aws::Utils::Json::JsonView jsonValue);
+    TeletextSourceSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,13 @@ namespace Model
      * be specified as a hexadecimal string with no "0x" prefix.
      */
     inline const Aws::String& GetPageNumber() const{ return m_pageNumber; }
+
+    /**
+     * Specifies the teletext page number within the data stream from which to extract
+     * captions. Range of 0x100 (256) to 0x8FF (2303). Unused for passthrough. Should
+     * be specified as a hexadecimal string with no "0x" prefix.
+     */
+    inline bool PageNumberHasBeenSet() const { return m_pageNumberHasBeenSet; }
 
     /**
      * Specifies the teletext page number within the data stream from which to extract

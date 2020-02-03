@@ -51,7 +51,7 @@ CreateNatGatewayResponse& CreateNatGatewayResponse::operator =(const Aws::Amazon
     XmlNode clientTokenNode = resultNode.FirstChild("clientToken");
     if(!clientTokenNode.IsNull())
     {
-      m_clientToken = StringUtils::Trim(clientTokenNode.GetText().c_str());
+      m_clientToken = Aws::Utils::Xml::DecodeEscapedXmlText(clientTokenNode.GetText());
     }
     XmlNode natGatewayNode = resultNode.FirstChild("natGateway");
     if(!natGatewayNode.IsNull())
@@ -61,8 +61,11 @@ CreateNatGatewayResponse& CreateNatGatewayResponse::operator =(const Aws::Amazon
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::CreateNatGatewayResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

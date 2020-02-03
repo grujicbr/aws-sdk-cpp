@@ -58,6 +58,11 @@ namespace Model
     /**
      * <p>The Availability Zone of the instance.</p>
      */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The Availability Zone of the instance.</p>
+     */
     inline void SetAvailabilityZone(const Aws::String& value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone = value; }
 
     /**
@@ -90,6 +95,11 @@ namespace Model
      * <p>The affinity setting for the instance on the Dedicated Host.</p>
      */
     inline const Aws::String& GetAffinity() const{ return m_affinity; }
+
+    /**
+     * <p>The affinity setting for the instance on the Dedicated Host.</p>
+     */
+    inline bool AffinityHasBeenSet() const { return m_affinityHasBeenSet; }
 
     /**
      * <p>The affinity setting for the instance on the Dedicated Host.</p>
@@ -130,6 +140,11 @@ namespace Model
     /**
      * <p>The name of the placement group for the instance.</p>
      */
+    inline bool GroupNameHasBeenSet() const { return m_groupNameHasBeenSet; }
+
+    /**
+     * <p>The name of the placement group for the instance.</p>
+     */
     inline void SetGroupName(const Aws::String& value) { m_groupNameHasBeenSet = true; m_groupName = value; }
 
     /**
@@ -162,6 +177,11 @@ namespace Model
      * <p>The ID of the Dedicated Host for the instance.</p>
      */
     inline const Aws::String& GetHostId() const{ return m_hostId; }
+
+    /**
+     * <p>The ID of the Dedicated Host for the instance.</p>
+     */
+    inline bool HostIdHasBeenSet() const { return m_hostIdHasBeenSet; }
 
     /**
      * <p>The ID of the Dedicated Host for the instance.</p>
@@ -206,6 +226,13 @@ namespace Model
      * instance with a tenancy of <code>dedicated</code> runs on single-tenant
      * hardware. </p>
      */
+    inline bool TenancyHasBeenSet() const { return m_tenancyHasBeenSet; }
+
+    /**
+     * <p>The tenancy of the instance (if the instance is running in a VPC). An
+     * instance with a tenancy of <code>dedicated</code> runs on single-tenant
+     * hardware. </p>
+     */
     inline void SetTenancy(const Tenancy& value) { m_tenancyHasBeenSet = true; m_tenancy = value; }
 
     /**
@@ -238,6 +265,11 @@ namespace Model
     /**
      * <p>Reserved for future use.</p>
      */
+    inline bool SpreadDomainHasBeenSet() const { return m_spreadDomainHasBeenSet; }
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
     inline void SetSpreadDomain(const Aws::String& value) { m_spreadDomainHasBeenSet = true; m_spreadDomain = value; }
 
     /**
@@ -265,6 +297,72 @@ namespace Model
      */
     inline LaunchTemplatePlacement& WithSpreadDomain(const char* value) { SetSpreadDomain(value); return *this;}
 
+
+    /**
+     * <p>The ARN of the host resource group in which to launch the instances. </p>
+     */
+    inline const Aws::String& GetHostResourceGroupArn() const{ return m_hostResourceGroupArn; }
+
+    /**
+     * <p>The ARN of the host resource group in which to launch the instances. </p>
+     */
+    inline bool HostResourceGroupArnHasBeenSet() const { return m_hostResourceGroupArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the host resource group in which to launch the instances. </p>
+     */
+    inline void SetHostResourceGroupArn(const Aws::String& value) { m_hostResourceGroupArnHasBeenSet = true; m_hostResourceGroupArn = value; }
+
+    /**
+     * <p>The ARN of the host resource group in which to launch the instances. </p>
+     */
+    inline void SetHostResourceGroupArn(Aws::String&& value) { m_hostResourceGroupArnHasBeenSet = true; m_hostResourceGroupArn = std::move(value); }
+
+    /**
+     * <p>The ARN of the host resource group in which to launch the instances. </p>
+     */
+    inline void SetHostResourceGroupArn(const char* value) { m_hostResourceGroupArnHasBeenSet = true; m_hostResourceGroupArn.assign(value); }
+
+    /**
+     * <p>The ARN of the host resource group in which to launch the instances. </p>
+     */
+    inline LaunchTemplatePlacement& WithHostResourceGroupArn(const Aws::String& value) { SetHostResourceGroupArn(value); return *this;}
+
+    /**
+     * <p>The ARN of the host resource group in which to launch the instances. </p>
+     */
+    inline LaunchTemplatePlacement& WithHostResourceGroupArn(Aws::String&& value) { SetHostResourceGroupArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The ARN of the host resource group in which to launch the instances. </p>
+     */
+    inline LaunchTemplatePlacement& WithHostResourceGroupArn(const char* value) { SetHostResourceGroupArn(value); return *this;}
+
+
+    /**
+     * <p>The number of the partition the instance should launch in. Valid only if the
+     * placement group strategy is set to <code>partition</code>.</p>
+     */
+    inline int GetPartitionNumber() const{ return m_partitionNumber; }
+
+    /**
+     * <p>The number of the partition the instance should launch in. Valid only if the
+     * placement group strategy is set to <code>partition</code>.</p>
+     */
+    inline bool PartitionNumberHasBeenSet() const { return m_partitionNumberHasBeenSet; }
+
+    /**
+     * <p>The number of the partition the instance should launch in. Valid only if the
+     * placement group strategy is set to <code>partition</code>.</p>
+     */
+    inline void SetPartitionNumber(int value) { m_partitionNumberHasBeenSet = true; m_partitionNumber = value; }
+
+    /**
+     * <p>The number of the partition the instance should launch in. Valid only if the
+     * placement group strategy is set to <code>partition</code>.</p>
+     */
+    inline LaunchTemplatePlacement& WithPartitionNumber(int value) { SetPartitionNumber(value); return *this;}
+
   private:
 
     Aws::String m_availabilityZone;
@@ -284,6 +382,12 @@ namespace Model
 
     Aws::String m_spreadDomain;
     bool m_spreadDomainHasBeenSet;
+
+    Aws::String m_hostResourceGroupArn;
+    bool m_hostResourceGroupArnHasBeenSet;
+
+    int m_partitionNumber;
+    bool m_partitionNumberHasBeenSet;
   };
 
 } // namespace Model

@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     UpdateLifecyclePolicyRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,6 +48,11 @@ namespace Model
      * <p>The identifier of the lifecycle policy.</p>
      */
     inline const Aws::String& GetPolicyId() const{ return m_policyId; }
+
+    /**
+     * <p>The identifier of the lifecycle policy.</p>
+     */
+    inline bool PolicyIdHasBeenSet() const { return m_policyIdHasBeenSet; }
 
     /**
      * <p>The identifier of the lifecycle policy.</p>
@@ -85,6 +90,12 @@ namespace Model
      * specified by the lifecycle policy.</p>
      */
     inline const Aws::String& GetExecutionRoleArn() const{ return m_executionRoleArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role used to run the operations
+     * specified by the lifecycle policy.</p>
+     */
+    inline bool ExecutionRoleArnHasBeenSet() const { return m_executionRoleArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the IAM role used to run the operations
@@ -131,6 +142,11 @@ namespace Model
     /**
      * <p>The desired activation state of the lifecycle policy after creation.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The desired activation state of the lifecycle policy after creation.</p>
+     */
     inline void SetState(const SettablePolicyStateValues& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -153,6 +169,11 @@ namespace Model
      * <p>A description of the lifecycle policy.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the lifecycle policy.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the lifecycle policy.</p>
@@ -186,32 +207,38 @@ namespace Model
 
 
     /**
-     * <p>The configuration of the lifecycle policy.</p> <p>Target tags cannot be
-     * re-used across policies.</p>
+     * <p>The configuration of the lifecycle policy. You cannot update the policy type
+     * or the resource type.</p>
      */
     inline const PolicyDetails& GetPolicyDetails() const{ return m_policyDetails; }
 
     /**
-     * <p>The configuration of the lifecycle policy.</p> <p>Target tags cannot be
-     * re-used across policies.</p>
+     * <p>The configuration of the lifecycle policy. You cannot update the policy type
+     * or the resource type.</p>
+     */
+    inline bool PolicyDetailsHasBeenSet() const { return m_policyDetailsHasBeenSet; }
+
+    /**
+     * <p>The configuration of the lifecycle policy. You cannot update the policy type
+     * or the resource type.</p>
      */
     inline void SetPolicyDetails(const PolicyDetails& value) { m_policyDetailsHasBeenSet = true; m_policyDetails = value; }
 
     /**
-     * <p>The configuration of the lifecycle policy.</p> <p>Target tags cannot be
-     * re-used across policies.</p>
+     * <p>The configuration of the lifecycle policy. You cannot update the policy type
+     * or the resource type.</p>
      */
     inline void SetPolicyDetails(PolicyDetails&& value) { m_policyDetailsHasBeenSet = true; m_policyDetails = std::move(value); }
 
     /**
-     * <p>The configuration of the lifecycle policy.</p> <p>Target tags cannot be
-     * re-used across policies.</p>
+     * <p>The configuration of the lifecycle policy. You cannot update the policy type
+     * or the resource type.</p>
      */
     inline UpdateLifecyclePolicyRequest& WithPolicyDetails(const PolicyDetails& value) { SetPolicyDetails(value); return *this;}
 
     /**
-     * <p>The configuration of the lifecycle policy.</p> <p>Target tags cannot be
-     * re-used across policies.</p>
+     * <p>The configuration of the lifecycle policy. You cannot update the policy type
+     * or the resource type.</p>
      */
     inline UpdateLifecyclePolicyRequest& WithPolicyDetails(PolicyDetails&& value) { SetPolicyDetails(std::move(value)); return *this;}
 

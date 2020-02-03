@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * <p>Statistics information about the data store.</p><p><h3>See Also:</h3>   <a
+   * <p>Statistical information about the data store.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/iotanalytics-2017-11-27/DatastoreStatistics">AWS
    * API Reference</a></p>
    */
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DatastoreStatistics();
-    DatastoreStatistics(const Aws::Utils::Json::JsonValue& jsonValue);
-    DatastoreStatistics& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DatastoreStatistics(Aws::Utils::Json::JsonView jsonValue);
+    DatastoreStatistics& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The estimated size of the data store.</p>
      */
     inline const EstimatedResourceSize& GetSize() const{ return m_size; }
+
+    /**
+     * <p>The estimated size of the data store.</p>
+     */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
 
     /**
      * <p>The estimated size of the data store.</p>

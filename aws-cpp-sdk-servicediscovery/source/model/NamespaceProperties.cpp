@@ -29,23 +29,32 @@ namespace Model
 {
 
 NamespaceProperties::NamespaceProperties() : 
-    m_dnsPropertiesHasBeenSet(false)
+    m_dnsPropertiesHasBeenSet(false),
+    m_httpPropertiesHasBeenSet(false)
 {
 }
 
-NamespaceProperties::NamespaceProperties(const JsonValue& jsonValue) : 
-    m_dnsPropertiesHasBeenSet(false)
+NamespaceProperties::NamespaceProperties(JsonView jsonValue) : 
+    m_dnsPropertiesHasBeenSet(false),
+    m_httpPropertiesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-NamespaceProperties& NamespaceProperties::operator =(const JsonValue& jsonValue)
+NamespaceProperties& NamespaceProperties::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DnsProperties"))
   {
     m_dnsProperties = jsonValue.GetObject("DnsProperties");
 
     m_dnsPropertiesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("HttpProperties"))
+  {
+    m_httpProperties = jsonValue.GetObject("HttpProperties");
+
+    m_httpPropertiesHasBeenSet = true;
   }
 
   return *this;
@@ -58,6 +67,12 @@ JsonValue NamespaceProperties::Jsonize() const
   if(m_dnsPropertiesHasBeenSet)
   {
    payload.WithObject("DnsProperties", m_dnsProperties.Jsonize());
+
+  }
+
+  if(m_httpPropertiesHasBeenSet)
+  {
+   payload.WithObject("HttpProperties", m_httpProperties.Jsonize());
 
   }
 

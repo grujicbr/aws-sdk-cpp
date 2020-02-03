@@ -56,16 +56,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -221,7 +215,7 @@ namespace Model
 
         virtual ~CodeStarClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "codestar"; }
+        inline virtual const char* GetServiceClientName() const override { return "CodeStar"; }
 
 
         /**
@@ -253,16 +247,20 @@ namespace Model
         virtual void AssociateTeamMemberAsync(const Model::AssociateTeamMemberRequest& request, const AssociateTeamMemberResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
         /**
-         * <p>Reserved for future use. To create a project, use the AWS CodeStar
-         * console.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates a project, including project resources. This action creates a project
+         * based on a submitted project request. A set of source code files and a toolchain
+         * template file can be included with the project request. If these are not
+         * provided, an empty project is created.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/CreateProject">AWS
          * API Reference</a></p>
          */
         virtual Model::CreateProjectOutcome CreateProject(const Model::CreateProjectRequest& request) const;
 
         /**
-         * <p>Reserved for future use. To create a project, use the AWS CodeStar
-         * console.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates a project, including project resources. This action creates a project
+         * based on a submitted project request. A set of source code files and a toolchain
+         * template file can be included with the project request. If these are not
+         * provided, an empty project is created.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/CreateProject">AWS
          * API Reference</a></p>
          *
@@ -271,8 +269,10 @@ namespace Model
         virtual Model::CreateProjectOutcomeCallable CreateProjectCallable(const Model::CreateProjectRequest& request) const;
 
         /**
-         * <p>Reserved for future use. To create a project, use the AWS CodeStar
-         * console.</p><p><h3>See Also:</h3>   <a
+         * <p>Creates a project, including project resources. This action creates a project
+         * based on a submitted project request. A set of source code files and a toolchain
+         * template file can be included with the project request. If these are not
+         * provided, an empty project is created.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/CreateProject">AWS
          * API Reference</a></p>
          *
@@ -750,10 +750,9 @@ namespace Model
         virtual void UpdateUserProfileAsync(const Model::UpdateUserProfileRequest& request, const UpdateUserProfileResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void AssociateTeamMemberAsyncHelper(const Model::AssociateTeamMemberRequest& request, const AssociateTeamMemberResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateProjectAsyncHelper(const Model::CreateProjectRequest& request, const CreateProjectResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateUserProfileAsyncHelper(const Model::CreateUserProfileRequest& request, const CreateUserProfileResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -774,6 +773,7 @@ namespace Model
         void UpdateUserProfileAsyncHelper(const Model::UpdateUserProfileRequest& request, const UpdateUserProfileResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

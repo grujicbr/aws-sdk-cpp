@@ -36,6 +36,7 @@ Vpc::Vpc() :
     m_state(VpcState::NOT_SET),
     m_stateHasBeenSet(false),
     m_vpcIdHasBeenSet(false),
+    m_ownerIdHasBeenSet(false),
     m_instanceTenancy(Tenancy::NOT_SET),
     m_instanceTenancyHasBeenSet(false),
     m_ipv6CidrBlockAssociationSetHasBeenSet(false),
@@ -52,6 +53,7 @@ Vpc::Vpc(const XmlNode& xmlNode) :
     m_state(VpcState::NOT_SET),
     m_stateHasBeenSet(false),
     m_vpcIdHasBeenSet(false),
+    m_ownerIdHasBeenSet(false),
     m_instanceTenancy(Tenancy::NOT_SET),
     m_instanceTenancyHasBeenSet(false),
     m_ipv6CidrBlockAssociationSetHasBeenSet(false),
@@ -72,31 +74,37 @@ Vpc& Vpc::operator =(const XmlNode& xmlNode)
     XmlNode cidrBlockNode = resultNode.FirstChild("cidrBlock");
     if(!cidrBlockNode.IsNull())
     {
-      m_cidrBlock = StringUtils::Trim(cidrBlockNode.GetText().c_str());
+      m_cidrBlock = Aws::Utils::Xml::DecodeEscapedXmlText(cidrBlockNode.GetText());
       m_cidrBlockHasBeenSet = true;
     }
     XmlNode dhcpOptionsIdNode = resultNode.FirstChild("dhcpOptionsId");
     if(!dhcpOptionsIdNode.IsNull())
     {
-      m_dhcpOptionsId = StringUtils::Trim(dhcpOptionsIdNode.GetText().c_str());
+      m_dhcpOptionsId = Aws::Utils::Xml::DecodeEscapedXmlText(dhcpOptionsIdNode.GetText());
       m_dhcpOptionsIdHasBeenSet = true;
     }
     XmlNode stateNode = resultNode.FirstChild("state");
     if(!stateNode.IsNull())
     {
-      m_state = VpcStateMapper::GetVpcStateForName(StringUtils::Trim(stateNode.GetText().c_str()).c_str());
+      m_state = VpcStateMapper::GetVpcStateForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(stateNode.GetText()).c_str()).c_str());
       m_stateHasBeenSet = true;
     }
     XmlNode vpcIdNode = resultNode.FirstChild("vpcId");
     if(!vpcIdNode.IsNull())
     {
-      m_vpcId = StringUtils::Trim(vpcIdNode.GetText().c_str());
+      m_vpcId = Aws::Utils::Xml::DecodeEscapedXmlText(vpcIdNode.GetText());
       m_vpcIdHasBeenSet = true;
+    }
+    XmlNode ownerIdNode = resultNode.FirstChild("ownerId");
+    if(!ownerIdNode.IsNull())
+    {
+      m_ownerId = Aws::Utils::Xml::DecodeEscapedXmlText(ownerIdNode.GetText());
+      m_ownerIdHasBeenSet = true;
     }
     XmlNode instanceTenancyNode = resultNode.FirstChild("instanceTenancy");
     if(!instanceTenancyNode.IsNull())
     {
-      m_instanceTenancy = TenancyMapper::GetTenancyForName(StringUtils::Trim(instanceTenancyNode.GetText().c_str()).c_str());
+      m_instanceTenancy = TenancyMapper::GetTenancyForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(instanceTenancyNode.GetText()).c_str()).c_str());
       m_instanceTenancyHasBeenSet = true;
     }
     XmlNode ipv6CidrBlockAssociationSetNode = resultNode.FirstChild("ipv6CidrBlockAssociationSet");
@@ -126,7 +134,7 @@ Vpc& Vpc::operator =(const XmlNode& xmlNode)
     XmlNode isDefaultNode = resultNode.FirstChild("isDefault");
     if(!isDefaultNode.IsNull())
     {
-      m_isDefault = StringUtils::ConvertToBool(StringUtils::Trim(isDefaultNode.GetText().c_str()).c_str());
+      m_isDefault = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isDefaultNode.GetText()).c_str()).c_str());
       m_isDefaultHasBeenSet = true;
     }
     XmlNode tagsNode = resultNode.FirstChild("tagSet");
@@ -166,6 +174,11 @@ void Vpc::OutputToStream(Aws::OStream& oStream, const char* location, unsigned i
   if(m_vpcIdHasBeenSet)
   {
       oStream << location << index << locationValue << ".VpcId=" << StringUtils::URLEncode(m_vpcId.c_str()) << "&";
+  }
+
+  if(m_ownerIdHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".OwnerId=" << StringUtils::URLEncode(m_ownerId.c_str()) << "&";
   }
 
   if(m_instanceTenancyHasBeenSet)
@@ -230,6 +243,10 @@ void Vpc::OutputToStream(Aws::OStream& oStream, const char* location) const
   if(m_vpcIdHasBeenSet)
   {
       oStream << location << ".VpcId=" << StringUtils::URLEncode(m_vpcId.c_str()) << "&";
+  }
+  if(m_ownerIdHasBeenSet)
+  {
+      oStream << location << ".OwnerId=" << StringUtils::URLEncode(m_ownerId.c_str()) << "&";
   }
   if(m_instanceTenancyHasBeenSet)
   {

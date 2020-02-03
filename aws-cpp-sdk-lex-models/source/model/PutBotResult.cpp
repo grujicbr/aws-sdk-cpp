@@ -31,7 +31,8 @@ PutBotResult::PutBotResult() :
     m_idleSessionTTLInSeconds(0),
     m_locale(Locale::NOT_SET),
     m_childDirected(false),
-    m_createVersion(false)
+    m_createVersion(false),
+    m_detectSentiment(false)
 {
 }
 
@@ -40,14 +41,15 @@ PutBotResult::PutBotResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
     m_idleSessionTTLInSeconds(0),
     m_locale(Locale::NOT_SET),
     m_childDirected(false),
-    m_createVersion(false)
+    m_createVersion(false),
+    m_detectSentiment(false)
 {
   *this = result;
 }
 
 PutBotResult& PutBotResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("name"))
   {
     m_name = jsonValue.GetString("name");
@@ -62,7 +64,7 @@ PutBotResult& PutBotResult::operator =(const Aws::AmazonWebServiceResult<JsonVal
 
   if(jsonValue.ValueExists("intents"))
   {
-    Array<JsonValue> intentsJsonList = jsonValue.GetArray("intents");
+    Array<JsonView> intentsJsonList = jsonValue.GetArray("intents");
     for(unsigned intentsIndex = 0; intentsIndex < intentsJsonList.GetLength(); ++intentsIndex)
     {
       m_intents.push_back(intentsJsonList[intentsIndex].AsObject());
@@ -144,6 +146,12 @@ PutBotResult& PutBotResult::operator =(const Aws::AmazonWebServiceResult<JsonVal
   if(jsonValue.ValueExists("createVersion"))
   {
     m_createVersion = jsonValue.GetBool("createVersion");
+
+  }
+
+  if(jsonValue.ValueExists("detectSentiment"))
+  {
+    m_detectSentiment = jsonValue.GetBool("detectSentiment");
 
   }
 

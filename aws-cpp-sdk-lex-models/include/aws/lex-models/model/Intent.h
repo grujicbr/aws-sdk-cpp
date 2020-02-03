@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Intent();
-    Intent(const Aws::Utils::Json::JsonValue& jsonValue);
-    Intent& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Intent(Aws::Utils::Json::JsonView jsonValue);
+    Intent& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the intent.</p>
      */
     inline const Aws::String& GetIntentName() const{ return m_intentName; }
+
+    /**
+     * <p>The name of the intent.</p>
+     */
+    inline bool IntentNameHasBeenSet() const { return m_intentNameHasBeenSet; }
 
     /**
      * <p>The name of the intent.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The version of the intent.</p>
      */
     inline const Aws::String& GetIntentVersion() const{ return m_intentVersion; }
+
+    /**
+     * <p>The version of the intent.</p>
+     */
+    inline bool IntentVersionHasBeenSet() const { return m_intentVersionHasBeenSet; }
 
     /**
      * <p>The version of the intent.</p>

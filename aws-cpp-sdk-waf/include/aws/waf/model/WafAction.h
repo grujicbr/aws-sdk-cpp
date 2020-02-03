@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     WafAction();
-    WafAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    WafAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WafAction(Aws::Utils::Json::JsonView jsonValue);
+    WafAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -63,6 +64,19 @@ namespace Model
      * </ul>
      */
     inline const WafActionType& GetType() const{ return m_type; }
+
+    /**
+     * <p>Specifies how you want AWS WAF to respond to requests that match the settings
+     * in a <code>Rule</code>. Valid settings include the following:</p> <ul> <li> <p>
+     * <code>ALLOW</code>: AWS WAF allows requests</p> </li> <li> <p>
+     * <code>BLOCK</code>: AWS WAF blocks requests</p> </li> <li> <p>
+     * <code>COUNT</code>: AWS WAF increments a counter of the requests that match all
+     * of the conditions in the rule. AWS WAF then continues to inspect the web request
+     * based on the remaining rules in the web ACL. You can't specify
+     * <code>COUNT</code> for the default action for a <code>WebACL</code>.</p> </li>
+     * </ul>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>Specifies how you want AWS WAF to respond to requests that match the settings

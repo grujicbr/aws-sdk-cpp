@@ -40,7 +40,11 @@ FlowLog::FlowLog() :
     m_logGroupNameHasBeenSet(false),
     m_resourceIdHasBeenSet(false),
     m_trafficType(TrafficType::NOT_SET),
-    m_trafficTypeHasBeenSet(false)
+    m_trafficTypeHasBeenSet(false),
+    m_logDestinationType(LogDestinationType::NOT_SET),
+    m_logDestinationTypeHasBeenSet(false),
+    m_logDestinationHasBeenSet(false),
+    m_logFormatHasBeenSet(false)
 {
 }
 
@@ -54,7 +58,11 @@ FlowLog::FlowLog(const XmlNode& xmlNode) :
     m_logGroupNameHasBeenSet(false),
     m_resourceIdHasBeenSet(false),
     m_trafficType(TrafficType::NOT_SET),
-    m_trafficTypeHasBeenSet(false)
+    m_trafficTypeHasBeenSet(false),
+    m_logDestinationType(LogDestinationType::NOT_SET),
+    m_logDestinationTypeHasBeenSet(false),
+    m_logDestinationHasBeenSet(false),
+    m_logFormatHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -68,56 +76,74 @@ FlowLog& FlowLog::operator =(const XmlNode& xmlNode)
     XmlNode creationTimeNode = resultNode.FirstChild("creationTime");
     if(!creationTimeNode.IsNull())
     {
-      m_creationTime = DateTime(StringUtils::Trim(creationTimeNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_creationTime = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(creationTimeNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_creationTimeHasBeenSet = true;
     }
     XmlNode deliverLogsErrorMessageNode = resultNode.FirstChild("deliverLogsErrorMessage");
     if(!deliverLogsErrorMessageNode.IsNull())
     {
-      m_deliverLogsErrorMessage = StringUtils::Trim(deliverLogsErrorMessageNode.GetText().c_str());
+      m_deliverLogsErrorMessage = Aws::Utils::Xml::DecodeEscapedXmlText(deliverLogsErrorMessageNode.GetText());
       m_deliverLogsErrorMessageHasBeenSet = true;
     }
     XmlNode deliverLogsPermissionArnNode = resultNode.FirstChild("deliverLogsPermissionArn");
     if(!deliverLogsPermissionArnNode.IsNull())
     {
-      m_deliverLogsPermissionArn = StringUtils::Trim(deliverLogsPermissionArnNode.GetText().c_str());
+      m_deliverLogsPermissionArn = Aws::Utils::Xml::DecodeEscapedXmlText(deliverLogsPermissionArnNode.GetText());
       m_deliverLogsPermissionArnHasBeenSet = true;
     }
     XmlNode deliverLogsStatusNode = resultNode.FirstChild("deliverLogsStatus");
     if(!deliverLogsStatusNode.IsNull())
     {
-      m_deliverLogsStatus = StringUtils::Trim(deliverLogsStatusNode.GetText().c_str());
+      m_deliverLogsStatus = Aws::Utils::Xml::DecodeEscapedXmlText(deliverLogsStatusNode.GetText());
       m_deliverLogsStatusHasBeenSet = true;
     }
     XmlNode flowLogIdNode = resultNode.FirstChild("flowLogId");
     if(!flowLogIdNode.IsNull())
     {
-      m_flowLogId = StringUtils::Trim(flowLogIdNode.GetText().c_str());
+      m_flowLogId = Aws::Utils::Xml::DecodeEscapedXmlText(flowLogIdNode.GetText());
       m_flowLogIdHasBeenSet = true;
     }
     XmlNode flowLogStatusNode = resultNode.FirstChild("flowLogStatus");
     if(!flowLogStatusNode.IsNull())
     {
-      m_flowLogStatus = StringUtils::Trim(flowLogStatusNode.GetText().c_str());
+      m_flowLogStatus = Aws::Utils::Xml::DecodeEscapedXmlText(flowLogStatusNode.GetText());
       m_flowLogStatusHasBeenSet = true;
     }
     XmlNode logGroupNameNode = resultNode.FirstChild("logGroupName");
     if(!logGroupNameNode.IsNull())
     {
-      m_logGroupName = StringUtils::Trim(logGroupNameNode.GetText().c_str());
+      m_logGroupName = Aws::Utils::Xml::DecodeEscapedXmlText(logGroupNameNode.GetText());
       m_logGroupNameHasBeenSet = true;
     }
     XmlNode resourceIdNode = resultNode.FirstChild("resourceId");
     if(!resourceIdNode.IsNull())
     {
-      m_resourceId = StringUtils::Trim(resourceIdNode.GetText().c_str());
+      m_resourceId = Aws::Utils::Xml::DecodeEscapedXmlText(resourceIdNode.GetText());
       m_resourceIdHasBeenSet = true;
     }
     XmlNode trafficTypeNode = resultNode.FirstChild("trafficType");
     if(!trafficTypeNode.IsNull())
     {
-      m_trafficType = TrafficTypeMapper::GetTrafficTypeForName(StringUtils::Trim(trafficTypeNode.GetText().c_str()).c_str());
+      m_trafficType = TrafficTypeMapper::GetTrafficTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(trafficTypeNode.GetText()).c_str()).c_str());
       m_trafficTypeHasBeenSet = true;
+    }
+    XmlNode logDestinationTypeNode = resultNode.FirstChild("logDestinationType");
+    if(!logDestinationTypeNode.IsNull())
+    {
+      m_logDestinationType = LogDestinationTypeMapper::GetLogDestinationTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(logDestinationTypeNode.GetText()).c_str()).c_str());
+      m_logDestinationTypeHasBeenSet = true;
+    }
+    XmlNode logDestinationNode = resultNode.FirstChild("logDestination");
+    if(!logDestinationNode.IsNull())
+    {
+      m_logDestination = Aws::Utils::Xml::DecodeEscapedXmlText(logDestinationNode.GetText());
+      m_logDestinationHasBeenSet = true;
+    }
+    XmlNode logFormatNode = resultNode.FirstChild("logFormat");
+    if(!logFormatNode.IsNull())
+    {
+      m_logFormat = Aws::Utils::Xml::DecodeEscapedXmlText(logFormatNode.GetText());
+      m_logFormatHasBeenSet = true;
     }
   }
 
@@ -171,6 +197,21 @@ void FlowLog::OutputToStream(Aws::OStream& oStream, const char* location, unsign
       oStream << location << index << locationValue << ".TrafficType=" << TrafficTypeMapper::GetNameForTrafficType(m_trafficType) << "&";
   }
 
+  if(m_logDestinationTypeHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".LogDestinationType=" << LogDestinationTypeMapper::GetNameForLogDestinationType(m_logDestinationType) << "&";
+  }
+
+  if(m_logDestinationHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".LogDestination=" << StringUtils::URLEncode(m_logDestination.c_str()) << "&";
+  }
+
+  if(m_logFormatHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".LogFormat=" << StringUtils::URLEncode(m_logFormat.c_str()) << "&";
+  }
+
 }
 
 void FlowLog::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -210,6 +251,18 @@ void FlowLog::OutputToStream(Aws::OStream& oStream, const char* location) const
   if(m_trafficTypeHasBeenSet)
   {
       oStream << location << ".TrafficType=" << TrafficTypeMapper::GetNameForTrafficType(m_trafficType) << "&";
+  }
+  if(m_logDestinationTypeHasBeenSet)
+  {
+      oStream << location << ".LogDestinationType=" << LogDestinationTypeMapper::GetNameForLogDestinationType(m_logDestinationType) << "&";
+  }
+  if(m_logDestinationHasBeenSet)
+  {
+      oStream << location << ".LogDestination=" << StringUtils::URLEncode(m_logDestination.c_str()) << "&";
+  }
+  if(m_logFormatHasBeenSet)
+  {
+      oStream << location << ".LogFormat=" << StringUtils::URLEncode(m_logFormat.c_str()) << "&";
   }
 }
 

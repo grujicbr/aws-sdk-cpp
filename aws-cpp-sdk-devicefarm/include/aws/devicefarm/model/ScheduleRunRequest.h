@@ -17,6 +17,7 @@
 #include <aws/devicefarm/DeviceFarm_EXPORTS.h>
 #include <aws/devicefarm/DeviceFarmRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/devicefarm/model/DeviceSelectionConfiguration.h>
 #include <aws/devicefarm/model/ScheduleRunTest.h>
 #include <aws/devicefarm/model/ScheduleRunConfiguration.h>
 #include <aws/devicefarm/model/ExecutionConfiguration.h>
@@ -39,7 +40,7 @@ namespace Model
   {
   public:
     ScheduleRunRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -55,6 +56,11 @@ namespace Model
      * <p>The ARN of the project for the run to be scheduled.</p>
      */
     inline const Aws::String& GetProjectArn() const{ return m_projectArn; }
+
+    /**
+     * <p>The ARN of the project for the run to be scheduled.</p>
+     */
+    inline bool ProjectArnHasBeenSet() const { return m_projectArnHasBeenSet; }
 
     /**
      * <p>The ARN of the project for the run to be scheduled.</p>
@@ -88,37 +94,50 @@ namespace Model
 
 
     /**
-     * <p>The ARN of the app to schedule a run.</p>
+     * <p>The ARN of an application package to run tests against, created with
+     * <a>CreateUpload</a>. See <a>ListUploads</a>.</p>
      */
     inline const Aws::String& GetAppArn() const{ return m_appArn; }
 
     /**
-     * <p>The ARN of the app to schedule a run.</p>
+     * <p>The ARN of an application package to run tests against, created with
+     * <a>CreateUpload</a>. See <a>ListUploads</a>.</p>
+     */
+    inline bool AppArnHasBeenSet() const { return m_appArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of an application package to run tests against, created with
+     * <a>CreateUpload</a>. See <a>ListUploads</a>.</p>
      */
     inline void SetAppArn(const Aws::String& value) { m_appArnHasBeenSet = true; m_appArn = value; }
 
     /**
-     * <p>The ARN of the app to schedule a run.</p>
+     * <p>The ARN of an application package to run tests against, created with
+     * <a>CreateUpload</a>. See <a>ListUploads</a>.</p>
      */
     inline void SetAppArn(Aws::String&& value) { m_appArnHasBeenSet = true; m_appArn = std::move(value); }
 
     /**
-     * <p>The ARN of the app to schedule a run.</p>
+     * <p>The ARN of an application package to run tests against, created with
+     * <a>CreateUpload</a>. See <a>ListUploads</a>.</p>
      */
     inline void SetAppArn(const char* value) { m_appArnHasBeenSet = true; m_appArn.assign(value); }
 
     /**
-     * <p>The ARN of the app to schedule a run.</p>
+     * <p>The ARN of an application package to run tests against, created with
+     * <a>CreateUpload</a>. See <a>ListUploads</a>.</p>
      */
     inline ScheduleRunRequest& WithAppArn(const Aws::String& value) { SetAppArn(value); return *this;}
 
     /**
-     * <p>The ARN of the app to schedule a run.</p>
+     * <p>The ARN of an application package to run tests against, created with
+     * <a>CreateUpload</a>. See <a>ListUploads</a>.</p>
      */
     inline ScheduleRunRequest& WithAppArn(Aws::String&& value) { SetAppArn(std::move(value)); return *this;}
 
     /**
-     * <p>The ARN of the app to schedule a run.</p>
+     * <p>The ARN of an application package to run tests against, created with
+     * <a>CreateUpload</a>. See <a>ListUploads</a>.</p>
      */
     inline ScheduleRunRequest& WithAppArn(const char* value) { SetAppArn(value); return *this;}
 
@@ -127,6 +146,11 @@ namespace Model
      * <p>The ARN of the device pool for the run to be scheduled.</p>
      */
     inline const Aws::String& GetDevicePoolArn() const{ return m_devicePoolArn; }
+
+    /**
+     * <p>The ARN of the device pool for the run to be scheduled.</p>
+     */
+    inline bool DevicePoolArnHasBeenSet() const { return m_devicePoolArnHasBeenSet; }
 
     /**
      * <p>The ARN of the device pool for the run to be scheduled.</p>
@@ -160,9 +184,63 @@ namespace Model
 
 
     /**
+     * <p>The filter criteria used to dynamically select a set of devices for a test
+     * run and the maximum number of devices to be included in the run.</p> <p>Either
+     * <b> <code>devicePoolArn</code> </b> or <b>
+     * <code>deviceSelectionConfiguration</code> </b> is required in a request.</p>
+     */
+    inline const DeviceSelectionConfiguration& GetDeviceSelectionConfiguration() const{ return m_deviceSelectionConfiguration; }
+
+    /**
+     * <p>The filter criteria used to dynamically select a set of devices for a test
+     * run and the maximum number of devices to be included in the run.</p> <p>Either
+     * <b> <code>devicePoolArn</code> </b> or <b>
+     * <code>deviceSelectionConfiguration</code> </b> is required in a request.</p>
+     */
+    inline bool DeviceSelectionConfigurationHasBeenSet() const { return m_deviceSelectionConfigurationHasBeenSet; }
+
+    /**
+     * <p>The filter criteria used to dynamically select a set of devices for a test
+     * run and the maximum number of devices to be included in the run.</p> <p>Either
+     * <b> <code>devicePoolArn</code> </b> or <b>
+     * <code>deviceSelectionConfiguration</code> </b> is required in a request.</p>
+     */
+    inline void SetDeviceSelectionConfiguration(const DeviceSelectionConfiguration& value) { m_deviceSelectionConfigurationHasBeenSet = true; m_deviceSelectionConfiguration = value; }
+
+    /**
+     * <p>The filter criteria used to dynamically select a set of devices for a test
+     * run and the maximum number of devices to be included in the run.</p> <p>Either
+     * <b> <code>devicePoolArn</code> </b> or <b>
+     * <code>deviceSelectionConfiguration</code> </b> is required in a request.</p>
+     */
+    inline void SetDeviceSelectionConfiguration(DeviceSelectionConfiguration&& value) { m_deviceSelectionConfigurationHasBeenSet = true; m_deviceSelectionConfiguration = std::move(value); }
+
+    /**
+     * <p>The filter criteria used to dynamically select a set of devices for a test
+     * run and the maximum number of devices to be included in the run.</p> <p>Either
+     * <b> <code>devicePoolArn</code> </b> or <b>
+     * <code>deviceSelectionConfiguration</code> </b> is required in a request.</p>
+     */
+    inline ScheduleRunRequest& WithDeviceSelectionConfiguration(const DeviceSelectionConfiguration& value) { SetDeviceSelectionConfiguration(value); return *this;}
+
+    /**
+     * <p>The filter criteria used to dynamically select a set of devices for a test
+     * run and the maximum number of devices to be included in the run.</p> <p>Either
+     * <b> <code>devicePoolArn</code> </b> or <b>
+     * <code>deviceSelectionConfiguration</code> </b> is required in a request.</p>
+     */
+    inline ScheduleRunRequest& WithDeviceSelectionConfiguration(DeviceSelectionConfiguration&& value) { SetDeviceSelectionConfiguration(std::move(value)); return *this;}
+
+
+    /**
      * <p>The name for the run to be scheduled.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name for the run to be scheduled.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name for the run to be scheduled.</p>
@@ -203,6 +281,11 @@ namespace Model
     /**
      * <p>Information about the test for the run to be scheduled.</p>
      */
+    inline bool TestHasBeenSet() const { return m_testHasBeenSet; }
+
+    /**
+     * <p>Information about the test for the run to be scheduled.</p>
+     */
     inline void SetTest(const ScheduleRunTest& value) { m_testHasBeenSet = true; m_test = value; }
 
     /**
@@ -225,6 +308,11 @@ namespace Model
      * <p>Information about the settings for the run to be scheduled.</p>
      */
     inline const ScheduleRunConfiguration& GetConfiguration() const{ return m_configuration; }
+
+    /**
+     * <p>Information about the settings for the run to be scheduled.</p>
+     */
+    inline bool ConfigurationHasBeenSet() const { return m_configurationHasBeenSet; }
 
     /**
      * <p>Information about the settings for the run to be scheduled.</p>
@@ -252,6 +340,12 @@ namespace Model
      * timeout (in minutes).</p>
      */
     inline const ExecutionConfiguration& GetExecutionConfiguration() const{ return m_executionConfiguration; }
+
+    /**
+     * <p>Specifies configuration information about a test run, such as the execution
+     * timeout (in minutes).</p>
+     */
+    inline bool ExecutionConfigurationHasBeenSet() const { return m_executionConfigurationHasBeenSet; }
 
     /**
      * <p>Specifies configuration information about a test run, such as the execution
@@ -287,6 +381,9 @@ namespace Model
 
     Aws::String m_devicePoolArn;
     bool m_devicePoolArnHasBeenSet;
+
+    DeviceSelectionConfiguration m_deviceSelectionConfiguration;
+    bool m_deviceSelectionConfigurationHasBeenSet;
 
     Aws::String m_name;
     bool m_nameHasBeenSet;

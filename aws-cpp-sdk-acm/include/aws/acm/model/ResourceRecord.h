@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACM
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ResourceRecord();
-    ResourceRecord(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceRecord& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceRecord(Aws::Utils::Json::JsonView jsonValue);
+    ResourceRecord& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * ACM.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the DNS record to create in your domain. This is supplied by
+     * ACM.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the DNS record to create in your domain. This is supplied by
@@ -100,6 +107,11 @@ namespace Model
     /**
      * <p>The type of DNS record. Currently this can be <code>CNAME</code>.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of DNS record. Currently this can be <code>CNAME</code>.</p>
+     */
     inline void SetType(const RecordType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -123,6 +135,12 @@ namespace Model
      * by ACM.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of the CNAME record to add to your DNS database. This is supplied
+     * by ACM.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of the CNAME record to add to your DNS database. This is supplied

@@ -33,6 +33,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -51,8 +52,8 @@ namespace Model
   {
   public:
     AssessmentRun();
-    AssessmentRun(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssessmentRun& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssessmentRun(Aws::Utils::Json::JsonView jsonValue);
+    AssessmentRun& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +61,11 @@ namespace Model
      * <p>The ARN of the assessment run.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The ARN of the assessment run.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The ARN of the assessment run.</p>
@@ -100,6 +106,11 @@ namespace Model
     /**
      * <p>The auto-generated name for the assessment run.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The auto-generated name for the assessment run.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -133,6 +144,12 @@ namespace Model
      * run.</p>
      */
     inline const Aws::String& GetAssessmentTemplateArn() const{ return m_assessmentTemplateArn; }
+
+    /**
+     * <p>The ARN of the assessment template that is associated with the assessment
+     * run.</p>
+     */
+    inline bool AssessmentTemplateArnHasBeenSet() const { return m_assessmentTemplateArnHasBeenSet; }
 
     /**
      * <p>The ARN of the assessment template that is associated with the assessment
@@ -179,6 +196,11 @@ namespace Model
     /**
      * <p>The state of the assessment run.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The state of the assessment run.</p>
+     */
     inline void SetState(const AssessmentRunState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -205,6 +227,11 @@ namespace Model
     /**
      * <p>The duration of the assessment run.</p>
      */
+    inline bool DurationInSecondsHasBeenSet() const { return m_durationInSecondsHasBeenSet; }
+
+    /**
+     * <p>The duration of the assessment run.</p>
+     */
     inline void SetDurationInSeconds(int value) { m_durationInSecondsHasBeenSet = true; m_durationInSeconds = value; }
 
     /**
@@ -217,6 +244,11 @@ namespace Model
      * <p>The rules packages selected for the assessment run.</p>
      */
     inline const Aws::Vector<Aws::String>& GetRulesPackageArns() const{ return m_rulesPackageArns; }
+
+    /**
+     * <p>The rules packages selected for the assessment run.</p>
+     */
+    inline bool RulesPackageArnsHasBeenSet() const { return m_rulesPackageArnsHasBeenSet; }
 
     /**
      * <p>The rules packages selected for the assessment run.</p>
@@ -262,6 +294,11 @@ namespace Model
     /**
      * <p>The user-defined attributes that are assigned to every generated finding.</p>
      */
+    inline bool UserAttributesForFindingsHasBeenSet() const { return m_userAttributesForFindingsHasBeenSet; }
+
+    /**
+     * <p>The user-defined attributes that are assigned to every generated finding.</p>
+     */
     inline void SetUserAttributesForFindings(const Aws::Vector<Attribute>& value) { m_userAttributesForFindingsHasBeenSet = true; m_userAttributesForFindings = value; }
 
     /**
@@ -298,6 +335,11 @@ namespace Model
     /**
      * <p>The time when <a>StartAssessmentRun</a> was called.</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The time when <a>StartAssessmentRun</a> was called.</p>
+     */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -320,6 +362,11 @@ namespace Model
      * <p>The time when <a>StartAssessmentRun</a> was called.</p>
      */
     inline const Aws::Utils::DateTime& GetStartedAt() const{ return m_startedAt; }
+
+    /**
+     * <p>The time when <a>StartAssessmentRun</a> was called.</p>
+     */
+    inline bool StartedAtHasBeenSet() const { return m_startedAtHasBeenSet; }
 
     /**
      * <p>The time when <a>StartAssessmentRun</a> was called.</p>
@@ -347,6 +394,12 @@ namespace Model
      * evaluation completion time or failure.</p>
      */
     inline const Aws::Utils::DateTime& GetCompletedAt() const{ return m_completedAt; }
+
+    /**
+     * <p>The assessment run completion time that corresponds to the rules packages
+     * evaluation completion time or failure.</p>
+     */
+    inline bool CompletedAtHasBeenSet() const { return m_completedAtHasBeenSet; }
 
     /**
      * <p>The assessment run completion time that corresponds to the rules packages
@@ -381,6 +434,11 @@ namespace Model
     /**
      * <p>The last time when the assessment run's state changed.</p>
      */
+    inline bool StateChangedAtHasBeenSet() const { return m_stateChangedAtHasBeenSet; }
+
+    /**
+     * <p>The last time when the assessment run's state changed.</p>
+     */
     inline void SetStateChangedAt(const Aws::Utils::DateTime& value) { m_stateChangedAtHasBeenSet = true; m_stateChangedAt = value; }
 
     /**
@@ -409,6 +467,12 @@ namespace Model
      * <p>A Boolean value (true or false) that specifies whether the process of
      * collecting data from the agents is completed.</p>
      */
+    inline bool DataCollectedHasBeenSet() const { return m_dataCollectedHasBeenSet; }
+
+    /**
+     * <p>A Boolean value (true or false) that specifies whether the process of
+     * collecting data from the agents is completed.</p>
+     */
     inline void SetDataCollected(bool value) { m_dataCollectedHasBeenSet = true; m_dataCollected = value; }
 
     /**
@@ -422,6 +486,11 @@ namespace Model
      * <p>A list of the assessment run state changes.</p>
      */
     inline const Aws::Vector<AssessmentRunStateChange>& GetStateChanges() const{ return m_stateChanges; }
+
+    /**
+     * <p>A list of the assessment run state changes.</p>
+     */
+    inline bool StateChangesHasBeenSet() const { return m_stateChangesHasBeenSet; }
 
     /**
      * <p>A list of the assessment run state changes.</p>
@@ -464,6 +533,12 @@ namespace Model
      * <p>A list of notifications for the event subscriptions. A notification about a
      * particular generated finding is added to this list only once.</p>
      */
+    inline bool NotificationsHasBeenSet() const { return m_notificationsHasBeenSet; }
+
+    /**
+     * <p>A list of notifications for the event subscriptions. A notification about a
+     * particular generated finding is added to this list only once.</p>
+     */
     inline void SetNotifications(const Aws::Vector<AssessmentRunNotification>& value) { m_notificationsHasBeenSet = true; m_notifications = value; }
 
     /**
@@ -501,6 +576,11 @@ namespace Model
      * <p>Provides a total count of generated findings per severity.</p>
      */
     inline const Aws::Map<Severity, int>& GetFindingCounts() const{ return m_findingCounts; }
+
+    /**
+     * <p>Provides a total count of generated findings per severity.</p>
+     */
+    inline bool FindingCountsHasBeenSet() const { return m_findingCountsHasBeenSet; }
 
     /**
      * <p>Provides a total count of generated findings per severity.</p>

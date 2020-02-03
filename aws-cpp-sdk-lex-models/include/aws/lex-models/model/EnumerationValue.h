@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     EnumerationValue();
-    EnumerationValue(const Aws::Utils::Json::JsonValue& jsonValue);
-    EnumerationValue& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EnumerationValue(Aws::Utils::Json::JsonView jsonValue);
+    EnumerationValue& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The value of the slot type.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of the slot type.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of the slot type.</p>
@@ -91,6 +97,11 @@ namespace Model
      * <p>Additional values related to the slot type value.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSynonyms() const{ return m_synonyms; }
+
+    /**
+     * <p>Additional values related to the slot type value.</p>
+     */
+    inline bool SynonymsHasBeenSet() const { return m_synonymsHasBeenSet; }
 
     /**
      * <p>Additional values related to the slot type value.</p>

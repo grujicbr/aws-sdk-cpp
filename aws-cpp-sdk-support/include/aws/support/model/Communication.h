@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -36,8 +37,8 @@ namespace Model
 
   /**
    * <p>A communication associated with an AWS Support case. The communication
-   * consists of the case ID, the message body, attachment information, the account
-   * email address, and the date and time of the communication.</p><p><h3>See
+   * consists of the case ID, the message body, attachment information, the submitter
+   * of the communication, and the date and time of the communication.</p><p><h3>See
    * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/support-2013-04-15/Communication">AWS
    * API Reference</a></p>
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     Communication();
-    Communication(const Aws::Utils::Json::JsonValue& jsonValue);
-    Communication& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Communication(Aws::Utils::Json::JsonView jsonValue);
+    Communication& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,13 @@ namespace Model
      * case-<i>12345678910-2013-c4c1d2bf33c5cf47</i> </p>
      */
     inline const Aws::String& GetCaseId() const{ return m_caseId; }
+
+    /**
+     * <p>The AWS Support case ID requested or returned in the call. The case ID is an
+     * alphanumeric string formatted as shown in this example:
+     * case-<i>12345678910-2013-c4c1d2bf33c5cf47</i> </p>
+     */
+    inline bool CaseIdHasBeenSet() const { return m_caseIdHasBeenSet; }
 
     /**
      * <p>The AWS Support case ID requested or returned in the call. The case ID is an
@@ -109,6 +117,11 @@ namespace Model
     /**
      * <p>The text of the communication between the customer and AWS Support.</p>
      */
+    inline bool BodyHasBeenSet() const { return m_bodyHasBeenSet; }
+
+    /**
+     * <p>The text of the communication between the customer and AWS Support.</p>
+     */
     inline void SetBody(const Aws::String& value) { m_bodyHasBeenSet = true; m_body = value; }
 
     /**
@@ -138,37 +151,74 @@ namespace Model
 
 
     /**
-     * <p>The email address of the account that submitted the AWS Support case.</p>
+     * <p>The identity of the account that submitted, or responded to, the support
+     * case. Customer entries include the role or IAM user as well as the email
+     * address. For example, "AdminRole (Role) &lt;someone@example.com&gt;. Entries
+     * from the AWS Support team display "Amazon Web Services," and do not show an
+     * email address. </p>
      */
     inline const Aws::String& GetSubmittedBy() const{ return m_submittedBy; }
 
     /**
-     * <p>The email address of the account that submitted the AWS Support case.</p>
+     * <p>The identity of the account that submitted, or responded to, the support
+     * case. Customer entries include the role or IAM user as well as the email
+     * address. For example, "AdminRole (Role) &lt;someone@example.com&gt;. Entries
+     * from the AWS Support team display "Amazon Web Services," and do not show an
+     * email address. </p>
+     */
+    inline bool SubmittedByHasBeenSet() const { return m_submittedByHasBeenSet; }
+
+    /**
+     * <p>The identity of the account that submitted, or responded to, the support
+     * case. Customer entries include the role or IAM user as well as the email
+     * address. For example, "AdminRole (Role) &lt;someone@example.com&gt;. Entries
+     * from the AWS Support team display "Amazon Web Services," and do not show an
+     * email address. </p>
      */
     inline void SetSubmittedBy(const Aws::String& value) { m_submittedByHasBeenSet = true; m_submittedBy = value; }
 
     /**
-     * <p>The email address of the account that submitted the AWS Support case.</p>
+     * <p>The identity of the account that submitted, or responded to, the support
+     * case. Customer entries include the role or IAM user as well as the email
+     * address. For example, "AdminRole (Role) &lt;someone@example.com&gt;. Entries
+     * from the AWS Support team display "Amazon Web Services," and do not show an
+     * email address. </p>
      */
     inline void SetSubmittedBy(Aws::String&& value) { m_submittedByHasBeenSet = true; m_submittedBy = std::move(value); }
 
     /**
-     * <p>The email address of the account that submitted the AWS Support case.</p>
+     * <p>The identity of the account that submitted, or responded to, the support
+     * case. Customer entries include the role or IAM user as well as the email
+     * address. For example, "AdminRole (Role) &lt;someone@example.com&gt;. Entries
+     * from the AWS Support team display "Amazon Web Services," and do not show an
+     * email address. </p>
      */
     inline void SetSubmittedBy(const char* value) { m_submittedByHasBeenSet = true; m_submittedBy.assign(value); }
 
     /**
-     * <p>The email address of the account that submitted the AWS Support case.</p>
+     * <p>The identity of the account that submitted, or responded to, the support
+     * case. Customer entries include the role or IAM user as well as the email
+     * address. For example, "AdminRole (Role) &lt;someone@example.com&gt;. Entries
+     * from the AWS Support team display "Amazon Web Services," and do not show an
+     * email address. </p>
      */
     inline Communication& WithSubmittedBy(const Aws::String& value) { SetSubmittedBy(value); return *this;}
 
     /**
-     * <p>The email address of the account that submitted the AWS Support case.</p>
+     * <p>The identity of the account that submitted, or responded to, the support
+     * case. Customer entries include the role or IAM user as well as the email
+     * address. For example, "AdminRole (Role) &lt;someone@example.com&gt;. Entries
+     * from the AWS Support team display "Amazon Web Services," and do not show an
+     * email address. </p>
      */
     inline Communication& WithSubmittedBy(Aws::String&& value) { SetSubmittedBy(std::move(value)); return *this;}
 
     /**
-     * <p>The email address of the account that submitted the AWS Support case.</p>
+     * <p>The identity of the account that submitted, or responded to, the support
+     * case. Customer entries include the role or IAM user as well as the email
+     * address. For example, "AdminRole (Role) &lt;someone@example.com&gt;. Entries
+     * from the AWS Support team display "Amazon Web Services," and do not show an
+     * email address. </p>
      */
     inline Communication& WithSubmittedBy(const char* value) { SetSubmittedBy(value); return *this;}
 
@@ -177,6 +227,11 @@ namespace Model
      * <p>The time the communication was created.</p>
      */
     inline const Aws::String& GetTimeCreated() const{ return m_timeCreated; }
+
+    /**
+     * <p>The time the communication was created.</p>
+     */
+    inline bool TimeCreatedHasBeenSet() const { return m_timeCreatedHasBeenSet; }
 
     /**
      * <p>The time the communication was created.</p>
@@ -213,6 +268,11 @@ namespace Model
      * <p>Information about the attachments to the case communication.</p>
      */
     inline const Aws::Vector<AttachmentDetails>& GetAttachmentSet() const{ return m_attachmentSet; }
+
+    /**
+     * <p>Information about the attachments to the case communication.</p>
+     */
+    inline bool AttachmentSetHasBeenSet() const { return m_attachmentSetHasBeenSet; }
 
     /**
      * <p>Information about the attachments to the case communication.</p>

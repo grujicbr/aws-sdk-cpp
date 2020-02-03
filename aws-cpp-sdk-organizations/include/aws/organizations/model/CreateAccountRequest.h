@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     CreateAccountRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,7 +48,7 @@ namespace Model
     /**
      * <p>The email address of the owner to assign to the new member account. This
      * email address must not already be associated with another AWS account. You must
-     * use a valid email address to complete account creation. You cannot access the
+     * use a valid email address to complete account creation. You can't access the
      * root user of the account or remove an account that was created with an invalid
      * email address.</p>
      */
@@ -57,7 +57,16 @@ namespace Model
     /**
      * <p>The email address of the owner to assign to the new member account. This
      * email address must not already be associated with another AWS account. You must
-     * use a valid email address to complete account creation. You cannot access the
+     * use a valid email address to complete account creation. You can't access the
+     * root user of the account or remove an account that was created with an invalid
+     * email address.</p>
+     */
+    inline bool EmailHasBeenSet() const { return m_emailHasBeenSet; }
+
+    /**
+     * <p>The email address of the owner to assign to the new member account. This
+     * email address must not already be associated with another AWS account. You must
+     * use a valid email address to complete account creation. You can't access the
      * root user of the account or remove an account that was created with an invalid
      * email address.</p>
      */
@@ -66,7 +75,7 @@ namespace Model
     /**
      * <p>The email address of the owner to assign to the new member account. This
      * email address must not already be associated with another AWS account. You must
-     * use a valid email address to complete account creation. You cannot access the
+     * use a valid email address to complete account creation. You can't access the
      * root user of the account or remove an account that was created with an invalid
      * email address.</p>
      */
@@ -75,7 +84,7 @@ namespace Model
     /**
      * <p>The email address of the owner to assign to the new member account. This
      * email address must not already be associated with another AWS account. You must
-     * use a valid email address to complete account creation. You cannot access the
+     * use a valid email address to complete account creation. You can't access the
      * root user of the account or remove an account that was created with an invalid
      * email address.</p>
      */
@@ -84,7 +93,7 @@ namespace Model
     /**
      * <p>The email address of the owner to assign to the new member account. This
      * email address must not already be associated with another AWS account. You must
-     * use a valid email address to complete account creation. You cannot access the
+     * use a valid email address to complete account creation. You can't access the
      * root user of the account or remove an account that was created with an invalid
      * email address.</p>
      */
@@ -93,7 +102,7 @@ namespace Model
     /**
      * <p>The email address of the owner to assign to the new member account. This
      * email address must not already be associated with another AWS account. You must
-     * use a valid email address to complete account creation. You cannot access the
+     * use a valid email address to complete account creation. You can't access the
      * root user of the account or remove an account that was created with an invalid
      * email address.</p>
      */
@@ -102,7 +111,7 @@ namespace Model
     /**
      * <p>The email address of the owner to assign to the new member account. This
      * email address must not already be associated with another AWS account. You must
-     * use a valid email address to complete account creation. You cannot access the
+     * use a valid email address to complete account creation. You can't access the
      * root user of the account or remove an account that was created with an invalid
      * email address.</p>
      */
@@ -113,6 +122,11 @@ namespace Model
      * <p>The friendly name of the member account.</p>
      */
     inline const Aws::String& GetAccountName() const{ return m_accountName; }
+
+    /**
+     * <p>The friendly name of the member account.</p>
+     */
+    inline bool AccountNameHasBeenSet() const { return m_accountNameHasBeenSet; }
 
     /**
      * <p>The friendly name of the member account.</p>
@@ -146,142 +160,170 @@ namespace Model
 
 
     /**
-     * <p>(Optional)</p> <p>The name of an IAM role that Organizations automatically
-     * preconfigures in the new member account. This role trusts the master account,
-     * allowing users in the master account to assume the role, as permitted by the
-     * master account administrator. The role has administrator permissions in the new
-     * member account.</p> <p>If you do not specify this parameter, the role name
-     * defaults to <code>OrganizationAccountAccessRole</code>.</p> <p>For more
-     * information about how to use this role to access the member account, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
+     * <p>(Optional)</p> <p>The name of an IAM role that AWS Organizations
+     * automatically preconfigures in the new member account. This role trusts the
+     * master account, allowing users in the master account to assume the role, as
+     * permitted by the master account administrator. The role has administrator
+     * permissions in the new member account.</p> <p>If you don't specify this
+     * parameter, the role name defaults to
+     * <code>OrganizationAccountAccessRole</code>.</p> <p>For more information about
+     * how to use this role to access the member account, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
      * and Administering the Member Accounts in Your Organization</a> in the <i>AWS
-     * Organizations User Guide</i>, and steps 2 and 3 in <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
+     * Organizations User Guide</i>. Also see steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
      * Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User
-     * Guide</i>.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
-     * pattern</a> that is used to validate this parameter is a string of characters
-     * that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     * and any of the following characters: =,.@-</p>
+     * Guide.</i> </p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> that is used to validate this parameter. The pattern can include
+     * uppercase letters, lowercase letters, digits with no spaces, and any of the
+     * following characters: =,.@-</p>
      */
     inline const Aws::String& GetRoleName() const{ return m_roleName; }
 
     /**
-     * <p>(Optional)</p> <p>The name of an IAM role that Organizations automatically
-     * preconfigures in the new member account. This role trusts the master account,
-     * allowing users in the master account to assume the role, as permitted by the
-     * master account administrator. The role has administrator permissions in the new
-     * member account.</p> <p>If you do not specify this parameter, the role name
-     * defaults to <code>OrganizationAccountAccessRole</code>.</p> <p>For more
-     * information about how to use this role to access the member account, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
+     * <p>(Optional)</p> <p>The name of an IAM role that AWS Organizations
+     * automatically preconfigures in the new member account. This role trusts the
+     * master account, allowing users in the master account to assume the role, as
+     * permitted by the master account administrator. The role has administrator
+     * permissions in the new member account.</p> <p>If you don't specify this
+     * parameter, the role name defaults to
+     * <code>OrganizationAccountAccessRole</code>.</p> <p>For more information about
+     * how to use this role to access the member account, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
      * and Administering the Member Accounts in Your Organization</a> in the <i>AWS
-     * Organizations User Guide</i>, and steps 2 and 3 in <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
+     * Organizations User Guide</i>. Also see steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
      * Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User
-     * Guide</i>.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
-     * pattern</a> that is used to validate this parameter is a string of characters
-     * that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     * and any of the following characters: =,.@-</p>
+     * Guide.</i> </p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> that is used to validate this parameter. The pattern can include
+     * uppercase letters, lowercase letters, digits with no spaces, and any of the
+     * following characters: =,.@-</p>
+     */
+    inline bool RoleNameHasBeenSet() const { return m_roleNameHasBeenSet; }
+
+    /**
+     * <p>(Optional)</p> <p>The name of an IAM role that AWS Organizations
+     * automatically preconfigures in the new member account. This role trusts the
+     * master account, allowing users in the master account to assume the role, as
+     * permitted by the master account administrator. The role has administrator
+     * permissions in the new member account.</p> <p>If you don't specify this
+     * parameter, the role name defaults to
+     * <code>OrganizationAccountAccessRole</code>.</p> <p>For more information about
+     * how to use this role to access the member account, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
+     * and Administering the Member Accounts in Your Organization</a> in the <i>AWS
+     * Organizations User Guide</i>. Also see steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
+     * Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User
+     * Guide.</i> </p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> that is used to validate this parameter. The pattern can include
+     * uppercase letters, lowercase letters, digits with no spaces, and any of the
+     * following characters: =,.@-</p>
      */
     inline void SetRoleName(const Aws::String& value) { m_roleNameHasBeenSet = true; m_roleName = value; }
 
     /**
-     * <p>(Optional)</p> <p>The name of an IAM role that Organizations automatically
-     * preconfigures in the new member account. This role trusts the master account,
-     * allowing users in the master account to assume the role, as permitted by the
-     * master account administrator. The role has administrator permissions in the new
-     * member account.</p> <p>If you do not specify this parameter, the role name
-     * defaults to <code>OrganizationAccountAccessRole</code>.</p> <p>For more
-     * information about how to use this role to access the member account, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
+     * <p>(Optional)</p> <p>The name of an IAM role that AWS Organizations
+     * automatically preconfigures in the new member account. This role trusts the
+     * master account, allowing users in the master account to assume the role, as
+     * permitted by the master account administrator. The role has administrator
+     * permissions in the new member account.</p> <p>If you don't specify this
+     * parameter, the role name defaults to
+     * <code>OrganizationAccountAccessRole</code>.</p> <p>For more information about
+     * how to use this role to access the member account, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
      * and Administering the Member Accounts in Your Organization</a> in the <i>AWS
-     * Organizations User Guide</i>, and steps 2 and 3 in <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
+     * Organizations User Guide</i>. Also see steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
      * Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User
-     * Guide</i>.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
-     * pattern</a> that is used to validate this parameter is a string of characters
-     * that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     * and any of the following characters: =,.@-</p>
+     * Guide.</i> </p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> that is used to validate this parameter. The pattern can include
+     * uppercase letters, lowercase letters, digits with no spaces, and any of the
+     * following characters: =,.@-</p>
      */
     inline void SetRoleName(Aws::String&& value) { m_roleNameHasBeenSet = true; m_roleName = std::move(value); }
 
     /**
-     * <p>(Optional)</p> <p>The name of an IAM role that Organizations automatically
-     * preconfigures in the new member account. This role trusts the master account,
-     * allowing users in the master account to assume the role, as permitted by the
-     * master account administrator. The role has administrator permissions in the new
-     * member account.</p> <p>If you do not specify this parameter, the role name
-     * defaults to <code>OrganizationAccountAccessRole</code>.</p> <p>For more
-     * information about how to use this role to access the member account, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
+     * <p>(Optional)</p> <p>The name of an IAM role that AWS Organizations
+     * automatically preconfigures in the new member account. This role trusts the
+     * master account, allowing users in the master account to assume the role, as
+     * permitted by the master account administrator. The role has administrator
+     * permissions in the new member account.</p> <p>If you don't specify this
+     * parameter, the role name defaults to
+     * <code>OrganizationAccountAccessRole</code>.</p> <p>For more information about
+     * how to use this role to access the member account, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
      * and Administering the Member Accounts in Your Organization</a> in the <i>AWS
-     * Organizations User Guide</i>, and steps 2 and 3 in <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
+     * Organizations User Guide</i>. Also see steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
      * Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User
-     * Guide</i>.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
-     * pattern</a> that is used to validate this parameter is a string of characters
-     * that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     * and any of the following characters: =,.@-</p>
+     * Guide.</i> </p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> that is used to validate this parameter. The pattern can include
+     * uppercase letters, lowercase letters, digits with no spaces, and any of the
+     * following characters: =,.@-</p>
      */
     inline void SetRoleName(const char* value) { m_roleNameHasBeenSet = true; m_roleName.assign(value); }
 
     /**
-     * <p>(Optional)</p> <p>The name of an IAM role that Organizations automatically
-     * preconfigures in the new member account. This role trusts the master account,
-     * allowing users in the master account to assume the role, as permitted by the
-     * master account administrator. The role has administrator permissions in the new
-     * member account.</p> <p>If you do not specify this parameter, the role name
-     * defaults to <code>OrganizationAccountAccessRole</code>.</p> <p>For more
-     * information about how to use this role to access the member account, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
+     * <p>(Optional)</p> <p>The name of an IAM role that AWS Organizations
+     * automatically preconfigures in the new member account. This role trusts the
+     * master account, allowing users in the master account to assume the role, as
+     * permitted by the master account administrator. The role has administrator
+     * permissions in the new member account.</p> <p>If you don't specify this
+     * parameter, the role name defaults to
+     * <code>OrganizationAccountAccessRole</code>.</p> <p>For more information about
+     * how to use this role to access the member account, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
      * and Administering the Member Accounts in Your Organization</a> in the <i>AWS
-     * Organizations User Guide</i>, and steps 2 and 3 in <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
+     * Organizations User Guide</i>. Also see steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
      * Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User
-     * Guide</i>.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
-     * pattern</a> that is used to validate this parameter is a string of characters
-     * that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     * and any of the following characters: =,.@-</p>
+     * Guide.</i> </p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> that is used to validate this parameter. The pattern can include
+     * uppercase letters, lowercase letters, digits with no spaces, and any of the
+     * following characters: =,.@-</p>
      */
     inline CreateAccountRequest& WithRoleName(const Aws::String& value) { SetRoleName(value); return *this;}
 
     /**
-     * <p>(Optional)</p> <p>The name of an IAM role that Organizations automatically
-     * preconfigures in the new member account. This role trusts the master account,
-     * allowing users in the master account to assume the role, as permitted by the
-     * master account administrator. The role has administrator permissions in the new
-     * member account.</p> <p>If you do not specify this parameter, the role name
-     * defaults to <code>OrganizationAccountAccessRole</code>.</p> <p>For more
-     * information about how to use this role to access the member account, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
+     * <p>(Optional)</p> <p>The name of an IAM role that AWS Organizations
+     * automatically preconfigures in the new member account. This role trusts the
+     * master account, allowing users in the master account to assume the role, as
+     * permitted by the master account administrator. The role has administrator
+     * permissions in the new member account.</p> <p>If you don't specify this
+     * parameter, the role name defaults to
+     * <code>OrganizationAccountAccessRole</code>.</p> <p>For more information about
+     * how to use this role to access the member account, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
      * and Administering the Member Accounts in Your Organization</a> in the <i>AWS
-     * Organizations User Guide</i>, and steps 2 and 3 in <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
+     * Organizations User Guide</i>. Also see steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
      * Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User
-     * Guide</i>.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
-     * pattern</a> that is used to validate this parameter is a string of characters
-     * that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     * and any of the following characters: =,.@-</p>
+     * Guide.</i> </p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> that is used to validate this parameter. The pattern can include
+     * uppercase letters, lowercase letters, digits with no spaces, and any of the
+     * following characters: =,.@-</p>
      */
     inline CreateAccountRequest& WithRoleName(Aws::String&& value) { SetRoleName(std::move(value)); return *this;}
 
     /**
-     * <p>(Optional)</p> <p>The name of an IAM role that Organizations automatically
-     * preconfigures in the new member account. This role trusts the master account,
-     * allowing users in the master account to assume the role, as permitted by the
-     * master account administrator. The role has administrator permissions in the new
-     * member account.</p> <p>If you do not specify this parameter, the role name
-     * defaults to <code>OrganizationAccountAccessRole</code>.</p> <p>For more
-     * information about how to use this role to access the member account, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
+     * <p>(Optional)</p> <p>The name of an IAM role that AWS Organizations
+     * automatically preconfigures in the new member account. This role trusts the
+     * master account, allowing users in the master account to assume the role, as
+     * permitted by the master account administrator. The role has administrator
+     * permissions in the new member account.</p> <p>If you don't specify this
+     * parameter, the role name defaults to
+     * <code>OrganizationAccountAccessRole</code>.</p> <p>For more information about
+     * how to use this role to access the member account, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing
      * and Administering the Member Accounts in Your Organization</a> in the <i>AWS
-     * Organizations User Guide</i>, and steps 2 and 3 in <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
+     * Organizations User Guide</i>. Also see steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
      * Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User
-     * Guide</i>.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
-     * pattern</a> that is used to validate this parameter is a string of characters
-     * that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     * and any of the following characters: =,.@-</p>
+     * Guide.</i> </p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> that is used to validate this parameter. The pattern can include
+     * uppercase letters, lowercase letters, digits with no spaces, and any of the
+     * following characters: =,.@-</p>
      */
     inline CreateAccountRequest& WithRoleName(const char* value) { SetRoleName(value); return *this;}
 
@@ -289,65 +331,78 @@ namespace Model
     /**
      * <p>If set to <code>ALLOW</code>, the new account enables IAM users to access
      * account billing information <i>if</i> they have the required permissions. If set
-     * to <code>DENY</code>, then only the root user of the new account can access
-     * account billing information. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
+     * to <code>DENY</code>, only the root user of the new account can access account
+     * billing information. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
      * Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and
-     * Cost Management User Guide</i>.</p> <p>If you do not specify this parameter, the
-     * value defaults to ALLOW, and IAM users and roles with the required permissions
-     * can access billing information for the new account.</p>
+     * Cost Management User Guide</i>.</p> <p>If you don't specify this parameter, the
+     * value defaults to <code>ALLOW</code>. This value allows IAM users and roles with
+     * the required permissions to access billing information for the new account.</p>
      */
     inline const IAMUserAccessToBilling& GetIamUserAccessToBilling() const{ return m_iamUserAccessToBilling; }
 
     /**
      * <p>If set to <code>ALLOW</code>, the new account enables IAM users to access
      * account billing information <i>if</i> they have the required permissions. If set
-     * to <code>DENY</code>, then only the root user of the new account can access
-     * account billing information. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
+     * to <code>DENY</code>, only the root user of the new account can access account
+     * billing information. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
      * Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and
-     * Cost Management User Guide</i>.</p> <p>If you do not specify this parameter, the
-     * value defaults to ALLOW, and IAM users and roles with the required permissions
-     * can access billing information for the new account.</p>
+     * Cost Management User Guide</i>.</p> <p>If you don't specify this parameter, the
+     * value defaults to <code>ALLOW</code>. This value allows IAM users and roles with
+     * the required permissions to access billing information for the new account.</p>
+     */
+    inline bool IamUserAccessToBillingHasBeenSet() const { return m_iamUserAccessToBillingHasBeenSet; }
+
+    /**
+     * <p>If set to <code>ALLOW</code>, the new account enables IAM users to access
+     * account billing information <i>if</i> they have the required permissions. If set
+     * to <code>DENY</code>, only the root user of the new account can access account
+     * billing information. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
+     * Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and
+     * Cost Management User Guide</i>.</p> <p>If you don't specify this parameter, the
+     * value defaults to <code>ALLOW</code>. This value allows IAM users and roles with
+     * the required permissions to access billing information for the new account.</p>
      */
     inline void SetIamUserAccessToBilling(const IAMUserAccessToBilling& value) { m_iamUserAccessToBillingHasBeenSet = true; m_iamUserAccessToBilling = value; }
 
     /**
      * <p>If set to <code>ALLOW</code>, the new account enables IAM users to access
      * account billing information <i>if</i> they have the required permissions. If set
-     * to <code>DENY</code>, then only the root user of the new account can access
-     * account billing information. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
+     * to <code>DENY</code>, only the root user of the new account can access account
+     * billing information. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
      * Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and
-     * Cost Management User Guide</i>.</p> <p>If you do not specify this parameter, the
-     * value defaults to ALLOW, and IAM users and roles with the required permissions
-     * can access billing information for the new account.</p>
+     * Cost Management User Guide</i>.</p> <p>If you don't specify this parameter, the
+     * value defaults to <code>ALLOW</code>. This value allows IAM users and roles with
+     * the required permissions to access billing information for the new account.</p>
      */
     inline void SetIamUserAccessToBilling(IAMUserAccessToBilling&& value) { m_iamUserAccessToBillingHasBeenSet = true; m_iamUserAccessToBilling = std::move(value); }
 
     /**
      * <p>If set to <code>ALLOW</code>, the new account enables IAM users to access
      * account billing information <i>if</i> they have the required permissions. If set
-     * to <code>DENY</code>, then only the root user of the new account can access
-     * account billing information. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
+     * to <code>DENY</code>, only the root user of the new account can access account
+     * billing information. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
      * Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and
-     * Cost Management User Guide</i>.</p> <p>If you do not specify this parameter, the
-     * value defaults to ALLOW, and IAM users and roles with the required permissions
-     * can access billing information for the new account.</p>
+     * Cost Management User Guide</i>.</p> <p>If you don't specify this parameter, the
+     * value defaults to <code>ALLOW</code>. This value allows IAM users and roles with
+     * the required permissions to access billing information for the new account.</p>
      */
     inline CreateAccountRequest& WithIamUserAccessToBilling(const IAMUserAccessToBilling& value) { SetIamUserAccessToBilling(value); return *this;}
 
     /**
      * <p>If set to <code>ALLOW</code>, the new account enables IAM users to access
      * account billing information <i>if</i> they have the required permissions. If set
-     * to <code>DENY</code>, then only the root user of the new account can access
-     * account billing information. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
+     * to <code>DENY</code>, only the root user of the new account can access account
+     * billing information. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating
      * Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and
-     * Cost Management User Guide</i>.</p> <p>If you do not specify this parameter, the
-     * value defaults to ALLOW, and IAM users and roles with the required permissions
-     * can access billing information for the new account.</p>
+     * Cost Management User Guide</i>.</p> <p>If you don't specify this parameter, the
+     * value defaults to <code>ALLOW</code>. This value allows IAM users and roles with
+     * the required permissions to access billing information for the new account.</p>
      */
     inline CreateAccountRequest& WithIamUserAccessToBilling(IAMUserAccessToBilling&& value) { SetIamUserAccessToBilling(std::move(value)); return *this;}
 

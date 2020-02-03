@@ -19,10 +19,13 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/firehose/model/DeliveryStreamType.h>
 #include <aws/firehose/model/KinesisStreamSourceConfiguration.h>
+#include <aws/firehose/model/DeliveryStreamEncryptionConfigurationInput.h>
 #include <aws/firehose/model/ExtendedS3DestinationConfiguration.h>
 #include <aws/firehose/model/RedshiftDestinationConfiguration.h>
 #include <aws/firehose/model/ElasticsearchDestinationConfiguration.h>
 #include <aws/firehose/model/SplunkDestinationConfiguration.h>
+#include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/firehose/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -38,7 +41,7 @@ namespace Model
   {
   public:
     CreateDeliveryStreamRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -57,6 +60,14 @@ namespace Model
      * name.</p>
      */
     inline const Aws::String& GetDeliveryStreamName() const{ return m_deliveryStreamName; }
+
+    /**
+     * <p>The name of the delivery stream. This name must be unique per AWS account in
+     * the same AWS Region. If the delivery streams are in different accounts or
+     * different Regions, you can have multiple delivery streams with the same
+     * name.</p>
+     */
+    inline bool DeliveryStreamNameHasBeenSet() const { return m_deliveryStreamNameHasBeenSet; }
 
     /**
      * <p>The name of the delivery stream. This name must be unique per AWS account in
@@ -123,6 +134,15 @@ namespace Model
      * <code>KinesisStreamAsSource</code>: The delivery stream uses a Kinesis data
      * stream as a source.</p> </li> </ul>
      */
+    inline bool DeliveryStreamTypeHasBeenSet() const { return m_deliveryStreamTypeHasBeenSet; }
+
+    /**
+     * <p>The delivery stream type. This parameter can be one of the following
+     * values:</p> <ul> <li> <p> <code>DirectPut</code>: Provider applications access
+     * the delivery stream directly.</p> </li> <li> <p>
+     * <code>KinesisStreamAsSource</code>: The delivery stream uses a Kinesis data
+     * stream as a source.</p> </li> </ul>
+     */
     inline void SetDeliveryStreamType(const DeliveryStreamType& value) { m_deliveryStreamTypeHasBeenSet = true; m_deliveryStreamType = value; }
 
     /**
@@ -165,6 +185,13 @@ namespace Model
      * <a>KinesisStreamSourceConfiguration</a> containing the Kinesis data stream
      * Amazon Resource Name (ARN) and the role ARN for the source stream.</p>
      */
+    inline bool KinesisStreamSourceConfigurationHasBeenSet() const { return m_kinesisStreamSourceConfigurationHasBeenSet; }
+
+    /**
+     * <p>When a Kinesis data stream is used as the source for the delivery stream, a
+     * <a>KinesisStreamSourceConfiguration</a> containing the Kinesis data stream
+     * Amazon Resource Name (ARN) and the role ARN for the source stream.</p>
+     */
     inline void SetKinesisStreamSourceConfiguration(const KinesisStreamSourceConfiguration& value) { m_kinesisStreamSourceConfigurationHasBeenSet = true; m_kinesisStreamSourceConfiguration = value; }
 
     /**
@@ -190,9 +217,51 @@ namespace Model
 
 
     /**
+     * <p>Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed
+     * for Server-Side Encryption (SSE).</p>
+     */
+    inline const DeliveryStreamEncryptionConfigurationInput& GetDeliveryStreamEncryptionConfigurationInput() const{ return m_deliveryStreamEncryptionConfigurationInput; }
+
+    /**
+     * <p>Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed
+     * for Server-Side Encryption (SSE).</p>
+     */
+    inline bool DeliveryStreamEncryptionConfigurationInputHasBeenSet() const { return m_deliveryStreamEncryptionConfigurationInputHasBeenSet; }
+
+    /**
+     * <p>Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed
+     * for Server-Side Encryption (SSE).</p>
+     */
+    inline void SetDeliveryStreamEncryptionConfigurationInput(const DeliveryStreamEncryptionConfigurationInput& value) { m_deliveryStreamEncryptionConfigurationInputHasBeenSet = true; m_deliveryStreamEncryptionConfigurationInput = value; }
+
+    /**
+     * <p>Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed
+     * for Server-Side Encryption (SSE).</p>
+     */
+    inline void SetDeliveryStreamEncryptionConfigurationInput(DeliveryStreamEncryptionConfigurationInput&& value) { m_deliveryStreamEncryptionConfigurationInputHasBeenSet = true; m_deliveryStreamEncryptionConfigurationInput = std::move(value); }
+
+    /**
+     * <p>Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed
+     * for Server-Side Encryption (SSE).</p>
+     */
+    inline CreateDeliveryStreamRequest& WithDeliveryStreamEncryptionConfigurationInput(const DeliveryStreamEncryptionConfigurationInput& value) { SetDeliveryStreamEncryptionConfigurationInput(value); return *this;}
+
+    /**
+     * <p>Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed
+     * for Server-Side Encryption (SSE).</p>
+     */
+    inline CreateDeliveryStreamRequest& WithDeliveryStreamEncryptionConfigurationInput(DeliveryStreamEncryptionConfigurationInput&& value) { SetDeliveryStreamEncryptionConfigurationInput(std::move(value)); return *this;}
+
+
+    /**
      * <p>The destination in Amazon S3. You can specify only one destination.</p>
      */
     inline const ExtendedS3DestinationConfiguration& GetExtendedS3DestinationConfiguration() const{ return m_extendedS3DestinationConfiguration; }
+
+    /**
+     * <p>The destination in Amazon S3. You can specify only one destination.</p>
+     */
+    inline bool ExtendedS3DestinationConfigurationHasBeenSet() const { return m_extendedS3DestinationConfigurationHasBeenSet; }
 
     /**
      * <p>The destination in Amazon S3. You can specify only one destination.</p>
@@ -223,6 +292,11 @@ namespace Model
     /**
      * <p>The destination in Amazon Redshift. You can specify only one destination.</p>
      */
+    inline bool RedshiftDestinationConfigurationHasBeenSet() const { return m_redshiftDestinationConfigurationHasBeenSet; }
+
+    /**
+     * <p>The destination in Amazon Redshift. You can specify only one destination.</p>
+     */
     inline void SetRedshiftDestinationConfiguration(const RedshiftDestinationConfiguration& value) { m_redshiftDestinationConfigurationHasBeenSet = true; m_redshiftDestinationConfiguration = value; }
 
     /**
@@ -245,6 +319,11 @@ namespace Model
      * <p>The destination in Amazon ES. You can specify only one destination.</p>
      */
     inline const ElasticsearchDestinationConfiguration& GetElasticsearchDestinationConfiguration() const{ return m_elasticsearchDestinationConfiguration; }
+
+    /**
+     * <p>The destination in Amazon ES. You can specify only one destination.</p>
+     */
+    inline bool ElasticsearchDestinationConfigurationHasBeenSet() const { return m_elasticsearchDestinationConfigurationHasBeenSet; }
 
     /**
      * <p>The destination in Amazon ES. You can specify only one destination.</p>
@@ -275,6 +354,11 @@ namespace Model
     /**
      * <p>The destination in Splunk. You can specify only one destination.</p>
      */
+    inline bool SplunkDestinationConfigurationHasBeenSet() const { return m_splunkDestinationConfigurationHasBeenSet; }
+
+    /**
+     * <p>The destination in Splunk. You can specify only one destination.</p>
+     */
     inline void SetSplunkDestinationConfiguration(const SplunkDestinationConfiguration& value) { m_splunkDestinationConfigurationHasBeenSet = true; m_splunkDestinationConfiguration = value; }
 
     /**
@@ -292,6 +376,103 @@ namespace Model
      */
     inline CreateDeliveryStreamRequest& WithSplunkDestinationConfiguration(SplunkDestinationConfiguration&& value) { SetSplunkDestinationConfiguration(std::move(value)); return *this;}
 
+
+    /**
+     * <p>A set of tags to assign to the delivery stream. A tag is a key-value pair
+     * that you can define and assign to AWS resources. Tags are metadata. For example,
+     * you can add friendly names and descriptions or other types of information that
+     * can help you distinguish the delivery stream. For more information about tags,
+     * see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+     * Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     * <p>You can specify up to 50 tags when creating a delivery stream.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>A set of tags to assign to the delivery stream. A tag is a key-value pair
+     * that you can define and assign to AWS resources. Tags are metadata. For example,
+     * you can add friendly names and descriptions or other types of information that
+     * can help you distinguish the delivery stream. For more information about tags,
+     * see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+     * Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     * <p>You can specify up to 50 tags when creating a delivery stream.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>A set of tags to assign to the delivery stream. A tag is a key-value pair
+     * that you can define and assign to AWS resources. Tags are metadata. For example,
+     * you can add friendly names and descriptions or other types of information that
+     * can help you distinguish the delivery stream. For more information about tags,
+     * see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+     * Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     * <p>You can specify up to 50 tags when creating a delivery stream.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>A set of tags to assign to the delivery stream. A tag is a key-value pair
+     * that you can define and assign to AWS resources. Tags are metadata. For example,
+     * you can add friendly names and descriptions or other types of information that
+     * can help you distinguish the delivery stream. For more information about tags,
+     * see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+     * Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     * <p>You can specify up to 50 tags when creating a delivery stream.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>A set of tags to assign to the delivery stream. A tag is a key-value pair
+     * that you can define and assign to AWS resources. Tags are metadata. For example,
+     * you can add friendly names and descriptions or other types of information that
+     * can help you distinguish the delivery stream. For more information about tags,
+     * see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+     * Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     * <p>You can specify up to 50 tags when creating a delivery stream.</p>
+     */
+    inline CreateDeliveryStreamRequest& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>A set of tags to assign to the delivery stream. A tag is a key-value pair
+     * that you can define and assign to AWS resources. Tags are metadata. For example,
+     * you can add friendly names and descriptions or other types of information that
+     * can help you distinguish the delivery stream. For more information about tags,
+     * see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+     * Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     * <p>You can specify up to 50 tags when creating a delivery stream.</p>
+     */
+    inline CreateDeliveryStreamRequest& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>A set of tags to assign to the delivery stream. A tag is a key-value pair
+     * that you can define and assign to AWS resources. Tags are metadata. For example,
+     * you can add friendly names and descriptions or other types of information that
+     * can help you distinguish the delivery stream. For more information about tags,
+     * see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+     * Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     * <p>You can specify up to 50 tags when creating a delivery stream.</p>
+     */
+    inline CreateDeliveryStreamRequest& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>A set of tags to assign to the delivery stream. A tag is a key-value pair
+     * that you can define and assign to AWS resources. Tags are metadata. For example,
+     * you can add friendly names and descriptions or other types of information that
+     * can help you distinguish the delivery stream. For more information about tags,
+     * see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
+     * Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     * <p>You can specify up to 50 tags when creating a delivery stream.</p>
+     */
+    inline CreateDeliveryStreamRequest& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::String m_deliveryStreamName;
@@ -302,6 +483,9 @@ namespace Model
 
     KinesisStreamSourceConfiguration m_kinesisStreamSourceConfiguration;
     bool m_kinesisStreamSourceConfigurationHasBeenSet;
+
+    DeliveryStreamEncryptionConfigurationInput m_deliveryStreamEncryptionConfigurationInput;
+    bool m_deliveryStreamEncryptionConfigurationInputHasBeenSet;
 
     ExtendedS3DestinationConfiguration m_extendedS3DestinationConfiguration;
     bool m_extendedS3DestinationConfigurationHasBeenSet;
@@ -314,6 +498,9 @@ namespace Model
 
     SplunkDestinationConfiguration m_splunkDestinationConfiguration;
     bool m_splunkDestinationConfigurationHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

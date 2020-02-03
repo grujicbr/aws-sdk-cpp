@@ -30,24 +30,33 @@ namespace Model
 
 S3MachineLearningModelResourceData::S3MachineLearningModelResourceData() : 
     m_destinationPathHasBeenSet(false),
+    m_ownerSettingHasBeenSet(false),
     m_s3UriHasBeenSet(false)
 {
 }
 
-S3MachineLearningModelResourceData::S3MachineLearningModelResourceData(const JsonValue& jsonValue) : 
+S3MachineLearningModelResourceData::S3MachineLearningModelResourceData(JsonView jsonValue) : 
     m_destinationPathHasBeenSet(false),
+    m_ownerSettingHasBeenSet(false),
     m_s3UriHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-S3MachineLearningModelResourceData& S3MachineLearningModelResourceData::operator =(const JsonValue& jsonValue)
+S3MachineLearningModelResourceData& S3MachineLearningModelResourceData::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DestinationPath"))
   {
     m_destinationPath = jsonValue.GetString("DestinationPath");
 
     m_destinationPathHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("OwnerSetting"))
+  {
+    m_ownerSetting = jsonValue.GetObject("OwnerSetting");
+
+    m_ownerSettingHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("S3Uri"))
@@ -67,6 +76,12 @@ JsonValue S3MachineLearningModelResourceData::Jsonize() const
   if(m_destinationPathHasBeenSet)
   {
    payload.WithString("DestinationPath", m_destinationPath);
+
+  }
+
+  if(m_ownerSettingHasBeenSet)
+  {
+   payload.WithObject("OwnerSetting", m_ownerSetting.Jsonize());
 
   }
 

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ReviewActionDetail();
-    ReviewActionDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReviewActionDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReviewActionDetail(Aws::Utils::Json::JsonView jsonValue);
+    ReviewActionDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The unique identifier for the action.</p>
      */
     inline const Aws::String& GetActionId() const{ return m_actionId; }
+
+    /**
+     * <p>The unique identifier for the action.</p>
+     */
+    inline bool ActionIdHasBeenSet() const { return m_actionIdHasBeenSet; }
 
     /**
      * <p>The unique identifier for the action.</p>
@@ -92,6 +98,13 @@ namespace Model
      * actions will be necessary. </p>
      */
     inline const Aws::String& GetActionName() const{ return m_actionName; }
+
+    /**
+     * <p> The nature of the action itself. The Review Policy is responsible for
+     * examining the HIT and Assignments, emitting results, and deciding which other
+     * actions will be necessary. </p>
+     */
+    inline bool ActionNameHasBeenSet() const { return m_actionNameHasBeenSet; }
 
     /**
      * <p> The nature of the action itself. The Review Policy is responsible for
@@ -144,6 +157,11 @@ namespace Model
     /**
      * <p> The specific HITId or AssignmentID targeted by the action.</p>
      */
+    inline bool TargetIdHasBeenSet() const { return m_targetIdHasBeenSet; }
+
+    /**
+     * <p> The specific HITId or AssignmentID targeted by the action.</p>
+     */
     inline void SetTargetId(const Aws::String& value) { m_targetIdHasBeenSet = true; m_targetId = value; }
 
     /**
@@ -176,6 +194,11 @@ namespace Model
      * <p> The type of object in TargetId.</p>
      */
     inline const Aws::String& GetTargetType() const{ return m_targetType; }
+
+    /**
+     * <p> The type of object in TargetId.</p>
+     */
+    inline bool TargetTypeHasBeenSet() const { return m_targetTypeHasBeenSet; }
 
     /**
      * <p> The type of object in TargetId.</p>
@@ -218,6 +241,12 @@ namespace Model
      * <p> The current disposition of the action: INTENDED, SUCCEEDED, FAILED, or
      * CANCELLED. </p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p> The current disposition of the action: INTENDED, SUCCEEDED, FAILED, or
+     * CANCELLED. </p>
+     */
     inline void SetStatus(const ReviewActionStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -247,6 +276,11 @@ namespace Model
     /**
      * <p> The date when the action was completed.</p>
      */
+    inline bool CompleteTimeHasBeenSet() const { return m_completeTimeHasBeenSet; }
+
+    /**
+     * <p> The date when the action was completed.</p>
+     */
     inline void SetCompleteTime(const Aws::Utils::DateTime& value) { m_completeTimeHasBeenSet = true; m_completeTime = value; }
 
     /**
@@ -269,6 +303,11 @@ namespace Model
      * <p> A description of the outcome of the review.</p>
      */
     inline const Aws::String& GetResult() const{ return m_result; }
+
+    /**
+     * <p> A description of the outcome of the review.</p>
+     */
+    inline bool ResultHasBeenSet() const { return m_resultHasBeenSet; }
 
     /**
      * <p> A description of the outcome of the review.</p>
@@ -305,6 +344,11 @@ namespace Model
      * <p> Present only when the Results have a FAILED Status.</p>
      */
     inline const Aws::String& GetErrorCode() const{ return m_errorCode; }
+
+    /**
+     * <p> Present only when the Results have a FAILED Status.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
 
     /**
      * <p> Present only when the Results have a FAILED Status.</p>

@@ -41,11 +41,12 @@ JobSummary::JobSummary() :
     m_stoppedAt(0),
     m_stoppedAtHasBeenSet(false),
     m_containerHasBeenSet(false),
-    m_arrayPropertiesHasBeenSet(false)
+    m_arrayPropertiesHasBeenSet(false),
+    m_nodePropertiesHasBeenSet(false)
 {
 }
 
-JobSummary::JobSummary(const JsonValue& jsonValue) : 
+JobSummary::JobSummary(JsonView jsonValue) : 
     m_jobIdHasBeenSet(false),
     m_jobNameHasBeenSet(false),
     m_createdAt(0),
@@ -58,12 +59,13 @@ JobSummary::JobSummary(const JsonValue& jsonValue) :
     m_stoppedAt(0),
     m_stoppedAtHasBeenSet(false),
     m_containerHasBeenSet(false),
-    m_arrayPropertiesHasBeenSet(false)
+    m_arrayPropertiesHasBeenSet(false),
+    m_nodePropertiesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-JobSummary& JobSummary::operator =(const JsonValue& jsonValue)
+JobSummary& JobSummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("jobId"))
   {
@@ -128,6 +130,13 @@ JobSummary& JobSummary::operator =(const JsonValue& jsonValue)
     m_arrayPropertiesHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("nodeProperties"))
+  {
+    m_nodeProperties = jsonValue.GetObject("nodeProperties");
+
+    m_nodePropertiesHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -185,6 +194,12 @@ JsonValue JobSummary::Jsonize() const
   if(m_arrayPropertiesHasBeenSet)
   {
    payload.WithObject("arrayProperties", m_arrayProperties.Jsonize());
+
+  }
+
+  if(m_nodePropertiesHasBeenSet)
+  {
+   payload.WithObject("nodeProperties", m_nodeProperties.Jsonize());
 
   }
 

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DatastoreActivity();
-    DatastoreActivity(const Aws::Utils::Json::JsonValue& jsonValue);
-    DatastoreActivity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DatastoreActivity(Aws::Utils::Json::JsonView jsonValue);
+    DatastoreActivity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the 'datastore' activity.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the 'datastore' activity.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the 'datastore' activity.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The name of the data store where processed messages are stored.</p>
      */
     inline const Aws::String& GetDatastoreName() const{ return m_datastoreName; }
+
+    /**
+     * <p>The name of the data store where processed messages are stored.</p>
+     */
+    inline bool DatastoreNameHasBeenSet() const { return m_datastoreNameHasBeenSet; }
 
     /**
      * <p>The name of the data store where processed messages are stored.</p>

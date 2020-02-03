@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PartitionError();
-    PartitionError(const Aws::Utils::Json::JsonValue& jsonValue);
-    PartitionError& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PartitionError(Aws::Utils::Json::JsonView jsonValue);
+    PartitionError& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The values that define the partition.</p>
      */
     inline const Aws::Vector<Aws::String>& GetPartitionValues() const{ return m_partitionValues; }
+
+    /**
+     * <p>The values that define the partition.</p>
+     */
+    inline bool PartitionValuesHasBeenSet() const { return m_partitionValuesHasBeenSet; }
 
     /**
      * <p>The values that define the partition.</p>
@@ -90,27 +96,32 @@ namespace Model
 
 
     /**
-     * <p>Details about the partition error.</p>
+     * <p>The details about the partition error.</p>
      */
     inline const ErrorDetail& GetErrorDetail() const{ return m_errorDetail; }
 
     /**
-     * <p>Details about the partition error.</p>
+     * <p>The details about the partition error.</p>
+     */
+    inline bool ErrorDetailHasBeenSet() const { return m_errorDetailHasBeenSet; }
+
+    /**
+     * <p>The details about the partition error.</p>
      */
     inline void SetErrorDetail(const ErrorDetail& value) { m_errorDetailHasBeenSet = true; m_errorDetail = value; }
 
     /**
-     * <p>Details about the partition error.</p>
+     * <p>The details about the partition error.</p>
      */
     inline void SetErrorDetail(ErrorDetail&& value) { m_errorDetailHasBeenSet = true; m_errorDetail = std::move(value); }
 
     /**
-     * <p>Details about the partition error.</p>
+     * <p>The details about the partition error.</p>
      */
     inline PartitionError& WithErrorDetail(const ErrorDetail& value) { SetErrorDetail(value); return *this;}
 
     /**
-     * <p>Details about the partition error.</p>
+     * <p>The details about the partition error.</p>
      */
     inline PartitionError& WithErrorDetail(ErrorDetail&& value) { SetErrorDetail(std::move(value)); return *this;}
 

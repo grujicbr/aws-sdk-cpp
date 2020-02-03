@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TemporaryCredential();
-    TemporaryCredential(const Aws::Utils::Json::JsonValue& jsonValue);
-    TemporaryCredential& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TemporaryCredential(Aws::Utils::Json::JsonView jsonValue);
+    TemporaryCredential& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The user name.</p>
      */
     inline const Aws::String& GetUsername() const{ return m_username; }
+
+    /**
+     * <p>The user name.</p>
+     */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
 
     /**
      * <p>The user name.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The password.</p>
      */
     inline const Aws::String& GetPassword() const{ return m_password; }
+
+    /**
+     * <p>The password.</p>
+     */
+    inline bool PasswordHasBeenSet() const { return m_passwordHasBeenSet; }
 
     /**
      * <p>The password.</p>
@@ -133,6 +144,14 @@ namespace Model
      * credentials to log in. If they are logged in at the time, they will be
      * automatically logged out.</p>
      */
+    inline bool ValidForInMinutesHasBeenSet() const { return m_validForInMinutesHasBeenSet; }
+
+    /**
+     * <p>The length of time (in minutes) that the grant is valid. When the grant
+     * expires, at the end of this period, the user will no longer be able to use the
+     * credentials to log in. If they are logged in at the time, they will be
+     * automatically logged out.</p>
+     */
     inline void SetValidForInMinutes(int value) { m_validForInMinutesHasBeenSet = true; m_validForInMinutes = value; }
 
     /**
@@ -148,6 +167,11 @@ namespace Model
      * <p>The instance's AWS OpsWorks Stacks ID.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The instance's AWS OpsWorks Stacks ID.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The instance's AWS OpsWorks Stacks ID.</p>

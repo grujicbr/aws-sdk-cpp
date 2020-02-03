@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DirectoryConnectSettings();
-    DirectoryConnectSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    DirectoryConnectSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DirectoryConnectSettings(Aws::Utils::Json::JsonView jsonValue);
+    DirectoryConnectSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The identifier of the VPC in which the AD Connector is created.</p>
      */
     inline const Aws::String& GetVpcId() const{ return m_vpcId; }
+
+    /**
+     * <p>The identifier of the VPC in which the AD Connector is created.</p>
+     */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
 
     /**
      * <p>The identifier of the VPC in which the AD Connector is created.</p>
@@ -89,6 +95,12 @@ namespace Model
      * created.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSubnetIds() const{ return m_subnetIds; }
+
+    /**
+     * <p>A list of subnet identifiers in the VPC in which the AD Connector is
+     * created.</p>
+     */
+    inline bool SubnetIdsHasBeenSet() const { return m_subnetIdsHasBeenSet; }
 
     /**
      * <p>A list of subnet identifiers in the VPC in which the AD Connector is
@@ -143,6 +155,12 @@ namespace Model
      * <p>A list of one or more IP addresses of DNS servers or domain controllers in
      * the on-premises directory.</p>
      */
+    inline bool CustomerDnsIpsHasBeenSet() const { return m_customerDnsIpsHasBeenSet; }
+
+    /**
+     * <p>A list of one or more IP addresses of DNS servers or domain controllers in
+     * the on-premises directory.</p>
+     */
     inline void SetCustomerDnsIps(const Aws::Vector<Aws::String>& value) { m_customerDnsIpsHasBeenSet = true; m_customerDnsIps = value; }
 
     /**
@@ -183,56 +201,64 @@ namespace Model
 
 
     /**
-     * <p>The username of an account in the on-premises directory that is used to
-     * connect to the directory. This account must have the following privileges:</p>
+     * <p>The user name of an account in the on-premises directory that is used to
+     * connect to the directory. This account must have the following permissions:</p>
      * <ul> <li> <p>Read users and groups</p> </li> <li> <p>Create computer objects</p>
      * </li> <li> <p>Join computers to the domain</p> </li> </ul>
      */
     inline const Aws::String& GetCustomerUserName() const{ return m_customerUserName; }
 
     /**
-     * <p>The username of an account in the on-premises directory that is used to
-     * connect to the directory. This account must have the following privileges:</p>
+     * <p>The user name of an account in the on-premises directory that is used to
+     * connect to the directory. This account must have the following permissions:</p>
+     * <ul> <li> <p>Read users and groups</p> </li> <li> <p>Create computer objects</p>
+     * </li> <li> <p>Join computers to the domain</p> </li> </ul>
+     */
+    inline bool CustomerUserNameHasBeenSet() const { return m_customerUserNameHasBeenSet; }
+
+    /**
+     * <p>The user name of an account in the on-premises directory that is used to
+     * connect to the directory. This account must have the following permissions:</p>
      * <ul> <li> <p>Read users and groups</p> </li> <li> <p>Create computer objects</p>
      * </li> <li> <p>Join computers to the domain</p> </li> </ul>
      */
     inline void SetCustomerUserName(const Aws::String& value) { m_customerUserNameHasBeenSet = true; m_customerUserName = value; }
 
     /**
-     * <p>The username of an account in the on-premises directory that is used to
-     * connect to the directory. This account must have the following privileges:</p>
+     * <p>The user name of an account in the on-premises directory that is used to
+     * connect to the directory. This account must have the following permissions:</p>
      * <ul> <li> <p>Read users and groups</p> </li> <li> <p>Create computer objects</p>
      * </li> <li> <p>Join computers to the domain</p> </li> </ul>
      */
     inline void SetCustomerUserName(Aws::String&& value) { m_customerUserNameHasBeenSet = true; m_customerUserName = std::move(value); }
 
     /**
-     * <p>The username of an account in the on-premises directory that is used to
-     * connect to the directory. This account must have the following privileges:</p>
+     * <p>The user name of an account in the on-premises directory that is used to
+     * connect to the directory. This account must have the following permissions:</p>
      * <ul> <li> <p>Read users and groups</p> </li> <li> <p>Create computer objects</p>
      * </li> <li> <p>Join computers to the domain</p> </li> </ul>
      */
     inline void SetCustomerUserName(const char* value) { m_customerUserNameHasBeenSet = true; m_customerUserName.assign(value); }
 
     /**
-     * <p>The username of an account in the on-premises directory that is used to
-     * connect to the directory. This account must have the following privileges:</p>
+     * <p>The user name of an account in the on-premises directory that is used to
+     * connect to the directory. This account must have the following permissions:</p>
      * <ul> <li> <p>Read users and groups</p> </li> <li> <p>Create computer objects</p>
      * </li> <li> <p>Join computers to the domain</p> </li> </ul>
      */
     inline DirectoryConnectSettings& WithCustomerUserName(const Aws::String& value) { SetCustomerUserName(value); return *this;}
 
     /**
-     * <p>The username of an account in the on-premises directory that is used to
-     * connect to the directory. This account must have the following privileges:</p>
+     * <p>The user name of an account in the on-premises directory that is used to
+     * connect to the directory. This account must have the following permissions:</p>
      * <ul> <li> <p>Read users and groups</p> </li> <li> <p>Create computer objects</p>
      * </li> <li> <p>Join computers to the domain</p> </li> </ul>
      */
     inline DirectoryConnectSettings& WithCustomerUserName(Aws::String&& value) { SetCustomerUserName(std::move(value)); return *this;}
 
     /**
-     * <p>The username of an account in the on-premises directory that is used to
-     * connect to the directory. This account must have the following privileges:</p>
+     * <p>The user name of an account in the on-premises directory that is used to
+     * connect to the directory. This account must have the following permissions:</p>
      * <ul> <li> <p>Read users and groups</p> </li> <li> <p>Create computer objects</p>
      * </li> <li> <p>Join computers to the domain</p> </li> </ul>
      */

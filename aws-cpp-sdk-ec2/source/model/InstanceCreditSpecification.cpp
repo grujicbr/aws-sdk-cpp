@@ -52,13 +52,13 @@ InstanceCreditSpecification& InstanceCreditSpecification::operator =(const XmlNo
     XmlNode instanceIdNode = resultNode.FirstChild("instanceId");
     if(!instanceIdNode.IsNull())
     {
-      m_instanceId = StringUtils::Trim(instanceIdNode.GetText().c_str());
+      m_instanceId = Aws::Utils::Xml::DecodeEscapedXmlText(instanceIdNode.GetText());
       m_instanceIdHasBeenSet = true;
     }
     XmlNode cpuCreditsNode = resultNode.FirstChild("cpuCredits");
     if(!cpuCreditsNode.IsNull())
     {
-      m_cpuCredits = StringUtils::Trim(cpuCreditsNode.GetText().c_str());
+      m_cpuCredits = Aws::Utils::Xml::DecodeEscapedXmlText(cpuCreditsNode.GetText());
       m_cpuCreditsHasBeenSet = true;
     }
   }

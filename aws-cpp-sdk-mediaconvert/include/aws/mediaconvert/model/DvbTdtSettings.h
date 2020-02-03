@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     DvbTdtSettings();
-    DvbTdtSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    DvbTdtSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DvbTdtSettings(Aws::Utils::Json::JsonView jsonValue);
+    DvbTdtSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * transport stream.
      */
     inline int GetTdtInterval() const{ return m_tdtInterval; }
+
+    /**
+     * The number of milliseconds between instances of this table in the output
+     * transport stream.
+     */
+    inline bool TdtIntervalHasBeenSet() const { return m_tdtIntervalHasBeenSet; }
 
     /**
      * The number of milliseconds between instances of this table in the output

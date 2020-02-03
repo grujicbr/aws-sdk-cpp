@@ -61,6 +61,11 @@ namespace Model
     /**
      * <p>The Availability Zone of the instance.</p>
      */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The Availability Zone of the instance.</p>
+     */
     inline void SetAvailabilityZone(const Aws::String& value) { m_availabilityZoneHasBeenSet = true; m_availabilityZone = value; }
 
     /**
@@ -90,9 +95,55 @@ namespace Model
 
 
     /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline const Aws::String& GetOutpostArn() const{ return m_outpostArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline bool OutpostArnHasBeenSet() const { return m_outpostArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline void SetOutpostArn(const Aws::String& value) { m_outpostArnHasBeenSet = true; m_outpostArn = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline void SetOutpostArn(Aws::String&& value) { m_outpostArnHasBeenSet = true; m_outpostArn = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline void SetOutpostArn(const char* value) { m_outpostArnHasBeenSet = true; m_outpostArn.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline InstanceStatus& WithOutpostArn(const Aws::String& value) { SetOutpostArn(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline InstanceStatus& WithOutpostArn(Aws::String&& value) { SetOutpostArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Outpost.</p>
+     */
+    inline InstanceStatus& WithOutpostArn(const char* value) { SetOutpostArn(value); return *this;}
+
+
+    /**
      * <p>Any scheduled events associated with the instance.</p>
      */
     inline const Aws::Vector<InstanceStatusEvent>& GetEvents() const{ return m_events; }
+
+    /**
+     * <p>Any scheduled events associated with the instance.</p>
+     */
+    inline bool EventsHasBeenSet() const { return m_eventsHasBeenSet; }
 
     /**
      * <p>Any scheduled events associated with the instance.</p>
@@ -129,6 +180,11 @@ namespace Model
      * <p>The ID of the instance.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The ID of the instance.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The ID of the instance.</p>
@@ -171,6 +227,12 @@ namespace Model
      * <p>The intended state of the instance. <a>DescribeInstanceStatus</a> requires
      * that an instance be in the <code>running</code> state.</p>
      */
+    inline bool InstanceStateHasBeenSet() const { return m_instanceStateHasBeenSet; }
+
+    /**
+     * <p>The intended state of the instance. <a>DescribeInstanceStatus</a> requires
+     * that an instance be in the <code>running</code> state.</p>
+     */
     inline void SetInstanceState(const InstanceState& value) { m_instanceStateHasBeenSet = true; m_instanceState = value; }
 
     /**
@@ -197,6 +259,12 @@ namespace Model
      * instance, such as impaired reachability.</p>
      */
     inline const InstanceStatusSummary& GetInstanceStatus() const{ return m_instanceStatus; }
+
+    /**
+     * <p>Reports impaired functionality that stems from issues internal to the
+     * instance, such as impaired reachability.</p>
+     */
+    inline bool InstanceStatusHasBeenSet() const { return m_instanceStatusHasBeenSet; }
 
     /**
      * <p>Reports impaired functionality that stems from issues internal to the
@@ -235,6 +303,13 @@ namespace Model
      * that support an instance, such as hardware failures and network connectivity
      * problems.</p>
      */
+    inline bool SystemStatusHasBeenSet() const { return m_systemStatusHasBeenSet; }
+
+    /**
+     * <p>Reports impaired functionality that stems from issues related to the systems
+     * that support an instance, such as hardware failures and network connectivity
+     * problems.</p>
+     */
     inline void SetSystemStatus(const InstanceStatusSummary& value) { m_systemStatusHasBeenSet = true; m_systemStatus = value; }
 
     /**
@@ -262,6 +337,9 @@ namespace Model
 
     Aws::String m_availabilityZone;
     bool m_availabilityZoneHasBeenSet;
+
+    Aws::String m_outpostArn;
+    bool m_outpostArnHasBeenSet;
 
     Aws::Vector<InstanceStatusEvent> m_events;
     bool m_eventsHasBeenSet;

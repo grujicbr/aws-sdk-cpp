@@ -24,7 +24,9 @@ using namespace Aws::Utils;
 
 CreateResourceDataSyncRequest::CreateResourceDataSyncRequest() : 
     m_syncNameHasBeenSet(false),
-    m_s3DestinationHasBeenSet(false)
+    m_s3DestinationHasBeenSet(false),
+    m_syncTypeHasBeenSet(false),
+    m_syncSourceHasBeenSet(false)
 {
 }
 
@@ -44,7 +46,19 @@ Aws::String CreateResourceDataSyncRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_syncTypeHasBeenSet)
+  {
+   payload.WithString("SyncType", m_syncType);
+
+  }
+
+  if(m_syncSourceHasBeenSet)
+  {
+   payload.WithObject("SyncSource", m_syncSource.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateResourceDataSyncRequest::GetRequestSpecificHeaders() const

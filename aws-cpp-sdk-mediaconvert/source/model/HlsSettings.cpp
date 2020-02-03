@@ -30,6 +30,8 @@ namespace Model
 
 HlsSettings::HlsSettings() : 
     m_audioGroupIdHasBeenSet(false),
+    m_audioOnlyContainer(HlsAudioOnlyContainer::NOT_SET),
+    m_audioOnlyContainerHasBeenSet(false),
     m_audioRenditionSetsHasBeenSet(false),
     m_audioTrackType(HlsAudioTrackType::NOT_SET),
     m_audioTrackTypeHasBeenSet(false),
@@ -39,8 +41,10 @@ HlsSettings::HlsSettings() :
 {
 }
 
-HlsSettings::HlsSettings(const JsonValue& jsonValue) : 
+HlsSettings::HlsSettings(JsonView jsonValue) : 
     m_audioGroupIdHasBeenSet(false),
+    m_audioOnlyContainer(HlsAudioOnlyContainer::NOT_SET),
+    m_audioOnlyContainerHasBeenSet(false),
     m_audioRenditionSetsHasBeenSet(false),
     m_audioTrackType(HlsAudioTrackType::NOT_SET),
     m_audioTrackTypeHasBeenSet(false),
@@ -51,13 +55,20 @@ HlsSettings::HlsSettings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-HlsSettings& HlsSettings::operator =(const JsonValue& jsonValue)
+HlsSettings& HlsSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("audioGroupId"))
   {
     m_audioGroupId = jsonValue.GetString("audioGroupId");
 
     m_audioGroupIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("audioOnlyContainer"))
+  {
+    m_audioOnlyContainer = HlsAudioOnlyContainerMapper::GetHlsAudioOnlyContainerForName(jsonValue.GetString("audioOnlyContainer"));
+
+    m_audioOnlyContainerHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("audioRenditionSets"))
@@ -99,6 +110,11 @@ JsonValue HlsSettings::Jsonize() const
   {
    payload.WithString("audioGroupId", m_audioGroupId);
 
+  }
+
+  if(m_audioOnlyContainerHasBeenSet)
+  {
+   payload.WithString("audioOnlyContainer", HlsAudioOnlyContainerMapper::GetNameForHlsAudioOnlyContainer(m_audioOnlyContainer));
   }
 
   if(m_audioRenditionSetsHasBeenSet)

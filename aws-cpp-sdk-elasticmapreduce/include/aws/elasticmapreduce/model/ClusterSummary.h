@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ClusterSummary();
-    ClusterSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ClusterSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ClusterSummary(Aws::Utils::Json::JsonView jsonValue);
+    ClusterSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The unique identifier for the cluster.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier for the cluster.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier for the cluster.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The name of the cluster.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the cluster.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The details about the current status of the cluster.</p>
      */
     inline const ClusterStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The details about the current status of the cluster.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The details about the current status of the cluster.</p>
@@ -163,6 +179,16 @@ namespace Model
      * incremented by four. This result is only an approximation and does not reflect
      * the actual billing rate.</p>
      */
+    inline bool NormalizedInstanceHoursHasBeenSet() const { return m_normalizedInstanceHoursHasBeenSet; }
+
+    /**
+     * <p>An approximation of the cost of the cluster, represented in m1.small/hours.
+     * This value is incremented one time for every hour an m1.small instance runs.
+     * Larger instances are weighted more, so an EC2 instance that is roughly four
+     * times more expensive would result in the normalized instance hours being
+     * incremented by four. This result is only an approximation and does not reflect
+     * the actual billing rate.</p>
+     */
     inline void SetNormalizedInstanceHours(int value) { m_normalizedInstanceHoursHasBeenSet = true; m_normalizedInstanceHours = value; }
 
     /**
@@ -174,6 +200,96 @@ namespace Model
      * the actual billing rate.</p>
      */
     inline ClusterSummary& WithNormalizedInstanceHours(int value) { SetNormalizedInstanceHours(value); return *this;}
+
+
+    /**
+     * <p>The Amazon Resource Name of the cluster.</p>
+     */
+    inline const Aws::String& GetClusterArn() const{ return m_clusterArn; }
+
+    /**
+     * <p>The Amazon Resource Name of the cluster.</p>
+     */
+    inline bool ClusterArnHasBeenSet() const { return m_clusterArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name of the cluster.</p>
+     */
+    inline void SetClusterArn(const Aws::String& value) { m_clusterArnHasBeenSet = true; m_clusterArn = value; }
+
+    /**
+     * <p>The Amazon Resource Name of the cluster.</p>
+     */
+    inline void SetClusterArn(Aws::String&& value) { m_clusterArnHasBeenSet = true; m_clusterArn = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name of the cluster.</p>
+     */
+    inline void SetClusterArn(const char* value) { m_clusterArnHasBeenSet = true; m_clusterArn.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name of the cluster.</p>
+     */
+    inline ClusterSummary& WithClusterArn(const Aws::String& value) { SetClusterArn(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name of the cluster.</p>
+     */
+    inline ClusterSummary& WithClusterArn(Aws::String&& value) { SetClusterArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name of the cluster.</p>
+     */
+    inline ClusterSummary& WithClusterArn(const char* value) { SetClusterArn(value); return *this;}
+
+
+    /**
+     * <p> The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+     * </p>
+     */
+    inline const Aws::String& GetOutpostArn() const{ return m_outpostArn; }
+
+    /**
+     * <p> The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+     * </p>
+     */
+    inline bool OutpostArnHasBeenSet() const { return m_outpostArnHasBeenSet; }
+
+    /**
+     * <p> The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+     * </p>
+     */
+    inline void SetOutpostArn(const Aws::String& value) { m_outpostArnHasBeenSet = true; m_outpostArn = value; }
+
+    /**
+     * <p> The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+     * </p>
+     */
+    inline void SetOutpostArn(Aws::String&& value) { m_outpostArnHasBeenSet = true; m_outpostArn = std::move(value); }
+
+    /**
+     * <p> The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+     * </p>
+     */
+    inline void SetOutpostArn(const char* value) { m_outpostArnHasBeenSet = true; m_outpostArn.assign(value); }
+
+    /**
+     * <p> The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+     * </p>
+     */
+    inline ClusterSummary& WithOutpostArn(const Aws::String& value) { SetOutpostArn(value); return *this;}
+
+    /**
+     * <p> The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+     * </p>
+     */
+    inline ClusterSummary& WithOutpostArn(Aws::String&& value) { SetOutpostArn(std::move(value)); return *this;}
+
+    /**
+     * <p> The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+     * </p>
+     */
+    inline ClusterSummary& WithOutpostArn(const char* value) { SetOutpostArn(value); return *this;}
 
   private:
 
@@ -188,6 +304,12 @@ namespace Model
 
     int m_normalizedInstanceHours;
     bool m_normalizedInstanceHoursHasBeenSet;
+
+    Aws::String m_clusterArn;
+    bool m_clusterArnHasBeenSet;
+
+    Aws::String m_outpostArn;
+    bool m_outpostArnHasBeenSet;
   };
 
 } // namespace Model

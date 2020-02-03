@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     TypedAttributeValue();
-    TypedAttributeValue(const Aws::Utils::Json::JsonValue& jsonValue);
-    TypedAttributeValue& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TypedAttributeValue(Aws::Utils::Json::JsonView jsonValue);
+    TypedAttributeValue& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>A string data value.</p>
      */
     inline const Aws::String& GetStringValue() const{ return m_stringValue; }
+
+    /**
+     * <p>A string data value.</p>
+     */
+    inline bool StringValueHasBeenSet() const { return m_stringValueHasBeenSet; }
 
     /**
      * <p>A string data value.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>A binary data value.</p>
      */
+    inline bool BinaryValueHasBeenSet() const { return m_binaryValueHasBeenSet; }
+
+    /**
+     * <p>A binary data value.</p>
+     */
     inline void SetBinaryValue(const Aws::Utils::ByteBuffer& value) { m_binaryValueHasBeenSet = true; m_binaryValue = value; }
 
     /**
@@ -120,6 +131,11 @@ namespace Model
     /**
      * <p>A Boolean data value.</p>
      */
+    inline bool BooleanValueHasBeenSet() const { return m_booleanValueHasBeenSet; }
+
+    /**
+     * <p>A Boolean data value.</p>
+     */
     inline void SetBooleanValue(bool value) { m_booleanValueHasBeenSet = true; m_booleanValue = value; }
 
     /**
@@ -132,6 +148,11 @@ namespace Model
      * <p>A number data value.</p>
      */
     inline const Aws::String& GetNumberValue() const{ return m_numberValue; }
+
+    /**
+     * <p>A number data value.</p>
+     */
+    inline bool NumberValueHasBeenSet() const { return m_numberValueHasBeenSet; }
 
     /**
      * <p>A number data value.</p>
@@ -168,6 +189,11 @@ namespace Model
      * <p>A date and time value.</p>
      */
     inline const Aws::Utils::DateTime& GetDatetimeValue() const{ return m_datetimeValue; }
+
+    /**
+     * <p>A date and time value.</p>
+     */
+    inline bool DatetimeValueHasBeenSet() const { return m_datetimeValueHasBeenSet; }
 
     /**
      * <p>A date and time value.</p>

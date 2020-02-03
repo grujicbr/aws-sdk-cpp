@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ExecutionSucceededEventDetails();
-    ExecutionSucceededEventDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExecutionSucceededEventDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExecutionSucceededEventDetails(Aws::Utils::Json::JsonView jsonValue);
+    ExecutionSucceededEventDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The JSON data output by the execution.</p>
      */
     inline const Aws::String& GetOutput() const{ return m_output; }
+
+    /**
+     * <p>The JSON data output by the execution.</p>
+     */
+    inline bool OutputHasBeenSet() const { return m_outputHasBeenSet; }
 
     /**
      * <p>The JSON data output by the execution.</p>

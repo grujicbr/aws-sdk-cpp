@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     SkillGroupData();
-    SkillGroupData(const Aws::Utils::Json::JsonValue& jsonValue);
-    SkillGroupData& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SkillGroupData(Aws::Utils::Json::JsonView jsonValue);
+    SkillGroupData& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The skill group ARN of a skill group.</p>
      */
     inline const Aws::String& GetSkillGroupArn() const{ return m_skillGroupArn; }
+
+    /**
+     * <p>The skill group ARN of a skill group.</p>
+     */
+    inline bool SkillGroupArnHasBeenSet() const { return m_skillGroupArnHasBeenSet; }
 
     /**
      * <p>The skill group ARN of a skill group.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The skill group name of a skill group.</p>
      */
+    inline bool SkillGroupNameHasBeenSet() const { return m_skillGroupNameHasBeenSet; }
+
+    /**
+     * <p>The skill group name of a skill group.</p>
+     */
     inline void SetSkillGroupName(const Aws::String& value) { m_skillGroupNameHasBeenSet = true; m_skillGroupName = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The description of a skill group.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of a skill group.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of a skill group.</p>

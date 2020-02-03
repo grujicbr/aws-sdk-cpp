@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CelebrityRecognition();
-    CelebrityRecognition(const Aws::Utils::Json::JsonValue& jsonValue);
-    CelebrityRecognition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CelebrityRecognition(Aws::Utils::Json::JsonView jsonValue);
+    CelebrityRecognition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * recognized.</p>
      */
     inline long long GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>The time, in milliseconds from the start of the video, that the celebrity was
+     * recognized.</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>The time, in milliseconds from the start of the video, that the celebrity was
@@ -71,6 +78,11 @@ namespace Model
      * <p>Information about a recognized celebrity.</p>
      */
     inline const CelebrityDetail& GetCelebrity() const{ return m_celebrity; }
+
+    /**
+     * <p>Information about a recognized celebrity.</p>
+     */
+    inline bool CelebrityHasBeenSet() const { return m_celebrityHasBeenSet; }
 
     /**
      * <p>Information about a recognized celebrity.</p>

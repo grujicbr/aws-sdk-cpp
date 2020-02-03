@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AggregationAuthorization();
-    AggregationAuthorization(const Aws::Utils::Json::JsonValue& jsonValue);
-    AggregationAuthorization& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AggregationAuthorization(Aws::Utils::Json::JsonView jsonValue);
+    AggregationAuthorization& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the aggregation object.</p>
      */
     inline const Aws::String& GetAggregationAuthorizationArn() const{ return m_aggregationAuthorizationArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the aggregation object.</p>
+     */
+    inline bool AggregationAuthorizationArnHasBeenSet() const { return m_aggregationAuthorizationArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the aggregation object.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The 12-digit account ID of the account authorized to aggregate data.</p>
      */
+    inline bool AuthorizedAccountIdHasBeenSet() const { return m_authorizedAccountIdHasBeenSet; }
+
+    /**
+     * <p>The 12-digit account ID of the account authorized to aggregate data.</p>
+     */
     inline void SetAuthorizedAccountId(const Aws::String& value) { m_authorizedAccountIdHasBeenSet = true; m_authorizedAccountId = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
     /**
      * <p>The region authorized to collect aggregated data.</p>
      */
+    inline bool AuthorizedAwsRegionHasBeenSet() const { return m_authorizedAwsRegionHasBeenSet; }
+
+    /**
+     * <p>The region authorized to collect aggregated data.</p>
+     */
     inline void SetAuthorizedAwsRegion(const Aws::String& value) { m_authorizedAwsRegionHasBeenSet = true; m_authorizedAwsRegion = value; }
 
     /**
@@ -160,6 +176,11 @@ namespace Model
      * <p>The time stamp when the aggregation authorization was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationTime() const{ return m_creationTime; }
+
+    /**
+     * <p>The time stamp when the aggregation authorization was created.</p>
+     */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
 
     /**
      * <p>The time stamp when the aggregation authorization was created.</p>

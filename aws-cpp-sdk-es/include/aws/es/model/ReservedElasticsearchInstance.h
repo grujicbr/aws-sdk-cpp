@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     ReservedElasticsearchInstance();
-    ReservedElasticsearchInstance(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReservedElasticsearchInstance& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReservedElasticsearchInstance(Aws::Utils::Json::JsonView jsonValue);
+    ReservedElasticsearchInstance& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The customer-specified identifier to track this reservation.</p>
      */
     inline const Aws::String& GetReservationName() const{ return m_reservationName; }
+
+    /**
+     * <p>The customer-specified identifier to track this reservation.</p>
+     */
+    inline bool ReservationNameHasBeenSet() const { return m_reservationNameHasBeenSet; }
 
     /**
      * <p>The customer-specified identifier to track this reservation.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>The unique identifier for the reservation.</p>
      */
+    inline bool ReservedElasticsearchInstanceIdHasBeenSet() const { return m_reservedElasticsearchInstanceIdHasBeenSet; }
+
+    /**
+     * <p>The unique identifier for the reservation.</p>
+     */
     inline void SetReservedElasticsearchInstanceId(const Aws::String& value) { m_reservedElasticsearchInstanceIdHasBeenSet = true; m_reservedElasticsearchInstanceId = value; }
 
     /**
@@ -127,6 +138,11 @@ namespace Model
      * <p>The offering identifier.</p>
      */
     inline const Aws::String& GetReservedElasticsearchInstanceOfferingId() const{ return m_reservedElasticsearchInstanceOfferingId; }
+
+    /**
+     * <p>The offering identifier.</p>
+     */
+    inline bool ReservedElasticsearchInstanceOfferingIdHasBeenSet() const { return m_reservedElasticsearchInstanceOfferingIdHasBeenSet; }
 
     /**
      * <p>The offering identifier.</p>
@@ -169,6 +185,12 @@ namespace Model
      * <p>The Elasticsearch instance type offered by the reserved instance
      * offering.</p>
      */
+    inline bool ElasticsearchInstanceTypeHasBeenSet() const { return m_elasticsearchInstanceTypeHasBeenSet; }
+
+    /**
+     * <p>The Elasticsearch instance type offered by the reserved instance
+     * offering.</p>
+     */
     inline void SetElasticsearchInstanceType(const ESPartitionInstanceType& value) { m_elasticsearchInstanceTypeHasBeenSet = true; m_elasticsearchInstanceType = value; }
 
     /**
@@ -194,6 +216,11 @@ namespace Model
      * <p>The time the reservation started.</p>
      */
     inline const Aws::Utils::DateTime& GetStartTime() const{ return m_startTime; }
+
+    /**
+     * <p>The time the reservation started.</p>
+     */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
 
     /**
      * <p>The time the reservation started.</p>
@@ -226,6 +253,12 @@ namespace Model
      * <p>The duration, in seconds, for which the Elasticsearch instance is
      * reserved.</p>
      */
+    inline bool DurationHasBeenSet() const { return m_durationHasBeenSet; }
+
+    /**
+     * <p>The duration, in seconds, for which the Elasticsearch instance is
+     * reserved.</p>
+     */
     inline void SetDuration(int value) { m_durationHasBeenSet = true; m_duration = value; }
 
     /**
@@ -240,6 +273,12 @@ namespace Model
      * Elasticsearch instance offering. </p>
      */
     inline double GetFixedPrice() const{ return m_fixedPrice; }
+
+    /**
+     * <p>The upfront fixed charge you will paid to purchase the specific reserved
+     * Elasticsearch instance offering. </p>
+     */
+    inline bool FixedPriceHasBeenSet() const { return m_fixedPriceHasBeenSet; }
 
     /**
      * <p>The upfront fixed charge you will paid to purchase the specific reserved
@@ -264,6 +303,12 @@ namespace Model
      * <p>The rate you are charged for each hour for the domain that is using this
      * reserved instance.</p>
      */
+    inline bool UsagePriceHasBeenSet() const { return m_usagePriceHasBeenSet; }
+
+    /**
+     * <p>The rate you are charged for each hour for the domain that is using this
+     * reserved instance.</p>
+     */
     inline void SetUsagePrice(double value) { m_usagePriceHasBeenSet = true; m_usagePrice = value; }
 
     /**
@@ -277,6 +322,11 @@ namespace Model
      * <p>The currency code for the reserved Elasticsearch instance offering.</p>
      */
     inline const Aws::String& GetCurrencyCode() const{ return m_currencyCode; }
+
+    /**
+     * <p>The currency code for the reserved Elasticsearch instance offering.</p>
+     */
+    inline bool CurrencyCodeHasBeenSet() const { return m_currencyCodeHasBeenSet; }
 
     /**
      * <p>The currency code for the reserved Elasticsearch instance offering.</p>
@@ -317,6 +367,11 @@ namespace Model
     /**
      * <p>The number of Elasticsearch instances that have been reserved.</p>
      */
+    inline bool ElasticsearchInstanceCountHasBeenSet() const { return m_elasticsearchInstanceCountHasBeenSet; }
+
+    /**
+     * <p>The number of Elasticsearch instances that have been reserved.</p>
+     */
     inline void SetElasticsearchInstanceCount(int value) { m_elasticsearchInstanceCountHasBeenSet = true; m_elasticsearchInstanceCount = value; }
 
     /**
@@ -329,6 +384,11 @@ namespace Model
      * <p>The state of the reserved Elasticsearch instance.</p>
      */
     inline const Aws::String& GetState() const{ return m_state; }
+
+    /**
+     * <p>The state of the reserved Elasticsearch instance.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The state of the reserved Elasticsearch instance.</p>
@@ -371,6 +431,12 @@ namespace Model
      * <p>The payment option as defined in the reserved Elasticsearch instance
      * offering.</p>
      */
+    inline bool PaymentOptionHasBeenSet() const { return m_paymentOptionHasBeenSet; }
+
+    /**
+     * <p>The payment option as defined in the reserved Elasticsearch instance
+     * offering.</p>
+     */
     inline void SetPaymentOption(const ReservedElasticsearchInstancePaymentOption& value) { m_paymentOptionHasBeenSet = true; m_paymentOption = value; }
 
     /**
@@ -397,6 +463,12 @@ namespace Model
      * using the instance offering.</p>
      */
     inline const Aws::Vector<RecurringCharge>& GetRecurringCharges() const{ return m_recurringCharges; }
+
+    /**
+     * <p>The charge to your account regardless of whether you are creating any domains
+     * using the instance offering.</p>
+     */
+    inline bool RecurringChargesHasBeenSet() const { return m_recurringChargesHasBeenSet; }
 
     /**
      * <p>The charge to your account regardless of whether you are creating any domains

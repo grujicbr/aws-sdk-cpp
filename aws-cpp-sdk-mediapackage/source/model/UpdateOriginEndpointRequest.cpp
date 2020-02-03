@@ -23,6 +23,7 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 UpdateOriginEndpointRequest::UpdateOriginEndpointRequest() : 
+    m_authorizationHasBeenSet(false),
     m_cmafPackageHasBeenSet(false),
     m_dashPackageHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -30,6 +31,8 @@ UpdateOriginEndpointRequest::UpdateOriginEndpointRequest() :
     m_idHasBeenSet(false),
     m_manifestNameHasBeenSet(false),
     m_mssPackageHasBeenSet(false),
+    m_origination(Origination::NOT_SET),
+    m_originationHasBeenSet(false),
     m_startoverWindowSeconds(0),
     m_startoverWindowSecondsHasBeenSet(false),
     m_timeDelaySeconds(0),
@@ -41,6 +44,12 @@ UpdateOriginEndpointRequest::UpdateOriginEndpointRequest() :
 Aws::String UpdateOriginEndpointRequest::SerializePayload() const
 {
   JsonValue payload;
+
+  if(m_authorizationHasBeenSet)
+  {
+   payload.WithObject("authorization", m_authorization.Jsonize());
+
+  }
 
   if(m_cmafPackageHasBeenSet)
   {
@@ -78,6 +87,11 @@ Aws::String UpdateOriginEndpointRequest::SerializePayload() const
 
   }
 
+  if(m_originationHasBeenSet)
+  {
+   payload.WithString("origination", OriginationMapper::GetNameForOrigination(m_origination));
+  }
+
   if(m_startoverWindowSecondsHasBeenSet)
   {
    payload.WithInteger("startoverWindowSeconds", m_startoverWindowSeconds);
@@ -101,7 +115,7 @@ Aws::String UpdateOriginEndpointRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

@@ -26,6 +26,8 @@ LookupEventsRequest::LookupEventsRequest() :
     m_lookupAttributesHasBeenSet(false),
     m_startTimeHasBeenSet(false),
     m_endTimeHasBeenSet(false),
+    m_eventCategory(EventCategory::NOT_SET),
+    m_eventCategoryHasBeenSet(false),
     m_maxResults(0),
     m_maxResultsHasBeenSet(false),
     m_nextTokenHasBeenSet(false)
@@ -57,6 +59,11 @@ Aws::String LookupEventsRequest::SerializePayload() const
    payload.WithDouble("EndTime", m_endTime.SecondsWithMSPrecision());
   }
 
+  if(m_eventCategoryHasBeenSet)
+  {
+   payload.WithString("EventCategory", EventCategoryMapper::GetNameForEventCategory(m_eventCategory));
+  }
+
   if(m_maxResultsHasBeenSet)
   {
    payload.WithInteger("MaxResults", m_maxResults);
@@ -69,7 +76,7 @@ Aws::String LookupEventsRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection LookupEventsRequest::GetRequestSpecificHeaders() const

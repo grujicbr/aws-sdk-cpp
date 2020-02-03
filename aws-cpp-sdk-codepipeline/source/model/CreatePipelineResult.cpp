@@ -37,11 +37,20 @@ CreatePipelineResult::CreatePipelineResult(const Aws::AmazonWebServiceResult<Jso
 
 CreatePipelineResult& CreatePipelineResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("pipeline"))
   {
     m_pipeline = jsonValue.GetObject("pipeline");
 
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
   }
 
 

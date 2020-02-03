@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     Parameter();
-    Parameter(const Aws::Utils::Json::JsonValue& jsonValue);
-    Parameter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Parameter(Aws::Utils::Json::JsonView jsonValue);
+    Parameter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The name of the parameter.</p>
      */
     inline const Aws::String& GetParameterName() const{ return m_parameterName; }
+
+    /**
+     * <p>The name of the parameter.</p>
+     */
+    inline bool ParameterNameHasBeenSet() const { return m_parameterNameHasBeenSet; }
 
     /**
      * <p>The name of the parameter.</p>
@@ -98,6 +104,12 @@ namespace Model
      * <p>Determines whether the parameter can be applied to any nodes, or only nodes
      * of a particular type.</p>
      */
+    inline bool ParameterTypeHasBeenSet() const { return m_parameterTypeHasBeenSet; }
+
+    /**
+     * <p>Determines whether the parameter can be applied to any nodes, or only nodes
+     * of a particular type.</p>
+     */
     inline void SetParameterType(const ParameterType& value) { m_parameterTypeHasBeenSet = true; m_parameterType = value; }
 
     /**
@@ -123,6 +135,11 @@ namespace Model
      * <p>The value for the parameter.</p>
      */
     inline const Aws::String& GetParameterValue() const{ return m_parameterValue; }
+
+    /**
+     * <p>The value for the parameter.</p>
+     */
+    inline bool ParameterValueHasBeenSet() const { return m_parameterValueHasBeenSet; }
 
     /**
      * <p>The value for the parameter.</p>
@@ -163,6 +180,11 @@ namespace Model
     /**
      * <p>A list of node types, and specific parameter values for each node.</p>
      */
+    inline bool NodeTypeSpecificValuesHasBeenSet() const { return m_nodeTypeSpecificValuesHasBeenSet; }
+
+    /**
+     * <p>A list of node types, and specific parameter values for each node.</p>
+     */
     inline void SetNodeTypeSpecificValues(const Aws::Vector<NodeTypeSpecificValue>& value) { m_nodeTypeSpecificValuesHasBeenSet = true; m_nodeTypeSpecificValues = value; }
 
     /**
@@ -195,6 +217,11 @@ namespace Model
      * <p>A description of the parameter</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the parameter</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the parameter</p>
@@ -232,6 +259,12 @@ namespace Model
      * system-defined parameter.</p>
      */
     inline const Aws::String& GetSource() const{ return m_source; }
+
+    /**
+     * <p>How the parameter is defined. For example, <code>system</code> denotes a
+     * system-defined parameter.</p>
+     */
+    inline bool SourceHasBeenSet() const { return m_sourceHasBeenSet; }
 
     /**
      * <p>How the parameter is defined. For example, <code>system</code> denotes a
@@ -278,6 +311,11 @@ namespace Model
     /**
      * <p>The data type of the parameter. For example, <code>integer</code>:</p>
      */
+    inline bool DataTypeHasBeenSet() const { return m_dataTypeHasBeenSet; }
+
+    /**
+     * <p>The data type of the parameter. For example, <code>integer</code>:</p>
+     */
     inline void SetDataType(const Aws::String& value) { m_dataTypeHasBeenSet = true; m_dataType = value; }
 
     /**
@@ -310,6 +348,11 @@ namespace Model
      * <p>A range of values within which the parameter can be set.</p>
      */
     inline const Aws::String& GetAllowedValues() const{ return m_allowedValues; }
+
+    /**
+     * <p>A range of values within which the parameter can be set.</p>
+     */
+    inline bool AllowedValuesHasBeenSet() const { return m_allowedValuesHasBeenSet; }
 
     /**
      * <p>A range of values within which the parameter can be set.</p>
@@ -350,6 +393,11 @@ namespace Model
     /**
      * <p>Whether the customer is allowed to modify the parameter.</p>
      */
+    inline bool IsModifiableHasBeenSet() const { return m_isModifiableHasBeenSet; }
+
+    /**
+     * <p>Whether the customer is allowed to modify the parameter.</p>
+     */
     inline void SetIsModifiable(const IsModifiable& value) { m_isModifiableHasBeenSet = true; m_isModifiable = value; }
 
     /**
@@ -374,6 +422,13 @@ namespace Model
      * parameter will only take effect if a node is rebooted.</p>
      */
     inline const ChangeType& GetChangeType() const{ return m_changeType; }
+
+    /**
+     * <p>The conditions under which changes to this parameter can be applied. For
+     * example, <code>requires-reboot</code> indicates that a new value for this
+     * parameter will only take effect if a node is rebooted.</p>
+     */
+    inline bool ChangeTypeHasBeenSet() const { return m_changeTypeHasBeenSet; }
 
     /**
      * <p>The conditions under which changes to this parameter can be applied. For

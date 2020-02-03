@@ -31,6 +31,7 @@ namespace Model
 DocumentIdentifier::DocumentIdentifier() : 
     m_nameHasBeenSet(false),
     m_ownerHasBeenSet(false),
+    m_versionNameHasBeenSet(false),
     m_platformTypesHasBeenSet(false),
     m_documentVersionHasBeenSet(false),
     m_documentType(DocumentType::NOT_SET),
@@ -39,13 +40,15 @@ DocumentIdentifier::DocumentIdentifier() :
     m_documentFormat(DocumentFormat::NOT_SET),
     m_documentFormatHasBeenSet(false),
     m_targetTypeHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_requiresHasBeenSet(false)
 {
 }
 
-DocumentIdentifier::DocumentIdentifier(const JsonValue& jsonValue) : 
+DocumentIdentifier::DocumentIdentifier(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_ownerHasBeenSet(false),
+    m_versionNameHasBeenSet(false),
     m_platformTypesHasBeenSet(false),
     m_documentVersionHasBeenSet(false),
     m_documentType(DocumentType::NOT_SET),
@@ -54,12 +57,13 @@ DocumentIdentifier::DocumentIdentifier(const JsonValue& jsonValue) :
     m_documentFormat(DocumentFormat::NOT_SET),
     m_documentFormatHasBeenSet(false),
     m_targetTypeHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_requiresHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DocumentIdentifier& DocumentIdentifier::operator =(const JsonValue& jsonValue)
+DocumentIdentifier& DocumentIdentifier::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -75,9 +79,16 @@ DocumentIdentifier& DocumentIdentifier::operator =(const JsonValue& jsonValue)
     m_ownerHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("VersionName"))
+  {
+    m_versionName = jsonValue.GetString("VersionName");
+
+    m_versionNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("PlatformTypes"))
   {
-    Array<JsonValue> platformTypesJsonList = jsonValue.GetArray("PlatformTypes");
+    Array<JsonView> platformTypesJsonList = jsonValue.GetArray("PlatformTypes");
     for(unsigned platformTypesIndex = 0; platformTypesIndex < platformTypesJsonList.GetLength(); ++platformTypesIndex)
     {
       m_platformTypes.push_back(PlatformTypeMapper::GetPlatformTypeForName(platformTypesJsonList[platformTypesIndex].AsString()));
@@ -122,12 +133,22 @@ DocumentIdentifier& DocumentIdentifier::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Tags"))
   {
-    Array<JsonValue> tagsJsonList = jsonValue.GetArray("Tags");
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("Tags");
     for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
     {
       m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
     }
     m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Requires"))
+  {
+    Array<JsonView> requiresJsonList = jsonValue.GetArray("Requires");
+    for(unsigned requiresIndex = 0; requiresIndex < requiresJsonList.GetLength(); ++requiresIndex)
+    {
+      m_requires.push_back(requiresJsonList[requiresIndex].AsObject());
+    }
+    m_requiresHasBeenSet = true;
   }
 
   return *this;
@@ -146,6 +167,12 @@ JsonValue DocumentIdentifier::Jsonize() const
   if(m_ownerHasBeenSet)
   {
    payload.WithString("Owner", m_owner);
+
+  }
+
+  if(m_versionNameHasBeenSet)
+  {
+   payload.WithString("VersionName", m_versionName);
 
   }
 
@@ -196,6 +223,17 @@ JsonValue DocumentIdentifier::Jsonize() const
      tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
    }
    payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_requiresHasBeenSet)
+  {
+   Array<JsonValue> requiresJsonList(m_requires.size());
+   for(unsigned requiresIndex = 0; requiresIndex < requiresJsonList.GetLength(); ++requiresIndex)
+   {
+     requiresJsonList[requiresIndex].AsObject(m_requires[requiresIndex].Jsonize());
+   }
+   payload.WithArray("Requires", std::move(requiresJsonList));
 
   }
 

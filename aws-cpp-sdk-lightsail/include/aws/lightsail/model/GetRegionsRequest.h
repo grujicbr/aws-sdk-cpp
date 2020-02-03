@@ -30,7 +30,7 @@ namespace Model
   {
   public:
     GetRegionsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +54,13 @@ namespace Model
      * get regions request. Availability Zones are indicated with a letter: e.g.,
      * <code>us-east-2a</code>.</p>
      */
+    inline bool IncludeAvailabilityZonesHasBeenSet() const { return m_includeAvailabilityZonesHasBeenSet; }
+
+    /**
+     * <p>A Boolean value indicating whether to also include Availability Zones in your
+     * get regions request. Availability Zones are indicated with a letter: e.g.,
+     * <code>us-east-2a</code>.</p>
+     */
     inline void SetIncludeAvailabilityZones(bool value) { m_includeAvailabilityZonesHasBeenSet = true; m_includeAvailabilityZones = value; }
 
     /**
@@ -63,10 +70,42 @@ namespace Model
      */
     inline GetRegionsRequest& WithIncludeAvailabilityZones(bool value) { SetIncludeAvailabilityZones(value); return *this;}
 
+
+    /**
+     * <p>&gt;A Boolean value indicating whether to also include Availability Zones for
+     * databases in your get regions request. Availability Zones are indicated with a
+     * letter (e.g., <code>us-east-2a</code>).</p>
+     */
+    inline bool GetIncludeRelationalDatabaseAvailabilityZones() const{ return m_includeRelationalDatabaseAvailabilityZones; }
+
+    /**
+     * <p>&gt;A Boolean value indicating whether to also include Availability Zones for
+     * databases in your get regions request. Availability Zones are indicated with a
+     * letter (e.g., <code>us-east-2a</code>).</p>
+     */
+    inline bool IncludeRelationalDatabaseAvailabilityZonesHasBeenSet() const { return m_includeRelationalDatabaseAvailabilityZonesHasBeenSet; }
+
+    /**
+     * <p>&gt;A Boolean value indicating whether to also include Availability Zones for
+     * databases in your get regions request. Availability Zones are indicated with a
+     * letter (e.g., <code>us-east-2a</code>).</p>
+     */
+    inline void SetIncludeRelationalDatabaseAvailabilityZones(bool value) { m_includeRelationalDatabaseAvailabilityZonesHasBeenSet = true; m_includeRelationalDatabaseAvailabilityZones = value; }
+
+    /**
+     * <p>&gt;A Boolean value indicating whether to also include Availability Zones for
+     * databases in your get regions request. Availability Zones are indicated with a
+     * letter (e.g., <code>us-east-2a</code>).</p>
+     */
+    inline GetRegionsRequest& WithIncludeRelationalDatabaseAvailabilityZones(bool value) { SetIncludeRelationalDatabaseAvailabilityZones(value); return *this;}
+
   private:
 
     bool m_includeAvailabilityZones;
     bool m_includeAvailabilityZonesHasBeenSet;
+
+    bool m_includeRelationalDatabaseAvailabilityZones;
+    bool m_includeRelationalDatabaseAvailabilityZonesHasBeenSet;
   };
 
 } // namespace Model

@@ -64,18 +64,21 @@ DescribeElasticGpusResponse& DescribeElasticGpusResponse::operator =(const Aws::
     XmlNode maxResultsNode = resultNode.FirstChild("maxResults");
     if(!maxResultsNode.IsNull())
     {
-      m_maxResults = StringUtils::ConvertToInt32(StringUtils::Trim(maxResultsNode.GetText().c_str()).c_str());
+      m_maxResults = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(maxResultsNode.GetText()).c_str()).c_str());
     }
     XmlNode nextTokenNode = resultNode.FirstChild("nextToken");
     if(!nextTokenNode.IsNull())
     {
-      m_nextToken = StringUtils::Trim(nextTokenNode.GetText().c_str());
+      m_nextToken = Aws::Utils::Xml::DecodeEscapedXmlText(nextTokenNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::DescribeElasticGpusResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     InstanceFleetTimeline();
-    InstanceFleetTimeline(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceFleetTimeline& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceFleetTimeline(Aws::Utils::Json::JsonView jsonValue);
+    InstanceFleetTimeline& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The time and date the instance fleet was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDateTime() const{ return m_creationDateTime; }
+
+    /**
+     * <p>The time and date the instance fleet was created.</p>
+     */
+    inline bool CreationDateTimeHasBeenSet() const { return m_creationDateTimeHasBeenSet; }
 
     /**
      * <p>The time and date the instance fleet was created.</p>
@@ -84,6 +90,11 @@ namespace Model
     /**
      * <p>The time and date the instance fleet was ready to run jobs.</p>
      */
+    inline bool ReadyDateTimeHasBeenSet() const { return m_readyDateTimeHasBeenSet; }
+
+    /**
+     * <p>The time and date the instance fleet was ready to run jobs.</p>
+     */
     inline void SetReadyDateTime(const Aws::Utils::DateTime& value) { m_readyDateTimeHasBeenSet = true; m_readyDateTime = value; }
 
     /**
@@ -106,6 +117,11 @@ namespace Model
      * <p>The time and date the instance fleet terminated.</p>
      */
     inline const Aws::Utils::DateTime& GetEndDateTime() const{ return m_endDateTime; }
+
+    /**
+     * <p>The time and date the instance fleet terminated.</p>
+     */
+    inline bool EndDateTimeHasBeenSet() const { return m_endDateTimeHasBeenSet; }
 
     /**
      * <p>The time and date the instance fleet terminated.</p>

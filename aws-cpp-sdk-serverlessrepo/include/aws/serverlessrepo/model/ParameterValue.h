@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServerlessApplicationRepository
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ParameterValue();
-    ParameterValue(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParameterValue& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParameterValue(Aws::Utils::Json::JsonView jsonValue);
+    ParameterValue& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,14 @@ namespace Model
      * specified in your template.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The key associated with the parameter. If you don't specify a key and value
+     * for a particular parameter, AWS CloudFormation
+ uses the default value that is
+     * specified in your template.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The key associated with the parameter. If you don't specify a key and value
@@ -107,6 +116,11 @@ namespace Model
      * <p>The input value associated with the parameter.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The input value associated with the parameter.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The input value associated with the parameter.</p>

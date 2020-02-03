@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MobileAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Event();
-    Event(const Aws::Utils::Json::JsonValue& jsonValue);
-    Event& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Event(Aws::Utils::Json::JsonView jsonValue);
+    Event& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * grouping and aggregating like events together for reporting purposes.</p>
      */
     inline const Aws::String& GetEventType() const{ return m_eventType; }
+
+    /**
+     * <p>A name signifying an event that occurred in your app. This is used for
+     * grouping and aggregating like events together for reporting purposes.</p>
+     */
+    inline bool EventTypeHasBeenSet() const { return m_eventTypeHasBeenSet; }
 
     /**
      * <p>A name signifying an event that occurred in your app. This is used for
@@ -100,6 +107,12 @@ namespace Model
      * <p>The time the event occurred in ISO 8601 standard date time format. For
      * example, 2014-06-30T19:07:47.885Z</p>
      */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
+
+    /**
+     * <p>The time the event occurred in ISO 8601 standard date time format. For
+     * example, 2014-06-30T19:07:47.885Z</p>
+     */
     inline void SetTimestamp(const Aws::String& value) { m_timestampHasBeenSet = true; m_timestamp = value; }
 
     /**
@@ -141,6 +154,11 @@ namespace Model
     /**
      * <p>The session the event occured within. </p>
      */
+    inline bool SessionHasBeenSet() const { return m_sessionHasBeenSet; }
+
+    /**
+     * <p>The session the event occured within. </p>
+     */
     inline void SetSession(const Session& value) { m_sessionHasBeenSet = true; m_session = value; }
 
     /**
@@ -163,6 +181,11 @@ namespace Model
      * <p>The version of the event.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version of the event.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version of the event.</p>
@@ -201,6 +224,13 @@ namespace Model
      * be empty or the attribute object can be omitted.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>A collection of key-value pairs that give additional context to the event.
+     * The key-value pairs are specified by the developer.</p> <p>This collection can
+     * be empty or the attribute object can be omitted.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>A collection of key-value pairs that give additional context to the event.
@@ -286,6 +316,13 @@ namespace Model
      * collection can be empty or the attribute object can be omitted.</p>
      */
     inline const Aws::Map<Aws::String, double>& GetMetrics() const{ return m_metrics; }
+
+    /**
+     * <p>A collection of key-value pairs that gives additional, measurable context to
+     * the event. The key-value pairs are specified by the developer.</p> <p>This
+     * collection can be empty or the attribute object can be omitted.</p>
+     */
+    inline bool MetricsHasBeenSet() const { return m_metricsHasBeenSet; }
 
     /**
      * <p>A collection of key-value pairs that gives additional, measurable context to

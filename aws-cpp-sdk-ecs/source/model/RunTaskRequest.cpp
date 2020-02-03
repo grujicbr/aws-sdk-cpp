@@ -23,19 +23,26 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 RunTaskRequest::RunTaskRequest() : 
+    m_capacityProviderStrategyHasBeenSet(false),
     m_clusterHasBeenSet(false),
-    m_taskDefinitionHasBeenSet(false),
-    m_overridesHasBeenSet(false),
     m_count(0),
     m_countHasBeenSet(false),
-    m_startedByHasBeenSet(false),
+    m_enableECSManagedTags(false),
+    m_enableECSManagedTagsHasBeenSet(false),
     m_groupHasBeenSet(false),
-    m_placementConstraintsHasBeenSet(false),
-    m_placementStrategyHasBeenSet(false),
     m_launchType(LaunchType::NOT_SET),
     m_launchTypeHasBeenSet(false),
+    m_networkConfigurationHasBeenSet(false),
+    m_overridesHasBeenSet(false),
+    m_placementConstraintsHasBeenSet(false),
+    m_placementStrategyHasBeenSet(false),
     m_platformVersionHasBeenSet(false),
-    m_networkConfigurationHasBeenSet(false)
+    m_propagateTags(PropagateTags::NOT_SET),
+    m_propagateTagsHasBeenSet(false),
+    m_referenceIdHasBeenSet(false),
+    m_startedByHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_taskDefinitionHasBeenSet(false)
 {
 }
 
@@ -43,21 +50,20 @@ Aws::String RunTaskRequest::SerializePayload() const
 {
   JsonValue payload;
 
+  if(m_capacityProviderStrategyHasBeenSet)
+  {
+   Array<JsonValue> capacityProviderStrategyJsonList(m_capacityProviderStrategy.size());
+   for(unsigned capacityProviderStrategyIndex = 0; capacityProviderStrategyIndex < capacityProviderStrategyJsonList.GetLength(); ++capacityProviderStrategyIndex)
+   {
+     capacityProviderStrategyJsonList[capacityProviderStrategyIndex].AsObject(m_capacityProviderStrategy[capacityProviderStrategyIndex].Jsonize());
+   }
+   payload.WithArray("capacityProviderStrategy", std::move(capacityProviderStrategyJsonList));
+
+  }
+
   if(m_clusterHasBeenSet)
   {
    payload.WithString("cluster", m_cluster);
-
-  }
-
-  if(m_taskDefinitionHasBeenSet)
-  {
-   payload.WithString("taskDefinition", m_taskDefinition);
-
-  }
-
-  if(m_overridesHasBeenSet)
-  {
-   payload.WithObject("overrides", m_overrides.Jsonize());
 
   }
 
@@ -67,15 +73,32 @@ Aws::String RunTaskRequest::SerializePayload() const
 
   }
 
-  if(m_startedByHasBeenSet)
+  if(m_enableECSManagedTagsHasBeenSet)
   {
-   payload.WithString("startedBy", m_startedBy);
+   payload.WithBool("enableECSManagedTags", m_enableECSManagedTags);
 
   }
 
   if(m_groupHasBeenSet)
   {
    payload.WithString("group", m_group);
+
+  }
+
+  if(m_launchTypeHasBeenSet)
+  {
+   payload.WithString("launchType", LaunchTypeMapper::GetNameForLaunchType(m_launchType));
+  }
+
+  if(m_networkConfigurationHasBeenSet)
+  {
+   payload.WithObject("networkConfiguration", m_networkConfiguration.Jsonize());
+
+  }
+
+  if(m_overridesHasBeenSet)
+  {
+   payload.WithObject("overrides", m_overrides.Jsonize());
 
   }
 
@@ -101,24 +124,47 @@ Aws::String RunTaskRequest::SerializePayload() const
 
   }
 
-  if(m_launchTypeHasBeenSet)
-  {
-   payload.WithString("launchType", LaunchTypeMapper::GetNameForLaunchType(m_launchType));
-  }
-
   if(m_platformVersionHasBeenSet)
   {
    payload.WithString("platformVersion", m_platformVersion);
 
   }
 
-  if(m_networkConfigurationHasBeenSet)
+  if(m_propagateTagsHasBeenSet)
   {
-   payload.WithObject("networkConfiguration", m_networkConfiguration.Jsonize());
+   payload.WithString("propagateTags", PropagateTagsMapper::GetNameForPropagateTags(m_propagateTags));
+  }
+
+  if(m_referenceIdHasBeenSet)
+  {
+   payload.WithString("referenceId", m_referenceId);
 
   }
 
-  return payload.WriteReadable();
+  if(m_startedByHasBeenSet)
+  {
+   payload.WithString("startedBy", m_startedBy);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_taskDefinitionHasBeenSet)
+  {
+   payload.WithString("taskDefinition", m_taskDefinition);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection RunTaskRequest::GetRequestSpecificHeaders() const

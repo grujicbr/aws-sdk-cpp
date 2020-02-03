@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     CodeGenNodeArg();
-    CodeGenNodeArg(const Aws::Utils::Json::JsonValue& jsonValue);
-    CodeGenNodeArg& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CodeGenNodeArg(Aws::Utils::Json::JsonView jsonValue);
+    CodeGenNodeArg& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the argument or property.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the argument or property.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the argument or property.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The value of the argument or property.</p>
      */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>The value of the argument or property.</p>
+     */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>True if the value is used as a parameter.</p>
      */
     inline bool GetParam() const{ return m_param; }
+
+    /**
+     * <p>True if the value is used as a parameter.</p>
+     */
+    inline bool ParamHasBeenSet() const { return m_paramHasBeenSet; }
 
     /**
      * <p>True if the value is used as a parameter.</p>

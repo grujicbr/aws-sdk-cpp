@@ -31,6 +31,7 @@ public class C2jShape {
     private C2jShapeMember member;
     private C2jShapeMember key;
     private C2jShapeMember value;
+    private C2jXmlNamespace xmlNamespace;
     private String max;
     private String min;
     private String documentation;
@@ -42,4 +43,5 @@ public class C2jShape {
     private String timestampFormat;
     private boolean eventstream;
     private boolean event;
+    private boolean sensitive;
 }

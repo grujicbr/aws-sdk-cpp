@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Route53Domains
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     OperationSummary();
-    OperationSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    OperationSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OperationSummary(Aws::Utils::Json::JsonView jsonValue);
+    OperationSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Identifier returned to track the requested action.</p>
      */
     inline const Aws::String& GetOperationId() const{ return m_operationId; }
+
+    /**
+     * <p>Identifier returned to track the requested action.</p>
+     */
+    inline bool OperationIdHasBeenSet() const { return m_operationIdHasBeenSet; }
 
     /**
      * <p>Identifier returned to track the requested action.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The current status of the requested operation in the system.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The current status of the requested operation in the system.</p>
+     */
     inline void SetStatus(const OperationStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -120,6 +131,11 @@ namespace Model
     /**
      * <p>Type of the action requested.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>Type of the action requested.</p>
+     */
     inline void SetType(const OperationType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -142,6 +158,11 @@ namespace Model
      * <p>The date when the request was submitted.</p>
      */
     inline const Aws::Utils::DateTime& GetSubmittedDate() const{ return m_submittedDate; }
+
+    /**
+     * <p>The date when the request was submitted.</p>
+     */
+    inline bool SubmittedDateHasBeenSet() const { return m_submittedDateHasBeenSet; }
 
     /**
      * <p>The date when the request was submitted.</p>

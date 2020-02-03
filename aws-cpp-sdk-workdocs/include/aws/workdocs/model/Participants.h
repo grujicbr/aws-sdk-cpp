@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Participants();
-    Participants(const Aws::Utils::Json::JsonValue& jsonValue);
-    Participants& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Participants(Aws::Utils::Json::JsonView jsonValue);
+    Participants& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The list of users.</p>
      */
     inline const Aws::Vector<UserMetadata>& GetUsers() const{ return m_users; }
+
+    /**
+     * <p>The list of users.</p>
+     */
+    inline bool UsersHasBeenSet() const { return m_usersHasBeenSet; }
 
     /**
      * <p>The list of users.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The list of user groups.</p>
      */
     inline const Aws::Vector<GroupMetadata>& GetGroups() const{ return m_groups; }
+
+    /**
+     * <p>The list of user groups.</p>
+     */
+    inline bool GroupsHasBeenSet() const { return m_groupsHasBeenSet; }
 
     /**
      * <p>The list of user groups.</p>

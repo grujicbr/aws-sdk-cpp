@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CodeGenEdge();
-    CodeGenEdge(const Aws::Utils::Json::JsonValue& jsonValue);
-    CodeGenEdge& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CodeGenEdge(Aws::Utils::Json::JsonView jsonValue);
+    CodeGenEdge& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID of the node at which the edge starts.</p>
      */
     inline const Aws::String& GetSource() const{ return m_source; }
+
+    /**
+     * <p>The ID of the node at which the edge starts.</p>
+     */
+    inline bool SourceHasBeenSet() const { return m_sourceHasBeenSet; }
 
     /**
      * <p>The ID of the node at which the edge starts.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The ID of the node at which the edge ends.</p>
      */
+    inline bool TargetHasBeenSet() const { return m_targetHasBeenSet; }
+
+    /**
+     * <p>The ID of the node at which the edge ends.</p>
+     */
     inline void SetTarget(const Aws::String& value) { m_targetHasBeenSet = true; m_target = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The target of the edge.</p>
      */
     inline const Aws::String& GetTargetParameter() const{ return m_targetParameter; }
+
+    /**
+     * <p>The target of the edge.</p>
+     */
+    inline bool TargetParameterHasBeenSet() const { return m_targetParameterHasBeenSet; }
 
     /**
      * <p>The target of the edge.</p>

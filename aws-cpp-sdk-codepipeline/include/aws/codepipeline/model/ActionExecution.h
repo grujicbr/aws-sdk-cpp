@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ActionExecution();
-    ActionExecution(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActionExecution& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActionExecution(Aws::Utils::Json::JsonView jsonValue);
+    ActionExecution& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * action.</p>
      */
     inline const ActionExecutionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the action, or for a completed action, the last status of the
+     * action.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the action, or for a completed action, the last status of the
@@ -85,6 +92,11 @@ namespace Model
      * <p>A summary of the run of the action.</p>
      */
     inline const Aws::String& GetSummary() const{ return m_summary; }
+
+    /**
+     * <p>A summary of the run of the action.</p>
+     */
+    inline bool SummaryHasBeenSet() const { return m_summaryHasBeenSet; }
 
     /**
      * <p>A summary of the run of the action.</p>
@@ -125,6 +137,11 @@ namespace Model
     /**
      * <p>The last status change of the action.</p>
      */
+    inline bool LastStatusChangeHasBeenSet() const { return m_lastStatusChangeHasBeenSet; }
+
+    /**
+     * <p>The last status change of the action.</p>
+     */
     inline void SetLastStatusChange(const Aws::Utils::DateTime& value) { m_lastStatusChangeHasBeenSet = true; m_lastStatusChange = value; }
 
     /**
@@ -145,57 +162,65 @@ namespace Model
 
     /**
      * <p>The system-generated token used to identify a unique approval request. The
-     * token for each open approval request can be obtained using the GetPipelineState
-     * command and is used to validate that the approval request corresponding to this
-     * token is still valid.</p>
+     * token for each open approval request can be obtained using the
+     * <code>GetPipelineState</code> command. It is used to validate that the approval
+     * request corresponding to this token is still valid.</p>
      */
     inline const Aws::String& GetToken() const{ return m_token; }
 
     /**
      * <p>The system-generated token used to identify a unique approval request. The
-     * token for each open approval request can be obtained using the GetPipelineState
-     * command and is used to validate that the approval request corresponding to this
-     * token is still valid.</p>
+     * token for each open approval request can be obtained using the
+     * <code>GetPipelineState</code> command. It is used to validate that the approval
+     * request corresponding to this token is still valid.</p>
+     */
+    inline bool TokenHasBeenSet() const { return m_tokenHasBeenSet; }
+
+    /**
+     * <p>The system-generated token used to identify a unique approval request. The
+     * token for each open approval request can be obtained using the
+     * <code>GetPipelineState</code> command. It is used to validate that the approval
+     * request corresponding to this token is still valid.</p>
      */
     inline void SetToken(const Aws::String& value) { m_tokenHasBeenSet = true; m_token = value; }
 
     /**
      * <p>The system-generated token used to identify a unique approval request. The
-     * token for each open approval request can be obtained using the GetPipelineState
-     * command and is used to validate that the approval request corresponding to this
-     * token is still valid.</p>
+     * token for each open approval request can be obtained using the
+     * <code>GetPipelineState</code> command. It is used to validate that the approval
+     * request corresponding to this token is still valid.</p>
      */
     inline void SetToken(Aws::String&& value) { m_tokenHasBeenSet = true; m_token = std::move(value); }
 
     /**
      * <p>The system-generated token used to identify a unique approval request. The
-     * token for each open approval request can be obtained using the GetPipelineState
-     * command and is used to validate that the approval request corresponding to this
-     * token is still valid.</p>
+     * token for each open approval request can be obtained using the
+     * <code>GetPipelineState</code> command. It is used to validate that the approval
+     * request corresponding to this token is still valid.</p>
      */
     inline void SetToken(const char* value) { m_tokenHasBeenSet = true; m_token.assign(value); }
 
     /**
      * <p>The system-generated token used to identify a unique approval request. The
-     * token for each open approval request can be obtained using the GetPipelineState
-     * command and is used to validate that the approval request corresponding to this
-     * token is still valid.</p>
+     * token for each open approval request can be obtained using the
+     * <code>GetPipelineState</code> command. It is used to validate that the approval
+     * request corresponding to this token is still valid.</p>
      */
     inline ActionExecution& WithToken(const Aws::String& value) { SetToken(value); return *this;}
 
     /**
      * <p>The system-generated token used to identify a unique approval request. The
-     * token for each open approval request can be obtained using the GetPipelineState
-     * command and is used to validate that the approval request corresponding to this
-     * token is still valid.</p>
+     * token for each open approval request can be obtained using the
+     * <code>GetPipelineState</code> command. It is used to validate that the approval
+     * request corresponding to this token is still valid.</p>
      */
     inline ActionExecution& WithToken(Aws::String&& value) { SetToken(std::move(value)); return *this;}
 
     /**
      * <p>The system-generated token used to identify a unique approval request. The
-     * token for each open approval request can be obtained using the GetPipelineState
-     * command and is used to validate that the approval request corresponding to this
-     * token is still valid.</p>
+     * token for each open approval request can be obtained using the
+     * <code>GetPipelineState</code> command. It is used to validate that the approval
+     * request corresponding to this token is still valid.</p>
      */
     inline ActionExecution& WithToken(const char* value) { SetToken(value); return *this;}
 
@@ -204,6 +229,11 @@ namespace Model
      * <p>The ARN of the user who last changed the pipeline.</p>
      */
     inline const Aws::String& GetLastUpdatedBy() const{ return m_lastUpdatedBy; }
+
+    /**
+     * <p>The ARN of the user who last changed the pipeline.</p>
+     */
+    inline bool LastUpdatedByHasBeenSet() const { return m_lastUpdatedByHasBeenSet; }
 
     /**
      * <p>The ARN of the user who last changed the pipeline.</p>
@@ -244,6 +274,11 @@ namespace Model
     /**
      * <p>The external ID of the run of the action.</p>
      */
+    inline bool ExternalExecutionIdHasBeenSet() const { return m_externalExecutionIdHasBeenSet; }
+
+    /**
+     * <p>The external ID of the run of the action.</p>
+     */
     inline void SetExternalExecutionId(const Aws::String& value) { m_externalExecutionIdHasBeenSet = true; m_externalExecutionId = value; }
 
     /**
@@ -273,44 +308,50 @@ namespace Model
 
 
     /**
-     * <p>The URL of a resource external to AWS that will be used when running the
-     * action, for example an external repository URL.</p>
+     * <p>The URL of a resource external to AWS that is used when running the action
+     * (for example, an external repository URL).</p>
      */
     inline const Aws::String& GetExternalExecutionUrl() const{ return m_externalExecutionUrl; }
 
     /**
-     * <p>The URL of a resource external to AWS that will be used when running the
-     * action, for example an external repository URL.</p>
+     * <p>The URL of a resource external to AWS that is used when running the action
+     * (for example, an external repository URL).</p>
+     */
+    inline bool ExternalExecutionUrlHasBeenSet() const { return m_externalExecutionUrlHasBeenSet; }
+
+    /**
+     * <p>The URL of a resource external to AWS that is used when running the action
+     * (for example, an external repository URL).</p>
      */
     inline void SetExternalExecutionUrl(const Aws::String& value) { m_externalExecutionUrlHasBeenSet = true; m_externalExecutionUrl = value; }
 
     /**
-     * <p>The URL of a resource external to AWS that will be used when running the
-     * action, for example an external repository URL.</p>
+     * <p>The URL of a resource external to AWS that is used when running the action
+     * (for example, an external repository URL).</p>
      */
     inline void SetExternalExecutionUrl(Aws::String&& value) { m_externalExecutionUrlHasBeenSet = true; m_externalExecutionUrl = std::move(value); }
 
     /**
-     * <p>The URL of a resource external to AWS that will be used when running the
-     * action, for example an external repository URL.</p>
+     * <p>The URL of a resource external to AWS that is used when running the action
+     * (for example, an external repository URL).</p>
      */
     inline void SetExternalExecutionUrl(const char* value) { m_externalExecutionUrlHasBeenSet = true; m_externalExecutionUrl.assign(value); }
 
     /**
-     * <p>The URL of a resource external to AWS that will be used when running the
-     * action, for example an external repository URL.</p>
+     * <p>The URL of a resource external to AWS that is used when running the action
+     * (for example, an external repository URL).</p>
      */
     inline ActionExecution& WithExternalExecutionUrl(const Aws::String& value) { SetExternalExecutionUrl(value); return *this;}
 
     /**
-     * <p>The URL of a resource external to AWS that will be used when running the
-     * action, for example an external repository URL.</p>
+     * <p>The URL of a resource external to AWS that is used when running the action
+     * (for example, an external repository URL).</p>
      */
     inline ActionExecution& WithExternalExecutionUrl(Aws::String&& value) { SetExternalExecutionUrl(std::move(value)); return *this;}
 
     /**
-     * <p>The URL of a resource external to AWS that will be used when running the
-     * action, for example an external repository URL.</p>
+     * <p>The URL of a resource external to AWS that is used when running the action
+     * (for example, an external repository URL).</p>
      */
     inline ActionExecution& WithExternalExecutionUrl(const char* value) { SetExternalExecutionUrl(value); return *this;}
 
@@ -319,6 +360,11 @@ namespace Model
      * <p>A percentage of completeness of the action as it runs.</p>
      */
     inline int GetPercentComplete() const{ return m_percentComplete; }
+
+    /**
+     * <p>A percentage of completeness of the action as it runs.</p>
+     */
+    inline bool PercentCompleteHasBeenSet() const { return m_percentCompleteHasBeenSet; }
 
     /**
      * <p>A percentage of completeness of the action as it runs.</p>
@@ -335,6 +381,11 @@ namespace Model
      * <p>The details of an error returned by a URL external to AWS.</p>
      */
     inline const ErrorDetails& GetErrorDetails() const{ return m_errorDetails; }
+
+    /**
+     * <p>The details of an error returned by a URL external to AWS.</p>
+     */
+    inline bool ErrorDetailsHasBeenSet() const { return m_errorDetailsHasBeenSet; }
 
     /**
      * <p>The details of an error returned by a URL external to AWS.</p>

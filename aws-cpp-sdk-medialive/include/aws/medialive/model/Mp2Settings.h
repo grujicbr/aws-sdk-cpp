@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for Mp2Settings<p><h3>See Also:</h3>   <a
+   * Mp2 Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Mp2Settings">AWS
    * API Reference</a></p>
    */
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     Mp2Settings();
-    Mp2Settings(const Aws::Utils::Json::JsonValue& jsonValue);
-    Mp2Settings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Mp2Settings(Aws::Utils::Json::JsonView jsonValue);
+    Mp2Settings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * Average bitrate in bits/second.
      */
     inline double GetBitrate() const{ return m_bitrate; }
+
+    /**
+     * Average bitrate in bits/second.
+     */
+    inline bool BitrateHasBeenSet() const { return m_bitrateHasBeenSet; }
 
     /**
      * Average bitrate in bits/second.
@@ -67,6 +73,12 @@ namespace Model
      * codingMode20 (for stereo).
      */
     inline const Mp2CodingMode& GetCodingMode() const{ return m_codingMode; }
+
+    /**
+     * The MPEG2 Audio coding mode.  Valid values are codingMode10 (for mono) or
+     * codingMode20 (for stereo).
+     */
+    inline bool CodingModeHasBeenSet() const { return m_codingModeHasBeenSet; }
 
     /**
      * The MPEG2 Audio coding mode.  Valid values are codingMode10 (for mono) or
@@ -97,6 +109,11 @@ namespace Model
      * Sample rate in Hz.
      */
     inline double GetSampleRate() const{ return m_sampleRate; }
+
+    /**
+     * Sample rate in Hz.
+     */
+    inline bool SampleRateHasBeenSet() const { return m_sampleRateHasBeenSet; }
 
     /**
      * Sample rate in Hz.

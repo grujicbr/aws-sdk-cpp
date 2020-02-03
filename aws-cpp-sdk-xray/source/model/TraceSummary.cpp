@@ -45,11 +45,21 @@ TraceSummary::TraceSummary() :
     m_httpHasBeenSet(false),
     m_annotationsHasBeenSet(false),
     m_usersHasBeenSet(false),
-    m_serviceIdsHasBeenSet(false)
+    m_serviceIdsHasBeenSet(false),
+    m_resourceARNsHasBeenSet(false),
+    m_instanceIdsHasBeenSet(false),
+    m_availabilityZonesHasBeenSet(false),
+    m_entryPointHasBeenSet(false),
+    m_faultRootCausesHasBeenSet(false),
+    m_errorRootCausesHasBeenSet(false),
+    m_responseTimeRootCausesHasBeenSet(false),
+    m_revision(0),
+    m_revisionHasBeenSet(false),
+    m_matchedEventTimeHasBeenSet(false)
 {
 }
 
-TraceSummary::TraceSummary(const JsonValue& jsonValue) : 
+TraceSummary::TraceSummary(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_duration(0.0),
     m_durationHasBeenSet(false),
@@ -66,12 +76,22 @@ TraceSummary::TraceSummary(const JsonValue& jsonValue) :
     m_httpHasBeenSet(false),
     m_annotationsHasBeenSet(false),
     m_usersHasBeenSet(false),
-    m_serviceIdsHasBeenSet(false)
+    m_serviceIdsHasBeenSet(false),
+    m_resourceARNsHasBeenSet(false),
+    m_instanceIdsHasBeenSet(false),
+    m_availabilityZonesHasBeenSet(false),
+    m_entryPointHasBeenSet(false),
+    m_faultRootCausesHasBeenSet(false),
+    m_errorRootCausesHasBeenSet(false),
+    m_responseTimeRootCausesHasBeenSet(false),
+    m_revision(0),
+    m_revisionHasBeenSet(false),
+    m_matchedEventTimeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-TraceSummary& TraceSummary::operator =(const JsonValue& jsonValue)
+TraceSummary& TraceSummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -131,10 +151,10 @@ TraceSummary& TraceSummary::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Annotations"))
   {
-    Aws::Map<Aws::String, JsonValue> annotationsJsonMap = jsonValue.GetObject("Annotations").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> annotationsJsonMap = jsonValue.GetObject("Annotations").GetAllObjects();
     for(auto& annotationsItem : annotationsJsonMap)
     {
-      Array<JsonValue> valuesWithServiceIdsJsonList = annotationsItem.second.AsArray();
+      Array<JsonView> valuesWithServiceIdsJsonList = annotationsItem.second.AsArray();
       Aws::Vector<ValueWithServiceIds> valuesWithServiceIdsList;
       valuesWithServiceIdsList.reserve((size_t)valuesWithServiceIdsJsonList.GetLength());
       for(unsigned valuesWithServiceIdsIndex = 0; valuesWithServiceIdsIndex < valuesWithServiceIdsJsonList.GetLength(); ++valuesWithServiceIdsIndex)
@@ -148,7 +168,7 @@ TraceSummary& TraceSummary::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Users"))
   {
-    Array<JsonValue> usersJsonList = jsonValue.GetArray("Users");
+    Array<JsonView> usersJsonList = jsonValue.GetArray("Users");
     for(unsigned usersIndex = 0; usersIndex < usersJsonList.GetLength(); ++usersIndex)
     {
       m_users.push_back(usersJsonList[usersIndex].AsObject());
@@ -158,12 +178,93 @@ TraceSummary& TraceSummary::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("ServiceIds"))
   {
-    Array<JsonValue> serviceIdsJsonList = jsonValue.GetArray("ServiceIds");
+    Array<JsonView> serviceIdsJsonList = jsonValue.GetArray("ServiceIds");
     for(unsigned serviceIdsIndex = 0; serviceIdsIndex < serviceIdsJsonList.GetLength(); ++serviceIdsIndex)
     {
       m_serviceIds.push_back(serviceIdsJsonList[serviceIdsIndex].AsObject());
     }
     m_serviceIdsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ResourceARNs"))
+  {
+    Array<JsonView> resourceARNsJsonList = jsonValue.GetArray("ResourceARNs");
+    for(unsigned resourceARNsIndex = 0; resourceARNsIndex < resourceARNsJsonList.GetLength(); ++resourceARNsIndex)
+    {
+      m_resourceARNs.push_back(resourceARNsJsonList[resourceARNsIndex].AsObject());
+    }
+    m_resourceARNsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("InstanceIds"))
+  {
+    Array<JsonView> instanceIdsJsonList = jsonValue.GetArray("InstanceIds");
+    for(unsigned instanceIdsIndex = 0; instanceIdsIndex < instanceIdsJsonList.GetLength(); ++instanceIdsIndex)
+    {
+      m_instanceIds.push_back(instanceIdsJsonList[instanceIdsIndex].AsObject());
+    }
+    m_instanceIdsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("AvailabilityZones"))
+  {
+    Array<JsonView> availabilityZonesJsonList = jsonValue.GetArray("AvailabilityZones");
+    for(unsigned availabilityZonesIndex = 0; availabilityZonesIndex < availabilityZonesJsonList.GetLength(); ++availabilityZonesIndex)
+    {
+      m_availabilityZones.push_back(availabilityZonesJsonList[availabilityZonesIndex].AsObject());
+    }
+    m_availabilityZonesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("EntryPoint"))
+  {
+    m_entryPoint = jsonValue.GetObject("EntryPoint");
+
+    m_entryPointHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("FaultRootCauses"))
+  {
+    Array<JsonView> faultRootCausesJsonList = jsonValue.GetArray("FaultRootCauses");
+    for(unsigned faultRootCausesIndex = 0; faultRootCausesIndex < faultRootCausesJsonList.GetLength(); ++faultRootCausesIndex)
+    {
+      m_faultRootCauses.push_back(faultRootCausesJsonList[faultRootCausesIndex].AsObject());
+    }
+    m_faultRootCausesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ErrorRootCauses"))
+  {
+    Array<JsonView> errorRootCausesJsonList = jsonValue.GetArray("ErrorRootCauses");
+    for(unsigned errorRootCausesIndex = 0; errorRootCausesIndex < errorRootCausesJsonList.GetLength(); ++errorRootCausesIndex)
+    {
+      m_errorRootCauses.push_back(errorRootCausesJsonList[errorRootCausesIndex].AsObject());
+    }
+    m_errorRootCausesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ResponseTimeRootCauses"))
+  {
+    Array<JsonView> responseTimeRootCausesJsonList = jsonValue.GetArray("ResponseTimeRootCauses");
+    for(unsigned responseTimeRootCausesIndex = 0; responseTimeRootCausesIndex < responseTimeRootCausesJsonList.GetLength(); ++responseTimeRootCausesIndex)
+    {
+      m_responseTimeRootCauses.push_back(responseTimeRootCausesJsonList[responseTimeRootCausesIndex].AsObject());
+    }
+    m_responseTimeRootCausesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Revision"))
+  {
+    m_revision = jsonValue.GetInteger("Revision");
+
+    m_revisionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("MatchedEventTime"))
+  {
+    m_matchedEventTime = jsonValue.GetDouble("MatchedEventTime");
+
+    m_matchedEventTimeHasBeenSet = true;
   }
 
   return *this;
@@ -257,6 +358,89 @@ JsonValue TraceSummary::Jsonize() const
    }
    payload.WithArray("ServiceIds", std::move(serviceIdsJsonList));
 
+  }
+
+  if(m_resourceARNsHasBeenSet)
+  {
+   Array<JsonValue> resourceARNsJsonList(m_resourceARNs.size());
+   for(unsigned resourceARNsIndex = 0; resourceARNsIndex < resourceARNsJsonList.GetLength(); ++resourceARNsIndex)
+   {
+     resourceARNsJsonList[resourceARNsIndex].AsObject(m_resourceARNs[resourceARNsIndex].Jsonize());
+   }
+   payload.WithArray("ResourceARNs", std::move(resourceARNsJsonList));
+
+  }
+
+  if(m_instanceIdsHasBeenSet)
+  {
+   Array<JsonValue> instanceIdsJsonList(m_instanceIds.size());
+   for(unsigned instanceIdsIndex = 0; instanceIdsIndex < instanceIdsJsonList.GetLength(); ++instanceIdsIndex)
+   {
+     instanceIdsJsonList[instanceIdsIndex].AsObject(m_instanceIds[instanceIdsIndex].Jsonize());
+   }
+   payload.WithArray("InstanceIds", std::move(instanceIdsJsonList));
+
+  }
+
+  if(m_availabilityZonesHasBeenSet)
+  {
+   Array<JsonValue> availabilityZonesJsonList(m_availabilityZones.size());
+   for(unsigned availabilityZonesIndex = 0; availabilityZonesIndex < availabilityZonesJsonList.GetLength(); ++availabilityZonesIndex)
+   {
+     availabilityZonesJsonList[availabilityZonesIndex].AsObject(m_availabilityZones[availabilityZonesIndex].Jsonize());
+   }
+   payload.WithArray("AvailabilityZones", std::move(availabilityZonesJsonList));
+
+  }
+
+  if(m_entryPointHasBeenSet)
+  {
+   payload.WithObject("EntryPoint", m_entryPoint.Jsonize());
+
+  }
+
+  if(m_faultRootCausesHasBeenSet)
+  {
+   Array<JsonValue> faultRootCausesJsonList(m_faultRootCauses.size());
+   for(unsigned faultRootCausesIndex = 0; faultRootCausesIndex < faultRootCausesJsonList.GetLength(); ++faultRootCausesIndex)
+   {
+     faultRootCausesJsonList[faultRootCausesIndex].AsObject(m_faultRootCauses[faultRootCausesIndex].Jsonize());
+   }
+   payload.WithArray("FaultRootCauses", std::move(faultRootCausesJsonList));
+
+  }
+
+  if(m_errorRootCausesHasBeenSet)
+  {
+   Array<JsonValue> errorRootCausesJsonList(m_errorRootCauses.size());
+   for(unsigned errorRootCausesIndex = 0; errorRootCausesIndex < errorRootCausesJsonList.GetLength(); ++errorRootCausesIndex)
+   {
+     errorRootCausesJsonList[errorRootCausesIndex].AsObject(m_errorRootCauses[errorRootCausesIndex].Jsonize());
+   }
+   payload.WithArray("ErrorRootCauses", std::move(errorRootCausesJsonList));
+
+  }
+
+  if(m_responseTimeRootCausesHasBeenSet)
+  {
+   Array<JsonValue> responseTimeRootCausesJsonList(m_responseTimeRootCauses.size());
+   for(unsigned responseTimeRootCausesIndex = 0; responseTimeRootCausesIndex < responseTimeRootCausesJsonList.GetLength(); ++responseTimeRootCausesIndex)
+   {
+     responseTimeRootCausesJsonList[responseTimeRootCausesIndex].AsObject(m_responseTimeRootCauses[responseTimeRootCausesIndex].Jsonize());
+   }
+   payload.WithArray("ResponseTimeRootCauses", std::move(responseTimeRootCausesJsonList));
+
+  }
+
+  if(m_revisionHasBeenSet)
+  {
+   payload.WithInteger("Revision", m_revision);
+
+  }
+
+  if(m_matchedEventTimeHasBeenSet)
+  {
+   payload.WithDouble("MatchedEventTime", m_matchedEventTime.SecondsWithMSPrecision());
   }
 
   return payload;

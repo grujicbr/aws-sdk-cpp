@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -31,7 +32,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for AribDestinationSettings<p><h3>See Also:</h3>   <a
+   * Arib Destination Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AribDestinationSettings">AWS
    * API Reference</a></p>
    */
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     AribDestinationSettings();
-    AribDestinationSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    AribDestinationSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AribDestinationSettings(Aws::Utils::Json::JsonView jsonValue);
+    AribDestinationSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
   };

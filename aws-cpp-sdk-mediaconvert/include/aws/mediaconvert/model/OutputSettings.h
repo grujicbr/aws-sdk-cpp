@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -41,24 +42,39 @@ namespace Model
   {
   public:
     OutputSettings();
-    OutputSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    OutputSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OutputSettings(Aws::Utils::Json::JsonView jsonValue);
+    OutputSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
-    
+    /**
+     * Settings for HLS output groups
+     */
     inline const HlsSettings& GetHlsSettings() const{ return m_hlsSettings; }
 
-    
+    /**
+     * Settings for HLS output groups
+     */
+    inline bool HlsSettingsHasBeenSet() const { return m_hlsSettingsHasBeenSet; }
+
+    /**
+     * Settings for HLS output groups
+     */
     inline void SetHlsSettings(const HlsSettings& value) { m_hlsSettingsHasBeenSet = true; m_hlsSettings = value; }
 
-    
+    /**
+     * Settings for HLS output groups
+     */
     inline void SetHlsSettings(HlsSettings&& value) { m_hlsSettingsHasBeenSet = true; m_hlsSettings = std::move(value); }
 
-    
+    /**
+     * Settings for HLS output groups
+     */
     inline OutputSettings& WithHlsSettings(const HlsSettings& value) { SetHlsSettings(value); return *this;}
 
-    
+    /**
+     * Settings for HLS output groups
+     */
     inline OutputSettings& WithHlsSettings(HlsSettings&& value) { SetHlsSettings(std::move(value)); return *this;}
 
   private:

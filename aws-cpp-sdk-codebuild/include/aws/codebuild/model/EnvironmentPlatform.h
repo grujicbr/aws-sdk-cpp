@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeBuild
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     EnvironmentPlatform();
-    EnvironmentPlatform(const Aws::Utils::Json::JsonValue& jsonValue);
-    EnvironmentPlatform& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EnvironmentPlatform(Aws::Utils::Json::JsonView jsonValue);
+    EnvironmentPlatform& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The platform's name.</p>
      */
     inline const PlatformType& GetPlatform() const{ return m_platform; }
+
+    /**
+     * <p>The platform's name.</p>
+     */
+    inline bool PlatformHasBeenSet() const { return m_platformHasBeenSet; }
 
     /**
      * <p>The platform's name.</p>
@@ -80,6 +86,12 @@ namespace Model
      * platform.</p>
      */
     inline const Aws::Vector<EnvironmentLanguage>& GetLanguages() const{ return m_languages; }
+
+    /**
+     * <p>The list of programming languages that are available for the specified
+     * platform.</p>
+     */
+    inline bool LanguagesHasBeenSet() const { return m_languagesHasBeenSet; }
 
     /**
      * <p>The list of programming languages that are available for the specified

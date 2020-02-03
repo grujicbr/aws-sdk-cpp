@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     JobExecutionStatusDetails();
-    JobExecutionStatusDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobExecutionStatusDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobExecutionStatusDetails(Aws::Utils::Json::JsonView jsonValue);
+    JobExecutionStatusDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The job execution status.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetDetailsMap() const{ return m_detailsMap; }
+
+    /**
+     * <p>The job execution status.</p>
+     */
+    inline bool DetailsMapHasBeenSet() const { return m_detailsMapHasBeenSet; }
 
     /**
      * <p>The job execution status.</p>

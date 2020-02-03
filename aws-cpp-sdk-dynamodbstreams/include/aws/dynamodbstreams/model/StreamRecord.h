@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDBStreams
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     StreamRecord();
-    StreamRecord(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamRecord& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamRecord(Aws::Utils::Json::JsonView jsonValue);
+    StreamRecord& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The primary key attribute(s) for the DynamoDB item that was modified.</p>
      */
     inline const Aws::Map<Aws::String, AttributeValue>& GetKeys() const{ return m_keys; }
+
+    /**
+     * <p>The primary key attribute(s) for the DynamoDB item that was modified.</p>
+     */
+    inline bool KeysHasBeenSet() const { return m_keysHasBeenSet; }
 
     /**
      * <p>The primary key attribute(s) for the DynamoDB item that was modified.</p>
@@ -112,6 +118,11 @@ namespace Model
     /**
      * <p>The item in the DynamoDB table as it appeared after it was modified.</p>
      */
+    inline bool NewImageHasBeenSet() const { return m_newImageHasBeenSet; }
+
+    /**
+     * <p>The item in the DynamoDB table as it appeared after it was modified.</p>
+     */
     inline void SetNewImage(const Aws::Map<Aws::String, AttributeValue>& value) { m_newImageHasBeenSet = true; m_newImage = value; }
 
     /**
@@ -164,6 +175,11 @@ namespace Model
      * <p>The item in the DynamoDB table as it appeared before it was modified.</p>
      */
     inline const Aws::Map<Aws::String, AttributeValue>& GetOldImage() const{ return m_oldImage; }
+
+    /**
+     * <p>The item in the DynamoDB table as it appeared before it was modified.</p>
+     */
+    inline bool OldImageHasBeenSet() const { return m_oldImageHasBeenSet; }
 
     /**
      * <p>The item in the DynamoDB table as it appeared before it was modified.</p>
@@ -224,6 +240,11 @@ namespace Model
     /**
      * <p>The sequence number of the stream record.</p>
      */
+    inline bool SequenceNumberHasBeenSet() const { return m_sequenceNumberHasBeenSet; }
+
+    /**
+     * <p>The sequence number of the stream record.</p>
+     */
     inline void SetSequenceNumber(const Aws::String& value) { m_sequenceNumberHasBeenSet = true; m_sequenceNumber = value; }
 
     /**
@@ -260,6 +281,11 @@ namespace Model
     /**
      * <p>The size of the stream record, in bytes.</p>
      */
+    inline bool SizeBytesHasBeenSet() const { return m_sizeBytesHasBeenSet; }
+
+    /**
+     * <p>The size of the stream record, in bytes.</p>
+     */
     inline void SetSizeBytes(long long value) { m_sizeBytesHasBeenSet = true; m_sizeBytes = value; }
 
     /**
@@ -278,6 +304,17 @@ namespace Model
      * the item.</p></li> </ul>
      */
     inline const StreamViewType& GetStreamViewType() const{ return m_streamViewType; }
+
+    /**
+     * <p>The type of data from the modified DynamoDB item that was captured in this
+     * stream record:</p> <ul> <li><p><code>KEYS_ONLY</code> - only the key attributes
+     * of the modified item.</p></li> <li><p><code>NEW_IMAGE</code> - the entire item,
+     * as it appears after it was modified.</p></li> <li><p><code>OLD_IMAGE</code> -
+     * the entire item, as it appeared before it was modified.</p></li>
+     * <li><p><code>NEW_AND_OLD_IMAGES</code> — both the new and the old item images of
+     * the item.</p></li> </ul>
+     */
+    inline bool StreamViewTypeHasBeenSet() const { return m_streamViewTypeHasBeenSet; }
 
     /**
      * <p>The type of data from the modified DynamoDB item that was captured in this

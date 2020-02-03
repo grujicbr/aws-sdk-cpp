@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     WebACLUpdate();
-    WebACLUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    WebACLUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WebACLUpdate(Aws::Utils::Json::JsonView jsonValue);
+    WebACLUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * <code>Rule</code> from a <code>WebACL</code>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specifies whether to insert a <code>Rule</code> into or delete a
+     * <code>Rule</code> from a <code>WebACL</code>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specifies whether to insert a <code>Rule</code> into or delete a
@@ -87,6 +94,15 @@ namespace Model
      * (<code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>).</p>
      */
     inline const ActivatedRule& GetActivatedRule() const{ return m_activatedRule; }
+
+    /**
+     * <p>The <code>ActivatedRule</code> object in an <a>UpdateWebACL</a> request
+     * specifies a <code>Rule</code> that you want to insert or delete, the priority of
+     * the <code>Rule</code> in the <code>WebACL</code>, and the action that you want
+     * AWS WAF to take when a web request matches the <code>Rule</code>
+     * (<code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>).</p>
+     */
+    inline bool ActivatedRuleHasBeenSet() const { return m_activatedRuleHasBeenSet; }
 
     /**
      * <p>The <code>ActivatedRule</code> object in an <a>UpdateWebACL</a> request

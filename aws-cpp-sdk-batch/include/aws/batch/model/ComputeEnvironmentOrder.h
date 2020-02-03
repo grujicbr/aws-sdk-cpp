@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Batch
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ComputeEnvironmentOrder();
-    ComputeEnvironmentOrder(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComputeEnvironmentOrder& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComputeEnvironmentOrder(Aws::Utils::Json::JsonView jsonValue);
+    ComputeEnvironmentOrder& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The order of the compute environment.</p>
      */
     inline int GetOrder() const{ return m_order; }
+
+    /**
+     * <p>The order of the compute environment.</p>
+     */
+    inline bool OrderHasBeenSet() const { return m_orderHasBeenSet; }
 
     /**
      * <p>The order of the compute environment.</p>
@@ -70,6 +76,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
      */
     inline const Aws::String& GetComputeEnvironment() const{ return m_computeEnvironment; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the compute environment.</p>
+     */
+    inline bool ComputeEnvironmentHasBeenSet() const { return m_computeEnvironmentHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the compute environment.</p>

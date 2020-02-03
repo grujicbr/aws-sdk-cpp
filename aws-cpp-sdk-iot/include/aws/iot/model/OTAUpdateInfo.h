@@ -18,10 +18,13 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/DateTime.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/iot/model/AwsJobExecutionsRolloutConfig.h>
+#include <aws/iot/model/AwsJobPresignedUrlConfig.h>
 #include <aws/iot/model/TargetSelection.h>
 #include <aws/iot/model/OTAUpdateStatus.h>
 #include <aws/iot/model/ErrorInfo.h>
 #include <aws/core/utils/memory/stl/AWSMap.h>
+#include <aws/iot/model/Protocol.h>
 #include <aws/iot/model/OTAUpdateFile.h>
 #include <utility>
 
@@ -32,6 +35,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -48,8 +52,8 @@ namespace Model
   {
   public:
     OTAUpdateInfo();
-    OTAUpdateInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    OTAUpdateInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OTAUpdateInfo(Aws::Utils::Json::JsonView jsonValue);
+    OTAUpdateInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +61,11 @@ namespace Model
      * <p>The OTA update ID.</p>
      */
     inline const Aws::String& GetOtaUpdateId() const{ return m_otaUpdateId; }
+
+    /**
+     * <p>The OTA update ID.</p>
+     */
+    inline bool OtaUpdateIdHasBeenSet() const { return m_otaUpdateIdHasBeenSet; }
 
     /**
      * <p>The OTA update ID.</p>
@@ -97,6 +106,11 @@ namespace Model
     /**
      * <p>The OTA update ARN.</p>
      */
+    inline bool OtaUpdateArnHasBeenSet() const { return m_otaUpdateArnHasBeenSet; }
+
+    /**
+     * <p>The OTA update ARN.</p>
+     */
     inline void SetOtaUpdateArn(const Aws::String& value) { m_otaUpdateArnHasBeenSet = true; m_otaUpdateArn = value; }
 
     /**
@@ -133,6 +147,11 @@ namespace Model
     /**
      * <p>The date when the OTA update was created.</p>
      */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
+
+    /**
+     * <p>The date when the OTA update was created.</p>
+     */
     inline void SetCreationDate(const Aws::Utils::DateTime& value) { m_creationDateHasBeenSet = true; m_creationDate = value; }
 
     /**
@@ -159,6 +178,11 @@ namespace Model
     /**
      * <p>The date when the OTA update was last updated.</p>
      */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
+
+    /**
+     * <p>The date when the OTA update was last updated.</p>
+     */
     inline void SetLastModifiedDate(const Aws::Utils::DateTime& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = value; }
 
     /**
@@ -181,6 +205,11 @@ namespace Model
      * <p>A description of the OTA update.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the OTA update.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the OTA update.</p>
@@ -221,6 +250,11 @@ namespace Model
     /**
      * <p>The targets of the OTA update.</p>
      */
+    inline bool TargetsHasBeenSet() const { return m_targetsHasBeenSet; }
+
+    /**
+     * <p>The targets of the OTA update.</p>
+     */
     inline void SetTargets(const Aws::Vector<Aws::String>& value) { m_targetsHasBeenSet = true; m_targets = value; }
 
     /**
@@ -255,6 +289,131 @@ namespace Model
 
 
     /**
+     * <p>The protocol used to transfer the OTA update image. Valid values are [HTTP],
+     * [MQTT], [HTTP, MQTT]. When both HTTP and MQTT are specified, the target device
+     * can choose the protocol.</p>
+     */
+    inline const Aws::Vector<Protocol>& GetProtocols() const{ return m_protocols; }
+
+    /**
+     * <p>The protocol used to transfer the OTA update image. Valid values are [HTTP],
+     * [MQTT], [HTTP, MQTT]. When both HTTP and MQTT are specified, the target device
+     * can choose the protocol.</p>
+     */
+    inline bool ProtocolsHasBeenSet() const { return m_protocolsHasBeenSet; }
+
+    /**
+     * <p>The protocol used to transfer the OTA update image. Valid values are [HTTP],
+     * [MQTT], [HTTP, MQTT]. When both HTTP and MQTT are specified, the target device
+     * can choose the protocol.</p>
+     */
+    inline void SetProtocols(const Aws::Vector<Protocol>& value) { m_protocolsHasBeenSet = true; m_protocols = value; }
+
+    /**
+     * <p>The protocol used to transfer the OTA update image. Valid values are [HTTP],
+     * [MQTT], [HTTP, MQTT]. When both HTTP and MQTT are specified, the target device
+     * can choose the protocol.</p>
+     */
+    inline void SetProtocols(Aws::Vector<Protocol>&& value) { m_protocolsHasBeenSet = true; m_protocols = std::move(value); }
+
+    /**
+     * <p>The protocol used to transfer the OTA update image. Valid values are [HTTP],
+     * [MQTT], [HTTP, MQTT]. When both HTTP and MQTT are specified, the target device
+     * can choose the protocol.</p>
+     */
+    inline OTAUpdateInfo& WithProtocols(const Aws::Vector<Protocol>& value) { SetProtocols(value); return *this;}
+
+    /**
+     * <p>The protocol used to transfer the OTA update image. Valid values are [HTTP],
+     * [MQTT], [HTTP, MQTT]. When both HTTP and MQTT are specified, the target device
+     * can choose the protocol.</p>
+     */
+    inline OTAUpdateInfo& WithProtocols(Aws::Vector<Protocol>&& value) { SetProtocols(std::move(value)); return *this;}
+
+    /**
+     * <p>The protocol used to transfer the OTA update image. Valid values are [HTTP],
+     * [MQTT], [HTTP, MQTT]. When both HTTP and MQTT are specified, the target device
+     * can choose the protocol.</p>
+     */
+    inline OTAUpdateInfo& AddProtocols(const Protocol& value) { m_protocolsHasBeenSet = true; m_protocols.push_back(value); return *this; }
+
+    /**
+     * <p>The protocol used to transfer the OTA update image. Valid values are [HTTP],
+     * [MQTT], [HTTP, MQTT]. When both HTTP and MQTT are specified, the target device
+     * can choose the protocol.</p>
+     */
+    inline OTAUpdateInfo& AddProtocols(Protocol&& value) { m_protocolsHasBeenSet = true; m_protocols.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>Configuration for the rollout of OTA updates.</p>
+     */
+    inline const AwsJobExecutionsRolloutConfig& GetAwsJobExecutionsRolloutConfig() const{ return m_awsJobExecutionsRolloutConfig; }
+
+    /**
+     * <p>Configuration for the rollout of OTA updates.</p>
+     */
+    inline bool AwsJobExecutionsRolloutConfigHasBeenSet() const { return m_awsJobExecutionsRolloutConfigHasBeenSet; }
+
+    /**
+     * <p>Configuration for the rollout of OTA updates.</p>
+     */
+    inline void SetAwsJobExecutionsRolloutConfig(const AwsJobExecutionsRolloutConfig& value) { m_awsJobExecutionsRolloutConfigHasBeenSet = true; m_awsJobExecutionsRolloutConfig = value; }
+
+    /**
+     * <p>Configuration for the rollout of OTA updates.</p>
+     */
+    inline void SetAwsJobExecutionsRolloutConfig(AwsJobExecutionsRolloutConfig&& value) { m_awsJobExecutionsRolloutConfigHasBeenSet = true; m_awsJobExecutionsRolloutConfig = std::move(value); }
+
+    /**
+     * <p>Configuration for the rollout of OTA updates.</p>
+     */
+    inline OTAUpdateInfo& WithAwsJobExecutionsRolloutConfig(const AwsJobExecutionsRolloutConfig& value) { SetAwsJobExecutionsRolloutConfig(value); return *this;}
+
+    /**
+     * <p>Configuration for the rollout of OTA updates.</p>
+     */
+    inline OTAUpdateInfo& WithAwsJobExecutionsRolloutConfig(AwsJobExecutionsRolloutConfig&& value) { SetAwsJobExecutionsRolloutConfig(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Configuration information for pre-signed URLs. Valid when
+     * <code>protocols</code> contains HTTP.</p>
+     */
+    inline const AwsJobPresignedUrlConfig& GetAwsJobPresignedUrlConfig() const{ return m_awsJobPresignedUrlConfig; }
+
+    /**
+     * <p>Configuration information for pre-signed URLs. Valid when
+     * <code>protocols</code> contains HTTP.</p>
+     */
+    inline bool AwsJobPresignedUrlConfigHasBeenSet() const { return m_awsJobPresignedUrlConfigHasBeenSet; }
+
+    /**
+     * <p>Configuration information for pre-signed URLs. Valid when
+     * <code>protocols</code> contains HTTP.</p>
+     */
+    inline void SetAwsJobPresignedUrlConfig(const AwsJobPresignedUrlConfig& value) { m_awsJobPresignedUrlConfigHasBeenSet = true; m_awsJobPresignedUrlConfig = value; }
+
+    /**
+     * <p>Configuration information for pre-signed URLs. Valid when
+     * <code>protocols</code> contains HTTP.</p>
+     */
+    inline void SetAwsJobPresignedUrlConfig(AwsJobPresignedUrlConfig&& value) { m_awsJobPresignedUrlConfigHasBeenSet = true; m_awsJobPresignedUrlConfig = std::move(value); }
+
+    /**
+     * <p>Configuration information for pre-signed URLs. Valid when
+     * <code>protocols</code> contains HTTP.</p>
+     */
+    inline OTAUpdateInfo& WithAwsJobPresignedUrlConfig(const AwsJobPresignedUrlConfig& value) { SetAwsJobPresignedUrlConfig(value); return *this;}
+
+    /**
+     * <p>Configuration information for pre-signed URLs. Valid when
+     * <code>protocols</code> contains HTTP.</p>
+     */
+    inline OTAUpdateInfo& WithAwsJobPresignedUrlConfig(AwsJobPresignedUrlConfig&& value) { SetAwsJobPresignedUrlConfig(std::move(value)); return *this;}
+
+
+    /**
      * <p>Specifies whether the OTA update will continue to run (CONTINUOUS), or will
      * be complete after all those things specified as targets have completed the OTA
      * update (SNAPSHOT). If continuous, the OTA update may also be run on a thing when
@@ -263,6 +422,16 @@ namespace Model
      * completed by all things originally in the group. </p>
      */
     inline const TargetSelection& GetTargetSelection() const{ return m_targetSelection; }
+
+    /**
+     * <p>Specifies whether the OTA update will continue to run (CONTINUOUS), or will
+     * be complete after all those things specified as targets have completed the OTA
+     * update (SNAPSHOT). If continuous, the OTA update may also be run on a thing when
+     * a change is detected in a target. For example, an OTA update will run on a thing
+     * when the thing is added to a target group, even after the OTA update was
+     * completed by all things originally in the group. </p>
+     */
+    inline bool TargetSelectionHasBeenSet() const { return m_targetSelectionHasBeenSet; }
 
     /**
      * <p>Specifies whether the OTA update will continue to run (CONTINUOUS), or will
@@ -313,6 +482,11 @@ namespace Model
     /**
      * <p>A list of files associated with the OTA update.</p>
      */
+    inline bool OtaUpdateFilesHasBeenSet() const { return m_otaUpdateFilesHasBeenSet; }
+
+    /**
+     * <p>A list of files associated with the OTA update.</p>
+     */
     inline void SetOtaUpdateFiles(const Aws::Vector<OTAUpdateFile>& value) { m_otaUpdateFilesHasBeenSet = true; m_otaUpdateFiles = value; }
 
     /**
@@ -349,6 +523,11 @@ namespace Model
     /**
      * <p>The status of the OTA update.</p>
      */
+    inline bool OtaUpdateStatusHasBeenSet() const { return m_otaUpdateStatusHasBeenSet; }
+
+    /**
+     * <p>The status of the OTA update.</p>
+     */
     inline void SetOtaUpdateStatus(const OTAUpdateStatus& value) { m_otaUpdateStatusHasBeenSet = true; m_otaUpdateStatus = value; }
 
     /**
@@ -371,6 +550,11 @@ namespace Model
      * <p>The AWS IoT job ID associated with the OTA update.</p>
      */
     inline const Aws::String& GetAwsIotJobId() const{ return m_awsIotJobId; }
+
+    /**
+     * <p>The AWS IoT job ID associated with the OTA update.</p>
+     */
+    inline bool AwsIotJobIdHasBeenSet() const { return m_awsIotJobIdHasBeenSet; }
 
     /**
      * <p>The AWS IoT job ID associated with the OTA update.</p>
@@ -411,6 +595,11 @@ namespace Model
     /**
      * <p>The AWS IoT job ARN associated with the OTA update.</p>
      */
+    inline bool AwsIotJobArnHasBeenSet() const { return m_awsIotJobArnHasBeenSet; }
+
+    /**
+     * <p>The AWS IoT job ARN associated with the OTA update.</p>
+     */
     inline void SetAwsIotJobArn(const Aws::String& value) { m_awsIotJobArnHasBeenSet = true; m_awsIotJobArn = value; }
 
     /**
@@ -447,6 +636,11 @@ namespace Model
     /**
      * <p>Error information associated with the OTA update.</p>
      */
+    inline bool ErrorInfoHasBeenSet() const { return m_errorInfoHasBeenSet; }
+
+    /**
+     * <p>Error information associated with the OTA update.</p>
+     */
     inline void SetErrorInfo(const ErrorInfo& value) { m_errorInfoHasBeenSet = true; m_errorInfo = value; }
 
     /**
@@ -469,6 +663,11 @@ namespace Model
      * <p>A collection of name/value pairs</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAdditionalParameters() const{ return m_additionalParameters; }
+
+    /**
+     * <p>A collection of name/value pairs</p>
+     */
+    inline bool AdditionalParametersHasBeenSet() const { return m_additionalParametersHasBeenSet; }
 
     /**
      * <p>A collection of name/value pairs</p>
@@ -544,6 +743,15 @@ namespace Model
 
     Aws::Vector<Aws::String> m_targets;
     bool m_targetsHasBeenSet;
+
+    Aws::Vector<Protocol> m_protocols;
+    bool m_protocolsHasBeenSet;
+
+    AwsJobExecutionsRolloutConfig m_awsJobExecutionsRolloutConfig;
+    bool m_awsJobExecutionsRolloutConfigHasBeenSet;
+
+    AwsJobPresignedUrlConfig m_awsJobPresignedUrlConfig;
+    bool m_awsJobPresignedUrlConfigHasBeenSet;
 
     TargetSelection m_targetSelection;
     bool m_targetSelectionHasBeenSet;

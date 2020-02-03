@@ -32,20 +32,22 @@ NoiseReducer::NoiseReducer() :
     m_filter(NoiseReducerFilter::NOT_SET),
     m_filterHasBeenSet(false),
     m_filterSettingsHasBeenSet(false),
-    m_spatialFilterSettingsHasBeenSet(false)
+    m_spatialFilterSettingsHasBeenSet(false),
+    m_temporalFilterSettingsHasBeenSet(false)
 {
 }
 
-NoiseReducer::NoiseReducer(const JsonValue& jsonValue) : 
+NoiseReducer::NoiseReducer(JsonView jsonValue) : 
     m_filter(NoiseReducerFilter::NOT_SET),
     m_filterHasBeenSet(false),
     m_filterSettingsHasBeenSet(false),
-    m_spatialFilterSettingsHasBeenSet(false)
+    m_spatialFilterSettingsHasBeenSet(false),
+    m_temporalFilterSettingsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-NoiseReducer& NoiseReducer::operator =(const JsonValue& jsonValue)
+NoiseReducer& NoiseReducer::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("filter"))
   {
@@ -66,6 +68,13 @@ NoiseReducer& NoiseReducer::operator =(const JsonValue& jsonValue)
     m_spatialFilterSettings = jsonValue.GetObject("spatialFilterSettings");
 
     m_spatialFilterSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("temporalFilterSettings"))
+  {
+    m_temporalFilterSettings = jsonValue.GetObject("temporalFilterSettings");
+
+    m_temporalFilterSettingsHasBeenSet = true;
   }
 
   return *this;
@@ -89,6 +98,12 @@ JsonValue NoiseReducer::Jsonize() const
   if(m_spatialFilterSettingsHasBeenSet)
   {
    payload.WithObject("spatialFilterSettings", m_spatialFilterSettings.Jsonize());
+
+  }
+
+  if(m_temporalFilterSettingsHasBeenSet)
+  {
+   payload.WithObject("temporalFilterSettings", m_temporalFilterSettings.Jsonize());
 
   }
 

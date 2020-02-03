@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DeploymentCanarySettings();
-    DeploymentCanarySettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeploymentCanarySettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeploymentCanarySettings(Aws::Utils::Json::JsonView jsonValue);
+    DeploymentCanarySettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The percentage (0.0-100.0) of traffic routed to the canary deployment.</p>
      */
     inline double GetPercentTraffic() const{ return m_percentTraffic; }
+
+    /**
+     * <p>The percentage (0.0-100.0) of traffic routed to the canary deployment.</p>
+     */
+    inline bool PercentTrafficHasBeenSet() const { return m_percentTrafficHasBeenSet; }
 
     /**
      * <p>The percentage (0.0-100.0) of traffic routed to the canary deployment.</p>
@@ -71,6 +77,14 @@ namespace Model
      * map between stage variable names and their values.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetStageVariableOverrides() const{ return m_stageVariableOverrides; }
+
+    /**
+     * <p>A stage variable overrides used for the canary release deployment. They can
+     * override existing stage variables or add new stage variables for the canary
+     * release deployment. These stage variables are represented as a string-to-string
+     * map between stage variable names and their values.</p>
+     */
+    inline bool StageVariableOverridesHasBeenSet() const { return m_stageVariableOverridesHasBeenSet; }
 
     /**
      * <p>A stage variable overrides used for the canary release deployment. They can
@@ -166,6 +180,12 @@ namespace Model
      * stage cache or not.</p>
      */
     inline bool GetUseStageCache() const{ return m_useStageCache; }
+
+    /**
+     * <p>A Boolean flag to indicate whether the canary release deployment uses the
+     * stage cache or not.</p>
+     */
+    inline bool UseStageCacheHasBeenSet() const { return m_useStageCacheHasBeenSet; }
 
     /**
      * <p>A Boolean flag to indicate whether the canary release deployment uses the

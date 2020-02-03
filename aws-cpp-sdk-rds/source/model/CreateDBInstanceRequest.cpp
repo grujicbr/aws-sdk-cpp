@@ -78,7 +78,11 @@ CreateDBInstanceRequest::CreateDBInstanceRequest() :
     m_performanceInsightsRetentionPeriod(0),
     m_performanceInsightsRetentionPeriodHasBeenSet(false),
     m_enableCloudwatchLogsExportsHasBeenSet(false),
-    m_processorFeaturesHasBeenSet(false)
+    m_processorFeaturesHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false),
+    m_maxAllocatedStorage(0),
+    m_maxAllocatedStorageHasBeenSet(false)
 {
 }
 
@@ -332,6 +336,16 @@ Aws::String CreateDBInstanceRequest::SerializePayload() const
       item.OutputToStream(ss, "ProcessorFeatures.member.", processorFeaturesCount, "");
       processorFeaturesCount++;
     }
+  }
+
+  if(m_deletionProtectionHasBeenSet)
+  {
+    ss << "DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
+  }
+
+  if(m_maxAllocatedStorageHasBeenSet)
+  {
+    ss << "MaxAllocatedStorage=" << m_maxAllocatedStorage << "&";
   }
 
   ss << "Version=2014-10-31";

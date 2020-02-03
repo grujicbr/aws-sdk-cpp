@@ -33,21 +33,23 @@ InstanceGroupModifyConfig::InstanceGroupModifyConfig() :
     m_instanceCount(0),
     m_instanceCountHasBeenSet(false),
     m_eC2InstanceIdsToTerminateHasBeenSet(false),
-    m_shrinkPolicyHasBeenSet(false)
+    m_shrinkPolicyHasBeenSet(false),
+    m_configurationsHasBeenSet(false)
 {
 }
 
-InstanceGroupModifyConfig::InstanceGroupModifyConfig(const JsonValue& jsonValue) : 
+InstanceGroupModifyConfig::InstanceGroupModifyConfig(JsonView jsonValue) : 
     m_instanceGroupIdHasBeenSet(false),
     m_instanceCount(0),
     m_instanceCountHasBeenSet(false),
     m_eC2InstanceIdsToTerminateHasBeenSet(false),
-    m_shrinkPolicyHasBeenSet(false)
+    m_shrinkPolicyHasBeenSet(false),
+    m_configurationsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-InstanceGroupModifyConfig& InstanceGroupModifyConfig::operator =(const JsonValue& jsonValue)
+InstanceGroupModifyConfig& InstanceGroupModifyConfig::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("InstanceGroupId"))
   {
@@ -65,7 +67,7 @@ InstanceGroupModifyConfig& InstanceGroupModifyConfig::operator =(const JsonValue
 
   if(jsonValue.ValueExists("EC2InstanceIdsToTerminate"))
   {
-    Array<JsonValue> eC2InstanceIdsToTerminateJsonList = jsonValue.GetArray("EC2InstanceIdsToTerminate");
+    Array<JsonView> eC2InstanceIdsToTerminateJsonList = jsonValue.GetArray("EC2InstanceIdsToTerminate");
     for(unsigned eC2InstanceIdsToTerminateIndex = 0; eC2InstanceIdsToTerminateIndex < eC2InstanceIdsToTerminateJsonList.GetLength(); ++eC2InstanceIdsToTerminateIndex)
     {
       m_eC2InstanceIdsToTerminate.push_back(eC2InstanceIdsToTerminateJsonList[eC2InstanceIdsToTerminateIndex].AsString());
@@ -78,6 +80,16 @@ InstanceGroupModifyConfig& InstanceGroupModifyConfig::operator =(const JsonValue
     m_shrinkPolicy = jsonValue.GetObject("ShrinkPolicy");
 
     m_shrinkPolicyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Configurations"))
+  {
+    Array<JsonView> configurationsJsonList = jsonValue.GetArray("Configurations");
+    for(unsigned configurationsIndex = 0; configurationsIndex < configurationsJsonList.GetLength(); ++configurationsIndex)
+    {
+      m_configurations.push_back(configurationsJsonList[configurationsIndex].AsObject());
+    }
+    m_configurationsHasBeenSet = true;
   }
 
   return *this;
@@ -113,6 +125,17 @@ JsonValue InstanceGroupModifyConfig::Jsonize() const
   if(m_shrinkPolicyHasBeenSet)
   {
    payload.WithObject("ShrinkPolicy", m_shrinkPolicy.Jsonize());
+
+  }
+
+  if(m_configurationsHasBeenSet)
+  {
+   Array<JsonValue> configurationsJsonList(m_configurations.size());
+   for(unsigned configurationsIndex = 0; configurationsIndex < configurationsJsonList.GetLength(); ++configurationsIndex)
+   {
+     configurationsJsonList[configurationsIndex].AsObject(m_configurations[configurationsIndex].Jsonize());
+   }
+   payload.WithArray("Configurations", std::move(configurationsJsonList));
 
   }
 

@@ -50,12 +50,14 @@ enum class RekognitionErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  IDEMPOTENT_PARAMETER_MISMATCH= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  HUMAN_LOOP_QUOTA_EXCEEDED= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  IDEMPOTENT_PARAMETER_MISMATCH,
   IMAGE_TOO_LARGE,
   INVALID_IMAGE_FORMAT,
   INVALID_PAGINATION_TOKEN,
@@ -65,6 +67,7 @@ enum class RekognitionErrors
   PROVISIONED_THROUGHPUT_EXCEEDED,
   RESOURCE_ALREADY_EXISTS,
   RESOURCE_IN_USE,
+  RESOURCE_NOT_READY,
   VIDEO_TOO_LARGE
 };
 namespace RekognitionErrorMapper

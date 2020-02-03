@@ -29,7 +29,8 @@ CreateMicrosoftADRequest::CreateMicrosoftADRequest() :
     m_descriptionHasBeenSet(false),
     m_vpcSettingsHasBeenSet(false),
     m_edition(DirectoryEdition::NOT_SET),
-    m_editionHasBeenSet(false)
+    m_editionHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -72,7 +73,18 @@ Aws::String CreateMicrosoftADRequest::SerializePayload() const
    payload.WithString("Edition", DirectoryEditionMapper::GetNameForDirectoryEdition(m_edition));
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateMicrosoftADRequest::GetRequestSpecificHeaders() const

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     UtteranceData();
-    UtteranceData(const Aws::Utils::Json::JsonValue& jsonValue);
-    UtteranceData& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UtteranceData(Aws::Utils::Json::JsonView jsonValue);
+    UtteranceData& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * clip.</p>
      */
     inline const Aws::String& GetUtteranceString() const{ return m_utteranceString; }
+
+    /**
+     * <p>The text that was entered by the user or the text representation of an audio
+     * clip.</p>
+     */
+    inline bool UtteranceStringHasBeenSet() const { return m_utteranceStringHasBeenSet; }
 
     /**
      * <p>The text that was entered by the user or the text representation of an audio
@@ -99,6 +106,11 @@ namespace Model
     /**
      * <p>The number of times that the utterance was processed.</p>
      */
+    inline bool CountHasBeenSet() const { return m_countHasBeenSet; }
+
+    /**
+     * <p>The number of times that the utterance was processed.</p>
+     */
     inline void SetCount(int value) { m_countHasBeenSet = true; m_count = value; }
 
     /**
@@ -115,6 +127,11 @@ namespace Model
     /**
      * <p>The total number of individuals that used the utterance.</p>
      */
+    inline bool DistinctUsersHasBeenSet() const { return m_distinctUsersHasBeenSet; }
+
+    /**
+     * <p>The total number of individuals that used the utterance.</p>
+     */
     inline void SetDistinctUsers(int value) { m_distinctUsersHasBeenSet = true; m_distinctUsers = value; }
 
     /**
@@ -127,6 +144,11 @@ namespace Model
      * <p>The date that the utterance was first recorded.</p>
      */
     inline const Aws::Utils::DateTime& GetFirstUtteredDate() const{ return m_firstUtteredDate; }
+
+    /**
+     * <p>The date that the utterance was first recorded.</p>
+     */
+    inline bool FirstUtteredDateHasBeenSet() const { return m_firstUtteredDateHasBeenSet; }
 
     /**
      * <p>The date that the utterance was first recorded.</p>
@@ -153,6 +175,11 @@ namespace Model
      * <p>The date that the utterance was last recorded.</p>
      */
     inline const Aws::Utils::DateTime& GetLastUtteredDate() const{ return m_lastUtteredDate; }
+
+    /**
+     * <p>The date that the utterance was last recorded.</p>
+     */
+    inline bool LastUtteredDateHasBeenSet() const { return m_lastUtteredDateHasBeenSet; }
 
     /**
      * <p>The date that the utterance was last recorded.</p>

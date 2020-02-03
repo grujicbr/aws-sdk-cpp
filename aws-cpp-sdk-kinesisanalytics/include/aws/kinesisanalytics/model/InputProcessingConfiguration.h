@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -36,8 +37,8 @@ namespace Model
    * <p>Provides a description of a processor that is used to preprocess the records
    * in the stream before being processed by your application code. Currently, the
    * only input processor available is <a
-   * href="https://aws.amazon.com/documentation/lambda/">AWS
-   * Lambda</a>.</p><p><h3>See Also:</h3>   <a
+   * href="https://docs.aws.amazon.com/lambda/">AWS Lambda</a>.</p><p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputProcessingConfiguration">AWS
    * API Reference</a></p>
    */
@@ -45,38 +46,56 @@ namespace Model
   {
   public:
     InputProcessingConfiguration();
-    InputProcessingConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputProcessingConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputProcessingConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    InputProcessingConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The <a>InputLambdaProcessor</a> that is used to preprocess the records in the
-     * stream before being processed by your application code.</p>
+     * <p>The <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html">InputLambdaProcessor</a>
+     * that is used to preprocess the records in the stream before being processed by
+     * your application code.</p>
      */
     inline const InputLambdaProcessor& GetInputLambdaProcessor() const{ return m_inputLambdaProcessor; }
 
     /**
-     * <p>The <a>InputLambdaProcessor</a> that is used to preprocess the records in the
-     * stream before being processed by your application code.</p>
+     * <p>The <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html">InputLambdaProcessor</a>
+     * that is used to preprocess the records in the stream before being processed by
+     * your application code.</p>
+     */
+    inline bool InputLambdaProcessorHasBeenSet() const { return m_inputLambdaProcessorHasBeenSet; }
+
+    /**
+     * <p>The <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html">InputLambdaProcessor</a>
+     * that is used to preprocess the records in the stream before being processed by
+     * your application code.</p>
      */
     inline void SetInputLambdaProcessor(const InputLambdaProcessor& value) { m_inputLambdaProcessorHasBeenSet = true; m_inputLambdaProcessor = value; }
 
     /**
-     * <p>The <a>InputLambdaProcessor</a> that is used to preprocess the records in the
-     * stream before being processed by your application code.</p>
+     * <p>The <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html">InputLambdaProcessor</a>
+     * that is used to preprocess the records in the stream before being processed by
+     * your application code.</p>
      */
     inline void SetInputLambdaProcessor(InputLambdaProcessor&& value) { m_inputLambdaProcessorHasBeenSet = true; m_inputLambdaProcessor = std::move(value); }
 
     /**
-     * <p>The <a>InputLambdaProcessor</a> that is used to preprocess the records in the
-     * stream before being processed by your application code.</p>
+     * <p>The <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html">InputLambdaProcessor</a>
+     * that is used to preprocess the records in the stream before being processed by
+     * your application code.</p>
      */
     inline InputProcessingConfiguration& WithInputLambdaProcessor(const InputLambdaProcessor& value) { SetInputLambdaProcessor(value); return *this;}
 
     /**
-     * <p>The <a>InputLambdaProcessor</a> that is used to preprocess the records in the
-     * stream before being processed by your application code.</p>
+     * <p>The <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html">InputLambdaProcessor</a>
+     * that is used to preprocess the records in the stream before being processed by
+     * your application code.</p>
      */
     inline InputProcessingConfiguration& WithInputLambdaProcessor(InputLambdaProcessor&& value) { SetInputLambdaProcessor(std::move(value)); return *this;}
 

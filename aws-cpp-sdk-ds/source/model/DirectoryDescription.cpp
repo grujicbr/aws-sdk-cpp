@@ -42,6 +42,11 @@ DirectoryDescription::DirectoryDescription() :
     m_dnsIpAddrsHasBeenSet(false),
     m_stage(DirectoryStage::NOT_SET),
     m_stageHasBeenSet(false),
+    m_shareStatus(ShareStatus::NOT_SET),
+    m_shareStatusHasBeenSet(false),
+    m_shareMethod(ShareMethod::NOT_SET),
+    m_shareMethodHasBeenSet(false),
+    m_shareNotesHasBeenSet(false),
     m_launchTimeHasBeenSet(false),
     m_stageLastUpdatedDateTimeHasBeenSet(false),
     m_type(DirectoryType::NOT_SET),
@@ -55,11 +60,12 @@ DirectoryDescription::DirectoryDescription() :
     m_ssoEnabled(false),
     m_ssoEnabledHasBeenSet(false),
     m_desiredNumberOfDomainControllers(0),
-    m_desiredNumberOfDomainControllersHasBeenSet(false)
+    m_desiredNumberOfDomainControllersHasBeenSet(false),
+    m_ownerDirectoryDescriptionHasBeenSet(false)
 {
 }
 
-DirectoryDescription::DirectoryDescription(const JsonValue& jsonValue) : 
+DirectoryDescription::DirectoryDescription(JsonView jsonValue) : 
     m_directoryIdHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_shortNameHasBeenSet(false),
@@ -73,6 +79,11 @@ DirectoryDescription::DirectoryDescription(const JsonValue& jsonValue) :
     m_dnsIpAddrsHasBeenSet(false),
     m_stage(DirectoryStage::NOT_SET),
     m_stageHasBeenSet(false),
+    m_shareStatus(ShareStatus::NOT_SET),
+    m_shareStatusHasBeenSet(false),
+    m_shareMethod(ShareMethod::NOT_SET),
+    m_shareMethodHasBeenSet(false),
+    m_shareNotesHasBeenSet(false),
     m_launchTimeHasBeenSet(false),
     m_stageLastUpdatedDateTimeHasBeenSet(false),
     m_type(DirectoryType::NOT_SET),
@@ -86,12 +97,13 @@ DirectoryDescription::DirectoryDescription(const JsonValue& jsonValue) :
     m_ssoEnabled(false),
     m_ssoEnabledHasBeenSet(false),
     m_desiredNumberOfDomainControllers(0),
-    m_desiredNumberOfDomainControllersHasBeenSet(false)
+    m_desiredNumberOfDomainControllersHasBeenSet(false),
+    m_ownerDirectoryDescriptionHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DirectoryDescription& DirectoryDescription::operator =(const JsonValue& jsonValue)
+DirectoryDescription& DirectoryDescription::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DirectoryId"))
   {
@@ -151,7 +163,7 @@ DirectoryDescription& DirectoryDescription::operator =(const JsonValue& jsonValu
 
   if(jsonValue.ValueExists("DnsIpAddrs"))
   {
-    Array<JsonValue> dnsIpAddrsJsonList = jsonValue.GetArray("DnsIpAddrs");
+    Array<JsonView> dnsIpAddrsJsonList = jsonValue.GetArray("DnsIpAddrs");
     for(unsigned dnsIpAddrsIndex = 0; dnsIpAddrsIndex < dnsIpAddrsJsonList.GetLength(); ++dnsIpAddrsIndex)
     {
       m_dnsIpAddrs.push_back(dnsIpAddrsJsonList[dnsIpAddrsIndex].AsString());
@@ -164,6 +176,27 @@ DirectoryDescription& DirectoryDescription::operator =(const JsonValue& jsonValu
     m_stage = DirectoryStageMapper::GetDirectoryStageForName(jsonValue.GetString("Stage"));
 
     m_stageHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ShareStatus"))
+  {
+    m_shareStatus = ShareStatusMapper::GetShareStatusForName(jsonValue.GetString("ShareStatus"));
+
+    m_shareStatusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ShareMethod"))
+  {
+    m_shareMethod = ShareMethodMapper::GetShareMethodForName(jsonValue.GetString("ShareMethod"));
+
+    m_shareMethodHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ShareNotes"))
+  {
+    m_shareNotes = jsonValue.GetString("ShareNotes");
+
+    m_shareNotesHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("LaunchTime"))
@@ -236,6 +269,13 @@ DirectoryDescription& DirectoryDescription::operator =(const JsonValue& jsonValu
     m_desiredNumberOfDomainControllersHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("OwnerDirectoryDescription"))
+  {
+    m_ownerDirectoryDescription = jsonValue.GetObject("OwnerDirectoryDescription");
+
+    m_ownerDirectoryDescriptionHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -305,6 +345,22 @@ JsonValue DirectoryDescription::Jsonize() const
    payload.WithString("Stage", DirectoryStageMapper::GetNameForDirectoryStage(m_stage));
   }
 
+  if(m_shareStatusHasBeenSet)
+  {
+   payload.WithString("ShareStatus", ShareStatusMapper::GetNameForShareStatus(m_shareStatus));
+  }
+
+  if(m_shareMethodHasBeenSet)
+  {
+   payload.WithString("ShareMethod", ShareMethodMapper::GetNameForShareMethod(m_shareMethod));
+  }
+
+  if(m_shareNotesHasBeenSet)
+  {
+   payload.WithString("ShareNotes", m_shareNotes);
+
+  }
+
   if(m_launchTimeHasBeenSet)
   {
    payload.WithDouble("LaunchTime", m_launchTime.SecondsWithMSPrecision());
@@ -358,6 +414,12 @@ JsonValue DirectoryDescription::Jsonize() const
   if(m_desiredNumberOfDomainControllersHasBeenSet)
   {
    payload.WithInteger("DesiredNumberOfDomainControllers", m_desiredNumberOfDomainControllers);
+
+  }
+
+  if(m_ownerDirectoryDescriptionHasBeenSet)
+  {
+   payload.WithObject("OwnerDirectoryDescription", m_ownerDirectoryDescription.Jsonize());
 
   }
 

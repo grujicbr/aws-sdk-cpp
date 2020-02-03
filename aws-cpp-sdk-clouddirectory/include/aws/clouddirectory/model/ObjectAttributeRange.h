@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ObjectAttributeRange();
-    ObjectAttributeRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    ObjectAttributeRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ObjectAttributeRange(Aws::Utils::Json::JsonView jsonValue);
+    ObjectAttributeRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The key of the attribute that the attribute range covers.</p>
      */
     inline const AttributeKey& GetAttributeKey() const{ return m_attributeKey; }
+
+    /**
+     * <p>The key of the attribute that the attribute range covers.</p>
+     */
+    inline bool AttributeKeyHasBeenSet() const { return m_attributeKeyHasBeenSet; }
 
     /**
      * <p>The key of the attribute that the attribute range covers.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The range of attribute values being selected.</p>
      */
     inline const TypedAttributeValueRange& GetRange() const{ return m_range; }
+
+    /**
+     * <p>The range of attribute values being selected.</p>
+     */
+    inline bool RangeHasBeenSet() const { return m_rangeHasBeenSet; }
 
     /**
      * <p>The range of attribute values being selected.</p>

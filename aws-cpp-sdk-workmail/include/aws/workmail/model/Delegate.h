@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkMail
@@ -43,49 +44,55 @@ namespace Model
   {
   public:
     Delegate();
-    Delegate(const Aws::Utils::Json::JsonValue& jsonValue);
-    Delegate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Delegate(Aws::Utils::Json::JsonView jsonValue);
+    Delegate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The identifier for the user or group is associated as the resource's
+     * <p>The identifier for the user or group associated as the resource's
      * delegate.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
 
     /**
-     * <p>The identifier for the user or group is associated as the resource's
+     * <p>The identifier for the user or group associated as the resource's
+     * delegate.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * <p>The identifier for the user or group associated as the resource's
      * delegate.</p>
      */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
 
     /**
-     * <p>The identifier for the user or group is associated as the resource's
+     * <p>The identifier for the user or group associated as the resource's
      * delegate.</p>
      */
     inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
 
     /**
-     * <p>The identifier for the user or group is associated as the resource's
+     * <p>The identifier for the user or group associated as the resource's
      * delegate.</p>
      */
     inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
 
     /**
-     * <p>The identifier for the user or group is associated as the resource's
+     * <p>The identifier for the user or group associated as the resource's
      * delegate.</p>
      */
     inline Delegate& WithId(const Aws::String& value) { SetId(value); return *this;}
 
     /**
-     * <p>The identifier for the user or group is associated as the resource's
+     * <p>The identifier for the user or group associated as the resource's
      * delegate.</p>
      */
     inline Delegate& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
 
     /**
-     * <p>The identifier for the user or group is associated as the resource's
+     * <p>The identifier for the user or group associated as the resource's
      * delegate.</p>
      */
     inline Delegate& WithId(const char* value) { SetId(value); return *this;}
@@ -95,6 +102,11 @@ namespace Model
      * <p>The type of the delegate: user or group.</p>
      */
     inline const MemberType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of the delegate: user or group.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of the delegate: user or group.</p>

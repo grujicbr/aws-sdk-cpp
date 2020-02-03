@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Denied();
-    Denied(const Aws::Utils::Json::JsonValue& jsonValue);
-    Denied& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Denied(Aws::Utils::Json::JsonView jsonValue);
+    Denied& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * deny.</p>
      */
     inline const ImplicitDeny& GetImplicitDeny() const{ return m_implicitDeny; }
+
+    /**
+     * <p>Information that implicitly denies the authorization. When a policy doesn't
+     * explicitly deny or allow an action on a resource it is considered an implicit
+     * deny.</p>
+     */
+    inline bool ImplicitDenyHasBeenSet() const { return m_implicitDenyHasBeenSet; }
 
     /**
      * <p>Information that implicitly denies the authorization. When a policy doesn't
@@ -87,6 +95,11 @@ namespace Model
      * <p>Information that explicitly denies the authorization. </p>
      */
     inline const ExplicitDeny& GetExplicitDeny() const{ return m_explicitDeny; }
+
+    /**
+     * <p>Information that explicitly denies the authorization. </p>
+     */
+    inline bool ExplicitDenyHasBeenSet() const { return m_explicitDenyHasBeenSet; }
 
     /**
      * <p>Information that explicitly denies the authorization. </p>

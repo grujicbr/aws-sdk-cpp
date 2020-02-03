@@ -50,18 +50,24 @@ enum class DeviceFarmErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
   ARGUMENT= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  CANNOT_DELETE,
   IDEMPOTENCY,
+  INTERNAL_SERVICE,
   INVALID_OPERATION,
   LIMIT_EXCEEDED,
   NOT_ELIGIBLE,
   NOT_FOUND,
-  SERVICE_ACCOUNT
+  SERVICE_ACCOUNT,
+  TAG_OPERATION,
+  TAG_POLICY,
+  TOO_MANY_TAGS
 };
 namespace DeviceFarmErrorMapper
 {

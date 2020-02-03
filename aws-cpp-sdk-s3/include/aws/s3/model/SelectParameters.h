@@ -58,6 +58,11 @@ namespace Model
     /**
      * <p>Describes the serialization format of the object.</p>
      */
+    inline bool InputSerializationHasBeenSet() const { return m_inputSerializationHasBeenSet; }
+
+    /**
+     * <p>Describes the serialization format of the object.</p>
+     */
     inline void SetInputSerialization(const InputSerialization& value) { m_inputSerializationHasBeenSet = true; m_inputSerialization = value; }
 
     /**
@@ -77,27 +82,32 @@ namespace Model
 
 
     /**
-     * <p>The type of the provided expression (e.g., SQL).</p>
+     * <p>The type of the provided expression (for example, SQL).</p>
      */
     inline const ExpressionType& GetExpressionType() const{ return m_expressionType; }
 
     /**
-     * <p>The type of the provided expression (e.g., SQL).</p>
+     * <p>The type of the provided expression (for example, SQL).</p>
+     */
+    inline bool ExpressionTypeHasBeenSet() const { return m_expressionTypeHasBeenSet; }
+
+    /**
+     * <p>The type of the provided expression (for example, SQL).</p>
      */
     inline void SetExpressionType(const ExpressionType& value) { m_expressionTypeHasBeenSet = true; m_expressionType = value; }
 
     /**
-     * <p>The type of the provided expression (e.g., SQL).</p>
+     * <p>The type of the provided expression (for example, SQL).</p>
      */
     inline void SetExpressionType(ExpressionType&& value) { m_expressionTypeHasBeenSet = true; m_expressionType = std::move(value); }
 
     /**
-     * <p>The type of the provided expression (e.g., SQL).</p>
+     * <p>The type of the provided expression (for example, SQL).</p>
      */
     inline SelectParameters& WithExpressionType(const ExpressionType& value) { SetExpressionType(value); return *this;}
 
     /**
-     * <p>The type of the provided expression (e.g., SQL).</p>
+     * <p>The type of the provided expression (for example, SQL).</p>
      */
     inline SelectParameters& WithExpressionType(ExpressionType&& value) { SetExpressionType(std::move(value)); return *this;}
 
@@ -106,6 +116,11 @@ namespace Model
      * <p>The expression that is used to query the object.</p>
      */
     inline const Aws::String& GetExpression() const{ return m_expression; }
+
+    /**
+     * <p>The expression that is used to query the object.</p>
+     */
+    inline bool ExpressionHasBeenSet() const { return m_expressionHasBeenSet; }
 
     /**
      * <p>The expression that is used to query the object.</p>
@@ -142,6 +157,11 @@ namespace Model
      * <p>Describes how the results of the Select job are serialized.</p>
      */
     inline const OutputSerialization& GetOutputSerialization() const{ return m_outputSerialization; }
+
+    /**
+     * <p>Describes how the results of the Select job are serialized.</p>
+     */
+    inline bool OutputSerializationHasBeenSet() const { return m_outputSerializationHasBeenSet; }
 
     /**
      * <p>Describes how the results of the Select job are serialized.</p>

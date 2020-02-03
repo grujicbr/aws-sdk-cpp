@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AccountAggregationSource();
-    AccountAggregationSource(const Aws::Utils::Json::JsonValue& jsonValue);
-    AccountAggregationSource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AccountAggregationSource(Aws::Utils::Json::JsonView jsonValue);
+    AccountAggregationSource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The 12-digit account ID of the account being aggregated. </p>
      */
     inline const Aws::Vector<Aws::String>& GetAccountIds() const{ return m_accountIds; }
+
+    /**
+     * <p>The 12-digit account ID of the account being aggregated. </p>
+     */
+    inline bool AccountIdsHasBeenSet() const { return m_accountIdsHasBeenSet; }
 
     /**
      * <p>The 12-digit account ID of the account being aggregated. </p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>If true, aggregate existing AWS Config regions and future regions.</p>
      */
+    inline bool AllAwsRegionsHasBeenSet() const { return m_allAwsRegionsHasBeenSet; }
+
+    /**
+     * <p>If true, aggregate existing AWS Config regions and future regions.</p>
+     */
     inline void SetAllAwsRegions(bool value) { m_allAwsRegionsHasBeenSet = true; m_allAwsRegions = value; }
 
     /**
@@ -108,6 +119,11 @@ namespace Model
      * <p>The source regions being aggregated.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAwsRegions() const{ return m_awsRegions; }
+
+    /**
+     * <p>The source regions being aggregated.</p>
+     */
+    inline bool AwsRegionsHasBeenSet() const { return m_awsRegionsHasBeenSet; }
 
     /**
      * <p>The source regions being aggregated.</p>

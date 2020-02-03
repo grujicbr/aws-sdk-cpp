@@ -27,18 +27,20 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-EncryptResult::EncryptResult()
+EncryptResult::EncryptResult() : 
+    m_encryptionAlgorithm(EncryptionAlgorithmSpec::NOT_SET)
 {
 }
 
-EncryptResult::EncryptResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+EncryptResult::EncryptResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_encryptionAlgorithm(EncryptionAlgorithmSpec::NOT_SET)
 {
   *this = result;
 }
 
 EncryptResult& EncryptResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("CiphertextBlob"))
   {
     m_ciphertextBlob = HashingUtils::Base64Decode(jsonValue.GetString("CiphertextBlob"));
@@ -47,6 +49,12 @@ EncryptResult& EncryptResult::operator =(const Aws::AmazonWebServiceResult<JsonV
   if(jsonValue.ValueExists("KeyId"))
   {
     m_keyId = jsonValue.GetString("KeyId");
+
+  }
+
+  if(jsonValue.ValueExists("EncryptionAlgorithm"))
+  {
+    m_encryptionAlgorithm = EncryptionAlgorithmSpecMapper::GetEncryptionAlgorithmSpecForName(jsonValue.GetString("EncryptionAlgorithm"));
 
   }
 

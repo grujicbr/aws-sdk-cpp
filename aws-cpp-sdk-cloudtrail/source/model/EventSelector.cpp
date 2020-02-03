@@ -33,21 +33,23 @@ EventSelector::EventSelector() :
     m_readWriteTypeHasBeenSet(false),
     m_includeManagementEvents(false),
     m_includeManagementEventsHasBeenSet(false),
-    m_dataResourcesHasBeenSet(false)
+    m_dataResourcesHasBeenSet(false),
+    m_excludeManagementEventSourcesHasBeenSet(false)
 {
 }
 
-EventSelector::EventSelector(const JsonValue& jsonValue) : 
+EventSelector::EventSelector(JsonView jsonValue) : 
     m_readWriteType(ReadWriteType::NOT_SET),
     m_readWriteTypeHasBeenSet(false),
     m_includeManagementEvents(false),
     m_includeManagementEventsHasBeenSet(false),
-    m_dataResourcesHasBeenSet(false)
+    m_dataResourcesHasBeenSet(false),
+    m_excludeManagementEventSourcesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-EventSelector& EventSelector::operator =(const JsonValue& jsonValue)
+EventSelector& EventSelector::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ReadWriteType"))
   {
@@ -65,12 +67,22 @@ EventSelector& EventSelector::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("DataResources"))
   {
-    Array<JsonValue> dataResourcesJsonList = jsonValue.GetArray("DataResources");
+    Array<JsonView> dataResourcesJsonList = jsonValue.GetArray("DataResources");
     for(unsigned dataResourcesIndex = 0; dataResourcesIndex < dataResourcesJsonList.GetLength(); ++dataResourcesIndex)
     {
       m_dataResources.push_back(dataResourcesJsonList[dataResourcesIndex].AsObject());
     }
     m_dataResourcesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ExcludeManagementEventSources"))
+  {
+    Array<JsonView> excludeManagementEventSourcesJsonList = jsonValue.GetArray("ExcludeManagementEventSources");
+    for(unsigned excludeManagementEventSourcesIndex = 0; excludeManagementEventSourcesIndex < excludeManagementEventSourcesJsonList.GetLength(); ++excludeManagementEventSourcesIndex)
+    {
+      m_excludeManagementEventSources.push_back(excludeManagementEventSourcesJsonList[excludeManagementEventSourcesIndex].AsString());
+    }
+    m_excludeManagementEventSourcesHasBeenSet = true;
   }
 
   return *this;
@@ -99,6 +111,17 @@ JsonValue EventSelector::Jsonize() const
      dataResourcesJsonList[dataResourcesIndex].AsObject(m_dataResources[dataResourcesIndex].Jsonize());
    }
    payload.WithArray("DataResources", std::move(dataResourcesJsonList));
+
+  }
+
+  if(m_excludeManagementEventSourcesHasBeenSet)
+  {
+   Array<JsonValue> excludeManagementEventSourcesJsonList(m_excludeManagementEventSources.size());
+   for(unsigned excludeManagementEventSourcesIndex = 0; excludeManagementEventSourcesIndex < excludeManagementEventSourcesJsonList.GetLength(); ++excludeManagementEventSourcesIndex)
+   {
+     excludeManagementEventSourcesJsonList[excludeManagementEventSourcesIndex].AsString(m_excludeManagementEventSources[excludeManagementEventSourcesIndex]);
+   }
+   payload.WithArray("ExcludeManagementEventSources", std::move(excludeManagementEventSourcesJsonList));
 
   }
 

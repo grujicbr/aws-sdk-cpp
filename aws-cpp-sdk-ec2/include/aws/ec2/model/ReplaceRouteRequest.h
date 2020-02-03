@@ -27,15 +27,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for ReplaceRoute.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ReplaceRouteRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API ReplaceRouteRequest : public EC2Request
   {
   public:
     ReplaceRouteRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,87 +47,99 @@ namespace Model
   public:
 
     /**
-     * <p>The IPv4 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv4 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline const Aws::String& GetDestinationCidrBlock() const{ return m_destinationCidrBlock; }
 
     /**
-     * <p>The IPv4 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv4 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
+     */
+    inline bool DestinationCidrBlockHasBeenSet() const { return m_destinationCidrBlockHasBeenSet; }
+
+    /**
+     * <p>The IPv4 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline void SetDestinationCidrBlock(const Aws::String& value) { m_destinationCidrBlockHasBeenSet = true; m_destinationCidrBlock = value; }
 
     /**
-     * <p>The IPv4 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv4 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline void SetDestinationCidrBlock(Aws::String&& value) { m_destinationCidrBlockHasBeenSet = true; m_destinationCidrBlock = std::move(value); }
 
     /**
-     * <p>The IPv4 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv4 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline void SetDestinationCidrBlock(const char* value) { m_destinationCidrBlockHasBeenSet = true; m_destinationCidrBlock.assign(value); }
 
     /**
-     * <p>The IPv4 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv4 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline ReplaceRouteRequest& WithDestinationCidrBlock(const Aws::String& value) { SetDestinationCidrBlock(value); return *this;}
 
     /**
-     * <p>The IPv4 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv4 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline ReplaceRouteRequest& WithDestinationCidrBlock(Aws::String&& value) { SetDestinationCidrBlock(std::move(value)); return *this;}
 
     /**
-     * <p>The IPv4 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv4 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline ReplaceRouteRequest& WithDestinationCidrBlock(const char* value) { SetDestinationCidrBlock(value); return *this;}
 
 
     /**
-     * <p>The IPv6 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv6 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline const Aws::String& GetDestinationIpv6CidrBlock() const{ return m_destinationIpv6CidrBlock; }
 
     /**
-     * <p>The IPv6 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv6 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
+     */
+    inline bool DestinationIpv6CidrBlockHasBeenSet() const { return m_destinationIpv6CidrBlockHasBeenSet; }
+
+    /**
+     * <p>The IPv6 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline void SetDestinationIpv6CidrBlock(const Aws::String& value) { m_destinationIpv6CidrBlockHasBeenSet = true; m_destinationIpv6CidrBlock = value; }
 
     /**
-     * <p>The IPv6 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv6 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline void SetDestinationIpv6CidrBlock(Aws::String&& value) { m_destinationIpv6CidrBlockHasBeenSet = true; m_destinationIpv6CidrBlock = std::move(value); }
 
     /**
-     * <p>The IPv6 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv6 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline void SetDestinationIpv6CidrBlock(const char* value) { m_destinationIpv6CidrBlockHasBeenSet = true; m_destinationIpv6CidrBlock.assign(value); }
 
     /**
-     * <p>The IPv6 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv6 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline ReplaceRouteRequest& WithDestinationIpv6CidrBlock(const Aws::String& value) { SetDestinationIpv6CidrBlock(value); return *this;}
 
     /**
-     * <p>The IPv6 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv6 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline ReplaceRouteRequest& WithDestinationIpv6CidrBlock(Aws::String&& value) { SetDestinationIpv6CidrBlock(std::move(value)); return *this;}
 
     /**
-     * <p>The IPv6 CIDR address block used for the destination match. The value you
-     * provide must match the CIDR of an existing route in the table.</p>
+     * <p>The IPv6 CIDR address block used for the destination match. The value that
+     * you provide must match the CIDR of an existing route in the table.</p>
      */
     inline ReplaceRouteRequest& WithDestinationIpv6CidrBlock(const char* value) { SetDestinationIpv6CidrBlock(value); return *this;}
 
@@ -142,6 +151,14 @@ namespace Model
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
     inline bool GetDryRun() const{ return m_dryRun; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
 
     /**
      * <p>Checks whether you have the required permissions for the action, without
@@ -161,73 +178,83 @@ namespace Model
 
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline const Aws::String& GetEgressOnlyInternetGatewayId() const{ return m_egressOnlyInternetGatewayId; }
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
+     */
+    inline bool EgressOnlyInternetGatewayIdHasBeenSet() const { return m_egressOnlyInternetGatewayIdHasBeenSet; }
+
+    /**
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline void SetEgressOnlyInternetGatewayId(const Aws::String& value) { m_egressOnlyInternetGatewayIdHasBeenSet = true; m_egressOnlyInternetGatewayId = value; }
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline void SetEgressOnlyInternetGatewayId(Aws::String&& value) { m_egressOnlyInternetGatewayIdHasBeenSet = true; m_egressOnlyInternetGatewayId = std::move(value); }
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline void SetEgressOnlyInternetGatewayId(const char* value) { m_egressOnlyInternetGatewayIdHasBeenSet = true; m_egressOnlyInternetGatewayId.assign(value); }
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline ReplaceRouteRequest& WithEgressOnlyInternetGatewayId(const Aws::String& value) { SetEgressOnlyInternetGatewayId(value); return *this;}
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline ReplaceRouteRequest& WithEgressOnlyInternetGatewayId(Aws::String&& value) { SetEgressOnlyInternetGatewayId(std::move(value)); return *this;}
 
     /**
-     * <p>[IPv6 traffic only] The ID of an egress-only Internet gateway.</p>
+     * <p>[IPv6 traffic only] The ID of an egress-only internet gateway.</p>
      */
     inline ReplaceRouteRequest& WithEgressOnlyInternetGatewayId(const char* value) { SetEgressOnlyInternetGatewayId(value); return *this;}
 
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway.</p>
+     * <p>The ID of an internet gateway or virtual private gateway.</p>
      */
     inline const Aws::String& GetGatewayId() const{ return m_gatewayId; }
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway.</p>
+     * <p>The ID of an internet gateway or virtual private gateway.</p>
+     */
+    inline bool GatewayIdHasBeenSet() const { return m_gatewayIdHasBeenSet; }
+
+    /**
+     * <p>The ID of an internet gateway or virtual private gateway.</p>
      */
     inline void SetGatewayId(const Aws::String& value) { m_gatewayIdHasBeenSet = true; m_gatewayId = value; }
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway.</p>
+     * <p>The ID of an internet gateway or virtual private gateway.</p>
      */
     inline void SetGatewayId(Aws::String&& value) { m_gatewayIdHasBeenSet = true; m_gatewayId = std::move(value); }
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway.</p>
+     * <p>The ID of an internet gateway or virtual private gateway.</p>
      */
     inline void SetGatewayId(const char* value) { m_gatewayIdHasBeenSet = true; m_gatewayId.assign(value); }
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway.</p>
+     * <p>The ID of an internet gateway or virtual private gateway.</p>
      */
     inline ReplaceRouteRequest& WithGatewayId(const Aws::String& value) { SetGatewayId(value); return *this;}
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway.</p>
+     * <p>The ID of an internet gateway or virtual private gateway.</p>
      */
     inline ReplaceRouteRequest& WithGatewayId(Aws::String&& value) { SetGatewayId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of an Internet gateway or virtual private gateway.</p>
+     * <p>The ID of an internet gateway or virtual private gateway.</p>
      */
     inline ReplaceRouteRequest& WithGatewayId(const char* value) { SetGatewayId(value); return *this;}
 
@@ -236,6 +263,11 @@ namespace Model
      * <p>The ID of a NAT instance in your VPC.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The ID of a NAT instance in your VPC.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The ID of a NAT instance in your VPC.</p>
@@ -269,9 +301,39 @@ namespace Model
 
 
     /**
+     * <p>Specifies whether to reset the local route to its default target
+     * (<code>local</code>).</p>
+     */
+    inline bool GetLocalTarget() const{ return m_localTarget; }
+
+    /**
+     * <p>Specifies whether to reset the local route to its default target
+     * (<code>local</code>).</p>
+     */
+    inline bool LocalTargetHasBeenSet() const { return m_localTargetHasBeenSet; }
+
+    /**
+     * <p>Specifies whether to reset the local route to its default target
+     * (<code>local</code>).</p>
+     */
+    inline void SetLocalTarget(bool value) { m_localTargetHasBeenSet = true; m_localTarget = value; }
+
+    /**
+     * <p>Specifies whether to reset the local route to its default target
+     * (<code>local</code>).</p>
+     */
+    inline ReplaceRouteRequest& WithLocalTarget(bool value) { SetLocalTarget(value); return *this;}
+
+
+    /**
      * <p>[IPv4 traffic only] The ID of a NAT gateway.</p>
      */
     inline const Aws::String& GetNatGatewayId() const{ return m_natGatewayId; }
+
+    /**
+     * <p>[IPv4 traffic only] The ID of a NAT gateway.</p>
+     */
+    inline bool NatGatewayIdHasBeenSet() const { return m_natGatewayIdHasBeenSet; }
 
     /**
      * <p>[IPv4 traffic only] The ID of a NAT gateway.</p>
@@ -305,9 +367,96 @@ namespace Model
 
 
     /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline const Aws::String& GetTransitGatewayId() const{ return m_transitGatewayId; }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline bool TransitGatewayIdHasBeenSet() const { return m_transitGatewayIdHasBeenSet; }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline void SetTransitGatewayId(const Aws::String& value) { m_transitGatewayIdHasBeenSet = true; m_transitGatewayId = value; }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline void SetTransitGatewayId(Aws::String&& value) { m_transitGatewayIdHasBeenSet = true; m_transitGatewayId = std::move(value); }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline void SetTransitGatewayId(const char* value) { m_transitGatewayIdHasBeenSet = true; m_transitGatewayId.assign(value); }
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline ReplaceRouteRequest& WithTransitGatewayId(const Aws::String& value) { SetTransitGatewayId(value); return *this;}
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline ReplaceRouteRequest& WithTransitGatewayId(Aws::String&& value) { SetTransitGatewayId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of a transit gateway.</p>
+     */
+    inline ReplaceRouteRequest& WithTransitGatewayId(const char* value) { SetTransitGatewayId(value); return *this;}
+
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline const Aws::String& GetLocalGatewayId() const{ return m_localGatewayId; }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline bool LocalGatewayIdHasBeenSet() const { return m_localGatewayIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline void SetLocalGatewayId(const Aws::String& value) { m_localGatewayIdHasBeenSet = true; m_localGatewayId = value; }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline void SetLocalGatewayId(Aws::String&& value) { m_localGatewayIdHasBeenSet = true; m_localGatewayId = std::move(value); }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline void SetLocalGatewayId(const char* value) { m_localGatewayIdHasBeenSet = true; m_localGatewayId.assign(value); }
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline ReplaceRouteRequest& WithLocalGatewayId(const Aws::String& value) { SetLocalGatewayId(value); return *this;}
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline ReplaceRouteRequest& WithLocalGatewayId(Aws::String&& value) { SetLocalGatewayId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the local gateway.</p>
+     */
+    inline ReplaceRouteRequest& WithLocalGatewayId(const char* value) { SetLocalGatewayId(value); return *this;}
+
+
+    /**
      * <p>The ID of a network interface.</p>
      */
     inline const Aws::String& GetNetworkInterfaceId() const{ return m_networkInterfaceId; }
+
+    /**
+     * <p>The ID of a network interface.</p>
+     */
+    inline bool NetworkInterfaceIdHasBeenSet() const { return m_networkInterfaceIdHasBeenSet; }
 
     /**
      * <p>The ID of a network interface.</p>
@@ -348,6 +497,11 @@ namespace Model
     /**
      * <p>The ID of the route table.</p>
      */
+    inline bool RouteTableIdHasBeenSet() const { return m_routeTableIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the route table.</p>
+     */
     inline void SetRouteTableId(const Aws::String& value) { m_routeTableIdHasBeenSet = true; m_routeTableId = value; }
 
     /**
@@ -380,6 +534,11 @@ namespace Model
      * <p>The ID of a VPC peering connection.</p>
      */
     inline const Aws::String& GetVpcPeeringConnectionId() const{ return m_vpcPeeringConnectionId; }
+
+    /**
+     * <p>The ID of a VPC peering connection.</p>
+     */
+    inline bool VpcPeeringConnectionIdHasBeenSet() const { return m_vpcPeeringConnectionIdHasBeenSet; }
 
     /**
      * <p>The ID of a VPC peering connection.</p>
@@ -431,8 +590,17 @@ namespace Model
     Aws::String m_instanceId;
     bool m_instanceIdHasBeenSet;
 
+    bool m_localTarget;
+    bool m_localTargetHasBeenSet;
+
     Aws::String m_natGatewayId;
     bool m_natGatewayIdHasBeenSet;
+
+    Aws::String m_transitGatewayId;
+    bool m_transitGatewayIdHasBeenSet;
+
+    Aws::String m_localGatewayId;
+    bool m_localGatewayIdHasBeenSet;
 
     Aws::String m_networkInterfaceId;
     bool m_networkInterfaceIdHasBeenSet;

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     TriggerConfig();
-    TriggerConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    TriggerConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TriggerConfig(Aws::Utils::Json::JsonView jsonValue);
+    TriggerConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the notification trigger.</p>
      */
     inline const Aws::String& GetTriggerName() const{ return m_triggerName; }
+
+    /**
+     * <p>The name of the notification trigger.</p>
+     */
+    inline bool TriggerNameHasBeenSet() const { return m_triggerNameHasBeenSet; }
 
     /**
      * <p>The name of the notification trigger.</p>
@@ -95,6 +101,12 @@ namespace Model
      * <p>The ARN of the Amazon Simple Notification Service topic through which
      * notifications about deployment or instance events are sent.</p>
      */
+    inline bool TriggerTargetArnHasBeenSet() const { return m_triggerTargetArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the Amazon Simple Notification Service topic through which
+     * notifications about deployment or instance events are sent.</p>
+     */
     inline void SetTriggerTargetArn(const Aws::String& value) { m_triggerTargetArnHasBeenSet = true; m_triggerTargetArn = value; }
 
     /**
@@ -132,6 +144,11 @@ namespace Model
      * <p>The event type or types for which notifications are triggered.</p>
      */
     inline const Aws::Vector<TriggerEventType>& GetTriggerEvents() const{ return m_triggerEvents; }
+
+    /**
+     * <p>The event type or types for which notifications are triggered.</p>
+     */
+    inline bool TriggerEventsHasBeenSet() const { return m_triggerEventsHasBeenSet; }
 
     /**
      * <p>The event type or types for which notifications are triggered.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     SslConfiguration();
-    SslConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    SslConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SslConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    SslConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The contents of the certificate's domain.crt file.</p>
      */
     inline const Aws::String& GetCertificate() const{ return m_certificate; }
+
+    /**
+     * <p>The contents of the certificate's domain.crt file.</p>
+     */
+    inline bool CertificateHasBeenSet() const { return m_certificateHasBeenSet; }
 
     /**
      * <p>The contents of the certificate's domain.crt file.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The private key; the contents of the certificate's domain.kex file.</p>
      */
+    inline bool PrivateKeyHasBeenSet() const { return m_privateKeyHasBeenSet; }
+
+    /**
+     * <p>The private key; the contents of the certificate's domain.kex file.</p>
+     */
     inline void SetPrivateKey(const Aws::String& value) { m_privateKeyHasBeenSet = true; m_privateKey = value; }
 
     /**
@@ -123,6 +134,12 @@ namespace Model
      * client authentication.</p>
      */
     inline const Aws::String& GetChain() const{ return m_chain; }
+
+    /**
+     * <p>Optional. Can be used to specify an intermediate certificate authority key or
+     * client authentication.</p>
+     */
+    inline bool ChainHasBeenSet() const { return m_chainHasBeenSet; }
 
     /**
      * <p>Optional. Can be used to specify an intermediate certificate authority key or

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     OutputDestinationSettings();
-    OutputDestinationSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    OutputDestinationSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OutputDestinationSettings(Aws::Utils::Json::JsonView jsonValue);
+    OutputDestinationSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * key used to extract the password from EC2 Parameter store
      */
     inline const Aws::String& GetPasswordParam() const{ return m_passwordParam; }
+
+    /**
+     * key used to extract the password from EC2 Parameter store
+     */
+    inline bool PasswordParamHasBeenSet() const { return m_passwordParamHasBeenSet; }
 
     /**
      * key used to extract the password from EC2 Parameter store
@@ -91,6 +97,11 @@ namespace Model
     /**
      * Stream name for RTMP destinations (URLs of type rtmp://)
      */
+    inline bool StreamNameHasBeenSet() const { return m_streamNameHasBeenSet; }
+
+    /**
+     * Stream name for RTMP destinations (URLs of type rtmp://)
+     */
     inline void SetStreamName(const Aws::String& value) { m_streamNameHasBeenSet = true; m_streamName = value; }
 
     /**
@@ -127,6 +138,11 @@ namespace Model
     /**
      * A URL specifying a destination
      */
+    inline bool UrlHasBeenSet() const { return m_urlHasBeenSet; }
+
+    /**
+     * A URL specifying a destination
+     */
     inline void SetUrl(const Aws::String& value) { m_urlHasBeenSet = true; m_url = value; }
 
     /**
@@ -159,6 +175,11 @@ namespace Model
      * username for destination
      */
     inline const Aws::String& GetUsername() const{ return m_username; }
+
+    /**
+     * username for destination
+     */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
 
     /**
      * username for destination

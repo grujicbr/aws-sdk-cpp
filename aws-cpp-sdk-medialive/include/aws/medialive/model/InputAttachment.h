@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -42,15 +43,69 @@ namespace Model
   {
   public:
     InputAttachment();
-    InputAttachment(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputAttachment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputAttachment(Aws::Utils::Json::JsonView jsonValue);
+    InputAttachment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
+
+
+    /**
+     * User-specified name for the attachment. This is required if the user wants to
+     * use this input in an input switch action.
+     */
+    inline const Aws::String& GetInputAttachmentName() const{ return m_inputAttachmentName; }
+
+    /**
+     * User-specified name for the attachment. This is required if the user wants to
+     * use this input in an input switch action.
+     */
+    inline bool InputAttachmentNameHasBeenSet() const { return m_inputAttachmentNameHasBeenSet; }
+
+    /**
+     * User-specified name for the attachment. This is required if the user wants to
+     * use this input in an input switch action.
+     */
+    inline void SetInputAttachmentName(const Aws::String& value) { m_inputAttachmentNameHasBeenSet = true; m_inputAttachmentName = value; }
+
+    /**
+     * User-specified name for the attachment. This is required if the user wants to
+     * use this input in an input switch action.
+     */
+    inline void SetInputAttachmentName(Aws::String&& value) { m_inputAttachmentNameHasBeenSet = true; m_inputAttachmentName = std::move(value); }
+
+    /**
+     * User-specified name for the attachment. This is required if the user wants to
+     * use this input in an input switch action.
+     */
+    inline void SetInputAttachmentName(const char* value) { m_inputAttachmentNameHasBeenSet = true; m_inputAttachmentName.assign(value); }
+
+    /**
+     * User-specified name for the attachment. This is required if the user wants to
+     * use this input in an input switch action.
+     */
+    inline InputAttachment& WithInputAttachmentName(const Aws::String& value) { SetInputAttachmentName(value); return *this;}
+
+    /**
+     * User-specified name for the attachment. This is required if the user wants to
+     * use this input in an input switch action.
+     */
+    inline InputAttachment& WithInputAttachmentName(Aws::String&& value) { SetInputAttachmentName(std::move(value)); return *this;}
+
+    /**
+     * User-specified name for the attachment. This is required if the user wants to
+     * use this input in an input switch action.
+     */
+    inline InputAttachment& WithInputAttachmentName(const char* value) { SetInputAttachmentName(value); return *this;}
 
 
     /**
      * The ID of the input
      */
     inline const Aws::String& GetInputId() const{ return m_inputId; }
+
+    /**
+     * The ID of the input
+     */
+    inline bool InputIdHasBeenSet() const { return m_inputIdHasBeenSet; }
 
     /**
      * The ID of the input
@@ -91,6 +146,11 @@ namespace Model
     /**
      * Settings of an input (caption selector, etc.)
      */
+    inline bool InputSettingsHasBeenSet() const { return m_inputSettingsHasBeenSet; }
+
+    /**
+     * Settings of an input (caption selector, etc.)
+     */
     inline void SetInputSettings(const InputSettings& value) { m_inputSettingsHasBeenSet = true; m_inputSettings = value; }
 
     /**
@@ -109,6 +169,9 @@ namespace Model
     inline InputAttachment& WithInputSettings(InputSettings&& value) { SetInputSettings(std::move(value)); return *this;}
 
   private:
+
+    Aws::String m_inputAttachmentName;
+    bool m_inputAttachmentNameHasBeenSet;
 
     Aws::String m_inputId;
     bool m_inputIdHasBeenSet;

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EncryptionConfiguration();
-    EncryptionConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    EncryptionConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EncryptionConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    EncryptionConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * encryption is used.</p>
      */
     inline const NoEncryptionConfig& GetNoEncryptionConfig() const{ return m_noEncryptionConfig; }
+
+    /**
+     * <p>Specifically override existing encryption information to ensure that no
+     * encryption is used.</p>
+     */
+    inline bool NoEncryptionConfigHasBeenSet() const { return m_noEncryptionConfigHasBeenSet; }
 
     /**
      * <p>Specifically override existing encryption information to ensure that no
@@ -83,6 +90,11 @@ namespace Model
      * <p>The encryption key.</p>
      */
     inline const KMSEncryptionConfig& GetKMSEncryptionConfig() const{ return m_kMSEncryptionConfig; }
+
+    /**
+     * <p>The encryption key.</p>
+     */
+    inline bool KMSEncryptionConfigHasBeenSet() const { return m_kMSEncryptionConfigHasBeenSet; }
 
     /**
      * <p>The encryption key.</p>

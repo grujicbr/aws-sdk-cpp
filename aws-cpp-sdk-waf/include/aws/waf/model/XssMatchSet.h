@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -49,8 +50,8 @@ namespace Model
   {
   public:
     XssMatchSet();
-    XssMatchSet(const Aws::Utils::Json::JsonValue& jsonValue);
-    XssMatchSet& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    XssMatchSet(Aws::Utils::Json::JsonView jsonValue);
+    XssMatchSet& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -65,6 +66,18 @@ namespace Model
      * <a>CreateXssMatchSet</a> and by <a>ListXssMatchSets</a>.</p>
      */
     inline const Aws::String& GetXssMatchSetId() const{ return m_xssMatchSetId; }
+
+    /**
+     * <p>A unique identifier for an <code>XssMatchSet</code>. You use
+     * <code>XssMatchSetId</code> to get information about an <code>XssMatchSet</code>
+     * (see <a>GetXssMatchSet</a>), update an <code>XssMatchSet</code> (see
+     * <a>UpdateXssMatchSet</a>), insert an <code>XssMatchSet</code> into a
+     * <code>Rule</code> or delete one from a <code>Rule</code> (see
+     * <a>UpdateRule</a>), and delete an <code>XssMatchSet</code> from AWS WAF (see
+     * <a>DeleteXssMatchSet</a>).</p> <p> <code>XssMatchSetId</code> is returned by
+     * <a>CreateXssMatchSet</a> and by <a>ListXssMatchSets</a>.</p>
+     */
+    inline bool XssMatchSetIdHasBeenSet() const { return m_xssMatchSetIdHasBeenSet; }
 
     /**
      * <p>A unique identifier for an <code>XssMatchSet</code>. You use
@@ -147,6 +160,11 @@ namespace Model
     /**
      * <p>The name, if any, of the <code>XssMatchSet</code>.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name, if any, of the <code>XssMatchSet</code>.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -180,6 +198,12 @@ namespace Model
      * scripting attacks.</p>
      */
     inline const Aws::Vector<XssMatchTuple>& GetXssMatchTuples() const{ return m_xssMatchTuples; }
+
+    /**
+     * <p>Specifies the parts of web requests that you want to inspect for cross-site
+     * scripting attacks.</p>
+     */
+    inline bool XssMatchTuplesHasBeenSet() const { return m_xssMatchTuplesHasBeenSet; }
 
     /**
      * <p>Specifies the parts of web requests that you want to inspect for cross-site

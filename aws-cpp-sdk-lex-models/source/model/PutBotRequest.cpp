@@ -38,6 +38,8 @@ PutBotRequest::PutBotRequest() :
     m_localeHasBeenSet(false),
     m_childDirected(false),
     m_childDirectedHasBeenSet(false),
+    m_detectSentiment(false),
+    m_detectSentimentHasBeenSet(false),
     m_createVersion(false),
     m_createVersionHasBeenSet(false)
 {
@@ -110,13 +112,19 @@ Aws::String PutBotRequest::SerializePayload() const
 
   }
 
+  if(m_detectSentimentHasBeenSet)
+  {
+   payload.WithBool("detectSentiment", m_detectSentiment);
+
+  }
+
   if(m_createVersionHasBeenSet)
   {
    payload.WithBool("createVersion", m_createVersion);
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

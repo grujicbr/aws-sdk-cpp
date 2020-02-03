@@ -60,6 +60,12 @@ namespace Model
      * <p>The string that identifies the federated user associated with the
      * credentials, similar to the unique ID of an IAM user.</p>
      */
+    inline bool FederatedUserIdHasBeenSet() const { return m_federatedUserIdHasBeenSet; }
+
+    /**
+     * <p>The string that identifies the federated user associated with the
+     * credentials, similar to the unique ID of an IAM user.</p>
+     */
     inline void SetFederatedUserId(const Aws::String& value) { m_federatedUserIdHasBeenSet = true; m_federatedUserId = value; }
 
     /**
@@ -97,8 +103,8 @@ namespace Model
      * <p>The ARN that specifies the federated user that is associated with the
      * credentials. For more information about ARNs and how to use them in policies,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
-     * Identifiers</a> in <i>Using IAM</i>. </p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>. </p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
 
@@ -106,8 +112,17 @@ namespace Model
      * <p>The ARN that specifies the federated user that is associated with the
      * credentials. For more information about ARNs and how to use them in policies,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
-     * Identifiers</a> in <i>Using IAM</i>. </p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>. </p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The ARN that specifies the federated user that is associated with the
+     * credentials. For more information about ARNs and how to use them in policies,
+     * see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>. </p>
      */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
@@ -115,8 +130,8 @@ namespace Model
      * <p>The ARN that specifies the federated user that is associated with the
      * credentials. For more information about ARNs and how to use them in policies,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
-     * Identifiers</a> in <i>Using IAM</i>. </p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>. </p>
      */
     inline void SetArn(Aws::String&& value) { m_arnHasBeenSet = true; m_arn = std::move(value); }
 
@@ -124,8 +139,8 @@ namespace Model
      * <p>The ARN that specifies the federated user that is associated with the
      * credentials. For more information about ARNs and how to use them in policies,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
-     * Identifiers</a> in <i>Using IAM</i>. </p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>. </p>
      */
     inline void SetArn(const char* value) { m_arnHasBeenSet = true; m_arn.assign(value); }
 
@@ -133,8 +148,8 @@ namespace Model
      * <p>The ARN that specifies the federated user that is associated with the
      * credentials. For more information about ARNs and how to use them in policies,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
-     * Identifiers</a> in <i>Using IAM</i>. </p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>. </p>
      */
     inline FederatedUser& WithArn(const Aws::String& value) { SetArn(value); return *this;}
 
@@ -142,8 +157,8 @@ namespace Model
      * <p>The ARN that specifies the federated user that is associated with the
      * credentials. For more information about ARNs and how to use them in policies,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
-     * Identifiers</a> in <i>Using IAM</i>. </p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>. </p>
      */
     inline FederatedUser& WithArn(Aws::String&& value) { SetArn(std::move(value)); return *this;}
 
@@ -151,8 +166,8 @@ namespace Model
      * <p>The ARN that specifies the federated user that is associated with the
      * credentials. For more information about ARNs and how to use them in policies,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
-     * Identifiers</a> in <i>Using IAM</i>. </p>
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM
+     * Identifiers</a> in the <i>IAM User Guide</i>. </p>
      */
     inline FederatedUser& WithArn(const char* value) { SetArn(value); return *this;}
 

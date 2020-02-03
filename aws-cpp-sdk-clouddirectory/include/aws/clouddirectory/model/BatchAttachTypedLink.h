@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     BatchAttachTypedLink();
-    BatchAttachTypedLink(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchAttachTypedLink& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchAttachTypedLink(Aws::Utils::Json::JsonView jsonValue);
+    BatchAttachTypedLink& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Identifies the source object that the typed link will attach to.</p>
      */
     inline const ObjectReference& GetSourceObjectReference() const{ return m_sourceObjectReference; }
+
+    /**
+     * <p>Identifies the source object that the typed link will attach to.</p>
+     */
+    inline bool SourceObjectReferenceHasBeenSet() const { return m_sourceObjectReferenceHasBeenSet; }
 
     /**
      * <p>Identifies the source object that the typed link will attach to.</p>
@@ -85,6 +91,11 @@ namespace Model
     /**
      * <p>Identifies the target object that the typed link will attach to.</p>
      */
+    inline bool TargetObjectReferenceHasBeenSet() const { return m_targetObjectReferenceHasBeenSet; }
+
+    /**
+     * <p>Identifies the target object that the typed link will attach to.</p>
+     */
     inline void SetTargetObjectReference(const ObjectReference& value) { m_targetObjectReferenceHasBeenSet = true; m_targetObjectReference = value; }
 
     /**
@@ -111,6 +122,11 @@ namespace Model
     /**
      * <p>Identifies the typed link facet that is associated with the typed link.</p>
      */
+    inline bool TypedLinkFacetHasBeenSet() const { return m_typedLinkFacetHasBeenSet; }
+
+    /**
+     * <p>Identifies the typed link facet that is associated with the typed link.</p>
+     */
     inline void SetTypedLinkFacet(const TypedLinkSchemaAndFacetName& value) { m_typedLinkFacetHasBeenSet = true; m_typedLinkFacet = value; }
 
     /**
@@ -133,6 +149,11 @@ namespace Model
      * <p>A set of attributes that are associated with the typed link.</p>
      */
     inline const Aws::Vector<AttributeNameAndValue>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>A set of attributes that are associated with the typed link.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>A set of attributes that are associated with the typed link.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Project();
-    Project(const Aws::Utils::Json::JsonValue& jsonValue);
-    Project& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Project(Aws::Utils::Json::JsonView jsonValue);
+    Project& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The project's ARN.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The project's ARN.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The project's ARN.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The project's name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The project's name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -121,20 +132,26 @@ namespace Model
 
 
     /**
-     * <p>The default number of minutes (at the project level) a test run will execute
-     * before it times out. Default value is 60 minutes.</p>
+     * <p>The default number of minutes (at the project level) a test run executes
+     * before it times out. The default value is 150 minutes.</p>
      */
     inline int GetDefaultJobTimeoutMinutes() const{ return m_defaultJobTimeoutMinutes; }
 
     /**
-     * <p>The default number of minutes (at the project level) a test run will execute
-     * before it times out. Default value is 60 minutes.</p>
+     * <p>The default number of minutes (at the project level) a test run executes
+     * before it times out. The default value is 150 minutes.</p>
+     */
+    inline bool DefaultJobTimeoutMinutesHasBeenSet() const { return m_defaultJobTimeoutMinutesHasBeenSet; }
+
+    /**
+     * <p>The default number of minutes (at the project level) a test run executes
+     * before it times out. The default value is 150 minutes.</p>
      */
     inline void SetDefaultJobTimeoutMinutes(int value) { m_defaultJobTimeoutMinutesHasBeenSet = true; m_defaultJobTimeoutMinutes = value; }
 
     /**
-     * <p>The default number of minutes (at the project level) a test run will execute
-     * before it times out. Default value is 60 minutes.</p>
+     * <p>The default number of minutes (at the project level) a test run executes
+     * before it times out. The default value is 150 minutes.</p>
      */
     inline Project& WithDefaultJobTimeoutMinutes(int value) { SetDefaultJobTimeoutMinutes(value); return *this;}
 
@@ -143,6 +160,11 @@ namespace Model
      * <p>When the project was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreated() const{ return m_created; }
+
+    /**
+     * <p>When the project was created.</p>
+     */
+    inline bool CreatedHasBeenSet() const { return m_createdHasBeenSet; }
 
     /**
      * <p>When the project was created.</p>

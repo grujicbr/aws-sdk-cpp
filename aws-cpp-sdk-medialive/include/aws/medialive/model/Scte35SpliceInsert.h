@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for Scte35SpliceInsert<p><h3>See Also:</h3>   <a
+   * Scte35 Splice Insert<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte35SpliceInsert">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Scte35SpliceInsert();
-    Scte35SpliceInsert(const Aws::Utils::Json::JsonValue& jsonValue);
-    Scte35SpliceInsert& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Scte35SpliceInsert(Aws::Utils::Json::JsonView jsonValue);
+    Scte35SpliceInsert& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * OOB messages.
      */
     inline int GetAdAvailOffset() const{ return m_adAvailOffset; }
+
+    /**
+     * When specified, this offset (in milliseconds) is added to the input Ad Avail PTS
+     * time. This only applies to embedded SCTE 104/35 messages and does not apply to
+     * OOB messages.
+     */
+    inline bool AdAvailOffsetHasBeenSet() const { return m_adAvailOffsetHasBeenSet; }
 
     /**
      * When specified, this offset (in milliseconds) is added to the input Ad Avail PTS
@@ -74,6 +82,12 @@ namespace Model
      * will no longer trigger blackouts or Ad Avail slates
      */
     inline const Scte35SpliceInsertNoRegionalBlackoutBehavior& GetNoRegionalBlackoutFlag() const{ return m_noRegionalBlackoutFlag; }
+
+    /**
+     * When set to ignore, Segment Descriptors with noRegionalBlackoutFlag set to 0
+     * will no longer trigger blackouts or Ad Avail slates
+     */
+    inline bool NoRegionalBlackoutFlagHasBeenSet() const { return m_noRegionalBlackoutFlagHasBeenSet; }
 
     /**
      * When set to ignore, Segment Descriptors with noRegionalBlackoutFlag set to 0
@@ -105,6 +119,12 @@ namespace Model
      * will no longer trigger blackouts or Ad Avail slates
      */
     inline const Scte35SpliceInsertWebDeliveryAllowedBehavior& GetWebDeliveryAllowedFlag() const{ return m_webDeliveryAllowedFlag; }
+
+    /**
+     * When set to ignore, Segment Descriptors with webDeliveryAllowedFlag set to 0
+     * will no longer trigger blackouts or Ad Avail slates
+     */
+    inline bool WebDeliveryAllowedFlagHasBeenSet() const { return m_webDeliveryAllowedFlagHasBeenSet; }
 
     /**
      * When set to ignore, Segment Descriptors with webDeliveryAllowedFlag set to 0

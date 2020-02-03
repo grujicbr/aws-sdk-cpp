@@ -56,7 +56,7 @@ ListGroupPoliciesResult& ListGroupPoliciesResult::operator =(const Aws::AmazonWe
       XmlNode policyNamesMember = policyNamesNode.FirstChild("member");
       while(!policyNamesMember.IsNull())
       {
-        m_policyNames.push_back(StringUtils::Trim(policyNamesMember.GetText().c_str()));
+        m_policyNames.push_back(policyNamesMember.GetText());
         policyNamesMember = policyNamesMember.NextNode("member");
       }
 
@@ -64,12 +64,12 @@ ListGroupPoliciesResult& ListGroupPoliciesResult::operator =(const Aws::AmazonWe
     XmlNode isTruncatedNode = resultNode.FirstChild("IsTruncated");
     if(!isTruncatedNode.IsNull())
     {
-      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(isTruncatedNode.GetText().c_str()).c_str());
+      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isTruncatedNode.GetText()).c_str()).c_str());
     }
     XmlNode markerNode = resultNode.FirstChild("Marker");
     if(!markerNode.IsNull())
     {
-      m_marker = StringUtils::Trim(markerNode.GetText().c_str());
+      m_marker = Aws::Utils::Xml::DecodeEscapedXmlText(markerNode.GetText());
     }
   }
 

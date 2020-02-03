@@ -25,6 +25,7 @@ using namespace Aws::Utils;
 
 CreateFunctionDefinitionVersionRequest::CreateFunctionDefinitionVersionRequest() : 
     m_amznClientTokenHasBeenSet(false),
+    m_defaultConfigHasBeenSet(false),
     m_functionDefinitionIdHasBeenSet(false),
     m_functionsHasBeenSet(false)
 {
@@ -33,6 +34,12 @@ CreateFunctionDefinitionVersionRequest::CreateFunctionDefinitionVersionRequest()
 Aws::String CreateFunctionDefinitionVersionRequest::SerializePayload() const
 {
   JsonValue payload;
+
+  if(m_defaultConfigHasBeenSet)
+  {
+   payload.WithObject("DefaultConfig", m_defaultConfig.Jsonize());
+
+  }
 
   if(m_functionsHasBeenSet)
   {
@@ -45,7 +52,7 @@ Aws::String CreateFunctionDefinitionVersionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateFunctionDefinitionVersionRequest::GetRequestSpecificHeaders() const
@@ -55,7 +62,7 @@ Aws::Http::HeaderValueCollection CreateFunctionDefinitionVersionRequest::GetRequ
   if(m_amznClientTokenHasBeenSet)
   {
     ss << m_amznClientToken;
-    headers.insert(Aws::Http::HeaderValuePair("x-amzn-client-token", ss.str()));
+    headers.emplace("x-amzn-client-token",  ss.str());
     ss.str("");
   }
 

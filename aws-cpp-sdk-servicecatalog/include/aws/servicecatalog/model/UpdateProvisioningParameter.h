@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UpdateProvisioningParameter();
-    UpdateProvisioningParameter(const Aws::Utils::Json::JsonValue& jsonValue);
-    UpdateProvisioningParameter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UpdateProvisioningParameter(Aws::Utils::Json::JsonView jsonValue);
+    UpdateProvisioningParameter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The parameter key.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The parameter key.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The parameter key.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The parameter value.</p>
      */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>The parameter value.</p>
+     */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
@@ -124,6 +135,12 @@ namespace Model
      * value is kept.</p>
      */
     inline bool GetUsePreviousValue() const{ return m_usePreviousValue; }
+
+    /**
+     * <p>If set to true, <code>Value</code> is ignored and the previous parameter
+     * value is kept.</p>
+     */
+    inline bool UsePreviousValueHasBeenSet() const { return m_usePreviousValueHasBeenSet; }
 
     /**
      * <p>If set to true, <code>Value</code> is ignored and the previous parameter

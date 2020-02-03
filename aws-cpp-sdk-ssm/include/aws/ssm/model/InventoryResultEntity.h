@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     InventoryResultEntity();
-    InventoryResultEntity(const Aws::Utils::Json::JsonValue& jsonValue);
-    InventoryResultEntity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InventoryResultEntity(Aws::Utils::Json::JsonView jsonValue);
+    InventoryResultEntity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * inventory, the result will be the instance ID. </p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>ID of the inventory result entity. For example, for managed instance
+     * inventory the result will be the managed instance ID. For EC2 instance
+     * inventory, the result will be the instance ID. </p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>ID of the inventory result entity. For example, for managed instance
@@ -102,6 +110,11 @@ namespace Model
      * <p>The data section in the inventory result entity JSON.</p>
      */
     inline const Aws::Map<Aws::String, InventoryResultItem>& GetData() const{ return m_data; }
+
+    /**
+     * <p>The data section in the inventory result entity JSON.</p>
+     */
+    inline bool DataHasBeenSet() const { return m_dataHasBeenSet; }
 
     /**
      * <p>The data section in the inventory result entity JSON.</p>

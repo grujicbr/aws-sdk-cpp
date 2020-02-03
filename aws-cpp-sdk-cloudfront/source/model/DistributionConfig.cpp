@@ -35,6 +35,7 @@ DistributionConfig::DistributionConfig() :
     m_aliasesHasBeenSet(false),
     m_defaultRootObjectHasBeenSet(false),
     m_originsHasBeenSet(false),
+    m_originGroupsHasBeenSet(false),
     m_defaultCacheBehaviorHasBeenSet(false),
     m_cacheBehaviorsHasBeenSet(false),
     m_customErrorResponsesHasBeenSet(false),
@@ -59,6 +60,7 @@ DistributionConfig::DistributionConfig(const XmlNode& xmlNode) :
     m_aliasesHasBeenSet(false),
     m_defaultRootObjectHasBeenSet(false),
     m_originsHasBeenSet(false),
+    m_originGroupsHasBeenSet(false),
     m_defaultCacheBehaviorHasBeenSet(false),
     m_cacheBehaviorsHasBeenSet(false),
     m_customErrorResponsesHasBeenSet(false),
@@ -88,7 +90,7 @@ DistributionConfig& DistributionConfig::operator =(const XmlNode& xmlNode)
     XmlNode callerReferenceNode = resultNode.FirstChild("CallerReference");
     if(!callerReferenceNode.IsNull())
     {
-      m_callerReference = StringUtils::Trim(callerReferenceNode.GetText().c_str());
+      m_callerReference = Aws::Utils::Xml::DecodeEscapedXmlText(callerReferenceNode.GetText());
       m_callerReferenceHasBeenSet = true;
     }
     XmlNode aliasesNode = resultNode.FirstChild("Aliases");
@@ -100,7 +102,7 @@ DistributionConfig& DistributionConfig::operator =(const XmlNode& xmlNode)
     XmlNode defaultRootObjectNode = resultNode.FirstChild("DefaultRootObject");
     if(!defaultRootObjectNode.IsNull())
     {
-      m_defaultRootObject = StringUtils::Trim(defaultRootObjectNode.GetText().c_str());
+      m_defaultRootObject = Aws::Utils::Xml::DecodeEscapedXmlText(defaultRootObjectNode.GetText());
       m_defaultRootObjectHasBeenSet = true;
     }
     XmlNode originsNode = resultNode.FirstChild("Origins");
@@ -108,6 +110,12 @@ DistributionConfig& DistributionConfig::operator =(const XmlNode& xmlNode)
     {
       m_origins = originsNode;
       m_originsHasBeenSet = true;
+    }
+    XmlNode originGroupsNode = resultNode.FirstChild("OriginGroups");
+    if(!originGroupsNode.IsNull())
+    {
+      m_originGroups = originGroupsNode;
+      m_originGroupsHasBeenSet = true;
     }
     XmlNode defaultCacheBehaviorNode = resultNode.FirstChild("DefaultCacheBehavior");
     if(!defaultCacheBehaviorNode.IsNull())
@@ -130,7 +138,7 @@ DistributionConfig& DistributionConfig::operator =(const XmlNode& xmlNode)
     XmlNode commentNode = resultNode.FirstChild("Comment");
     if(!commentNode.IsNull())
     {
-      m_comment = StringUtils::Trim(commentNode.GetText().c_str());
+      m_comment = Aws::Utils::Xml::DecodeEscapedXmlText(commentNode.GetText());
       m_commentHasBeenSet = true;
     }
     XmlNode loggingNode = resultNode.FirstChild("Logging");
@@ -142,13 +150,13 @@ DistributionConfig& DistributionConfig::operator =(const XmlNode& xmlNode)
     XmlNode priceClassNode = resultNode.FirstChild("PriceClass");
     if(!priceClassNode.IsNull())
     {
-      m_priceClass = PriceClassMapper::GetPriceClassForName(StringUtils::Trim(priceClassNode.GetText().c_str()).c_str());
+      m_priceClass = PriceClassMapper::GetPriceClassForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(priceClassNode.GetText()).c_str()).c_str());
       m_priceClassHasBeenSet = true;
     }
     XmlNode enabledNode = resultNode.FirstChild("Enabled");
     if(!enabledNode.IsNull())
     {
-      m_enabled = StringUtils::ConvertToBool(StringUtils::Trim(enabledNode.GetText().c_str()).c_str());
+      m_enabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(enabledNode.GetText()).c_str()).c_str());
       m_enabledHasBeenSet = true;
     }
     XmlNode viewerCertificateNode = resultNode.FirstChild("ViewerCertificate");
@@ -166,19 +174,19 @@ DistributionConfig& DistributionConfig::operator =(const XmlNode& xmlNode)
     XmlNode webACLIdNode = resultNode.FirstChild("WebACLId");
     if(!webACLIdNode.IsNull())
     {
-      m_webACLId = StringUtils::Trim(webACLIdNode.GetText().c_str());
+      m_webACLId = Aws::Utils::Xml::DecodeEscapedXmlText(webACLIdNode.GetText());
       m_webACLIdHasBeenSet = true;
     }
     XmlNode httpVersionNode = resultNode.FirstChild("HttpVersion");
     if(!httpVersionNode.IsNull())
     {
-      m_httpVersion = HttpVersionMapper::GetHttpVersionForName(StringUtils::Trim(httpVersionNode.GetText().c_str()).c_str());
+      m_httpVersion = HttpVersionMapper::GetHttpVersionForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(httpVersionNode.GetText()).c_str()).c_str());
       m_httpVersionHasBeenSet = true;
     }
     XmlNode isIPV6EnabledNode = resultNode.FirstChild("IsIPV6Enabled");
     if(!isIPV6EnabledNode.IsNull())
     {
-      m_isIPV6Enabled = StringUtils::ConvertToBool(StringUtils::Trim(isIPV6EnabledNode.GetText().c_str()).c_str());
+      m_isIPV6Enabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isIPV6EnabledNode.GetText()).c_str()).c_str());
       m_isIPV6EnabledHasBeenSet = true;
     }
   }
@@ -211,6 +219,12 @@ void DistributionConfig::AddToNode(XmlNode& parentNode) const
   {
    XmlNode originsNode = parentNode.CreateChildElement("Origins");
    m_origins.AddToNode(originsNode);
+  }
+
+  if(m_originGroupsHasBeenSet)
+  {
+   XmlNode originGroupsNode = parentNode.CreateChildElement("OriginGroups");
+   m_originGroups.AddToNode(originGroupsNode);
   }
 
   if(m_defaultCacheBehaviorHasBeenSet)

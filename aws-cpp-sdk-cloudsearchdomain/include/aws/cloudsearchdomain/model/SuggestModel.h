@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudSearchDomain
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     SuggestModel();
-    SuggestModel(const Aws::Utils::Json::JsonValue& jsonValue);
-    SuggestModel& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SuggestModel(Aws::Utils::Json::JsonView jsonValue);
+    SuggestModel& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The query string specified in the suggest request.</p>
      */
     inline const Aws::String& GetQuery() const{ return m_query; }
+
+    /**
+     * <p>The query string specified in the suggest request.</p>
+     */
+    inline bool QueryHasBeenSet() const { return m_queryHasBeenSet; }
 
     /**
      * <p>The query string specified in the suggest request.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The number of documents that were found to match the query string.</p>
      */
+    inline bool FoundHasBeenSet() const { return m_foundHasBeenSet; }
+
+    /**
+     * <p>The number of documents that were found to match the query string.</p>
+     */
     inline void SetFound(long long value) { m_foundHasBeenSet = true; m_found = value; }
 
     /**
@@ -105,6 +116,11 @@ namespace Model
      * <p>The documents that match the query string.</p>
      */
     inline const Aws::Vector<SuggestionMatch>& GetSuggestions() const{ return m_suggestions; }
+
+    /**
+     * <p>The documents that match the query string.</p>
+     */
+    inline bool SuggestionsHasBeenSet() const { return m_suggestionsHasBeenSet; }
 
     /**
      * <p>The documents that match the query string.</p>

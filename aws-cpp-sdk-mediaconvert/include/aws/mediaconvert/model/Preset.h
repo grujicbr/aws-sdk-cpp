@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     Preset();
-    Preset(const Aws::Utils::Json::JsonValue& jsonValue);
-    Preset& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Preset(Aws::Utils::Json::JsonView jsonValue);
+    Preset& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * An identifier for this resource that is unique within all of AWS.
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * An identifier for this resource that is unique within all of AWS.
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * An identifier for this resource that is unique within all of AWS.
@@ -95,6 +101,11 @@ namespace Model
     /**
      * An optional category you create to organize your presets.
      */
+    inline bool CategoryHasBeenSet() const { return m_categoryHasBeenSet; }
+
+    /**
+     * An optional category you create to organize your presets.
+     */
     inline void SetCategory(const Aws::String& value) { m_categoryHasBeenSet = true; m_category = value; }
 
     /**
@@ -131,6 +142,11 @@ namespace Model
     /**
      * The timestamp in epoch seconds for preset creation.
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * The timestamp in epoch seconds for preset creation.
+     */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -153,6 +169,11 @@ namespace Model
      * An optional description you create for each preset.
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * An optional description you create for each preset.
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * An optional description you create for each preset.
@@ -193,6 +214,11 @@ namespace Model
     /**
      * The timestamp in epoch seconds when the preset was last updated.
      */
+    inline bool LastUpdatedHasBeenSet() const { return m_lastUpdatedHasBeenSet; }
+
+    /**
+     * The timestamp in epoch seconds when the preset was last updated.
+     */
     inline void SetLastUpdated(const Aws::Utils::DateTime& value) { m_lastUpdatedHasBeenSet = true; m_lastUpdated = value; }
 
     /**
@@ -215,6 +241,11 @@ namespace Model
      * A name you create for each preset. Each name must be unique within your account.
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * A name you create for each preset. Each name must be unique within your account.
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * A name you create for each preset. Each name must be unique within your account.
@@ -247,19 +278,34 @@ namespace Model
     inline Preset& WithName(const char* value) { SetName(value); return *this;}
 
 
-    
+    /**
+     * Settings for preset
+     */
     inline const PresetSettings& GetSettings() const{ return m_settings; }
 
-    
+    /**
+     * Settings for preset
+     */
+    inline bool SettingsHasBeenSet() const { return m_settingsHasBeenSet; }
+
+    /**
+     * Settings for preset
+     */
     inline void SetSettings(const PresetSettings& value) { m_settingsHasBeenSet = true; m_settings = value; }
 
-    
+    /**
+     * Settings for preset
+     */
     inline void SetSettings(PresetSettings&& value) { m_settingsHasBeenSet = true; m_settings = std::move(value); }
 
-    
+    /**
+     * Settings for preset
+     */
     inline Preset& WithSettings(const PresetSettings& value) { SetSettings(value); return *this;}
 
-    
+    /**
+     * Settings for preset
+     */
     inline Preset& WithSettings(PresetSettings&& value) { SetSettings(std::move(value)); return *this;}
 
 
@@ -268,6 +314,12 @@ namespace Model
      * be modified or deleted by the user.
      */
     inline const Type& GetType() const{ return m_type; }
+
+    /**
+     * A preset can be of two types: system or custom. System or built-in preset can't
+     * be modified or deleted by the user.
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * A preset can be of two types: system or custom. System or built-in preset can't

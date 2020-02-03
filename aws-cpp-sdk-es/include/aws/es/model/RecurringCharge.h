@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     RecurringCharge();
-    RecurringCharge(const Aws::Utils::Json::JsonValue& jsonValue);
-    RecurringCharge& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RecurringCharge(Aws::Utils::Json::JsonView jsonValue);
+    RecurringCharge& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The monetary amount of the recurring charge.</p>
      */
     inline double GetRecurringChargeAmount() const{ return m_recurringChargeAmount; }
+
+    /**
+     * <p>The monetary amount of the recurring charge.</p>
+     */
+    inline bool RecurringChargeAmountHasBeenSet() const { return m_recurringChargeAmountHasBeenSet; }
 
     /**
      * <p>The monetary amount of the recurring charge.</p>
@@ -68,6 +74,11 @@ namespace Model
      * <p>The frequency of the recurring charge.</p>
      */
     inline const Aws::String& GetRecurringChargeFrequency() const{ return m_recurringChargeFrequency; }
+
+    /**
+     * <p>The frequency of the recurring charge.</p>
+     */
+    inline bool RecurringChargeFrequencyHasBeenSet() const { return m_recurringChargeFrequencyHasBeenSet; }
 
     /**
      * <p>The frequency of the recurring charge.</p>

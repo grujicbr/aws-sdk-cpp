@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     GatewayInfo();
-    GatewayInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    GatewayInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GatewayInfo(Aws::Utils::Json::JsonView jsonValue);
+    GatewayInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,13 @@ namespace Model
      * for other operations.</p>
      */
     inline const Aws::String& GetGatewayId() const{ return m_gatewayId; }
+
+    /**
+     * <p>The unique identifier assigned to your gateway during activation. This ID
+     * becomes part of the gateway Amazon Resource Name (ARN), which you use as input
+     * for other operations.</p>
+     */
+    inline bool GatewayIdHasBeenSet() const { return m_gatewayIdHasBeenSet; }
 
     /**
      * <p>The unique identifier assigned to your gateway during activation. This ID
@@ -98,43 +106,49 @@ namespace Model
 
     /**
      * <p>The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a>
-     * operation to return a list of gateways for your account and region.</p>
+     * operation to return a list of gateways for your account and AWS Region.</p>
      */
     inline const Aws::String& GetGatewayARN() const{ return m_gatewayARN; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a>
-     * operation to return a list of gateways for your account and region.</p>
+     * operation to return a list of gateways for your account and AWS Region.</p>
+     */
+    inline bool GatewayARNHasBeenSet() const { return m_gatewayARNHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a>
+     * operation to return a list of gateways for your account and AWS Region.</p>
      */
     inline void SetGatewayARN(const Aws::String& value) { m_gatewayARNHasBeenSet = true; m_gatewayARN = value; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a>
-     * operation to return a list of gateways for your account and region.</p>
+     * operation to return a list of gateways for your account and AWS Region.</p>
      */
     inline void SetGatewayARN(Aws::String&& value) { m_gatewayARNHasBeenSet = true; m_gatewayARN = std::move(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a>
-     * operation to return a list of gateways for your account and region.</p>
+     * operation to return a list of gateways for your account and AWS Region.</p>
      */
     inline void SetGatewayARN(const char* value) { m_gatewayARNHasBeenSet = true; m_gatewayARN.assign(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a>
-     * operation to return a list of gateways for your account and region.</p>
+     * operation to return a list of gateways for your account and AWS Region.</p>
      */
     inline GatewayInfo& WithGatewayARN(const Aws::String& value) { SetGatewayARN(value); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a>
-     * operation to return a list of gateways for your account and region.</p>
+     * operation to return a list of gateways for your account and AWS Region.</p>
      */
     inline GatewayInfo& WithGatewayARN(Aws::String&& value) { SetGatewayARN(std::move(value)); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a>
-     * operation to return a list of gateways for your account and region.</p>
+     * operation to return a list of gateways for your account and AWS Region.</p>
      */
     inline GatewayInfo& WithGatewayARN(const char* value) { SetGatewayARN(value); return *this;}
 
@@ -143,6 +157,11 @@ namespace Model
      * <p>The type of the gateway.</p>
      */
     inline const Aws::String& GetGatewayType() const{ return m_gatewayType; }
+
+    /**
+     * <p>The type of the gateway.</p>
+     */
+    inline bool GatewayTypeHasBeenSet() const { return m_gatewayTypeHasBeenSet; }
 
     /**
      * <p>The type of the gateway.</p>
@@ -183,6 +202,11 @@ namespace Model
     /**
      * <p>The state of the gateway.</p> <p>Valid Values: DISABLED or ACTIVE</p>
      */
+    inline bool GatewayOperationalStateHasBeenSet() const { return m_gatewayOperationalStateHasBeenSet; }
+
+    /**
+     * <p>The state of the gateway.</p> <p>Valid Values: DISABLED or ACTIVE</p>
+     */
     inline void SetGatewayOperationalState(const Aws::String& value) { m_gatewayOperationalStateHasBeenSet = true; m_gatewayOperationalState = value; }
 
     /**
@@ -219,6 +243,11 @@ namespace Model
     /**
      * <p>The name of the gateway.</p>
      */
+    inline bool GatewayNameHasBeenSet() const { return m_gatewayNameHasBeenSet; }
+
+    /**
+     * <p>The name of the gateway.</p>
+     */
     inline void SetGatewayName(const Aws::String& value) { m_gatewayNameHasBeenSet = true; m_gatewayName = value; }
 
     /**
@@ -246,6 +275,88 @@ namespace Model
      */
     inline GatewayInfo& WithGatewayName(const char* value) { SetGatewayName(value); return *this;}
 
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline const Aws::String& GetEc2InstanceId() const{ return m_ec2InstanceId; }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline bool Ec2InstanceIdHasBeenSet() const { return m_ec2InstanceIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline void SetEc2InstanceId(const Aws::String& value) { m_ec2InstanceIdHasBeenSet = true; m_ec2InstanceId = value; }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline void SetEc2InstanceId(Aws::String&& value) { m_ec2InstanceIdHasBeenSet = true; m_ec2InstanceId = std::move(value); }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline void SetEc2InstanceId(const char* value) { m_ec2InstanceIdHasBeenSet = true; m_ec2InstanceId.assign(value); }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline GatewayInfo& WithEc2InstanceId(const Aws::String& value) { SetEc2InstanceId(value); return *this;}
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline GatewayInfo& WithEc2InstanceId(Aws::String&& value) { SetEc2InstanceId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline GatewayInfo& WithEc2InstanceId(const char* value) { SetEc2InstanceId(value); return *this;}
+
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline const Aws::String& GetEc2InstanceRegion() const{ return m_ec2InstanceRegion; }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline bool Ec2InstanceRegionHasBeenSet() const { return m_ec2InstanceRegionHasBeenSet; }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline void SetEc2InstanceRegion(const Aws::String& value) { m_ec2InstanceRegionHasBeenSet = true; m_ec2InstanceRegion = value; }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline void SetEc2InstanceRegion(Aws::String&& value) { m_ec2InstanceRegionHasBeenSet = true; m_ec2InstanceRegion = std::move(value); }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline void SetEc2InstanceRegion(const char* value) { m_ec2InstanceRegionHasBeenSet = true; m_ec2InstanceRegion.assign(value); }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline GatewayInfo& WithEc2InstanceRegion(const Aws::String& value) { SetEc2InstanceRegion(value); return *this;}
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline GatewayInfo& WithEc2InstanceRegion(Aws::String&& value) { SetEc2InstanceRegion(std::move(value)); return *this;}
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline GatewayInfo& WithEc2InstanceRegion(const char* value) { SetEc2InstanceRegion(value); return *this;}
+
   private:
 
     Aws::String m_gatewayId;
@@ -262,6 +373,12 @@ namespace Model
 
     Aws::String m_gatewayName;
     bool m_gatewayNameHasBeenSet;
+
+    Aws::String m_ec2InstanceId;
+    bool m_ec2InstanceIdHasBeenSet;
+
+    Aws::String m_ec2InstanceRegion;
+    bool m_ec2InstanceRegionHasBeenSet;
   };
 
 } // namespace Model

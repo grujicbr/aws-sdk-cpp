@@ -31,7 +31,10 @@ namespace Aws
       {
 
         static const int Starting_HASH = HashingUtils::HashString("Starting");
+        static const int LaunchingMLInstances_HASH = HashingUtils::HashString("LaunchingMLInstances");
+        static const int PreparingTrainingStack_HASH = HashingUtils::HashString("PreparingTrainingStack");
         static const int Downloading_HASH = HashingUtils::HashString("Downloading");
+        static const int DownloadingTrainingImage_HASH = HashingUtils::HashString("DownloadingTrainingImage");
         static const int Training_HASH = HashingUtils::HashString("Training");
         static const int Uploading_HASH = HashingUtils::HashString("Uploading");
         static const int Stopping_HASH = HashingUtils::HashString("Stopping");
@@ -39,6 +42,8 @@ namespace Aws
         static const int MaxRuntimeExceeded_HASH = HashingUtils::HashString("MaxRuntimeExceeded");
         static const int Completed_HASH = HashingUtils::HashString("Completed");
         static const int Failed_HASH = HashingUtils::HashString("Failed");
+        static const int Interrupted_HASH = HashingUtils::HashString("Interrupted");
+        static const int MaxWaitTimeExceeded_HASH = HashingUtils::HashString("MaxWaitTimeExceeded");
 
 
         SecondaryStatus GetSecondaryStatusForName(const Aws::String& name)
@@ -48,9 +53,21 @@ namespace Aws
           {
             return SecondaryStatus::Starting;
           }
+          else if (hashCode == LaunchingMLInstances_HASH)
+          {
+            return SecondaryStatus::LaunchingMLInstances;
+          }
+          else if (hashCode == PreparingTrainingStack_HASH)
+          {
+            return SecondaryStatus::PreparingTrainingStack;
+          }
           else if (hashCode == Downloading_HASH)
           {
             return SecondaryStatus::Downloading;
+          }
+          else if (hashCode == DownloadingTrainingImage_HASH)
+          {
+            return SecondaryStatus::DownloadingTrainingImage;
           }
           else if (hashCode == Training_HASH)
           {
@@ -80,6 +97,14 @@ namespace Aws
           {
             return SecondaryStatus::Failed;
           }
+          else if (hashCode == Interrupted_HASH)
+          {
+            return SecondaryStatus::Interrupted;
+          }
+          else if (hashCode == MaxWaitTimeExceeded_HASH)
+          {
+            return SecondaryStatus::MaxWaitTimeExceeded;
+          }
           EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
           if(overflowContainer)
           {
@@ -96,8 +121,14 @@ namespace Aws
           {
           case SecondaryStatus::Starting:
             return "Starting";
+          case SecondaryStatus::LaunchingMLInstances:
+            return "LaunchingMLInstances";
+          case SecondaryStatus::PreparingTrainingStack:
+            return "PreparingTrainingStack";
           case SecondaryStatus::Downloading:
             return "Downloading";
+          case SecondaryStatus::DownloadingTrainingImage:
+            return "DownloadingTrainingImage";
           case SecondaryStatus::Training:
             return "Training";
           case SecondaryStatus::Uploading:
@@ -112,6 +143,10 @@ namespace Aws
             return "Completed";
           case SecondaryStatus::Failed:
             return "Failed";
+          case SecondaryStatus::Interrupted:
+            return "Interrupted";
+          case SecondaryStatus::MaxWaitTimeExceeded:
+            return "MaxWaitTimeExceeded";
           default:
             EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
             if(overflowContainer)
@@ -119,7 +154,7 @@ namespace Aws
               return overflowContainer->RetrieveOverflow(static_cast<int>(enumValue));
             }
 
-            return "";
+            return {};
           }
         }
 

@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     DescribeDBLogFilesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -57,6 +57,13 @@ namespace Model
      * an existing DBInstance.</p> </li> </ul>
      */
     inline const Aws::String& GetDBInstanceIdentifier() const{ return m_dBInstanceIdentifier; }
+
+    /**
+     * <p>The customer-assigned name of the DB instance that contains the log files you
+     * want to list.</p> <p>Constraints:</p> <ul> <li> <p>Must match the identifier of
+     * an existing DBInstance.</p> </li> </ul>
+     */
+    inline bool DBInstanceIdentifierHasBeenSet() const { return m_dBInstanceIdentifierHasBeenSet; }
 
     /**
      * <p>The customer-assigned name of the DB instance that contains the log files you
@@ -111,6 +118,12 @@ namespace Model
      * <p>Filters the available log files for log file names that contain the specified
      * string.</p>
      */
+    inline bool FilenameContainsHasBeenSet() const { return m_filenameContainsHasBeenSet; }
+
+    /**
+     * <p>Filters the available log files for log file names that contain the specified
+     * string.</p>
+     */
     inline void SetFilenameContains(const Aws::String& value) { m_filenameContainsHasBeenSet = true; m_filenameContains = value; }
 
     /**
@@ -154,6 +167,12 @@ namespace Model
      * <p>Filters the available log files for files written since the specified date,
      * in POSIX timestamp format with milliseconds.</p>
      */
+    inline bool FileLastWrittenHasBeenSet() const { return m_fileLastWrittenHasBeenSet; }
+
+    /**
+     * <p>Filters the available log files for files written since the specified date,
+     * in POSIX timestamp format with milliseconds.</p>
+     */
     inline void SetFileLastWritten(long long value) { m_fileLastWrittenHasBeenSet = true; m_fileLastWritten = value; }
 
     /**
@@ -171,6 +190,11 @@ namespace Model
     /**
      * <p>Filters the available log files for files larger than the specified size.</p>
      */
+    inline bool FileSizeHasBeenSet() const { return m_fileSizeHasBeenSet; }
+
+    /**
+     * <p>Filters the available log files for files larger than the specified size.</p>
+     */
     inline void SetFileSize(long long value) { m_fileSizeHasBeenSet = true; m_fileSize = value; }
 
     /**
@@ -180,37 +204,42 @@ namespace Model
 
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>This parameter isn't currently supported.</p>
      */
     inline const Aws::Vector<Filter>& GetFilters() const{ return m_filters; }
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>This parameter isn't currently supported.</p>
+     */
+    inline bool FiltersHasBeenSet() const { return m_filtersHasBeenSet; }
+
+    /**
+     * <p>This parameter isn't currently supported.</p>
      */
     inline void SetFilters(const Aws::Vector<Filter>& value) { m_filtersHasBeenSet = true; m_filters = value; }
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>This parameter isn't currently supported.</p>
      */
     inline void SetFilters(Aws::Vector<Filter>&& value) { m_filtersHasBeenSet = true; m_filters = std::move(value); }
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>This parameter isn't currently supported.</p>
      */
     inline DescribeDBLogFilesRequest& WithFilters(const Aws::Vector<Filter>& value) { SetFilters(value); return *this;}
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>This parameter isn't currently supported.</p>
      */
     inline DescribeDBLogFilesRequest& WithFilters(Aws::Vector<Filter>&& value) { SetFilters(std::move(value)); return *this;}
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>This parameter isn't currently supported.</p>
      */
     inline DescribeDBLogFilesRequest& AddFilters(const Filter& value) { m_filtersHasBeenSet = true; m_filters.push_back(value); return *this; }
 
     /**
-     * <p>This parameter is not currently supported.</p>
+     * <p>This parameter isn't currently supported.</p>
      */
     inline DescribeDBLogFilesRequest& AddFilters(Filter&& value) { m_filtersHasBeenSet = true; m_filters.push_back(std::move(value)); return *this; }
 
@@ -218,21 +247,28 @@ namespace Model
     /**
      * <p>The maximum number of records to include in the response. If more records
      * exist than the specified MaxRecords value, a pagination token called a marker is
-     * included in the response so that the remaining results can be retrieved.</p>
+     * included in the response so you can retrieve the remaining results.</p>
      */
     inline int GetMaxRecords() const{ return m_maxRecords; }
 
     /**
      * <p>The maximum number of records to include in the response. If more records
      * exist than the specified MaxRecords value, a pagination token called a marker is
-     * included in the response so that the remaining results can be retrieved.</p>
+     * included in the response so you can retrieve the remaining results.</p>
+     */
+    inline bool MaxRecordsHasBeenSet() const { return m_maxRecordsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of records to include in the response. If more records
+     * exist than the specified MaxRecords value, a pagination token called a marker is
+     * included in the response so you can retrieve the remaining results.</p>
      */
     inline void SetMaxRecords(int value) { m_maxRecordsHasBeenSet = true; m_maxRecords = value; }
 
     /**
      * <p>The maximum number of records to include in the response. If more records
      * exist than the specified MaxRecords value, a pagination token called a marker is
-     * included in the response so that the remaining results can be retrieved.</p>
+     * included in the response so you can retrieve the remaining results.</p>
      */
     inline DescribeDBLogFilesRequest& WithMaxRecords(int value) { SetMaxRecords(value); return *this;}
 
@@ -243,6 +279,13 @@ namespace Model
      * MaxRecords.</p>
      */
     inline const Aws::String& GetMarker() const{ return m_marker; }
+
+    /**
+     * <p>The pagination token provided in the previous request. If this parameter is
+     * specified the response includes only records beyond the marker, up to
+     * MaxRecords.</p>
+     */
+    inline bool MarkerHasBeenSet() const { return m_markerHasBeenSet; }
 
     /**
      * <p>The pagination token provided in the previous request. If this parameter is

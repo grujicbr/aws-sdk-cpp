@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     WafOverrideAction();
-    WafOverrideAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    WafOverrideAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WafOverrideAction(Aws::Utils::Json::JsonView jsonValue);
+    WafOverrideAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * will take place.</p>
      */
     inline const WafOverrideActionType& GetType() const{ return m_type; }
+
+    /**
+     * <p> <code>COUNT</code> overrides the action specified by the individual rule
+     * within a <code>RuleGroup</code> . If set to <code>NONE</code>, the rule's action
+     * will take place.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p> <code>COUNT</code> overrides the action specified by the individual rule

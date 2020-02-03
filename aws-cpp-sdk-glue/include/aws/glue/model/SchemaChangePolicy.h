@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -34,8 +35,8 @@ namespace Model
 {
 
   /**
-   * <p>Crawler policy for update and deletion behavior.</p><p><h3>See Also:</h3>  
-   * <a
+   * <p>A policy that specifies update and deletion behaviors for the
+   * crawler.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/SchemaChangePolicy">AWS
    * API Reference</a></p>
    */
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     SchemaChangePolicy();
-    SchemaChangePolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    SchemaChangePolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SchemaChangePolicy(Aws::Utils::Json::JsonView jsonValue);
+    SchemaChangePolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The update behavior when the crawler finds a changed schema.</p>
      */
     inline const UpdateBehavior& GetUpdateBehavior() const{ return m_updateBehavior; }
+
+    /**
+     * <p>The update behavior when the crawler finds a changed schema.</p>
+     */
+    inline bool UpdateBehaviorHasBeenSet() const { return m_updateBehaviorHasBeenSet; }
 
     /**
      * <p>The update behavior when the crawler finds a changed schema.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The deletion behavior when the crawler finds a deleted object.</p>
      */
     inline const DeleteBehavior& GetDeleteBehavior() const{ return m_deleteBehavior; }
+
+    /**
+     * <p>The deletion behavior when the crawler finds a deleted object.</p>
+     */
+    inline bool DeleteBehaviorHasBeenSet() const { return m_deleteBehaviorHasBeenSet; }
 
     /**
      * <p>The deletion behavior when the crawler finds a deleted object.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Polly
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Lexicon();
-    Lexicon(const Aws::Utils::Json::JsonValue& jsonValue);
-    Lexicon& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Lexicon(Aws::Utils::Json::JsonView jsonValue);
+    Lexicon& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * format.</p>
      */
     inline const Aws::String& GetContent() const{ return m_content; }
+
+    /**
+     * <p>Lexicon content in string format. The content of a lexicon must be in PLS
+     * format.</p>
+     */
+    inline bool ContentHasBeenSet() const { return m_contentHasBeenSet; }
 
     /**
      * <p>Lexicon content in string format. The content of a lexicon must be in PLS
@@ -96,6 +103,11 @@ namespace Model
      * <p>Name of the lexicon.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>Name of the lexicon.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>Name of the lexicon.</p>

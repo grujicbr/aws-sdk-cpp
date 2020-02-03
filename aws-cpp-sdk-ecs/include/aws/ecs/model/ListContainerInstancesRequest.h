@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     ListContainerInstancesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +51,13 @@ namespace Model
      * cluster is assumed.</p>
      */
     inline const Aws::String& GetCluster() const{ return m_cluster; }
+
+    /**
+     * <p>The short name or full Amazon Resource Name (ARN) of the cluster that hosts
+     * the container instances to list. If you do not specify a cluster, the default
+     * cluster is assumed.</p>
+     */
+    inline bool ClusterHasBeenSet() const { return m_clusterHasBeenSet; }
 
     /**
      * <p>The short name or full Amazon Resource Name (ARN) of the cluster that hosts
@@ -98,7 +105,7 @@ namespace Model
     /**
      * <p>You can filter the results of a <code>ListContainerInstances</code> operation
      * with cluster query language statements. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
      * Query Language</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -107,7 +114,16 @@ namespace Model
     /**
      * <p>You can filter the results of a <code>ListContainerInstances</code> operation
      * with cluster query language statements. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
+     * Query Language</a> in the <i>Amazon Elastic Container Service Developer
+     * Guide</i>.</p>
+     */
+    inline bool FilterHasBeenSet() const { return m_filterHasBeenSet; }
+
+    /**
+     * <p>You can filter the results of a <code>ListContainerInstances</code> operation
+     * with cluster query language statements. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
      * Query Language</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -116,7 +132,7 @@ namespace Model
     /**
      * <p>You can filter the results of a <code>ListContainerInstances</code> operation
      * with cluster query language statements. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
      * Query Language</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -125,7 +141,7 @@ namespace Model
     /**
      * <p>You can filter the results of a <code>ListContainerInstances</code> operation
      * with cluster query language statements. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
      * Query Language</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -134,7 +150,7 @@ namespace Model
     /**
      * <p>You can filter the results of a <code>ListContainerInstances</code> operation
      * with cluster query language statements. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
      * Query Language</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -143,7 +159,7 @@ namespace Model
     /**
      * <p>You can filter the results of a <code>ListContainerInstances</code> operation
      * with cluster query language statements. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
      * Query Language</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -152,7 +168,7 @@ namespace Model
     /**
      * <p>You can filter the results of a <code>ListContainerInstances</code> operation
      * with cluster query language statements. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster
      * Query Language</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -160,79 +176,90 @@ namespace Model
 
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListContainerInstances</code> request where <code>maxResults</code> was
-     * used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code>
-     * value.</p> <note> <p>This token should be treated as an opaque identifier that
-     * is only used to retrieve the next items in a list and not for other programmatic
-     * purposes.</p> </note>
+     * <p>The <code>nextToken</code> value returned from a
+     * <code>ListContainerInstances</code> request indicating that more results are
+     * available to fulfill the request and further calls will be needed. If
+     * <code>maxResults</code> was provided, it is possible the number of results to be
+     * fewer than <code>maxResults</code>.</p> <note> <p>This token should be treated
+     * as an opaque identifier that is only used to retrieve the next items in a list
+     * and not for other programmatic purposes.</p> </note>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListContainerInstances</code> request where <code>maxResults</code> was
-     * used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code>
-     * value.</p> <note> <p>This token should be treated as an opaque identifier that
-     * is only used to retrieve the next items in a list and not for other programmatic
-     * purposes.</p> </note>
+     * <p>The <code>nextToken</code> value returned from a
+     * <code>ListContainerInstances</code> request indicating that more results are
+     * available to fulfill the request and further calls will be needed. If
+     * <code>maxResults</code> was provided, it is possible the number of results to be
+     * fewer than <code>maxResults</code>.</p> <note> <p>This token should be treated
+     * as an opaque identifier that is only used to retrieve the next items in a list
+     * and not for other programmatic purposes.</p> </note>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>The <code>nextToken</code> value returned from a
+     * <code>ListContainerInstances</code> request indicating that more results are
+     * available to fulfill the request and further calls will be needed. If
+     * <code>maxResults</code> was provided, it is possible the number of results to be
+     * fewer than <code>maxResults</code>.</p> <note> <p>This token should be treated
+     * as an opaque identifier that is only used to retrieve the next items in a list
+     * and not for other programmatic purposes.</p> </note>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListContainerInstances</code> request where <code>maxResults</code> was
-     * used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code>
-     * value.</p> <note> <p>This token should be treated as an opaque identifier that
-     * is only used to retrieve the next items in a list and not for other programmatic
-     * purposes.</p> </note>
+     * <p>The <code>nextToken</code> value returned from a
+     * <code>ListContainerInstances</code> request indicating that more results are
+     * available to fulfill the request and further calls will be needed. If
+     * <code>maxResults</code> was provided, it is possible the number of results to be
+     * fewer than <code>maxResults</code>.</p> <note> <p>This token should be treated
+     * as an opaque identifier that is only used to retrieve the next items in a list
+     * and not for other programmatic purposes.</p> </note>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListContainerInstances</code> request where <code>maxResults</code> was
-     * used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code>
-     * value.</p> <note> <p>This token should be treated as an opaque identifier that
-     * is only used to retrieve the next items in a list and not for other programmatic
-     * purposes.</p> </note>
+     * <p>The <code>nextToken</code> value returned from a
+     * <code>ListContainerInstances</code> request indicating that more results are
+     * available to fulfill the request and further calls will be needed. If
+     * <code>maxResults</code> was provided, it is possible the number of results to be
+     * fewer than <code>maxResults</code>.</p> <note> <p>This token should be treated
+     * as an opaque identifier that is only used to retrieve the next items in a list
+     * and not for other programmatic purposes.</p> </note>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListContainerInstances</code> request where <code>maxResults</code> was
-     * used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code>
-     * value.</p> <note> <p>This token should be treated as an opaque identifier that
-     * is only used to retrieve the next items in a list and not for other programmatic
-     * purposes.</p> </note>
+     * <p>The <code>nextToken</code> value returned from a
+     * <code>ListContainerInstances</code> request indicating that more results are
+     * available to fulfill the request and further calls will be needed. If
+     * <code>maxResults</code> was provided, it is possible the number of results to be
+     * fewer than <code>maxResults</code>.</p> <note> <p>This token should be treated
+     * as an opaque identifier that is only used to retrieve the next items in a list
+     * and not for other programmatic purposes.</p> </note>
      */
     inline ListContainerInstancesRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListContainerInstances</code> request where <code>maxResults</code> was
-     * used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code>
-     * value.</p> <note> <p>This token should be treated as an opaque identifier that
-     * is only used to retrieve the next items in a list and not for other programmatic
-     * purposes.</p> </note>
+     * <p>The <code>nextToken</code> value returned from a
+     * <code>ListContainerInstances</code> request indicating that more results are
+     * available to fulfill the request and further calls will be needed. If
+     * <code>maxResults</code> was provided, it is possible the number of results to be
+     * fewer than <code>maxResults</code>.</p> <note> <p>This token should be treated
+     * as an opaque identifier that is only used to retrieve the next items in a list
+     * and not for other programmatic purposes.</p> </note>
      */
     inline ListContainerInstancesRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
-     * <p>The <code>nextToken</code> value returned from a previous paginated
-     * <code>ListContainerInstances</code> request where <code>maxResults</code> was
-     * used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code>
-     * value.</p> <note> <p>This token should be treated as an opaque identifier that
-     * is only used to retrieve the next items in a list and not for other programmatic
-     * purposes.</p> </note>
+     * <p>The <code>nextToken</code> value returned from a
+     * <code>ListContainerInstances</code> request indicating that more results are
+     * available to fulfill the request and further calls will be needed. If
+     * <code>maxResults</code> was provided, it is possible the number of results to be
+     * fewer than <code>maxResults</code>.</p> <note> <p>This token should be treated
+     * as an opaque identifier that is only used to retrieve the next items in a list
+     * and not for other programmatic purposes.</p> </note>
      */
     inline ListContainerInstancesRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
@@ -249,6 +276,19 @@ namespace Model
      * 100 results and a <code>nextToken</code> value if applicable.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>The maximum number of container instance results returned by
+     * <code>ListContainerInstances</code> in paginated output. When this parameter is
+     * used, <code>ListContainerInstances</code> only returns <code>maxResults</code>
+     * results in a single page along with a <code>nextToken</code> response element.
+     * The remaining results of the initial request can be seen by sending another
+     * <code>ListContainerInstances</code> request with the returned
+     * <code>nextToken</code> value. This value can be between 1 and 100. If this
+     * parameter is not used, then <code>ListContainerInstances</code> returns up to
+     * 100 results and a <code>nextToken</code> value if applicable.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>The maximum number of container instance results returned by
@@ -282,8 +322,8 @@ namespace Model
      * <code>DRAINING</code> status, the results include only container instances that
      * have been set to <code>DRAINING</code> using
      * <a>UpdateContainerInstancesState</a>. If you do not specify this parameter, the
-     * default is to include container instances set to <code>ACTIVE</code> and
-     * <code>DRAINING</code>.</p>
+     * default is to include container instances set to all states other than
+     * <code>INACTIVE</code>.</p>
      */
     inline const ContainerInstanceStatus& GetStatus() const{ return m_status; }
 
@@ -292,8 +332,18 @@ namespace Model
      * <code>DRAINING</code> status, the results include only container instances that
      * have been set to <code>DRAINING</code> using
      * <a>UpdateContainerInstancesState</a>. If you do not specify this parameter, the
-     * default is to include container instances set to <code>ACTIVE</code> and
-     * <code>DRAINING</code>.</p>
+     * default is to include container instances set to all states other than
+     * <code>INACTIVE</code>.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>Filters the container instances by status. For example, if you specify the
+     * <code>DRAINING</code> status, the results include only container instances that
+     * have been set to <code>DRAINING</code> using
+     * <a>UpdateContainerInstancesState</a>. If you do not specify this parameter, the
+     * default is to include container instances set to all states other than
+     * <code>INACTIVE</code>.</p>
      */
     inline void SetStatus(const ContainerInstanceStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
@@ -302,8 +352,8 @@ namespace Model
      * <code>DRAINING</code> status, the results include only container instances that
      * have been set to <code>DRAINING</code> using
      * <a>UpdateContainerInstancesState</a>. If you do not specify this parameter, the
-     * default is to include container instances set to <code>ACTIVE</code> and
-     * <code>DRAINING</code>.</p>
+     * default is to include container instances set to all states other than
+     * <code>INACTIVE</code>.</p>
      */
     inline void SetStatus(ContainerInstanceStatus&& value) { m_statusHasBeenSet = true; m_status = std::move(value); }
 
@@ -312,8 +362,8 @@ namespace Model
      * <code>DRAINING</code> status, the results include only container instances that
      * have been set to <code>DRAINING</code> using
      * <a>UpdateContainerInstancesState</a>. If you do not specify this parameter, the
-     * default is to include container instances set to <code>ACTIVE</code> and
-     * <code>DRAINING</code>.</p>
+     * default is to include container instances set to all states other than
+     * <code>INACTIVE</code>.</p>
      */
     inline ListContainerInstancesRequest& WithStatus(const ContainerInstanceStatus& value) { SetStatus(value); return *this;}
 
@@ -322,8 +372,8 @@ namespace Model
      * <code>DRAINING</code> status, the results include only container instances that
      * have been set to <code>DRAINING</code> using
      * <a>UpdateContainerInstancesState</a>. If you do not specify this parameter, the
-     * default is to include container instances set to <code>ACTIVE</code> and
-     * <code>DRAINING</code>.</p>
+     * default is to include container instances set to all states other than
+     * <code>INACTIVE</code>.</p>
      */
     inline ListContainerInstancesRequest& WithStatus(ContainerInstanceStatus&& value) { SetStatus(std::move(value)); return *this;}
 

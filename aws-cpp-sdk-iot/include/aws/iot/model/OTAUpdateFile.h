@@ -16,7 +16,7 @@
 #pragma once
 #include <aws/iot/IoT_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
-#include <aws/iot/model/Stream.h>
+#include <aws/iot/model/FileLocation.h>
 #include <aws/iot/model/CodeSigning.h>
 #include <aws/core/utils/memory/stl/AWSMap.h>
 #include <utility>
@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     OTAUpdateFile();
-    OTAUpdateFile(const Aws::Utils::Json::JsonValue& jsonValue);
-    OTAUpdateFile& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OTAUpdateFile(Aws::Utils::Json::JsonView jsonValue);
+    OTAUpdateFile& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of the file.</p>
      */
     inline const Aws::String& GetFileName() const{ return m_fileName; }
+
+    /**
+     * <p>The name of the file.</p>
+     */
+    inline bool FileNameHasBeenSet() const { return m_fileNameHasBeenSet; }
 
     /**
      * <p>The name of the file.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The file version.</p>
      */
+    inline bool FileVersionHasBeenSet() const { return m_fileVersionHasBeenSet; }
+
+    /**
+     * <p>The file version.</p>
+     */
     inline void SetFileVersion(const Aws::String& value) { m_fileVersionHasBeenSet = true; m_fileVersion = value; }
 
     /**
@@ -123,35 +134,45 @@ namespace Model
 
 
     /**
-     * <p>The source of the file.</p>
+     * <p>The location of the updated firmware.</p>
      */
-    inline const Stream& GetFileSource() const{ return m_fileSource; }
+    inline const FileLocation& GetFileLocation() const{ return m_fileLocation; }
 
     /**
-     * <p>The source of the file.</p>
+     * <p>The location of the updated firmware.</p>
      */
-    inline void SetFileSource(const Stream& value) { m_fileSourceHasBeenSet = true; m_fileSource = value; }
+    inline bool FileLocationHasBeenSet() const { return m_fileLocationHasBeenSet; }
 
     /**
-     * <p>The source of the file.</p>
+     * <p>The location of the updated firmware.</p>
      */
-    inline void SetFileSource(Stream&& value) { m_fileSourceHasBeenSet = true; m_fileSource = std::move(value); }
+    inline void SetFileLocation(const FileLocation& value) { m_fileLocationHasBeenSet = true; m_fileLocation = value; }
 
     /**
-     * <p>The source of the file.</p>
+     * <p>The location of the updated firmware.</p>
      */
-    inline OTAUpdateFile& WithFileSource(const Stream& value) { SetFileSource(value); return *this;}
+    inline void SetFileLocation(FileLocation&& value) { m_fileLocationHasBeenSet = true; m_fileLocation = std::move(value); }
 
     /**
-     * <p>The source of the file.</p>
+     * <p>The location of the updated firmware.</p>
      */
-    inline OTAUpdateFile& WithFileSource(Stream&& value) { SetFileSource(std::move(value)); return *this;}
+    inline OTAUpdateFile& WithFileLocation(const FileLocation& value) { SetFileLocation(value); return *this;}
+
+    /**
+     * <p>The location of the updated firmware.</p>
+     */
+    inline OTAUpdateFile& WithFileLocation(FileLocation&& value) { SetFileLocation(std::move(value)); return *this;}
 
 
     /**
      * <p>The code signing method of the file.</p>
      */
     inline const CodeSigning& GetCodeSigning() const{ return m_codeSigning; }
+
+    /**
+     * <p>The code signing method of the file.</p>
+     */
+    inline bool CodeSigningHasBeenSet() const { return m_codeSigningHasBeenSet; }
 
     /**
      * <p>The code signing method of the file.</p>
@@ -178,6 +199,11 @@ namespace Model
      * <p>A list of name/attribute pairs.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>A list of name/attribute pairs.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>A list of name/attribute pairs.</p>
@@ -242,8 +268,8 @@ namespace Model
     Aws::String m_fileVersion;
     bool m_fileVersionHasBeenSet;
 
-    Stream m_fileSource;
-    bool m_fileSourceHasBeenSet;
+    FileLocation m_fileLocation;
+    bool m_fileLocationHasBeenSet;
 
     CodeSigning m_codeSigning;
     bool m_codeSigningHasBeenSet;

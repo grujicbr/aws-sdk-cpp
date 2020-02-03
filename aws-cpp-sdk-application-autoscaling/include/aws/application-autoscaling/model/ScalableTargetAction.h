@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationAutoScaling
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     ScalableTargetAction();
-    ScalableTargetAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    ScalableTargetAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ScalableTargetAction(Aws::Utils::Json::JsonView jsonValue);
+    ScalableTargetAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The minimum capacity.</p>
      */
     inline int GetMinCapacity() const{ return m_minCapacity; }
+
+    /**
+     * <p>The minimum capacity.</p>
+     */
+    inline bool MinCapacityHasBeenSet() const { return m_minCapacityHasBeenSet; }
 
     /**
      * <p>The minimum capacity.</p>
@@ -65,6 +71,11 @@ namespace Model
      * <p>The maximum capacity.</p>
      */
     inline int GetMaxCapacity() const{ return m_maxCapacity; }
+
+    /**
+     * <p>The maximum capacity.</p>
+     */
+    inline bool MaxCapacityHasBeenSet() const { return m_maxCapacityHasBeenSet; }
 
     /**
      * <p>The maximum capacity.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoSync
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     IdentityUsage();
-    IdentityUsage(const Aws::Utils::Json::JsonValue& jsonValue);
-    IdentityUsage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IdentityUsage(Aws::Utils::Json::JsonView jsonValue);
+    IdentityUsage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * created by Amazon Cognito. GUID generation is unique within a region.
      */
     inline const Aws::String& GetIdentityId() const{ return m_identityId; }
+
+    /**
+     * A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE)
+     * created by Amazon Cognito. GUID generation is unique within a region.
+     */
+    inline bool IdentityIdHasBeenSet() const { return m_identityIdHasBeenSet; }
 
     /**
      * A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE)
@@ -100,6 +107,12 @@ namespace Model
      * A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE)
      * created by Amazon Cognito. GUID generation is unique within a region.
      */
+    inline bool IdentityPoolIdHasBeenSet() const { return m_identityPoolIdHasBeenSet; }
+
+    /**
+     * A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE)
+     * created by Amazon Cognito. GUID generation is unique within a region.
+     */
     inline void SetIdentityPoolId(const Aws::String& value) { m_identityPoolIdHasBeenSet = true; m_identityPoolId = value; }
 
     /**
@@ -141,6 +154,11 @@ namespace Model
     /**
      * Date on which the identity was last modified.
      */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
+
+    /**
+     * Date on which the identity was last modified.
+     */
     inline void SetLastModifiedDate(const Aws::Utils::DateTime& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = value; }
 
     /**
@@ -167,6 +185,11 @@ namespace Model
     /**
      * Number of datasets for the identity.
      */
+    inline bool DatasetCountHasBeenSet() const { return m_datasetCountHasBeenSet; }
+
+    /**
+     * Number of datasets for the identity.
+     */
     inline void SetDatasetCount(int value) { m_datasetCountHasBeenSet = true; m_datasetCount = value; }
 
     /**
@@ -179,6 +202,11 @@ namespace Model
      * Total data storage for this identity.
      */
     inline long long GetDataStorage() const{ return m_dataStorage; }
+
+    /**
+     * Total data storage for this identity.
+     */
+    inline bool DataStorageHasBeenSet() const { return m_dataStorageHasBeenSet; }
 
     /**
      * Total data storage for this identity.

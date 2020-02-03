@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     LogGroup();
-    LogGroup(const Aws::Utils::Json::JsonValue& jsonValue);
-    LogGroup& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LogGroup(Aws::Utils::Json::JsonView jsonValue);
+    LogGroup& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the log group.</p>
      */
     inline const Aws::String& GetLogGroupName() const{ return m_logGroupName; }
+
+    /**
+     * <p>The name of the log group.</p>
+     */
+    inline bool LogGroupNameHasBeenSet() const { return m_logGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the log group.</p>
@@ -92,6 +98,12 @@ namespace Model
      * <p>The creation time of the log group, expressed as the number of milliseconds
      * after Jan 1, 1970 00:00:00 UTC.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>The creation time of the log group, expressed as the number of milliseconds
+     * after Jan 1, 1970 00:00:00 UTC.</p>
+     */
     inline void SetCreationTime(long long value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -103,6 +115,9 @@ namespace Model
 
     
     inline int GetRetentionInDays() const{ return m_retentionInDays; }
+
+    
+    inline bool RetentionInDaysHasBeenSet() const { return m_retentionInDaysHasBeenSet; }
 
     
     inline void SetRetentionInDays(int value) { m_retentionInDaysHasBeenSet = true; m_retentionInDays = value; }
@@ -119,6 +134,11 @@ namespace Model
     /**
      * <p>The number of metric filters.</p>
      */
+    inline bool MetricFilterCountHasBeenSet() const { return m_metricFilterCountHasBeenSet; }
+
+    /**
+     * <p>The number of metric filters.</p>
+     */
     inline void SetMetricFilterCount(int value) { m_metricFilterCountHasBeenSet = true; m_metricFilterCount = value; }
 
     /**
@@ -131,6 +151,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the log group.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the log group.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the log group.</p>
@@ -171,6 +196,11 @@ namespace Model
     /**
      * <p>The number of bytes stored.</p>
      */
+    inline bool StoredBytesHasBeenSet() const { return m_storedBytesHasBeenSet; }
+
+    /**
+     * <p>The number of bytes stored.</p>
+     */
     inline void SetStoredBytes(long long value) { m_storedBytesHasBeenSet = true; m_storedBytes = value; }
 
     /**
@@ -184,6 +214,12 @@ namespace Model
      * data.</p>
      */
     inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log
+     * data.</p>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log

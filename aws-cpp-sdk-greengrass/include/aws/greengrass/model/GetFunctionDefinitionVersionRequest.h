@@ -21,6 +21,10 @@
 
 namespace Aws
 {
+namespace Http
+{
+    class URI;
+} //namespace Http
 namespace Greengrass
 {
 namespace Model
@@ -32,7 +36,7 @@ namespace Model
   {
   public:
     GetFunctionDefinitionVersionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -41,11 +45,18 @@ namespace Model
 
     Aws::String SerializePayload() const override;
 
+    void AddQueryStringParameters(Aws::Http::URI& uri) const override;
+
 
     /**
      * The ID of the Lambda function definition.
      */
     inline const Aws::String& GetFunctionDefinitionId() const{ return m_functionDefinitionId; }
+
+    /**
+     * The ID of the Lambda function definition.
+     */
+    inline bool FunctionDefinitionIdHasBeenSet() const { return m_functionDefinitionIdHasBeenSet; }
 
     /**
      * The ID of the Lambda function definition.
@@ -79,39 +90,133 @@ namespace Model
 
 
     /**
-     * The ID of the function definition version.
+     * The ID of the function definition version. This value maps to the ''Version''
+     * property of the corresponding ''VersionInformation'' object, which is returned
+     * by ''ListFunctionDefinitionVersions'' requests. If the version is the last one
+     * that was associated with a function definition, the value also maps to the
+     * ''LatestVersion'' property of the corresponding ''DefinitionInformation''
+     * object.
      */
     inline const Aws::String& GetFunctionDefinitionVersionId() const{ return m_functionDefinitionVersionId; }
 
     /**
-     * The ID of the function definition version.
+     * The ID of the function definition version. This value maps to the ''Version''
+     * property of the corresponding ''VersionInformation'' object, which is returned
+     * by ''ListFunctionDefinitionVersions'' requests. If the version is the last one
+     * that was associated with a function definition, the value also maps to the
+     * ''LatestVersion'' property of the corresponding ''DefinitionInformation''
+     * object.
+     */
+    inline bool FunctionDefinitionVersionIdHasBeenSet() const { return m_functionDefinitionVersionIdHasBeenSet; }
+
+    /**
+     * The ID of the function definition version. This value maps to the ''Version''
+     * property of the corresponding ''VersionInformation'' object, which is returned
+     * by ''ListFunctionDefinitionVersions'' requests. If the version is the last one
+     * that was associated with a function definition, the value also maps to the
+     * ''LatestVersion'' property of the corresponding ''DefinitionInformation''
+     * object.
      */
     inline void SetFunctionDefinitionVersionId(const Aws::String& value) { m_functionDefinitionVersionIdHasBeenSet = true; m_functionDefinitionVersionId = value; }
 
     /**
-     * The ID of the function definition version.
+     * The ID of the function definition version. This value maps to the ''Version''
+     * property of the corresponding ''VersionInformation'' object, which is returned
+     * by ''ListFunctionDefinitionVersions'' requests. If the version is the last one
+     * that was associated with a function definition, the value also maps to the
+     * ''LatestVersion'' property of the corresponding ''DefinitionInformation''
+     * object.
      */
     inline void SetFunctionDefinitionVersionId(Aws::String&& value) { m_functionDefinitionVersionIdHasBeenSet = true; m_functionDefinitionVersionId = std::move(value); }
 
     /**
-     * The ID of the function definition version.
+     * The ID of the function definition version. This value maps to the ''Version''
+     * property of the corresponding ''VersionInformation'' object, which is returned
+     * by ''ListFunctionDefinitionVersions'' requests. If the version is the last one
+     * that was associated with a function definition, the value also maps to the
+     * ''LatestVersion'' property of the corresponding ''DefinitionInformation''
+     * object.
      */
     inline void SetFunctionDefinitionVersionId(const char* value) { m_functionDefinitionVersionIdHasBeenSet = true; m_functionDefinitionVersionId.assign(value); }
 
     /**
-     * The ID of the function definition version.
+     * The ID of the function definition version. This value maps to the ''Version''
+     * property of the corresponding ''VersionInformation'' object, which is returned
+     * by ''ListFunctionDefinitionVersions'' requests. If the version is the last one
+     * that was associated with a function definition, the value also maps to the
+     * ''LatestVersion'' property of the corresponding ''DefinitionInformation''
+     * object.
      */
     inline GetFunctionDefinitionVersionRequest& WithFunctionDefinitionVersionId(const Aws::String& value) { SetFunctionDefinitionVersionId(value); return *this;}
 
     /**
-     * The ID of the function definition version.
+     * The ID of the function definition version. This value maps to the ''Version''
+     * property of the corresponding ''VersionInformation'' object, which is returned
+     * by ''ListFunctionDefinitionVersions'' requests. If the version is the last one
+     * that was associated with a function definition, the value also maps to the
+     * ''LatestVersion'' property of the corresponding ''DefinitionInformation''
+     * object.
      */
     inline GetFunctionDefinitionVersionRequest& WithFunctionDefinitionVersionId(Aws::String&& value) { SetFunctionDefinitionVersionId(std::move(value)); return *this;}
 
     /**
-     * The ID of the function definition version.
+     * The ID of the function definition version. This value maps to the ''Version''
+     * property of the corresponding ''VersionInformation'' object, which is returned
+     * by ''ListFunctionDefinitionVersions'' requests. If the version is the last one
+     * that was associated with a function definition, the value also maps to the
+     * ''LatestVersion'' property of the corresponding ''DefinitionInformation''
+     * object.
      */
     inline GetFunctionDefinitionVersionRequest& WithFunctionDefinitionVersionId(const char* value) { SetFunctionDefinitionVersionId(value); return *this;}
+
+
+    /**
+     * The token for the next set of results, or ''null'' if there are no additional
+     * results.
+     */
+    inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * The token for the next set of results, or ''null'' if there are no additional
+     * results.
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * The token for the next set of results, or ''null'' if there are no additional
+     * results.
+     */
+    inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
+
+    /**
+     * The token for the next set of results, or ''null'' if there are no additional
+     * results.
+     */
+    inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
+
+    /**
+     * The token for the next set of results, or ''null'' if there are no additional
+     * results.
+     */
+    inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
+
+    /**
+     * The token for the next set of results, or ''null'' if there are no additional
+     * results.
+     */
+    inline GetFunctionDefinitionVersionRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
+
+    /**
+     * The token for the next set of results, or ''null'' if there are no additional
+     * results.
+     */
+    inline GetFunctionDefinitionVersionRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
+
+    /**
+     * The token for the next set of results, or ''null'' if there are no additional
+     * results.
+     */
+    inline GetFunctionDefinitionVersionRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
   private:
 
@@ -120,6 +225,9 @@ namespace Model
 
     Aws::String m_functionDefinitionVersionId;
     bool m_functionDefinitionVersionIdHasBeenSet;
+
+    Aws::String m_nextToken;
+    bool m_nextTokenHasBeenSet;
   };
 
 } // namespace Model

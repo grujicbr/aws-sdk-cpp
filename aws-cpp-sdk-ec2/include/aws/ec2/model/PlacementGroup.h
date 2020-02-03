@@ -19,6 +19,8 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/ec2/model/PlacementGroupState.h>
 #include <aws/ec2/model/PlacementStrategy.h>
+#include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/ec2/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -59,6 +61,11 @@ namespace Model
     /**
      * <p>The name of the placement group.</p>
      */
+    inline bool GroupNameHasBeenSet() const { return m_groupNameHasBeenSet; }
+
+    /**
+     * <p>The name of the placement group.</p>
+     */
     inline void SetGroupName(const Aws::String& value) { m_groupNameHasBeenSet = true; m_groupName = value; }
 
     /**
@@ -95,6 +102,11 @@ namespace Model
     /**
      * <p>The state of the placement group.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The state of the placement group.</p>
+     */
     inline void SetState(const PlacementGroupState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -121,6 +133,11 @@ namespace Model
     /**
      * <p>The placement strategy.</p>
      */
+    inline bool StrategyHasBeenSet() const { return m_strategyHasBeenSet; }
+
+    /**
+     * <p>The placement strategy.</p>
+     */
     inline void SetStrategy(const PlacementStrategy& value) { m_strategyHasBeenSet = true; m_strategy = value; }
 
     /**
@@ -138,6 +155,113 @@ namespace Model
      */
     inline PlacementGroup& WithStrategy(PlacementStrategy&& value) { SetStrategy(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The number of partitions. Valid only if <b>strategy</b> is set to
+     * <code>partition</code>.</p>
+     */
+    inline int GetPartitionCount() const{ return m_partitionCount; }
+
+    /**
+     * <p>The number of partitions. Valid only if <b>strategy</b> is set to
+     * <code>partition</code>.</p>
+     */
+    inline bool PartitionCountHasBeenSet() const { return m_partitionCountHasBeenSet; }
+
+    /**
+     * <p>The number of partitions. Valid only if <b>strategy</b> is set to
+     * <code>partition</code>.</p>
+     */
+    inline void SetPartitionCount(int value) { m_partitionCountHasBeenSet = true; m_partitionCount = value; }
+
+    /**
+     * <p>The number of partitions. Valid only if <b>strategy</b> is set to
+     * <code>partition</code>.</p>
+     */
+    inline PlacementGroup& WithPartitionCount(int value) { SetPartitionCount(value); return *this;}
+
+
+    /**
+     * <p>The ID of the placement group.</p>
+     */
+    inline const Aws::String& GetGroupId() const{ return m_groupId; }
+
+    /**
+     * <p>The ID of the placement group.</p>
+     */
+    inline bool GroupIdHasBeenSet() const { return m_groupIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the placement group.</p>
+     */
+    inline void SetGroupId(const Aws::String& value) { m_groupIdHasBeenSet = true; m_groupId = value; }
+
+    /**
+     * <p>The ID of the placement group.</p>
+     */
+    inline void SetGroupId(Aws::String&& value) { m_groupIdHasBeenSet = true; m_groupId = std::move(value); }
+
+    /**
+     * <p>The ID of the placement group.</p>
+     */
+    inline void SetGroupId(const char* value) { m_groupIdHasBeenSet = true; m_groupId.assign(value); }
+
+    /**
+     * <p>The ID of the placement group.</p>
+     */
+    inline PlacementGroup& WithGroupId(const Aws::String& value) { SetGroupId(value); return *this;}
+
+    /**
+     * <p>The ID of the placement group.</p>
+     */
+    inline PlacementGroup& WithGroupId(Aws::String&& value) { SetGroupId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the placement group.</p>
+     */
+    inline PlacementGroup& WithGroupId(const char* value) { SetGroupId(value); return *this;}
+
+
+    /**
+     * <p>Any tags applied to the placement group.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>Any tags applied to the placement group.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>Any tags applied to the placement group.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>Any tags applied to the placement group.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>Any tags applied to the placement group.</p>
+     */
+    inline PlacementGroup& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>Any tags applied to the placement group.</p>
+     */
+    inline PlacementGroup& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>Any tags applied to the placement group.</p>
+     */
+    inline PlacementGroup& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>Any tags applied to the placement group.</p>
+     */
+    inline PlacementGroup& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::String m_groupName;
@@ -148,6 +272,15 @@ namespace Model
 
     PlacementStrategy m_strategy;
     bool m_strategyHasBeenSet;
+
+    int m_partitionCount;
+    bool m_partitionCountHasBeenSet;
+
+    Aws::String m_groupId;
+    bool m_groupIdHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

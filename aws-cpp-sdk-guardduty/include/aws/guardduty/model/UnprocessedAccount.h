@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace GuardDuty
@@ -33,8 +34,8 @@ namespace Model
 {
 
   /**
-   * An object containing the unprocessed account and a result string explaining why
-   * it was unprocessed.<p><h3>See Also:</h3>   <a
+   * <p>Contains information about the accounts that were not
+   * processed.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UnprocessedAccount">AWS
    * API Reference</a></p>
    */
@@ -42,79 +43,89 @@ namespace Model
   {
   public:
     UnprocessedAccount();
-    UnprocessedAccount(const Aws::Utils::Json::JsonValue& jsonValue);
-    UnprocessedAccount& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UnprocessedAccount(Aws::Utils::Json::JsonView jsonValue);
+    UnprocessedAccount& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * AWS Account ID.
+     * <p>AWS Account ID.</p>
      */
     inline const Aws::String& GetAccountId() const{ return m_accountId; }
 
     /**
-     * AWS Account ID.
+     * <p>AWS Account ID.</p>
+     */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
+
+    /**
+     * <p>AWS Account ID.</p>
      */
     inline void SetAccountId(const Aws::String& value) { m_accountIdHasBeenSet = true; m_accountId = value; }
 
     /**
-     * AWS Account ID.
+     * <p>AWS Account ID.</p>
      */
     inline void SetAccountId(Aws::String&& value) { m_accountIdHasBeenSet = true; m_accountId = std::move(value); }
 
     /**
-     * AWS Account ID.
+     * <p>AWS Account ID.</p>
      */
     inline void SetAccountId(const char* value) { m_accountIdHasBeenSet = true; m_accountId.assign(value); }
 
     /**
-     * AWS Account ID.
+     * <p>AWS Account ID.</p>
      */
     inline UnprocessedAccount& WithAccountId(const Aws::String& value) { SetAccountId(value); return *this;}
 
     /**
-     * AWS Account ID.
+     * <p>AWS Account ID.</p>
      */
     inline UnprocessedAccount& WithAccountId(Aws::String&& value) { SetAccountId(std::move(value)); return *this;}
 
     /**
-     * AWS Account ID.
+     * <p>AWS Account ID.</p>
      */
     inline UnprocessedAccount& WithAccountId(const char* value) { SetAccountId(value); return *this;}
 
 
     /**
-     * A reason why the account hasn't been processed.
+     * <p>A reason why the account hasn't been processed.</p>
      */
     inline const Aws::String& GetResult() const{ return m_result; }
 
     /**
-     * A reason why the account hasn't been processed.
+     * <p>A reason why the account hasn't been processed.</p>
+     */
+    inline bool ResultHasBeenSet() const { return m_resultHasBeenSet; }
+
+    /**
+     * <p>A reason why the account hasn't been processed.</p>
      */
     inline void SetResult(const Aws::String& value) { m_resultHasBeenSet = true; m_result = value; }
 
     /**
-     * A reason why the account hasn't been processed.
+     * <p>A reason why the account hasn't been processed.</p>
      */
     inline void SetResult(Aws::String&& value) { m_resultHasBeenSet = true; m_result = std::move(value); }
 
     /**
-     * A reason why the account hasn't been processed.
+     * <p>A reason why the account hasn't been processed.</p>
      */
     inline void SetResult(const char* value) { m_resultHasBeenSet = true; m_result.assign(value); }
 
     /**
-     * A reason why the account hasn't been processed.
+     * <p>A reason why the account hasn't been processed.</p>
      */
     inline UnprocessedAccount& WithResult(const Aws::String& value) { SetResult(value); return *this;}
 
     /**
-     * A reason why the account hasn't been processed.
+     * <p>A reason why the account hasn't been processed.</p>
      */
     inline UnprocessedAccount& WithResult(Aws::String&& value) { SetResult(std::move(value)); return *this;}
 
     /**
-     * A reason why the account hasn't been processed.
+     * <p>A reason why the account hasn't been processed.</p>
      */
     inline UnprocessedAccount& WithResult(const char* value) { SetResult(value); return *this;}
 

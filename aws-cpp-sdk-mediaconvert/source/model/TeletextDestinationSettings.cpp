@@ -29,23 +29,35 @@ namespace Model
 {
 
 TeletextDestinationSettings::TeletextDestinationSettings() : 
-    m_pageNumberHasBeenSet(false)
+    m_pageNumberHasBeenSet(false),
+    m_pageTypesHasBeenSet(false)
 {
 }
 
-TeletextDestinationSettings::TeletextDestinationSettings(const JsonValue& jsonValue) : 
-    m_pageNumberHasBeenSet(false)
+TeletextDestinationSettings::TeletextDestinationSettings(JsonView jsonValue) : 
+    m_pageNumberHasBeenSet(false),
+    m_pageTypesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-TeletextDestinationSettings& TeletextDestinationSettings::operator =(const JsonValue& jsonValue)
+TeletextDestinationSettings& TeletextDestinationSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("pageNumber"))
   {
     m_pageNumber = jsonValue.GetString("pageNumber");
 
     m_pageNumberHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("pageTypes"))
+  {
+    Array<JsonView> pageTypesJsonList = jsonValue.GetArray("pageTypes");
+    for(unsigned pageTypesIndex = 0; pageTypesIndex < pageTypesJsonList.GetLength(); ++pageTypesIndex)
+    {
+      m_pageTypes.push_back(TeletextPageTypeMapper::GetTeletextPageTypeForName(pageTypesJsonList[pageTypesIndex].AsString()));
+    }
+    m_pageTypesHasBeenSet = true;
   }
 
   return *this;
@@ -58,6 +70,17 @@ JsonValue TeletextDestinationSettings::Jsonize() const
   if(m_pageNumberHasBeenSet)
   {
    payload.WithString("pageNumber", m_pageNumber);
+
+  }
+
+  if(m_pageTypesHasBeenSet)
+  {
+   Array<JsonValue> pageTypesJsonList(m_pageTypes.size());
+   for(unsigned pageTypesIndex = 0; pageTypesIndex < pageTypesJsonList.GetLength(); ++pageTypesIndex)
+   {
+     pageTypesJsonList[pageTypesIndex].AsString(TeletextPageTypeMapper::GetNameForTeletextPageType(m_pageTypes[pageTypesIndex]));
+   }
+   payload.WithArray("pageTypes", std::move(pageTypesJsonList));
 
   }
 

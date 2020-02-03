@@ -43,7 +43,7 @@ ListObjectsRequest::ListObjectsRequest() :
 
 Aws::String ListObjectsRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 void ListObjectsRequest::AddQueryStringParameters(URI& uri) const
@@ -109,7 +109,7 @@ Aws::Http::HeaderValueCollection ListObjectsRequest::GetRequestSpecificHeaders()
   Aws::StringStream ss;
   if(m_requestPayerHasBeenSet)
   {
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-request-payer", RequestPayerMapper::GetNameForRequestPayer(m_requestPayer)));
+    headers.emplace("x-amz-request-payer", RequestPayerMapper::GetNameForRequestPayer(m_requestPayer));
   }
 
   return headers;

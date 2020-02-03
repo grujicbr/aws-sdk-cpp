@@ -33,21 +33,27 @@ Condition::Condition() :
     m_logicalOperatorHasBeenSet(false),
     m_jobNameHasBeenSet(false),
     m_state(JobRunState::NOT_SET),
-    m_stateHasBeenSet(false)
+    m_stateHasBeenSet(false),
+    m_crawlerNameHasBeenSet(false),
+    m_crawlState(CrawlState::NOT_SET),
+    m_crawlStateHasBeenSet(false)
 {
 }
 
-Condition::Condition(const JsonValue& jsonValue) : 
+Condition::Condition(JsonView jsonValue) : 
     m_logicalOperator(LogicalOperator::NOT_SET),
     m_logicalOperatorHasBeenSet(false),
     m_jobNameHasBeenSet(false),
     m_state(JobRunState::NOT_SET),
-    m_stateHasBeenSet(false)
+    m_stateHasBeenSet(false),
+    m_crawlerNameHasBeenSet(false),
+    m_crawlState(CrawlState::NOT_SET),
+    m_crawlStateHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Condition& Condition::operator =(const JsonValue& jsonValue)
+Condition& Condition::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("LogicalOperator"))
   {
@@ -68,6 +74,20 @@ Condition& Condition::operator =(const JsonValue& jsonValue)
     m_state = JobRunStateMapper::GetJobRunStateForName(jsonValue.GetString("State"));
 
     m_stateHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CrawlerName"))
+  {
+    m_crawlerName = jsonValue.GetString("CrawlerName");
+
+    m_crawlerNameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CrawlState"))
+  {
+    m_crawlState = CrawlStateMapper::GetCrawlStateForName(jsonValue.GetString("CrawlState"));
+
+    m_crawlStateHasBeenSet = true;
   }
 
   return *this;
@@ -91,6 +111,17 @@ JsonValue Condition::Jsonize() const
   if(m_stateHasBeenSet)
   {
    payload.WithString("State", JobRunStateMapper::GetNameForJobRunState(m_state));
+  }
+
+  if(m_crawlerNameHasBeenSet)
+  {
+   payload.WithString("CrawlerName", m_crawlerName);
+
+  }
+
+  if(m_crawlStateHasBeenSet)
+  {
+   payload.WithString("CrawlState", CrawlStateMapper::GetNameForCrawlState(m_crawlState));
   }
 
   return payload;

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaPackage
@@ -42,15 +43,61 @@ namespace Model
   {
   public:
     IngestEndpoint();
-    IngestEndpoint(const Aws::Utils::Json::JsonValue& jsonValue);
-    IngestEndpoint& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IngestEndpoint(Aws::Utils::Json::JsonView jsonValue);
+    IngestEndpoint& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
+
+
+    /**
+     * The system generated unique identifier for the IngestEndpoint
+     */
+    inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * The system generated unique identifier for the IngestEndpoint
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * The system generated unique identifier for the IngestEndpoint
+     */
+    inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
+
+    /**
+     * The system generated unique identifier for the IngestEndpoint
+     */
+    inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
+
+    /**
+     * The system generated unique identifier for the IngestEndpoint
+     */
+    inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
+
+    /**
+     * The system generated unique identifier for the IngestEndpoint
+     */
+    inline IngestEndpoint& WithId(const Aws::String& value) { SetId(value); return *this;}
+
+    /**
+     * The system generated unique identifier for the IngestEndpoint
+     */
+    inline IngestEndpoint& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
+
+    /**
+     * The system generated unique identifier for the IngestEndpoint
+     */
+    inline IngestEndpoint& WithId(const char* value) { SetId(value); return *this;}
 
 
     /**
      * The system generated password for ingest authentication.
      */
     inline const Aws::String& GetPassword() const{ return m_password; }
+
+    /**
+     * The system generated password for ingest authentication.
+     */
+    inline bool PasswordHasBeenSet() const { return m_passwordHasBeenSet; }
 
     /**
      * The system generated password for ingest authentication.
@@ -91,6 +138,11 @@ namespace Model
     /**
      * The ingest URL to which the source stream should be sent.
      */
+    inline bool UrlHasBeenSet() const { return m_urlHasBeenSet; }
+
+    /**
+     * The ingest URL to which the source stream should be sent.
+     */
     inline void SetUrl(const Aws::String& value) { m_urlHasBeenSet = true; m_url = value; }
 
     /**
@@ -127,6 +179,11 @@ namespace Model
     /**
      * The system generated username for ingest authentication.
      */
+    inline bool UsernameHasBeenSet() const { return m_usernameHasBeenSet; }
+
+    /**
+     * The system generated username for ingest authentication.
+     */
     inline void SetUsername(const Aws::String& value) { m_usernameHasBeenSet = true; m_username = value; }
 
     /**
@@ -155,6 +212,9 @@ namespace Model
     inline IngestEndpoint& WithUsername(const char* value) { SetUsername(value); return *this;}
 
   private:
+
+    Aws::String m_id;
+    bool m_idHasBeenSet;
 
     Aws::String m_password;
     bool m_passwordHasBeenSet;

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     FailureDetails();
-    FailureDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    FailureDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FailureDetails(Aws::Utils::Json::JsonView jsonValue);
+    FailureDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The type of the failure.</p>
      */
     inline const FailureType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of the failure.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of the failure.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The message about the failure.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The message about the failure.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The message about the failure.</p>
@@ -113,6 +124,11 @@ namespace Model
      * <p>The external ID of the run of the action that failed.</p>
      */
     inline const Aws::String& GetExternalExecutionId() const{ return m_externalExecutionId; }
+
+    /**
+     * <p>The external ID of the run of the action that failed.</p>
+     */
+    inline bool ExternalExecutionIdHasBeenSet() const { return m_externalExecutionIdHasBeenSet; }
 
     /**
      * <p>The external ID of the run of the action that failed.</p>

@@ -38,6 +38,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -88,7 +89,7 @@ namespace Model
    * were members of the API. Treating decisions as a pseudo API maintains a uniform
    * conceptual model and helps keep policies readable. For details and example IAM
    * policies, see <a
-   * href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
+   * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
    * IAM to Manage Access to Amazon SWF Workflows</a> in the <i>Amazon SWF Developer
    * Guide</i>.</p> <p> <b>Decision Failure</b> </p> <p>Decisions can fail for
    * several reasons</p> <ul> <li> <p>The ordering of decisions should follow a
@@ -100,7 +101,7 @@ namespace Model
    * parameter indicates the cause. If <code>cause</code> is set to
    * <code>OPERATION_NOT_PERMITTED</code>, the decision failed because it lacked
    * sufficient permissions. For details and example IAM policies, see <a
-   * href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
+   * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
    * IAM to Manage Access to Amazon SWF Workflows</a> in the <i>Amazon SWF Developer
    * Guide</i>.</p> <ul> <li> <p> <code>ScheduleActivityTaskFailed</code> – A
    * <code>ScheduleActivityTask</code> decision failed. This could happen if the
@@ -177,8 +178,8 @@ namespace Model
   {
   public:
     Decision();
-    Decision(const Aws::Utils::Json::JsonValue& jsonValue);
-    Decision& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Decision(Aws::Utils::Json::JsonView jsonValue);
+    Decision& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -186,6 +187,11 @@ namespace Model
      * <p>Specifies the type of the decision.</p>
      */
     inline const DecisionType& GetDecisionType() const{ return m_decisionType; }
+
+    /**
+     * <p>Specifies the type of the decision.</p>
+     */
+    inline bool DecisionTypeHasBeenSet() const { return m_decisionTypeHasBeenSet; }
 
     /**
      * <p>Specifies the type of the decision.</p>
@@ -213,6 +219,12 @@ namespace Model
      * isn't set for other decision types.</p>
      */
     inline const ScheduleActivityTaskDecisionAttributes& GetScheduleActivityTaskDecisionAttributes() const{ return m_scheduleActivityTaskDecisionAttributes; }
+
+    /**
+     * <p>Provides the details of the <code>ScheduleActivityTask</code> decision. It
+     * isn't set for other decision types.</p>
+     */
+    inline bool ScheduleActivityTaskDecisionAttributesHasBeenSet() const { return m_scheduleActivityTaskDecisionAttributesHasBeenSet; }
 
     /**
      * <p>Provides the details of the <code>ScheduleActivityTask</code> decision. It
@@ -249,6 +261,12 @@ namespace Model
      * <p>Provides the details of the <code>RequestCancelActivityTask</code> decision.
      * It isn't set for other decision types.</p>
      */
+    inline bool RequestCancelActivityTaskDecisionAttributesHasBeenSet() const { return m_requestCancelActivityTaskDecisionAttributesHasBeenSet; }
+
+    /**
+     * <p>Provides the details of the <code>RequestCancelActivityTask</code> decision.
+     * It isn't set for other decision types.</p>
+     */
     inline void SetRequestCancelActivityTaskDecisionAttributes(const RequestCancelActivityTaskDecisionAttributes& value) { m_requestCancelActivityTaskDecisionAttributesHasBeenSet = true; m_requestCancelActivityTaskDecisionAttributes = value; }
 
     /**
@@ -275,6 +293,12 @@ namespace Model
      * It isn't set for other decision types.</p>
      */
     inline const CompleteWorkflowExecutionDecisionAttributes& GetCompleteWorkflowExecutionDecisionAttributes() const{ return m_completeWorkflowExecutionDecisionAttributes; }
+
+    /**
+     * <p>Provides the details of the <code>CompleteWorkflowExecution</code> decision.
+     * It isn't set for other decision types.</p>
+     */
+    inline bool CompleteWorkflowExecutionDecisionAttributesHasBeenSet() const { return m_completeWorkflowExecutionDecisionAttributesHasBeenSet; }
 
     /**
      * <p>Provides the details of the <code>CompleteWorkflowExecution</code> decision.
@@ -311,6 +335,12 @@ namespace Model
      * <p>Provides the details of the <code>FailWorkflowExecution</code> decision. It
      * isn't set for other decision types.</p>
      */
+    inline bool FailWorkflowExecutionDecisionAttributesHasBeenSet() const { return m_failWorkflowExecutionDecisionAttributesHasBeenSet; }
+
+    /**
+     * <p>Provides the details of the <code>FailWorkflowExecution</code> decision. It
+     * isn't set for other decision types.</p>
+     */
     inline void SetFailWorkflowExecutionDecisionAttributes(const FailWorkflowExecutionDecisionAttributes& value) { m_failWorkflowExecutionDecisionAttributesHasBeenSet = true; m_failWorkflowExecutionDecisionAttributes = value; }
 
     /**
@@ -337,6 +367,12 @@ namespace Model
      * isn't set for other decision types.</p>
      */
     inline const CancelWorkflowExecutionDecisionAttributes& GetCancelWorkflowExecutionDecisionAttributes() const{ return m_cancelWorkflowExecutionDecisionAttributes; }
+
+    /**
+     * <p>Provides the details of the <code>CancelWorkflowExecution</code> decision. It
+     * isn't set for other decision types.</p>
+     */
+    inline bool CancelWorkflowExecutionDecisionAttributesHasBeenSet() const { return m_cancelWorkflowExecutionDecisionAttributesHasBeenSet; }
 
     /**
      * <p>Provides the details of the <code>CancelWorkflowExecution</code> decision. It
@@ -373,6 +409,12 @@ namespace Model
      * <p>Provides the details of the <code>ContinueAsNewWorkflowExecution</code>
      * decision. It isn't set for other decision types.</p>
      */
+    inline bool ContinueAsNewWorkflowExecutionDecisionAttributesHasBeenSet() const { return m_continueAsNewWorkflowExecutionDecisionAttributesHasBeenSet; }
+
+    /**
+     * <p>Provides the details of the <code>ContinueAsNewWorkflowExecution</code>
+     * decision. It isn't set for other decision types.</p>
+     */
     inline void SetContinueAsNewWorkflowExecutionDecisionAttributes(const ContinueAsNewWorkflowExecutionDecisionAttributes& value) { m_continueAsNewWorkflowExecutionDecisionAttributesHasBeenSet = true; m_continueAsNewWorkflowExecutionDecisionAttributes = value; }
 
     /**
@@ -399,6 +441,12 @@ namespace Model
      * for other decision types.</p>
      */
     inline const RecordMarkerDecisionAttributes& GetRecordMarkerDecisionAttributes() const{ return m_recordMarkerDecisionAttributes; }
+
+    /**
+     * <p>Provides the details of the <code>RecordMarker</code> decision. It isn't set
+     * for other decision types.</p>
+     */
+    inline bool RecordMarkerDecisionAttributesHasBeenSet() const { return m_recordMarkerDecisionAttributesHasBeenSet; }
 
     /**
      * <p>Provides the details of the <code>RecordMarker</code> decision. It isn't set
@@ -435,6 +483,12 @@ namespace Model
      * <p>Provides the details of the <code>StartTimer</code> decision. It isn't set
      * for other decision types.</p>
      */
+    inline bool StartTimerDecisionAttributesHasBeenSet() const { return m_startTimerDecisionAttributesHasBeenSet; }
+
+    /**
+     * <p>Provides the details of the <code>StartTimer</code> decision. It isn't set
+     * for other decision types.</p>
+     */
     inline void SetStartTimerDecisionAttributes(const StartTimerDecisionAttributes& value) { m_startTimerDecisionAttributesHasBeenSet = true; m_startTimerDecisionAttributes = value; }
 
     /**
@@ -461,6 +515,12 @@ namespace Model
      * for other decision types.</p>
      */
     inline const CancelTimerDecisionAttributes& GetCancelTimerDecisionAttributes() const{ return m_cancelTimerDecisionAttributes; }
+
+    /**
+     * <p>Provides the details of the <code>CancelTimer</code> decision. It isn't set
+     * for other decision types.</p>
+     */
+    inline bool CancelTimerDecisionAttributesHasBeenSet() const { return m_cancelTimerDecisionAttributesHasBeenSet; }
 
     /**
      * <p>Provides the details of the <code>CancelTimer</code> decision. It isn't set
@@ -497,6 +557,12 @@ namespace Model
      * <p>Provides the details of the <code>SignalExternalWorkflowExecution</code>
      * decision. It isn't set for other decision types.</p>
      */
+    inline bool SignalExternalWorkflowExecutionDecisionAttributesHasBeenSet() const { return m_signalExternalWorkflowExecutionDecisionAttributesHasBeenSet; }
+
+    /**
+     * <p>Provides the details of the <code>SignalExternalWorkflowExecution</code>
+     * decision. It isn't set for other decision types.</p>
+     */
     inline void SetSignalExternalWorkflowExecutionDecisionAttributes(const SignalExternalWorkflowExecutionDecisionAttributes& value) { m_signalExternalWorkflowExecutionDecisionAttributesHasBeenSet = true; m_signalExternalWorkflowExecutionDecisionAttributes = value; }
 
     /**
@@ -524,6 +590,13 @@ namespace Model
      * other decision types.</p>
      */
     inline const RequestCancelExternalWorkflowExecutionDecisionAttributes& GetRequestCancelExternalWorkflowExecutionDecisionAttributes() const{ return m_requestCancelExternalWorkflowExecutionDecisionAttributes; }
+
+    /**
+     * <p>Provides the details of the
+     * <code>RequestCancelExternalWorkflowExecution</code> decision. It isn't set for
+     * other decision types.</p>
+     */
+    inline bool RequestCancelExternalWorkflowExecutionDecisionAttributesHasBeenSet() const { return m_requestCancelExternalWorkflowExecutionDecisionAttributesHasBeenSet; }
 
     /**
      * <p>Provides the details of the
@@ -564,6 +637,12 @@ namespace Model
      * <p>Provides the details of the <code>StartChildWorkflowExecution</code>
      * decision. It isn't set for other decision types.</p>
      */
+    inline bool StartChildWorkflowExecutionDecisionAttributesHasBeenSet() const { return m_startChildWorkflowExecutionDecisionAttributesHasBeenSet; }
+
+    /**
+     * <p>Provides the details of the <code>StartChildWorkflowExecution</code>
+     * decision. It isn't set for other decision types.</p>
+     */
     inline void SetStartChildWorkflowExecutionDecisionAttributes(const StartChildWorkflowExecutionDecisionAttributes& value) { m_startChildWorkflowExecutionDecisionAttributesHasBeenSet = true; m_startChildWorkflowExecutionDecisionAttributes = value; }
 
     /**
@@ -590,6 +669,12 @@ namespace Model
      * isn't set for other decision types.</p>
      */
     inline const ScheduleLambdaFunctionDecisionAttributes& GetScheduleLambdaFunctionDecisionAttributes() const{ return m_scheduleLambdaFunctionDecisionAttributes; }
+
+    /**
+     * <p>Provides the details of the <code>ScheduleLambdaFunction</code> decision. It
+     * isn't set for other decision types.</p>
+     */
+    inline bool ScheduleLambdaFunctionDecisionAttributesHasBeenSet() const { return m_scheduleLambdaFunctionDecisionAttributesHasBeenSet; }
 
     /**
      * <p>Provides the details of the <code>ScheduleLambdaFunction</code> decision. It

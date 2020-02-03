@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     SnapshotLimits();
-    SnapshotLimits(const Aws::Utils::Json::JsonValue& jsonValue);
-    SnapshotLimits& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SnapshotLimits(Aws::Utils::Json::JsonView jsonValue);
+    SnapshotLimits& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The maximum number of manual snapshots allowed.</p>
      */
     inline int GetManualSnapshotsLimit() const{ return m_manualSnapshotsLimit; }
+
+    /**
+     * <p>The maximum number of manual snapshots allowed.</p>
+     */
+    inline bool ManualSnapshotsLimitHasBeenSet() const { return m_manualSnapshotsLimitHasBeenSet; }
 
     /**
      * <p>The maximum number of manual snapshots allowed.</p>
@@ -69,6 +75,11 @@ namespace Model
     /**
      * <p>The current number of manual snapshots of the directory.</p>
      */
+    inline bool ManualSnapshotsCurrentCountHasBeenSet() const { return m_manualSnapshotsCurrentCountHasBeenSet; }
+
+    /**
+     * <p>The current number of manual snapshots of the directory.</p>
+     */
     inline void SetManualSnapshotsCurrentCount(int value) { m_manualSnapshotsCurrentCountHasBeenSet = true; m_manualSnapshotsCurrentCount = value; }
 
     /**
@@ -81,6 +92,11 @@ namespace Model
      * <p>Indicates if the manual snapshot limit has been reached.</p>
      */
     inline bool GetManualSnapshotsLimitReached() const{ return m_manualSnapshotsLimitReached; }
+
+    /**
+     * <p>Indicates if the manual snapshot limit has been reached.</p>
+     */
+    inline bool ManualSnapshotsLimitReachedHasBeenSet() const { return m_manualSnapshotsLimitReachedHasBeenSet; }
 
     /**
      * <p>Indicates if the manual snapshot limit has been reached.</p>

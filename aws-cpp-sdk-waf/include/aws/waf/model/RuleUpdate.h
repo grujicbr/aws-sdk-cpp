@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     RuleUpdate();
-    RuleUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    RuleUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RuleUpdate(Aws::Utils::Json::JsonView jsonValue);
+    RuleUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,13 @@ namespace Model
      * from a <code>Rule</code>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specify <code>INSERT</code> to add a <code>Predicate</code> to a
+     * <code>Rule</code>. Use <code>DELETE</code> to remove a <code>Predicate</code>
+     * from a <code>Rule</code>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specify <code>INSERT</code> to add a <code>Predicate</code> to a
@@ -90,6 +98,12 @@ namespace Model
      * want to add to a <code>Rule</code>.</p>
      */
     inline const Predicate& GetPredicate() const{ return m_predicate; }
+
+    /**
+     * <p>The ID of the <code>Predicate</code> (such as an <code>IPSet</code>) that you
+     * want to add to a <code>Rule</code>.</p>
+     */
+    inline bool PredicateHasBeenSet() const { return m_predicateHasBeenSet; }
 
     /**
      * <p>The ID of the <code>Predicate</code> (such as an <code>IPSet</code>) that you

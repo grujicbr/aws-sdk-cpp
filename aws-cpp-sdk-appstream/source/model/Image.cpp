@@ -39,6 +39,7 @@ Image::Image() :
     m_visibilityHasBeenSet(false),
     m_imageBuilderSupported(false),
     m_imageBuilderSupportedHasBeenSet(false),
+    m_imageBuilderNameHasBeenSet(false),
     m_platform(PlatformType::NOT_SET),
     m_platformHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -51,7 +52,7 @@ Image::Image() :
 {
 }
 
-Image::Image(const JsonValue& jsonValue) : 
+Image::Image(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_baseImageArnHasBeenSet(false),
@@ -62,6 +63,7 @@ Image::Image(const JsonValue& jsonValue) :
     m_visibilityHasBeenSet(false),
     m_imageBuilderSupported(false),
     m_imageBuilderSupportedHasBeenSet(false),
+    m_imageBuilderNameHasBeenSet(false),
     m_platform(PlatformType::NOT_SET),
     m_platformHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -75,7 +77,7 @@ Image::Image(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Image& Image::operator =(const JsonValue& jsonValue)
+Image& Image::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -126,6 +128,13 @@ Image& Image::operator =(const JsonValue& jsonValue)
     m_imageBuilderSupportedHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("ImageBuilderName"))
+  {
+    m_imageBuilderName = jsonValue.GetString("ImageBuilderName");
+
+    m_imageBuilderNameHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("Platform"))
   {
     m_platform = PlatformTypeMapper::GetPlatformTypeForName(jsonValue.GetString("Platform"));
@@ -149,7 +158,7 @@ Image& Image::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Applications"))
   {
-    Array<JsonValue> applicationsJsonList = jsonValue.GetArray("Applications");
+    Array<JsonView> applicationsJsonList = jsonValue.GetArray("Applications");
     for(unsigned applicationsIndex = 0; applicationsIndex < applicationsJsonList.GetLength(); ++applicationsIndex)
     {
       m_applications.push_back(applicationsJsonList[applicationsIndex].AsObject());
@@ -229,6 +238,12 @@ JsonValue Image::Jsonize() const
   if(m_imageBuilderSupportedHasBeenSet)
   {
    payload.WithBool("ImageBuilderSupported", m_imageBuilderSupported);
+
+  }
+
+  if(m_imageBuilderNameHasBeenSet)
+  {
+   payload.WithString("ImageBuilderName", m_imageBuilderName);
 
   }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PatchRuleGroup();
-    PatchRuleGroup(const Aws::Utils::Json::JsonValue& jsonValue);
-    PatchRuleGroup& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PatchRuleGroup(Aws::Utils::Json::JsonView jsonValue);
+    PatchRuleGroup& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The rules that make up the rule group.</p>
      */
     inline const Aws::Vector<PatchRule>& GetPatchRules() const{ return m_patchRules; }
+
+    /**
+     * <p>The rules that make up the rule group.</p>
+     */
+    inline bool PatchRulesHasBeenSet() const { return m_patchRulesHasBeenSet; }
 
     /**
      * <p>The rules that make up the rule group.</p>

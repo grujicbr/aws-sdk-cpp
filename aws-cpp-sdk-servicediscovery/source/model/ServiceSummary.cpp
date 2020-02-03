@@ -34,22 +34,30 @@ ServiceSummary::ServiceSummary() :
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_instanceCount(0),
-    m_instanceCountHasBeenSet(false)
+    m_instanceCountHasBeenSet(false),
+    m_dnsConfigHasBeenSet(false),
+    m_healthCheckConfigHasBeenSet(false),
+    m_healthCheckCustomConfigHasBeenSet(false),
+    m_createDateHasBeenSet(false)
 {
 }
 
-ServiceSummary::ServiceSummary(const JsonValue& jsonValue) : 
+ServiceSummary::ServiceSummary(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_instanceCount(0),
-    m_instanceCountHasBeenSet(false)
+    m_instanceCountHasBeenSet(false),
+    m_dnsConfigHasBeenSet(false),
+    m_healthCheckConfigHasBeenSet(false),
+    m_healthCheckCustomConfigHasBeenSet(false),
+    m_createDateHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ServiceSummary& ServiceSummary::operator =(const JsonValue& jsonValue)
+ServiceSummary& ServiceSummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Id"))
   {
@@ -84,6 +92,34 @@ ServiceSummary& ServiceSummary::operator =(const JsonValue& jsonValue)
     m_instanceCount = jsonValue.GetInteger("InstanceCount");
 
     m_instanceCountHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("DnsConfig"))
+  {
+    m_dnsConfig = jsonValue.GetObject("DnsConfig");
+
+    m_dnsConfigHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("HealthCheckConfig"))
+  {
+    m_healthCheckConfig = jsonValue.GetObject("HealthCheckConfig");
+
+    m_healthCheckConfigHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("HealthCheckCustomConfig"))
+  {
+    m_healthCheckCustomConfig = jsonValue.GetObject("HealthCheckCustomConfig");
+
+    m_healthCheckCustomConfigHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("CreateDate"))
+  {
+    m_createDate = jsonValue.GetDouble("CreateDate");
+
+    m_createDateHasBeenSet = true;
   }
 
   return *this;
@@ -121,6 +157,29 @@ JsonValue ServiceSummary::Jsonize() const
   {
    payload.WithInteger("InstanceCount", m_instanceCount);
 
+  }
+
+  if(m_dnsConfigHasBeenSet)
+  {
+   payload.WithObject("DnsConfig", m_dnsConfig.Jsonize());
+
+  }
+
+  if(m_healthCheckConfigHasBeenSet)
+  {
+   payload.WithObject("HealthCheckConfig", m_healthCheckConfig.Jsonize());
+
+  }
+
+  if(m_healthCheckCustomConfigHasBeenSet)
+  {
+   payload.WithObject("HealthCheckCustomConfig", m_healthCheckCustomConfig.Jsonize());
+
+  }
+
+  if(m_createDateHasBeenSet)
+  {
+   payload.WithDouble("CreateDate", m_createDate.SecondsWithMSPrecision());
   }
 
   return payload;

@@ -19,6 +19,8 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/cloudformation/model/StackInstanceStatus.h>
+#include <aws/cloudformation/model/StackDriftStatus.h>
+#include <aws/core/utils/DateTime.h>
 #include <aws/cloudformation/model/Parameter.h>
 #include <utility>
 
@@ -68,6 +70,12 @@ namespace Model
      * <p>The name or unique ID of the stack set that the stack instance is associated
      * with.</p>
      */
+    inline bool StackSetIdHasBeenSet() const { return m_stackSetIdHasBeenSet; }
+
+    /**
+     * <p>The name or unique ID of the stack set that the stack instance is associated
+     * with.</p>
+     */
     inline void SetStackSetId(const Aws::String& value) { m_stackSetIdHasBeenSet = true; m_stackSetId = value; }
 
     /**
@@ -109,6 +117,11 @@ namespace Model
     /**
      * <p>The name of the AWS region that the stack instance is associated with.</p>
      */
+    inline bool RegionHasBeenSet() const { return m_regionHasBeenSet; }
+
+    /**
+     * <p>The name of the AWS region that the stack instance is associated with.</p>
+     */
     inline void SetRegion(const Aws::String& value) { m_regionHasBeenSet = true; m_region = value; }
 
     /**
@@ -141,6 +154,11 @@ namespace Model
      * <p>The name of the AWS account that the stack instance is associated with.</p>
      */
     inline const Aws::String& GetAccount() const{ return m_account; }
+
+    /**
+     * <p>The name of the AWS account that the stack instance is associated with.</p>
+     */
+    inline bool AccountHasBeenSet() const { return m_accountHasBeenSet; }
 
     /**
      * <p>The name of the AWS account that the stack instance is associated with.</p>
@@ -181,6 +199,11 @@ namespace Model
     /**
      * <p>The ID of the stack instance.</p>
      */
+    inline bool StackIdHasBeenSet() const { return m_stackIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the stack instance.</p>
+     */
     inline void SetStackId(const Aws::String& value) { m_stackIdHasBeenSet = true; m_stackId = value; }
 
     /**
@@ -214,6 +237,12 @@ namespace Model
      * overridden in this stack instance.</p>
      */
     inline const Aws::Vector<Parameter>& GetParameterOverrides() const{ return m_parameterOverrides; }
+
+    /**
+     * <p>A list of parameters from the stack set template whose values have been
+     * overridden in this stack instance.</p>
+     */
+    inline bool ParameterOverridesHasBeenSet() const { return m_parameterOverridesHasBeenSet; }
 
     /**
      * <p>A list of parameters from the stack set template whose values have been
@@ -270,6 +299,25 @@ namespace Model
      * </li> </ul>
      */
     inline const StackInstanceStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the stack instance, in terms of its synchronization with its
+     * associated stack set.</p> <ul> <li> <p> <code>INOPERABLE</code>: A
+     * <code>DeleteStackInstances</code> operation has failed and left the stack in an
+     * unstable state. Stacks in this state are excluded from further
+     * <code>UpdateStackSet</code> operations. You might need to perform a
+     * <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set
+     * to <code>true</code>, to delete the stack instance, and then delete the stack
+     * manually.</p> </li> <li> <p> <code>OUTDATED</code>: The stack isn't currently up
+     * to date with the stack set because:</p> <ul> <li> <p>The associated stack failed
+     * during a <code>CreateStackSet</code> or <code>UpdateStackSet</code> operation.
+     * </p> </li> <li> <p>The stack was part of a <code>CreateStackSet</code> or
+     * <code>UpdateStackSet</code> operation that failed or was stopped before the
+     * stack was created or updated. </p> </li> </ul> </li> <li> <p>
+     * <code>CURRENT</code>: The stack is currently up to date with the stack set.</p>
+     * </li> </ul>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the stack instance, in terms of its synchronization with its
@@ -358,6 +406,12 @@ namespace Model
      * <p>The explanation for the specific status code that is assigned to this stack
      * instance.</p>
      */
+    inline bool StatusReasonHasBeenSet() const { return m_statusReasonHasBeenSet; }
+
+    /**
+     * <p>The explanation for the specific status code that is assigned to this stack
+     * instance.</p>
+     */
     inline void SetStatusReason(const Aws::String& value) { m_statusReasonHasBeenSet = true; m_statusReason = value; }
 
     /**
@@ -390,6 +444,140 @@ namespace Model
      */
     inline StackInstance& WithStatusReason(const char* value) { SetStatusReason(value); return *this;}
 
+
+    /**
+     * <p>Status of the stack instance's actual configuration compared to the expected
+     * template and parameter configuration of the stack set to which it belongs. </p>
+     * <ul> <li> <p> <code>DRIFTED</code>: The stack differs from the expected template
+     * and parameter configuration of the stack set to which it belongs. A stack
+     * instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.</p> </li> <li> <p> <code>NOT_CHECKED</code>: AWS
+     * CloudFormation has not checked if the stack instance differs from its expected
+     * stack set configuration.</p> </li> <li> <p> <code>IN_SYNC</code>: The stack
+     * instance's actual configuration matches its expected stack set
+     * configuration.</p> </li> <li> <p> <code>UNKNOWN</code>: This value is reserved
+     * for future use.</p> </li> </ul>
+     */
+    inline const StackDriftStatus& GetDriftStatus() const{ return m_driftStatus; }
+
+    /**
+     * <p>Status of the stack instance's actual configuration compared to the expected
+     * template and parameter configuration of the stack set to which it belongs. </p>
+     * <ul> <li> <p> <code>DRIFTED</code>: The stack differs from the expected template
+     * and parameter configuration of the stack set to which it belongs. A stack
+     * instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.</p> </li> <li> <p> <code>NOT_CHECKED</code>: AWS
+     * CloudFormation has not checked if the stack instance differs from its expected
+     * stack set configuration.</p> </li> <li> <p> <code>IN_SYNC</code>: The stack
+     * instance's actual configuration matches its expected stack set
+     * configuration.</p> </li> <li> <p> <code>UNKNOWN</code>: This value is reserved
+     * for future use.</p> </li> </ul>
+     */
+    inline bool DriftStatusHasBeenSet() const { return m_driftStatusHasBeenSet; }
+
+    /**
+     * <p>Status of the stack instance's actual configuration compared to the expected
+     * template and parameter configuration of the stack set to which it belongs. </p>
+     * <ul> <li> <p> <code>DRIFTED</code>: The stack differs from the expected template
+     * and parameter configuration of the stack set to which it belongs. A stack
+     * instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.</p> </li> <li> <p> <code>NOT_CHECKED</code>: AWS
+     * CloudFormation has not checked if the stack instance differs from its expected
+     * stack set configuration.</p> </li> <li> <p> <code>IN_SYNC</code>: The stack
+     * instance's actual configuration matches its expected stack set
+     * configuration.</p> </li> <li> <p> <code>UNKNOWN</code>: This value is reserved
+     * for future use.</p> </li> </ul>
+     */
+    inline void SetDriftStatus(const StackDriftStatus& value) { m_driftStatusHasBeenSet = true; m_driftStatus = value; }
+
+    /**
+     * <p>Status of the stack instance's actual configuration compared to the expected
+     * template and parameter configuration of the stack set to which it belongs. </p>
+     * <ul> <li> <p> <code>DRIFTED</code>: The stack differs from the expected template
+     * and parameter configuration of the stack set to which it belongs. A stack
+     * instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.</p> </li> <li> <p> <code>NOT_CHECKED</code>: AWS
+     * CloudFormation has not checked if the stack instance differs from its expected
+     * stack set configuration.</p> </li> <li> <p> <code>IN_SYNC</code>: The stack
+     * instance's actual configuration matches its expected stack set
+     * configuration.</p> </li> <li> <p> <code>UNKNOWN</code>: This value is reserved
+     * for future use.</p> </li> </ul>
+     */
+    inline void SetDriftStatus(StackDriftStatus&& value) { m_driftStatusHasBeenSet = true; m_driftStatus = std::move(value); }
+
+    /**
+     * <p>Status of the stack instance's actual configuration compared to the expected
+     * template and parameter configuration of the stack set to which it belongs. </p>
+     * <ul> <li> <p> <code>DRIFTED</code>: The stack differs from the expected template
+     * and parameter configuration of the stack set to which it belongs. A stack
+     * instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.</p> </li> <li> <p> <code>NOT_CHECKED</code>: AWS
+     * CloudFormation has not checked if the stack instance differs from its expected
+     * stack set configuration.</p> </li> <li> <p> <code>IN_SYNC</code>: The stack
+     * instance's actual configuration matches its expected stack set
+     * configuration.</p> </li> <li> <p> <code>UNKNOWN</code>: This value is reserved
+     * for future use.</p> </li> </ul>
+     */
+    inline StackInstance& WithDriftStatus(const StackDriftStatus& value) { SetDriftStatus(value); return *this;}
+
+    /**
+     * <p>Status of the stack instance's actual configuration compared to the expected
+     * template and parameter configuration of the stack set to which it belongs. </p>
+     * <ul> <li> <p> <code>DRIFTED</code>: The stack differs from the expected template
+     * and parameter configuration of the stack set to which it belongs. A stack
+     * instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.</p> </li> <li> <p> <code>NOT_CHECKED</code>: AWS
+     * CloudFormation has not checked if the stack instance differs from its expected
+     * stack set configuration.</p> </li> <li> <p> <code>IN_SYNC</code>: The stack
+     * instance's actual configuration matches its expected stack set
+     * configuration.</p> </li> <li> <p> <code>UNKNOWN</code>: This value is reserved
+     * for future use.</p> </li> </ul>
+     */
+    inline StackInstance& WithDriftStatus(StackDriftStatus&& value) { SetDriftStatus(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Most recent time when CloudFormation performed a drift detection operation on
+     * the stack instance. This value will be <code>NULL</code> for any stack instance
+     * on which drift detection has not yet been performed.</p>
+     */
+    inline const Aws::Utils::DateTime& GetLastDriftCheckTimestamp() const{ return m_lastDriftCheckTimestamp; }
+
+    /**
+     * <p>Most recent time when CloudFormation performed a drift detection operation on
+     * the stack instance. This value will be <code>NULL</code> for any stack instance
+     * on which drift detection has not yet been performed.</p>
+     */
+    inline bool LastDriftCheckTimestampHasBeenSet() const { return m_lastDriftCheckTimestampHasBeenSet; }
+
+    /**
+     * <p>Most recent time when CloudFormation performed a drift detection operation on
+     * the stack instance. This value will be <code>NULL</code> for any stack instance
+     * on which drift detection has not yet been performed.</p>
+     */
+    inline void SetLastDriftCheckTimestamp(const Aws::Utils::DateTime& value) { m_lastDriftCheckTimestampHasBeenSet = true; m_lastDriftCheckTimestamp = value; }
+
+    /**
+     * <p>Most recent time when CloudFormation performed a drift detection operation on
+     * the stack instance. This value will be <code>NULL</code> for any stack instance
+     * on which drift detection has not yet been performed.</p>
+     */
+    inline void SetLastDriftCheckTimestamp(Aws::Utils::DateTime&& value) { m_lastDriftCheckTimestampHasBeenSet = true; m_lastDriftCheckTimestamp = std::move(value); }
+
+    /**
+     * <p>Most recent time when CloudFormation performed a drift detection operation on
+     * the stack instance. This value will be <code>NULL</code> for any stack instance
+     * on which drift detection has not yet been performed.</p>
+     */
+    inline StackInstance& WithLastDriftCheckTimestamp(const Aws::Utils::DateTime& value) { SetLastDriftCheckTimestamp(value); return *this;}
+
+    /**
+     * <p>Most recent time when CloudFormation performed a drift detection operation on
+     * the stack instance. This value will be <code>NULL</code> for any stack instance
+     * on which drift detection has not yet been performed.</p>
+     */
+    inline StackInstance& WithLastDriftCheckTimestamp(Aws::Utils::DateTime&& value) { SetLastDriftCheckTimestamp(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_stackSetId;
@@ -412,6 +600,12 @@ namespace Model
 
     Aws::String m_statusReason;
     bool m_statusReasonHasBeenSet;
+
+    StackDriftStatus m_driftStatus;
+    bool m_driftStatusHasBeenSet;
+
+    Aws::Utils::DateTime m_lastDriftCheckTimestamp;
+    bool m_lastDriftCheckTimestampHasBeenSet;
   };
 
 } // namespace Model

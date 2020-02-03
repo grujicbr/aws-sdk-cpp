@@ -27,7 +27,8 @@ CreateBuildRequest::CreateBuildRequest() :
     m_versionHasBeenSet(false),
     m_storageLocationHasBeenSet(false),
     m_operatingSystem(OperatingSystem::NOT_SET),
-    m_operatingSystemHasBeenSet(false)
+    m_operatingSystemHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -58,7 +59,18 @@ Aws::String CreateBuildRequest::SerializePayload() const
    payload.WithString("OperatingSystem", OperatingSystemMapper::GetNameForOperatingSystem(m_operatingSystem));
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateBuildRequest::GetRequestSpecificHeaders() const

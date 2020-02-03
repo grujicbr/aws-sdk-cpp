@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     DeploymentOverview();
-    DeploymentOverview(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeploymentOverview& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeploymentOverview(Aws::Utils::Json::JsonView jsonValue);
+    DeploymentOverview& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,11 @@ namespace Model
      * <p>The number of instances in the deployment in a pending state.</p>
      */
     inline long long GetPending() const{ return m_pending; }
+
+    /**
+     * <p>The number of instances in the deployment in a pending state.</p>
+     */
+    inline bool PendingHasBeenSet() const { return m_pendingHasBeenSet; }
 
     /**
      * <p>The number of instances in the deployment in a pending state.</p>
@@ -65,6 +71,11 @@ namespace Model
      * <p>The number of instances in which the deployment is in progress.</p>
      */
     inline long long GetInProgress() const{ return m_inProgress; }
+
+    /**
+     * <p>The number of instances in which the deployment is in progress.</p>
+     */
+    inline bool InProgressHasBeenSet() const { return m_inProgressHasBeenSet; }
 
     /**
      * <p>The number of instances in which the deployment is in progress.</p>
@@ -87,6 +98,12 @@ namespace Model
      * <p>The number of instances in the deployment to which revisions have been
      * successfully deployed.</p>
      */
+    inline bool SucceededHasBeenSet() const { return m_succeededHasBeenSet; }
+
+    /**
+     * <p>The number of instances in the deployment to which revisions have been
+     * successfully deployed.</p>
+     */
     inline void SetSucceeded(long long value) { m_succeededHasBeenSet = true; m_succeeded = value; }
 
     /**
@@ -100,6 +117,11 @@ namespace Model
      * <p>The number of instances in the deployment in a failed state.</p>
      */
     inline long long GetFailed() const{ return m_failed; }
+
+    /**
+     * <p>The number of instances in the deployment in a failed state.</p>
+     */
+    inline bool FailedHasBeenSet() const { return m_failedHasBeenSet; }
 
     /**
      * <p>The number of instances in the deployment in a failed state.</p>
@@ -120,6 +142,11 @@ namespace Model
     /**
      * <p>The number of instances in the deployment in a skipped state.</p>
      */
+    inline bool SkippedHasBeenSet() const { return m_skippedHasBeenSet; }
+
+    /**
+     * <p>The number of instances in the deployment in a skipped state.</p>
+     */
     inline void SetSkipped(long long value) { m_skippedHasBeenSet = true; m_skipped = value; }
 
     /**
@@ -133,6 +160,12 @@ namespace Model
      * in a blue/green deployment.</p>
      */
     inline long long GetReady() const{ return m_ready; }
+
+    /**
+     * <p>The number of instances in a replacement environment ready to receive traffic
+     * in a blue/green deployment.</p>
+     */
+    inline bool ReadyHasBeenSet() const { return m_readyHasBeenSet; }
 
     /**
      * <p>The number of instances in a replacement environment ready to receive traffic

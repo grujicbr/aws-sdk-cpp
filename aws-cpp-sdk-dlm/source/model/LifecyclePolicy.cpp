@@ -33,27 +33,33 @@ LifecyclePolicy::LifecyclePolicy() :
     m_descriptionHasBeenSet(false),
     m_state(GettablePolicyStateValues::NOT_SET),
     m_stateHasBeenSet(false),
+    m_statusMessageHasBeenSet(false),
     m_executionRoleArnHasBeenSet(false),
     m_dateCreatedHasBeenSet(false),
     m_dateModifiedHasBeenSet(false),
-    m_policyDetailsHasBeenSet(false)
+    m_policyDetailsHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_policyArnHasBeenSet(false)
 {
 }
 
-LifecyclePolicy::LifecyclePolicy(const JsonValue& jsonValue) : 
+LifecyclePolicy::LifecyclePolicy(JsonView jsonValue) : 
     m_policyIdHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_state(GettablePolicyStateValues::NOT_SET),
     m_stateHasBeenSet(false),
+    m_statusMessageHasBeenSet(false),
     m_executionRoleArnHasBeenSet(false),
     m_dateCreatedHasBeenSet(false),
     m_dateModifiedHasBeenSet(false),
-    m_policyDetailsHasBeenSet(false)
+    m_policyDetailsHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_policyArnHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-LifecyclePolicy& LifecyclePolicy::operator =(const JsonValue& jsonValue)
+LifecyclePolicy& LifecyclePolicy::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("PolicyId"))
   {
@@ -76,6 +82,13 @@ LifecyclePolicy& LifecyclePolicy::operator =(const JsonValue& jsonValue)
     m_stateHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("StatusMessage"))
+  {
+    m_statusMessage = jsonValue.GetString("StatusMessage");
+
+    m_statusMessageHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ExecutionRoleArn"))
   {
     m_executionRoleArn = jsonValue.GetString("ExecutionRoleArn");
@@ -85,14 +98,14 @@ LifecyclePolicy& LifecyclePolicy::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("DateCreated"))
   {
-    m_dateCreated = jsonValue.GetDouble("DateCreated");
+    m_dateCreated = jsonValue.GetString("DateCreated");
 
     m_dateCreatedHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("DateModified"))
   {
-    m_dateModified = jsonValue.GetDouble("DateModified");
+    m_dateModified = jsonValue.GetString("DateModified");
 
     m_dateModifiedHasBeenSet = true;
   }
@@ -102,6 +115,23 @@ LifecyclePolicy& LifecyclePolicy::operator =(const JsonValue& jsonValue)
     m_policyDetails = jsonValue.GetObject("PolicyDetails");
 
     m_policyDetailsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("Tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("Tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("PolicyArn"))
+  {
+    m_policyArn = jsonValue.GetString("PolicyArn");
+
+    m_policyArnHasBeenSet = true;
   }
 
   return *this;
@@ -128,6 +158,12 @@ JsonValue LifecyclePolicy::Jsonize() const
    payload.WithString("State", GettablePolicyStateValuesMapper::GetNameForGettablePolicyStateValues(m_state));
   }
 
+  if(m_statusMessageHasBeenSet)
+  {
+   payload.WithString("StatusMessage", m_statusMessage);
+
+  }
+
   if(m_executionRoleArnHasBeenSet)
   {
    payload.WithString("ExecutionRoleArn", m_executionRoleArn);
@@ -136,17 +172,34 @@ JsonValue LifecyclePolicy::Jsonize() const
 
   if(m_dateCreatedHasBeenSet)
   {
-   payload.WithDouble("DateCreated", m_dateCreated.SecondsWithMSPrecision());
+   payload.WithString("DateCreated", m_dateCreated.ToGmtString(DateFormat::ISO_8601));
   }
 
   if(m_dateModifiedHasBeenSet)
   {
-   payload.WithDouble("DateModified", m_dateModified.SecondsWithMSPrecision());
+   payload.WithString("DateModified", m_dateModified.ToGmtString(DateFormat::ISO_8601));
   }
 
   if(m_policyDetailsHasBeenSet)
   {
    payload.WithObject("PolicyDetails", m_policyDetails.Jsonize());
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("Tags", std::move(tagsJsonMap));
+
+  }
+
+  if(m_policyArnHasBeenSet)
+  {
+   payload.WithString("PolicyArn", m_policyArn);
 
   }
 

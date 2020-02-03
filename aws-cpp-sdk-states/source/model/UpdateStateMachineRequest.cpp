@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 UpdateStateMachineRequest::UpdateStateMachineRequest() : 
     m_stateMachineArnHasBeenSet(false),
     m_definitionHasBeenSet(false),
-    m_roleArnHasBeenSet(false)
+    m_roleArnHasBeenSet(false),
+    m_loggingConfigurationHasBeenSet(false)
 {
 }
 
@@ -51,7 +52,13 @@ Aws::String UpdateStateMachineRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_loggingConfigurationHasBeenSet)
+  {
+   payload.WithObject("loggingConfiguration", m_loggingConfiguration.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateStateMachineRequest::GetRequestSpecificHeaders() const

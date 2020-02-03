@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     HTTPHeader();
-    HTTPHeader(const Aws::Utils::Json::JsonValue& jsonValue);
-    HTTPHeader& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HTTPHeader(Aws::Utils::Json::JsonView jsonValue);
+    HTTPHeader& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of one of the headers in the sampled web request.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of one of the headers in the sampled web request.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of one of the headers in the sampled web request.</p>
@@ -90,6 +96,11 @@ namespace Model
      * <p>The value of one of the headers in the sampled web request.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of one of the headers in the sampled web request.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of one of the headers in the sampled web request.</p>

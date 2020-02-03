@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     MappingEntry();
-    MappingEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    MappingEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MappingEntry(Aws::Utils::Json::JsonView jsonValue);
+    MappingEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the source table.</p>
      */
     inline const Aws::String& GetSourceTable() const{ return m_sourceTable; }
+
+    /**
+     * <p>The name of the source table.</p>
+     */
+    inline bool SourceTableHasBeenSet() const { return m_sourceTableHasBeenSet; }
 
     /**
      * <p>The name of the source table.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The source path.</p>
      */
+    inline bool SourcePathHasBeenSet() const { return m_sourcePathHasBeenSet; }
+
+    /**
+     * <p>The source path.</p>
+     */
     inline void SetSourcePath(const Aws::String& value) { m_sourcePathHasBeenSet = true; m_sourcePath = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
      * <p>The source type.</p>
      */
     inline const Aws::String& GetSourceType() const{ return m_sourceType; }
+
+    /**
+     * <p>The source type.</p>
+     */
+    inline bool SourceTypeHasBeenSet() const { return m_sourceTypeHasBeenSet; }
 
     /**
      * <p>The source type.</p>
@@ -162,6 +178,11 @@ namespace Model
     /**
      * <p>The target table.</p>
      */
+    inline bool TargetTableHasBeenSet() const { return m_targetTableHasBeenSet; }
+
+    /**
+     * <p>The target table.</p>
+     */
     inline void SetTargetTable(const Aws::String& value) { m_targetTableHasBeenSet = true; m_targetTable = value; }
 
     /**
@@ -198,6 +219,11 @@ namespace Model
     /**
      * <p>The target path.</p>
      */
+    inline bool TargetPathHasBeenSet() const { return m_targetPathHasBeenSet; }
+
+    /**
+     * <p>The target path.</p>
+     */
     inline void SetTargetPath(const Aws::String& value) { m_targetPathHasBeenSet = true; m_targetPath = value; }
 
     /**
@@ -230,6 +256,11 @@ namespace Model
      * <p>The target type.</p>
      */
     inline const Aws::String& GetTargetType() const{ return m_targetType; }
+
+    /**
+     * <p>The target type.</p>
+     */
+    inline bool TargetTypeHasBeenSet() const { return m_targetTypeHasBeenSet; }
 
     /**
      * <p>The target type.</p>

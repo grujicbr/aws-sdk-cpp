@@ -26,7 +26,9 @@ DescribeReplicationTasksRequest::DescribeReplicationTasksRequest() :
     m_filtersHasBeenSet(false),
     m_maxRecords(0),
     m_maxRecordsHasBeenSet(false),
-    m_markerHasBeenSet(false)
+    m_markerHasBeenSet(false),
+    m_withoutSettings(false),
+    m_withoutSettingsHasBeenSet(false)
 {
 }
 
@@ -57,7 +59,13 @@ Aws::String DescribeReplicationTasksRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_withoutSettingsHasBeenSet)
+  {
+   payload.WithBool("WithoutSettings", m_withoutSettings);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DescribeReplicationTasksRequest::GetRequestSpecificHeaders() const

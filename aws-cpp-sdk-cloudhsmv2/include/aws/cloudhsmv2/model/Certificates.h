@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudHSMV2
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Certificates();
-    Certificates(const Aws::Utils::Json::JsonValue& jsonValue);
-    Certificates& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Certificates(Aws::Utils::Json::JsonView jsonValue);
+    Certificates& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * cluster's state is <code>UNINITIALIZED</code>.</p>
      */
     inline const Aws::String& GetClusterCsr() const{ return m_clusterCsr; }
+
+    /**
+     * <p>The cluster's certificate signing request (CSR). The CSR exists only when the
+     * cluster's state is <code>UNINITIALIZED</code>.</p>
+     */
+    inline bool ClusterCsrHasBeenSet() const { return m_clusterCsrHasBeenSet; }
 
     /**
      * <p>The cluster's certificate signing request (CSR). The CSR exists only when the
@@ -98,6 +105,11 @@ namespace Model
     /**
      * <p>The HSM certificate issued (signed) by the HSM hardware.</p>
      */
+    inline bool HsmCertificateHasBeenSet() const { return m_hsmCertificateHasBeenSet; }
+
+    /**
+     * <p>The HSM certificate issued (signed) by the HSM hardware.</p>
+     */
     inline void SetHsmCertificate(const Aws::String& value) { m_hsmCertificateHasBeenSet = true; m_hsmCertificate = value; }
 
     /**
@@ -130,6 +142,11 @@ namespace Model
      * <p>The HSM hardware certificate issued (signed) by AWS CloudHSM.</p>
      */
     inline const Aws::String& GetAwsHardwareCertificate() const{ return m_awsHardwareCertificate; }
+
+    /**
+     * <p>The HSM hardware certificate issued (signed) by AWS CloudHSM.</p>
+     */
+    inline bool AwsHardwareCertificateHasBeenSet() const { return m_awsHardwareCertificateHasBeenSet; }
 
     /**
      * <p>The HSM hardware certificate issued (signed) by AWS CloudHSM.</p>
@@ -167,6 +184,12 @@ namespace Model
      * manufacturer.</p>
      */
     inline const Aws::String& GetManufacturerHardwareCertificate() const{ return m_manufacturerHardwareCertificate; }
+
+    /**
+     * <p>The HSM hardware certificate issued (signed) by the hardware
+     * manufacturer.</p>
+     */
+    inline bool ManufacturerHardwareCertificateHasBeenSet() const { return m_manufacturerHardwareCertificateHasBeenSet; }
 
     /**
      * <p>The HSM hardware certificate issued (signed) by the hardware
@@ -210,6 +233,12 @@ namespace Model
      * (CA) of the cluster's owner.</p>
      */
     inline const Aws::String& GetClusterCertificate() const{ return m_clusterCertificate; }
+
+    /**
+     * <p>The cluster certificate issued (signed) by the issuing certificate authority
+     * (CA) of the cluster's owner.</p>
+     */
+    inline bool ClusterCertificateHasBeenSet() const { return m_clusterCertificateHasBeenSet; }
 
     /**
      * <p>The cluster certificate issued (signed) by the issuing certificate authority

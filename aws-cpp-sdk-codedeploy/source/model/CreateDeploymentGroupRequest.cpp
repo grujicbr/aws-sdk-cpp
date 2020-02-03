@@ -37,7 +37,9 @@ CreateDeploymentGroupRequest::CreateDeploymentGroupRequest() :
     m_blueGreenDeploymentConfigurationHasBeenSet(false),
     m_loadBalancerInfoHasBeenSet(false),
     m_ec2TagSetHasBeenSet(false),
-    m_onPremisesTagSetHasBeenSet(false)
+    m_ecsServicesHasBeenSet(false),
+    m_onPremisesTagSetHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -149,13 +151,35 @@ Aws::String CreateDeploymentGroupRequest::SerializePayload() const
 
   }
 
+  if(m_ecsServicesHasBeenSet)
+  {
+   Array<JsonValue> ecsServicesJsonList(m_ecsServices.size());
+   for(unsigned ecsServicesIndex = 0; ecsServicesIndex < ecsServicesJsonList.GetLength(); ++ecsServicesIndex)
+   {
+     ecsServicesJsonList[ecsServicesIndex].AsObject(m_ecsServices[ecsServicesIndex].Jsonize());
+   }
+   payload.WithArray("ecsServices", std::move(ecsServicesJsonList));
+
+  }
+
   if(m_onPremisesTagSetHasBeenSet)
   {
    payload.WithObject("onPremisesTagSet", m_onPremisesTagSet.Jsonize());
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateDeploymentGroupRequest::GetRequestSpecificHeaders() const

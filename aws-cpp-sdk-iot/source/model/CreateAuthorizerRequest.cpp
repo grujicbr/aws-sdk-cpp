@@ -28,7 +28,9 @@ CreateAuthorizerRequest::CreateAuthorizerRequest() :
     m_tokenKeyNameHasBeenSet(false),
     m_tokenSigningPublicKeysHasBeenSet(false),
     m_status(AuthorizerStatus::NOT_SET),
-    m_statusHasBeenSet(false)
+    m_statusHasBeenSet(false),
+    m_signingDisabled(false),
+    m_signingDisabledHasBeenSet(false)
 {
 }
 
@@ -64,7 +66,13 @@ Aws::String CreateAuthorizerRequest::SerializePayload() const
    payload.WithString("status", AuthorizerStatusMapper::GetNameForAuthorizerStatus(m_status));
   }
 
-  return payload.WriteReadable();
+  if(m_signingDisabledHasBeenSet)
+  {
+   payload.WithBool("signingDisabled", m_signingDisabled);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

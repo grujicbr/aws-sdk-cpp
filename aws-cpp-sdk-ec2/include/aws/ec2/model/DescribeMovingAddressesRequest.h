@@ -29,16 +29,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for DescribeMovingAddresses.</p><p><h3>See Also:</h3>
-   * <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeMovingAddressesRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API DescribeMovingAddressesRequest : public EC2Request
   {
   public:
     DescribeMovingAddressesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -58,6 +54,13 @@ namespace Model
      * <code>RestoringToClassic</code>).</p> </li> </ul>
      */
     inline const Aws::Vector<Filter>& GetFilters() const{ return m_filters; }
+
+    /**
+     * <p>One or more filters.</p> <ul> <li> <p> <code>moving-status</code> - The
+     * status of the Elastic IP address (<code>MovingToVpc</code> |
+     * <code>RestoringToClassic</code>).</p> </li> </ul>
+     */
+    inline bool FiltersHasBeenSet() const { return m_filtersHasBeenSet; }
 
     /**
      * <p>One or more filters.</p> <ul> <li> <p> <code>moving-status</code> - The
@@ -116,6 +119,14 @@ namespace Model
      * required permissions, the error response is <code>DryRunOperation</code>.
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
     inline void SetDryRun(bool value) { m_dryRunHasBeenSet = true; m_dryRun = value; }
 
     /**
@@ -145,6 +156,16 @@ namespace Model
      * error is returned.</p> <p>Default: If no value is provided, the default is
      * 1000.</p>
      */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of results to return for the request in a single page. The
+     * remaining results of the initial request can be seen by sending another request
+     * with the returned <code>NextToken</code> value. This value can be between 5 and
+     * 1000; if <code>MaxResults</code> is given a value outside of this range, an
+     * error is returned.</p> <p>Default: If no value is provided, the default is
+     * 1000.</p>
+     */
     inline void SetMaxResults(int value) { m_maxResultsHasBeenSet = true; m_maxResults = value; }
 
     /**
@@ -159,37 +180,42 @@ namespace Model
 
 
     /**
-     * <p>The token to use to retrieve the next page of results.</p>
+     * <p>The token for the next page of results.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
-     * <p>The token to use to retrieve the next page of results.</p>
+     * <p>The token for the next page of results.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>The token for the next page of results.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
-     * <p>The token to use to retrieve the next page of results.</p>
+     * <p>The token for the next page of results.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
     /**
-     * <p>The token to use to retrieve the next page of results.</p>
+     * <p>The token for the next page of results.</p>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
     /**
-     * <p>The token to use to retrieve the next page of results.</p>
+     * <p>The token for the next page of results.</p>
      */
     inline DescribeMovingAddressesRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
-     * <p>The token to use to retrieve the next page of results.</p>
+     * <p>The token for the next page of results.</p>
      */
     inline DescribeMovingAddressesRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
-     * <p>The token to use to retrieve the next page of results.</p>
+     * <p>The token for the next page of results.</p>
      */
     inline DescribeMovingAddressesRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
@@ -198,6 +224,11 @@ namespace Model
      * <p>One or more Elastic IP addresses.</p>
      */
     inline const Aws::Vector<Aws::String>& GetPublicIps() const{ return m_publicIps; }
+
+    /**
+     * <p>One or more Elastic IP addresses.</p>
+     */
+    inline bool PublicIpsHasBeenSet() const { return m_publicIpsHasBeenSet; }
 
     /**
      * <p>One or more Elastic IP addresses.</p>

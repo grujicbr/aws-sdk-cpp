@@ -40,6 +40,8 @@ ElasticsearchDomainStatus::ElasticsearchDomainStatus() :
     m_endpointsHasBeenSet(false),
     m_processing(false),
     m_processingHasBeenSet(false),
+    m_upgradeProcessing(false),
+    m_upgradeProcessingHasBeenSet(false),
     m_elasticsearchVersionHasBeenSet(false),
     m_elasticsearchClusterConfigHasBeenSet(false),
     m_eBSOptionsHasBeenSet(false),
@@ -48,12 +50,15 @@ ElasticsearchDomainStatus::ElasticsearchDomainStatus() :
     m_vPCOptionsHasBeenSet(false),
     m_cognitoOptionsHasBeenSet(false),
     m_encryptionAtRestOptionsHasBeenSet(false),
+    m_nodeToNodeEncryptionOptionsHasBeenSet(false),
     m_advancedOptionsHasBeenSet(false),
-    m_logPublishingOptionsHasBeenSet(false)
+    m_logPublishingOptionsHasBeenSet(false),
+    m_serviceSoftwareOptionsHasBeenSet(false),
+    m_domainEndpointOptionsHasBeenSet(false)
 {
 }
 
-ElasticsearchDomainStatus::ElasticsearchDomainStatus(const JsonValue& jsonValue) : 
+ElasticsearchDomainStatus::ElasticsearchDomainStatus(JsonView jsonValue) : 
     m_domainIdHasBeenSet(false),
     m_domainNameHasBeenSet(false),
     m_aRNHasBeenSet(false),
@@ -65,6 +70,8 @@ ElasticsearchDomainStatus::ElasticsearchDomainStatus(const JsonValue& jsonValue)
     m_endpointsHasBeenSet(false),
     m_processing(false),
     m_processingHasBeenSet(false),
+    m_upgradeProcessing(false),
+    m_upgradeProcessingHasBeenSet(false),
     m_elasticsearchVersionHasBeenSet(false),
     m_elasticsearchClusterConfigHasBeenSet(false),
     m_eBSOptionsHasBeenSet(false),
@@ -73,13 +80,16 @@ ElasticsearchDomainStatus::ElasticsearchDomainStatus(const JsonValue& jsonValue)
     m_vPCOptionsHasBeenSet(false),
     m_cognitoOptionsHasBeenSet(false),
     m_encryptionAtRestOptionsHasBeenSet(false),
+    m_nodeToNodeEncryptionOptionsHasBeenSet(false),
     m_advancedOptionsHasBeenSet(false),
-    m_logPublishingOptionsHasBeenSet(false)
+    m_logPublishingOptionsHasBeenSet(false),
+    m_serviceSoftwareOptionsHasBeenSet(false),
+    m_domainEndpointOptionsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ElasticsearchDomainStatus& ElasticsearchDomainStatus::operator =(const JsonValue& jsonValue)
+ElasticsearchDomainStatus& ElasticsearchDomainStatus::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("DomainId"))
   {
@@ -125,7 +135,7 @@ ElasticsearchDomainStatus& ElasticsearchDomainStatus::operator =(const JsonValue
 
   if(jsonValue.ValueExists("Endpoints"))
   {
-    Aws::Map<Aws::String, JsonValue> endpointsJsonMap = jsonValue.GetObject("Endpoints").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> endpointsJsonMap = jsonValue.GetObject("Endpoints").GetAllObjects();
     for(auto& endpointsItem : endpointsJsonMap)
     {
       m_endpoints[endpointsItem.first] = endpointsItem.second.AsString();
@@ -138,6 +148,13 @@ ElasticsearchDomainStatus& ElasticsearchDomainStatus::operator =(const JsonValue
     m_processing = jsonValue.GetBool("Processing");
 
     m_processingHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("UpgradeProcessing"))
+  {
+    m_upgradeProcessing = jsonValue.GetBool("UpgradeProcessing");
+
+    m_upgradeProcessingHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("ElasticsearchVersion"))
@@ -196,9 +213,16 @@ ElasticsearchDomainStatus& ElasticsearchDomainStatus::operator =(const JsonValue
     m_encryptionAtRestOptionsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("NodeToNodeEncryptionOptions"))
+  {
+    m_nodeToNodeEncryptionOptions = jsonValue.GetObject("NodeToNodeEncryptionOptions");
+
+    m_nodeToNodeEncryptionOptionsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("AdvancedOptions"))
   {
-    Aws::Map<Aws::String, JsonValue> advancedOptionsJsonMap = jsonValue.GetObject("AdvancedOptions").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> advancedOptionsJsonMap = jsonValue.GetObject("AdvancedOptions").GetAllObjects();
     for(auto& advancedOptionsItem : advancedOptionsJsonMap)
     {
       m_advancedOptions[advancedOptionsItem.first] = advancedOptionsItem.second.AsString();
@@ -208,12 +232,26 @@ ElasticsearchDomainStatus& ElasticsearchDomainStatus::operator =(const JsonValue
 
   if(jsonValue.ValueExists("LogPublishingOptions"))
   {
-    Aws::Map<Aws::String, JsonValue> logPublishingOptionsJsonMap = jsonValue.GetObject("LogPublishingOptions").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> logPublishingOptionsJsonMap = jsonValue.GetObject("LogPublishingOptions").GetAllObjects();
     for(auto& logPublishingOptionsItem : logPublishingOptionsJsonMap)
     {
       m_logPublishingOptions[LogTypeMapper::GetLogTypeForName(logPublishingOptionsItem.first)] = logPublishingOptionsItem.second.AsObject();
     }
     m_logPublishingOptionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ServiceSoftwareOptions"))
+  {
+    m_serviceSoftwareOptions = jsonValue.GetObject("ServiceSoftwareOptions");
+
+    m_serviceSoftwareOptionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("DomainEndpointOptions"))
+  {
+    m_domainEndpointOptions = jsonValue.GetObject("DomainEndpointOptions");
+
+    m_domainEndpointOptionsHasBeenSet = true;
   }
 
   return *this;
@@ -276,6 +314,12 @@ JsonValue ElasticsearchDomainStatus::Jsonize() const
 
   }
 
+  if(m_upgradeProcessingHasBeenSet)
+  {
+   payload.WithBool("UpgradeProcessing", m_upgradeProcessing);
+
+  }
+
   if(m_elasticsearchVersionHasBeenSet)
   {
    payload.WithString("ElasticsearchVersion", m_elasticsearchVersion);
@@ -324,6 +368,12 @@ JsonValue ElasticsearchDomainStatus::Jsonize() const
 
   }
 
+  if(m_nodeToNodeEncryptionOptionsHasBeenSet)
+  {
+   payload.WithObject("NodeToNodeEncryptionOptions", m_nodeToNodeEncryptionOptions.Jsonize());
+
+  }
+
   if(m_advancedOptionsHasBeenSet)
   {
    JsonValue advancedOptionsJsonMap;
@@ -343,6 +393,18 @@ JsonValue ElasticsearchDomainStatus::Jsonize() const
      logPublishingOptionsJsonMap.WithObject(LogTypeMapper::GetNameForLogType(logPublishingOptionsItem.first), logPublishingOptionsItem.second.Jsonize());
    }
    payload.WithObject("LogPublishingOptions", std::move(logPublishingOptionsJsonMap));
+
+  }
+
+  if(m_serviceSoftwareOptionsHasBeenSet)
+  {
+   payload.WithObject("ServiceSoftwareOptions", m_serviceSoftwareOptions.Jsonize());
+
+  }
+
+  if(m_domainEndpointOptionsHasBeenSet)
+  {
+   payload.WithObject("DomainEndpointOptions", m_domainEndpointOptions.Jsonize());
 
   }
 

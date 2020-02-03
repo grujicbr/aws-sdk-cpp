@@ -38,7 +38,7 @@ DescribeDocumentVersionsRequest::DescribeDocumentVersionsRequest() :
 
 Aws::String DescribeDocumentVersionsRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection DescribeDocumentVersionsRequest::GetRequestSpecificHeaders() const
@@ -48,7 +48,7 @@ Aws::Http::HeaderValueCollection DescribeDocumentVersionsRequest::GetRequestSpec
   if(m_authenticationTokenHasBeenSet)
   {
     ss << m_authenticationToken;
-    headers.insert(Aws::Http::HeaderValuePair("authentication", ss.str()));
+    headers.emplace("authentication",  ss.str());
     ss.str("");
   }
 

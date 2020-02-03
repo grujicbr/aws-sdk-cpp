@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppSync
@@ -33,7 +34,8 @@ namespace Model
 {
 
   /**
-   * <p>Describes a Lambda data source configuration.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes an AWS Lambda data source configuration.</p><p><h3>See Also:</h3>  
+   * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/LambdaDataSourceConfig">AWS
    * API Reference</a></p>
    */
@@ -41,8 +43,8 @@ namespace Model
   {
   public:
     LambdaDataSourceConfig();
-    LambdaDataSourceConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    LambdaDataSourceConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LambdaDataSourceConfig(Aws::Utils::Json::JsonView jsonValue);
+    LambdaDataSourceConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +52,11 @@ namespace Model
      * <p>The ARN for the Lambda function.</p>
      */
     inline const Aws::String& GetLambdaFunctionArn() const{ return m_lambdaFunctionArn; }
+
+    /**
+     * <p>The ARN for the Lambda function.</p>
+     */
+    inline bool LambdaFunctionArnHasBeenSet() const { return m_lambdaFunctionArnHasBeenSet; }
 
     /**
      * <p>The ARN for the Lambda function.</p>

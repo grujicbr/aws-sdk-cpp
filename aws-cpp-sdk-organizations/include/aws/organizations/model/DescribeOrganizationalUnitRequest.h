@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     DescribeOrganizationalUnitRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,9 +49,9 @@ namespace Model
      * about. You can get the ID from the <a>ListOrganizationalUnitsForParent</a>
      * operation.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
      * pattern</a> for an organizational unit ID string requires "ou-" followed by from
-     * 4 to 32 lower-case letters or digits (the ID of the root that contains the OU)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p>
+     * 4 to 32 lowercase letters or digits (the ID of the root that contains the OU).
+     * This string is followed by a second "-" dash and from 8 to 32 additional
+     * lowercase letters or digits.</p>
      */
     inline const Aws::String& GetOrganizationalUnitId() const{ return m_organizationalUnitId; }
 
@@ -60,9 +60,20 @@ namespace Model
      * about. You can get the ID from the <a>ListOrganizationalUnitsForParent</a>
      * operation.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
      * pattern</a> for an organizational unit ID string requires "ou-" followed by from
-     * 4 to 32 lower-case letters or digits (the ID of the root that contains the OU)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p>
+     * 4 to 32 lowercase letters or digits (the ID of the root that contains the OU).
+     * This string is followed by a second "-" dash and from 8 to 32 additional
+     * lowercase letters or digits.</p>
+     */
+    inline bool OrganizationalUnitIdHasBeenSet() const { return m_organizationalUnitIdHasBeenSet; }
+
+    /**
+     * <p>The unique identifier (ID) of the organizational unit that you want details
+     * about. You can get the ID from the <a>ListOrganizationalUnitsForParent</a>
+     * operation.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> for an organizational unit ID string requires "ou-" followed by from
+     * 4 to 32 lowercase letters or digits (the ID of the root that contains the OU).
+     * This string is followed by a second "-" dash and from 8 to 32 additional
+     * lowercase letters or digits.</p>
      */
     inline void SetOrganizationalUnitId(const Aws::String& value) { m_organizationalUnitIdHasBeenSet = true; m_organizationalUnitId = value; }
 
@@ -71,9 +82,9 @@ namespace Model
      * about. You can get the ID from the <a>ListOrganizationalUnitsForParent</a>
      * operation.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
      * pattern</a> for an organizational unit ID string requires "ou-" followed by from
-     * 4 to 32 lower-case letters or digits (the ID of the root that contains the OU)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p>
+     * 4 to 32 lowercase letters or digits (the ID of the root that contains the OU).
+     * This string is followed by a second "-" dash and from 8 to 32 additional
+     * lowercase letters or digits.</p>
      */
     inline void SetOrganizationalUnitId(Aws::String&& value) { m_organizationalUnitIdHasBeenSet = true; m_organizationalUnitId = std::move(value); }
 
@@ -82,9 +93,9 @@ namespace Model
      * about. You can get the ID from the <a>ListOrganizationalUnitsForParent</a>
      * operation.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
      * pattern</a> for an organizational unit ID string requires "ou-" followed by from
-     * 4 to 32 lower-case letters or digits (the ID of the root that contains the OU)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p>
+     * 4 to 32 lowercase letters or digits (the ID of the root that contains the OU).
+     * This string is followed by a second "-" dash and from 8 to 32 additional
+     * lowercase letters or digits.</p>
      */
     inline void SetOrganizationalUnitId(const char* value) { m_organizationalUnitIdHasBeenSet = true; m_organizationalUnitId.assign(value); }
 
@@ -93,9 +104,9 @@ namespace Model
      * about. You can get the ID from the <a>ListOrganizationalUnitsForParent</a>
      * operation.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
      * pattern</a> for an organizational unit ID string requires "ou-" followed by from
-     * 4 to 32 lower-case letters or digits (the ID of the root that contains the OU)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p>
+     * 4 to 32 lowercase letters or digits (the ID of the root that contains the OU).
+     * This string is followed by a second "-" dash and from 8 to 32 additional
+     * lowercase letters or digits.</p>
      */
     inline DescribeOrganizationalUnitRequest& WithOrganizationalUnitId(const Aws::String& value) { SetOrganizationalUnitId(value); return *this;}
 
@@ -104,9 +115,9 @@ namespace Model
      * about. You can get the ID from the <a>ListOrganizationalUnitsForParent</a>
      * operation.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
      * pattern</a> for an organizational unit ID string requires "ou-" followed by from
-     * 4 to 32 lower-case letters or digits (the ID of the root that contains the OU)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p>
+     * 4 to 32 lowercase letters or digits (the ID of the root that contains the OU).
+     * This string is followed by a second "-" dash and from 8 to 32 additional
+     * lowercase letters or digits.</p>
      */
     inline DescribeOrganizationalUnitRequest& WithOrganizationalUnitId(Aws::String&& value) { SetOrganizationalUnitId(std::move(value)); return *this;}
 
@@ -115,9 +126,9 @@ namespace Model
      * about. You can get the ID from the <a>ListOrganizationalUnitsForParent</a>
      * operation.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
      * pattern</a> for an organizational unit ID string requires "ou-" followed by from
-     * 4 to 32 lower-case letters or digits (the ID of the root that contains the OU)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p>
+     * 4 to 32 lowercase letters or digits (the ID of the root that contains the OU).
+     * This string is followed by a second "-" dash and from 8 to 32 additional
+     * lowercase letters or digits.</p>
      */
     inline DescribeOrganizationalUnitRequest& WithOrganizationalUnitId(const char* value) { SetOrganizationalUnitId(value); return *this;}
 

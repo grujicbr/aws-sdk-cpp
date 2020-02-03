@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeStar
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ProjectSummary();
-    ProjectSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProjectSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProjectSummary(Aws::Utils::Json::JsonView jsonValue);
+    ProjectSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ID of the project.</p>
      */
     inline const Aws::String& GetProjectId() const{ return m_projectId; }
+
+    /**
+     * <p>The ID of the project.</p>
+     */
+    inline bool ProjectIdHasBeenSet() const { return m_projectIdHasBeenSet; }
 
     /**
      * <p>The ID of the project.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the project.</p>
      */
     inline const Aws::String& GetProjectArn() const{ return m_projectArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the project.</p>
+     */
+    inline bool ProjectArnHasBeenSet() const { return m_projectArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the project.</p>

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Offering();
-    Offering(const Aws::Utils::Json::JsonValue& jsonValue);
-    Offering& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Offering(Aws::Utils::Json::JsonView jsonValue);
+    Offering& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * 'arn:aws:medialive:us-west-2:123456789012:offering:87654321'
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * Unique offering ARN, e.g.
+     * 'arn:aws:medialive:us-west-2:123456789012:offering:87654321'
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * Unique offering ARN, e.g.
@@ -100,6 +107,11 @@ namespace Model
     /**
      * Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g. 'USD'
      */
+    inline bool CurrencyCodeHasBeenSet() const { return m_currencyCodeHasBeenSet; }
+
+    /**
+     * Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g. 'USD'
+     */
     inline void SetCurrencyCode(const Aws::String& value) { m_currencyCodeHasBeenSet = true; m_currencyCode = value; }
 
     /**
@@ -136,6 +148,11 @@ namespace Model
     /**
      * Lease duration, e.g. '12'
      */
+    inline bool DurationHasBeenSet() const { return m_durationHasBeenSet; }
+
+    /**
+     * Lease duration, e.g. '12'
+     */
     inline void SetDuration(int value) { m_durationHasBeenSet = true; m_duration = value; }
 
     /**
@@ -148,6 +165,11 @@ namespace Model
      * Units for duration, e.g. 'MONTHS'
      */
     inline const OfferingDurationUnits& GetDurationUnits() const{ return m_durationUnits; }
+
+    /**
+     * Units for duration, e.g. 'MONTHS'
+     */
+    inline bool DurationUnitsHasBeenSet() const { return m_durationUnitsHasBeenSet; }
 
     /**
      * Units for duration, e.g. 'MONTHS'
@@ -178,6 +200,11 @@ namespace Model
     /**
      * One-time charge for each reserved resource, e.g. '0.0' for a NO_UPFRONT offering
      */
+    inline bool FixedPriceHasBeenSet() const { return m_fixedPriceHasBeenSet; }
+
+    /**
+     * One-time charge for each reserved resource, e.g. '0.0' for a NO_UPFRONT offering
+     */
     inline void SetFixedPrice(double value) { m_fixedPriceHasBeenSet = true; m_fixedPrice = value; }
 
     /**
@@ -191,6 +218,12 @@ namespace Model
      * in US West (Oregon)'
      */
     inline const Aws::String& GetOfferingDescription() const{ return m_offeringDescription; }
+
+    /**
+     * Offering description, e.g. 'HD AVC output at 10-20 Mbps, 30 fps, and standard VQ
+     * in US West (Oregon)'
+     */
+    inline bool OfferingDescriptionHasBeenSet() const { return m_offeringDescriptionHasBeenSet; }
 
     /**
      * Offering description, e.g. 'HD AVC output at 10-20 Mbps, 30 fps, and standard VQ
@@ -237,6 +270,11 @@ namespace Model
     /**
      * Unique offering ID, e.g. '87654321'
      */
+    inline bool OfferingIdHasBeenSet() const { return m_offeringIdHasBeenSet; }
+
+    /**
+     * Unique offering ID, e.g. '87654321'
+     */
     inline void SetOfferingId(const Aws::String& value) { m_offeringIdHasBeenSet = true; m_offeringId = value; }
 
     /**
@@ -273,6 +311,11 @@ namespace Model
     /**
      * Offering type, e.g. 'NO_UPFRONT'
      */
+    inline bool OfferingTypeHasBeenSet() const { return m_offeringTypeHasBeenSet; }
+
+    /**
+     * Offering type, e.g. 'NO_UPFRONT'
+     */
     inline void SetOfferingType(const OfferingType& value) { m_offeringTypeHasBeenSet = true; m_offeringType = value; }
 
     /**
@@ -295,6 +338,11 @@ namespace Model
      * AWS region, e.g. 'us-west-2'
      */
     inline const Aws::String& GetRegion() const{ return m_region; }
+
+    /**
+     * AWS region, e.g. 'us-west-2'
+     */
+    inline bool RegionHasBeenSet() const { return m_regionHasBeenSet; }
 
     /**
      * AWS region, e.g. 'us-west-2'
@@ -335,6 +383,11 @@ namespace Model
     /**
      * Resource configuration details
      */
+    inline bool ResourceSpecificationHasBeenSet() const { return m_resourceSpecificationHasBeenSet; }
+
+    /**
+     * Resource configuration details
+     */
     inline void SetResourceSpecification(const ReservationResourceSpecification& value) { m_resourceSpecificationHasBeenSet = true; m_resourceSpecification = value; }
 
     /**
@@ -357,6 +410,11 @@ namespace Model
      * Recurring usage charge for each reserved resource, e.g. '157.0'
      */
     inline double GetUsagePrice() const{ return m_usagePrice; }
+
+    /**
+     * Recurring usage charge for each reserved resource, e.g. '157.0'
+     */
+    inline bool UsagePriceHasBeenSet() const { return m_usagePriceHasBeenSet; }
 
     /**
      * Recurring usage charge for each reserved resource, e.g. '157.0'

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -35,8 +36,8 @@ namespace Model
 {
 
   /**
-   * <p>Specifies skewed values in a table. Skewed are ones that occur with very high
-   * frequency.</p><p><h3>See Also:</h3>   <a
+   * <p>Specifies skewed values in a table. Skewed values are those that occur with
+   * very high frequency.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/SkewedInfo">AWS API
    * Reference</a></p>
    */
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     SkewedInfo();
-    SkewedInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    SkewedInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SkewedInfo(Aws::Utils::Json::JsonView jsonValue);
+    SkewedInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>A list of names of columns that contain skewed values.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSkewedColumnNames() const{ return m_skewedColumnNames; }
+
+    /**
+     * <p>A list of names of columns that contain skewed values.</p>
+     */
+    inline bool SkewedColumnNamesHasBeenSet() const { return m_skewedColumnNamesHasBeenSet; }
 
     /**
      * <p>A list of names of columns that contain skewed values.</p>
@@ -98,6 +104,11 @@ namespace Model
     /**
      * <p>A list of values that appear so frequently as to be considered skewed.</p>
      */
+    inline bool SkewedColumnValuesHasBeenSet() const { return m_skewedColumnValuesHasBeenSet; }
+
+    /**
+     * <p>A list of values that appear so frequently as to be considered skewed.</p>
+     */
     inline void SetSkewedColumnValues(const Aws::Vector<Aws::String>& value) { m_skewedColumnValuesHasBeenSet = true; m_skewedColumnValues = value; }
 
     /**
@@ -135,6 +146,11 @@ namespace Model
      * <p>A mapping of skewed values to the columns that contain them.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetSkewedColumnValueLocationMaps() const{ return m_skewedColumnValueLocationMaps; }
+
+    /**
+     * <p>A mapping of skewed values to the columns that contain them.</p>
+     */
+    inline bool SkewedColumnValueLocationMapsHasBeenSet() const { return m_skewedColumnValueLocationMapsHasBeenSet; }
 
     /**
      * <p>A mapping of skewed values to the columns that contain them.</p>

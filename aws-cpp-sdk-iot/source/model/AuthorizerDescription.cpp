@@ -37,11 +37,13 @@ AuthorizerDescription::AuthorizerDescription() :
     m_status(AuthorizerStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_creationDateHasBeenSet(false),
-    m_lastModifiedDateHasBeenSet(false)
+    m_lastModifiedDateHasBeenSet(false),
+    m_signingDisabled(false),
+    m_signingDisabledHasBeenSet(false)
 {
 }
 
-AuthorizerDescription::AuthorizerDescription(const JsonValue& jsonValue) : 
+AuthorizerDescription::AuthorizerDescription(JsonView jsonValue) : 
     m_authorizerNameHasBeenSet(false),
     m_authorizerArnHasBeenSet(false),
     m_authorizerFunctionArnHasBeenSet(false),
@@ -50,12 +52,14 @@ AuthorizerDescription::AuthorizerDescription(const JsonValue& jsonValue) :
     m_status(AuthorizerStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_creationDateHasBeenSet(false),
-    m_lastModifiedDateHasBeenSet(false)
+    m_lastModifiedDateHasBeenSet(false),
+    m_signingDisabled(false),
+    m_signingDisabledHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-AuthorizerDescription& AuthorizerDescription::operator =(const JsonValue& jsonValue)
+AuthorizerDescription& AuthorizerDescription::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("authorizerName"))
   {
@@ -87,7 +91,7 @@ AuthorizerDescription& AuthorizerDescription::operator =(const JsonValue& jsonVa
 
   if(jsonValue.ValueExists("tokenSigningPublicKeys"))
   {
-    Aws::Map<Aws::String, JsonValue> tokenSigningPublicKeysJsonMap = jsonValue.GetObject("tokenSigningPublicKeys").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> tokenSigningPublicKeysJsonMap = jsonValue.GetObject("tokenSigningPublicKeys").GetAllObjects();
     for(auto& tokenSigningPublicKeysItem : tokenSigningPublicKeysJsonMap)
     {
       m_tokenSigningPublicKeys[tokenSigningPublicKeysItem.first] = tokenSigningPublicKeysItem.second.AsString();
@@ -114,6 +118,13 @@ AuthorizerDescription& AuthorizerDescription::operator =(const JsonValue& jsonVa
     m_lastModifiedDate = jsonValue.GetDouble("lastModifiedDate");
 
     m_lastModifiedDateHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("signingDisabled"))
+  {
+    m_signingDisabled = jsonValue.GetBool("signingDisabled");
+
+    m_signingDisabledHasBeenSet = true;
   }
 
   return *this;
@@ -171,6 +182,12 @@ JsonValue AuthorizerDescription::Jsonize() const
   if(m_lastModifiedDateHasBeenSet)
   {
    payload.WithDouble("lastModifiedDate", m_lastModifiedDate.SecondsWithMSPrecision());
+  }
+
+  if(m_signingDisabledHasBeenSet)
+  {
+   payload.WithBool("signingDisabled", m_signingDisabled);
+
   }
 
   return payload;

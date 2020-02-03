@@ -31,6 +31,8 @@ namespace Model
 ProfileData::ProfileData() : 
     m_profileArnHasBeenSet(false),
     m_profileNameHasBeenSet(false),
+    m_isDefault(false),
+    m_isDefaultHasBeenSet(false),
     m_addressHasBeenSet(false),
     m_timezoneHasBeenSet(false),
     m_distanceUnit(DistanceUnit::NOT_SET),
@@ -38,13 +40,16 @@ ProfileData::ProfileData() :
     m_temperatureUnit(TemperatureUnit::NOT_SET),
     m_temperatureUnitHasBeenSet(false),
     m_wakeWord(WakeWord::NOT_SET),
-    m_wakeWordHasBeenSet(false)
+    m_wakeWordHasBeenSet(false),
+    m_localeHasBeenSet(false)
 {
 }
 
-ProfileData::ProfileData(const JsonValue& jsonValue) : 
+ProfileData::ProfileData(JsonView jsonValue) : 
     m_profileArnHasBeenSet(false),
     m_profileNameHasBeenSet(false),
+    m_isDefault(false),
+    m_isDefaultHasBeenSet(false),
     m_addressHasBeenSet(false),
     m_timezoneHasBeenSet(false),
     m_distanceUnit(DistanceUnit::NOT_SET),
@@ -52,12 +57,13 @@ ProfileData::ProfileData(const JsonValue& jsonValue) :
     m_temperatureUnit(TemperatureUnit::NOT_SET),
     m_temperatureUnitHasBeenSet(false),
     m_wakeWord(WakeWord::NOT_SET),
-    m_wakeWordHasBeenSet(false)
+    m_wakeWordHasBeenSet(false),
+    m_localeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ProfileData& ProfileData::operator =(const JsonValue& jsonValue)
+ProfileData& ProfileData::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ProfileArn"))
   {
@@ -71,6 +77,13 @@ ProfileData& ProfileData::operator =(const JsonValue& jsonValue)
     m_profileName = jsonValue.GetString("ProfileName");
 
     m_profileNameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("IsDefault"))
+  {
+    m_isDefault = jsonValue.GetBool("IsDefault");
+
+    m_isDefaultHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("Address"))
@@ -108,6 +121,13 @@ ProfileData& ProfileData::operator =(const JsonValue& jsonValue)
     m_wakeWordHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("Locale"))
+  {
+    m_locale = jsonValue.GetString("Locale");
+
+    m_localeHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -124,6 +144,12 @@ JsonValue ProfileData::Jsonize() const
   if(m_profileNameHasBeenSet)
   {
    payload.WithString("ProfileName", m_profileName);
+
+  }
+
+  if(m_isDefaultHasBeenSet)
+  {
+   payload.WithBool("IsDefault", m_isDefault);
 
   }
 
@@ -152,6 +178,12 @@ JsonValue ProfileData::Jsonize() const
   if(m_wakeWordHasBeenSet)
   {
    payload.WithString("WakeWord", WakeWordMapper::GetNameForWakeWord(m_wakeWord));
+  }
+
+  if(m_localeHasBeenSet)
+  {
+   payload.WithString("Locale", m_locale);
+
   }
 
   return payload;

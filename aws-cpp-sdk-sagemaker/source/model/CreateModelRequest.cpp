@@ -25,9 +25,12 @@ using namespace Aws::Utils;
 CreateModelRequest::CreateModelRequest() : 
     m_modelNameHasBeenSet(false),
     m_primaryContainerHasBeenSet(false),
+    m_containersHasBeenSet(false),
     m_executionRoleArnHasBeenSet(false),
     m_tagsHasBeenSet(false),
-    m_vpcConfigHasBeenSet(false)
+    m_vpcConfigHasBeenSet(false),
+    m_enableNetworkIsolation(false),
+    m_enableNetworkIsolationHasBeenSet(false)
 {
 }
 
@@ -44,6 +47,17 @@ Aws::String CreateModelRequest::SerializePayload() const
   if(m_primaryContainerHasBeenSet)
   {
    payload.WithObject("PrimaryContainer", m_primaryContainer.Jsonize());
+
+  }
+
+  if(m_containersHasBeenSet)
+  {
+   Array<JsonValue> containersJsonList(m_containers.size());
+   for(unsigned containersIndex = 0; containersIndex < containersJsonList.GetLength(); ++containersIndex)
+   {
+     containersJsonList[containersIndex].AsObject(m_containers[containersIndex].Jsonize());
+   }
+   payload.WithArray("Containers", std::move(containersJsonList));
 
   }
 
@@ -70,7 +84,13 @@ Aws::String CreateModelRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_enableNetworkIsolationHasBeenSet)
+  {
+   payload.WithBool("EnableNetworkIsolation", m_enableNetworkIsolation);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateModelRequest::GetRequestSpecificHeaders() const

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -52,8 +53,8 @@ namespace Model
   {
   public:
     RegexMatchSet();
-    RegexMatchSet(const Aws::Utils::Json::JsonValue& jsonValue);
-    RegexMatchSet& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RegexMatchSet(Aws::Utils::Json::JsonView jsonValue);
+    RegexMatchSet& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -69,6 +70,19 @@ namespace Model
      * by <a>ListRegexMatchSets</a>.</p>
      */
     inline const Aws::String& GetRegexMatchSetId() const{ return m_regexMatchSetId; }
+
+    /**
+     * <p>The <code>RegexMatchSetId</code> for a <code>RegexMatchSet</code>. You use
+     * <code>RegexMatchSetId</code> to get information about a
+     * <code>RegexMatchSet</code> (see <a>GetRegexMatchSet</a>), update a
+     * <code>RegexMatchSet</code> (see <a>UpdateRegexMatchSet</a>), insert a
+     * <code>RegexMatchSet</code> into a <code>Rule</code> or delete one from a
+     * <code>Rule</code> (see <a>UpdateRule</a>), and delete a
+     * <code>RegexMatchSet</code> from AWS WAF (see <a>DeleteRegexMatchSet</a>).</p>
+     * <p> <code>RegexMatchSetId</code> is returned by <a>CreateRegexMatchSet</a> and
+     * by <a>ListRegexMatchSets</a>.</p>
+     */
+    inline bool RegexMatchSetIdHasBeenSet() const { return m_regexMatchSetIdHasBeenSet; }
 
     /**
      * <p>The <code>RegexMatchSetId</code> for a <code>RegexMatchSet</code>. You use
@@ -159,6 +173,12 @@ namespace Model
      * <p>A friendly name or description of the <a>RegexMatchSet</a>. You can't change
      * <code>Name</code> after you create a <code>RegexMatchSet</code>.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>A friendly name or description of the <a>RegexMatchSet</a>. You can't change
+     * <code>Name</code> after you create a <code>RegexMatchSet</code>.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -203,6 +223,18 @@ namespace Model
      * before inspecting it for the specified string.</p> </li> </ul>
      */
     inline const Aws::Vector<RegexMatchTuple>& GetRegexMatchTuples() const{ return m_regexMatchTuples; }
+
+    /**
+     * <p>Contains an array of <a>RegexMatchTuple</a> objects. Each
+     * <code>RegexMatchTuple</code> object contains: </p> <ul> <li> <p>The part of a
+     * web request that you want AWS WAF to inspect, such as a query string or the
+     * value of the <code>User-Agent</code> header. </p> </li> <li> <p>The identifier
+     * of the pattern (a regular expression) that you want AWS WAF to look for. For
+     * more information, see <a>RegexPatternSet</a>.</p> </li> <li> <p>Whether to
+     * perform any conversions on the request, such as converting it to lowercase,
+     * before inspecting it for the specified string.</p> </li> </ul>
+     */
+    inline bool RegexMatchTuplesHasBeenSet() const { return m_regexMatchTuplesHasBeenSet; }
 
     /**
      * <p>Contains an array of <a>RegexMatchTuple</a> objects. Each

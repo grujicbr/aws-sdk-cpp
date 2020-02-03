@@ -26,21 +26,29 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 using namespace Aws;
 
-GetAdminAccountResult::GetAdminAccountResult()
+GetAdminAccountResult::GetAdminAccountResult() : 
+    m_roleStatus(AccountRoleStatus::NOT_SET)
 {
 }
 
-GetAdminAccountResult::GetAdminAccountResult(const Aws::AmazonWebServiceResult<JsonValue>& result)
+GetAdminAccountResult::GetAdminAccountResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_roleStatus(AccountRoleStatus::NOT_SET)
 {
   *this = result;
 }
 
 GetAdminAccountResult& GetAdminAccountResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("AdminAccount"))
   {
     m_adminAccount = jsonValue.GetString("AdminAccount");
+
+  }
+
+  if(jsonValue.ValueExists("RoleStatus"))
+  {
+    m_roleStatus = AccountRoleStatusMapper::GetAccountRoleStatusForName(jsonValue.GetString("RoleStatus"));
 
   }
 

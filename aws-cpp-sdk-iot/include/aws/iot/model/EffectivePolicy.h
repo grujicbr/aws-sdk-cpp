@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     EffectivePolicy();
-    EffectivePolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    EffectivePolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EffectivePolicy(Aws::Utils::Json::JsonView jsonValue);
+    EffectivePolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The policy name.</p>
      */
     inline const Aws::String& GetPolicyName() const{ return m_policyName; }
+
+    /**
+     * <p>The policy name.</p>
+     */
+    inline bool PolicyNameHasBeenSet() const { return m_policyNameHasBeenSet; }
 
     /**
      * <p>The policy name.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The policy ARN.</p>
      */
+    inline bool PolicyArnHasBeenSet() const { return m_policyArnHasBeenSet; }
+
+    /**
+     * <p>The policy ARN.</p>
+     */
     inline void SetPolicyArn(const Aws::String& value) { m_policyArnHasBeenSet = true; m_policyArn = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The IAM policy document.</p>
      */
     inline const Aws::String& GetPolicyDocument() const{ return m_policyDocument; }
+
+    /**
+     * <p>The IAM policy document.</p>
+     */
+    inline bool PolicyDocumentHasBeenSet() const { return m_policyDocumentHasBeenSet; }
 
     /**
      * <p>The IAM policy document.</p>

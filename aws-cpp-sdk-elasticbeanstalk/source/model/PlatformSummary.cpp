@@ -66,37 +66,37 @@ PlatformSummary& PlatformSummary::operator =(const XmlNode& xmlNode)
     XmlNode platformArnNode = resultNode.FirstChild("PlatformArn");
     if(!platformArnNode.IsNull())
     {
-      m_platformArn = StringUtils::Trim(platformArnNode.GetText().c_str());
+      m_platformArn = Aws::Utils::Xml::DecodeEscapedXmlText(platformArnNode.GetText());
       m_platformArnHasBeenSet = true;
     }
     XmlNode platformOwnerNode = resultNode.FirstChild("PlatformOwner");
     if(!platformOwnerNode.IsNull())
     {
-      m_platformOwner = StringUtils::Trim(platformOwnerNode.GetText().c_str());
+      m_platformOwner = Aws::Utils::Xml::DecodeEscapedXmlText(platformOwnerNode.GetText());
       m_platformOwnerHasBeenSet = true;
     }
     XmlNode platformStatusNode = resultNode.FirstChild("PlatformStatus");
     if(!platformStatusNode.IsNull())
     {
-      m_platformStatus = PlatformStatusMapper::GetPlatformStatusForName(StringUtils::Trim(platformStatusNode.GetText().c_str()).c_str());
+      m_platformStatus = PlatformStatusMapper::GetPlatformStatusForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(platformStatusNode.GetText()).c_str()).c_str());
       m_platformStatusHasBeenSet = true;
     }
     XmlNode platformCategoryNode = resultNode.FirstChild("PlatformCategory");
     if(!platformCategoryNode.IsNull())
     {
-      m_platformCategory = StringUtils::Trim(platformCategoryNode.GetText().c_str());
+      m_platformCategory = Aws::Utils::Xml::DecodeEscapedXmlText(platformCategoryNode.GetText());
       m_platformCategoryHasBeenSet = true;
     }
     XmlNode operatingSystemNameNode = resultNode.FirstChild("OperatingSystemName");
     if(!operatingSystemNameNode.IsNull())
     {
-      m_operatingSystemName = StringUtils::Trim(operatingSystemNameNode.GetText().c_str());
+      m_operatingSystemName = Aws::Utils::Xml::DecodeEscapedXmlText(operatingSystemNameNode.GetText());
       m_operatingSystemNameHasBeenSet = true;
     }
     XmlNode operatingSystemVersionNode = resultNode.FirstChild("OperatingSystemVersion");
     if(!operatingSystemVersionNode.IsNull())
     {
-      m_operatingSystemVersion = StringUtils::Trim(operatingSystemVersionNode.GetText().c_str());
+      m_operatingSystemVersion = Aws::Utils::Xml::DecodeEscapedXmlText(operatingSystemVersionNode.GetText());
       m_operatingSystemVersionHasBeenSet = true;
     }
     XmlNode supportedTierListNode = resultNode.FirstChild("SupportedTierList");
@@ -105,7 +105,7 @@ PlatformSummary& PlatformSummary::operator =(const XmlNode& xmlNode)
       XmlNode supportedTierListMember = supportedTierListNode.FirstChild("member");
       while(!supportedTierListMember.IsNull())
       {
-        m_supportedTierList.push_back(StringUtils::Trim(supportedTierListMember.GetText().c_str()));
+        m_supportedTierList.push_back(supportedTierListMember.GetText());
         supportedTierListMember = supportedTierListMember.NextNode("member");
       }
 
@@ -117,7 +117,7 @@ PlatformSummary& PlatformSummary::operator =(const XmlNode& xmlNode)
       XmlNode supportedAddonListMember = supportedAddonListNode.FirstChild("member");
       while(!supportedAddonListMember.IsNull())
       {
-        m_supportedAddonList.push_back(StringUtils::Trim(supportedAddonListMember.GetText().c_str()));
+        m_supportedAddonList.push_back(supportedAddonListMember.GetText());
         supportedAddonListMember = supportedAddonListMember.NextNode("member");
       }
 

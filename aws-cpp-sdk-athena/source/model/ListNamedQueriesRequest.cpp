@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 ListNamedQueriesRequest::ListNamedQueriesRequest() : 
     m_nextTokenHasBeenSet(false),
     m_maxResults(0),
-    m_maxResultsHasBeenSet(false)
+    m_maxResultsHasBeenSet(false),
+    m_workGroupHasBeenSet(false)
 {
 }
 
@@ -45,7 +46,13 @@ Aws::String ListNamedQueriesRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_workGroupHasBeenSet)
+  {
+   payload.WithString("WorkGroup", m_workGroup);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection ListNamedQueriesRequest::GetRequestSpecificHeaders() const

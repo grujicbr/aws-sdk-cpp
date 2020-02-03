@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     PromoteReadReplicaRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -55,6 +55,13 @@ namespace Model
      * Replica DB instance.</p> </li> </ul> <p>Example: <code>mydbinstance</code> </p>
      */
     inline const Aws::String& GetDBInstanceIdentifier() const{ return m_dBInstanceIdentifier; }
+
+    /**
+     * <p>The DB instance identifier. This value is stored as a lowercase string.</p>
+     * <p>Constraints:</p> <ul> <li> <p>Must match the identifier of an existing Read
+     * Replica DB instance.</p> </li> </ul> <p>Example: <code>mydbinstance</code> </p>
+     */
+    inline bool DBInstanceIdentifierHasBeenSet() const { return m_dBInstanceIdentifierHasBeenSet; }
 
     /**
      * <p>The DB instance identifier. This value is stored as a lowercase string.</p>
@@ -100,26 +107,38 @@ namespace Model
 
 
     /**
-     * <p>The number of days to retain automated backups. Setting this parameter to a
-     * positive number enables backups. Setting this parameter to 0 disables automated
-     * backups.</p> <p>Default: 1</p> <p>Constraints:</p> <ul> <li> <p>Must be a value
-     * from 0 to 8</p> </li> </ul>
+     * <p>The number of days for which automated backups are retained. Setting this
+     * parameter to a positive number enables backups. Setting this parameter to 0
+     * disables automated backups.</p> <p>Default: 1</p> <p>Constraints:</p> <ul> <li>
+     * <p>Must be a value from 0 to 35.</p> </li> <li> <p>Can't be set to 0 if the DB
+     * instance is a source to Read Replicas.</p> </li> </ul>
      */
     inline int GetBackupRetentionPeriod() const{ return m_backupRetentionPeriod; }
 
     /**
-     * <p>The number of days to retain automated backups. Setting this parameter to a
-     * positive number enables backups. Setting this parameter to 0 disables automated
-     * backups.</p> <p>Default: 1</p> <p>Constraints:</p> <ul> <li> <p>Must be a value
-     * from 0 to 8</p> </li> </ul>
+     * <p>The number of days for which automated backups are retained. Setting this
+     * parameter to a positive number enables backups. Setting this parameter to 0
+     * disables automated backups.</p> <p>Default: 1</p> <p>Constraints:</p> <ul> <li>
+     * <p>Must be a value from 0 to 35.</p> </li> <li> <p>Can't be set to 0 if the DB
+     * instance is a source to Read Replicas.</p> </li> </ul>
+     */
+    inline bool BackupRetentionPeriodHasBeenSet() const { return m_backupRetentionPeriodHasBeenSet; }
+
+    /**
+     * <p>The number of days for which automated backups are retained. Setting this
+     * parameter to a positive number enables backups. Setting this parameter to 0
+     * disables automated backups.</p> <p>Default: 1</p> <p>Constraints:</p> <ul> <li>
+     * <p>Must be a value from 0 to 35.</p> </li> <li> <p>Can't be set to 0 if the DB
+     * instance is a source to Read Replicas.</p> </li> </ul>
      */
     inline void SetBackupRetentionPeriod(int value) { m_backupRetentionPeriodHasBeenSet = true; m_backupRetentionPeriod = value; }
 
     /**
-     * <p>The number of days to retain automated backups. Setting this parameter to a
-     * positive number enables backups. Setting this parameter to 0 disables automated
-     * backups.</p> <p>Default: 1</p> <p>Constraints:</p> <ul> <li> <p>Must be a value
-     * from 0 to 8</p> </li> </ul>
+     * <p>The number of days for which automated backups are retained. Setting this
+     * parameter to a positive number enables backups. Setting this parameter to 0
+     * disables automated backups.</p> <p>Default: 1</p> <p>Constraints:</p> <ul> <li>
+     * <p>Must be a value from 0 to 35.</p> </li> <li> <p>Can't be set to 0 if the DB
+     * instance is a source to Read Replicas.</p> </li> </ul>
      */
     inline PromoteReadReplicaRequest& WithBackupRetentionPeriod(int value) { SetBackupRetentionPeriod(value); return *this;}
 
@@ -129,7 +148,7 @@ namespace Model
      * backups are enabled, using the <code>BackupRetentionPeriod</code> parameter.
      * </p> <p> The default is a 30-minute window selected at random from an 8-hour
      * block of time for each AWS Region. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User
      * Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Must be in the format
      * <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated
@@ -143,7 +162,21 @@ namespace Model
      * backups are enabled, using the <code>BackupRetentionPeriod</code> parameter.
      * </p> <p> The default is a 30-minute window selected at random from an 8-hour
      * block of time for each AWS Region. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User
+     * Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Must be in the format
+     * <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated
+     * Time (UTC).</p> </li> <li> <p>Must not conflict with the preferred maintenance
+     * window.</p> </li> <li> <p>Must be at least 30 minutes.</p> </li> </ul>
+     */
+    inline bool PreferredBackupWindowHasBeenSet() const { return m_preferredBackupWindowHasBeenSet; }
+
+    /**
+     * <p> The daily time range during which automated backups are created if automated
+     * backups are enabled, using the <code>BackupRetentionPeriod</code> parameter.
+     * </p> <p> The default is a 30-minute window selected at random from an 8-hour
+     * block of time for each AWS Region. To see the time blocks available, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User
      * Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Must be in the format
      * <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated
@@ -157,7 +190,7 @@ namespace Model
      * backups are enabled, using the <code>BackupRetentionPeriod</code> parameter.
      * </p> <p> The default is a 30-minute window selected at random from an 8-hour
      * block of time for each AWS Region. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User
      * Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Must be in the format
      * <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated
@@ -171,7 +204,7 @@ namespace Model
      * backups are enabled, using the <code>BackupRetentionPeriod</code> parameter.
      * </p> <p> The default is a 30-minute window selected at random from an 8-hour
      * block of time for each AWS Region. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User
      * Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Must be in the format
      * <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated
@@ -185,7 +218,7 @@ namespace Model
      * backups are enabled, using the <code>BackupRetentionPeriod</code> parameter.
      * </p> <p> The default is a 30-minute window selected at random from an 8-hour
      * block of time for each AWS Region. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User
      * Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Must be in the format
      * <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated
@@ -199,7 +232,7 @@ namespace Model
      * backups are enabled, using the <code>BackupRetentionPeriod</code> parameter.
      * </p> <p> The default is a 30-minute window selected at random from an 8-hour
      * block of time for each AWS Region. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User
      * Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Must be in the format
      * <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated
@@ -213,7 +246,7 @@ namespace Model
      * backups are enabled, using the <code>BackupRetentionPeriod</code> parameter.
      * </p> <p> The default is a 30-minute window selected at random from an 8-hour
      * block of time for each AWS Region. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User
      * Guide.</i> </p> <p>Constraints:</p> <ul> <li> <p>Must be in the format
      * <code>hh24:mi-hh24:mi</code>.</p> </li> <li> <p>Must be in Universal Coordinated

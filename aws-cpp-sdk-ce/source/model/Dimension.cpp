@@ -50,6 +50,13 @@ namespace Aws
         static const int DATABASE_ENGINE_HASH = HashingUtils::HashString("DATABASE_ENGINE");
         static const int CACHE_ENGINE_HASH = HashingUtils::HashString("CACHE_ENGINE");
         static const int INSTANCE_TYPE_FAMILY_HASH = HashingUtils::HashString("INSTANCE_TYPE_FAMILY");
+        static const int BILLING_ENTITY_HASH = HashingUtils::HashString("BILLING_ENTITY");
+        static const int RESERVATION_ID_HASH = HashingUtils::HashString("RESERVATION_ID");
+        static const int RESOURCE_ID_HASH = HashingUtils::HashString("RESOURCE_ID");
+        static const int RIGHTSIZING_TYPE_HASH = HashingUtils::HashString("RIGHTSIZING_TYPE");
+        static const int SAVINGS_PLANS_TYPE_HASH = HashingUtils::HashString("SAVINGS_PLANS_TYPE");
+        static const int SAVINGS_PLAN_ARN_HASH = HashingUtils::HashString("SAVINGS_PLAN_ARN");
+        static const int PAYMENT_OPTION_HASH = HashingUtils::HashString("PAYMENT_OPTION");
 
 
         Dimension GetDimensionForName(const Aws::String& name)
@@ -135,6 +142,34 @@ namespace Aws
           {
             return Dimension::INSTANCE_TYPE_FAMILY;
           }
+          else if (hashCode == BILLING_ENTITY_HASH)
+          {
+            return Dimension::BILLING_ENTITY;
+          }
+          else if (hashCode == RESERVATION_ID_HASH)
+          {
+            return Dimension::RESERVATION_ID;
+          }
+          else if (hashCode == RESOURCE_ID_HASH)
+          {
+            return Dimension::RESOURCE_ID;
+          }
+          else if (hashCode == RIGHTSIZING_TYPE_HASH)
+          {
+            return Dimension::RIGHTSIZING_TYPE;
+          }
+          else if (hashCode == SAVINGS_PLANS_TYPE_HASH)
+          {
+            return Dimension::SAVINGS_PLANS_TYPE;
+          }
+          else if (hashCode == SAVINGS_PLAN_ARN_HASH)
+          {
+            return Dimension::SAVINGS_PLAN_ARN;
+          }
+          else if (hashCode == PAYMENT_OPTION_HASH)
+          {
+            return Dimension::PAYMENT_OPTION;
+          }
           EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
           if(overflowContainer)
           {
@@ -189,6 +224,20 @@ namespace Aws
             return "CACHE_ENGINE";
           case Dimension::INSTANCE_TYPE_FAMILY:
             return "INSTANCE_TYPE_FAMILY";
+          case Dimension::BILLING_ENTITY:
+            return "BILLING_ENTITY";
+          case Dimension::RESERVATION_ID:
+            return "RESERVATION_ID";
+          case Dimension::RESOURCE_ID:
+            return "RESOURCE_ID";
+          case Dimension::RIGHTSIZING_TYPE:
+            return "RIGHTSIZING_TYPE";
+          case Dimension::SAVINGS_PLANS_TYPE:
+            return "SAVINGS_PLANS_TYPE";
+          case Dimension::SAVINGS_PLAN_ARN:
+            return "SAVINGS_PLAN_ARN";
+          case Dimension::PAYMENT_OPTION:
+            return "PAYMENT_OPTION";
           default:
             EnumParseOverflowContainer* overflowContainer = Aws::GetEnumOverflowContainer();
             if(overflowContainer)
@@ -196,7 +245,7 @@ namespace Aws
               return overflowContainer->RetrieveOverflow(static_cast<int>(enumValue));
             }
 
-            return "";
+            return {};
           }
         }
 

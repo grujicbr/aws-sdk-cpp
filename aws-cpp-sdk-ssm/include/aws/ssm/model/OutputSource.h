@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     OutputSource();
-    OutputSource(const Aws::Utils::Json::JsonValue& jsonValue);
-    OutputSource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OutputSource(Aws::Utils::Json::JsonView jsonValue);
+    OutputSource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID of the output source, for example the URL of an Amazon S3 bucket.</p>
      */
     inline const Aws::String& GetOutputSourceId() const{ return m_outputSourceId; }
+
+    /**
+     * <p>The ID of the output source, for example the URL of an Amazon S3 bucket.</p>
+     */
+    inline bool OutputSourceIdHasBeenSet() const { return m_outputSourceIdHasBeenSet; }
 
     /**
      * <p>The ID of the output source, for example the URL of an Amazon S3 bucket.</p>
@@ -88,6 +94,12 @@ namespace Model
      * example, Amazon S3.</p>
      */
     inline const Aws::String& GetOutputSourceType() const{ return m_outputSourceType; }
+
+    /**
+     * <p>The type of source where the association execution details are stored, for
+     * example, Amazon S3.</p>
+     */
+    inline bool OutputSourceTypeHasBeenSet() const { return m_outputSourceTypeHasBeenSet; }
 
     /**
      * <p>The type of source where the association execution details are stored, for

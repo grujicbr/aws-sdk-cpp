@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetRandomPasswordRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +54,12 @@ namespace Model
      * <p>The desired length of the generated password. The default value if you do not
      * include this parameter is 32 characters.</p>
      */
+    inline bool PasswordLengthHasBeenSet() const { return m_passwordLengthHasBeenSet; }
+
+    /**
+     * <p>The desired length of the generated password. The default value if you do not
+     * include this parameter is 32 characters.</p>
+     */
     inline void SetPasswordLength(long long value) { m_passwordLengthHasBeenSet = true; m_passwordLength = value; }
 
     /**
@@ -69,6 +75,13 @@ namespace Model
      * can be used.</p>
      */
     inline const Aws::String& GetExcludeCharacters() const{ return m_excludeCharacters; }
+
+    /**
+     * <p>A string that includes characters that should not be included in the
+     * generated password. The default is that all characters from the included sets
+     * can be used.</p>
+     */
+    inline bool ExcludeCharactersHasBeenSet() const { return m_excludeCharactersHasBeenSet; }
 
     /**
      * <p>A string that includes characters that should not be included in the
@@ -123,6 +136,12 @@ namespace Model
      * <p>Specifies that the generated password should not include digits. The default
      * if you do not include this switch parameter is that digits can be included.</p>
      */
+    inline bool ExcludeNumbersHasBeenSet() const { return m_excludeNumbersHasBeenSet; }
+
+    /**
+     * <p>Specifies that the generated password should not include digits. The default
+     * if you do not include this switch parameter is that digits can be included.</p>
+     */
     inline void SetExcludeNumbers(bool value) { m_excludeNumbersHasBeenSet = true; m_excludeNumbers = value; }
 
     /**
@@ -135,21 +154,44 @@ namespace Model
     /**
      * <p>Specifies that the generated password should not include punctuation
      * characters. The default if you do not include this switch parameter is that
-     * punctuation characters can be included.</p>
+     * punctuation characters can be included.</p> <p>The following are the punctuation
+     * characters that <i>can</i> be included in the generated password if you don't
+     * explicitly exclude them with <code>ExcludeCharacters</code> or
+     * <code>ExcludePunctuation</code>:</p> <p> <code>! " # $ % &amp; ' ( ) * + , - . /
+     * : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code> </p>
      */
     inline bool GetExcludePunctuation() const{ return m_excludePunctuation; }
 
     /**
      * <p>Specifies that the generated password should not include punctuation
      * characters. The default if you do not include this switch parameter is that
-     * punctuation characters can be included.</p>
+     * punctuation characters can be included.</p> <p>The following are the punctuation
+     * characters that <i>can</i> be included in the generated password if you don't
+     * explicitly exclude them with <code>ExcludeCharacters</code> or
+     * <code>ExcludePunctuation</code>:</p> <p> <code>! " # $ % &amp; ' ( ) * + , - . /
+     * : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code> </p>
+     */
+    inline bool ExcludePunctuationHasBeenSet() const { return m_excludePunctuationHasBeenSet; }
+
+    /**
+     * <p>Specifies that the generated password should not include punctuation
+     * characters. The default if you do not include this switch parameter is that
+     * punctuation characters can be included.</p> <p>The following are the punctuation
+     * characters that <i>can</i> be included in the generated password if you don't
+     * explicitly exclude them with <code>ExcludeCharacters</code> or
+     * <code>ExcludePunctuation</code>:</p> <p> <code>! " # $ % &amp; ' ( ) * + , - . /
+     * : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code> </p>
      */
     inline void SetExcludePunctuation(bool value) { m_excludePunctuationHasBeenSet = true; m_excludePunctuation = value; }
 
     /**
      * <p>Specifies that the generated password should not include punctuation
      * characters. The default if you do not include this switch parameter is that
-     * punctuation characters can be included.</p>
+     * punctuation characters can be included.</p> <p>The following are the punctuation
+     * characters that <i>can</i> be included in the generated password if you don't
+     * explicitly exclude them with <code>ExcludeCharacters</code> or
+     * <code>ExcludePunctuation</code>:</p> <p> <code>! " # $ % &amp; ' ( ) * + , - . /
+     * : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code> </p>
      */
     inline GetRandomPasswordRequest& WithExcludePunctuation(bool value) { SetExcludePunctuation(value); return *this;}
 
@@ -160,6 +202,13 @@ namespace Model
      * letters can be included.</p>
      */
     inline bool GetExcludeUppercase() const{ return m_excludeUppercase; }
+
+    /**
+     * <p>Specifies that the generated password should not include uppercase letters.
+     * The default if you do not include this switch parameter is that uppercase
+     * letters can be included.</p>
+     */
+    inline bool ExcludeUppercaseHasBeenSet() const { return m_excludeUppercaseHasBeenSet; }
 
     /**
      * <p>Specifies that the generated password should not include uppercase letters.
@@ -188,6 +237,13 @@ namespace Model
      * The default if you do not include this switch parameter is that lowercase
      * letters can be included.</p>
      */
+    inline bool ExcludeLowercaseHasBeenSet() const { return m_excludeLowercaseHasBeenSet; }
+
+    /**
+     * <p>Specifies that the generated password should not include lowercase letters.
+     * The default if you do not include this switch parameter is that lowercase
+     * letters can be included.</p>
+     */
     inline void SetExcludeLowercase(bool value) { m_excludeLowercaseHasBeenSet = true; m_excludeLowercase = value; }
 
     /**
@@ -204,6 +260,13 @@ namespace Model
      * is not included.</p>
      */
     inline bool GetIncludeSpace() const{ return m_includeSpace; }
+
+    /**
+     * <p>Specifies that the generated password can include the space character. The
+     * default if you do not include this switch parameter is that the space character
+     * is not included.</p>
+     */
+    inline bool IncludeSpaceHasBeenSet() const { return m_includeSpaceHasBeenSet; }
 
     /**
      * <p>Specifies that the generated password can include the space character. The
@@ -227,6 +290,14 @@ namespace Model
      * type.</p>
      */
     inline bool GetRequireEachIncludedType() const{ return m_requireEachIncludedType; }
+
+    /**
+     * <p>A boolean value that specifies whether the generated password must include at
+     * least one of every allowed character type. The default value is
+     * <code>True</code> and the operation requires at least one of every character
+     * type.</p>
+     */
+    inline bool RequireEachIncludedTypeHasBeenSet() const { return m_requireEachIncludedTypeHasBeenSet; }
 
     /**
      * <p>A boolean value that specifies whether the generated password must include at

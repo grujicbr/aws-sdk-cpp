@@ -54,7 +54,7 @@ AssignIpv6AddressesResponse& AssignIpv6AddressesResponse::operator =(const Aws::
       XmlNode assignedIpv6AddressesMember = assignedIpv6AddressesNode.FirstChild("item");
       while(!assignedIpv6AddressesMember.IsNull())
       {
-        m_assignedIpv6Addresses.push_back(StringUtils::Trim(assignedIpv6AddressesMember.GetText().c_str()));
+        m_assignedIpv6Addresses.push_back(assignedIpv6AddressesMember.GetText());
         assignedIpv6AddressesMember = assignedIpv6AddressesMember.NextNode("item");
       }
 
@@ -62,13 +62,16 @@ AssignIpv6AddressesResponse& AssignIpv6AddressesResponse::operator =(const Aws::
     XmlNode networkInterfaceIdNode = resultNode.FirstChild("networkInterfaceId");
     if(!networkInterfaceIdNode.IsNull())
     {
-      m_networkInterfaceId = StringUtils::Trim(networkInterfaceIdNode.GetText().c_str());
+      m_networkInterfaceId = Aws::Utils::Xml::DecodeEscapedXmlText(networkInterfaceIdNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::AssignIpv6AddressesResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AccountQuota();
-    AccountQuota(const Aws::Utils::Json::JsonValue& jsonValue);
-    AccountQuota& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AccountQuota(Aws::Utils::Json::JsonView jsonValue);
+    AccountQuota& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the AWS DMS quota for this AWS account.</p>
      */
     inline const Aws::String& GetAccountQuotaName() const{ return m_accountQuotaName; }
+
+    /**
+     * <p>The name of the AWS DMS quota for this AWS account.</p>
+     */
+    inline bool AccountQuotaNameHasBeenSet() const { return m_accountQuotaNameHasBeenSet; }
 
     /**
      * <p>The name of the AWS DMS quota for this AWS account.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The amount currently used toward the quota maximum.</p>
      */
+    inline bool UsedHasBeenSet() const { return m_usedHasBeenSet; }
+
+    /**
+     * <p>The amount currently used toward the quota maximum.</p>
+     */
     inline void SetUsed(long long value) { m_usedHasBeenSet = true; m_used = value; }
 
     /**
@@ -103,6 +114,11 @@ namespace Model
      * <p>The maximum allowed value for the quota.</p>
      */
     inline long long GetMax() const{ return m_max; }
+
+    /**
+     * <p>The maximum allowed value for the quota.</p>
+     */
+    inline bool MaxHasBeenSet() const { return m_maxHasBeenSet; }
 
     /**
      * <p>The maximum allowed value for the quota.</p>

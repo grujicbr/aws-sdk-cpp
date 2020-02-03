@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     WorkflowExecutionSignaledEventAttributes();
-    WorkflowExecutionSignaledEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkflowExecutionSignaledEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkflowExecutionSignaledEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    WorkflowExecutionSignaledEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * inputs to determine how to the process the signal.</p>
      */
     inline const Aws::String& GetSignalName() const{ return m_signalName; }
+
+    /**
+     * <p>The name of the signal received. The decider can use the signal name and
+     * inputs to determine how to the process the signal.</p>
+     */
+    inline bool SignalNameHasBeenSet() const { return m_signalNameHasBeenSet; }
 
     /**
      * <p>The name of the signal received. The decider can use the signal name and
@@ -101,6 +108,12 @@ namespace Model
      * <p>The inputs provided with the signal. The decider can use the signal name and
      * inputs to determine how to process the signal.</p>
      */
+    inline bool InputHasBeenSet() const { return m_inputHasBeenSet; }
+
+    /**
+     * <p>The inputs provided with the signal. The decider can use the signal name and
+     * inputs to determine how to process the signal.</p>
+     */
     inline void SetInput(const Aws::String& value) { m_inputHasBeenSet = true; m_input = value; }
 
     /**
@@ -144,6 +157,12 @@ namespace Model
      * <p>The workflow execution that sent the signal. This is set only of the signal
      * was sent by another workflow execution.</p>
      */
+    inline bool ExternalWorkflowExecutionHasBeenSet() const { return m_externalWorkflowExecutionHasBeenSet; }
+
+    /**
+     * <p>The workflow execution that sent the signal. This is set only of the signal
+     * was sent by another workflow execution.</p>
+     */
     inline void SetExternalWorkflowExecution(const WorkflowExecution& value) { m_externalWorkflowExecutionHasBeenSet = true; m_externalWorkflowExecution = value; }
 
     /**
@@ -174,6 +193,16 @@ namespace Model
      * field is set only if the signal was initiated by another workflow execution.</p>
      */
     inline long long GetExternalInitiatedEventId() const{ return m_externalInitiatedEventId; }
+
+    /**
+     * <p>The ID of the <code>SignalExternalWorkflowExecutionInitiated</code> event
+     * corresponding to the <code>SignalExternalWorkflow</code> decision to signal this
+     * workflow execution.The source event with this ID can be found in the history of
+     * the source workflow execution. This information can be useful for diagnosing
+     * problems by tracing back the chain of events leading up to this event. This
+     * field is set only if the signal was initiated by another workflow execution.</p>
+     */
+    inline bool ExternalInitiatedEventIdHasBeenSet() const { return m_externalInitiatedEventIdHasBeenSet; }
 
     /**
      * <p>The ID of the <code>SignalExternalWorkflowExecutionInitiated</code> event

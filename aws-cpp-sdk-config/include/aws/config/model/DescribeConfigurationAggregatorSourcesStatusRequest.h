@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     DescribeConfigurationAggregatorSourcesStatusRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,6 +50,11 @@ namespace Model
      * <p>The name of the configuration aggregator.</p>
      */
     inline const Aws::String& GetConfigurationAggregatorName() const{ return m_configurationAggregatorName; }
+
+    /**
+     * <p>The name of the configuration aggregator.</p>
+     */
+    inline bool ConfigurationAggregatorNameHasBeenSet() const { return m_configurationAggregatorNameHasBeenSet; }
 
     /**
      * <p>The name of the configuration aggregator.</p>
@@ -89,6 +94,14 @@ namespace Model
      * data is not the most recent.</p> </li> </ul>
      */
     inline const Aws::Vector<AggregatedSourceStatusType>& GetUpdateStatus() const{ return m_updateStatus; }
+
+    /**
+     * <p>Filters the status type.</p> <ul> <li> <p>Valid value FAILED indicates errors
+     * while moving data.</p> </li> <li> <p>Valid value SUCCEEDED indicates the data
+     * was successfully moved.</p> </li> <li> <p>Valid value OUTDATED indicates the
+     * data is not the most recent.</p> </li> </ul>
+     */
+    inline bool UpdateStatusHasBeenSet() const { return m_updateStatusHasBeenSet; }
 
     /**
      * <p>Filters the status type.</p> <ul> <li> <p>Valid value FAILED indicates errors
@@ -140,44 +153,50 @@ namespace Model
 
 
     /**
-     * <p>The nextToken string returned on a previous page that you use to get the next
-     * page of results in a paginated response.</p>
+     * <p>The <code>nextToken</code> string returned on a previous page that you use to
+     * get the next page of results in a paginated response.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
-     * <p>The nextToken string returned on a previous page that you use to get the next
-     * page of results in a paginated response.</p>
+     * <p>The <code>nextToken</code> string returned on a previous page that you use to
+     * get the next page of results in a paginated response.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>The <code>nextToken</code> string returned on a previous page that you use to
+     * get the next page of results in a paginated response.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
-     * <p>The nextToken string returned on a previous page that you use to get the next
-     * page of results in a paginated response.</p>
+     * <p>The <code>nextToken</code> string returned on a previous page that you use to
+     * get the next page of results in a paginated response.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
     /**
-     * <p>The nextToken string returned on a previous page that you use to get the next
-     * page of results in a paginated response.</p>
+     * <p>The <code>nextToken</code> string returned on a previous page that you use to
+     * get the next page of results in a paginated response.</p>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
     /**
-     * <p>The nextToken string returned on a previous page that you use to get the next
-     * page of results in a paginated response.</p>
+     * <p>The <code>nextToken</code> string returned on a previous page that you use to
+     * get the next page of results in a paginated response.</p>
      */
     inline DescribeConfigurationAggregatorSourcesStatusRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
-     * <p>The nextToken string returned on a previous page that you use to get the next
-     * page of results in a paginated response.</p>
+     * <p>The <code>nextToken</code> string returned on a previous page that you use to
+     * get the next page of results in a paginated response.</p>
      */
     inline DescribeConfigurationAggregatorSourcesStatusRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
-     * <p>The nextToken string returned on a previous page that you use to get the next
-     * page of results in a paginated response.</p>
+     * <p>The <code>nextToken</code> string returned on a previous page that you use to
+     * get the next page of results in a paginated response.</p>
      */
     inline DescribeConfigurationAggregatorSourcesStatusRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
@@ -187,6 +206,12 @@ namespace Model
      * default is maximum. If you specify 0, AWS Config uses the default.</p>
      */
     inline int GetLimit() const{ return m_limit; }
+
+    /**
+     * <p>The maximum number of AggregatorSourceStatus returned on each page. The
+     * default is maximum. If you specify 0, AWS Config uses the default.</p>
+     */
+    inline bool LimitHasBeenSet() const { return m_limitHasBeenSet; }
 
     /**
      * <p>The maximum number of AggregatorSourceStatus returned on each page. The

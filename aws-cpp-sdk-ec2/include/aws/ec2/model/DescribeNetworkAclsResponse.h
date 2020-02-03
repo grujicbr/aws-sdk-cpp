@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/ec2/EC2_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/ec2/model/ResponseMetadata.h>
 #include <aws/ec2/model/NetworkAcl.h>
 #include <utility>
@@ -36,11 +37,6 @@ namespace EC2
 {
 namespace Model
 {
-  /**
-   * <p>Contains the output of DescribeNetworkAcls.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeNetworkAclsResult">AWS
-   * API Reference</a></p>
-   */
   class AWS_EC2_API DescribeNetworkAclsResponse
   {
   public:
@@ -85,6 +81,49 @@ namespace Model
     inline DescribeNetworkAclsResponse& AddNetworkAcls(NetworkAcl&& value) { m_networkAcls.push_back(std::move(value)); return *this; }
 
 
+    /**
+     * <p>The token to use to retrieve the next page of results. This value is
+     * <code>null</code> when there are no more results to return.</p>
+     */
+    inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The token to use to retrieve the next page of results. This value is
+     * <code>null</code> when there are no more results to return.</p>
+     */
+    inline void SetNextToken(const Aws::String& value) { m_nextToken = value; }
+
+    /**
+     * <p>The token to use to retrieve the next page of results. This value is
+     * <code>null</code> when there are no more results to return.</p>
+     */
+    inline void SetNextToken(Aws::String&& value) { m_nextToken = std::move(value); }
+
+    /**
+     * <p>The token to use to retrieve the next page of results. This value is
+     * <code>null</code> when there are no more results to return.</p>
+     */
+    inline void SetNextToken(const char* value) { m_nextToken.assign(value); }
+
+    /**
+     * <p>The token to use to retrieve the next page of results. This value is
+     * <code>null</code> when there are no more results to return.</p>
+     */
+    inline DescribeNetworkAclsResponse& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
+
+    /**
+     * <p>The token to use to retrieve the next page of results. This value is
+     * <code>null</code> when there are no more results to return.</p>
+     */
+    inline DescribeNetworkAclsResponse& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
+
+    /**
+     * <p>The token to use to retrieve the next page of results. This value is
+     * <code>null</code> when there are no more results to return.</p>
+     */
+    inline DescribeNetworkAclsResponse& WithNextToken(const char* value) { SetNextToken(value); return *this;}
+
+
     
     inline const ResponseMetadata& GetResponseMetadata() const{ return m_responseMetadata; }
 
@@ -103,6 +142,8 @@ namespace Model
   private:
 
     Aws::Vector<NetworkAcl> m_networkAcls;
+
+    Aws::String m_nextToken;
 
     ResponseMetadata m_responseMetadata;
   };

@@ -24,7 +24,8 @@ using namespace Aws::Utils;
 
 DescribeServicesRequest::DescribeServicesRequest() : 
     m_clusterHasBeenSet(false),
-    m_servicesHasBeenSet(false)
+    m_servicesHasBeenSet(false),
+    m_includeHasBeenSet(false)
 {
 }
 
@@ -49,7 +50,18 @@ Aws::String DescribeServicesRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_includeHasBeenSet)
+  {
+   Array<JsonValue> includeJsonList(m_include.size());
+   for(unsigned includeIndex = 0; includeIndex < includeJsonList.GetLength(); ++includeIndex)
+   {
+     includeJsonList[includeIndex].AsString(ServiceFieldMapper::GetNameForServiceField(m_include[includeIndex]));
+   }
+   payload.WithArray("include", std::move(includeJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DescribeServicesRequest::GetRequestSpecificHeaders() const

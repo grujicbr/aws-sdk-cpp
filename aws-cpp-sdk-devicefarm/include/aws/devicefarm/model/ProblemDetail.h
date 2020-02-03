@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ProblemDetail();
-    ProblemDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProblemDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProblemDetail(Aws::Utils::Json::JsonView jsonValue);
+    ProblemDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The problem detail's ARN.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The problem detail's ARN.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The problem detail's ARN.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The problem detail's name.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The problem detail's name.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The problem detail's name.</p>

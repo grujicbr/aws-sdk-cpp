@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -35,20 +36,17 @@ namespace Model
 {
 
   /**
-   * <p>An application is any Amazon or third-party software that you can add to the
-   * cluster. This structure contains a list of strings that indicates the software
-   * to use with the cluster and accepts a user argument list. Amazon EMR accepts and
-   * forwards the argument list to the corresponding installation script as bootstrap
-   * action argument. For more information, see <a
-   * href="http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-mapr.html">Using
-   * the MapR Distribution for Hadoop</a>. Currently supported values are:</p> <ul>
-   * <li> <p>"mapr-m3" - launch the cluster using MapR M3 Edition.</p> </li> <li>
-   * <p>"mapr-m5" - launch the cluster using MapR M5 Edition.</p> </li> <li>
-   * <p>"mapr" with the user arguments specifying "--edition,m3" or "--edition,m5" -
-   * launch the cluster using MapR M3 or M5 Edition, respectively.</p> </li> </ul>
-   * <note> <p>In Amazon EMR releases 4.x and later, the only accepted parameter is
-   * the application name. To pass arguments to applications, you supply a
-   * configuration for each application.</p> </note><p><h3>See Also:</h3>   <a
+   * <p>With Amazon EMR release version 4.0 and later, the only accepted parameter is
+   * the application name. To pass arguments to applications, you use configuration
+   * classifications specified using configuration JSON objects. For more
+   * information, see <a
+   * href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html">Configuring
+   * Applications</a>.</p> <p>With earlier Amazon EMR releases, the application is
+   * any Amazon or third-party software that you can add to the cluster. This
+   * structure contains a list of strings that indicates the software to use with the
+   * cluster and accepts a user argument list. Amazon EMR accepts and forwards the
+   * argument list to the corresponding installation script as bootstrap action
+   * argument.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/Application">AWS
    * API Reference</a></p>
    */
@@ -56,8 +54,8 @@ namespace Model
   {
   public:
     Application();
-    Application(const Aws::Utils::Json::JsonValue& jsonValue);
-    Application& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Application(Aws::Utils::Json::JsonView jsonValue);
+    Application& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -65,6 +63,11 @@ namespace Model
      * <p>The name of the application.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the application.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the application.</p>
@@ -105,6 +108,11 @@ namespace Model
     /**
      * <p>The version of the application.</p>
      */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
+
+    /**
+     * <p>The version of the application.</p>
+     */
     inline void SetVersion(const Aws::String& value) { m_versionHasBeenSet = true; m_version = value; }
 
     /**
@@ -137,6 +145,11 @@ namespace Model
      * <p>Arguments for Amazon EMR to pass to the application.</p>
      */
     inline const Aws::Vector<Aws::String>& GetArgs() const{ return m_args; }
+
+    /**
+     * <p>Arguments for Amazon EMR to pass to the application.</p>
+     */
+    inline bool ArgsHasBeenSet() const { return m_argsHasBeenSet; }
 
     /**
      * <p>Arguments for Amazon EMR to pass to the application.</p>
@@ -179,6 +192,12 @@ namespace Model
      * third-party applications that third-party vendors use for testing purposes.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAdditionalInfo() const{ return m_additionalInfo; }
+
+    /**
+     * <p>This option is for advanced users only. This is meta information about
+     * third-party applications that third-party vendors use for testing purposes.</p>
+     */
+    inline bool AdditionalInfoHasBeenSet() const { return m_additionalInfoHasBeenSet; }
 
     /**
      * <p>This option is for advanced users only. This is meta information about

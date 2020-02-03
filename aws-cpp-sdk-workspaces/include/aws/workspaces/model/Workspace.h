@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkSpaces
@@ -37,7 +38,7 @@ namespace Model
 {
 
   /**
-   * <p>Information about a WorkSpace.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes a WorkSpace.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/Workspace">AWS
    * API Reference</a></p>
    */
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Workspace();
-    Workspace(const Aws::Utils::Json::JsonValue& jsonValue);
-    Workspace& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Workspace(Aws::Utils::Json::JsonView jsonValue);
+    Workspace& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The identifier of the WorkSpace.</p>
      */
     inline const Aws::String& GetWorkspaceId() const{ return m_workspaceId; }
+
+    /**
+     * <p>The identifier of the WorkSpace.</p>
+     */
+    inline bool WorkspaceIdHasBeenSet() const { return m_workspaceIdHasBeenSet; }
 
     /**
      * <p>The identifier of the WorkSpace.</p>
@@ -94,6 +100,11 @@ namespace Model
     /**
      * <p>The identifier of the AWS Directory Service directory for the WorkSpace.</p>
      */
+    inline bool DirectoryIdHasBeenSet() const { return m_directoryIdHasBeenSet; }
+
+    /**
+     * <p>The identifier of the AWS Directory Service directory for the WorkSpace.</p>
+     */
     inline void SetDirectoryId(const Aws::String& value) { m_directoryIdHasBeenSet = true; m_directoryId = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
      * <p>The user for the WorkSpace.</p>
      */
     inline const Aws::String& GetUserName() const{ return m_userName; }
+
+    /**
+     * <p>The user for the WorkSpace.</p>
+     */
+    inline bool UserNameHasBeenSet() const { return m_userNameHasBeenSet; }
 
     /**
      * <p>The user for the WorkSpace.</p>
@@ -166,6 +182,11 @@ namespace Model
     /**
      * <p>The IP address of the WorkSpace.</p>
      */
+    inline bool IpAddressHasBeenSet() const { return m_ipAddressHasBeenSet; }
+
+    /**
+     * <p>The IP address of the WorkSpace.</p>
+     */
     inline void SetIpAddress(const Aws::String& value) { m_ipAddressHasBeenSet = true; m_ipAddress = value; }
 
     /**
@@ -202,6 +223,11 @@ namespace Model
     /**
      * <p>The operational state of the WorkSpace.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The operational state of the WorkSpace.</p>
+     */
     inline void SetState(const WorkspaceState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -224,6 +250,11 @@ namespace Model
      * <p>The identifier of the bundle used to create the WorkSpace.</p>
      */
     inline const Aws::String& GetBundleId() const{ return m_bundleId; }
+
+    /**
+     * <p>The identifier of the bundle used to create the WorkSpace.</p>
+     */
+    inline bool BundleIdHasBeenSet() const { return m_bundleIdHasBeenSet; }
 
     /**
      * <p>The identifier of the bundle used to create the WorkSpace.</p>
@@ -264,6 +295,11 @@ namespace Model
     /**
      * <p>The identifier of the subnet for the WorkSpace.</p>
      */
+    inline bool SubnetIdHasBeenSet() const { return m_subnetIdHasBeenSet; }
+
+    /**
+     * <p>The identifier of the subnet for the WorkSpace.</p>
+     */
     inline void SetSubnetId(const Aws::String& value) { m_subnetIdHasBeenSet = true; m_subnetId = value; }
 
     /**
@@ -293,80 +329,91 @@ namespace Model
 
 
     /**
-     * <p>If the WorkSpace could not be created, contains a textual error message that
-     * describes the failure.</p>
+     * <p>The text of the error message that is returned if the WorkSpace cannot be
+     * created.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
 
     /**
-     * <p>If the WorkSpace could not be created, contains a textual error message that
-     * describes the failure.</p>
+     * <p>The text of the error message that is returned if the WorkSpace cannot be
+     * created.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
+
+    /**
+     * <p>The text of the error message that is returned if the WorkSpace cannot be
+     * created.</p>
      */
     inline void SetErrorMessage(const Aws::String& value) { m_errorMessageHasBeenSet = true; m_errorMessage = value; }
 
     /**
-     * <p>If the WorkSpace could not be created, contains a textual error message that
-     * describes the failure.</p>
+     * <p>The text of the error message that is returned if the WorkSpace cannot be
+     * created.</p>
      */
     inline void SetErrorMessage(Aws::String&& value) { m_errorMessageHasBeenSet = true; m_errorMessage = std::move(value); }
 
     /**
-     * <p>If the WorkSpace could not be created, contains a textual error message that
-     * describes the failure.</p>
+     * <p>The text of the error message that is returned if the WorkSpace cannot be
+     * created.</p>
      */
     inline void SetErrorMessage(const char* value) { m_errorMessageHasBeenSet = true; m_errorMessage.assign(value); }
 
     /**
-     * <p>If the WorkSpace could not be created, contains a textual error message that
-     * describes the failure.</p>
+     * <p>The text of the error message that is returned if the WorkSpace cannot be
+     * created.</p>
      */
     inline Workspace& WithErrorMessage(const Aws::String& value) { SetErrorMessage(value); return *this;}
 
     /**
-     * <p>If the WorkSpace could not be created, contains a textual error message that
-     * describes the failure.</p>
+     * <p>The text of the error message that is returned if the WorkSpace cannot be
+     * created.</p>
      */
     inline Workspace& WithErrorMessage(Aws::String&& value) { SetErrorMessage(std::move(value)); return *this;}
 
     /**
-     * <p>If the WorkSpace could not be created, contains a textual error message that
-     * describes the failure.</p>
+     * <p>The text of the error message that is returned if the WorkSpace cannot be
+     * created.</p>
      */
     inline Workspace& WithErrorMessage(const char* value) { SetErrorMessage(value); return *this;}
 
 
     /**
-     * <p>If the WorkSpace could not be created, contains the error code.</p>
+     * <p>The error code that is returned if the WorkSpace cannot be created.</p>
      */
     inline const Aws::String& GetErrorCode() const{ return m_errorCode; }
 
     /**
-     * <p>If the WorkSpace could not be created, contains the error code.</p>
+     * <p>The error code that is returned if the WorkSpace cannot be created.</p>
+     */
+    inline bool ErrorCodeHasBeenSet() const { return m_errorCodeHasBeenSet; }
+
+    /**
+     * <p>The error code that is returned if the WorkSpace cannot be created.</p>
      */
     inline void SetErrorCode(const Aws::String& value) { m_errorCodeHasBeenSet = true; m_errorCode = value; }
 
     /**
-     * <p>If the WorkSpace could not be created, contains the error code.</p>
+     * <p>The error code that is returned if the WorkSpace cannot be created.</p>
      */
     inline void SetErrorCode(Aws::String&& value) { m_errorCodeHasBeenSet = true; m_errorCode = std::move(value); }
 
     /**
-     * <p>If the WorkSpace could not be created, contains the error code.</p>
+     * <p>The error code that is returned if the WorkSpace cannot be created.</p>
      */
     inline void SetErrorCode(const char* value) { m_errorCodeHasBeenSet = true; m_errorCode.assign(value); }
 
     /**
-     * <p>If the WorkSpace could not be created, contains the error code.</p>
+     * <p>The error code that is returned if the WorkSpace cannot be created.</p>
      */
     inline Workspace& WithErrorCode(const Aws::String& value) { SetErrorCode(value); return *this;}
 
     /**
-     * <p>If the WorkSpace could not be created, contains the error code.</p>
+     * <p>The error code that is returned if the WorkSpace cannot be created.</p>
      */
     inline Workspace& WithErrorCode(Aws::String&& value) { SetErrorCode(std::move(value)); return *this;}
 
     /**
-     * <p>If the WorkSpace could not be created, contains the error code.</p>
+     * <p>The error code that is returned if the WorkSpace cannot be created.</p>
      */
     inline Workspace& WithErrorCode(const char* value) { SetErrorCode(value); return *this;}
 
@@ -375,6 +422,11 @@ namespace Model
      * <p>The name of the WorkSpace, as seen by the operating system.</p>
      */
     inline const Aws::String& GetComputerName() const{ return m_computerName; }
+
+    /**
+     * <p>The name of the WorkSpace, as seen by the operating system.</p>
+     */
+    inline bool ComputerNameHasBeenSet() const { return m_computerNameHasBeenSet; }
 
     /**
      * <p>The name of the WorkSpace, as seen by the operating system.</p>
@@ -408,37 +460,50 @@ namespace Model
 
 
     /**
-     * <p>The KMS key used to encrypt data stored on your WorkSpace.</p>
+     * <p>The symmetric AWS KMS customer master key (CMK) used to encrypt data stored
+     * on your WorkSpace. Amazon WorkSpaces does not support asymmetric CMKs.</p>
      */
     inline const Aws::String& GetVolumeEncryptionKey() const{ return m_volumeEncryptionKey; }
 
     /**
-     * <p>The KMS key used to encrypt data stored on your WorkSpace.</p>
+     * <p>The symmetric AWS KMS customer master key (CMK) used to encrypt data stored
+     * on your WorkSpace. Amazon WorkSpaces does not support asymmetric CMKs.</p>
+     */
+    inline bool VolumeEncryptionKeyHasBeenSet() const { return m_volumeEncryptionKeyHasBeenSet; }
+
+    /**
+     * <p>The symmetric AWS KMS customer master key (CMK) used to encrypt data stored
+     * on your WorkSpace. Amazon WorkSpaces does not support asymmetric CMKs.</p>
      */
     inline void SetVolumeEncryptionKey(const Aws::String& value) { m_volumeEncryptionKeyHasBeenSet = true; m_volumeEncryptionKey = value; }
 
     /**
-     * <p>The KMS key used to encrypt data stored on your WorkSpace.</p>
+     * <p>The symmetric AWS KMS customer master key (CMK) used to encrypt data stored
+     * on your WorkSpace. Amazon WorkSpaces does not support asymmetric CMKs.</p>
      */
     inline void SetVolumeEncryptionKey(Aws::String&& value) { m_volumeEncryptionKeyHasBeenSet = true; m_volumeEncryptionKey = std::move(value); }
 
     /**
-     * <p>The KMS key used to encrypt data stored on your WorkSpace.</p>
+     * <p>The symmetric AWS KMS customer master key (CMK) used to encrypt data stored
+     * on your WorkSpace. Amazon WorkSpaces does not support asymmetric CMKs.</p>
      */
     inline void SetVolumeEncryptionKey(const char* value) { m_volumeEncryptionKeyHasBeenSet = true; m_volumeEncryptionKey.assign(value); }
 
     /**
-     * <p>The KMS key used to encrypt data stored on your WorkSpace.</p>
+     * <p>The symmetric AWS KMS customer master key (CMK) used to encrypt data stored
+     * on your WorkSpace. Amazon WorkSpaces does not support asymmetric CMKs.</p>
      */
     inline Workspace& WithVolumeEncryptionKey(const Aws::String& value) { SetVolumeEncryptionKey(value); return *this;}
 
     /**
-     * <p>The KMS key used to encrypt data stored on your WorkSpace.</p>
+     * <p>The symmetric AWS KMS customer master key (CMK) used to encrypt data stored
+     * on your WorkSpace. Amazon WorkSpaces does not support asymmetric CMKs.</p>
      */
     inline Workspace& WithVolumeEncryptionKey(Aws::String&& value) { SetVolumeEncryptionKey(std::move(value)); return *this;}
 
     /**
-     * <p>The KMS key used to encrypt data stored on your WorkSpace.</p>
+     * <p>The symmetric AWS KMS customer master key (CMK) used to encrypt data stored
+     * on your WorkSpace. Amazon WorkSpaces does not support asymmetric CMKs.</p>
      */
     inline Workspace& WithVolumeEncryptionKey(const char* value) { SetVolumeEncryptionKey(value); return *this;}
 
@@ -447,6 +512,11 @@ namespace Model
      * <p>Indicates whether the data stored on the user volume is encrypted.</p>
      */
     inline bool GetUserVolumeEncryptionEnabled() const{ return m_userVolumeEncryptionEnabled; }
+
+    /**
+     * <p>Indicates whether the data stored on the user volume is encrypted.</p>
+     */
+    inline bool UserVolumeEncryptionEnabledHasBeenSet() const { return m_userVolumeEncryptionEnabledHasBeenSet; }
 
     /**
      * <p>Indicates whether the data stored on the user volume is encrypted.</p>
@@ -467,6 +537,11 @@ namespace Model
     /**
      * <p>Indicates whether the data stored on the root volume is encrypted.</p>
      */
+    inline bool RootVolumeEncryptionEnabledHasBeenSet() const { return m_rootVolumeEncryptionEnabledHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the data stored on the root volume is encrypted.</p>
+     */
     inline void SetRootVolumeEncryptionEnabled(bool value) { m_rootVolumeEncryptionEnabledHasBeenSet = true; m_rootVolumeEncryptionEnabled = value; }
 
     /**
@@ -479,6 +554,11 @@ namespace Model
      * <p>The properties of the WorkSpace.</p>
      */
     inline const WorkspaceProperties& GetWorkspaceProperties() const{ return m_workspaceProperties; }
+
+    /**
+     * <p>The properties of the WorkSpace.</p>
+     */
+    inline bool WorkspacePropertiesHasBeenSet() const { return m_workspacePropertiesHasBeenSet; }
 
     /**
      * <p>The properties of the WorkSpace.</p>
@@ -505,6 +585,11 @@ namespace Model
      * <p>The modification states of the WorkSpace.</p>
      */
     inline const Aws::Vector<ModificationState>& GetModificationStates() const{ return m_modificationStates; }
+
+    /**
+     * <p>The modification states of the WorkSpace.</p>
+     */
+    inline bool ModificationStatesHasBeenSet() const { return m_modificationStatesHasBeenSet; }
 
     /**
      * <p>The modification states of the WorkSpace.</p>

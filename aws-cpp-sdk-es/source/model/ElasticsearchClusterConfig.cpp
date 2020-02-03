@@ -37,14 +37,21 @@ ElasticsearchClusterConfig::ElasticsearchClusterConfig() :
     m_dedicatedMasterEnabledHasBeenSet(false),
     m_zoneAwarenessEnabled(false),
     m_zoneAwarenessEnabledHasBeenSet(false),
+    m_zoneAwarenessConfigHasBeenSet(false),
     m_dedicatedMasterType(ESPartitionInstanceType::NOT_SET),
     m_dedicatedMasterTypeHasBeenSet(false),
     m_dedicatedMasterCount(0),
-    m_dedicatedMasterCountHasBeenSet(false)
+    m_dedicatedMasterCountHasBeenSet(false),
+    m_warmEnabled(false),
+    m_warmEnabledHasBeenSet(false),
+    m_warmType(ESWarmPartitionInstanceType::NOT_SET),
+    m_warmTypeHasBeenSet(false),
+    m_warmCount(0),
+    m_warmCountHasBeenSet(false)
 {
 }
 
-ElasticsearchClusterConfig::ElasticsearchClusterConfig(const JsonValue& jsonValue) : 
+ElasticsearchClusterConfig::ElasticsearchClusterConfig(JsonView jsonValue) : 
     m_instanceType(ESPartitionInstanceType::NOT_SET),
     m_instanceTypeHasBeenSet(false),
     m_instanceCount(0),
@@ -53,15 +60,22 @@ ElasticsearchClusterConfig::ElasticsearchClusterConfig(const JsonValue& jsonValu
     m_dedicatedMasterEnabledHasBeenSet(false),
     m_zoneAwarenessEnabled(false),
     m_zoneAwarenessEnabledHasBeenSet(false),
+    m_zoneAwarenessConfigHasBeenSet(false),
     m_dedicatedMasterType(ESPartitionInstanceType::NOT_SET),
     m_dedicatedMasterTypeHasBeenSet(false),
     m_dedicatedMasterCount(0),
-    m_dedicatedMasterCountHasBeenSet(false)
+    m_dedicatedMasterCountHasBeenSet(false),
+    m_warmEnabled(false),
+    m_warmEnabledHasBeenSet(false),
+    m_warmType(ESWarmPartitionInstanceType::NOT_SET),
+    m_warmTypeHasBeenSet(false),
+    m_warmCount(0),
+    m_warmCountHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ElasticsearchClusterConfig& ElasticsearchClusterConfig::operator =(const JsonValue& jsonValue)
+ElasticsearchClusterConfig& ElasticsearchClusterConfig::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("InstanceType"))
   {
@@ -91,6 +105,13 @@ ElasticsearchClusterConfig& ElasticsearchClusterConfig::operator =(const JsonVal
     m_zoneAwarenessEnabledHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("ZoneAwarenessConfig"))
+  {
+    m_zoneAwarenessConfig = jsonValue.GetObject("ZoneAwarenessConfig");
+
+    m_zoneAwarenessConfigHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("DedicatedMasterType"))
   {
     m_dedicatedMasterType = ESPartitionInstanceTypeMapper::GetESPartitionInstanceTypeForName(jsonValue.GetString("DedicatedMasterType"));
@@ -103,6 +124,27 @@ ElasticsearchClusterConfig& ElasticsearchClusterConfig::operator =(const JsonVal
     m_dedicatedMasterCount = jsonValue.GetInteger("DedicatedMasterCount");
 
     m_dedicatedMasterCountHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WarmEnabled"))
+  {
+    m_warmEnabled = jsonValue.GetBool("WarmEnabled");
+
+    m_warmEnabledHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WarmType"))
+  {
+    m_warmType = ESWarmPartitionInstanceTypeMapper::GetESWarmPartitionInstanceTypeForName(jsonValue.GetString("WarmType"));
+
+    m_warmTypeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WarmCount"))
+  {
+    m_warmCount = jsonValue.GetInteger("WarmCount");
+
+    m_warmCountHasBeenSet = true;
   }
 
   return *this;
@@ -135,6 +177,12 @@ JsonValue ElasticsearchClusterConfig::Jsonize() const
 
   }
 
+  if(m_zoneAwarenessConfigHasBeenSet)
+  {
+   payload.WithObject("ZoneAwarenessConfig", m_zoneAwarenessConfig.Jsonize());
+
+  }
+
   if(m_dedicatedMasterTypeHasBeenSet)
   {
    payload.WithString("DedicatedMasterType", ESPartitionInstanceTypeMapper::GetNameForESPartitionInstanceType(m_dedicatedMasterType));
@@ -143,6 +191,23 @@ JsonValue ElasticsearchClusterConfig::Jsonize() const
   if(m_dedicatedMasterCountHasBeenSet)
   {
    payload.WithInteger("DedicatedMasterCount", m_dedicatedMasterCount);
+
+  }
+
+  if(m_warmEnabledHasBeenSet)
+  {
+   payload.WithBool("WarmEnabled", m_warmEnabled);
+
+  }
+
+  if(m_warmTypeHasBeenSet)
+  {
+   payload.WithString("WarmType", ESWarmPartitionInstanceTypeMapper::GetNameForESWarmPartitionInstanceType(m_warmType));
+  }
+
+  if(m_warmCountHasBeenSet)
+  {
+   payload.WithInteger("WarmCount", m_warmCount);
 
   }
 

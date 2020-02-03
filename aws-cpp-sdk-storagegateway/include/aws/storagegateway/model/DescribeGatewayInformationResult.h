@@ -17,7 +17,9 @@
 #include <aws/storagegateway/StorageGateway_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/storagegateway/model/HostEnvironment.h>
 #include <aws/storagegateway/model/NetworkInterface.h>
+#include <aws/storagegateway/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -407,6 +409,247 @@ namespace Model
      */
     inline DescribeGatewayInformationResult& WithLastSoftwareUpdate(const char* value) { SetLastSoftwareUpdate(value); return *this;}
 
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline const Aws::String& GetEc2InstanceId() const{ return m_ec2InstanceId; }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline void SetEc2InstanceId(const Aws::String& value) { m_ec2InstanceId = value; }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline void SetEc2InstanceId(Aws::String&& value) { m_ec2InstanceId = std::move(value); }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline void SetEc2InstanceId(const char* value) { m_ec2InstanceId.assign(value); }
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline DescribeGatewayInformationResult& WithEc2InstanceId(const Aws::String& value) { SetEc2InstanceId(value); return *this;}
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline DescribeGatewayInformationResult& WithEc2InstanceId(Aws::String&& value) { SetEc2InstanceId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the Amazon EC2 instance that was used to launch the gateway.</p>
+     */
+    inline DescribeGatewayInformationResult& WithEc2InstanceId(const char* value) { SetEc2InstanceId(value); return *this;}
+
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline const Aws::String& GetEc2InstanceRegion() const{ return m_ec2InstanceRegion; }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline void SetEc2InstanceRegion(const Aws::String& value) { m_ec2InstanceRegion = value; }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline void SetEc2InstanceRegion(Aws::String&& value) { m_ec2InstanceRegion = std::move(value); }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline void SetEc2InstanceRegion(const char* value) { m_ec2InstanceRegion.assign(value); }
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline DescribeGatewayInformationResult& WithEc2InstanceRegion(const Aws::String& value) { SetEc2InstanceRegion(value); return *this;}
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline DescribeGatewayInformationResult& WithEc2InstanceRegion(Aws::String&& value) { SetEc2InstanceRegion(std::move(value)); return *this;}
+
+    /**
+     * <p>The AWS Region where the Amazon EC2 instance is located.</p>
+     */
+    inline DescribeGatewayInformationResult& WithEc2InstanceRegion(const char* value) { SetEc2InstanceRegion(value); return *this;}
+
+
+    /**
+     * <p>A list of up to 50 tags assigned to the gateway, sorted alphabetically by key
+     * name. Each tag is a key-value pair. For a gateway with more than 10 tags
+     * assigned, you can view all tags using the <code>ListTagsForResource</code> API
+     * operation.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>A list of up to 50 tags assigned to the gateway, sorted alphabetically by key
+     * name. Each tag is a key-value pair. For a gateway with more than 10 tags
+     * assigned, you can view all tags using the <code>ListTagsForResource</code> API
+     * operation.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tags = value; }
+
+    /**
+     * <p>A list of up to 50 tags assigned to the gateway, sorted alphabetically by key
+     * name. Each tag is a key-value pair. For a gateway with more than 10 tags
+     * assigned, you can view all tags using the <code>ListTagsForResource</code> API
+     * operation.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tags = std::move(value); }
+
+    /**
+     * <p>A list of up to 50 tags assigned to the gateway, sorted alphabetically by key
+     * name. Each tag is a key-value pair. For a gateway with more than 10 tags
+     * assigned, you can view all tags using the <code>ListTagsForResource</code> API
+     * operation.</p>
+     */
+    inline DescribeGatewayInformationResult& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>A list of up to 50 tags assigned to the gateway, sorted alphabetically by key
+     * name. Each tag is a key-value pair. For a gateway with more than 10 tags
+     * assigned, you can view all tags using the <code>ListTagsForResource</code> API
+     * operation.</p>
+     */
+    inline DescribeGatewayInformationResult& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>A list of up to 50 tags assigned to the gateway, sorted alphabetically by key
+     * name. Each tag is a key-value pair. For a gateway with more than 10 tags
+     * assigned, you can view all tags using the <code>ListTagsForResource</code> API
+     * operation.</p>
+     */
+    inline DescribeGatewayInformationResult& AddTags(const Tag& value) { m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>A list of up to 50 tags assigned to the gateway, sorted alphabetically by key
+     * name. Each tag is a key-value pair. For a gateway with more than 10 tags
+     * assigned, you can view all tags using the <code>ListTagsForResource</code> API
+     * operation.</p>
+     */
+    inline DescribeGatewayInformationResult& AddTags(Tag&& value) { m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>The configuration settings for the virtual private cloud (VPC) endpoint for
+     * your gateway. </p>
+     */
+    inline const Aws::String& GetVPCEndpoint() const{ return m_vPCEndpoint; }
+
+    /**
+     * <p>The configuration settings for the virtual private cloud (VPC) endpoint for
+     * your gateway. </p>
+     */
+    inline void SetVPCEndpoint(const Aws::String& value) { m_vPCEndpoint = value; }
+
+    /**
+     * <p>The configuration settings for the virtual private cloud (VPC) endpoint for
+     * your gateway. </p>
+     */
+    inline void SetVPCEndpoint(Aws::String&& value) { m_vPCEndpoint = std::move(value); }
+
+    /**
+     * <p>The configuration settings for the virtual private cloud (VPC) endpoint for
+     * your gateway. </p>
+     */
+    inline void SetVPCEndpoint(const char* value) { m_vPCEndpoint.assign(value); }
+
+    /**
+     * <p>The configuration settings for the virtual private cloud (VPC) endpoint for
+     * your gateway. </p>
+     */
+    inline DescribeGatewayInformationResult& WithVPCEndpoint(const Aws::String& value) { SetVPCEndpoint(value); return *this;}
+
+    /**
+     * <p>The configuration settings for the virtual private cloud (VPC) endpoint for
+     * your gateway. </p>
+     */
+    inline DescribeGatewayInformationResult& WithVPCEndpoint(Aws::String&& value) { SetVPCEndpoint(std::move(value)); return *this;}
+
+    /**
+     * <p>The configuration settings for the virtual private cloud (VPC) endpoint for
+     * your gateway. </p>
+     */
+    inline DescribeGatewayInformationResult& WithVPCEndpoint(const char* value) { SetVPCEndpoint(value); return *this;}
+
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Log Group that is
+     * used to monitor events in the gateway.</p>
+     */
+    inline const Aws::String& GetCloudWatchLogGroupARN() const{ return m_cloudWatchLogGroupARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Log Group that is
+     * used to monitor events in the gateway.</p>
+     */
+    inline void SetCloudWatchLogGroupARN(const Aws::String& value) { m_cloudWatchLogGroupARN = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Log Group that is
+     * used to monitor events in the gateway.</p>
+     */
+    inline void SetCloudWatchLogGroupARN(Aws::String&& value) { m_cloudWatchLogGroupARN = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Log Group that is
+     * used to monitor events in the gateway.</p>
+     */
+    inline void SetCloudWatchLogGroupARN(const char* value) { m_cloudWatchLogGroupARN.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Log Group that is
+     * used to monitor events in the gateway.</p>
+     */
+    inline DescribeGatewayInformationResult& WithCloudWatchLogGroupARN(const Aws::String& value) { SetCloudWatchLogGroupARN(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Log Group that is
+     * used to monitor events in the gateway.</p>
+     */
+    inline DescribeGatewayInformationResult& WithCloudWatchLogGroupARN(Aws::String&& value) { SetCloudWatchLogGroupARN(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Log Group that is
+     * used to monitor events in the gateway.</p>
+     */
+    inline DescribeGatewayInformationResult& WithCloudWatchLogGroupARN(const char* value) { SetCloudWatchLogGroupARN(value); return *this;}
+
+
+    /**
+     * <p>The type of hypervisor environment used by the host.</p>
+     */
+    inline const HostEnvironment& GetHostEnvironment() const{ return m_hostEnvironment; }
+
+    /**
+     * <p>The type of hypervisor environment used by the host.</p>
+     */
+    inline void SetHostEnvironment(const HostEnvironment& value) { m_hostEnvironment = value; }
+
+    /**
+     * <p>The type of hypervisor environment used by the host.</p>
+     */
+    inline void SetHostEnvironment(HostEnvironment&& value) { m_hostEnvironment = std::move(value); }
+
+    /**
+     * <p>The type of hypervisor environment used by the host.</p>
+     */
+    inline DescribeGatewayInformationResult& WithHostEnvironment(const HostEnvironment& value) { SetHostEnvironment(value); return *this;}
+
+    /**
+     * <p>The type of hypervisor environment used by the host.</p>
+     */
+    inline DescribeGatewayInformationResult& WithHostEnvironment(HostEnvironment&& value) { SetHostEnvironment(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_gatewayARN;
@@ -426,6 +669,18 @@ namespace Model
     Aws::String m_nextUpdateAvailabilityDate;
 
     Aws::String m_lastSoftwareUpdate;
+
+    Aws::String m_ec2InstanceId;
+
+    Aws::String m_ec2InstanceRegion;
+
+    Aws::Vector<Tag> m_tags;
+
+    Aws::String m_vPCEndpoint;
+
+    Aws::String m_cloudWatchLogGroupARN;
+
+    HostEnvironment m_hostEnvironment;
   };
 
 } // namespace Model

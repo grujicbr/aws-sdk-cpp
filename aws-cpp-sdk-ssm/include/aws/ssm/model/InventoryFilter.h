@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     InventoryFilter();
-    InventoryFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    InventoryFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InventoryFilter(Aws::Utils::Json::JsonView jsonValue);
+    InventoryFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the filter key.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The name of the filter key.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The name of the filter key.</p>
@@ -91,6 +97,13 @@ namespace Model
      * i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal </p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>Inventory filter values. Example: inventory filter where instance IDs are
+     * specified as values Key=AWS:InstanceInformation.InstanceId,Values=
+     * i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal </p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>Inventory filter values. Example: inventory filter where instance IDs are
@@ -143,32 +156,32 @@ namespace Model
 
 
     /**
-     * <p>The type of filter. Valid values include the following:
-     * "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"</p>
+     * <p>The type of filter.</p>
      */
     inline const InventoryQueryOperatorType& GetType() const{ return m_type; }
 
     /**
-     * <p>The type of filter. Valid values include the following:
-     * "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"</p>
+     * <p>The type of filter.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of filter.</p>
      */
     inline void SetType(const InventoryQueryOperatorType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
-     * <p>The type of filter. Valid values include the following:
-     * "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"</p>
+     * <p>The type of filter.</p>
      */
     inline void SetType(InventoryQueryOperatorType&& value) { m_typeHasBeenSet = true; m_type = std::move(value); }
 
     /**
-     * <p>The type of filter. Valid values include the following:
-     * "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"</p>
+     * <p>The type of filter.</p>
      */
     inline InventoryFilter& WithType(const InventoryQueryOperatorType& value) { SetType(value); return *this;}
 
     /**
-     * <p>The type of filter. Valid values include the following:
-     * "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"</p>
+     * <p>The type of filter.</p>
      */
     inline InventoryFilter& WithType(InventoryQueryOperatorType&& value) { SetType(std::move(value)); return *this;}
 

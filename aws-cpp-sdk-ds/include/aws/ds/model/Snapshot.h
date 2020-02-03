@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Snapshot();
-    Snapshot(const Aws::Utils::Json::JsonValue& jsonValue);
-    Snapshot& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Snapshot(Aws::Utils::Json::JsonView jsonValue);
+    Snapshot& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The directory identifier.</p>
      */
     inline const Aws::String& GetDirectoryId() const{ return m_directoryId; }
+
+    /**
+     * <p>The directory identifier.</p>
+     */
+    inline bool DirectoryIdHasBeenSet() const { return m_directoryIdHasBeenSet; }
 
     /**
      * <p>The directory identifier.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The snapshot identifier.</p>
      */
+    inline bool SnapshotIdHasBeenSet() const { return m_snapshotIdHasBeenSet; }
+
+    /**
+     * <p>The snapshot identifier.</p>
+     */
     inline void SetSnapshotId(const Aws::String& value) { m_snapshotIdHasBeenSet = true; m_snapshotId = value; }
 
     /**
@@ -129,6 +140,11 @@ namespace Model
     /**
      * <p>The snapshot type.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The snapshot type.</p>
+     */
     inline void SetType(const SnapshotType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -151,6 +167,11 @@ namespace Model
      * <p>The descriptive name of the snapshot.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The descriptive name of the snapshot.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The descriptive name of the snapshot.</p>
@@ -191,6 +212,11 @@ namespace Model
     /**
      * <p>The snapshot status.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The snapshot status.</p>
+     */
     inline void SetStatus(const SnapshotStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -213,6 +239,11 @@ namespace Model
      * <p>The date and time that the snapshot was taken.</p>
      */
     inline const Aws::Utils::DateTime& GetStartTime() const{ return m_startTime; }
+
+    /**
+     * <p>The date and time that the snapshot was taken.</p>
+     */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
 
     /**
      * <p>The date and time that the snapshot was taken.</p>

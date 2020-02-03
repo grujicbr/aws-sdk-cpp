@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ServiceId();
-    ServiceId(const Aws::Utils::Json::JsonValue& jsonValue);
-    ServiceId& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ServiceId(Aws::Utils::Json::JsonView jsonValue);
+    ServiceId& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p/>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p/>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p/>
@@ -87,6 +93,11 @@ namespace Model
      * <p/>
      */
     inline const Aws::Vector<Aws::String>& GetNames() const{ return m_names; }
+
+    /**
+     * <p/>
+     */
+    inline bool NamesHasBeenSet() const { return m_namesHasBeenSet; }
 
     /**
      * <p/>
@@ -132,6 +143,11 @@ namespace Model
     /**
      * <p/>
      */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
+
+    /**
+     * <p/>
+     */
     inline void SetAccountId(const Aws::String& value) { m_accountIdHasBeenSet = true; m_accountId = value; }
 
     /**
@@ -164,6 +180,11 @@ namespace Model
      * <p/>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p/>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p/>

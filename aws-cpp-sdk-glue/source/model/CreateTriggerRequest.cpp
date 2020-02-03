@@ -24,6 +24,7 @@ using namespace Aws::Utils;
 
 CreateTriggerRequest::CreateTriggerRequest() : 
     m_nameHasBeenSet(false),
+    m_workflowNameHasBeenSet(false),
     m_type(TriggerType::NOT_SET),
     m_typeHasBeenSet(false),
     m_scheduleHasBeenSet(false),
@@ -31,7 +32,8 @@ CreateTriggerRequest::CreateTriggerRequest() :
     m_actionsHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_startOnCreation(false),
-    m_startOnCreationHasBeenSet(false)
+    m_startOnCreationHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -42,6 +44,12 @@ Aws::String CreateTriggerRequest::SerializePayload() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("Name", m_name);
+
+  }
+
+  if(m_workflowNameHasBeenSet)
+  {
+   payload.WithString("WorkflowName", m_workflowName);
 
   }
 
@@ -85,7 +93,18 @@ Aws::String CreateTriggerRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("Tags", std::move(tagsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateTriggerRequest::GetRequestSpecificHeaders() const

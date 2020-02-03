@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 DescribeTaskDefinitionRequest::DescribeTaskDefinitionRequest() : 
-    m_taskDefinitionHasBeenSet(false)
+    m_taskDefinitionHasBeenSet(false),
+    m_includeHasBeenSet(false)
 {
 }
 
@@ -37,7 +38,18 @@ Aws::String DescribeTaskDefinitionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_includeHasBeenSet)
+  {
+   Array<JsonValue> includeJsonList(m_include.size());
+   for(unsigned includeIndex = 0; includeIndex < includeJsonList.GetLength(); ++includeIndex)
+   {
+     includeJsonList[includeIndex].AsString(TaskDefinitionFieldMapper::GetNameForTaskDefinitionField(m_include[includeIndex]));
+   }
+   payload.WithArray("include", std::move(includeJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DescribeTaskDefinitionRequest::GetRequestSpecificHeaders() const

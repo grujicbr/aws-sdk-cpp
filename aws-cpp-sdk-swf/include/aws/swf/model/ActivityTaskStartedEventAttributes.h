@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ActivityTaskStartedEventAttributes();
-    ActivityTaskStartedEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActivityTaskStartedEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActivityTaskStartedEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    ActivityTaskStartedEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * when problems arise. The form of this identity is user defined.</p>
      */
     inline const Aws::String& GetIdentity() const{ return m_identity; }
+
+    /**
+     * <p>Identity of the worker that was assigned this task. This aids diagnostics
+     * when problems arise. The form of this identity is user defined.</p>
+     */
+    inline bool IdentityHasBeenSet() const { return m_identityHasBeenSet; }
 
     /**
      * <p>Identity of the worker that was assigned this task. This aids diagnostics
@@ -96,6 +103,13 @@ namespace Model
      * problems by tracing back the chain of events leading up to this event.</p>
      */
     inline long long GetScheduledEventId() const{ return m_scheduledEventId; }
+
+    /**
+     * <p>The ID of the <code>ActivityTaskScheduled</code> event that was recorded when
+     * this activity task was scheduled. This information can be useful for diagnosing
+     * problems by tracing back the chain of events leading up to this event.</p>
+     */
+    inline bool ScheduledEventIdHasBeenSet() const { return m_scheduledEventIdHasBeenSet; }
 
     /**
      * <p>The ID of the <code>ActivityTaskScheduled</code> event that was recorded when

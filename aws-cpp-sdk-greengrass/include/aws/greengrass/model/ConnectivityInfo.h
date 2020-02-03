@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ConnectivityInfo();
-    ConnectivityInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConnectivityInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConnectivityInfo(Aws::Utils::Json::JsonView jsonValue);
+    ConnectivityInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * The endpoint for the Greengrass core. Can be an IP address or DNS.
      */
     inline const Aws::String& GetHostAddress() const{ return m_hostAddress; }
+
+    /**
+     * The endpoint for the Greengrass core. Can be an IP address or DNS.
+     */
+    inline bool HostAddressHasBeenSet() const { return m_hostAddressHasBeenSet; }
 
     /**
      * The endpoint for the Greengrass core. Can be an IP address or DNS.
@@ -90,6 +96,11 @@ namespace Model
     /**
      * The ID of the connectivity information.
      */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * The ID of the connectivity information.
+     */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
     /**
      * Metadata for this endpoint.
      */
+    inline bool MetadataHasBeenSet() const { return m_metadataHasBeenSet; }
+
+    /**
+     * Metadata for this endpoint.
+     */
     inline void SetMetadata(const Aws::String& value) { m_metadataHasBeenSet = true; m_metadata = value; }
 
     /**
@@ -158,6 +174,11 @@ namespace Model
      * The port of the Greengrass core. Usually 8883.
      */
     inline int GetPortNumber() const{ return m_portNumber; }
+
+    /**
+     * The port of the Greengrass core. Usually 8883.
+     */
+    inline bool PortNumberHasBeenSet() const { return m_portNumberHasBeenSet; }
 
     /**
      * The port of the Greengrass core. Usually 8883.

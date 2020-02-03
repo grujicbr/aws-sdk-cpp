@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,43 +43,48 @@ namespace Model
   {
   public:
     PutItemInput();
-    PutItemInput(const Aws::Utils::Json::JsonValue& jsonValue);
-    PutItemInput& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PutItemInput(Aws::Utils::Json::JsonView jsonValue);
+    PutItemInput& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The table where the message data will be written</p>
+     * <p>The table where the message data will be written.</p>
      */
     inline const Aws::String& GetTableName() const{ return m_tableName; }
 
     /**
-     * <p>The table where the message data will be written</p>
+     * <p>The table where the message data will be written.</p>
+     */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
+
+    /**
+     * <p>The table where the message data will be written.</p>
      */
     inline void SetTableName(const Aws::String& value) { m_tableNameHasBeenSet = true; m_tableName = value; }
 
     /**
-     * <p>The table where the message data will be written</p>
+     * <p>The table where the message data will be written.</p>
      */
     inline void SetTableName(Aws::String&& value) { m_tableNameHasBeenSet = true; m_tableName = std::move(value); }
 
     /**
-     * <p>The table where the message data will be written</p>
+     * <p>The table where the message data will be written.</p>
      */
     inline void SetTableName(const char* value) { m_tableNameHasBeenSet = true; m_tableName.assign(value); }
 
     /**
-     * <p>The table where the message data will be written</p>
+     * <p>The table where the message data will be written.</p>
      */
     inline PutItemInput& WithTableName(const Aws::String& value) { SetTableName(value); return *this;}
 
     /**
-     * <p>The table where the message data will be written</p>
+     * <p>The table where the message data will be written.</p>
      */
     inline PutItemInput& WithTableName(Aws::String&& value) { SetTableName(std::move(value)); return *this;}
 
     /**
-     * <p>The table where the message data will be written</p>
+     * <p>The table where the message data will be written.</p>
      */
     inline PutItemInput& WithTableName(const char* value) { SetTableName(value); return *this;}
 

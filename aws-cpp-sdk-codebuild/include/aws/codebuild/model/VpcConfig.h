@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeBuild
@@ -34,8 +35,8 @@ namespace Model
 {
 
   /**
-   * <p>Information about the VPC configuration that AWS CodeBuild will
-   * access.</p><p><h3>See Also:</h3>   <a
+   * <p>Information about the VPC configuration that AWS CodeBuild
+   * accesses.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/VpcConfig">AWS
    * API Reference</a></p>
    */
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     VpcConfig();
-    VpcConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    VpcConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VpcConfig(Aws::Utils::Json::JsonView jsonValue);
+    VpcConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ID of the Amazon VPC.</p>
      */
     inline const Aws::String& GetVpcId() const{ return m_vpcId; }
+
+    /**
+     * <p>The ID of the Amazon VPC.</p>
+     */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
 
     /**
      * <p>The ID of the Amazon VPC.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>A list of one or more subnet IDs in your Amazon VPC.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSubnets() const{ return m_subnets; }
+
+    /**
+     * <p>A list of one or more subnet IDs in your Amazon VPC.</p>
+     */
+    inline bool SubnetsHasBeenSet() const { return m_subnetsHasBeenSet; }
 
     /**
      * <p>A list of one or more subnet IDs in your Amazon VPC.</p>
@@ -129,6 +140,11 @@ namespace Model
      * <p>A list of one or more security groups IDs in your Amazon VPC.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSecurityGroupIds() const{ return m_securityGroupIds; }
+
+    /**
+     * <p>A list of one or more security groups IDs in your Amazon VPC.</p>
+     */
+    inline bool SecurityGroupIdsHasBeenSet() const { return m_securityGroupIdsHasBeenSet; }
 
     /**
      * <p>A list of one or more security groups IDs in your Amazon VPC.</p>

@@ -29,6 +29,7 @@
 #include <aws/rds/model/DBInstanceStatusInfo.h>
 #include <aws/rds/model/DomainMembership.h>
 #include <aws/rds/model/ProcessorFeature.h>
+#include <aws/rds/model/DBInstanceRole.h>
 #include <utility>
 
 namespace Aws
@@ -47,7 +48,7 @@ namespace Model
 
   /**
    * <p>Contains the details of an Amazon RDS DB instance. </p> <p>This data type is
-   * used as a response element in the <a>DescribeDBInstances</a> action.
+   * used as a response element in the <code>DescribeDBInstances</code> action.
    * </p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBInstance">AWS API
    * Reference</a></p>
@@ -68,6 +69,12 @@ namespace Model
      * key that identifies a DB instance.</p>
      */
     inline const Aws::String& GetDBInstanceIdentifier() const{ return m_dBInstanceIdentifier; }
+
+    /**
+     * <p>Contains a user-supplied database identifier. This identifier is the unique
+     * key that identifies a DB instance.</p>
+     */
+    inline bool DBInstanceIdentifierHasBeenSet() const { return m_dBInstanceIdentifierHasBeenSet; }
 
     /**
      * <p>Contains a user-supplied database identifier. This identifier is the unique
@@ -116,6 +123,12 @@ namespace Model
      * <p>Contains the name of the compute and memory capacity class of the DB
      * instance.</p>
      */
+    inline bool DBInstanceClassHasBeenSet() const { return m_dBInstanceClassHasBeenSet; }
+
+    /**
+     * <p>Contains the name of the compute and memory capacity class of the DB
+     * instance.</p>
+     */
     inline void SetDBInstanceClass(const Aws::String& value) { m_dBInstanceClassHasBeenSet = true; m_dBInstanceClass = value; }
 
     /**
@@ -157,6 +170,11 @@ namespace Model
     /**
      * <p>Provides the name of the database engine to be used for this DB instance.</p>
      */
+    inline bool EngineHasBeenSet() const { return m_engineHasBeenSet; }
+
+    /**
+     * <p>Provides the name of the database engine to be used for this DB instance.</p>
+     */
     inline void SetEngine(const Aws::String& value) { m_engineHasBeenSet = true; m_engine = value; }
 
     /**
@@ -189,6 +207,11 @@ namespace Model
      * <p>Specifies the current state of this database.</p>
      */
     inline const Aws::String& GetDBInstanceStatus() const{ return m_dBInstanceStatus; }
+
+    /**
+     * <p>Specifies the current state of this database.</p>
+     */
+    inline bool DBInstanceStatusHasBeenSet() const { return m_dBInstanceStatusHasBeenSet; }
 
     /**
      * <p>Specifies the current state of this database.</p>
@@ -229,6 +252,11 @@ namespace Model
     /**
      * <p>Contains the master username for the DB instance.</p>
      */
+    inline bool MasterUsernameHasBeenSet() const { return m_masterUsernameHasBeenSet; }
+
+    /**
+     * <p>Contains the master username for the DB instance.</p>
+     */
     inline void SetMasterUsername(const Aws::String& value) { m_masterUsernameHasBeenSet = true; m_masterUsername = value; }
 
     /**
@@ -259,99 +287,97 @@ namespace Model
 
     /**
      * <p>The meaning of this parameter differs according to the database engine you
-     * use. For example, this value returns MySQL, MariaDB, or PostgreSQL information
-     * when returning values from CreateDBInstanceReadReplica since Read Replicas are
-     * only supported for these engines.</p> <p> <b>MySQL, MariaDB, SQL Server,
-     * PostgreSQL</b> </p> <p>Contains the name of the initial database of this
-     * instance that was provided at create time, if one was specified when the DB
-     * instance was created. This same name is returned for the life of the DB
-     * instance.</p> <p>Type: String</p> <p> <b>Oracle</b> </p> <p>Contains the Oracle
-     * System ID (SID) of the created DB instance. Not shown when the returned
-     * parameters do not apply to an Oracle DB instance.</p>
+     * use.</p> <p> <b>MySQL, MariaDB, SQL Server, PostgreSQL</b> </p> <p>Contains the
+     * name of the initial database of this instance that was provided at create time,
+     * if one was specified when the DB instance was created. This same name is
+     * returned for the life of the DB instance.</p> <p>Type: String</p> <p>
+     * <b>Oracle</b> </p> <p>Contains the Oracle System ID (SID) of the created DB
+     * instance. Not shown when the returned parameters do not apply to an Oracle DB
+     * instance.</p>
      */
     inline const Aws::String& GetDBName() const{ return m_dBName; }
 
     /**
      * <p>The meaning of this parameter differs according to the database engine you
-     * use. For example, this value returns MySQL, MariaDB, or PostgreSQL information
-     * when returning values from CreateDBInstanceReadReplica since Read Replicas are
-     * only supported for these engines.</p> <p> <b>MySQL, MariaDB, SQL Server,
-     * PostgreSQL</b> </p> <p>Contains the name of the initial database of this
-     * instance that was provided at create time, if one was specified when the DB
-     * instance was created. This same name is returned for the life of the DB
-     * instance.</p> <p>Type: String</p> <p> <b>Oracle</b> </p> <p>Contains the Oracle
-     * System ID (SID) of the created DB instance. Not shown when the returned
-     * parameters do not apply to an Oracle DB instance.</p>
+     * use.</p> <p> <b>MySQL, MariaDB, SQL Server, PostgreSQL</b> </p> <p>Contains the
+     * name of the initial database of this instance that was provided at create time,
+     * if one was specified when the DB instance was created. This same name is
+     * returned for the life of the DB instance.</p> <p>Type: String</p> <p>
+     * <b>Oracle</b> </p> <p>Contains the Oracle System ID (SID) of the created DB
+     * instance. Not shown when the returned parameters do not apply to an Oracle DB
+     * instance.</p>
+     */
+    inline bool DBNameHasBeenSet() const { return m_dBNameHasBeenSet; }
+
+    /**
+     * <p>The meaning of this parameter differs according to the database engine you
+     * use.</p> <p> <b>MySQL, MariaDB, SQL Server, PostgreSQL</b> </p> <p>Contains the
+     * name of the initial database of this instance that was provided at create time,
+     * if one was specified when the DB instance was created. This same name is
+     * returned for the life of the DB instance.</p> <p>Type: String</p> <p>
+     * <b>Oracle</b> </p> <p>Contains the Oracle System ID (SID) of the created DB
+     * instance. Not shown when the returned parameters do not apply to an Oracle DB
+     * instance.</p>
      */
     inline void SetDBName(const Aws::String& value) { m_dBNameHasBeenSet = true; m_dBName = value; }
 
     /**
      * <p>The meaning of this parameter differs according to the database engine you
-     * use. For example, this value returns MySQL, MariaDB, or PostgreSQL information
-     * when returning values from CreateDBInstanceReadReplica since Read Replicas are
-     * only supported for these engines.</p> <p> <b>MySQL, MariaDB, SQL Server,
-     * PostgreSQL</b> </p> <p>Contains the name of the initial database of this
-     * instance that was provided at create time, if one was specified when the DB
-     * instance was created. This same name is returned for the life of the DB
-     * instance.</p> <p>Type: String</p> <p> <b>Oracle</b> </p> <p>Contains the Oracle
-     * System ID (SID) of the created DB instance. Not shown when the returned
-     * parameters do not apply to an Oracle DB instance.</p>
+     * use.</p> <p> <b>MySQL, MariaDB, SQL Server, PostgreSQL</b> </p> <p>Contains the
+     * name of the initial database of this instance that was provided at create time,
+     * if one was specified when the DB instance was created. This same name is
+     * returned for the life of the DB instance.</p> <p>Type: String</p> <p>
+     * <b>Oracle</b> </p> <p>Contains the Oracle System ID (SID) of the created DB
+     * instance. Not shown when the returned parameters do not apply to an Oracle DB
+     * instance.</p>
      */
     inline void SetDBName(Aws::String&& value) { m_dBNameHasBeenSet = true; m_dBName = std::move(value); }
 
     /**
      * <p>The meaning of this parameter differs according to the database engine you
-     * use. For example, this value returns MySQL, MariaDB, or PostgreSQL information
-     * when returning values from CreateDBInstanceReadReplica since Read Replicas are
-     * only supported for these engines.</p> <p> <b>MySQL, MariaDB, SQL Server,
-     * PostgreSQL</b> </p> <p>Contains the name of the initial database of this
-     * instance that was provided at create time, if one was specified when the DB
-     * instance was created. This same name is returned for the life of the DB
-     * instance.</p> <p>Type: String</p> <p> <b>Oracle</b> </p> <p>Contains the Oracle
-     * System ID (SID) of the created DB instance. Not shown when the returned
-     * parameters do not apply to an Oracle DB instance.</p>
+     * use.</p> <p> <b>MySQL, MariaDB, SQL Server, PostgreSQL</b> </p> <p>Contains the
+     * name of the initial database of this instance that was provided at create time,
+     * if one was specified when the DB instance was created. This same name is
+     * returned for the life of the DB instance.</p> <p>Type: String</p> <p>
+     * <b>Oracle</b> </p> <p>Contains the Oracle System ID (SID) of the created DB
+     * instance. Not shown when the returned parameters do not apply to an Oracle DB
+     * instance.</p>
      */
     inline void SetDBName(const char* value) { m_dBNameHasBeenSet = true; m_dBName.assign(value); }
 
     /**
      * <p>The meaning of this parameter differs according to the database engine you
-     * use. For example, this value returns MySQL, MariaDB, or PostgreSQL information
-     * when returning values from CreateDBInstanceReadReplica since Read Replicas are
-     * only supported for these engines.</p> <p> <b>MySQL, MariaDB, SQL Server,
-     * PostgreSQL</b> </p> <p>Contains the name of the initial database of this
-     * instance that was provided at create time, if one was specified when the DB
-     * instance was created. This same name is returned for the life of the DB
-     * instance.</p> <p>Type: String</p> <p> <b>Oracle</b> </p> <p>Contains the Oracle
-     * System ID (SID) of the created DB instance. Not shown when the returned
-     * parameters do not apply to an Oracle DB instance.</p>
+     * use.</p> <p> <b>MySQL, MariaDB, SQL Server, PostgreSQL</b> </p> <p>Contains the
+     * name of the initial database of this instance that was provided at create time,
+     * if one was specified when the DB instance was created. This same name is
+     * returned for the life of the DB instance.</p> <p>Type: String</p> <p>
+     * <b>Oracle</b> </p> <p>Contains the Oracle System ID (SID) of the created DB
+     * instance. Not shown when the returned parameters do not apply to an Oracle DB
+     * instance.</p>
      */
     inline DBInstance& WithDBName(const Aws::String& value) { SetDBName(value); return *this;}
 
     /**
      * <p>The meaning of this parameter differs according to the database engine you
-     * use. For example, this value returns MySQL, MariaDB, or PostgreSQL information
-     * when returning values from CreateDBInstanceReadReplica since Read Replicas are
-     * only supported for these engines.</p> <p> <b>MySQL, MariaDB, SQL Server,
-     * PostgreSQL</b> </p> <p>Contains the name of the initial database of this
-     * instance that was provided at create time, if one was specified when the DB
-     * instance was created. This same name is returned for the life of the DB
-     * instance.</p> <p>Type: String</p> <p> <b>Oracle</b> </p> <p>Contains the Oracle
-     * System ID (SID) of the created DB instance. Not shown when the returned
-     * parameters do not apply to an Oracle DB instance.</p>
+     * use.</p> <p> <b>MySQL, MariaDB, SQL Server, PostgreSQL</b> </p> <p>Contains the
+     * name of the initial database of this instance that was provided at create time,
+     * if one was specified when the DB instance was created. This same name is
+     * returned for the life of the DB instance.</p> <p>Type: String</p> <p>
+     * <b>Oracle</b> </p> <p>Contains the Oracle System ID (SID) of the created DB
+     * instance. Not shown when the returned parameters do not apply to an Oracle DB
+     * instance.</p>
      */
     inline DBInstance& WithDBName(Aws::String&& value) { SetDBName(std::move(value)); return *this;}
 
     /**
      * <p>The meaning of this parameter differs according to the database engine you
-     * use. For example, this value returns MySQL, MariaDB, or PostgreSQL information
-     * when returning values from CreateDBInstanceReadReplica since Read Replicas are
-     * only supported for these engines.</p> <p> <b>MySQL, MariaDB, SQL Server,
-     * PostgreSQL</b> </p> <p>Contains the name of the initial database of this
-     * instance that was provided at create time, if one was specified when the DB
-     * instance was created. This same name is returned for the life of the DB
-     * instance.</p> <p>Type: String</p> <p> <b>Oracle</b> </p> <p>Contains the Oracle
-     * System ID (SID) of the created DB instance. Not shown when the returned
-     * parameters do not apply to an Oracle DB instance.</p>
+     * use.</p> <p> <b>MySQL, MariaDB, SQL Server, PostgreSQL</b> </p> <p>Contains the
+     * name of the initial database of this instance that was provided at create time,
+     * if one was specified when the DB instance was created. This same name is
+     * returned for the life of the DB instance.</p> <p>Type: String</p> <p>
+     * <b>Oracle</b> </p> <p>Contains the Oracle System ID (SID) of the created DB
+     * instance. Not shown when the returned parameters do not apply to an Oracle DB
+     * instance.</p>
      */
     inline DBInstance& WithDBName(const char* value) { SetDBName(value); return *this;}
 
@@ -360,6 +386,11 @@ namespace Model
      * <p>Specifies the connection endpoint.</p>
      */
     inline const Endpoint& GetEndpoint() const{ return m_endpoint; }
+
+    /**
+     * <p>Specifies the connection endpoint.</p>
+     */
+    inline bool EndpointHasBeenSet() const { return m_endpointHasBeenSet; }
 
     /**
      * <p>Specifies the connection endpoint.</p>
@@ -390,6 +421,11 @@ namespace Model
     /**
      * <p>Specifies the allocated storage size specified in gibibytes.</p>
      */
+    inline bool AllocatedStorageHasBeenSet() const { return m_allocatedStorageHasBeenSet; }
+
+    /**
+     * <p>Specifies the allocated storage size specified in gibibytes.</p>
+     */
     inline void SetAllocatedStorage(int value) { m_allocatedStorageHasBeenSet = true; m_allocatedStorage = value; }
 
     /**
@@ -402,6 +438,11 @@ namespace Model
      * <p>Provides the date and time the DB instance was created.</p>
      */
     inline const Aws::Utils::DateTime& GetInstanceCreateTime() const{ return m_instanceCreateTime; }
+
+    /**
+     * <p>Provides the date and time the DB instance was created.</p>
+     */
+    inline bool InstanceCreateTimeHasBeenSet() const { return m_instanceCreateTimeHasBeenSet; }
 
     /**
      * <p>Provides the date and time the DB instance was created.</p>
@@ -430,6 +471,13 @@ namespace Model
      * <code>BackupRetentionPeriod</code>. </p>
      */
     inline const Aws::String& GetPreferredBackupWindow() const{ return m_preferredBackupWindow; }
+
+    /**
+     * <p> Specifies the daily time range during which automated backups are created if
+     * automated backups are enabled, as determined by the
+     * <code>BackupRetentionPeriod</code>. </p>
+     */
+    inline bool PreferredBackupWindowHasBeenSet() const { return m_preferredBackupWindowHasBeenSet; }
 
     /**
      * <p> Specifies the daily time range during which automated backups are created if
@@ -484,6 +532,12 @@ namespace Model
      * <p>Specifies the number of days for which automatic DB snapshots are
      * retained.</p>
      */
+    inline bool BackupRetentionPeriodHasBeenSet() const { return m_backupRetentionPeriodHasBeenSet; }
+
+    /**
+     * <p>Specifies the number of days for which automatic DB snapshots are
+     * retained.</p>
+     */
     inline void SetBackupRetentionPeriod(int value) { m_backupRetentionPeriodHasBeenSet = true; m_backupRetentionPeriod = value; }
 
     /**
@@ -494,49 +548,56 @@ namespace Model
 
 
     /**
-     * <p> Provides List of DB security group elements containing only
+     * <p> A list of DB security group elements containing
      * <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code>
      * subelements. </p>
      */
     inline const Aws::Vector<DBSecurityGroupMembership>& GetDBSecurityGroups() const{ return m_dBSecurityGroups; }
 
     /**
-     * <p> Provides List of DB security group elements containing only
+     * <p> A list of DB security group elements containing
+     * <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code>
+     * subelements. </p>
+     */
+    inline bool DBSecurityGroupsHasBeenSet() const { return m_dBSecurityGroupsHasBeenSet; }
+
+    /**
+     * <p> A list of DB security group elements containing
      * <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code>
      * subelements. </p>
      */
     inline void SetDBSecurityGroups(const Aws::Vector<DBSecurityGroupMembership>& value) { m_dBSecurityGroupsHasBeenSet = true; m_dBSecurityGroups = value; }
 
     /**
-     * <p> Provides List of DB security group elements containing only
+     * <p> A list of DB security group elements containing
      * <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code>
      * subelements. </p>
      */
     inline void SetDBSecurityGroups(Aws::Vector<DBSecurityGroupMembership>&& value) { m_dBSecurityGroupsHasBeenSet = true; m_dBSecurityGroups = std::move(value); }
 
     /**
-     * <p> Provides List of DB security group elements containing only
+     * <p> A list of DB security group elements containing
      * <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code>
      * subelements. </p>
      */
     inline DBInstance& WithDBSecurityGroups(const Aws::Vector<DBSecurityGroupMembership>& value) { SetDBSecurityGroups(value); return *this;}
 
     /**
-     * <p> Provides List of DB security group elements containing only
+     * <p> A list of DB security group elements containing
      * <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code>
      * subelements. </p>
      */
     inline DBInstance& WithDBSecurityGroups(Aws::Vector<DBSecurityGroupMembership>&& value) { SetDBSecurityGroups(std::move(value)); return *this;}
 
     /**
-     * <p> Provides List of DB security group elements containing only
+     * <p> A list of DB security group elements containing
      * <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code>
      * subelements. </p>
      */
     inline DBInstance& AddDBSecurityGroups(const DBSecurityGroupMembership& value) { m_dBSecurityGroupsHasBeenSet = true; m_dBSecurityGroups.push_back(value); return *this; }
 
     /**
-     * <p> Provides List of DB security group elements containing only
+     * <p> A list of DB security group elements containing
      * <code>DBSecurityGroup.Name</code> and <code>DBSecurityGroup.Status</code>
      * subelements. </p>
      */
@@ -548,6 +609,12 @@ namespace Model
      * to.</p>
      */
     inline const Aws::Vector<VpcSecurityGroupMembership>& GetVpcSecurityGroups() const{ return m_vpcSecurityGroups; }
+
+    /**
+     * <p>Provides a list of VPC security group elements that the DB instance belongs
+     * to.</p>
+     */
+    inline bool VpcSecurityGroupsHasBeenSet() const { return m_vpcSecurityGroupsHasBeenSet; }
 
     /**
      * <p>Provides a list of VPC security group elements that the DB instance belongs
@@ -594,6 +661,11 @@ namespace Model
     /**
      * <p>Provides the list of DB parameter groups applied to this DB instance.</p>
      */
+    inline bool DBParameterGroupsHasBeenSet() const { return m_dBParameterGroupsHasBeenSet; }
+
+    /**
+     * <p>Provides the list of DB parameter groups applied to this DB instance.</p>
+     */
     inline void SetDBParameterGroups(const Aws::Vector<DBParameterGroupStatus>& value) { m_dBParameterGroupsHasBeenSet = true; m_dBParameterGroups = value; }
 
     /**
@@ -627,6 +699,12 @@ namespace Model
      * in.</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
+
+    /**
+     * <p>Specifies the name of the Availability Zone the DB instance is located
+     * in.</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
 
     /**
      * <p>Specifies the name of the Availability Zone the DB instance is located
@@ -675,6 +753,12 @@ namespace Model
      * <p>Specifies information on the subnet group associated with the DB instance,
      * including the name, description, and subnets in the subnet group.</p>
      */
+    inline bool DBSubnetGroupHasBeenSet() const { return m_dBSubnetGroupHasBeenSet; }
+
+    /**
+     * <p>Specifies information on the subnet group associated with the DB instance,
+     * including the name, description, and subnets in the subnet group.</p>
+     */
     inline void SetDBSubnetGroup(const DBSubnetGroup& value) { m_dBSubnetGroupHasBeenSet = true; m_dBSubnetGroup = value; }
 
     /**
@@ -701,6 +785,12 @@ namespace Model
      * Universal Coordinated Time (UTC).</p>
      */
     inline const Aws::String& GetPreferredMaintenanceWindow() const{ return m_preferredMaintenanceWindow; }
+
+    /**
+     * <p>Specifies the weekly time range during which system maintenance can occur, in
+     * Universal Coordinated Time (UTC).</p>
+     */
+    inline bool PreferredMaintenanceWindowHasBeenSet() const { return m_preferredMaintenanceWindowHasBeenSet; }
 
     /**
      * <p>Specifies the weekly time range during which system maintenance can occur, in
@@ -751,6 +841,13 @@ namespace Model
      * included when changes are pending. Specific changes are identified by
      * subelements.</p>
      */
+    inline bool PendingModifiedValuesHasBeenSet() const { return m_pendingModifiedValuesHasBeenSet; }
+
+    /**
+     * <p>Specifies that changes to the DB instance are pending. This element is only
+     * included when changes are pending. Specific changes are identified by
+     * subelements.</p>
+     */
     inline void SetPendingModifiedValues(const PendingModifiedValues& value) { m_pendingModifiedValuesHasBeenSet = true; m_pendingModifiedValues = value; }
 
     /**
@@ -785,6 +882,12 @@ namespace Model
      * <p>Specifies the latest time to which a database can be restored with
      * point-in-time restore.</p>
      */
+    inline bool LatestRestorableTimeHasBeenSet() const { return m_latestRestorableTimeHasBeenSet; }
+
+    /**
+     * <p>Specifies the latest time to which a database can be restored with
+     * point-in-time restore.</p>
+     */
     inline void SetLatestRestorableTime(const Aws::Utils::DateTime& value) { m_latestRestorableTimeHasBeenSet = true; m_latestRestorableTime = value; }
 
     /**
@@ -814,6 +917,11 @@ namespace Model
     /**
      * <p>Specifies if the DB instance is a Multi-AZ deployment.</p>
      */
+    inline bool MultiAZHasBeenSet() const { return m_multiAZHasBeenSet; }
+
+    /**
+     * <p>Specifies if the DB instance is a Multi-AZ deployment.</p>
+     */
     inline void SetMultiAZ(bool value) { m_multiAZHasBeenSet = true; m_multiAZ = value; }
 
     /**
@@ -826,6 +934,11 @@ namespace Model
      * <p>Indicates the database engine version.</p>
      */
     inline const Aws::String& GetEngineVersion() const{ return m_engineVersion; }
+
+    /**
+     * <p>Indicates the database engine version.</p>
+     */
+    inline bool EngineVersionHasBeenSet() const { return m_engineVersionHasBeenSet; }
 
     /**
      * <p>Indicates the database engine version.</p>
@@ -866,6 +979,11 @@ namespace Model
     /**
      * <p>Indicates that minor version patches are applied automatically.</p>
      */
+    inline bool AutoMinorVersionUpgradeHasBeenSet() const { return m_autoMinorVersionUpgradeHasBeenSet; }
+
+    /**
+     * <p>Indicates that minor version patches are applied automatically.</p>
+     */
     inline void SetAutoMinorVersionUpgrade(bool value) { m_autoMinorVersionUpgradeHasBeenSet = true; m_autoMinorVersionUpgrade = value; }
 
     /**
@@ -879,6 +997,12 @@ namespace Model
      * Read Replica.</p>
      */
     inline const Aws::String& GetReadReplicaSourceDBInstanceIdentifier() const{ return m_readReplicaSourceDBInstanceIdentifier; }
+
+    /**
+     * <p>Contains the identifier of the source DB instance if this DB instance is a
+     * Read Replica.</p>
+     */
+    inline bool ReadReplicaSourceDBInstanceIdentifierHasBeenSet() const { return m_readReplicaSourceDBInstanceIdentifierHasBeenSet; }
 
     /**
      * <p>Contains the identifier of the source DB instance if this DB instance is a
@@ -927,6 +1051,12 @@ namespace Model
      * <p>Contains one or more identifiers of the Read Replicas associated with this DB
      * instance.</p>
      */
+    inline bool ReadReplicaDBInstanceIdentifiersHasBeenSet() const { return m_readReplicaDBInstanceIdentifiersHasBeenSet; }
+
+    /**
+     * <p>Contains one or more identifiers of the Read Replicas associated with this DB
+     * instance.</p>
+     */
     inline void SetReadReplicaDBInstanceIdentifiers(const Aws::Vector<Aws::String>& value) { m_readReplicaDBInstanceIdentifiersHasBeenSet = true; m_readReplicaDBInstanceIdentifiers = value; }
 
     /**
@@ -967,50 +1097,92 @@ namespace Model
 
 
     /**
-     * <p>Contains one or more identifiers of Aurora DB clusters that are Read Replicas
-     * of this DB instance.</p>
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
      */
     inline const Aws::Vector<Aws::String>& GetReadReplicaDBClusterIdentifiers() const{ return m_readReplicaDBClusterIdentifiers; }
 
     /**
-     * <p>Contains one or more identifiers of Aurora DB clusters that are Read Replicas
-     * of this DB instance.</p>
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
+     */
+    inline bool ReadReplicaDBClusterIdentifiersHasBeenSet() const { return m_readReplicaDBClusterIdentifiersHasBeenSet; }
+
+    /**
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
      */
     inline void SetReadReplicaDBClusterIdentifiers(const Aws::Vector<Aws::String>& value) { m_readReplicaDBClusterIdentifiersHasBeenSet = true; m_readReplicaDBClusterIdentifiers = value; }
 
     /**
-     * <p>Contains one or more identifiers of Aurora DB clusters that are Read Replicas
-     * of this DB instance.</p>
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
      */
     inline void SetReadReplicaDBClusterIdentifiers(Aws::Vector<Aws::String>&& value) { m_readReplicaDBClusterIdentifiersHasBeenSet = true; m_readReplicaDBClusterIdentifiers = std::move(value); }
 
     /**
-     * <p>Contains one or more identifiers of Aurora DB clusters that are Read Replicas
-     * of this DB instance.</p>
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
      */
     inline DBInstance& WithReadReplicaDBClusterIdentifiers(const Aws::Vector<Aws::String>& value) { SetReadReplicaDBClusterIdentifiers(value); return *this;}
 
     /**
-     * <p>Contains one or more identifiers of Aurora DB clusters that are Read Replicas
-     * of this DB instance.</p>
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
      */
     inline DBInstance& WithReadReplicaDBClusterIdentifiers(Aws::Vector<Aws::String>&& value) { SetReadReplicaDBClusterIdentifiers(std::move(value)); return *this;}
 
     /**
-     * <p>Contains one or more identifiers of Aurora DB clusters that are Read Replicas
-     * of this DB instance.</p>
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
      */
     inline DBInstance& AddReadReplicaDBClusterIdentifiers(const Aws::String& value) { m_readReplicaDBClusterIdentifiersHasBeenSet = true; m_readReplicaDBClusterIdentifiers.push_back(value); return *this; }
 
     /**
-     * <p>Contains one or more identifiers of Aurora DB clusters that are Read Replicas
-     * of this DB instance.</p>
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
      */
     inline DBInstance& AddReadReplicaDBClusterIdentifiers(Aws::String&& value) { m_readReplicaDBClusterIdentifiersHasBeenSet = true; m_readReplicaDBClusterIdentifiers.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>Contains one or more identifiers of Aurora DB clusters that are Read Replicas
-     * of this DB instance.</p>
+     * <p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB
+     * instance is replicated as a Read Replica. For example, when you create an Aurora
+     * Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the
+     * Aurora Read Replica is shown. This output does not contain information about
+     * cross region Aurora Read Replicas.</p> <note> <p>Currently, each RDS DB instance
+     * can have only one Aurora Read Replica.</p> </note>
      */
     inline DBInstance& AddReadReplicaDBClusterIdentifiers(const char* value) { m_readReplicaDBClusterIdentifiersHasBeenSet = true; m_readReplicaDBClusterIdentifiers.push_back(value); return *this; }
 
@@ -1019,6 +1191,11 @@ namespace Model
      * <p>License model information for this DB instance.</p>
      */
     inline const Aws::String& GetLicenseModel() const{ return m_licenseModel; }
+
+    /**
+     * <p>License model information for this DB instance.</p>
+     */
+    inline bool LicenseModelHasBeenSet() const { return m_licenseModelHasBeenSet; }
 
     /**
      * <p>License model information for this DB instance.</p>
@@ -1059,6 +1236,11 @@ namespace Model
     /**
      * <p>Specifies the Provisioned IOPS (I/O operations per second) value.</p>
      */
+    inline bool IopsHasBeenSet() const { return m_iopsHasBeenSet; }
+
+    /**
+     * <p>Specifies the Provisioned IOPS (I/O operations per second) value.</p>
+     */
     inline void SetIops(int value) { m_iopsHasBeenSet = true; m_iops = value; }
 
     /**
@@ -1071,6 +1253,11 @@ namespace Model
      * <p>Provides the list of option group memberships for this DB instance.</p>
      */
     inline const Aws::Vector<OptionGroupMembership>& GetOptionGroupMemberships() const{ return m_optionGroupMemberships; }
+
+    /**
+     * <p>Provides the list of option group memberships for this DB instance.</p>
+     */
+    inline bool OptionGroupMembershipsHasBeenSet() const { return m_optionGroupMembershipsHasBeenSet; }
 
     /**
      * <p>Provides the list of option group memberships for this DB instance.</p>
@@ -1108,6 +1295,12 @@ namespace Model
      * associated with.</p>
      */
     inline const Aws::String& GetCharacterSetName() const{ return m_characterSetName; }
+
+    /**
+     * <p>If present, specifies the name of the character set that this instance is
+     * associated with.</p>
+     */
+    inline bool CharacterSetNameHasBeenSet() const { return m_characterSetNameHasBeenSet; }
 
     /**
      * <p>If present, specifies the name of the character set that this instance is
@@ -1156,6 +1349,12 @@ namespace Model
      * <p>If present, specifies the name of the secondary Availability Zone for a DB
      * instance with multi-AZ support.</p>
      */
+    inline bool SecondaryAvailabilityZoneHasBeenSet() const { return m_secondaryAvailabilityZoneHasBeenSet; }
+
+    /**
+     * <p>If present, specifies the name of the secondary Availability Zone for a DB
+     * instance with multi-AZ support.</p>
+     */
     inline void SetSecondaryAvailabilityZone(const Aws::String& value) { m_secondaryAvailabilityZoneHasBeenSet = true; m_secondaryAvailabilityZone = value; }
 
     /**
@@ -1193,15 +1392,7 @@ namespace Model
      * <p>Specifies the accessibility options for the DB instance. A value of true
      * specifies an Internet-facing instance with a publicly resolvable DNS name, which
      * resolves to a public IP address. A value of false specifies an internal instance
-     * with a DNS name that resolves to a private IP address.</p> <p>Default: The
-     * default behavior varies depending on whether a VPC has been requested or not.
-     * The following list shows the default behavior in each case.</p> <ul> <li> <p>
-     * <b>Default VPC:</b>true</p> </li> <li> <p> <b>VPC:</b>false</p> </li> </ul>
-     * <p>If no DB subnet group has been specified as part of the request and the
-     * PubliclyAccessible value has not been set, the DB instance is publicly
-     * accessible. If a specific DB subnet group has been specified as part of the
-     * request and the PubliclyAccessible value has not been set, the DB instance is
-     * private.</p>
+     * with a DNS name that resolves to a private IP address.</p>
      */
     inline bool GetPubliclyAccessible() const{ return m_publiclyAccessible; }
 
@@ -1209,15 +1400,15 @@ namespace Model
      * <p>Specifies the accessibility options for the DB instance. A value of true
      * specifies an Internet-facing instance with a publicly resolvable DNS name, which
      * resolves to a public IP address. A value of false specifies an internal instance
-     * with a DNS name that resolves to a private IP address.</p> <p>Default: The
-     * default behavior varies depending on whether a VPC has been requested or not.
-     * The following list shows the default behavior in each case.</p> <ul> <li> <p>
-     * <b>Default VPC:</b>true</p> </li> <li> <p> <b>VPC:</b>false</p> </li> </ul>
-     * <p>If no DB subnet group has been specified as part of the request and the
-     * PubliclyAccessible value has not been set, the DB instance is publicly
-     * accessible. If a specific DB subnet group has been specified as part of the
-     * request and the PubliclyAccessible value has not been set, the DB instance is
-     * private.</p>
+     * with a DNS name that resolves to a private IP address.</p>
+     */
+    inline bool PubliclyAccessibleHasBeenSet() const { return m_publiclyAccessibleHasBeenSet; }
+
+    /**
+     * <p>Specifies the accessibility options for the DB instance. A value of true
+     * specifies an Internet-facing instance with a publicly resolvable DNS name, which
+     * resolves to a public IP address. A value of false specifies an internal instance
+     * with a DNS name that resolves to a private IP address.</p>
      */
     inline void SetPubliclyAccessible(bool value) { m_publiclyAccessibleHasBeenSet = true; m_publiclyAccessible = value; }
 
@@ -1225,57 +1416,55 @@ namespace Model
      * <p>Specifies the accessibility options for the DB instance. A value of true
      * specifies an Internet-facing instance with a publicly resolvable DNS name, which
      * resolves to a public IP address. A value of false specifies an internal instance
-     * with a DNS name that resolves to a private IP address.</p> <p>Default: The
-     * default behavior varies depending on whether a VPC has been requested or not.
-     * The following list shows the default behavior in each case.</p> <ul> <li> <p>
-     * <b>Default VPC:</b>true</p> </li> <li> <p> <b>VPC:</b>false</p> </li> </ul>
-     * <p>If no DB subnet group has been specified as part of the request and the
-     * PubliclyAccessible value has not been set, the DB instance is publicly
-     * accessible. If a specific DB subnet group has been specified as part of the
-     * request and the PubliclyAccessible value has not been set, the DB instance is
-     * private.</p>
+     * with a DNS name that resolves to a private IP address.</p>
      */
     inline DBInstance& WithPubliclyAccessible(bool value) { SetPubliclyAccessible(value); return *this;}
 
 
     /**
-     * <p>The status of a Read Replica. If the instance is not a Read Replica, this is
+     * <p>The status of a Read Replica. If the instance isn't a Read Replica, this is
      * blank.</p>
      */
     inline const Aws::Vector<DBInstanceStatusInfo>& GetStatusInfos() const{ return m_statusInfos; }
 
     /**
-     * <p>The status of a Read Replica. If the instance is not a Read Replica, this is
+     * <p>The status of a Read Replica. If the instance isn't a Read Replica, this is
+     * blank.</p>
+     */
+    inline bool StatusInfosHasBeenSet() const { return m_statusInfosHasBeenSet; }
+
+    /**
+     * <p>The status of a Read Replica. If the instance isn't a Read Replica, this is
      * blank.</p>
      */
     inline void SetStatusInfos(const Aws::Vector<DBInstanceStatusInfo>& value) { m_statusInfosHasBeenSet = true; m_statusInfos = value; }
 
     /**
-     * <p>The status of a Read Replica. If the instance is not a Read Replica, this is
+     * <p>The status of a Read Replica. If the instance isn't a Read Replica, this is
      * blank.</p>
      */
     inline void SetStatusInfos(Aws::Vector<DBInstanceStatusInfo>&& value) { m_statusInfosHasBeenSet = true; m_statusInfos = std::move(value); }
 
     /**
-     * <p>The status of a Read Replica. If the instance is not a Read Replica, this is
+     * <p>The status of a Read Replica. If the instance isn't a Read Replica, this is
      * blank.</p>
      */
     inline DBInstance& WithStatusInfos(const Aws::Vector<DBInstanceStatusInfo>& value) { SetStatusInfos(value); return *this;}
 
     /**
-     * <p>The status of a Read Replica. If the instance is not a Read Replica, this is
+     * <p>The status of a Read Replica. If the instance isn't a Read Replica, this is
      * blank.</p>
      */
     inline DBInstance& WithStatusInfos(Aws::Vector<DBInstanceStatusInfo>&& value) { SetStatusInfos(std::move(value)); return *this;}
 
     /**
-     * <p>The status of a Read Replica. If the instance is not a Read Replica, this is
+     * <p>The status of a Read Replica. If the instance isn't a Read Replica, this is
      * blank.</p>
      */
     inline DBInstance& AddStatusInfos(const DBInstanceStatusInfo& value) { m_statusInfosHasBeenSet = true; m_statusInfos.push_back(value); return *this; }
 
     /**
-     * <p>The status of a Read Replica. If the instance is not a Read Replica, this is
+     * <p>The status of a Read Replica. If the instance isn't a Read Replica, this is
      * blank.</p>
      */
     inline DBInstance& AddStatusInfos(DBInstanceStatusInfo&& value) { m_statusInfosHasBeenSet = true; m_statusInfos.push_back(std::move(value)); return *this; }
@@ -1285,6 +1474,11 @@ namespace Model
      * <p>Specifies the storage type associated with DB instance.</p>
      */
     inline const Aws::String& GetStorageType() const{ return m_storageType; }
+
+    /**
+     * <p>Specifies the storage type associated with DB instance.</p>
+     */
+    inline bool StorageTypeHasBeenSet() const { return m_storageTypeHasBeenSet; }
 
     /**
      * <p>Specifies the storage type associated with DB instance.</p>
@@ -1322,6 +1516,12 @@ namespace Model
      * encryption.</p>
      */
     inline const Aws::String& GetTdeCredentialArn() const{ return m_tdeCredentialArn; }
+
+    /**
+     * <p>The ARN from the key store with which the instance is associated for TDE
+     * encryption.</p>
+     */
+    inline bool TdeCredentialArnHasBeenSet() const { return m_tdeCredentialArnHasBeenSet; }
 
     /**
      * <p>The ARN from the key store with which the instance is associated for TDE
@@ -1370,6 +1570,12 @@ namespace Model
      * <p>Specifies the port that the DB instance listens on. If the DB instance is
      * part of a DB cluster, this can be a different port than the DB cluster port.</p>
      */
+    inline bool DbInstancePortHasBeenSet() const { return m_dbInstancePortHasBeenSet; }
+
+    /**
+     * <p>Specifies the port that the DB instance listens on. If the DB instance is
+     * part of a DB cluster, this can be a different port than the DB cluster port.</p>
+     */
     inline void SetDbInstancePort(int value) { m_dbInstancePortHasBeenSet = true; m_dbInstancePort = value; }
 
     /**
@@ -1384,6 +1590,12 @@ namespace Model
      * cluster that the DB instance is a member of.</p>
      */
     inline const Aws::String& GetDBClusterIdentifier() const{ return m_dBClusterIdentifier; }
+
+    /**
+     * <p>If the DB instance is a member of a DB cluster, contains the name of the DB
+     * cluster that the DB instance is a member of.</p>
+     */
+    inline bool DBClusterIdentifierHasBeenSet() const { return m_dBClusterIdentifierHasBeenSet; }
 
     /**
      * <p>If the DB instance is a member of a DB cluster, contains the name of the DB
@@ -1430,6 +1642,11 @@ namespace Model
     /**
      * <p>Specifies whether the DB instance is encrypted.</p>
      */
+    inline bool StorageEncryptedHasBeenSet() const { return m_storageEncryptedHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the DB instance is encrypted.</p>
+     */
     inline void SetStorageEncrypted(bool value) { m_storageEncryptedHasBeenSet = true; m_storageEncrypted = value; }
 
     /**
@@ -1443,6 +1660,12 @@ namespace Model
      * encrypted DB instance. </p>
      */
     inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
+
+    /**
+     * <p> If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the
+     * encrypted DB instance. </p>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
 
     /**
      * <p> If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the
@@ -1487,6 +1710,13 @@ namespace Model
      * the DB instance is accessed.</p>
      */
     inline const Aws::String& GetDbiResourceId() const{ return m_dbiResourceId; }
+
+    /**
+     * <p>The AWS Region-unique, immutable identifier for the DB instance. This
+     * identifier is found in AWS CloudTrail log entries whenever the AWS KMS key for
+     * the DB instance is accessed.</p>
+     */
+    inline bool DbiResourceIdHasBeenSet() const { return m_dbiResourceIdHasBeenSet; }
 
     /**
      * <p>The AWS Region-unique, immutable identifier for the DB instance. This
@@ -1539,6 +1769,11 @@ namespace Model
     /**
      * <p>The identifier of the CA certificate for this DB instance.</p>
      */
+    inline bool CACertificateIdentifierHasBeenSet() const { return m_cACertificateIdentifierHasBeenSet; }
+
+    /**
+     * <p>The identifier of the CA certificate for this DB instance.</p>
+     */
     inline void SetCACertificateIdentifier(const Aws::String& value) { m_cACertificateIdentifierHasBeenSet = true; m_cACertificateIdentifier = value; }
 
     /**
@@ -1572,6 +1807,12 @@ namespace Model
      * instance.</p>
      */
     inline const Aws::Vector<DomainMembership>& GetDomainMemberships() const{ return m_domainMemberships; }
+
+    /**
+     * <p>The Active Directory Domain membership records associated with the DB
+     * instance.</p>
+     */
+    inline bool DomainMembershipsHasBeenSet() const { return m_domainMembershipsHasBeenSet; }
 
     /**
      * <p>The Active Directory Domain membership records associated with the DB
@@ -1612,19 +1853,37 @@ namespace Model
 
     /**
      * <p>Specifies whether tags are copied from the DB instance to snapshots of the DB
-     * instance.</p>
+     * instance.</p> <p> <b>Amazon Aurora</b> </p> <p>Not applicable. Copying tags to
+     * snapshots is managed by the DB cluster. Setting this value for an Aurora DB
+     * instance has no effect on the DB cluster setting. For more information, see
+     * <code>DBCluster</code>.</p>
      */
     inline bool GetCopyTagsToSnapshot() const{ return m_copyTagsToSnapshot; }
 
     /**
      * <p>Specifies whether tags are copied from the DB instance to snapshots of the DB
-     * instance.</p>
+     * instance.</p> <p> <b>Amazon Aurora</b> </p> <p>Not applicable. Copying tags to
+     * snapshots is managed by the DB cluster. Setting this value for an Aurora DB
+     * instance has no effect on the DB cluster setting. For more information, see
+     * <code>DBCluster</code>.</p>
+     */
+    inline bool CopyTagsToSnapshotHasBeenSet() const { return m_copyTagsToSnapshotHasBeenSet; }
+
+    /**
+     * <p>Specifies whether tags are copied from the DB instance to snapshots of the DB
+     * instance.</p> <p> <b>Amazon Aurora</b> </p> <p>Not applicable. Copying tags to
+     * snapshots is managed by the DB cluster. Setting this value for an Aurora DB
+     * instance has no effect on the DB cluster setting. For more information, see
+     * <code>DBCluster</code>.</p>
      */
     inline void SetCopyTagsToSnapshot(bool value) { m_copyTagsToSnapshotHasBeenSet = true; m_copyTagsToSnapshot = value; }
 
     /**
      * <p>Specifies whether tags are copied from the DB instance to snapshots of the DB
-     * instance.</p>
+     * instance.</p> <p> <b>Amazon Aurora</b> </p> <p>Not applicable. Copying tags to
+     * snapshots is managed by the DB cluster. Setting this value for an Aurora DB
+     * instance has no effect on the DB cluster setting. For more information, see
+     * <code>DBCluster</code>.</p>
      */
     inline DBInstance& WithCopyTagsToSnapshot(bool value) { SetCopyTagsToSnapshot(value); return *this;}
 
@@ -1634,6 +1893,12 @@ namespace Model
      * collected for the DB instance.</p>
      */
     inline int GetMonitoringInterval() const{ return m_monitoringInterval; }
+
+    /**
+     * <p>The interval, in seconds, between points when Enhanced Monitoring metrics are
+     * collected for the DB instance.</p>
+     */
+    inline bool MonitoringIntervalHasBeenSet() const { return m_monitoringIntervalHasBeenSet; }
 
     /**
      * <p>The interval, in seconds, between points when Enhanced Monitoring metrics are
@@ -1653,6 +1918,12 @@ namespace Model
      * receives the Enhanced Monitoring metrics data for the DB instance.</p>
      */
     inline const Aws::String& GetEnhancedMonitoringResourceArn() const{ return m_enhancedMonitoringResourceArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log stream that
+     * receives the Enhanced Monitoring metrics data for the DB instance.</p>
+     */
+    inline bool EnhancedMonitoringResourceArnHasBeenSet() const { return m_enhancedMonitoringResourceArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log stream that
@@ -1701,6 +1972,12 @@ namespace Model
      * <p>The ARN for the IAM role that permits RDS to send Enhanced Monitoring metrics
      * to Amazon CloudWatch Logs.</p>
      */
+    inline bool MonitoringRoleArnHasBeenSet() const { return m_monitoringRoleArnHasBeenSet; }
+
+    /**
+     * <p>The ARN for the IAM role that permits RDS to send Enhanced Monitoring metrics
+     * to Amazon CloudWatch Logs.</p>
+     */
     inline void SetMonitoringRoleArn(const Aws::String& value) { m_monitoringRoleArnHasBeenSet = true; m_monitoringRoleArn = value; }
 
     /**
@@ -1738,8 +2015,9 @@ namespace Model
      * <p>A value that specifies the order in which an Aurora Replica is promoted to
      * the primary instance after a failure of the existing primary instance. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Managing.html#Aurora.Managing.FaultTolerance">
-     * Fault Tolerance for an Aurora DB Cluster</a>. </p>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance">
+     * Fault Tolerance for an Aurora DB Cluster</a> in the <i>Amazon Aurora User
+     * Guide</i>. </p>
      */
     inline int GetPromotionTier() const{ return m_promotionTier; }
 
@@ -1747,8 +2025,19 @@ namespace Model
      * <p>A value that specifies the order in which an Aurora Replica is promoted to
      * the primary instance after a failure of the existing primary instance. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Managing.html#Aurora.Managing.FaultTolerance">
-     * Fault Tolerance for an Aurora DB Cluster</a>. </p>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance">
+     * Fault Tolerance for an Aurora DB Cluster</a> in the <i>Amazon Aurora User
+     * Guide</i>. </p>
+     */
+    inline bool PromotionTierHasBeenSet() const { return m_promotionTierHasBeenSet; }
+
+    /**
+     * <p>A value that specifies the order in which an Aurora Replica is promoted to
+     * the primary instance after a failure of the existing primary instance. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance">
+     * Fault Tolerance for an Aurora DB Cluster</a> in the <i>Amazon Aurora User
+     * Guide</i>. </p>
      */
     inline void SetPromotionTier(int value) { m_promotionTierHasBeenSet = true; m_promotionTier = value; }
 
@@ -1756,8 +2045,9 @@ namespace Model
      * <p>A value that specifies the order in which an Aurora Replica is promoted to
      * the primary instance after a failure of the existing primary instance. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Managing.html#Aurora.Managing.FaultTolerance">
-     * Fault Tolerance for an Aurora DB Cluster</a>. </p>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance">
+     * Fault Tolerance for an Aurora DB Cluster</a> in the <i>Amazon Aurora User
+     * Guide</i>. </p>
      */
     inline DBInstance& WithPromotionTier(int value) { SetPromotionTier(value); return *this;}
 
@@ -1766,6 +2056,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) for the DB instance.</p>
      */
     inline const Aws::String& GetDBInstanceArn() const{ return m_dBInstanceArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) for the DB instance.</p>
+     */
+    inline bool DBInstanceArnHasBeenSet() const { return m_dBInstanceArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) for the DB instance.</p>
@@ -1804,6 +2099,13 @@ namespace Model
      * Server DB instances that were created with a time zone specified. </p>
      */
     inline const Aws::String& GetTimezone() const{ return m_timezone; }
+
+    /**
+     * <p>The time zone of the DB instance. In most cases, the <code>Timezone</code>
+     * element is empty. <code>Timezone</code> content appears only for Microsoft SQL
+     * Server DB instances that were created with a time zone specified. </p>
+     */
+    inline bool TimezoneHasBeenSet() const { return m_timezoneHasBeenSet; }
 
     /**
      * <p>The time zone of the DB instance. In most cases, the <code>Timezone</code>
@@ -1868,6 +2170,17 @@ namespace Model
      * enable IAM database authentication for Aurora, see DBCluster Type.</p> </li>
      * </ul>
      */
+    inline bool IAMDatabaseAuthenticationEnabledHasBeenSet() const { return m_iAMDatabaseAuthenticationEnabledHasBeenSet; }
+
+    /**
+     * <p>True if mapping of AWS Identity and Access Management (IAM) accounts to
+     * database accounts is enabled, and otherwise false.</p> <p>IAM database
+     * authentication can be enabled for the following database engines</p> <ul> <li>
+     * <p>For MySQL 5.6, minor version 5.6.34 or higher</p> </li> <li> <p>For MySQL
+     * 5.7, minor version 5.7.16 or higher</p> </li> <li> <p>Aurora 5.6 or higher. To
+     * enable IAM database authentication for Aurora, see DBCluster Type.</p> </li>
+     * </ul>
+     */
     inline void SetIAMDatabaseAuthenticationEnabled(bool value) { m_iAMDatabaseAuthenticationEnabledHasBeenSet = true; m_iAMDatabaseAuthenticationEnabled = value; }
 
     /**
@@ -1892,6 +2205,12 @@ namespace Model
      * <p>True if Performance Insights is enabled for the DB instance, and otherwise
      * false.</p>
      */
+    inline bool PerformanceInsightsEnabledHasBeenSet() const { return m_performanceInsightsEnabledHasBeenSet; }
+
+    /**
+     * <p>True if Performance Insights is enabled for the DB instance, and otherwise
+     * false.</p>
+     */
     inline void SetPerformanceInsightsEnabled(bool value) { m_performanceInsightsEnabledHasBeenSet = true; m_performanceInsightsEnabled = value; }
 
     /**
@@ -1907,6 +2226,13 @@ namespace Model
      * alias for the KMS encryption key.</p>
      */
     inline const Aws::String& GetPerformanceInsightsKMSKeyId() const{ return m_performanceInsightsKMSKeyId; }
+
+    /**
+     * <p>The AWS KMS key identifier for encryption of Performance Insights data. The
+     * KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS key
+     * alias for the KMS encryption key.</p>
+     */
+    inline bool PerformanceInsightsKMSKeyIdHasBeenSet() const { return m_performanceInsightsKMSKeyIdHasBeenSet; }
 
     /**
      * <p>The AWS KMS key identifier for encryption of Performance Insights data. The
@@ -1961,6 +2287,12 @@ namespace Model
      * <p>The amount of time, in days, to retain Performance Insights data. Valid
      * values are 7 or 731 (2 years). </p>
      */
+    inline bool PerformanceInsightsRetentionPeriodHasBeenSet() const { return m_performanceInsightsRetentionPeriodHasBeenSet; }
+
+    /**
+     * <p>The amount of time, in days, to retain Performance Insights data. Valid
+     * values are 7 or 731 (2 years). </p>
+     */
     inline void SetPerformanceInsightsRetentionPeriod(int value) { m_performanceInsightsRetentionPeriodHasBeenSet = true; m_performanceInsightsRetentionPeriod = value; }
 
     /**
@@ -1972,49 +2304,82 @@ namespace Model
 
     /**
      * <p>A list of log types that this DB instance is configured to export to
-     * CloudWatch Logs.</p>
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
      */
     inline const Aws::Vector<Aws::String>& GetEnabledCloudwatchLogsExports() const{ return m_enabledCloudwatchLogsExports; }
 
     /**
      * <p>A list of log types that this DB instance is configured to export to
-     * CloudWatch Logs.</p>
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
+     */
+    inline bool EnabledCloudwatchLogsExportsHasBeenSet() const { return m_enabledCloudwatchLogsExportsHasBeenSet; }
+
+    /**
+     * <p>A list of log types that this DB instance is configured to export to
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
      */
     inline void SetEnabledCloudwatchLogsExports(const Aws::Vector<Aws::String>& value) { m_enabledCloudwatchLogsExportsHasBeenSet = true; m_enabledCloudwatchLogsExports = value; }
 
     /**
      * <p>A list of log types that this DB instance is configured to export to
-     * CloudWatch Logs.</p>
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
      */
     inline void SetEnabledCloudwatchLogsExports(Aws::Vector<Aws::String>&& value) { m_enabledCloudwatchLogsExportsHasBeenSet = true; m_enabledCloudwatchLogsExports = std::move(value); }
 
     /**
      * <p>A list of log types that this DB instance is configured to export to
-     * CloudWatch Logs.</p>
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
      */
     inline DBInstance& WithEnabledCloudwatchLogsExports(const Aws::Vector<Aws::String>& value) { SetEnabledCloudwatchLogsExports(value); return *this;}
 
     /**
      * <p>A list of log types that this DB instance is configured to export to
-     * CloudWatch Logs.</p>
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
      */
     inline DBInstance& WithEnabledCloudwatchLogsExports(Aws::Vector<Aws::String>&& value) { SetEnabledCloudwatchLogsExports(std::move(value)); return *this;}
 
     /**
      * <p>A list of log types that this DB instance is configured to export to
-     * CloudWatch Logs.</p>
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
      */
     inline DBInstance& AddEnabledCloudwatchLogsExports(const Aws::String& value) { m_enabledCloudwatchLogsExportsHasBeenSet = true; m_enabledCloudwatchLogsExports.push_back(value); return *this; }
 
     /**
      * <p>A list of log types that this DB instance is configured to export to
-     * CloudWatch Logs.</p>
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
      */
     inline DBInstance& AddEnabledCloudwatchLogsExports(Aws::String&& value) { m_enabledCloudwatchLogsExportsHasBeenSet = true; m_enabledCloudwatchLogsExports.push_back(std::move(value)); return *this; }
 
     /**
      * <p>A list of log types that this DB instance is configured to export to
-     * CloudWatch Logs.</p>
+     * CloudWatch Logs.</p> <p>Log types vary by DB engine. For information about the
+     * log types for each DB engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon
+     * RDS Database Log Files</a> in the <i>Amazon RDS User Guide.</i> </p>
      */
     inline DBInstance& AddEnabledCloudwatchLogsExports(const char* value) { m_enabledCloudwatchLogsExportsHasBeenSet = true; m_enabledCloudwatchLogsExports.push_back(value); return *this; }
 
@@ -2024,6 +2389,12 @@ namespace Model
      * instance class of the DB instance.</p>
      */
     inline const Aws::Vector<ProcessorFeature>& GetProcessorFeatures() const{ return m_processorFeatures; }
+
+    /**
+     * <p>The number of CPU cores and the number of threads per core for the DB
+     * instance class of the DB instance.</p>
+     */
+    inline bool ProcessorFeaturesHasBeenSet() const { return m_processorFeaturesHasBeenSet; }
 
     /**
      * <p>The number of CPU cores and the number of threads per core for the DB
@@ -2060,6 +2431,148 @@ namespace Model
      * instance class of the DB instance.</p>
      */
     inline DBInstance& AddProcessorFeatures(ProcessorFeature&& value) { m_processorFeaturesHasBeenSet = true; m_processorFeatures.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>Indicates if the DB instance has deletion protection enabled. The database
+     * can't be deleted when deletion protection is enabled. For more information, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html">
+     * Deleting a DB Instance</a>. </p>
+     */
+    inline bool GetDeletionProtection() const{ return m_deletionProtection; }
+
+    /**
+     * <p>Indicates if the DB instance has deletion protection enabled. The database
+     * can't be deleted when deletion protection is enabled. For more information, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html">
+     * Deleting a DB Instance</a>. </p>
+     */
+    inline bool DeletionProtectionHasBeenSet() const { return m_deletionProtectionHasBeenSet; }
+
+    /**
+     * <p>Indicates if the DB instance has deletion protection enabled. The database
+     * can't be deleted when deletion protection is enabled. For more information, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html">
+     * Deleting a DB Instance</a>. </p>
+     */
+    inline void SetDeletionProtection(bool value) { m_deletionProtectionHasBeenSet = true; m_deletionProtection = value; }
+
+    /**
+     * <p>Indicates if the DB instance has deletion protection enabled. The database
+     * can't be deleted when deletion protection is enabled. For more information, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html">
+     * Deleting a DB Instance</a>. </p>
+     */
+    inline DBInstance& WithDeletionProtection(bool value) { SetDeletionProtection(value); return *this;}
+
+
+    /**
+     * <p> The AWS Identity and Access Management (IAM) roles associated with the DB
+     * instance. </p>
+     */
+    inline const Aws::Vector<DBInstanceRole>& GetAssociatedRoles() const{ return m_associatedRoles; }
+
+    /**
+     * <p> The AWS Identity and Access Management (IAM) roles associated with the DB
+     * instance. </p>
+     */
+    inline bool AssociatedRolesHasBeenSet() const { return m_associatedRolesHasBeenSet; }
+
+    /**
+     * <p> The AWS Identity and Access Management (IAM) roles associated with the DB
+     * instance. </p>
+     */
+    inline void SetAssociatedRoles(const Aws::Vector<DBInstanceRole>& value) { m_associatedRolesHasBeenSet = true; m_associatedRoles = value; }
+
+    /**
+     * <p> The AWS Identity and Access Management (IAM) roles associated with the DB
+     * instance. </p>
+     */
+    inline void SetAssociatedRoles(Aws::Vector<DBInstanceRole>&& value) { m_associatedRolesHasBeenSet = true; m_associatedRoles = std::move(value); }
+
+    /**
+     * <p> The AWS Identity and Access Management (IAM) roles associated with the DB
+     * instance. </p>
+     */
+    inline DBInstance& WithAssociatedRoles(const Aws::Vector<DBInstanceRole>& value) { SetAssociatedRoles(value); return *this;}
+
+    /**
+     * <p> The AWS Identity and Access Management (IAM) roles associated with the DB
+     * instance. </p>
+     */
+    inline DBInstance& WithAssociatedRoles(Aws::Vector<DBInstanceRole>&& value) { SetAssociatedRoles(std::move(value)); return *this;}
+
+    /**
+     * <p> The AWS Identity and Access Management (IAM) roles associated with the DB
+     * instance. </p>
+     */
+    inline DBInstance& AddAssociatedRoles(const DBInstanceRole& value) { m_associatedRolesHasBeenSet = true; m_associatedRoles.push_back(value); return *this; }
+
+    /**
+     * <p> The AWS Identity and Access Management (IAM) roles associated with the DB
+     * instance. </p>
+     */
+    inline DBInstance& AddAssociatedRoles(DBInstanceRole&& value) { m_associatedRolesHasBeenSet = true; m_associatedRoles.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>Specifies the listener connection endpoint for SQL Server Always On.</p>
+     */
+    inline const Endpoint& GetListenerEndpoint() const{ return m_listenerEndpoint; }
+
+    /**
+     * <p>Specifies the listener connection endpoint for SQL Server Always On.</p>
+     */
+    inline bool ListenerEndpointHasBeenSet() const { return m_listenerEndpointHasBeenSet; }
+
+    /**
+     * <p>Specifies the listener connection endpoint for SQL Server Always On.</p>
+     */
+    inline void SetListenerEndpoint(const Endpoint& value) { m_listenerEndpointHasBeenSet = true; m_listenerEndpoint = value; }
+
+    /**
+     * <p>Specifies the listener connection endpoint for SQL Server Always On.</p>
+     */
+    inline void SetListenerEndpoint(Endpoint&& value) { m_listenerEndpointHasBeenSet = true; m_listenerEndpoint = std::move(value); }
+
+    /**
+     * <p>Specifies the listener connection endpoint for SQL Server Always On.</p>
+     */
+    inline DBInstance& WithListenerEndpoint(const Endpoint& value) { SetListenerEndpoint(value); return *this;}
+
+    /**
+     * <p>Specifies the listener connection endpoint for SQL Server Always On.</p>
+     */
+    inline DBInstance& WithListenerEndpoint(Endpoint&& value) { SetListenerEndpoint(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The upper limit to which Amazon RDS can automatically scale the storage of
+     * the DB instance.</p>
+     */
+    inline int GetMaxAllocatedStorage() const{ return m_maxAllocatedStorage; }
+
+    /**
+     * <p>The upper limit to which Amazon RDS can automatically scale the storage of
+     * the DB instance.</p>
+     */
+    inline bool MaxAllocatedStorageHasBeenSet() const { return m_maxAllocatedStorageHasBeenSet; }
+
+    /**
+     * <p>The upper limit to which Amazon RDS can automatically scale the storage of
+     * the DB instance.</p>
+     */
+    inline void SetMaxAllocatedStorage(int value) { m_maxAllocatedStorageHasBeenSet = true; m_maxAllocatedStorage = value; }
+
+    /**
+     * <p>The upper limit to which Amazon RDS can automatically scale the storage of
+     * the DB instance.</p>
+     */
+    inline DBInstance& WithMaxAllocatedStorage(int value) { SetMaxAllocatedStorage(value); return *this;}
 
   private:
 
@@ -2224,6 +2737,18 @@ namespace Model
 
     Aws::Vector<ProcessorFeature> m_processorFeatures;
     bool m_processorFeaturesHasBeenSet;
+
+    bool m_deletionProtection;
+    bool m_deletionProtectionHasBeenSet;
+
+    Aws::Vector<DBInstanceRole> m_associatedRoles;
+    bool m_associatedRolesHasBeenSet;
+
+    Endpoint m_listenerEndpoint;
+    bool m_listenerEndpointHasBeenSet;
+
+    int m_maxAllocatedStorage;
+    bool m_maxAllocatedStorageHasBeenSet;
   };
 
 } // namespace Model

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DataRetrievalPolicy();
-    DataRetrievalPolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    DataRetrievalPolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DataRetrievalPolicy(Aws::Utils::Json::JsonView jsonValue);
+    DataRetrievalPolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * field.</p>
      */
     inline const Aws::Vector<DataRetrievalRule>& GetRules() const{ return m_rules; }
+
+    /**
+     * <p>The policy rule. Although this is a list type, currently there must be only
+     * one rule, which contains a Strategy field and optionally a BytesPerHour
+     * field.</p>
+     */
+    inline bool RulesHasBeenSet() const { return m_rulesHasBeenSet; }
 
     /**
      * <p>The policy rule. Although this is a list type, currently there must be only

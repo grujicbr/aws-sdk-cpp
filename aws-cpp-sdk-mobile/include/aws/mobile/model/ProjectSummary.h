@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Mobile
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ProjectSummary();
-    ProjectSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProjectSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProjectSummary(Aws::Utils::Json::JsonView jsonValue);
+    ProjectSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p> Name of the project. </p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p> Name of the project. </p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p> Name of the project. </p>
@@ -87,6 +93,11 @@ namespace Model
      * <p> Unique project identifier. </p>
      */
     inline const Aws::String& GetProjectId() const{ return m_projectId; }
+
+    /**
+     * <p> Unique project identifier. </p>
+     */
+    inline bool ProjectIdHasBeenSet() const { return m_projectIdHasBeenSet; }
 
     /**
      * <p> Unique project identifier. </p>

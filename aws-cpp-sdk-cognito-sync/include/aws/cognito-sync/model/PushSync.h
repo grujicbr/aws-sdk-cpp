@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoSync
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PushSync();
-    PushSync(const Aws::Utils::Json::JsonValue& jsonValue);
-    PushSync& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PushSync(Aws::Utils::Json::JsonView jsonValue);
+    PushSync& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>List of SNS platform application ARNs that could be used by clients.</p>
      */
     inline const Aws::Vector<Aws::String>& GetApplicationArns() const{ return m_applicationArns; }
+
+    /**
+     * <p>List of SNS platform application ARNs that could be used by clients.</p>
+     */
+    inline bool ApplicationArnsHasBeenSet() const { return m_applicationArnsHasBeenSet; }
 
     /**
      * <p>List of SNS platform application ARNs that could be used by clients.</p>
@@ -94,6 +100,12 @@ namespace Model
      * developer.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>A role configured to allow Cognito to call SNS on behalf of the
+     * developer.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>A role configured to allow Cognito to call SNS on behalf of the

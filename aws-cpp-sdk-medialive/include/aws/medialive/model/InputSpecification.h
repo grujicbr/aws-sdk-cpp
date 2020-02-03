@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     InputSpecification();
-    InputSpecification(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputSpecification& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputSpecification(Aws::Utils::Json::JsonView jsonValue);
+    InputSpecification& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * Input codec
      */
     inline const InputCodec& GetCodec() const{ return m_codec; }
+
+    /**
+     * Input codec
+     */
+    inline bool CodecHasBeenSet() const { return m_codecHasBeenSet; }
 
     /**
      * Input codec
@@ -82,6 +88,11 @@ namespace Model
     /**
      * Maximum input bitrate, categorized coarsely
      */
+    inline bool MaximumBitrateHasBeenSet() const { return m_maximumBitrateHasBeenSet; }
+
+    /**
+     * Maximum input bitrate, categorized coarsely
+     */
     inline void SetMaximumBitrate(const InputMaximumBitrate& value) { m_maximumBitrateHasBeenSet = true; m_maximumBitrate = value; }
 
     /**
@@ -104,6 +115,11 @@ namespace Model
      * Input resolution, categorized coarsely
      */
     inline const InputResolution& GetResolution() const{ return m_resolution; }
+
+    /**
+     * Input resolution, categorized coarsely
+     */
+    inline bool ResolutionHasBeenSet() const { return m_resolutionHasBeenSet; }
 
     /**
      * Input resolution, categorized coarsely

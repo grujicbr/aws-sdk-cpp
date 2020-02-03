@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ImageIdentifier();
-    ImageIdentifier(const Aws::Utils::Json::JsonValue& jsonValue);
-    ImageIdentifier& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ImageIdentifier(Aws::Utils::Json::JsonView jsonValue);
+    ImageIdentifier& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The <code>sha256</code> digest of the image manifest.</p>
      */
     inline const Aws::String& GetImageDigest() const{ return m_imageDigest; }
+
+    /**
+     * <p>The <code>sha256</code> digest of the image manifest.</p>
+     */
+    inline bool ImageDigestHasBeenSet() const { return m_imageDigestHasBeenSet; }
 
     /**
      * <p>The <code>sha256</code> digest of the image manifest.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The tag used for the image.</p>
      */
     inline const Aws::String& GetImageTag() const{ return m_imageTag; }
+
+    /**
+     * <p>The tag used for the image.</p>
+     */
+    inline bool ImageTagHasBeenSet() const { return m_imageTagHasBeenSet; }
 
     /**
      * <p>The tag used for the image.</p>

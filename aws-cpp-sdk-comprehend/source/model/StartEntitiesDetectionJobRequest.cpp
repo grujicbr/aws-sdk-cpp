@@ -27,10 +27,13 @@ StartEntitiesDetectionJobRequest::StartEntitiesDetectionJobRequest() :
     m_outputDataConfigHasBeenSet(false),
     m_dataAccessRoleArnHasBeenSet(false),
     m_jobNameHasBeenSet(false),
+    m_entityRecognizerArnHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
     m_clientRequestToken(Aws::Utils::UUID::RandomUUID()),
-    m_clientRequestTokenHasBeenSet(true)
+    m_clientRequestTokenHasBeenSet(true),
+    m_volumeKmsKeyIdHasBeenSet(false),
+    m_vpcConfigHasBeenSet(false)
 {
 }
 
@@ -62,6 +65,12 @@ Aws::String StartEntitiesDetectionJobRequest::SerializePayload() const
 
   }
 
+  if(m_entityRecognizerArnHasBeenSet)
+  {
+   payload.WithString("EntityRecognizerArn", m_entityRecognizerArn);
+
+  }
+
   if(m_languageCodeHasBeenSet)
   {
    payload.WithString("LanguageCode", LanguageCodeMapper::GetNameForLanguageCode(m_languageCode));
@@ -73,7 +82,19 @@ Aws::String StartEntitiesDetectionJobRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_volumeKmsKeyIdHasBeenSet)
+  {
+   payload.WithString("VolumeKmsKeyId", m_volumeKmsKeyId);
+
+  }
+
+  if(m_vpcConfigHasBeenSet)
+  {
+   payload.WithObject("VpcConfig", m_vpcConfig.Jsonize());
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection StartEntitiesDetectionJobRequest::GetRequestSpecificHeaders() const

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ApiStage();
-    ApiStage(const Aws::Utils::Json::JsonValue& jsonValue);
-    ApiStage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ApiStage(Aws::Utils::Json::JsonView jsonValue);
+    ApiStage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>API Id of the associated API stage in a usage plan.</p>
      */
     inline const Aws::String& GetApiId() const{ return m_apiId; }
+
+    /**
+     * <p>API Id of the associated API stage in a usage plan.</p>
+     */
+    inline bool ApiIdHasBeenSet() const { return m_apiIdHasBeenSet; }
 
     /**
      * <p>API Id of the associated API stage in a usage plan.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>API stage name of the associated API stage in a usage plan.</p>
      */
+    inline bool StageHasBeenSet() const { return m_stageHasBeenSet; }
+
+    /**
+     * <p>API stage name of the associated API stage in a usage plan.</p>
+     */
     inline void SetStage(const Aws::String& value) { m_stageHasBeenSet = true; m_stage = value; }
 
     /**
@@ -126,6 +137,12 @@ namespace Model
      * plan.</p>
      */
     inline const Aws::Map<Aws::String, ThrottleSettings>& GetThrottle() const{ return m_throttle; }
+
+    /**
+     * <p>Map containing method level throttling information for API stage in a usage
+     * plan.</p>
+     */
+    inline bool ThrottleHasBeenSet() const { return m_throttleHasBeenSet; }
 
     /**
      * <p>Map containing method level throttling information for API stage in a usage

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexRuntimeService
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     ResponseCard();
-    ResponseCard(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResponseCard& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResponseCard(Aws::Utils::Json::JsonView jsonValue);
+    ResponseCard& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>The version of the response card format.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version of the response card format.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version of the response card format.</p>
@@ -97,6 +103,11 @@ namespace Model
     /**
      * <p>The content type of the response.</p>
      */
+    inline bool ContentTypeHasBeenSet() const { return m_contentTypeHasBeenSet; }
+
+    /**
+     * <p>The content type of the response.</p>
+     */
     inline void SetContentType(const ContentType& value) { m_contentTypeHasBeenSet = true; m_contentType = value; }
 
     /**
@@ -119,6 +130,11 @@ namespace Model
      * <p>An array of attachment objects representing options.</p>
      */
     inline const Aws::Vector<GenericAttachment>& GetGenericAttachments() const{ return m_genericAttachments; }
+
+    /**
+     * <p>An array of attachment objects representing options.</p>
+     */
+    inline bool GenericAttachmentsHasBeenSet() const { return m_genericAttachmentsHasBeenSet; }
 
     /**
      * <p>An array of attachment objects representing options.</p>

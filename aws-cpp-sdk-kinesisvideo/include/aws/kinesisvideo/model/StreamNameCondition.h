@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisVideo
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     StreamNameCondition();
-    StreamNameCondition(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamNameCondition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamNameCondition(Aws::Utils::Json::JsonView jsonValue);
+    StreamNameCondition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,13 @@ namespace Model
      * given prefix.</p>
      */
     inline const ComparisonOperator& GetComparisonOperator() const{ return m_comparisonOperator; }
+
+    /**
+     * <p>A comparison operator. Currently, you can specify only the
+     * <code>BEGINS_WITH</code> operator, which finds streams whose names start with a
+     * given prefix.</p>
+     */
+    inline bool ComparisonOperatorHasBeenSet() const { return m_comparisonOperatorHasBeenSet; }
 
     /**
      * <p>A comparison operator. Currently, you can specify only the
@@ -91,6 +99,11 @@ namespace Model
      * <p>A value to compare.</p>
      */
     inline const Aws::String& GetComparisonValue() const{ return m_comparisonValue; }
+
+    /**
+     * <p>A value to compare.</p>
+     */
+    inline bool ComparisonValueHasBeenSet() const { return m_comparisonValueHasBeenSet; }
 
     /**
      * <p>A value to compare.</p>

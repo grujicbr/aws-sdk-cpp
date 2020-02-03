@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CostExplorer
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     DimensionValuesWithAttributes();
-    DimensionValuesWithAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    DimensionValuesWithAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DimensionValuesWithAttributes(Aws::Utils::Json::JsonView jsonValue);
+    DimensionValuesWithAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The value of a dimension with a specific attribute.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of a dimension with a specific attribute.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of a dimension with a specific attribute.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The attribute that applies to a specific <code>Dimension</code>.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The attribute that applies to a specific <code>Dimension</code>.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The attribute that applies to a specific <code>Dimension</code>.</p>

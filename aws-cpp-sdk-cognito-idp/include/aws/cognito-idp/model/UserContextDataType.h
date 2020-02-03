@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     UserContextDataType();
-    UserContextDataType(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserContextDataType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserContextDataType(Aws::Utils::Json::JsonView jsonValue);
+    UserContextDataType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * advanced security.</p>
      */
     inline const Aws::String& GetEncodedData() const{ return m_encodedData; }
+
+    /**
+     * <p>Contextual data such as the user's device fingerprint, IP address, or
+     * location used for evaluating the risk of an unexpected event by Amazon Cognito
+     * advanced security.</p>
+     */
+    inline bool EncodedDataHasBeenSet() const { return m_encodedDataHasBeenSet; }
 
     /**
      * <p>Contextual data such as the user's device fingerprint, IP address, or

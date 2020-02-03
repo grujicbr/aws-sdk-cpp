@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchRemoveFacetFromObject();
-    BatchRemoveFacetFromObject(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchRemoveFacetFromObject& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchRemoveFacetFromObject(Aws::Utils::Json::JsonView jsonValue);
+    BatchRemoveFacetFromObject& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The facet to remove from the object.</p>
      */
     inline const SchemaFacet& GetSchemaFacet() const{ return m_schemaFacet; }
+
+    /**
+     * <p>The facet to remove from the object.</p>
+     */
+    inline bool SchemaFacetHasBeenSet() const { return m_schemaFacetHasBeenSet; }
 
     /**
      * <p>The facet to remove from the object.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>A reference to the object whose facet will be removed.</p>
      */
     inline const ObjectReference& GetObjectReference() const{ return m_objectReference; }
+
+    /**
+     * <p>A reference to the object whose facet will be removed.</p>
+     */
+    inline bool ObjectReferenceHasBeenSet() const { return m_objectReferenceHasBeenSet; }
 
     /**
      * <p>A reference to the object whose facet will be removed.</p>

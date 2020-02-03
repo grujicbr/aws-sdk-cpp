@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     HttpHeader();
-    HttpHeader(const Aws::Utils::Json::JsonValue& jsonValue);
-    HttpHeader& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HttpHeader(Aws::Utils::Json::JsonView jsonValue);
+    HttpHeader& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The header name</p>
      */
     inline const Aws::String& GetHeaderName() const{ return m_headerName; }
+
+    /**
+     * <p>The header name</p>
+     */
+    inline bool HeaderNameHasBeenSet() const { return m_headerNameHasBeenSet; }
 
     /**
      * <p>The header name</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The header value.</p>
      */
     inline const Aws::String& GetHeaderValue() const{ return m_headerValue; }
+
+    /**
+     * <p>The header value.</p>
+     */
+    inline bool HeaderValueHasBeenSet() const { return m_headerValueHasBeenSet; }
 
     /**
      * <p>The header value.</p>

@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     SnapshotOptions();
-    SnapshotOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    SnapshotOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SnapshotOptions(Aws::Utils::Json::JsonView jsonValue);
+    SnapshotOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,13 @@ namespace Model
      * hours.</p>
      */
     inline int GetAutomatedSnapshotStartHour() const{ return m_automatedSnapshotStartHour; }
+
+    /**
+     * <p>Specifies the time, in UTC format, when the service takes a daily automated
+     * snapshot of the specified Elasticsearch domain. Default value is <code>0</code>
+     * hours.</p>
+     */
+    inline bool AutomatedSnapshotStartHourHasBeenSet() const { return m_automatedSnapshotStartHourHasBeenSet; }
 
     /**
      * <p>Specifies the time, in UTC format, when the service takes a daily automated

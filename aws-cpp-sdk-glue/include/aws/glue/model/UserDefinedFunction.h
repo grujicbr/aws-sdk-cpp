@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     UserDefinedFunction();
-    UserDefinedFunction(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserDefinedFunction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserDefinedFunction(Aws::Utils::Json::JsonView jsonValue);
+    UserDefinedFunction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The name of the function.</p>
      */
     inline const Aws::String& GetFunctionName() const{ return m_functionName; }
+
+    /**
+     * <p>The name of the function.</p>
+     */
+    inline bool FunctionNameHasBeenSet() const { return m_functionNameHasBeenSet; }
 
     /**
      * <p>The name of the function.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>The Java class that contains the function code.</p>
      */
+    inline bool ClassNameHasBeenSet() const { return m_classNameHasBeenSet; }
+
+    /**
+     * <p>The Java class that contains the function code.</p>
+     */
     inline void SetClassName(const Aws::String& value) { m_classNameHasBeenSet = true; m_className = value; }
 
     /**
@@ -127,6 +138,11 @@ namespace Model
      * <p>The owner of the function.</p>
      */
     inline const Aws::String& GetOwnerName() const{ return m_ownerName; }
+
+    /**
+     * <p>The owner of the function.</p>
+     */
+    inline bool OwnerNameHasBeenSet() const { return m_ownerNameHasBeenSet; }
 
     /**
      * <p>The owner of the function.</p>
@@ -167,6 +183,11 @@ namespace Model
     /**
      * <p>The owner type.</p>
      */
+    inline bool OwnerTypeHasBeenSet() const { return m_ownerTypeHasBeenSet; }
+
+    /**
+     * <p>The owner type.</p>
+     */
     inline void SetOwnerType(const PrincipalType& value) { m_ownerTypeHasBeenSet = true; m_ownerType = value; }
 
     /**
@@ -193,6 +214,11 @@ namespace Model
     /**
      * <p>The time at which the function was created.</p>
      */
+    inline bool CreateTimeHasBeenSet() const { return m_createTimeHasBeenSet; }
+
+    /**
+     * <p>The time at which the function was created.</p>
+     */
     inline void SetCreateTime(const Aws::Utils::DateTime& value) { m_createTimeHasBeenSet = true; m_createTime = value; }
 
     /**
@@ -215,6 +241,11 @@ namespace Model
      * <p>The resource URIs for the function.</p>
      */
     inline const Aws::Vector<ResourceUri>& GetResourceUris() const{ return m_resourceUris; }
+
+    /**
+     * <p>The resource URIs for the function.</p>
+     */
+    inline bool ResourceUrisHasBeenSet() const { return m_resourceUrisHasBeenSet; }
 
     /**
      * <p>The resource URIs for the function.</p>

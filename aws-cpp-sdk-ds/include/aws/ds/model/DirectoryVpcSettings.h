@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DirectoryVpcSettings();
-    DirectoryVpcSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    DirectoryVpcSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DirectoryVpcSettings(Aws::Utils::Json::JsonView jsonValue);
+    DirectoryVpcSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The identifier of the VPC in which to create the directory.</p>
      */
     inline const Aws::String& GetVpcId() const{ return m_vpcId; }
+
+    /**
+     * <p>The identifier of the VPC in which to create the directory.</p>
+     */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
 
     /**
      * <p>The identifier of the VPC in which to create the directory.</p>
@@ -90,6 +96,13 @@ namespace Model
      * directory server and a DNS server in each of these subnets.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSubnetIds() const{ return m_subnetIds; }
+
+    /**
+     * <p>The identifiers of the subnets for the directory servers. The two subnets
+     * must be in different Availability Zones. AWS Directory Service creates a
+     * directory server and a DNS server in each of these subnets.</p>
+     */
+    inline bool SubnetIdsHasBeenSet() const { return m_subnetIdsHasBeenSet; }
 
     /**
      * <p>The identifiers of the subnets for the directory servers. The two subnets

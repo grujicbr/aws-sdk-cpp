@@ -32,20 +32,26 @@ DynamodbDataSourceConfig::DynamodbDataSourceConfig() :
     m_tableNameHasBeenSet(false),
     m_awsRegionHasBeenSet(false),
     m_useCallerCredentials(false),
-    m_useCallerCredentialsHasBeenSet(false)
+    m_useCallerCredentialsHasBeenSet(false),
+    m_deltaSyncConfigHasBeenSet(false),
+    m_versioned(false),
+    m_versionedHasBeenSet(false)
 {
 }
 
-DynamodbDataSourceConfig::DynamodbDataSourceConfig(const JsonValue& jsonValue) : 
+DynamodbDataSourceConfig::DynamodbDataSourceConfig(JsonView jsonValue) : 
     m_tableNameHasBeenSet(false),
     m_awsRegionHasBeenSet(false),
     m_useCallerCredentials(false),
-    m_useCallerCredentialsHasBeenSet(false)
+    m_useCallerCredentialsHasBeenSet(false),
+    m_deltaSyncConfigHasBeenSet(false),
+    m_versioned(false),
+    m_versionedHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-DynamodbDataSourceConfig& DynamodbDataSourceConfig::operator =(const JsonValue& jsonValue)
+DynamodbDataSourceConfig& DynamodbDataSourceConfig::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("tableName"))
   {
@@ -66,6 +72,20 @@ DynamodbDataSourceConfig& DynamodbDataSourceConfig::operator =(const JsonValue& 
     m_useCallerCredentials = jsonValue.GetBool("useCallerCredentials");
 
     m_useCallerCredentialsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("deltaSyncConfig"))
+  {
+    m_deltaSyncConfig = jsonValue.GetObject("deltaSyncConfig");
+
+    m_deltaSyncConfigHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("versioned"))
+  {
+    m_versioned = jsonValue.GetBool("versioned");
+
+    m_versionedHasBeenSet = true;
   }
 
   return *this;
@@ -90,6 +110,18 @@ JsonValue DynamodbDataSourceConfig::Jsonize() const
   if(m_useCallerCredentialsHasBeenSet)
   {
    payload.WithBool("useCallerCredentials", m_useCallerCredentials);
+
+  }
+
+  if(m_deltaSyncConfigHasBeenSet)
+  {
+   payload.WithObject("deltaSyncConfig", m_deltaSyncConfig.Jsonize());
+
+  }
+
+  if(m_versionedHasBeenSet)
+  {
+   payload.WithBool("versioned", m_versioned);
 
   }
 

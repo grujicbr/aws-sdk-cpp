@@ -35,19 +35,21 @@ EncoderSettings::EncoderSettings() :
     m_blackoutSlateHasBeenSet(false),
     m_captionDescriptionsHasBeenSet(false),
     m_globalConfigurationHasBeenSet(false),
+    m_nielsenConfigurationHasBeenSet(false),
     m_outputGroupsHasBeenSet(false),
     m_timecodeConfigHasBeenSet(false),
     m_videoDescriptionsHasBeenSet(false)
 {
 }
 
-EncoderSettings::EncoderSettings(const JsonValue& jsonValue) : 
+EncoderSettings::EncoderSettings(JsonView jsonValue) : 
     m_audioDescriptionsHasBeenSet(false),
     m_availBlankingHasBeenSet(false),
     m_availConfigurationHasBeenSet(false),
     m_blackoutSlateHasBeenSet(false),
     m_captionDescriptionsHasBeenSet(false),
     m_globalConfigurationHasBeenSet(false),
+    m_nielsenConfigurationHasBeenSet(false),
     m_outputGroupsHasBeenSet(false),
     m_timecodeConfigHasBeenSet(false),
     m_videoDescriptionsHasBeenSet(false)
@@ -55,11 +57,11 @@ EncoderSettings::EncoderSettings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-EncoderSettings& EncoderSettings::operator =(const JsonValue& jsonValue)
+EncoderSettings& EncoderSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("audioDescriptions"))
   {
-    Array<JsonValue> audioDescriptionsJsonList = jsonValue.GetArray("audioDescriptions");
+    Array<JsonView> audioDescriptionsJsonList = jsonValue.GetArray("audioDescriptions");
     for(unsigned audioDescriptionsIndex = 0; audioDescriptionsIndex < audioDescriptionsJsonList.GetLength(); ++audioDescriptionsIndex)
     {
       m_audioDescriptions.push_back(audioDescriptionsJsonList[audioDescriptionsIndex].AsObject());
@@ -90,7 +92,7 @@ EncoderSettings& EncoderSettings::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("captionDescriptions"))
   {
-    Array<JsonValue> captionDescriptionsJsonList = jsonValue.GetArray("captionDescriptions");
+    Array<JsonView> captionDescriptionsJsonList = jsonValue.GetArray("captionDescriptions");
     for(unsigned captionDescriptionsIndex = 0; captionDescriptionsIndex < captionDescriptionsJsonList.GetLength(); ++captionDescriptionsIndex)
     {
       m_captionDescriptions.push_back(captionDescriptionsJsonList[captionDescriptionsIndex].AsObject());
@@ -105,9 +107,16 @@ EncoderSettings& EncoderSettings::operator =(const JsonValue& jsonValue)
     m_globalConfigurationHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("nielsenConfiguration"))
+  {
+    m_nielsenConfiguration = jsonValue.GetObject("nielsenConfiguration");
+
+    m_nielsenConfigurationHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("outputGroups"))
   {
-    Array<JsonValue> outputGroupsJsonList = jsonValue.GetArray("outputGroups");
+    Array<JsonView> outputGroupsJsonList = jsonValue.GetArray("outputGroups");
     for(unsigned outputGroupsIndex = 0; outputGroupsIndex < outputGroupsJsonList.GetLength(); ++outputGroupsIndex)
     {
       m_outputGroups.push_back(outputGroupsJsonList[outputGroupsIndex].AsObject());
@@ -124,7 +133,7 @@ EncoderSettings& EncoderSettings::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("videoDescriptions"))
   {
-    Array<JsonValue> videoDescriptionsJsonList = jsonValue.GetArray("videoDescriptions");
+    Array<JsonView> videoDescriptionsJsonList = jsonValue.GetArray("videoDescriptions");
     for(unsigned videoDescriptionsIndex = 0; videoDescriptionsIndex < videoDescriptionsJsonList.GetLength(); ++videoDescriptionsIndex)
     {
       m_videoDescriptions.push_back(videoDescriptionsJsonList[videoDescriptionsIndex].AsObject());
@@ -182,6 +191,12 @@ JsonValue EncoderSettings::Jsonize() const
   if(m_globalConfigurationHasBeenSet)
   {
    payload.WithObject("globalConfiguration", m_globalConfiguration.Jsonize());
+
+  }
+
+  if(m_nielsenConfigurationHasBeenSet)
+  {
+   payload.WithObject("nielsenConfiguration", m_nielsenConfiguration.Jsonize());
 
   }
 

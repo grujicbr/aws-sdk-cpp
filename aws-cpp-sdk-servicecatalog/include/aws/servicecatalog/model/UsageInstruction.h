@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     UsageInstruction();
-    UsageInstruction(const Aws::Utils::Json::JsonValue& jsonValue);
-    UsageInstruction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UsageInstruction(Aws::Utils::Json::JsonView jsonValue);
+    UsageInstruction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The usage instruction type for the value.</p>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p>The usage instruction type for the value.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The usage instruction type for the value.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The usage instruction value for this type.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The usage instruction value for this type.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The usage instruction value for this type.</p>

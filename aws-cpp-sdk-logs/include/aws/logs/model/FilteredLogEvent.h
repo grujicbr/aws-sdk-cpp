@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -41,43 +42,48 @@ namespace Model
   {
   public:
     FilteredLogEvent();
-    FilteredLogEvent(const Aws::Utils::Json::JsonValue& jsonValue);
-    FilteredLogEvent& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FilteredLogEvent(Aws::Utils::Json::JsonView jsonValue);
+    FilteredLogEvent& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The name of the log stream this event belongs to.</p>
+     * <p>The name of the log stream to which this event belongs.</p>
      */
     inline const Aws::String& GetLogStreamName() const{ return m_logStreamName; }
 
     /**
-     * <p>The name of the log stream this event belongs to.</p>
+     * <p>The name of the log stream to which this event belongs.</p>
+     */
+    inline bool LogStreamNameHasBeenSet() const { return m_logStreamNameHasBeenSet; }
+
+    /**
+     * <p>The name of the log stream to which this event belongs.</p>
      */
     inline void SetLogStreamName(const Aws::String& value) { m_logStreamNameHasBeenSet = true; m_logStreamName = value; }
 
     /**
-     * <p>The name of the log stream this event belongs to.</p>
+     * <p>The name of the log stream to which this event belongs.</p>
      */
     inline void SetLogStreamName(Aws::String&& value) { m_logStreamNameHasBeenSet = true; m_logStreamName = std::move(value); }
 
     /**
-     * <p>The name of the log stream this event belongs to.</p>
+     * <p>The name of the log stream to which this event belongs.</p>
      */
     inline void SetLogStreamName(const char* value) { m_logStreamNameHasBeenSet = true; m_logStreamName.assign(value); }
 
     /**
-     * <p>The name of the log stream this event belongs to.</p>
+     * <p>The name of the log stream to which this event belongs.</p>
      */
     inline FilteredLogEvent& WithLogStreamName(const Aws::String& value) { SetLogStreamName(value); return *this;}
 
     /**
-     * <p>The name of the log stream this event belongs to.</p>
+     * <p>The name of the log stream to which this event belongs.</p>
      */
     inline FilteredLogEvent& WithLogStreamName(Aws::String&& value) { SetLogStreamName(std::move(value)); return *this;}
 
     /**
-     * <p>The name of the log stream this event belongs to.</p>
+     * <p>The name of the log stream to which this event belongs.</p>
      */
     inline FilteredLogEvent& WithLogStreamName(const char* value) { SetLogStreamName(value); return *this;}
 
@@ -87,6 +93,12 @@ namespace Model
      * Jan 1, 1970 00:00:00 UTC.</p>
      */
     inline long long GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>The time the event occurred, expressed as the number of milliseconds after
+     * Jan 1, 1970 00:00:00 UTC.</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>The time the event occurred, expressed as the number of milliseconds after
@@ -105,6 +117,11 @@ namespace Model
      * <p>The data contained in the log event.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The data contained in the log event.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The data contained in the log event.</p>
@@ -147,6 +164,12 @@ namespace Model
      * <p>The time the event was ingested, expressed as the number of milliseconds
      * after Jan 1, 1970 00:00:00 UTC.</p>
      */
+    inline bool IngestionTimeHasBeenSet() const { return m_ingestionTimeHasBeenSet; }
+
+    /**
+     * <p>The time the event was ingested, expressed as the number of milliseconds
+     * after Jan 1, 1970 00:00:00 UTC.</p>
+     */
     inline void SetIngestionTime(long long value) { m_ingestionTimeHasBeenSet = true; m_ingestionTime = value; }
 
     /**
@@ -160,6 +183,11 @@ namespace Model
      * <p>The ID of the event.</p>
      */
     inline const Aws::String& GetEventId() const{ return m_eventId; }
+
+    /**
+     * <p>The ID of the event.</p>
+     */
+    inline bool EventIdHasBeenSet() const { return m_eventIdHasBeenSet; }
 
     /**
      * <p>The ID of the event.</p>

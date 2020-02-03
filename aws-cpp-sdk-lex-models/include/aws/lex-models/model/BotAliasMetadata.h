@@ -17,6 +17,7 @@
 #include <aws/lex-models/LexModelBuildingService_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/DateTime.h>
+#include <aws/lex-models/model/ConversationLogsResponse.h>
 #include <utility>
 
 namespace Aws
@@ -26,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -42,8 +44,8 @@ namespace Model
   {
   public:
     BotAliasMetadata();
-    BotAliasMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    BotAliasMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BotAliasMetadata(Aws::Utils::Json::JsonView jsonValue);
+    BotAliasMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +53,11 @@ namespace Model
      * <p>The name of the bot alias.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the bot alias.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the bot alias.</p>
@@ -91,6 +98,11 @@ namespace Model
     /**
      * <p>A description of the bot alias.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A description of the bot alias.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -127,6 +139,11 @@ namespace Model
     /**
      * <p>The version of the Amazon Lex bot to which the alias points.</p>
      */
+    inline bool BotVersionHasBeenSet() const { return m_botVersionHasBeenSet; }
+
+    /**
+     * <p>The version of the Amazon Lex bot to which the alias points.</p>
+     */
     inline void SetBotVersion(const Aws::String& value) { m_botVersionHasBeenSet = true; m_botVersion = value; }
 
     /**
@@ -159,6 +176,11 @@ namespace Model
      * <p>The name of the bot to which the alias points.</p>
      */
     inline const Aws::String& GetBotName() const{ return m_botName; }
+
+    /**
+     * <p>The name of the bot to which the alias points.</p>
+     */
+    inline bool BotNameHasBeenSet() const { return m_botNameHasBeenSet; }
 
     /**
      * <p>The name of the bot to which the alias points.</p>
@@ -201,6 +223,12 @@ namespace Model
      * <p>The date that the bot alias was updated. When you create a resource, the
      * creation date and last updated date are the same.</p>
      */
+    inline bool LastUpdatedDateHasBeenSet() const { return m_lastUpdatedDateHasBeenSet; }
+
+    /**
+     * <p>The date that the bot alias was updated. When you create a resource, the
+     * creation date and last updated date are the same.</p>
+     */
     inline void SetLastUpdatedDate(const Aws::Utils::DateTime& value) { m_lastUpdatedDateHasBeenSet = true; m_lastUpdatedDate = value; }
 
     /**
@@ -230,6 +258,11 @@ namespace Model
     /**
      * <p>The date that the bot alias was created.</p>
      */
+    inline bool CreatedDateHasBeenSet() const { return m_createdDateHasBeenSet; }
+
+    /**
+     * <p>The date that the bot alias was created.</p>
+     */
     inline void SetCreatedDate(const Aws::Utils::DateTime& value) { m_createdDateHasBeenSet = true; m_createdDate = value; }
 
     /**
@@ -252,6 +285,11 @@ namespace Model
      * <p>Checksum of the bot alias.</p>
      */
     inline const Aws::String& GetChecksum() const{ return m_checksum; }
+
+    /**
+     * <p>Checksum of the bot alias.</p>
+     */
+    inline bool ChecksumHasBeenSet() const { return m_checksumHasBeenSet; }
 
     /**
      * <p>Checksum of the bot alias.</p>
@@ -283,6 +321,43 @@ namespace Model
      */
     inline BotAliasMetadata& WithChecksum(const char* value) { SetChecksum(value); return *this;}
 
+
+    /**
+     * <p>Settings that determine how Amazon Lex uses conversation logs for the
+     * alias.</p>
+     */
+    inline const ConversationLogsResponse& GetConversationLogs() const{ return m_conversationLogs; }
+
+    /**
+     * <p>Settings that determine how Amazon Lex uses conversation logs for the
+     * alias.</p>
+     */
+    inline bool ConversationLogsHasBeenSet() const { return m_conversationLogsHasBeenSet; }
+
+    /**
+     * <p>Settings that determine how Amazon Lex uses conversation logs for the
+     * alias.</p>
+     */
+    inline void SetConversationLogs(const ConversationLogsResponse& value) { m_conversationLogsHasBeenSet = true; m_conversationLogs = value; }
+
+    /**
+     * <p>Settings that determine how Amazon Lex uses conversation logs for the
+     * alias.</p>
+     */
+    inline void SetConversationLogs(ConversationLogsResponse&& value) { m_conversationLogsHasBeenSet = true; m_conversationLogs = std::move(value); }
+
+    /**
+     * <p>Settings that determine how Amazon Lex uses conversation logs for the
+     * alias.</p>
+     */
+    inline BotAliasMetadata& WithConversationLogs(const ConversationLogsResponse& value) { SetConversationLogs(value); return *this;}
+
+    /**
+     * <p>Settings that determine how Amazon Lex uses conversation logs for the
+     * alias.</p>
+     */
+    inline BotAliasMetadata& WithConversationLogs(ConversationLogsResponse&& value) { SetConversationLogs(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_name;
@@ -305,6 +380,9 @@ namespace Model
 
     Aws::String m_checksum;
     bool m_checksumHasBeenSet;
+
+    ConversationLogsResponse m_conversationLogs;
+    bool m_conversationLogsHasBeenSet;
   };
 
 } // namespace Model

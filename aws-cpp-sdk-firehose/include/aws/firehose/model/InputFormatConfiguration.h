@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     InputFormatConfiguration();
-    InputFormatConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    InputFormatConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InputFormatConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    InputFormatConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * request.</p>
      */
     inline const Deserializer& GetDeserializer() const{ return m_deserializer; }
+
+    /**
+     * <p>Specifies which deserializer to use. You can choose either the Apache Hive
+     * JSON SerDe or the OpenX JSON SerDe. If both are non-null, the server rejects the
+     * request.</p>
+     */
+    inline bool DeserializerHasBeenSet() const { return m_deserializerHasBeenSet; }
 
     /**
      * <p>Specifies which deserializer to use. You can choose either the Apache Hive

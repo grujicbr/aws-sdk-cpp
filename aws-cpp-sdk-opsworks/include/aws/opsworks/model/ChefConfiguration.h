@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ChefConfiguration();
-    ChefConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    ChefConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ChefConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    ChefConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>Whether to enable Berkshelf.</p>
      */
     inline bool GetManageBerkshelf() const{ return m_manageBerkshelf; }
+
+    /**
+     * <p>Whether to enable Berkshelf.</p>
+     */
+    inline bool ManageBerkshelfHasBeenSet() const { return m_manageBerkshelfHasBeenSet; }
 
     /**
      * <p>Whether to enable Berkshelf.</p>
@@ -66,6 +72,11 @@ namespace Model
      * <p>The Berkshelf version.</p>
      */
     inline const Aws::String& GetBerkshelfVersion() const{ return m_berkshelfVersion; }
+
+    /**
+     * <p>The Berkshelf version.</p>
+     */
+    inline bool BerkshelfVersionHasBeenSet() const { return m_berkshelfVersionHasBeenSet; }
 
     /**
      * <p>The Berkshelf version.</p>

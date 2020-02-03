@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -41,43 +42,48 @@ namespace Model
   {
   public:
     DeleteReplicaAction();
-    DeleteReplicaAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeleteReplicaAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeleteReplicaAction(Aws::Utils::Json::JsonView jsonValue);
+    DeleteReplicaAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The region of the replica to be removed.</p>
+     * <p>The Region of the replica to be removed.</p>
      */
     inline const Aws::String& GetRegionName() const{ return m_regionName; }
 
     /**
-     * <p>The region of the replica to be removed.</p>
+     * <p>The Region of the replica to be removed.</p>
+     */
+    inline bool RegionNameHasBeenSet() const { return m_regionNameHasBeenSet; }
+
+    /**
+     * <p>The Region of the replica to be removed.</p>
      */
     inline void SetRegionName(const Aws::String& value) { m_regionNameHasBeenSet = true; m_regionName = value; }
 
     /**
-     * <p>The region of the replica to be removed.</p>
+     * <p>The Region of the replica to be removed.</p>
      */
     inline void SetRegionName(Aws::String&& value) { m_regionNameHasBeenSet = true; m_regionName = std::move(value); }
 
     /**
-     * <p>The region of the replica to be removed.</p>
+     * <p>The Region of the replica to be removed.</p>
      */
     inline void SetRegionName(const char* value) { m_regionNameHasBeenSet = true; m_regionName.assign(value); }
 
     /**
-     * <p>The region of the replica to be removed.</p>
+     * <p>The Region of the replica to be removed.</p>
      */
     inline DeleteReplicaAction& WithRegionName(const Aws::String& value) { SetRegionName(value); return *this;}
 
     /**
-     * <p>The region of the replica to be removed.</p>
+     * <p>The Region of the replica to be removed.</p>
      */
     inline DeleteReplicaAction& WithRegionName(Aws::String&& value) { SetRegionName(std::move(value)); return *this;}
 
     /**
-     * <p>The region of the replica to be removed.</p>
+     * <p>The Region of the replica to be removed.</p>
      */
     inline DeleteReplicaAction& WithRegionName(const char* value) { SetRegionName(value); return *this;}
 

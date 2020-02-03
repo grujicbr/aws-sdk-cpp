@@ -35,23 +35,25 @@ VolumeInfo::VolumeInfo() :
     m_gatewayIdHasBeenSet(false),
     m_volumeTypeHasBeenSet(false),
     m_volumeSizeInBytes(0),
-    m_volumeSizeInBytesHasBeenSet(false)
+    m_volumeSizeInBytesHasBeenSet(false),
+    m_volumeAttachmentStatusHasBeenSet(false)
 {
 }
 
-VolumeInfo::VolumeInfo(const JsonValue& jsonValue) : 
+VolumeInfo::VolumeInfo(JsonView jsonValue) : 
     m_volumeARNHasBeenSet(false),
     m_volumeIdHasBeenSet(false),
     m_gatewayARNHasBeenSet(false),
     m_gatewayIdHasBeenSet(false),
     m_volumeTypeHasBeenSet(false),
     m_volumeSizeInBytes(0),
-    m_volumeSizeInBytesHasBeenSet(false)
+    m_volumeSizeInBytesHasBeenSet(false),
+    m_volumeAttachmentStatusHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-VolumeInfo& VolumeInfo::operator =(const JsonValue& jsonValue)
+VolumeInfo& VolumeInfo::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("VolumeARN"))
   {
@@ -95,6 +97,13 @@ VolumeInfo& VolumeInfo::operator =(const JsonValue& jsonValue)
     m_volumeSizeInBytesHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("VolumeAttachmentStatus"))
+  {
+    m_volumeAttachmentStatus = jsonValue.GetString("VolumeAttachmentStatus");
+
+    m_volumeAttachmentStatusHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -135,6 +144,12 @@ JsonValue VolumeInfo::Jsonize() const
   if(m_volumeSizeInBytesHasBeenSet)
   {
    payload.WithInt64("VolumeSizeInBytes", m_volumeSizeInBytes);
+
+  }
+
+  if(m_volumeAttachmentStatusHasBeenSet)
+  {
+   payload.WithString("VolumeAttachmentStatus", m_volumeAttachmentStatus);
 
   }
 

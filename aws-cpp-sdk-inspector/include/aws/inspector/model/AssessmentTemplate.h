@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     AssessmentTemplate();
-    AssessmentTemplate(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssessmentTemplate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssessmentTemplate(Aws::Utils::Json::JsonView jsonValue);
+    AssessmentTemplate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The ARN of the assessment template.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The ARN of the assessment template.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The ARN of the assessment template.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>The name of the assessment template.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the assessment template.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -128,6 +139,12 @@ namespace Model
      * template.</p>
      */
     inline const Aws::String& GetAssessmentTargetArn() const{ return m_assessmentTargetArn; }
+
+    /**
+     * <p>The ARN of the assessment target that corresponds to this assessment
+     * template.</p>
+     */
+    inline bool AssessmentTargetArnHasBeenSet() const { return m_assessmentTargetArnHasBeenSet; }
 
     /**
      * <p>The ARN of the assessment target that corresponds to this assessment
@@ -178,6 +195,13 @@ namespace Model
      * value is 3600 seconds (one hour). The maximum value is 86400 seconds (one
      * day).</p>
      */
+    inline bool DurationInSecondsHasBeenSet() const { return m_durationInSecondsHasBeenSet; }
+
+    /**
+     * <p>The duration in seconds specified for this assessment template. The default
+     * value is 3600 seconds (one hour). The maximum value is 86400 seconds (one
+     * day).</p>
+     */
     inline void SetDurationInSeconds(int value) { m_durationInSecondsHasBeenSet = true; m_durationInSeconds = value; }
 
     /**
@@ -192,6 +216,11 @@ namespace Model
      * <p>The rules packages that are specified for this assessment template.</p>
      */
     inline const Aws::Vector<Aws::String>& GetRulesPackageArns() const{ return m_rulesPackageArns; }
+
+    /**
+     * <p>The rules packages that are specified for this assessment template.</p>
+     */
+    inline bool RulesPackageArnsHasBeenSet() const { return m_rulesPackageArnsHasBeenSet; }
 
     /**
      * <p>The rules packages that are specified for this assessment template.</p>
@@ -239,6 +268,12 @@ namespace Model
      * <p>The user-defined attributes that are assigned to every generated finding from
      * the assessment run that uses this assessment template.</p>
      */
+    inline bool UserAttributesForFindingsHasBeenSet() const { return m_userAttributesForFindingsHasBeenSet; }
+
+    /**
+     * <p>The user-defined attributes that are assigned to every generated finding from
+     * the assessment run that uses this assessment template.</p>
+     */
     inline void SetUserAttributesForFindings(const Aws::Vector<Attribute>& value) { m_userAttributesForFindingsHasBeenSet = true; m_userAttributesForFindings = value; }
 
     /**
@@ -278,6 +313,13 @@ namespace Model
      * assessmentRunCount is greaterpa than zero.</p>
      */
     inline const Aws::String& GetLastAssessmentRunArn() const{ return m_lastAssessmentRunArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the most recent assessment run associated
+     * with this assessment template. This value exists only when the value of
+     * assessmentRunCount is greaterpa than zero.</p>
+     */
+    inline bool LastAssessmentRunArnHasBeenSet() const { return m_lastAssessmentRunArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the most recent assessment run associated
@@ -332,6 +374,12 @@ namespace Model
      * <p>The number of existing assessment runs associated with this assessment
      * template. This value can be zero or a positive integer.</p>
      */
+    inline bool AssessmentRunCountHasBeenSet() const { return m_assessmentRunCountHasBeenSet; }
+
+    /**
+     * <p>The number of existing assessment runs associated with this assessment
+     * template. This value can be zero or a positive integer.</p>
+     */
     inline void SetAssessmentRunCount(int value) { m_assessmentRunCountHasBeenSet = true; m_assessmentRunCount = value; }
 
     /**
@@ -345,6 +393,11 @@ namespace Model
      * <p>The time at which the assessment template is created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedAt() const{ return m_createdAt; }
+
+    /**
+     * <p>The time at which the assessment template is created.</p>
+     */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
 
     /**
      * <p>The time at which the assessment template is created.</p>

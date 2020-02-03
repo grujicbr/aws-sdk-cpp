@@ -26,11 +26,14 @@ CreateIdentityPoolRequest::CreateIdentityPoolRequest() :
     m_identityPoolNameHasBeenSet(false),
     m_allowUnauthenticatedIdentities(false),
     m_allowUnauthenticatedIdentitiesHasBeenSet(false),
+    m_allowClassicFlow(false),
+    m_allowClassicFlowHasBeenSet(false),
     m_supportedLoginProvidersHasBeenSet(false),
     m_developerProviderNameHasBeenSet(false),
     m_openIdConnectProviderARNsHasBeenSet(false),
     m_cognitoIdentityProvidersHasBeenSet(false),
-    m_samlProviderARNsHasBeenSet(false)
+    m_samlProviderARNsHasBeenSet(false),
+    m_identityPoolTagsHasBeenSet(false)
 {
 }
 
@@ -47,6 +50,12 @@ Aws::String CreateIdentityPoolRequest::SerializePayload() const
   if(m_allowUnauthenticatedIdentitiesHasBeenSet)
   {
    payload.WithBool("AllowUnauthenticatedIdentities", m_allowUnauthenticatedIdentities);
+
+  }
+
+  if(m_allowClassicFlowHasBeenSet)
+  {
+   payload.WithBool("AllowClassicFlow", m_allowClassicFlow);
 
   }
 
@@ -100,7 +109,18 @@ Aws::String CreateIdentityPoolRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_identityPoolTagsHasBeenSet)
+  {
+   JsonValue identityPoolTagsJsonMap;
+   for(auto& identityPoolTagsItem : m_identityPoolTags)
+   {
+     identityPoolTagsJsonMap.WithString(identityPoolTagsItem.first, identityPoolTagsItem.second);
+   }
+   payload.WithObject("IdentityPoolTags", std::move(identityPoolTagsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateIdentityPoolRequest::GetRequestSpecificHeaders() const

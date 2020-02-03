@@ -56,7 +56,7 @@ ValidStorageOptions& ValidStorageOptions::operator =(const XmlNode& xmlNode)
     XmlNode storageTypeNode = resultNode.FirstChild("StorageType");
     if(!storageTypeNode.IsNull())
     {
-      m_storageType = StringUtils::Trim(storageTypeNode.GetText().c_str());
+      m_storageType = Aws::Utils::Xml::DecodeEscapedXmlText(storageTypeNode.GetText());
       m_storageTypeHasBeenSet = true;
     }
     XmlNode storageSizeNode = resultNode.FirstChild("StorageSize");

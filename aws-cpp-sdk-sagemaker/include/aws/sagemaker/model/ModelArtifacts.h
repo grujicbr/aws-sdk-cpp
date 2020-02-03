@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ModelArtifacts();
-    ModelArtifacts(const Aws::Utils::Json::JsonValue& jsonValue);
-    ModelArtifacts& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ModelArtifacts(Aws::Utils::Json::JsonView jsonValue);
+    ModelArtifacts& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * <code>s3://bucket-name/keynameprefix/model.tar.gz</code>.</p>
      */
     inline const Aws::String& GetS3ModelArtifacts() const{ return m_s3ModelArtifacts; }
+
+    /**
+     * <p>The path of the S3 object that contains the model artifacts. For example,
+     * <code>s3://bucket-name/keynameprefix/model.tar.gz</code>.</p>
+     */
+    inline bool S3ModelArtifactsHasBeenSet() const { return m_s3ModelArtifactsHasBeenSet; }
 
     /**
      * <p>The path of the S3 object that contains the model artifacts. For example,

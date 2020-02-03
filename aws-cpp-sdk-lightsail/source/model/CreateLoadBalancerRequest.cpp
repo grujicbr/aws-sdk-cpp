@@ -29,7 +29,8 @@ CreateLoadBalancerRequest::CreateLoadBalancerRequest() :
     m_healthCheckPathHasBeenSet(false),
     m_certificateNameHasBeenSet(false),
     m_certificateDomainNameHasBeenSet(false),
-    m_certificateAlternativeNamesHasBeenSet(false)
+    m_certificateAlternativeNamesHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -78,7 +79,18 @@ Aws::String CreateLoadBalancerRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateLoadBalancerRequest::GetRequestSpecificHeaders() const

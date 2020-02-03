@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 GenerateClientCertificateRequest::GenerateClientCertificateRequest() : 
-    m_descriptionHasBeenSet(false)
+    m_descriptionHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -37,7 +38,18 @@ Aws::String GenerateClientCertificateRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

@@ -45,11 +45,13 @@ Table::Table() :
     m_viewExpandedTextHasBeenSet(false),
     m_tableTypeHasBeenSet(false),
     m_parametersHasBeenSet(false),
-    m_createdByHasBeenSet(false)
+    m_createdByHasBeenSet(false),
+    m_isRegisteredWithLakeFormation(false),
+    m_isRegisteredWithLakeFormationHasBeenSet(false)
 {
 }
 
-Table::Table(const JsonValue& jsonValue) : 
+Table::Table(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_databaseNameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
@@ -66,12 +68,14 @@ Table::Table(const JsonValue& jsonValue) :
     m_viewExpandedTextHasBeenSet(false),
     m_tableTypeHasBeenSet(false),
     m_parametersHasBeenSet(false),
-    m_createdByHasBeenSet(false)
+    m_createdByHasBeenSet(false),
+    m_isRegisteredWithLakeFormation(false),
+    m_isRegisteredWithLakeFormationHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Table& Table::operator =(const JsonValue& jsonValue)
+Table& Table::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -145,7 +149,7 @@ Table& Table::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("PartitionKeys"))
   {
-    Array<JsonValue> partitionKeysJsonList = jsonValue.GetArray("PartitionKeys");
+    Array<JsonView> partitionKeysJsonList = jsonValue.GetArray("PartitionKeys");
     for(unsigned partitionKeysIndex = 0; partitionKeysIndex < partitionKeysJsonList.GetLength(); ++partitionKeysIndex)
     {
       m_partitionKeys.push_back(partitionKeysJsonList[partitionKeysIndex].AsObject());
@@ -176,7 +180,7 @@ Table& Table::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Parameters"))
   {
-    Aws::Map<Aws::String, JsonValue> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> parametersJsonMap = jsonValue.GetObject("Parameters").GetAllObjects();
     for(auto& parametersItem : parametersJsonMap)
     {
       m_parameters[parametersItem.first] = parametersItem.second.AsString();
@@ -189,6 +193,13 @@ Table& Table::operator =(const JsonValue& jsonValue)
     m_createdBy = jsonValue.GetString("CreatedBy");
 
     m_createdByHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("IsRegisteredWithLakeFormation"))
+  {
+    m_isRegisteredWithLakeFormation = jsonValue.GetBool("IsRegisteredWithLakeFormation");
+
+    m_isRegisteredWithLakeFormationHasBeenSet = true;
   }
 
   return *this;
@@ -297,6 +308,12 @@ JsonValue Table::Jsonize() const
   if(m_createdByHasBeenSet)
   {
    payload.WithString("CreatedBy", m_createdBy);
+
+  }
+
+  if(m_isRegisteredWithLakeFormationHasBeenSet)
+  {
+   payload.WithBool("IsRegisteredWithLakeFormation", m_isRegisteredWithLakeFormation);
 
   }
 

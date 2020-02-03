@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ParameterConstraints();
-    ParameterConstraints(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParameterConstraints& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParameterConstraints(Aws::Utils::Json::JsonView jsonValue);
+    ParameterConstraints& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The values that the administrator has allowed for the parameter.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAllowedValues() const{ return m_allowedValues; }
+
+    /**
+     * <p>The values that the administrator has allowed for the parameter.</p>
+     */
+    inline bool AllowedValuesHasBeenSet() const { return m_allowedValuesHasBeenSet; }
 
     /**
      * <p>The values that the administrator has allowed for the parameter.</p>

@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     StopFleetActionsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,37 +47,50 @@ namespace Model
 
 
     /**
-     * <p>Unique identifier for a fleet</p>
+     * <p>A unique identifier for a fleet to stop actions on. You can use either the
+     * fleet ID or ARN value.</p>
      */
     inline const Aws::String& GetFleetId() const{ return m_fleetId; }
 
     /**
-     * <p>Unique identifier for a fleet</p>
+     * <p>A unique identifier for a fleet to stop actions on. You can use either the
+     * fleet ID or ARN value.</p>
+     */
+    inline bool FleetIdHasBeenSet() const { return m_fleetIdHasBeenSet; }
+
+    /**
+     * <p>A unique identifier for a fleet to stop actions on. You can use either the
+     * fleet ID or ARN value.</p>
      */
     inline void SetFleetId(const Aws::String& value) { m_fleetIdHasBeenSet = true; m_fleetId = value; }
 
     /**
-     * <p>Unique identifier for a fleet</p>
+     * <p>A unique identifier for a fleet to stop actions on. You can use either the
+     * fleet ID or ARN value.</p>
      */
     inline void SetFleetId(Aws::String&& value) { m_fleetIdHasBeenSet = true; m_fleetId = std::move(value); }
 
     /**
-     * <p>Unique identifier for a fleet</p>
+     * <p>A unique identifier for a fleet to stop actions on. You can use either the
+     * fleet ID or ARN value.</p>
      */
     inline void SetFleetId(const char* value) { m_fleetIdHasBeenSet = true; m_fleetId.assign(value); }
 
     /**
-     * <p>Unique identifier for a fleet</p>
+     * <p>A unique identifier for a fleet to stop actions on. You can use either the
+     * fleet ID or ARN value.</p>
      */
     inline StopFleetActionsRequest& WithFleetId(const Aws::String& value) { SetFleetId(value); return *this;}
 
     /**
-     * <p>Unique identifier for a fleet</p>
+     * <p>A unique identifier for a fleet to stop actions on. You can use either the
+     * fleet ID or ARN value.</p>
      */
     inline StopFleetActionsRequest& WithFleetId(Aws::String&& value) { SetFleetId(std::move(value)); return *this;}
 
     /**
-     * <p>Unique identifier for a fleet</p>
+     * <p>A unique identifier for a fleet to stop actions on. You can use either the
+     * fleet ID or ARN value.</p>
      */
     inline StopFleetActionsRequest& WithFleetId(const char* value) { SetFleetId(value); return *this;}
 
@@ -86,6 +99,11 @@ namespace Model
      * <p>List of actions to suspend on the fleet. </p>
      */
     inline const Aws::Vector<FleetAction>& GetActions() const{ return m_actions; }
+
+    /**
+     * <p>List of actions to suspend on the fleet. </p>
+     */
+    inline bool ActionsHasBeenSet() const { return m_actionsHasBeenSet; }
 
     /**
      * <p>List of actions to suspend on the fleet. </p>

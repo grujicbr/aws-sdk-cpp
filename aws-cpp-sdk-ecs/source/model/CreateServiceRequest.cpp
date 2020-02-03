@@ -33,6 +33,7 @@ CreateServiceRequest::CreateServiceRequest() :
     m_clientTokenHasBeenSet(false),
     m_launchType(LaunchType::NOT_SET),
     m_launchTypeHasBeenSet(false),
+    m_capacityProviderStrategyHasBeenSet(false),
     m_platformVersionHasBeenSet(false),
     m_roleHasBeenSet(false),
     m_deploymentConfigurationHasBeenSet(false),
@@ -42,7 +43,13 @@ CreateServiceRequest::CreateServiceRequest() :
     m_healthCheckGracePeriodSeconds(0),
     m_healthCheckGracePeriodSecondsHasBeenSet(false),
     m_schedulingStrategy(SchedulingStrategy::NOT_SET),
-    m_schedulingStrategyHasBeenSet(false)
+    m_schedulingStrategyHasBeenSet(false),
+    m_deploymentControllerHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_enableECSManagedTags(false),
+    m_enableECSManagedTagsHasBeenSet(false),
+    m_propagateTags(PropagateTags::NOT_SET),
+    m_propagateTagsHasBeenSet(false)
 {
 }
 
@@ -107,6 +114,17 @@ Aws::String CreateServiceRequest::SerializePayload() const
    payload.WithString("launchType", LaunchTypeMapper::GetNameForLaunchType(m_launchType));
   }
 
+  if(m_capacityProviderStrategyHasBeenSet)
+  {
+   Array<JsonValue> capacityProviderStrategyJsonList(m_capacityProviderStrategy.size());
+   for(unsigned capacityProviderStrategyIndex = 0; capacityProviderStrategyIndex < capacityProviderStrategyJsonList.GetLength(); ++capacityProviderStrategyIndex)
+   {
+     capacityProviderStrategyJsonList[capacityProviderStrategyIndex].AsObject(m_capacityProviderStrategy[capacityProviderStrategyIndex].Jsonize());
+   }
+   payload.WithArray("capacityProviderStrategy", std::move(capacityProviderStrategyJsonList));
+
+  }
+
   if(m_platformVersionHasBeenSet)
   {
    payload.WithString("platformVersion", m_platformVersion);
@@ -164,7 +182,35 @@ Aws::String CreateServiceRequest::SerializePayload() const
    payload.WithString("schedulingStrategy", SchedulingStrategyMapper::GetNameForSchedulingStrategy(m_schedulingStrategy));
   }
 
-  return payload.WriteReadable();
+  if(m_deploymentControllerHasBeenSet)
+  {
+   payload.WithObject("deploymentController", m_deploymentController.Jsonize());
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_enableECSManagedTagsHasBeenSet)
+  {
+   payload.WithBool("enableECSManagedTags", m_enableECSManagedTags);
+
+  }
+
+  if(m_propagateTagsHasBeenSet)
+  {
+   payload.WithString("propagateTags", PropagateTagsMapper::GetNameForPropagateTags(m_propagateTags));
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateServiceRequest::GetRequestSpecificHeaders() const

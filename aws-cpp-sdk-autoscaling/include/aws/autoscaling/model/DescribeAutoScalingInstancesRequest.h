@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     DescribeAutoScalingInstancesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,77 +48,90 @@ namespace Model
   public:
 
     /**
-     * <p>The instances to describe; up to 50 instance IDs. If you omit this parameter,
-     * all Auto Scaling instances are described. If you specify an ID that does not
-     * exist, it is ignored with no error.</p>
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
      */
     inline const Aws::Vector<Aws::String>& GetInstanceIds() const{ return m_instanceIds; }
 
     /**
-     * <p>The instances to describe; up to 50 instance IDs. If you omit this parameter,
-     * all Auto Scaling instances are described. If you specify an ID that does not
-     * exist, it is ignored with no error.</p>
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
+     */
+    inline bool InstanceIdsHasBeenSet() const { return m_instanceIdsHasBeenSet; }
+
+    /**
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
      */
     inline void SetInstanceIds(const Aws::Vector<Aws::String>& value) { m_instanceIdsHasBeenSet = true; m_instanceIds = value; }
 
     /**
-     * <p>The instances to describe; up to 50 instance IDs. If you omit this parameter,
-     * all Auto Scaling instances are described. If you specify an ID that does not
-     * exist, it is ignored with no error.</p>
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
      */
     inline void SetInstanceIds(Aws::Vector<Aws::String>&& value) { m_instanceIdsHasBeenSet = true; m_instanceIds = std::move(value); }
 
     /**
-     * <p>The instances to describe; up to 50 instance IDs. If you omit this parameter,
-     * all Auto Scaling instances are described. If you specify an ID that does not
-     * exist, it is ignored with no error.</p>
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
      */
     inline DescribeAutoScalingInstancesRequest& WithInstanceIds(const Aws::Vector<Aws::String>& value) { SetInstanceIds(value); return *this;}
 
     /**
-     * <p>The instances to describe; up to 50 instance IDs. If you omit this parameter,
-     * all Auto Scaling instances are described. If you specify an ID that does not
-     * exist, it is ignored with no error.</p>
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
      */
     inline DescribeAutoScalingInstancesRequest& WithInstanceIds(Aws::Vector<Aws::String>&& value) { SetInstanceIds(std::move(value)); return *this;}
 
     /**
-     * <p>The instances to describe; up to 50 instance IDs. If you omit this parameter,
-     * all Auto Scaling instances are described. If you specify an ID that does not
-     * exist, it is ignored with no error.</p>
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
      */
     inline DescribeAutoScalingInstancesRequest& AddInstanceIds(const Aws::String& value) { m_instanceIdsHasBeenSet = true; m_instanceIds.push_back(value); return *this; }
 
     /**
-     * <p>The instances to describe; up to 50 instance IDs. If you omit this parameter,
-     * all Auto Scaling instances are described. If you specify an ID that does not
-     * exist, it is ignored with no error.</p>
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
      */
     inline DescribeAutoScalingInstancesRequest& AddInstanceIds(Aws::String&& value) { m_instanceIdsHasBeenSet = true; m_instanceIds.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>The instances to describe; up to 50 instance IDs. If you omit this parameter,
-     * all Auto Scaling instances are described. If you specify an ID that does not
-     * exist, it is ignored with no error.</p>
+     * <p>The IDs of the instances. You can specify up to <code>MaxRecords</code> IDs.
+     * If you omit this parameter, all Auto Scaling instances are described. If you
+     * specify an ID that does not exist, it is ignored with no error.</p>
      */
     inline DescribeAutoScalingInstancesRequest& AddInstanceIds(const char* value) { m_instanceIdsHasBeenSet = true; m_instanceIds.push_back(value); return *this; }
 
 
     /**
-     * <p>The maximum number of items to return with this call. The default value is 50
-     * and the maximum value is 50.</p>
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>50</code> and the maximum value is <code>50</code>.</p>
      */
     inline int GetMaxRecords() const{ return m_maxRecords; }
 
     /**
-     * <p>The maximum number of items to return with this call. The default value is 50
-     * and the maximum value is 50.</p>
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>50</code> and the maximum value is <code>50</code>.</p>
+     */
+    inline bool MaxRecordsHasBeenSet() const { return m_maxRecordsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>50</code> and the maximum value is <code>50</code>.</p>
      */
     inline void SetMaxRecords(int value) { m_maxRecordsHasBeenSet = true; m_maxRecords = value; }
 
     /**
-     * <p>The maximum number of items to return with this call. The default value is 50
-     * and the maximum value is 50.</p>
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>50</code> and the maximum value is <code>50</code>.</p>
      */
     inline DescribeAutoScalingInstancesRequest& WithMaxRecords(int value) { SetMaxRecords(value); return *this;}
 
@@ -128,6 +141,12 @@ namespace Model
      * a previous call.)</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The token for the next set of items to return. (You received this token from
+     * a previous call.)</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The token for the next set of items to return. (You received this token from

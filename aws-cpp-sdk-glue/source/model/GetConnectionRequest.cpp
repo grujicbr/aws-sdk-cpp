@@ -24,7 +24,9 @@ using namespace Aws::Utils;
 
 GetConnectionRequest::GetConnectionRequest() : 
     m_catalogIdHasBeenSet(false),
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_hidePassword(false),
+    m_hidePasswordHasBeenSet(false)
 {
 }
 
@@ -44,7 +46,13 @@ Aws::String GetConnectionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_hidePasswordHasBeenSet)
+  {
+   payload.WithBool("HidePassword", m_hidePassword);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection GetConnectionRequest::GetRequestSpecificHeaders() const

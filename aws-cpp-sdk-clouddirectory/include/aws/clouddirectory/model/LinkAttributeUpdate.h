@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     LinkAttributeUpdate();
-    LinkAttributeUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    LinkAttributeUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LinkAttributeUpdate(Aws::Utils::Json::JsonView jsonValue);
+    LinkAttributeUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The key of the attribute being updated.</p>
      */
     inline const AttributeKey& GetAttributeKey() const{ return m_attributeKey; }
+
+    /**
+     * <p>The key of the attribute being updated.</p>
+     */
+    inline bool AttributeKeyHasBeenSet() const { return m_attributeKeyHasBeenSet; }
 
     /**
      * <p>The key of the attribute being updated.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The action to perform as part of the attribute update.</p>
      */
     inline const LinkAttributeAction& GetAttributeAction() const{ return m_attributeAction; }
+
+    /**
+     * <p>The action to perform as part of the attribute update.</p>
+     */
+    inline bool AttributeActionHasBeenSet() const { return m_attributeActionHasBeenSet; }
 
     /**
      * <p>The action to perform as part of the attribute update.</p>

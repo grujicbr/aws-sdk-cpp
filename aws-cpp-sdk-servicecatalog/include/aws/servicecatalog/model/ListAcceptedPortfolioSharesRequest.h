@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     ListAcceptedPortfolioSharesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +51,13 @@ namespace Model
      * Chinese</p> </li> </ul>
      */
     inline const Aws::String& GetAcceptLanguage() const{ return m_acceptLanguage; }
+
+    /**
+     * <p>The language code.</p> <ul> <li> <p> <code>en</code> - English (default)</p>
+     * </li> <li> <p> <code>jp</code> - Japanese</p> </li> <li> <p> <code>zh</code> -
+     * Chinese</p> </li> </ul>
+     */
+    inline bool AcceptLanguageHasBeenSet() const { return m_acceptLanguageHasBeenSet; }
 
     /**
      * <p>The language code.</p> <ul> <li> <p> <code>en</code> - English (default)</p>
@@ -105,6 +112,12 @@ namespace Model
      * <p>The page token for the next set of results. To retrieve the first set of
      * results, use null.</p>
      */
+    inline bool PageTokenHasBeenSet() const { return m_pageTokenHasBeenSet; }
+
+    /**
+     * <p>The page token for the next set of results. To retrieve the first set of
+     * results, use null.</p>
+     */
     inline void SetPageToken(const Aws::String& value) { m_pageTokenHasBeenSet = true; m_pageToken = value; }
 
     /**
@@ -146,6 +159,11 @@ namespace Model
     /**
      * <p>The maximum number of items to return with this call.</p>
      */
+    inline bool PageSizeHasBeenSet() const { return m_pageSizeHasBeenSet; }
+
+    /**
+     * <p>The maximum number of items to return with this call.</p>
+     */
     inline void SetPageSize(int value) { m_pageSizeHasBeenSet = true; m_pageSize = value; }
 
     /**
@@ -156,41 +174,55 @@ namespace Model
 
     /**
      * <p>The type of shared portfolios to list. The default is to list imported
-     * portfolios.</p> <ul> <li> <p> <code>AWS_SERVICECATALOG</code> - List default
-     * portfolios</p> </li> <li> <p> <code>IMPORTED</code> - List imported
-     * portfolios</p> </li> </ul>
+     * portfolios.</p> <ul> <li> <p> <code>AWS_ORGANIZATIONS</code> - List portfolios
+     * shared by the master account of your organization</p> </li> <li> <p>
+     * <code>AWS_SERVICECATALOG</code> - List default portfolios</p> </li> <li> <p>
+     * <code>IMPORTED</code> - List imported portfolios</p> </li> </ul>
      */
     inline const PortfolioShareType& GetPortfolioShareType() const{ return m_portfolioShareType; }
 
     /**
      * <p>The type of shared portfolios to list. The default is to list imported
-     * portfolios.</p> <ul> <li> <p> <code>AWS_SERVICECATALOG</code> - List default
-     * portfolios</p> </li> <li> <p> <code>IMPORTED</code> - List imported
-     * portfolios</p> </li> </ul>
+     * portfolios.</p> <ul> <li> <p> <code>AWS_ORGANIZATIONS</code> - List portfolios
+     * shared by the master account of your organization</p> </li> <li> <p>
+     * <code>AWS_SERVICECATALOG</code> - List default portfolios</p> </li> <li> <p>
+     * <code>IMPORTED</code> - List imported portfolios</p> </li> </ul>
+     */
+    inline bool PortfolioShareTypeHasBeenSet() const { return m_portfolioShareTypeHasBeenSet; }
+
+    /**
+     * <p>The type of shared portfolios to list. The default is to list imported
+     * portfolios.</p> <ul> <li> <p> <code>AWS_ORGANIZATIONS</code> - List portfolios
+     * shared by the master account of your organization</p> </li> <li> <p>
+     * <code>AWS_SERVICECATALOG</code> - List default portfolios</p> </li> <li> <p>
+     * <code>IMPORTED</code> - List imported portfolios</p> </li> </ul>
      */
     inline void SetPortfolioShareType(const PortfolioShareType& value) { m_portfolioShareTypeHasBeenSet = true; m_portfolioShareType = value; }
 
     /**
      * <p>The type of shared portfolios to list. The default is to list imported
-     * portfolios.</p> <ul> <li> <p> <code>AWS_SERVICECATALOG</code> - List default
-     * portfolios</p> </li> <li> <p> <code>IMPORTED</code> - List imported
-     * portfolios</p> </li> </ul>
+     * portfolios.</p> <ul> <li> <p> <code>AWS_ORGANIZATIONS</code> - List portfolios
+     * shared by the master account of your organization</p> </li> <li> <p>
+     * <code>AWS_SERVICECATALOG</code> - List default portfolios</p> </li> <li> <p>
+     * <code>IMPORTED</code> - List imported portfolios</p> </li> </ul>
      */
     inline void SetPortfolioShareType(PortfolioShareType&& value) { m_portfolioShareTypeHasBeenSet = true; m_portfolioShareType = std::move(value); }
 
     /**
      * <p>The type of shared portfolios to list. The default is to list imported
-     * portfolios.</p> <ul> <li> <p> <code>AWS_SERVICECATALOG</code> - List default
-     * portfolios</p> </li> <li> <p> <code>IMPORTED</code> - List imported
-     * portfolios</p> </li> </ul>
+     * portfolios.</p> <ul> <li> <p> <code>AWS_ORGANIZATIONS</code> - List portfolios
+     * shared by the master account of your organization</p> </li> <li> <p>
+     * <code>AWS_SERVICECATALOG</code> - List default portfolios</p> </li> <li> <p>
+     * <code>IMPORTED</code> - List imported portfolios</p> </li> </ul>
      */
     inline ListAcceptedPortfolioSharesRequest& WithPortfolioShareType(const PortfolioShareType& value) { SetPortfolioShareType(value); return *this;}
 
     /**
      * <p>The type of shared portfolios to list. The default is to list imported
-     * portfolios.</p> <ul> <li> <p> <code>AWS_SERVICECATALOG</code> - List default
-     * portfolios</p> </li> <li> <p> <code>IMPORTED</code> - List imported
-     * portfolios</p> </li> </ul>
+     * portfolios.</p> <ul> <li> <p> <code>AWS_ORGANIZATIONS</code> - List portfolios
+     * shared by the master account of your organization</p> </li> <li> <p>
+     * <code>AWS_SERVICECATALOG</code> - List default portfolios</p> </li> <li> <p>
+     * <code>IMPORTED</code> - List imported portfolios</p> </li> </ul>
      */
     inline ListAcceptedPortfolioSharesRequest& WithPortfolioShareType(PortfolioShareType&& value) { SetPortfolioShareType(std::move(value)); return *this;}
 

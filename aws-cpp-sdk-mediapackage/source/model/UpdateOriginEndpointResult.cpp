@@ -27,12 +27,14 @@ using namespace Aws::Utils;
 using namespace Aws;
 
 UpdateOriginEndpointResult::UpdateOriginEndpointResult() : 
+    m_origination(Origination::NOT_SET),
     m_startoverWindowSeconds(0),
     m_timeDelaySeconds(0)
 {
 }
 
 UpdateOriginEndpointResult::UpdateOriginEndpointResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_origination(Origination::NOT_SET),
     m_startoverWindowSeconds(0),
     m_timeDelaySeconds(0)
 {
@@ -41,10 +43,16 @@ UpdateOriginEndpointResult::UpdateOriginEndpointResult(const Aws::AmazonWebServi
 
 UpdateOriginEndpointResult& UpdateOriginEndpointResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("arn"))
   {
     m_arn = jsonValue.GetString("arn");
+
+  }
+
+  if(jsonValue.ValueExists("authorization"))
+  {
+    m_authorization = jsonValue.GetObject("authorization");
 
   }
 
@@ -96,10 +104,25 @@ UpdateOriginEndpointResult& UpdateOriginEndpointResult::operator =(const Aws::Am
 
   }
 
+  if(jsonValue.ValueExists("origination"))
+  {
+    m_origination = OriginationMapper::GetOriginationForName(jsonValue.GetString("origination"));
+
+  }
+
   if(jsonValue.ValueExists("startoverWindowSeconds"))
   {
     m_startoverWindowSeconds = jsonValue.GetInteger("startoverWindowSeconds");
 
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
   }
 
   if(jsonValue.ValueExists("timeDelaySeconds"))
@@ -116,7 +139,7 @@ UpdateOriginEndpointResult& UpdateOriginEndpointResult::operator =(const Aws::Am
 
   if(jsonValue.ValueExists("whitelist"))
   {
-    Array<JsonValue> whitelistJsonList = jsonValue.GetArray("whitelist");
+    Array<JsonView> whitelistJsonList = jsonValue.GetArray("whitelist");
     for(unsigned whitelistIndex = 0; whitelistIndex < whitelistJsonList.GetLength(); ++whitelistIndex)
     {
       m_whitelist.push_back(whitelistJsonList[whitelistIndex].AsString());

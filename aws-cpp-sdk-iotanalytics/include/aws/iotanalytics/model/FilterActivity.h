@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     FilterActivity();
-    FilterActivity(const Aws::Utils::Json::JsonValue& jsonValue);
-    FilterActivity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FilterActivity(Aws::Utils::Json::JsonView jsonValue);
+    FilterActivity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the 'filter' activity.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the 'filter' activity.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the 'filter' activity.</p>
@@ -84,43 +90,49 @@ namespace Model
 
 
     /**
-     * <p>An expression that looks like an SQL WHERE clause that must return a Boolean
+     * <p>An expression that looks like a SQL WHERE clause that must return a Boolean
      * value.</p>
      */
     inline const Aws::String& GetFilter() const{ return m_filter; }
 
     /**
-     * <p>An expression that looks like an SQL WHERE clause that must return a Boolean
+     * <p>An expression that looks like a SQL WHERE clause that must return a Boolean
+     * value.</p>
+     */
+    inline bool FilterHasBeenSet() const { return m_filterHasBeenSet; }
+
+    /**
+     * <p>An expression that looks like a SQL WHERE clause that must return a Boolean
      * value.</p>
      */
     inline void SetFilter(const Aws::String& value) { m_filterHasBeenSet = true; m_filter = value; }
 
     /**
-     * <p>An expression that looks like an SQL WHERE clause that must return a Boolean
+     * <p>An expression that looks like a SQL WHERE clause that must return a Boolean
      * value.</p>
      */
     inline void SetFilter(Aws::String&& value) { m_filterHasBeenSet = true; m_filter = std::move(value); }
 
     /**
-     * <p>An expression that looks like an SQL WHERE clause that must return a Boolean
+     * <p>An expression that looks like a SQL WHERE clause that must return a Boolean
      * value.</p>
      */
     inline void SetFilter(const char* value) { m_filterHasBeenSet = true; m_filter.assign(value); }
 
     /**
-     * <p>An expression that looks like an SQL WHERE clause that must return a Boolean
+     * <p>An expression that looks like a SQL WHERE clause that must return a Boolean
      * value.</p>
      */
     inline FilterActivity& WithFilter(const Aws::String& value) { SetFilter(value); return *this;}
 
     /**
-     * <p>An expression that looks like an SQL WHERE clause that must return a Boolean
+     * <p>An expression that looks like a SQL WHERE clause that must return a Boolean
      * value.</p>
      */
     inline FilterActivity& WithFilter(Aws::String&& value) { SetFilter(std::move(value)); return *this;}
 
     /**
-     * <p>An expression that looks like an SQL WHERE clause that must return a Boolean
+     * <p>An expression that looks like a SQL WHERE clause that must return a Boolean
      * value.</p>
      */
     inline FilterActivity& WithFilter(const char* value) { SetFilter(value); return *this;}
@@ -130,6 +142,11 @@ namespace Model
      * <p>The next activity in the pipeline.</p>
      */
     inline const Aws::String& GetNext() const{ return m_next; }
+
+    /**
+     * <p>The next activity in the pipeline.</p>
+     */
+    inline bool NextHasBeenSet() const { return m_nextHasBeenSet; }
 
     /**
      * <p>The next activity in the pipeline.</p>

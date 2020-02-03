@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BatchListIncomingTypedLinksResponse();
-    BatchListIncomingTypedLinksResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchListIncomingTypedLinksResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchListIncomingTypedLinksResponse(Aws::Utils::Json::JsonView jsonValue);
+    BatchListIncomingTypedLinksResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Returns one or more typed link specifiers as output.</p>
      */
     inline const Aws::Vector<TypedLinkSpecifier>& GetLinkSpecifiers() const{ return m_linkSpecifiers; }
+
+    /**
+     * <p>Returns one or more typed link specifiers as output.</p>
+     */
+    inline bool LinkSpecifiersHasBeenSet() const { return m_linkSpecifiersHasBeenSet; }
 
     /**
      * <p>Returns one or more typed link specifiers as output.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The pagination token.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The pagination token.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The pagination token.</p>

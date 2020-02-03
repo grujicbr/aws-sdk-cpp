@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ParameterGroupStatus();
-    ParameterGroupStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    ParameterGroupStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ParameterGroupStatus(Aws::Utils::Json::JsonView jsonValue);
+    ParameterGroupStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the parameter group.</p>
      */
     inline const Aws::String& GetParameterGroupName() const{ return m_parameterGroupName; }
+
+    /**
+     * <p>The name of the parameter group.</p>
+     */
+    inline bool ParameterGroupNameHasBeenSet() const { return m_parameterGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the parameter group.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The status of parameter updates. </p>
      */
+    inline bool ParameterApplyStatusHasBeenSet() const { return m_parameterApplyStatusHasBeenSet; }
+
+    /**
+     * <p>The status of parameter updates. </p>
+     */
     inline void SetParameterApplyStatus(const Aws::String& value) { m_parameterApplyStatusHasBeenSet = true; m_parameterApplyStatus = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The node IDs of one or more nodes to be rebooted.</p>
      */
     inline const Aws::Vector<Aws::String>& GetNodeIdsToReboot() const{ return m_nodeIdsToReboot; }
+
+    /**
+     * <p>The node IDs of one or more nodes to be rebooted.</p>
+     */
+    inline bool NodeIdsToRebootHasBeenSet() const { return m_nodeIdsToRebootHasBeenSet; }
 
     /**
      * <p>The node IDs of one or more nodes to be rebooted.</p>

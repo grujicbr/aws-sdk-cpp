@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     TimedMetadataInsertion();
-    TimedMetadataInsertion(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimedMetadataInsertion& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimedMetadataInsertion(Aws::Utils::Json::JsonView jsonValue);
+    TimedMetadataInsertion& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * Id3Insertions contains the array of Id3Insertion instances.
      */
     inline const Aws::Vector<Id3Insertion>& GetId3Insertions() const{ return m_id3Insertions; }
+
+    /**
+     * Id3Insertions contains the array of Id3Insertion instances.
+     */
+    inline bool Id3InsertionsHasBeenSet() const { return m_id3InsertionsHasBeenSet; }
 
     /**
      * Id3Insertions contains the array of Id3Insertion instances.

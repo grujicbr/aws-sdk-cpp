@@ -42,19 +42,44 @@ namespace Model
     GetBucketLocationResult& operator=(const Aws::AmazonWebServiceResult<Aws::Utils::Xml::XmlDocument>& result);
 
 
-    
+    /**
+     * <p>Specifies the Region where the bucket resides. For a list of all the Amazon
+     * S3 supported location constraints by Region, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">Regions
+     * and Endpoints</a>.</p>
+     */
     inline const BucketLocationConstraint& GetLocationConstraint() const{ return m_locationConstraint; }
 
-    
+    /**
+     * <p>Specifies the Region where the bucket resides. For a list of all the Amazon
+     * S3 supported location constraints by Region, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">Regions
+     * and Endpoints</a>.</p>
+     */
     inline void SetLocationConstraint(const BucketLocationConstraint& value) { m_locationConstraint = value; }
 
-    
+    /**
+     * <p>Specifies the Region where the bucket resides. For a list of all the Amazon
+     * S3 supported location constraints by Region, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">Regions
+     * and Endpoints</a>.</p>
+     */
     inline void SetLocationConstraint(BucketLocationConstraint&& value) { m_locationConstraint = std::move(value); }
 
-    
+    /**
+     * <p>Specifies the Region where the bucket resides. For a list of all the Amazon
+     * S3 supported location constraints by Region, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">Regions
+     * and Endpoints</a>.</p>
+     */
     inline GetBucketLocationResult& WithLocationConstraint(const BucketLocationConstraint& value) { SetLocationConstraint(value); return *this;}
 
-    
+    /**
+     * <p>Specifies the Region where the bucket resides. For a list of all the Amazon
+     * S3 supported location constraints by Region, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">Regions
+     * and Endpoints</a>.</p>
+     */
     inline GetBucketLocationResult& WithLocationConstraint(BucketLocationConstraint&& value) { SetLocationConstraint(std::move(value)); return *this;}
 
   private:

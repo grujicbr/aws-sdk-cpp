@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     Service();
-    Service(const Aws::Utils::Json::JsonValue& jsonValue);
-    Service& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Service(Aws::Utils::Json::JsonView jsonValue);
+    Service& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>Identifier for the service. Unique within the service map.</p>
      */
     inline int GetReferenceId() const{ return m_referenceId; }
+
+    /**
+     * <p>Identifier for the service. Unique within the service map.</p>
+     */
+    inline bool ReferenceIdHasBeenSet() const { return m_referenceIdHasBeenSet; }
 
     /**
      * <p>Identifier for the service. Unique within the service map.</p>
@@ -73,6 +79,11 @@ namespace Model
      * <p>The canonical name of the service.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The canonical name of the service.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The canonical name of the service.</p>
@@ -109,6 +120,11 @@ namespace Model
      * <p>A list of names for the service, including the canonical name.</p>
      */
     inline const Aws::Vector<Aws::String>& GetNames() const{ return m_names; }
+
+    /**
+     * <p>A list of names for the service, including the canonical name.</p>
+     */
+    inline bool NamesHasBeenSet() const { return m_namesHasBeenSet; }
 
     /**
      * <p>A list of names for the service, including the canonical name.</p>
@@ -154,6 +170,11 @@ namespace Model
     /**
      * <p>Indicates that the service was the first service to process a request.</p>
      */
+    inline bool RootHasBeenSet() const { return m_rootHasBeenSet; }
+
+    /**
+     * <p>Indicates that the service was the first service to process a request.</p>
+     */
     inline void SetRoot(bool value) { m_rootHasBeenSet = true; m_root = value; }
 
     /**
@@ -166,6 +187,11 @@ namespace Model
      * <p>Identifier of the AWS account in which the service runs.</p>
      */
     inline const Aws::String& GetAccountId() const{ return m_accountId; }
+
+    /**
+     * <p>Identifier of the AWS account in which the service runs.</p>
+     */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
 
     /**
      * <p>Identifier of the AWS account in which the service runs.</p>
@@ -210,6 +236,19 @@ namespace Model
      * indeterminate type.</p> </li> </ul>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of service.</p> <ul> <li> <p>AWS Resource - The type of an AWS
+     * resource. For example, <code>AWS::EC2::Instance</code> for a application running
+     * on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table
+     * that the application used.</p> </li> <li> <p>AWS Service - The type of an AWS
+     * service. For example, <code>AWS::DynamoDB</code> for downstream calls to Amazon
+     * DynamoDB that didn't target a specific table.</p> </li> <li> <p>
+     * <code>client</code> - Represents the clients that sent requests to a root
+     * service.</p> </li> <li> <p> <code>remote</code> - A downstream service of
+     * indeterminate type.</p> </li> </ul>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of service.</p> <ul> <li> <p>AWS Resource - The type of an AWS
@@ -298,6 +337,11 @@ namespace Model
     /**
      * <p>The service's state.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The service's state.</p>
+     */
     inline void SetState(const Aws::String& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -334,6 +378,11 @@ namespace Model
     /**
      * <p>The start time of the first segment that the service generated.</p>
      */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
+
+    /**
+     * <p>The start time of the first segment that the service generated.</p>
+     */
     inline void SetStartTime(const Aws::Utils::DateTime& value) { m_startTimeHasBeenSet = true; m_startTime = value; }
 
     /**
@@ -360,6 +409,11 @@ namespace Model
     /**
      * <p>The end time of the last segment that the service generated.</p>
      */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
+
+    /**
+     * <p>The end time of the last segment that the service generated.</p>
+     */
     inline void SetEndTime(const Aws::Utils::DateTime& value) { m_endTimeHasBeenSet = true; m_endTime = value; }
 
     /**
@@ -382,6 +436,11 @@ namespace Model
      * <p>Connections to downstream services.</p>
      */
     inline const Aws::Vector<Edge>& GetEdges() const{ return m_edges; }
+
+    /**
+     * <p>Connections to downstream services.</p>
+     */
+    inline bool EdgesHasBeenSet() const { return m_edgesHasBeenSet; }
 
     /**
      * <p>Connections to downstream services.</p>
@@ -422,6 +481,11 @@ namespace Model
     /**
      * <p>Aggregated statistics for the service.</p>
      */
+    inline bool SummaryStatisticsHasBeenSet() const { return m_summaryStatisticsHasBeenSet; }
+
+    /**
+     * <p>Aggregated statistics for the service.</p>
+     */
     inline void SetSummaryStatistics(const ServiceStatistics& value) { m_summaryStatisticsHasBeenSet = true; m_summaryStatistics = value; }
 
     /**
@@ -444,6 +508,11 @@ namespace Model
      * <p>A histogram that maps the spread of service durations.</p>
      */
     inline const Aws::Vector<HistogramEntry>& GetDurationHistogram() const{ return m_durationHistogram; }
+
+    /**
+     * <p>A histogram that maps the spread of service durations.</p>
+     */
+    inline bool DurationHistogramHasBeenSet() const { return m_durationHistogramHasBeenSet; }
 
     /**
      * <p>A histogram that maps the spread of service durations.</p>
@@ -480,6 +549,11 @@ namespace Model
      * <p>A histogram that maps the spread of service response times.</p>
      */
     inline const Aws::Vector<HistogramEntry>& GetResponseTimeHistogram() const{ return m_responseTimeHistogram; }
+
+    /**
+     * <p>A histogram that maps the spread of service response times.</p>
+     */
+    inline bool ResponseTimeHistogramHasBeenSet() const { return m_responseTimeHistogramHasBeenSet; }
 
     /**
      * <p>A histogram that maps the spread of service response times.</p>

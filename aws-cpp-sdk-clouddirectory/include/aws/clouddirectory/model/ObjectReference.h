@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ObjectReference();
-    ObjectReference(const Aws::Utils::Json::JsonValue& jsonValue);
-    ObjectReference& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ObjectReference(Aws::Utils::Json::JsonView jsonValue);
+    ObjectReference& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,7 +53,7 @@ namespace Model
      * parent/child link to construct the path. Path selectors start with a slash (/)
      * and link names are separated by slashes. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#accessingobjects">Accessing
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access
      * Objects</a>. You can identify an object in one of the following ways:</p> <ul>
      * <li> <p> <i>$ObjectIdentifier</i> - An object identifier is an opaque string
      * provided by Amazon Cloud Directory. When creating objects, the system will
@@ -70,7 +71,25 @@ namespace Model
      * parent/child link to construct the path. Path selectors start with a slash (/)
      * and link names are separated by slashes. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#accessingobjects">Accessing
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access
+     * Objects</a>. You can identify an object in one of the following ways:</p> <ul>
+     * <li> <p> <i>$ObjectIdentifier</i> - An object identifier is an opaque string
+     * provided by Amazon Cloud Directory. When creating objects, the system will
+     * provide you with the identifier of the created object. An object’s identifier is
+     * immutable and no two objects will ever share the same object identifier</p>
+     * </li> <li> <p> <i>/some/path</i> - Identifies the object based on path</p> </li>
+     * <li> <p> <i>#SomeBatchReference</i> - Identifies the object in a batch call</p>
+     * </li> </ul>
+     */
+    inline bool SelectorHasBeenSet() const { return m_selectorHasBeenSet; }
+
+    /**
+     * <p>A path selector supports easy selection of an object by the parent/child
+     * links leading to it from the directory root. Use the link names from each
+     * parent/child link to construct the path. Path selectors start with a slash (/)
+     * and link names are separated by slashes. For more information about paths, see
+     * <a
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access
      * Objects</a>. You can identify an object in one of the following ways:</p> <ul>
      * <li> <p> <i>$ObjectIdentifier</i> - An object identifier is an opaque string
      * provided by Amazon Cloud Directory. When creating objects, the system will
@@ -88,7 +107,7 @@ namespace Model
      * parent/child link to construct the path. Path selectors start with a slash (/)
      * and link names are separated by slashes. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#accessingobjects">Accessing
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access
      * Objects</a>. You can identify an object in one of the following ways:</p> <ul>
      * <li> <p> <i>$ObjectIdentifier</i> - An object identifier is an opaque string
      * provided by Amazon Cloud Directory. When creating objects, the system will
@@ -106,7 +125,7 @@ namespace Model
      * parent/child link to construct the path. Path selectors start with a slash (/)
      * and link names are separated by slashes. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#accessingobjects">Accessing
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access
      * Objects</a>. You can identify an object in one of the following ways:</p> <ul>
      * <li> <p> <i>$ObjectIdentifier</i> - An object identifier is an opaque string
      * provided by Amazon Cloud Directory. When creating objects, the system will
@@ -124,7 +143,7 @@ namespace Model
      * parent/child link to construct the path. Path selectors start with a slash (/)
      * and link names are separated by slashes. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#accessingobjects">Accessing
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access
      * Objects</a>. You can identify an object in one of the following ways:</p> <ul>
      * <li> <p> <i>$ObjectIdentifier</i> - An object identifier is an opaque string
      * provided by Amazon Cloud Directory. When creating objects, the system will
@@ -142,7 +161,7 @@ namespace Model
      * parent/child link to construct the path. Path selectors start with a slash (/)
      * and link names are separated by slashes. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#accessingobjects">Accessing
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access
      * Objects</a>. You can identify an object in one of the following ways:</p> <ul>
      * <li> <p> <i>$ObjectIdentifier</i> - An object identifier is an opaque string
      * provided by Amazon Cloud Directory. When creating objects, the system will
@@ -160,7 +179,7 @@ namespace Model
      * parent/child link to construct the path. Path selectors start with a slash (/)
      * and link names are separated by slashes. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#accessingobjects">Accessing
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access
      * Objects</a>. You can identify an object in one of the following ways:</p> <ul>
      * <li> <p> <i>$ObjectIdentifier</i> - An object identifier is an opaque string
      * provided by Amazon Cloud Directory. When creating objects, the system will

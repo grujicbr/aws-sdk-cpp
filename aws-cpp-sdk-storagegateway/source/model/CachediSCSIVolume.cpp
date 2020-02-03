@@ -33,6 +33,7 @@ CachediSCSIVolume::CachediSCSIVolume() :
     m_volumeIdHasBeenSet(false),
     m_volumeTypeHasBeenSet(false),
     m_volumeStatusHasBeenSet(false),
+    m_volumeAttachmentStatusHasBeenSet(false),
     m_volumeSizeInBytes(0),
     m_volumeSizeInBytesHasBeenSet(false),
     m_volumeProgress(0.0),
@@ -42,15 +43,17 @@ CachediSCSIVolume::CachediSCSIVolume() :
     m_createdDateHasBeenSet(false),
     m_volumeUsedInBytes(0),
     m_volumeUsedInBytesHasBeenSet(false),
-    m_kMSKeyHasBeenSet(false)
+    m_kMSKeyHasBeenSet(false),
+    m_targetNameHasBeenSet(false)
 {
 }
 
-CachediSCSIVolume::CachediSCSIVolume(const JsonValue& jsonValue) : 
+CachediSCSIVolume::CachediSCSIVolume(JsonView jsonValue) : 
     m_volumeARNHasBeenSet(false),
     m_volumeIdHasBeenSet(false),
     m_volumeTypeHasBeenSet(false),
     m_volumeStatusHasBeenSet(false),
+    m_volumeAttachmentStatusHasBeenSet(false),
     m_volumeSizeInBytes(0),
     m_volumeSizeInBytesHasBeenSet(false),
     m_volumeProgress(0.0),
@@ -60,12 +63,13 @@ CachediSCSIVolume::CachediSCSIVolume(const JsonValue& jsonValue) :
     m_createdDateHasBeenSet(false),
     m_volumeUsedInBytes(0),
     m_volumeUsedInBytesHasBeenSet(false),
-    m_kMSKeyHasBeenSet(false)
+    m_kMSKeyHasBeenSet(false),
+    m_targetNameHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-CachediSCSIVolume& CachediSCSIVolume::operator =(const JsonValue& jsonValue)
+CachediSCSIVolume& CachediSCSIVolume::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("VolumeARN"))
   {
@@ -93,6 +97,13 @@ CachediSCSIVolume& CachediSCSIVolume::operator =(const JsonValue& jsonValue)
     m_volumeStatus = jsonValue.GetString("VolumeStatus");
 
     m_volumeStatusHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("VolumeAttachmentStatus"))
+  {
+    m_volumeAttachmentStatus = jsonValue.GetString("VolumeAttachmentStatus");
+
+    m_volumeAttachmentStatusHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("VolumeSizeInBytes"))
@@ -144,6 +155,13 @@ CachediSCSIVolume& CachediSCSIVolume::operator =(const JsonValue& jsonValue)
     m_kMSKeyHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("TargetName"))
+  {
+    m_targetName = jsonValue.GetString("TargetName");
+
+    m_targetNameHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -172,6 +190,12 @@ JsonValue CachediSCSIVolume::Jsonize() const
   if(m_volumeStatusHasBeenSet)
   {
    payload.WithString("VolumeStatus", m_volumeStatus);
+
+  }
+
+  if(m_volumeAttachmentStatusHasBeenSet)
+  {
+   payload.WithString("VolumeAttachmentStatus", m_volumeAttachmentStatus);
 
   }
 
@@ -213,6 +237,12 @@ JsonValue CachediSCSIVolume::Jsonize() const
   if(m_kMSKeyHasBeenSet)
   {
    payload.WithString("KMSKey", m_kMSKey);
+
+  }
+
+  if(m_targetNameHasBeenSet)
+  {
+   payload.WithString("TargetName", m_targetName);
 
   }
 

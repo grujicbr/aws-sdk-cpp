@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchAttachObject();
-    BatchAttachObject(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchAttachObject& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchAttachObject(Aws::Utils::Json::JsonView jsonValue);
+    BatchAttachObject& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The parent object reference.</p>
      */
     inline const ObjectReference& GetParentReference() const{ return m_parentReference; }
+
+    /**
+     * <p>The parent object reference.</p>
+     */
+    inline bool ParentReferenceHasBeenSet() const { return m_parentReferenceHasBeenSet; }
 
     /**
      * <p>The parent object reference.</p>
@@ -82,6 +88,11 @@ namespace Model
     /**
      * <p>The child object reference that is to be attached to the object.</p>
      */
+    inline bool ChildReferenceHasBeenSet() const { return m_childReferenceHasBeenSet; }
+
+    /**
+     * <p>The child object reference that is to be attached to the object.</p>
+     */
     inline void SetChildReference(const ObjectReference& value) { m_childReferenceHasBeenSet = true; m_childReference = value; }
 
     /**
@@ -104,6 +115,11 @@ namespace Model
      * <p>The name of the link.</p>
      */
     inline const Aws::String& GetLinkName() const{ return m_linkName; }
+
+    /**
+     * <p>The name of the link.</p>
+     */
+    inline bool LinkNameHasBeenSet() const { return m_linkNameHasBeenSet; }
 
     /**
      * <p>The name of the link.</p>

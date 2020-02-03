@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     OutputUpdate();
-    OutputUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    OutputUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OutputUpdate(Aws::Utils::Json::JsonView jsonValue);
+    OutputUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Identifies the specific output configuration that you want to update.</p>
      */
     inline const Aws::String& GetOutputId() const{ return m_outputId; }
+
+    /**
+     * <p>Identifies the specific output configuration that you want to update.</p>
+     */
+    inline bool OutputIdHasBeenSet() const { return m_outputIdHasBeenSet; }
 
     /**
      * <p>Identifies the specific output configuration that you want to update.</p>
@@ -92,6 +98,12 @@ namespace Model
      * configuration, use this field to specify the new in-application stream name.</p>
      */
     inline const Aws::String& GetNameUpdate() const{ return m_nameUpdate; }
+
+    /**
+     * <p>If you want to specify a different in-application stream for this output
+     * configuration, use this field to specify the new in-application stream name.</p>
+     */
+    inline bool NameUpdateHasBeenSet() const { return m_nameUpdateHasBeenSet; }
 
     /**
      * <p>If you want to specify a different in-application stream for this output
@@ -138,6 +150,11 @@ namespace Model
     /**
      * <p>Describes an Amazon Kinesis stream as the destination for the output.</p>
      */
+    inline bool KinesisStreamsOutputUpdateHasBeenSet() const { return m_kinesisStreamsOutputUpdateHasBeenSet; }
+
+    /**
+     * <p>Describes an Amazon Kinesis stream as the destination for the output.</p>
+     */
     inline void SetKinesisStreamsOutputUpdate(const KinesisStreamsOutputUpdate& value) { m_kinesisStreamsOutputUpdateHasBeenSet = true; m_kinesisStreamsOutputUpdate = value; }
 
     /**
@@ -161,6 +178,12 @@ namespace Model
      * the output.</p>
      */
     inline const KinesisFirehoseOutputUpdate& GetKinesisFirehoseOutputUpdate() const{ return m_kinesisFirehoseOutputUpdate; }
+
+    /**
+     * <p>Describes an Amazon Kinesis Firehose delivery stream as the destination for
+     * the output.</p>
+     */
+    inline bool KinesisFirehoseOutputUpdateHasBeenSet() const { return m_kinesisFirehoseOutputUpdateHasBeenSet; }
 
     /**
      * <p>Describes an Amazon Kinesis Firehose delivery stream as the destination for
@@ -195,6 +218,11 @@ namespace Model
     /**
      * <p>Describes an AWS Lambda function as the destination for the output.</p>
      */
+    inline bool LambdaOutputUpdateHasBeenSet() const { return m_lambdaOutputUpdateHasBeenSet; }
+
+    /**
+     * <p>Describes an AWS Lambda function as the destination for the output.</p>
+     */
     inline void SetLambdaOutputUpdate(const LambdaOutputUpdate& value) { m_lambdaOutputUpdateHasBeenSet = true; m_lambdaOutputUpdate = value; }
 
     /**
@@ -216,7 +244,7 @@ namespace Model
     /**
      * <p>Describes the data format when records are written to the destination. For
      * more information, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
      * Application Output</a>.</p>
      */
     inline const DestinationSchema& GetDestinationSchemaUpdate() const{ return m_destinationSchemaUpdate; }
@@ -224,7 +252,15 @@ namespace Model
     /**
      * <p>Describes the data format when records are written to the destination. For
      * more information, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
+     * Application Output</a>.</p>
+     */
+    inline bool DestinationSchemaUpdateHasBeenSet() const { return m_destinationSchemaUpdateHasBeenSet; }
+
+    /**
+     * <p>Describes the data format when records are written to the destination. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
      * Application Output</a>.</p>
      */
     inline void SetDestinationSchemaUpdate(const DestinationSchema& value) { m_destinationSchemaUpdateHasBeenSet = true; m_destinationSchemaUpdate = value; }
@@ -232,7 +268,7 @@ namespace Model
     /**
      * <p>Describes the data format when records are written to the destination. For
      * more information, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
      * Application Output</a>.</p>
      */
     inline void SetDestinationSchemaUpdate(DestinationSchema&& value) { m_destinationSchemaUpdateHasBeenSet = true; m_destinationSchemaUpdate = std::move(value); }
@@ -240,7 +276,7 @@ namespace Model
     /**
      * <p>Describes the data format when records are written to the destination. For
      * more information, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
      * Application Output</a>.</p>
      */
     inline OutputUpdate& WithDestinationSchemaUpdate(const DestinationSchema& value) { SetDestinationSchemaUpdate(value); return *this;}
@@ -248,7 +284,7 @@ namespace Model
     /**
      * <p>Describes the data format when records are written to the destination. For
      * more information, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Configuring
      * Application Output</a>.</p>
      */
     inline OutputUpdate& WithDestinationSchemaUpdate(DestinationSchema&& value) { SetDestinationSchemaUpdate(std::move(value)); return *this;}

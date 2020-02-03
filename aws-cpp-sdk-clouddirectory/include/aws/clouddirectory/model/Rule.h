@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Rule();
-    Rule(const Aws::Utils::Json::JsonValue& jsonValue);
-    Rule& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Rule(Aws::Utils::Json::JsonView jsonValue);
+    Rule& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The type of attribute validation rule.</p>
      */
     inline const RuleType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of attribute validation rule.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of attribute validation rule.</p>
@@ -79,6 +85,11 @@ namespace Model
      * <p>The minimum and maximum parameters that are associated with the rule.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetParameters() const{ return m_parameters; }
+
+    /**
+     * <p>The minimum and maximum parameters that are associated with the rule.</p>
+     */
+    inline bool ParametersHasBeenSet() const { return m_parametersHasBeenSet; }
 
     /**
      * <p>The minimum and maximum parameters that are associated with the rule.</p>

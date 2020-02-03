@@ -49,7 +49,7 @@ CreateFileSystemResult::CreateFileSystemResult(const Aws::AmazonWebServiceResult
 
 CreateFileSystemResult& CreateFileSystemResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("OwnerId"))
   {
     m_ownerId = jsonValue.GetString("OwnerId");
@@ -126,6 +126,15 @@ CreateFileSystemResult& CreateFileSystemResult::operator =(const Aws::AmazonWebS
   {
     m_provisionedThroughputInMibps = jsonValue.GetDouble("ProvisionedThroughputInMibps");
 
+  }
+
+  if(jsonValue.ValueExists("Tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("Tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
   }
 
 

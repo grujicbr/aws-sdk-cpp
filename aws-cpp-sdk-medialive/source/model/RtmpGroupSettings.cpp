@@ -37,12 +37,14 @@ RtmpGroupSettings::RtmpGroupSettings() :
     m_cacheLengthHasBeenSet(false),
     m_captionData(RtmpCaptionData::NOT_SET),
     m_captionDataHasBeenSet(false),
+    m_inputLossAction(InputLossActionForRtmpOut::NOT_SET),
+    m_inputLossActionHasBeenSet(false),
     m_restartDelay(0),
     m_restartDelayHasBeenSet(false)
 {
 }
 
-RtmpGroupSettings::RtmpGroupSettings(const JsonValue& jsonValue) : 
+RtmpGroupSettings::RtmpGroupSettings(JsonView jsonValue) : 
     m_authenticationScheme(AuthenticationScheme::NOT_SET),
     m_authenticationSchemeHasBeenSet(false),
     m_cacheFullBehavior(RtmpCacheFullBehavior::NOT_SET),
@@ -51,13 +53,15 @@ RtmpGroupSettings::RtmpGroupSettings(const JsonValue& jsonValue) :
     m_cacheLengthHasBeenSet(false),
     m_captionData(RtmpCaptionData::NOT_SET),
     m_captionDataHasBeenSet(false),
+    m_inputLossAction(InputLossActionForRtmpOut::NOT_SET),
+    m_inputLossActionHasBeenSet(false),
     m_restartDelay(0),
     m_restartDelayHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-RtmpGroupSettings& RtmpGroupSettings::operator =(const JsonValue& jsonValue)
+RtmpGroupSettings& RtmpGroupSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("authenticationScheme"))
   {
@@ -85,6 +89,13 @@ RtmpGroupSettings& RtmpGroupSettings::operator =(const JsonValue& jsonValue)
     m_captionData = RtmpCaptionDataMapper::GetRtmpCaptionDataForName(jsonValue.GetString("captionData"));
 
     m_captionDataHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("inputLossAction"))
+  {
+    m_inputLossAction = InputLossActionForRtmpOutMapper::GetInputLossActionForRtmpOutForName(jsonValue.GetString("inputLossAction"));
+
+    m_inputLossActionHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("restartDelay"))
@@ -120,6 +131,11 @@ JsonValue RtmpGroupSettings::Jsonize() const
   if(m_captionDataHasBeenSet)
   {
    payload.WithString("captionData", RtmpCaptionDataMapper::GetNameForRtmpCaptionData(m_captionData));
+  }
+
+  if(m_inputLossActionHasBeenSet)
+  {
+   payload.WithString("inputLossAction", InputLossActionForRtmpOutMapper::GetNameForInputLossActionForRtmpOut(m_inputLossAction));
   }
 
   if(m_restartDelayHasBeenSet)

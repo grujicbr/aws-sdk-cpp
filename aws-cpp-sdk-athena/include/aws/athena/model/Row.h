@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Athena
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Row();
-    Row(const Aws::Utils::Json::JsonValue& jsonValue);
-    Row& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Row(Aws::Utils::Json::JsonView jsonValue);
+    Row& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The data that populates a row in a query result table.</p>
      */
     inline const Aws::Vector<Datum>& GetData() const{ return m_data; }
+
+    /**
+     * <p>The data that populates a row in a query result table.</p>
+     */
+    inline bool DataHasBeenSet() const { return m_dataHasBeenSet; }
 
     /**
      * <p>The data that populates a row in a query result table.</p>

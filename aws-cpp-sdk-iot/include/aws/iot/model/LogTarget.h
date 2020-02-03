@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LogTarget();
-    LogTarget(const Aws::Utils::Json::JsonValue& jsonValue);
-    LogTarget& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LogTarget(Aws::Utils::Json::JsonView jsonValue);
+    LogTarget& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The target type.</p>
      */
     inline const LogTargetType& GetTargetType() const{ return m_targetType; }
+
+    /**
+     * <p>The target type.</p>
+     */
+    inline bool TargetTypeHasBeenSet() const { return m_targetTypeHasBeenSet; }
 
     /**
      * <p>The target type.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The target name.</p>
      */
     inline const Aws::String& GetTargetName() const{ return m_targetName; }
+
+    /**
+     * <p>The target name.</p>
+     */
+    inline bool TargetNameHasBeenSet() const { return m_targetNameHasBeenSet; }
 
     /**
      * <p>The target name.</p>

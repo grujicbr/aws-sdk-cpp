@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     UpdateTableRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,43 +46,49 @@ namespace Model
 
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline const Aws::String& GetCatalogId() const{ return m_catalogId; }
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
+     * AWS account ID is used by default.</p>
+     */
+    inline bool CatalogIdHasBeenSet() const { return m_catalogIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const Aws::String& value) { m_catalogIdHasBeenSet = true; m_catalogId = value; }
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(Aws::String&& value) { m_catalogIdHasBeenSet = true; m_catalogId = std::move(value); }
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const char* value) { m_catalogIdHasBeenSet = true; m_catalogId.assign(value); }
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline UpdateTableRequest& WithCatalogId(const Aws::String& value) { SetCatalogId(value); return *this;}
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline UpdateTableRequest& WithCatalogId(Aws::String&& value) { SetCatalogId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of the Data Catalog where the table resides. If none is supplied, the
+     * <p>The ID of the Data Catalog where the table resides. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline UpdateTableRequest& WithCatalogId(const char* value) { SetCatalogId(value); return *this;}
@@ -93,6 +99,12 @@ namespace Model
      * compatibility, this name is entirely lowercase.</p>
      */
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    /**
+     * <p>The name of the catalog database in which the table resides. For Hive
+     * compatibility, this name is entirely lowercase.</p>
+     */
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     /**
      * <p>The name of the catalog database in which the table resides. For Hive
@@ -141,6 +153,12 @@ namespace Model
      * <p>An updated <code>TableInput</code> object to define the metadata table in the
      * catalog.</p>
      */
+    inline bool TableInputHasBeenSet() const { return m_tableInputHasBeenSet; }
+
+    /**
+     * <p>An updated <code>TableInput</code> object to define the metadata table in the
+     * catalog.</p>
+     */
     inline void SetTableInput(const TableInput& value) { m_tableInputHasBeenSet = true; m_tableInput = value; }
 
     /**
@@ -164,22 +182,29 @@ namespace Model
 
     /**
      * <p>By default, <code>UpdateTable</code> always creates an archived version of
-     * the table before updating it. If <code>skipArchive</code> is set to true,
-     * however, <code>UpdateTable</code> does not create the archived version.</p>
+     * the table before updating it. However, if <code>skipArchive</code> is set to
+     * true, <code>UpdateTable</code> does not create the archived version.</p>
      */
     inline bool GetSkipArchive() const{ return m_skipArchive; }
 
     /**
      * <p>By default, <code>UpdateTable</code> always creates an archived version of
-     * the table before updating it. If <code>skipArchive</code> is set to true,
-     * however, <code>UpdateTable</code> does not create the archived version.</p>
+     * the table before updating it. However, if <code>skipArchive</code> is set to
+     * true, <code>UpdateTable</code> does not create the archived version.</p>
+     */
+    inline bool SkipArchiveHasBeenSet() const { return m_skipArchiveHasBeenSet; }
+
+    /**
+     * <p>By default, <code>UpdateTable</code> always creates an archived version of
+     * the table before updating it. However, if <code>skipArchive</code> is set to
+     * true, <code>UpdateTable</code> does not create the archived version.</p>
      */
     inline void SetSkipArchive(bool value) { m_skipArchiveHasBeenSet = true; m_skipArchive = value; }
 
     /**
      * <p>By default, <code>UpdateTable</code> always creates an archived version of
-     * the table before updating it. If <code>skipArchive</code> is set to true,
-     * however, <code>UpdateTable</code> does not create the archived version.</p>
+     * the table before updating it. However, if <code>skipArchive</code> is set to
+     * true, <code>UpdateTable</code> does not create the archived version.</p>
      */
     inline UpdateTableRequest& WithSkipArchive(bool value) { SetSkipArchive(value); return *this;}
 

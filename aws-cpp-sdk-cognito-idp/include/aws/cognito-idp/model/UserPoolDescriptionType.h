@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     UserPoolDescriptionType();
-    UserPoolDescriptionType(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserPoolDescriptionType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserPoolDescriptionType(Aws::Utils::Json::JsonView jsonValue);
+    UserPoolDescriptionType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The ID in a user pool description.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID in a user pool description.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID in a user pool description.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The name in a user pool description.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name in a user pool description.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -129,6 +140,11 @@ namespace Model
     /**
      * <p>The AWS Lambda configuration information in a user pool description.</p>
      */
+    inline bool LambdaConfigHasBeenSet() const { return m_lambdaConfigHasBeenSet; }
+
+    /**
+     * <p>The AWS Lambda configuration information in a user pool description.</p>
+     */
     inline void SetLambdaConfig(const LambdaConfigType& value) { m_lambdaConfigHasBeenSet = true; m_lambdaConfig = value; }
 
     /**
@@ -151,6 +167,11 @@ namespace Model
      * <p>The user pool status in a user pool description.</p>
      */
     inline const StatusType& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The user pool status in a user pool description.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The user pool status in a user pool description.</p>
@@ -181,6 +202,11 @@ namespace Model
     /**
      * <p>The date the user pool description was last modified.</p>
      */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
+
+    /**
+     * <p>The date the user pool description was last modified.</p>
+     */
     inline void SetLastModifiedDate(const Aws::Utils::DateTime& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = value; }
 
     /**
@@ -203,6 +229,11 @@ namespace Model
      * <p>The date the user pool description was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The date the user pool description was created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The date the user pool description was created.</p>

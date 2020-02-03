@@ -1,12 +1,12 @@
 /*
   * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  * 
+  *
   * Licensed under the Apache License, Version 2.0 (the "License").
   * You may not use this file except in compliance with the License.
   * A copy of the License is located at
-  * 
+  *
   *  http://aws.amazon.com/apache2.0
-  * 
+  *
   * or in the "license" file accompanying this file. This file is distributed
   * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
   * express or implied. See the License for the specific language governing
@@ -60,24 +60,23 @@ private:
     Aws::String m_proxyPassword;
     Aws::String m_proxyScheme;
     Aws::String m_proxyHost;
+    Aws::String m_proxySSLCertPath;
+    Aws::String m_proxySSLCertType;
+    Aws::String m_proxySSLKeyPath;
+    Aws::String m_proxySSLKeyType;
+    Aws::String m_proxyKeyPasswd;
     unsigned m_proxyPort;
     bool m_verifySSL;
     Aws::String m_caPath;
     Aws::String m_caFile;
+    bool m_disableExpectHeader;
     bool m_allowRedirects;
-
     static std::atomic<bool> isInit;
 
     void MakeRequestInternal(HttpRequest& request, std::shared_ptr<Standard::StandardHttpResponse>& response,
-        Aws::Utils::RateLimits::RateLimiterInterface* readLimiter, 
+        Aws::Utils::RateLimits::RateLimiterInterface* readLimiter,
         Aws::Utils::RateLimits::RateLimiterInterface* writeLimiter) const;
 
-    //Callback to read the content from the content body of the request
-    static size_t ReadBody(char* ptr, size_t size, size_t nmemb, void* userdata);
-    //callback to write the content from the response to the response object
-    static size_t WriteData(char* ptr, size_t size, size_t nmemb, void* userdata);
-    //callback to write the headers from the response to the response
-    static size_t WriteHeader(char* ptr, size_t size, size_t nmemb, void* userdata);
 
 };
 

@@ -25,7 +25,8 @@ using namespace Aws::Utils;
 CreateClusterRequest::CreateClusterRequest() : 
     m_subnetIdsHasBeenSet(false),
     m_hsmTypeHasBeenSet(false),
-    m_sourceBackupIdHasBeenSet(false)
+    m_sourceBackupIdHasBeenSet(false),
+    m_tagListHasBeenSet(false)
 {
 }
 
@@ -56,7 +57,18 @@ Aws::String CreateClusterRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagListHasBeenSet)
+  {
+   Array<JsonValue> tagListJsonList(m_tagList.size());
+   for(unsigned tagListIndex = 0; tagListIndex < tagListJsonList.GetLength(); ++tagListIndex)
+   {
+     tagListJsonList[tagListIndex].AsObject(m_tagList[tagListIndex].Jsonize());
+   }
+   payload.WithArray("TagList", std::move(tagListJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateClusterRequest::GetRequestSpecificHeaders() const

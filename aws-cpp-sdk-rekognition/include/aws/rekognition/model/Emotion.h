@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -33,8 +34,12 @@ namespace Model
 {
 
   /**
-   * <p>The emotions detected on the face, and the confidence level in the
-   * determination. For example, HAPPY, SAD, and ANGRY.</p><p><h3>See Also:</h3>   <a
+   * <p>The emotions that appear to be expressed on the face, and the confidence
+   * level in the determination. The API is only making a determination of the
+   * physical appearance of a person's face. It is not a determination of the
+   * person’s internal emotional state and should not be used in such a way. For
+   * example, a person pretending to have a sad face might not be sad
+   * emotionally.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/Emotion">AWS
    * API Reference</a></p>
    */
@@ -42,8 +47,8 @@ namespace Model
   {
   public:
     Emotion();
-    Emotion(const Aws::Utils::Json::JsonValue& jsonValue);
-    Emotion& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Emotion(Aws::Utils::Json::JsonView jsonValue);
+    Emotion& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +56,11 @@ namespace Model
      * <p>Type of emotion detected.</p>
      */
     inline const EmotionName& GetType() const{ return m_type; }
+
+    /**
+     * <p>Type of emotion detected.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>Type of emotion detected.</p>
@@ -77,6 +87,11 @@ namespace Model
      * <p>Level of confidence in the determination.</p>
      */
     inline double GetConfidence() const{ return m_confidence; }
+
+    /**
+     * <p>Level of confidence in the determination.</p>
+     */
+    inline bool ConfidenceHasBeenSet() const { return m_confidenceHasBeenSet; }
 
     /**
      * <p>Level of confidence in the determination.</p>

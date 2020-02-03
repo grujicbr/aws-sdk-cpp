@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchEvents
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BatchParameters();
-    BatchParameters(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchParameters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchParameters(Aws::Utils::Json::JsonView jsonValue);
+    BatchParameters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * Batch job. This job definition must already exist.</p>
      */
     inline const Aws::String& GetJobDefinition() const{ return m_jobDefinition; }
+
+    /**
+     * <p>The ARN or name of the job definition to use if the event target is an AWS
+     * Batch job. This job definition must already exist.</p>
+     */
+    inline bool JobDefinitionHasBeenSet() const { return m_jobDefinitionHasBeenSet; }
 
     /**
      * <p>The ARN or name of the job definition to use if the event target is an AWS
@@ -97,6 +104,12 @@ namespace Model
      * job.</p>
      */
     inline const Aws::String& GetJobName() const{ return m_jobName; }
+
+    /**
+     * <p>The name to use for this execution of the job, if the target is an AWS Batch
+     * job.</p>
+     */
+    inline bool JobNameHasBeenSet() const { return m_jobNameHasBeenSet; }
 
     /**
      * <p>The name to use for this execution of the job, if the target is an AWS Batch
@@ -149,6 +162,14 @@ namespace Model
      * a job, it becomes an array job. This parameter is used only if the target is an
      * AWS Batch job.</p>
      */
+    inline bool ArrayPropertiesHasBeenSet() const { return m_arrayPropertiesHasBeenSet; }
+
+    /**
+     * <p>The array properties for the submitted job, such as the size of the array.
+     * The array size can be between 2 and 10,000. If you specify array properties for
+     * a job, it becomes an array job. This parameter is used only if the target is an
+     * AWS Batch job.</p>
+     */
     inline void SetArrayProperties(const BatchArrayProperties& value) { m_arrayPropertiesHasBeenSet = true; m_arrayProperties = value; }
 
     /**
@@ -177,42 +198,50 @@ namespace Model
 
 
     /**
-     * <p>The retry strategy to use for failed jobs, if the target is an AWS Batch job.
+     * <p>The retry strategy to use for failed jobs if the target is an AWS Batch job.
      * The retry strategy is the number of times to retry the failed job execution.
-     * Valid values are 1 to 10. When you specify a retry strategy here, it overrides
-     * the retry strategy defined in the job definition.</p>
+     * Valid values are 1–10. When you specify a retry strategy here, it overrides the
+     * retry strategy defined in the job definition.</p>
      */
     inline const BatchRetryStrategy& GetRetryStrategy() const{ return m_retryStrategy; }
 
     /**
-     * <p>The retry strategy to use for failed jobs, if the target is an AWS Batch job.
+     * <p>The retry strategy to use for failed jobs if the target is an AWS Batch job.
      * The retry strategy is the number of times to retry the failed job execution.
-     * Valid values are 1 to 10. When you specify a retry strategy here, it overrides
-     * the retry strategy defined in the job definition.</p>
+     * Valid values are 1–10. When you specify a retry strategy here, it overrides the
+     * retry strategy defined in the job definition.</p>
+     */
+    inline bool RetryStrategyHasBeenSet() const { return m_retryStrategyHasBeenSet; }
+
+    /**
+     * <p>The retry strategy to use for failed jobs if the target is an AWS Batch job.
+     * The retry strategy is the number of times to retry the failed job execution.
+     * Valid values are 1–10. When you specify a retry strategy here, it overrides the
+     * retry strategy defined in the job definition.</p>
      */
     inline void SetRetryStrategy(const BatchRetryStrategy& value) { m_retryStrategyHasBeenSet = true; m_retryStrategy = value; }
 
     /**
-     * <p>The retry strategy to use for failed jobs, if the target is an AWS Batch job.
+     * <p>The retry strategy to use for failed jobs if the target is an AWS Batch job.
      * The retry strategy is the number of times to retry the failed job execution.
-     * Valid values are 1 to 10. When you specify a retry strategy here, it overrides
-     * the retry strategy defined in the job definition.</p>
+     * Valid values are 1–10. When you specify a retry strategy here, it overrides the
+     * retry strategy defined in the job definition.</p>
      */
     inline void SetRetryStrategy(BatchRetryStrategy&& value) { m_retryStrategyHasBeenSet = true; m_retryStrategy = std::move(value); }
 
     /**
-     * <p>The retry strategy to use for failed jobs, if the target is an AWS Batch job.
+     * <p>The retry strategy to use for failed jobs if the target is an AWS Batch job.
      * The retry strategy is the number of times to retry the failed job execution.
-     * Valid values are 1 to 10. When you specify a retry strategy here, it overrides
-     * the retry strategy defined in the job definition.</p>
+     * Valid values are 1–10. When you specify a retry strategy here, it overrides the
+     * retry strategy defined in the job definition.</p>
      */
     inline BatchParameters& WithRetryStrategy(const BatchRetryStrategy& value) { SetRetryStrategy(value); return *this;}
 
     /**
-     * <p>The retry strategy to use for failed jobs, if the target is an AWS Batch job.
+     * <p>The retry strategy to use for failed jobs if the target is an AWS Batch job.
      * The retry strategy is the number of times to retry the failed job execution.
-     * Valid values are 1 to 10. When you specify a retry strategy here, it overrides
-     * the retry strategy defined in the job definition.</p>
+     * Valid values are 1–10. When you specify a retry strategy here, it overrides the
+     * retry strategy defined in the job definition.</p>
      */
     inline BatchParameters& WithRetryStrategy(BatchRetryStrategy&& value) { SetRetryStrategy(std::move(value)); return *this;}
 

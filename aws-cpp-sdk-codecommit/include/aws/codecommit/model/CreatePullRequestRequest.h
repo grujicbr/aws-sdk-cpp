@@ -35,7 +35,7 @@ namespace Model
   {
   public:
     CreatePullRequestRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,43 +48,49 @@ namespace Model
 
 
     /**
-     * <p>The title of the pull request. This title will be used to identify the pull
+     * <p>The title of the pull request. This title is used to identify the pull
      * request to other users in the repository.</p>
      */
     inline const Aws::String& GetTitle() const{ return m_title; }
 
     /**
-     * <p>The title of the pull request. This title will be used to identify the pull
+     * <p>The title of the pull request. This title is used to identify the pull
+     * request to other users in the repository.</p>
+     */
+    inline bool TitleHasBeenSet() const { return m_titleHasBeenSet; }
+
+    /**
+     * <p>The title of the pull request. This title is used to identify the pull
      * request to other users in the repository.</p>
      */
     inline void SetTitle(const Aws::String& value) { m_titleHasBeenSet = true; m_title = value; }
 
     /**
-     * <p>The title of the pull request. This title will be used to identify the pull
+     * <p>The title of the pull request. This title is used to identify the pull
      * request to other users in the repository.</p>
      */
     inline void SetTitle(Aws::String&& value) { m_titleHasBeenSet = true; m_title = std::move(value); }
 
     /**
-     * <p>The title of the pull request. This title will be used to identify the pull
+     * <p>The title of the pull request. This title is used to identify the pull
      * request to other users in the repository.</p>
      */
     inline void SetTitle(const char* value) { m_titleHasBeenSet = true; m_title.assign(value); }
 
     /**
-     * <p>The title of the pull request. This title will be used to identify the pull
+     * <p>The title of the pull request. This title is used to identify the pull
      * request to other users in the repository.</p>
      */
     inline CreatePullRequestRequest& WithTitle(const Aws::String& value) { SetTitle(value); return *this;}
 
     /**
-     * <p>The title of the pull request. This title will be used to identify the pull
+     * <p>The title of the pull request. This title is used to identify the pull
      * request to other users in the repository.</p>
      */
     inline CreatePullRequestRequest& WithTitle(Aws::String&& value) { SetTitle(std::move(value)); return *this;}
 
     /**
-     * <p>The title of the pull request. This title will be used to identify the pull
+     * <p>The title of the pull request. This title is used to identify the pull
      * request to other users in the repository.</p>
      */
     inline CreatePullRequestRequest& WithTitle(const char* value) { SetTitle(value); return *this;}
@@ -94,6 +100,11 @@ namespace Model
      * <p>A description of the pull request.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the pull request.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the pull request.</p>
@@ -128,7 +139,7 @@ namespace Model
 
     /**
      * <p>The targets for the pull request, including the source of the code to be
-     * reviewed (the source branch), and the destination where the creator of the pull
+     * reviewed (the source branch) and the destination where the creator of the pull
      * request intends the code to be merged after the pull request is closed (the
      * destination branch).</p>
      */
@@ -136,7 +147,15 @@ namespace Model
 
     /**
      * <p>The targets for the pull request, including the source of the code to be
-     * reviewed (the source branch), and the destination where the creator of the pull
+     * reviewed (the source branch) and the destination where the creator of the pull
+     * request intends the code to be merged after the pull request is closed (the
+     * destination branch).</p>
+     */
+    inline bool TargetsHasBeenSet() const { return m_targetsHasBeenSet; }
+
+    /**
+     * <p>The targets for the pull request, including the source of the code to be
+     * reviewed (the source branch) and the destination where the creator of the pull
      * request intends the code to be merged after the pull request is closed (the
      * destination branch).</p>
      */
@@ -144,7 +163,7 @@ namespace Model
 
     /**
      * <p>The targets for the pull request, including the source of the code to be
-     * reviewed (the source branch), and the destination where the creator of the pull
+     * reviewed (the source branch) and the destination where the creator of the pull
      * request intends the code to be merged after the pull request is closed (the
      * destination branch).</p>
      */
@@ -152,7 +171,7 @@ namespace Model
 
     /**
      * <p>The targets for the pull request, including the source of the code to be
-     * reviewed (the source branch), and the destination where the creator of the pull
+     * reviewed (the source branch) and the destination where the creator of the pull
      * request intends the code to be merged after the pull request is closed (the
      * destination branch).</p>
      */
@@ -160,7 +179,7 @@ namespace Model
 
     /**
      * <p>The targets for the pull request, including the source of the code to be
-     * reviewed (the source branch), and the destination where the creator of the pull
+     * reviewed (the source branch) and the destination where the creator of the pull
      * request intends the code to be merged after the pull request is closed (the
      * destination branch).</p>
      */
@@ -168,7 +187,7 @@ namespace Model
 
     /**
      * <p>The targets for the pull request, including the source of the code to be
-     * reviewed (the source branch), and the destination where the creator of the pull
+     * reviewed (the source branch) and the destination where the creator of the pull
      * request intends the code to be merged after the pull request is closed (the
      * destination branch).</p>
      */
@@ -176,7 +195,7 @@ namespace Model
 
     /**
      * <p>The targets for the pull request, including the source of the code to be
-     * reviewed (the source branch), and the destination where the creator of the pull
+     * reviewed (the source branch) and the destination where the creator of the pull
      * request intends the code to be merged after the pull request is closed (the
      * destination branch).</p>
      */
@@ -184,79 +203,82 @@ namespace Model
 
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p> <note>
-     * <p>The AWS SDKs prepopulate client request tokens. If using an AWS SDK, you do
-     * not have to generate an idempotency token, as this will be done for you.</p>
-     * </note>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     * <note> <p>The AWS SDKs prepopulate client request tokens. If you are using an
+     * AWS SDK, an idempotency token is created for you.</p> </note>
      */
     inline const Aws::String& GetClientRequestToken() const{ return m_clientRequestToken; }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p> <note>
-     * <p>The AWS SDKs prepopulate client request tokens. If using an AWS SDK, you do
-     * not have to generate an idempotency token, as this will be done for you.</p>
-     * </note>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     * <note> <p>The AWS SDKs prepopulate client request tokens. If you are using an
+     * AWS SDK, an idempotency token is created for you.</p> </note>
+     */
+    inline bool ClientRequestTokenHasBeenSet() const { return m_clientRequestTokenHasBeenSet; }
+
+    /**
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     * <note> <p>The AWS SDKs prepopulate client request tokens. If you are using an
+     * AWS SDK, an idempotency token is created for you.</p> </note>
      */
     inline void SetClientRequestToken(const Aws::String& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = value; }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p> <note>
-     * <p>The AWS SDKs prepopulate client request tokens. If using an AWS SDK, you do
-     * not have to generate an idempotency token, as this will be done for you.</p>
-     * </note>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     * <note> <p>The AWS SDKs prepopulate client request tokens. If you are using an
+     * AWS SDK, an idempotency token is created for you.</p> </note>
      */
     inline void SetClientRequestToken(Aws::String&& value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken = std::move(value); }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p> <note>
-     * <p>The AWS SDKs prepopulate client request tokens. If using an AWS SDK, you do
-     * not have to generate an idempotency token, as this will be done for you.</p>
-     * </note>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     * <note> <p>The AWS SDKs prepopulate client request tokens. If you are using an
+     * AWS SDK, an idempotency token is created for you.</p> </note>
      */
     inline void SetClientRequestToken(const char* value) { m_clientRequestTokenHasBeenSet = true; m_clientRequestToken.assign(value); }
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p> <note>
-     * <p>The AWS SDKs prepopulate client request tokens. If using an AWS SDK, you do
-     * not have to generate an idempotency token, as this will be done for you.</p>
-     * </note>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     * <note> <p>The AWS SDKs prepopulate client request tokens. If you are using an
+     * AWS SDK, an idempotency token is created for you.</p> </note>
      */
     inline CreatePullRequestRequest& WithClientRequestToken(const Aws::String& value) { SetClientRequestToken(value); return *this;}
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p> <note>
-     * <p>The AWS SDKs prepopulate client request tokens. If using an AWS SDK, you do
-     * not have to generate an idempotency token, as this will be done for you.</p>
-     * </note>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     * <note> <p>The AWS SDKs prepopulate client request tokens. If you are using an
+     * AWS SDK, an idempotency token is created for you.</p> </note>
      */
     inline CreatePullRequestRequest& WithClientRequestToken(Aws::String&& value) { SetClientRequestToken(std::move(value)); return *this;}
 
     /**
-     * <p>A unique, client-generated idempotency token that when provided in a request,
-     * ensures the request cannot be repeated with a changed parameter. If a request is
-     * received with the same parameters and a token is included, the request will
-     * return information about the initial request that used that token.</p> <note>
-     * <p>The AWS SDKs prepopulate client request tokens. If using an AWS SDK, you do
-     * not have to generate an idempotency token, as this will be done for you.</p>
-     * </note>
+     * <p>A unique, client-generated idempotency token that, when provided in a
+     * request, ensures the request cannot be repeated with a changed parameter. If a
+     * request is received with the same parameters and a token is included, the
+     * request returns information about the initial request that used that token.</p>
+     * <note> <p>The AWS SDKs prepopulate client request tokens. If you are using an
+     * AWS SDK, an idempotency token is created for you.</p> </note>
      */
     inline CreatePullRequestRequest& WithClientRequestToken(const char* value) { SetClientRequestToken(value); return *this;}
 

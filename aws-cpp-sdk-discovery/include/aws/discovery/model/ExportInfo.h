@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationDiscoveryService
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ExportInfo();
-    ExportInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExportInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExportInfo(Aws::Utils::Json::JsonView jsonValue);
+    ExportInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>A unique identifier used to query an export.</p>
      */
     inline const Aws::String& GetExportId() const{ return m_exportId; }
+
+    /**
+     * <p>A unique identifier used to query an export.</p>
+     */
+    inline bool ExportIdHasBeenSet() const { return m_exportIdHasBeenSet; }
 
     /**
      * <p>A unique identifier used to query an export.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The status of the data export job.</p>
      */
+    inline bool ExportStatusHasBeenSet() const { return m_exportStatusHasBeenSet; }
+
+    /**
+     * <p>The status of the data export job.</p>
+     */
     inline void SetExportStatus(const ExportStatus& value) { m_exportStatusHasBeenSet = true; m_exportStatus = value; }
 
     /**
@@ -115,6 +126,11 @@ namespace Model
      * <p>A status message provided for API callers.</p>
      */
     inline const Aws::String& GetStatusMessage() const{ return m_statusMessage; }
+
+    /**
+     * <p>A status message provided for API callers.</p>
+     */
+    inline bool StatusMessageHasBeenSet() const { return m_statusMessageHasBeenSet; }
 
     /**
      * <p>A status message provided for API callers.</p>
@@ -152,6 +168,12 @@ namespace Model
      * is displayed only if the export succeeded.</p>
      */
     inline const Aws::String& GetConfigurationsDownloadUrl() const{ return m_configurationsDownloadUrl; }
+
+    /**
+     * <p>A URL for an Amazon S3 bucket where you can review the exported data. The URL
+     * is displayed only if the export succeeded.</p>
+     */
+    inline bool ConfigurationsDownloadUrlHasBeenSet() const { return m_configurationsDownloadUrlHasBeenSet; }
 
     /**
      * <p>A URL for an Amazon S3 bucket where you can review the exported data. The URL
@@ -198,6 +220,11 @@ namespace Model
     /**
      * <p>The time that the data export was initiated.</p>
      */
+    inline bool ExportRequestTimeHasBeenSet() const { return m_exportRequestTimeHasBeenSet; }
+
+    /**
+     * <p>The time that the data export was initiated.</p>
+     */
     inline void SetExportRequestTime(const Aws::Utils::DateTime& value) { m_exportRequestTimeHasBeenSet = true; m_exportRequestTime = value; }
 
     /**
@@ -230,6 +257,14 @@ namespace Model
      * address this, select a smaller time range for the export by using
      * <code>startDate</code> and <code>endDate</code>.</p>
      */
+    inline bool IsTruncatedHasBeenSet() const { return m_isTruncatedHasBeenSet; }
+
+    /**
+     * <p>If true, the export of agent information exceeded the size limit for a single
+     * export and the exported data is incomplete for the requested time range. To
+     * address this, select a smaller time range for the export by using
+     * <code>startDate</code> and <code>endDate</code>.</p>
+     */
     inline void SetIsTruncated(bool value) { m_isTruncatedHasBeenSet = true; m_isTruncated = value; }
 
     /**
@@ -247,6 +282,13 @@ namespace Model
      * requested, this result does not appear in <code>ExportInfo</code>.</p>
      */
     inline const Aws::Utils::DateTime& GetRequestedStartTime() const{ return m_requestedStartTime; }
+
+    /**
+     * <p>The value of <code>startTime</code> parameter in the
+     * <code>StartExportTask</code> request. If no <code>startTime</code> was
+     * requested, this result does not appear in <code>ExportInfo</code>.</p>
+     */
+    inline bool RequestedStartTimeHasBeenSet() const { return m_requestedStartTimeHasBeenSet; }
 
     /**
      * <p>The value of <code>startTime</code> parameter in the
@@ -283,6 +325,13 @@ namespace Model
      * <code>ExportInfo</code>.</p>
      */
     inline const Aws::Utils::DateTime& GetRequestedEndTime() const{ return m_requestedEndTime; }
+
+    /**
+     * <p>The <code>endTime</code> used in the <code>StartExportTask</code> request. If
+     * no <code>endTime</code> was requested, this result does not appear in
+     * <code>ExportInfo</code>.</p>
+     */
+    inline bool RequestedEndTimeHasBeenSet() const { return m_requestedEndTimeHasBeenSet; }
 
     /**
      * <p>The <code>endTime</code> used in the <code>StartExportTask</code> request. If

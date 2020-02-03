@@ -52,7 +52,11 @@ RestoreDBClusterFromS3Request::RestoreDBClusterFromS3Request() :
     m_s3IngestionRoleArnHasBeenSet(false),
     m_backtrackWindow(0),
     m_backtrackWindowHasBeenSet(false),
-    m_enableCloudwatchLogsExportsHasBeenSet(false)
+    m_enableCloudwatchLogsExportsHasBeenSet(false),
+    m_deletionProtection(false),
+    m_deletionProtectionHasBeenSet(false),
+    m_copyTagsToSnapshot(false),
+    m_copyTagsToSnapshotHasBeenSet(false)
 {
 }
 
@@ -216,6 +220,16 @@ Aws::String RestoreDBClusterFromS3Request::SerializePayload() const
           << StringUtils::URLEncode(item.c_str()) << "&";
       enableCloudwatchLogsExportsCount++;
     }
+  }
+
+  if(m_deletionProtectionHasBeenSet)
+  {
+    ss << "DeletionProtection=" << std::boolalpha << m_deletionProtection << "&";
+  }
+
+  if(m_copyTagsToSnapshotHasBeenSet)
+  {
+    ss << "CopyTagsToSnapshot=" << std::boolalpha << m_copyTagsToSnapshot << "&";
   }
 
   ss << "Version=2014-10-31";

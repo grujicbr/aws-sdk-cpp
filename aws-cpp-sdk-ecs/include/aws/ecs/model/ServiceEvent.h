@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ServiceEvent();
-    ServiceEvent(const Aws::Utils::Json::JsonValue& jsonValue);
-    ServiceEvent& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ServiceEvent(Aws::Utils::Json::JsonView jsonValue);
+    ServiceEvent& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ID string of the event.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID string of the event.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID string of the event.</p>
@@ -84,27 +90,32 @@ namespace Model
 
 
     /**
-     * <p>The Unix time stamp for when the event was triggered.</p>
+     * <p>The Unix timestamp for when the event was triggered.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedAt() const{ return m_createdAt; }
 
     /**
-     * <p>The Unix time stamp for when the event was triggered.</p>
+     * <p>The Unix timestamp for when the event was triggered.</p>
+     */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The Unix timestamp for when the event was triggered.</p>
      */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
-     * <p>The Unix time stamp for when the event was triggered.</p>
+     * <p>The Unix timestamp for when the event was triggered.</p>
      */
     inline void SetCreatedAt(Aws::Utils::DateTime&& value) { m_createdAtHasBeenSet = true; m_createdAt = std::move(value); }
 
     /**
-     * <p>The Unix time stamp for when the event was triggered.</p>
+     * <p>The Unix timestamp for when the event was triggered.</p>
      */
     inline ServiceEvent& WithCreatedAt(const Aws::Utils::DateTime& value) { SetCreatedAt(value); return *this;}
 
     /**
-     * <p>The Unix time stamp for when the event was triggered.</p>
+     * <p>The Unix timestamp for when the event was triggered.</p>
      */
     inline ServiceEvent& WithCreatedAt(Aws::Utils::DateTime&& value) { SetCreatedAt(std::move(value)); return *this;}
 
@@ -113,6 +124,11 @@ namespace Model
      * <p>The event message.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The event message.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The event message.</p>

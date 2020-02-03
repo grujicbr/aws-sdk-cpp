@@ -18,6 +18,8 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/core/utils/DateTime.h>
+#include <aws/ecr/model/ImageScanStatus.h>
+#include <aws/ecr/model/ImageScanFindingsSummary.h>
 #include <utility>
 
 namespace Aws
@@ -27,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECR
@@ -44,8 +47,8 @@ namespace Model
   {
   public:
     ImageDetail();
-    ImageDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ImageDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ImageDetail(Aws::Utils::Json::JsonView jsonValue);
+    ImageDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +57,12 @@ namespace Model
      * belongs.</p>
      */
     inline const Aws::String& GetRegistryId() const{ return m_registryId; }
+
+    /**
+     * <p>The AWS account ID associated with the registry to which this image
+     * belongs.</p>
+     */
+    inline bool RegistryIdHasBeenSet() const { return m_registryIdHasBeenSet; }
 
     /**
      * <p>The AWS account ID associated with the registry to which this image
@@ -100,6 +109,11 @@ namespace Model
     /**
      * <p>The name of the repository to which this image belongs.</p>
      */
+    inline bool RepositoryNameHasBeenSet() const { return m_repositoryNameHasBeenSet; }
+
+    /**
+     * <p>The name of the repository to which this image belongs.</p>
+     */
     inline void SetRepositoryName(const Aws::String& value) { m_repositoryNameHasBeenSet = true; m_repositoryName = value; }
 
     /**
@@ -136,6 +150,11 @@ namespace Model
     /**
      * <p>The <code>sha256</code> digest of the image manifest.</p>
      */
+    inline bool ImageDigestHasBeenSet() const { return m_imageDigestHasBeenSet; }
+
+    /**
+     * <p>The <code>sha256</code> digest of the image manifest.</p>
+     */
     inline void SetImageDigest(const Aws::String& value) { m_imageDigestHasBeenSet = true; m_imageDigest = value; }
 
     /**
@@ -168,6 +187,11 @@ namespace Model
      * <p>The list of tags associated with this image.</p>
      */
     inline const Aws::Vector<Aws::String>& GetImageTags() const{ return m_imageTags; }
+
+    /**
+     * <p>The list of tags associated with this image.</p>
+     */
+    inline bool ImageTagsHasBeenSet() const { return m_imageTagsHasBeenSet; }
 
     /**
      * <p>The list of tags associated with this image.</p>
@@ -223,6 +247,16 @@ namespace Model
      * larger image size than the image sizes returned by <a>DescribeImages</a>.</p>
      * </note>
      */
+    inline bool ImageSizeInBytesHasBeenSet() const { return m_imageSizeInBytesHasBeenSet; }
+
+    /**
+     * <p>The size, in bytes, of the image in the repository.</p> <note> <p>Beginning
+     * with Docker version 1.9, the Docker client compresses image layers before
+     * pushing them to a V2 Docker registry. The output of the <code>docker
+     * images</code> command shows the uncompressed image size, so it may return a
+     * larger image size than the image sizes returned by <a>DescribeImages</a>.</p>
+     * </note>
+     */
     inline void SetImageSizeInBytes(long long value) { m_imageSizeInBytesHasBeenSet = true; m_imageSizeInBytes = value; }
 
     /**
@@ -241,6 +275,12 @@ namespace Model
      * current image was pushed to the repository. </p>
      */
     inline const Aws::Utils::DateTime& GetImagePushedAt() const{ return m_imagePushedAt; }
+
+    /**
+     * <p>The date and time, expressed in standard JavaScript date format, at which the
+     * current image was pushed to the repository. </p>
+     */
+    inline bool ImagePushedAtHasBeenSet() const { return m_imagePushedAtHasBeenSet; }
 
     /**
      * <p>The date and time, expressed in standard JavaScript date format, at which the
@@ -266,6 +306,68 @@ namespace Model
      */
     inline ImageDetail& WithImagePushedAt(Aws::Utils::DateTime&& value) { SetImagePushedAt(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The current state of the scan.</p>
+     */
+    inline const ImageScanStatus& GetImageScanStatus() const{ return m_imageScanStatus; }
+
+    /**
+     * <p>The current state of the scan.</p>
+     */
+    inline bool ImageScanStatusHasBeenSet() const { return m_imageScanStatusHasBeenSet; }
+
+    /**
+     * <p>The current state of the scan.</p>
+     */
+    inline void SetImageScanStatus(const ImageScanStatus& value) { m_imageScanStatusHasBeenSet = true; m_imageScanStatus = value; }
+
+    /**
+     * <p>The current state of the scan.</p>
+     */
+    inline void SetImageScanStatus(ImageScanStatus&& value) { m_imageScanStatusHasBeenSet = true; m_imageScanStatus = std::move(value); }
+
+    /**
+     * <p>The current state of the scan.</p>
+     */
+    inline ImageDetail& WithImageScanStatus(const ImageScanStatus& value) { SetImageScanStatus(value); return *this;}
+
+    /**
+     * <p>The current state of the scan.</p>
+     */
+    inline ImageDetail& WithImageScanStatus(ImageScanStatus&& value) { SetImageScanStatus(std::move(value)); return *this;}
+
+
+    /**
+     * <p>A summary of the last completed image scan.</p>
+     */
+    inline const ImageScanFindingsSummary& GetImageScanFindingsSummary() const{ return m_imageScanFindingsSummary; }
+
+    /**
+     * <p>A summary of the last completed image scan.</p>
+     */
+    inline bool ImageScanFindingsSummaryHasBeenSet() const { return m_imageScanFindingsSummaryHasBeenSet; }
+
+    /**
+     * <p>A summary of the last completed image scan.</p>
+     */
+    inline void SetImageScanFindingsSummary(const ImageScanFindingsSummary& value) { m_imageScanFindingsSummaryHasBeenSet = true; m_imageScanFindingsSummary = value; }
+
+    /**
+     * <p>A summary of the last completed image scan.</p>
+     */
+    inline void SetImageScanFindingsSummary(ImageScanFindingsSummary&& value) { m_imageScanFindingsSummaryHasBeenSet = true; m_imageScanFindingsSummary = std::move(value); }
+
+    /**
+     * <p>A summary of the last completed image scan.</p>
+     */
+    inline ImageDetail& WithImageScanFindingsSummary(const ImageScanFindingsSummary& value) { SetImageScanFindingsSummary(value); return *this;}
+
+    /**
+     * <p>A summary of the last completed image scan.</p>
+     */
+    inline ImageDetail& WithImageScanFindingsSummary(ImageScanFindingsSummary&& value) { SetImageScanFindingsSummary(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_registryId;
@@ -285,6 +387,12 @@ namespace Model
 
     Aws::Utils::DateTime m_imagePushedAt;
     bool m_imagePushedAtHasBeenSet;
+
+    ImageScanStatus m_imageScanStatus;
+    bool m_imageScanStatusHasBeenSet;
+
+    ImageScanFindingsSummary m_imageScanFindingsSummary;
+    bool m_imageScanFindingsSummaryHasBeenSet;
   };
 
 } // namespace Model

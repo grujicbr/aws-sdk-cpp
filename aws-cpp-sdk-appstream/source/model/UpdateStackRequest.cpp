@@ -30,7 +30,10 @@ UpdateStackRequest::UpdateStackRequest() :
     m_redirectURLHasBeenSet(false),
     m_feedbackURLHasBeenSet(false),
     m_attributesToDeleteHasBeenSet(false),
-    m_userSettingsHasBeenSet(false)
+    m_userSettingsHasBeenSet(false),
+    m_applicationSettingsHasBeenSet(false),
+    m_accessEndpointsHasBeenSet(false),
+    m_embedHostDomainsHasBeenSet(false)
 {
 }
 
@@ -101,7 +104,35 @@ Aws::String UpdateStackRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_applicationSettingsHasBeenSet)
+  {
+   payload.WithObject("ApplicationSettings", m_applicationSettings.Jsonize());
+
+  }
+
+  if(m_accessEndpointsHasBeenSet)
+  {
+   Array<JsonValue> accessEndpointsJsonList(m_accessEndpoints.size());
+   for(unsigned accessEndpointsIndex = 0; accessEndpointsIndex < accessEndpointsJsonList.GetLength(); ++accessEndpointsIndex)
+   {
+     accessEndpointsJsonList[accessEndpointsIndex].AsObject(m_accessEndpoints[accessEndpointsIndex].Jsonize());
+   }
+   payload.WithArray("AccessEndpoints", std::move(accessEndpointsJsonList));
+
+  }
+
+  if(m_embedHostDomainsHasBeenSet)
+  {
+   Array<JsonValue> embedHostDomainsJsonList(m_embedHostDomains.size());
+   for(unsigned embedHostDomainsIndex = 0; embedHostDomainsIndex < embedHostDomainsJsonList.GetLength(); ++embedHostDomainsIndex)
+   {
+     embedHostDomainsJsonList[embedHostDomainsIndex].AsString(m_embedHostDomains[embedHostDomainsIndex]);
+   }
+   payload.WithArray("EmbedHostDomains", std::move(embedHostDomainsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateStackRequest::GetRequestSpecificHeaders() const

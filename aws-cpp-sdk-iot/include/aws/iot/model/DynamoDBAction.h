@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -52,8 +53,8 @@ namespace Model
   {
   public:
     DynamoDBAction();
-    DynamoDBAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    DynamoDBAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DynamoDBAction(Aws::Utils::Json::JsonView jsonValue);
+    DynamoDBAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -61,6 +62,11 @@ namespace Model
      * <p>The name of the DynamoDB table.</p>
      */
     inline const Aws::String& GetTableName() const{ return m_tableName; }
+
+    /**
+     * <p>The name of the DynamoDB table.</p>
+     */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
 
     /**
      * <p>The name of the DynamoDB table.</p>
@@ -101,6 +107,11 @@ namespace Model
     /**
      * <p>The ARN of the IAM role that grants access to the DynamoDB table.</p>
      */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the IAM role that grants access to the DynamoDB table.</p>
+     */
     inline void SetRoleArn(const Aws::String& value) { m_roleArnHasBeenSet = true; m_roleArn = value; }
 
     /**
@@ -136,6 +147,14 @@ namespace Model
      * <code>DELETE</code>.</p>
      */
     inline const Aws::String& GetOperation() const{ return m_operation; }
+
+    /**
+     * <p>The type of operation to be performed. This follows the substitution
+     * template, so it can be <code>${operation}</code>, but the substitution must
+     * result in one of the following: <code>INSERT</code>, <code>UPDATE</code>, or
+     * <code>DELETE</code>.</p>
+     */
+    inline bool OperationHasBeenSet() const { return m_operationHasBeenSet; }
 
     /**
      * <p>The type of operation to be performed. This follows the substitution
@@ -194,6 +213,11 @@ namespace Model
     /**
      * <p>The hash key name.</p>
      */
+    inline bool HashKeyFieldHasBeenSet() const { return m_hashKeyFieldHasBeenSet; }
+
+    /**
+     * <p>The hash key name.</p>
+     */
     inline void SetHashKeyField(const Aws::String& value) { m_hashKeyFieldHasBeenSet = true; m_hashKeyField = value; }
 
     /**
@@ -226,6 +250,11 @@ namespace Model
      * <p>The hash key value.</p>
      */
     inline const Aws::String& GetHashKeyValue() const{ return m_hashKeyValue; }
+
+    /**
+     * <p>The hash key value.</p>
+     */
+    inline bool HashKeyValueHasBeenSet() const { return m_hashKeyValueHasBeenSet; }
 
     /**
      * <p>The hash key value.</p>
@@ -266,6 +295,11 @@ namespace Model
     /**
      * <p>The hash key type. Valid values are "STRING" or "NUMBER"</p>
      */
+    inline bool HashKeyTypeHasBeenSet() const { return m_hashKeyTypeHasBeenSet; }
+
+    /**
+     * <p>The hash key type. Valid values are "STRING" or "NUMBER"</p>
+     */
     inline void SetHashKeyType(const DynamoKeyType& value) { m_hashKeyTypeHasBeenSet = true; m_hashKeyType = value; }
 
     /**
@@ -288,6 +322,11 @@ namespace Model
      * <p>The range key name.</p>
      */
     inline const Aws::String& GetRangeKeyField() const{ return m_rangeKeyField; }
+
+    /**
+     * <p>The range key name.</p>
+     */
+    inline bool RangeKeyFieldHasBeenSet() const { return m_rangeKeyFieldHasBeenSet; }
 
     /**
      * <p>The range key name.</p>
@@ -328,6 +367,11 @@ namespace Model
     /**
      * <p>The range key value.</p>
      */
+    inline bool RangeKeyValueHasBeenSet() const { return m_rangeKeyValueHasBeenSet; }
+
+    /**
+     * <p>The range key value.</p>
+     */
     inline void SetRangeKeyValue(const Aws::String& value) { m_rangeKeyValueHasBeenSet = true; m_rangeKeyValue = value; }
 
     /**
@@ -364,6 +408,11 @@ namespace Model
     /**
      * <p>The range key type. Valid values are "STRING" or "NUMBER"</p>
      */
+    inline bool RangeKeyTypeHasBeenSet() const { return m_rangeKeyTypeHasBeenSet; }
+
+    /**
+     * <p>The range key type. Valid values are "STRING" or "NUMBER"</p>
+     */
     inline void SetRangeKeyType(const DynamoKeyType& value) { m_rangeKeyTypeHasBeenSet = true; m_rangeKeyType = value; }
 
     /**
@@ -386,6 +435,11 @@ namespace Model
      * <p>The action payload. This name can be customized.</p>
      */
     inline const Aws::String& GetPayloadField() const{ return m_payloadField; }
+
+    /**
+     * <p>The action payload. This name can be customized.</p>
+     */
+    inline bool PayloadFieldHasBeenSet() const { return m_payloadFieldHasBeenSet; }
 
     /**
      * <p>The action payload. This name can be customized.</p>

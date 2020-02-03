@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     MetricFilterMatchRecord();
-    MetricFilterMatchRecord(const Aws::Utils::Json::JsonValue& jsonValue);
-    MetricFilterMatchRecord& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MetricFilterMatchRecord(Aws::Utils::Json::JsonView jsonValue);
+    MetricFilterMatchRecord& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The event number.</p>
      */
     inline long long GetEventNumber() const{ return m_eventNumber; }
+
+    /**
+     * <p>The event number.</p>
+     */
+    inline bool EventNumberHasBeenSet() const { return m_eventNumberHasBeenSet; }
 
     /**
      * <p>The event number.</p>
@@ -67,6 +73,11 @@ namespace Model
      * <p>The raw event data.</p>
      */
     inline const Aws::String& GetEventMessage() const{ return m_eventMessage; }
+
+    /**
+     * <p>The raw event data.</p>
+     */
+    inline bool EventMessageHasBeenSet() const { return m_eventMessageHasBeenSet; }
 
     /**
      * <p>The raw event data.</p>
@@ -103,6 +114,11 @@ namespace Model
      * <p>The values extracted from the event data by the filter.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetExtractedValues() const{ return m_extractedValues; }
+
+    /**
+     * <p>The values extracted from the event data by the filter.</p>
+     */
+    inline bool ExtractedValuesHasBeenSet() const { return m_extractedValuesHasBeenSet; }
 
     /**
      * <p>The values extracted from the event data by the filter.</p>

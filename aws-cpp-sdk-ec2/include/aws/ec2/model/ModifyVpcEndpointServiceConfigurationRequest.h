@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     ModifyVpcEndpointServiceConfigurationRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -61,6 +61,14 @@ namespace Model
      * required permissions, the error response is <code>DryRunOperation</code>.
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
     inline void SetDryRun(bool value) { m_dryRunHasBeenSet = true; m_dryRun = value; }
 
     /**
@@ -76,6 +84,11 @@ namespace Model
      * <p>The ID of the service.</p>
      */
     inline const Aws::String& GetServiceId() const{ return m_serviceId; }
+
+    /**
+     * <p>The ID of the service.</p>
+     */
+    inline bool ServiceIdHasBeenSet() const { return m_serviceIdHasBeenSet; }
 
     /**
      * <p>The ID of the service.</p>
@@ -109,19 +122,87 @@ namespace Model
 
 
     /**
-     * <p>Indicate whether requests to create an endpoint to your service must be
+     * <p>The private DNS name to assign to the endpoint service.</p>
+     */
+    inline const Aws::String& GetPrivateDnsName() const{ return m_privateDnsName; }
+
+    /**
+     * <p>The private DNS name to assign to the endpoint service.</p>
+     */
+    inline bool PrivateDnsNameHasBeenSet() const { return m_privateDnsNameHasBeenSet; }
+
+    /**
+     * <p>The private DNS name to assign to the endpoint service.</p>
+     */
+    inline void SetPrivateDnsName(const Aws::String& value) { m_privateDnsNameHasBeenSet = true; m_privateDnsName = value; }
+
+    /**
+     * <p>The private DNS name to assign to the endpoint service.</p>
+     */
+    inline void SetPrivateDnsName(Aws::String&& value) { m_privateDnsNameHasBeenSet = true; m_privateDnsName = std::move(value); }
+
+    /**
+     * <p>The private DNS name to assign to the endpoint service.</p>
+     */
+    inline void SetPrivateDnsName(const char* value) { m_privateDnsNameHasBeenSet = true; m_privateDnsName.assign(value); }
+
+    /**
+     * <p>The private DNS name to assign to the endpoint service.</p>
+     */
+    inline ModifyVpcEndpointServiceConfigurationRequest& WithPrivateDnsName(const Aws::String& value) { SetPrivateDnsName(value); return *this;}
+
+    /**
+     * <p>The private DNS name to assign to the endpoint service.</p>
+     */
+    inline ModifyVpcEndpointServiceConfigurationRequest& WithPrivateDnsName(Aws::String&& value) { SetPrivateDnsName(std::move(value)); return *this;}
+
+    /**
+     * <p>The private DNS name to assign to the endpoint service.</p>
+     */
+    inline ModifyVpcEndpointServiceConfigurationRequest& WithPrivateDnsName(const char* value) { SetPrivateDnsName(value); return *this;}
+
+
+    /**
+     * <p>Removes the private DNS name of the endpoint service.</p>
+     */
+    inline bool GetRemovePrivateDnsName() const{ return m_removePrivateDnsName; }
+
+    /**
+     * <p>Removes the private DNS name of the endpoint service.</p>
+     */
+    inline bool RemovePrivateDnsNameHasBeenSet() const { return m_removePrivateDnsNameHasBeenSet; }
+
+    /**
+     * <p>Removes the private DNS name of the endpoint service.</p>
+     */
+    inline void SetRemovePrivateDnsName(bool value) { m_removePrivateDnsNameHasBeenSet = true; m_removePrivateDnsName = value; }
+
+    /**
+     * <p>Removes the private DNS name of the endpoint service.</p>
+     */
+    inline ModifyVpcEndpointServiceConfigurationRequest& WithRemovePrivateDnsName(bool value) { SetRemovePrivateDnsName(value); return *this;}
+
+
+    /**
+     * <p>Indicates whether requests to create an endpoint to your service must be
      * accepted.</p>
      */
     inline bool GetAcceptanceRequired() const{ return m_acceptanceRequired; }
 
     /**
-     * <p>Indicate whether requests to create an endpoint to your service must be
+     * <p>Indicates whether requests to create an endpoint to your service must be
+     * accepted.</p>
+     */
+    inline bool AcceptanceRequiredHasBeenSet() const { return m_acceptanceRequiredHasBeenSet; }
+
+    /**
+     * <p>Indicates whether requests to create an endpoint to your service must be
      * accepted.</p>
      */
     inline void SetAcceptanceRequired(bool value) { m_acceptanceRequiredHasBeenSet = true; m_acceptanceRequired = value; }
 
     /**
-     * <p>Indicate whether requests to create an endpoint to your service must be
+     * <p>Indicates whether requests to create an endpoint to your service must be
      * accepted.</p>
      */
     inline ModifyVpcEndpointServiceConfigurationRequest& WithAcceptanceRequired(bool value) { SetAcceptanceRequired(value); return *this;}
@@ -132,6 +213,12 @@ namespace Model
      * service configuration.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAddNetworkLoadBalancerArns() const{ return m_addNetworkLoadBalancerArns; }
+
+    /**
+     * <p>The Amazon Resource Names (ARNs) of Network Load Balancers to add to your
+     * service configuration.</p>
+     */
+    inline bool AddNetworkLoadBalancerArnsHasBeenSet() const { return m_addNetworkLoadBalancerArnsHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Names (ARNs) of Network Load Balancers to add to your
@@ -186,6 +273,12 @@ namespace Model
      * <p>The Amazon Resource Names (ARNs) of Network Load Balancers to remove from
      * your service configuration.</p>
      */
+    inline bool RemoveNetworkLoadBalancerArnsHasBeenSet() const { return m_removeNetworkLoadBalancerArnsHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Names (ARNs) of Network Load Balancers to remove from
+     * your service configuration.</p>
+     */
     inline void SetRemoveNetworkLoadBalancerArns(const Aws::Vector<Aws::String>& value) { m_removeNetworkLoadBalancerArnsHasBeenSet = true; m_removeNetworkLoadBalancerArns = value; }
 
     /**
@@ -231,6 +324,12 @@ namespace Model
 
     Aws::String m_serviceId;
     bool m_serviceIdHasBeenSet;
+
+    Aws::String m_privateDnsName;
+    bool m_privateDnsNameHasBeenSet;
+
+    bool m_removePrivateDnsName;
+    bool m_removePrivateDnsNameHasBeenSet;
 
     bool m_acceptanceRequired;
     bool m_acceptanceRequiredHasBeenSet;

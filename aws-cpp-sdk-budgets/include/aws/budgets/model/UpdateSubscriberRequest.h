@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     UpdateSubscriberRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +54,12 @@ namespace Model
      * subscriber you want to update.</p>
      */
     inline const Aws::String& GetAccountId() const{ return m_accountId; }
+
+    /**
+     * <p>The <code>accountId</code> that is associated with the budget whose
+     * subscriber you want to update.</p>
+     */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
 
     /**
      * <p>The <code>accountId</code> that is associated with the budget whose
@@ -100,6 +106,11 @@ namespace Model
     /**
      * <p>The name of the budget whose subscriber you want to update.</p>
      */
+    inline bool BudgetNameHasBeenSet() const { return m_budgetNameHasBeenSet; }
+
+    /**
+     * <p>The name of the budget whose subscriber you want to update.</p>
+     */
     inline void SetBudgetName(const Aws::String& value) { m_budgetNameHasBeenSet = true; m_budgetName = value; }
 
     /**
@@ -136,6 +147,11 @@ namespace Model
     /**
      * <p>The notification whose subscriber you want to update.</p>
      */
+    inline bool NotificationHasBeenSet() const { return m_notificationHasBeenSet; }
+
+    /**
+     * <p>The notification whose subscriber you want to update.</p>
+     */
     inline void SetNotification(const Notification& value) { m_notificationHasBeenSet = true; m_notification = value; }
 
     /**
@@ -155,53 +171,63 @@ namespace Model
 
 
     /**
-     * <p>The previous subscriber associated with a budget notification.</p>
+     * <p>The previous subscriber that is associated with a budget notification.</p>
      */
     inline const Subscriber& GetOldSubscriber() const{ return m_oldSubscriber; }
 
     /**
-     * <p>The previous subscriber associated with a budget notification.</p>
+     * <p>The previous subscriber that is associated with a budget notification.</p>
+     */
+    inline bool OldSubscriberHasBeenSet() const { return m_oldSubscriberHasBeenSet; }
+
+    /**
+     * <p>The previous subscriber that is associated with a budget notification.</p>
      */
     inline void SetOldSubscriber(const Subscriber& value) { m_oldSubscriberHasBeenSet = true; m_oldSubscriber = value; }
 
     /**
-     * <p>The previous subscriber associated with a budget notification.</p>
+     * <p>The previous subscriber that is associated with a budget notification.</p>
      */
     inline void SetOldSubscriber(Subscriber&& value) { m_oldSubscriberHasBeenSet = true; m_oldSubscriber = std::move(value); }
 
     /**
-     * <p>The previous subscriber associated with a budget notification.</p>
+     * <p>The previous subscriber that is associated with a budget notification.</p>
      */
     inline UpdateSubscriberRequest& WithOldSubscriber(const Subscriber& value) { SetOldSubscriber(value); return *this;}
 
     /**
-     * <p>The previous subscriber associated with a budget notification.</p>
+     * <p>The previous subscriber that is associated with a budget notification.</p>
      */
     inline UpdateSubscriberRequest& WithOldSubscriber(Subscriber&& value) { SetOldSubscriber(std::move(value)); return *this;}
 
 
     /**
-     * <p>The updated subscriber associated with a budget notification.</p>
+     * <p>The updated subscriber that is associated with a budget notification.</p>
      */
     inline const Subscriber& GetNewSubscriber() const{ return m_newSubscriber; }
 
     /**
-     * <p>The updated subscriber associated with a budget notification.</p>
+     * <p>The updated subscriber that is associated with a budget notification.</p>
+     */
+    inline bool NewSubscriberHasBeenSet() const { return m_newSubscriberHasBeenSet; }
+
+    /**
+     * <p>The updated subscriber that is associated with a budget notification.</p>
      */
     inline void SetNewSubscriber(const Subscriber& value) { m_newSubscriberHasBeenSet = true; m_newSubscriber = value; }
 
     /**
-     * <p>The updated subscriber associated with a budget notification.</p>
+     * <p>The updated subscriber that is associated with a budget notification.</p>
      */
     inline void SetNewSubscriber(Subscriber&& value) { m_newSubscriberHasBeenSet = true; m_newSubscriber = std::move(value); }
 
     /**
-     * <p>The updated subscriber associated with a budget notification.</p>
+     * <p>The updated subscriber that is associated with a budget notification.</p>
      */
     inline UpdateSubscriberRequest& WithNewSubscriber(const Subscriber& value) { SetNewSubscriber(value); return *this;}
 
     /**
-     * <p>The updated subscriber associated with a budget notification.</p>
+     * <p>The updated subscriber that is associated with a budget notification.</p>
      */
     inline UpdateSubscriberRequest& WithNewSubscriber(Subscriber&& value) { SetNewSubscriber(std::move(value)); return *this;}
 

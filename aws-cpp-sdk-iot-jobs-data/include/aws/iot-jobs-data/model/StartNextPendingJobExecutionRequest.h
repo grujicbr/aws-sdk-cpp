@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     StartNextPendingJobExecutionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,6 +47,11 @@ namespace Model
      * <p>The name of the thing associated with the device.</p>
      */
     inline const Aws::String& GetThingName() const{ return m_thingName; }
+
+    /**
+     * <p>The name of the thing associated with the device.</p>
+     */
+    inline bool ThingNameHasBeenSet() const { return m_thingNameHasBeenSet; }
 
     /**
      * <p>The name of the thing associated with the device.</p>
@@ -84,6 +89,12 @@ namespace Model
      * execution. If not specified, the statusDetails are unchanged.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetStatusDetails() const{ return m_statusDetails; }
+
+    /**
+     * <p>A collection of name/value pairs that describe the status of the job
+     * execution. If not specified, the statusDetails are unchanged.</p>
+     */
+    inline bool StatusDetailsHasBeenSet() const { return m_statusDetailsHasBeenSet; }
 
     /**
      * <p>A collection of name/value pairs that describe the status of the job
@@ -151,6 +162,59 @@ namespace Model
      */
     inline StartNextPendingJobExecutionRequest& AddStatusDetails(const char* key, const char* value) { m_statusDetailsHasBeenSet = true; m_statusDetails.emplace(key, value); return *this; }
 
+
+    /**
+     * <p>Specifies the amount of time this device has to finish execution of this job.
+     * If the job execution status is not set to a terminal state before this timer
+     * expires, or before the timer is reset (by calling
+     * <code>UpdateJobExecution</code>, setting the status to <code>IN_PROGRESS</code>
+     * and specifying a new timeout value in field <code>stepTimeoutInMinutes</code>)
+     * the job execution status will be automatically set to <code>TIMED_OUT</code>.
+     * Note that setting this timeout has no effect on that job execution timeout which
+     * may have been specified when the job was created (<code>CreateJob</code> using
+     * field <code>timeoutConfig</code>).</p>
+     */
+    inline long long GetStepTimeoutInMinutes() const{ return m_stepTimeoutInMinutes; }
+
+    /**
+     * <p>Specifies the amount of time this device has to finish execution of this job.
+     * If the job execution status is not set to a terminal state before this timer
+     * expires, or before the timer is reset (by calling
+     * <code>UpdateJobExecution</code>, setting the status to <code>IN_PROGRESS</code>
+     * and specifying a new timeout value in field <code>stepTimeoutInMinutes</code>)
+     * the job execution status will be automatically set to <code>TIMED_OUT</code>.
+     * Note that setting this timeout has no effect on that job execution timeout which
+     * may have been specified when the job was created (<code>CreateJob</code> using
+     * field <code>timeoutConfig</code>).</p>
+     */
+    inline bool StepTimeoutInMinutesHasBeenSet() const { return m_stepTimeoutInMinutesHasBeenSet; }
+
+    /**
+     * <p>Specifies the amount of time this device has to finish execution of this job.
+     * If the job execution status is not set to a terminal state before this timer
+     * expires, or before the timer is reset (by calling
+     * <code>UpdateJobExecution</code>, setting the status to <code>IN_PROGRESS</code>
+     * and specifying a new timeout value in field <code>stepTimeoutInMinutes</code>)
+     * the job execution status will be automatically set to <code>TIMED_OUT</code>.
+     * Note that setting this timeout has no effect on that job execution timeout which
+     * may have been specified when the job was created (<code>CreateJob</code> using
+     * field <code>timeoutConfig</code>).</p>
+     */
+    inline void SetStepTimeoutInMinutes(long long value) { m_stepTimeoutInMinutesHasBeenSet = true; m_stepTimeoutInMinutes = value; }
+
+    /**
+     * <p>Specifies the amount of time this device has to finish execution of this job.
+     * If the job execution status is not set to a terminal state before this timer
+     * expires, or before the timer is reset (by calling
+     * <code>UpdateJobExecution</code>, setting the status to <code>IN_PROGRESS</code>
+     * and specifying a new timeout value in field <code>stepTimeoutInMinutes</code>)
+     * the job execution status will be automatically set to <code>TIMED_OUT</code>.
+     * Note that setting this timeout has no effect on that job execution timeout which
+     * may have been specified when the job was created (<code>CreateJob</code> using
+     * field <code>timeoutConfig</code>).</p>
+     */
+    inline StartNextPendingJobExecutionRequest& WithStepTimeoutInMinutes(long long value) { SetStepTimeoutInMinutes(value); return *this;}
+
   private:
 
     Aws::String m_thingName;
@@ -158,6 +222,9 @@ namespace Model
 
     Aws::Map<Aws::String, Aws::String> m_statusDetails;
     bool m_statusDetailsHasBeenSet;
+
+    long long m_stepTimeoutInMinutes;
+    bool m_stepTimeoutInMinutesHasBeenSet;
   };
 
 } // namespace Model

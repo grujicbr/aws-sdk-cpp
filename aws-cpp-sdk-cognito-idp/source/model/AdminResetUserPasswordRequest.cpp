@@ -24,7 +24,8 @@ using namespace Aws::Utils;
 
 AdminResetUserPasswordRequest::AdminResetUserPasswordRequest() : 
     m_userPoolIdHasBeenSet(false),
-    m_usernameHasBeenSet(false)
+    m_usernameHasBeenSet(false),
+    m_clientMetadataHasBeenSet(false)
 {
 }
 
@@ -44,7 +45,18 @@ Aws::String AdminResetUserPasswordRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_clientMetadataHasBeenSet)
+  {
+   JsonValue clientMetadataJsonMap;
+   for(auto& clientMetadataItem : m_clientMetadata)
+   {
+     clientMetadataJsonMap.WithString(clientMetadataItem.first, clientMetadataItem.second);
+   }
+   payload.WithObject("ClientMetadata", std::move(clientMetadataJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection AdminResetUserPasswordRequest::GetRequestSpecificHeaders() const

@@ -24,7 +24,10 @@ using namespace Aws::Utils;
 
 RemoveTargetsRequest::RemoveTargetsRequest() : 
     m_ruleHasBeenSet(false),
-    m_idsHasBeenSet(false)
+    m_eventBusNameHasBeenSet(false),
+    m_idsHasBeenSet(false),
+    m_force(false),
+    m_forceHasBeenSet(false)
 {
 }
 
@@ -35,6 +38,12 @@ Aws::String RemoveTargetsRequest::SerializePayload() const
   if(m_ruleHasBeenSet)
   {
    payload.WithString("Rule", m_rule);
+
+  }
+
+  if(m_eventBusNameHasBeenSet)
+  {
+   payload.WithString("EventBusName", m_eventBusName);
 
   }
 
@@ -49,7 +58,13 @@ Aws::String RemoveTargetsRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_forceHasBeenSet)
+  {
+   payload.WithBool("Force", m_force);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection RemoveTargetsRequest::GetRequestSpecificHeaders() const

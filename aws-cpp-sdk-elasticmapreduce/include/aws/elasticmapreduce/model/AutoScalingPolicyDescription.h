@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     AutoScalingPolicyDescription();
-    AutoScalingPolicyDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    AutoScalingPolicyDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AutoScalingPolicyDescription(Aws::Utils::Json::JsonView jsonValue);
+    AutoScalingPolicyDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>The status of an automatic scaling policy. </p>
      */
     inline const AutoScalingPolicyStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of an automatic scaling policy. </p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of an automatic scaling policy. </p>
@@ -85,6 +91,13 @@ namespace Model
      * below these limits.</p>
      */
     inline const ScalingConstraints& GetConstraints() const{ return m_constraints; }
+
+    /**
+     * <p>The upper and lower EC2 instance limits for an automatic scaling policy.
+     * Automatic scaling activity will not cause an instance group to grow above or
+     * below these limits.</p>
+     */
+    inline bool ConstraintsHasBeenSet() const { return m_constraintsHasBeenSet; }
 
     /**
      * <p>The upper and lower EC2 instance limits for an automatic scaling policy.
@@ -120,6 +133,12 @@ namespace Model
      * policy.</p>
      */
     inline const Aws::Vector<ScalingRule>& GetRules() const{ return m_rules; }
+
+    /**
+     * <p>The scale-in and scale-out rules that comprise the automatic scaling
+     * policy.</p>
+     */
+    inline bool RulesHasBeenSet() const { return m_rulesHasBeenSet; }
 
     /**
      * <p>The scale-in and scale-out rules that comprise the automatic scaling

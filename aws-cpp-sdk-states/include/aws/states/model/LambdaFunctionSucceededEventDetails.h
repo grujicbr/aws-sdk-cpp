@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * <p>Contains details about a lambda function which successfully terminated during
+   * <p>Contains details about a lambda function that successfully terminated during
    * an execution.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionSucceededEventDetails">AWS
    * API Reference</a></p>
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LambdaFunctionSucceededEventDetails();
-    LambdaFunctionSucceededEventDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    LambdaFunctionSucceededEventDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LambdaFunctionSucceededEventDetails(Aws::Utils::Json::JsonView jsonValue);
+    LambdaFunctionSucceededEventDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The JSON data output by the lambda function.</p>
      */
     inline const Aws::String& GetOutput() const{ return m_output; }
+
+    /**
+     * <p>The JSON data output by the lambda function.</p>
+     */
+    inline bool OutputHasBeenSet() const { return m_outputHasBeenSet; }
 
     /**
      * <p>The JSON data output by the lambda function.</p>

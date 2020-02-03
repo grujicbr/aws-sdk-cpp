@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     InstanceFleetConfig();
-    InstanceFleetConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceFleetConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceFleetConfig(Aws::Utils::Json::JsonView jsonValue);
+    InstanceFleetConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The friendly name of the instance fleet.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The friendly name of the instance fleet.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The friendly name of the instance fleet.</p>
@@ -93,6 +99,12 @@ namespace Model
      * TASK.</p>
      */
     inline const InstanceFleetType& GetInstanceFleetType() const{ return m_instanceFleetType; }
+
+    /**
+     * <p>The node type that the instance fleet hosts. Valid values are MASTER,CORE,and
+     * TASK.</p>
+     */
+    inline bool InstanceFleetTypeHasBeenSet() const { return m_instanceFleetTypeHasBeenSet; }
 
     /**
      * <p>The node type that the instance fleet hosts. Valid values are MASTER,CORE,and
@@ -139,6 +151,27 @@ namespace Model
      * 1.</p> </note>
      */
     inline int GetTargetOnDemandCapacity() const{ return m_targetOnDemandCapacity; }
+
+    /**
+     * <p>The target capacity of On-Demand units for the instance fleet, which
+     * determines how many On-Demand instances to provision. When the instance fleet
+     * launches, Amazon EMR tries to provision On-Demand instances as specified by
+     * <a>InstanceTypeConfig</a>. Each instance configuration has a specified
+     * <code>WeightedCapacity</code>. When an On-Demand instance is provisioned, the
+     * <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
+     * provisions instances until the target capacity is totally fulfilled, even if
+     * this results in an overage. For example, if there are 2 units remaining to
+     * fulfill capacity, and Amazon EMR can only provision an instance with a
+     * <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the
+     * target capacity is exceeded by 3 units.</p> <note> <p>If not specified or set to
+     * 0, only Spot instances are provisioned for the instance fleet using
+     * <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code>
+     * and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master
+     * instance fleet, only one of <code>TargetSpotCapacity</code> and
+     * <code>TargetOnDemandCapacity</code> can be specified, and its value must be
+     * 1.</p> </note>
+     */
+    inline bool TargetOnDemandCapacityHasBeenSet() const { return m_targetOnDemandCapacityHasBeenSet; }
 
     /**
      * <p>The target capacity of On-Demand units for the instance fleet, which
@@ -221,6 +254,26 @@ namespace Model
      * <code>TargetOnDemandCapacity</code> can be specified, and its value must be
      * 1.</p> </note>
      */
+    inline bool TargetSpotCapacityHasBeenSet() const { return m_targetSpotCapacityHasBeenSet; }
+
+    /**
+     * <p>The target capacity of Spot units for the instance fleet, which determines
+     * how many Spot instances to provision. When the instance fleet launches, Amazon
+     * EMR tries to provision Spot instances as specified by <a>InstanceTypeConfig</a>.
+     * Each instance configuration has a specified <code>WeightedCapacity</code>. When
+     * a Spot instance is provisioned, the <code>WeightedCapacity</code> units count
+     * toward the target capacity. Amazon EMR provisions instances until the target
+     * capacity is totally fulfilled, even if this results in an overage. For example,
+     * if there are 2 units remaining to fulfill capacity, and Amazon EMR can only
+     * provision an instance with a <code>WeightedCapacity</code> of 5 units, the
+     * instance is provisioned, and the target capacity is exceeded by 3 units.</p>
+     * <note> <p>If not specified or set to 0, only On-Demand instances are provisioned
+     * for the instance fleet. At least one of <code>TargetSpotCapacity</code> and
+     * <code>TargetOnDemandCapacity</code> should be greater than 0. For a master
+     * instance fleet, only one of <code>TargetSpotCapacity</code> and
+     * <code>TargetOnDemandCapacity</code> can be specified, and its value must be
+     * 1.</p> </note>
+     */
     inline void SetTargetSpotCapacity(int value) { m_targetSpotCapacityHasBeenSet = true; m_targetSpotCapacity = value; }
 
     /**
@@ -249,6 +302,12 @@ namespace Model
      * instance fleet.</p>
      */
     inline const Aws::Vector<InstanceTypeConfig>& GetInstanceTypeConfigs() const{ return m_instanceTypeConfigs; }
+
+    /**
+     * <p>The instance type configurations that define the EC2 instances in the
+     * instance fleet.</p>
+     */
+    inline bool InstanceTypeConfigsHasBeenSet() const { return m_instanceTypeConfigsHasBeenSet; }
 
     /**
      * <p>The instance type configurations that define the EC2 instances in the
@@ -291,6 +350,11 @@ namespace Model
      * <p>The launch specification for the instance fleet.</p>
      */
     inline const InstanceFleetProvisioningSpecifications& GetLaunchSpecifications() const{ return m_launchSpecifications; }
+
+    /**
+     * <p>The launch specification for the instance fleet.</p>
+     */
+    inline bool LaunchSpecificationsHasBeenSet() const { return m_launchSpecificationsHasBeenSet; }
 
     /**
      * <p>The launch specification for the instance fleet.</p>

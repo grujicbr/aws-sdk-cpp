@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AccessPoliciesStatus();
-    AccessPoliciesStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    AccessPoliciesStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AccessPoliciesStatus(Aws::Utils::Json::JsonView jsonValue);
+    AccessPoliciesStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,14 @@ namespace Model
      * target="_blank"> Configuring Access Policies</a>for more information.</p>
      */
     inline const Aws::String& GetOptions() const{ return m_options; }
+
+    /**
+     * <p>The access policy configured for the Elasticsearch domain. Access policies
+     * may be resource-based, IP-based, or IAM-based. See <a
+     * href="http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-access-policies"
+     * target="_blank"> Configuring Access Policies</a>for more information.</p>
+     */
+    inline bool OptionsHasBeenSet() const { return m_optionsHasBeenSet; }
 
     /**
      * <p>The access policy configured for the Elasticsearch domain. Access policies
@@ -110,6 +119,12 @@ namespace Model
      * <code>OptionStatus</code> for the status information that's included. </p>
      */
     inline const OptionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the access policy for the Elasticsearch domain. See
+     * <code>OptionStatus</code> for the status information that's included. </p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the access policy for the Elasticsearch domain. See

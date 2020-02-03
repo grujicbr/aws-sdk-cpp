@@ -33,21 +33,23 @@ Webhook::Webhook() :
     m_payloadUrlHasBeenSet(false),
     m_secretHasBeenSet(false),
     m_branchFilterHasBeenSet(false),
+    m_filterGroupsHasBeenSet(false),
     m_lastModifiedSecretHasBeenSet(false)
 {
 }
 
-Webhook::Webhook(const JsonValue& jsonValue) : 
+Webhook::Webhook(JsonView jsonValue) : 
     m_urlHasBeenSet(false),
     m_payloadUrlHasBeenSet(false),
     m_secretHasBeenSet(false),
     m_branchFilterHasBeenSet(false),
+    m_filterGroupsHasBeenSet(false),
     m_lastModifiedSecretHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Webhook& Webhook::operator =(const JsonValue& jsonValue)
+Webhook& Webhook::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("url"))
   {
@@ -75,6 +77,23 @@ Webhook& Webhook::operator =(const JsonValue& jsonValue)
     m_branchFilter = jsonValue.GetString("branchFilter");
 
     m_branchFilterHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("filterGroups"))
+  {
+    Array<JsonView> filterGroupsJsonList = jsonValue.GetArray("filterGroups");
+    for(unsigned filterGroupsIndex = 0; filterGroupsIndex < filterGroupsJsonList.GetLength(); ++filterGroupsIndex)
+    {
+      Array<JsonView> filterGroupJsonList = filterGroupsJsonList[filterGroupsIndex].AsArray();
+      Aws::Vector<WebhookFilter> filterGroupList;
+      filterGroupList.reserve((size_t)filterGroupJsonList.GetLength());
+      for(unsigned filterGroupIndex = 0; filterGroupIndex < filterGroupJsonList.GetLength(); ++filterGroupIndex)
+      {
+        filterGroupList.push_back(filterGroupJsonList[filterGroupIndex].AsObject());
+      }
+      m_filterGroups.push_back(std::move(filterGroupList));
+    }
+    m_filterGroupsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("lastModifiedSecret"))
@@ -112,6 +131,22 @@ JsonValue Webhook::Jsonize() const
   if(m_branchFilterHasBeenSet)
   {
    payload.WithString("branchFilter", m_branchFilter);
+
+  }
+
+  if(m_filterGroupsHasBeenSet)
+  {
+   Array<JsonValue> filterGroupsJsonList(m_filterGroups.size());
+   for(unsigned filterGroupsIndex = 0; filterGroupsIndex < filterGroupsJsonList.GetLength(); ++filterGroupsIndex)
+   {
+     Array<JsonValue> filterGroupJsonList(m_filterGroups[filterGroupsIndex].size());
+     for(unsigned filterGroupIndex = 0; filterGroupIndex < filterGroupJsonList.GetLength(); ++filterGroupIndex)
+     {
+       filterGroupJsonList[filterGroupIndex].AsObject(m_filterGroups[filterGroupsIndex][filterGroupIndex].Jsonize());
+     }
+     filterGroupsJsonList[filterGroupsIndex].AsArray(std::move(filterGroupJsonList));
+   }
+   payload.WithArray("filterGroups", std::move(filterGroupsJsonList));
 
   }
 

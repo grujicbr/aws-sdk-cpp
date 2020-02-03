@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     NewDeviceMetadataType();
-    NewDeviceMetadataType(const Aws::Utils::Json::JsonValue& jsonValue);
-    NewDeviceMetadataType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NewDeviceMetadataType(Aws::Utils::Json::JsonView jsonValue);
+    NewDeviceMetadataType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The device key.</p>
      */
     inline const Aws::String& GetDeviceKey() const{ return m_deviceKey; }
+
+    /**
+     * <p>The device key.</p>
+     */
+    inline bool DeviceKeyHasBeenSet() const { return m_deviceKeyHasBeenSet; }
 
     /**
      * <p>The device key.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The device group key.</p>
      */
     inline const Aws::String& GetDeviceGroupKey() const{ return m_deviceGroupKey; }
+
+    /**
+     * <p>The device group key.</p>
+     */
+    inline bool DeviceGroupKeyHasBeenSet() const { return m_deviceGroupKeyHasBeenSet; }
 
     /**
      * <p>The device group key.</p>

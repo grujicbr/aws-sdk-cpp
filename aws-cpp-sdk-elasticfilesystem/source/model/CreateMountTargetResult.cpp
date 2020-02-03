@@ -39,7 +39,7 @@ CreateMountTargetResult::CreateMountTargetResult(const Aws::AmazonWebServiceResu
 
 CreateMountTargetResult& CreateMountTargetResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("OwnerId"))
   {
     m_ownerId = jsonValue.GetString("OwnerId");
@@ -79,6 +79,18 @@ CreateMountTargetResult& CreateMountTargetResult::operator =(const Aws::AmazonWe
   if(jsonValue.ValueExists("NetworkInterfaceId"))
   {
     m_networkInterfaceId = jsonValue.GetString("NetworkInterfaceId");
+
+  }
+
+  if(jsonValue.ValueExists("AvailabilityZoneId"))
+  {
+    m_availabilityZoneId = jsonValue.GetString("AvailabilityZoneId");
+
+  }
+
+  if(jsonValue.ValueExists("AvailabilityZoneName"))
+  {
+    m_availabilityZoneName = jsonValue.GetString("AvailabilityZoneName");
 
   }
 

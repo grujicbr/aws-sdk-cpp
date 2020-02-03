@@ -50,12 +50,14 @@ enum class WAFErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  W_A_F_DISALLOWED_NAME= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  W_A_F_BAD_REQUEST= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  W_A_F_DISALLOWED_NAME,
   W_A_F_INTERNAL_ERROR,
   W_A_F_INVALID_ACCOUNT,
   W_A_F_INVALID_OPERATION,
@@ -67,8 +69,11 @@ enum class WAFErrors
   W_A_F_NONEXISTENT_ITEM,
   W_A_F_NON_EMPTY_ENTITY,
   W_A_F_REFERENCED_ITEM,
+  W_A_F_SERVICE_LINKED_ROLE_ERROR,
   W_A_F_STALE_DATA,
-  W_A_F_SUBSCRIPTION_NOT_FOUND
+  W_A_F_SUBSCRIPTION_NOT_FOUND,
+  W_A_F_TAG_OPERATION,
+  W_A_F_TAG_OPERATION_INTERNAL_ERROR
 };
 namespace WAFErrorMapper
 {

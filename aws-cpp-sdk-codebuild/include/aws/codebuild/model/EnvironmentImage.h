@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeBuild
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EnvironmentImage();
-    EnvironmentImage(const Aws::Utils::Json::JsonValue& jsonValue);
-    EnvironmentImage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EnvironmentImage(Aws::Utils::Json::JsonView jsonValue);
+    EnvironmentImage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the Docker image.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the Docker image.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the Docker image.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The description of the Docker image.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the Docker image.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>A list of environment image versions.</p>
      */
     inline const Aws::Vector<Aws::String>& GetVersions() const{ return m_versions; }
+
+    /**
+     * <p>A list of environment image versions.</p>
+     */
+    inline bool VersionsHasBeenSet() const { return m_versionsHasBeenSet; }
 
     /**
      * <p>A list of environment image versions.</p>

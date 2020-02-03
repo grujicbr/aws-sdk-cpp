@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     TraceUser();
-    TraceUser(const Aws::Utils::Json::JsonValue& jsonValue);
-    TraceUser& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TraceUser(Aws::Utils::Json::JsonView jsonValue);
+    TraceUser& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The user's name.</p>
      */
     inline const Aws::String& GetUserName() const{ return m_userName; }
+
+    /**
+     * <p>The user's name.</p>
+     */
+    inline bool UserNameHasBeenSet() const { return m_userNameHasBeenSet; }
 
     /**
      * <p>The user's name.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>Services that the user's request hit.</p>
      */
     inline const Aws::Vector<ServiceId>& GetServiceIds() const{ return m_serviceIds; }
+
+    /**
+     * <p>Services that the user's request hit.</p>
+     */
+    inline bool ServiceIdsHasBeenSet() const { return m_serviceIdsHasBeenSet; }
 
     /**
      * <p>Services that the user's request hit.</p>

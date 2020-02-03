@@ -20,6 +20,8 @@
 #include <aws/ec2/model/ExportToS3Task.h>
 #include <aws/ec2/model/InstanceExportDetails.h>
 #include <aws/ec2/model/ExportTaskState.h>
+#include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/ec2/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -60,6 +62,11 @@ namespace Model
     /**
      * <p>A description of the resource being exported.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A description of the resource being exported.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -92,6 +99,11 @@ namespace Model
      * <p>The ID of the export task.</p>
      */
     inline const Aws::String& GetExportTaskId() const{ return m_exportTaskId; }
+
+    /**
+     * <p>The ID of the export task.</p>
+     */
+    inline bool ExportTaskIdHasBeenSet() const { return m_exportTaskIdHasBeenSet; }
 
     /**
      * <p>The ID of the export task.</p>
@@ -132,6 +144,11 @@ namespace Model
     /**
      * <p>Information about the export task.</p>
      */
+    inline bool ExportToS3TaskHasBeenSet() const { return m_exportToS3TaskHasBeenSet; }
+
+    /**
+     * <p>Information about the export task.</p>
+     */
     inline void SetExportToS3Task(const ExportToS3Task& value) { m_exportToS3TaskHasBeenSet = true; m_exportToS3Task = value; }
 
     /**
@@ -154,6 +171,11 @@ namespace Model
      * <p>Information about the instance to export.</p>
      */
     inline const InstanceExportDetails& GetInstanceExportDetails() const{ return m_instanceExportDetails; }
+
+    /**
+     * <p>Information about the instance to export.</p>
+     */
+    inline bool InstanceExportDetailsHasBeenSet() const { return m_instanceExportDetailsHasBeenSet; }
 
     /**
      * <p>Information about the instance to export.</p>
@@ -184,6 +206,11 @@ namespace Model
     /**
      * <p>The state of the export task.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The state of the export task.</p>
+     */
     inline void SetState(const ExportTaskState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -206,6 +233,11 @@ namespace Model
      * <p>The status message related to the export task.</p>
      */
     inline const Aws::String& GetStatusMessage() const{ return m_statusMessage; }
+
+    /**
+     * <p>The status message related to the export task.</p>
+     */
+    inline bool StatusMessageHasBeenSet() const { return m_statusMessageHasBeenSet; }
 
     /**
      * <p>The status message related to the export task.</p>
@@ -237,6 +269,47 @@ namespace Model
      */
     inline ExportTask& WithStatusMessage(const char* value) { SetStatusMessage(value); return *this;}
 
+
+    /**
+     * <p>The tags for the export task.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tags for the export task.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags for the export task.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The tags for the export task.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The tags for the export task.</p>
+     */
+    inline ExportTask& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tags for the export task.</p>
+     */
+    inline ExportTask& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tags for the export task.</p>
+     */
+    inline ExportTask& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>The tags for the export task.</p>
+     */
+    inline ExportTask& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::String m_description;
@@ -256,6 +329,9 @@ namespace Model
 
     Aws::String m_statusMessage;
     bool m_statusMessageHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

@@ -53,22 +53,22 @@ GetReservedInstancesExchangeQuoteResponse& GetReservedInstancesExchangeQuoteResp
     XmlNode currencyCodeNode = resultNode.FirstChild("currencyCode");
     if(!currencyCodeNode.IsNull())
     {
-      m_currencyCode = StringUtils::Trim(currencyCodeNode.GetText().c_str());
+      m_currencyCode = Aws::Utils::Xml::DecodeEscapedXmlText(currencyCodeNode.GetText());
     }
     XmlNode isValidExchangeNode = resultNode.FirstChild("isValidExchange");
     if(!isValidExchangeNode.IsNull())
     {
-      m_isValidExchange = StringUtils::ConvertToBool(StringUtils::Trim(isValidExchangeNode.GetText().c_str()).c_str());
+      m_isValidExchange = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isValidExchangeNode.GetText()).c_str()).c_str());
     }
     XmlNode outputReservedInstancesWillExpireAtNode = resultNode.FirstChild("outputReservedInstancesWillExpireAt");
     if(!outputReservedInstancesWillExpireAtNode.IsNull())
     {
-      m_outputReservedInstancesWillExpireAt = DateTime(StringUtils::Trim(outputReservedInstancesWillExpireAtNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_outputReservedInstancesWillExpireAt = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(outputReservedInstancesWillExpireAtNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
     }
     XmlNode paymentDueNode = resultNode.FirstChild("paymentDue");
     if(!paymentDueNode.IsNull())
     {
-      m_paymentDue = StringUtils::Trim(paymentDueNode.GetText().c_str());
+      m_paymentDue = Aws::Utils::Xml::DecodeEscapedXmlText(paymentDueNode.GetText());
     }
     XmlNode reservedInstanceValueRollupNode = resultNode.FirstChild("reservedInstanceValueRollup");
     if(!reservedInstanceValueRollupNode.IsNull())
@@ -105,13 +105,16 @@ GetReservedInstancesExchangeQuoteResponse& GetReservedInstancesExchangeQuoteResp
     XmlNode validationFailureReasonNode = resultNode.FirstChild("validationFailureReason");
     if(!validationFailureReasonNode.IsNull())
     {
-      m_validationFailureReason = StringUtils::Trim(validationFailureReasonNode.GetText().c_str());
+      m_validationFailureReason = Aws::Utils::Xml::DecodeEscapedXmlText(validationFailureReasonNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::GetReservedInstancesExchangeQuoteResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -43,8 +44,9 @@ namespace Model
    * configuration scripts cannot run for longer than 5 minutes. If a script runs for
    * longer than 5 minutes, it fails and the notebook instance is not created or
    * started.</p> <p>For information about notebook instance lifestyle
-   * configurations, see <a>notebook-lifecycle-config</a>.</p><p><h3>See Also:</h3>  
-   * <a
+   * configurations, see <a
+   * href="https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html">Step
+   * 2.1: (Optional) Customize a Notebook Instance</a>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/NotebookInstanceLifecycleHook">AWS
    * API Reference</a></p>
    */
@@ -52,8 +54,8 @@ namespace Model
   {
   public:
     NotebookInstanceLifecycleHook();
-    NotebookInstanceLifecycleHook(const Aws::Utils::Json::JsonValue& jsonValue);
-    NotebookInstanceLifecycleHook& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NotebookInstanceLifecycleHook(Aws::Utils::Json::JsonView jsonValue);
+    NotebookInstanceLifecycleHook& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -62,6 +64,12 @@ namespace Model
      * lifecycle configuration.</p>
      */
     inline const Aws::String& GetContent() const{ return m_content; }
+
+    /**
+     * <p>A base64-encoded string that contains a shell script for a notebook instance
+     * lifecycle configuration.</p>
+     */
+    inline bool ContentHasBeenSet() const { return m_contentHasBeenSet; }
 
     /**
      * <p>A base64-encoded string that contains a shell script for a notebook instance

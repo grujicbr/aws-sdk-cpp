@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ConnectionsList();
-    ConnectionsList(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConnectionsList& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConnectionsList(Aws::Utils::Json::JsonView jsonValue);
+    ConnectionsList& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>A list of connections used by the job.</p>
      */
     inline const Aws::Vector<Aws::String>& GetConnections() const{ return m_connections; }
+
+    /**
+     * <p>A list of connections used by the job.</p>
+     */
+    inline bool ConnectionsHasBeenSet() const { return m_connectionsHasBeenSet; }
 
     /**
      * <p>A list of connections used by the job.</p>

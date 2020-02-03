@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ExportTaskStatus();
-    ExportTaskStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExportTaskStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExportTaskStatus(Aws::Utils::Json::JsonView jsonValue);
+    ExportTaskStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The status code of the export task.</p>
      */
     inline const ExportTaskStatusCode& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The status code of the export task.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The status code of the export task.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The status message related to the status code.</p>
      */
     inline const Aws::String& GetMessage() const{ return m_message; }
+
+    /**
+     * <p>The status message related to the status code.</p>
+     */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
 
     /**
      * <p>The status message related to the status code.</p>

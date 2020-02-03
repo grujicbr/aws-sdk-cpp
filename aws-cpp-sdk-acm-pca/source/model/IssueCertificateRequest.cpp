@@ -28,6 +28,7 @@ IssueCertificateRequest::IssueCertificateRequest() :
     m_csrHasBeenSet(false),
     m_signingAlgorithm(SigningAlgorithm::NOT_SET),
     m_signingAlgorithmHasBeenSet(false),
+    m_templateArnHasBeenSet(false),
     m_validityHasBeenSet(false),
     m_idempotencyTokenHasBeenSet(false)
 {
@@ -53,6 +54,12 @@ Aws::String IssueCertificateRequest::SerializePayload() const
    payload.WithString("SigningAlgorithm", SigningAlgorithmMapper::GetNameForSigningAlgorithm(m_signingAlgorithm));
   }
 
+  if(m_templateArnHasBeenSet)
+  {
+   payload.WithString("TemplateArn", m_templateArn);
+
+  }
+
   if(m_validityHasBeenSet)
   {
    payload.WithObject("Validity", m_validity.Jsonize());
@@ -65,7 +72,7 @@ Aws::String IssueCertificateRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection IssueCertificateRequest::GetRequestSpecificHeaders() const

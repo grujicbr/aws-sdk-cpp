@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchListObjectChildrenResponse();
-    BatchListObjectChildrenResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchListObjectChildrenResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchListObjectChildrenResponse(Aws::Utils::Json::JsonView jsonValue);
+    BatchListObjectChildrenResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * <code>LinkName</code> and <code>ObjectIdentifier</code> as the value.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetChildren() const{ return m_children; }
+
+    /**
+     * <p>The children structure, which is a map with the key as the
+     * <code>LinkName</code> and <code>ObjectIdentifier</code> as the value.</p>
+     */
+    inline bool ChildrenHasBeenSet() const { return m_childrenHasBeenSet; }
 
     /**
      * <p>The children structure, which is a map with the key as the
@@ -125,6 +132,11 @@ namespace Model
      * <p>The pagination token.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The pagination token.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The pagination token.</p>

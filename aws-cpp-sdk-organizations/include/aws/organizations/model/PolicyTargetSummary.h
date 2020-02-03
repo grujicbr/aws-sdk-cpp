@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -43,99 +44,112 @@ namespace Model
   {
   public:
     PolicyTargetSummary();
-    PolicyTargetSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    PolicyTargetSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PolicyTargetSummary(Aws::Utils::Json::JsonView jsonValue);
+    PolicyTargetSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>The unique identifier (ID) of the policy target.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for a target ID string
-     * requires one of the following:</p> <ul> <li> <p>Root: a string that begins with
+     * requires one of the following:</p> <ul> <li> <p>Root: A string that begins with
      * "r-" followed by from 4 to 32 lower-case letters or digits.</p> </li> <li>
-     * <p>Account: a string that consists of exactly 12 digits.</p> </li> <li>
-     * <p>Organizational unit (OU): a string that begins with "ou-" followed by from 4
-     * to 32 lower-case letters or digits (the ID of the root that the OU is in)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p> </li> </ul>
+     * <p>Account: A string that consists of exactly 12 digits.</p> </li> <li>
+     * <p>Organizational unit (OU): A string that begins with "ou-" followed by from 4
+     * to 32 lower-case letters or digits (the ID of the root that the OU is in). This
+     * string is followed by a second "-" dash and from 8 to 32 additional lower-case
+     * letters or digits.</p> </li> </ul>
      */
     inline const Aws::String& GetTargetId() const{ return m_targetId; }
 
     /**
      * <p>The unique identifier (ID) of the policy target.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for a target ID string
-     * requires one of the following:</p> <ul> <li> <p>Root: a string that begins with
+     * requires one of the following:</p> <ul> <li> <p>Root: A string that begins with
      * "r-" followed by from 4 to 32 lower-case letters or digits.</p> </li> <li>
-     * <p>Account: a string that consists of exactly 12 digits.</p> </li> <li>
-     * <p>Organizational unit (OU): a string that begins with "ou-" followed by from 4
-     * to 32 lower-case letters or digits (the ID of the root that the OU is in)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p> </li> </ul>
+     * <p>Account: A string that consists of exactly 12 digits.</p> </li> <li>
+     * <p>Organizational unit (OU): A string that begins with "ou-" followed by from 4
+     * to 32 lower-case letters or digits (the ID of the root that the OU is in). This
+     * string is followed by a second "-" dash and from 8 to 32 additional lower-case
+     * letters or digits.</p> </li> </ul>
+     */
+    inline bool TargetIdHasBeenSet() const { return m_targetIdHasBeenSet; }
+
+    /**
+     * <p>The unique identifier (ID) of the policy target.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> for a target ID string
+     * requires one of the following:</p> <ul> <li> <p>Root: A string that begins with
+     * "r-" followed by from 4 to 32 lower-case letters or digits.</p> </li> <li>
+     * <p>Account: A string that consists of exactly 12 digits.</p> </li> <li>
+     * <p>Organizational unit (OU): A string that begins with "ou-" followed by from 4
+     * to 32 lower-case letters or digits (the ID of the root that the OU is in). This
+     * string is followed by a second "-" dash and from 8 to 32 additional lower-case
+     * letters or digits.</p> </li> </ul>
      */
     inline void SetTargetId(const Aws::String& value) { m_targetIdHasBeenSet = true; m_targetId = value; }
 
     /**
      * <p>The unique identifier (ID) of the policy target.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for a target ID string
-     * requires one of the following:</p> <ul> <li> <p>Root: a string that begins with
+     * requires one of the following:</p> <ul> <li> <p>Root: A string that begins with
      * "r-" followed by from 4 to 32 lower-case letters or digits.</p> </li> <li>
-     * <p>Account: a string that consists of exactly 12 digits.</p> </li> <li>
-     * <p>Organizational unit (OU): a string that begins with "ou-" followed by from 4
-     * to 32 lower-case letters or digits (the ID of the root that the OU is in)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p> </li> </ul>
+     * <p>Account: A string that consists of exactly 12 digits.</p> </li> <li>
+     * <p>Organizational unit (OU): A string that begins with "ou-" followed by from 4
+     * to 32 lower-case letters or digits (the ID of the root that the OU is in). This
+     * string is followed by a second "-" dash and from 8 to 32 additional lower-case
+     * letters or digits.</p> </li> </ul>
      */
     inline void SetTargetId(Aws::String&& value) { m_targetIdHasBeenSet = true; m_targetId = std::move(value); }
 
     /**
      * <p>The unique identifier (ID) of the policy target.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for a target ID string
-     * requires one of the following:</p> <ul> <li> <p>Root: a string that begins with
+     * requires one of the following:</p> <ul> <li> <p>Root: A string that begins with
      * "r-" followed by from 4 to 32 lower-case letters or digits.</p> </li> <li>
-     * <p>Account: a string that consists of exactly 12 digits.</p> </li> <li>
-     * <p>Organizational unit (OU): a string that begins with "ou-" followed by from 4
-     * to 32 lower-case letters or digits (the ID of the root that the OU is in)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p> </li> </ul>
+     * <p>Account: A string that consists of exactly 12 digits.</p> </li> <li>
+     * <p>Organizational unit (OU): A string that begins with "ou-" followed by from 4
+     * to 32 lower-case letters or digits (the ID of the root that the OU is in). This
+     * string is followed by a second "-" dash and from 8 to 32 additional lower-case
+     * letters or digits.</p> </li> </ul>
      */
     inline void SetTargetId(const char* value) { m_targetIdHasBeenSet = true; m_targetId.assign(value); }
 
     /**
      * <p>The unique identifier (ID) of the policy target.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for a target ID string
-     * requires one of the following:</p> <ul> <li> <p>Root: a string that begins with
+     * requires one of the following:</p> <ul> <li> <p>Root: A string that begins with
      * "r-" followed by from 4 to 32 lower-case letters or digits.</p> </li> <li>
-     * <p>Account: a string that consists of exactly 12 digits.</p> </li> <li>
-     * <p>Organizational unit (OU): a string that begins with "ou-" followed by from 4
-     * to 32 lower-case letters or digits (the ID of the root that the OU is in)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p> </li> </ul>
+     * <p>Account: A string that consists of exactly 12 digits.</p> </li> <li>
+     * <p>Organizational unit (OU): A string that begins with "ou-" followed by from 4
+     * to 32 lower-case letters or digits (the ID of the root that the OU is in). This
+     * string is followed by a second "-" dash and from 8 to 32 additional lower-case
+     * letters or digits.</p> </li> </ul>
      */
     inline PolicyTargetSummary& WithTargetId(const Aws::String& value) { SetTargetId(value); return *this;}
 
     /**
      * <p>The unique identifier (ID) of the policy target.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for a target ID string
-     * requires one of the following:</p> <ul> <li> <p>Root: a string that begins with
+     * requires one of the following:</p> <ul> <li> <p>Root: A string that begins with
      * "r-" followed by from 4 to 32 lower-case letters or digits.</p> </li> <li>
-     * <p>Account: a string that consists of exactly 12 digits.</p> </li> <li>
-     * <p>Organizational unit (OU): a string that begins with "ou-" followed by from 4
-     * to 32 lower-case letters or digits (the ID of the root that the OU is in)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p> </li> </ul>
+     * <p>Account: A string that consists of exactly 12 digits.</p> </li> <li>
+     * <p>Organizational unit (OU): A string that begins with "ou-" followed by from 4
+     * to 32 lower-case letters or digits (the ID of the root that the OU is in). This
+     * string is followed by a second "-" dash and from 8 to 32 additional lower-case
+     * letters or digits.</p> </li> </ul>
      */
     inline PolicyTargetSummary& WithTargetId(Aws::String&& value) { SetTargetId(std::move(value)); return *this;}
 
     /**
      * <p>The unique identifier (ID) of the policy target.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for a target ID string
-     * requires one of the following:</p> <ul> <li> <p>Root: a string that begins with
+     * requires one of the following:</p> <ul> <li> <p>Root: A string that begins with
      * "r-" followed by from 4 to 32 lower-case letters or digits.</p> </li> <li>
-     * <p>Account: a string that consists of exactly 12 digits.</p> </li> <li>
-     * <p>Organizational unit (OU): a string that begins with "ou-" followed by from 4
-     * to 32 lower-case letters or digits (the ID of the root that the OU is in)
-     * followed by a second "-" dash and from 8 to 32 additional lower-case letters or
-     * digits.</p> </li> </ul>
+     * <p>Account: A string that consists of exactly 12 digits.</p> </li> <li>
+     * <p>Organizational unit (OU): A string that begins with "ou-" followed by from 4
+     * to 32 lower-case letters or digits (the ID of the root that the OU is in). This
+     * string is followed by a second "-" dash and from 8 to 32 additional lower-case
+     * letters or digits.</p> </li> </ul>
      */
     inline PolicyTargetSummary& WithTargetId(const char* value) { SetTargetId(value); return *this;}
 
@@ -143,7 +157,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the policy target.</p> <p>For more
      * information about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -152,7 +166,16 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the policy target.</p> <p>For more
      * information about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * Formats Supported by Organizations</a> in the <i>AWS Organizations User
+     * Guide</i>.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the policy target.</p> <p>For more
+     * information about ARNs in Organizations, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -161,7 +184,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the policy target.</p> <p>For more
      * information about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -170,7 +193,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the policy target.</p> <p>For more
      * information about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -179,7 +202,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the policy target.</p> <p>For more
      * information about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -188,7 +211,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the policy target.</p> <p>For more
      * information about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -197,7 +220,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the policy target.</p> <p>For more
      * information about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -211,6 +234,14 @@ namespace Model
      * character range.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The friendly name of the policy target.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to
+     * validate this parameter is a string of any of the characters in the ASCII
+     * character range.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The friendly name of the policy target.</p> <p>The <a
@@ -265,6 +296,11 @@ namespace Model
      * <p>The type of the policy target.</p>
      */
     inline const TargetType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of the policy target.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of the policy target.</p>

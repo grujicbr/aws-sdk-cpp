@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     DestinationDescription();
-    DestinationDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    DestinationDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DestinationDescription(Aws::Utils::Json::JsonView jsonValue);
+    DestinationDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The ID of the destination.</p>
      */
     inline const Aws::String& GetDestinationId() const{ return m_destinationId; }
+
+    /**
+     * <p>The ID of the destination.</p>
+     */
+    inline bool DestinationIdHasBeenSet() const { return m_destinationIdHasBeenSet; }
 
     /**
      * <p>The ID of the destination.</p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>[Deprecated] The destination in Amazon S3.</p>
      */
+    inline bool S3DestinationDescriptionHasBeenSet() const { return m_s3DestinationDescriptionHasBeenSet; }
+
+    /**
+     * <p>[Deprecated] The destination in Amazon S3.</p>
+     */
     inline void SetS3DestinationDescription(const S3DestinationDescription& value) { m_s3DestinationDescriptionHasBeenSet = true; m_s3DestinationDescription = value; }
 
     /**
@@ -118,6 +129,11 @@ namespace Model
      * <p>The destination in Amazon S3.</p>
      */
     inline const ExtendedS3DestinationDescription& GetExtendedS3DestinationDescription() const{ return m_extendedS3DestinationDescription; }
+
+    /**
+     * <p>The destination in Amazon S3.</p>
+     */
+    inline bool ExtendedS3DestinationDescriptionHasBeenSet() const { return m_extendedS3DestinationDescriptionHasBeenSet; }
 
     /**
      * <p>The destination in Amazon S3.</p>
@@ -148,6 +164,11 @@ namespace Model
     /**
      * <p>The destination in Amazon Redshift.</p>
      */
+    inline bool RedshiftDestinationDescriptionHasBeenSet() const { return m_redshiftDestinationDescriptionHasBeenSet; }
+
+    /**
+     * <p>The destination in Amazon Redshift.</p>
+     */
     inline void SetRedshiftDestinationDescription(const RedshiftDestinationDescription& value) { m_redshiftDestinationDescriptionHasBeenSet = true; m_redshiftDestinationDescription = value; }
 
     /**
@@ -174,6 +195,11 @@ namespace Model
     /**
      * <p>The destination in Amazon ES.</p>
      */
+    inline bool ElasticsearchDestinationDescriptionHasBeenSet() const { return m_elasticsearchDestinationDescriptionHasBeenSet; }
+
+    /**
+     * <p>The destination in Amazon ES.</p>
+     */
     inline void SetElasticsearchDestinationDescription(const ElasticsearchDestinationDescription& value) { m_elasticsearchDestinationDescriptionHasBeenSet = true; m_elasticsearchDestinationDescription = value; }
 
     /**
@@ -196,6 +222,11 @@ namespace Model
      * <p>The destination in Splunk.</p>
      */
     inline const SplunkDestinationDescription& GetSplunkDestinationDescription() const{ return m_splunkDestinationDescription; }
+
+    /**
+     * <p>The destination in Splunk.</p>
+     */
+    inline bool SplunkDestinationDescriptionHasBeenSet() const { return m_splunkDestinationDescriptionHasBeenSet; }
 
     /**
      * <p>The destination in Splunk.</p>

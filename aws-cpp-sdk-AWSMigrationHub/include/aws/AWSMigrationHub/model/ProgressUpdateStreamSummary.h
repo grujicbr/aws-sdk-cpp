@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MigrationHub
@@ -42,43 +43,56 @@ namespace Model
   {
   public:
     ProgressUpdateStreamSummary();
-    ProgressUpdateStreamSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProgressUpdateStreamSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProgressUpdateStreamSummary(Aws::Utils::Json::JsonView jsonValue);
+    ProgressUpdateStreamSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>The name of the ProgressUpdateStream. </p>
+     * <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this
+     * field.</i> </p>
      */
     inline const Aws::String& GetProgressUpdateStreamName() const{ return m_progressUpdateStreamName; }
 
     /**
-     * <p>The name of the ProgressUpdateStream. </p>
+     * <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this
+     * field.</i> </p>
+     */
+    inline bool ProgressUpdateStreamNameHasBeenSet() const { return m_progressUpdateStreamNameHasBeenSet; }
+
+    /**
+     * <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this
+     * field.</i> </p>
      */
     inline void SetProgressUpdateStreamName(const Aws::String& value) { m_progressUpdateStreamNameHasBeenSet = true; m_progressUpdateStreamName = value; }
 
     /**
-     * <p>The name of the ProgressUpdateStream. </p>
+     * <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this
+     * field.</i> </p>
      */
     inline void SetProgressUpdateStreamName(Aws::String&& value) { m_progressUpdateStreamNameHasBeenSet = true; m_progressUpdateStreamName = std::move(value); }
 
     /**
-     * <p>The name of the ProgressUpdateStream. </p>
+     * <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this
+     * field.</i> </p>
      */
     inline void SetProgressUpdateStreamName(const char* value) { m_progressUpdateStreamNameHasBeenSet = true; m_progressUpdateStreamName.assign(value); }
 
     /**
-     * <p>The name of the ProgressUpdateStream. </p>
+     * <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this
+     * field.</i> </p>
      */
     inline ProgressUpdateStreamSummary& WithProgressUpdateStreamName(const Aws::String& value) { SetProgressUpdateStreamName(value); return *this;}
 
     /**
-     * <p>The name of the ProgressUpdateStream. </p>
+     * <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this
+     * field.</i> </p>
      */
     inline ProgressUpdateStreamSummary& WithProgressUpdateStreamName(Aws::String&& value) { SetProgressUpdateStreamName(std::move(value)); return *this;}
 
     /**
-     * <p>The name of the ProgressUpdateStream. </p>
+     * <p>The name of the ProgressUpdateStream. <i>Do not store personal data in this
+     * field.</i> </p>
      */
     inline ProgressUpdateStreamSummary& WithProgressUpdateStreamName(const char* value) { SetProgressUpdateStreamName(value); return *this;}
 

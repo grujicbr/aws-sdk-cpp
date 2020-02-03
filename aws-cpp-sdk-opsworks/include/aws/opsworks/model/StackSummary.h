@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     StackSummary();
-    StackSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    StackSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StackSummary(Aws::Utils::Json::JsonView jsonValue);
+    StackSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The stack ID.</p>
      */
     inline const Aws::String& GetStackId() const{ return m_stackId; }
+
+    /**
+     * <p>The stack ID.</p>
+     */
+    inline bool StackIdHasBeenSet() const { return m_stackIdHasBeenSet; }
 
     /**
      * <p>The stack ID.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The stack name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The stack name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The stack's ARN.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The stack's ARN.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The stack's ARN.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>The number of layers.</p>
      */
+    inline bool LayersCountHasBeenSet() const { return m_layersCountHasBeenSet; }
+
+    /**
+     * <p>The number of layers.</p>
+     */
     inline void SetLayersCount(int value) { m_layersCountHasBeenSet = true; m_layersCount = value; }
 
     /**
@@ -176,6 +197,11 @@ namespace Model
      * <p>The number of apps.</p>
      */
     inline int GetAppsCount() const{ return m_appsCount; }
+
+    /**
+     * <p>The number of apps.</p>
+     */
+    inline bool AppsCountHasBeenSet() const { return m_appsCountHasBeenSet; }
 
     /**
      * <p>The number of apps.</p>
@@ -193,6 +219,12 @@ namespace Model
      * status.</p>
      */
     inline const InstancesCount& GetInstancesCount() const{ return m_instancesCount; }
+
+    /**
+     * <p>An <code>InstancesCount</code> object with the number of instances in each
+     * status.</p>
+     */
+    inline bool InstancesCountHasBeenSet() const { return m_instancesCountHasBeenSet; }
 
     /**
      * <p>An <code>InstancesCount</code> object with the number of instances in each

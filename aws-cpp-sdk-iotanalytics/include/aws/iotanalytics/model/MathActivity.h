@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     MathActivity();
-    MathActivity(const Aws::Utils::Json::JsonValue& jsonValue);
-    MathActivity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MathActivity(Aws::Utils::Json::JsonView jsonValue);
+    MathActivity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the 'math' activity.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the 'math' activity.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the 'math' activity.</p>
@@ -84,44 +90,42 @@ namespace Model
 
 
     /**
-     * <p>The name of the attribute that will contain the result of the math
-     * operation.</p>
+     * <p>The name of the attribute that contains the result of the math operation.</p>
      */
     inline const Aws::String& GetAttribute() const{ return m_attribute; }
 
     /**
-     * <p>The name of the attribute that will contain the result of the math
-     * operation.</p>
+     * <p>The name of the attribute that contains the result of the math operation.</p>
+     */
+    inline bool AttributeHasBeenSet() const { return m_attributeHasBeenSet; }
+
+    /**
+     * <p>The name of the attribute that contains the result of the math operation.</p>
      */
     inline void SetAttribute(const Aws::String& value) { m_attributeHasBeenSet = true; m_attribute = value; }
 
     /**
-     * <p>The name of the attribute that will contain the result of the math
-     * operation.</p>
+     * <p>The name of the attribute that contains the result of the math operation.</p>
      */
     inline void SetAttribute(Aws::String&& value) { m_attributeHasBeenSet = true; m_attribute = std::move(value); }
 
     /**
-     * <p>The name of the attribute that will contain the result of the math
-     * operation.</p>
+     * <p>The name of the attribute that contains the result of the math operation.</p>
      */
     inline void SetAttribute(const char* value) { m_attributeHasBeenSet = true; m_attribute.assign(value); }
 
     /**
-     * <p>The name of the attribute that will contain the result of the math
-     * operation.</p>
+     * <p>The name of the attribute that contains the result of the math operation.</p>
      */
     inline MathActivity& WithAttribute(const Aws::String& value) { SetAttribute(value); return *this;}
 
     /**
-     * <p>The name of the attribute that will contain the result of the math
-     * operation.</p>
+     * <p>The name of the attribute that contains the result of the math operation.</p>
      */
     inline MathActivity& WithAttribute(Aws::String&& value) { SetAttribute(std::move(value)); return *this;}
 
     /**
-     * <p>The name of the attribute that will contain the result of the math
-     * operation.</p>
+     * <p>The name of the attribute that contains the result of the math operation.</p>
      */
     inline MathActivity& WithAttribute(const char* value) { SetAttribute(value); return *this;}
 
@@ -131,6 +135,12 @@ namespace Model
      * integer value.</p>
      */
     inline const Aws::String& GetMath() const{ return m_math; }
+
+    /**
+     * <p>An expression that uses one or more existing attributes and must return an
+     * integer value.</p>
+     */
+    inline bool MathHasBeenSet() const { return m_mathHasBeenSet; }
 
     /**
      * <p>An expression that uses one or more existing attributes and must return an
@@ -173,6 +183,11 @@ namespace Model
      * <p>The next activity in the pipeline.</p>
      */
     inline const Aws::String& GetNext() const{ return m_next; }
+
+    /**
+     * <p>The next activity in the pipeline.</p>
+     */
+    inline bool NextHasBeenSet() const { return m_nextHasBeenSet; }
 
     /**
      * <p>The next activity in the pipeline.</p>

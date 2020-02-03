@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     Counters();
-    Counters(const Aws::Utils::Json::JsonValue& jsonValue);
-    Counters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Counters(Aws::Utils::Json::JsonView jsonValue);
+    Counters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -48,6 +49,11 @@ namespace Model
      * <p>The total number of entities.</p>
      */
     inline int GetTotal() const{ return m_total; }
+
+    /**
+     * <p>The total number of entities.</p>
+     */
+    inline bool TotalHasBeenSet() const { return m_totalHasBeenSet; }
 
     /**
      * <p>The total number of entities.</p>
@@ -68,6 +74,11 @@ namespace Model
     /**
      * <p>The number of passed entities.</p>
      */
+    inline bool PassedHasBeenSet() const { return m_passedHasBeenSet; }
+
+    /**
+     * <p>The number of passed entities.</p>
+     */
     inline void SetPassed(int value) { m_passedHasBeenSet = true; m_passed = value; }
 
     /**
@@ -80,6 +91,11 @@ namespace Model
      * <p>The number of failed entities.</p>
      */
     inline int GetFailed() const{ return m_failed; }
+
+    /**
+     * <p>The number of failed entities.</p>
+     */
+    inline bool FailedHasBeenSet() const { return m_failedHasBeenSet; }
 
     /**
      * <p>The number of failed entities.</p>
@@ -100,6 +116,11 @@ namespace Model
     /**
      * <p>The number of warned entities.</p>
      */
+    inline bool WarnedHasBeenSet() const { return m_warnedHasBeenSet; }
+
+    /**
+     * <p>The number of warned entities.</p>
+     */
     inline void SetWarned(int value) { m_warnedHasBeenSet = true; m_warned = value; }
 
     /**
@@ -112,6 +133,11 @@ namespace Model
      * <p>The number of errored entities.</p>
      */
     inline int GetErrored() const{ return m_errored; }
+
+    /**
+     * <p>The number of errored entities.</p>
+     */
+    inline bool ErroredHasBeenSet() const { return m_erroredHasBeenSet; }
 
     /**
      * <p>The number of errored entities.</p>
@@ -132,6 +158,11 @@ namespace Model
     /**
      * <p>The number of stopped entities.</p>
      */
+    inline bool StoppedHasBeenSet() const { return m_stoppedHasBeenSet; }
+
+    /**
+     * <p>The number of stopped entities.</p>
+     */
     inline void SetStopped(int value) { m_stoppedHasBeenSet = true; m_stopped = value; }
 
     /**
@@ -144,6 +175,11 @@ namespace Model
      * <p>The number of skipped entities.</p>
      */
     inline int GetSkipped() const{ return m_skipped; }
+
+    /**
+     * <p>The number of skipped entities.</p>
+     */
+    inline bool SkippedHasBeenSet() const { return m_skippedHasBeenSet; }
 
     /**
      * <p>The number of skipped entities.</p>

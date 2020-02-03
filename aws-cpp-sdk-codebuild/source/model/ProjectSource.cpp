@@ -34,32 +34,36 @@ ProjectSource::ProjectSource() :
     m_locationHasBeenSet(false),
     m_gitCloneDepth(0),
     m_gitCloneDepthHasBeenSet(false),
+    m_gitSubmodulesConfigHasBeenSet(false),
     m_buildspecHasBeenSet(false),
     m_authHasBeenSet(false),
     m_reportBuildStatus(false),
     m_reportBuildStatusHasBeenSet(false),
     m_insecureSsl(false),
-    m_insecureSslHasBeenSet(false)
+    m_insecureSslHasBeenSet(false),
+    m_sourceIdentifierHasBeenSet(false)
 {
 }
 
-ProjectSource::ProjectSource(const JsonValue& jsonValue) : 
+ProjectSource::ProjectSource(JsonView jsonValue) : 
     m_type(SourceType::NOT_SET),
     m_typeHasBeenSet(false),
     m_locationHasBeenSet(false),
     m_gitCloneDepth(0),
     m_gitCloneDepthHasBeenSet(false),
+    m_gitSubmodulesConfigHasBeenSet(false),
     m_buildspecHasBeenSet(false),
     m_authHasBeenSet(false),
     m_reportBuildStatus(false),
     m_reportBuildStatusHasBeenSet(false),
     m_insecureSsl(false),
-    m_insecureSslHasBeenSet(false)
+    m_insecureSslHasBeenSet(false),
+    m_sourceIdentifierHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ProjectSource& ProjectSource::operator =(const JsonValue& jsonValue)
+ProjectSource& ProjectSource::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("type"))
   {
@@ -80,6 +84,13 @@ ProjectSource& ProjectSource::operator =(const JsonValue& jsonValue)
     m_gitCloneDepth = jsonValue.GetInteger("gitCloneDepth");
 
     m_gitCloneDepthHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("gitSubmodulesConfig"))
+  {
+    m_gitSubmodulesConfig = jsonValue.GetObject("gitSubmodulesConfig");
+
+    m_gitSubmodulesConfigHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("buildspec"))
@@ -110,6 +121,13 @@ ProjectSource& ProjectSource::operator =(const JsonValue& jsonValue)
     m_insecureSslHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("sourceIdentifier"))
+  {
+    m_sourceIdentifier = jsonValue.GetString("sourceIdentifier");
+
+    m_sourceIdentifierHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -134,6 +152,12 @@ JsonValue ProjectSource::Jsonize() const
 
   }
 
+  if(m_gitSubmodulesConfigHasBeenSet)
+  {
+   payload.WithObject("gitSubmodulesConfig", m_gitSubmodulesConfig.Jsonize());
+
+  }
+
   if(m_buildspecHasBeenSet)
   {
    payload.WithString("buildspec", m_buildspec);
@@ -155,6 +179,12 @@ JsonValue ProjectSource::Jsonize() const
   if(m_insecureSslHasBeenSet)
   {
    payload.WithBool("insecureSsl", m_insecureSsl);
+
+  }
+
+  if(m_sourceIdentifierHasBeenSet)
+  {
+   payload.WithString("sourceIdentifier", m_sourceIdentifier);
 
   }
 

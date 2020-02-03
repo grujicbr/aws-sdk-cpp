@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     DescribeHandshakeRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,7 +50,7 @@ namespace Model
      * or from a call to <a>ListHandshakesForAccount</a> or
      * <a>ListHandshakesForOrganization</a>.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
-     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     * requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>
      */
     inline const Aws::String& GetHandshakeId() const{ return m_handshakeId; }
 
@@ -60,7 +60,17 @@ namespace Model
      * or from a call to <a>ListHandshakesForAccount</a> or
      * <a>ListHandshakesForOrganization</a>.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
-     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     * requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>
+     */
+    inline bool HandshakeIdHasBeenSet() const { return m_handshakeIdHasBeenSet; }
+
+    /**
+     * <p>The unique identifier (ID) of the handshake that you want information about.
+     * You can get the ID from the original call to <a>InviteAccountToOrganization</a>,
+     * or from a call to <a>ListHandshakesForAccount</a> or
+     * <a>ListHandshakesForOrganization</a>.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
+     * requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>
      */
     inline void SetHandshakeId(const Aws::String& value) { m_handshakeIdHasBeenSet = true; m_handshakeId = value; }
 
@@ -70,7 +80,7 @@ namespace Model
      * or from a call to <a>ListHandshakesForAccount</a> or
      * <a>ListHandshakesForOrganization</a>.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
-     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     * requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>
      */
     inline void SetHandshakeId(Aws::String&& value) { m_handshakeIdHasBeenSet = true; m_handshakeId = std::move(value); }
 
@@ -80,7 +90,7 @@ namespace Model
      * or from a call to <a>ListHandshakesForAccount</a> or
      * <a>ListHandshakesForOrganization</a>.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
-     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     * requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>
      */
     inline void SetHandshakeId(const char* value) { m_handshakeIdHasBeenSet = true; m_handshakeId.assign(value); }
 
@@ -90,7 +100,7 @@ namespace Model
      * or from a call to <a>ListHandshakesForAccount</a> or
      * <a>ListHandshakesForOrganization</a>.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
-     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     * requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>
      */
     inline DescribeHandshakeRequest& WithHandshakeId(const Aws::String& value) { SetHandshakeId(value); return *this;}
 
@@ -100,7 +110,7 @@ namespace Model
      * or from a call to <a>ListHandshakesForAccount</a> or
      * <a>ListHandshakesForOrganization</a>.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
-     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     * requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>
      */
     inline DescribeHandshakeRequest& WithHandshakeId(Aws::String&& value) { SetHandshakeId(std::move(value)); return *this;}
 
@@ -110,7 +120,7 @@ namespace Model
      * or from a call to <a>ListHandshakesForAccount</a> or
      * <a>ListHandshakesForOrganization</a>.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
-     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     * requires "h-" followed by from 8 to 32 lowercase letters or digits.</p>
      */
     inline DescribeHandshakeRequest& WithHandshakeId(const char* value) { SetHandshakeId(value); return *this;}
 

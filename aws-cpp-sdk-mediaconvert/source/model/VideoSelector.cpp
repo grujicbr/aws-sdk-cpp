@@ -29,6 +29,8 @@ namespace Model
 {
 
 VideoSelector::VideoSelector() : 
+    m_alphaBehavior(AlphaBehavior::NOT_SET),
+    m_alphaBehaviorHasBeenSet(false),
     m_colorSpace(ColorSpace::NOT_SET),
     m_colorSpaceHasBeenSet(false),
     m_colorSpaceUsage(ColorSpaceUsage::NOT_SET),
@@ -37,11 +39,15 @@ VideoSelector::VideoSelector() :
     m_pid(0),
     m_pidHasBeenSet(false),
     m_programNumber(0),
-    m_programNumberHasBeenSet(false)
+    m_programNumberHasBeenSet(false),
+    m_rotate(InputRotate::NOT_SET),
+    m_rotateHasBeenSet(false)
 {
 }
 
-VideoSelector::VideoSelector(const JsonValue& jsonValue) : 
+VideoSelector::VideoSelector(JsonView jsonValue) : 
+    m_alphaBehavior(AlphaBehavior::NOT_SET),
+    m_alphaBehaviorHasBeenSet(false),
     m_colorSpace(ColorSpace::NOT_SET),
     m_colorSpaceHasBeenSet(false),
     m_colorSpaceUsage(ColorSpaceUsage::NOT_SET),
@@ -50,13 +56,22 @@ VideoSelector::VideoSelector(const JsonValue& jsonValue) :
     m_pid(0),
     m_pidHasBeenSet(false),
     m_programNumber(0),
-    m_programNumberHasBeenSet(false)
+    m_programNumberHasBeenSet(false),
+    m_rotate(InputRotate::NOT_SET),
+    m_rotateHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-VideoSelector& VideoSelector::operator =(const JsonValue& jsonValue)
+VideoSelector& VideoSelector::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("alphaBehavior"))
+  {
+    m_alphaBehavior = AlphaBehaviorMapper::GetAlphaBehaviorForName(jsonValue.GetString("alphaBehavior"));
+
+    m_alphaBehaviorHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("colorSpace"))
   {
     m_colorSpace = ColorSpaceMapper::GetColorSpaceForName(jsonValue.GetString("colorSpace"));
@@ -92,12 +107,24 @@ VideoSelector& VideoSelector::operator =(const JsonValue& jsonValue)
     m_programNumberHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("rotate"))
+  {
+    m_rotate = InputRotateMapper::GetInputRotateForName(jsonValue.GetString("rotate"));
+
+    m_rotateHasBeenSet = true;
+  }
+
   return *this;
 }
 
 JsonValue VideoSelector::Jsonize() const
 {
   JsonValue payload;
+
+  if(m_alphaBehaviorHasBeenSet)
+  {
+   payload.WithString("alphaBehavior", AlphaBehaviorMapper::GetNameForAlphaBehavior(m_alphaBehavior));
+  }
 
   if(m_colorSpaceHasBeenSet)
   {
@@ -125,6 +152,11 @@ JsonValue VideoSelector::Jsonize() const
   {
    payload.WithInteger("programNumber", m_programNumber);
 
+  }
+
+  if(m_rotateHasBeenSet)
+  {
+   payload.WithString("rotate", InputRotateMapper::GetNameForInputRotate(m_rotate));
   }
 
   return payload;

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     LoadBasedAutoScalingConfiguration();
-    LoadBasedAutoScalingConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    LoadBasedAutoScalingConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LoadBasedAutoScalingConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    LoadBasedAutoScalingConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The layer ID.</p>
      */
     inline const Aws::String& GetLayerId() const{ return m_layerId; }
+
+    /**
+     * <p>The layer ID.</p>
+     */
+    inline bool LayerIdHasBeenSet() const { return m_layerIdHasBeenSet; }
 
     /**
      * <p>The layer ID.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>Whether load-based auto scaling is enabled for the layer.</p>
      */
+    inline bool EnableHasBeenSet() const { return m_enableHasBeenSet; }
+
+    /**
+     * <p>Whether load-based auto scaling is enabled for the layer.</p>
+     */
     inline void SetEnable(bool value) { m_enableHasBeenSet = true; m_enable = value; }
 
     /**
@@ -106,6 +117,13 @@ namespace Model
      * number of instances.</p>
      */
     inline const AutoScalingThresholds& GetUpScaling() const{ return m_upScaling; }
+
+    /**
+     * <p>An <code>AutoScalingThresholds</code> object that describes the upscaling
+     * configuration, which defines how and when AWS OpsWorks Stacks increases the
+     * number of instances.</p>
+     */
+    inline bool UpScalingHasBeenSet() const { return m_upScalingHasBeenSet; }
 
     /**
      * <p>An <code>AutoScalingThresholds</code> object that describes the upscaling
@@ -142,6 +160,13 @@ namespace Model
      * of instances.</p>
      */
     inline const AutoScalingThresholds& GetDownScaling() const{ return m_downScaling; }
+
+    /**
+     * <p>An <code>AutoScalingThresholds</code> object that describes the downscaling
+     * configuration, which defines how and when AWS OpsWorks Stacks reduces the number
+     * of instances.</p>
+     */
+    inline bool DownScalingHasBeenSet() const { return m_downScalingHasBeenSet; }
 
     /**
      * <p>An <code>AutoScalingThresholds</code> object that describes the downscaling

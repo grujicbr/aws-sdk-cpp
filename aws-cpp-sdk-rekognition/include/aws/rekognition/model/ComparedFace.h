@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -37,7 +38,7 @@ namespace Model
 {
 
   /**
-   * <p>Provides face metadata for target image faces that are analysed by
+   * <p>Provides face metadata for target image faces that are analyzed by
    * <code>CompareFaces</code> and <code>RecognizeCelebrities</code>.</p><p><h3>See
    * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/ComparedFace">AWS
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     ComparedFace();
-    ComparedFace(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComparedFace& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComparedFace(Aws::Utils::Json::JsonView jsonValue);
+    ComparedFace& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>Bounding box of the face.</p>
      */
     inline const BoundingBox& GetBoundingBox() const{ return m_boundingBox; }
+
+    /**
+     * <p>Bounding box of the face.</p>
+     */
+    inline bool BoundingBoxHasBeenSet() const { return m_boundingBoxHasBeenSet; }
 
     /**
      * <p>Bounding box of the face.</p>
@@ -86,6 +92,11 @@ namespace Model
     /**
      * <p>Level of confidence that what the bounding box contains is a face.</p>
      */
+    inline bool ConfidenceHasBeenSet() const { return m_confidenceHasBeenSet; }
+
+    /**
+     * <p>Level of confidence that what the bounding box contains is a face.</p>
+     */
     inline void SetConfidence(double value) { m_confidenceHasBeenSet = true; m_confidence = value; }
 
     /**
@@ -98,6 +109,11 @@ namespace Model
      * <p>An array of facial landmarks.</p>
      */
     inline const Aws::Vector<Landmark>& GetLandmarks() const{ return m_landmarks; }
+
+    /**
+     * <p>An array of facial landmarks.</p>
+     */
+    inline bool LandmarksHasBeenSet() const { return m_landmarksHasBeenSet; }
 
     /**
      * <p>An array of facial landmarks.</p>
@@ -138,6 +154,11 @@ namespace Model
     /**
      * <p>Indicates the pose of the face as determined by its pitch, roll, and yaw.</p>
      */
+    inline bool PoseHasBeenSet() const { return m_poseHasBeenSet; }
+
+    /**
+     * <p>Indicates the pose of the face as determined by its pitch, roll, and yaw.</p>
+     */
     inline void SetPose(const Pose& value) { m_poseHasBeenSet = true; m_pose = value; }
 
     /**
@@ -160,6 +181,11 @@ namespace Model
      * <p>Identifies face image brightness and sharpness. </p>
      */
     inline const ImageQuality& GetQuality() const{ return m_quality; }
+
+    /**
+     * <p>Identifies face image brightness and sharpness. </p>
+     */
+    inline bool QualityHasBeenSet() const { return m_qualityHasBeenSet; }
 
     /**
      * <p>Identifies face image brightness and sharpness. </p>

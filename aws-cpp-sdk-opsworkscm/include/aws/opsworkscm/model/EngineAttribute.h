@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorksCM
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     EngineAttribute();
-    EngineAttribute(const Aws::Utils::Json::JsonValue& jsonValue);
-    EngineAttribute& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EngineAttribute(Aws::Utils::Json::JsonView jsonValue);
+    EngineAttribute& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the engine attribute. </p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the engine attribute. </p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the engine attribute. </p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The value of the engine attribute. </p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of the engine attribute. </p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of the engine attribute. </p>

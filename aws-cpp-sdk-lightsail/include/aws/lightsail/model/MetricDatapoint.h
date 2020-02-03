@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     MetricDatapoint();
-    MetricDatapoint(const Aws::Utils::Json::JsonValue& jsonValue);
-    MetricDatapoint& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MetricDatapoint(Aws::Utils::Json::JsonView jsonValue);
+    MetricDatapoint& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The average.</p>
      */
     inline double GetAverage() const{ return m_average; }
+
+    /**
+     * <p>The average.</p>
+     */
+    inline bool AverageHasBeenSet() const { return m_averageHasBeenSet; }
 
     /**
      * <p>The average.</p>
@@ -71,6 +77,11 @@ namespace Model
     /**
      * <p>The maximum.</p>
      */
+    inline bool MaximumHasBeenSet() const { return m_maximumHasBeenSet; }
+
+    /**
+     * <p>The maximum.</p>
+     */
     inline void SetMaximum(double value) { m_maximumHasBeenSet = true; m_maximum = value; }
 
     /**
@@ -83,6 +94,11 @@ namespace Model
      * <p>The minimum.</p>
      */
     inline double GetMinimum() const{ return m_minimum; }
+
+    /**
+     * <p>The minimum.</p>
+     */
+    inline bool MinimumHasBeenSet() const { return m_minimumHasBeenSet; }
 
     /**
      * <p>The minimum.</p>
@@ -103,6 +119,11 @@ namespace Model
     /**
      * <p>The sample count.</p>
      */
+    inline bool SampleCountHasBeenSet() const { return m_sampleCountHasBeenSet; }
+
+    /**
+     * <p>The sample count.</p>
+     */
     inline void SetSampleCount(double value) { m_sampleCountHasBeenSet = true; m_sampleCount = value; }
 
     /**
@@ -119,6 +140,11 @@ namespace Model
     /**
      * <p>The sum.</p>
      */
+    inline bool SumHasBeenSet() const { return m_sumHasBeenSet; }
+
+    /**
+     * <p>The sum.</p>
+     */
     inline void SetSum(double value) { m_sumHasBeenSet = true; m_sum = value; }
 
     /**
@@ -131,6 +157,11 @@ namespace Model
      * <p>The timestamp (e.g., <code>1479816991.349</code>).</p>
      */
     inline const Aws::Utils::DateTime& GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>The timestamp (e.g., <code>1479816991.349</code>).</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>The timestamp (e.g., <code>1479816991.349</code>).</p>
@@ -157,6 +188,11 @@ namespace Model
      * <p>The unit. </p>
      */
     inline const MetricUnit& GetUnit() const{ return m_unit; }
+
+    /**
+     * <p>The unit. </p>
+     */
+    inline bool UnitHasBeenSet() const { return m_unitHasBeenSet; }
 
     /**
      * <p>The unit. </p>

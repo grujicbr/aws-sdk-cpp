@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     MouthOpen();
-    MouthOpen(const Aws::Utils::Json::JsonValue& jsonValue);
-    MouthOpen& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MouthOpen(Aws::Utils::Json::JsonView jsonValue);
+    MouthOpen& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * not.</p>
      */
     inline bool GetValue() const{ return m_value; }
+
+    /**
+     * <p>Boolean value that indicates whether the mouth on the face is open or
+     * not.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>Boolean value that indicates whether the mouth on the face is open or
@@ -68,6 +75,11 @@ namespace Model
      * <p>Level of confidence in the determination.</p>
      */
     inline double GetConfidence() const{ return m_confidence; }
+
+    /**
+     * <p>Level of confidence in the determination.</p>
+     */
+    inline bool ConfidenceHasBeenSet() const { return m_confidenceHasBeenSet; }
 
     /**
      * <p>Level of confidence in the determination.</p>

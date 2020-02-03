@@ -58,25 +58,25 @@ DBInstanceStatusInfo& DBInstanceStatusInfo::operator =(const XmlNode& xmlNode)
     XmlNode statusTypeNode = resultNode.FirstChild("StatusType");
     if(!statusTypeNode.IsNull())
     {
-      m_statusType = StringUtils::Trim(statusTypeNode.GetText().c_str());
+      m_statusType = Aws::Utils::Xml::DecodeEscapedXmlText(statusTypeNode.GetText());
       m_statusTypeHasBeenSet = true;
     }
     XmlNode normalNode = resultNode.FirstChild("Normal");
     if(!normalNode.IsNull())
     {
-      m_normal = StringUtils::ConvertToBool(StringUtils::Trim(normalNode.GetText().c_str()).c_str());
+      m_normal = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(normalNode.GetText()).c_str()).c_str());
       m_normalHasBeenSet = true;
     }
     XmlNode statusNode = resultNode.FirstChild("Status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode messageNode = resultNode.FirstChild("Message");
     if(!messageNode.IsNull())
     {
-      m_message = StringUtils::Trim(messageNode.GetText().c_str());
+      m_message = Aws::Utils::Xml::DecodeEscapedXmlText(messageNode.GetText());
       m_messageHasBeenSet = true;
     }
   }

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Shield
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Limit();
-    Limit(const Aws::Utils::Json::JsonValue& jsonValue);
-    Limit& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Limit(Aws::Utils::Json::JsonView jsonValue);
+    Limit& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The type of protection.</p>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of protection.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of protection.</p>
@@ -88,6 +94,12 @@ namespace Model
      * <code>Type</code>.</p>
      */
     inline long long GetMax() const{ return m_max; }
+
+    /**
+     * <p>The maximum number of protections that can be created for the specified
+     * <code>Type</code>.</p>
+     */
+    inline bool MaxHasBeenSet() const { return m_maxHasBeenSet; }
 
     /**
      * <p>The maximum number of protections that can be created for the specified

@@ -32,6 +32,12 @@ namespace S3
 namespace Model
 {
 
+  /**
+   * <p>Object Identifier is unique value to identify objects.</p><p><h3>See
+   * Also:</h3>   <a
+   * href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ObjectIdentifier">AWS
+   * API Reference</a></p>
+   */
   class AWS_S3_API ObjectIdentifier
   {
   public:
@@ -46,6 +52,11 @@ namespace Model
      * <p>Key name of the object to delete.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>Key name of the object to delete.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>Key name of the object to delete.</p>
@@ -82,6 +93,11 @@ namespace Model
      * <p>VersionId for the specific version of the object to delete.</p>
      */
     inline const Aws::String& GetVersionId() const{ return m_versionId; }
+
+    /**
+     * <p>VersionId for the specific version of the object to delete.</p>
+     */
+    inline bool VersionIdHasBeenSet() const { return m_versionIdHasBeenSet; }
 
     /**
      * <p>VersionId for the specific version of the object to delete.</p>

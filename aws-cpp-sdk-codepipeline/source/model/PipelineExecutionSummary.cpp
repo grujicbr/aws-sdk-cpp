@@ -34,22 +34,26 @@ PipelineExecutionSummary::PipelineExecutionSummary() :
     m_statusHasBeenSet(false),
     m_startTimeHasBeenSet(false),
     m_lastUpdateTimeHasBeenSet(false),
-    m_sourceRevisionsHasBeenSet(false)
+    m_sourceRevisionsHasBeenSet(false),
+    m_triggerHasBeenSet(false),
+    m_stopTriggerHasBeenSet(false)
 {
 }
 
-PipelineExecutionSummary::PipelineExecutionSummary(const JsonValue& jsonValue) : 
+PipelineExecutionSummary::PipelineExecutionSummary(JsonView jsonValue) : 
     m_pipelineExecutionIdHasBeenSet(false),
     m_status(PipelineExecutionStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_startTimeHasBeenSet(false),
     m_lastUpdateTimeHasBeenSet(false),
-    m_sourceRevisionsHasBeenSet(false)
+    m_sourceRevisionsHasBeenSet(false),
+    m_triggerHasBeenSet(false),
+    m_stopTriggerHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-PipelineExecutionSummary& PipelineExecutionSummary::operator =(const JsonValue& jsonValue)
+PipelineExecutionSummary& PipelineExecutionSummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("pipelineExecutionId"))
   {
@@ -81,12 +85,26 @@ PipelineExecutionSummary& PipelineExecutionSummary::operator =(const JsonValue& 
 
   if(jsonValue.ValueExists("sourceRevisions"))
   {
-    Array<JsonValue> sourceRevisionsJsonList = jsonValue.GetArray("sourceRevisions");
+    Array<JsonView> sourceRevisionsJsonList = jsonValue.GetArray("sourceRevisions");
     for(unsigned sourceRevisionsIndex = 0; sourceRevisionsIndex < sourceRevisionsJsonList.GetLength(); ++sourceRevisionsIndex)
     {
       m_sourceRevisions.push_back(sourceRevisionsJsonList[sourceRevisionsIndex].AsObject());
     }
     m_sourceRevisionsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("trigger"))
+  {
+    m_trigger = jsonValue.GetObject("trigger");
+
+    m_triggerHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("stopTrigger"))
+  {
+    m_stopTrigger = jsonValue.GetObject("stopTrigger");
+
+    m_stopTriggerHasBeenSet = true;
   }
 
   return *this;
@@ -125,6 +143,18 @@ JsonValue PipelineExecutionSummary::Jsonize() const
      sourceRevisionsJsonList[sourceRevisionsIndex].AsObject(m_sourceRevisions[sourceRevisionsIndex].Jsonize());
    }
    payload.WithArray("sourceRevisions", std::move(sourceRevisionsJsonList));
+
+  }
+
+  if(m_triggerHasBeenSet)
+  {
+   payload.WithObject("trigger", m_trigger.Jsonize());
+
+  }
+
+  if(m_stopTriggerHasBeenSet)
+  {
+   payload.WithObject("stopTrigger", m_stopTrigger.Jsonize());
 
   }
 

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ComparedSourceImageFace();
-    ComparedSourceImageFace(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComparedSourceImageFace& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComparedSourceImageFace(Aws::Utils::Json::JsonView jsonValue);
+    ComparedSourceImageFace& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Bounding box of the face.</p>
      */
     inline const BoundingBox& GetBoundingBox() const{ return m_boundingBox; }
+
+    /**
+     * <p>Bounding box of the face.</p>
+     */
+    inline bool BoundingBoxHasBeenSet() const { return m_boundingBoxHasBeenSet; }
 
     /**
      * <p>Bounding box of the face.</p>
@@ -80,6 +86,11 @@ namespace Model
      * <p>Confidence level that the selected bounding box contains a face.</p>
      */
     inline double GetConfidence() const{ return m_confidence; }
+
+    /**
+     * <p>Confidence level that the selected bounding box contains a face.</p>
+     */
+    inline bool ConfidenceHasBeenSet() const { return m_confidenceHasBeenSet; }
 
     /**
      * <p>Confidence level that the selected bounding box contains a face.</p>

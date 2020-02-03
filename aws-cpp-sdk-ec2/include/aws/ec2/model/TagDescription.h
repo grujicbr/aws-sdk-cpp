@@ -58,6 +58,11 @@ namespace Model
     /**
      * <p>The tag key.</p>
      */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
+
+    /**
+     * <p>The tag key.</p>
+     */
     inline void SetKey(const Aws::String& value) { m_keyHasBeenSet = true; m_key = value; }
 
     /**
@@ -87,37 +92,42 @@ namespace Model
 
 
     /**
-     * <p>The ID of the resource. For example, <code>ami-1a2b3c4d</code>.</p>
+     * <p>The ID of the resource.</p>
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
 
     /**
-     * <p>The ID of the resource. For example, <code>ami-1a2b3c4d</code>.</p>
+     * <p>The ID of the resource.</p>
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the resource.</p>
      */
     inline void SetResourceId(const Aws::String& value) { m_resourceIdHasBeenSet = true; m_resourceId = value; }
 
     /**
-     * <p>The ID of the resource. For example, <code>ami-1a2b3c4d</code>.</p>
+     * <p>The ID of the resource.</p>
      */
     inline void SetResourceId(Aws::String&& value) { m_resourceIdHasBeenSet = true; m_resourceId = std::move(value); }
 
     /**
-     * <p>The ID of the resource. For example, <code>ami-1a2b3c4d</code>.</p>
+     * <p>The ID of the resource.</p>
      */
     inline void SetResourceId(const char* value) { m_resourceIdHasBeenSet = true; m_resourceId.assign(value); }
 
     /**
-     * <p>The ID of the resource. For example, <code>ami-1a2b3c4d</code>.</p>
+     * <p>The ID of the resource.</p>
      */
     inline TagDescription& WithResourceId(const Aws::String& value) { SetResourceId(value); return *this;}
 
     /**
-     * <p>The ID of the resource. For example, <code>ami-1a2b3c4d</code>.</p>
+     * <p>The ID of the resource.</p>
      */
     inline TagDescription& WithResourceId(Aws::String&& value) { SetResourceId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of the resource. For example, <code>ami-1a2b3c4d</code>.</p>
+     * <p>The ID of the resource.</p>
      */
     inline TagDescription& WithResourceId(const char* value) { SetResourceId(value); return *this;}
 
@@ -126,6 +136,11 @@ namespace Model
      * <p>The resource type.</p>
      */
     inline const ResourceType& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The resource type.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The resource type.</p>
@@ -152,6 +167,11 @@ namespace Model
      * <p>The tag value.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The tag value.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The tag value.</p>

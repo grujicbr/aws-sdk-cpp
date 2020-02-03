@@ -20,6 +20,7 @@
 #include <aws/alexaforbusiness/model/DistanceUnit.h>
 #include <aws/alexaforbusiness/model/TemperatureUnit.h>
 #include <aws/alexaforbusiness/model/WakeWord.h>
+#include <aws/alexaforbusiness/model/UpdateMeetingRoomConfiguration.h>
 #include <utility>
 
 namespace Aws
@@ -35,7 +36,7 @@ namespace Model
   {
   public:
     UpdateProfileRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ARN of the room profile to update. Required.</p>
      */
     inline const Aws::String& GetProfileArn() const{ return m_profileArn; }
+
+    /**
+     * <p>The ARN of the room profile to update. Required.</p>
+     */
+    inline bool ProfileArnHasBeenSet() const { return m_profileArnHasBeenSet; }
 
     /**
      * <p>The ARN of the room profile to update. Required.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The updated name for the room profile.</p>
      */
+    inline bool ProfileNameHasBeenSet() const { return m_profileNameHasBeenSet; }
+
+    /**
+     * <p>The updated name for the room profile.</p>
+     */
     inline void SetProfileName(const Aws::String& value) { m_profileNameHasBeenSet = true; m_profileName = value; }
 
     /**
@@ -120,9 +131,39 @@ namespace Model
 
 
     /**
+     * <p>Sets the profile as default if selected. If this is missing, no update is
+     * done to the default status.</p>
+     */
+    inline bool GetIsDefault() const{ return m_isDefault; }
+
+    /**
+     * <p>Sets the profile as default if selected. If this is missing, no update is
+     * done to the default status.</p>
+     */
+    inline bool IsDefaultHasBeenSet() const { return m_isDefaultHasBeenSet; }
+
+    /**
+     * <p>Sets the profile as default if selected. If this is missing, no update is
+     * done to the default status.</p>
+     */
+    inline void SetIsDefault(bool value) { m_isDefaultHasBeenSet = true; m_isDefault = value; }
+
+    /**
+     * <p>Sets the profile as default if selected. If this is missing, no update is
+     * done to the default status.</p>
+     */
+    inline UpdateProfileRequest& WithIsDefault(bool value) { SetIsDefault(value); return *this;}
+
+
+    /**
      * <p>The updated timezone for the room profile.</p>
      */
     inline const Aws::String& GetTimezone() const{ return m_timezone; }
+
+    /**
+     * <p>The updated timezone for the room profile.</p>
+     */
+    inline bool TimezoneHasBeenSet() const { return m_timezoneHasBeenSet; }
 
     /**
      * <p>The updated timezone for the room profile.</p>
@@ -163,6 +204,11 @@ namespace Model
     /**
      * <p>The updated address for the room profile.</p>
      */
+    inline bool AddressHasBeenSet() const { return m_addressHasBeenSet; }
+
+    /**
+     * <p>The updated address for the room profile.</p>
+     */
     inline void SetAddress(const Aws::String& value) { m_addressHasBeenSet = true; m_address = value; }
 
     /**
@@ -199,6 +245,11 @@ namespace Model
     /**
      * <p>The updated distance unit for the room profile.</p>
      */
+    inline bool DistanceUnitHasBeenSet() const { return m_distanceUnitHasBeenSet; }
+
+    /**
+     * <p>The updated distance unit for the room profile.</p>
+     */
     inline void SetDistanceUnit(const DistanceUnit& value) { m_distanceUnitHasBeenSet = true; m_distanceUnit = value; }
 
     /**
@@ -221,6 +272,11 @@ namespace Model
      * <p>The updated temperature unit for the room profile.</p>
      */
     inline const TemperatureUnit& GetTemperatureUnit() const{ return m_temperatureUnit; }
+
+    /**
+     * <p>The updated temperature unit for the room profile.</p>
+     */
+    inline bool TemperatureUnitHasBeenSet() const { return m_temperatureUnitHasBeenSet; }
 
     /**
      * <p>The updated temperature unit for the room profile.</p>
@@ -251,6 +307,11 @@ namespace Model
     /**
      * <p>The updated wake word for the room profile.</p>
      */
+    inline bool WakeWordHasBeenSet() const { return m_wakeWordHasBeenSet; }
+
+    /**
+     * <p>The updated wake word for the room profile.</p>
+     */
     inline void SetWakeWord(const WakeWord& value) { m_wakeWordHasBeenSet = true; m_wakeWord = value; }
 
     /**
@@ -270,9 +331,63 @@ namespace Model
 
 
     /**
+     * <p>The updated locale for the room profile. (This is currently only available to
+     * a limited preview audience.)</p>
+     */
+    inline const Aws::String& GetLocale() const{ return m_locale; }
+
+    /**
+     * <p>The updated locale for the room profile. (This is currently only available to
+     * a limited preview audience.)</p>
+     */
+    inline bool LocaleHasBeenSet() const { return m_localeHasBeenSet; }
+
+    /**
+     * <p>The updated locale for the room profile. (This is currently only available to
+     * a limited preview audience.)</p>
+     */
+    inline void SetLocale(const Aws::String& value) { m_localeHasBeenSet = true; m_locale = value; }
+
+    /**
+     * <p>The updated locale for the room profile. (This is currently only available to
+     * a limited preview audience.)</p>
+     */
+    inline void SetLocale(Aws::String&& value) { m_localeHasBeenSet = true; m_locale = std::move(value); }
+
+    /**
+     * <p>The updated locale for the room profile. (This is currently only available to
+     * a limited preview audience.)</p>
+     */
+    inline void SetLocale(const char* value) { m_localeHasBeenSet = true; m_locale.assign(value); }
+
+    /**
+     * <p>The updated locale for the room profile. (This is currently only available to
+     * a limited preview audience.)</p>
+     */
+    inline UpdateProfileRequest& WithLocale(const Aws::String& value) { SetLocale(value); return *this;}
+
+    /**
+     * <p>The updated locale for the room profile. (This is currently only available to
+     * a limited preview audience.)</p>
+     */
+    inline UpdateProfileRequest& WithLocale(Aws::String&& value) { SetLocale(std::move(value)); return *this;}
+
+    /**
+     * <p>The updated locale for the room profile. (This is currently only available to
+     * a limited preview audience.)</p>
+     */
+    inline UpdateProfileRequest& WithLocale(const char* value) { SetLocale(value); return *this;}
+
+
+    /**
      * <p>Whether the setup mode of the profile is enabled.</p>
      */
     inline bool GetSetupModeDisabled() const{ return m_setupModeDisabled; }
+
+    /**
+     * <p>Whether the setup mode of the profile is enabled.</p>
+     */
+    inline bool SetupModeDisabledHasBeenSet() const { return m_setupModeDisabledHasBeenSet; }
 
     /**
      * <p>Whether the setup mode of the profile is enabled.</p>
@@ -293,6 +408,11 @@ namespace Model
     /**
      * <p>The updated maximum volume limit for the room profile.</p>
      */
+    inline bool MaxVolumeLimitHasBeenSet() const { return m_maxVolumeLimitHasBeenSet; }
+
+    /**
+     * <p>The updated maximum volume limit for the room profile.</p>
+     */
     inline void SetMaxVolumeLimit(int value) { m_maxVolumeLimitHasBeenSet = true; m_maxVolumeLimit = value; }
 
     /**
@@ -309,12 +429,48 @@ namespace Model
     /**
      * <p>Whether the PSTN setting of the room profile is enabled.</p>
      */
+    inline bool PSTNEnabledHasBeenSet() const { return m_pSTNEnabledHasBeenSet; }
+
+    /**
+     * <p>Whether the PSTN setting of the room profile is enabled.</p>
+     */
     inline void SetPSTNEnabled(bool value) { m_pSTNEnabledHasBeenSet = true; m_pSTNEnabled = value; }
 
     /**
      * <p>Whether the PSTN setting of the room profile is enabled.</p>
      */
     inline UpdateProfileRequest& WithPSTNEnabled(bool value) { SetPSTNEnabled(value); return *this;}
+
+
+    /**
+     * <p>The updated meeting room settings of a room profile.</p>
+     */
+    inline const UpdateMeetingRoomConfiguration& GetMeetingRoomConfiguration() const{ return m_meetingRoomConfiguration; }
+
+    /**
+     * <p>The updated meeting room settings of a room profile.</p>
+     */
+    inline bool MeetingRoomConfigurationHasBeenSet() const { return m_meetingRoomConfigurationHasBeenSet; }
+
+    /**
+     * <p>The updated meeting room settings of a room profile.</p>
+     */
+    inline void SetMeetingRoomConfiguration(const UpdateMeetingRoomConfiguration& value) { m_meetingRoomConfigurationHasBeenSet = true; m_meetingRoomConfiguration = value; }
+
+    /**
+     * <p>The updated meeting room settings of a room profile.</p>
+     */
+    inline void SetMeetingRoomConfiguration(UpdateMeetingRoomConfiguration&& value) { m_meetingRoomConfigurationHasBeenSet = true; m_meetingRoomConfiguration = std::move(value); }
+
+    /**
+     * <p>The updated meeting room settings of a room profile.</p>
+     */
+    inline UpdateProfileRequest& WithMeetingRoomConfiguration(const UpdateMeetingRoomConfiguration& value) { SetMeetingRoomConfiguration(value); return *this;}
+
+    /**
+     * <p>The updated meeting room settings of a room profile.</p>
+     */
+    inline UpdateProfileRequest& WithMeetingRoomConfiguration(UpdateMeetingRoomConfiguration&& value) { SetMeetingRoomConfiguration(std::move(value)); return *this;}
 
   private:
 
@@ -323,6 +479,9 @@ namespace Model
 
     Aws::String m_profileName;
     bool m_profileNameHasBeenSet;
+
+    bool m_isDefault;
+    bool m_isDefaultHasBeenSet;
 
     Aws::String m_timezone;
     bool m_timezoneHasBeenSet;
@@ -339,6 +498,9 @@ namespace Model
     WakeWord m_wakeWord;
     bool m_wakeWordHasBeenSet;
 
+    Aws::String m_locale;
+    bool m_localeHasBeenSet;
+
     bool m_setupModeDisabled;
     bool m_setupModeDisabledHasBeenSet;
 
@@ -347,6 +509,9 @@ namespace Model
 
     bool m_pSTNEnabled;
     bool m_pSTNEnabledHasBeenSet;
+
+    UpdateMeetingRoomConfiguration m_meetingRoomConfiguration;
+    bool m_meetingRoomConfigurationHasBeenSet;
   };
 
 } // namespace Model

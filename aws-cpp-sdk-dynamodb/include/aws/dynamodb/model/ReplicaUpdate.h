@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDB
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ReplicaUpdate();
-    ReplicaUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReplicaUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReplicaUpdate(Aws::Utils::Json::JsonView jsonValue);
+    ReplicaUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,12 @@ namespace Model
      * table.</p>
      */
     inline const CreateReplicaAction& GetCreate() const{ return m_create; }
+
+    /**
+     * <p>The parameters required for creating a replica on an existing global
+     * table.</p>
+     */
+    inline bool CreateHasBeenSet() const { return m_createHasBeenSet; }
 
     /**
      * <p>The parameters required for creating a replica on an existing global
@@ -85,6 +92,11 @@ namespace Model
      * <p>The name of the existing replica to be removed.</p>
      */
     inline const DeleteReplicaAction& GetDelete() const{ return m_delete; }
+
+    /**
+     * <p>The name of the existing replica to be removed.</p>
+     */
+    inline bool DeleteHasBeenSet() const { return m_deleteHasBeenSet; }
 
     /**
      * <p>The name of the existing replica to be removed.</p>

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Account();
-    Account(const Aws::Utils::Json::JsonValue& jsonValue);
-    Account& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Account(Aws::Utils::Json::JsonView jsonValue);
+    Account& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,13 @@ namespace Model
      * string requires exactly 12 digits.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier (ID) of the account.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID
+     * string requires exactly 12 digits.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier (ID) of the account.</p> <p>The <a
@@ -103,7 +111,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the account.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -112,7 +120,16 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the account.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * Formats Supported by Organizations</a> in the <i>AWS Organizations User
+     * Guide</i>.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the account.</p> <p>For more information
+     * about ARNs in Organizations, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -121,7 +138,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the account.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -130,7 +147,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the account.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -139,7 +156,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the account.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -148,7 +165,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the account.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -157,7 +174,7 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the account.</p> <p>For more information
      * about ARNs in Organizations, see <a
-     * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
      * Formats Supported by Organizations</a> in the <i>AWS Organizations User
      * Guide</i>.</p>
      */
@@ -167,49 +184,56 @@ namespace Model
     /**
      * <p>The email address associated with the AWS account.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for this parameter is a
-     * string of characters that represents a standard Internet email address.</p>
+     * string of characters that represents a standard internet email address.</p>
      */
     inline const Aws::String& GetEmail() const{ return m_email; }
 
     /**
      * <p>The email address associated with the AWS account.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for this parameter is a
-     * string of characters that represents a standard Internet email address.</p>
+     * string of characters that represents a standard internet email address.</p>
+     */
+    inline bool EmailHasBeenSet() const { return m_emailHasBeenSet; }
+
+    /**
+     * <p>The email address associated with the AWS account.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> for this parameter is a
+     * string of characters that represents a standard internet email address.</p>
      */
     inline void SetEmail(const Aws::String& value) { m_emailHasBeenSet = true; m_email = value; }
 
     /**
      * <p>The email address associated with the AWS account.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for this parameter is a
-     * string of characters that represents a standard Internet email address.</p>
+     * string of characters that represents a standard internet email address.</p>
      */
     inline void SetEmail(Aws::String&& value) { m_emailHasBeenSet = true; m_email = std::move(value); }
 
     /**
      * <p>The email address associated with the AWS account.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for this parameter is a
-     * string of characters that represents a standard Internet email address.</p>
+     * string of characters that represents a standard internet email address.</p>
      */
     inline void SetEmail(const char* value) { m_emailHasBeenSet = true; m_email.assign(value); }
 
     /**
      * <p>The email address associated with the AWS account.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for this parameter is a
-     * string of characters that represents a standard Internet email address.</p>
+     * string of characters that represents a standard internet email address.</p>
      */
     inline Account& WithEmail(const Aws::String& value) { SetEmail(value); return *this;}
 
     /**
      * <p>The email address associated with the AWS account.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for this parameter is a
-     * string of characters that represents a standard Internet email address.</p>
+     * string of characters that represents a standard internet email address.</p>
      */
     inline Account& WithEmail(Aws::String&& value) { SetEmail(std::move(value)); return *this;}
 
     /**
      * <p>The email address associated with the AWS account.</p> <p>The <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a> for this parameter is a
-     * string of characters that represents a standard Internet email address.</p>
+     * string of characters that represents a standard internet email address.</p>
      */
     inline Account& WithEmail(const char* value) { SetEmail(value); return *this;}
 
@@ -221,6 +245,14 @@ namespace Model
      * character range.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The friendly name of the account.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to
+     * validate this parameter is a string of any of the characters in the ASCII
+     * character range.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The friendly name of the account.</p> <p>The <a
@@ -279,6 +311,11 @@ namespace Model
     /**
      * <p>The status of the account in the organization.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the account in the organization.</p>
+     */
     inline void SetStatus(const AccountStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -305,6 +342,11 @@ namespace Model
     /**
      * <p>The method by which the account joined the organization.</p>
      */
+    inline bool JoinedMethodHasBeenSet() const { return m_joinedMethodHasBeenSet; }
+
+    /**
+     * <p>The method by which the account joined the organization.</p>
+     */
     inline void SetJoinedMethod(const AccountJoinedMethod& value) { m_joinedMethodHasBeenSet = true; m_joinedMethod = value; }
 
     /**
@@ -327,6 +369,11 @@ namespace Model
      * <p>The date the account became a part of the organization.</p>
      */
     inline const Aws::Utils::DateTime& GetJoinedTimestamp() const{ return m_joinedTimestamp; }
+
+    /**
+     * <p>The date the account became a part of the organization.</p>
+     */
+    inline bool JoinedTimestampHasBeenSet() const { return m_joinedTimestampHasBeenSet; }
 
     /**
      * <p>The date the account became a part of the organization.</p>

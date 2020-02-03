@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DatasetEntry();
-    DatasetEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    DatasetEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DatasetEntry(Aws::Utils::Json::JsonView jsonValue);
+    DatasetEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the data set item.</p>
      */
     inline const Aws::String& GetEntryName() const{ return m_entryName; }
+
+    /**
+     * <p>The name of the data set item.</p>
+     */
+    inline bool EntryNameHasBeenSet() const { return m_entryNameHasBeenSet; }
 
     /**
      * <p>The name of the data set item.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The pre-signed URI of the data set item.</p>
      */
     inline const Aws::String& GetDataURI() const{ return m_dataURI; }
+
+    /**
+     * <p>The pre-signed URI of the data set item.</p>
+     */
+    inline bool DataURIHasBeenSet() const { return m_dataURIHasBeenSet; }
 
     /**
      * <p>The pre-signed URI of the data set item.</p>

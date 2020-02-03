@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     HandshakeFilter();
-    HandshakeFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    HandshakeFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HandshakeFilter(Aws::Utils::Json::JsonView jsonValue);
+    HandshakeFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * <code>ParentHandshakeId</code>.</p>
      */
     inline const ActionType& GetActionType() const{ return m_actionType; }
+
+    /**
+     * <p>Specifies the type of handshake action.</p> <p>If you specify
+     * <code>ActionType</code>, you cannot also specify
+     * <code>ParentHandshakeId</code>.</p>
+     */
+    inline bool ActionTypeHasBeenSet() const { return m_actionTypeHasBeenSet; }
 
     /**
      * <p>Specifies the type of handshake action.</p> <p>If you specify
@@ -92,6 +100,15 @@ namespace Model
      * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
      */
     inline const Aws::String& GetParentHandshakeId() const{ return m_parentHandshakeId; }
+
+    /**
+     * <p>Specifies the parent handshake. Only used for handshake types that are a
+     * child of another type.</p> <p>If you specify <code>ParentHandshakeId</code>, you
+     * cannot also specify <code>ActionType</code>.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
+     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     */
+    inline bool ParentHandshakeIdHasBeenSet() const { return m_parentHandshakeIdHasBeenSet; }
 
     /**
      * <p>Specifies the parent handshake. Only used for handshake types that are a

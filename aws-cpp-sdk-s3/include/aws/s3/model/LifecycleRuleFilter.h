@@ -35,9 +35,9 @@ namespace Model
 {
 
   /**
-   * <p>The Filter is used to identify objects that a Lifecycle Rule applies to. A
-   * Filter must have exactly one of Prefix, Tag, or And specified.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>The <code>Filter</code> is used to identify objects that a Lifecycle Rule
+   * applies to. A <code>Filter</code> must have exactly one of <code>Prefix</code>,
+   * <code>Tag</code>, or <code>And</code> specified.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/LifecycleRuleFilter">AWS
    * API Reference</a></p>
    */
@@ -55,6 +55,11 @@ namespace Model
      * <p>Prefix identifying one or more objects to which the rule applies.</p>
      */
     inline const Aws::String& GetPrefix() const{ return m_prefix; }
+
+    /**
+     * <p>Prefix identifying one or more objects to which the rule applies.</p>
+     */
+    inline bool PrefixHasBeenSet() const { return m_prefixHasBeenSet; }
 
     /**
      * <p>Prefix identifying one or more objects to which the rule applies.</p>
@@ -97,6 +102,12 @@ namespace Model
      * <p>This tag must exist in the object's tag set in order for the rule to
      * apply.</p>
      */
+    inline bool TagHasBeenSet() const { return m_tagHasBeenSet; }
+
+    /**
+     * <p>This tag must exist in the object's tag set in order for the rule to
+     * apply.</p>
+     */
     inline void SetTag(const Tag& value) { m_tagHasBeenSet = true; m_tag = value; }
 
     /**
@@ -120,6 +131,9 @@ namespace Model
 
     
     inline const LifecycleRuleAndOperator& GetAnd() const{ return m_and; }
+
+    
+    inline bool AndHasBeenSet() const { return m_andHasBeenSet; }
 
     
     inline void SetAnd(const LifecycleRuleAndOperator& value) { m_andHasBeenSet = true; m_and = value; }

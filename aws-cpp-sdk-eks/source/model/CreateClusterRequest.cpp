@@ -27,8 +27,10 @@ CreateClusterRequest::CreateClusterRequest() :
     m_versionHasBeenSet(false),
     m_roleArnHasBeenSet(false),
     m_resourcesVpcConfigHasBeenSet(false),
+    m_loggingHasBeenSet(false),
     m_clientRequestToken(Aws::Utils::UUID::RandomUUID()),
-    m_clientRequestTokenHasBeenSet(true)
+    m_clientRequestTokenHasBeenSet(true),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -60,13 +62,30 @@ Aws::String CreateClusterRequest::SerializePayload() const
 
   }
 
+  if(m_loggingHasBeenSet)
+  {
+   payload.WithObject("logging", m_logging.Jsonize());
+
+  }
+
   if(m_clientRequestTokenHasBeenSet)
   {
    payload.WithString("clientRequestToken", m_clientRequestToken);
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

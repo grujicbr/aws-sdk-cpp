@@ -18,6 +18,7 @@
 #include <aws/elasticmapreduce/EMRRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/elasticmapreduce/model/StepCancellationOption.h>
 #include <utility>
 
 namespace Aws
@@ -37,7 +38,7 @@ namespace Model
   {
   public:
     CancelStepsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,6 +55,12 @@ namespace Model
      * <a>RunJobFlow</a> and <a>ListClusters</a> to get ClusterIDs. </p>
      */
     inline const Aws::String& GetClusterId() const{ return m_clusterId; }
+
+    /**
+     * <p>The <code>ClusterID</code> for which specified steps will be canceled. Use
+     * <a>RunJobFlow</a> and <a>ListClusters</a> to get ClusterIDs. </p>
+     */
+    inline bool ClusterIdHasBeenSet() const { return m_clusterIdHasBeenSet; }
 
     /**
      * <p>The <code>ClusterID</code> for which specified steps will be canceled. Use
@@ -102,6 +109,12 @@ namespace Model
      * <p>The list of <code>StepIDs</code> to cancel. Use <a>ListSteps</a> to get steps
      * and their states for the specified cluster.</p>
      */
+    inline bool StepIdsHasBeenSet() const { return m_stepIdsHasBeenSet; }
+
+    /**
+     * <p>The list of <code>StepIDs</code> to cancel. Use <a>ListSteps</a> to get steps
+     * and their states for the specified cluster.</p>
+     */
     inline void SetStepIds(const Aws::Vector<Aws::String>& value) { m_stepIdsHasBeenSet = true; m_stepIds = value; }
 
     /**
@@ -140,6 +153,43 @@ namespace Model
      */
     inline CancelStepsRequest& AddStepIds(const char* value) { m_stepIdsHasBeenSet = true; m_stepIds.push_back(value); return *this; }
 
+
+    /**
+     * <p>The option to choose for cancelling <code>RUNNING</code> steps. By default,
+     * the value is <code>SEND_INTERRUPT</code>.</p>
+     */
+    inline const StepCancellationOption& GetStepCancellationOption() const{ return m_stepCancellationOption; }
+
+    /**
+     * <p>The option to choose for cancelling <code>RUNNING</code> steps. By default,
+     * the value is <code>SEND_INTERRUPT</code>.</p>
+     */
+    inline bool StepCancellationOptionHasBeenSet() const { return m_stepCancellationOptionHasBeenSet; }
+
+    /**
+     * <p>The option to choose for cancelling <code>RUNNING</code> steps. By default,
+     * the value is <code>SEND_INTERRUPT</code>.</p>
+     */
+    inline void SetStepCancellationOption(const StepCancellationOption& value) { m_stepCancellationOptionHasBeenSet = true; m_stepCancellationOption = value; }
+
+    /**
+     * <p>The option to choose for cancelling <code>RUNNING</code> steps. By default,
+     * the value is <code>SEND_INTERRUPT</code>.</p>
+     */
+    inline void SetStepCancellationOption(StepCancellationOption&& value) { m_stepCancellationOptionHasBeenSet = true; m_stepCancellationOption = std::move(value); }
+
+    /**
+     * <p>The option to choose for cancelling <code>RUNNING</code> steps. By default,
+     * the value is <code>SEND_INTERRUPT</code>.</p>
+     */
+    inline CancelStepsRequest& WithStepCancellationOption(const StepCancellationOption& value) { SetStepCancellationOption(value); return *this;}
+
+    /**
+     * <p>The option to choose for cancelling <code>RUNNING</code> steps. By default,
+     * the value is <code>SEND_INTERRUPT</code>.</p>
+     */
+    inline CancelStepsRequest& WithStepCancellationOption(StepCancellationOption&& value) { SetStepCancellationOption(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_clusterId;
@@ -147,6 +197,9 @@ namespace Model
 
     Aws::Vector<Aws::String> m_stepIds;
     bool m_stepIdsHasBeenSet;
+
+    StepCancellationOption m_stepCancellationOption;
+    bool m_stepCancellationOptionHasBeenSet;
   };
 
 } // namespace Model

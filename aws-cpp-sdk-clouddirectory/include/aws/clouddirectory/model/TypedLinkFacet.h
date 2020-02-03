@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     TypedLinkFacet();
-    TypedLinkFacet(const Aws::Utils::Json::JsonValue& jsonValue);
-    TypedLinkFacet& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TypedLinkFacet(Aws::Utils::Json::JsonView jsonValue);
+    TypedLinkFacet& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The unique name of the typed link facet.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The unique name of the typed link facet.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The unique name of the typed link facet.</p>
@@ -93,6 +99,15 @@ namespace Model
      * objects.</p>
      */
     inline const Aws::Vector<TypedLinkAttributeDefinition>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>A set of key-value pairs associated with the typed link. Typed link
+     * attributes are used when you have data values that are related to the link
+     * itself, and not to one of the two objects being linked. Identity attributes also
+     * serve to distinguish the link from others of the same type between the same
+     * objects.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>A set of key-value pairs associated with the typed link. Typed link
@@ -156,6 +171,14 @@ namespace Model
      * <a>ListIncomingTypedLinks</a> for details.</p>
      */
     inline const Aws::Vector<Aws::String>& GetIdentityAttributeOrder() const{ return m_identityAttributeOrder; }
+
+    /**
+     * <p>The set of attributes that distinguish links made from this facet from each
+     * other, in the order of significance. Listing typed links can filter on the
+     * values of these attributes. See <a>ListOutgoingTypedLinks</a> and
+     * <a>ListIncomingTypedLinks</a> for details.</p>
+     */
+    inline bool IdentityAttributeOrderHasBeenSet() const { return m_identityAttributeOrderHasBeenSet; }
 
     /**
      * <p>The set of attributes that distinguish links made from this facet from each

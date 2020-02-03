@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     InventoryResultItem();
-    InventoryResultItem(const Aws::Utils::Json::JsonValue& jsonValue);
-    InventoryResultItem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InventoryResultItem(Aws::Utils::Json::JsonView jsonValue);
+    InventoryResultItem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the inventory result item type.</p>
      */
     inline const Aws::String& GetTypeName() const{ return m_typeName; }
+
+    /**
+     * <p>The name of the inventory result item type.</p>
+     */
+    inline bool TypeNameHasBeenSet() const { return m_typeNameHasBeenSet; }
 
     /**
      * <p>The name of the inventory result item type.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The schema version for the inventory result item/</p>
      */
+    inline bool SchemaVersionHasBeenSet() const { return m_schemaVersionHasBeenSet; }
+
+    /**
+     * <p>The schema version for the inventory result item/</p>
+     */
     inline void SetSchemaVersion(const Aws::String& value) { m_schemaVersionHasBeenSet = true; m_schemaVersion = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The time inventory item data was captured.</p>
      */
     inline const Aws::String& GetCaptureTime() const{ return m_captureTime; }
+
+    /**
+     * <p>The time inventory item data was captured.</p>
+     */
+    inline bool CaptureTimeHasBeenSet() const { return m_captureTimeHasBeenSet; }
 
     /**
      * <p>The time inventory item data was captured.</p>
@@ -163,6 +179,14 @@ namespace Model
      * last update. </p>
      */
     inline const Aws::String& GetContentHash() const{ return m_contentHash; }
+
+    /**
+     * <p>MD5 hash of the inventory item type contents. The content hash is used to
+     * determine whether to update inventory information. The PutInventory API does not
+     * update the inventory item type contents if the MD5 hash has not changed since
+     * last update. </p>
+     */
+    inline bool ContentHashHasBeenSet() const { return m_contentHashHasBeenSet; }
 
     /**
      * <p>MD5 hash of the inventory item type contents. The content hash is used to
@@ -218,6 +242,12 @@ namespace Model
      * names and values. </p>
      */
     inline const Aws::Vector<Aws::Map<Aws::String, Aws::String>>& GetContent() const{ return m_content; }
+
+    /**
+     * <p>Contains all the inventory data of the item type. Results include attribute
+     * names and values. </p>
+     */
+    inline bool ContentHasBeenSet() const { return m_contentHasBeenSet; }
 
     /**
      * <p>Contains all the inventory data of the item type. Results include attribute

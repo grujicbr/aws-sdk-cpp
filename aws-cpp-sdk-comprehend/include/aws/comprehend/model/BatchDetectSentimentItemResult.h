@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Comprehend
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BatchDetectSentimentItemResult();
-    BatchDetectSentimentItemResult(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchDetectSentimentItemResult& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchDetectSentimentItemResult(Aws::Utils::Json::JsonView jsonValue);
+    BatchDetectSentimentItemResult& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The zero-based index of the document in the input list.</p>
      */
     inline int GetIndex() const{ return m_index; }
+
+    /**
+     * <p>The zero-based index of the document in the input list.</p>
+     */
+    inline bool IndexHasBeenSet() const { return m_indexHasBeenSet; }
 
     /**
      * <p>The zero-based index of the document in the input list.</p>
@@ -69,6 +75,11 @@ namespace Model
      * <p>The sentiment detected in the document.</p>
      */
     inline const SentimentType& GetSentiment() const{ return m_sentiment; }
+
+    /**
+     * <p>The sentiment detected in the document.</p>
+     */
+    inline bool SentimentHasBeenSet() const { return m_sentimentHasBeenSet; }
 
     /**
      * <p>The sentiment detected in the document.</p>
@@ -96,6 +107,12 @@ namespace Model
      * sentiment detection.</p>
      */
     inline const SentimentScore& GetSentimentScore() const{ return m_sentimentScore; }
+
+    /**
+     * <p>The level of confidence that Amazon Comprehend has in the accuracy of its
+     * sentiment detection.</p>
+     */
+    inline bool SentimentScoreHasBeenSet() const { return m_sentimentScoreHasBeenSet; }
 
     /**
      * <p>The level of confidence that Amazon Comprehend has in the accuracy of its

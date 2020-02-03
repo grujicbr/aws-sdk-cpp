@@ -28,16 +28,12 @@ namespace Model
 {
 
   /**
-   * <p>Container for the parameters to the AllocatePrivateVirtualInterface
-   * operation.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/AllocatePrivateVirtualInterfaceRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_DIRECTCONNECT_API AllocatePrivateVirtualInterfaceRequest : public DirectConnectRequest
   {
   public:
     AllocatePrivateVirtualInterfaceRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,118 +46,122 @@ namespace Model
 
 
     /**
-     * <p>The connection ID on which the private virtual interface is provisioned.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the connection on which the private virtual interface is
+     * provisioned.</p>
      */
     inline const Aws::String& GetConnectionId() const{ return m_connectionId; }
 
     /**
-     * <p>The connection ID on which the private virtual interface is provisioned.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the connection on which the private virtual interface is
+     * provisioned.</p>
+     */
+    inline bool ConnectionIdHasBeenSet() const { return m_connectionIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the connection on which the private virtual interface is
+     * provisioned.</p>
      */
     inline void SetConnectionId(const Aws::String& value) { m_connectionIdHasBeenSet = true; m_connectionId = value; }
 
     /**
-     * <p>The connection ID on which the private virtual interface is provisioned.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the connection on which the private virtual interface is
+     * provisioned.</p>
      */
     inline void SetConnectionId(Aws::String&& value) { m_connectionIdHasBeenSet = true; m_connectionId = std::move(value); }
 
     /**
-     * <p>The connection ID on which the private virtual interface is provisioned.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the connection on which the private virtual interface is
+     * provisioned.</p>
      */
     inline void SetConnectionId(const char* value) { m_connectionIdHasBeenSet = true; m_connectionId.assign(value); }
 
     /**
-     * <p>The connection ID on which the private virtual interface is provisioned.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the connection on which the private virtual interface is
+     * provisioned.</p>
      */
     inline AllocatePrivateVirtualInterfaceRequest& WithConnectionId(const Aws::String& value) { SetConnectionId(value); return *this;}
 
     /**
-     * <p>The connection ID on which the private virtual interface is provisioned.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the connection on which the private virtual interface is
+     * provisioned.</p>
      */
     inline AllocatePrivateVirtualInterfaceRequest& WithConnectionId(Aws::String&& value) { SetConnectionId(std::move(value)); return *this;}
 
     /**
-     * <p>The connection ID on which the private virtual interface is provisioned.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the connection on which the private virtual interface is
+     * provisioned.</p>
      */
     inline AllocatePrivateVirtualInterfaceRequest& WithConnectionId(const char* value) { SetConnectionId(value); return *this;}
 
 
     /**
-     * <p>The AWS account that will own the new private virtual interface.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the AWS account that owns the virtual private interface.</p>
      */
     inline const Aws::String& GetOwnerAccount() const{ return m_ownerAccount; }
 
     /**
-     * <p>The AWS account that will own the new private virtual interface.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the AWS account that owns the virtual private interface.</p>
+     */
+    inline bool OwnerAccountHasBeenSet() const { return m_ownerAccountHasBeenSet; }
+
+    /**
+     * <p>The ID of the AWS account that owns the virtual private interface.</p>
      */
     inline void SetOwnerAccount(const Aws::String& value) { m_ownerAccountHasBeenSet = true; m_ownerAccount = value; }
 
     /**
-     * <p>The AWS account that will own the new private virtual interface.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the AWS account that owns the virtual private interface.</p>
      */
     inline void SetOwnerAccount(Aws::String&& value) { m_ownerAccountHasBeenSet = true; m_ownerAccount = std::move(value); }
 
     /**
-     * <p>The AWS account that will own the new private virtual interface.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the AWS account that owns the virtual private interface.</p>
      */
     inline void SetOwnerAccount(const char* value) { m_ownerAccountHasBeenSet = true; m_ownerAccount.assign(value); }
 
     /**
-     * <p>The AWS account that will own the new private virtual interface.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the AWS account that owns the virtual private interface.</p>
      */
     inline AllocatePrivateVirtualInterfaceRequest& WithOwnerAccount(const Aws::String& value) { SetOwnerAccount(value); return *this;}
 
     /**
-     * <p>The AWS account that will own the new private virtual interface.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the AWS account that owns the virtual private interface.</p>
      */
     inline AllocatePrivateVirtualInterfaceRequest& WithOwnerAccount(Aws::String&& value) { SetOwnerAccount(std::move(value)); return *this;}
 
     /**
-     * <p>The AWS account that will own the new private virtual interface.</p>
-     * <p>Default: None</p>
+     * <p>The ID of the AWS account that owns the virtual private interface.</p>
      */
     inline AllocatePrivateVirtualInterfaceRequest& WithOwnerAccount(const char* value) { SetOwnerAccount(value); return *this;}
 
 
     /**
-     * <p>Detailed information for the private virtual interface to be provisioned.</p>
-     * <p>Default: None</p>
+     * <p>Information about the private virtual interface.</p>
      */
     inline const NewPrivateVirtualInterfaceAllocation& GetNewPrivateVirtualInterfaceAllocation() const{ return m_newPrivateVirtualInterfaceAllocation; }
 
     /**
-     * <p>Detailed information for the private virtual interface to be provisioned.</p>
-     * <p>Default: None</p>
+     * <p>Information about the private virtual interface.</p>
+     */
+    inline bool NewPrivateVirtualInterfaceAllocationHasBeenSet() const { return m_newPrivateVirtualInterfaceAllocationHasBeenSet; }
+
+    /**
+     * <p>Information about the private virtual interface.</p>
      */
     inline void SetNewPrivateVirtualInterfaceAllocation(const NewPrivateVirtualInterfaceAllocation& value) { m_newPrivateVirtualInterfaceAllocationHasBeenSet = true; m_newPrivateVirtualInterfaceAllocation = value; }
 
     /**
-     * <p>Detailed information for the private virtual interface to be provisioned.</p>
-     * <p>Default: None</p>
+     * <p>Information about the private virtual interface.</p>
      */
     inline void SetNewPrivateVirtualInterfaceAllocation(NewPrivateVirtualInterfaceAllocation&& value) { m_newPrivateVirtualInterfaceAllocationHasBeenSet = true; m_newPrivateVirtualInterfaceAllocation = std::move(value); }
 
     /**
-     * <p>Detailed information for the private virtual interface to be provisioned.</p>
-     * <p>Default: None</p>
+     * <p>Information about the private virtual interface.</p>
      */
     inline AllocatePrivateVirtualInterfaceRequest& WithNewPrivateVirtualInterfaceAllocation(const NewPrivateVirtualInterfaceAllocation& value) { SetNewPrivateVirtualInterfaceAllocation(value); return *this;}
 
     /**
-     * <p>Detailed information for the private virtual interface to be provisioned.</p>
-     * <p>Default: None</p>
+     * <p>Information about the private virtual interface.</p>
      */
     inline AllocatePrivateVirtualInterfaceRequest& WithNewPrivateVirtualInterfaceAllocation(NewPrivateVirtualInterfaceAllocation&& value) { SetNewPrivateVirtualInterfaceAllocation(std::move(value)); return *this;}
 

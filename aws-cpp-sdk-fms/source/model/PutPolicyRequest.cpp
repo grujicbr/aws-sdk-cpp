@@ -23,7 +23,8 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 PutPolicyRequest::PutPolicyRequest() : 
-    m_policyHasBeenSet(false)
+    m_policyHasBeenSet(false),
+    m_tagListHasBeenSet(false)
 {
 }
 
@@ -37,7 +38,18 @@ Aws::String PutPolicyRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagListHasBeenSet)
+  {
+   Array<JsonValue> tagListJsonList(m_tagList.size());
+   for(unsigned tagListIndex = 0; tagListIndex < tagListJsonList.GetLength(); ++tagListIndex)
+   {
+     tagListJsonList[tagListIndex].AsObject(m_tagList[tagListIndex].Jsonize());
+   }
+   payload.WithArray("TagList", std::move(tagListJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection PutPolicyRequest::GetRequestSpecificHeaders() const

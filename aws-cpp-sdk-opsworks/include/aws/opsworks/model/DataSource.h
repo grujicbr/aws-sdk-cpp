@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DataSource();
-    DataSource(const Aws::Utils::Json::JsonValue& jsonValue);
-    DataSource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DataSource(Aws::Utils::Json::JsonView jsonValue);
+    DataSource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,13 @@ namespace Model
      * <code>None</code>.</p>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p>The data source's type, <code>AutoSelectOpsworksMysqlInstance</code>,
+     * <code>OpsworksMysqlInstance</code>, <code>RdsDbInstance</code>, or
+     * <code>None</code>.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The data source's type, <code>AutoSelectOpsworksMysqlInstance</code>,
@@ -104,6 +112,11 @@ namespace Model
     /**
      * <p>The data source's ARN.</p>
      */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>The data source's ARN.</p>
+     */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
@@ -136,6 +149,11 @@ namespace Model
      * <p>The database name.</p>
      */
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    /**
+     * <p>The database name.</p>
+     */
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     /**
      * <p>The database name.</p>

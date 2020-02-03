@@ -32,7 +32,9 @@ CreateCrawlerRequest::CreateCrawlerRequest() :
     m_classifiersHasBeenSet(false),
     m_tablePrefixHasBeenSet(false),
     m_schemaChangePolicyHasBeenSet(false),
-    m_configurationHasBeenSet(false)
+    m_configurationHasBeenSet(false),
+    m_crawlerSecurityConfigurationHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -105,7 +107,24 @@ Aws::String CreateCrawlerRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_crawlerSecurityConfigurationHasBeenSet)
+  {
+   payload.WithString("CrawlerSecurityConfiguration", m_crawlerSecurityConfiguration);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("Tags", std::move(tagsJsonMap));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateCrawlerRequest::GetRequestSpecificHeaders() const

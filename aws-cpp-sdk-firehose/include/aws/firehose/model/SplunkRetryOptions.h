@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     SplunkRetryOptions();
-    SplunkRetryOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    SplunkRetryOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SplunkRetryOptions(Aws::Utils::Json::JsonView jsonValue);
+    SplunkRetryOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,14 @@ namespace Model
      * acknowledgment from Splunk after each attempt.</p>
      */
     inline int GetDurationInSeconds() const{ return m_durationInSeconds; }
+
+    /**
+     * <p>The total amount of time that Kinesis Data Firehose spends on retries. This
+     * duration starts after the initial attempt to send data to Splunk fails. It
+     * doesn't include the periods during which Kinesis Data Firehose waits for
+     * acknowledgment from Splunk after each attempt.</p>
+     */
+    inline bool DurationInSecondsHasBeenSet() const { return m_durationInSecondsHasBeenSet; }
 
     /**
      * <p>The total amount of time that Kinesis Data Firehose spends on retries. This

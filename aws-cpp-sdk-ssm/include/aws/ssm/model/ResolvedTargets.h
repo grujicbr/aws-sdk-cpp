@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ResolvedTargets();
-    ResolvedTargets(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResolvedTargets& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResolvedTargets(Aws::Utils::Json::JsonView jsonValue);
+    ResolvedTargets& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * Automation execution.</p>
      */
     inline const Aws::Vector<Aws::String>& GetParameterValues() const{ return m_parameterValues; }
+
+    /**
+     * <p>A list of parameter values sent to targets that resolved during the
+     * Automation execution.</p>
+     */
+    inline bool ParameterValuesHasBeenSet() const { return m_parameterValuesHasBeenSet; }
 
     /**
      * <p>A list of parameter values sent to targets that resolved during the
@@ -101,6 +108,11 @@ namespace Model
      * <p>A boolean value indicating whether the resolved target list is truncated.</p>
      */
     inline bool GetTruncated() const{ return m_truncated; }
+
+    /**
+     * <p>A boolean value indicating whether the resolved target list is truncated.</p>
+     */
+    inline bool TruncatedHasBeenSet() const { return m_truncatedHasBeenSet; }
 
     /**
      * <p>A boolean value indicating whether the resolved target list is truncated.</p>

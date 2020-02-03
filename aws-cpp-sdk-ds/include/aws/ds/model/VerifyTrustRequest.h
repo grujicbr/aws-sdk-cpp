@@ -27,8 +27,8 @@ namespace Model
 {
 
   /**
-   * <p>Initiates the verification of an existing trust relationship between a
-   * Microsoft AD in the AWS cloud and an external domain.</p><p><h3>See Also:</h3>  
+   * <p>Initiates the verification of an existing trust relationship between an AWS
+   * Managed Microsoft AD directory and an external domain.</p><p><h3>See Also:</h3> 
    * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/VerifyTrustRequest">AWS
    * API Reference</a></p>
@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     VerifyTrustRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -53,6 +53,11 @@ namespace Model
      * <p>The unique Trust ID of the trust relationship to verify.</p>
      */
     inline const Aws::String& GetTrustId() const{ return m_trustId; }
+
+    /**
+     * <p>The unique Trust ID of the trust relationship to verify.</p>
+     */
+    inline bool TrustIdHasBeenSet() const { return m_trustIdHasBeenSet; }
 
     /**
      * <p>The unique Trust ID of the trust relationship to verify.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LambdaFunctionCompletedEventAttributes();
-    LambdaFunctionCompletedEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    LambdaFunctionCompletedEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LambdaFunctionCompletedEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    LambdaFunctionCompletedEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * information to trace back the chain of events leading up to this event.</p>
      */
     inline long long GetScheduledEventId() const{ return m_scheduledEventId; }
+
+    /**
+     * <p>The ID of the <code>LambdaFunctionScheduled</code> event that was recorded
+     * when this Lambda task was scheduled. To help diagnose issues, use this
+     * information to trace back the chain of events leading up to this event.</p>
+     */
+    inline bool ScheduledEventIdHasBeenSet() const { return m_scheduledEventIdHasBeenSet; }
 
     /**
      * <p>The ID of the <code>LambdaFunctionScheduled</code> event that was recorded
@@ -81,6 +89,13 @@ namespace Model
      * activity task started. To help diagnose issues, use this information to trace
      * back the chain of events leading up to this event.</p>
      */
+    inline bool StartedEventIdHasBeenSet() const { return m_startedEventIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the <code>LambdaFunctionStarted</code> event recorded when this
+     * activity task started. To help diagnose issues, use this information to trace
+     * back the chain of events leading up to this event.</p>
+     */
     inline void SetStartedEventId(long long value) { m_startedEventIdHasBeenSet = true; m_startedEventId = value; }
 
     /**
@@ -95,6 +110,11 @@ namespace Model
      * <p>The results of the Lambda task.</p>
      */
     inline const Aws::String& GetResult() const{ return m_result; }
+
+    /**
+     * <p>The results of the Lambda task.</p>
+     */
+    inline bool ResultHasBeenSet() const { return m_resultHasBeenSet; }
 
     /**
      * <p>The results of the Lambda task.</p>

@@ -18,6 +18,7 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/DateTime.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <utility>
 
 namespace Aws
@@ -27,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -39,7 +41,7 @@ namespace Model
    * resources that require an API key. API keys can be mapped to any <a>Stage</a> on
    * any <a>RestApi</a>, which indicates that the callers with the API key can make
    * requests to that stage.</p> <div class="seeAlso"> <a
-   * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-api-keys.html">Use
+   * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-api-keys.html">Use
    * API Keys</a> </div><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/ApiKey">AWS
    * API Reference</a></p>
@@ -48,8 +50,8 @@ namespace Model
   {
   public:
     ApiKey();
-    ApiKey(const Aws::Utils::Json::JsonValue& jsonValue);
-    ApiKey& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ApiKey(Aws::Utils::Json::JsonView jsonValue);
+    ApiKey& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +59,11 @@ namespace Model
      * <p>The identifier of the API Key.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The identifier of the API Key.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The identifier of the API Key.</p>
@@ -97,6 +104,11 @@ namespace Model
     /**
      * <p>The value of the API Key.</p>
      */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>The value of the API Key.</p>
+     */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
@@ -129,6 +141,11 @@ namespace Model
      * <p>The name of the API Key.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the API Key.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the API Key.</p>
@@ -166,6 +183,12 @@ namespace Model
      * Marketplace.</p>
      */
     inline const Aws::String& GetCustomerId() const{ return m_customerId; }
+
+    /**
+     * <p>An AWS Marketplace customer identifier , when integrating with the AWS SaaS
+     * Marketplace.</p>
+     */
+    inline bool CustomerIdHasBeenSet() const { return m_customerIdHasBeenSet; }
 
     /**
      * <p>An AWS Marketplace customer identifier , when integrating with the AWS SaaS
@@ -212,6 +235,11 @@ namespace Model
     /**
      * <p>The description of the API Key.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the API Key.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -248,6 +276,11 @@ namespace Model
     /**
      * <p>Specifies whether the API Key can be used by callers.</p>
      */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the API Key can be used by callers.</p>
+     */
     inline void SetEnabled(bool value) { m_enabledHasBeenSet = true; m_enabled = value; }
 
     /**
@@ -260,6 +293,11 @@ namespace Model
      * <p>The timestamp when the API Key was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedDate() const{ return m_createdDate; }
+
+    /**
+     * <p>The timestamp when the API Key was created.</p>
+     */
+    inline bool CreatedDateHasBeenSet() const { return m_createdDateHasBeenSet; }
 
     /**
      * <p>The timestamp when the API Key was created.</p>
@@ -290,6 +328,11 @@ namespace Model
     /**
      * <p>The timestamp when the API Key was last updated.</p>
      */
+    inline bool LastUpdatedDateHasBeenSet() const { return m_lastUpdatedDateHasBeenSet; }
+
+    /**
+     * <p>The timestamp when the API Key was last updated.</p>
+     */
     inline void SetLastUpdatedDate(const Aws::Utils::DateTime& value) { m_lastUpdatedDateHasBeenSet = true; m_lastUpdatedDate = value; }
 
     /**
@@ -313,6 +356,12 @@ namespace Model
      * resource.</p>
      */
     inline const Aws::Vector<Aws::String>& GetStageKeys() const{ return m_stageKeys; }
+
+    /**
+     * <p>A list of <a>Stage</a> resources that are associated with the <a>ApiKey</a>
+     * resource.</p>
+     */
+    inline bool StageKeysHasBeenSet() const { return m_stageKeysHasBeenSet; }
 
     /**
      * <p>A list of <a>Stage</a> resources that are associated with the <a>ApiKey</a>
@@ -356,6 +405,85 @@ namespace Model
      */
     inline ApiKey& AddStageKeys(const char* value) { m_stageKeysHasBeenSet = true; m_stageKeys.push_back(value); return *this; }
 
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The collection of tags. Each tag element is associated with a given
+     * resource.</p>
+     */
+    inline ApiKey& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
   private:
 
     Aws::String m_id;
@@ -384,6 +512,9 @@ namespace Model
 
     Aws::Vector<Aws::String> m_stageKeys;
     bool m_stageKeysHasBeenSet;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

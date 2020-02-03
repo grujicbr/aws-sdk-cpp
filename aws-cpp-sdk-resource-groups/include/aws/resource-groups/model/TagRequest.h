@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     TagRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -47,6 +47,11 @@ namespace Model
      * <p>The ARN of the resource to which to add tags.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The ARN of the resource to which to add tags.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The ARN of the resource to which to add tags.</p>
@@ -81,85 +86,92 @@ namespace Model
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags to add to the specified resource. A tag is a string-to-string map of
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
 
     /**
      * <p>The tags to add to the specified resource. A tag is a string-to-string map of
-     * key-value pairs. Tag keys can have a maximum character length of 127 characters,
-     * and tag values can have a maximum length of 255 characters.</p>
+     * key-value pairs. Tag keys can have a maximum character length of 128 characters,
+     * and tag values can have a maximum length of 256 characters.</p>
      */
     inline TagRequest& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
 

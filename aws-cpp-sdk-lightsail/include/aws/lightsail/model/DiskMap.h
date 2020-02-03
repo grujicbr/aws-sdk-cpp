@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DiskMap();
-    DiskMap(const Aws::Utils::Json::JsonValue& jsonValue);
-    DiskMap& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DiskMap(Aws::Utils::Json::JsonView jsonValue);
+    DiskMap& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * <code>/dev/sdh</code>).</p>
      */
     inline const Aws::String& GetOriginalDiskPath() const{ return m_originalDiskPath; }
+
+    /**
+     * <p>The original disk path exposed to the instance (for example,
+     * <code>/dev/sdh</code>).</p>
+     */
+    inline bool OriginalDiskPathHasBeenSet() const { return m_originalDiskPathHasBeenSet; }
 
     /**
      * <p>The original disk path exposed to the instance (for example,
@@ -93,6 +100,11 @@ namespace Model
      * <p>The new disk name (e.g., <code>my-new-disk</code>).</p>
      */
     inline const Aws::String& GetNewDiskName() const{ return m_newDiskName; }
+
+    /**
+     * <p>The new disk name (e.g., <code>my-new-disk</code>).</p>
+     */
+    inline bool NewDiskNameHasBeenSet() const { return m_newDiskNameHasBeenSet; }
 
     /**
      * <p>The new disk name (e.g., <code>my-new-disk</code>).</p>

@@ -51,23 +51,26 @@ GetPasswordDataResponse& GetPasswordDataResponse::operator =(const Aws::AmazonWe
     XmlNode instanceIdNode = resultNode.FirstChild("instanceId");
     if(!instanceIdNode.IsNull())
     {
-      m_instanceId = StringUtils::Trim(instanceIdNode.GetText().c_str());
+      m_instanceId = Aws::Utils::Xml::DecodeEscapedXmlText(instanceIdNode.GetText());
     }
     XmlNode passwordDataNode = resultNode.FirstChild("passwordData");
     if(!passwordDataNode.IsNull())
     {
-      m_passwordData = StringUtils::Trim(passwordDataNode.GetText().c_str());
+      m_passwordData = Aws::Utils::Xml::DecodeEscapedXmlText(passwordDataNode.GetText());
     }
     XmlNode timestampNode = resultNode.FirstChild("timestamp");
     if(!timestampNode.IsNull())
     {
-      m_timestamp = DateTime(StringUtils::Trim(timestampNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_timestamp = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(timestampNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::GetPasswordDataResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

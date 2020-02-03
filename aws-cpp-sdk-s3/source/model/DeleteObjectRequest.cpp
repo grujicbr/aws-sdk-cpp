@@ -33,13 +33,15 @@ DeleteObjectRequest::DeleteObjectRequest() :
     m_versionIdHasBeenSet(false),
     m_requestPayer(RequestPayer::NOT_SET),
     m_requestPayerHasBeenSet(false),
+    m_bypassGovernanceRetention(false),
+    m_bypassGovernanceRetentionHasBeenSet(false),
     m_customizedAccessLogTagHasBeenSet(false)
 {
 }
 
 Aws::String DeleteObjectRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 void DeleteObjectRequest::AddQueryStringParameters(URI& uri) const
@@ -78,13 +80,20 @@ Aws::Http::HeaderValueCollection DeleteObjectRequest::GetRequestSpecificHeaders(
   if(m_mFAHasBeenSet)
   {
     ss << m_mFA;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-mfa", ss.str()));
+    headers.emplace("x-amz-mfa",  ss.str());
     ss.str("");
   }
 
   if(m_requestPayerHasBeenSet)
   {
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-request-payer", RequestPayerMapper::GetNameForRequestPayer(m_requestPayer)));
+    headers.emplace("x-amz-request-payer", RequestPayerMapper::GetNameForRequestPayer(m_requestPayer));
+  }
+
+  if(m_bypassGovernanceRetentionHasBeenSet)
+  {
+    ss << m_bypassGovernanceRetention;
+    headers.emplace("x-amz-bypass-governance-retention",  ss.str());
+    ss.str("");
   }
 
   return headers;

@@ -29,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace GuardDuty
@@ -37,7 +38,8 @@ namespace Model
 {
 
   /**
-   * Remote IP information of the connection.<p><h3>See Also:</h3>   <a
+   * <p>Continas information about the remote IP address of the
+   * connection.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/RemoteIpDetails">AWS
    * API Reference</a></p>
    */
@@ -45,147 +47,172 @@ namespace Model
   {
   public:
     RemoteIpDetails();
-    RemoteIpDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    RemoteIpDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RemoteIpDetails(Aws::Utils::Json::JsonView jsonValue);
+    RemoteIpDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * City information of the remote IP address.
+     * <p>City information of the remote IP address.</p>
      */
     inline const City& GetCity() const{ return m_city; }
 
     /**
-     * City information of the remote IP address.
+     * <p>City information of the remote IP address.</p>
+     */
+    inline bool CityHasBeenSet() const { return m_cityHasBeenSet; }
+
+    /**
+     * <p>City information of the remote IP address.</p>
      */
     inline void SetCity(const City& value) { m_cityHasBeenSet = true; m_city = value; }
 
     /**
-     * City information of the remote IP address.
+     * <p>City information of the remote IP address.</p>
      */
     inline void SetCity(City&& value) { m_cityHasBeenSet = true; m_city = std::move(value); }
 
     /**
-     * City information of the remote IP address.
+     * <p>City information of the remote IP address.</p>
      */
     inline RemoteIpDetails& WithCity(const City& value) { SetCity(value); return *this;}
 
     /**
-     * City information of the remote IP address.
+     * <p>City information of the remote IP address.</p>
      */
     inline RemoteIpDetails& WithCity(City&& value) { SetCity(std::move(value)); return *this;}
 
 
     /**
-     * Country code of the remote IP address.
+     * <p>Country code of the remote IP address.</p>
      */
     inline const Country& GetCountry() const{ return m_country; }
 
     /**
-     * Country code of the remote IP address.
+     * <p>Country code of the remote IP address.</p>
+     */
+    inline bool CountryHasBeenSet() const { return m_countryHasBeenSet; }
+
+    /**
+     * <p>Country code of the remote IP address.</p>
      */
     inline void SetCountry(const Country& value) { m_countryHasBeenSet = true; m_country = value; }
 
     /**
-     * Country code of the remote IP address.
+     * <p>Country code of the remote IP address.</p>
      */
     inline void SetCountry(Country&& value) { m_countryHasBeenSet = true; m_country = std::move(value); }
 
     /**
-     * Country code of the remote IP address.
+     * <p>Country code of the remote IP address.</p>
      */
     inline RemoteIpDetails& WithCountry(const Country& value) { SetCountry(value); return *this;}
 
     /**
-     * Country code of the remote IP address.
+     * <p>Country code of the remote IP address.</p>
      */
     inline RemoteIpDetails& WithCountry(Country&& value) { SetCountry(std::move(value)); return *this;}
 
 
     /**
-     * Location information of the remote IP address.
+     * <p>Location information of the remote IP address.</p>
      */
     inline const GeoLocation& GetGeoLocation() const{ return m_geoLocation; }
 
     /**
-     * Location information of the remote IP address.
+     * <p>Location information of the remote IP address.</p>
+     */
+    inline bool GeoLocationHasBeenSet() const { return m_geoLocationHasBeenSet; }
+
+    /**
+     * <p>Location information of the remote IP address.</p>
      */
     inline void SetGeoLocation(const GeoLocation& value) { m_geoLocationHasBeenSet = true; m_geoLocation = value; }
 
     /**
-     * Location information of the remote IP address.
+     * <p>Location information of the remote IP address.</p>
      */
     inline void SetGeoLocation(GeoLocation&& value) { m_geoLocationHasBeenSet = true; m_geoLocation = std::move(value); }
 
     /**
-     * Location information of the remote IP address.
+     * <p>Location information of the remote IP address.</p>
      */
     inline RemoteIpDetails& WithGeoLocation(const GeoLocation& value) { SetGeoLocation(value); return *this;}
 
     /**
-     * Location information of the remote IP address.
+     * <p>Location information of the remote IP address.</p>
      */
     inline RemoteIpDetails& WithGeoLocation(GeoLocation&& value) { SetGeoLocation(std::move(value)); return *this;}
 
 
     /**
-     * IPV4 remote address of the connection.
+     * <p>IPV4 remote address of the connection.</p>
      */
     inline const Aws::String& GetIpAddressV4() const{ return m_ipAddressV4; }
 
     /**
-     * IPV4 remote address of the connection.
+     * <p>IPV4 remote address of the connection.</p>
+     */
+    inline bool IpAddressV4HasBeenSet() const { return m_ipAddressV4HasBeenSet; }
+
+    /**
+     * <p>IPV4 remote address of the connection.</p>
      */
     inline void SetIpAddressV4(const Aws::String& value) { m_ipAddressV4HasBeenSet = true; m_ipAddressV4 = value; }
 
     /**
-     * IPV4 remote address of the connection.
+     * <p>IPV4 remote address of the connection.</p>
      */
     inline void SetIpAddressV4(Aws::String&& value) { m_ipAddressV4HasBeenSet = true; m_ipAddressV4 = std::move(value); }
 
     /**
-     * IPV4 remote address of the connection.
+     * <p>IPV4 remote address of the connection.</p>
      */
     inline void SetIpAddressV4(const char* value) { m_ipAddressV4HasBeenSet = true; m_ipAddressV4.assign(value); }
 
     /**
-     * IPV4 remote address of the connection.
+     * <p>IPV4 remote address of the connection.</p>
      */
     inline RemoteIpDetails& WithIpAddressV4(const Aws::String& value) { SetIpAddressV4(value); return *this;}
 
     /**
-     * IPV4 remote address of the connection.
+     * <p>IPV4 remote address of the connection.</p>
      */
     inline RemoteIpDetails& WithIpAddressV4(Aws::String&& value) { SetIpAddressV4(std::move(value)); return *this;}
 
     /**
-     * IPV4 remote address of the connection.
+     * <p>IPV4 remote address of the connection.</p>
      */
     inline RemoteIpDetails& WithIpAddressV4(const char* value) { SetIpAddressV4(value); return *this;}
 
 
     /**
-     * ISP Organization information of the remote IP address.
+     * <p>ISP Organization information of the remote IP address.</p>
      */
     inline const Organization& GetOrganization() const{ return m_organization; }
 
     /**
-     * ISP Organization information of the remote IP address.
+     * <p>ISP Organization information of the remote IP address.</p>
+     */
+    inline bool OrganizationHasBeenSet() const { return m_organizationHasBeenSet; }
+
+    /**
+     * <p>ISP Organization information of the remote IP address.</p>
      */
     inline void SetOrganization(const Organization& value) { m_organizationHasBeenSet = true; m_organization = value; }
 
     /**
-     * ISP Organization information of the remote IP address.
+     * <p>ISP Organization information of the remote IP address.</p>
      */
     inline void SetOrganization(Organization&& value) { m_organizationHasBeenSet = true; m_organization = std::move(value); }
 
     /**
-     * ISP Organization information of the remote IP address.
+     * <p>ISP Organization information of the remote IP address.</p>
      */
     inline RemoteIpDetails& WithOrganization(const Organization& value) { SetOrganization(value); return *this;}
 
     /**
-     * ISP Organization information of the remote IP address.
+     * <p>ISP Organization information of the remote IP address.</p>
      */
     inline RemoteIpDetails& WithOrganization(Organization&& value) { SetOrganization(std::move(value)); return *this;}
 

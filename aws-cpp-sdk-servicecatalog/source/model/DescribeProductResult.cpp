@@ -37,7 +37,7 @@ DescribeProductResult::DescribeProductResult(const Aws::AmazonWebServiceResult<J
 
 DescribeProductResult& DescribeProductResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("ProductViewSummary"))
   {
     m_productViewSummary = jsonValue.GetObject("ProductViewSummary");
@@ -46,10 +46,19 @@ DescribeProductResult& DescribeProductResult::operator =(const Aws::AmazonWebSer
 
   if(jsonValue.ValueExists("ProvisioningArtifacts"))
   {
-    Array<JsonValue> provisioningArtifactsJsonList = jsonValue.GetArray("ProvisioningArtifacts");
+    Array<JsonView> provisioningArtifactsJsonList = jsonValue.GetArray("ProvisioningArtifacts");
     for(unsigned provisioningArtifactsIndex = 0; provisioningArtifactsIndex < provisioningArtifactsJsonList.GetLength(); ++provisioningArtifactsIndex)
     {
       m_provisioningArtifacts.push_back(provisioningArtifactsJsonList[provisioningArtifactsIndex].AsObject());
+    }
+  }
+
+  if(jsonValue.ValueExists("Budgets"))
+  {
+    Array<JsonView> budgetsJsonList = jsonValue.GetArray("Budgets");
+    for(unsigned budgetsIndex = 0; budgetsIndex < budgetsJsonList.GetLength(); ++budgetsIndex)
+    {
+      m_budgets.push_back(budgetsJsonList[budgetsIndex].AsObject());
     }
   }
 

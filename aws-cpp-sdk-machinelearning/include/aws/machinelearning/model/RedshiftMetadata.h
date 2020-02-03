@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MachineLearning
@@ -43,13 +44,16 @@ namespace Model
   {
   public:
     RedshiftMetadata();
-    RedshiftMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    RedshiftMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RedshiftMetadata(Aws::Utils::Json::JsonView jsonValue);
+    RedshiftMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const RedshiftDatabase& GetRedshiftDatabase() const{ return m_redshiftDatabase; }
+
+    
+    inline bool RedshiftDatabaseHasBeenSet() const { return m_redshiftDatabaseHasBeenSet; }
 
     
     inline void SetRedshiftDatabase(const RedshiftDatabase& value) { m_redshiftDatabaseHasBeenSet = true; m_redshiftDatabase = value; }
@@ -66,6 +70,9 @@ namespace Model
 
     
     inline const Aws::String& GetDatabaseUserName() const{ return m_databaseUserName; }
+
+    
+    inline bool DatabaseUserNameHasBeenSet() const { return m_databaseUserNameHasBeenSet; }
 
     
     inline void SetDatabaseUserName(const Aws::String& value) { m_databaseUserNameHasBeenSet = true; m_databaseUserName = value; }
@@ -91,6 +98,12 @@ namespace Model
      * Returns only if <code>Verbose</code> is true in GetDataSourceInput. </p>
      */
     inline const Aws::String& GetSelectSqlQuery() const{ return m_selectSqlQuery; }
+
+    /**
+     * <p> The SQL query that is specified during <a>CreateDataSourceFromRedshift</a>.
+     * Returns only if <code>Verbose</code> is true in GetDataSourceInput. </p>
+     */
+    inline bool SelectSqlQueryHasBeenSet() const { return m_selectSqlQueryHasBeenSet; }
 
     /**
      * <p> The SQL query that is specified during <a>CreateDataSourceFromRedshift</a>.

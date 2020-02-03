@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Shield
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     SummarizedAttackVector();
-    SummarizedAttackVector(const Aws::Utils::Json::JsonValue& jsonValue);
-    SummarizedAttackVector& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SummarizedAttackVector(Aws::Utils::Json::JsonView jsonValue);
+    SummarizedAttackVector& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The attack type, for example, SNMP reflection or SYN flood.</p>
      */
     inline const Aws::String& GetVectorType() const{ return m_vectorType; }
+
+    /**
+     * <p>The attack type, for example, SNMP reflection or SYN flood.</p>
+     */
+    inline bool VectorTypeHasBeenSet() const { return m_vectorTypeHasBeenSet; }
 
     /**
      * <p>The attack type, for example, SNMP reflection or SYN flood.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The list of counters that describe the details of the attack.</p>
      */
     inline const Aws::Vector<SummarizedCounter>& GetVectorCounters() const{ return m_vectorCounters; }
+
+    /**
+     * <p>The list of counters that describe the details of the attack.</p>
+     */
+    inline bool VectorCountersHasBeenSet() const { return m_vectorCountersHasBeenSet; }
 
     /**
      * <p>The list of counters that describe the details of the attack.</p>

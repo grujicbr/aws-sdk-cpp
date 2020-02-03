@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetDatabasesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,43 +46,49 @@ namespace Model
 
     /**
      * <p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If
-     * none is supplied, the AWS account ID is used by default.</p>
+     * none is provided, the AWS account ID is used by default.</p>
      */
     inline const Aws::String& GetCatalogId() const{ return m_catalogId; }
 
     /**
      * <p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If
-     * none is supplied, the AWS account ID is used by default.</p>
+     * none is provided, the AWS account ID is used by default.</p>
+     */
+    inline bool CatalogIdHasBeenSet() const { return m_catalogIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If
+     * none is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const Aws::String& value) { m_catalogIdHasBeenSet = true; m_catalogId = value; }
 
     /**
      * <p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If
-     * none is supplied, the AWS account ID is used by default.</p>
+     * none is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(Aws::String&& value) { m_catalogIdHasBeenSet = true; m_catalogId = std::move(value); }
 
     /**
      * <p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If
-     * none is supplied, the AWS account ID is used by default.</p>
+     * none is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const char* value) { m_catalogIdHasBeenSet = true; m_catalogId.assign(value); }
 
     /**
      * <p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If
-     * none is supplied, the AWS account ID is used by default.</p>
+     * none is provided, the AWS account ID is used by default.</p>
      */
     inline GetDatabasesRequest& WithCatalogId(const Aws::String& value) { SetCatalogId(value); return *this;}
 
     /**
      * <p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If
-     * none is supplied, the AWS account ID is used by default.</p>
+     * none is provided, the AWS account ID is used by default.</p>
      */
     inline GetDatabasesRequest& WithCatalogId(Aws::String&& value) { SetCatalogId(std::move(value)); return *this;}
 
     /**
      * <p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If
-     * none is supplied, the AWS account ID is used by default.</p>
+     * none is provided, the AWS account ID is used by default.</p>
      */
     inline GetDatabasesRequest& WithCatalogId(const char* value) { SetCatalogId(value); return *this;}
 
@@ -91,6 +97,11 @@ namespace Model
      * <p>A continuation token, if this is a continuation call.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>A continuation token, if this is a continuation call.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>A continuation token, if this is a continuation call.</p>
@@ -127,6 +138,11 @@ namespace Model
      * <p>The maximum number of databases to return in one response.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>The maximum number of databases to return in one response.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>The maximum number of databases to return in one response.</p>

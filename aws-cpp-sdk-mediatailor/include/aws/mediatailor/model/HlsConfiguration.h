@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaTailor
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     HlsConfiguration();
-    HlsConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    HlsConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HlsConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    HlsConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * Apple HLS. The session uses server-side reporting.</p>
      */
     inline const Aws::String& GetManifestEndpointPrefix() const{ return m_manifestEndpointPrefix; }
+
+    /**
+     * <p>The URL that is used to initiate a playback session for devices that support
+     * Apple HLS. The session uses server-side reporting.</p>
+     */
+    inline bool ManifestEndpointPrefixHasBeenSet() const { return m_manifestEndpointPrefixHasBeenSet; }
 
     /**
      * <p>The URL that is used to initiate a playback session for devices that support

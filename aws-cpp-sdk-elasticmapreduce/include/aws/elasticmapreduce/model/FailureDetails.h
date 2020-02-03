@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     FailureDetails();
-    FailureDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    FailureDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    FailureDetails(Aws::Utils::Json::JsonView jsonValue);
+    FailureDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * as a reason.</p>
      */
     inline const Aws::String& GetReason() const{ return m_reason; }
+
+    /**
+     * <p>The reason for the step failure. In the case where the service cannot
+     * successfully determine the root cause of the failure, it returns "Unknown Error"
+     * as a reason.</p>
+     */
+    inline bool ReasonHasBeenSet() const { return m_reasonHasBeenSet; }
 
     /**
      * <p>The reason for the step failure. In the case where the service cannot
@@ -109,6 +117,13 @@ namespace Model
      * the cause of step failure. This is text from an error log that describes the
      * root cause of the failure.</p>
      */
+    inline bool MessageHasBeenSet() const { return m_messageHasBeenSet; }
+
+    /**
+     * <p>The descriptive message including the error the EMR service has identified as
+     * the cause of step failure. This is text from an error log that describes the
+     * root cause of the failure.</p>
+     */
     inline void SetMessage(const Aws::String& value) { m_messageHasBeenSet = true; m_message = value; }
 
     /**
@@ -152,6 +167,12 @@ namespace Model
      * recorded.</p>
      */
     inline const Aws::String& GetLogFile() const{ return m_logFile; }
+
+    /**
+     * <p>The path to the log file where the step failure root cause was originally
+     * recorded.</p>
+     */
+    inline bool LogFileHasBeenSet() const { return m_logFileHasBeenSet; }
 
     /**
      * <p>The path to the log file where the step failure root cause was originally

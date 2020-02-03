@@ -30,7 +30,11 @@ UpdateFunctionConfigurationResult::UpdateFunctionConfigurationResult() :
     m_runtime(Runtime::NOT_SET),
     m_codeSize(0),
     m_timeout(0),
-    m_memorySize(0)
+    m_memorySize(0),
+    m_state(State::NOT_SET),
+    m_stateReasonCode(StateReasonCode::NOT_SET),
+    m_lastUpdateStatus(LastUpdateStatus::NOT_SET),
+    m_lastUpdateStatusReasonCode(LastUpdateStatusReasonCode::NOT_SET)
 {
 }
 
@@ -38,14 +42,18 @@ UpdateFunctionConfigurationResult::UpdateFunctionConfigurationResult(const Aws::
     m_runtime(Runtime::NOT_SET),
     m_codeSize(0),
     m_timeout(0),
-    m_memorySize(0)
+    m_memorySize(0),
+    m_state(State::NOT_SET),
+    m_stateReasonCode(StateReasonCode::NOT_SET),
+    m_lastUpdateStatus(LastUpdateStatus::NOT_SET),
+    m_lastUpdateStatusReasonCode(LastUpdateStatusReasonCode::NOT_SET)
 {
   *this = result;
 }
 
 UpdateFunctionConfigurationResult& UpdateFunctionConfigurationResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("FunctionName"))
   {
     m_functionName = jsonValue.GetString("FunctionName");
@@ -157,6 +165,51 @@ UpdateFunctionConfigurationResult& UpdateFunctionConfigurationResult::operator =
   if(jsonValue.ValueExists("RevisionId"))
   {
     m_revisionId = jsonValue.GetString("RevisionId");
+
+  }
+
+  if(jsonValue.ValueExists("Layers"))
+  {
+    Array<JsonView> layersJsonList = jsonValue.GetArray("Layers");
+    for(unsigned layersIndex = 0; layersIndex < layersJsonList.GetLength(); ++layersIndex)
+    {
+      m_layers.push_back(layersJsonList[layersIndex].AsObject());
+    }
+  }
+
+  if(jsonValue.ValueExists("State"))
+  {
+    m_state = StateMapper::GetStateForName(jsonValue.GetString("State"));
+
+  }
+
+  if(jsonValue.ValueExists("StateReason"))
+  {
+    m_stateReason = jsonValue.GetString("StateReason");
+
+  }
+
+  if(jsonValue.ValueExists("StateReasonCode"))
+  {
+    m_stateReasonCode = StateReasonCodeMapper::GetStateReasonCodeForName(jsonValue.GetString("StateReasonCode"));
+
+  }
+
+  if(jsonValue.ValueExists("LastUpdateStatus"))
+  {
+    m_lastUpdateStatus = LastUpdateStatusMapper::GetLastUpdateStatusForName(jsonValue.GetString("LastUpdateStatus"));
+
+  }
+
+  if(jsonValue.ValueExists("LastUpdateStatusReason"))
+  {
+    m_lastUpdateStatusReason = jsonValue.GetString("LastUpdateStatusReason");
+
+  }
+
+  if(jsonValue.ValueExists("LastUpdateStatusReasonCode"))
+  {
+    m_lastUpdateStatusReasonCode = LastUpdateStatusReasonCodeMapper::GetLastUpdateStatusReasonCodeForName(jsonValue.GetString("LastUpdateStatusReasonCode"));
 
   }
 

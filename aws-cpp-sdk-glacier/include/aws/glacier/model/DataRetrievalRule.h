@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DataRetrievalRule();
-    DataRetrievalRule(const Aws::Utils::Json::JsonValue& jsonValue);
-    DataRetrievalRule& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DataRetrievalRule(Aws::Utils::Json::JsonView jsonValue);
+    DataRetrievalRule& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * BytesPerHour|FreeTier|None</p>
      */
     inline const Aws::String& GetStrategy() const{ return m_strategy; }
+
+    /**
+     * <p>The type of data retrieval policy to set.</p> <p>Valid values:
+     * BytesPerHour|FreeTier|None</p>
+     */
+    inline bool StrategyHasBeenSet() const { return m_strategyHasBeenSet; }
 
     /**
      * <p>The type of data retrieval policy to set.</p> <p>Valid values:
@@ -96,6 +103,14 @@ namespace Model
      * field is not set to <code>BytesPerHour</code> and you set this field.</p>
      */
     inline long long GetBytesPerHour() const{ return m_bytesPerHour; }
+
+    /**
+     * <p>The maximum number of bytes that can be retrieved in an hour.</p> <p>This
+     * field is required only if the value of the Strategy field is
+     * <code>BytesPerHour</code>. Your PUT operation will be rejected if the Strategy
+     * field is not set to <code>BytesPerHour</code> and you set this field.</p>
+     */
+    inline bool BytesPerHourHasBeenSet() const { return m_bytesPerHourHasBeenSet; }
 
     /**
      * <p>The maximum number of bytes that can be retrieved in an hour.</p> <p>This

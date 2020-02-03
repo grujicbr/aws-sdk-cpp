@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -50,18 +51,18 @@ namespace Model
   {
   public:
     Notification();
-    Notification(const Aws::Utils::Json::JsonValue& jsonValue);
-    Notification& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Notification(Aws::Utils::Json::JsonView jsonValue);
+    Notification& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>The new SNS <code>TopicArn</code> that you want to associate with this job.
      * You can create Amazon Resource Names (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
      * Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS
      * topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
      * AWS Simple Notification Service (SNS) API action.</p>
      */
     inline const Aws::String& GetSnsTopicARN() const{ return m_snsTopicARN; }
@@ -69,10 +70,21 @@ namespace Model
     /**
      * <p>The new SNS <code>TopicArn</code> that you want to associate with this job.
      * You can create Amazon Resource Names (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
      * Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS
      * topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
+     * AWS Simple Notification Service (SNS) API action.</p>
+     */
+    inline bool SnsTopicARNHasBeenSet() const { return m_snsTopicARNHasBeenSet; }
+
+    /**
+     * <p>The new SNS <code>TopicArn</code> that you want to associate with this job.
+     * You can create Amazon Resource Names (ARNs) for topics by using the <a
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
+     * Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS
+     * topic through the AWS Management Console, or by using the <a
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
      * AWS Simple Notification Service (SNS) API action.</p>
      */
     inline void SetSnsTopicARN(const Aws::String& value) { m_snsTopicARNHasBeenSet = true; m_snsTopicARN = value; }
@@ -80,10 +92,10 @@ namespace Model
     /**
      * <p>The new SNS <code>TopicArn</code> that you want to associate with this job.
      * You can create Amazon Resource Names (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
      * Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS
      * topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
      * AWS Simple Notification Service (SNS) API action.</p>
      */
     inline void SetSnsTopicARN(Aws::String&& value) { m_snsTopicARNHasBeenSet = true; m_snsTopicARN = std::move(value); }
@@ -91,10 +103,10 @@ namespace Model
     /**
      * <p>The new SNS <code>TopicArn</code> that you want to associate with this job.
      * You can create Amazon Resource Names (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
      * Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS
      * topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
      * AWS Simple Notification Service (SNS) API action.</p>
      */
     inline void SetSnsTopicARN(const char* value) { m_snsTopicARNHasBeenSet = true; m_snsTopicARN.assign(value); }
@@ -102,10 +114,10 @@ namespace Model
     /**
      * <p>The new SNS <code>TopicArn</code> that you want to associate with this job.
      * You can create Amazon Resource Names (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
      * Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS
      * topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
      * AWS Simple Notification Service (SNS) API action.</p>
      */
     inline Notification& WithSnsTopicARN(const Aws::String& value) { SetSnsTopicARN(value); return *this;}
@@ -113,10 +125,10 @@ namespace Model
     /**
      * <p>The new SNS <code>TopicArn</code> that you want to associate with this job.
      * You can create Amazon Resource Names (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
      * Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS
      * topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
      * AWS Simple Notification Service (SNS) API action.</p>
      */
     inline Notification& WithSnsTopicARN(Aws::String&& value) { SetSnsTopicARN(std::move(value)); return *this;}
@@ -124,10 +136,10 @@ namespace Model
     /**
      * <p>The new SNS <code>TopicArn</code> that you want to associate with this job.
      * You can create Amazon Resource Names (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a>
      * Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS
      * topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a>
      * AWS Simple Notification Service (SNS) API action.</p>
      */
     inline Notification& WithSnsTopicARN(const char* value) { SetSnsTopicARN(value); return *this;}
@@ -137,6 +149,11 @@ namespace Model
      * <p>The list of job states that will trigger a notification for this job.</p>
      */
     inline const Aws::Vector<JobState>& GetJobStatesToNotify() const{ return m_jobStatesToNotify; }
+
+    /**
+     * <p>The list of job states that will trigger a notification for this job.</p>
+     */
+    inline bool JobStatesToNotifyHasBeenSet() const { return m_jobStatesToNotifyHasBeenSet; }
 
     /**
      * <p>The list of job states that will trigger a notification for this job.</p>
@@ -173,6 +190,11 @@ namespace Model
      * <p>Any change in job state will trigger a notification for this job.</p>
      */
     inline bool GetNotifyAll() const{ return m_notifyAll; }
+
+    /**
+     * <p>Any change in job state will trigger a notification for this job.</p>
+     */
+    inline bool NotifyAllHasBeenSet() const { return m_notifyAllHasBeenSet; }
 
     /**
      * <p>Any change in job state will trigger a notification for this job.</p>

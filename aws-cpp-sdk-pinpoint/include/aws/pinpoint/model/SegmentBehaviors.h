@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -33,7 +34,9 @@ namespace Model
 {
 
   /**
-   * Segment behavior dimensions<p><h3>See Also:</h3>   <a
+   * <p>Specifies dimension settings for including or excluding endpoints from a
+   * segment based on how recently an endpoint was active.</p><p><h3>See Also:</h3>  
+   * <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/SegmentBehaviors">AWS
    * API Reference</a></p>
    */
@@ -41,33 +44,44 @@ namespace Model
   {
   public:
     SegmentBehaviors();
-    SegmentBehaviors(const Aws::Utils::Json::JsonValue& jsonValue);
-    SegmentBehaviors& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SegmentBehaviors(Aws::Utils::Json::JsonView jsonValue);
+    SegmentBehaviors& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * The recency of use.
+     * <p>The dimension settings that are based on how recently an endpoint was
+     * active.</p>
      */
     inline const RecencyDimension& GetRecency() const{ return m_recency; }
 
     /**
-     * The recency of use.
+     * <p>The dimension settings that are based on how recently an endpoint was
+     * active.</p>
+     */
+    inline bool RecencyHasBeenSet() const { return m_recencyHasBeenSet; }
+
+    /**
+     * <p>The dimension settings that are based on how recently an endpoint was
+     * active.</p>
      */
     inline void SetRecency(const RecencyDimension& value) { m_recencyHasBeenSet = true; m_recency = value; }
 
     /**
-     * The recency of use.
+     * <p>The dimension settings that are based on how recently an endpoint was
+     * active.</p>
      */
     inline void SetRecency(RecencyDimension&& value) { m_recencyHasBeenSet = true; m_recency = std::move(value); }
 
     /**
-     * The recency of use.
+     * <p>The dimension settings that are based on how recently an endpoint was
+     * active.</p>
      */
     inline SegmentBehaviors& WithRecency(const RecencyDimension& value) { SetRecency(value); return *this;}
 
     /**
-     * The recency of use.
+     * <p>The dimension settings that are based on how recently an endpoint was
+     * active.</p>
      */
     inline SegmentBehaviors& WithRecency(RecencyDimension&& value) { SetRecency(std::move(value)); return *this;}
 

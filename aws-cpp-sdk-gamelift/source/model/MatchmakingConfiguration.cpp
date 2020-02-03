@@ -30,6 +30,7 @@ namespace Model
 
 MatchmakingConfiguration::MatchmakingConfiguration() : 
     m_nameHasBeenSet(false),
+    m_configurationArnHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_gameSessionQueueArnsHasBeenSet(false),
     m_requestTimeoutSeconds(0),
@@ -39,18 +40,22 @@ MatchmakingConfiguration::MatchmakingConfiguration() :
     m_acceptanceRequired(false),
     m_acceptanceRequiredHasBeenSet(false),
     m_ruleSetNameHasBeenSet(false),
+    m_ruleSetArnHasBeenSet(false),
     m_notificationTargetHasBeenSet(false),
     m_additionalPlayerCount(0),
     m_additionalPlayerCountHasBeenSet(false),
     m_customEventDataHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_gamePropertiesHasBeenSet(false),
-    m_gameSessionDataHasBeenSet(false)
+    m_gameSessionDataHasBeenSet(false),
+    m_backfillMode(BackfillMode::NOT_SET),
+    m_backfillModeHasBeenSet(false)
 {
 }
 
-MatchmakingConfiguration::MatchmakingConfiguration(const JsonValue& jsonValue) : 
+MatchmakingConfiguration::MatchmakingConfiguration(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
+    m_configurationArnHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_gameSessionQueueArnsHasBeenSet(false),
     m_requestTimeoutSeconds(0),
@@ -60,24 +65,34 @@ MatchmakingConfiguration::MatchmakingConfiguration(const JsonValue& jsonValue) :
     m_acceptanceRequired(false),
     m_acceptanceRequiredHasBeenSet(false),
     m_ruleSetNameHasBeenSet(false),
+    m_ruleSetArnHasBeenSet(false),
     m_notificationTargetHasBeenSet(false),
     m_additionalPlayerCount(0),
     m_additionalPlayerCountHasBeenSet(false),
     m_customEventDataHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
     m_gamePropertiesHasBeenSet(false),
-    m_gameSessionDataHasBeenSet(false)
+    m_gameSessionDataHasBeenSet(false),
+    m_backfillMode(BackfillMode::NOT_SET),
+    m_backfillModeHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-MatchmakingConfiguration& MatchmakingConfiguration::operator =(const JsonValue& jsonValue)
+MatchmakingConfiguration& MatchmakingConfiguration::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
     m_name = jsonValue.GetString("Name");
 
     m_nameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ConfigurationArn"))
+  {
+    m_configurationArn = jsonValue.GetString("ConfigurationArn");
+
+    m_configurationArnHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("Description"))
@@ -89,7 +104,7 @@ MatchmakingConfiguration& MatchmakingConfiguration::operator =(const JsonValue& 
 
   if(jsonValue.ValueExists("GameSessionQueueArns"))
   {
-    Array<JsonValue> gameSessionQueueArnsJsonList = jsonValue.GetArray("GameSessionQueueArns");
+    Array<JsonView> gameSessionQueueArnsJsonList = jsonValue.GetArray("GameSessionQueueArns");
     for(unsigned gameSessionQueueArnsIndex = 0; gameSessionQueueArnsIndex < gameSessionQueueArnsJsonList.GetLength(); ++gameSessionQueueArnsIndex)
     {
       m_gameSessionQueueArns.push_back(gameSessionQueueArnsJsonList[gameSessionQueueArnsIndex].AsString());
@@ -125,6 +140,13 @@ MatchmakingConfiguration& MatchmakingConfiguration::operator =(const JsonValue& 
     m_ruleSetNameHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("RuleSetArn"))
+  {
+    m_ruleSetArn = jsonValue.GetString("RuleSetArn");
+
+    m_ruleSetArnHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("NotificationTarget"))
   {
     m_notificationTarget = jsonValue.GetString("NotificationTarget");
@@ -155,7 +177,7 @@ MatchmakingConfiguration& MatchmakingConfiguration::operator =(const JsonValue& 
 
   if(jsonValue.ValueExists("GameProperties"))
   {
-    Array<JsonValue> gamePropertiesJsonList = jsonValue.GetArray("GameProperties");
+    Array<JsonView> gamePropertiesJsonList = jsonValue.GetArray("GameProperties");
     for(unsigned gamePropertiesIndex = 0; gamePropertiesIndex < gamePropertiesJsonList.GetLength(); ++gamePropertiesIndex)
     {
       m_gameProperties.push_back(gamePropertiesJsonList[gamePropertiesIndex].AsObject());
@@ -170,6 +192,13 @@ MatchmakingConfiguration& MatchmakingConfiguration::operator =(const JsonValue& 
     m_gameSessionDataHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("BackfillMode"))
+  {
+    m_backfillMode = BackfillModeMapper::GetBackfillModeForName(jsonValue.GetString("BackfillMode"));
+
+    m_backfillModeHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -180,6 +209,12 @@ JsonValue MatchmakingConfiguration::Jsonize() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("Name", m_name);
+
+  }
+
+  if(m_configurationArnHasBeenSet)
+  {
+   payload.WithString("ConfigurationArn", m_configurationArn);
 
   }
 
@@ -224,6 +259,12 @@ JsonValue MatchmakingConfiguration::Jsonize() const
 
   }
 
+  if(m_ruleSetArnHasBeenSet)
+  {
+   payload.WithString("RuleSetArn", m_ruleSetArn);
+
+  }
+
   if(m_notificationTargetHasBeenSet)
   {
    payload.WithString("NotificationTarget", m_notificationTarget);
@@ -262,6 +303,11 @@ JsonValue MatchmakingConfiguration::Jsonize() const
   {
    payload.WithString("GameSessionData", m_gameSessionData);
 
+  }
+
+  if(m_backfillModeHasBeenSet)
+  {
+   payload.WithString("BackfillMode", BackfillModeMapper::GetNameForBackfillMode(m_backfillMode));
   }
 
   return payload;

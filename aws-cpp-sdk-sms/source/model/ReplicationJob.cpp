@@ -37,6 +37,8 @@ ReplicationJob::ReplicationJob() :
     m_seedReplicationTimeHasBeenSet(false),
     m_frequency(0),
     m_frequencyHasBeenSet(false),
+    m_runOnce(false),
+    m_runOnceHasBeenSet(false),
     m_nextReplicationRunStartTimeHasBeenSet(false),
     m_licenseType(LicenseType::NOT_SET),
     m_licenseTypeHasBeenSet(false),
@@ -46,11 +48,16 @@ ReplicationJob::ReplicationJob() :
     m_stateHasBeenSet(false),
     m_statusMessageHasBeenSet(false),
     m_descriptionHasBeenSet(false),
+    m_numberOfRecentAmisToKeep(0),
+    m_numberOfRecentAmisToKeepHasBeenSet(false),
+    m_encrypted(false),
+    m_encryptedHasBeenSet(false),
+    m_kmsKeyIdHasBeenSet(false),
     m_replicationRunListHasBeenSet(false)
 {
 }
 
-ReplicationJob::ReplicationJob(const JsonValue& jsonValue) : 
+ReplicationJob::ReplicationJob(JsonView jsonValue) : 
     m_replicationJobIdHasBeenSet(false),
     m_serverIdHasBeenSet(false),
     m_serverType(ServerType::NOT_SET),
@@ -59,6 +66,8 @@ ReplicationJob::ReplicationJob(const JsonValue& jsonValue) :
     m_seedReplicationTimeHasBeenSet(false),
     m_frequency(0),
     m_frequencyHasBeenSet(false),
+    m_runOnce(false),
+    m_runOnceHasBeenSet(false),
     m_nextReplicationRunStartTimeHasBeenSet(false),
     m_licenseType(LicenseType::NOT_SET),
     m_licenseTypeHasBeenSet(false),
@@ -68,12 +77,17 @@ ReplicationJob::ReplicationJob(const JsonValue& jsonValue) :
     m_stateHasBeenSet(false),
     m_statusMessageHasBeenSet(false),
     m_descriptionHasBeenSet(false),
+    m_numberOfRecentAmisToKeep(0),
+    m_numberOfRecentAmisToKeepHasBeenSet(false),
+    m_encrypted(false),
+    m_encryptedHasBeenSet(false),
+    m_kmsKeyIdHasBeenSet(false),
     m_replicationRunListHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ReplicationJob& ReplicationJob::operator =(const JsonValue& jsonValue)
+ReplicationJob& ReplicationJob::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("replicationJobId"))
   {
@@ -115,6 +129,13 @@ ReplicationJob& ReplicationJob::operator =(const JsonValue& jsonValue)
     m_frequency = jsonValue.GetInteger("frequency");
 
     m_frequencyHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("runOnce"))
+  {
+    m_runOnce = jsonValue.GetBool("runOnce");
+
+    m_runOnceHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("nextReplicationRunStartTime"))
@@ -166,9 +187,30 @@ ReplicationJob& ReplicationJob::operator =(const JsonValue& jsonValue)
     m_descriptionHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("numberOfRecentAmisToKeep"))
+  {
+    m_numberOfRecentAmisToKeep = jsonValue.GetInteger("numberOfRecentAmisToKeep");
+
+    m_numberOfRecentAmisToKeepHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("encrypted"))
+  {
+    m_encrypted = jsonValue.GetBool("encrypted");
+
+    m_encryptedHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("kmsKeyId"))
+  {
+    m_kmsKeyId = jsonValue.GetString("kmsKeyId");
+
+    m_kmsKeyIdHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("replicationRunList"))
   {
-    Array<JsonValue> replicationRunListJsonList = jsonValue.GetArray("replicationRunList");
+    Array<JsonView> replicationRunListJsonList = jsonValue.GetArray("replicationRunList");
     for(unsigned replicationRunListIndex = 0; replicationRunListIndex < replicationRunListJsonList.GetLength(); ++replicationRunListIndex)
     {
       m_replicationRunList.push_back(replicationRunListJsonList[replicationRunListIndex].AsObject());
@@ -217,6 +259,12 @@ JsonValue ReplicationJob::Jsonize() const
 
   }
 
+  if(m_runOnceHasBeenSet)
+  {
+   payload.WithBool("runOnce", m_runOnce);
+
+  }
+
   if(m_nextReplicationRunStartTimeHasBeenSet)
   {
    payload.WithDouble("nextReplicationRunStartTime", m_nextReplicationRunStartTime.SecondsWithMSPrecision());
@@ -253,6 +301,24 @@ JsonValue ReplicationJob::Jsonize() const
   if(m_descriptionHasBeenSet)
   {
    payload.WithString("description", m_description);
+
+  }
+
+  if(m_numberOfRecentAmisToKeepHasBeenSet)
+  {
+   payload.WithInteger("numberOfRecentAmisToKeep", m_numberOfRecentAmisToKeep);
+
+  }
+
+  if(m_encryptedHasBeenSet)
+  {
+   payload.WithBool("encrypted", m_encrypted);
+
+  }
+
+  if(m_kmsKeyIdHasBeenSet)
+  {
+   payload.WithString("kmsKeyId", m_kmsKeyId);
 
   }
 

@@ -24,8 +24,11 @@ using namespace Aws::Utils;
 
 UpdateGlobalTableSettingsRequest::UpdateGlobalTableSettingsRequest() : 
     m_globalTableNameHasBeenSet(false),
+    m_globalTableBillingMode(BillingMode::NOT_SET),
+    m_globalTableBillingModeHasBeenSet(false),
     m_globalTableProvisionedWriteCapacityUnits(0),
     m_globalTableProvisionedWriteCapacityUnitsHasBeenSet(false),
+    m_globalTableProvisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet(false),
     m_globalTableGlobalSecondaryIndexSettingsUpdateHasBeenSet(false),
     m_replicaSettingsUpdateHasBeenSet(false)
 {
@@ -41,9 +44,20 @@ Aws::String UpdateGlobalTableSettingsRequest::SerializePayload() const
 
   }
 
+  if(m_globalTableBillingModeHasBeenSet)
+  {
+   payload.WithString("GlobalTableBillingMode", BillingModeMapper::GetNameForBillingMode(m_globalTableBillingMode));
+  }
+
   if(m_globalTableProvisionedWriteCapacityUnitsHasBeenSet)
   {
    payload.WithInt64("GlobalTableProvisionedWriteCapacityUnits", m_globalTableProvisionedWriteCapacityUnits);
+
+  }
+
+  if(m_globalTableProvisionedWriteCapacityAutoScalingSettingsUpdateHasBeenSet)
+  {
+   payload.WithObject("GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate", m_globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate.Jsonize());
 
   }
 
@@ -69,7 +83,7 @@ Aws::String UpdateGlobalTableSettingsRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateGlobalTableSettingsRequest::GetRequestSpecificHeaders() const

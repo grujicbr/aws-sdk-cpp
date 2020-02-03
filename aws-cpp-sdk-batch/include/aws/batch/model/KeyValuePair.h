@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Batch
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     KeyValuePair();
-    KeyValuePair(const Aws::Utils::Json::JsonValue& jsonValue);
-    KeyValuePair& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KeyValuePair(Aws::Utils::Json::JsonView jsonValue);
+    KeyValuePair& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * of the environment variable.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the key-value pair. For environment variables, this is the name
+     * of the environment variable.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the key-value pair. For environment variables, this is the name
@@ -94,6 +101,12 @@ namespace Model
      * of the environment variable.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of the key-value pair. For environment variables, this is the value
+     * of the environment variable.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of the key-value pair. For environment variables, this is the value

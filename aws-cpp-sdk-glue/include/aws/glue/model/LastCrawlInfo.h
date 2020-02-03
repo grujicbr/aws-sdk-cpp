@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     LastCrawlInfo();
-    LastCrawlInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    LastCrawlInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LastCrawlInfo(Aws::Utils::Json::JsonView jsonValue);
+    LastCrawlInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Status of the last crawl.</p>
      */
     inline const LastCrawlStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>Status of the last crawl.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>Status of the last crawl.</p>
@@ -79,6 +85,11 @@ namespace Model
      * <p>If an error occurred, the error information about the last crawl.</p>
      */
     inline const Aws::String& GetErrorMessage() const{ return m_errorMessage; }
+
+    /**
+     * <p>If an error occurred, the error information about the last crawl.</p>
+     */
+    inline bool ErrorMessageHasBeenSet() const { return m_errorMessageHasBeenSet; }
 
     /**
      * <p>If an error occurred, the error information about the last crawl.</p>
@@ -119,6 +130,11 @@ namespace Model
     /**
      * <p>The log group for the last crawl.</p>
      */
+    inline bool LogGroupHasBeenSet() const { return m_logGroupHasBeenSet; }
+
+    /**
+     * <p>The log group for the last crawl.</p>
+     */
     inline void SetLogGroup(const Aws::String& value) { m_logGroupHasBeenSet = true; m_logGroup = value; }
 
     /**
@@ -151,6 +167,11 @@ namespace Model
      * <p>The log stream for the last crawl.</p>
      */
     inline const Aws::String& GetLogStream() const{ return m_logStream; }
+
+    /**
+     * <p>The log stream for the last crawl.</p>
+     */
+    inline bool LogStreamHasBeenSet() const { return m_logStreamHasBeenSet; }
 
     /**
      * <p>The log stream for the last crawl.</p>
@@ -191,6 +212,11 @@ namespace Model
     /**
      * <p>The prefix for a message about this crawl.</p>
      */
+    inline bool MessagePrefixHasBeenSet() const { return m_messagePrefixHasBeenSet; }
+
+    /**
+     * <p>The prefix for a message about this crawl.</p>
+     */
     inline void SetMessagePrefix(const Aws::String& value) { m_messagePrefixHasBeenSet = true; m_messagePrefix = value; }
 
     /**
@@ -223,6 +249,11 @@ namespace Model
      * <p>The time at which the crawl started.</p>
      */
     inline const Aws::Utils::DateTime& GetStartTime() const{ return m_startTime; }
+
+    /**
+     * <p>The time at which the crawl started.</p>
+     */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
 
     /**
      * <p>The time at which the crawl started.</p>

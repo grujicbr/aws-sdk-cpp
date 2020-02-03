@@ -27,6 +27,7 @@ using namespace Aws::Utils;
 using namespace Aws;
 
 DeleteChannelResult::DeleteChannelResult() : 
+    m_channelClass(ChannelClass::NOT_SET),
     m_logLevel(LogLevel::NOT_SET),
     m_pipelinesRunningCount(0),
     m_state(ChannelState::NOT_SET)
@@ -34,6 +35,7 @@ DeleteChannelResult::DeleteChannelResult() :
 }
 
 DeleteChannelResult::DeleteChannelResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
+    m_channelClass(ChannelClass::NOT_SET),
     m_logLevel(LogLevel::NOT_SET),
     m_pipelinesRunningCount(0),
     m_state(ChannelState::NOT_SET)
@@ -43,16 +45,22 @@ DeleteChannelResult::DeleteChannelResult(const Aws::AmazonWebServiceResult<JsonV
 
 DeleteChannelResult& DeleteChannelResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("arn"))
   {
     m_arn = jsonValue.GetString("arn");
 
   }
 
+  if(jsonValue.ValueExists("channelClass"))
+  {
+    m_channelClass = ChannelClassMapper::GetChannelClassForName(jsonValue.GetString("channelClass"));
+
+  }
+
   if(jsonValue.ValueExists("destinations"))
   {
-    Array<JsonValue> destinationsJsonList = jsonValue.GetArray("destinations");
+    Array<JsonView> destinationsJsonList = jsonValue.GetArray("destinations");
     for(unsigned destinationsIndex = 0; destinationsIndex < destinationsJsonList.GetLength(); ++destinationsIndex)
     {
       m_destinations.push_back(destinationsJsonList[destinationsIndex].AsObject());
@@ -61,7 +69,7 @@ DeleteChannelResult& DeleteChannelResult::operator =(const Aws::AmazonWebService
 
   if(jsonValue.ValueExists("egressEndpoints"))
   {
-    Array<JsonValue> egressEndpointsJsonList = jsonValue.GetArray("egressEndpoints");
+    Array<JsonView> egressEndpointsJsonList = jsonValue.GetArray("egressEndpoints");
     for(unsigned egressEndpointsIndex = 0; egressEndpointsIndex < egressEndpointsJsonList.GetLength(); ++egressEndpointsIndex)
     {
       m_egressEndpoints.push_back(egressEndpointsJsonList[egressEndpointsIndex].AsObject());
@@ -82,7 +90,7 @@ DeleteChannelResult& DeleteChannelResult::operator =(const Aws::AmazonWebService
 
   if(jsonValue.ValueExists("inputAttachments"))
   {
-    Array<JsonValue> inputAttachmentsJsonList = jsonValue.GetArray("inputAttachments");
+    Array<JsonView> inputAttachmentsJsonList = jsonValue.GetArray("inputAttachments");
     for(unsigned inputAttachmentsIndex = 0; inputAttachmentsIndex < inputAttachmentsJsonList.GetLength(); ++inputAttachmentsIndex)
     {
       m_inputAttachments.push_back(inputAttachmentsJsonList[inputAttachmentsIndex].AsObject());
@@ -107,6 +115,15 @@ DeleteChannelResult& DeleteChannelResult::operator =(const Aws::AmazonWebService
 
   }
 
+  if(jsonValue.ValueExists("pipelineDetails"))
+  {
+    Array<JsonView> pipelineDetailsJsonList = jsonValue.GetArray("pipelineDetails");
+    for(unsigned pipelineDetailsIndex = 0; pipelineDetailsIndex < pipelineDetailsJsonList.GetLength(); ++pipelineDetailsIndex)
+    {
+      m_pipelineDetails.push_back(pipelineDetailsJsonList[pipelineDetailsIndex].AsObject());
+    }
+  }
+
   if(jsonValue.ValueExists("pipelinesRunningCount"))
   {
     m_pipelinesRunningCount = jsonValue.GetInteger("pipelinesRunningCount");
@@ -123,6 +140,15 @@ DeleteChannelResult& DeleteChannelResult::operator =(const Aws::AmazonWebService
   {
     m_state = ChannelStateMapper::GetChannelStateForName(jsonValue.GetString("state"));
 
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
   }
 
 

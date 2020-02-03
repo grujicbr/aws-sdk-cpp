@@ -23,7 +23,9 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 DeleteDeliveryStreamRequest::DeleteDeliveryStreamRequest() : 
-    m_deliveryStreamNameHasBeenSet(false)
+    m_deliveryStreamNameHasBeenSet(false),
+    m_allowForceDelete(false),
+    m_allowForceDeleteHasBeenSet(false)
 {
 }
 
@@ -37,7 +39,13 @@ Aws::String DeleteDeliveryStreamRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_allowForceDeleteHasBeenSet)
+  {
+   payload.WithBool("AllowForceDelete", m_allowForceDelete);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DeleteDeliveryStreamRequest::GetRequestSpecificHeaders() const

@@ -19,6 +19,8 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/ec2/model/SnapshotDetail.h>
+#include <aws/ec2/model/Tag.h>
+#include <aws/ec2/model/ImportImageLicenseConfigurationResponse.h>
 #include <utility>
 
 namespace Aws
@@ -53,43 +55,49 @@ namespace Model
 
     /**
      * <p>The architecture of the virtual machine.</p> <p>Valid values:
-     * <code>i386</code> | <code>x86_64</code> </p>
+     * <code>i386</code> | <code>x86_64</code> | <code>arm64</code> </p>
      */
     inline const Aws::String& GetArchitecture() const{ return m_architecture; }
 
     /**
      * <p>The architecture of the virtual machine.</p> <p>Valid values:
-     * <code>i386</code> | <code>x86_64</code> </p>
+     * <code>i386</code> | <code>x86_64</code> | <code>arm64</code> </p>
+     */
+    inline bool ArchitectureHasBeenSet() const { return m_architectureHasBeenSet; }
+
+    /**
+     * <p>The architecture of the virtual machine.</p> <p>Valid values:
+     * <code>i386</code> | <code>x86_64</code> | <code>arm64</code> </p>
      */
     inline void SetArchitecture(const Aws::String& value) { m_architectureHasBeenSet = true; m_architecture = value; }
 
     /**
      * <p>The architecture of the virtual machine.</p> <p>Valid values:
-     * <code>i386</code> | <code>x86_64</code> </p>
+     * <code>i386</code> | <code>x86_64</code> | <code>arm64</code> </p>
      */
     inline void SetArchitecture(Aws::String&& value) { m_architectureHasBeenSet = true; m_architecture = std::move(value); }
 
     /**
      * <p>The architecture of the virtual machine.</p> <p>Valid values:
-     * <code>i386</code> | <code>x86_64</code> </p>
+     * <code>i386</code> | <code>x86_64</code> | <code>arm64</code> </p>
      */
     inline void SetArchitecture(const char* value) { m_architectureHasBeenSet = true; m_architecture.assign(value); }
 
     /**
      * <p>The architecture of the virtual machine.</p> <p>Valid values:
-     * <code>i386</code> | <code>x86_64</code> </p>
+     * <code>i386</code> | <code>x86_64</code> | <code>arm64</code> </p>
      */
     inline ImportImageTask& WithArchitecture(const Aws::String& value) { SetArchitecture(value); return *this;}
 
     /**
      * <p>The architecture of the virtual machine.</p> <p>Valid values:
-     * <code>i386</code> | <code>x86_64</code> </p>
+     * <code>i386</code> | <code>x86_64</code> | <code>arm64</code> </p>
      */
     inline ImportImageTask& WithArchitecture(Aws::String&& value) { SetArchitecture(std::move(value)); return *this;}
 
     /**
      * <p>The architecture of the virtual machine.</p> <p>Valid values:
-     * <code>i386</code> | <code>x86_64</code> </p>
+     * <code>i386</code> | <code>x86_64</code> | <code>arm64</code> </p>
      */
     inline ImportImageTask& WithArchitecture(const char* value) { SetArchitecture(value); return *this;}
 
@@ -98,6 +106,11 @@ namespace Model
      * <p>A description of the import task.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the import task.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the import task.</p>
@@ -131,10 +144,37 @@ namespace Model
 
 
     /**
+     * <p>Indicates whether the image is encrypted.</p>
+     */
+    inline bool GetEncrypted() const{ return m_encrypted; }
+
+    /**
+     * <p>Indicates whether the image is encrypted.</p>
+     */
+    inline bool EncryptedHasBeenSet() const { return m_encryptedHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the image is encrypted.</p>
+     */
+    inline void SetEncrypted(bool value) { m_encryptedHasBeenSet = true; m_encrypted = value; }
+
+    /**
+     * <p>Indicates whether the image is encrypted.</p>
+     */
+    inline ImportImageTask& WithEncrypted(bool value) { SetEncrypted(value); return *this;}
+
+
+    /**
      * <p>The target hypervisor for the import task.</p> <p>Valid values:
      * <code>xen</code> </p>
      */
     inline const Aws::String& GetHypervisor() const{ return m_hypervisor; }
+
+    /**
+     * <p>The target hypervisor for the import task.</p> <p>Valid values:
+     * <code>xen</code> </p>
+     */
+    inline bool HypervisorHasBeenSet() const { return m_hypervisorHasBeenSet; }
 
     /**
      * <p>The target hypervisor for the import task.</p> <p>Valid values:
@@ -181,6 +221,11 @@ namespace Model
     /**
      * <p>The ID of the Amazon Machine Image (AMI) of the imported virtual machine.</p>
      */
+    inline bool ImageIdHasBeenSet() const { return m_imageIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Amazon Machine Image (AMI) of the imported virtual machine.</p>
+     */
     inline void SetImageId(const Aws::String& value) { m_imageIdHasBeenSet = true; m_imageId = value; }
 
     /**
@@ -217,6 +262,11 @@ namespace Model
     /**
      * <p>The ID of the import image task.</p>
      */
+    inline bool ImportTaskIdHasBeenSet() const { return m_importTaskIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the import image task.</p>
+     */
     inline void SetImportTaskId(const Aws::String& value) { m_importTaskIdHasBeenSet = true; m_importTaskId = value; }
 
     /**
@@ -246,9 +296,63 @@ namespace Model
 
 
     /**
+     * <p>The identifier for the AWS Key Management Service (AWS KMS) customer master
+     * key (CMK) that was used to create the encrypted image.</p>
+     */
+    inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
+
+    /**
+     * <p>The identifier for the AWS Key Management Service (AWS KMS) customer master
+     * key (CMK) that was used to create the encrypted image.</p>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
+
+    /**
+     * <p>The identifier for the AWS Key Management Service (AWS KMS) customer master
+     * key (CMK) that was used to create the encrypted image.</p>
+     */
+    inline void SetKmsKeyId(const Aws::String& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = value; }
+
+    /**
+     * <p>The identifier for the AWS Key Management Service (AWS KMS) customer master
+     * key (CMK) that was used to create the encrypted image.</p>
+     */
+    inline void SetKmsKeyId(Aws::String&& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = std::move(value); }
+
+    /**
+     * <p>The identifier for the AWS Key Management Service (AWS KMS) customer master
+     * key (CMK) that was used to create the encrypted image.</p>
+     */
+    inline void SetKmsKeyId(const char* value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId.assign(value); }
+
+    /**
+     * <p>The identifier for the AWS Key Management Service (AWS KMS) customer master
+     * key (CMK) that was used to create the encrypted image.</p>
+     */
+    inline ImportImageTask& WithKmsKeyId(const Aws::String& value) { SetKmsKeyId(value); return *this;}
+
+    /**
+     * <p>The identifier for the AWS Key Management Service (AWS KMS) customer master
+     * key (CMK) that was used to create the encrypted image.</p>
+     */
+    inline ImportImageTask& WithKmsKeyId(Aws::String&& value) { SetKmsKeyId(std::move(value)); return *this;}
+
+    /**
+     * <p>The identifier for the AWS Key Management Service (AWS KMS) customer master
+     * key (CMK) that was used to create the encrypted image.</p>
+     */
+    inline ImportImageTask& WithKmsKeyId(const char* value) { SetKmsKeyId(value); return *this;}
+
+
+    /**
      * <p>The license type of the virtual machine.</p>
      */
     inline const Aws::String& GetLicenseType() const{ return m_licenseType; }
+
+    /**
+     * <p>The license type of the virtual machine.</p>
+     */
+    inline bool LicenseTypeHasBeenSet() const { return m_licenseTypeHasBeenSet; }
 
     /**
      * <p>The license type of the virtual machine.</p>
@@ -289,6 +393,11 @@ namespace Model
     /**
      * <p>The description string for the import image task.</p>
      */
+    inline bool PlatformHasBeenSet() const { return m_platformHasBeenSet; }
+
+    /**
+     * <p>The description string for the import image task.</p>
+     */
     inline void SetPlatform(const Aws::String& value) { m_platformHasBeenSet = true; m_platform = value; }
 
     /**
@@ -321,6 +430,11 @@ namespace Model
      * <p>The percentage of progress of the import image task.</p>
      */
     inline const Aws::String& GetProgress() const{ return m_progress; }
+
+    /**
+     * <p>The percentage of progress of the import image task.</p>
+     */
+    inline bool ProgressHasBeenSet() const { return m_progressHasBeenSet; }
 
     /**
      * <p>The percentage of progress of the import image task.</p>
@@ -361,6 +475,11 @@ namespace Model
     /**
      * <p>Information about the snapshots.</p>
      */
+    inline bool SnapshotDetailsHasBeenSet() const { return m_snapshotDetailsHasBeenSet; }
+
+    /**
+     * <p>Information about the snapshots.</p>
+     */
     inline void SetSnapshotDetails(const Aws::Vector<SnapshotDetail>& value) { m_snapshotDetailsHasBeenSet = true; m_snapshotDetails = value; }
 
     /**
@@ -393,6 +512,11 @@ namespace Model
      * <p>A brief status for the import image task.</p>
      */
     inline const Aws::String& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>A brief status for the import image task.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>A brief status for the import image task.</p>
@@ -433,6 +557,11 @@ namespace Model
     /**
      * <p>A descriptive status message for the import image task.</p>
      */
+    inline bool StatusMessageHasBeenSet() const { return m_statusMessageHasBeenSet; }
+
+    /**
+     * <p>A descriptive status message for the import image task.</p>
+     */
     inline void SetStatusMessage(const Aws::String& value) { m_statusMessageHasBeenSet = true; m_statusMessage = value; }
 
     /**
@@ -460,6 +589,96 @@ namespace Model
      */
     inline ImportImageTask& WithStatusMessage(const char* value) { SetStatusMessage(value); return *this;}
 
+
+    /**
+     * <p>The tags for the import image task.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tags for the import image task.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags for the import image task.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The tags for the import image task.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The tags for the import image task.</p>
+     */
+    inline ImportImageTask& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tags for the import image task.</p>
+     */
+    inline ImportImageTask& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tags for the import image task.</p>
+     */
+    inline ImportImageTask& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>The tags for the import image task.</p>
+     */
+    inline ImportImageTask& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>The ARNs of the license configurations that are associated with the import
+     * image task.</p>
+     */
+    inline const Aws::Vector<ImportImageLicenseConfigurationResponse>& GetLicenseSpecifications() const{ return m_licenseSpecifications; }
+
+    /**
+     * <p>The ARNs of the license configurations that are associated with the import
+     * image task.</p>
+     */
+    inline bool LicenseSpecificationsHasBeenSet() const { return m_licenseSpecificationsHasBeenSet; }
+
+    /**
+     * <p>The ARNs of the license configurations that are associated with the import
+     * image task.</p>
+     */
+    inline void SetLicenseSpecifications(const Aws::Vector<ImportImageLicenseConfigurationResponse>& value) { m_licenseSpecificationsHasBeenSet = true; m_licenseSpecifications = value; }
+
+    /**
+     * <p>The ARNs of the license configurations that are associated with the import
+     * image task.</p>
+     */
+    inline void SetLicenseSpecifications(Aws::Vector<ImportImageLicenseConfigurationResponse>&& value) { m_licenseSpecificationsHasBeenSet = true; m_licenseSpecifications = std::move(value); }
+
+    /**
+     * <p>The ARNs of the license configurations that are associated with the import
+     * image task.</p>
+     */
+    inline ImportImageTask& WithLicenseSpecifications(const Aws::Vector<ImportImageLicenseConfigurationResponse>& value) { SetLicenseSpecifications(value); return *this;}
+
+    /**
+     * <p>The ARNs of the license configurations that are associated with the import
+     * image task.</p>
+     */
+    inline ImportImageTask& WithLicenseSpecifications(Aws::Vector<ImportImageLicenseConfigurationResponse>&& value) { SetLicenseSpecifications(std::move(value)); return *this;}
+
+    /**
+     * <p>The ARNs of the license configurations that are associated with the import
+     * image task.</p>
+     */
+    inline ImportImageTask& AddLicenseSpecifications(const ImportImageLicenseConfigurationResponse& value) { m_licenseSpecificationsHasBeenSet = true; m_licenseSpecifications.push_back(value); return *this; }
+
+    /**
+     * <p>The ARNs of the license configurations that are associated with the import
+     * image task.</p>
+     */
+    inline ImportImageTask& AddLicenseSpecifications(ImportImageLicenseConfigurationResponse&& value) { m_licenseSpecificationsHasBeenSet = true; m_licenseSpecifications.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::String m_architecture;
@@ -467,6 +686,9 @@ namespace Model
 
     Aws::String m_description;
     bool m_descriptionHasBeenSet;
+
+    bool m_encrypted;
+    bool m_encryptedHasBeenSet;
 
     Aws::String m_hypervisor;
     bool m_hypervisorHasBeenSet;
@@ -476,6 +698,9 @@ namespace Model
 
     Aws::String m_importTaskId;
     bool m_importTaskIdHasBeenSet;
+
+    Aws::String m_kmsKeyId;
+    bool m_kmsKeyIdHasBeenSet;
 
     Aws::String m_licenseType;
     bool m_licenseTypeHasBeenSet;
@@ -494,6 +719,12 @@ namespace Model
 
     Aws::String m_statusMessage;
     bool m_statusMessageHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
+
+    Aws::Vector<ImportImageLicenseConfigurationResponse> m_licenseSpecifications;
+    bool m_licenseSpecificationsHasBeenSet;
   };
 
 } // namespace Model

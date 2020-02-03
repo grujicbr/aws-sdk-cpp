@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     StreamProcessorOutput();
-    StreamProcessorOutput(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamProcessorOutput& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamProcessorOutput(Aws::Utils::Json::JsonView jsonValue);
+    StreamProcessorOutput& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * processor streams the analysis results.</p>
      */
     inline const KinesisDataStream& GetKinesisDataStream() const{ return m_kinesisDataStream; }
+
+    /**
+     * <p>The Amazon Kinesis Data Streams stream to which the Amazon Rekognition stream
+     * processor streams the analysis results.</p>
+     */
+    inline bool KinesisDataStreamHasBeenSet() const { return m_kinesisDataStreamHasBeenSet; }
 
     /**
      * <p>The Amazon Kinesis Data Streams stream to which the Amazon Rekognition stream

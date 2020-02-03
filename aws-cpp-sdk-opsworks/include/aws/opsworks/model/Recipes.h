@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -52,8 +53,8 @@ namespace Model
   {
   public:
     Recipes();
-    Recipes(const Aws::Utils::Json::JsonValue& jsonValue);
-    Recipes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Recipes(Aws::Utils::Json::JsonView jsonValue);
+    Recipes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -62,6 +63,12 @@ namespace Model
      * event.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSetup() const{ return m_setup; }
+
+    /**
+     * <p>An array of custom recipe names to be run following a <code>setup</code>
+     * event.</p>
+     */
+    inline bool SetupHasBeenSet() const { return m_setupHasBeenSet; }
 
     /**
      * <p>An array of custom recipe names to be run following a <code>setup</code>
@@ -116,6 +123,12 @@ namespace Model
      * <p>An array of custom recipe names to be run following a <code>configure</code>
      * event.</p>
      */
+    inline bool ConfigureHasBeenSet() const { return m_configureHasBeenSet; }
+
+    /**
+     * <p>An array of custom recipe names to be run following a <code>configure</code>
+     * event.</p>
+     */
     inline void SetConfigure(const Aws::Vector<Aws::String>& value) { m_configureHasBeenSet = true; m_configure = value; }
 
     /**
@@ -160,6 +173,12 @@ namespace Model
      * event.</p>
      */
     inline const Aws::Vector<Aws::String>& GetDeploy() const{ return m_deploy; }
+
+    /**
+     * <p>An array of custom recipe names to be run following a <code>deploy</code>
+     * event.</p>
+     */
+    inline bool DeployHasBeenSet() const { return m_deployHasBeenSet; }
 
     /**
      * <p>An array of custom recipe names to be run following a <code>deploy</code>
@@ -214,6 +233,12 @@ namespace Model
      * <p>An array of custom recipe names to be run following a <code>undeploy</code>
      * event.</p>
      */
+    inline bool UndeployHasBeenSet() const { return m_undeployHasBeenSet; }
+
+    /**
+     * <p>An array of custom recipe names to be run following a <code>undeploy</code>
+     * event.</p>
+     */
     inline void SetUndeploy(const Aws::Vector<Aws::String>& value) { m_undeployHasBeenSet = true; m_undeploy = value; }
 
     /**
@@ -258,6 +283,12 @@ namespace Model
      * event.</p>
      */
     inline const Aws::Vector<Aws::String>& GetShutdown() const{ return m_shutdown; }
+
+    /**
+     * <p>An array of custom recipe names to be run following a <code>shutdown</code>
+     * event.</p>
+     */
+    inline bool ShutdownHasBeenSet() const { return m_shutdownHasBeenSet; }
 
     /**
      * <p>An array of custom recipe names to be run following a <code>shutdown</code>

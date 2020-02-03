@@ -17,6 +17,7 @@
 #include <aws/alexaforbusiness/AlexaForBusiness_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/alexaforbusiness/model/ConnectionStatus.h>
+#include <aws/core/utils/DateTime.h>
 #include <aws/alexaforbusiness/model/DeviceStatusDetail.h>
 #include <utility>
 
@@ -27,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -43,8 +45,8 @@ namespace Model
   {
   public:
     DeviceStatusInfo();
-    DeviceStatusInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceStatusInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceStatusInfo(Aws::Utils::Json::JsonView jsonValue);
+    DeviceStatusInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +54,11 @@ namespace Model
      * <p>One or more device status detail descriptions.</p>
      */
     inline const Aws::Vector<DeviceStatusDetail>& GetDeviceStatusDetails() const{ return m_deviceStatusDetails; }
+
+    /**
+     * <p>One or more device status detail descriptions.</p>
+     */
+    inline bool DeviceStatusDetailsHasBeenSet() const { return m_deviceStatusDetailsHasBeenSet; }
 
     /**
      * <p>One or more device status detail descriptions.</p>
@@ -94,6 +101,12 @@ namespace Model
      * <p>The latest available information about the connection status of a device.
      * </p>
      */
+    inline bool ConnectionStatusHasBeenSet() const { return m_connectionStatusHasBeenSet; }
+
+    /**
+     * <p>The latest available information about the connection status of a device.
+     * </p>
+     */
     inline void SetConnectionStatus(const ConnectionStatus& value) { m_connectionStatusHasBeenSet = true; m_connectionStatus = value; }
 
     /**
@@ -114,6 +127,37 @@ namespace Model
      */
     inline DeviceStatusInfo& WithConnectionStatus(ConnectionStatus&& value) { SetConnectionStatus(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The time (in epoch) when the device connection status changed.</p>
+     */
+    inline const Aws::Utils::DateTime& GetConnectionStatusUpdatedTime() const{ return m_connectionStatusUpdatedTime; }
+
+    /**
+     * <p>The time (in epoch) when the device connection status changed.</p>
+     */
+    inline bool ConnectionStatusUpdatedTimeHasBeenSet() const { return m_connectionStatusUpdatedTimeHasBeenSet; }
+
+    /**
+     * <p>The time (in epoch) when the device connection status changed.</p>
+     */
+    inline void SetConnectionStatusUpdatedTime(const Aws::Utils::DateTime& value) { m_connectionStatusUpdatedTimeHasBeenSet = true; m_connectionStatusUpdatedTime = value; }
+
+    /**
+     * <p>The time (in epoch) when the device connection status changed.</p>
+     */
+    inline void SetConnectionStatusUpdatedTime(Aws::Utils::DateTime&& value) { m_connectionStatusUpdatedTimeHasBeenSet = true; m_connectionStatusUpdatedTime = std::move(value); }
+
+    /**
+     * <p>The time (in epoch) when the device connection status changed.</p>
+     */
+    inline DeviceStatusInfo& WithConnectionStatusUpdatedTime(const Aws::Utils::DateTime& value) { SetConnectionStatusUpdatedTime(value); return *this;}
+
+    /**
+     * <p>The time (in epoch) when the device connection status changed.</p>
+     */
+    inline DeviceStatusInfo& WithConnectionStatusUpdatedTime(Aws::Utils::DateTime&& value) { SetConnectionStatusUpdatedTime(std::move(value)); return *this;}
+
   private:
 
     Aws::Vector<DeviceStatusDetail> m_deviceStatusDetails;
@@ -121,6 +165,9 @@ namespace Model
 
     ConnectionStatus m_connectionStatus;
     bool m_connectionStatusHasBeenSet;
+
+    Aws::Utils::DateTime m_connectionStatusUpdatedTime;
+    bool m_connectionStatusUpdatedTimeHasBeenSet;
   };
 
 } // namespace Model

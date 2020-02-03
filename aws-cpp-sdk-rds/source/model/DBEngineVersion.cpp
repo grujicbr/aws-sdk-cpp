@@ -44,7 +44,10 @@ DBEngineVersion::DBEngineVersion() :
     m_supportsLogExportsToCloudwatchLogs(false),
     m_supportsLogExportsToCloudwatchLogsHasBeenSet(false),
     m_supportsReadReplica(false),
-    m_supportsReadReplicaHasBeenSet(false)
+    m_supportsReadReplicaHasBeenSet(false),
+    m_supportedEngineModesHasBeenSet(false),
+    m_supportedFeatureNamesHasBeenSet(false),
+    m_statusHasBeenSet(false)
 {
 }
 
@@ -62,7 +65,10 @@ DBEngineVersion::DBEngineVersion(const XmlNode& xmlNode) :
     m_supportsLogExportsToCloudwatchLogs(false),
     m_supportsLogExportsToCloudwatchLogsHasBeenSet(false),
     m_supportsReadReplica(false),
-    m_supportsReadReplicaHasBeenSet(false)
+    m_supportsReadReplicaHasBeenSet(false),
+    m_supportedEngineModesHasBeenSet(false),
+    m_supportedFeatureNamesHasBeenSet(false),
+    m_statusHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -76,31 +82,31 @@ DBEngineVersion& DBEngineVersion::operator =(const XmlNode& xmlNode)
     XmlNode engineNode = resultNode.FirstChild("Engine");
     if(!engineNode.IsNull())
     {
-      m_engine = StringUtils::Trim(engineNode.GetText().c_str());
+      m_engine = Aws::Utils::Xml::DecodeEscapedXmlText(engineNode.GetText());
       m_engineHasBeenSet = true;
     }
     XmlNode engineVersionNode = resultNode.FirstChild("EngineVersion");
     if(!engineVersionNode.IsNull())
     {
-      m_engineVersion = StringUtils::Trim(engineVersionNode.GetText().c_str());
+      m_engineVersion = Aws::Utils::Xml::DecodeEscapedXmlText(engineVersionNode.GetText());
       m_engineVersionHasBeenSet = true;
     }
     XmlNode dBParameterGroupFamilyNode = resultNode.FirstChild("DBParameterGroupFamily");
     if(!dBParameterGroupFamilyNode.IsNull())
     {
-      m_dBParameterGroupFamily = StringUtils::Trim(dBParameterGroupFamilyNode.GetText().c_str());
+      m_dBParameterGroupFamily = Aws::Utils::Xml::DecodeEscapedXmlText(dBParameterGroupFamilyNode.GetText());
       m_dBParameterGroupFamilyHasBeenSet = true;
     }
     XmlNode dBEngineDescriptionNode = resultNode.FirstChild("DBEngineDescription");
     if(!dBEngineDescriptionNode.IsNull())
     {
-      m_dBEngineDescription = StringUtils::Trim(dBEngineDescriptionNode.GetText().c_str());
+      m_dBEngineDescription = Aws::Utils::Xml::DecodeEscapedXmlText(dBEngineDescriptionNode.GetText());
       m_dBEngineDescriptionHasBeenSet = true;
     }
     XmlNode dBEngineVersionDescriptionNode = resultNode.FirstChild("DBEngineVersionDescription");
     if(!dBEngineVersionDescriptionNode.IsNull())
     {
-      m_dBEngineVersionDescription = StringUtils::Trim(dBEngineVersionDescriptionNode.GetText().c_str());
+      m_dBEngineVersionDescription = Aws::Utils::Xml::DecodeEscapedXmlText(dBEngineVersionDescriptionNode.GetText());
       m_dBEngineVersionDescriptionHasBeenSet = true;
     }
     XmlNode defaultCharacterSetNode = resultNode.FirstChild("DefaultCharacterSet");
@@ -151,7 +157,7 @@ DBEngineVersion& DBEngineVersion::operator =(const XmlNode& xmlNode)
       XmlNode exportableLogTypesMember = exportableLogTypesNode.FirstChild("member");
       while(!exportableLogTypesMember.IsNull())
       {
-        m_exportableLogTypes.push_back(StringUtils::Trim(exportableLogTypesMember.GetText().c_str()));
+        m_exportableLogTypes.push_back(exportableLogTypesMember.GetText());
         exportableLogTypesMember = exportableLogTypesMember.NextNode("member");
       }
 
@@ -160,14 +166,44 @@ DBEngineVersion& DBEngineVersion::operator =(const XmlNode& xmlNode)
     XmlNode supportsLogExportsToCloudwatchLogsNode = resultNode.FirstChild("SupportsLogExportsToCloudwatchLogs");
     if(!supportsLogExportsToCloudwatchLogsNode.IsNull())
     {
-      m_supportsLogExportsToCloudwatchLogs = StringUtils::ConvertToBool(StringUtils::Trim(supportsLogExportsToCloudwatchLogsNode.GetText().c_str()).c_str());
+      m_supportsLogExportsToCloudwatchLogs = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(supportsLogExportsToCloudwatchLogsNode.GetText()).c_str()).c_str());
       m_supportsLogExportsToCloudwatchLogsHasBeenSet = true;
     }
     XmlNode supportsReadReplicaNode = resultNode.FirstChild("SupportsReadReplica");
     if(!supportsReadReplicaNode.IsNull())
     {
-      m_supportsReadReplica = StringUtils::ConvertToBool(StringUtils::Trim(supportsReadReplicaNode.GetText().c_str()).c_str());
+      m_supportsReadReplica = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(supportsReadReplicaNode.GetText()).c_str()).c_str());
       m_supportsReadReplicaHasBeenSet = true;
+    }
+    XmlNode supportedEngineModesNode = resultNode.FirstChild("SupportedEngineModes");
+    if(!supportedEngineModesNode.IsNull())
+    {
+      XmlNode supportedEngineModesMember = supportedEngineModesNode.FirstChild("member");
+      while(!supportedEngineModesMember.IsNull())
+      {
+        m_supportedEngineModes.push_back(supportedEngineModesMember.GetText());
+        supportedEngineModesMember = supportedEngineModesMember.NextNode("member");
+      }
+
+      m_supportedEngineModesHasBeenSet = true;
+    }
+    XmlNode supportedFeatureNamesNode = resultNode.FirstChild("SupportedFeatureNames");
+    if(!supportedFeatureNamesNode.IsNull())
+    {
+      XmlNode supportedFeatureNamesMember = supportedFeatureNamesNode.FirstChild("member");
+      while(!supportedFeatureNamesMember.IsNull())
+      {
+        m_supportedFeatureNames.push_back(supportedFeatureNamesMember.GetText());
+        supportedFeatureNamesMember = supportedFeatureNamesMember.NextNode("member");
+      }
+
+      m_supportedFeatureNamesHasBeenSet = true;
+    }
+    XmlNode statusNode = resultNode.FirstChild("Status");
+    if(!statusNode.IsNull())
+    {
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
+      m_statusHasBeenSet = true;
     }
   }
 
@@ -260,6 +296,29 @@ void DBEngineVersion::OutputToStream(Aws::OStream& oStream, const char* location
       oStream << location << index << locationValue << ".SupportsReadReplica=" << std::boolalpha << m_supportsReadReplica << "&";
   }
 
+  if(m_supportedEngineModesHasBeenSet)
+  {
+      unsigned supportedEngineModesIdx = 1;
+      for(auto& item : m_supportedEngineModes)
+      {
+        oStream << location << index << locationValue << ".SupportedEngineModes.member." << supportedEngineModesIdx++ << "=" << StringUtils::URLEncode(item.c_str()) << "&";
+      }
+  }
+
+  if(m_supportedFeatureNamesHasBeenSet)
+  {
+      unsigned supportedFeatureNamesIdx = 1;
+      for(auto& item : m_supportedFeatureNames)
+      {
+        oStream << location << index << locationValue << ".SupportedFeatureNames.member." << supportedFeatureNamesIdx++ << "=" << StringUtils::URLEncode(item.c_str()) << "&";
+      }
+  }
+
+  if(m_statusHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".Status=" << StringUtils::URLEncode(m_status.c_str()) << "&";
+  }
+
 }
 
 void DBEngineVersion::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -335,6 +394,26 @@ void DBEngineVersion::OutputToStream(Aws::OStream& oStream, const char* location
   if(m_supportsReadReplicaHasBeenSet)
   {
       oStream << location << ".SupportsReadReplica=" << std::boolalpha << m_supportsReadReplica << "&";
+  }
+  if(m_supportedEngineModesHasBeenSet)
+  {
+      unsigned supportedEngineModesIdx = 1;
+      for(auto& item : m_supportedEngineModes)
+      {
+        oStream << location << ".SupportedEngineModes.member." << supportedEngineModesIdx++ << "=" << StringUtils::URLEncode(item.c_str()) << "&";
+      }
+  }
+  if(m_supportedFeatureNamesHasBeenSet)
+  {
+      unsigned supportedFeatureNamesIdx = 1;
+      for(auto& item : m_supportedFeatureNames)
+      {
+        oStream << location << ".SupportedFeatureNames.member." << supportedFeatureNamesIdx++ << "=" << StringUtils::URLEncode(item.c_str()) << "&";
+      }
+  }
+  if(m_statusHasBeenSet)
+  {
+      oStream << location << ".Status=" << StringUtils::URLEncode(m_status.c_str()) << "&";
   }
 }
 

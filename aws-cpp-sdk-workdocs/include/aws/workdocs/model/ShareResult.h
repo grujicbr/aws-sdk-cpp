@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ShareResult();
-    ShareResult(const Aws::Utils::Json::JsonValue& jsonValue);
-    ShareResult& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ShareResult(Aws::Utils::Json::JsonView jsonValue);
+    ShareResult& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ID of the principal.</p>
      */
     inline const Aws::String& GetPrincipalId() const{ return m_principalId; }
+
+    /**
+     * <p>The ID of the principal.</p>
+     */
+    inline bool PrincipalIdHasBeenSet() const { return m_principalIdHasBeenSet; }
 
     /**
      * <p>The ID of the principal.</p>
@@ -85,9 +91,55 @@ namespace Model
 
 
     /**
+     * <p>The ID of the invited user.</p>
+     */
+    inline const Aws::String& GetInviteePrincipalId() const{ return m_inviteePrincipalId; }
+
+    /**
+     * <p>The ID of the invited user.</p>
+     */
+    inline bool InviteePrincipalIdHasBeenSet() const { return m_inviteePrincipalIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the invited user.</p>
+     */
+    inline void SetInviteePrincipalId(const Aws::String& value) { m_inviteePrincipalIdHasBeenSet = true; m_inviteePrincipalId = value; }
+
+    /**
+     * <p>The ID of the invited user.</p>
+     */
+    inline void SetInviteePrincipalId(Aws::String&& value) { m_inviteePrincipalIdHasBeenSet = true; m_inviteePrincipalId = std::move(value); }
+
+    /**
+     * <p>The ID of the invited user.</p>
+     */
+    inline void SetInviteePrincipalId(const char* value) { m_inviteePrincipalIdHasBeenSet = true; m_inviteePrincipalId.assign(value); }
+
+    /**
+     * <p>The ID of the invited user.</p>
+     */
+    inline ShareResult& WithInviteePrincipalId(const Aws::String& value) { SetInviteePrincipalId(value); return *this;}
+
+    /**
+     * <p>The ID of the invited user.</p>
+     */
+    inline ShareResult& WithInviteePrincipalId(Aws::String&& value) { SetInviteePrincipalId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the invited user.</p>
+     */
+    inline ShareResult& WithInviteePrincipalId(const char* value) { SetInviteePrincipalId(value); return *this;}
+
+
+    /**
      * <p>The role.</p>
      */
     inline const RoleType& GetRole() const{ return m_role; }
+
+    /**
+     * <p>The role.</p>
+     */
+    inline bool RoleHasBeenSet() const { return m_roleHasBeenSet; }
 
     /**
      * <p>The role.</p>
@@ -118,6 +170,11 @@ namespace Model
     /**
      * <p>The status.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status.</p>
+     */
     inline void SetStatus(const ShareStatusType& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -140,6 +197,11 @@ namespace Model
      * <p>The ID of the resource that was shared.</p>
      */
     inline const Aws::String& GetShareId() const{ return m_shareId; }
+
+    /**
+     * <p>The ID of the resource that was shared.</p>
+     */
+    inline bool ShareIdHasBeenSet() const { return m_shareIdHasBeenSet; }
 
     /**
      * <p>The ID of the resource that was shared.</p>
@@ -180,6 +242,11 @@ namespace Model
     /**
      * <p>The status message.</p>
      */
+    inline bool StatusMessageHasBeenSet() const { return m_statusMessageHasBeenSet; }
+
+    /**
+     * <p>The status message.</p>
+     */
     inline void SetStatusMessage(const Aws::String& value) { m_statusMessageHasBeenSet = true; m_statusMessage = value; }
 
     /**
@@ -211,6 +278,9 @@ namespace Model
 
     Aws::String m_principalId;
     bool m_principalIdHasBeenSet;
+
+    Aws::String m_inviteePrincipalId;
+    bool m_inviteePrincipalIdHasBeenSet;
 
     RoleType m_role;
     bool m_roleHasBeenSet;

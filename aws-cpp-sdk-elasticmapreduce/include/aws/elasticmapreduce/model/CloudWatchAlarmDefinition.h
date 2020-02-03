@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     CloudWatchAlarmDefinition();
-    CloudWatchAlarmDefinition(const Aws::Utils::Json::JsonValue& jsonValue);
-    CloudWatchAlarmDefinition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CloudWatchAlarmDefinition(Aws::Utils::Json::JsonView jsonValue);
+    CloudWatchAlarmDefinition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,12 @@ namespace Model
      * the value specified by <code>Threshold</code>.</p>
      */
     inline const ComparisonOperator& GetComparisonOperator() const{ return m_comparisonOperator; }
+
+    /**
+     * <p>Determines how the metric specified by <code>MetricName</code> is compared to
+     * the value specified by <code>Threshold</code>.</p>
+     */
+    inline bool ComparisonOperatorHasBeenSet() const { return m_comparisonOperatorHasBeenSet; }
 
     /**
      * <p>Determines how the metric specified by <code>MetricName</code> is compared to
@@ -85,23 +92,30 @@ namespace Model
 
 
     /**
-     * <p>The number of periods, expressed in seconds using <code>Period</code>, during
-     * which the alarm condition must exist before the alarm triggers automatic scaling
-     * activity. The default value is <code>1</code>.</p>
+     * <p>The number of periods, in five-minute increments, during which the alarm
+     * condition must exist before the alarm triggers automatic scaling activity. The
+     * default value is <code>1</code>.</p>
      */
     inline int GetEvaluationPeriods() const{ return m_evaluationPeriods; }
 
     /**
-     * <p>The number of periods, expressed in seconds using <code>Period</code>, during
-     * which the alarm condition must exist before the alarm triggers automatic scaling
-     * activity. The default value is <code>1</code>.</p>
+     * <p>The number of periods, in five-minute increments, during which the alarm
+     * condition must exist before the alarm triggers automatic scaling activity. The
+     * default value is <code>1</code>.</p>
+     */
+    inline bool EvaluationPeriodsHasBeenSet() const { return m_evaluationPeriodsHasBeenSet; }
+
+    /**
+     * <p>The number of periods, in five-minute increments, during which the alarm
+     * condition must exist before the alarm triggers automatic scaling activity. The
+     * default value is <code>1</code>.</p>
      */
     inline void SetEvaluationPeriods(int value) { m_evaluationPeriodsHasBeenSet = true; m_evaluationPeriods = value; }
 
     /**
-     * <p>The number of periods, expressed in seconds using <code>Period</code>, during
-     * which the alarm condition must exist before the alarm triggers automatic scaling
-     * activity. The default value is <code>1</code>.</p>
+     * <p>The number of periods, in five-minute increments, during which the alarm
+     * condition must exist before the alarm triggers automatic scaling activity. The
+     * default value is <code>1</code>.</p>
      */
     inline CloudWatchAlarmDefinition& WithEvaluationPeriods(int value) { SetEvaluationPeriods(value); return *this;}
 
@@ -111,6 +125,12 @@ namespace Model
      * condition.</p>
      */
     inline const Aws::String& GetMetricName() const{ return m_metricName; }
+
+    /**
+     * <p>The name of the CloudWatch metric that is watched to determine an alarm
+     * condition.</p>
+     */
+    inline bool MetricNameHasBeenSet() const { return m_metricNameHasBeenSet; }
 
     /**
      * <p>The name of the CloudWatch metric that is watched to determine an alarm
@@ -154,6 +174,12 @@ namespace Model
      * <code>AWS/ElasticMapReduce</code>.</p>
      */
     inline const Aws::String& GetNamespace() const{ return m_namespace; }
+
+    /**
+     * <p>The namespace for the CloudWatch metric. The default is
+     * <code>AWS/ElasticMapReduce</code>.</p>
+     */
+    inline bool NamespaceHasBeenSet() const { return m_namespaceHasBeenSet; }
 
     /**
      * <p>The namespace for the CloudWatch metric. The default is
@@ -204,6 +230,13 @@ namespace Model
      * metrics are emitted every five minutes (300 seconds), so if an EMR CloudWatch
      * metric is specified, specify <code>300</code>.</p>
      */
+    inline bool PeriodHasBeenSet() const { return m_periodHasBeenSet; }
+
+    /**
+     * <p>The period, in seconds, over which the statistic is applied. EMR CloudWatch
+     * metrics are emitted every five minutes (300 seconds), so if an EMR CloudWatch
+     * metric is specified, specify <code>300</code>.</p>
+     */
     inline void SetPeriod(int value) { m_periodHasBeenSet = true; m_period = value; }
 
     /**
@@ -219,6 +252,12 @@ namespace Model
      * is <code>AVERAGE</code>.</p>
      */
     inline const Statistic& GetStatistic() const{ return m_statistic; }
+
+    /**
+     * <p>The statistic to apply to the metric associated with the alarm. The default
+     * is <code>AVERAGE</code>.</p>
+     */
+    inline bool StatisticHasBeenSet() const { return m_statisticHasBeenSet; }
 
     /**
      * <p>The statistic to apply to the metric associated with the alarm. The default
@@ -253,6 +292,11 @@ namespace Model
     /**
      * <p>The value against which the specified statistic is compared.</p>
      */
+    inline bool ThresholdHasBeenSet() const { return m_thresholdHasBeenSet; }
+
+    /**
+     * <p>The value against which the specified statistic is compared.</p>
+     */
     inline void SetThreshold(double value) { m_thresholdHasBeenSet = true; m_threshold = value; }
 
     /**
@@ -267,6 +311,13 @@ namespace Model
      * the CloudWatch metric.</p>
      */
     inline const Unit& GetUnit() const{ return m_unit; }
+
+    /**
+     * <p>The unit of measure associated with the CloudWatch metric being watched. The
+     * value specified for <code>Unit</code> must correspond to the units specified in
+     * the CloudWatch metric.</p>
+     */
+    inline bool UnitHasBeenSet() const { return m_unitHasBeenSet; }
 
     /**
      * <p>The unit of measure associated with the CloudWatch metric being watched. The
@@ -301,6 +352,11 @@ namespace Model
      * <p>A CloudWatch metric dimension.</p>
      */
     inline const Aws::Vector<MetricDimension>& GetDimensions() const{ return m_dimensions; }
+
+    /**
+     * <p>A CloudWatch metric dimension.</p>
+     */
+    inline bool DimensionsHasBeenSet() const { return m_dimensionsHasBeenSet; }
 
     /**
      * <p>A CloudWatch metric dimension.</p>

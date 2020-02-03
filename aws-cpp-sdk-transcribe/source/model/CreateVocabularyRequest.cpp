@@ -26,7 +26,8 @@ CreateVocabularyRequest::CreateVocabularyRequest() :
     m_vocabularyNameHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
-    m_phrasesHasBeenSet(false)
+    m_phrasesHasBeenSet(false),
+    m_vocabularyFileUriHasBeenSet(false)
 {
 }
 
@@ -56,7 +57,13 @@ Aws::String CreateVocabularyRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_vocabularyFileUriHasBeenSet)
+  {
+   payload.WithString("VocabularyFileUri", m_vocabularyFileUri);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateVocabularyRequest::GetRequestSpecificHeaders() const

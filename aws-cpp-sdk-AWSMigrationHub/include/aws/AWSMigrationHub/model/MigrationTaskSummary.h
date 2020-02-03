@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MigrationHub
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     MigrationTaskSummary();
-    MigrationTaskSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    MigrationTaskSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MigrationTaskSummary(Aws::Utils::Json::JsonView jsonValue);
+    MigrationTaskSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,12 @@ namespace Model
      * migration tool as it is used for all updates made by the tool.</p>
      */
     inline const Aws::String& GetProgressUpdateStream() const{ return m_progressUpdateStream; }
+
+    /**
+     * <p>An AWS resource used for access control. It should uniquely identify the
+     * migration tool as it is used for all updates made by the tool.</p>
+     */
+    inline bool ProgressUpdateStreamHasBeenSet() const { return m_progressUpdateStreamHasBeenSet; }
 
     /**
      * <p>An AWS resource used for access control. It should uniquely identify the
@@ -95,37 +102,50 @@ namespace Model
 
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline const Aws::String& GetMigrationTaskName() const{ return m_migrationTaskName; }
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
+     */
+    inline bool MigrationTaskNameHasBeenSet() const { return m_migrationTaskNameHasBeenSet; }
+
+    /**
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline void SetMigrationTaskName(const Aws::String& value) { m_migrationTaskNameHasBeenSet = true; m_migrationTaskName = value; }
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline void SetMigrationTaskName(Aws::String&& value) { m_migrationTaskNameHasBeenSet = true; m_migrationTaskName = std::move(value); }
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline void SetMigrationTaskName(const char* value) { m_migrationTaskNameHasBeenSet = true; m_migrationTaskName.assign(value); }
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline MigrationTaskSummary& WithMigrationTaskName(const Aws::String& value) { SetMigrationTaskName(value); return *this;}
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline MigrationTaskSummary& WithMigrationTaskName(Aws::String&& value) { SetMigrationTaskName(std::move(value)); return *this;}
 
     /**
-     * <p>Unique identifier that references the migration task.</p>
+     * <p>Unique identifier that references the migration task. <i>Do not store
+     * personal data in this field.</i> </p>
      */
     inline MigrationTaskSummary& WithMigrationTaskName(const char* value) { SetMigrationTaskName(value); return *this;}
 
@@ -134,6 +154,11 @@ namespace Model
      * <p>Status of the task.</p>
      */
     inline const Status& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>Status of the task.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>Status of the task.</p>
@@ -157,17 +182,22 @@ namespace Model
 
 
     /**
-     * <p/>
+     * <p>Indication of the percentage completion of the task.</p>
      */
     inline int GetProgressPercent() const{ return m_progressPercent; }
 
     /**
-     * <p/>
+     * <p>Indication of the percentage completion of the task.</p>
+     */
+    inline bool ProgressPercentHasBeenSet() const { return m_progressPercentHasBeenSet; }
+
+    /**
+     * <p>Indication of the percentage completion of the task.</p>
      */
     inline void SetProgressPercent(int value) { m_progressPercentHasBeenSet = true; m_progressPercent = value; }
 
     /**
-     * <p/>
+     * <p>Indication of the percentage completion of the task.</p>
      */
     inline MigrationTaskSummary& WithProgressPercent(int value) { SetProgressPercent(value); return *this;}
 
@@ -176,6 +206,11 @@ namespace Model
      * <p>Detail information of what is being done within the overall status state.</p>
      */
     inline const Aws::String& GetStatusDetail() const{ return m_statusDetail; }
+
+    /**
+     * <p>Detail information of what is being done within the overall status state.</p>
+     */
+    inline bool StatusDetailHasBeenSet() const { return m_statusDetailHasBeenSet; }
 
     /**
      * <p>Detail information of what is being done within the overall status state.</p>
@@ -212,6 +247,11 @@ namespace Model
      * <p>The timestamp when the task was gathered.</p>
      */
     inline const Aws::Utils::DateTime& GetUpdateDateTime() const{ return m_updateDateTime; }
+
+    /**
+     * <p>The timestamp when the task was gathered.</p>
+     */
+    inline bool UpdateDateTimeHasBeenSet() const { return m_updateDateTimeHasBeenSet; }
 
     /**
      * <p>The timestamp when the task was gathered.</p>

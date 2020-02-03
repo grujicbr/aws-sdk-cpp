@@ -33,11 +33,18 @@ CreateJobRequest::CreateJobRequest() :
     m_connectionsHasBeenSet(false),
     m_maxRetries(0),
     m_maxRetriesHasBeenSet(false),
-    m_allocatedCapacity(0),
-    m_allocatedCapacityHasBeenSet(false),
     m_timeout(0),
     m_timeoutHasBeenSet(false),
-    m_notificationPropertyHasBeenSet(false)
+    m_maxCapacity(0.0),
+    m_maxCapacityHasBeenSet(false),
+    m_securityConfigurationHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_notificationPropertyHasBeenSet(false),
+    m_glueVersionHasBeenSet(false),
+    m_numberOfWorkers(0),
+    m_numberOfWorkersHasBeenSet(false),
+    m_workerType(WorkerType::NOT_SET),
+    m_workerTypeHasBeenSet(false)
 {
 }
 
@@ -104,15 +111,32 @@ Aws::String CreateJobRequest::SerializePayload() const
 
   }
 
-  if(m_allocatedCapacityHasBeenSet)
-  {
-   payload.WithInteger("AllocatedCapacity", m_allocatedCapacity);
-
-  }
-
   if(m_timeoutHasBeenSet)
   {
    payload.WithInteger("Timeout", m_timeout);
+
+  }
+
+  if(m_maxCapacityHasBeenSet)
+  {
+   payload.WithDouble("MaxCapacity", m_maxCapacity);
+
+  }
+
+  if(m_securityConfigurationHasBeenSet)
+  {
+   payload.WithString("SecurityConfiguration", m_securityConfiguration);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("Tags", std::move(tagsJsonMap));
 
   }
 
@@ -122,7 +146,24 @@ Aws::String CreateJobRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_glueVersionHasBeenSet)
+  {
+   payload.WithString("GlueVersion", m_glueVersion);
+
+  }
+
+  if(m_numberOfWorkersHasBeenSet)
+  {
+   payload.WithInteger("NumberOfWorkers", m_numberOfWorkers);
+
+  }
+
+  if(m_workerTypeHasBeenSet)
+  {
+   payload.WithString("WorkerType", WorkerTypeMapper::GetNameForWorkerType(m_workerType));
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateJobRequest::GetRequestSpecificHeaders() const

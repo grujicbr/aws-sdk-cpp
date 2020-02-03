@@ -134,16 +134,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -584,7 +578,7 @@ namespace Model
     typedef std::function<void(const APIGatewayClient*, const Model::GetDocumentationVersionsRequest&, const Model::GetDocumentationVersionsOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetDocumentationVersionsResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetDomainNameRequest&, const Model::GetDomainNameOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetDomainNameResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetDomainNamesRequest&, const Model::GetDomainNamesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetDomainNamesResponseReceivedHandler;
-    typedef std::function<void(const APIGatewayClient*, const Model::GetExportRequest&, const Model::GetExportOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetExportResponseReceivedHandler;
+    typedef std::function<void(const APIGatewayClient*, const Model::GetExportRequest&, Model::GetExportOutcome, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetExportResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetGatewayResponseRequest&, const Model::GetGatewayResponseOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetGatewayResponseResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetGatewayResponsesRequest&, const Model::GetGatewayResponsesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetGatewayResponsesResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetIntegrationRequest&, const Model::GetIntegrationOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetIntegrationResponseReceivedHandler;
@@ -600,7 +594,7 @@ namespace Model
     typedef std::function<void(const APIGatewayClient*, const Model::GetResourcesRequest&, const Model::GetResourcesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetResourcesResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetRestApiRequest&, const Model::GetRestApiOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetRestApiResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetRestApisRequest&, const Model::GetRestApisOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetRestApisResponseReceivedHandler;
-    typedef std::function<void(const APIGatewayClient*, const Model::GetSdkRequest&, const Model::GetSdkOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetSdkResponseReceivedHandler;
+    typedef std::function<void(const APIGatewayClient*, const Model::GetSdkRequest&, Model::GetSdkOutcome, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetSdkResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetSdkTypeRequest&, const Model::GetSdkTypeOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetSdkTypeResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetSdkTypesRequest&, const Model::GetSdkTypesOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetSdkTypesResponseReceivedHandler;
     typedef std::function<void(const APIGatewayClient*, const Model::GetStageRequest&, const Model::GetStageOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > GetStageResponseReceivedHandler;
@@ -682,12 +676,12 @@ namespace Model
 
         virtual ~APIGatewayClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "apigateway"; }
+        inline virtual const char* GetServiceClientName() const override { return "API Gateway"; }
 
 
         /**
          * <p>Create an <a>ApiKey</a> resource. </p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/CreateApiKey">AWS
          * API Reference</a></p>
@@ -696,7 +690,7 @@ namespace Model
 
         /**
          * <p>Create an <a>ApiKey</a> resource. </p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/CreateApiKey">AWS
          * API Reference</a></p>
@@ -707,7 +701,7 @@ namespace Model
 
         /**
          * <p>Create an <a>ApiKey</a> resource. </p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/CreateApiKey">AWS
          * API Reference</a></p>
@@ -719,7 +713,7 @@ namespace Model
         /**
          * <p>Adds a new <a>Authorizer</a> resource to an existing <a>RestApi</a>
          * resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/create-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/CreateAuthorizer">AWS
          * API Reference</a></p>
@@ -729,7 +723,7 @@ namespace Model
         /**
          * <p>Adds a new <a>Authorizer</a> resource to an existing <a>RestApi</a>
          * resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/create-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/CreateAuthorizer">AWS
          * API Reference</a></p>
@@ -741,7 +735,7 @@ namespace Model
         /**
          * <p>Adds a new <a>Authorizer</a> resource to an existing <a>RestApi</a>
          * resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/create-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/CreateAuthorizer">AWS
          * API Reference</a></p>
@@ -1117,7 +1111,7 @@ namespace Model
 
         /**
          * <p>Deletes an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/DeleteAuthorizer">AWS
          * API Reference</a></p>
@@ -1126,7 +1120,7 @@ namespace Model
 
         /**
          * <p>Deletes an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/DeleteAuthorizer">AWS
          * API Reference</a></p>
@@ -1137,7 +1131,7 @@ namespace Model
 
         /**
          * <p>Deletes an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/DeleteAuthorizer">AWS
          * API Reference</a></p>
@@ -1797,7 +1791,7 @@ namespace Model
 
         /**
          * <p>Describe an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/GetAuthorizer">AWS
          * API Reference</a></p>
@@ -1806,7 +1800,7 @@ namespace Model
 
         /**
          * <p>Describe an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/GetAuthorizer">AWS
          * API Reference</a></p>
@@ -1817,7 +1811,7 @@ namespace Model
 
         /**
          * <p>Describe an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/GetAuthorizer">AWS
          * API Reference</a></p>
@@ -1828,7 +1822,7 @@ namespace Model
 
         /**
          * <p>Describe an existing <a>Authorizers</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/GetAuthorizers">AWS
          * API Reference</a></p>
@@ -1837,7 +1831,7 @@ namespace Model
 
         /**
          * <p>Describe an existing <a>Authorizers</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/GetAuthorizers">AWS
          * API Reference</a></p>
@@ -1848,7 +1842,7 @@ namespace Model
 
         /**
          * <p>Describe an existing <a>Authorizers</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/GetAuthorizers">AWS
          * API Reference</a></p>
@@ -3204,8 +3198,10 @@ namespace Model
         /**
          * <p>Simulate the execution of an <a>Authorizer</a> in your <a>RestApi</a> with
          * headers, parameters, and an incoming request body.</p> <div class="seeAlso"> <a
-         * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html">Enable
-         * custom authorizers</a> </div><p><h3>See Also:</h3>   <a
+         * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html">Use
+         * Lambda Function as Authorizer</a> <a
+         * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html">Use
+         * Cognito User Pool as Authorizer</a> </div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/TestInvokeAuthorizer">AWS
          * API Reference</a></p>
          */
@@ -3214,8 +3210,10 @@ namespace Model
         /**
          * <p>Simulate the execution of an <a>Authorizer</a> in your <a>RestApi</a> with
          * headers, parameters, and an incoming request body.</p> <div class="seeAlso"> <a
-         * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html">Enable
-         * custom authorizers</a> </div><p><h3>See Also:</h3>   <a
+         * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html">Use
+         * Lambda Function as Authorizer</a> <a
+         * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html">Use
+         * Cognito User Pool as Authorizer</a> </div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/TestInvokeAuthorizer">AWS
          * API Reference</a></p>
          *
@@ -3226,8 +3224,10 @@ namespace Model
         /**
          * <p>Simulate the execution of an <a>Authorizer</a> in your <a>RestApi</a> with
          * headers, parameters, and an incoming request body.</p> <div class="seeAlso"> <a
-         * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html">Enable
-         * custom authorizers</a> </div><p><h3>See Also:</h3>   <a
+         * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html">Use
+         * Lambda Function as Authorizer</a> <a
+         * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html">Use
+         * Cognito User Pool as Authorizer</a> </div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/TestInvokeAuthorizer">AWS
          * API Reference</a></p>
          *
@@ -3346,7 +3346,7 @@ namespace Model
 
         /**
          * <p>Updates an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/update-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/UpdateAuthorizer">AWS
          * API Reference</a></p>
@@ -3355,7 +3355,7 @@ namespace Model
 
         /**
          * <p>Updates an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/update-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/UpdateAuthorizer">AWS
          * API Reference</a></p>
@@ -3366,7 +3366,7 @@ namespace Model
 
         /**
          * <p>Updates an existing <a>Authorizer</a> resource.</p> <div class="seeAlso"><a
-         * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/update-authorizer.html">AWS
+         * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-authorizer.html">AWS
          * CLI</a></div><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/UpdateAuthorizer">AWS
          * API Reference</a></p>
@@ -3872,10 +3872,9 @@ namespace Model
         virtual void UpdateVpcLinkAsync(const Model::UpdateVpcLinkRequest& request, const UpdateVpcLinkResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void CreateApiKeyAsyncHelper(const Model::CreateApiKeyRequest& request, const CreateApiKeyResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateAuthorizerAsyncHelper(const Model::CreateAuthorizerRequest& request, const CreateAuthorizerResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateBasePathMappingAsyncHelper(const Model::CreateBasePathMappingRequest& request, const CreateBasePathMappingResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -3998,6 +3997,7 @@ namespace Model
         void UpdateVpcLinkAsyncHelper(const Model::UpdateVpcLinkRequest& request, const UpdateVpcLinkResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     SnapshotOptionsStatus();
-    SnapshotOptionsStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    SnapshotOptionsStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SnapshotOptionsStatus(Aws::Utils::Json::JsonView jsonValue);
+    SnapshotOptionsStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * domain.</p>
      */
     inline const SnapshotOptions& GetOptions() const{ return m_options; }
+
+    /**
+     * <p>Specifies the daily snapshot options specified for the Elasticsearch
+     * domain.</p>
+     */
+    inline bool OptionsHasBeenSet() const { return m_optionsHasBeenSet; }
 
     /**
      * <p>Specifies the daily snapshot options specified for the Elasticsearch
@@ -82,6 +89,11 @@ namespace Model
      * <p>Specifies the status of a daily automated snapshot.</p>
      */
     inline const OptionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>Specifies the status of a daily automated snapshot.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>Specifies the status of a daily automated snapshot.</p>

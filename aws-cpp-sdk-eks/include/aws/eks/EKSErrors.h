@@ -50,13 +50,17 @@ enum class EKSErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  CLIENT= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  BAD_REQUEST= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  CLIENT,
   INVALID_PARAMETER,
+  INVALID_REQUEST,
+  NOT_FOUND,
   RESOURCE_IN_USE,
   RESOURCE_LIMIT_EXCEEDED,
   SERVER,

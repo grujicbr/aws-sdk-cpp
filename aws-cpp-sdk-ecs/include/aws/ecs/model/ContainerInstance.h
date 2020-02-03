@@ -23,6 +23,7 @@
 #include <aws/ecs/model/Resource.h>
 #include <aws/ecs/model/Attribute.h>
 #include <aws/ecs/model/Attachment.h>
+#include <aws/ecs/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -32,6 +33,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -49,85 +51,88 @@ namespace Model
   {
   public:
     ContainerInstance();
-    ContainerInstance(const Aws::Utils::Json::JsonValue& jsonValue);
-    ContainerInstance& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ContainerInstance(Aws::Utils::Json::JsonView jsonValue);
+    ContainerInstance& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>The Amazon Resource Name (ARN) of the container instance. The ARN contains
-     * the <code>arn:aws:ecs</code> namespace, followed by the region of the container
+     * the <code>arn:aws:ecs</code> namespace, followed by the Region of the container
      * instance, the AWS account ID of the container instance owner, the
      * <code>container-instance</code> namespace, and then the container instance ID.
      * For example,
-     * <code>arn:aws:ecs:<i>region</i>:<i>aws_account_id</i>:container-instance/<i>container_instance_ID</i>
-     * </code>.</p>
+     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.</p>
      */
     inline const Aws::String& GetContainerInstanceArn() const{ return m_containerInstanceArn; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the container instance. The ARN contains
-     * the <code>arn:aws:ecs</code> namespace, followed by the region of the container
+     * the <code>arn:aws:ecs</code> namespace, followed by the Region of the container
      * instance, the AWS account ID of the container instance owner, the
      * <code>container-instance</code> namespace, and then the container instance ID.
      * For example,
-     * <code>arn:aws:ecs:<i>region</i>:<i>aws_account_id</i>:container-instance/<i>container_instance_ID</i>
-     * </code>.</p>
+     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.</p>
+     */
+    inline bool ContainerInstanceArnHasBeenSet() const { return m_containerInstanceArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the container instance. The ARN contains
+     * the <code>arn:aws:ecs</code> namespace, followed by the Region of the container
+     * instance, the AWS account ID of the container instance owner, the
+     * <code>container-instance</code> namespace, and then the container instance ID.
+     * For example,
+     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.</p>
      */
     inline void SetContainerInstanceArn(const Aws::String& value) { m_containerInstanceArnHasBeenSet = true; m_containerInstanceArn = value; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the container instance. The ARN contains
-     * the <code>arn:aws:ecs</code> namespace, followed by the region of the container
+     * the <code>arn:aws:ecs</code> namespace, followed by the Region of the container
      * instance, the AWS account ID of the container instance owner, the
      * <code>container-instance</code> namespace, and then the container instance ID.
      * For example,
-     * <code>arn:aws:ecs:<i>region</i>:<i>aws_account_id</i>:container-instance/<i>container_instance_ID</i>
-     * </code>.</p>
+     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.</p>
      */
     inline void SetContainerInstanceArn(Aws::String&& value) { m_containerInstanceArnHasBeenSet = true; m_containerInstanceArn = std::move(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the container instance. The ARN contains
-     * the <code>arn:aws:ecs</code> namespace, followed by the region of the container
+     * the <code>arn:aws:ecs</code> namespace, followed by the Region of the container
      * instance, the AWS account ID of the container instance owner, the
      * <code>container-instance</code> namespace, and then the container instance ID.
      * For example,
-     * <code>arn:aws:ecs:<i>region</i>:<i>aws_account_id</i>:container-instance/<i>container_instance_ID</i>
-     * </code>.</p>
+     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.</p>
      */
     inline void SetContainerInstanceArn(const char* value) { m_containerInstanceArnHasBeenSet = true; m_containerInstanceArn.assign(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the container instance. The ARN contains
-     * the <code>arn:aws:ecs</code> namespace, followed by the region of the container
+     * the <code>arn:aws:ecs</code> namespace, followed by the Region of the container
      * instance, the AWS account ID of the container instance owner, the
      * <code>container-instance</code> namespace, and then the container instance ID.
      * For example,
-     * <code>arn:aws:ecs:<i>region</i>:<i>aws_account_id</i>:container-instance/<i>container_instance_ID</i>
-     * </code>.</p>
+     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.</p>
      */
     inline ContainerInstance& WithContainerInstanceArn(const Aws::String& value) { SetContainerInstanceArn(value); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) of the container instance. The ARN contains
-     * the <code>arn:aws:ecs</code> namespace, followed by the region of the container
+     * the <code>arn:aws:ecs</code> namespace, followed by the Region of the container
      * instance, the AWS account ID of the container instance owner, the
      * <code>container-instance</code> namespace, and then the container instance ID.
      * For example,
-     * <code>arn:aws:ecs:<i>region</i>:<i>aws_account_id</i>:container-instance/<i>container_instance_ID</i>
-     * </code>.</p>
+     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.</p>
      */
     inline ContainerInstance& WithContainerInstanceArn(Aws::String&& value) { SetContainerInstanceArn(std::move(value)); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) of the container instance. The ARN contains
-     * the <code>arn:aws:ecs</code> namespace, followed by the region of the container
+     * the <code>arn:aws:ecs</code> namespace, followed by the Region of the container
      * instance, the AWS account ID of the container instance owner, the
      * <code>container-instance</code> namespace, and then the container instance ID.
      * For example,
-     * <code>arn:aws:ecs:<i>region</i>:<i>aws_account_id</i>:container-instance/<i>container_instance_ID</i>
-     * </code>.</p>
+     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.</p>
      */
     inline ContainerInstance& WithContainerInstanceArn(const char* value) { SetContainerInstanceArn(value); return *this;}
 
@@ -136,6 +141,11 @@ namespace Model
      * <p>The EC2 instance ID of the container instance.</p>
      */
     inline const Aws::String& GetEc2InstanceId() const{ return m_ec2InstanceId; }
+
+    /**
+     * <p>The EC2 instance ID of the container instance.</p>
+     */
+    inline bool Ec2InstanceIdHasBeenSet() const { return m_ec2InstanceIdHasBeenSet; }
 
     /**
      * <p>The EC2 instance ID of the container instance.</p>
@@ -169,6 +179,47 @@ namespace Model
 
 
     /**
+     * <p>The capacity provider associated with the container instance.</p>
+     */
+    inline const Aws::String& GetCapacityProviderName() const{ return m_capacityProviderName; }
+
+    /**
+     * <p>The capacity provider associated with the container instance.</p>
+     */
+    inline bool CapacityProviderNameHasBeenSet() const { return m_capacityProviderNameHasBeenSet; }
+
+    /**
+     * <p>The capacity provider associated with the container instance.</p>
+     */
+    inline void SetCapacityProviderName(const Aws::String& value) { m_capacityProviderNameHasBeenSet = true; m_capacityProviderName = value; }
+
+    /**
+     * <p>The capacity provider associated with the container instance.</p>
+     */
+    inline void SetCapacityProviderName(Aws::String&& value) { m_capacityProviderNameHasBeenSet = true; m_capacityProviderName = std::move(value); }
+
+    /**
+     * <p>The capacity provider associated with the container instance.</p>
+     */
+    inline void SetCapacityProviderName(const char* value) { m_capacityProviderNameHasBeenSet = true; m_capacityProviderName.assign(value); }
+
+    /**
+     * <p>The capacity provider associated with the container instance.</p>
+     */
+    inline ContainerInstance& WithCapacityProviderName(const Aws::String& value) { SetCapacityProviderName(value); return *this;}
+
+    /**
+     * <p>The capacity provider associated with the container instance.</p>
+     */
+    inline ContainerInstance& WithCapacityProviderName(Aws::String&& value) { SetCapacityProviderName(std::move(value)); return *this;}
+
+    /**
+     * <p>The capacity provider associated with the container instance.</p>
+     */
+    inline ContainerInstance& WithCapacityProviderName(const char* value) { SetCapacityProviderName(value); return *this;}
+
+
+    /**
      * <p>The version counter for the container instance. Every time a container
      * instance experiences a change that triggers a CloudWatch event, the version
      * counter is incremented. If you are replicating your Amazon ECS container
@@ -178,6 +229,17 @@ namespace Model
      * object) to verify that the version in your event stream is current.</p>
      */
     inline long long GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version counter for the container instance. Every time a container
+     * instance experiences a change that triggers a CloudWatch event, the version
+     * counter is incremented. If you are replicating your Amazon ECS container
+     * instance state with CloudWatch Events, you can compare the version of a
+     * container instance reported by the Amazon ECS APIs with the version reported in
+     * CloudWatch Events for the container instance (inside the <code>detail</code>
+     * object) to verify that the version in your event stream is current.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version counter for the container instance. Every time a container
@@ -207,6 +269,12 @@ namespace Model
      * running on the container instance.</p>
      */
     inline const VersionInfo& GetVersionInfo() const{ return m_versionInfo; }
+
+    /**
+     * <p>The version information for the Amazon ECS container agent and Docker daemon
+     * running on the container instance.</p>
+     */
+    inline bool VersionInfoHasBeenSet() const { return m_versionInfoHasBeenSet; }
 
     /**
      * <p>The version information for the Amazon ECS container agent and Docker daemon
@@ -243,6 +311,17 @@ namespace Model
      * port that is not specified here is available for new tasks.</p>
      */
     inline const Aws::Vector<Resource>& GetRemainingResources() const{ return m_remainingResources; }
+
+    /**
+     * <p>For CPU and memory resource types, this parameter describes the remaining CPU
+     * and memory that has not already been allocated to tasks and is therefore
+     * available for new tasks. For port resource types, this parameter describes the
+     * ports that were reserved by the Amazon ECS container agent (at instance
+     * registration time) and any task containers that have reserved port mappings on
+     * the host (with the <code>host</code> or <code>bridge</code> network mode). Any
+     * port that is not specified here is available for new tasks.</p>
+     */
+    inline bool RemainingResourcesHasBeenSet() const { return m_remainingResourcesHasBeenSet; }
 
     /**
      * <p>For CPU and memory resource types, this parameter describes the remaining CPU
@@ -314,7 +393,7 @@ namespace Model
     /**
      * <p>For CPU and memory resource types, this parameter describes the amount of
      * each resource that was available on the container instance when the container
-     * agent registered it with Amazon ECS; this value represents the total amount of
+     * agent registered it with Amazon ECS. This value represents the total amount of
      * CPU and memory that can be allocated on this container instance to tasks. For
      * port resource types, this parameter describes the ports that were reserved by
      * the Amazon ECS container agent when it registered the container instance with
@@ -325,7 +404,18 @@ namespace Model
     /**
      * <p>For CPU and memory resource types, this parameter describes the amount of
      * each resource that was available on the container instance when the container
-     * agent registered it with Amazon ECS; this value represents the total amount of
+     * agent registered it with Amazon ECS. This value represents the total amount of
+     * CPU and memory that can be allocated on this container instance to tasks. For
+     * port resource types, this parameter describes the ports that were reserved by
+     * the Amazon ECS container agent when it registered the container instance with
+     * Amazon ECS.</p>
+     */
+    inline bool RegisteredResourcesHasBeenSet() const { return m_registeredResourcesHasBeenSet; }
+
+    /**
+     * <p>For CPU and memory resource types, this parameter describes the amount of
+     * each resource that was available on the container instance when the container
+     * agent registered it with Amazon ECS. This value represents the total amount of
      * CPU and memory that can be allocated on this container instance to tasks. For
      * port resource types, this parameter describes the ports that were reserved by
      * the Amazon ECS container agent when it registered the container instance with
@@ -336,7 +426,7 @@ namespace Model
     /**
      * <p>For CPU and memory resource types, this parameter describes the amount of
      * each resource that was available on the container instance when the container
-     * agent registered it with Amazon ECS; this value represents the total amount of
+     * agent registered it with Amazon ECS. This value represents the total amount of
      * CPU and memory that can be allocated on this container instance to tasks. For
      * port resource types, this parameter describes the ports that were reserved by
      * the Amazon ECS container agent when it registered the container instance with
@@ -347,7 +437,7 @@ namespace Model
     /**
      * <p>For CPU and memory resource types, this parameter describes the amount of
      * each resource that was available on the container instance when the container
-     * agent registered it with Amazon ECS; this value represents the total amount of
+     * agent registered it with Amazon ECS. This value represents the total amount of
      * CPU and memory that can be allocated on this container instance to tasks. For
      * port resource types, this parameter describes the ports that were reserved by
      * the Amazon ECS container agent when it registered the container instance with
@@ -358,7 +448,7 @@ namespace Model
     /**
      * <p>For CPU and memory resource types, this parameter describes the amount of
      * each resource that was available on the container instance when the container
-     * agent registered it with Amazon ECS; this value represents the total amount of
+     * agent registered it with Amazon ECS. This value represents the total amount of
      * CPU and memory that can be allocated on this container instance to tasks. For
      * port resource types, this parameter describes the ports that were reserved by
      * the Amazon ECS container agent when it registered the container instance with
@@ -369,7 +459,7 @@ namespace Model
     /**
      * <p>For CPU and memory resource types, this parameter describes the amount of
      * each resource that was available on the container instance when the container
-     * agent registered it with Amazon ECS; this value represents the total amount of
+     * agent registered it with Amazon ECS. This value represents the total amount of
      * CPU and memory that can be allocated on this container instance to tasks. For
      * port resource types, this parameter describes the ports that were reserved by
      * the Amazon ECS container agent when it registered the container instance with
@@ -380,7 +470,7 @@ namespace Model
     /**
      * <p>For CPU and memory resource types, this parameter describes the amount of
      * each resource that was available on the container instance when the container
-     * agent registered it with Amazon ECS; this value represents the total amount of
+     * agent registered it with Amazon ECS. This value represents the total amount of
      * CPU and memory that can be allocated on this container instance to tasks. For
      * port resource types, this parameter describes the ports that were reserved by
      * the Amazon ECS container agent when it registered the container instance with
@@ -391,12 +481,23 @@ namespace Model
 
     /**
      * <p>The status of the container instance. The valid values are
-     * <code>ACTIVE</code>, <code>INACTIVE</code>, or <code>DRAINING</code>.
-     * <code>ACTIVE</code> indicates that the container instance can accept tasks.
-     * <code>DRAINING</code> indicates that new tasks are not placed on the container
-     * instance and any service tasks running on the container instance are removed if
-     * possible. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
+     * <code>REGISTERING</code>, <code>REGISTRATION_FAILED</code>, <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, <code>DEREGISTERING</code>, or <code>DRAINING</code>.</p>
+     * <p>If your account has opted in to the <code>awsvpcTrunking</code> account
+     * setting, then any newly registered container instance will transition to a
+     * <code>REGISTERING</code> status while the trunk elastic network interface is
+     * provisioned for the instance. If the registration fails, the instance will
+     * transition to a <code>REGISTRATION_FAILED</code> status. You can describe the
+     * container instance and see the reason for failure in the
+     * <code>statusReason</code> parameter. Once the container instance is terminated,
+     * the instance transitions to a <code>DEREGISTERING</code> status while the trunk
+     * elastic network interface is deprovisioned. The instance then transitions to an
+     * <code>INACTIVE</code> status.</p> <p>The <code>ACTIVE</code> status indicates
+     * that the container instance can accept tasks. The <code>DRAINING</code>
+     * indicates that new tasks are not placed on the container instance and any
+     * service tasks running on the container instance are removed if possible. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
      * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -404,12 +505,47 @@ namespace Model
 
     /**
      * <p>The status of the container instance. The valid values are
-     * <code>ACTIVE</code>, <code>INACTIVE</code>, or <code>DRAINING</code>.
-     * <code>ACTIVE</code> indicates that the container instance can accept tasks.
-     * <code>DRAINING</code> indicates that new tasks are not placed on the container
-     * instance and any service tasks running on the container instance are removed if
-     * possible. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
+     * <code>REGISTERING</code>, <code>REGISTRATION_FAILED</code>, <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, <code>DEREGISTERING</code>, or <code>DRAINING</code>.</p>
+     * <p>If your account has opted in to the <code>awsvpcTrunking</code> account
+     * setting, then any newly registered container instance will transition to a
+     * <code>REGISTERING</code> status while the trunk elastic network interface is
+     * provisioned for the instance. If the registration fails, the instance will
+     * transition to a <code>REGISTRATION_FAILED</code> status. You can describe the
+     * container instance and see the reason for failure in the
+     * <code>statusReason</code> parameter. Once the container instance is terminated,
+     * the instance transitions to a <code>DEREGISTERING</code> status while the trunk
+     * elastic network interface is deprovisioned. The instance then transitions to an
+     * <code>INACTIVE</code> status.</p> <p>The <code>ACTIVE</code> status indicates
+     * that the container instance can accept tasks. The <code>DRAINING</code>
+     * indicates that new tasks are not placed on the container instance and any
+     * service tasks running on the container instance are removed if possible. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
+     * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer
+     * Guide</i>.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the container instance. The valid values are
+     * <code>REGISTERING</code>, <code>REGISTRATION_FAILED</code>, <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, <code>DEREGISTERING</code>, or <code>DRAINING</code>.</p>
+     * <p>If your account has opted in to the <code>awsvpcTrunking</code> account
+     * setting, then any newly registered container instance will transition to a
+     * <code>REGISTERING</code> status while the trunk elastic network interface is
+     * provisioned for the instance. If the registration fails, the instance will
+     * transition to a <code>REGISTRATION_FAILED</code> status. You can describe the
+     * container instance and see the reason for failure in the
+     * <code>statusReason</code> parameter. Once the container instance is terminated,
+     * the instance transitions to a <code>DEREGISTERING</code> status while the trunk
+     * elastic network interface is deprovisioned. The instance then transitions to an
+     * <code>INACTIVE</code> status.</p> <p>The <code>ACTIVE</code> status indicates
+     * that the container instance can accept tasks. The <code>DRAINING</code>
+     * indicates that new tasks are not placed on the container instance and any
+     * service tasks running on the container instance are removed if possible. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
      * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -417,12 +553,23 @@ namespace Model
 
     /**
      * <p>The status of the container instance. The valid values are
-     * <code>ACTIVE</code>, <code>INACTIVE</code>, or <code>DRAINING</code>.
-     * <code>ACTIVE</code> indicates that the container instance can accept tasks.
-     * <code>DRAINING</code> indicates that new tasks are not placed on the container
-     * instance and any service tasks running on the container instance are removed if
-     * possible. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
+     * <code>REGISTERING</code>, <code>REGISTRATION_FAILED</code>, <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, <code>DEREGISTERING</code>, or <code>DRAINING</code>.</p>
+     * <p>If your account has opted in to the <code>awsvpcTrunking</code> account
+     * setting, then any newly registered container instance will transition to a
+     * <code>REGISTERING</code> status while the trunk elastic network interface is
+     * provisioned for the instance. If the registration fails, the instance will
+     * transition to a <code>REGISTRATION_FAILED</code> status. You can describe the
+     * container instance and see the reason for failure in the
+     * <code>statusReason</code> parameter. Once the container instance is terminated,
+     * the instance transitions to a <code>DEREGISTERING</code> status while the trunk
+     * elastic network interface is deprovisioned. The instance then transitions to an
+     * <code>INACTIVE</code> status.</p> <p>The <code>ACTIVE</code> status indicates
+     * that the container instance can accept tasks. The <code>DRAINING</code>
+     * indicates that new tasks are not placed on the container instance and any
+     * service tasks running on the container instance are removed if possible. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
      * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -430,12 +577,23 @@ namespace Model
 
     /**
      * <p>The status of the container instance. The valid values are
-     * <code>ACTIVE</code>, <code>INACTIVE</code>, or <code>DRAINING</code>.
-     * <code>ACTIVE</code> indicates that the container instance can accept tasks.
-     * <code>DRAINING</code> indicates that new tasks are not placed on the container
-     * instance and any service tasks running on the container instance are removed if
-     * possible. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
+     * <code>REGISTERING</code>, <code>REGISTRATION_FAILED</code>, <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, <code>DEREGISTERING</code>, or <code>DRAINING</code>.</p>
+     * <p>If your account has opted in to the <code>awsvpcTrunking</code> account
+     * setting, then any newly registered container instance will transition to a
+     * <code>REGISTERING</code> status while the trunk elastic network interface is
+     * provisioned for the instance. If the registration fails, the instance will
+     * transition to a <code>REGISTRATION_FAILED</code> status. You can describe the
+     * container instance and see the reason for failure in the
+     * <code>statusReason</code> parameter. Once the container instance is terminated,
+     * the instance transitions to a <code>DEREGISTERING</code> status while the trunk
+     * elastic network interface is deprovisioned. The instance then transitions to an
+     * <code>INACTIVE</code> status.</p> <p>The <code>ACTIVE</code> status indicates
+     * that the container instance can accept tasks. The <code>DRAINING</code>
+     * indicates that new tasks are not placed on the container instance and any
+     * service tasks running on the container instance are removed if possible. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
      * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -443,12 +601,23 @@ namespace Model
 
     /**
      * <p>The status of the container instance. The valid values are
-     * <code>ACTIVE</code>, <code>INACTIVE</code>, or <code>DRAINING</code>.
-     * <code>ACTIVE</code> indicates that the container instance can accept tasks.
-     * <code>DRAINING</code> indicates that new tasks are not placed on the container
-     * instance and any service tasks running on the container instance are removed if
-     * possible. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
+     * <code>REGISTERING</code>, <code>REGISTRATION_FAILED</code>, <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, <code>DEREGISTERING</code>, or <code>DRAINING</code>.</p>
+     * <p>If your account has opted in to the <code>awsvpcTrunking</code> account
+     * setting, then any newly registered container instance will transition to a
+     * <code>REGISTERING</code> status while the trunk elastic network interface is
+     * provisioned for the instance. If the registration fails, the instance will
+     * transition to a <code>REGISTRATION_FAILED</code> status. You can describe the
+     * container instance and see the reason for failure in the
+     * <code>statusReason</code> parameter. Once the container instance is terminated,
+     * the instance transitions to a <code>DEREGISTERING</code> status while the trunk
+     * elastic network interface is deprovisioned. The instance then transitions to an
+     * <code>INACTIVE</code> status.</p> <p>The <code>ACTIVE</code> status indicates
+     * that the container instance can accept tasks. The <code>DRAINING</code>
+     * indicates that new tasks are not placed on the container instance and any
+     * service tasks running on the container instance are removed if possible. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
      * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -456,12 +625,23 @@ namespace Model
 
     /**
      * <p>The status of the container instance. The valid values are
-     * <code>ACTIVE</code>, <code>INACTIVE</code>, or <code>DRAINING</code>.
-     * <code>ACTIVE</code> indicates that the container instance can accept tasks.
-     * <code>DRAINING</code> indicates that new tasks are not placed on the container
-     * instance and any service tasks running on the container instance are removed if
-     * possible. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
+     * <code>REGISTERING</code>, <code>REGISTRATION_FAILED</code>, <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, <code>DEREGISTERING</code>, or <code>DRAINING</code>.</p>
+     * <p>If your account has opted in to the <code>awsvpcTrunking</code> account
+     * setting, then any newly registered container instance will transition to a
+     * <code>REGISTERING</code> status while the trunk elastic network interface is
+     * provisioned for the instance. If the registration fails, the instance will
+     * transition to a <code>REGISTRATION_FAILED</code> status. You can describe the
+     * container instance and see the reason for failure in the
+     * <code>statusReason</code> parameter. Once the container instance is terminated,
+     * the instance transitions to a <code>DEREGISTERING</code> status while the trunk
+     * elastic network interface is deprovisioned. The instance then transitions to an
+     * <code>INACTIVE</code> status.</p> <p>The <code>ACTIVE</code> status indicates
+     * that the container instance can accept tasks. The <code>DRAINING</code>
+     * indicates that new tasks are not placed on the container instance and any
+     * service tasks running on the container instance are removed if possible. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
      * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -469,12 +649,23 @@ namespace Model
 
     /**
      * <p>The status of the container instance. The valid values are
-     * <code>ACTIVE</code>, <code>INACTIVE</code>, or <code>DRAINING</code>.
-     * <code>ACTIVE</code> indicates that the container instance can accept tasks.
-     * <code>DRAINING</code> indicates that new tasks are not placed on the container
-     * instance and any service tasks running on the container instance are removed if
-     * possible. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
+     * <code>REGISTERING</code>, <code>REGISTRATION_FAILED</code>, <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, <code>DEREGISTERING</code>, or <code>DRAINING</code>.</p>
+     * <p>If your account has opted in to the <code>awsvpcTrunking</code> account
+     * setting, then any newly registered container instance will transition to a
+     * <code>REGISTERING</code> status while the trunk elastic network interface is
+     * provisioned for the instance. If the registration fails, the instance will
+     * transition to a <code>REGISTRATION_FAILED</code> status. You can describe the
+     * container instance and see the reason for failure in the
+     * <code>statusReason</code> parameter. Once the container instance is terminated,
+     * the instance transitions to a <code>DEREGISTERING</code> status while the trunk
+     * elastic network interface is deprovisioned. The instance then transitions to an
+     * <code>INACTIVE</code> status.</p> <p>The <code>ACTIVE</code> status indicates
+     * that the container instance can accept tasks. The <code>DRAINING</code>
+     * indicates that new tasks are not placed on the container instance and any
+     * service tasks running on the container instance are removed if possible. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
      * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer
      * Guide</i>.</p>
      */
@@ -482,9 +673,50 @@ namespace Model
 
 
     /**
+     * <p>The reason that the container instance reached its current status.</p>
+     */
+    inline const Aws::String& GetStatusReason() const{ return m_statusReason; }
+
+    /**
+     * <p>The reason that the container instance reached its current status.</p>
+     */
+    inline bool StatusReasonHasBeenSet() const { return m_statusReasonHasBeenSet; }
+
+    /**
+     * <p>The reason that the container instance reached its current status.</p>
+     */
+    inline void SetStatusReason(const Aws::String& value) { m_statusReasonHasBeenSet = true; m_statusReason = value; }
+
+    /**
+     * <p>The reason that the container instance reached its current status.</p>
+     */
+    inline void SetStatusReason(Aws::String&& value) { m_statusReasonHasBeenSet = true; m_statusReason = std::move(value); }
+
+    /**
+     * <p>The reason that the container instance reached its current status.</p>
+     */
+    inline void SetStatusReason(const char* value) { m_statusReasonHasBeenSet = true; m_statusReason.assign(value); }
+
+    /**
+     * <p>The reason that the container instance reached its current status.</p>
+     */
+    inline ContainerInstance& WithStatusReason(const Aws::String& value) { SetStatusReason(value); return *this;}
+
+    /**
+     * <p>The reason that the container instance reached its current status.</p>
+     */
+    inline ContainerInstance& WithStatusReason(Aws::String&& value) { SetStatusReason(std::move(value)); return *this;}
+
+    /**
+     * <p>The reason that the container instance reached its current status.</p>
+     */
+    inline ContainerInstance& WithStatusReason(const char* value) { SetStatusReason(value); return *this;}
+
+
+    /**
      * <p>This parameter returns <code>true</code> if the agent is connected to Amazon
      * ECS. Registered instances with an agent that may be unhealthy or stopped return
-     * <code>false</code>. Instances without a connected agent can't accept placement
+     * <code>false</code>. Only instances connected to an agent can accept placement
      * requests.</p>
      */
     inline bool GetAgentConnected() const{ return m_agentConnected; }
@@ -492,7 +724,15 @@ namespace Model
     /**
      * <p>This parameter returns <code>true</code> if the agent is connected to Amazon
      * ECS. Registered instances with an agent that may be unhealthy or stopped return
-     * <code>false</code>. Instances without a connected agent can't accept placement
+     * <code>false</code>. Only instances connected to an agent can accept placement
+     * requests.</p>
+     */
+    inline bool AgentConnectedHasBeenSet() const { return m_agentConnectedHasBeenSet; }
+
+    /**
+     * <p>This parameter returns <code>true</code> if the agent is connected to Amazon
+     * ECS. Registered instances with an agent that may be unhealthy or stopped return
+     * <code>false</code>. Only instances connected to an agent can accept placement
      * requests.</p>
      */
     inline void SetAgentConnected(bool value) { m_agentConnectedHasBeenSet = true; m_agentConnected = value; }
@@ -500,7 +740,7 @@ namespace Model
     /**
      * <p>This parameter returns <code>true</code> if the agent is connected to Amazon
      * ECS. Registered instances with an agent that may be unhealthy or stopped return
-     * <code>false</code>. Instances without a connected agent can't accept placement
+     * <code>false</code>. Only instances connected to an agent can accept placement
      * requests.</p>
      */
     inline ContainerInstance& WithAgentConnected(bool value) { SetAgentConnected(value); return *this;}
@@ -511,6 +751,12 @@ namespace Model
      * <code>RUNNING</code> status.</p>
      */
     inline int GetRunningTasksCount() const{ return m_runningTasksCount; }
+
+    /**
+     * <p>The number of tasks on the container instance that are in the
+     * <code>RUNNING</code> status.</p>
+     */
+    inline bool RunningTasksCountHasBeenSet() const { return m_runningTasksCountHasBeenSet; }
 
     /**
      * <p>The number of tasks on the container instance that are in the
@@ -535,6 +781,12 @@ namespace Model
      * <p>The number of tasks on the container instance that are in the
      * <code>PENDING</code> status.</p>
      */
+    inline bool PendingTasksCountHasBeenSet() const { return m_pendingTasksCountHasBeenSet; }
+
+    /**
+     * <p>The number of tasks on the container instance that are in the
+     * <code>PENDING</code> status.</p>
+     */
     inline void SetPendingTasksCount(int value) { m_pendingTasksCountHasBeenSet = true; m_pendingTasksCount = value; }
 
     /**
@@ -549,6 +801,12 @@ namespace Model
      * requested, this value is <code>NULL</code>.</p>
      */
     inline const AgentUpdateStatus& GetAgentUpdateStatus() const{ return m_agentUpdateStatus; }
+
+    /**
+     * <p>The status of the most recent agent update. If an update has never been
+     * requested, this value is <code>NULL</code>.</p>
+     */
+    inline bool AgentUpdateStatusHasBeenSet() const { return m_agentUpdateStatusHasBeenSet; }
 
     /**
      * <p>The status of the most recent agent update. If an update has never been
@@ -581,6 +839,13 @@ namespace Model
      * <a>PutAttributes</a> operation.</p>
      */
     inline const Aws::Vector<Attribute>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The attributes set for the container instance, either by the Amazon ECS
+     * container agent at instance registration or manually with the
+     * <a>PutAttributes</a> operation.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The attributes set for the container instance, either by the Amazon ECS
@@ -626,65 +891,244 @@ namespace Model
 
 
     /**
-     * <p>The Unix time stamp for when the container instance was registered.</p>
+     * <p>The Unix timestamp for when the container instance was registered.</p>
      */
     inline const Aws::Utils::DateTime& GetRegisteredAt() const{ return m_registeredAt; }
 
     /**
-     * <p>The Unix time stamp for when the container instance was registered.</p>
+     * <p>The Unix timestamp for when the container instance was registered.</p>
+     */
+    inline bool RegisteredAtHasBeenSet() const { return m_registeredAtHasBeenSet; }
+
+    /**
+     * <p>The Unix timestamp for when the container instance was registered.</p>
      */
     inline void SetRegisteredAt(const Aws::Utils::DateTime& value) { m_registeredAtHasBeenSet = true; m_registeredAt = value; }
 
     /**
-     * <p>The Unix time stamp for when the container instance was registered.</p>
+     * <p>The Unix timestamp for when the container instance was registered.</p>
      */
     inline void SetRegisteredAt(Aws::Utils::DateTime&& value) { m_registeredAtHasBeenSet = true; m_registeredAt = std::move(value); }
 
     /**
-     * <p>The Unix time stamp for when the container instance was registered.</p>
+     * <p>The Unix timestamp for when the container instance was registered.</p>
      */
     inline ContainerInstance& WithRegisteredAt(const Aws::Utils::DateTime& value) { SetRegisteredAt(value); return *this;}
 
     /**
-     * <p>The Unix time stamp for when the container instance was registered.</p>
+     * <p>The Unix timestamp for when the container instance was registered.</p>
      */
     inline ContainerInstance& WithRegisteredAt(Aws::Utils::DateTime&& value) { SetRegisteredAt(std::move(value)); return *this;}
 
 
     /**
-     * <p>The Elastic Network Interfaces associated with the container instance.</p>
+     * <p>The resources attached to a container instance, such as elastic network
+     * interfaces.</p>
      */
     inline const Aws::Vector<Attachment>& GetAttachments() const{ return m_attachments; }
 
     /**
-     * <p>The Elastic Network Interfaces associated with the container instance.</p>
+     * <p>The resources attached to a container instance, such as elastic network
+     * interfaces.</p>
+     */
+    inline bool AttachmentsHasBeenSet() const { return m_attachmentsHasBeenSet; }
+
+    /**
+     * <p>The resources attached to a container instance, such as elastic network
+     * interfaces.</p>
      */
     inline void SetAttachments(const Aws::Vector<Attachment>& value) { m_attachmentsHasBeenSet = true; m_attachments = value; }
 
     /**
-     * <p>The Elastic Network Interfaces associated with the container instance.</p>
+     * <p>The resources attached to a container instance, such as elastic network
+     * interfaces.</p>
      */
     inline void SetAttachments(Aws::Vector<Attachment>&& value) { m_attachmentsHasBeenSet = true; m_attachments = std::move(value); }
 
     /**
-     * <p>The Elastic Network Interfaces associated with the container instance.</p>
+     * <p>The resources attached to a container instance, such as elastic network
+     * interfaces.</p>
      */
     inline ContainerInstance& WithAttachments(const Aws::Vector<Attachment>& value) { SetAttachments(value); return *this;}
 
     /**
-     * <p>The Elastic Network Interfaces associated with the container instance.</p>
+     * <p>The resources attached to a container instance, such as elastic network
+     * interfaces.</p>
      */
     inline ContainerInstance& WithAttachments(Aws::Vector<Attachment>&& value) { SetAttachments(std::move(value)); return *this;}
 
     /**
-     * <p>The Elastic Network Interfaces associated with the container instance.</p>
+     * <p>The resources attached to a container instance, such as elastic network
+     * interfaces.</p>
      */
     inline ContainerInstance& AddAttachments(const Attachment& value) { m_attachmentsHasBeenSet = true; m_attachments.push_back(value); return *this; }
 
     /**
-     * <p>The Elastic Network Interfaces associated with the container instance.</p>
+     * <p>The resources attached to a container instance, such as elastic network
+     * interfaces.</p>
      */
     inline ContainerInstance& AddAttachments(Attachment&& value) { m_attachmentsHasBeenSet = true; m_attachments.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>The metadata that you apply to the container instance to help you categorize
+     * and organize them. Each tag consists of a key and an optional value, both of
+     * which you define.</p> <p>The following basic restrictions apply to tags:</p>
+     * <ul> <li> <p>Maximum number of tags per resource - 50</p> </li> <li> <p>For each
+     * resource, each tag key must be unique, and each tag key can have only one
+     * value.</p> </li> <li> <p>Maximum key length - 128 Unicode characters in
+     * UTF-8</p> </li> <li> <p>Maximum value length - 256 Unicode characters in
+     * UTF-8</p> </li> <li> <p>If your tagging schema is used across multiple services
+     * and resources, remember that other services may have restrictions on allowed
+     * characters. Generally allowed characters are: letters, numbers, and spaces
+     * representable in UTF-8, and the following characters: + - = . _ : / @.</p> </li>
+     * <li> <p>Tag keys and values are case-sensitive.</p> </li> <li> <p>Do not use
+     * <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of
+     * such as a prefix for either keys or values as it is reserved for AWS use. You
+     * cannot edit or delete tag keys or values with this prefix. Tags with this prefix
+     * do not count against your tags per resource limit.</p> </li> </ul>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The metadata that you apply to the container instance to help you categorize
+     * and organize them. Each tag consists of a key and an optional value, both of
+     * which you define.</p> <p>The following basic restrictions apply to tags:</p>
+     * <ul> <li> <p>Maximum number of tags per resource - 50</p> </li> <li> <p>For each
+     * resource, each tag key must be unique, and each tag key can have only one
+     * value.</p> </li> <li> <p>Maximum key length - 128 Unicode characters in
+     * UTF-8</p> </li> <li> <p>Maximum value length - 256 Unicode characters in
+     * UTF-8</p> </li> <li> <p>If your tagging schema is used across multiple services
+     * and resources, remember that other services may have restrictions on allowed
+     * characters. Generally allowed characters are: letters, numbers, and spaces
+     * representable in UTF-8, and the following characters: + - = . _ : / @.</p> </li>
+     * <li> <p>Tag keys and values are case-sensitive.</p> </li> <li> <p>Do not use
+     * <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of
+     * such as a prefix for either keys or values as it is reserved for AWS use. You
+     * cannot edit or delete tag keys or values with this prefix. Tags with this prefix
+     * do not count against your tags per resource limit.</p> </li> </ul>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The metadata that you apply to the container instance to help you categorize
+     * and organize them. Each tag consists of a key and an optional value, both of
+     * which you define.</p> <p>The following basic restrictions apply to tags:</p>
+     * <ul> <li> <p>Maximum number of tags per resource - 50</p> </li> <li> <p>For each
+     * resource, each tag key must be unique, and each tag key can have only one
+     * value.</p> </li> <li> <p>Maximum key length - 128 Unicode characters in
+     * UTF-8</p> </li> <li> <p>Maximum value length - 256 Unicode characters in
+     * UTF-8</p> </li> <li> <p>If your tagging schema is used across multiple services
+     * and resources, remember that other services may have restrictions on allowed
+     * characters. Generally allowed characters are: letters, numbers, and spaces
+     * representable in UTF-8, and the following characters: + - = . _ : / @.</p> </li>
+     * <li> <p>Tag keys and values are case-sensitive.</p> </li> <li> <p>Do not use
+     * <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of
+     * such as a prefix for either keys or values as it is reserved for AWS use. You
+     * cannot edit or delete tag keys or values with this prefix. Tags with this prefix
+     * do not count against your tags per resource limit.</p> </li> </ul>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The metadata that you apply to the container instance to help you categorize
+     * and organize them. Each tag consists of a key and an optional value, both of
+     * which you define.</p> <p>The following basic restrictions apply to tags:</p>
+     * <ul> <li> <p>Maximum number of tags per resource - 50</p> </li> <li> <p>For each
+     * resource, each tag key must be unique, and each tag key can have only one
+     * value.</p> </li> <li> <p>Maximum key length - 128 Unicode characters in
+     * UTF-8</p> </li> <li> <p>Maximum value length - 256 Unicode characters in
+     * UTF-8</p> </li> <li> <p>If your tagging schema is used across multiple services
+     * and resources, remember that other services may have restrictions on allowed
+     * characters. Generally allowed characters are: letters, numbers, and spaces
+     * representable in UTF-8, and the following characters: + - = . _ : / @.</p> </li>
+     * <li> <p>Tag keys and values are case-sensitive.</p> </li> <li> <p>Do not use
+     * <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of
+     * such as a prefix for either keys or values as it is reserved for AWS use. You
+     * cannot edit or delete tag keys or values with this prefix. Tags with this prefix
+     * do not count against your tags per resource limit.</p> </li> </ul>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The metadata that you apply to the container instance to help you categorize
+     * and organize them. Each tag consists of a key and an optional value, both of
+     * which you define.</p> <p>The following basic restrictions apply to tags:</p>
+     * <ul> <li> <p>Maximum number of tags per resource - 50</p> </li> <li> <p>For each
+     * resource, each tag key must be unique, and each tag key can have only one
+     * value.</p> </li> <li> <p>Maximum key length - 128 Unicode characters in
+     * UTF-8</p> </li> <li> <p>Maximum value length - 256 Unicode characters in
+     * UTF-8</p> </li> <li> <p>If your tagging schema is used across multiple services
+     * and resources, remember that other services may have restrictions on allowed
+     * characters. Generally allowed characters are: letters, numbers, and spaces
+     * representable in UTF-8, and the following characters: + - = . _ : / @.</p> </li>
+     * <li> <p>Tag keys and values are case-sensitive.</p> </li> <li> <p>Do not use
+     * <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of
+     * such as a prefix for either keys or values as it is reserved for AWS use. You
+     * cannot edit or delete tag keys or values with this prefix. Tags with this prefix
+     * do not count against your tags per resource limit.</p> </li> </ul>
+     */
+    inline ContainerInstance& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The metadata that you apply to the container instance to help you categorize
+     * and organize them. Each tag consists of a key and an optional value, both of
+     * which you define.</p> <p>The following basic restrictions apply to tags:</p>
+     * <ul> <li> <p>Maximum number of tags per resource - 50</p> </li> <li> <p>For each
+     * resource, each tag key must be unique, and each tag key can have only one
+     * value.</p> </li> <li> <p>Maximum key length - 128 Unicode characters in
+     * UTF-8</p> </li> <li> <p>Maximum value length - 256 Unicode characters in
+     * UTF-8</p> </li> <li> <p>If your tagging schema is used across multiple services
+     * and resources, remember that other services may have restrictions on allowed
+     * characters. Generally allowed characters are: letters, numbers, and spaces
+     * representable in UTF-8, and the following characters: + - = . _ : / @.</p> </li>
+     * <li> <p>Tag keys and values are case-sensitive.</p> </li> <li> <p>Do not use
+     * <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of
+     * such as a prefix for either keys or values as it is reserved for AWS use. You
+     * cannot edit or delete tag keys or values with this prefix. Tags with this prefix
+     * do not count against your tags per resource limit.</p> </li> </ul>
+     */
+    inline ContainerInstance& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The metadata that you apply to the container instance to help you categorize
+     * and organize them. Each tag consists of a key and an optional value, both of
+     * which you define.</p> <p>The following basic restrictions apply to tags:</p>
+     * <ul> <li> <p>Maximum number of tags per resource - 50</p> </li> <li> <p>For each
+     * resource, each tag key must be unique, and each tag key can have only one
+     * value.</p> </li> <li> <p>Maximum key length - 128 Unicode characters in
+     * UTF-8</p> </li> <li> <p>Maximum value length - 256 Unicode characters in
+     * UTF-8</p> </li> <li> <p>If your tagging schema is used across multiple services
+     * and resources, remember that other services may have restrictions on allowed
+     * characters. Generally allowed characters are: letters, numbers, and spaces
+     * representable in UTF-8, and the following characters: + - = . _ : / @.</p> </li>
+     * <li> <p>Tag keys and values are case-sensitive.</p> </li> <li> <p>Do not use
+     * <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of
+     * such as a prefix for either keys or values as it is reserved for AWS use. You
+     * cannot edit or delete tag keys or values with this prefix. Tags with this prefix
+     * do not count against your tags per resource limit.</p> </li> </ul>
+     */
+    inline ContainerInstance& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>The metadata that you apply to the container instance to help you categorize
+     * and organize them. Each tag consists of a key and an optional value, both of
+     * which you define.</p> <p>The following basic restrictions apply to tags:</p>
+     * <ul> <li> <p>Maximum number of tags per resource - 50</p> </li> <li> <p>For each
+     * resource, each tag key must be unique, and each tag key can have only one
+     * value.</p> </li> <li> <p>Maximum key length - 128 Unicode characters in
+     * UTF-8</p> </li> <li> <p>Maximum value length - 256 Unicode characters in
+     * UTF-8</p> </li> <li> <p>If your tagging schema is used across multiple services
+     * and resources, remember that other services may have restrictions on allowed
+     * characters. Generally allowed characters are: letters, numbers, and spaces
+     * representable in UTF-8, and the following characters: + - = . _ : / @.</p> </li>
+     * <li> <p>Tag keys and values are case-sensitive.</p> </li> <li> <p>Do not use
+     * <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of
+     * such as a prefix for either keys or values as it is reserved for AWS use. You
+     * cannot edit or delete tag keys or values with this prefix. Tags with this prefix
+     * do not count against your tags per resource limit.</p> </li> </ul>
+     */
+    inline ContainerInstance& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
 
   private:
 
@@ -693,6 +1137,9 @@ namespace Model
 
     Aws::String m_ec2InstanceId;
     bool m_ec2InstanceIdHasBeenSet;
+
+    Aws::String m_capacityProviderName;
+    bool m_capacityProviderNameHasBeenSet;
 
     long long m_version;
     bool m_versionHasBeenSet;
@@ -708,6 +1155,9 @@ namespace Model
 
     Aws::String m_status;
     bool m_statusHasBeenSet;
+
+    Aws::String m_statusReason;
+    bool m_statusReasonHasBeenSet;
 
     bool m_agentConnected;
     bool m_agentConnectedHasBeenSet;
@@ -729,6 +1179,9 @@ namespace Model
 
     Aws::Vector<Attachment> m_attachments;
     bool m_attachmentsHasBeenSet;
+
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
   };
 
 } // namespace Model

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     StepConfig();
-    StepConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    StepConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StepConfig(Aws::Utils::Json::JsonView jsonValue);
+    StepConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the step.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the step.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the step.</p>
@@ -85,27 +91,44 @@ namespace Model
 
 
     /**
-     * <p>The action to take if the step fails.</p>
+     * <p>The action to take when the cluster step fails. Possible values are
+     * TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is provided
+     * for backward compatibility. We recommend using TERMINATE_CLUSTER instead.</p>
      */
     inline const ActionOnFailure& GetActionOnFailure() const{ return m_actionOnFailure; }
 
     /**
-     * <p>The action to take if the step fails.</p>
+     * <p>The action to take when the cluster step fails. Possible values are
+     * TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is provided
+     * for backward compatibility. We recommend using TERMINATE_CLUSTER instead.</p>
+     */
+    inline bool ActionOnFailureHasBeenSet() const { return m_actionOnFailureHasBeenSet; }
+
+    /**
+     * <p>The action to take when the cluster step fails. Possible values are
+     * TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is provided
+     * for backward compatibility. We recommend using TERMINATE_CLUSTER instead.</p>
      */
     inline void SetActionOnFailure(const ActionOnFailure& value) { m_actionOnFailureHasBeenSet = true; m_actionOnFailure = value; }
 
     /**
-     * <p>The action to take if the step fails.</p>
+     * <p>The action to take when the cluster step fails. Possible values are
+     * TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is provided
+     * for backward compatibility. We recommend using TERMINATE_CLUSTER instead.</p>
      */
     inline void SetActionOnFailure(ActionOnFailure&& value) { m_actionOnFailureHasBeenSet = true; m_actionOnFailure = std::move(value); }
 
     /**
-     * <p>The action to take if the step fails.</p>
+     * <p>The action to take when the cluster step fails. Possible values are
+     * TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is provided
+     * for backward compatibility. We recommend using TERMINATE_CLUSTER instead.</p>
      */
     inline StepConfig& WithActionOnFailure(const ActionOnFailure& value) { SetActionOnFailure(value); return *this;}
 
     /**
-     * <p>The action to take if the step fails.</p>
+     * <p>The action to take when the cluster step fails. Possible values are
+     * TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is provided
+     * for backward compatibility. We recommend using TERMINATE_CLUSTER instead.</p>
      */
     inline StepConfig& WithActionOnFailure(ActionOnFailure&& value) { SetActionOnFailure(std::move(value)); return *this;}
 
@@ -114,6 +137,11 @@ namespace Model
      * <p>The JAR file used for the step.</p>
      */
     inline const HadoopJarStepConfig& GetHadoopJarStep() const{ return m_hadoopJarStep; }
+
+    /**
+     * <p>The JAR file used for the step.</p>
+     */
+    inline bool HadoopJarStepHasBeenSet() const { return m_hadoopJarStepHasBeenSet; }
 
     /**
      * <p>The JAR file used for the step.</p>

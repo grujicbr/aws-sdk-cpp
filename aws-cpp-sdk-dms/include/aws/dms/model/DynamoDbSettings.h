@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DynamoDbSettings();
-    DynamoDbSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    DynamoDbSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DynamoDbSettings(Aws::Utils::Json::JsonView jsonValue);
+    DynamoDbSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p> The Amazon Resource Name (ARN) used by the service access IAM role. </p>
      */
     inline const Aws::String& GetServiceAccessRoleArn() const{ return m_serviceAccessRoleArn; }
+
+    /**
+     * <p> The Amazon Resource Name (ARN) used by the service access IAM role. </p>
+     */
+    inline bool ServiceAccessRoleArnHasBeenSet() const { return m_serviceAccessRoleArnHasBeenSet; }
 
     /**
      * <p> The Amazon Resource Name (ARN) used by the service access IAM role. </p>

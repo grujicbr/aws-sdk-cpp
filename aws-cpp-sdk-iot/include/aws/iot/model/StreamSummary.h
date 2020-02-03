@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     StreamSummary();
-    StreamSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamSummary(Aws::Utils::Json::JsonView jsonValue);
+    StreamSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The stream ID.</p>
      */
     inline const Aws::String& GetStreamId() const{ return m_streamId; }
+
+    /**
+     * <p>The stream ID.</p>
+     */
+    inline bool StreamIdHasBeenSet() const { return m_streamIdHasBeenSet; }
 
     /**
      * <p>The stream ID.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The stream ARN.</p>
      */
+    inline bool StreamArnHasBeenSet() const { return m_streamArnHasBeenSet; }
+
+    /**
+     * <p>The stream ARN.</p>
+     */
     inline void SetStreamArn(const Aws::String& value) { m_streamArnHasBeenSet = true; m_streamArn = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
     /**
      * <p>The stream version.</p>
      */
+    inline bool StreamVersionHasBeenSet() const { return m_streamVersionHasBeenSet; }
+
+    /**
+     * <p>The stream version.</p>
+     */
     inline void SetStreamVersion(int value) { m_streamVersionHasBeenSet = true; m_streamVersion = value; }
 
     /**
@@ -138,6 +154,11 @@ namespace Model
      * <p>A description of the stream.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A description of the stream.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A description of the stream.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -34,8 +35,8 @@ namespace Model
 {
 
   /**
-   * <p>Represents information about an artifact that will be worked upon by actions
-   * in the pipeline.</p><p><h3>See Also:</h3>   <a
+   * <p>Represents information about an artifact that is worked on by actions in the
+   * pipeline.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/Artifact">AWS
    * API Reference</a></p>
    */
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Artifact();
-    Artifact(const Aws::Utils::Json::JsonValue& jsonValue);
-    Artifact& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Artifact(Aws::Utils::Json::JsonView jsonValue);
+    Artifact& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The artifact's name.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The artifact's name.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The artifact's name.</p>
@@ -94,6 +100,12 @@ namespace Model
      * <p>The artifact's revision ID. Depending on the type of object, this could be a
      * commit ID (GitHub) or a revision ID (Amazon S3).</p>
      */
+    inline bool RevisionHasBeenSet() const { return m_revisionHasBeenSet; }
+
+    /**
+     * <p>The artifact's revision ID. Depending on the type of object, this could be a
+     * commit ID (GitHub) or a revision ID (Amazon S3).</p>
+     */
     inline void SetRevision(const Aws::String& value) { m_revisionHasBeenSet = true; m_revision = value; }
 
     /**
@@ -131,6 +143,11 @@ namespace Model
      * <p>The location of an artifact.</p>
      */
     inline const ArtifactLocation& GetLocation() const{ return m_location; }
+
+    /**
+     * <p>The location of an artifact.</p>
+     */
+    inline bool LocationHasBeenSet() const { return m_locationHasBeenSet; }
 
     /**
      * <p>The location of an artifact.</p>

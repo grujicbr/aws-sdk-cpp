@@ -36,7 +36,7 @@ namespace Model
   {
   public:
     DeleteDevicePoolRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,44 +49,50 @@ namespace Model
 
 
     /**
-     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool you
-     * wish to delete.</p>
+     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool to
+     * delete.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
 
     /**
-     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool you
-     * wish to delete.</p>
+     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool to
+     * delete.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
+
+    /**
+     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool to
+     * delete.</p>
      */
     inline void SetArn(const Aws::String& value) { m_arnHasBeenSet = true; m_arn = value; }
 
     /**
-     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool you
-     * wish to delete.</p>
+     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool to
+     * delete.</p>
      */
     inline void SetArn(Aws::String&& value) { m_arnHasBeenSet = true; m_arn = std::move(value); }
 
     /**
-     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool you
-     * wish to delete.</p>
+     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool to
+     * delete.</p>
      */
     inline void SetArn(const char* value) { m_arnHasBeenSet = true; m_arn.assign(value); }
 
     /**
-     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool you
-     * wish to delete.</p>
+     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool to
+     * delete.</p>
      */
     inline DeleteDevicePoolRequest& WithArn(const Aws::String& value) { SetArn(value); return *this;}
 
     /**
-     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool you
-     * wish to delete.</p>
+     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool to
+     * delete.</p>
      */
     inline DeleteDevicePoolRequest& WithArn(Aws::String&& value) { SetArn(std::move(value)); return *this;}
 
     /**
-     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool you
-     * wish to delete.</p>
+     * <p>Represents the Amazon Resource Name (ARN) of the Device Farm device pool to
+     * delete.</p>
      */
     inline DeleteDevicePoolRequest& WithArn(const char* value) { SetArn(value); return *this;}
 

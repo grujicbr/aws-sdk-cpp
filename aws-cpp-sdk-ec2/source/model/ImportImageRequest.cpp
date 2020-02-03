@@ -28,10 +28,14 @@ ImportImageRequest::ImportImageRequest() :
     m_diskContainersHasBeenSet(false),
     m_dryRun(false),
     m_dryRunHasBeenSet(false),
+    m_encrypted(false),
+    m_encryptedHasBeenSet(false),
     m_hypervisorHasBeenSet(false),
+    m_kmsKeyIdHasBeenSet(false),
     m_licenseTypeHasBeenSet(false),
     m_platformHasBeenSet(false),
-    m_roleNameHasBeenSet(false)
+    m_roleNameHasBeenSet(false),
+    m_licenseSpecificationsHasBeenSet(false)
 {
 }
 
@@ -74,9 +78,19 @@ Aws::String ImportImageRequest::SerializePayload() const
     ss << "DryRun=" << std::boolalpha << m_dryRun << "&";
   }
 
+  if(m_encryptedHasBeenSet)
+  {
+    ss << "Encrypted=" << std::boolalpha << m_encrypted << "&";
+  }
+
   if(m_hypervisorHasBeenSet)
   {
     ss << "Hypervisor=" << StringUtils::URLEncode(m_hypervisor.c_str()) << "&";
+  }
+
+  if(m_kmsKeyIdHasBeenSet)
+  {
+    ss << "KmsKeyId=" << StringUtils::URLEncode(m_kmsKeyId.c_str()) << "&";
   }
 
   if(m_licenseTypeHasBeenSet)
@@ -92,6 +106,16 @@ Aws::String ImportImageRequest::SerializePayload() const
   if(m_roleNameHasBeenSet)
   {
     ss << "RoleName=" << StringUtils::URLEncode(m_roleName.c_str()) << "&";
+  }
+
+  if(m_licenseSpecificationsHasBeenSet)
+  {
+    unsigned licenseSpecificationsCount = 1;
+    for(auto& item : m_licenseSpecifications)
+    {
+      item.OutputToStream(ss, "LicenseSpecifications.", licenseSpecificationsCount, "");
+      licenseSpecificationsCount++;
+    }
   }
 
   ss << "Version=2016-11-15";

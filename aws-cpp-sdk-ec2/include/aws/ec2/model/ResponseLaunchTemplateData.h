@@ -26,10 +26,15 @@
 #include <aws/ec2/model/LaunchTemplateInstanceMarketOptions.h>
 #include <aws/ec2/model/CreditSpecification.h>
 #include <aws/ec2/model/LaunchTemplateCpuOptions.h>
+#include <aws/ec2/model/LaunchTemplateCapacityReservationSpecificationResponse.h>
+#include <aws/ec2/model/LaunchTemplateHibernationOptions.h>
+#include <aws/ec2/model/LaunchTemplateInstanceMetadataOptions.h>
 #include <aws/ec2/model/LaunchTemplateBlockDeviceMapping.h>
 #include <aws/ec2/model/LaunchTemplateInstanceNetworkInterfaceSpecification.h>
 #include <aws/ec2/model/LaunchTemplateTagSpecification.h>
 #include <aws/ec2/model/ElasticGpuSpecificationResponse.h>
+#include <aws/ec2/model/LaunchTemplateElasticInferenceAcceleratorResponse.h>
+#include <aws/ec2/model/LaunchTemplateLicenseConfiguration.h>
 #include <utility>
 
 namespace Aws
@@ -70,6 +75,11 @@ namespace Model
     /**
      * <p>The ID of the kernel, if applicable.</p>
      */
+    inline bool KernelIdHasBeenSet() const { return m_kernelIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the kernel, if applicable.</p>
+     */
     inline void SetKernelId(const Aws::String& value) { m_kernelIdHasBeenSet = true; m_kernelId = value; }
 
     /**
@@ -106,6 +116,11 @@ namespace Model
     /**
      * <p>Indicates whether the instance is optimized for Amazon EBS I/O. </p>
      */
+    inline bool EbsOptimizedHasBeenSet() const { return m_ebsOptimizedHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the instance is optimized for Amazon EBS I/O. </p>
+     */
     inline void SetEbsOptimized(bool value) { m_ebsOptimizedHasBeenSet = true; m_ebsOptimized = value; }
 
     /**
@@ -118,6 +133,11 @@ namespace Model
      * <p>The IAM instance profile.</p>
      */
     inline const LaunchTemplateIamInstanceProfileSpecification& GetIamInstanceProfile() const{ return m_iamInstanceProfile; }
+
+    /**
+     * <p>The IAM instance profile.</p>
+     */
+    inline bool IamInstanceProfileHasBeenSet() const { return m_iamInstanceProfileHasBeenSet; }
 
     /**
      * <p>The IAM instance profile.</p>
@@ -144,6 +164,11 @@ namespace Model
      * <p>The block device mappings.</p>
      */
     inline const Aws::Vector<LaunchTemplateBlockDeviceMapping>& GetBlockDeviceMappings() const{ return m_blockDeviceMappings; }
+
+    /**
+     * <p>The block device mappings.</p>
+     */
+    inline bool BlockDeviceMappingsHasBeenSet() const { return m_blockDeviceMappingsHasBeenSet; }
 
     /**
      * <p>The block device mappings.</p>
@@ -184,6 +209,11 @@ namespace Model
     /**
      * <p>The network interfaces.</p>
      */
+    inline bool NetworkInterfacesHasBeenSet() const { return m_networkInterfacesHasBeenSet; }
+
+    /**
+     * <p>The network interfaces.</p>
+     */
     inline void SetNetworkInterfaces(const Aws::Vector<LaunchTemplateInstanceNetworkInterfaceSpecification>& value) { m_networkInterfacesHasBeenSet = true; m_networkInterfaces = value; }
 
     /**
@@ -216,6 +246,11 @@ namespace Model
      * <p>The ID of the AMI that was used to launch the instance.</p>
      */
     inline const Aws::String& GetImageId() const{ return m_imageId; }
+
+    /**
+     * <p>The ID of the AMI that was used to launch the instance.</p>
+     */
+    inline bool ImageIdHasBeenSet() const { return m_imageIdHasBeenSet; }
 
     /**
      * <p>The ID of the AMI that was used to launch the instance.</p>
@@ -256,6 +291,11 @@ namespace Model
     /**
      * <p>The instance type.</p>
      */
+    inline bool InstanceTypeHasBeenSet() const { return m_instanceTypeHasBeenSet; }
+
+    /**
+     * <p>The instance type.</p>
+     */
     inline void SetInstanceType(const InstanceType& value) { m_instanceTypeHasBeenSet = true; m_instanceType = value; }
 
     /**
@@ -278,6 +318,11 @@ namespace Model
      * <p>The name of the key pair.</p>
      */
     inline const Aws::String& GetKeyName() const{ return m_keyName; }
+
+    /**
+     * <p>The name of the key pair.</p>
+     */
+    inline bool KeyNameHasBeenSet() const { return m_keyNameHasBeenSet; }
 
     /**
      * <p>The name of the key pair.</p>
@@ -318,6 +363,11 @@ namespace Model
     /**
      * <p>The monitoring for the instance.</p>
      */
+    inline bool MonitoringHasBeenSet() const { return m_monitoringHasBeenSet; }
+
+    /**
+     * <p>The monitoring for the instance.</p>
+     */
     inline void SetMonitoring(const LaunchTemplatesMonitoring& value) { m_monitoringHasBeenSet = true; m_monitoring = value; }
 
     /**
@@ -344,6 +394,11 @@ namespace Model
     /**
      * <p>The placement of the instance.</p>
      */
+    inline bool PlacementHasBeenSet() const { return m_placementHasBeenSet; }
+
+    /**
+     * <p>The placement of the instance.</p>
+     */
     inline void SetPlacement(const LaunchTemplatePlacement& value) { m_placementHasBeenSet = true; m_placement = value; }
 
     /**
@@ -366,6 +421,11 @@ namespace Model
      * <p>The ID of the RAM disk, if applicable.</p>
      */
     inline const Aws::String& GetRamDiskId() const{ return m_ramDiskId; }
+
+    /**
+     * <p>The ID of the RAM disk, if applicable.</p>
+     */
+    inline bool RamDiskIdHasBeenSet() const { return m_ramDiskIdHasBeenSet; }
 
     /**
      * <p>The ID of the RAM disk, if applicable.</p>
@@ -408,6 +468,12 @@ namespace Model
      * <p>If set to <code>true</code>, indicates that the instance cannot be terminated
      * using the Amazon EC2 console, command line tool, or API.</p>
      */
+    inline bool DisableApiTerminationHasBeenSet() const { return m_disableApiTerminationHasBeenSet; }
+
+    /**
+     * <p>If set to <code>true</code>, indicates that the instance cannot be terminated
+     * using the Amazon EC2 console, command line tool, or API.</p>
+     */
     inline void SetDisableApiTermination(bool value) { m_disableApiTerminationHasBeenSet = true; m_disableApiTermination = value; }
 
     /**
@@ -422,6 +488,12 @@ namespace Model
      * from the instance (using the operating system command for system shutdown).</p>
      */
     inline const ShutdownBehavior& GetInstanceInitiatedShutdownBehavior() const{ return m_instanceInitiatedShutdownBehavior; }
+
+    /**
+     * <p>Indicates whether an instance stops or terminates when you initiate shutdown
+     * from the instance (using the operating system command for system shutdown).</p>
+     */
+    inline bool InstanceInitiatedShutdownBehaviorHasBeenSet() const { return m_instanceInitiatedShutdownBehaviorHasBeenSet; }
 
     /**
      * <p>Indicates whether an instance stops or terminates when you initiate shutdown
@@ -452,6 +524,11 @@ namespace Model
      * <p>The user data for the instance. </p>
      */
     inline const Aws::String& GetUserData() const{ return m_userData; }
+
+    /**
+     * <p>The user data for the instance. </p>
+     */
+    inline bool UserDataHasBeenSet() const { return m_userDataHasBeenSet; }
 
     /**
      * <p>The user data for the instance. </p>
@@ -492,6 +569,11 @@ namespace Model
     /**
      * <p>The tags.</p>
      */
+    inline bool TagSpecificationsHasBeenSet() const { return m_tagSpecificationsHasBeenSet; }
+
+    /**
+     * <p>The tags.</p>
+     */
     inline void SetTagSpecifications(const Aws::Vector<LaunchTemplateTagSpecification>& value) { m_tagSpecificationsHasBeenSet = true; m_tagSpecifications = value; }
 
     /**
@@ -528,6 +610,11 @@ namespace Model
     /**
      * <p>The elastic GPU specification.</p>
      */
+    inline bool ElasticGpuSpecificationsHasBeenSet() const { return m_elasticGpuSpecificationsHasBeenSet; }
+
+    /**
+     * <p>The elastic GPU specification.</p>
+     */
     inline void SetElasticGpuSpecifications(const Aws::Vector<ElasticGpuSpecificationResponse>& value) { m_elasticGpuSpecificationsHasBeenSet = true; m_elasticGpuSpecifications = value; }
 
     /**
@@ -557,9 +644,55 @@ namespace Model
 
 
     /**
+     * <p> The elastic inference accelerator for the instance. </p>
+     */
+    inline const Aws::Vector<LaunchTemplateElasticInferenceAcceleratorResponse>& GetElasticInferenceAccelerators() const{ return m_elasticInferenceAccelerators; }
+
+    /**
+     * <p> The elastic inference accelerator for the instance. </p>
+     */
+    inline bool ElasticInferenceAcceleratorsHasBeenSet() const { return m_elasticInferenceAcceleratorsHasBeenSet; }
+
+    /**
+     * <p> The elastic inference accelerator for the instance. </p>
+     */
+    inline void SetElasticInferenceAccelerators(const Aws::Vector<LaunchTemplateElasticInferenceAcceleratorResponse>& value) { m_elasticInferenceAcceleratorsHasBeenSet = true; m_elasticInferenceAccelerators = value; }
+
+    /**
+     * <p> The elastic inference accelerator for the instance. </p>
+     */
+    inline void SetElasticInferenceAccelerators(Aws::Vector<LaunchTemplateElasticInferenceAcceleratorResponse>&& value) { m_elasticInferenceAcceleratorsHasBeenSet = true; m_elasticInferenceAccelerators = std::move(value); }
+
+    /**
+     * <p> The elastic inference accelerator for the instance. </p>
+     */
+    inline ResponseLaunchTemplateData& WithElasticInferenceAccelerators(const Aws::Vector<LaunchTemplateElasticInferenceAcceleratorResponse>& value) { SetElasticInferenceAccelerators(value); return *this;}
+
+    /**
+     * <p> The elastic inference accelerator for the instance. </p>
+     */
+    inline ResponseLaunchTemplateData& WithElasticInferenceAccelerators(Aws::Vector<LaunchTemplateElasticInferenceAcceleratorResponse>&& value) { SetElasticInferenceAccelerators(std::move(value)); return *this;}
+
+    /**
+     * <p> The elastic inference accelerator for the instance. </p>
+     */
+    inline ResponseLaunchTemplateData& AddElasticInferenceAccelerators(const LaunchTemplateElasticInferenceAcceleratorResponse& value) { m_elasticInferenceAcceleratorsHasBeenSet = true; m_elasticInferenceAccelerators.push_back(value); return *this; }
+
+    /**
+     * <p> The elastic inference accelerator for the instance. </p>
+     */
+    inline ResponseLaunchTemplateData& AddElasticInferenceAccelerators(LaunchTemplateElasticInferenceAcceleratorResponse&& value) { m_elasticInferenceAcceleratorsHasBeenSet = true; m_elasticInferenceAccelerators.push_back(std::move(value)); return *this; }
+
+
+    /**
      * <p>The security group IDs.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSecurityGroupIds() const{ return m_securityGroupIds; }
+
+    /**
+     * <p>The security group IDs.</p>
+     */
+    inline bool SecurityGroupIdsHasBeenSet() const { return m_securityGroupIdsHasBeenSet; }
 
     /**
      * <p>The security group IDs.</p>
@@ -605,6 +738,11 @@ namespace Model
     /**
      * <p>The security group names.</p>
      */
+    inline bool SecurityGroupsHasBeenSet() const { return m_securityGroupsHasBeenSet; }
+
+    /**
+     * <p>The security group names.</p>
+     */
     inline void SetSecurityGroups(const Aws::Vector<Aws::String>& value) { m_securityGroupsHasBeenSet = true; m_securityGroups = value; }
 
     /**
@@ -646,6 +784,11 @@ namespace Model
     /**
      * <p>The market (purchasing) option for the instances.</p>
      */
+    inline bool InstanceMarketOptionsHasBeenSet() const { return m_instanceMarketOptionsHasBeenSet; }
+
+    /**
+     * <p>The market (purchasing) option for the instances.</p>
+     */
     inline void SetInstanceMarketOptions(const LaunchTemplateInstanceMarketOptions& value) { m_instanceMarketOptionsHasBeenSet = true; m_instanceMarketOptions = value; }
 
     /**
@@ -672,6 +815,11 @@ namespace Model
     /**
      * <p>The credit option for CPU usage of the instance.</p>
      */
+    inline bool CreditSpecificationHasBeenSet() const { return m_creditSpecificationHasBeenSet; }
+
+    /**
+     * <p>The credit option for CPU usage of the instance.</p>
+     */
     inline void SetCreditSpecification(const CreditSpecification& value) { m_creditSpecificationHasBeenSet = true; m_creditSpecification = value; }
 
     /**
@@ -692,38 +840,215 @@ namespace Model
 
     /**
      * <p>The CPU options for the instance. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
      * CPU Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
      */
     inline const LaunchTemplateCpuOptions& GetCpuOptions() const{ return m_cpuOptions; }
 
     /**
      * <p>The CPU options for the instance. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
+     * CPU Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     */
+    inline bool CpuOptionsHasBeenSet() const { return m_cpuOptionsHasBeenSet; }
+
+    /**
+     * <p>The CPU options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
      * CPU Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
      */
     inline void SetCpuOptions(const LaunchTemplateCpuOptions& value) { m_cpuOptionsHasBeenSet = true; m_cpuOptions = value; }
 
     /**
      * <p>The CPU options for the instance. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
      * CPU Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
      */
     inline void SetCpuOptions(LaunchTemplateCpuOptions&& value) { m_cpuOptionsHasBeenSet = true; m_cpuOptions = std::move(value); }
 
     /**
      * <p>The CPU options for the instance. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
      * CPU Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
      */
     inline ResponseLaunchTemplateData& WithCpuOptions(const LaunchTemplateCpuOptions& value) { SetCpuOptions(value); return *this;}
 
     /**
      * <p>The CPU options for the instance. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing
      * CPU Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
      */
     inline ResponseLaunchTemplateData& WithCpuOptions(LaunchTemplateCpuOptions&& value) { SetCpuOptions(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Information about the Capacity Reservation targeting option.</p>
+     */
+    inline const LaunchTemplateCapacityReservationSpecificationResponse& GetCapacityReservationSpecification() const{ return m_capacityReservationSpecification; }
+
+    /**
+     * <p>Information about the Capacity Reservation targeting option.</p>
+     */
+    inline bool CapacityReservationSpecificationHasBeenSet() const { return m_capacityReservationSpecificationHasBeenSet; }
+
+    /**
+     * <p>Information about the Capacity Reservation targeting option.</p>
+     */
+    inline void SetCapacityReservationSpecification(const LaunchTemplateCapacityReservationSpecificationResponse& value) { m_capacityReservationSpecificationHasBeenSet = true; m_capacityReservationSpecification = value; }
+
+    /**
+     * <p>Information about the Capacity Reservation targeting option.</p>
+     */
+    inline void SetCapacityReservationSpecification(LaunchTemplateCapacityReservationSpecificationResponse&& value) { m_capacityReservationSpecificationHasBeenSet = true; m_capacityReservationSpecification = std::move(value); }
+
+    /**
+     * <p>Information about the Capacity Reservation targeting option.</p>
+     */
+    inline ResponseLaunchTemplateData& WithCapacityReservationSpecification(const LaunchTemplateCapacityReservationSpecificationResponse& value) { SetCapacityReservationSpecification(value); return *this;}
+
+    /**
+     * <p>Information about the Capacity Reservation targeting option.</p>
+     */
+    inline ResponseLaunchTemplateData& WithCapacityReservationSpecification(LaunchTemplateCapacityReservationSpecificationResponse&& value) { SetCapacityReservationSpecification(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The license configurations.</p>
+     */
+    inline const Aws::Vector<LaunchTemplateLicenseConfiguration>& GetLicenseSpecifications() const{ return m_licenseSpecifications; }
+
+    /**
+     * <p>The license configurations.</p>
+     */
+    inline bool LicenseSpecificationsHasBeenSet() const { return m_licenseSpecificationsHasBeenSet; }
+
+    /**
+     * <p>The license configurations.</p>
+     */
+    inline void SetLicenseSpecifications(const Aws::Vector<LaunchTemplateLicenseConfiguration>& value) { m_licenseSpecificationsHasBeenSet = true; m_licenseSpecifications = value; }
+
+    /**
+     * <p>The license configurations.</p>
+     */
+    inline void SetLicenseSpecifications(Aws::Vector<LaunchTemplateLicenseConfiguration>&& value) { m_licenseSpecificationsHasBeenSet = true; m_licenseSpecifications = std::move(value); }
+
+    /**
+     * <p>The license configurations.</p>
+     */
+    inline ResponseLaunchTemplateData& WithLicenseSpecifications(const Aws::Vector<LaunchTemplateLicenseConfiguration>& value) { SetLicenseSpecifications(value); return *this;}
+
+    /**
+     * <p>The license configurations.</p>
+     */
+    inline ResponseLaunchTemplateData& WithLicenseSpecifications(Aws::Vector<LaunchTemplateLicenseConfiguration>&& value) { SetLicenseSpecifications(std::move(value)); return *this;}
+
+    /**
+     * <p>The license configurations.</p>
+     */
+    inline ResponseLaunchTemplateData& AddLicenseSpecifications(const LaunchTemplateLicenseConfiguration& value) { m_licenseSpecificationsHasBeenSet = true; m_licenseSpecifications.push_back(value); return *this; }
+
+    /**
+     * <p>The license configurations.</p>
+     */
+    inline ResponseLaunchTemplateData& AddLicenseSpecifications(LaunchTemplateLicenseConfiguration&& value) { m_licenseSpecificationsHasBeenSet = true; m_licenseSpecifications.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>Indicates whether an instance is configured for hibernation. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     */
+    inline const LaunchTemplateHibernationOptions& GetHibernationOptions() const{ return m_hibernationOptions; }
+
+    /**
+     * <p>Indicates whether an instance is configured for hibernation. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     */
+    inline bool HibernationOptionsHasBeenSet() const { return m_hibernationOptionsHasBeenSet; }
+
+    /**
+     * <p>Indicates whether an instance is configured for hibernation. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     */
+    inline void SetHibernationOptions(const LaunchTemplateHibernationOptions& value) { m_hibernationOptionsHasBeenSet = true; m_hibernationOptions = value; }
+
+    /**
+     * <p>Indicates whether an instance is configured for hibernation. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     */
+    inline void SetHibernationOptions(LaunchTemplateHibernationOptions&& value) { m_hibernationOptionsHasBeenSet = true; m_hibernationOptions = std::move(value); }
+
+    /**
+     * <p>Indicates whether an instance is configured for hibernation. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     */
+    inline ResponseLaunchTemplateData& WithHibernationOptions(const LaunchTemplateHibernationOptions& value) { SetHibernationOptions(value); return *this;}
+
+    /**
+     * <p>Indicates whether an instance is configured for hibernation. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+     * Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     */
+    inline ResponseLaunchTemplateData& WithHibernationOptions(LaunchTemplateHibernationOptions&& value) { SetHibernationOptions(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance
+     * Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.</p>
+     */
+    inline const LaunchTemplateInstanceMetadataOptions& GetMetadataOptions() const{ return m_metadataOptions; }
+
+    /**
+     * <p>The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance
+     * Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.</p>
+     */
+    inline bool MetadataOptionsHasBeenSet() const { return m_metadataOptionsHasBeenSet; }
+
+    /**
+     * <p>The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance
+     * Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.</p>
+     */
+    inline void SetMetadataOptions(const LaunchTemplateInstanceMetadataOptions& value) { m_metadataOptionsHasBeenSet = true; m_metadataOptions = value; }
+
+    /**
+     * <p>The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance
+     * Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.</p>
+     */
+    inline void SetMetadataOptions(LaunchTemplateInstanceMetadataOptions&& value) { m_metadataOptionsHasBeenSet = true; m_metadataOptions = std::move(value); }
+
+    /**
+     * <p>The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance
+     * Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.</p>
+     */
+    inline ResponseLaunchTemplateData& WithMetadataOptions(const LaunchTemplateInstanceMetadataOptions& value) { SetMetadataOptions(value); return *this;}
+
+    /**
+     * <p>The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance
+     * Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.</p>
+     */
+    inline ResponseLaunchTemplateData& WithMetadataOptions(LaunchTemplateInstanceMetadataOptions&& value) { SetMetadataOptions(std::move(value)); return *this;}
 
   private:
 
@@ -775,6 +1100,9 @@ namespace Model
     Aws::Vector<ElasticGpuSpecificationResponse> m_elasticGpuSpecifications;
     bool m_elasticGpuSpecificationsHasBeenSet;
 
+    Aws::Vector<LaunchTemplateElasticInferenceAcceleratorResponse> m_elasticInferenceAccelerators;
+    bool m_elasticInferenceAcceleratorsHasBeenSet;
+
     Aws::Vector<Aws::String> m_securityGroupIds;
     bool m_securityGroupIdsHasBeenSet;
 
@@ -789,6 +1117,18 @@ namespace Model
 
     LaunchTemplateCpuOptions m_cpuOptions;
     bool m_cpuOptionsHasBeenSet;
+
+    LaunchTemplateCapacityReservationSpecificationResponse m_capacityReservationSpecification;
+    bool m_capacityReservationSpecificationHasBeenSet;
+
+    Aws::Vector<LaunchTemplateLicenseConfiguration> m_licenseSpecifications;
+    bool m_licenseSpecificationsHasBeenSet;
+
+    LaunchTemplateHibernationOptions m_hibernationOptions;
+    bool m_hibernationOptionsHasBeenSet;
+
+    LaunchTemplateInstanceMetadataOptions m_metadataOptions;
+    bool m_metadataOptionsHasBeenSet;
   };
 
 } // namespace Model

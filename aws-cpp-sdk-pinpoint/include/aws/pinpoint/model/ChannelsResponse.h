@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -35,7 +36,9 @@ namespace Model
 {
 
   /**
-   * Get channels definition<p><h3>See Also:</h3>   <a
+   * <p>Provides information about the general settings and status of all channels
+   * for an application, including channels that aren't enabled for the
+   * application.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/ChannelsResponse">AWS
    * API Reference</a></p>
    */
@@ -43,63 +46,80 @@ namespace Model
   {
   public:
     ChannelsResponse();
-    ChannelsResponse(const Aws::Utils::Json::JsonValue& jsonValue);
-    ChannelsResponse& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ChannelsResponse(Aws::Utils::Json::JsonView jsonValue);
+    ChannelsResponse& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline const Aws::Map<Aws::String, ChannelResponse>& GetChannels() const{ return m_channels; }
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
+     */
+    inline bool ChannelsHasBeenSet() const { return m_channelsHasBeenSet; }
+
+    /**
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline void SetChannels(const Aws::Map<Aws::String, ChannelResponse>& value) { m_channelsHasBeenSet = true; m_channels = value; }
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline void SetChannels(Aws::Map<Aws::String, ChannelResponse>&& value) { m_channelsHasBeenSet = true; m_channels = std::move(value); }
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline ChannelsResponse& WithChannels(const Aws::Map<Aws::String, ChannelResponse>& value) { SetChannels(value); return *this;}
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline ChannelsResponse& WithChannels(Aws::Map<Aws::String, ChannelResponse>&& value) { SetChannels(std::move(value)); return *this;}
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline ChannelsResponse& AddChannels(const Aws::String& key, const ChannelResponse& value) { m_channelsHasBeenSet = true; m_channels.emplace(key, value); return *this; }
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline ChannelsResponse& AddChannels(Aws::String&& key, const ChannelResponse& value) { m_channelsHasBeenSet = true; m_channels.emplace(std::move(key), value); return *this; }
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline ChannelsResponse& AddChannels(const Aws::String& key, ChannelResponse&& value) { m_channelsHasBeenSet = true; m_channels.emplace(key, std::move(value)); return *this; }
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline ChannelsResponse& AddChannels(Aws::String&& key, ChannelResponse&& value) { m_channelsHasBeenSet = true; m_channels.emplace(std::move(key), std::move(value)); return *this; }
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline ChannelsResponse& AddChannels(const char* key, ChannelResponse&& value) { m_channelsHasBeenSet = true; m_channels.emplace(key, std::move(value)); return *this; }
 
     /**
-     * A map of channels, with the ChannelType as the key and the Channel as the value.
+     * <p>A map that contains a multipart response for each channel. For each item in
+     * this object, the ChannelType is the key and the Channel is the value.</p>
      */
     inline ChannelsResponse& AddChannels(const char* key, const ChannelResponse& value) { m_channelsHasBeenSet = true; m_channels.emplace(key, value); return *this; }
 

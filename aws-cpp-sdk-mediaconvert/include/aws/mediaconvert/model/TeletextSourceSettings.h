@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     TeletextSourceSettings();
-    TeletextSourceSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    TeletextSourceSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TeletextSourceSettings(Aws::Utils::Json::JsonView jsonValue);
+    TeletextSourceSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * passing through teletext from the input source to output.
      */
     inline const Aws::String& GetPageNumber() const{ return m_pageNumber; }
+
+    /**
+     * Use Page Number (PageNumber) to specify the three-digit hexadecimal page number
+     * that will be used for Teletext captions. Do not use this setting if you are
+     * passing through teletext from the input source to output.
+     */
+    inline bool PageNumberHasBeenSet() const { return m_pageNumberHasBeenSet; }
 
     /**
      * Use Page Number (PageNumber) to specify the three-digit hexadecimal page number

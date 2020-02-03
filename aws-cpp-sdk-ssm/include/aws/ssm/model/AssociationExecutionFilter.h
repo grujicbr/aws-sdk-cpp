@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AssociationExecutionFilter();
-    AssociationExecutionFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssociationExecutionFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssociationExecutionFilter(Aws::Utils::Json::JsonView jsonValue);
+    AssociationExecutionFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The key value used in the request.</p>
      */
     inline const AssociationExecutionFilterKey& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The key value used in the request.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The key value used in the request.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The value specified for the key.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value specified for the key.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value specified for the key.</p>
@@ -114,6 +125,11 @@ namespace Model
      * <p>The filter type specified in the request.</p>
      */
     inline const AssociationFilterOperatorType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The filter type specified in the request.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The filter type specified in the request.</p>

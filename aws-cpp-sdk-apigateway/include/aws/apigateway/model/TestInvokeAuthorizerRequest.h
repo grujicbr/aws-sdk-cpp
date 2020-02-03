@@ -18,6 +18,7 @@
 #include <aws/apigateway/APIGatewayRequest.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/core/utils/memory/stl/AWSMap.h>
+#include <aws/core/utils/memory/stl/AWSVector.h>
 #include <utility>
 
 namespace Aws
@@ -37,7 +38,7 @@ namespace Model
   {
   public:
     TestInvokeAuthorizerRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +52,11 @@ namespace Model
      * <p>[Required] The string identifier of the associated <a>RestApi</a>.</p>
      */
     inline const Aws::String& GetRestApiId() const{ return m_restApiId; }
+
+    /**
+     * <p>[Required] The string identifier of the associated <a>RestApi</a>.</p>
+     */
+    inline bool RestApiIdHasBeenSet() const { return m_restApiIdHasBeenSet; }
 
     /**
      * <p>[Required] The string identifier of the associated <a>RestApi</a>.</p>
@@ -93,6 +99,12 @@ namespace Model
      * <p>[Required] Specifies a test invoke authorizer request's <a>Authorizer</a>
      * ID.</p>
      */
+    inline bool AuthorizerIdHasBeenSet() const { return m_authorizerIdHasBeenSet; }
+
+    /**
+     * <p>[Required] Specifies a test invoke authorizer request's <a>Authorizer</a>
+     * ID.</p>
+     */
     inline void SetAuthorizerId(const Aws::String& value) { m_authorizerIdHasBeenSet = true; m_authorizerId = value; }
 
     /**
@@ -127,10 +139,101 @@ namespace Model
 
 
     /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline const Aws::Map<Aws::String, Aws::Vector<Aws::String>>& GetMultiValueHeaders() const{ return m_multiValueHeaders; }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline bool MultiValueHeadersHasBeenSet() const { return m_multiValueHeadersHasBeenSet; }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline void SetMultiValueHeaders(const Aws::Map<Aws::String, Aws::Vector<Aws::String>>& value) { m_multiValueHeadersHasBeenSet = true; m_multiValueHeaders = value; }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline void SetMultiValueHeaders(Aws::Map<Aws::String, Aws::Vector<Aws::String>>&& value) { m_multiValueHeadersHasBeenSet = true; m_multiValueHeaders = std::move(value); }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline TestInvokeAuthorizerRequest& WithMultiValueHeaders(const Aws::Map<Aws::String, Aws::Vector<Aws::String>>& value) { SetMultiValueHeaders(value); return *this;}
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline TestInvokeAuthorizerRequest& WithMultiValueHeaders(Aws::Map<Aws::String, Aws::Vector<Aws::String>>&& value) { SetMultiValueHeaders(std::move(value)); return *this;}
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline TestInvokeAuthorizerRequest& AddMultiValueHeaders(const Aws::String& key, const Aws::Vector<Aws::String>& value) { m_multiValueHeadersHasBeenSet = true; m_multiValueHeaders.emplace(key, value); return *this; }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline TestInvokeAuthorizerRequest& AddMultiValueHeaders(Aws::String&& key, const Aws::Vector<Aws::String>& value) { m_multiValueHeadersHasBeenSet = true; m_multiValueHeaders.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline TestInvokeAuthorizerRequest& AddMultiValueHeaders(const Aws::String& key, Aws::Vector<Aws::String>&& value) { m_multiValueHeadersHasBeenSet = true; m_multiValueHeaders.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline TestInvokeAuthorizerRequest& AddMultiValueHeaders(Aws::String&& key, Aws::Vector<Aws::String>&& value) { m_multiValueHeadersHasBeenSet = true; m_multiValueHeaders.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline TestInvokeAuthorizerRequest& AddMultiValueHeaders(const char* key, Aws::Vector<Aws::String>&& value) { m_multiValueHeadersHasBeenSet = true; m_multiValueHeaders.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>[Optional] The headers as a map from string to list of values to simulate an
+     * incoming invocation request. This is where the incoming authorization token, or
+     * identity source, may be specified.</p>
+     */
+    inline TestInvokeAuthorizerRequest& AddMultiValueHeaders(const char* key, const Aws::Vector<Aws::String>& value) { m_multiValueHeadersHasBeenSet = true; m_multiValueHeaders.emplace(key, value); return *this; }
+
+
+    /**
      * <p>[Optional] The URI path, including query string, of the simulated invocation
      * request. Use this to specify path parameters and query string parameters.</p>
      */
     inline const Aws::String& GetPathWithQueryString() const{ return m_pathWithQueryString; }
+
+    /**
+     * <p>[Optional] The URI path, including query string, of the simulated invocation
+     * request. Use this to specify path parameters and query string parameters.</p>
+     */
+    inline bool PathWithQueryStringHasBeenSet() const { return m_pathWithQueryStringHasBeenSet; }
 
     /**
      * <p>[Optional] The URI path, including query string, of the simulated invocation
@@ -174,6 +277,12 @@ namespace Model
      * <a>Stage</a>.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetStageVariables() const{ return m_stageVariables; }
+
+    /**
+     * <p>A key-value map of stage variables to simulate an invocation on a deployed
+     * <a>Stage</a>.</p>
+     */
+    inline bool StageVariablesHasBeenSet() const { return m_stageVariablesHasBeenSet; }
 
     /**
      * <p>A key-value map of stage variables to simulate an invocation on a deployed
@@ -250,6 +359,11 @@ namespace Model
     /**
      * <p>[Optional] A key-value map of additional context variables.</p>
      */
+    inline bool AdditionalContextHasBeenSet() const { return m_additionalContextHasBeenSet; }
+
+    /**
+     * <p>[Optional] A key-value map of additional context variables.</p>
+     */
     inline void SetAdditionalContext(const Aws::Map<Aws::String, Aws::String>& value) { m_additionalContextHasBeenSet = true; m_additionalContext = value; }
 
     /**
@@ -311,6 +425,11 @@ namespace Model
     /**
      * <p>[Optional] The simulated request body of an incoming invocation request.</p>
      */
+    inline bool RequestBodyHasBeenSet() const { return m_requestBodyHasBeenSet; }
+
+    /**
+     * <p>[Optional] The simulated request body of an incoming invocation request.</p>
+     */
     inline void SetRequestBody(const Aws::String& value) { m_requestBodyHasBeenSet = true; m_requestBody = value; }
 
     /**
@@ -345,6 +464,13 @@ namespace Model
      * should be specified.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetRequestHeaders() const{ return m_requestHeaders; }
+
+    /**
+     * <p>[Required] A key-value map of headers to simulate an incoming invocation
+     * request. This is where the incoming authorization token, or identity source,
+     * should be specified.</p>
+     */
+    inline bool RequestHeadersHasBeenSet() const { return m_requestHeadersHasBeenSet; }
 
     /**
      * <p>[Required] A key-value map of headers to simulate an incoming invocation
@@ -430,6 +556,9 @@ namespace Model
 
     Aws::String m_authorizerId;
     bool m_authorizerIdHasBeenSet;
+
+    Aws::Map<Aws::String, Aws::Vector<Aws::String>> m_multiValueHeaders;
+    bool m_multiValueHeadersHasBeenSet;
 
     Aws::String m_pathWithQueryString;
     bool m_pathWithQueryStringHasBeenSet;

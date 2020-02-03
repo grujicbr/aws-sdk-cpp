@@ -37,7 +37,7 @@ PutAutoScalingPolicyResult::PutAutoScalingPolicyResult(const Aws::AmazonWebServi
 
 PutAutoScalingPolicyResult& PutAutoScalingPolicyResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("ClusterId"))
   {
     m_clusterId = jsonValue.GetString("ClusterId");
@@ -53,6 +53,12 @@ PutAutoScalingPolicyResult& PutAutoScalingPolicyResult::operator =(const Aws::Am
   if(jsonValue.ValueExists("AutoScalingPolicy"))
   {
     m_autoScalingPolicy = jsonValue.GetObject("AutoScalingPolicy");
+
+  }
+
+  if(jsonValue.ValueExists("ClusterArn"))
+  {
+    m_clusterArn = jsonValue.GetString("ClusterArn");
 
   }
 

@@ -18,6 +18,7 @@
 #include <aws/cloudhsmv2/CloudHSMV2Request.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/cloudhsmv2/model/Tag.h>
 #include <utility>
 
 namespace Aws
@@ -33,7 +34,7 @@ namespace Model
   {
   public:
     CreateClusterRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -53,6 +54,15 @@ namespace Model
      * per Availability Zone.</p> </li> </ul>
      */
     inline const Aws::Vector<Aws::String>& GetSubnetIds() const{ return m_subnetIds; }
+
+    /**
+     * <p>The identifiers (IDs) of the subnets where you are creating the cluster. You
+     * must specify at least one subnet. If you specify multiple subnets, they must
+     * meet the following criteria:</p> <ul> <li> <p>All subnets must be in the same
+     * virtual private cloud (VPC).</p> </li> <li> <p>You can specify only one subnet
+     * per Availability Zone.</p> </li> </ul>
+     */
+    inline bool SubnetIdsHasBeenSet() const { return m_subnetIdsHasBeenSet; }
 
     /**
      * <p>The identifiers (IDs) of the subnets where you are creating the cluster. You
@@ -128,6 +138,12 @@ namespace Model
      * <p>The type of HSM to use in the cluster. Currently the only allowed value is
      * <code>hsm1.medium</code>.</p>
      */
+    inline bool HsmTypeHasBeenSet() const { return m_hsmTypeHasBeenSet; }
+
+    /**
+     * <p>The type of HSM to use in the cluster. Currently the only allowed value is
+     * <code>hsm1.medium</code>.</p>
+     */
     inline void SetHsmType(const Aws::String& value) { m_hsmTypeHasBeenSet = true; m_hsmType = value; }
 
     /**
@@ -173,6 +189,13 @@ namespace Model
      * restore the cluster from a backup instead of creating a new cluster. To find the
      * backup ID, use <a>DescribeBackups</a>.</p>
      */
+    inline bool SourceBackupIdHasBeenSet() const { return m_sourceBackupIdHasBeenSet; }
+
+    /**
+     * <p>The identifier (ID) of the cluster backup to restore. Use this value to
+     * restore the cluster from a backup instead of creating a new cluster. To find the
+     * backup ID, use <a>DescribeBackups</a>.</p>
+     */
     inline void SetSourceBackupId(const Aws::String& value) { m_sourceBackupIdHasBeenSet = true; m_sourceBackupId = value; }
 
     /**
@@ -210,6 +233,31 @@ namespace Model
      */
     inline CreateClusterRequest& WithSourceBackupId(const char* value) { SetSourceBackupId(value); return *this;}
 
+
+    
+    inline const Aws::Vector<Tag>& GetTagList() const{ return m_tagList; }
+
+    
+    inline bool TagListHasBeenSet() const { return m_tagListHasBeenSet; }
+
+    
+    inline void SetTagList(const Aws::Vector<Tag>& value) { m_tagListHasBeenSet = true; m_tagList = value; }
+
+    
+    inline void SetTagList(Aws::Vector<Tag>&& value) { m_tagListHasBeenSet = true; m_tagList = std::move(value); }
+
+    
+    inline CreateClusterRequest& WithTagList(const Aws::Vector<Tag>& value) { SetTagList(value); return *this;}
+
+    
+    inline CreateClusterRequest& WithTagList(Aws::Vector<Tag>&& value) { SetTagList(std::move(value)); return *this;}
+
+    
+    inline CreateClusterRequest& AddTagList(const Tag& value) { m_tagListHasBeenSet = true; m_tagList.push_back(value); return *this; }
+
+    
+    inline CreateClusterRequest& AddTagList(Tag&& value) { m_tagListHasBeenSet = true; m_tagList.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::Vector<Aws::String> m_subnetIds;
@@ -220,6 +268,9 @@ namespace Model
 
     Aws::String m_sourceBackupId;
     bool m_sourceBackupIdHasBeenSet;
+
+    Aws::Vector<Tag> m_tagList;
+    bool m_tagListHasBeenSet;
   };
 
 } // namespace Model

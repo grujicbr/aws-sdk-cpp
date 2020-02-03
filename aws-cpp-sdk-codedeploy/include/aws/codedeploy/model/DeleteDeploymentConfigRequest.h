@@ -36,7 +36,7 @@ namespace Model
   {
   public:
     DeleteDeploymentConfigRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,44 +49,50 @@ namespace Model
 
 
     /**
-     * <p>The name of a deployment configuration associated with the applicable IAM
-     * user or AWS account.</p>
+     * <p>The name of a deployment configuration associated with the IAM user or AWS
+     * account.</p>
      */
     inline const Aws::String& GetDeploymentConfigName() const{ return m_deploymentConfigName; }
 
     /**
-     * <p>The name of a deployment configuration associated with the applicable IAM
-     * user or AWS account.</p>
+     * <p>The name of a deployment configuration associated with the IAM user or AWS
+     * account.</p>
+     */
+    inline bool DeploymentConfigNameHasBeenSet() const { return m_deploymentConfigNameHasBeenSet; }
+
+    /**
+     * <p>The name of a deployment configuration associated with the IAM user or AWS
+     * account.</p>
      */
     inline void SetDeploymentConfigName(const Aws::String& value) { m_deploymentConfigNameHasBeenSet = true; m_deploymentConfigName = value; }
 
     /**
-     * <p>The name of a deployment configuration associated with the applicable IAM
-     * user or AWS account.</p>
+     * <p>The name of a deployment configuration associated with the IAM user or AWS
+     * account.</p>
      */
     inline void SetDeploymentConfigName(Aws::String&& value) { m_deploymentConfigNameHasBeenSet = true; m_deploymentConfigName = std::move(value); }
 
     /**
-     * <p>The name of a deployment configuration associated with the applicable IAM
-     * user or AWS account.</p>
+     * <p>The name of a deployment configuration associated with the IAM user or AWS
+     * account.</p>
      */
     inline void SetDeploymentConfigName(const char* value) { m_deploymentConfigNameHasBeenSet = true; m_deploymentConfigName.assign(value); }
 
     /**
-     * <p>The name of a deployment configuration associated with the applicable IAM
-     * user or AWS account.</p>
+     * <p>The name of a deployment configuration associated with the IAM user or AWS
+     * account.</p>
      */
     inline DeleteDeploymentConfigRequest& WithDeploymentConfigName(const Aws::String& value) { SetDeploymentConfigName(value); return *this;}
 
     /**
-     * <p>The name of a deployment configuration associated with the applicable IAM
-     * user or AWS account.</p>
+     * <p>The name of a deployment configuration associated with the IAM user or AWS
+     * account.</p>
      */
     inline DeleteDeploymentConfigRequest& WithDeploymentConfigName(Aws::String&& value) { SetDeploymentConfigName(std::move(value)); return *this;}
 
     /**
-     * <p>The name of a deployment configuration associated with the applicable IAM
-     * user or AWS account.</p>
+     * <p>The name of a deployment configuration associated with the IAM user or AWS
+     * account.</p>
      */
     inline DeleteDeploymentConfigRequest& WithDeploymentConfigName(const char* value) { SetDeploymentConfigName(value); return *this;}
 

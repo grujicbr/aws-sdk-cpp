@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Alias();
-    Alias(const Aws::Utils::Json::JsonValue& jsonValue);
-    Alias& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Alias(Aws::Utils::Json::JsonView jsonValue);
+    Alias& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The canonical name of the alias.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The canonical name of the alias.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The canonical name of the alias.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>A list of names for the alias, including the canonical name.</p>
      */
     inline const Aws::Vector<Aws::String>& GetNames() const{ return m_names; }
+
+    /**
+     * <p>A list of names for the alias, including the canonical name.</p>
+     */
+    inline bool NamesHasBeenSet() const { return m_namesHasBeenSet; }
 
     /**
      * <p>A list of names for the alias, including the canonical name.</p>
@@ -128,6 +139,11 @@ namespace Model
      * <p>The type of the alias.</p>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of the alias.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of the alias.</p>

@@ -34,26 +34,30 @@ AudioCodecSettings::AudioCodecSettings() :
     m_aiffSettingsHasBeenSet(false),
     m_codec(AudioCodec::NOT_SET),
     m_codecHasBeenSet(false),
+    m_eac3AtmosSettingsHasBeenSet(false),
     m_eac3SettingsHasBeenSet(false),
     m_mp2SettingsHasBeenSet(false),
+    m_mp3SettingsHasBeenSet(false),
     m_wavSettingsHasBeenSet(false)
 {
 }
 
-AudioCodecSettings::AudioCodecSettings(const JsonValue& jsonValue) : 
+AudioCodecSettings::AudioCodecSettings(JsonView jsonValue) : 
     m_aacSettingsHasBeenSet(false),
     m_ac3SettingsHasBeenSet(false),
     m_aiffSettingsHasBeenSet(false),
     m_codec(AudioCodec::NOT_SET),
     m_codecHasBeenSet(false),
+    m_eac3AtmosSettingsHasBeenSet(false),
     m_eac3SettingsHasBeenSet(false),
     m_mp2SettingsHasBeenSet(false),
+    m_mp3SettingsHasBeenSet(false),
     m_wavSettingsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-AudioCodecSettings& AudioCodecSettings::operator =(const JsonValue& jsonValue)
+AudioCodecSettings& AudioCodecSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("aacSettings"))
   {
@@ -83,6 +87,13 @@ AudioCodecSettings& AudioCodecSettings::operator =(const JsonValue& jsonValue)
     m_codecHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("eac3AtmosSettings"))
+  {
+    m_eac3AtmosSettings = jsonValue.GetObject("eac3AtmosSettings");
+
+    m_eac3AtmosSettingsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("eac3Settings"))
   {
     m_eac3Settings = jsonValue.GetObject("eac3Settings");
@@ -95,6 +106,13 @@ AudioCodecSettings& AudioCodecSettings::operator =(const JsonValue& jsonValue)
     m_mp2Settings = jsonValue.GetObject("mp2Settings");
 
     m_mp2SettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mp3Settings"))
+  {
+    m_mp3Settings = jsonValue.GetObject("mp3Settings");
+
+    m_mp3SettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("wavSettings"))
@@ -134,6 +152,12 @@ JsonValue AudioCodecSettings::Jsonize() const
    payload.WithString("codec", AudioCodecMapper::GetNameForAudioCodec(m_codec));
   }
 
+  if(m_eac3AtmosSettingsHasBeenSet)
+  {
+   payload.WithObject("eac3AtmosSettings", m_eac3AtmosSettings.Jsonize());
+
+  }
+
   if(m_eac3SettingsHasBeenSet)
   {
    payload.WithObject("eac3Settings", m_eac3Settings.Jsonize());
@@ -143,6 +167,12 @@ JsonValue AudioCodecSettings::Jsonize() const
   if(m_mp2SettingsHasBeenSet)
   {
    payload.WithObject("mp2Settings", m_mp2Settings.Jsonize());
+
+  }
+
+  if(m_mp3SettingsHasBeenSet)
+  {
+   payload.WithObject("mp3Settings", m_mp3Settings.Jsonize());
 
   }
 

@@ -47,16 +47,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -116,7 +110,7 @@ namespace Model
     typedef std::function<void(const PollyClient*, const Model::ListSpeechSynthesisTasksRequest&, const Model::ListSpeechSynthesisTasksOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > ListSpeechSynthesisTasksResponseReceivedHandler;
     typedef std::function<void(const PollyClient*, const Model::PutLexiconRequest&, const Model::PutLexiconOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > PutLexiconResponseReceivedHandler;
     typedef std::function<void(const PollyClient*, const Model::StartSpeechSynthesisTaskRequest&, const Model::StartSpeechSynthesisTaskOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > StartSpeechSynthesisTaskResponseReceivedHandler;
-    typedef std::function<void(const PollyClient*, const Model::SynthesizeSpeechRequest&, const Model::SynthesizeSpeechOutcome&, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SynthesizeSpeechResponseReceivedHandler;
+    typedef std::function<void(const PollyClient*, const Model::SynthesizeSpeechRequest&, Model::SynthesizeSpeechOutcome, const std::shared_ptr<const Aws::Client::AsyncCallerContext>&) > SynthesizeSpeechResponseReceivedHandler;
 
   /**
    * <p>Amazon Polly is a web service that makes it easy to synthesize speech from
@@ -151,7 +145,7 @@ namespace Model
 
         virtual ~PollyClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "polly"; }
+        inline virtual const char* GetServiceClientName() const override { return "Polly"; }
 
 
         /**
@@ -159,7 +153,7 @@ namespace Model
          * lexicon which has been deleted is not available for speech synthesis, nor is it
          * possible to retrieve it using either the <code>GetLexicon</code> or
          * <code>ListLexicon</code> APIs.</p> <p>For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/DeleteLexicon">AWS
          * API Reference</a></p>
@@ -171,7 +165,7 @@ namespace Model
          * lexicon which has been deleted is not available for speech synthesis, nor is it
          * possible to retrieve it using either the <code>GetLexicon</code> or
          * <code>ListLexicon</code> APIs.</p> <p>For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/DeleteLexicon">AWS
          * API Reference</a></p>
@@ -185,7 +179,7 @@ namespace Model
          * lexicon which has been deleted is not available for speech synthesis, nor is it
          * possible to retrieve it using either the <code>GetLexicon</code> or
          * <code>ListLexicon</code> APIs.</p> <p>For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/DeleteLexicon">AWS
          * API Reference</a></p>
@@ -258,7 +252,7 @@ namespace Model
         /**
          * <p>Returns the content of the specified pronunciation lexicon stored in an AWS
          * Region. For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/GetLexicon">AWS
          * API Reference</a></p>
@@ -268,7 +262,7 @@ namespace Model
         /**
          * <p>Returns the content of the specified pronunciation lexicon stored in an AWS
          * Region. For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/GetLexicon">AWS
          * API Reference</a></p>
@@ -280,7 +274,7 @@ namespace Model
         /**
          * <p>Returns the content of the specified pronunciation lexicon stored in an AWS
          * Region. For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/GetLexicon">AWS
          * API Reference</a></p>
@@ -326,7 +320,7 @@ namespace Model
         /**
          * <p>Returns a list of pronunciation lexicons stored in an AWS Region. For more
          * information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/ListLexicons">AWS
          * API Reference</a></p>
@@ -336,7 +330,7 @@ namespace Model
         /**
          * <p>Returns a list of pronunciation lexicons stored in an AWS Region. For more
          * information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/ListLexicons">AWS
          * API Reference</a></p>
@@ -348,7 +342,7 @@ namespace Model
         /**
          * <p>Returns a list of pronunciation lexicons stored in an AWS Region. For more
          * information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/ListLexicons">AWS
          * API Reference</a></p>
@@ -394,7 +388,7 @@ namespace Model
          * operations have eventual consistency, therefore, it might take some time before
          * the lexicon is available to the SynthesizeSpeech operation.</p> <p>For more
          * information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/PutLexicon">AWS
          * API Reference</a></p>
@@ -407,7 +401,7 @@ namespace Model
          * operations have eventual consistency, therefore, it might take some time before
          * the lexicon is available to the SynthesizeSpeech operation.</p> <p>For more
          * information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/PutLexicon">AWS
          * API Reference</a></p>
@@ -422,7 +416,7 @@ namespace Model
          * operations have eventual consistency, therefore, it might take some time before
          * the lexicon is available to the SynthesizeSpeech operation.</p> <p>For more
          * information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+         * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
          * Lexicons</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/PutLexicon">AWS
          * API Reference</a></p>
@@ -482,7 +476,7 @@ namespace Model
          * must be valid, well-formed SSML. Some alphabets might not be available with all
          * the voices (for example, Cyrillic might not be read at all by English voices)
          * unless phoneme mapping is used. For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html">How
+         * href="https://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html">How
          * it Works</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/SynthesizeSpeech">AWS
          * API Reference</a></p>
@@ -494,7 +488,7 @@ namespace Model
          * must be valid, well-formed SSML. Some alphabets might not be available with all
          * the voices (for example, Cyrillic might not be read at all by English voices)
          * unless phoneme mapping is used. For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html">How
+         * href="https://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html">How
          * it Works</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/SynthesizeSpeech">AWS
          * API Reference</a></p>
@@ -508,7 +502,7 @@ namespace Model
          * must be valid, well-formed SSML. Some alphabets might not be available with all
          * the voices (for example, Cyrillic might not be read at all by English voices)
          * unless phoneme mapping is used. For more information, see <a
-         * href="http://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html">How
+         * href="https://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html">How
          * it Works</a>.</p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/SynthesizeSpeech">AWS
          * API Reference</a></p>
@@ -518,10 +512,9 @@ namespace Model
         virtual void SynthesizeSpeechAsync(const Model::SynthesizeSpeechRequest& request, const SynthesizeSpeechResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void DeleteLexiconAsyncHelper(const Model::DeleteLexiconRequest& request, const DeleteLexiconResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void DescribeVoicesAsyncHelper(const Model::DescribeVoicesRequest& request, const DescribeVoicesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void GetLexiconAsyncHelper(const Model::GetLexiconRequest& request, const GetLexiconResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -533,6 +526,7 @@ namespace Model
         void SynthesizeSpeechAsyncHelper(const Model::SynthesizeSpeechRequest& request, const SynthesizeSpeechResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

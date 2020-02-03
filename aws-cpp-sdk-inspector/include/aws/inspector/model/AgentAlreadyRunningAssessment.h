@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     AgentAlreadyRunningAssessment();
-    AgentAlreadyRunningAssessment(const Aws::Utils::Json::JsonValue& jsonValue);
-    AgentAlreadyRunningAssessment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AgentAlreadyRunningAssessment(Aws::Utils::Json::JsonView jsonValue);
+    AgentAlreadyRunningAssessment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * participating in another started assessment run.</p>
      */
     inline const Aws::String& GetAgentId() const{ return m_agentId; }
+
+    /**
+     * <p>ID of the agent that is running on an EC2 instance that is already
+     * participating in another started assessment run.</p>
+     */
+    inline bool AgentIdHasBeenSet() const { return m_agentIdHasBeenSet; }
 
     /**
      * <p>ID of the agent that is running on an EC2 instance that is already
@@ -95,6 +102,11 @@ namespace Model
      * <p>The ARN of the assessment run that has already been started.</p>
      */
     inline const Aws::String& GetAssessmentRunArn() const{ return m_assessmentRunArn; }
+
+    /**
+     * <p>The ARN of the assessment run that has already been started.</p>
+     */
+    inline bool AssessmentRunArnHasBeenSet() const { return m_assessmentRunArnHasBeenSet; }
 
     /**
      * <p>The ARN of the assessment run that has already been started.</p>

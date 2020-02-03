@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     OperatingSystemConfigurationManager();
-    OperatingSystemConfigurationManager(const Aws::Utils::Json::JsonValue& jsonValue);
-    OperatingSystemConfigurationManager& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    OperatingSystemConfigurationManager(Aws::Utils::Json::JsonView jsonValue);
+    OperatingSystemConfigurationManager& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the configuration manager, which is Chef.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the configuration manager, which is Chef.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the configuration manager, which is Chef.</p>
@@ -89,6 +95,12 @@ namespace Model
      * system.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The versions of the configuration manager that are supported by an operating
+     * system.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The versions of the configuration manager that are supported by an operating

@@ -47,7 +47,7 @@ Aws::String PutBucketEncryptionRequest::SerializePayload() const
     return payloadDoc.ConvertToString();
   }
 
-  return "";
+  return {};
 }
 
 void PutBucketEncryptionRequest::AddQueryStringParameters(URI& uri) const
@@ -79,7 +79,7 @@ Aws::Http::HeaderValueCollection PutBucketEncryptionRequest::GetRequestSpecificH
   if(m_contentMD5HasBeenSet)
   {
     ss << m_contentMD5;
-    headers.insert(Aws::Http::HeaderValuePair("content-md5", ss.str()));
+    headers.emplace("content-md5",  ss.str());
     ss.str("");
   }
 

@@ -29,7 +29,12 @@ namespace Model
 {
 
 DashPackage::DashPackage() : 
+    m_adTriggersHasBeenSet(false),
+    m_adsOnDeliveryRestrictions(AdsOnDeliveryRestrictions::NOT_SET),
+    m_adsOnDeliveryRestrictionsHasBeenSet(false),
     m_encryptionHasBeenSet(false),
+    m_manifestLayout(ManifestLayout::NOT_SET),
+    m_manifestLayoutHasBeenSet(false),
     m_manifestWindowSeconds(0),
     m_manifestWindowSecondsHasBeenSet(false),
     m_minBufferTimeSeconds(0),
@@ -41,14 +46,21 @@ DashPackage::DashPackage() :
     m_profileHasBeenSet(false),
     m_segmentDurationSeconds(0),
     m_segmentDurationSecondsHasBeenSet(false),
+    m_segmentTemplateFormat(SegmentTemplateFormat::NOT_SET),
+    m_segmentTemplateFormatHasBeenSet(false),
     m_streamSelectionHasBeenSet(false),
     m_suggestedPresentationDelaySeconds(0),
     m_suggestedPresentationDelaySecondsHasBeenSet(false)
 {
 }
 
-DashPackage::DashPackage(const JsonValue& jsonValue) : 
+DashPackage::DashPackage(JsonView jsonValue) : 
+    m_adTriggersHasBeenSet(false),
+    m_adsOnDeliveryRestrictions(AdsOnDeliveryRestrictions::NOT_SET),
+    m_adsOnDeliveryRestrictionsHasBeenSet(false),
     m_encryptionHasBeenSet(false),
+    m_manifestLayout(ManifestLayout::NOT_SET),
+    m_manifestLayoutHasBeenSet(false),
     m_manifestWindowSeconds(0),
     m_manifestWindowSecondsHasBeenSet(false),
     m_minBufferTimeSeconds(0),
@@ -60,6 +72,8 @@ DashPackage::DashPackage(const JsonValue& jsonValue) :
     m_profileHasBeenSet(false),
     m_segmentDurationSeconds(0),
     m_segmentDurationSecondsHasBeenSet(false),
+    m_segmentTemplateFormat(SegmentTemplateFormat::NOT_SET),
+    m_segmentTemplateFormatHasBeenSet(false),
     m_streamSelectionHasBeenSet(false),
     m_suggestedPresentationDelaySeconds(0),
     m_suggestedPresentationDelaySecondsHasBeenSet(false)
@@ -67,13 +81,37 @@ DashPackage::DashPackage(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-DashPackage& DashPackage::operator =(const JsonValue& jsonValue)
+DashPackage& DashPackage::operator =(JsonView jsonValue)
 {
+  if(jsonValue.ValueExists("adTriggers"))
+  {
+    Array<JsonView> adTriggersJsonList = jsonValue.GetArray("adTriggers");
+    for(unsigned adTriggersIndex = 0; adTriggersIndex < adTriggersJsonList.GetLength(); ++adTriggersIndex)
+    {
+      m_adTriggers.push_back(__AdTriggersElementMapper::Get__AdTriggersElementForName(adTriggersJsonList[adTriggersIndex].AsString()));
+    }
+    m_adTriggersHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("adsOnDeliveryRestrictions"))
+  {
+    m_adsOnDeliveryRestrictions = AdsOnDeliveryRestrictionsMapper::GetAdsOnDeliveryRestrictionsForName(jsonValue.GetString("adsOnDeliveryRestrictions"));
+
+    m_adsOnDeliveryRestrictionsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("encryption"))
   {
     m_encryption = jsonValue.GetObject("encryption");
 
     m_encryptionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("manifestLayout"))
+  {
+    m_manifestLayout = ManifestLayoutMapper::GetManifestLayoutForName(jsonValue.GetString("manifestLayout"));
+
+    m_manifestLayoutHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("manifestWindowSeconds"))
@@ -99,7 +137,7 @@ DashPackage& DashPackage::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("periodTriggers"))
   {
-    Array<JsonValue> periodTriggersJsonList = jsonValue.GetArray("periodTriggers");
+    Array<JsonView> periodTriggersJsonList = jsonValue.GetArray("periodTriggers");
     for(unsigned periodTriggersIndex = 0; periodTriggersIndex < periodTriggersJsonList.GetLength(); ++periodTriggersIndex)
     {
       m_periodTriggers.push_back(__PeriodTriggersElementMapper::Get__PeriodTriggersElementForName(periodTriggersJsonList[periodTriggersIndex].AsString()));
@@ -119,6 +157,13 @@ DashPackage& DashPackage::operator =(const JsonValue& jsonValue)
     m_segmentDurationSeconds = jsonValue.GetInteger("segmentDurationSeconds");
 
     m_segmentDurationSecondsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("segmentTemplateFormat"))
+  {
+    m_segmentTemplateFormat = SegmentTemplateFormatMapper::GetSegmentTemplateFormatForName(jsonValue.GetString("segmentTemplateFormat"));
+
+    m_segmentTemplateFormatHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("streamSelection"))
@@ -142,10 +187,31 @@ JsonValue DashPackage::Jsonize() const
 {
   JsonValue payload;
 
+  if(m_adTriggersHasBeenSet)
+  {
+   Array<JsonValue> adTriggersJsonList(m_adTriggers.size());
+   for(unsigned adTriggersIndex = 0; adTriggersIndex < adTriggersJsonList.GetLength(); ++adTriggersIndex)
+   {
+     adTriggersJsonList[adTriggersIndex].AsString(__AdTriggersElementMapper::GetNameFor__AdTriggersElement(m_adTriggers[adTriggersIndex]));
+   }
+   payload.WithArray("adTriggers", std::move(adTriggersJsonList));
+
+  }
+
+  if(m_adsOnDeliveryRestrictionsHasBeenSet)
+  {
+   payload.WithString("adsOnDeliveryRestrictions", AdsOnDeliveryRestrictionsMapper::GetNameForAdsOnDeliveryRestrictions(m_adsOnDeliveryRestrictions));
+  }
+
   if(m_encryptionHasBeenSet)
   {
    payload.WithObject("encryption", m_encryption.Jsonize());
 
+  }
+
+  if(m_manifestLayoutHasBeenSet)
+  {
+   payload.WithString("manifestLayout", ManifestLayoutMapper::GetNameForManifestLayout(m_manifestLayout));
   }
 
   if(m_manifestWindowSecondsHasBeenSet)
@@ -186,6 +252,11 @@ JsonValue DashPackage::Jsonize() const
   {
    payload.WithInteger("segmentDurationSeconds", m_segmentDurationSeconds);
 
+  }
+
+  if(m_segmentTemplateFormatHasBeenSet)
+  {
+   payload.WithString("segmentTemplateFormat", SegmentTemplateFormatMapper::GetNameForSegmentTemplateFormat(m_segmentTemplateFormat));
   }
 
   if(m_streamSelectionHasBeenSet)

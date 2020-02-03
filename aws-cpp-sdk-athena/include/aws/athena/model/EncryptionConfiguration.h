@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Athena
@@ -34,8 +35,9 @@ namespace Model
 {
 
   /**
-   * <p>If query results are encrypted in Amazon S3, indicates the Amazon S3
-   * encryption option used.</p><p><h3>See Also:</h3>   <a
+   * <p>If query results are encrypted in Amazon S3, indicates the encryption option
+   * used (for example, <code>SSE-KMS</code> or <code>CSE-KMS</code>) and key
+   * information.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/athena-2017-05-18/EncryptionConfiguration">AWS
    * API Reference</a></p>
    */
@@ -43,8 +45,8 @@ namespace Model
   {
   public:
     EncryptionConfiguration();
-    EncryptionConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    EncryptionConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EncryptionConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    EncryptionConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,7 +54,10 @@ namespace Model
      * <p>Indicates whether Amazon S3 server-side encryption with Amazon S3-managed
      * keys (<code>SSE-S3</code>), server-side encryption with KMS-managed keys
      * (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.</p>
+     * (CSE-KMS) is used.</p> <p>If a query runs in a workgroup and the workgroup
+     * overrides client-side settings, then the workgroup's setting for encryption is
+     * used. It specifies whether query results must be encrypted, for all queries that
+     * run in this workgroup. </p>
      */
     inline const EncryptionOption& GetEncryptionOption() const{ return m_encryptionOption; }
 
@@ -60,7 +65,21 @@ namespace Model
      * <p>Indicates whether Amazon S3 server-side encryption with Amazon S3-managed
      * keys (<code>SSE-S3</code>), server-side encryption with KMS-managed keys
      * (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.</p>
+     * (CSE-KMS) is used.</p> <p>If a query runs in a workgroup and the workgroup
+     * overrides client-side settings, then the workgroup's setting for encryption is
+     * used. It specifies whether query results must be encrypted, for all queries that
+     * run in this workgroup. </p>
+     */
+    inline bool EncryptionOptionHasBeenSet() const { return m_encryptionOptionHasBeenSet; }
+
+    /**
+     * <p>Indicates whether Amazon S3 server-side encryption with Amazon S3-managed
+     * keys (<code>SSE-S3</code>), server-side encryption with KMS-managed keys
+     * (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
+     * (CSE-KMS) is used.</p> <p>If a query runs in a workgroup and the workgroup
+     * overrides client-side settings, then the workgroup's setting for encryption is
+     * used. It specifies whether query results must be encrypted, for all queries that
+     * run in this workgroup. </p>
      */
     inline void SetEncryptionOption(const EncryptionOption& value) { m_encryptionOptionHasBeenSet = true; m_encryptionOption = value; }
 
@@ -68,7 +87,10 @@ namespace Model
      * <p>Indicates whether Amazon S3 server-side encryption with Amazon S3-managed
      * keys (<code>SSE-S3</code>), server-side encryption with KMS-managed keys
      * (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.</p>
+     * (CSE-KMS) is used.</p> <p>If a query runs in a workgroup and the workgroup
+     * overrides client-side settings, then the workgroup's setting for encryption is
+     * used. It specifies whether query results must be encrypted, for all queries that
+     * run in this workgroup. </p>
      */
     inline void SetEncryptionOption(EncryptionOption&& value) { m_encryptionOptionHasBeenSet = true; m_encryptionOption = std::move(value); }
 
@@ -76,7 +98,10 @@ namespace Model
      * <p>Indicates whether Amazon S3 server-side encryption with Amazon S3-managed
      * keys (<code>SSE-S3</code>), server-side encryption with KMS-managed keys
      * (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.</p>
+     * (CSE-KMS) is used.</p> <p>If a query runs in a workgroup and the workgroup
+     * overrides client-side settings, then the workgroup's setting for encryption is
+     * used. It specifies whether query results must be encrypted, for all queries that
+     * run in this workgroup. </p>
      */
     inline EncryptionConfiguration& WithEncryptionOption(const EncryptionOption& value) { SetEncryptionOption(value); return *this;}
 
@@ -84,7 +109,10 @@ namespace Model
      * <p>Indicates whether Amazon S3 server-side encryption with Amazon S3-managed
      * keys (<code>SSE-S3</code>), server-side encryption with KMS-managed keys
      * (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.</p>
+     * (CSE-KMS) is used.</p> <p>If a query runs in a workgroup and the workgroup
+     * overrides client-side settings, then the workgroup's setting for encryption is
+     * used. It specifies whether query results must be encrypted, for all queries that
+     * run in this workgroup. </p>
      */
     inline EncryptionConfiguration& WithEncryptionOption(EncryptionOption&& value) { SetEncryptionOption(std::move(value)); return *this;}
 
@@ -94,6 +122,12 @@ namespace Model
      * ID.</p>
      */
     inline const Aws::String& GetKmsKey() const{ return m_kmsKey; }
+
+    /**
+     * <p>For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or
+     * ID.</p>
+     */
+    inline bool KmsKeyHasBeenSet() const { return m_kmsKeyHasBeenSet; }
 
     /**
      * <p>For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisAnalytics
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CloudWatchLoggingOption();
-    CloudWatchLoggingOption(const Aws::Utils::Json::JsonValue& jsonValue);
-    CloudWatchLoggingOption& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CloudWatchLoggingOption(Aws::Utils::Json::JsonView jsonValue);
+    CloudWatchLoggingOption& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>ARN of the CloudWatch log to receive application messages.</p>
      */
     inline const Aws::String& GetLogStreamARN() const{ return m_logStreamARN; }
+
+    /**
+     * <p>ARN of the CloudWatch log to receive application messages.</p>
+     */
+    inline bool LogStreamARNHasBeenSet() const { return m_logStreamARNHasBeenSet; }
 
     /**
      * <p>ARN of the CloudWatch log to receive application messages.</p>
@@ -90,6 +96,13 @@ namespace Model
      * <code>PutLogEvents</code> policy action enabled.</p>
      */
     inline const Aws::String& GetRoleARN() const{ return m_roleARN; }
+
+    /**
+     * <p>IAM ARN of the role to use to send application messages. Note: To write
+     * application messages to CloudWatch, the IAM role that is used must have the
+     * <code>PutLogEvents</code> policy action enabled.</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
 
     /**
      * <p>IAM ARN of the role to use to send application messages. Note: To write

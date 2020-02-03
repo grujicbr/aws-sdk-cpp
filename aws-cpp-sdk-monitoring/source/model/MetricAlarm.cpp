@@ -64,7 +64,9 @@ MetricAlarm::MetricAlarm() :
     m_comparisonOperator(ComparisonOperator::NOT_SET),
     m_comparisonOperatorHasBeenSet(false),
     m_treatMissingDataHasBeenSet(false),
-    m_evaluateLowSampleCountPercentileHasBeenSet(false)
+    m_evaluateLowSampleCountPercentileHasBeenSet(false),
+    m_metricsHasBeenSet(false),
+    m_thresholdMetricIdHasBeenSet(false)
 {
 }
 
@@ -102,7 +104,9 @@ MetricAlarm::MetricAlarm(const XmlNode& xmlNode) :
     m_comparisonOperator(ComparisonOperator::NOT_SET),
     m_comparisonOperatorHasBeenSet(false),
     m_treatMissingDataHasBeenSet(false),
-    m_evaluateLowSampleCountPercentileHasBeenSet(false)
+    m_evaluateLowSampleCountPercentileHasBeenSet(false),
+    m_metricsHasBeenSet(false),
+    m_thresholdMetricIdHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -116,31 +120,31 @@ MetricAlarm& MetricAlarm::operator =(const XmlNode& xmlNode)
     XmlNode alarmNameNode = resultNode.FirstChild("AlarmName");
     if(!alarmNameNode.IsNull())
     {
-      m_alarmName = StringUtils::Trim(alarmNameNode.GetText().c_str());
+      m_alarmName = Aws::Utils::Xml::DecodeEscapedXmlText(alarmNameNode.GetText());
       m_alarmNameHasBeenSet = true;
     }
     XmlNode alarmArnNode = resultNode.FirstChild("AlarmArn");
     if(!alarmArnNode.IsNull())
     {
-      m_alarmArn = StringUtils::Trim(alarmArnNode.GetText().c_str());
+      m_alarmArn = Aws::Utils::Xml::DecodeEscapedXmlText(alarmArnNode.GetText());
       m_alarmArnHasBeenSet = true;
     }
     XmlNode alarmDescriptionNode = resultNode.FirstChild("AlarmDescription");
     if(!alarmDescriptionNode.IsNull())
     {
-      m_alarmDescription = StringUtils::Trim(alarmDescriptionNode.GetText().c_str());
+      m_alarmDescription = Aws::Utils::Xml::DecodeEscapedXmlText(alarmDescriptionNode.GetText());
       m_alarmDescriptionHasBeenSet = true;
     }
     XmlNode alarmConfigurationUpdatedTimestampNode = resultNode.FirstChild("AlarmConfigurationUpdatedTimestamp");
     if(!alarmConfigurationUpdatedTimestampNode.IsNull())
     {
-      m_alarmConfigurationUpdatedTimestamp = DateTime(StringUtils::Trim(alarmConfigurationUpdatedTimestampNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_alarmConfigurationUpdatedTimestamp = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(alarmConfigurationUpdatedTimestampNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_alarmConfigurationUpdatedTimestampHasBeenSet = true;
     }
     XmlNode actionsEnabledNode = resultNode.FirstChild("ActionsEnabled");
     if(!actionsEnabledNode.IsNull())
     {
-      m_actionsEnabled = StringUtils::ConvertToBool(StringUtils::Trim(actionsEnabledNode.GetText().c_str()).c_str());
+      m_actionsEnabled = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(actionsEnabledNode.GetText()).c_str()).c_str());
       m_actionsEnabledHasBeenSet = true;
     }
     XmlNode oKActionsNode = resultNode.FirstChild("OKActions");
@@ -149,7 +153,7 @@ MetricAlarm& MetricAlarm::operator =(const XmlNode& xmlNode)
       XmlNode oKActionsMember = oKActionsNode.FirstChild("member");
       while(!oKActionsMember.IsNull())
       {
-        m_oKActions.push_back(StringUtils::Trim(oKActionsMember.GetText().c_str()));
+        m_oKActions.push_back(oKActionsMember.GetText());
         oKActionsMember = oKActionsMember.NextNode("member");
       }
 
@@ -161,7 +165,7 @@ MetricAlarm& MetricAlarm::operator =(const XmlNode& xmlNode)
       XmlNode alarmActionsMember = alarmActionsNode.FirstChild("member");
       while(!alarmActionsMember.IsNull())
       {
-        m_alarmActions.push_back(StringUtils::Trim(alarmActionsMember.GetText().c_str()));
+        m_alarmActions.push_back(alarmActionsMember.GetText());
         alarmActionsMember = alarmActionsMember.NextNode("member");
       }
 
@@ -173,7 +177,7 @@ MetricAlarm& MetricAlarm::operator =(const XmlNode& xmlNode)
       XmlNode insufficientDataActionsMember = insufficientDataActionsNode.FirstChild("member");
       while(!insufficientDataActionsMember.IsNull())
       {
-        m_insufficientDataActions.push_back(StringUtils::Trim(insufficientDataActionsMember.GetText().c_str()));
+        m_insufficientDataActions.push_back(insufficientDataActionsMember.GetText());
         insufficientDataActionsMember = insufficientDataActionsMember.NextNode("member");
       }
 
@@ -182,49 +186,49 @@ MetricAlarm& MetricAlarm::operator =(const XmlNode& xmlNode)
     XmlNode stateValueNode = resultNode.FirstChild("StateValue");
     if(!stateValueNode.IsNull())
     {
-      m_stateValue = StateValueMapper::GetStateValueForName(StringUtils::Trim(stateValueNode.GetText().c_str()).c_str());
+      m_stateValue = StateValueMapper::GetStateValueForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(stateValueNode.GetText()).c_str()).c_str());
       m_stateValueHasBeenSet = true;
     }
     XmlNode stateReasonNode = resultNode.FirstChild("StateReason");
     if(!stateReasonNode.IsNull())
     {
-      m_stateReason = StringUtils::Trim(stateReasonNode.GetText().c_str());
+      m_stateReason = Aws::Utils::Xml::DecodeEscapedXmlText(stateReasonNode.GetText());
       m_stateReasonHasBeenSet = true;
     }
     XmlNode stateReasonDataNode = resultNode.FirstChild("StateReasonData");
     if(!stateReasonDataNode.IsNull())
     {
-      m_stateReasonData = StringUtils::Trim(stateReasonDataNode.GetText().c_str());
+      m_stateReasonData = Aws::Utils::Xml::DecodeEscapedXmlText(stateReasonDataNode.GetText());
       m_stateReasonDataHasBeenSet = true;
     }
     XmlNode stateUpdatedTimestampNode = resultNode.FirstChild("StateUpdatedTimestamp");
     if(!stateUpdatedTimestampNode.IsNull())
     {
-      m_stateUpdatedTimestamp = DateTime(StringUtils::Trim(stateUpdatedTimestampNode.GetText().c_str()).c_str(), DateFormat::ISO_8601);
+      m_stateUpdatedTimestamp = DateTime(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(stateUpdatedTimestampNode.GetText()).c_str()).c_str(), DateFormat::ISO_8601);
       m_stateUpdatedTimestampHasBeenSet = true;
     }
     XmlNode metricNameNode = resultNode.FirstChild("MetricName");
     if(!metricNameNode.IsNull())
     {
-      m_metricName = StringUtils::Trim(metricNameNode.GetText().c_str());
+      m_metricName = Aws::Utils::Xml::DecodeEscapedXmlText(metricNameNode.GetText());
       m_metricNameHasBeenSet = true;
     }
     XmlNode namespaceNode = resultNode.FirstChild("Namespace");
     if(!namespaceNode.IsNull())
     {
-      m_namespace = StringUtils::Trim(namespaceNode.GetText().c_str());
+      m_namespace = Aws::Utils::Xml::DecodeEscapedXmlText(namespaceNode.GetText());
       m_namespaceHasBeenSet = true;
     }
     XmlNode statisticNode = resultNode.FirstChild("Statistic");
     if(!statisticNode.IsNull())
     {
-      m_statistic = StatisticMapper::GetStatisticForName(StringUtils::Trim(statisticNode.GetText().c_str()).c_str());
+      m_statistic = StatisticMapper::GetStatisticForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(statisticNode.GetText()).c_str()).c_str());
       m_statisticHasBeenSet = true;
     }
     XmlNode extendedStatisticNode = resultNode.FirstChild("ExtendedStatistic");
     if(!extendedStatisticNode.IsNull())
     {
-      m_extendedStatistic = StringUtils::Trim(extendedStatisticNode.GetText().c_str());
+      m_extendedStatistic = Aws::Utils::Xml::DecodeEscapedXmlText(extendedStatisticNode.GetText());
       m_extendedStatisticHasBeenSet = true;
     }
     XmlNode dimensionsNode = resultNode.FirstChild("Dimensions");
@@ -242,50 +246,68 @@ MetricAlarm& MetricAlarm::operator =(const XmlNode& xmlNode)
     XmlNode periodNode = resultNode.FirstChild("Period");
     if(!periodNode.IsNull())
     {
-      m_period = StringUtils::ConvertToInt32(StringUtils::Trim(periodNode.GetText().c_str()).c_str());
+      m_period = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(periodNode.GetText()).c_str()).c_str());
       m_periodHasBeenSet = true;
     }
     XmlNode unitNode = resultNode.FirstChild("Unit");
     if(!unitNode.IsNull())
     {
-      m_unit = StandardUnitMapper::GetStandardUnitForName(StringUtils::Trim(unitNode.GetText().c_str()).c_str());
+      m_unit = StandardUnitMapper::GetStandardUnitForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(unitNode.GetText()).c_str()).c_str());
       m_unitHasBeenSet = true;
     }
     XmlNode evaluationPeriodsNode = resultNode.FirstChild("EvaluationPeriods");
     if(!evaluationPeriodsNode.IsNull())
     {
-      m_evaluationPeriods = StringUtils::ConvertToInt32(StringUtils::Trim(evaluationPeriodsNode.GetText().c_str()).c_str());
+      m_evaluationPeriods = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(evaluationPeriodsNode.GetText()).c_str()).c_str());
       m_evaluationPeriodsHasBeenSet = true;
     }
     XmlNode datapointsToAlarmNode = resultNode.FirstChild("DatapointsToAlarm");
     if(!datapointsToAlarmNode.IsNull())
     {
-      m_datapointsToAlarm = StringUtils::ConvertToInt32(StringUtils::Trim(datapointsToAlarmNode.GetText().c_str()).c_str());
+      m_datapointsToAlarm = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(datapointsToAlarmNode.GetText()).c_str()).c_str());
       m_datapointsToAlarmHasBeenSet = true;
     }
     XmlNode thresholdNode = resultNode.FirstChild("Threshold");
     if(!thresholdNode.IsNull())
     {
-      m_threshold = StringUtils::ConvertToDouble(StringUtils::Trim(thresholdNode.GetText().c_str()).c_str());
+      m_threshold = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(thresholdNode.GetText()).c_str()).c_str());
       m_thresholdHasBeenSet = true;
     }
     XmlNode comparisonOperatorNode = resultNode.FirstChild("ComparisonOperator");
     if(!comparisonOperatorNode.IsNull())
     {
-      m_comparisonOperator = ComparisonOperatorMapper::GetComparisonOperatorForName(StringUtils::Trim(comparisonOperatorNode.GetText().c_str()).c_str());
+      m_comparisonOperator = ComparisonOperatorMapper::GetComparisonOperatorForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(comparisonOperatorNode.GetText()).c_str()).c_str());
       m_comparisonOperatorHasBeenSet = true;
     }
     XmlNode treatMissingDataNode = resultNode.FirstChild("TreatMissingData");
     if(!treatMissingDataNode.IsNull())
     {
-      m_treatMissingData = StringUtils::Trim(treatMissingDataNode.GetText().c_str());
+      m_treatMissingData = Aws::Utils::Xml::DecodeEscapedXmlText(treatMissingDataNode.GetText());
       m_treatMissingDataHasBeenSet = true;
     }
     XmlNode evaluateLowSampleCountPercentileNode = resultNode.FirstChild("EvaluateLowSampleCountPercentile");
     if(!evaluateLowSampleCountPercentileNode.IsNull())
     {
-      m_evaluateLowSampleCountPercentile = StringUtils::Trim(evaluateLowSampleCountPercentileNode.GetText().c_str());
+      m_evaluateLowSampleCountPercentile = Aws::Utils::Xml::DecodeEscapedXmlText(evaluateLowSampleCountPercentileNode.GetText());
       m_evaluateLowSampleCountPercentileHasBeenSet = true;
+    }
+    XmlNode metricsNode = resultNode.FirstChild("Metrics");
+    if(!metricsNode.IsNull())
+    {
+      XmlNode metricsMember = metricsNode.FirstChild("member");
+      while(!metricsMember.IsNull())
+      {
+        m_metrics.push_back(metricsMember);
+        metricsMember = metricsMember.NextNode("member");
+      }
+
+      m_metricsHasBeenSet = true;
+    }
+    XmlNode thresholdMetricIdNode = resultNode.FirstChild("ThresholdMetricId");
+    if(!thresholdMetricIdNode.IsNull())
+    {
+      m_thresholdMetricId = Aws::Utils::Xml::DecodeEscapedXmlText(thresholdMetricIdNode.GetText());
+      m_thresholdMetricIdHasBeenSet = true;
     }
   }
 
@@ -437,6 +459,22 @@ void MetricAlarm::OutputToStream(Aws::OStream& oStream, const char* location, un
       oStream << location << index << locationValue << ".EvaluateLowSampleCountPercentile=" << StringUtils::URLEncode(m_evaluateLowSampleCountPercentile.c_str()) << "&";
   }
 
+  if(m_metricsHasBeenSet)
+  {
+      unsigned metricsIdx = 1;
+      for(auto& item : m_metrics)
+      {
+        Aws::StringStream metricsSs;
+        metricsSs << location << index << locationValue << ".Metrics.member." << metricsIdx++;
+        item.OutputToStream(oStream, metricsSs.str().c_str());
+      }
+  }
+
+  if(m_thresholdMetricIdHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".ThresholdMetricId=" << StringUtils::URLEncode(m_thresholdMetricId.c_str()) << "&";
+  }
+
 }
 
 void MetricAlarm::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -558,6 +596,20 @@ void MetricAlarm::OutputToStream(Aws::OStream& oStream, const char* location) co
   if(m_evaluateLowSampleCountPercentileHasBeenSet)
   {
       oStream << location << ".EvaluateLowSampleCountPercentile=" << StringUtils::URLEncode(m_evaluateLowSampleCountPercentile.c_str()) << "&";
+  }
+  if(m_metricsHasBeenSet)
+  {
+      unsigned metricsIdx = 1;
+      for(auto& item : m_metrics)
+      {
+        Aws::StringStream metricsSs;
+        metricsSs << location <<  ".Metrics.member." << metricsIdx++;
+        item.OutputToStream(oStream, metricsSs.str().c_str());
+      }
+  }
+  if(m_thresholdMetricIdHasBeenSet)
+  {
+      oStream << location << ".ThresholdMetricId=" << StringUtils::URLEncode(m_thresholdMetricId.c_str()) << "&";
   }
 }
 

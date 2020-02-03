@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Shield
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TimeRange();
-    TimeRange(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimeRange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimeRange(Aws::Utils::Json::JsonView jsonValue);
+    TimeRange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
      */
     inline const Aws::Utils::DateTime& GetFromInclusive() const{ return m_fromInclusive; }
+
+    /**
+     * <p>The start time, in Unix time in seconds. For more information see <a
+     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
+     */
+    inline bool FromInclusiveHasBeenSet() const { return m_fromInclusiveHasBeenSet; }
 
     /**
      * <p>The start time, in Unix time in seconds. For more information see <a
@@ -82,6 +89,12 @@ namespace Model
      * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
      */
     inline const Aws::Utils::DateTime& GetToExclusive() const{ return m_toExclusive; }
+
+    /**
+     * <p>The end time, in Unix time in seconds. For more information see <a
+     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.</p>
+     */
+    inline bool ToExclusiveHasBeenSet() const { return m_toExclusiveHasBeenSet; }
 
     /**
      * <p>The end time, in Unix time in seconds. For more information see <a

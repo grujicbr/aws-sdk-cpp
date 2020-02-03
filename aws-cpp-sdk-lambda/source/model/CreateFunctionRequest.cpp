@@ -41,7 +41,8 @@ CreateFunctionRequest::CreateFunctionRequest() :
     m_environmentHasBeenSet(false),
     m_kMSKeyArnHasBeenSet(false),
     m_tracingConfigHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_layersHasBeenSet(false)
 {
 }
 
@@ -143,7 +144,18 @@ Aws::String CreateFunctionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_layersHasBeenSet)
+  {
+   Array<JsonValue> layersJsonList(m_layers.size());
+   for(unsigned layersIndex = 0; layersIndex < layersJsonList.GetLength(); ++layersIndex)
+   {
+     layersJsonList[layersIndex].AsString(m_layers[layersIndex]);
+   }
+   payload.WithArray("Layers", std::move(layersJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 

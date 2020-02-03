@@ -21,6 +21,7 @@
 #include <aws/appstream/model/ComputeCapacity.h>
 #include <aws/appstream/model/VpcConfig.h>
 #include <aws/appstream/model/DomainJoinInfo.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <utility>
 
 namespace Aws
@@ -36,7 +37,7 @@ namespace Model
   {
   public:
     CreateFleetRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +53,11 @@ namespace Model
      * <p>A unique name for the fleet.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>A unique name for the fleet.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A unique name for the fleet.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The name of the image used to create the fleet.</p>
      */
+    inline bool ImageNameHasBeenSet() const { return m_imageNameHasBeenSet; }
+
+    /**
+     * <p>The name of the image used to create the fleet.</p>
+     */
     inline void SetImageName(const Aws::String& value) { m_imageNameHasBeenSet = true; m_imageName = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The ARN of the public, private, or shared image to use.</p>
      */
     inline const Aws::String& GetImageArn() const{ return m_imageArn; }
+
+    /**
+     * <p>The ARN of the public, private, or shared image to use.</p>
+     */
+    inline bool ImageArnHasBeenSet() const { return m_imageArnHasBeenSet; }
 
     /**
      * <p>The ARN of the public, private, or shared image to use.</p>
@@ -174,6 +190,25 @@ namespace Model
      * </li> <li> <p>stream.graphics-pro.16xlarge</p> </li> </ul>
      */
     inline const Aws::String& GetInstanceType() const{ return m_instanceType; }
+
+    /**
+     * <p>The instance type to use when launching fleet instances. The following
+     * instance types are available:</p> <ul> <li> <p>stream.standard.medium</p> </li>
+     * <li> <p>stream.standard.large</p> </li> <li> <p>stream.compute.large</p> </li>
+     * <li> <p>stream.compute.xlarge</p> </li> <li> <p>stream.compute.2xlarge</p> </li>
+     * <li> <p>stream.compute.4xlarge</p> </li> <li> <p>stream.compute.8xlarge</p>
+     * </li> <li> <p>stream.memory.large</p> </li> <li> <p>stream.memory.xlarge</p>
+     * </li> <li> <p>stream.memory.2xlarge</p> </li> <li> <p>stream.memory.4xlarge</p>
+     * </li> <li> <p>stream.memory.8xlarge</p> </li> <li>
+     * <p>stream.graphics-design.large</p> </li> <li>
+     * <p>stream.graphics-design.xlarge</p> </li> <li>
+     * <p>stream.graphics-design.2xlarge</p> </li> <li>
+     * <p>stream.graphics-design.4xlarge</p> </li> <li>
+     * <p>stream.graphics-desktop.2xlarge</p> </li> <li>
+     * <p>stream.graphics-pro.4xlarge</p> </li> <li> <p>stream.graphics-pro.8xlarge</p>
+     * </li> <li> <p>stream.graphics-pro.16xlarge</p> </li> </ul>
+     */
+    inline bool InstanceTypeHasBeenSet() const { return m_instanceTypeHasBeenSet; }
 
     /**
      * <p>The instance type to use when launching fleet instances. The following
@@ -310,6 +345,17 @@ namespace Model
      * connected and a small hourly fee for instances that are not streaming apps.</p>
      * </dd> </dl>
      */
+    inline bool FleetTypeHasBeenSet() const { return m_fleetTypeHasBeenSet; }
+
+    /**
+     * <p>The fleet type.</p> <dl> <dt>ALWAYS_ON</dt> <dd> <p>Provides users with
+     * instant-on access to their apps. You are charged for all running instances in
+     * your fleet, even if no users are streaming apps.</p> </dd> <dt>ON_DEMAND</dt>
+     * <dd> <p>Provide users with access to applications after they connect, which
+     * takes one to two minutes. You are charged for instance streaming when users are
+     * connected and a small hourly fee for instances that are not streaming apps.</p>
+     * </dd> </dl>
+     */
     inline void SetFleetType(const FleetType& value) { m_fleetTypeHasBeenSet = true; m_fleetType = value; }
 
     /**
@@ -354,6 +400,11 @@ namespace Model
     /**
      * <p>The desired capacity for the fleet.</p>
      */
+    inline bool ComputeCapacityHasBeenSet() const { return m_computeCapacityHasBeenSet; }
+
+    /**
+     * <p>The desired capacity for the fleet.</p>
+     */
     inline void SetComputeCapacity(const ComputeCapacity& value) { m_computeCapacityHasBeenSet = true; m_computeCapacity = value; }
 
     /**
@@ -380,6 +431,11 @@ namespace Model
     /**
      * <p>The VPC configuration for the fleet.</p>
      */
+    inline bool VpcConfigHasBeenSet() const { return m_vpcConfigHasBeenSet; }
+
+    /**
+     * <p>The VPC configuration for the fleet.</p>
+     */
     inline void SetVpcConfig(const VpcConfig& value) { m_vpcConfigHasBeenSet = true; m_vpcConfig = value; }
 
     /**
@@ -399,117 +455,165 @@ namespace Model
 
 
     /**
-     * <p>The maximum time that a streaming session can run, in seconds. Specify a
-     * value between 600 and 57600.</p>
+     * <p>The maximum amount of time that a streaming session can remain active, in
+     * seconds. If users are still connected to a streaming instance five minutes
+     * before this limit is reached, they are prompted to save any open documents
+     * before being disconnected. After this time elapses, the instance is terminated
+     * and replaced by a new instance.</p> <p>Specify a value between 600 and
+     * 360000.</p>
      */
     inline int GetMaxUserDurationInSeconds() const{ return m_maxUserDurationInSeconds; }
 
     /**
-     * <p>The maximum time that a streaming session can run, in seconds. Specify a
-     * value between 600 and 57600.</p>
+     * <p>The maximum amount of time that a streaming session can remain active, in
+     * seconds. If users are still connected to a streaming instance five minutes
+     * before this limit is reached, they are prompted to save any open documents
+     * before being disconnected. After this time elapses, the instance is terminated
+     * and replaced by a new instance.</p> <p>Specify a value between 600 and
+     * 360000.</p>
+     */
+    inline bool MaxUserDurationInSecondsHasBeenSet() const { return m_maxUserDurationInSecondsHasBeenSet; }
+
+    /**
+     * <p>The maximum amount of time that a streaming session can remain active, in
+     * seconds. If users are still connected to a streaming instance five minutes
+     * before this limit is reached, they are prompted to save any open documents
+     * before being disconnected. After this time elapses, the instance is terminated
+     * and replaced by a new instance.</p> <p>Specify a value between 600 and
+     * 360000.</p>
      */
     inline void SetMaxUserDurationInSeconds(int value) { m_maxUserDurationInSecondsHasBeenSet = true; m_maxUserDurationInSeconds = value; }
 
     /**
-     * <p>The maximum time that a streaming session can run, in seconds. Specify a
-     * value between 600 and 57600.</p>
+     * <p>The maximum amount of time that a streaming session can remain active, in
+     * seconds. If users are still connected to a streaming instance five minutes
+     * before this limit is reached, they are prompted to save any open documents
+     * before being disconnected. After this time elapses, the instance is terminated
+     * and replaced by a new instance.</p> <p>Specify a value between 600 and
+     * 360000.</p>
      */
     inline CreateFleetRequest& WithMaxUserDurationInSeconds(int value) { SetMaxUserDurationInSeconds(value); return *this;}
 
 
     /**
-     * <p>The time after disconnection when a session is considered to have ended, in
-     * seconds. If a user who was disconnected reconnects within this time interval,
-     * the user is connected to their previous session. Specify a value between 60 and
-     * 57600.</p>
+     * <p>The amount of time that a streaming session remains active after users
+     * disconnect. If users try to reconnect to the streaming session after a
+     * disconnection or network interruption within this time interval, they are
+     * connected to their previous session. Otherwise, they are connected to a new
+     * session with a new streaming instance. </p> <p>Specify a value between 60 and
+     * 360000.</p>
      */
     inline int GetDisconnectTimeoutInSeconds() const{ return m_disconnectTimeoutInSeconds; }
 
     /**
-     * <p>The time after disconnection when a session is considered to have ended, in
-     * seconds. If a user who was disconnected reconnects within this time interval,
-     * the user is connected to their previous session. Specify a value between 60 and
-     * 57600.</p>
+     * <p>The amount of time that a streaming session remains active after users
+     * disconnect. If users try to reconnect to the streaming session after a
+     * disconnection or network interruption within this time interval, they are
+     * connected to their previous session. Otherwise, they are connected to a new
+     * session with a new streaming instance. </p> <p>Specify a value between 60 and
+     * 360000.</p>
+     */
+    inline bool DisconnectTimeoutInSecondsHasBeenSet() const { return m_disconnectTimeoutInSecondsHasBeenSet; }
+
+    /**
+     * <p>The amount of time that a streaming session remains active after users
+     * disconnect. If users try to reconnect to the streaming session after a
+     * disconnection or network interruption within this time interval, they are
+     * connected to their previous session. Otherwise, they are connected to a new
+     * session with a new streaming instance. </p> <p>Specify a value between 60 and
+     * 360000.</p>
      */
     inline void SetDisconnectTimeoutInSeconds(int value) { m_disconnectTimeoutInSecondsHasBeenSet = true; m_disconnectTimeoutInSeconds = value; }
 
     /**
-     * <p>The time after disconnection when a session is considered to have ended, in
-     * seconds. If a user who was disconnected reconnects within this time interval,
-     * the user is connected to their previous session. Specify a value between 60 and
-     * 57600.</p>
+     * <p>The amount of time that a streaming session remains active after users
+     * disconnect. If users try to reconnect to the streaming session after a
+     * disconnection or network interruption within this time interval, they are
+     * connected to their previous session. Otherwise, they are connected to a new
+     * session with a new streaming instance. </p> <p>Specify a value between 60 and
+     * 360000.</p>
      */
     inline CreateFleetRequest& WithDisconnectTimeoutInSeconds(int value) { SetDisconnectTimeoutInSeconds(value); return *this;}
 
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description to display.</p>
      */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline void SetDescription(Aws::String&& value) { m_descriptionHasBeenSet = true; m_description = std::move(value); }
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline void SetDescription(const char* value) { m_descriptionHasBeenSet = true; m_description.assign(value); }
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline CreateFleetRequest& WithDescription(const Aws::String& value) { SetDescription(value); return *this;}
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline CreateFleetRequest& WithDescription(Aws::String&& value) { SetDescription(std::move(value)); return *this;}
 
     /**
-     * <p>The description for display.</p>
+     * <p>The description to display.</p>
      */
     inline CreateFleetRequest& WithDescription(const char* value) { SetDescription(value); return *this;}
 
 
     /**
-     * <p>The fleet name for display.</p>
+     * <p>The fleet name to display.</p>
      */
     inline const Aws::String& GetDisplayName() const{ return m_displayName; }
 
     /**
-     * <p>The fleet name for display.</p>
+     * <p>The fleet name to display.</p>
+     */
+    inline bool DisplayNameHasBeenSet() const { return m_displayNameHasBeenSet; }
+
+    /**
+     * <p>The fleet name to display.</p>
      */
     inline void SetDisplayName(const Aws::String& value) { m_displayNameHasBeenSet = true; m_displayName = value; }
 
     /**
-     * <p>The fleet name for display.</p>
+     * <p>The fleet name to display.</p>
      */
     inline void SetDisplayName(Aws::String&& value) { m_displayNameHasBeenSet = true; m_displayName = std::move(value); }
 
     /**
-     * <p>The fleet name for display.</p>
+     * <p>The fleet name to display.</p>
      */
     inline void SetDisplayName(const char* value) { m_displayNameHasBeenSet = true; m_displayName.assign(value); }
 
     /**
-     * <p>The fleet name for display.</p>
+     * <p>The fleet name to display.</p>
      */
     inline CreateFleetRequest& WithDisplayName(const Aws::String& value) { SetDisplayName(value); return *this;}
 
     /**
-     * <p>The fleet name for display.</p>
+     * <p>The fleet name to display.</p>
      */
     inline CreateFleetRequest& WithDisplayName(Aws::String&& value) { SetDisplayName(std::move(value)); return *this;}
 
     /**
-     * <p>The fleet name for display.</p>
+     * <p>The fleet name to display.</p>
      */
     inline CreateFleetRequest& WithDisplayName(const char* value) { SetDisplayName(value); return *this;}
 
@@ -518,6 +622,11 @@ namespace Model
      * <p>Enables or disables default internet access for the fleet.</p>
      */
     inline bool GetEnableDefaultInternetAccess() const{ return m_enableDefaultInternetAccess; }
+
+    /**
+     * <p>Enables or disables default internet access for the fleet.</p>
+     */
+    inline bool EnableDefaultInternetAccessHasBeenSet() const { return m_enableDefaultInternetAccessHasBeenSet; }
 
     /**
      * <p>Enables or disables default internet access for the fleet.</p>
@@ -531,29 +640,415 @@ namespace Model
 
 
     /**
-     * <p>The information needed to join a Microsoft Active Directory domain.</p>
+     * <p>The name of the directory and organizational unit (OU) to use to join the
+     * fleet to a Microsoft Active Directory domain. </p>
      */
     inline const DomainJoinInfo& GetDomainJoinInfo() const{ return m_domainJoinInfo; }
 
     /**
-     * <p>The information needed to join a Microsoft Active Directory domain.</p>
+     * <p>The name of the directory and organizational unit (OU) to use to join the
+     * fleet to a Microsoft Active Directory domain. </p>
+     */
+    inline bool DomainJoinInfoHasBeenSet() const { return m_domainJoinInfoHasBeenSet; }
+
+    /**
+     * <p>The name of the directory and organizational unit (OU) to use to join the
+     * fleet to a Microsoft Active Directory domain. </p>
      */
     inline void SetDomainJoinInfo(const DomainJoinInfo& value) { m_domainJoinInfoHasBeenSet = true; m_domainJoinInfo = value; }
 
     /**
-     * <p>The information needed to join a Microsoft Active Directory domain.</p>
+     * <p>The name of the directory and organizational unit (OU) to use to join the
+     * fleet to a Microsoft Active Directory domain. </p>
      */
     inline void SetDomainJoinInfo(DomainJoinInfo&& value) { m_domainJoinInfoHasBeenSet = true; m_domainJoinInfo = std::move(value); }
 
     /**
-     * <p>The information needed to join a Microsoft Active Directory domain.</p>
+     * <p>The name of the directory and organizational unit (OU) to use to join the
+     * fleet to a Microsoft Active Directory domain. </p>
      */
     inline CreateFleetRequest& WithDomainJoinInfo(const DomainJoinInfo& value) { SetDomainJoinInfo(value); return *this;}
 
     /**
-     * <p>The information needed to join a Microsoft Active Directory domain.</p>
+     * <p>The name of the directory and organizational unit (OU) to use to join the
+     * fleet to a Microsoft Active Directory domain. </p>
      */
     inline CreateFleetRequest& WithDomainJoinInfo(DomainJoinInfo&& value) { SetDomainJoinInfo(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * <p>The tags to associate with the fleet. A tag is a key-value pair, and the
+     * value is optional. For example, Environment=Test. If you do not specify a value,
+     * Environment=. </p> <p>If you do not specify a value, the value is set to an
+     * empty string.</p> <p>Generally allowed characters are: letters, numbers, and
+     * spaces representable in UTF-8, and the following special characters: </p> <p>_ .
+     * : / = + \ - @</p> <p>For more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging
+     * Your Resources</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+
+    /**
+     * <p>The amount of time that users can be idle (inactive) before they are
+     * disconnected from their streaming session and the
+     * <code>DisconnectTimeoutInSeconds</code> time interval begins. Users are notified
+     * before they are disconnected due to inactivity. If they try to reconnect to the
+     * streaming session before the time interval specified in
+     * <code>DisconnectTimeoutInSeconds</code> elapses, they are connected to their
+     * previous session. Users are considered idle when they stop providing keyboard or
+     * mouse input during their streaming session. File uploads and downloads, audio
+     * in, audio out, and pixels changing do not qualify as user activity. If users
+     * continue to be idle after the time interval in
+     * <code>IdleDisconnectTimeoutInSeconds</code> elapses, they are disconnected.</p>
+     * <p>To prevent users from being disconnected due to inactivity, specify a value
+     * of 0. Otherwise, specify a value between 60 and 3600. The default value is
+     * 0.</p> <note> <p>If you enable this feature, we recommend that you specify a
+     * value that corresponds exactly to a whole number of minutes (for example, 60,
+     * 120, and 180). If you don't do this, the value is rounded to the nearest minute.
+     * For example, if you specify a value of 70, users are disconnected after 1 minute
+     * of inactivity. If you specify a value that is at the midpoint between two
+     * different minutes, the value is rounded up. For example, if you specify a value
+     * of 90, users are disconnected after 2 minutes of inactivity. </p> </note>
+     */
+    inline int GetIdleDisconnectTimeoutInSeconds() const{ return m_idleDisconnectTimeoutInSeconds; }
+
+    /**
+     * <p>The amount of time that users can be idle (inactive) before they are
+     * disconnected from their streaming session and the
+     * <code>DisconnectTimeoutInSeconds</code> time interval begins. Users are notified
+     * before they are disconnected due to inactivity. If they try to reconnect to the
+     * streaming session before the time interval specified in
+     * <code>DisconnectTimeoutInSeconds</code> elapses, they are connected to their
+     * previous session. Users are considered idle when they stop providing keyboard or
+     * mouse input during their streaming session. File uploads and downloads, audio
+     * in, audio out, and pixels changing do not qualify as user activity. If users
+     * continue to be idle after the time interval in
+     * <code>IdleDisconnectTimeoutInSeconds</code> elapses, they are disconnected.</p>
+     * <p>To prevent users from being disconnected due to inactivity, specify a value
+     * of 0. Otherwise, specify a value between 60 and 3600. The default value is
+     * 0.</p> <note> <p>If you enable this feature, we recommend that you specify a
+     * value that corresponds exactly to a whole number of minutes (for example, 60,
+     * 120, and 180). If you don't do this, the value is rounded to the nearest minute.
+     * For example, if you specify a value of 70, users are disconnected after 1 minute
+     * of inactivity. If you specify a value that is at the midpoint between two
+     * different minutes, the value is rounded up. For example, if you specify a value
+     * of 90, users are disconnected after 2 minutes of inactivity. </p> </note>
+     */
+    inline bool IdleDisconnectTimeoutInSecondsHasBeenSet() const { return m_idleDisconnectTimeoutInSecondsHasBeenSet; }
+
+    /**
+     * <p>The amount of time that users can be idle (inactive) before they are
+     * disconnected from their streaming session and the
+     * <code>DisconnectTimeoutInSeconds</code> time interval begins. Users are notified
+     * before they are disconnected due to inactivity. If they try to reconnect to the
+     * streaming session before the time interval specified in
+     * <code>DisconnectTimeoutInSeconds</code> elapses, they are connected to their
+     * previous session. Users are considered idle when they stop providing keyboard or
+     * mouse input during their streaming session. File uploads and downloads, audio
+     * in, audio out, and pixels changing do not qualify as user activity. If users
+     * continue to be idle after the time interval in
+     * <code>IdleDisconnectTimeoutInSeconds</code> elapses, they are disconnected.</p>
+     * <p>To prevent users from being disconnected due to inactivity, specify a value
+     * of 0. Otherwise, specify a value between 60 and 3600. The default value is
+     * 0.</p> <note> <p>If you enable this feature, we recommend that you specify a
+     * value that corresponds exactly to a whole number of minutes (for example, 60,
+     * 120, and 180). If you don't do this, the value is rounded to the nearest minute.
+     * For example, if you specify a value of 70, users are disconnected after 1 minute
+     * of inactivity. If you specify a value that is at the midpoint between two
+     * different minutes, the value is rounded up. For example, if you specify a value
+     * of 90, users are disconnected after 2 minutes of inactivity. </p> </note>
+     */
+    inline void SetIdleDisconnectTimeoutInSeconds(int value) { m_idleDisconnectTimeoutInSecondsHasBeenSet = true; m_idleDisconnectTimeoutInSeconds = value; }
+
+    /**
+     * <p>The amount of time that users can be idle (inactive) before they are
+     * disconnected from their streaming session and the
+     * <code>DisconnectTimeoutInSeconds</code> time interval begins. Users are notified
+     * before they are disconnected due to inactivity. If they try to reconnect to the
+     * streaming session before the time interval specified in
+     * <code>DisconnectTimeoutInSeconds</code> elapses, they are connected to their
+     * previous session. Users are considered idle when they stop providing keyboard or
+     * mouse input during their streaming session. File uploads and downloads, audio
+     * in, audio out, and pixels changing do not qualify as user activity. If users
+     * continue to be idle after the time interval in
+     * <code>IdleDisconnectTimeoutInSeconds</code> elapses, they are disconnected.</p>
+     * <p>To prevent users from being disconnected due to inactivity, specify a value
+     * of 0. Otherwise, specify a value between 60 and 3600. The default value is
+     * 0.</p> <note> <p>If you enable this feature, we recommend that you specify a
+     * value that corresponds exactly to a whole number of minutes (for example, 60,
+     * 120, and 180). If you don't do this, the value is rounded to the nearest minute.
+     * For example, if you specify a value of 70, users are disconnected after 1 minute
+     * of inactivity. If you specify a value that is at the midpoint between two
+     * different minutes, the value is rounded up. For example, if you specify a value
+     * of 90, users are disconnected after 2 minutes of inactivity. </p> </note>
+     */
+    inline CreateFleetRequest& WithIdleDisconnectTimeoutInSeconds(int value) { SetIdleDisconnectTimeoutInSeconds(value); return *this;}
+
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+     * assume a role, a fleet instance calls the AWS Security Token Service (STS)
+     * <code>AssumeRole</code> API operation and passes the ARN of the role to use. The
+     * operation creates a new session with temporary credentials. AppStream 2.0
+     * retrieves the temporary credentials and creates the
+     * <b>AppStream_Machine_Role</b> credential profile on the instance.</p> <p>For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using
+     * an IAM Role to Grant Permissions to Applications and Scripts Running on
+     * AppStream 2.0 Streaming Instances</a> in the <i>Amazon AppStream 2.0
+     * Administration Guide</i>.</p>
+     */
+    inline const Aws::String& GetIamRoleArn() const{ return m_iamRoleArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+     * assume a role, a fleet instance calls the AWS Security Token Service (STS)
+     * <code>AssumeRole</code> API operation and passes the ARN of the role to use. The
+     * operation creates a new session with temporary credentials. AppStream 2.0
+     * retrieves the temporary credentials and creates the
+     * <b>AppStream_Machine_Role</b> credential profile on the instance.</p> <p>For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using
+     * an IAM Role to Grant Permissions to Applications and Scripts Running on
+     * AppStream 2.0 Streaming Instances</a> in the <i>Amazon AppStream 2.0
+     * Administration Guide</i>.</p>
+     */
+    inline bool IamRoleArnHasBeenSet() const { return m_iamRoleArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+     * assume a role, a fleet instance calls the AWS Security Token Service (STS)
+     * <code>AssumeRole</code> API operation and passes the ARN of the role to use. The
+     * operation creates a new session with temporary credentials. AppStream 2.0
+     * retrieves the temporary credentials and creates the
+     * <b>AppStream_Machine_Role</b> credential profile on the instance.</p> <p>For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using
+     * an IAM Role to Grant Permissions to Applications and Scripts Running on
+     * AppStream 2.0 Streaming Instances</a> in the <i>Amazon AppStream 2.0
+     * Administration Guide</i>.</p>
+     */
+    inline void SetIamRoleArn(const Aws::String& value) { m_iamRoleArnHasBeenSet = true; m_iamRoleArn = value; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+     * assume a role, a fleet instance calls the AWS Security Token Service (STS)
+     * <code>AssumeRole</code> API operation and passes the ARN of the role to use. The
+     * operation creates a new session with temporary credentials. AppStream 2.0
+     * retrieves the temporary credentials and creates the
+     * <b>AppStream_Machine_Role</b> credential profile on the instance.</p> <p>For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using
+     * an IAM Role to Grant Permissions to Applications and Scripts Running on
+     * AppStream 2.0 Streaming Instances</a> in the <i>Amazon AppStream 2.0
+     * Administration Guide</i>.</p>
+     */
+    inline void SetIamRoleArn(Aws::String&& value) { m_iamRoleArnHasBeenSet = true; m_iamRoleArn = std::move(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+     * assume a role, a fleet instance calls the AWS Security Token Service (STS)
+     * <code>AssumeRole</code> API operation and passes the ARN of the role to use. The
+     * operation creates a new session with temporary credentials. AppStream 2.0
+     * retrieves the temporary credentials and creates the
+     * <b>AppStream_Machine_Role</b> credential profile on the instance.</p> <p>For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using
+     * an IAM Role to Grant Permissions to Applications and Scripts Running on
+     * AppStream 2.0 Streaming Instances</a> in the <i>Amazon AppStream 2.0
+     * Administration Guide</i>.</p>
+     */
+    inline void SetIamRoleArn(const char* value) { m_iamRoleArnHasBeenSet = true; m_iamRoleArn.assign(value); }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+     * assume a role, a fleet instance calls the AWS Security Token Service (STS)
+     * <code>AssumeRole</code> API operation and passes the ARN of the role to use. The
+     * operation creates a new session with temporary credentials. AppStream 2.0
+     * retrieves the temporary credentials and creates the
+     * <b>AppStream_Machine_Role</b> credential profile on the instance.</p> <p>For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using
+     * an IAM Role to Grant Permissions to Applications and Scripts Running on
+     * AppStream 2.0 Streaming Instances</a> in the <i>Amazon AppStream 2.0
+     * Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& WithIamRoleArn(const Aws::String& value) { SetIamRoleArn(value); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+     * assume a role, a fleet instance calls the AWS Security Token Service (STS)
+     * <code>AssumeRole</code> API operation and passes the ARN of the role to use. The
+     * operation creates a new session with temporary credentials. AppStream 2.0
+     * retrieves the temporary credentials and creates the
+     * <b>AppStream_Machine_Role</b> credential profile on the instance.</p> <p>For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using
+     * an IAM Role to Grant Permissions to Applications and Scripts Running on
+     * AppStream 2.0 Streaming Instances</a> in the <i>Amazon AppStream 2.0
+     * Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& WithIamRoleArn(Aws::String&& value) { SetIamRoleArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To
+     * assume a role, a fleet instance calls the AWS Security Token Service (STS)
+     * <code>AssumeRole</code> API operation and passes the ARN of the role to use. The
+     * operation creates a new session with temporary credentials. AppStream 2.0
+     * retrieves the temporary credentials and creates the
+     * <b>AppStream_Machine_Role</b> credential profile on the instance.</p> <p>For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using
+     * an IAM Role to Grant Permissions to Applications and Scripts Running on
+     * AppStream 2.0 Streaming Instances</a> in the <i>Amazon AppStream 2.0
+     * Administration Guide</i>.</p>
+     */
+    inline CreateFleetRequest& WithIamRoleArn(const char* value) { SetIamRoleArn(value); return *this;}
 
   private:
 
@@ -595,6 +1090,15 @@ namespace Model
 
     DomainJoinInfo m_domainJoinInfo;
     bool m_domainJoinInfoHasBeenSet;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
+    bool m_tagsHasBeenSet;
+
+    int m_idleDisconnectTimeoutInSeconds;
+    bool m_idleDisconnectTimeoutInSecondsHasBeenSet;
+
+    Aws::String m_iamRoleArn;
+    bool m_iamRoleArnHasBeenSet;
   };
 
 } // namespace Model

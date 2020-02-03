@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -44,13 +45,16 @@ namespace Model
   {
   public:
     StorageType();
-    StorageType(const Aws::Utils::Json::JsonValue& jsonValue);
-    StorageType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StorageType(Aws::Utils::Json::JsonView jsonValue);
+    StorageType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     
     inline const Aws::String& GetStorageTypeName() const{ return m_storageTypeName; }
+
+    
+    inline bool StorageTypeNameHasBeenSet() const { return m_storageTypeNameHasBeenSet; }
 
     
     inline void SetStorageTypeName(const Aws::String& value) { m_storageTypeNameHasBeenSet = true; m_storageTypeName = value; }
@@ -75,6 +79,9 @@ namespace Model
     inline const Aws::String& GetStorageSubTypeName() const{ return m_storageSubTypeName; }
 
     
+    inline bool StorageSubTypeNameHasBeenSet() const { return m_storageSubTypeNameHasBeenSet; }
+
+    
     inline void SetStorageSubTypeName(const Aws::String& value) { m_storageSubTypeNameHasBeenSet = true; m_storageSubTypeName = value; }
 
     
@@ -97,6 +104,11 @@ namespace Model
      * <p>List of limits that are applicable for given storage type. </p>
      */
     inline const Aws::Vector<StorageTypeLimit>& GetStorageTypeLimits() const{ return m_storageTypeLimits; }
+
+    /**
+     * <p>List of limits that are applicable for given storage type. </p>
+     */
+    inline bool StorageTypeLimitsHasBeenSet() const { return m_storageTypeLimitsHasBeenSet; }
 
     /**
      * <p>List of limits that are applicable for given storage type. </p>

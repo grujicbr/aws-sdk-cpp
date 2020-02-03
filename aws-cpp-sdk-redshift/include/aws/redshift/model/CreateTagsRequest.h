@@ -38,7 +38,7 @@ namespace Model
   {
   public:
     CreateTagsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -54,43 +54,49 @@ namespace Model
 
     /**
      * <p>The Amazon Resource Name (ARN) to which you want to add the tag or tags. For
-     * example, <code>arn:aws:redshift:us-east-1:123456789:cluster:t1</code>. </p>
+     * example, <code>arn:aws:redshift:us-east-2:123456789:cluster:t1</code>. </p>
      */
     inline const Aws::String& GetResourceName() const{ return m_resourceName; }
 
     /**
      * <p>The Amazon Resource Name (ARN) to which you want to add the tag or tags. For
-     * example, <code>arn:aws:redshift:us-east-1:123456789:cluster:t1</code>. </p>
+     * example, <code>arn:aws:redshift:us-east-2:123456789:cluster:t1</code>. </p>
+     */
+    inline bool ResourceNameHasBeenSet() const { return m_resourceNameHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) to which you want to add the tag or tags. For
+     * example, <code>arn:aws:redshift:us-east-2:123456789:cluster:t1</code>. </p>
      */
     inline void SetResourceName(const Aws::String& value) { m_resourceNameHasBeenSet = true; m_resourceName = value; }
 
     /**
      * <p>The Amazon Resource Name (ARN) to which you want to add the tag or tags. For
-     * example, <code>arn:aws:redshift:us-east-1:123456789:cluster:t1</code>. </p>
+     * example, <code>arn:aws:redshift:us-east-2:123456789:cluster:t1</code>. </p>
      */
     inline void SetResourceName(Aws::String&& value) { m_resourceNameHasBeenSet = true; m_resourceName = std::move(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) to which you want to add the tag or tags. For
-     * example, <code>arn:aws:redshift:us-east-1:123456789:cluster:t1</code>. </p>
+     * example, <code>arn:aws:redshift:us-east-2:123456789:cluster:t1</code>. </p>
      */
     inline void SetResourceName(const char* value) { m_resourceNameHasBeenSet = true; m_resourceName.assign(value); }
 
     /**
      * <p>The Amazon Resource Name (ARN) to which you want to add the tag or tags. For
-     * example, <code>arn:aws:redshift:us-east-1:123456789:cluster:t1</code>. </p>
+     * example, <code>arn:aws:redshift:us-east-2:123456789:cluster:t1</code>. </p>
      */
     inline CreateTagsRequest& WithResourceName(const Aws::String& value) { SetResourceName(value); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) to which you want to add the tag or tags. For
-     * example, <code>arn:aws:redshift:us-east-1:123456789:cluster:t1</code>. </p>
+     * example, <code>arn:aws:redshift:us-east-2:123456789:cluster:t1</code>. </p>
      */
     inline CreateTagsRequest& WithResourceName(Aws::String&& value) { SetResourceName(std::move(value)); return *this;}
 
     /**
      * <p>The Amazon Resource Name (ARN) to which you want to add the tag or tags. For
-     * example, <code>arn:aws:redshift:us-east-1:123456789:cluster:t1</code>. </p>
+     * example, <code>arn:aws:redshift:us-east-2:123456789:cluster:t1</code>. </p>
      */
     inline CreateTagsRequest& WithResourceName(const char* value) { SetResourceName(value); return *this;}
 
@@ -105,6 +111,17 @@ namespace Model
      * "Key"="version","Value"="1.0"</code>. </p>
      */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>One or more name/value pairs to add as tags to the specified resource. Each
+     * tag name is passed in with the parameter <code>Key</code> and the corresponding
+     * value is passed in with the parameter <code>Value</code>. The <code>Key</code>
+     * and <code>Value</code> parameters are separated by a comma (,). Separate
+     * multiple tags with a space. For example, <code>--tags
+     * "Key"="owner","Value"="admin" "Key"="environment","Value"="test"
+     * "Key"="version","Value"="1.0"</code>. </p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>One or more name/value pairs to add as tags to the specified resource. Each

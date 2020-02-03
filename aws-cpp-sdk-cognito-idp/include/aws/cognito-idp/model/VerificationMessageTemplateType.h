@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     VerificationMessageTemplateType();
-    VerificationMessageTemplateType(const Aws::Utils::Json::JsonValue& jsonValue);
-    VerificationMessageTemplateType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VerificationMessageTemplateType(Aws::Utils::Json::JsonView jsonValue);
+    VerificationMessageTemplateType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The SMS message template.</p>
      */
     inline const Aws::String& GetSmsMessage() const{ return m_smsMessage; }
+
+    /**
+     * <p>The SMS message template.</p>
+     */
+    inline bool SmsMessageHasBeenSet() const { return m_smsMessageHasBeenSet; }
 
     /**
      * <p>The SMS message template.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The email message template.</p>
      */
+    inline bool EmailMessageHasBeenSet() const { return m_emailMessageHasBeenSet; }
+
+    /**
+     * <p>The email message template.</p>
+     */
     inline void SetEmailMessage(const Aws::String& value) { m_emailMessageHasBeenSet = true; m_emailMessage = value; }
 
     /**
@@ -127,6 +138,11 @@ namespace Model
     /**
      * <p>The subject line for the email message template.</p>
      */
+    inline bool EmailSubjectHasBeenSet() const { return m_emailSubjectHasBeenSet; }
+
+    /**
+     * <p>The subject line for the email message template.</p>
+     */
     inline void SetEmailSubject(const Aws::String& value) { m_emailSubjectHasBeenSet = true; m_emailSubject = value; }
 
     /**
@@ -159,6 +175,11 @@ namespace Model
      * <p>The email message template for sending a confirmation link to the user.</p>
      */
     inline const Aws::String& GetEmailMessageByLink() const{ return m_emailMessageByLink; }
+
+    /**
+     * <p>The email message template for sending a confirmation link to the user.</p>
+     */
+    inline bool EmailMessageByLinkHasBeenSet() const { return m_emailMessageByLinkHasBeenSet; }
 
     /**
      * <p>The email message template for sending a confirmation link to the user.</p>
@@ -201,6 +222,12 @@ namespace Model
      * <p>The subject line for the email message template for sending a confirmation
      * link to the user.</p>
      */
+    inline bool EmailSubjectByLinkHasBeenSet() const { return m_emailSubjectByLinkHasBeenSet; }
+
+    /**
+     * <p>The subject line for the email message template for sending a confirmation
+     * link to the user.</p>
+     */
     inline void SetEmailSubjectByLink(const Aws::String& value) { m_emailSubjectByLinkHasBeenSet = true; m_emailSubjectByLink = value; }
 
     /**
@@ -238,6 +265,11 @@ namespace Model
      * <p>The default email option.</p>
      */
     inline const DefaultEmailOptionType& GetDefaultEmailOption() const{ return m_defaultEmailOption; }
+
+    /**
+     * <p>The default email option.</p>
+     */
+    inline bool DefaultEmailOptionHasBeenSet() const { return m_defaultEmailOptionHasBeenSet; }
 
     /**
      * <p>The default email option.</p>

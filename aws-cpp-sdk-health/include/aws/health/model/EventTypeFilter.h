@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Health
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     EventTypeFilter();
-    EventTypeFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventTypeFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventTypeFilter(Aws::Utils::Json::JsonView jsonValue);
+    EventTypeFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>A list of event type codes.</p>
      */
     inline const Aws::Vector<Aws::String>& GetEventTypeCodes() const{ return m_eventTypeCodes; }
+
+    /**
+     * <p>A list of event type codes.</p>
+     */
+    inline bool EventTypeCodesHasBeenSet() const { return m_eventTypeCodesHasBeenSet; }
 
     /**
      * <p>A list of event type codes.</p>
@@ -95,6 +101,12 @@ namespace Model
      * <code>RDS</code>.</p>
      */
     inline const Aws::Vector<Aws::String>& GetServices() const{ return m_services; }
+
+    /**
+     * <p>The AWS services associated with the event. For example, <code>EC2</code>,
+     * <code>RDS</code>.</p>
+     */
+    inline bool ServicesHasBeenSet() const { return m_servicesHasBeenSet; }
 
     /**
      * <p>The AWS services associated with the event. For example, <code>EC2</code>,
@@ -144,6 +156,12 @@ namespace Model
      * <code>scheduledChange</code>, or <code>accountNotification</code>).</p>
      */
     inline const Aws::Vector<EventTypeCategory>& GetEventTypeCategories() const{ return m_eventTypeCategories; }
+
+    /**
+     * <p>A list of event type category codes (<code>issue</code>,
+     * <code>scheduledChange</code>, or <code>accountNotification</code>).</p>
+     */
+    inline bool EventTypeCategoriesHasBeenSet() const { return m_eventTypeCategoriesHasBeenSet; }
 
     /**
      * <p>A list of event type category codes (<code>issue</code>,

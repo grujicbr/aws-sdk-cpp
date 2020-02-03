@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Subnet();
-    Subnet(const Aws::Utils::Json::JsonValue& jsonValue);
-    Subnet& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Subnet(Aws::Utils::Json::JsonView jsonValue);
+    Subnet& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The system-assigned identifier for the subnet.</p>
      */
     inline const Aws::String& GetSubnetIdentifier() const{ return m_subnetIdentifier; }
+
+    /**
+     * <p>The system-assigned identifier for the subnet.</p>
+     */
+    inline bool SubnetIdentifierHasBeenSet() const { return m_subnetIdentifierHasBeenSet; }
 
     /**
      * <p>The system-assigned identifier for the subnet.</p>
@@ -85,37 +91,42 @@ namespace Model
 
 
     /**
-     * <p>The Availability Zone (AZ) for subnet subnet.</p>
+     * <p>The Availability Zone (AZ) for the subnet.</p>
      */
     inline const Aws::String& GetSubnetAvailabilityZone() const{ return m_subnetAvailabilityZone; }
 
     /**
-     * <p>The Availability Zone (AZ) for subnet subnet.</p>
+     * <p>The Availability Zone (AZ) for the subnet.</p>
+     */
+    inline bool SubnetAvailabilityZoneHasBeenSet() const { return m_subnetAvailabilityZoneHasBeenSet; }
+
+    /**
+     * <p>The Availability Zone (AZ) for the subnet.</p>
      */
     inline void SetSubnetAvailabilityZone(const Aws::String& value) { m_subnetAvailabilityZoneHasBeenSet = true; m_subnetAvailabilityZone = value; }
 
     /**
-     * <p>The Availability Zone (AZ) for subnet subnet.</p>
+     * <p>The Availability Zone (AZ) for the subnet.</p>
      */
     inline void SetSubnetAvailabilityZone(Aws::String&& value) { m_subnetAvailabilityZoneHasBeenSet = true; m_subnetAvailabilityZone = std::move(value); }
 
     /**
-     * <p>The Availability Zone (AZ) for subnet subnet.</p>
+     * <p>The Availability Zone (AZ) for the subnet.</p>
      */
     inline void SetSubnetAvailabilityZone(const char* value) { m_subnetAvailabilityZoneHasBeenSet = true; m_subnetAvailabilityZone.assign(value); }
 
     /**
-     * <p>The Availability Zone (AZ) for subnet subnet.</p>
+     * <p>The Availability Zone (AZ) for the subnet.</p>
      */
     inline Subnet& WithSubnetAvailabilityZone(const Aws::String& value) { SetSubnetAvailabilityZone(value); return *this;}
 
     /**
-     * <p>The Availability Zone (AZ) for subnet subnet.</p>
+     * <p>The Availability Zone (AZ) for the subnet.</p>
      */
     inline Subnet& WithSubnetAvailabilityZone(Aws::String&& value) { SetSubnetAvailabilityZone(std::move(value)); return *this;}
 
     /**
-     * <p>The Availability Zone (AZ) for subnet subnet.</p>
+     * <p>The Availability Zone (AZ) for the subnet.</p>
      */
     inline Subnet& WithSubnetAvailabilityZone(const char* value) { SetSubnetAvailabilityZone(value); return *this;}
 

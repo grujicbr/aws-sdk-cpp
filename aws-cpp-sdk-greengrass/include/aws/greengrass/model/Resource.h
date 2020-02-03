@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Greengrass
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Resource();
-    Resource(const Aws::Utils::Json::JsonValue& jsonValue);
-    Resource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Resource(Aws::Utils::Json::JsonView jsonValue);
+    Resource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * This must be unique within a Greengrass group.
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * The resource ID, used to refer to a resource in the Lambda function
+     * configuration. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
+     * This must be unique within a Greengrass group.
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * The resource ID, used to refer to a resource in the Lambda function
@@ -98,51 +106,58 @@ namespace Model
 
 
     /**
-     * The descriptive resource name, which is displayed on the Greengrass console. Max
-     * length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique
-     * within a Greengrass group.
+     * The descriptive resource name, which is displayed on the AWS IoT Greengrass
+     * console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must
+     * be unique within a Greengrass group.
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
-     * The descriptive resource name, which is displayed on the Greengrass console. Max
-     * length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique
-     * within a Greengrass group.
+     * The descriptive resource name, which is displayed on the AWS IoT Greengrass
+     * console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must
+     * be unique within a Greengrass group.
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * The descriptive resource name, which is displayed on the AWS IoT Greengrass
+     * console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must
+     * be unique within a Greengrass group.
      */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
-     * The descriptive resource name, which is displayed on the Greengrass console. Max
-     * length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique
-     * within a Greengrass group.
+     * The descriptive resource name, which is displayed on the AWS IoT Greengrass
+     * console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must
+     * be unique within a Greengrass group.
      */
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
     /**
-     * The descriptive resource name, which is displayed on the Greengrass console. Max
-     * length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique
-     * within a Greengrass group.
+     * The descriptive resource name, which is displayed on the AWS IoT Greengrass
+     * console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must
+     * be unique within a Greengrass group.
      */
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
     /**
-     * The descriptive resource name, which is displayed on the Greengrass console. Max
-     * length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique
-     * within a Greengrass group.
+     * The descriptive resource name, which is displayed on the AWS IoT Greengrass
+     * console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must
+     * be unique within a Greengrass group.
      */
     inline Resource& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
-     * The descriptive resource name, which is displayed on the Greengrass console. Max
-     * length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique
-     * within a Greengrass group.
+     * The descriptive resource name, which is displayed on the AWS IoT Greengrass
+     * console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must
+     * be unique within a Greengrass group.
      */
     inline Resource& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
-     * The descriptive resource name, which is displayed on the Greengrass console. Max
-     * length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique
-     * within a Greengrass group.
+     * The descriptive resource name, which is displayed on the AWS IoT Greengrass
+     * console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must
+     * be unique within a Greengrass group.
      */
     inline Resource& WithName(const char* value) { SetName(value); return *this;}
 
@@ -151,6 +166,11 @@ namespace Model
      * A container of data for all resource types.
      */
     inline const ResourceDataContainer& GetResourceDataContainer() const{ return m_resourceDataContainer; }
+
+    /**
+     * A container of data for all resource types.
+     */
+    inline bool ResourceDataContainerHasBeenSet() const { return m_resourceDataContainerHasBeenSet; }
 
     /**
      * A container of data for all resource types.

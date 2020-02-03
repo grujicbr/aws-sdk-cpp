@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ElasticsearchService
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     VPCOptions();
-    VPCOptions(const Aws::Utils::Json::JsonValue& jsonValue);
-    VPCOptions& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    VPCOptions(Aws::Utils::Json::JsonView jsonValue);
+    VPCOptions& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Specifies the subnets for VPC endpoint.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSubnetIds() const{ return m_subnetIds; }
+
+    /**
+     * <p>Specifies the subnets for VPC endpoint.</p>
+     */
+    inline bool SubnetIdsHasBeenSet() const { return m_subnetIdsHasBeenSet; }
 
     /**
      * <p>Specifies the subnets for VPC endpoint.</p>
@@ -96,6 +102,11 @@ namespace Model
      * <p>Specifies the security groups for VPC endpoint.</p>
      */
     inline const Aws::Vector<Aws::String>& GetSecurityGroupIds() const{ return m_securityGroupIds; }
+
+    /**
+     * <p>Specifies the security groups for VPC endpoint.</p>
+     */
+    inline bool SecurityGroupIdsHasBeenSet() const { return m_securityGroupIdsHasBeenSet; }
 
     /**
      * <p>Specifies the security groups for VPC endpoint.</p>

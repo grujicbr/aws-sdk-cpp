@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ShrinkPolicy();
-    ShrinkPolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    ShrinkPolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ShrinkPolicy(Aws::Utils::Json::JsonView jsonValue);
+    ShrinkPolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * YARN decommissioning timeout.</p>
      */
     inline int GetDecommissionTimeout() const{ return m_decommissionTimeout; }
+
+    /**
+     * <p>The desired timeout for decommissioning an instance. Overrides the default
+     * YARN decommissioning timeout.</p>
+     */
+    inline bool DecommissionTimeoutHasBeenSet() const { return m_decommissionTimeoutHasBeenSet; }
 
     /**
      * <p>The desired timeout for decommissioning an instance. Overrides the default
@@ -72,6 +79,12 @@ namespace Model
      * specific instances when shrinking an instance group.</p>
      */
     inline const InstanceResizePolicy& GetInstanceResizePolicy() const{ return m_instanceResizePolicy; }
+
+    /**
+     * <p>Custom policy for requesting termination protection or termination of
+     * specific instances when shrinking an instance group.</p>
+     */
+    inline bool InstanceResizePolicyHasBeenSet() const { return m_instanceResizePolicyHasBeenSet; }
 
     /**
      * <p>Custom policy for requesting termination protection or termination of

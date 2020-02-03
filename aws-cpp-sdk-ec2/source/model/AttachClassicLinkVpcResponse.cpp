@@ -53,13 +53,16 @@ AttachClassicLinkVpcResponse& AttachClassicLinkVpcResponse::operator =(const Aws
     XmlNode returnNode = resultNode.FirstChild("return");
     if(!returnNode.IsNull())
     {
-      m_return = StringUtils::ConvertToBool(StringUtils::Trim(returnNode.GetText().c_str()).c_str());
+      m_return = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(returnNode.GetText()).c_str()).c_str());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::AttachClassicLinkVpcResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

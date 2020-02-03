@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACMPCA
@@ -34,11 +35,11 @@ namespace Model
 
   /**
    * <p>Certificate revocation information used by the
-   * <a>CreateCertificateAuthority</a> and <a>UpdateCertificateAuthority</a>
-   * operations. Your private certificate authority (CA) can create and maintain a
-   * certificate revocation list (CRL). A CRL contains information about certificates
-   * revoked by your CA. For more information, see
-   * <a>RevokeCertificate</a>.</p><p><h3>See Also:</h3>   <a
+   * <a>CreateCertificateAuthority</a> and <a>UpdateCertificateAuthority</a> actions.
+   * Your private certificate authority (CA) can create and maintain a certificate
+   * revocation list (CRL). A CRL contains information about certificates revoked by
+   * your CA. For more information, see <a>RevokeCertificate</a>.</p><p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/acm-pca-2017-08-22/RevocationConfiguration">AWS
    * API Reference</a></p>
    */
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     RevocationConfiguration();
-    RevocationConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    RevocationConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RevocationConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    RevocationConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,12 @@ namespace Model
      * your private CA.</p>
      */
     inline const CrlConfiguration& GetCrlConfiguration() const{ return m_crlConfiguration; }
+
+    /**
+     * <p>Configuration of the certificate revocation list (CRL), if any, maintained by
+     * your private CA.</p>
+     */
+    inline bool CrlConfigurationHasBeenSet() const { return m_crlConfigurationHasBeenSet; }
 
     /**
      * <p>Configuration of the certificate revocation list (CRL), if any, maintained by

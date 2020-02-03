@@ -23,11 +23,16 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 CreateJobTemplateRequest::CreateJobTemplateRequest() : 
+    m_accelerationSettingsHasBeenSet(false),
     m_categoryHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_nameHasBeenSet(false),
+    m_priority(0),
+    m_priorityHasBeenSet(false),
     m_queueHasBeenSet(false),
     m_settingsHasBeenSet(false),
+    m_statusUpdateInterval(StatusUpdateInterval::NOT_SET),
+    m_statusUpdateIntervalHasBeenSet(false),
     m_tagsHasBeenSet(false)
 {
 }
@@ -35,6 +40,12 @@ CreateJobTemplateRequest::CreateJobTemplateRequest() :
 Aws::String CreateJobTemplateRequest::SerializePayload() const
 {
   JsonValue payload;
+
+  if(m_accelerationSettingsHasBeenSet)
+  {
+   payload.WithObject("accelerationSettings", m_accelerationSettings.Jsonize());
+
+  }
 
   if(m_categoryHasBeenSet)
   {
@@ -54,6 +65,12 @@ Aws::String CreateJobTemplateRequest::SerializePayload() const
 
   }
 
+  if(m_priorityHasBeenSet)
+  {
+   payload.WithInteger("priority", m_priority);
+
+  }
+
   if(m_queueHasBeenSet)
   {
    payload.WithString("queue", m_queue);
@@ -64,6 +81,11 @@ Aws::String CreateJobTemplateRequest::SerializePayload() const
   {
    payload.WithObject("settings", m_settings.Jsonize());
 
+  }
+
+  if(m_statusUpdateIntervalHasBeenSet)
+  {
+   payload.WithString("statusUpdateInterval", StatusUpdateIntervalMapper::GetNameForStatusUpdateInterval(m_statusUpdateInterval));
   }
 
   if(m_tagsHasBeenSet)
@@ -77,7 +99,7 @@ Aws::String CreateJobTemplateRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ProductViewDetail();
-    ProductViewDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProductViewDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProductViewDetail(Aws::Utils::Json::JsonView jsonValue);
+    ProductViewDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Summary information about the product view.</p>
      */
     inline const ProductViewSummary& GetProductViewSummary() const{ return m_productViewSummary; }
+
+    /**
+     * <p>Summary information about the product view.</p>
+     */
+    inline bool ProductViewSummaryHasBeenSet() const { return m_productViewSummaryHasBeenSet; }
 
     /**
      * <p>Summary information about the product view.</p>
@@ -82,6 +88,14 @@ namespace Model
      * <code>FAILED</code> - An action failed.</p> </li> </ul>
      */
     inline const Status& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The status of the product.</p> <ul> <li> <p> <code>AVAILABLE</code> - The
+     * product is ready for use.</p> </li> <li> <p> <code>CREATING</code> - Product
+     * creation has started; the product is not ready for use.</p> </li> <li> <p>
+     * <code>FAILED</code> - An action failed.</p> </li> </ul>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The status of the product.</p> <ul> <li> <p> <code>AVAILABLE</code> - The
@@ -124,6 +138,11 @@ namespace Model
     /**
      * <p>The ARN of the product.</p>
      */
+    inline bool ProductARNHasBeenSet() const { return m_productARNHasBeenSet; }
+
+    /**
+     * <p>The ARN of the product.</p>
+     */
     inline void SetProductARN(const Aws::String& value) { m_productARNHasBeenSet = true; m_productARN = value; }
 
     /**
@@ -156,6 +175,11 @@ namespace Model
      * <p>The UTC time stamp of the creation time.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedTime() const{ return m_createdTime; }
+
+    /**
+     * <p>The UTC time stamp of the creation time.</p>
+     */
+    inline bool CreatedTimeHasBeenSet() const { return m_createdTimeHasBeenSet; }
 
     /**
      * <p>The UTC time stamp of the creation time.</p>

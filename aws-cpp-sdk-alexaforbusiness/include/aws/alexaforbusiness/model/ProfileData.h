@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ProfileData();
-    ProfileData(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProfileData& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProfileData(Aws::Utils::Json::JsonView jsonValue);
+    ProfileData& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The ARN of a room profile.</p>
      */
     inline const Aws::String& GetProfileArn() const{ return m_profileArn; }
+
+    /**
+     * <p>The ARN of a room profile.</p>
+     */
+    inline bool ProfileArnHasBeenSet() const { return m_profileArnHasBeenSet; }
 
     /**
      * <p>The ARN of a room profile.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The name of a room profile.</p>
      */
+    inline bool ProfileNameHasBeenSet() const { return m_profileNameHasBeenSet; }
+
+    /**
+     * <p>The name of a room profile.</p>
+     */
     inline void SetProfileName(const Aws::String& value) { m_profileNameHasBeenSet = true; m_profileName = value; }
 
     /**
@@ -122,9 +133,35 @@ namespace Model
 
 
     /**
+     * <p>Retrieves if the profile data is default or not.</p>
+     */
+    inline bool GetIsDefault() const{ return m_isDefault; }
+
+    /**
+     * <p>Retrieves if the profile data is default or not.</p>
+     */
+    inline bool IsDefaultHasBeenSet() const { return m_isDefaultHasBeenSet; }
+
+    /**
+     * <p>Retrieves if the profile data is default or not.</p>
+     */
+    inline void SetIsDefault(bool value) { m_isDefaultHasBeenSet = true; m_isDefault = value; }
+
+    /**
+     * <p>Retrieves if the profile data is default or not.</p>
+     */
+    inline ProfileData& WithIsDefault(bool value) { SetIsDefault(value); return *this;}
+
+
+    /**
      * <p>The address of a room profile.</p>
      */
     inline const Aws::String& GetAddress() const{ return m_address; }
+
+    /**
+     * <p>The address of a room profile.</p>
+     */
+    inline bool AddressHasBeenSet() const { return m_addressHasBeenSet; }
 
     /**
      * <p>The address of a room profile.</p>
@@ -158,37 +195,42 @@ namespace Model
 
 
     /**
-     * <p>The timezone of a room profile.</p>
+     * <p>The time zone of a room profile.</p>
      */
     inline const Aws::String& GetTimezone() const{ return m_timezone; }
 
     /**
-     * <p>The timezone of a room profile.</p>
+     * <p>The time zone of a room profile.</p>
+     */
+    inline bool TimezoneHasBeenSet() const { return m_timezoneHasBeenSet; }
+
+    /**
+     * <p>The time zone of a room profile.</p>
      */
     inline void SetTimezone(const Aws::String& value) { m_timezoneHasBeenSet = true; m_timezone = value; }
 
     /**
-     * <p>The timezone of a room profile.</p>
+     * <p>The time zone of a room profile.</p>
      */
     inline void SetTimezone(Aws::String&& value) { m_timezoneHasBeenSet = true; m_timezone = std::move(value); }
 
     /**
-     * <p>The timezone of a room profile.</p>
+     * <p>The time zone of a room profile.</p>
      */
     inline void SetTimezone(const char* value) { m_timezoneHasBeenSet = true; m_timezone.assign(value); }
 
     /**
-     * <p>The timezone of a room profile.</p>
+     * <p>The time zone of a room profile.</p>
      */
     inline ProfileData& WithTimezone(const Aws::String& value) { SetTimezone(value); return *this;}
 
     /**
-     * <p>The timezone of a room profile.</p>
+     * <p>The time zone of a room profile.</p>
      */
     inline ProfileData& WithTimezone(Aws::String&& value) { SetTimezone(std::move(value)); return *this;}
 
     /**
-     * <p>The timezone of a room profile.</p>
+     * <p>The time zone of a room profile.</p>
      */
     inline ProfileData& WithTimezone(const char* value) { SetTimezone(value); return *this;}
 
@@ -197,6 +239,11 @@ namespace Model
      * <p>The distance unit of a room profile.</p>
      */
     inline const DistanceUnit& GetDistanceUnit() const{ return m_distanceUnit; }
+
+    /**
+     * <p>The distance unit of a room profile.</p>
+     */
+    inline bool DistanceUnitHasBeenSet() const { return m_distanceUnitHasBeenSet; }
 
     /**
      * <p>The distance unit of a room profile.</p>
@@ -227,6 +274,11 @@ namespace Model
     /**
      * <p>The temperature unit of a room profile.</p>
      */
+    inline bool TemperatureUnitHasBeenSet() const { return m_temperatureUnitHasBeenSet; }
+
+    /**
+     * <p>The temperature unit of a room profile.</p>
+     */
     inline void SetTemperatureUnit(const TemperatureUnit& value) { m_temperatureUnitHasBeenSet = true; m_temperatureUnit = value; }
 
     /**
@@ -253,6 +305,11 @@ namespace Model
     /**
      * <p>The wake word of a room profile.</p>
      */
+    inline bool WakeWordHasBeenSet() const { return m_wakeWordHasBeenSet; }
+
+    /**
+     * <p>The wake word of a room profile.</p>
+     */
     inline void SetWakeWord(const WakeWord& value) { m_wakeWordHasBeenSet = true; m_wakeWord = value; }
 
     /**
@@ -270,6 +327,55 @@ namespace Model
      */
     inline ProfileData& WithWakeWord(WakeWord&& value) { SetWakeWord(std::move(value)); return *this;}
 
+
+    /**
+     * <p>The locale of a room profile. (This is currently available only to a limited
+     * preview audience.)</p>
+     */
+    inline const Aws::String& GetLocale() const{ return m_locale; }
+
+    /**
+     * <p>The locale of a room profile. (This is currently available only to a limited
+     * preview audience.)</p>
+     */
+    inline bool LocaleHasBeenSet() const { return m_localeHasBeenSet; }
+
+    /**
+     * <p>The locale of a room profile. (This is currently available only to a limited
+     * preview audience.)</p>
+     */
+    inline void SetLocale(const Aws::String& value) { m_localeHasBeenSet = true; m_locale = value; }
+
+    /**
+     * <p>The locale of a room profile. (This is currently available only to a limited
+     * preview audience.)</p>
+     */
+    inline void SetLocale(Aws::String&& value) { m_localeHasBeenSet = true; m_locale = std::move(value); }
+
+    /**
+     * <p>The locale of a room profile. (This is currently available only to a limited
+     * preview audience.)</p>
+     */
+    inline void SetLocale(const char* value) { m_localeHasBeenSet = true; m_locale.assign(value); }
+
+    /**
+     * <p>The locale of a room profile. (This is currently available only to a limited
+     * preview audience.)</p>
+     */
+    inline ProfileData& WithLocale(const Aws::String& value) { SetLocale(value); return *this;}
+
+    /**
+     * <p>The locale of a room profile. (This is currently available only to a limited
+     * preview audience.)</p>
+     */
+    inline ProfileData& WithLocale(Aws::String&& value) { SetLocale(std::move(value)); return *this;}
+
+    /**
+     * <p>The locale of a room profile. (This is currently available only to a limited
+     * preview audience.)</p>
+     */
+    inline ProfileData& WithLocale(const char* value) { SetLocale(value); return *this;}
+
   private:
 
     Aws::String m_profileArn;
@@ -277,6 +383,9 @@ namespace Model
 
     Aws::String m_profileName;
     bool m_profileNameHasBeenSet;
+
+    bool m_isDefault;
+    bool m_isDefaultHasBeenSet;
 
     Aws::String m_address;
     bool m_addressHasBeenSet;
@@ -292,6 +401,9 @@ namespace Model
 
     WakeWord m_wakeWord;
     bool m_wakeWordHasBeenSet;
+
+    Aws::String m_locale;
+    bool m_localeHasBeenSet;
   };
 
 } // namespace Model

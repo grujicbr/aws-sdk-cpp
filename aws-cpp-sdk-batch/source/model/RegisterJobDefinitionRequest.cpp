@@ -28,6 +28,7 @@ RegisterJobDefinitionRequest::RegisterJobDefinitionRequest() :
     m_typeHasBeenSet(false),
     m_parametersHasBeenSet(false),
     m_containerPropertiesHasBeenSet(false),
+    m_nodePropertiesHasBeenSet(false),
     m_retryStrategyHasBeenSet(false),
     m_timeoutHasBeenSet(false)
 {
@@ -65,6 +66,12 @@ Aws::String RegisterJobDefinitionRequest::SerializePayload() const
 
   }
 
+  if(m_nodePropertiesHasBeenSet)
+  {
+   payload.WithObject("nodeProperties", m_nodeProperties.Jsonize());
+
+  }
+
   if(m_retryStrategyHasBeenSet)
   {
    payload.WithObject("retryStrategy", m_retryStrategy.Jsonize());
@@ -77,7 +84,7 @@ Aws::String RegisterJobDefinitionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

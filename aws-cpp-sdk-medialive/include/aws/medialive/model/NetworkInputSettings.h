@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     NetworkInputSettings();
-    NetworkInputSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    NetworkInputSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NetworkInputSettings(Aws::Utils::Json::JsonView jsonValue);
+    NetworkInputSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * Specifies HLS input settings when the uri is for a HLS manifest.
      */
     inline const HlsInputSettings& GetHlsInputSettings() const{ return m_hlsInputSettings; }
+
+    /**
+     * Specifies HLS input settings when the uri is for a HLS manifest.
+     */
+    inline bool HlsInputSettingsHasBeenSet() const { return m_hlsInputSettingsHasBeenSet; }
 
     /**
      * Specifies HLS input settings when the uri is for a HLS manifest.
@@ -83,6 +89,15 @@ namespace Model
      * the event to error. This setting is ignored for protocols that do not use https.
      */
     inline const NetworkInputServerValidation& GetServerValidation() const{ return m_serverValidation; }
+
+    /**
+     * Check HTTPS server certificates. When set to checkCryptographyOnly, cryptography
+     * in the certificate will be checked, but not the server's name. Certain
+     * subdomains (notably S3 buckets that use dots in the bucket name) do not strictly
+     * match the corresponding certificate's wildcard pattern and would otherwise cause
+     * the event to error. This setting is ignored for protocols that do not use https.
+     */
+    inline bool ServerValidationHasBeenSet() const { return m_serverValidationHasBeenSet; }
 
     /**
      * Check HTTPS server certificates. When set to checkCryptographyOnly, cryptography

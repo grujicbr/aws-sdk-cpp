@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     UpdatePartitionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,43 +48,49 @@ namespace Model
 
     /**
      * <p>The ID of the Data Catalog where the partition to be updated resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline const Aws::String& GetCatalogId() const{ return m_catalogId; }
 
     /**
      * <p>The ID of the Data Catalog where the partition to be updated resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
+     */
+    inline bool CatalogIdHasBeenSet() const { return m_catalogIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Data Catalog where the partition to be updated resides. If none
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const Aws::String& value) { m_catalogIdHasBeenSet = true; m_catalogId = value; }
 
     /**
      * <p>The ID of the Data Catalog where the partition to be updated resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(Aws::String&& value) { m_catalogIdHasBeenSet = true; m_catalogId = std::move(value); }
 
     /**
      * <p>The ID of the Data Catalog where the partition to be updated resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const char* value) { m_catalogIdHasBeenSet = true; m_catalogId.assign(value); }
 
     /**
      * <p>The ID of the Data Catalog where the partition to be updated resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline UpdatePartitionRequest& WithCatalogId(const Aws::String& value) { SetCatalogId(value); return *this;}
 
     /**
      * <p>The ID of the Data Catalog where the partition to be updated resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline UpdatePartitionRequest& WithCatalogId(Aws::String&& value) { SetCatalogId(std::move(value)); return *this;}
 
     /**
      * <p>The ID of the Data Catalog where the partition to be updated resides. If none
-     * is supplied, the AWS account ID is used by default.</p>
+     * is provided, the AWS account ID is used by default.</p>
      */
     inline UpdatePartitionRequest& WithCatalogId(const char* value) { SetCatalogId(value); return *this;}
 
@@ -93,6 +99,11 @@ namespace Model
      * <p>The name of the catalog database in which the table in question resides.</p>
      */
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    /**
+     * <p>The name of the catalog database in which the table in question resides.</p>
+     */
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     /**
      * <p>The name of the catalog database in which the table in question resides.</p>
@@ -126,37 +137,42 @@ namespace Model
 
 
     /**
-     * <p>The name of the table where the partition to be updated is located.</p>
+     * <p>The name of the table in which the partition to be updated is located.</p>
      */
     inline const Aws::String& GetTableName() const{ return m_tableName; }
 
     /**
-     * <p>The name of the table where the partition to be updated is located.</p>
+     * <p>The name of the table in which the partition to be updated is located.</p>
+     */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
+
+    /**
+     * <p>The name of the table in which the partition to be updated is located.</p>
      */
     inline void SetTableName(const Aws::String& value) { m_tableNameHasBeenSet = true; m_tableName = value; }
 
     /**
-     * <p>The name of the table where the partition to be updated is located.</p>
+     * <p>The name of the table in which the partition to be updated is located.</p>
      */
     inline void SetTableName(Aws::String&& value) { m_tableNameHasBeenSet = true; m_tableName = std::move(value); }
 
     /**
-     * <p>The name of the table where the partition to be updated is located.</p>
+     * <p>The name of the table in which the partition to be updated is located.</p>
      */
     inline void SetTableName(const char* value) { m_tableNameHasBeenSet = true; m_tableName.assign(value); }
 
     /**
-     * <p>The name of the table where the partition to be updated is located.</p>
+     * <p>The name of the table in which the partition to be updated is located.</p>
      */
     inline UpdatePartitionRequest& WithTableName(const Aws::String& value) { SetTableName(value); return *this;}
 
     /**
-     * <p>The name of the table where the partition to be updated is located.</p>
+     * <p>The name of the table in which the partition to be updated is located.</p>
      */
     inline UpdatePartitionRequest& WithTableName(Aws::String&& value) { SetTableName(std::move(value)); return *this;}
 
     /**
-     * <p>The name of the table where the partition to be updated is located.</p>
+     * <p>The name of the table in which the partition to be updated is located.</p>
      */
     inline UpdatePartitionRequest& WithTableName(const char* value) { SetTableName(value); return *this;}
 
@@ -165,6 +181,11 @@ namespace Model
      * <p>A list of the values defining the partition.</p>
      */
     inline const Aws::Vector<Aws::String>& GetPartitionValueList() const{ return m_partitionValueList; }
+
+    /**
+     * <p>A list of the values defining the partition.</p>
+     */
+    inline bool PartitionValueListHasBeenSet() const { return m_partitionValueListHasBeenSet; }
 
     /**
      * <p>A list of the values defining the partition.</p>
@@ -203,27 +224,32 @@ namespace Model
 
 
     /**
-     * <p>The new partition object to which to update the partition.</p>
+     * <p>The new partition object to update the partition to.</p>
      */
     inline const PartitionInput& GetPartitionInput() const{ return m_partitionInput; }
 
     /**
-     * <p>The new partition object to which to update the partition.</p>
+     * <p>The new partition object to update the partition to.</p>
+     */
+    inline bool PartitionInputHasBeenSet() const { return m_partitionInputHasBeenSet; }
+
+    /**
+     * <p>The new partition object to update the partition to.</p>
      */
     inline void SetPartitionInput(const PartitionInput& value) { m_partitionInputHasBeenSet = true; m_partitionInput = value; }
 
     /**
-     * <p>The new partition object to which to update the partition.</p>
+     * <p>The new partition object to update the partition to.</p>
      */
     inline void SetPartitionInput(PartitionInput&& value) { m_partitionInputHasBeenSet = true; m_partitionInput = std::move(value); }
 
     /**
-     * <p>The new partition object to which to update the partition.</p>
+     * <p>The new partition object to update the partition to.</p>
      */
     inline UpdatePartitionRequest& WithPartitionInput(const PartitionInput& value) { SetPartitionInput(value); return *this;}
 
     /**
-     * <p>The new partition object to which to update the partition.</p>
+     * <p>The new partition object to update the partition to.</p>
      */
     inline UpdatePartitionRequest& WithPartitionInput(PartitionInput&& value) { SetPartitionInput(std::move(value)); return *this;}
 

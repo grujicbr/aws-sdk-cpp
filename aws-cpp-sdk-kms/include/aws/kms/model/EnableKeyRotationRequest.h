@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     EnableKeyRotationRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -45,10 +45,12 @@ namespace Model
 
 
     /**
-     * <p>A unique identifier for the customer master key (CMK).</p> <p>Specify the key
-     * ID or the Amazon Resource Name (ARN) of the CMK.</p> <p>For example:</p> <ul>
-     * <li> <p>Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li>
-     * <li> <p>Key ARN:
+     * <p>Identifies a symmetric customer master key (CMK). You cannot enable automatic
+     * rotation of asymmetric CMKs, CMKs with imported key material, or CMKs in a <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom
+     * key store</a>.</p> <p>Specify the key ID or the Amazon Resource Name (ARN) of
+     * the CMK.</p> <p>For example:</p> <ul> <li> <p>Key ID:
+     * <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN:
      * <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
      * </p> </li> </ul> <p>To get the key ID and key ARN for a CMK, use <a>ListKeys</a>
      * or <a>DescribeKey</a>.</p>
@@ -56,10 +58,25 @@ namespace Model
     inline const Aws::String& GetKeyId() const{ return m_keyId; }
 
     /**
-     * <p>A unique identifier for the customer master key (CMK).</p> <p>Specify the key
-     * ID or the Amazon Resource Name (ARN) of the CMK.</p> <p>For example:</p> <ul>
-     * <li> <p>Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li>
-     * <li> <p>Key ARN:
+     * <p>Identifies a symmetric customer master key (CMK). You cannot enable automatic
+     * rotation of asymmetric CMKs, CMKs with imported key material, or CMKs in a <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom
+     * key store</a>.</p> <p>Specify the key ID or the Amazon Resource Name (ARN) of
+     * the CMK.</p> <p>For example:</p> <ul> <li> <p>Key ID:
+     * <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN:
+     * <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p> </li> </ul> <p>To get the key ID and key ARN for a CMK, use <a>ListKeys</a>
+     * or <a>DescribeKey</a>.</p>
+     */
+    inline bool KeyIdHasBeenSet() const { return m_keyIdHasBeenSet; }
+
+    /**
+     * <p>Identifies a symmetric customer master key (CMK). You cannot enable automatic
+     * rotation of asymmetric CMKs, CMKs with imported key material, or CMKs in a <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom
+     * key store</a>.</p> <p>Specify the key ID or the Amazon Resource Name (ARN) of
+     * the CMK.</p> <p>For example:</p> <ul> <li> <p>Key ID:
+     * <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN:
      * <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
      * </p> </li> </ul> <p>To get the key ID and key ARN for a CMK, use <a>ListKeys</a>
      * or <a>DescribeKey</a>.</p>
@@ -67,10 +84,12 @@ namespace Model
     inline void SetKeyId(const Aws::String& value) { m_keyIdHasBeenSet = true; m_keyId = value; }
 
     /**
-     * <p>A unique identifier for the customer master key (CMK).</p> <p>Specify the key
-     * ID or the Amazon Resource Name (ARN) of the CMK.</p> <p>For example:</p> <ul>
-     * <li> <p>Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li>
-     * <li> <p>Key ARN:
+     * <p>Identifies a symmetric customer master key (CMK). You cannot enable automatic
+     * rotation of asymmetric CMKs, CMKs with imported key material, or CMKs in a <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom
+     * key store</a>.</p> <p>Specify the key ID or the Amazon Resource Name (ARN) of
+     * the CMK.</p> <p>For example:</p> <ul> <li> <p>Key ID:
+     * <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN:
      * <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
      * </p> </li> </ul> <p>To get the key ID and key ARN for a CMK, use <a>ListKeys</a>
      * or <a>DescribeKey</a>.</p>
@@ -78,10 +97,12 @@ namespace Model
     inline void SetKeyId(Aws::String&& value) { m_keyIdHasBeenSet = true; m_keyId = std::move(value); }
 
     /**
-     * <p>A unique identifier for the customer master key (CMK).</p> <p>Specify the key
-     * ID or the Amazon Resource Name (ARN) of the CMK.</p> <p>For example:</p> <ul>
-     * <li> <p>Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li>
-     * <li> <p>Key ARN:
+     * <p>Identifies a symmetric customer master key (CMK). You cannot enable automatic
+     * rotation of asymmetric CMKs, CMKs with imported key material, or CMKs in a <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom
+     * key store</a>.</p> <p>Specify the key ID or the Amazon Resource Name (ARN) of
+     * the CMK.</p> <p>For example:</p> <ul> <li> <p>Key ID:
+     * <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN:
      * <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
      * </p> </li> </ul> <p>To get the key ID and key ARN for a CMK, use <a>ListKeys</a>
      * or <a>DescribeKey</a>.</p>
@@ -89,10 +110,12 @@ namespace Model
     inline void SetKeyId(const char* value) { m_keyIdHasBeenSet = true; m_keyId.assign(value); }
 
     /**
-     * <p>A unique identifier for the customer master key (CMK).</p> <p>Specify the key
-     * ID or the Amazon Resource Name (ARN) of the CMK.</p> <p>For example:</p> <ul>
-     * <li> <p>Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li>
-     * <li> <p>Key ARN:
+     * <p>Identifies a symmetric customer master key (CMK). You cannot enable automatic
+     * rotation of asymmetric CMKs, CMKs with imported key material, or CMKs in a <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom
+     * key store</a>.</p> <p>Specify the key ID or the Amazon Resource Name (ARN) of
+     * the CMK.</p> <p>For example:</p> <ul> <li> <p>Key ID:
+     * <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN:
      * <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
      * </p> </li> </ul> <p>To get the key ID and key ARN for a CMK, use <a>ListKeys</a>
      * or <a>DescribeKey</a>.</p>
@@ -100,10 +123,12 @@ namespace Model
     inline EnableKeyRotationRequest& WithKeyId(const Aws::String& value) { SetKeyId(value); return *this;}
 
     /**
-     * <p>A unique identifier for the customer master key (CMK).</p> <p>Specify the key
-     * ID or the Amazon Resource Name (ARN) of the CMK.</p> <p>For example:</p> <ul>
-     * <li> <p>Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li>
-     * <li> <p>Key ARN:
+     * <p>Identifies a symmetric customer master key (CMK). You cannot enable automatic
+     * rotation of asymmetric CMKs, CMKs with imported key material, or CMKs in a <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom
+     * key store</a>.</p> <p>Specify the key ID or the Amazon Resource Name (ARN) of
+     * the CMK.</p> <p>For example:</p> <ul> <li> <p>Key ID:
+     * <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN:
      * <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
      * </p> </li> </ul> <p>To get the key ID and key ARN for a CMK, use <a>ListKeys</a>
      * or <a>DescribeKey</a>.</p>
@@ -111,10 +136,12 @@ namespace Model
     inline EnableKeyRotationRequest& WithKeyId(Aws::String&& value) { SetKeyId(std::move(value)); return *this;}
 
     /**
-     * <p>A unique identifier for the customer master key (CMK).</p> <p>Specify the key
-     * ID or the Amazon Resource Name (ARN) of the CMK.</p> <p>For example:</p> <ul>
-     * <li> <p>Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li>
-     * <li> <p>Key ARN:
+     * <p>Identifies a symmetric customer master key (CMK). You cannot enable automatic
+     * rotation of asymmetric CMKs, CMKs with imported key material, or CMKs in a <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom
+     * key store</a>.</p> <p>Specify the key ID or the Amazon Resource Name (ARN) of
+     * the CMK.</p> <p>For example:</p> <ul> <li> <p>Key ID:
+     * <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN:
      * <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
      * </p> </li> </ul> <p>To get the key ID and key ARN for a CMK, use <a>ListKeys</a>
      * or <a>DescribeKey</a>.</p>

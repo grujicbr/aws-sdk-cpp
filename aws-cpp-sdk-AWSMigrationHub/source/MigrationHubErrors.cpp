@@ -29,9 +29,10 @@ namespace MigrationHubErrorMapper
 {
 
 static const int DRY_RUN_OPERATION_HASH = HashingUtils::HashString("DryRunOperation");
-static const int INVALID_INPUT_HASH = HashingUtils::HashString("InvalidInputException");
 static const int UNAUTHORIZED_OPERATION_HASH = HashingUtils::HashString("UnauthorizedOperation");
 static const int POLICY_ERROR_HASH = HashingUtils::HashString("PolicyErrorException");
+static const int INVALID_INPUT_HASH = HashingUtils::HashString("InvalidInputException");
+static const int HOME_REGION_NOT_SET_HASH = HashingUtils::HashString("HomeRegionNotSetException");
 
 
 AWSError<CoreErrors> GetErrorForName(const char* errorName)
@@ -42,10 +43,6 @@ AWSError<CoreErrors> GetErrorForName(const char* errorName)
   {
     return AWSError<CoreErrors>(static_cast<CoreErrors>(MigrationHubErrors::DRY_RUN_OPERATION), false);
   }
-  else if (hashCode == INVALID_INPUT_HASH)
-  {
-    return AWSError<CoreErrors>(static_cast<CoreErrors>(MigrationHubErrors::INVALID_INPUT), false);
-  }
   else if (hashCode == UNAUTHORIZED_OPERATION_HASH)
   {
     return AWSError<CoreErrors>(static_cast<CoreErrors>(MigrationHubErrors::UNAUTHORIZED_OPERATION), false);
@@ -53,6 +50,14 @@ AWSError<CoreErrors> GetErrorForName(const char* errorName)
   else if (hashCode == POLICY_ERROR_HASH)
   {
     return AWSError<CoreErrors>(static_cast<CoreErrors>(MigrationHubErrors::POLICY_ERROR), false);
+  }
+  else if (hashCode == INVALID_INPUT_HASH)
+  {
+    return AWSError<CoreErrors>(static_cast<CoreErrors>(MigrationHubErrors::INVALID_INPUT), false);
+  }
+  else if (hashCode == HOME_REGION_NOT_SET_HASH)
+  {
+    return AWSError<CoreErrors>(static_cast<CoreErrors>(MigrationHubErrors::HOME_REGION_NOT_SET), false);
   }
   return AWSError<CoreErrors>(CoreErrors::UNKNOWN, false);
 }

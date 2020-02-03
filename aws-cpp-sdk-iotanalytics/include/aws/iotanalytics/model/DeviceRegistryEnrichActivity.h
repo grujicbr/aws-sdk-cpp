@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DeviceRegistryEnrichActivity();
-    DeviceRegistryEnrichActivity(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceRegistryEnrichActivity& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceRegistryEnrichActivity(Aws::Utils::Json::JsonView jsonValue);
+    DeviceRegistryEnrichActivity& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the 'deviceRegistryEnrich' activity.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the 'deviceRegistryEnrich' activity.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the 'deviceRegistryEnrich' activity.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The name of the attribute that is added to the message.</p>
      */
+    inline bool AttributeHasBeenSet() const { return m_attributeHasBeenSet; }
+
+    /**
+     * <p>The name of the attribute that is added to the message.</p>
+     */
     inline void SetAttribute(const Aws::String& value) { m_attributeHasBeenSet = true; m_attribute = value; }
 
     /**
@@ -124,6 +135,12 @@ namespace Model
      * message.</p>
      */
     inline const Aws::String& GetThingName() const{ return m_thingName; }
+
+    /**
+     * <p>The name of the IoT device whose registry information is added to the
+     * message.</p>
+     */
+    inline bool ThingNameHasBeenSet() const { return m_thingNameHasBeenSet; }
 
     /**
      * <p>The name of the IoT device whose registry information is added to the
@@ -172,6 +189,12 @@ namespace Model
      * <p>The ARN of the role that allows access to the device's registry
      * information.</p>
      */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the role that allows access to the device's registry
+     * information.</p>
+     */
     inline void SetRoleArn(const Aws::String& value) { m_roleArnHasBeenSet = true; m_roleArn = value; }
 
     /**
@@ -209,6 +232,11 @@ namespace Model
      * <p>The next activity in the pipeline.</p>
      */
     inline const Aws::String& GetNext() const{ return m_next; }
+
+    /**
+     * <p>The next activity in the pipeline.</p>
+     */
+    inline bool NextHasBeenSet() const { return m_nextHasBeenSet; }
 
     /**
      * <p>The next activity in the pipeline.</p>

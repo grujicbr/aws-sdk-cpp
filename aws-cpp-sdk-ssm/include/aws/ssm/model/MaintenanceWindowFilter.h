@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -34,7 +35,8 @@ namespace Model
 {
 
   /**
-   * <p>Filter used in the request.</p><p><h3>See Also:</h3>   <a
+   * <p>Filter used in the request. Supported filter keys are Name and
+   * Enabled.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/MaintenanceWindowFilter">AWS
    * API Reference</a></p>
    */
@@ -42,8 +44,8 @@ namespace Model
   {
   public:
     MaintenanceWindowFilter();
-    MaintenanceWindowFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    MaintenanceWindowFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MaintenanceWindowFilter(Aws::Utils::Json::JsonView jsonValue);
+    MaintenanceWindowFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +53,11 @@ namespace Model
      * <p>The name of the filter.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The name of the filter.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The name of the filter.</p>
@@ -87,6 +94,11 @@ namespace Model
      * <p>The filter values.</p>
      */
     inline const Aws::Vector<Aws::String>& GetValues() const{ return m_values; }
+
+    /**
+     * <p>The filter values.</p>
+     */
+    inline bool ValuesHasBeenSet() const { return m_valuesHasBeenSet; }
 
     /**
      * <p>The filter values.</p>

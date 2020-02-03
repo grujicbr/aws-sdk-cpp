@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetCommentsForPullRequestRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +49,12 @@ namespace Model
      * <a>ListPullRequests</a>.</p>
      */
     inline const Aws::String& GetPullRequestId() const{ return m_pullRequestId; }
+
+    /**
+     * <p>The system-generated ID of the pull request. To get this ID, use
+     * <a>ListPullRequests</a>.</p>
+     */
+    inline bool PullRequestIdHasBeenSet() const { return m_pullRequestIdHasBeenSet; }
 
     /**
      * <p>The system-generated ID of the pull request. To get this ID, use
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>The name of the repository that contains the pull request.</p>
      */
+    inline bool RepositoryNameHasBeenSet() const { return m_repositoryNameHasBeenSet; }
+
+    /**
+     * <p>The name of the repository that contains the pull request.</p>
+     */
     inline void SetRepositoryName(const Aws::String& value) { m_repositoryNameHasBeenSet = true; m_repositoryName = value; }
 
     /**
@@ -128,6 +139,12 @@ namespace Model
      * of the branch at the time the pull request was created.</p>
      */
     inline const Aws::String& GetBeforeCommitId() const{ return m_beforeCommitId; }
+
+    /**
+     * <p>The full commit ID of the commit in the destination branch that was the tip
+     * of the branch at the time the pull request was created.</p>
+     */
+    inline bool BeforeCommitIdHasBeenSet() const { return m_beforeCommitIdHasBeenSet; }
 
     /**
      * <p>The full commit ID of the commit in the destination branch that was the tip
@@ -176,6 +193,12 @@ namespace Model
      * <p>The full commit ID of the commit in the source branch that was the tip of the
      * branch at the time the comment was made.</p>
      */
+    inline bool AfterCommitIdHasBeenSet() const { return m_afterCommitIdHasBeenSet; }
+
+    /**
+     * <p>The full commit ID of the commit in the source branch that was the tip of the
+     * branch at the time the comment was made.</p>
+     */
     inline void SetAfterCommitId(const Aws::String& value) { m_afterCommitIdHasBeenSet = true; m_afterCommitId = value; }
 
     /**
@@ -210,66 +233,79 @@ namespace Model
 
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
+     * of the results.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline GetCommentsForPullRequestRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline GetCommentsForPullRequestRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline GetCommentsForPullRequestRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
 
 
     /**
-     * <p>A non-negative integer used to limit the number of returned results. The
-     * default is 100 comments. You can return up to 500 comments with a single
-     * request.</p>
+     * <p>A non-zero, non-negative integer used to limit the number of returned
+     * results. The default is 100 comments. You can return up to 500 comments with a
+     * single request.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
 
     /**
-     * <p>A non-negative integer used to limit the number of returned results. The
-     * default is 100 comments. You can return up to 500 comments with a single
-     * request.</p>
+     * <p>A non-zero, non-negative integer used to limit the number of returned
+     * results. The default is 100 comments. You can return up to 500 comments with a
+     * single request.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
+
+    /**
+     * <p>A non-zero, non-negative integer used to limit the number of returned
+     * results. The default is 100 comments. You can return up to 500 comments with a
+     * single request.</p>
      */
     inline void SetMaxResults(int value) { m_maxResultsHasBeenSet = true; m_maxResults = value; }
 
     /**
-     * <p>A non-negative integer used to limit the number of returned results. The
-     * default is 100 comments. You can return up to 500 comments with a single
-     * request.</p>
+     * <p>A non-zero, non-negative integer used to limit the number of returned
+     * results. The default is 100 comments. You can return up to 500 comments with a
+     * single request.</p>
      */
     inline GetCommentsForPullRequestRequest& WithMaxResults(int value) { SetMaxResults(value); return *this;}
 

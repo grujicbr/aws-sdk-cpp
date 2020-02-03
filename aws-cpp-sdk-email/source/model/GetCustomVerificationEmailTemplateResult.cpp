@@ -51,32 +51,32 @@ GetCustomVerificationEmailTemplateResult& GetCustomVerificationEmailTemplateResu
     XmlNode templateNameNode = resultNode.FirstChild("TemplateName");
     if(!templateNameNode.IsNull())
     {
-      m_templateName = StringUtils::Trim(templateNameNode.GetText().c_str());
+      m_templateName = Aws::Utils::Xml::DecodeEscapedXmlText(templateNameNode.GetText());
     }
     XmlNode fromEmailAddressNode = resultNode.FirstChild("FromEmailAddress");
     if(!fromEmailAddressNode.IsNull())
     {
-      m_fromEmailAddress = StringUtils::Trim(fromEmailAddressNode.GetText().c_str());
+      m_fromEmailAddress = Aws::Utils::Xml::DecodeEscapedXmlText(fromEmailAddressNode.GetText());
     }
     XmlNode templateSubjectNode = resultNode.FirstChild("TemplateSubject");
     if(!templateSubjectNode.IsNull())
     {
-      m_templateSubject = StringUtils::Trim(templateSubjectNode.GetText().c_str());
+      m_templateSubject = Aws::Utils::Xml::DecodeEscapedXmlText(templateSubjectNode.GetText());
     }
     XmlNode templateContentNode = resultNode.FirstChild("TemplateContent");
     if(!templateContentNode.IsNull())
     {
-      m_templateContent = StringUtils::Trim(templateContentNode.GetText().c_str());
+      m_templateContent = Aws::Utils::Xml::DecodeEscapedXmlText(templateContentNode.GetText());
     }
     XmlNode successRedirectionURLNode = resultNode.FirstChild("SuccessRedirectionURL");
     if(!successRedirectionURLNode.IsNull())
     {
-      m_successRedirectionURL = StringUtils::Trim(successRedirectionURLNode.GetText().c_str());
+      m_successRedirectionURL = Aws::Utils::Xml::DecodeEscapedXmlText(successRedirectionURLNode.GetText());
     }
     XmlNode failureRedirectionURLNode = resultNode.FirstChild("FailureRedirectionURL");
     if(!failureRedirectionURLNode.IsNull())
     {
-      m_failureRedirectionURL = StringUtils::Trim(failureRedirectionURLNode.GetText().c_str());
+      m_failureRedirectionURL = Aws::Utils::Xml::DecodeEscapedXmlText(failureRedirectionURLNode.GetText());
     }
   }
 

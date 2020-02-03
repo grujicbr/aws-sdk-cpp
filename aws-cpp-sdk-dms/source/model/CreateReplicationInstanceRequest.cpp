@@ -39,7 +39,8 @@ CreateReplicationInstanceRequest::CreateReplicationInstanceRequest() :
     m_tagsHasBeenSet(false),
     m_kmsKeyIdHasBeenSet(false),
     m_publiclyAccessible(false),
-    m_publiclyAccessibleHasBeenSet(false)
+    m_publiclyAccessibleHasBeenSet(false),
+    m_dnsNameServersHasBeenSet(false)
 {
 }
 
@@ -135,7 +136,13 @@ Aws::String CreateReplicationInstanceRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_dnsNameServersHasBeenSet)
+  {
+   payload.WithString("DnsNameServers", m_dnsNameServers);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateReplicationInstanceRequest::GetRequestSpecificHeaders() const

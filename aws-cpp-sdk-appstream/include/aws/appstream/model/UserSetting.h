@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     UserSetting();
-    UserSetting(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserSetting& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserSetting(Aws::Utils::Json::JsonView jsonValue);
+    UserSetting& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The action that is enabled or disabled.</p>
      */
     inline const Action& GetAction() const{ return m_action; }
+
+    /**
+     * <p>The action that is enabled or disabled.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>The action that is enabled or disabled.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>Indicates whether the action is enabled or disabled.</p>
      */
     inline const Permission& GetPermission() const{ return m_permission; }
+
+    /**
+     * <p>Indicates whether the action is enabled or disabled.</p>
+     */
+    inline bool PermissionHasBeenSet() const { return m_permissionHasBeenSet; }
 
     /**
      * <p>Indicates whether the action is enabled or disabled.</p>

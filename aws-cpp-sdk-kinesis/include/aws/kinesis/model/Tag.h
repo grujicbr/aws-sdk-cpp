@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Kinesis
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Tag();
-    Tag(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tag(Aws::Utils::Json::JsonView jsonValue);
+    Tag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * characters: Unicode letters, digits, white space, _ . / = + - % @</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>A unique identifier for the tag. Maximum length: 128 characters. Valid
+     * characters: Unicode letters, digits, white space, _ . / = + - % @</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>A unique identifier for the tag. Maximum length: 128 characters. Valid
@@ -96,6 +103,13 @@ namespace Model
      * _ . / = + - % @</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>An optional string, typically used to describe or define the tag. Maximum
+     * length: 256 characters. Valid characters: Unicode letters, digits, white space,
+     * _ . / = + - % @</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>An optional string, typically used to describe or define the tag. Maximum

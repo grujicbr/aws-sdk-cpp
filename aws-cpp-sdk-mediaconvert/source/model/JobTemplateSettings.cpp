@@ -32,7 +32,9 @@ JobTemplateSettings::JobTemplateSettings() :
     m_adAvailOffset(0),
     m_adAvailOffsetHasBeenSet(false),
     m_availBlankingHasBeenSet(false),
+    m_esamHasBeenSet(false),
     m_inputsHasBeenSet(false),
+    m_motionImageInserterHasBeenSet(false),
     m_nielsenConfigurationHasBeenSet(false),
     m_outputGroupsHasBeenSet(false),
     m_timecodeConfigHasBeenSet(false),
@@ -40,11 +42,13 @@ JobTemplateSettings::JobTemplateSettings() :
 {
 }
 
-JobTemplateSettings::JobTemplateSettings(const JsonValue& jsonValue) : 
+JobTemplateSettings::JobTemplateSettings(JsonView jsonValue) : 
     m_adAvailOffset(0),
     m_adAvailOffsetHasBeenSet(false),
     m_availBlankingHasBeenSet(false),
+    m_esamHasBeenSet(false),
     m_inputsHasBeenSet(false),
+    m_motionImageInserterHasBeenSet(false),
     m_nielsenConfigurationHasBeenSet(false),
     m_outputGroupsHasBeenSet(false),
     m_timecodeConfigHasBeenSet(false),
@@ -53,7 +57,7 @@ JobTemplateSettings::JobTemplateSettings(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-JobTemplateSettings& JobTemplateSettings::operator =(const JsonValue& jsonValue)
+JobTemplateSettings& JobTemplateSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("adAvailOffset"))
   {
@@ -69,14 +73,28 @@ JobTemplateSettings& JobTemplateSettings::operator =(const JsonValue& jsonValue)
     m_availBlankingHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("esam"))
+  {
+    m_esam = jsonValue.GetObject("esam");
+
+    m_esamHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("inputs"))
   {
-    Array<JsonValue> inputsJsonList = jsonValue.GetArray("inputs");
+    Array<JsonView> inputsJsonList = jsonValue.GetArray("inputs");
     for(unsigned inputsIndex = 0; inputsIndex < inputsJsonList.GetLength(); ++inputsIndex)
     {
       m_inputs.push_back(inputsJsonList[inputsIndex].AsObject());
     }
     m_inputsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("motionImageInserter"))
+  {
+    m_motionImageInserter = jsonValue.GetObject("motionImageInserter");
+
+    m_motionImageInserterHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("nielsenConfiguration"))
@@ -88,7 +106,7 @@ JobTemplateSettings& JobTemplateSettings::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("outputGroups"))
   {
-    Array<JsonValue> outputGroupsJsonList = jsonValue.GetArray("outputGroups");
+    Array<JsonView> outputGroupsJsonList = jsonValue.GetArray("outputGroups");
     for(unsigned outputGroupsIndex = 0; outputGroupsIndex < outputGroupsJsonList.GetLength(); ++outputGroupsIndex)
     {
       m_outputGroups.push_back(outputGroupsJsonList[outputGroupsIndex].AsObject());
@@ -129,6 +147,12 @@ JsonValue JobTemplateSettings::Jsonize() const
 
   }
 
+  if(m_esamHasBeenSet)
+  {
+   payload.WithObject("esam", m_esam.Jsonize());
+
+  }
+
   if(m_inputsHasBeenSet)
   {
    Array<JsonValue> inputsJsonList(m_inputs.size());
@@ -137,6 +161,12 @@ JsonValue JobTemplateSettings::Jsonize() const
      inputsJsonList[inputsIndex].AsObject(m_inputs[inputsIndex].Jsonize());
    }
    payload.WithArray("inputs", std::move(inputsJsonList));
+
+  }
+
+  if(m_motionImageInserterHasBeenSet)
+  {
+   payload.WithObject("motionImageInserter", m_motionImageInserter.Jsonize());
 
   }
 

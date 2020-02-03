@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DescribeActivationsFilter();
-    DescribeActivationsFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    DescribeActivationsFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DescribeActivationsFilter(Aws::Utils::Json::JsonView jsonValue);
+    DescribeActivationsFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the filter.</p>
      */
     inline const DescribeActivationsFilterKeys& GetFilterKey() const{ return m_filterKey; }
+
+    /**
+     * <p>The name of the filter.</p>
+     */
+    inline bool FilterKeyHasBeenSet() const { return m_filterKeyHasBeenSet; }
 
     /**
      * <p>The name of the filter.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The filter values.</p>
      */
     inline const Aws::Vector<Aws::String>& GetFilterValues() const{ return m_filterValues; }
+
+    /**
+     * <p>The filter values.</p>
+     */
+    inline bool FilterValuesHasBeenSet() const { return m_filterValuesHasBeenSet; }
 
     /**
      * <p>The filter values.</p>

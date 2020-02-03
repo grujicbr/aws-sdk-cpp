@@ -37,7 +37,7 @@ CreateDatasetResult::CreateDatasetResult(const Aws::AmazonWebServiceResult<JsonV
 
 CreateDatasetResult& CreateDatasetResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("datasetName"))
   {
     m_datasetName = jsonValue.GetString("datasetName");
@@ -47,6 +47,12 @@ CreateDatasetResult& CreateDatasetResult::operator =(const Aws::AmazonWebService
   if(jsonValue.ValueExists("datasetArn"))
   {
     m_datasetArn = jsonValue.GetString("datasetArn");
+
+  }
+
+  if(jsonValue.ValueExists("retentionPeriod"))
+  {
+    m_retentionPeriod = jsonValue.GetObject("retentionPeriod");
 
   }
 

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AnalyticsConfigurationType();
-    AnalyticsConfigurationType(const Aws::Utils::Json::JsonValue& jsonValue);
-    AnalyticsConfigurationType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AnalyticsConfigurationType(Aws::Utils::Json::JsonView jsonValue);
+    AnalyticsConfigurationType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The application ID for an Amazon Pinpoint application.</p>
      */
     inline const Aws::String& GetApplicationId() const{ return m_applicationId; }
+
+    /**
+     * <p>The application ID for an Amazon Pinpoint application.</p>
+     */
+    inline bool ApplicationIdHasBeenSet() const { return m_applicationIdHasBeenSet; }
 
     /**
      * <p>The application ID for an Amazon Pinpoint application.</p>
@@ -88,6 +94,12 @@ namespace Model
      * Amazon Pinpoint analytics.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The ARN of an IAM role that authorizes Amazon Cognito to publish events to
+     * Amazon Pinpoint analytics.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The ARN of an IAM role that authorizes Amazon Cognito to publish events to
@@ -134,6 +146,11 @@ namespace Model
     /**
      * <p>The external ID.</p>
      */
+    inline bool ExternalIdHasBeenSet() const { return m_externalIdHasBeenSet; }
+
+    /**
+     * <p>The external ID.</p>
+     */
     inline void SetExternalId(const Aws::String& value) { m_externalIdHasBeenSet = true; m_externalId = value; }
 
     /**
@@ -167,6 +184,12 @@ namespace Model
      * include user data in the events it publishes to Amazon Pinpoint analytics.</p>
      */
     inline bool GetUserDataShared() const{ return m_userDataShared; }
+
+    /**
+     * <p>If <code>UserDataShared</code> is <code>true</code>, Amazon Cognito will
+     * include user data in the events it publishes to Amazon Pinpoint analytics.</p>
+     */
+    inline bool UserDataSharedHasBeenSet() const { return m_userDataSharedHasBeenSet; }
 
     /**
      * <p>If <code>UserDataShared</code> is <code>true</code>, Amazon Cognito will

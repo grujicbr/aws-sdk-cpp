@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Inspector
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AssessmentTargetFilter();
-    AssessmentTargetFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    AssessmentTargetFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AssessmentTargetFilter(Aws::Utils::Json::JsonView jsonValue);
+    AssessmentTargetFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * type.</p>
      */
     inline const Aws::String& GetAssessmentTargetNamePattern() const{ return m_assessmentTargetNamePattern; }
+
+    /**
+     * <p>For a record to match a filter, an explicit value or a string that contains a
+     * wildcard that is specified for this data type property must match the value of
+     * the <b>assessmentTargetName</b> property of the <a>AssessmentTarget</a> data
+     * type.</p>
+     */
+    inline bool AssessmentTargetNamePatternHasBeenSet() const { return m_assessmentTargetNamePatternHasBeenSet; }
 
     /**
      * <p>For a record to match a filter, an explicit value or a string that contains a

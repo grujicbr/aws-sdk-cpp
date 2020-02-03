@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AutoScalingPolicyStatus();
-    AutoScalingPolicyStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    AutoScalingPolicyStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AutoScalingPolicyStatus(Aws::Utils::Json::JsonView jsonValue);
+    AutoScalingPolicyStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>Indicates the status of the automatic scaling policy.</p>
      */
     inline const AutoScalingPolicyState& GetState() const{ return m_state; }
+
+    /**
+     * <p>Indicates the status of the automatic scaling policy.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>Indicates the status of the automatic scaling policy.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The reason for a change in status.</p>
      */
     inline const AutoScalingPolicyStateChangeReason& GetStateChangeReason() const{ return m_stateChangeReason; }
+
+    /**
+     * <p>The reason for a change in status.</p>
+     */
+    inline bool StateChangeReasonHasBeenSet() const { return m_stateChangeReasonHasBeenSet; }
 
     /**
      * <p>The reason for a change in status.</p>

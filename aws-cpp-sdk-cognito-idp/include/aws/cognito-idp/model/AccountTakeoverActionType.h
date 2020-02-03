@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     AccountTakeoverActionType();
-    AccountTakeoverActionType(const Aws::Utils::Json::JsonValue& jsonValue);
-    AccountTakeoverActionType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AccountTakeoverActionType(Aws::Utils::Json::JsonView jsonValue);
+    AccountTakeoverActionType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>Flag specifying whether to send a notification.</p>
      */
     inline bool GetNotify() const{ return m_notify; }
+
+    /**
+     * <p>Flag specifying whether to send a notification.</p>
+     */
+    inline bool NotifyHasBeenSet() const { return m_notifyHasBeenSet; }
 
     /**
      * <p>Flag specifying whether to send a notification.</p>
@@ -71,6 +77,16 @@ namespace Model
      * sign-in.</p> </li> </ul>
      */
     inline const AccountTakeoverEventActionType& GetEventAction() const{ return m_eventAction; }
+
+    /**
+     * <p>The event action.</p> <ul> <li> <p> <code>BLOCK</code> Choosing this action
+     * will block the request.</p> </li> <li> <p> <code>MFA_IF_CONFIGURED</code> Throw
+     * MFA challenge if user has configured it, else allow the request.</p> </li> <li>
+     * <p> <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it,
+     * else block the request.</p> </li> <li> <p> <code>NO_ACTION</code> Allow the user
+     * sign-in.</p> </li> </ul>
+     */
+    inline bool EventActionHasBeenSet() const { return m_eventActionHasBeenSet; }
 
     /**
      * <p>The event action.</p> <ul> <li> <p> <code>BLOCK</code> Choosing this action

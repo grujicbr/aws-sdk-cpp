@@ -40,7 +40,11 @@ Address::Address() :
     m_networkInterfaceIdHasBeenSet(false),
     m_networkInterfaceOwnerIdHasBeenSet(false),
     m_privateIpAddressHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_publicIpv4PoolHasBeenSet(false),
+    m_networkBorderGroupHasBeenSet(false),
+    m_customerOwnedIpHasBeenSet(false),
+    m_customerOwnedIpv4PoolHasBeenSet(false)
 {
 }
 
@@ -54,7 +58,11 @@ Address::Address(const XmlNode& xmlNode) :
     m_networkInterfaceIdHasBeenSet(false),
     m_networkInterfaceOwnerIdHasBeenSet(false),
     m_privateIpAddressHasBeenSet(false),
-    m_tagsHasBeenSet(false)
+    m_tagsHasBeenSet(false),
+    m_publicIpv4PoolHasBeenSet(false),
+    m_networkBorderGroupHasBeenSet(false),
+    m_customerOwnedIpHasBeenSet(false),
+    m_customerOwnedIpv4PoolHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -68,49 +76,49 @@ Address& Address::operator =(const XmlNode& xmlNode)
     XmlNode instanceIdNode = resultNode.FirstChild("instanceId");
     if(!instanceIdNode.IsNull())
     {
-      m_instanceId = StringUtils::Trim(instanceIdNode.GetText().c_str());
+      m_instanceId = Aws::Utils::Xml::DecodeEscapedXmlText(instanceIdNode.GetText());
       m_instanceIdHasBeenSet = true;
     }
     XmlNode publicIpNode = resultNode.FirstChild("publicIp");
     if(!publicIpNode.IsNull())
     {
-      m_publicIp = StringUtils::Trim(publicIpNode.GetText().c_str());
+      m_publicIp = Aws::Utils::Xml::DecodeEscapedXmlText(publicIpNode.GetText());
       m_publicIpHasBeenSet = true;
     }
     XmlNode allocationIdNode = resultNode.FirstChild("allocationId");
     if(!allocationIdNode.IsNull())
     {
-      m_allocationId = StringUtils::Trim(allocationIdNode.GetText().c_str());
+      m_allocationId = Aws::Utils::Xml::DecodeEscapedXmlText(allocationIdNode.GetText());
       m_allocationIdHasBeenSet = true;
     }
     XmlNode associationIdNode = resultNode.FirstChild("associationId");
     if(!associationIdNode.IsNull())
     {
-      m_associationId = StringUtils::Trim(associationIdNode.GetText().c_str());
+      m_associationId = Aws::Utils::Xml::DecodeEscapedXmlText(associationIdNode.GetText());
       m_associationIdHasBeenSet = true;
     }
     XmlNode domainNode = resultNode.FirstChild("domain");
     if(!domainNode.IsNull())
     {
-      m_domain = DomainTypeMapper::GetDomainTypeForName(StringUtils::Trim(domainNode.GetText().c_str()).c_str());
+      m_domain = DomainTypeMapper::GetDomainTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(domainNode.GetText()).c_str()).c_str());
       m_domainHasBeenSet = true;
     }
     XmlNode networkInterfaceIdNode = resultNode.FirstChild("networkInterfaceId");
     if(!networkInterfaceIdNode.IsNull())
     {
-      m_networkInterfaceId = StringUtils::Trim(networkInterfaceIdNode.GetText().c_str());
+      m_networkInterfaceId = Aws::Utils::Xml::DecodeEscapedXmlText(networkInterfaceIdNode.GetText());
       m_networkInterfaceIdHasBeenSet = true;
     }
     XmlNode networkInterfaceOwnerIdNode = resultNode.FirstChild("networkInterfaceOwnerId");
     if(!networkInterfaceOwnerIdNode.IsNull())
     {
-      m_networkInterfaceOwnerId = StringUtils::Trim(networkInterfaceOwnerIdNode.GetText().c_str());
+      m_networkInterfaceOwnerId = Aws::Utils::Xml::DecodeEscapedXmlText(networkInterfaceOwnerIdNode.GetText());
       m_networkInterfaceOwnerIdHasBeenSet = true;
     }
     XmlNode privateIpAddressNode = resultNode.FirstChild("privateIpAddress");
     if(!privateIpAddressNode.IsNull())
     {
-      m_privateIpAddress = StringUtils::Trim(privateIpAddressNode.GetText().c_str());
+      m_privateIpAddress = Aws::Utils::Xml::DecodeEscapedXmlText(privateIpAddressNode.GetText());
       m_privateIpAddressHasBeenSet = true;
     }
     XmlNode tagsNode = resultNode.FirstChild("tagSet");
@@ -124,6 +132,30 @@ Address& Address::operator =(const XmlNode& xmlNode)
       }
 
       m_tagsHasBeenSet = true;
+    }
+    XmlNode publicIpv4PoolNode = resultNode.FirstChild("publicIpv4Pool");
+    if(!publicIpv4PoolNode.IsNull())
+    {
+      m_publicIpv4Pool = Aws::Utils::Xml::DecodeEscapedXmlText(publicIpv4PoolNode.GetText());
+      m_publicIpv4PoolHasBeenSet = true;
+    }
+    XmlNode networkBorderGroupNode = resultNode.FirstChild("networkBorderGroup");
+    if(!networkBorderGroupNode.IsNull())
+    {
+      m_networkBorderGroup = Aws::Utils::Xml::DecodeEscapedXmlText(networkBorderGroupNode.GetText());
+      m_networkBorderGroupHasBeenSet = true;
+    }
+    XmlNode customerOwnedIpNode = resultNode.FirstChild("customerOwnedIp");
+    if(!customerOwnedIpNode.IsNull())
+    {
+      m_customerOwnedIp = Aws::Utils::Xml::DecodeEscapedXmlText(customerOwnedIpNode.GetText());
+      m_customerOwnedIpHasBeenSet = true;
+    }
+    XmlNode customerOwnedIpv4PoolNode = resultNode.FirstChild("customerOwnedIpv4Pool");
+    if(!customerOwnedIpv4PoolNode.IsNull())
+    {
+      m_customerOwnedIpv4Pool = Aws::Utils::Xml::DecodeEscapedXmlText(customerOwnedIpv4PoolNode.GetText());
+      m_customerOwnedIpv4PoolHasBeenSet = true;
     }
   }
 
@@ -183,6 +215,26 @@ void Address::OutputToStream(Aws::OStream& oStream, const char* location, unsign
       }
   }
 
+  if(m_publicIpv4PoolHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".PublicIpv4Pool=" << StringUtils::URLEncode(m_publicIpv4Pool.c_str()) << "&";
+  }
+
+  if(m_networkBorderGroupHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".NetworkBorderGroup=" << StringUtils::URLEncode(m_networkBorderGroup.c_str()) << "&";
+  }
+
+  if(m_customerOwnedIpHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".CustomerOwnedIp=" << StringUtils::URLEncode(m_customerOwnedIp.c_str()) << "&";
+  }
+
+  if(m_customerOwnedIpv4PoolHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".CustomerOwnedIpv4Pool=" << StringUtils::URLEncode(m_customerOwnedIpv4Pool.c_str()) << "&";
+  }
+
 }
 
 void Address::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -228,6 +280,22 @@ void Address::OutputToStream(Aws::OStream& oStream, const char* location) const
         tagsSs << location <<  ".TagSet." << tagsIdx++;
         item.OutputToStream(oStream, tagsSs.str().c_str());
       }
+  }
+  if(m_publicIpv4PoolHasBeenSet)
+  {
+      oStream << location << ".PublicIpv4Pool=" << StringUtils::URLEncode(m_publicIpv4Pool.c_str()) << "&";
+  }
+  if(m_networkBorderGroupHasBeenSet)
+  {
+      oStream << location << ".NetworkBorderGroup=" << StringUtils::URLEncode(m_networkBorderGroup.c_str()) << "&";
+  }
+  if(m_customerOwnedIpHasBeenSet)
+  {
+      oStream << location << ".CustomerOwnedIp=" << StringUtils::URLEncode(m_customerOwnedIp.c_str()) << "&";
+  }
+  if(m_customerOwnedIpv4PoolHasBeenSet)
+  {
+      oStream << location << ".CustomerOwnedIpv4Pool=" << StringUtils::URLEncode(m_customerOwnedIpv4Pool.c_str()) << "&";
   }
 }
 

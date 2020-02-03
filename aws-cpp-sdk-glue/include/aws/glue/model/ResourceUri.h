@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * <p>URIs for function resources.</p><p><h3>See Also:</h3>   <a
+   * <p>The URIs for function resources.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ResourceUri">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ResourceUri();
-    ResourceUri(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceUri& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceUri(Aws::Utils::Json::JsonView jsonValue);
+    ResourceUri& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The type of the resource.</p>
      */
     inline const ResourceType& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The type of the resource.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The type of the resource.</p>
@@ -77,6 +83,11 @@ namespace Model
      * <p>The URI for accessing the resource.</p>
      */
     inline const Aws::String& GetUri() const{ return m_uri; }
+
+    /**
+     * <p>The URI for accessing the resource.</p>
+     */
+    inline bool UriHasBeenSet() const { return m_uriHasBeenSet; }
 
     /**
      * <p>The URI for accessing the resource.</p>

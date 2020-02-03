@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SFN
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ExecutionListItem();
-    ExecutionListItem(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExecutionListItem& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExecutionListItem(Aws::Utils::Json::JsonView jsonValue);
+    ExecutionListItem& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) that identifies the execution.</p>
      */
     inline const Aws::String& GetExecutionArn() const{ return m_executionArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that identifies the execution.</p>
+     */
+    inline bool ExecutionArnHasBeenSet() const { return m_executionArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that identifies the execution.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the executed state machine.</p>
      */
+    inline bool StateMachineArnHasBeenSet() const { return m_stateMachineArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the executed state machine.</p>
+     */
     inline void SetStateMachineArn(const Aws::String& value) { m_stateMachineArnHasBeenSet = true; m_stateMachineArn = value; }
 
     /**
@@ -122,7 +133,7 @@ namespace Model
 
     /**
      * <p>The name of the execution.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -132,7 +143,17 @@ namespace Model
 
     /**
      * <p>The name of the execution.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
+     * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
+     * <li> <p>control characters (<code>U+0000-001F</code>,
+     * <code>U+007F-009F</code>)</p> </li> </ul>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the execution.</p> <p>A name must <i>not</i> contain:</p> <ul>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -142,7 +163,7 @@ namespace Model
 
     /**
      * <p>The name of the execution.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -152,7 +173,7 @@ namespace Model
 
     /**
      * <p>The name of the execution.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -162,7 +183,7 @@ namespace Model
 
     /**
      * <p>The name of the execution.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -172,7 +193,7 @@ namespace Model
 
     /**
      * <p>The name of the execution.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -182,7 +203,7 @@ namespace Model
 
     /**
      * <p>The name of the execution.</p> <p>A name must <i>not</i> contain:</p> <ul>
-     * <li> <p>whitespace</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
+     * <li> <p>white space</p> </li> <li> <p>brackets <code>&lt; &gt; { } [ ]</code>
      * </p> </li> <li> <p>wildcard characters <code>? *</code> </p> </li> <li>
      * <p>special characters <code>" # % \ ^ | ~ ` $ &amp; , ; : /</code> </p> </li>
      * <li> <p>control characters (<code>U+0000-001F</code>,
@@ -195,6 +216,11 @@ namespace Model
      * <p>The current status of the execution.</p>
      */
     inline const ExecutionStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p>The current status of the execution.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p>The current status of the execution.</p>
@@ -225,6 +251,11 @@ namespace Model
     /**
      * <p>The date the execution started.</p>
      */
+    inline bool StartDateHasBeenSet() const { return m_startDateHasBeenSet; }
+
+    /**
+     * <p>The date the execution started.</p>
+     */
     inline void SetStartDate(const Aws::Utils::DateTime& value) { m_startDateHasBeenSet = true; m_startDate = value; }
 
     /**
@@ -247,6 +278,11 @@ namespace Model
      * <p>If the execution already ended, the date the execution stopped.</p>
      */
     inline const Aws::Utils::DateTime& GetStopDate() const{ return m_stopDate; }
+
+    /**
+     * <p>If the execution already ended, the date the execution stopped.</p>
+     */
+    inline bool StopDateHasBeenSet() const { return m_stopDateHasBeenSet; }
 
     /**
      * <p>If the execution already ended, the date the execution stopped.</p>

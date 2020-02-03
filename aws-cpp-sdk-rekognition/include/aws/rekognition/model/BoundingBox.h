@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -31,7 +32,7 @@ namespace Model
 {
 
   /**
-   * <p>Identifies the bounding box around the object, face or text. The
+   * <p>Identifies the bounding box around the label, face, or text. The
    * <code>left</code> (x-coordinate) and <code>top</code> (y-coordinate) are
    * coordinates representing the top and left sides of the bounding box. Note that
    * the upper-left corner of the image is the origin (0,0). </p> <p>The
@@ -56,8 +57,8 @@ namespace Model
   {
   public:
     BoundingBox();
-    BoundingBox(const Aws::Utils::Json::JsonValue& jsonValue);
-    BoundingBox& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BoundingBox(Aws::Utils::Json::JsonView jsonValue);
+    BoundingBox& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -65,6 +66,11 @@ namespace Model
      * <p>Width of the bounding box as a ratio of the overall image width.</p>
      */
     inline double GetWidth() const{ return m_width; }
+
+    /**
+     * <p>Width of the bounding box as a ratio of the overall image width.</p>
+     */
+    inline bool WidthHasBeenSet() const { return m_widthHasBeenSet; }
 
     /**
      * <p>Width of the bounding box as a ratio of the overall image width.</p>
@@ -85,6 +91,11 @@ namespace Model
     /**
      * <p>Height of the bounding box as a ratio of the overall image height.</p>
      */
+    inline bool HeightHasBeenSet() const { return m_heightHasBeenSet; }
+
+    /**
+     * <p>Height of the bounding box as a ratio of the overall image height.</p>
+     */
     inline void SetHeight(double value) { m_heightHasBeenSet = true; m_height = value; }
 
     /**
@@ -101,6 +112,11 @@ namespace Model
     /**
      * <p>Left coordinate of the bounding box as a ratio of overall image width.</p>
      */
+    inline bool LeftHasBeenSet() const { return m_leftHasBeenSet; }
+
+    /**
+     * <p>Left coordinate of the bounding box as a ratio of overall image width.</p>
+     */
     inline void SetLeft(double value) { m_leftHasBeenSet = true; m_left = value; }
 
     /**
@@ -113,6 +129,11 @@ namespace Model
      * <p>Top coordinate of the bounding box as a ratio of overall image height.</p>
      */
     inline double GetTop() const{ return m_top; }
+
+    /**
+     * <p>Top coordinate of the bounding box as a ratio of overall image height.</p>
+     */
+    inline bool TopHasBeenSet() const { return m_topHasBeenSet; }
 
     /**
      * <p>Top coordinate of the bounding box as a ratio of overall image height.</p>

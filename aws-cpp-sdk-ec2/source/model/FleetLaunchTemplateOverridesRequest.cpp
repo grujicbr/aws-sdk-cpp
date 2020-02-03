@@ -37,7 +37,10 @@ FleetLaunchTemplateOverridesRequest::FleetLaunchTemplateOverridesRequest() :
     m_subnetIdHasBeenSet(false),
     m_availabilityZoneHasBeenSet(false),
     m_weightedCapacity(0.0),
-    m_weightedCapacityHasBeenSet(false)
+    m_weightedCapacityHasBeenSet(false),
+    m_priority(0.0),
+    m_priorityHasBeenSet(false),
+    m_placementHasBeenSet(false)
 {
 }
 
@@ -48,7 +51,10 @@ FleetLaunchTemplateOverridesRequest::FleetLaunchTemplateOverridesRequest(const X
     m_subnetIdHasBeenSet(false),
     m_availabilityZoneHasBeenSet(false),
     m_weightedCapacity(0.0),
-    m_weightedCapacityHasBeenSet(false)
+    m_weightedCapacityHasBeenSet(false),
+    m_priority(0.0),
+    m_priorityHasBeenSet(false),
+    m_placementHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -62,32 +68,44 @@ FleetLaunchTemplateOverridesRequest& FleetLaunchTemplateOverridesRequest::operat
     XmlNode instanceTypeNode = resultNode.FirstChild("InstanceType");
     if(!instanceTypeNode.IsNull())
     {
-      m_instanceType = InstanceTypeMapper::GetInstanceTypeForName(StringUtils::Trim(instanceTypeNode.GetText().c_str()).c_str());
+      m_instanceType = InstanceTypeMapper::GetInstanceTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(instanceTypeNode.GetText()).c_str()).c_str());
       m_instanceTypeHasBeenSet = true;
     }
     XmlNode maxPriceNode = resultNode.FirstChild("MaxPrice");
     if(!maxPriceNode.IsNull())
     {
-      m_maxPrice = StringUtils::Trim(maxPriceNode.GetText().c_str());
+      m_maxPrice = Aws::Utils::Xml::DecodeEscapedXmlText(maxPriceNode.GetText());
       m_maxPriceHasBeenSet = true;
     }
     XmlNode subnetIdNode = resultNode.FirstChild("SubnetId");
     if(!subnetIdNode.IsNull())
     {
-      m_subnetId = StringUtils::Trim(subnetIdNode.GetText().c_str());
+      m_subnetId = Aws::Utils::Xml::DecodeEscapedXmlText(subnetIdNode.GetText());
       m_subnetIdHasBeenSet = true;
     }
     XmlNode availabilityZoneNode = resultNode.FirstChild("AvailabilityZone");
     if(!availabilityZoneNode.IsNull())
     {
-      m_availabilityZone = StringUtils::Trim(availabilityZoneNode.GetText().c_str());
+      m_availabilityZone = Aws::Utils::Xml::DecodeEscapedXmlText(availabilityZoneNode.GetText());
       m_availabilityZoneHasBeenSet = true;
     }
     XmlNode weightedCapacityNode = resultNode.FirstChild("WeightedCapacity");
     if(!weightedCapacityNode.IsNull())
     {
-      m_weightedCapacity = StringUtils::ConvertToDouble(StringUtils::Trim(weightedCapacityNode.GetText().c_str()).c_str());
+      m_weightedCapacity = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(weightedCapacityNode.GetText()).c_str()).c_str());
       m_weightedCapacityHasBeenSet = true;
+    }
+    XmlNode priorityNode = resultNode.FirstChild("Priority");
+    if(!priorityNode.IsNull())
+    {
+      m_priority = StringUtils::ConvertToDouble(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(priorityNode.GetText()).c_str()).c_str());
+      m_priorityHasBeenSet = true;
+    }
+    XmlNode placementNode = resultNode.FirstChild("Placement");
+    if(!placementNode.IsNull())
+    {
+      m_placement = placementNode;
+      m_placementHasBeenSet = true;
     }
   }
 
@@ -121,6 +139,18 @@ void FleetLaunchTemplateOverridesRequest::OutputToStream(Aws::OStream& oStream, 
         oStream << location << index << locationValue << ".WeightedCapacity=" << StringUtils::URLEncode(m_weightedCapacity) << "&";
   }
 
+  if(m_priorityHasBeenSet)
+  {
+        oStream << location << index << locationValue << ".Priority=" << StringUtils::URLEncode(m_priority) << "&";
+  }
+
+  if(m_placementHasBeenSet)
+  {
+      Aws::StringStream placementLocationAndMemberSs;
+      placementLocationAndMemberSs << location << index << locationValue << ".Placement";
+      m_placement.OutputToStream(oStream, placementLocationAndMemberSs.str().c_str());
+  }
+
 }
 
 void FleetLaunchTemplateOverridesRequest::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -144,6 +174,16 @@ void FleetLaunchTemplateOverridesRequest::OutputToStream(Aws::OStream& oStream, 
   if(m_weightedCapacityHasBeenSet)
   {
         oStream << location << ".WeightedCapacity=" << StringUtils::URLEncode(m_weightedCapacity) << "&";
+  }
+  if(m_priorityHasBeenSet)
+  {
+        oStream << location << ".Priority=" << StringUtils::URLEncode(m_priority) << "&";
+  }
+  if(m_placementHasBeenSet)
+  {
+      Aws::String placementLocationAndMember(location);
+      placementLocationAndMember += ".Placement";
+      m_placement.OutputToStream(oStream, placementLocationAndMember.c_str());
   }
 }
 

@@ -36,15 +36,18 @@ EntitiesDetectionJobProperties::EntitiesDetectionJobProperties() :
     m_messageHasBeenSet(false),
     m_submitTimeHasBeenSet(false),
     m_endTimeHasBeenSet(false),
+    m_entityRecognizerArnHasBeenSet(false),
     m_inputDataConfigHasBeenSet(false),
     m_outputDataConfigHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
-    m_dataAccessRoleArnHasBeenSet(false)
+    m_dataAccessRoleArnHasBeenSet(false),
+    m_volumeKmsKeyIdHasBeenSet(false),
+    m_vpcConfigHasBeenSet(false)
 {
 }
 
-EntitiesDetectionJobProperties::EntitiesDetectionJobProperties(const JsonValue& jsonValue) : 
+EntitiesDetectionJobProperties::EntitiesDetectionJobProperties(JsonView jsonValue) : 
     m_jobIdHasBeenSet(false),
     m_jobNameHasBeenSet(false),
     m_jobStatus(JobStatus::NOT_SET),
@@ -52,16 +55,19 @@ EntitiesDetectionJobProperties::EntitiesDetectionJobProperties(const JsonValue& 
     m_messageHasBeenSet(false),
     m_submitTimeHasBeenSet(false),
     m_endTimeHasBeenSet(false),
+    m_entityRecognizerArnHasBeenSet(false),
     m_inputDataConfigHasBeenSet(false),
     m_outputDataConfigHasBeenSet(false),
     m_languageCode(LanguageCode::NOT_SET),
     m_languageCodeHasBeenSet(false),
-    m_dataAccessRoleArnHasBeenSet(false)
+    m_dataAccessRoleArnHasBeenSet(false),
+    m_volumeKmsKeyIdHasBeenSet(false),
+    m_vpcConfigHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-EntitiesDetectionJobProperties& EntitiesDetectionJobProperties::operator =(const JsonValue& jsonValue)
+EntitiesDetectionJobProperties& EntitiesDetectionJobProperties::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("JobId"))
   {
@@ -105,6 +111,13 @@ EntitiesDetectionJobProperties& EntitiesDetectionJobProperties::operator =(const
     m_endTimeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("EntityRecognizerArn"))
+  {
+    m_entityRecognizerArn = jsonValue.GetString("EntityRecognizerArn");
+
+    m_entityRecognizerArnHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("InputDataConfig"))
   {
     m_inputDataConfig = jsonValue.GetObject("InputDataConfig");
@@ -131,6 +144,20 @@ EntitiesDetectionJobProperties& EntitiesDetectionJobProperties::operator =(const
     m_dataAccessRoleArn = jsonValue.GetString("DataAccessRoleArn");
 
     m_dataAccessRoleArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("VolumeKmsKeyId"))
+  {
+    m_volumeKmsKeyId = jsonValue.GetString("VolumeKmsKeyId");
+
+    m_volumeKmsKeyIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("VpcConfig"))
+  {
+    m_vpcConfig = jsonValue.GetObject("VpcConfig");
+
+    m_vpcConfigHasBeenSet = true;
   }
 
   return *this;
@@ -173,6 +200,12 @@ JsonValue EntitiesDetectionJobProperties::Jsonize() const
    payload.WithDouble("EndTime", m_endTime.SecondsWithMSPrecision());
   }
 
+  if(m_entityRecognizerArnHasBeenSet)
+  {
+   payload.WithString("EntityRecognizerArn", m_entityRecognizerArn);
+
+  }
+
   if(m_inputDataConfigHasBeenSet)
   {
    payload.WithObject("InputDataConfig", m_inputDataConfig.Jsonize());
@@ -193,6 +226,18 @@ JsonValue EntitiesDetectionJobProperties::Jsonize() const
   if(m_dataAccessRoleArnHasBeenSet)
   {
    payload.WithString("DataAccessRoleArn", m_dataAccessRoleArn);
+
+  }
+
+  if(m_volumeKmsKeyIdHasBeenSet)
+  {
+   payload.WithString("VolumeKmsKeyId", m_volumeKmsKeyId);
+
+  }
+
+  if(m_vpcConfigHasBeenSet)
+  {
+   payload.WithObject("VpcConfig", m_vpcConfig.Jsonize());
 
   }
 

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     IndexAttachment();
-    IndexAttachment(const Aws::Utils::Json::JsonValue& jsonValue);
-    IndexAttachment& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IndexAttachment(Aws::Utils::Json::JsonView jsonValue);
+    IndexAttachment& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The indexed attribute values.</p>
      */
     inline const Aws::Vector<AttributeKeyAndValue>& GetIndexedAttributes() const{ return m_indexedAttributes; }
+
+    /**
+     * <p>The indexed attribute values.</p>
+     */
+    inline bool IndexedAttributesHasBeenSet() const { return m_indexedAttributesHasBeenSet; }
 
     /**
      * <p>The indexed attribute values.</p>
@@ -92,6 +98,15 @@ namespace Model
      * opposite side of the attachment specified in the query.</p>
      */
     inline const Aws::String& GetObjectIdentifier() const{ return m_objectIdentifier; }
+
+    /**
+     * <p>In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the
+     * object attached to the index. In response to <a>ListAttachedIndices</a>, the
+     * <code>ObjectIdentifier</code> of the index attached to the object. This field
+     * will always contain the <code>ObjectIdentifier</code> of the object on the
+     * opposite side of the attachment specified in the query.</p>
+     */
+    inline bool ObjectIdentifierHasBeenSet() const { return m_objectIdentifierHasBeenSet; }
 
     /**
      * <p>In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the

@@ -38,7 +38,7 @@ namespace Model
   {
   public:
     PutBucketEncryptionRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -53,93 +53,156 @@ namespace Model
 
 
     /**
-     * <p>The name of the bucket for which the server-side encryption configuration is
-     * set.</p>
+     * <p>Specifies default encryption for a bucket using server-side encryption with
+     * Amazon S3-managed keys (SSE-S3) or customer master keys stored in AWS KMS
+     * (SSE-KMS). For information about the Amazon S3 default encryption feature, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon
+     * S3 Default Bucket Encryption</a> in the <i>Amazon Simple Storage Service
+     * Developer Guide</i>.</p>
      */
     inline const Aws::String& GetBucket() const{ return m_bucket; }
 
     /**
-     * <p>The name of the bucket for which the server-side encryption configuration is
-     * set.</p>
+     * <p>Specifies default encryption for a bucket using server-side encryption with
+     * Amazon S3-managed keys (SSE-S3) or customer master keys stored in AWS KMS
+     * (SSE-KMS). For information about the Amazon S3 default encryption feature, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon
+     * S3 Default Bucket Encryption</a> in the <i>Amazon Simple Storage Service
+     * Developer Guide</i>.</p>
+     */
+    inline bool BucketHasBeenSet() const { return m_bucketHasBeenSet; }
+
+    /**
+     * <p>Specifies default encryption for a bucket using server-side encryption with
+     * Amazon S3-managed keys (SSE-S3) or customer master keys stored in AWS KMS
+     * (SSE-KMS). For information about the Amazon S3 default encryption feature, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon
+     * S3 Default Bucket Encryption</a> in the <i>Amazon Simple Storage Service
+     * Developer Guide</i>.</p>
      */
     inline void SetBucket(const Aws::String& value) { m_bucketHasBeenSet = true; m_bucket = value; }
 
     /**
-     * <p>The name of the bucket for which the server-side encryption configuration is
-     * set.</p>
+     * <p>Specifies default encryption for a bucket using server-side encryption with
+     * Amazon S3-managed keys (SSE-S3) or customer master keys stored in AWS KMS
+     * (SSE-KMS). For information about the Amazon S3 default encryption feature, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon
+     * S3 Default Bucket Encryption</a> in the <i>Amazon Simple Storage Service
+     * Developer Guide</i>.</p>
      */
     inline void SetBucket(Aws::String&& value) { m_bucketHasBeenSet = true; m_bucket = std::move(value); }
 
     /**
-     * <p>The name of the bucket for which the server-side encryption configuration is
-     * set.</p>
+     * <p>Specifies default encryption for a bucket using server-side encryption with
+     * Amazon S3-managed keys (SSE-S3) or customer master keys stored in AWS KMS
+     * (SSE-KMS). For information about the Amazon S3 default encryption feature, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon
+     * S3 Default Bucket Encryption</a> in the <i>Amazon Simple Storage Service
+     * Developer Guide</i>.</p>
      */
     inline void SetBucket(const char* value) { m_bucketHasBeenSet = true; m_bucket.assign(value); }
 
     /**
-     * <p>The name of the bucket for which the server-side encryption configuration is
-     * set.</p>
+     * <p>Specifies default encryption for a bucket using server-side encryption with
+     * Amazon S3-managed keys (SSE-S3) or customer master keys stored in AWS KMS
+     * (SSE-KMS). For information about the Amazon S3 default encryption feature, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon
+     * S3 Default Bucket Encryption</a> in the <i>Amazon Simple Storage Service
+     * Developer Guide</i>.</p>
      */
     inline PutBucketEncryptionRequest& WithBucket(const Aws::String& value) { SetBucket(value); return *this;}
 
     /**
-     * <p>The name of the bucket for which the server-side encryption configuration is
-     * set.</p>
+     * <p>Specifies default encryption for a bucket using server-side encryption with
+     * Amazon S3-managed keys (SSE-S3) or customer master keys stored in AWS KMS
+     * (SSE-KMS). For information about the Amazon S3 default encryption feature, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon
+     * S3 Default Bucket Encryption</a> in the <i>Amazon Simple Storage Service
+     * Developer Guide</i>.</p>
      */
     inline PutBucketEncryptionRequest& WithBucket(Aws::String&& value) { SetBucket(std::move(value)); return *this;}
 
     /**
-     * <p>The name of the bucket for which the server-side encryption configuration is
-     * set.</p>
+     * <p>Specifies default encryption for a bucket using server-side encryption with
+     * Amazon S3-managed keys (SSE-S3) or customer master keys stored in AWS KMS
+     * (SSE-KMS). For information about the Amazon S3 default encryption feature, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon
+     * S3 Default Bucket Encryption</a> in the <i>Amazon Simple Storage Service
+     * Developer Guide</i>.</p>
      */
     inline PutBucketEncryptionRequest& WithBucket(const char* value) { SetBucket(value); return *this;}
 
 
     /**
      * <p>The base64-encoded 128-bit MD5 digest of the server-side encryption
-     * configuration.</p>
+     * configuration. This parameter is auto-populated when using the command from the
+     * CLI.</p>
      */
     inline const Aws::String& GetContentMD5() const{ return m_contentMD5; }
 
     /**
      * <p>The base64-encoded 128-bit MD5 digest of the server-side encryption
-     * configuration.</p>
+     * configuration. This parameter is auto-populated when using the command from the
+     * CLI.</p>
+     */
+    inline bool ContentMD5HasBeenSet() const { return m_contentMD5HasBeenSet; }
+
+    /**
+     * <p>The base64-encoded 128-bit MD5 digest of the server-side encryption
+     * configuration. This parameter is auto-populated when using the command from the
+     * CLI.</p>
      */
     inline void SetContentMD5(const Aws::String& value) { m_contentMD5HasBeenSet = true; m_contentMD5 = value; }
 
     /**
      * <p>The base64-encoded 128-bit MD5 digest of the server-side encryption
-     * configuration.</p>
+     * configuration. This parameter is auto-populated when using the command from the
+     * CLI.</p>
      */
     inline void SetContentMD5(Aws::String&& value) { m_contentMD5HasBeenSet = true; m_contentMD5 = std::move(value); }
 
     /**
      * <p>The base64-encoded 128-bit MD5 digest of the server-side encryption
-     * configuration.</p>
+     * configuration. This parameter is auto-populated when using the command from the
+     * CLI.</p>
      */
     inline void SetContentMD5(const char* value) { m_contentMD5HasBeenSet = true; m_contentMD5.assign(value); }
 
     /**
      * <p>The base64-encoded 128-bit MD5 digest of the server-side encryption
-     * configuration.</p>
+     * configuration. This parameter is auto-populated when using the command from the
+     * CLI.</p>
      */
     inline PutBucketEncryptionRequest& WithContentMD5(const Aws::String& value) { SetContentMD5(value); return *this;}
 
     /**
      * <p>The base64-encoded 128-bit MD5 digest of the server-side encryption
-     * configuration.</p>
+     * configuration. This parameter is auto-populated when using the command from the
+     * CLI.</p>
      */
     inline PutBucketEncryptionRequest& WithContentMD5(Aws::String&& value) { SetContentMD5(std::move(value)); return *this;}
 
     /**
      * <p>The base64-encoded 128-bit MD5 digest of the server-side encryption
-     * configuration.</p>
+     * configuration. This parameter is auto-populated when using the command from the
+     * CLI.</p>
      */
     inline PutBucketEncryptionRequest& WithContentMD5(const char* value) { SetContentMD5(value); return *this;}
 
 
     
     inline const ServerSideEncryptionConfiguration& GetServerSideEncryptionConfiguration() const{ return m_serverSideEncryptionConfiguration; }
+
+    
+    inline bool ServerSideEncryptionConfigurationHasBeenSet() const { return m_serverSideEncryptionConfigurationHasBeenSet; }
 
     
     inline void SetServerSideEncryptionConfiguration(const ServerSideEncryptionConfiguration& value) { m_serverSideEncryptionConfigurationHasBeenSet = true; m_serverSideEncryptionConfiguration = value; }
@@ -156,6 +219,9 @@ namespace Model
 
     
     inline const Aws::Map<Aws::String, Aws::String>& GetCustomizedAccessLogTag() const{ return m_customizedAccessLogTag; }
+
+    
+    inline bool CustomizedAccessLogTagHasBeenSet() const { return m_customizedAccessLogTagHasBeenSet; }
 
     
     inline void SetCustomizedAccessLogTag(const Aws::Map<Aws::String, Aws::String>& value) { m_customizedAccessLogTagHasBeenSet = true; m_customizedAccessLogTag = value; }

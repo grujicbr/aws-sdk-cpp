@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MachineLearning
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     RealtimeEndpointInfo();
-    RealtimeEndpointInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    RealtimeEndpointInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RealtimeEndpointInfo(Aws::Utils::Json::JsonView jsonValue);
+    RealtimeEndpointInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * <code>MLModel</code>, measured in incoming requests per second.</p>
      */
     inline int GetPeakRequestsPerSecond() const{ return m_peakRequestsPerSecond; }
+
+    /**
+     * <p> The maximum processing rate for the real-time endpoint for
+     * <code>MLModel</code>, measured in incoming requests per second.</p>
+     */
+    inline bool PeakRequestsPerSecondHasBeenSet() const { return m_peakRequestsPerSecondHasBeenSet; }
 
     /**
      * <p> The maximum processing rate for the real-time endpoint for
@@ -73,6 +80,12 @@ namespace Model
      * <code>MLModel</code> was received. The time is expressed in epoch time.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedAt() const{ return m_createdAt; }
+
+    /**
+     * <p>The time that the request to create the real-time endpoint for the
+     * <code>MLModel</code> was received. The time is expressed in epoch time.</p>
+     */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
 
     /**
      * <p>The time that the request to create the real-time endpoint for the
@@ -105,6 +118,13 @@ namespace Model
      * until the real-time endpoint is ready before using this URI.</p> </note>
      */
     inline const Aws::String& GetEndpointUrl() const{ return m_endpointUrl; }
+
+    /**
+     * <p>The URI that specifies where to send real-time prediction requests for the
+     * <code>MLModel</code>.</p> <note><title>Note</title> <p>The application must wait
+     * until the real-time endpoint is ready before using this URI.</p> </note>
+     */
+    inline bool EndpointUrlHasBeenSet() const { return m_endpointUrlHasBeenSet; }
 
     /**
      * <p>The URI that specifies where to send real-time prediction requests for the
@@ -158,6 +178,16 @@ namespace Model
      * </li> </ul>
      */
     inline const RealtimeEndpointStatus& GetEndpointStatus() const{ return m_endpointStatus; }
+
+    /**
+     * <p> The current status of the real-time endpoint for the <code>MLModel</code>.
+     * This element can have one of the following values: </p> <ul> <li>
+     * <code>NONE</code> - Endpoint does not exist or was previously deleted.</li> <li>
+     * <code>READY</code> - Endpoint is ready to be used for real-time
+     * predictions.</li> <li> <code>UPDATING</code> - Updating/creating the endpoint.
+     * </li> </ul>
+     */
+    inline bool EndpointStatusHasBeenSet() const { return m_endpointStatusHasBeenSet; }
 
     /**
      * <p> The current status of the real-time endpoint for the <code>MLModel</code>.

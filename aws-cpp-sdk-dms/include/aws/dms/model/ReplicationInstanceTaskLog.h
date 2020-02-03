@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DatabaseMigrationService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ReplicationInstanceTaskLog();
-    ReplicationInstanceTaskLog(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReplicationInstanceTaskLog& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReplicationInstanceTaskLog(Aws::Utils::Json::JsonView jsonValue);
+    ReplicationInstanceTaskLog& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the replication task.</p>
      */
     inline const Aws::String& GetReplicationTaskName() const{ return m_replicationTaskName; }
+
+    /**
+     * <p>The name of the replication task.</p>
+     */
+    inline bool ReplicationTaskNameHasBeenSet() const { return m_replicationTaskNameHasBeenSet; }
 
     /**
      * <p>The name of the replication task.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the replication task.</p>
      */
+    inline bool ReplicationTaskArnHasBeenSet() const { return m_replicationTaskArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the replication task.</p>
+     */
     inline void SetReplicationTaskArn(const Aws::String& value) { m_replicationTaskArnHasBeenSet = true; m_replicationTaskArn = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The size, in bytes, of the replication task log.</p>
      */
     inline long long GetReplicationInstanceTaskLogSize() const{ return m_replicationInstanceTaskLogSize; }
+
+    /**
+     * <p>The size, in bytes, of the replication task log.</p>
+     */
+    inline bool ReplicationInstanceTaskLogSizeHasBeenSet() const { return m_replicationInstanceTaskLogSizeHasBeenSet; }
 
     /**
      * <p>The size, in bytes, of the replication task log.</p>

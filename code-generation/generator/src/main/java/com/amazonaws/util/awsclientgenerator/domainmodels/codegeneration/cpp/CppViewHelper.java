@@ -19,6 +19,7 @@ import com.amazonaws.util.awsclientgenerator.domainmodels.codegeneration.Metadat
 import com.amazonaws.util.awsclientgenerator.domainmodels.codegeneration.Shape;
 import com.amazonaws.util.awsclientgenerator.domainmodels.codegeneration.ShapeMember;
 import com.google.common.base.CaseFormat;
+import java.lang.RuntimeException;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -44,6 +45,7 @@ public class CppViewHelper {
         CORAL_TO_CPP_TYPE_MAPPING.put("double", "double");
         CORAL_TO_CPP_TYPE_MAPPING.put("float", "double");
         CORAL_TO_CPP_TYPE_MAPPING.put("blob", "Aws::Utils::ByteBuffer");
+        CORAL_TO_CPP_TYPE_MAPPING.put("sensitive_blob", "Aws::Utils::CryptoBuffer");
 
         CORAL_TO_JSON_CPP_TYPE_MAPPING.put("long", "Int64");
         CORAL_TO_JSON_CPP_TYPE_MAPPING.put("integer", "Integer");
@@ -122,11 +124,26 @@ public class CppViewHelper {
             return jsonizeString;
         }
 
+        if(shape.isTimeStamp()) {
+            if(shape.getTimestampFormat() == null || CORAL_TO_JSON_CPP_TYPE_MAPPING.get(shape.getTimestampFormat().toLowerCase()).equalsIgnoreCase("Double")) {
+                return ".SecondsWithMSPrecision()";
+            }
+
+            if(shape.getTimestampFormat().toLowerCase().equalsIgnoreCase("rfc822")) {
+                return ".ToGmtString(DateFormat::RFC822)";
+            }
+
+            if(shape.getTimestampFormat().toLowerCase().equalsIgnoreCase("iso8601")) {
+                return ".ToGmtString(DateFormat::ISO_8601)";
+            }
+        }
+
         return "";
     }
 
     public static String computeCppType(Shape shape) {
-        String cppType =  CORAL_TO_CPP_TYPE_MAPPING.get(shape.getType());
+        String sensitivePrefix = shape.isSensitive() ? "sensitive_" : "";
+        String cppType =  CORAL_TO_CPP_TYPE_MAPPING.get(sensitivePrefix + shape.getType());
 
         //enum types show up as string
         if(cppType != null && !shape.isEnum()) {
@@ -155,7 +172,7 @@ public class CppViewHelper {
     }
 
     public static String computeJsonCppType(Shape shape) {
-        if("timestamp".equalsIgnoreCase(shape.getType()) && shape.getTimestampFormat() != null) {
+        if(shape.isTimeStamp() && shape.getTimestampFormat() != null) {
             return CORAL_TO_JSON_CPP_TYPE_MAPPING.get(shape.getTimestampFormat().toLowerCase());
         }
         return CORAL_TO_JSON_CPP_TYPE_MAPPING.get(shape.getType());
@@ -180,6 +197,7 @@ public class CppViewHelper {
         Set<String> visited = new LinkedHashSet<>();
         Queue<Shape> toVisit = shape.getMembers().values().stream().map(ShapeMember::getShape).collect(Collectors.toCollection(() -> new LinkedList<>()));
         boolean includeUtilityHeader = false;
+        boolean includeAWSVectorHeader = false;
 
         while(!toVisit.isEmpty()) {
             Shape next = toVisit.remove();
@@ -200,13 +218,21 @@ public class CppViewHelper {
                 }
             }
             if(!next.isPrimitive()) {
-                headers.add(formatModelIncludeName(projectName, next));
+                if(next.isMutuallyReferencedWith(shape)) {
+                    includeAWSVectorHeader = true;
+                }
+                if(!next.isListMemberAndMutuallyReferencedWith(shape)) {
+                    headers.add(formatModelIncludeName(projectName, next));
+                }
                 includeUtilityHeader = true;
             }
         }
 
         if(includeUtilityHeader) {
             headers.add("<utility>");
+        }
+        if(includeAWSVectorHeader) {
+            headers.add("<aws/core/utils/memory/stl/AWSVector.h>");
         }
 
         headers.addAll(shape.getMembers().values().stream().filter(member -> member.isIdempotencyToken()).map(member -> "<aws/core/utils/UUID.h>").collect(Collectors.toList()));
@@ -238,8 +264,33 @@ public class CppViewHelper {
         }
     }
 
-    public static Set<String> computeSourceIncludes(Shape shape) {
+    public static Set<String> computeSourceIncludes(String projectName, Shape shape) {
         Set<String> headers = new LinkedHashSet<>();
+        Set<String> visited = new LinkedHashSet<>();
+        Queue<Shape> toVisit = shape.getMembers().values().stream().map(ShapeMember::getShape).collect(Collectors.toCollection(() -> new LinkedList<>()));
+
+        while(!toVisit.isEmpty()) {
+            Shape next = toVisit.remove();
+            visited.add(next.getName());
+            if(next.isMap()) {
+                if(!visited.contains(next.getMapKey().getShape().getName())) {
+                    toVisit.add(next.getMapKey().getShape());
+                }
+                if(!visited.contains(next.getMapValue().getShape().getName())) {
+                    toVisit.add(next.getMapValue().getShape());
+                }
+            }
+            if(next.isList())
+            {
+                if(!visited.contains(next.getListMember().getShape().getName()))
+                {
+                    toVisit.add(next.getListMember().getShape());
+                }
+            }
+            if(!next.isPrimitive() && next.isListMemberAndMutuallyReferencedWith(shape)) {
+                headers.add(formatModelIncludeName(projectName, next));
+            }
+        }
 
         for(Map.Entry<String, ShapeMember> entry : shape.getMembers().entrySet()) {
             Shape innerShape = entry.getValue().getShape();

@@ -23,6 +23,10 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 StartSpeechSynthesisTaskRequest::StartSpeechSynthesisTaskRequest() : 
+    m_engine(Engine::NOT_SET),
+    m_engineHasBeenSet(false),
+    m_languageCode(LanguageCode::NOT_SET),
+    m_languageCodeHasBeenSet(false),
     m_lexiconNamesHasBeenSet(false),
     m_outputFormat(OutputFormat::NOT_SET),
     m_outputFormatHasBeenSet(false),
@@ -42,6 +46,16 @@ StartSpeechSynthesisTaskRequest::StartSpeechSynthesisTaskRequest() :
 Aws::String StartSpeechSynthesisTaskRequest::SerializePayload() const
 {
   JsonValue payload;
+
+  if(m_engineHasBeenSet)
+  {
+   payload.WithString("Engine", EngineMapper::GetNameForEngine(m_engine));
+  }
+
+  if(m_languageCodeHasBeenSet)
+  {
+   payload.WithString("LanguageCode", LanguageCodeMapper::GetNameForLanguageCode(m_languageCode));
+  }
 
   if(m_lexiconNamesHasBeenSet)
   {
@@ -110,7 +124,7 @@ Aws::String StartSpeechSynthesisTaskRequest::SerializePayload() const
    payload.WithString("VoiceId", VoiceIdMapper::GetNameForVoiceId(m_voiceId));
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

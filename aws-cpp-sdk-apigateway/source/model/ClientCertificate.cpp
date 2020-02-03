@@ -33,21 +33,23 @@ ClientCertificate::ClientCertificate() :
     m_descriptionHasBeenSet(false),
     m_pemEncodedCertificateHasBeenSet(false),
     m_createdDateHasBeenSet(false),
-    m_expirationDateHasBeenSet(false)
+    m_expirationDateHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-ClientCertificate::ClientCertificate(const JsonValue& jsonValue) : 
+ClientCertificate::ClientCertificate(JsonView jsonValue) : 
     m_clientCertificateIdHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_pemEncodedCertificateHasBeenSet(false),
     m_createdDateHasBeenSet(false),
-    m_expirationDateHasBeenSet(false)
+    m_expirationDateHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ClientCertificate& ClientCertificate::operator =(const JsonValue& jsonValue)
+ClientCertificate& ClientCertificate::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("clientCertificateId"))
   {
@@ -84,6 +86,16 @@ ClientCertificate& ClientCertificate::operator =(const JsonValue& jsonValue)
     m_expirationDateHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -117,6 +129,17 @@ JsonValue ClientCertificate::Jsonize() const
   if(m_expirationDateHasBeenSet)
   {
    payload.WithDouble("expirationDate", m_expirationDate.SecondsWithMSPrecision());
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
+
   }
 
   return payload;

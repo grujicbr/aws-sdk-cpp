@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DomainEntry();
-    DomainEntry(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainEntry& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainEntry(Aws::Utils::Json::JsonView jsonValue);
+    DomainEntry& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ID of the domain recordset entry.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the domain recordset entry.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the domain recordset entry.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The name of the domain.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The name of the domain.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -126,6 +137,15 @@ namespace Model
      * A record for a load balancer.</p>
      */
     inline const Aws::String& GetTarget() const{ return m_target; }
+
+    /**
+     * <p>The target AWS name server (e.g., <code>ns-111.awsdns-22.com.</code>).</p>
+     * <p>For Lightsail load balancers, the value looks like
+     * <code>ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com</code>.
+     * Be sure to also set <code>isAlias</code> to <code>true</code> when setting up an
+     * A record for a load balancer.</p>
+     */
+    inline bool TargetHasBeenSet() const { return m_targetHasBeenSet; }
 
     /**
      * <p>The target AWS name server (e.g., <code>ns-111.awsdns-22.com.</code>).</p>
@@ -196,6 +216,14 @@ namespace Model
      * request, which points to a load balancer DNS name and routes traffic to your
      * load balancer</p>
      */
+    inline bool IsAliasHasBeenSet() const { return m_isAliasHasBeenSet; }
+
+    /**
+     * <p>When <code>true</code>, specifies whether the domain entry is an alias used
+     * by the Lightsail load balancer. You can include an alias (A type) record in your
+     * request, which points to a load balancer DNS name and routes traffic to your
+     * load balancer</p>
+     */
     inline void SetIsAlias(bool value) { m_isAliasHasBeenSet = true; m_isAlias = value; }
 
     /**
@@ -208,37 +236,90 @@ namespace Model
 
 
     /**
-     * <p>The type of domain entry (e.g., <code>SOA</code> or <code>NS</code>).</p>
+     * <p>The type of domain entry, such as address (A), canonical name (CNAME), mail
+     * exchanger (MX), name server (NS), start of authority (SOA), service locator
+     * (SRV), or text (TXT).</p> <p>The following domain entry types can be used:</p>
+     * <ul> <li> <p> <code>A</code> </p> </li> <li> <p> <code>CNAME</code> </p> </li>
+     * <li> <p> <code>MX</code> </p> </li> <li> <p> <code>NS</code> </p> </li> <li> <p>
+     * <code>SOA</code> </p> </li> <li> <p> <code>SRV</code> </p> </li> <li> <p>
+     * <code>TXT</code> </p> </li> </ul>
      */
     inline const Aws::String& GetType() const{ return m_type; }
 
     /**
-     * <p>The type of domain entry (e.g., <code>SOA</code> or <code>NS</code>).</p>
+     * <p>The type of domain entry, such as address (A), canonical name (CNAME), mail
+     * exchanger (MX), name server (NS), start of authority (SOA), service locator
+     * (SRV), or text (TXT).</p> <p>The following domain entry types can be used:</p>
+     * <ul> <li> <p> <code>A</code> </p> </li> <li> <p> <code>CNAME</code> </p> </li>
+     * <li> <p> <code>MX</code> </p> </li> <li> <p> <code>NS</code> </p> </li> <li> <p>
+     * <code>SOA</code> </p> </li> <li> <p> <code>SRV</code> </p> </li> <li> <p>
+     * <code>TXT</code> </p> </li> </ul>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of domain entry, such as address (A), canonical name (CNAME), mail
+     * exchanger (MX), name server (NS), start of authority (SOA), service locator
+     * (SRV), or text (TXT).</p> <p>The following domain entry types can be used:</p>
+     * <ul> <li> <p> <code>A</code> </p> </li> <li> <p> <code>CNAME</code> </p> </li>
+     * <li> <p> <code>MX</code> </p> </li> <li> <p> <code>NS</code> </p> </li> <li> <p>
+     * <code>SOA</code> </p> </li> <li> <p> <code>SRV</code> </p> </li> <li> <p>
+     * <code>TXT</code> </p> </li> </ul>
      */
     inline void SetType(const Aws::String& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
-     * <p>The type of domain entry (e.g., <code>SOA</code> or <code>NS</code>).</p>
+     * <p>The type of domain entry, such as address (A), canonical name (CNAME), mail
+     * exchanger (MX), name server (NS), start of authority (SOA), service locator
+     * (SRV), or text (TXT).</p> <p>The following domain entry types can be used:</p>
+     * <ul> <li> <p> <code>A</code> </p> </li> <li> <p> <code>CNAME</code> </p> </li>
+     * <li> <p> <code>MX</code> </p> </li> <li> <p> <code>NS</code> </p> </li> <li> <p>
+     * <code>SOA</code> </p> </li> <li> <p> <code>SRV</code> </p> </li> <li> <p>
+     * <code>TXT</code> </p> </li> </ul>
      */
     inline void SetType(Aws::String&& value) { m_typeHasBeenSet = true; m_type = std::move(value); }
 
     /**
-     * <p>The type of domain entry (e.g., <code>SOA</code> or <code>NS</code>).</p>
+     * <p>The type of domain entry, such as address (A), canonical name (CNAME), mail
+     * exchanger (MX), name server (NS), start of authority (SOA), service locator
+     * (SRV), or text (TXT).</p> <p>The following domain entry types can be used:</p>
+     * <ul> <li> <p> <code>A</code> </p> </li> <li> <p> <code>CNAME</code> </p> </li>
+     * <li> <p> <code>MX</code> </p> </li> <li> <p> <code>NS</code> </p> </li> <li> <p>
+     * <code>SOA</code> </p> </li> <li> <p> <code>SRV</code> </p> </li> <li> <p>
+     * <code>TXT</code> </p> </li> </ul>
      */
     inline void SetType(const char* value) { m_typeHasBeenSet = true; m_type.assign(value); }
 
     /**
-     * <p>The type of domain entry (e.g., <code>SOA</code> or <code>NS</code>).</p>
+     * <p>The type of domain entry, such as address (A), canonical name (CNAME), mail
+     * exchanger (MX), name server (NS), start of authority (SOA), service locator
+     * (SRV), or text (TXT).</p> <p>The following domain entry types can be used:</p>
+     * <ul> <li> <p> <code>A</code> </p> </li> <li> <p> <code>CNAME</code> </p> </li>
+     * <li> <p> <code>MX</code> </p> </li> <li> <p> <code>NS</code> </p> </li> <li> <p>
+     * <code>SOA</code> </p> </li> <li> <p> <code>SRV</code> </p> </li> <li> <p>
+     * <code>TXT</code> </p> </li> </ul>
      */
     inline DomainEntry& WithType(const Aws::String& value) { SetType(value); return *this;}
 
     /**
-     * <p>The type of domain entry (e.g., <code>SOA</code> or <code>NS</code>).</p>
+     * <p>The type of domain entry, such as address (A), canonical name (CNAME), mail
+     * exchanger (MX), name server (NS), start of authority (SOA), service locator
+     * (SRV), or text (TXT).</p> <p>The following domain entry types can be used:</p>
+     * <ul> <li> <p> <code>A</code> </p> </li> <li> <p> <code>CNAME</code> </p> </li>
+     * <li> <p> <code>MX</code> </p> </li> <li> <p> <code>NS</code> </p> </li> <li> <p>
+     * <code>SOA</code> </p> </li> <li> <p> <code>SRV</code> </p> </li> <li> <p>
+     * <code>TXT</code> </p> </li> </ul>
      */
     inline DomainEntry& WithType(Aws::String&& value) { SetType(std::move(value)); return *this;}
 
     /**
-     * <p>The type of domain entry (e.g., <code>SOA</code> or <code>NS</code>).</p>
+     * <p>The type of domain entry, such as address (A), canonical name (CNAME), mail
+     * exchanger (MX), name server (NS), start of authority (SOA), service locator
+     * (SRV), or text (TXT).</p> <p>The following domain entry types can be used:</p>
+     * <ul> <li> <p> <code>A</code> </p> </li> <li> <p> <code>CNAME</code> </p> </li>
+     * <li> <p> <code>MX</code> </p> </li> <li> <p> <code>NS</code> </p> </li> <li> <p>
+     * <code>SOA</code> </p> </li> <li> <p> <code>SRV</code> </p> </li> <li> <p>
+     * <code>TXT</code> </p> </li> </ul>
      */
     inline DomainEntry& WithType(const char* value) { SetType(value); return *this;}
 

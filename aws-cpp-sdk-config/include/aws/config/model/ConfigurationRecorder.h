@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ConfigurationRecorder();
-    ConfigurationRecorder(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConfigurationRecorder& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConfigurationRecorder(Aws::Utils::Json::JsonView jsonValue);
+    ConfigurationRecorder& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * assigned name.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the recorder. By default, AWS Config automatically assigns the
+     * name "default" when creating the configuration recorder. You cannot change the
+     * assigned name.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the recorder. By default, AWS Config automatically assigns the
@@ -108,6 +116,12 @@ namespace Model
      * <p>Amazon Resource Name (ARN) of the IAM role used to describe the AWS resources
      * associated with the account.</p>
      */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
+
+    /**
+     * <p>Amazon Resource Name (ARN) of the IAM role used to describe the AWS resources
+     * associated with the account.</p>
+     */
     inline void SetRoleARN(const Aws::String& value) { m_roleARNHasBeenSet = true; m_roleARN = value; }
 
     /**
@@ -146,6 +160,12 @@ namespace Model
      * configuration changes.</p>
      */
     inline const RecordingGroup& GetRecordingGroup() const{ return m_recordingGroup; }
+
+    /**
+     * <p>Specifies the types of AWS resources for which AWS Config records
+     * configuration changes.</p>
+     */
+    inline bool RecordingGroupHasBeenSet() const { return m_recordingGroupHasBeenSet; }
 
     /**
      * <p>Specifies the types of AWS resources for which AWS Config records

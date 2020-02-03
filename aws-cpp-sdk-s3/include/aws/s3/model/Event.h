@@ -34,7 +34,15 @@ namespace Model
     s3_ObjectCreated_CompleteMultipartUpload,
     s3_ObjectRemoved,
     s3_ObjectRemoved_Delete,
-    s3_ObjectRemoved_DeleteMarkerCreated
+    s3_ObjectRemoved_DeleteMarkerCreated,
+    s3_ObjectRestore,
+    s3_ObjectRestore_Post,
+    s3_ObjectRestore_Completed,
+    s3_Replication,
+    s3_Replication_OperationFailedReplication,
+    s3_Replication_OperationNotTracked,
+    s3_Replication_OperationMissedThreshold,
+    s3_Replication_OperationReplicatedAfterThreshold
   };
 
 namespace EventMapper

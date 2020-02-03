@@ -18,6 +18,7 @@
 #include <aws/core/utils/memory/stl/AWSStreamFwd.h>
 #include <aws/ec2/model/InstanceType.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/ec2/model/PlacementResponse.h>
 #include <utility>
 
 namespace Aws
@@ -58,6 +59,11 @@ namespace Model
     /**
      * <p>The instance type.</p>
      */
+    inline bool InstanceTypeHasBeenSet() const { return m_instanceTypeHasBeenSet; }
+
+    /**
+     * <p>The instance type.</p>
+     */
     inline void SetInstanceType(const InstanceType& value) { m_instanceTypeHasBeenSet = true; m_instanceType = value; }
 
     /**
@@ -81,6 +87,12 @@ namespace Model
      * Instance.</p>
      */
     inline const Aws::String& GetMaxPrice() const{ return m_maxPrice; }
+
+    /**
+     * <p>The maximum price per unit hour that you are willing to pay for a Spot
+     * Instance.</p>
+     */
+    inline bool MaxPriceHasBeenSet() const { return m_maxPriceHasBeenSet; }
 
     /**
      * <p>The maximum price per unit hour that you are willing to pay for a Spot
@@ -127,6 +139,11 @@ namespace Model
     /**
      * <p>The ID of the subnet in which to launch the instances.</p>
      */
+    inline bool SubnetIdHasBeenSet() const { return m_subnetIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the subnet in which to launch the instances.</p>
+     */
     inline void SetSubnetId(const Aws::String& value) { m_subnetIdHasBeenSet = true; m_subnetId = value; }
 
     /**
@@ -159,6 +176,11 @@ namespace Model
      * <p>The Availability Zone in which to launch the instances.</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
+
+    /**
+     * <p>The Availability Zone in which to launch the instances.</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
 
     /**
      * <p>The Availability Zone in which to launch the instances.</p>
@@ -199,12 +221,89 @@ namespace Model
     /**
      * <p>The number of units provided by the specified instance type.</p>
      */
+    inline bool WeightedCapacityHasBeenSet() const { return m_weightedCapacityHasBeenSet; }
+
+    /**
+     * <p>The number of units provided by the specified instance type.</p>
+     */
     inline void SetWeightedCapacity(double value) { m_weightedCapacityHasBeenSet = true; m_weightedCapacity = value; }
 
     /**
      * <p>The number of units provided by the specified instance type.</p>
      */
     inline FleetLaunchTemplateOverrides& WithWeightedCapacity(double value) { SetWeightedCapacity(value); return *this;}
+
+
+    /**
+     * <p>The priority for the launch template override. If <b>AllocationStrategy</b>
+     * is set to <code>prioritized</code>, EC2 Fleet uses priority to determine which
+     * launch template override to use first in fulfilling On-Demand capacity. The
+     * highest priority is launched first. Valid values are whole numbers starting at
+     * <code>0</code>. The lower the number, the higher the priority. If no number is
+     * set, the override has the lowest priority.</p>
+     */
+    inline double GetPriority() const{ return m_priority; }
+
+    /**
+     * <p>The priority for the launch template override. If <b>AllocationStrategy</b>
+     * is set to <code>prioritized</code>, EC2 Fleet uses priority to determine which
+     * launch template override to use first in fulfilling On-Demand capacity. The
+     * highest priority is launched first. Valid values are whole numbers starting at
+     * <code>0</code>. The lower the number, the higher the priority. If no number is
+     * set, the override has the lowest priority.</p>
+     */
+    inline bool PriorityHasBeenSet() const { return m_priorityHasBeenSet; }
+
+    /**
+     * <p>The priority for the launch template override. If <b>AllocationStrategy</b>
+     * is set to <code>prioritized</code>, EC2 Fleet uses priority to determine which
+     * launch template override to use first in fulfilling On-Demand capacity. The
+     * highest priority is launched first. Valid values are whole numbers starting at
+     * <code>0</code>. The lower the number, the higher the priority. If no number is
+     * set, the override has the lowest priority.</p>
+     */
+    inline void SetPriority(double value) { m_priorityHasBeenSet = true; m_priority = value; }
+
+    /**
+     * <p>The priority for the launch template override. If <b>AllocationStrategy</b>
+     * is set to <code>prioritized</code>, EC2 Fleet uses priority to determine which
+     * launch template override to use first in fulfilling On-Demand capacity. The
+     * highest priority is launched first. Valid values are whole numbers starting at
+     * <code>0</code>. The lower the number, the higher the priority. If no number is
+     * set, the override has the lowest priority.</p>
+     */
+    inline FleetLaunchTemplateOverrides& WithPriority(double value) { SetPriority(value); return *this;}
+
+
+    /**
+     * <p>The location where the instance launched, if applicable.</p>
+     */
+    inline const PlacementResponse& GetPlacement() const{ return m_placement; }
+
+    /**
+     * <p>The location where the instance launched, if applicable.</p>
+     */
+    inline bool PlacementHasBeenSet() const { return m_placementHasBeenSet; }
+
+    /**
+     * <p>The location where the instance launched, if applicable.</p>
+     */
+    inline void SetPlacement(const PlacementResponse& value) { m_placementHasBeenSet = true; m_placement = value; }
+
+    /**
+     * <p>The location where the instance launched, if applicable.</p>
+     */
+    inline void SetPlacement(PlacementResponse&& value) { m_placementHasBeenSet = true; m_placement = std::move(value); }
+
+    /**
+     * <p>The location where the instance launched, if applicable.</p>
+     */
+    inline FleetLaunchTemplateOverrides& WithPlacement(const PlacementResponse& value) { SetPlacement(value); return *this;}
+
+    /**
+     * <p>The location where the instance launched, if applicable.</p>
+     */
+    inline FleetLaunchTemplateOverrides& WithPlacement(PlacementResponse&& value) { SetPlacement(std::move(value)); return *this;}
 
   private:
 
@@ -222,6 +321,12 @@ namespace Model
 
     double m_weightedCapacity;
     bool m_weightedCapacityHasBeenSet;
+
+    double m_priority;
+    bool m_priorityHasBeenSet;
+
+    PlacementResponse m_placement;
+    bool m_placementHasBeenSet;
   };
 
 } // namespace Model

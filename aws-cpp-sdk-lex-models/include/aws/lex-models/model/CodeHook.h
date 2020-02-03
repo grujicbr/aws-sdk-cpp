@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CodeHook();
-    CodeHook(const Aws::Utils::Json::JsonValue& jsonValue);
-    CodeHook& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CodeHook(Aws::Utils::Json::JsonView jsonValue);
+    CodeHook& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the Lambda function.</p>
      */
     inline const Aws::String& GetUri() const{ return m_uri; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the Lambda function.</p>
+     */
+    inline bool UriHasBeenSet() const { return m_uriHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the Lambda function.</p>
@@ -88,6 +94,12 @@ namespace Model
      * your Lambda function. For more information, see <a>using-lambda</a>.</p>
      */
     inline const Aws::String& GetMessageVersion() const{ return m_messageVersion; }
+
+    /**
+     * <p>The version of the request-response that you want Amazon Lex to use to invoke
+     * your Lambda function. For more information, see <a>using-lambda</a>.</p>
+     */
+    inline bool MessageVersionHasBeenSet() const { return m_messageVersionHasBeenSet; }
 
     /**
      * <p>The version of the request-response that you want Amazon Lex to use to invoke

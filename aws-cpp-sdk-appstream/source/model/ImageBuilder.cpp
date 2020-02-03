@@ -38,6 +38,7 @@ ImageBuilder::ImageBuilder() :
     m_instanceTypeHasBeenSet(false),
     m_platform(PlatformType::NOT_SET),
     m_platformHasBeenSet(false),
+    m_iamRoleArnHasBeenSet(false),
     m_state(ImageBuilderState::NOT_SET),
     m_stateHasBeenSet(false),
     m_stateChangeReasonHasBeenSet(false),
@@ -45,12 +46,14 @@ ImageBuilder::ImageBuilder() :
     m_enableDefaultInternetAccess(false),
     m_enableDefaultInternetAccessHasBeenSet(false),
     m_domainJoinInfoHasBeenSet(false),
+    m_networkAccessConfigurationHasBeenSet(false),
     m_imageBuilderErrorsHasBeenSet(false),
-    m_appstreamAgentVersionHasBeenSet(false)
+    m_appstreamAgentVersionHasBeenSet(false),
+    m_accessEndpointsHasBeenSet(false)
 {
 }
 
-ImageBuilder::ImageBuilder(const JsonValue& jsonValue) : 
+ImageBuilder::ImageBuilder(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_imageArnHasBeenSet(false),
@@ -60,6 +63,7 @@ ImageBuilder::ImageBuilder(const JsonValue& jsonValue) :
     m_instanceTypeHasBeenSet(false),
     m_platform(PlatformType::NOT_SET),
     m_platformHasBeenSet(false),
+    m_iamRoleArnHasBeenSet(false),
     m_state(ImageBuilderState::NOT_SET),
     m_stateHasBeenSet(false),
     m_stateChangeReasonHasBeenSet(false),
@@ -67,13 +71,15 @@ ImageBuilder::ImageBuilder(const JsonValue& jsonValue) :
     m_enableDefaultInternetAccess(false),
     m_enableDefaultInternetAccessHasBeenSet(false),
     m_domainJoinInfoHasBeenSet(false),
+    m_networkAccessConfigurationHasBeenSet(false),
     m_imageBuilderErrorsHasBeenSet(false),
-    m_appstreamAgentVersionHasBeenSet(false)
+    m_appstreamAgentVersionHasBeenSet(false),
+    m_accessEndpointsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ImageBuilder& ImageBuilder::operator =(const JsonValue& jsonValue)
+ImageBuilder& ImageBuilder::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Name"))
   {
@@ -131,6 +137,13 @@ ImageBuilder& ImageBuilder::operator =(const JsonValue& jsonValue)
     m_platformHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("IamRoleArn"))
+  {
+    m_iamRoleArn = jsonValue.GetString("IamRoleArn");
+
+    m_iamRoleArnHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("State"))
   {
     m_state = ImageBuilderStateMapper::GetImageBuilderStateForName(jsonValue.GetString("State"));
@@ -166,9 +179,16 @@ ImageBuilder& ImageBuilder::operator =(const JsonValue& jsonValue)
     m_domainJoinInfoHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("NetworkAccessConfiguration"))
+  {
+    m_networkAccessConfiguration = jsonValue.GetObject("NetworkAccessConfiguration");
+
+    m_networkAccessConfigurationHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("ImageBuilderErrors"))
   {
-    Array<JsonValue> imageBuilderErrorsJsonList = jsonValue.GetArray("ImageBuilderErrors");
+    Array<JsonView> imageBuilderErrorsJsonList = jsonValue.GetArray("ImageBuilderErrors");
     for(unsigned imageBuilderErrorsIndex = 0; imageBuilderErrorsIndex < imageBuilderErrorsJsonList.GetLength(); ++imageBuilderErrorsIndex)
     {
       m_imageBuilderErrors.push_back(imageBuilderErrorsJsonList[imageBuilderErrorsIndex].AsObject());
@@ -181,6 +201,16 @@ ImageBuilder& ImageBuilder::operator =(const JsonValue& jsonValue)
     m_appstreamAgentVersion = jsonValue.GetString("AppstreamAgentVersion");
 
     m_appstreamAgentVersionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("AccessEndpoints"))
+  {
+    Array<JsonView> accessEndpointsJsonList = jsonValue.GetArray("AccessEndpoints");
+    for(unsigned accessEndpointsIndex = 0; accessEndpointsIndex < accessEndpointsJsonList.GetLength(); ++accessEndpointsIndex)
+    {
+      m_accessEndpoints.push_back(accessEndpointsJsonList[accessEndpointsIndex].AsObject());
+    }
+    m_accessEndpointsHasBeenSet = true;
   }
 
   return *this;
@@ -237,6 +267,12 @@ JsonValue ImageBuilder::Jsonize() const
    payload.WithString("Platform", PlatformTypeMapper::GetNameForPlatformType(m_platform));
   }
 
+  if(m_iamRoleArnHasBeenSet)
+  {
+   payload.WithString("IamRoleArn", m_iamRoleArn);
+
+  }
+
   if(m_stateHasBeenSet)
   {
    payload.WithString("State", ImageBuilderStateMapper::GetNameForImageBuilderState(m_state));
@@ -265,6 +301,12 @@ JsonValue ImageBuilder::Jsonize() const
 
   }
 
+  if(m_networkAccessConfigurationHasBeenSet)
+  {
+   payload.WithObject("NetworkAccessConfiguration", m_networkAccessConfiguration.Jsonize());
+
+  }
+
   if(m_imageBuilderErrorsHasBeenSet)
   {
    Array<JsonValue> imageBuilderErrorsJsonList(m_imageBuilderErrors.size());
@@ -279,6 +321,17 @@ JsonValue ImageBuilder::Jsonize() const
   if(m_appstreamAgentVersionHasBeenSet)
   {
    payload.WithString("AppstreamAgentVersion", m_appstreamAgentVersion);
+
+  }
+
+  if(m_accessEndpointsHasBeenSet)
+  {
+   Array<JsonValue> accessEndpointsJsonList(m_accessEndpoints.size());
+   for(unsigned accessEndpointsIndex = 0; accessEndpointsIndex < accessEndpointsJsonList.GetLength(); ++accessEndpointsIndex)
+   {
+     accessEndpointsJsonList[accessEndpointsIndex].AsObject(m_accessEndpoints[accessEndpointsIndex].Jsonize());
+   }
+   payload.WithArray("AccessEndpoints", std::move(accessEndpointsJsonList));
 
   }
 

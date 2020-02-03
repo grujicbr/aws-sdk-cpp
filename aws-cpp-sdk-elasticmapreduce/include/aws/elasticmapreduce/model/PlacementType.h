@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     PlacementType();
-    PlacementType(const Aws::Utils::Json::JsonValue& jsonValue);
-    PlacementType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PlacementType(Aws::Utils::Json::JsonView jsonValue);
+    PlacementType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,13 @@ namespace Model
      * <code>AvailabilityZones</code> (plural) is used for instance fleets.</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
+
+    /**
+     * <p>The Amazon EC2 Availability Zone for the cluster.
+     * <code>AvailabilityZone</code> is used for uniform instance groups, while
+     * <code>AvailabilityZones</code> (plural) is used for instance fleets.</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
 
     /**
      * <p>The Amazon EC2 Availability Zone for the cluster.
@@ -107,6 +115,16 @@ namespace Model
      * Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>
      */
     inline const Aws::Vector<Aws::String>& GetAvailabilityZones() const{ return m_availabilityZones; }
+
+    /**
+     * <p>When multiple Availability Zones are specified, Amazon EMR evaluates them and
+     * launches instances in the optimal Availability Zone.
+     * <code>AvailabilityZones</code> is used for instance fleets, while
+     * <code>AvailabilityZone</code> (singular) is used for uniform instance
+     * groups.</p> <note> <p>The instance fleet configuration is available only in
+     * Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.</p> </note>
+     */
+    inline bool AvailabilityZonesHasBeenSet() const { return m_availabilityZonesHasBeenSet; }
 
     /**
      * <p>When multiple Availability Zones are specified, Amazon EMR evaluates them and

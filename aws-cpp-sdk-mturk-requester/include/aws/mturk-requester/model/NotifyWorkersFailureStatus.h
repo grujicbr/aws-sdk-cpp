@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     NotifyWorkersFailureStatus();
-    NotifyWorkersFailureStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    NotifyWorkersFailureStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NotifyWorkersFailureStatus(Aws::Utils::Json::JsonView jsonValue);
+    NotifyWorkersFailureStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p> Encoded value for the failure type. </p>
      */
     inline const NotifyWorkersFailureCode& GetNotifyWorkersFailureCode() const{ return m_notifyWorkersFailureCode; }
+
+    /**
+     * <p> Encoded value for the failure type. </p>
+     */
+    inline bool NotifyWorkersFailureCodeHasBeenSet() const { return m_notifyWorkersFailureCodeHasBeenSet; }
 
     /**
      * <p> Encoded value for the failure type. </p>
@@ -78,6 +84,11 @@ namespace Model
      * <p> A message detailing the reason the Worker could not be notified. </p>
      */
     inline const Aws::String& GetNotifyWorkersFailureMessage() const{ return m_notifyWorkersFailureMessage; }
+
+    /**
+     * <p> A message detailing the reason the Worker could not be notified. </p>
+     */
+    inline bool NotifyWorkersFailureMessageHasBeenSet() const { return m_notifyWorkersFailureMessageHasBeenSet; }
 
     /**
      * <p> A message detailing the reason the Worker could not be notified. </p>
@@ -114,6 +125,11 @@ namespace Model
      * <p> The ID of the Worker.</p>
      */
     inline const Aws::String& GetWorkerId() const{ return m_workerId; }
+
+    /**
+     * <p> The ID of the Worker.</p>
+     */
+    inline bool WorkerIdHasBeenSet() const { return m_workerIdHasBeenSet; }
 
     /**
      * <p> The ID of the Worker.</p>

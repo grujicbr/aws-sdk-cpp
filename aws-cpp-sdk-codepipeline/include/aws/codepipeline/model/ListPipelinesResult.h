@@ -37,8 +37,8 @@ namespace CodePipeline
 namespace Model
 {
   /**
-   * <p>Represents the output of a ListPipelines action.</p><p><h3>See Also:</h3>  
-   * <a
+   * <p>Represents the output of a <code>ListPipelines</code> action.</p><p><h3>See
+   * Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelinesOutput">AWS
    * API Reference</a></p>
    */
@@ -88,49 +88,49 @@ namespace Model
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list pipelines call to return
+     * is also returned. It can be used in a subsequent list pipelines call to return
      * the next set of pipelines in the list.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list pipelines call to return
+     * is also returned. It can be used in a subsequent list pipelines call to return
      * the next set of pipelines in the list.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextToken = value; }
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list pipelines call to return
+     * is also returned. It can be used in a subsequent list pipelines call to return
      * the next set of pipelines in the list.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextToken = std::move(value); }
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list pipelines call to return
+     * is also returned. It can be used in a subsequent list pipelines call to return
      * the next set of pipelines in the list.</p>
      */
     inline void SetNextToken(const char* value) { m_nextToken.assign(value); }
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list pipelines call to return
+     * is also returned. It can be used in a subsequent list pipelines call to return
      * the next set of pipelines in the list.</p>
      */
     inline ListPipelinesResult& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list pipelines call to return
+     * is also returned. It can be used in a subsequent list pipelines call to return
      * the next set of pipelines in the list.</p>
      */
     inline ListPipelinesResult& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
      * <p>If the amount of returned information is significantly large, an identifier
-     * is also returned which can be used in a subsequent list pipelines call to return
+     * is also returned. It can be used in a subsequent list pipelines call to return
      * the next set of pipelines in the list.</p>
      */
     inline ListPipelinesResult& WithNextToken(const char* value) { SetNextToken(value); return *this;}

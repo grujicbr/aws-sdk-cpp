@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     GitHubLocation();
-    GitHubLocation(const Aws::Utils::Json::JsonValue& jsonValue);
-    GitHubLocation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    GitHubLocation(Aws::Utils::Json::JsonView jsonValue);
+    GitHubLocation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * <p>Specified as account/repository.</p>
      */
     inline const Aws::String& GetRepository() const{ return m_repository; }
+
+    /**
+     * <p>The GitHub account and repository pair that stores a reference to the commit
+     * that represents the bundled artifacts for the application revision. </p>
+     * <p>Specified as account/repository.</p>
+     */
+    inline bool RepositoryHasBeenSet() const { return m_repositoryHasBeenSet; }
 
     /**
      * <p>The GitHub account and repository pair that stores a reference to the commit
@@ -102,6 +110,12 @@ namespace Model
      * for the application revision.</p>
      */
     inline const Aws::String& GetCommitId() const{ return m_commitId; }
+
+    /**
+     * <p>The SHA1 commit ID of the GitHub commit that represents the bundled artifacts
+     * for the application revision.</p>
+     */
+    inline bool CommitIdHasBeenSet() const { return m_commitIdHasBeenSet; }
 
     /**
      * <p>The SHA1 commit ID of the GitHub commit that represents the bundled artifacts

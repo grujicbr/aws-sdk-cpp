@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     SharePrincipal();
-    SharePrincipal(const Aws::Utils::Json::JsonValue& jsonValue);
-    SharePrincipal& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SharePrincipal(Aws::Utils::Json::JsonView jsonValue);
+    SharePrincipal& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The ID of the recipient.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the recipient.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the recipient.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The type of the recipient.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of the recipient.</p>
+     */
     inline void SetType(const PrincipalType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -115,6 +126,11 @@ namespace Model
      * <p>The role of the recipient.</p>
      */
     inline const RoleType& GetRole() const{ return m_role; }
+
+    /**
+     * <p>The role of the recipient.</p>
+     */
+    inline bool RoleHasBeenSet() const { return m_roleHasBeenSet; }
 
     /**
      * <p>The role of the recipient.</p>

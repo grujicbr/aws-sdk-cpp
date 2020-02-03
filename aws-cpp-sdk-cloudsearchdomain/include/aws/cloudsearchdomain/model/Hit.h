@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudSearchDomain
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Hit();
-    Hit(const Aws::Utils::Json::JsonValue& jsonValue);
-    Hit& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Hit(Aws::Utils::Json::JsonView jsonValue);
+    Hit& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The document ID of a document that matches the search request.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The document ID of a document that matches the search request.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The document ID of a document that matches the search request.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The fields returned from a document that matches the search request.</p>
      */
     inline const Aws::Map<Aws::String, Aws::Vector<Aws::String>>& GetFields() const{ return m_fields; }
+
+    /**
+     * <p>The fields returned from a document that matches the search request.</p>
+     */
+    inline bool FieldsHasBeenSet() const { return m_fieldsHasBeenSet; }
 
     /**
      * <p>The fields returned from a document that matches the search request.</p>
@@ -145,6 +156,11 @@ namespace Model
      * <p>The expressions returned from a document that matches the search request.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetExprs() const{ return m_exprs; }
+
+    /**
+     * <p>The expressions returned from a document that matches the search request.</p>
+     */
+    inline bool ExprsHasBeenSet() const { return m_exprsHasBeenSet; }
 
     /**
      * <p>The expressions returned from a document that matches the search request.</p>
@@ -206,6 +222,11 @@ namespace Model
      * <p>The highlights returned from a document that matches the search request.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetHighlights() const{ return m_highlights; }
+
+    /**
+     * <p>The highlights returned from a document that matches the search request.</p>
+     */
+    inline bool HighlightsHasBeenSet() const { return m_highlightsHasBeenSet; }
 
     /**
      * <p>The highlights returned from a document that matches the search request.</p>

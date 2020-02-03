@@ -30,6 +30,7 @@ namespace Model
 
 ChannelSummary::ChannelSummary() : 
     m_channelNameHasBeenSet(false),
+    m_channelStorageHasBeenSet(false),
     m_status(ChannelStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
@@ -37,8 +38,9 @@ ChannelSummary::ChannelSummary() :
 {
 }
 
-ChannelSummary::ChannelSummary(const JsonValue& jsonValue) : 
+ChannelSummary::ChannelSummary(JsonView jsonValue) : 
     m_channelNameHasBeenSet(false),
+    m_channelStorageHasBeenSet(false),
     m_status(ChannelStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_creationTimeHasBeenSet(false),
@@ -47,13 +49,20 @@ ChannelSummary::ChannelSummary(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-ChannelSummary& ChannelSummary::operator =(const JsonValue& jsonValue)
+ChannelSummary& ChannelSummary::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("channelName"))
   {
     m_channelName = jsonValue.GetString("channelName");
 
     m_channelNameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("channelStorage"))
+  {
+    m_channelStorage = jsonValue.GetObject("channelStorage");
+
+    m_channelStorageHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("status"))
@@ -87,6 +96,12 @@ JsonValue ChannelSummary::Jsonize() const
   if(m_channelNameHasBeenSet)
   {
    payload.WithString("channelName", m_channelName);
+
+  }
+
+  if(m_channelStorageHasBeenSet)
+  {
+   payload.WithObject("channelStorage", m_channelStorage.Jsonize());
 
   }
 

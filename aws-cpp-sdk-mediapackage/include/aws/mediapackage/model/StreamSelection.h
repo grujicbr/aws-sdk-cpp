@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaPackage
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     StreamSelection();
-    StreamSelection(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamSelection& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamSelection(Aws::Utils::Json::JsonView jsonValue);
+    StreamSelection& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * The maximum video bitrate (bps) to include in output.
      */
     inline int GetMaxVideoBitsPerSecond() const{ return m_maxVideoBitsPerSecond; }
+
+    /**
+     * The maximum video bitrate (bps) to include in output.
+     */
+    inline bool MaxVideoBitsPerSecondHasBeenSet() const { return m_maxVideoBitsPerSecondHasBeenSet; }
 
     /**
      * The maximum video bitrate (bps) to include in output.
@@ -70,6 +76,11 @@ namespace Model
     /**
      * The minimum video bitrate (bps) to include in output.
      */
+    inline bool MinVideoBitsPerSecondHasBeenSet() const { return m_minVideoBitsPerSecondHasBeenSet; }
+
+    /**
+     * The minimum video bitrate (bps) to include in output.
+     */
     inline void SetMinVideoBitsPerSecond(int value) { m_minVideoBitsPerSecondHasBeenSet = true; m_minVideoBitsPerSecond = value; }
 
     /**
@@ -82,6 +93,11 @@ namespace Model
      * A directive that determines the order of streams in the output.
      */
     inline const StreamOrder& GetStreamOrder() const{ return m_streamOrder; }
+
+    /**
+     * A directive that determines the order of streams in the output.
+     */
+    inline bool StreamOrderHasBeenSet() const { return m_streamOrderHasBeenSet; }
 
     /**
      * A directive that determines the order of streams in the output.

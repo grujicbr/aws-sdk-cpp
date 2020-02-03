@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     ExecutionTimeFilter();
-    ExecutionTimeFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    ExecutionTimeFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ExecutionTimeFilter(Aws::Utils::Json::JsonView jsonValue);
+    ExecutionTimeFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>Specifies the oldest start or close date and time to return.</p>
      */
     inline const Aws::Utils::DateTime& GetOldestDate() const{ return m_oldestDate; }
+
+    /**
+     * <p>Specifies the oldest start or close date and time to return.</p>
+     */
+    inline bool OldestDateHasBeenSet() const { return m_oldestDateHasBeenSet; }
 
     /**
      * <p>Specifies the oldest start or close date and time to return.</p>
@@ -80,6 +86,11 @@ namespace Model
      * <p>Specifies the latest start or close date and time to return.</p>
      */
     inline const Aws::Utils::DateTime& GetLatestDate() const{ return m_latestDate; }
+
+    /**
+     * <p>Specifies the latest start or close date and time to return.</p>
+     */
+    inline bool LatestDateHasBeenSet() const { return m_latestDateHasBeenSet; }
 
     /**
      * <p>Specifies the latest start or close date and time to return.</p>

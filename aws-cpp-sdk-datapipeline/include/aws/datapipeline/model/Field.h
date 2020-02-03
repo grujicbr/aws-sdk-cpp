@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DataPipeline
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Field();
-    Field(const Aws::Utils::Json::JsonValue& jsonValue);
-    Field& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Field(Aws::Utils::Json::JsonView jsonValue);
+    Field& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The field identifier.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The field identifier.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The field identifier.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The field value, expressed as a String.</p>
      */
+    inline bool StringValueHasBeenSet() const { return m_stringValueHasBeenSet; }
+
+    /**
+     * <p>The field value, expressed as a String.</p>
+     */
     inline void SetStringValue(const Aws::String& value) { m_stringValueHasBeenSet = true; m_stringValue = value; }
 
     /**
@@ -125,6 +136,11 @@ namespace Model
      * <p>The field value, expressed as the identifier of another object.</p>
      */
     inline const Aws::String& GetRefValue() const{ return m_refValue; }
+
+    /**
+     * <p>The field value, expressed as the identifier of another object.</p>
+     */
+    inline bool RefValueHasBeenSet() const { return m_refValueHasBeenSet; }
 
     /**
      * <p>The field value, expressed as the identifier of another object.</p>

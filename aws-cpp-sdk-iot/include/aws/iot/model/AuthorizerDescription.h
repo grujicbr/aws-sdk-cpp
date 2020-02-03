@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     AuthorizerDescription();
-    AuthorizerDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    AuthorizerDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AuthorizerDescription(Aws::Utils::Json::JsonView jsonValue);
+    AuthorizerDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The authorizer name.</p>
      */
     inline const Aws::String& GetAuthorizerName() const{ return m_authorizerName; }
+
+    /**
+     * <p>The authorizer name.</p>
+     */
+    inline bool AuthorizerNameHasBeenSet() const { return m_authorizerNameHasBeenSet; }
 
     /**
      * <p>The authorizer name.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The authorizer ARN.</p>
      */
+    inline bool AuthorizerArnHasBeenSet() const { return m_authorizerArnHasBeenSet; }
+
+    /**
+     * <p>The authorizer ARN.</p>
+     */
     inline void SetAuthorizerArn(const Aws::String& value) { m_authorizerArnHasBeenSet = true; m_authorizerArn = value; }
 
     /**
@@ -125,6 +136,11 @@ namespace Model
      * <p>The authorizer's Lambda function ARN.</p>
      */
     inline const Aws::String& GetAuthorizerFunctionArn() const{ return m_authorizerFunctionArn; }
+
+    /**
+     * <p>The authorizer's Lambda function ARN.</p>
+     */
+    inline bool AuthorizerFunctionArnHasBeenSet() const { return m_authorizerFunctionArnHasBeenSet; }
 
     /**
      * <p>The authorizer's Lambda function ARN.</p>
@@ -165,6 +181,11 @@ namespace Model
     /**
      * <p>The key used to extract the token from the HTTP headers.</p>
      */
+    inline bool TokenKeyNameHasBeenSet() const { return m_tokenKeyNameHasBeenSet; }
+
+    /**
+     * <p>The key used to extract the token from the HTTP headers.</p>
+     */
     inline void SetTokenKeyName(const Aws::String& value) { m_tokenKeyNameHasBeenSet = true; m_tokenKeyName = value; }
 
     /**
@@ -198,6 +219,12 @@ namespace Model
      * authentication service.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetTokenSigningPublicKeys() const{ return m_tokenSigningPublicKeys; }
+
+    /**
+     * <p>The public keys used to validate the token signature returned by your custom
+     * authentication service.</p>
+     */
+    inline bool TokenSigningPublicKeysHasBeenSet() const { return m_tokenSigningPublicKeysHasBeenSet; }
 
     /**
      * <p>The public keys used to validate the token signature returned by your custom
@@ -274,6 +301,11 @@ namespace Model
     /**
      * <p>The status of the authorizer.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the authorizer.</p>
+     */
     inline void SetStatus(const AuthorizerStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -296,6 +328,11 @@ namespace Model
      * <p>The UNIX timestamp of when the authorizer was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDate() const{ return m_creationDate; }
+
+    /**
+     * <p>The UNIX timestamp of when the authorizer was created.</p>
+     */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
 
     /**
      * <p>The UNIX timestamp of when the authorizer was created.</p>
@@ -326,6 +363,11 @@ namespace Model
     /**
      * <p>The UNIX timestamp of when the authorizer was last updated.</p>
      */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
+
+    /**
+     * <p>The UNIX timestamp of when the authorizer was last updated.</p>
+     */
     inline void SetLastModifiedDate(const Aws::Utils::DateTime& value) { m_lastModifiedDateHasBeenSet = true; m_lastModifiedDate = value; }
 
     /**
@@ -342,6 +384,31 @@ namespace Model
      * <p>The UNIX timestamp of when the authorizer was last updated.</p>
      */
     inline AuthorizerDescription& WithLastModifiedDate(Aws::Utils::DateTime&& value) { SetLastModifiedDate(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Specifies whether AWS IoT validates the token signature in an authorization
+     * request.</p>
+     */
+    inline bool GetSigningDisabled() const{ return m_signingDisabled; }
+
+    /**
+     * <p>Specifies whether AWS IoT validates the token signature in an authorization
+     * request.</p>
+     */
+    inline bool SigningDisabledHasBeenSet() const { return m_signingDisabledHasBeenSet; }
+
+    /**
+     * <p>Specifies whether AWS IoT validates the token signature in an authorization
+     * request.</p>
+     */
+    inline void SetSigningDisabled(bool value) { m_signingDisabledHasBeenSet = true; m_signingDisabled = value; }
+
+    /**
+     * <p>Specifies whether AWS IoT validates the token signature in an authorization
+     * request.</p>
+     */
+    inline AuthorizerDescription& WithSigningDisabled(bool value) { SetSigningDisabled(value); return *this;}
 
   private:
 
@@ -368,6 +435,9 @@ namespace Model
 
     Aws::Utils::DateTime m_lastModifiedDate;
     bool m_lastModifiedDateHasBeenSet;
+
+    bool m_signingDisabled;
+    bool m_signingDisabledHasBeenSet;
   };
 
 } // namespace Model

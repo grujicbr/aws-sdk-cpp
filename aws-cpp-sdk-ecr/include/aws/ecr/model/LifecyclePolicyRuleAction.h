@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECR
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     LifecyclePolicyRuleAction();
-    LifecyclePolicyRuleAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    LifecyclePolicyRuleAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LifecyclePolicyRuleAction(Aws::Utils::Json::JsonView jsonValue);
+    LifecyclePolicyRuleAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The type of action to be taken.</p>
      */
     inline const ImageActionType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of action to be taken.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of action to be taken.</p>

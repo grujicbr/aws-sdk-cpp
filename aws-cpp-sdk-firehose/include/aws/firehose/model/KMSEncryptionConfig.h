@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     KMSEncryptionConfig();
-    KMSEncryptionConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    KMSEncryptionConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KMSEncryptionConfig(Aws::Utils::Json::JsonView jsonValue);
+    KMSEncryptionConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,14 @@ namespace Model
      * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
      */
     inline const Aws::String& GetAWSKMSKeyARN() const{ return m_aWSKMSKeyARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the encryption key. Must belong to the same
+     * AWS Region as the destination Amazon S3 bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+     */
+    inline bool AWSKMSKeyARNHasBeenSet() const { return m_aWSKMSKeyARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the encryption key. Must belong to the same

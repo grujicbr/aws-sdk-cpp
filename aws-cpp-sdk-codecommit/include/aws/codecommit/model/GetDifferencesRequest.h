@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetDifferencesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -48,6 +48,11 @@ namespace Model
      * <p>The name of the repository where you want to get differences.</p>
      */
     inline const Aws::String& GetRepositoryName() const{ return m_repositoryName; }
+
+    /**
+     * <p>The name of the repository where you want to get differences.</p>
+     */
+    inline bool RepositoryNameHasBeenSet() const { return m_repositoryNameHasBeenSet; }
 
     /**
      * <p>The name of the repository where you want to get differences.</p>
@@ -82,8 +87,8 @@ namespace Model
 
     /**
      * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
-     * commit. For example, the full commit ID. Optional. If not specified, all changes
-     * prior to the <code>afterCommitSpecifier</code> value will be shown. If you do
+     * commit (for example, the full commit ID). Optional. If not specified, all
+     * changes before the <code>afterCommitSpecifier</code> value are shown. If you do
      * not use <code>beforeCommitSpecifier</code> in your request, consider limiting
      * the results with <code>maxResults</code>.</p>
      */
@@ -91,8 +96,17 @@ namespace Model
 
     /**
      * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
-     * commit. For example, the full commit ID. Optional. If not specified, all changes
-     * prior to the <code>afterCommitSpecifier</code> value will be shown. If you do
+     * commit (for example, the full commit ID). Optional. If not specified, all
+     * changes before the <code>afterCommitSpecifier</code> value are shown. If you do
+     * not use <code>beforeCommitSpecifier</code> in your request, consider limiting
+     * the results with <code>maxResults</code>.</p>
+     */
+    inline bool BeforeCommitSpecifierHasBeenSet() const { return m_beforeCommitSpecifierHasBeenSet; }
+
+    /**
+     * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
+     * commit (for example, the full commit ID). Optional. If not specified, all
+     * changes before the <code>afterCommitSpecifier</code> value are shown. If you do
      * not use <code>beforeCommitSpecifier</code> in your request, consider limiting
      * the results with <code>maxResults</code>.</p>
      */
@@ -100,8 +114,8 @@ namespace Model
 
     /**
      * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
-     * commit. For example, the full commit ID. Optional. If not specified, all changes
-     * prior to the <code>afterCommitSpecifier</code> value will be shown. If you do
+     * commit (for example, the full commit ID). Optional. If not specified, all
+     * changes before the <code>afterCommitSpecifier</code> value are shown. If you do
      * not use <code>beforeCommitSpecifier</code> in your request, consider limiting
      * the results with <code>maxResults</code>.</p>
      */
@@ -109,8 +123,8 @@ namespace Model
 
     /**
      * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
-     * commit. For example, the full commit ID. Optional. If not specified, all changes
-     * prior to the <code>afterCommitSpecifier</code> value will be shown. If you do
+     * commit (for example, the full commit ID). Optional. If not specified, all
+     * changes before the <code>afterCommitSpecifier</code> value are shown. If you do
      * not use <code>beforeCommitSpecifier</code> in your request, consider limiting
      * the results with <code>maxResults</code>.</p>
      */
@@ -118,8 +132,8 @@ namespace Model
 
     /**
      * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
-     * commit. For example, the full commit ID. Optional. If not specified, all changes
-     * prior to the <code>afterCommitSpecifier</code> value will be shown. If you do
+     * commit (for example, the full commit ID). Optional. If not specified, all
+     * changes before the <code>afterCommitSpecifier</code> value are shown. If you do
      * not use <code>beforeCommitSpecifier</code> in your request, consider limiting
      * the results with <code>maxResults</code>.</p>
      */
@@ -127,8 +141,8 @@ namespace Model
 
     /**
      * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
-     * commit. For example, the full commit ID. Optional. If not specified, all changes
-     * prior to the <code>afterCommitSpecifier</code> value will be shown. If you do
+     * commit (for example, the full commit ID). Optional. If not specified, all
+     * changes before the <code>afterCommitSpecifier</code> value are shown. If you do
      * not use <code>beforeCommitSpecifier</code> in your request, consider limiting
      * the results with <code>maxResults</code>.</p>
      */
@@ -136,8 +150,8 @@ namespace Model
 
     /**
      * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
-     * commit. For example, the full commit ID. Optional. If not specified, all changes
-     * prior to the <code>afterCommitSpecifier</code> value will be shown. If you do
+     * commit (for example, the full commit ID). Optional. If not specified, all
+     * changes before the <code>afterCommitSpecifier</code> value are shown. If you do
      * not use <code>beforeCommitSpecifier</code> in your request, consider limiting
      * the results with <code>maxResults</code>.</p>
      */
@@ -149,6 +163,12 @@ namespace Model
      * commit.</p>
      */
     inline const Aws::String& GetAfterCommitSpecifier() const{ return m_afterCommitSpecifier; }
+
+    /**
+     * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
+     * commit.</p>
+     */
+    inline bool AfterCommitSpecifierHasBeenSet() const { return m_afterCommitSpecifierHasBeenSet; }
 
     /**
      * <p>The branch, tag, HEAD, or other fully qualified reference used to identify a
@@ -191,7 +211,7 @@ namespace Model
      * <p>The file path in which to check for differences. Limits the results to this
      * path. Can also be used to specify the previous name of a directory or folder. If
      * <code>beforePath</code> and <code>afterPath</code> are not specified,
-     * differences will be shown for all paths.</p>
+     * differences are shown for all paths.</p>
      */
     inline const Aws::String& GetBeforePath() const{ return m_beforePath; }
 
@@ -199,7 +219,15 @@ namespace Model
      * <p>The file path in which to check for differences. Limits the results to this
      * path. Can also be used to specify the previous name of a directory or folder. If
      * <code>beforePath</code> and <code>afterPath</code> are not specified,
-     * differences will be shown for all paths.</p>
+     * differences are shown for all paths.</p>
+     */
+    inline bool BeforePathHasBeenSet() const { return m_beforePathHasBeenSet; }
+
+    /**
+     * <p>The file path in which to check for differences. Limits the results to this
+     * path. Can also be used to specify the previous name of a directory or folder. If
+     * <code>beforePath</code> and <code>afterPath</code> are not specified,
+     * differences are shown for all paths.</p>
      */
     inline void SetBeforePath(const Aws::String& value) { m_beforePathHasBeenSet = true; m_beforePath = value; }
 
@@ -207,7 +235,7 @@ namespace Model
      * <p>The file path in which to check for differences. Limits the results to this
      * path. Can also be used to specify the previous name of a directory or folder. If
      * <code>beforePath</code> and <code>afterPath</code> are not specified,
-     * differences will be shown for all paths.</p>
+     * differences are shown for all paths.</p>
      */
     inline void SetBeforePath(Aws::String&& value) { m_beforePathHasBeenSet = true; m_beforePath = std::move(value); }
 
@@ -215,7 +243,7 @@ namespace Model
      * <p>The file path in which to check for differences. Limits the results to this
      * path. Can also be used to specify the previous name of a directory or folder. If
      * <code>beforePath</code> and <code>afterPath</code> are not specified,
-     * differences will be shown for all paths.</p>
+     * differences are shown for all paths.</p>
      */
     inline void SetBeforePath(const char* value) { m_beforePathHasBeenSet = true; m_beforePath.assign(value); }
 
@@ -223,7 +251,7 @@ namespace Model
      * <p>The file path in which to check for differences. Limits the results to this
      * path. Can also be used to specify the previous name of a directory or folder. If
      * <code>beforePath</code> and <code>afterPath</code> are not specified,
-     * differences will be shown for all paths.</p>
+     * differences are shown for all paths.</p>
      */
     inline GetDifferencesRequest& WithBeforePath(const Aws::String& value) { SetBeforePath(value); return *this;}
 
@@ -231,7 +259,7 @@ namespace Model
      * <p>The file path in which to check for differences. Limits the results to this
      * path. Can also be used to specify the previous name of a directory or folder. If
      * <code>beforePath</code> and <code>afterPath</code> are not specified,
-     * differences will be shown for all paths.</p>
+     * differences are shown for all paths.</p>
      */
     inline GetDifferencesRequest& WithBeforePath(Aws::String&& value) { SetBeforePath(std::move(value)); return *this;}
 
@@ -239,7 +267,7 @@ namespace Model
      * <p>The file path in which to check for differences. Limits the results to this
      * path. Can also be used to specify the previous name of a directory or folder. If
      * <code>beforePath</code> and <code>afterPath</code> are not specified,
-     * differences will be shown for all paths.</p>
+     * differences are shown for all paths.</p>
      */
     inline GetDifferencesRequest& WithBeforePath(const char* value) { SetBeforePath(value); return *this;}
 
@@ -247,107 +275,129 @@ namespace Model
     /**
      * <p>The file path in which to check differences. Limits the results to this path.
      * Can also be used to specify the changed name of a directory or folder, if it has
-     * changed. If not specified, differences will be shown for all paths.</p>
+     * changed. If not specified, differences are shown for all paths.</p>
      */
     inline const Aws::String& GetAfterPath() const{ return m_afterPath; }
 
     /**
      * <p>The file path in which to check differences. Limits the results to this path.
      * Can also be used to specify the changed name of a directory or folder, if it has
-     * changed. If not specified, differences will be shown for all paths.</p>
+     * changed. If not specified, differences are shown for all paths.</p>
+     */
+    inline bool AfterPathHasBeenSet() const { return m_afterPathHasBeenSet; }
+
+    /**
+     * <p>The file path in which to check differences. Limits the results to this path.
+     * Can also be used to specify the changed name of a directory or folder, if it has
+     * changed. If not specified, differences are shown for all paths.</p>
      */
     inline void SetAfterPath(const Aws::String& value) { m_afterPathHasBeenSet = true; m_afterPath = value; }
 
     /**
      * <p>The file path in which to check differences. Limits the results to this path.
      * Can also be used to specify the changed name of a directory or folder, if it has
-     * changed. If not specified, differences will be shown for all paths.</p>
+     * changed. If not specified, differences are shown for all paths.</p>
      */
     inline void SetAfterPath(Aws::String&& value) { m_afterPathHasBeenSet = true; m_afterPath = std::move(value); }
 
     /**
      * <p>The file path in which to check differences. Limits the results to this path.
      * Can also be used to specify the changed name of a directory or folder, if it has
-     * changed. If not specified, differences will be shown for all paths.</p>
+     * changed. If not specified, differences are shown for all paths.</p>
      */
     inline void SetAfterPath(const char* value) { m_afterPathHasBeenSet = true; m_afterPath.assign(value); }
 
     /**
      * <p>The file path in which to check differences. Limits the results to this path.
      * Can also be used to specify the changed name of a directory or folder, if it has
-     * changed. If not specified, differences will be shown for all paths.</p>
+     * changed. If not specified, differences are shown for all paths.</p>
      */
     inline GetDifferencesRequest& WithAfterPath(const Aws::String& value) { SetAfterPath(value); return *this;}
 
     /**
      * <p>The file path in which to check differences. Limits the results to this path.
      * Can also be used to specify the changed name of a directory or folder, if it has
-     * changed. If not specified, differences will be shown for all paths.</p>
+     * changed. If not specified, differences are shown for all paths.</p>
      */
     inline GetDifferencesRequest& WithAfterPath(Aws::String&& value) { SetAfterPath(std::move(value)); return *this;}
 
     /**
      * <p>The file path in which to check differences. Limits the results to this path.
      * Can also be used to specify the changed name of a directory or folder, if it has
-     * changed. If not specified, differences will be shown for all paths.</p>
+     * changed. If not specified, differences are shown for all paths.</p>
      */
     inline GetDifferencesRequest& WithAfterPath(const char* value) { SetAfterPath(value); return *this;}
 
 
     /**
-     * <p>A non-negative integer used to limit the number of returned results.</p>
+     * <p>A non-zero, non-negative integer used to limit the number of returned
+     * results.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
 
     /**
-     * <p>A non-negative integer used to limit the number of returned results.</p>
+     * <p>A non-zero, non-negative integer used to limit the number of returned
+     * results.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
+
+    /**
+     * <p>A non-zero, non-negative integer used to limit the number of returned
+     * results.</p>
      */
     inline void SetMaxResults(int value) { m_maxResultsHasBeenSet = true; m_maxResults = value; }
 
     /**
-     * <p>A non-negative integer used to limit the number of returned results.</p>
+     * <p>A non-zero, non-negative integer used to limit the number of returned
+     * results.</p>
      */
     inline GetDifferencesRequest& WithMaxResults(int value) { SetMaxResults(value); return *this;}
 
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
+     * of the results.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline GetDifferencesRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline GetDifferencesRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
 
     /**
-     * <p>An enumeration token that when provided in a request, returns the next batch
+     * <p>An enumeration token that, when provided in a request, returns the next batch
      * of the results.</p>
      */
     inline GetDifferencesRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}

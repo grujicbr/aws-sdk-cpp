@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ThingTypeDefinition();
-    ThingTypeDefinition(const Aws::Utils::Json::JsonValue& jsonValue);
-    ThingTypeDefinition& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ThingTypeDefinition(Aws::Utils::Json::JsonView jsonValue);
+    ThingTypeDefinition& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the thing type.</p>
      */
     inline const Aws::String& GetThingTypeName() const{ return m_thingTypeName; }
+
+    /**
+     * <p>The name of the thing type.</p>
+     */
+    inline bool ThingTypeNameHasBeenSet() const { return m_thingTypeNameHasBeenSet; }
 
     /**
      * <p>The name of the thing type.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The thing type ARN.</p>
      */
+    inline bool ThingTypeArnHasBeenSet() const { return m_thingTypeArnHasBeenSet; }
+
+    /**
+     * <p>The thing type ARN.</p>
+     */
     inline void SetThingTypeArn(const Aws::String& value) { m_thingTypeArnHasBeenSet = true; m_thingTypeArn = value; }
 
     /**
@@ -129,6 +140,11 @@ namespace Model
     /**
      * <p>The ThingTypeProperties for the thing type.</p>
      */
+    inline bool ThingTypePropertiesHasBeenSet() const { return m_thingTypePropertiesHasBeenSet; }
+
+    /**
+     * <p>The ThingTypeProperties for the thing type.</p>
+     */
     inline void SetThingTypeProperties(const ThingTypeProperties& value) { m_thingTypePropertiesHasBeenSet = true; m_thingTypeProperties = value; }
 
     /**
@@ -153,6 +169,13 @@ namespace Model
      * deprecated, and a date and time when it was deprecated.</p>
      */
     inline const ThingTypeMetadata& GetThingTypeMetadata() const{ return m_thingTypeMetadata; }
+
+    /**
+     * <p>The ThingTypeMetadata contains additional information about the thing type
+     * including: creation date and time, a value indicating whether the thing type is
+     * deprecated, and a date and time when it was deprecated.</p>
+     */
+    inline bool ThingTypeMetadataHasBeenSet() const { return m_thingTypeMetadataHasBeenSet; }
 
     /**
      * <p>The ThingTypeMetadata contains additional information about the thing type

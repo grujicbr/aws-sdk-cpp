@@ -30,7 +30,7 @@ GetSchemaAsJsonRequest::GetSchemaAsJsonRequest() :
 
 Aws::String GetSchemaAsJsonRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection GetSchemaAsJsonRequest::GetRequestSpecificHeaders() const
@@ -40,7 +40,7 @@ Aws::Http::HeaderValueCollection GetSchemaAsJsonRequest::GetRequestSpecificHeade
   if(m_schemaArnHasBeenSet)
   {
     ss << m_schemaArn;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-data-partition", ss.str()));
+    headers.emplace("x-amz-data-partition",  ss.str());
     ss.str("");
   }
 

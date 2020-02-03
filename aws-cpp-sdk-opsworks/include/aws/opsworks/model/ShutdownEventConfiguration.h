@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     ShutdownEventConfiguration();
-    ShutdownEventConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    ShutdownEventConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ShutdownEventConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    ShutdownEventConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -49,6 +50,12 @@ namespace Model
      * Shutdown event before shutting down an instance.</p>
      */
     inline int GetExecutionTimeout() const{ return m_executionTimeout; }
+
+    /**
+     * <p>The time, in seconds, that AWS OpsWorks Stacks will wait after triggering a
+     * Shutdown event before shutting down an instance.</p>
+     */
+    inline bool ExecutionTimeoutHasBeenSet() const { return m_executionTimeoutHasBeenSet; }
 
     /**
      * <p>The time, in seconds, that AWS OpsWorks Stacks will wait after triggering a
@@ -66,7 +73,7 @@ namespace Model
     /**
      * <p>Whether to enable Elastic Load Balancing connection draining. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain">Connection
+     * href="https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain">Connection
      * Draining</a> </p>
      */
     inline bool GetDelayUntilElbConnectionsDrained() const{ return m_delayUntilElbConnectionsDrained; }
@@ -74,7 +81,15 @@ namespace Model
     /**
      * <p>Whether to enable Elastic Load Balancing connection draining. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain">Connection
+     * href="https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain">Connection
+     * Draining</a> </p>
+     */
+    inline bool DelayUntilElbConnectionsDrainedHasBeenSet() const { return m_delayUntilElbConnectionsDrainedHasBeenSet; }
+
+    /**
+     * <p>Whether to enable Elastic Load Balancing connection draining. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain">Connection
      * Draining</a> </p>
      */
     inline void SetDelayUntilElbConnectionsDrained(bool value) { m_delayUntilElbConnectionsDrainedHasBeenSet = true; m_delayUntilElbConnectionsDrained = value; }
@@ -82,7 +97,7 @@ namespace Model
     /**
      * <p>Whether to enable Elastic Load Balancing connection draining. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain">Connection
+     * href="https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain">Connection
      * Draining</a> </p>
      */
     inline ShutdownEventConfiguration& WithDelayUntilElbConnectionsDrained(bool value) { SetDelayUntilElbConnectionsDrained(value); return *this;}

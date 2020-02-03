@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace KinesisVideo
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     StreamInfo();
-    StreamInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    StreamInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StreamInfo(Aws::Utils::Json::JsonView jsonValue);
+    StreamInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the device that is associated with the stream.</p>
      */
     inline const Aws::String& GetDeviceName() const{ return m_deviceName; }
+
+    /**
+     * <p>The name of the device that is associated with the stream.</p>
+     */
+    inline bool DeviceNameHasBeenSet() const { return m_deviceNameHasBeenSet; }
 
     /**
      * <p>The name of the device that is associated with the stream.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The name of the stream.</p>
      */
+    inline bool StreamNameHasBeenSet() const { return m_streamNameHasBeenSet; }
+
+    /**
+     * <p>The name of the stream.</p>
+     */
     inline void SetStreamName(const Aws::String& value) { m_streamNameHasBeenSet = true; m_streamName = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the stream.</p>
      */
     inline const Aws::String& GetStreamARN() const{ return m_streamARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the stream.</p>
+     */
+    inline bool StreamARNHasBeenSet() const { return m_streamARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the stream.</p>
@@ -164,6 +180,11 @@ namespace Model
     /**
      * <p>The <code>MediaType</code> of the stream. </p>
      */
+    inline bool MediaTypeHasBeenSet() const { return m_mediaTypeHasBeenSet; }
+
+    /**
+     * <p>The <code>MediaType</code> of the stream. </p>
+     */
     inline void SetMediaType(const Aws::String& value) { m_mediaTypeHasBeenSet = true; m_mediaType = value; }
 
     /**
@@ -197,6 +218,12 @@ namespace Model
      * Streams uses to encrypt data on the stream.</p>
      */
     inline const Aws::String& GetKmsKeyId() const{ return m_kmsKeyId; }
+
+    /**
+     * <p>The ID of the AWS Key Management Service (AWS KMS) key that Kinesis Video
+     * Streams uses to encrypt data on the stream.</p>
+     */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
 
     /**
      * <p>The ID of the AWS Key Management Service (AWS KMS) key that Kinesis Video
@@ -243,6 +270,11 @@ namespace Model
     /**
      * <p>The version of the stream.</p>
      */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
+
+    /**
+     * <p>The version of the stream.</p>
+     */
     inline void SetVersion(const Aws::String& value) { m_versionHasBeenSet = true; m_version = value; }
 
     /**
@@ -279,6 +311,11 @@ namespace Model
     /**
      * <p>The status of the stream.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the stream.</p>
+     */
     inline void SetStatus(const Status& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -305,6 +342,11 @@ namespace Model
     /**
      * <p>A time stamp that indicates when the stream was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>A time stamp that indicates when the stream was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -327,6 +369,11 @@ namespace Model
      * <p>How long the stream retains data, in hours.</p>
      */
     inline int GetDataRetentionInHours() const{ return m_dataRetentionInHours; }
+
+    /**
+     * <p>How long the stream retains data, in hours.</p>
+     */
+    inline bool DataRetentionInHoursHasBeenSet() const { return m_dataRetentionInHoursHasBeenSet; }
 
     /**
      * <p>How long the stream retains data, in hours.</p>

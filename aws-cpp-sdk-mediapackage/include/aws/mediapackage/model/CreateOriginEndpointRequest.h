@@ -16,11 +16,14 @@
 #pragma once
 #include <aws/mediapackage/MediaPackage_EXPORTS.h>
 #include <aws/mediapackage/MediaPackageRequest.h>
+#include <aws/mediapackage/model/Authorization.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <aws/mediapackage/model/CmafPackageCreateOrUpdateParameters.h>
 #include <aws/mediapackage/model/DashPackage.h>
 #include <aws/mediapackage/model/HlsPackage.h>
 #include <aws/mediapackage/model/MssPackage.h>
+#include <aws/mediapackage/model/Origination.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <utility>
 
@@ -41,7 +44,7 @@ namespace Model
   {
   public:
     CreateOriginEndpointRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -51,6 +54,25 @@ namespace Model
     Aws::String SerializePayload() const override;
 
 
+    
+    inline const Authorization& GetAuthorization() const{ return m_authorization; }
+
+    
+    inline bool AuthorizationHasBeenSet() const { return m_authorizationHasBeenSet; }
+
+    
+    inline void SetAuthorization(const Authorization& value) { m_authorizationHasBeenSet = true; m_authorization = value; }
+
+    
+    inline void SetAuthorization(Authorization&& value) { m_authorizationHasBeenSet = true; m_authorization = std::move(value); }
+
+    
+    inline CreateOriginEndpointRequest& WithAuthorization(const Authorization& value) { SetAuthorization(value); return *this;}
+
+    
+    inline CreateOriginEndpointRequest& WithAuthorization(Authorization&& value) { SetAuthorization(std::move(value)); return *this;}
+
+
     /**
      * The ID of the Channel that the OriginEndpoint will be associated with.
 This
@@ -58,6 +80,14 @@ This
 
      */
     inline const Aws::String& GetChannelId() const{ return m_channelId; }
+
+    /**
+     * The ID of the Channel that the OriginEndpoint will be associated with.
+This
+     * cannot be changed after the OriginEndpoint is created.
+
+     */
+    inline bool ChannelIdHasBeenSet() const { return m_channelIdHasBeenSet; }
 
     /**
      * The ID of the Channel that the OriginEndpoint will be associated with.
@@ -112,6 +142,9 @@ This
     inline const CmafPackageCreateOrUpdateParameters& GetCmafPackage() const{ return m_cmafPackage; }
 
     
+    inline bool CmafPackageHasBeenSet() const { return m_cmafPackageHasBeenSet; }
+
+    
     inline void SetCmafPackage(const CmafPackageCreateOrUpdateParameters& value) { m_cmafPackageHasBeenSet = true; m_cmafPackage = value; }
 
     
@@ -126,6 +159,9 @@ This
 
     
     inline const DashPackage& GetDashPackage() const{ return m_dashPackage; }
+
+    
+    inline bool DashPackageHasBeenSet() const { return m_dashPackageHasBeenSet; }
 
     
     inline void SetDashPackage(const DashPackage& value) { m_dashPackageHasBeenSet = true; m_dashPackage = value; }
@@ -144,6 +180,11 @@ This
      * A short text description of the OriginEndpoint.
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * A short text description of the OriginEndpoint.
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * A short text description of the OriginEndpoint.
@@ -180,6 +221,9 @@ This
     inline const HlsPackage& GetHlsPackage() const{ return m_hlsPackage; }
 
     
+    inline bool HlsPackageHasBeenSet() const { return m_hlsPackageHasBeenSet; }
+
+    
     inline void SetHlsPackage(const HlsPackage& value) { m_hlsPackageHasBeenSet = true; m_hlsPackage = value; }
 
     
@@ -199,6 +243,14 @@ and it
 
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * The ID of the OriginEndpoint.  The ID must be unique within the region
+and it
+     * cannot be changed after the OriginEndpoint is created.
+
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * The ID of the OriginEndpoint.  The ID must be unique within the region
@@ -259,6 +311,12 @@ and it
      * A short string that will be used as the filename of the OriginEndpoint URL
      * (defaults to "index").
      */
+    inline bool ManifestNameHasBeenSet() const { return m_manifestNameHasBeenSet; }
+
+    /**
+     * A short string that will be used as the filename of the OriginEndpoint URL
+     * (defaults to "index").
+     */
     inline void SetManifestName(const Aws::String& value) { m_manifestNameHasBeenSet = true; m_manifestName = value; }
 
     /**
@@ -296,6 +354,9 @@ and it
     inline const MssPackage& GetMssPackage() const{ return m_mssPackage; }
 
     
+    inline bool MssPackageHasBeenSet() const { return m_mssPackageHasBeenSet; }
+
+    
     inline void SetMssPackage(const MssPackage& value) { m_mssPackageHasBeenSet = true; m_mssPackage = value; }
 
     
@@ -309,12 +370,93 @@ and it
 
 
     /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set
+     * to ALLOW, the OriginEndpoint
+may by requested, pursuant to any other form of
+     * access control. If set to DENY, the OriginEndpoint may not be
+requested. This
+     * can be helpful for Live to VOD harvesting, or for temporarily disabling
+     * origination
+
+     */
+    inline const Origination& GetOrigination() const{ return m_origination; }
+
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set
+     * to ALLOW, the OriginEndpoint
+may by requested, pursuant to any other form of
+     * access control. If set to DENY, the OriginEndpoint may not be
+requested. This
+     * can be helpful for Live to VOD harvesting, or for temporarily disabling
+     * origination
+
+     */
+    inline bool OriginationHasBeenSet() const { return m_originationHasBeenSet; }
+
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set
+     * to ALLOW, the OriginEndpoint
+may by requested, pursuant to any other form of
+     * access control. If set to DENY, the OriginEndpoint may not be
+requested. This
+     * can be helpful for Live to VOD harvesting, or for temporarily disabling
+     * origination
+
+     */
+    inline void SetOrigination(const Origination& value) { m_originationHasBeenSet = true; m_origination = value; }
+
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set
+     * to ALLOW, the OriginEndpoint
+may by requested, pursuant to any other form of
+     * access control. If set to DENY, the OriginEndpoint may not be
+requested. This
+     * can be helpful for Live to VOD harvesting, or for temporarily disabling
+     * origination
+
+     */
+    inline void SetOrigination(Origination&& value) { m_originationHasBeenSet = true; m_origination = std::move(value); }
+
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set
+     * to ALLOW, the OriginEndpoint
+may by requested, pursuant to any other form of
+     * access control. If set to DENY, the OriginEndpoint may not be
+requested. This
+     * can be helpful for Live to VOD harvesting, or for temporarily disabling
+     * origination
+
+     */
+    inline CreateOriginEndpointRequest& WithOrigination(const Origination& value) { SetOrigination(value); return *this;}
+
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set
+     * to ALLOW, the OriginEndpoint
+may by requested, pursuant to any other form of
+     * access control. If set to DENY, the OriginEndpoint may not be
+requested. This
+     * can be helpful for Live to VOD harvesting, or for temporarily disabling
+     * origination
+
+     */
+    inline CreateOriginEndpointRequest& WithOrigination(Origination&& value) { SetOrigination(std::move(value)); return *this;}
+
+
+    /**
      * Maximum duration (seconds) of content to retain for startover playback.
 If not
      * specified, startover playback will be disabled for the OriginEndpoint.
 
      */
     inline int GetStartoverWindowSeconds() const{ return m_startoverWindowSeconds; }
+
+    /**
+     * Maximum duration (seconds) of content to retain for startover playback.
+If not
+     * specified, startover playback will be disabled for the OriginEndpoint.
+
+     */
+    inline bool StartoverWindowSecondsHasBeenSet() const { return m_startoverWindowSecondsHasBeenSet; }
 
     /**
      * Maximum duration (seconds) of content to retain for startover playback.
@@ -333,6 +475,46 @@ If not
     inline CreateOriginEndpointRequest& WithStartoverWindowSeconds(int value) { SetStartoverWindowSeconds(value); return *this;}
 
 
+    
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    
+    inline CreateOriginEndpointRequest& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    
+    inline CreateOriginEndpointRequest& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    
+    inline CreateOriginEndpointRequest& AddTags(const Aws::String& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+    
+    inline CreateOriginEndpointRequest& AddTags(Aws::String&& key, const Aws::String& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    
+    inline CreateOriginEndpointRequest& AddTags(const Aws::String& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    
+    inline CreateOriginEndpointRequest& AddTags(Aws::String&& key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    
+    inline CreateOriginEndpointRequest& AddTags(const char* key, Aws::String&& value) { m_tagsHasBeenSet = true; m_tags.emplace(key, std::move(value)); return *this; }
+
+    
+    inline CreateOriginEndpointRequest& AddTags(Aws::String&& key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(std::move(key), value); return *this; }
+
+    
+    inline CreateOriginEndpointRequest& AddTags(const char* key, const char* value) { m_tagsHasBeenSet = true; m_tags.emplace(key, value); return *this; }
+
+
     /**
      * Amount of delay (seconds) to enforce on the playback of live content.
 If not
@@ -340,6 +522,14 @@ If not
 
      */
     inline int GetTimeDelaySeconds() const{ return m_timeDelaySeconds; }
+
+    /**
+     * Amount of delay (seconds) to enforce on the playback of live content.
+If not
+     * specified, there will be no time delay in effect for the OriginEndpoint.
+
+     */
+    inline bool TimeDelaySecondsHasBeenSet() const { return m_timeDelaySecondsHasBeenSet; }
 
     /**
      * Amount of delay (seconds) to enforce on the playback of live content.
@@ -363,6 +553,12 @@ If not
      * OriginEndpoint.
      */
     inline const Aws::Vector<Aws::String>& GetWhitelist() const{ return m_whitelist; }
+
+    /**
+     * A list of source IP CIDR blocks that will be allowed to access the
+     * OriginEndpoint.
+     */
+    inline bool WhitelistHasBeenSet() const { return m_whitelistHasBeenSet; }
 
     /**
      * A list of source IP CIDR blocks that will be allowed to access the
@@ -408,6 +604,9 @@ If not
 
   private:
 
+    Authorization m_authorization;
+    bool m_authorizationHasBeenSet;
+
     Aws::String m_channelId;
     bool m_channelIdHasBeenSet;
 
@@ -432,8 +631,14 @@ If not
     MssPackage m_mssPackage;
     bool m_mssPackageHasBeenSet;
 
+    Origination m_origination;
+    bool m_originationHasBeenSet;
+
     int m_startoverWindowSeconds;
     bool m_startoverWindowSecondsHasBeenSet;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
+    bool m_tagsHasBeenSet;
 
     int m_timeDelaySeconds;
     bool m_timeDelaySecondsHasBeenSet;

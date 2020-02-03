@@ -25,9 +25,13 @@ using namespace Aws::Utils;
 UpdateTableRequest::UpdateTableRequest() : 
     m_attributeDefinitionsHasBeenSet(false),
     m_tableNameHasBeenSet(false),
+    m_billingMode(BillingMode::NOT_SET),
+    m_billingModeHasBeenSet(false),
     m_provisionedThroughputHasBeenSet(false),
     m_globalSecondaryIndexUpdatesHasBeenSet(false),
-    m_streamSpecificationHasBeenSet(false)
+    m_streamSpecificationHasBeenSet(false),
+    m_sSESpecificationHasBeenSet(false),
+    m_replicaUpdatesHasBeenSet(false)
 {
 }
 
@@ -50,6 +54,11 @@ Aws::String UpdateTableRequest::SerializePayload() const
   {
    payload.WithString("TableName", m_tableName);
 
+  }
+
+  if(m_billingModeHasBeenSet)
+  {
+   payload.WithString("BillingMode", BillingModeMapper::GetNameForBillingMode(m_billingMode));
   }
 
   if(m_provisionedThroughputHasBeenSet)
@@ -75,7 +84,24 @@ Aws::String UpdateTableRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_sSESpecificationHasBeenSet)
+  {
+   payload.WithObject("SSESpecification", m_sSESpecification.Jsonize());
+
+  }
+
+  if(m_replicaUpdatesHasBeenSet)
+  {
+   Array<JsonValue> replicaUpdatesJsonList(m_replicaUpdates.size());
+   for(unsigned replicaUpdatesIndex = 0; replicaUpdatesIndex < replicaUpdatesJsonList.GetLength(); ++replicaUpdatesIndex)
+   {
+     replicaUpdatesJsonList[replicaUpdatesIndex].AsObject(m_replicaUpdates[replicaUpdatesIndex].Jsonize());
+   }
+   payload.WithArray("ReplicaUpdates", std::move(replicaUpdatesJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection UpdateTableRequest::GetRequestSpecificHeaders() const

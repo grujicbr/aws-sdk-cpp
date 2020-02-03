@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -36,13 +37,13 @@ namespace Model
   /**
    * <p>Gets the Amazon EC2 Container Registry path of the docker image of the model
    * that is hosted in this <a>ProductionVariant</a>.</p> <p>If you used the
-   * <code>registry/repository[:tag]</code> form to to specify the image path of the
+   * <code>registry/repository[:tag]</code> form to specify the image path of the
    * primary container when you created the model hosted in this
    * <code>ProductionVariant</code>, the path resolves to a path of the form
    * <code>registry/repository[@digest]</code>. A digest is a hash value that
    * identifies a specific version of an image. For information about Amazon ECR
    * paths, see <a
-   * href="http://docs.aws.amazon.com//AmazonECR/latest/userguide/docker-pull-ecr-image.html">Pulling
+   * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-pull-ecr-image.html">Pulling
    * an Image</a> in the <i>Amazon ECR User Guide</i>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeployedImage">AWS
    * API Reference</a></p>
@@ -51,8 +52,8 @@ namespace Model
   {
   public:
     DeployedImage();
-    DeployedImage(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeployedImage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeployedImage(Aws::Utils::Json::JsonView jsonValue);
+    DeployedImage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +61,11 @@ namespace Model
      * <p>The image path you specified when you created the model.</p>
      */
     inline const Aws::String& GetSpecifiedImage() const{ return m_specifiedImage; }
+
+    /**
+     * <p>The image path you specified when you created the model.</p>
+     */
+    inline bool SpecifiedImageHasBeenSet() const { return m_specifiedImageHasBeenSet; }
 
     /**
      * <p>The image path you specified when you created the model.</p>
@@ -97,6 +103,12 @@ namespace Model
      * <code>ProductionVariant</code>.</p>
      */
     inline const Aws::String& GetResolvedImage() const{ return m_resolvedImage; }
+
+    /**
+     * <p>The specific digest path of the image hosted in this
+     * <code>ProductionVariant</code>.</p>
+     */
+    inline bool ResolvedImageHasBeenSet() const { return m_resolvedImageHasBeenSet; }
 
     /**
      * <p>The specific digest path of the image hosted in this
@@ -140,6 +152,12 @@ namespace Model
      * <code>ResolvedImage</code> </p>
      */
     inline const Aws::Utils::DateTime& GetResolutionTime() const{ return m_resolutionTime; }
+
+    /**
+     * <p>The date and time when the image path for the model resolved to the
+     * <code>ResolvedImage</code> </p>
+     */
+    inline bool ResolutionTimeHasBeenSet() const { return m_resolutionTimeHasBeenSet; }
 
     /**
      * <p>The date and time when the image path for the model resolved to the

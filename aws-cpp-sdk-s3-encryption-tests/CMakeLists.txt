@@ -36,7 +36,7 @@ if (AUTORUN_UNIT_TESTS)
 endif()
 
 if(PLATFORM_ANDROID AND BUILD_SHARED_LIBS)
-    add_library(aws-cpp-sdk-s3-encryption-tests ${LIBTYPE} ${S3ENCRYPTION_TEST_SRC})
+    add_library(aws-cpp-sdk-s3-encryption-tests ${S3ENCRYPTION_TEST_SRC})
 else()
     add_executable(aws-cpp-sdk-s3-encryption-tests ${S3ENCRYPTION_TEST_SRC})
 endif()
@@ -45,7 +45,6 @@ set_compiler_flags(${PROJECT_NAME})
 set_compiler_warnings(${PROJECT_NAME})
 
 target_link_libraries(aws-cpp-sdk-s3-encryption-tests ${PROJECT_LIBS})
-copyDlls(aws-cpp-sdk-s3-encryption-tests ${PROJECT_LIBS})
 
 if (AUTORUN_UNIT_TESTS)
     ADD_CUSTOM_COMMAND( TARGET aws-cpp-sdk-s3-encryption-tests POST_BUILD COMMAND $<TARGET_FILE:aws-cpp-sdk-s3-encryption-tests>)

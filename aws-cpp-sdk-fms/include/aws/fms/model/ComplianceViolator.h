@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace FMS
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ComplianceViolator();
-    ComplianceViolator(const Aws::Utils::Json::JsonValue& jsonValue);
-    ComplianceViolator& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ComplianceViolator(Aws::Utils::Json::JsonView jsonValue);
+    ComplianceViolator& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The resource ID.</p>
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
+
+    /**
+     * <p>The resource ID.</p>
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
 
     /**
      * <p>The resource ID.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The reason that the resource is not protected by the policy.</p>
      */
+    inline bool ViolationReasonHasBeenSet() const { return m_violationReasonHasBeenSet; }
+
+    /**
+     * <p>The reason that the resource is not protected by the policy.</p>
+     */
     inline void SetViolationReason(const ViolationReason& value) { m_violationReasonHasBeenSet = true; m_violationReason = value; }
 
     /**
@@ -111,63 +122,72 @@ namespace Model
 
 
     /**
-     * <p>The resource type. This is in the format shown in <a
+     * <p>The resource type. This is in the format shown in the <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. Valid values are
+     * Resource Types Reference</a>. For example:
      * <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
      * <code>AWS::CloudFront::Distribution</code>.</p>
      */
     inline const Aws::String& GetResourceType() const{ return m_resourceType; }
 
     /**
-     * <p>The resource type. This is in the format shown in <a
+     * <p>The resource type. This is in the format shown in the <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. Valid values are
+     * Resource Types Reference</a>. For example:
+     * <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
+     * <code>AWS::CloudFront::Distribution</code>.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
+
+    /**
+     * <p>The resource type. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
+     * Resource Types Reference</a>. For example:
      * <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
      * <code>AWS::CloudFront::Distribution</code>.</p>
      */
     inline void SetResourceType(const Aws::String& value) { m_resourceTypeHasBeenSet = true; m_resourceType = value; }
 
     /**
-     * <p>The resource type. This is in the format shown in <a
+     * <p>The resource type. This is in the format shown in the <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. Valid values are
+     * Resource Types Reference</a>. For example:
      * <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
      * <code>AWS::CloudFront::Distribution</code>.</p>
      */
     inline void SetResourceType(Aws::String&& value) { m_resourceTypeHasBeenSet = true; m_resourceType = std::move(value); }
 
     /**
-     * <p>The resource type. This is in the format shown in <a
+     * <p>The resource type. This is in the format shown in the <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. Valid values are
+     * Resource Types Reference</a>. For example:
      * <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
      * <code>AWS::CloudFront::Distribution</code>.</p>
      */
     inline void SetResourceType(const char* value) { m_resourceTypeHasBeenSet = true; m_resourceType.assign(value); }
 
     /**
-     * <p>The resource type. This is in the format shown in <a
+     * <p>The resource type. This is in the format shown in the <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. Valid values are
+     * Resource Types Reference</a>. For example:
      * <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
      * <code>AWS::CloudFront::Distribution</code>.</p>
      */
     inline ComplianceViolator& WithResourceType(const Aws::String& value) { SetResourceType(value); return *this;}
 
     /**
-     * <p>The resource type. This is in the format shown in <a
+     * <p>The resource type. This is in the format shown in the <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. Valid values are
+     * Resource Types Reference</a>. For example:
      * <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
      * <code>AWS::CloudFront::Distribution</code>.</p>
      */
     inline ComplianceViolator& WithResourceType(Aws::String&& value) { SetResourceType(std::move(value)); return *this;}
 
     /**
-     * <p>The resource type. This is in the format shown in <a
+     * <p>The resource type. This is in the format shown in the <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. Valid values are
+     * Resource Types Reference</a>. For example:
      * <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
      * <code>AWS::CloudFront::Distribution</code>.</p>
      */

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoSync
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Record();
-    Record(const Aws::Utils::Json::JsonValue& jsonValue);
-    Record& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Record(Aws::Utils::Json::JsonView jsonValue);
+    Record& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * The key for the record.
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * The key for the record.
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * The key for the record.
@@ -91,6 +97,11 @@ namespace Model
     /**
      * The value for the record.
      */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * The value for the record.
+     */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
@@ -127,6 +138,11 @@ namespace Model
     /**
      * The server sync count for this record.
      */
+    inline bool SyncCountHasBeenSet() const { return m_syncCountHasBeenSet; }
+
+    /**
+     * The server sync count for this record.
+     */
     inline void SetSyncCount(long long value) { m_syncCountHasBeenSet = true; m_syncCount = value; }
 
     /**
@@ -139,6 +155,11 @@ namespace Model
      * The date on which the record was last modified.
      */
     inline const Aws::Utils::DateTime& GetLastModifiedDate() const{ return m_lastModifiedDate; }
+
+    /**
+     * The date on which the record was last modified.
+     */
+    inline bool LastModifiedDateHasBeenSet() const { return m_lastModifiedDateHasBeenSet; }
 
     /**
      * The date on which the record was last modified.
@@ -165,6 +186,11 @@ namespace Model
      * The user/device that made the last change to this record.
      */
     inline const Aws::String& GetLastModifiedBy() const{ return m_lastModifiedBy; }
+
+    /**
+     * The user/device that made the last change to this record.
+     */
+    inline bool LastModifiedByHasBeenSet() const { return m_lastModifiedByHasBeenSet; }
 
     /**
      * The user/device that made the last change to this record.
@@ -201,6 +227,11 @@ namespace Model
      * The last modified date of the client device.
      */
     inline const Aws::Utils::DateTime& GetDeviceLastModifiedDate() const{ return m_deviceLastModifiedDate; }
+
+    /**
+     * The last modified date of the client device.
+     */
+    inline bool DeviceLastModifiedDateHasBeenSet() const { return m_deviceLastModifiedDateHasBeenSet; }
 
     /**
      * The last modified date of the client device.

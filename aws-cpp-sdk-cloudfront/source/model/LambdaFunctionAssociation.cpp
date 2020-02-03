@@ -33,14 +33,18 @@ namespace Model
 LambdaFunctionAssociation::LambdaFunctionAssociation() : 
     m_lambdaFunctionARNHasBeenSet(false),
     m_eventType(EventType::NOT_SET),
-    m_eventTypeHasBeenSet(false)
+    m_eventTypeHasBeenSet(false),
+    m_includeBody(false),
+    m_includeBodyHasBeenSet(false)
 {
 }
 
 LambdaFunctionAssociation::LambdaFunctionAssociation(const XmlNode& xmlNode) : 
     m_lambdaFunctionARNHasBeenSet(false),
     m_eventType(EventType::NOT_SET),
-    m_eventTypeHasBeenSet(false)
+    m_eventTypeHasBeenSet(false),
+    m_includeBody(false),
+    m_includeBodyHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -54,14 +58,20 @@ LambdaFunctionAssociation& LambdaFunctionAssociation::operator =(const XmlNode& 
     XmlNode lambdaFunctionARNNode = resultNode.FirstChild("LambdaFunctionARN");
     if(!lambdaFunctionARNNode.IsNull())
     {
-      m_lambdaFunctionARN = StringUtils::Trim(lambdaFunctionARNNode.GetText().c_str());
+      m_lambdaFunctionARN = Aws::Utils::Xml::DecodeEscapedXmlText(lambdaFunctionARNNode.GetText());
       m_lambdaFunctionARNHasBeenSet = true;
     }
     XmlNode eventTypeNode = resultNode.FirstChild("EventType");
     if(!eventTypeNode.IsNull())
     {
-      m_eventType = EventTypeMapper::GetEventTypeForName(StringUtils::Trim(eventTypeNode.GetText().c_str()).c_str());
+      m_eventType = EventTypeMapper::GetEventTypeForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(eventTypeNode.GetText()).c_str()).c_str());
       m_eventTypeHasBeenSet = true;
+    }
+    XmlNode includeBodyNode = resultNode.FirstChild("IncludeBody");
+    if(!includeBodyNode.IsNull())
+    {
+      m_includeBody = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(includeBodyNode.GetText()).c_str()).c_str());
+      m_includeBodyHasBeenSet = true;
     }
   }
 
@@ -81,6 +91,14 @@ void LambdaFunctionAssociation::AddToNode(XmlNode& parentNode) const
   {
    XmlNode eventTypeNode = parentNode.CreateChildElement("EventType");
    eventTypeNode.SetText(EventTypeMapper::GetNameForEventType(m_eventType));
+  }
+
+  if(m_includeBodyHasBeenSet)
+  {
+   XmlNode includeBodyNode = parentNode.CreateChildElement("IncludeBody");
+   ss << std::boolalpha << m_includeBody;
+   includeBodyNode.SetText(ss.str());
+   ss.str("");
   }
 
 }

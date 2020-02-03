@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace PI
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DataPoint();
-    DataPoint(const Aws::Utils::Json::JsonValue& jsonValue);
-    DataPoint& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DataPoint(Aws::Utils::Json::JsonView jsonValue);
+    DataPoint& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * <code>Value</code>.</p>
      */
     inline const Aws::Utils::DateTime& GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>The time, in epoch format, associated with a particular
+     * <code>Value</code>.</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>The time, in epoch format, associated with a particular
@@ -82,6 +89,11 @@ namespace Model
      * <p>The actual value associated with a particular <code>Timestamp</code>.</p>
      */
     inline double GetValue() const{ return m_value; }
+
+    /**
+     * <p>The actual value associated with a particular <code>Timestamp</code>.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The actual value associated with a particular <code>Timestamp</code>.</p>

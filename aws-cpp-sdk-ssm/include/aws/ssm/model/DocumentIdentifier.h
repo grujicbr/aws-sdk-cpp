@@ -21,6 +21,7 @@
 #include <aws/ssm/model/DocumentFormat.h>
 #include <aws/ssm/model/PlatformType.h>
 #include <aws/ssm/model/Tag.h>
+#include <aws/ssm/model/DocumentRequires.h>
 #include <utility>
 
 namespace Aws
@@ -30,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -47,8 +49,8 @@ namespace Model
   {
   public:
     DocumentIdentifier();
-    DocumentIdentifier(const Aws::Utils::Json::JsonValue& jsonValue);
-    DocumentIdentifier& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DocumentIdentifier(Aws::Utils::Json::JsonView jsonValue);
+    DocumentIdentifier& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +58,11 @@ namespace Model
      * <p>The name of the Systems Manager document.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the Systems Manager document.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the Systems Manager document.</p>
@@ -96,6 +103,11 @@ namespace Model
     /**
      * <p>The AWS user account that created the document.</p>
      */
+    inline bool OwnerHasBeenSet() const { return m_ownerHasBeenSet; }
+
+    /**
+     * <p>The AWS user account that created the document.</p>
+     */
     inline void SetOwner(const Aws::String& value) { m_ownerHasBeenSet = true; m_owner = value; }
 
     /**
@@ -125,9 +137,71 @@ namespace Model
 
 
     /**
+     * <p>An optional field specifying the version of the artifact associated with the
+     * document. For example, "Release 12, Update 6". This value is unique across all
+     * versions of a document, and cannot be changed.</p>
+     */
+    inline const Aws::String& GetVersionName() const{ return m_versionName; }
+
+    /**
+     * <p>An optional field specifying the version of the artifact associated with the
+     * document. For example, "Release 12, Update 6". This value is unique across all
+     * versions of a document, and cannot be changed.</p>
+     */
+    inline bool VersionNameHasBeenSet() const { return m_versionNameHasBeenSet; }
+
+    /**
+     * <p>An optional field specifying the version of the artifact associated with the
+     * document. For example, "Release 12, Update 6". This value is unique across all
+     * versions of a document, and cannot be changed.</p>
+     */
+    inline void SetVersionName(const Aws::String& value) { m_versionNameHasBeenSet = true; m_versionName = value; }
+
+    /**
+     * <p>An optional field specifying the version of the artifact associated with the
+     * document. For example, "Release 12, Update 6". This value is unique across all
+     * versions of a document, and cannot be changed.</p>
+     */
+    inline void SetVersionName(Aws::String&& value) { m_versionNameHasBeenSet = true; m_versionName = std::move(value); }
+
+    /**
+     * <p>An optional field specifying the version of the artifact associated with the
+     * document. For example, "Release 12, Update 6". This value is unique across all
+     * versions of a document, and cannot be changed.</p>
+     */
+    inline void SetVersionName(const char* value) { m_versionNameHasBeenSet = true; m_versionName.assign(value); }
+
+    /**
+     * <p>An optional field specifying the version of the artifact associated with the
+     * document. For example, "Release 12, Update 6". This value is unique across all
+     * versions of a document, and cannot be changed.</p>
+     */
+    inline DocumentIdentifier& WithVersionName(const Aws::String& value) { SetVersionName(value); return *this;}
+
+    /**
+     * <p>An optional field specifying the version of the artifact associated with the
+     * document. For example, "Release 12, Update 6". This value is unique across all
+     * versions of a document, and cannot be changed.</p>
+     */
+    inline DocumentIdentifier& WithVersionName(Aws::String&& value) { SetVersionName(std::move(value)); return *this;}
+
+    /**
+     * <p>An optional field specifying the version of the artifact associated with the
+     * document. For example, "Release 12, Update 6". This value is unique across all
+     * versions of a document, and cannot be changed.</p>
+     */
+    inline DocumentIdentifier& WithVersionName(const char* value) { SetVersionName(value); return *this;}
+
+
+    /**
      * <p>The operating system platform. </p>
      */
     inline const Aws::Vector<PlatformType>& GetPlatformTypes() const{ return m_platformTypes; }
+
+    /**
+     * <p>The operating system platform. </p>
+     */
+    inline bool PlatformTypesHasBeenSet() const { return m_platformTypesHasBeenSet; }
 
     /**
      * <p>The operating system platform. </p>
@@ -168,6 +242,11 @@ namespace Model
     /**
      * <p>The document version.</p>
      */
+    inline bool DocumentVersionHasBeenSet() const { return m_documentVersionHasBeenSet; }
+
+    /**
+     * <p>The document version.</p>
+     */
     inline void SetDocumentVersion(const Aws::String& value) { m_documentVersionHasBeenSet = true; m_documentVersion = value; }
 
     /**
@@ -204,6 +283,11 @@ namespace Model
     /**
      * <p>The document type.</p>
      */
+    inline bool DocumentTypeHasBeenSet() const { return m_documentTypeHasBeenSet; }
+
+    /**
+     * <p>The document type.</p>
+     */
     inline void SetDocumentType(const DocumentType& value) { m_documentTypeHasBeenSet = true; m_documentType = value; }
 
     /**
@@ -226,6 +310,11 @@ namespace Model
      * <p>The schema version.</p>
      */
     inline const Aws::String& GetSchemaVersion() const{ return m_schemaVersion; }
+
+    /**
+     * <p>The schema version.</p>
+     */
+    inline bool SchemaVersionHasBeenSet() const { return m_schemaVersionHasBeenSet; }
 
     /**
      * <p>The schema version.</p>
@@ -266,6 +355,11 @@ namespace Model
     /**
      * <p>The document format, either JSON or YAML.</p>
      */
+    inline bool DocumentFormatHasBeenSet() const { return m_documentFormatHasBeenSet; }
+
+    /**
+     * <p>The document format, either JSON or YAML.</p>
+     */
     inline void SetDocumentFormat(const DocumentFormat& value) { m_documentFormatHasBeenSet = true; m_documentFormat = value; }
 
     /**
@@ -291,6 +385,14 @@ namespace Model
      * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>. </p>
      */
     inline const Aws::String& GetTargetType() const{ return m_targetType; }
+
+    /**
+     * <p>The target type which defines the kinds of resources the document can run on.
+     * For example, /AWS::EC2::Instance. For a list of valid resource types, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
+     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>. </p>
+     */
+    inline bool TargetTypeHasBeenSet() const { return m_targetTypeHasBeenSet; }
 
     /**
      * <p>The target type which defines the kinds of resources the document can run on.
@@ -349,6 +451,11 @@ namespace Model
     /**
      * <p>The tags, or metadata, that have been applied to the document.</p>
      */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tags, or metadata, that have been applied to the document.</p>
+     */
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
     /**
@@ -376,6 +483,63 @@ namespace Model
      */
     inline DocumentIdentifier& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
 
+
+    /**
+     * <p>A list of SSM documents required by a document. For example, an
+     * <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document.</p>
+     */
+    inline const Aws::Vector<DocumentRequires>& GetRequires() const{ return m_requires; }
+
+    /**
+     * <p>A list of SSM documents required by a document. For example, an
+     * <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document.</p>
+     */
+    inline bool RequiresHasBeenSet() const { return m_requiresHasBeenSet; }
+
+    /**
+     * <p>A list of SSM documents required by a document. For example, an
+     * <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document.</p>
+     */
+    inline void SetRequires(const Aws::Vector<DocumentRequires>& value) { m_requiresHasBeenSet = true; m_requires = value; }
+
+    /**
+     * <p>A list of SSM documents required by a document. For example, an
+     * <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document.</p>
+     */
+    inline void SetRequires(Aws::Vector<DocumentRequires>&& value) { m_requiresHasBeenSet = true; m_requires = std::move(value); }
+
+    /**
+     * <p>A list of SSM documents required by a document. For example, an
+     * <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document.</p>
+     */
+    inline DocumentIdentifier& WithRequires(const Aws::Vector<DocumentRequires>& value) { SetRequires(value); return *this;}
+
+    /**
+     * <p>A list of SSM documents required by a document. For example, an
+     * <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document.</p>
+     */
+    inline DocumentIdentifier& WithRequires(Aws::Vector<DocumentRequires>&& value) { SetRequires(std::move(value)); return *this;}
+
+    /**
+     * <p>A list of SSM documents required by a document. For example, an
+     * <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document.</p>
+     */
+    inline DocumentIdentifier& AddRequires(const DocumentRequires& value) { m_requiresHasBeenSet = true; m_requires.push_back(value); return *this; }
+
+    /**
+     * <p>A list of SSM documents required by a document. For example, an
+     * <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document.</p>
+     */
+    inline DocumentIdentifier& AddRequires(DocumentRequires&& value) { m_requiresHasBeenSet = true; m_requires.push_back(std::move(value)); return *this; }
+
   private:
 
     Aws::String m_name;
@@ -383,6 +547,9 @@ namespace Model
 
     Aws::String m_owner;
     bool m_ownerHasBeenSet;
+
+    Aws::String m_versionName;
+    bool m_versionNameHasBeenSet;
 
     Aws::Vector<PlatformType> m_platformTypes;
     bool m_platformTypesHasBeenSet;
@@ -404,6 +571,9 @@ namespace Model
 
     Aws::Vector<Tag> m_tags;
     bool m_tagsHasBeenSet;
+
+    Aws::Vector<DocumentRequires> m_requires;
+    bool m_requiresHasBeenSet;
   };
 
 } // namespace Model

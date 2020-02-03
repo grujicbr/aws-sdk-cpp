@@ -15,6 +15,7 @@
 
 #pragma once
 #include <aws/medialive/MediaLive_EXPORTS.h>
+#include <aws/medialive/model/ChannelClass.h>
 #include <aws/medialive/model/ReservationCodec.h>
 #include <aws/medialive/model/ReservationMaximumBitrate.h>
 #include <aws/medialive/model/ReservationMaximumFramerate.h>
@@ -31,6 +32,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -48,15 +50,51 @@ namespace Model
   {
   public:
     ReservationResourceSpecification();
-    ReservationResourceSpecification(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReservationResourceSpecification& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReservationResourceSpecification(Aws::Utils::Json::JsonView jsonValue);
+    ReservationResourceSpecification& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
+
+
+    /**
+     * Channel class, e.g. 'STANDARD'
+     */
+    inline const ChannelClass& GetChannelClass() const{ return m_channelClass; }
+
+    /**
+     * Channel class, e.g. 'STANDARD'
+     */
+    inline bool ChannelClassHasBeenSet() const { return m_channelClassHasBeenSet; }
+
+    /**
+     * Channel class, e.g. 'STANDARD'
+     */
+    inline void SetChannelClass(const ChannelClass& value) { m_channelClassHasBeenSet = true; m_channelClass = value; }
+
+    /**
+     * Channel class, e.g. 'STANDARD'
+     */
+    inline void SetChannelClass(ChannelClass&& value) { m_channelClassHasBeenSet = true; m_channelClass = std::move(value); }
+
+    /**
+     * Channel class, e.g. 'STANDARD'
+     */
+    inline ReservationResourceSpecification& WithChannelClass(const ChannelClass& value) { SetChannelClass(value); return *this;}
+
+    /**
+     * Channel class, e.g. 'STANDARD'
+     */
+    inline ReservationResourceSpecification& WithChannelClass(ChannelClass&& value) { SetChannelClass(std::move(value)); return *this;}
 
 
     /**
      * Codec, e.g. 'AVC'
      */
     inline const ReservationCodec& GetCodec() const{ return m_codec; }
+
+    /**
+     * Codec, e.g. 'AVC'
+     */
+    inline bool CodecHasBeenSet() const { return m_codecHasBeenSet; }
 
     /**
      * Codec, e.g. 'AVC'
@@ -87,6 +125,11 @@ namespace Model
     /**
      * Maximum bitrate, e.g. 'MAX_20_MBPS'
      */
+    inline bool MaximumBitrateHasBeenSet() const { return m_maximumBitrateHasBeenSet; }
+
+    /**
+     * Maximum bitrate, e.g. 'MAX_20_MBPS'
+     */
     inline void SetMaximumBitrate(const ReservationMaximumBitrate& value) { m_maximumBitrateHasBeenSet = true; m_maximumBitrate = value; }
 
     /**
@@ -109,6 +152,11 @@ namespace Model
      * Maximum framerate, e.g. 'MAX_30_FPS' (Outputs only)
      */
     inline const ReservationMaximumFramerate& GetMaximumFramerate() const{ return m_maximumFramerate; }
+
+    /**
+     * Maximum framerate, e.g. 'MAX_30_FPS' (Outputs only)
+     */
+    inline bool MaximumFramerateHasBeenSet() const { return m_maximumFramerateHasBeenSet; }
 
     /**
      * Maximum framerate, e.g. 'MAX_30_FPS' (Outputs only)
@@ -139,6 +187,11 @@ namespace Model
     /**
      * Resolution, e.g. 'HD'
      */
+    inline bool ResolutionHasBeenSet() const { return m_resolutionHasBeenSet; }
+
+    /**
+     * Resolution, e.g. 'HD'
+     */
     inline void SetResolution(const ReservationResolution& value) { m_resolutionHasBeenSet = true; m_resolution = value; }
 
     /**
@@ -158,27 +211,32 @@ namespace Model
 
 
     /**
-     * Resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * Resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      */
     inline const ReservationResourceType& GetResourceType() const{ return m_resourceType; }
 
     /**
-     * Resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * Resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
+
+    /**
+     * Resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      */
     inline void SetResourceType(const ReservationResourceType& value) { m_resourceTypeHasBeenSet = true; m_resourceType = value; }
 
     /**
-     * Resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * Resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      */
     inline void SetResourceType(ReservationResourceType&& value) { m_resourceTypeHasBeenSet = true; m_resourceType = std::move(value); }
 
     /**
-     * Resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * Resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      */
     inline ReservationResourceSpecification& WithResourceType(const ReservationResourceType& value) { SetResourceType(value); return *this;}
 
     /**
-     * Resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * Resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      */
     inline ReservationResourceSpecification& WithResourceType(ReservationResourceType&& value) { SetResourceType(std::move(value)); return *this;}
 
@@ -187,6 +245,11 @@ namespace Model
      * Special feature, e.g. 'AUDIO_NORMALIZATION' (Channels only)
      */
     inline const ReservationSpecialFeature& GetSpecialFeature() const{ return m_specialFeature; }
+
+    /**
+     * Special feature, e.g. 'AUDIO_NORMALIZATION' (Channels only)
+     */
+    inline bool SpecialFeatureHasBeenSet() const { return m_specialFeatureHasBeenSet; }
 
     /**
      * Special feature, e.g. 'AUDIO_NORMALIZATION' (Channels only)
@@ -217,6 +280,11 @@ namespace Model
     /**
      * Video quality, e.g. 'STANDARD' (Outputs only)
      */
+    inline bool VideoQualityHasBeenSet() const { return m_videoQualityHasBeenSet; }
+
+    /**
+     * Video quality, e.g. 'STANDARD' (Outputs only)
+     */
     inline void SetVideoQuality(const ReservationVideoQuality& value) { m_videoQualityHasBeenSet = true; m_videoQuality = value; }
 
     /**
@@ -235,6 +303,9 @@ namespace Model
     inline ReservationResourceSpecification& WithVideoQuality(ReservationVideoQuality&& value) { SetVideoQuality(std::move(value)); return *this;}
 
   private:
+
+    ChannelClass m_channelClass;
+    bool m_channelClassHasBeenSet;
 
     ReservationCodec m_codec;
     bool m_codecHasBeenSet;

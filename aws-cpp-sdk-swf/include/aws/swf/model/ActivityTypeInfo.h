@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ActivityTypeInfo();
-    ActivityTypeInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActivityTypeInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActivityTypeInfo(Aws::Utils::Json::JsonView jsonValue);
+    ActivityTypeInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The <a>ActivityType</a> type structure representing the activity type.</p>
      */
     inline const ActivityType& GetActivityType() const{ return m_activityType; }
+
+    /**
+     * <p>The <a>ActivityType</a> type structure representing the activity type.</p>
+     */
+    inline bool ActivityTypeHasBeenSet() const { return m_activityTypeHasBeenSet; }
 
     /**
      * <p>The <a>ActivityType</a> type structure representing the activity type.</p>
@@ -83,6 +89,11 @@ namespace Model
     /**
      * <p>The current status of the activity type.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The current status of the activity type.</p>
+     */
     inline void SetStatus(const RegistrationStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -106,6 +117,12 @@ namespace Model
      * <a>RegisterActivityType</a>.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>The description of the activity type provided in
+     * <a>RegisterActivityType</a>.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>The description of the activity type provided in
@@ -154,6 +171,12 @@ namespace Model
      * <p>The date and time this activity type was created through
      * <a>RegisterActivityType</a>.</p>
      */
+    inline bool CreationDateHasBeenSet() const { return m_creationDateHasBeenSet; }
+
+    /**
+     * <p>The date and time this activity type was created through
+     * <a>RegisterActivityType</a>.</p>
+     */
     inline void SetCreationDate(const Aws::Utils::DateTime& value) { m_creationDateHasBeenSet = true; m_creationDate = value; }
 
     /**
@@ -179,6 +202,11 @@ namespace Model
      * <p>If DEPRECATED, the date and time <a>DeprecateActivityType</a> was called.</p>
      */
     inline const Aws::Utils::DateTime& GetDeprecationDate() const{ return m_deprecationDate; }
+
+    /**
+     * <p>If DEPRECATED, the date and time <a>DeprecateActivityType</a> was called.</p>
+     */
+    inline bool DeprecationDateHasBeenSet() const { return m_deprecationDateHasBeenSet; }
 
     /**
      * <p>If DEPRECATED, the date and time <a>DeprecateActivityType</a> was called.</p>

@@ -35,23 +35,25 @@ VpcLink::VpcLink() :
     m_targetArnsHasBeenSet(false),
     m_status(VpcLinkStatus::NOT_SET),
     m_statusHasBeenSet(false),
-    m_statusMessageHasBeenSet(false)
+    m_statusMessageHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-VpcLink::VpcLink(const JsonValue& jsonValue) : 
+VpcLink::VpcLink(JsonView jsonValue) : 
     m_idHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_targetArnsHasBeenSet(false),
     m_status(VpcLinkStatus::NOT_SET),
     m_statusHasBeenSet(false),
-    m_statusMessageHasBeenSet(false)
+    m_statusMessageHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-VpcLink& VpcLink::operator =(const JsonValue& jsonValue)
+VpcLink& VpcLink::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("id"))
   {
@@ -76,7 +78,7 @@ VpcLink& VpcLink::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("targetArns"))
   {
-    Array<JsonValue> targetArnsJsonList = jsonValue.GetArray("targetArns");
+    Array<JsonView> targetArnsJsonList = jsonValue.GetArray("targetArns");
     for(unsigned targetArnsIndex = 0; targetArnsIndex < targetArnsJsonList.GetLength(); ++targetArnsIndex)
     {
       m_targetArns.push_back(targetArnsJsonList[targetArnsIndex].AsString());
@@ -96,6 +98,16 @@ VpcLink& VpcLink::operator =(const JsonValue& jsonValue)
     m_statusMessage = jsonValue.GetString("statusMessage");
 
     m_statusMessageHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
   }
 
   return *this;
@@ -142,6 +154,17 @@ JsonValue VpcLink::Jsonize() const
   if(m_statusMessageHasBeenSet)
   {
    payload.WithString("statusMessage", m_statusMessage);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
 
   }
 

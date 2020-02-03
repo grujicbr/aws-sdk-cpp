@@ -30,30 +30,43 @@ namespace Model
 
 OutputGroupSettings::OutputGroupSettings() : 
     m_archiveGroupSettingsHasBeenSet(false),
+    m_frameCaptureGroupSettingsHasBeenSet(false),
     m_hlsGroupSettingsHasBeenSet(false),
+    m_mediaPackageGroupSettingsHasBeenSet(false),
     m_msSmoothGroupSettingsHasBeenSet(false),
+    m_multiplexGroupSettingsHasBeenSet(false),
     m_rtmpGroupSettingsHasBeenSet(false),
     m_udpGroupSettingsHasBeenSet(false)
 {
 }
 
-OutputGroupSettings::OutputGroupSettings(const JsonValue& jsonValue) : 
+OutputGroupSettings::OutputGroupSettings(JsonView jsonValue) : 
     m_archiveGroupSettingsHasBeenSet(false),
+    m_frameCaptureGroupSettingsHasBeenSet(false),
     m_hlsGroupSettingsHasBeenSet(false),
+    m_mediaPackageGroupSettingsHasBeenSet(false),
     m_msSmoothGroupSettingsHasBeenSet(false),
+    m_multiplexGroupSettingsHasBeenSet(false),
     m_rtmpGroupSettingsHasBeenSet(false),
     m_udpGroupSettingsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-OutputGroupSettings& OutputGroupSettings::operator =(const JsonValue& jsonValue)
+OutputGroupSettings& OutputGroupSettings::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("archiveGroupSettings"))
   {
     m_archiveGroupSettings = jsonValue.GetObject("archiveGroupSettings");
 
     m_archiveGroupSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("frameCaptureGroupSettings"))
+  {
+    m_frameCaptureGroupSettings = jsonValue.GetObject("frameCaptureGroupSettings");
+
+    m_frameCaptureGroupSettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("hlsGroupSettings"))
@@ -63,11 +76,25 @@ OutputGroupSettings& OutputGroupSettings::operator =(const JsonValue& jsonValue)
     m_hlsGroupSettingsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("mediaPackageGroupSettings"))
+  {
+    m_mediaPackageGroupSettings = jsonValue.GetObject("mediaPackageGroupSettings");
+
+    m_mediaPackageGroupSettingsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("msSmoothGroupSettings"))
   {
     m_msSmoothGroupSettings = jsonValue.GetObject("msSmoothGroupSettings");
 
     m_msSmoothGroupSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("multiplexGroupSettings"))
+  {
+    m_multiplexGroupSettings = jsonValue.GetObject("multiplexGroupSettings");
+
+    m_multiplexGroupSettingsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("rtmpGroupSettings"))
@@ -97,15 +124,33 @@ JsonValue OutputGroupSettings::Jsonize() const
 
   }
 
+  if(m_frameCaptureGroupSettingsHasBeenSet)
+  {
+   payload.WithObject("frameCaptureGroupSettings", m_frameCaptureGroupSettings.Jsonize());
+
+  }
+
   if(m_hlsGroupSettingsHasBeenSet)
   {
    payload.WithObject("hlsGroupSettings", m_hlsGroupSettings.Jsonize());
 
   }
 
+  if(m_mediaPackageGroupSettingsHasBeenSet)
+  {
+   payload.WithObject("mediaPackageGroupSettings", m_mediaPackageGroupSettings.Jsonize());
+
+  }
+
   if(m_msSmoothGroupSettingsHasBeenSet)
   {
    payload.WithObject("msSmoothGroupSettings", m_msSmoothGroupSettings.Jsonize());
+
+  }
+
+  if(m_multiplexGroupSettingsHasBeenSet)
+  {
+   payload.WithObject("multiplexGroupSettings", m_multiplexGroupSettings.Jsonize());
 
   }
 

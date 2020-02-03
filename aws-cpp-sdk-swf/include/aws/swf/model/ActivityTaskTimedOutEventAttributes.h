@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ActivityTaskTimedOutEventAttributes();
-    ActivityTaskTimedOutEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActivityTaskTimedOutEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActivityTaskTimedOutEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    ActivityTaskTimedOutEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The type of the timeout that caused this event.</p>
      */
     inline const ActivityTaskTimeoutType& GetTimeoutType() const{ return m_timeoutType; }
+
+    /**
+     * <p>The type of the timeout that caused this event.</p>
+     */
+    inline bool TimeoutTypeHasBeenSet() const { return m_timeoutTypeHasBeenSet; }
 
     /**
      * <p>The type of the timeout that caused this event.</p>
@@ -86,6 +92,13 @@ namespace Model
      * this activity task was scheduled. This information can be useful for diagnosing
      * problems by tracing back the chain of events leading up to this event.</p>
      */
+    inline bool ScheduledEventIdHasBeenSet() const { return m_scheduledEventIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the <code>ActivityTaskScheduled</code> event that was recorded when
+     * this activity task was scheduled. This information can be useful for diagnosing
+     * problems by tracing back the chain of events leading up to this event.</p>
+     */
     inline void SetScheduledEventId(long long value) { m_scheduledEventIdHasBeenSet = true; m_scheduledEventId = value; }
 
     /**
@@ -108,6 +121,13 @@ namespace Model
      * activity task was started. This information can be useful for diagnosing
      * problems by tracing back the chain of events leading up to this event.</p>
      */
+    inline bool StartedEventIdHasBeenSet() const { return m_startedEventIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the <code>ActivityTaskStarted</code> event recorded when this
+     * activity task was started. This information can be useful for diagnosing
+     * problems by tracing back the chain of events leading up to this event.</p>
+     */
     inline void SetStartedEventId(long long value) { m_startedEventIdHasBeenSet = true; m_startedEventId = value; }
 
     /**
@@ -123,6 +143,12 @@ namespace Model
      * made by the activity to <code>RecordActivityTaskHeartbeat</code>.</p>
      */
     inline const Aws::String& GetDetails() const{ return m_details; }
+
+    /**
+     * <p>Contains the content of the <code>details</code> parameter for the last call
+     * made by the activity to <code>RecordActivityTaskHeartbeat</code>.</p>
+     */
+    inline bool DetailsHasBeenSet() const { return m_detailsHasBeenSet; }
 
     /**
      * <p>Contains the content of the <code>details</code> parameter for the last call

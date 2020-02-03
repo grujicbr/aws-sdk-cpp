@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DeviceFarm
@@ -40,74 +41,95 @@ namespace Model
   {
   public:
     Radios();
-    Radios(const Aws::Utils::Json::JsonValue& jsonValue);
-    Radios& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Radios(Aws::Utils::Json::JsonView jsonValue);
+    Radios& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>True if Wi-Fi is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if Wi-Fi is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline bool GetWifi() const{ return m_wifi; }
 
     /**
-     * <p>True if Wi-Fi is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if Wi-Fi is enabled at the beginning of the test. Otherwise, false.</p>
+     */
+    inline bool WifiHasBeenSet() const { return m_wifiHasBeenSet; }
+
+    /**
+     * <p>True if Wi-Fi is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline void SetWifi(bool value) { m_wifiHasBeenSet = true; m_wifi = value; }
 
     /**
-     * <p>True if Wi-Fi is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if Wi-Fi is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline Radios& WithWifi(bool value) { SetWifi(value); return *this;}
 
 
     /**
-     * <p>True if Bluetooth is enabled at the beginning of the test; otherwise,
+     * <p>True if Bluetooth is enabled at the beginning of the test. Otherwise,
      * false.</p>
      */
     inline bool GetBluetooth() const{ return m_bluetooth; }
 
     /**
-     * <p>True if Bluetooth is enabled at the beginning of the test; otherwise,
+     * <p>True if Bluetooth is enabled at the beginning of the test. Otherwise,
+     * false.</p>
+     */
+    inline bool BluetoothHasBeenSet() const { return m_bluetoothHasBeenSet; }
+
+    /**
+     * <p>True if Bluetooth is enabled at the beginning of the test. Otherwise,
      * false.</p>
      */
     inline void SetBluetooth(bool value) { m_bluetoothHasBeenSet = true; m_bluetooth = value; }
 
     /**
-     * <p>True if Bluetooth is enabled at the beginning of the test; otherwise,
+     * <p>True if Bluetooth is enabled at the beginning of the test. Otherwise,
      * false.</p>
      */
     inline Radios& WithBluetooth(bool value) { SetBluetooth(value); return *this;}
 
 
     /**
-     * <p>True if NFC is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if NFC is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline bool GetNfc() const{ return m_nfc; }
 
     /**
-     * <p>True if NFC is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if NFC is enabled at the beginning of the test. Otherwise, false.</p>
+     */
+    inline bool NfcHasBeenSet() const { return m_nfcHasBeenSet; }
+
+    /**
+     * <p>True if NFC is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline void SetNfc(bool value) { m_nfcHasBeenSet = true; m_nfc = value; }
 
     /**
-     * <p>True if NFC is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if NFC is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline Radios& WithNfc(bool value) { SetNfc(value); return *this;}
 
 
     /**
-     * <p>True if GPS is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if GPS is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline bool GetGps() const{ return m_gps; }
 
     /**
-     * <p>True if GPS is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if GPS is enabled at the beginning of the test. Otherwise, false.</p>
+     */
+    inline bool GpsHasBeenSet() const { return m_gpsHasBeenSet; }
+
+    /**
+     * <p>True if GPS is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline void SetGps(bool value) { m_gpsHasBeenSet = true; m_gps = value; }
 
     /**
-     * <p>True if GPS is enabled at the beginning of the test; otherwise, false.</p>
+     * <p>True if GPS is enabled at the beginning of the test. Otherwise, false.</p>
      */
     inline Radios& WithGps(bool value) { SetGps(value); return *this;}
 

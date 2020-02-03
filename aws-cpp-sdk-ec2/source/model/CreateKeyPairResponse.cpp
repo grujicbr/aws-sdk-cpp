@@ -51,23 +51,31 @@ CreateKeyPairResponse& CreateKeyPairResponse::operator =(const Aws::AmazonWebSer
     XmlNode keyFingerprintNode = resultNode.FirstChild("keyFingerprint");
     if(!keyFingerprintNode.IsNull())
     {
-      m_keyFingerprint = StringUtils::Trim(keyFingerprintNode.GetText().c_str());
+      m_keyFingerprint = Aws::Utils::Xml::DecodeEscapedXmlText(keyFingerprintNode.GetText());
     }
     XmlNode keyMaterialNode = resultNode.FirstChild("keyMaterial");
     if(!keyMaterialNode.IsNull())
     {
-      m_keyMaterial = StringUtils::Trim(keyMaterialNode.GetText().c_str());
+      m_keyMaterial = Aws::Utils::Xml::DecodeEscapedXmlText(keyMaterialNode.GetText());
     }
     XmlNode keyNameNode = resultNode.FirstChild("keyName");
     if(!keyNameNode.IsNull())
     {
-      m_keyName = StringUtils::Trim(keyNameNode.GetText().c_str());
+      m_keyName = Aws::Utils::Xml::DecodeEscapedXmlText(keyNameNode.GetText());
+    }
+    XmlNode keyPairIdNode = resultNode.FirstChild("keyPairId");
+    if(!keyPairIdNode.IsNull())
+    {
+      m_keyPairId = Aws::Utils::Xml::DecodeEscapedXmlText(keyPairIdNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::CreateKeyPairResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

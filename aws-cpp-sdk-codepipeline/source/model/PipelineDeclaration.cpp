@@ -32,16 +32,18 @@ PipelineDeclaration::PipelineDeclaration() :
     m_nameHasBeenSet(false),
     m_roleArnHasBeenSet(false),
     m_artifactStoreHasBeenSet(false),
+    m_artifactStoresHasBeenSet(false),
     m_stagesHasBeenSet(false),
     m_version(0),
     m_versionHasBeenSet(false)
 {
 }
 
-PipelineDeclaration::PipelineDeclaration(const JsonValue& jsonValue) : 
+PipelineDeclaration::PipelineDeclaration(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_roleArnHasBeenSet(false),
     m_artifactStoreHasBeenSet(false),
+    m_artifactStoresHasBeenSet(false),
     m_stagesHasBeenSet(false),
     m_version(0),
     m_versionHasBeenSet(false)
@@ -49,7 +51,7 @@ PipelineDeclaration::PipelineDeclaration(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-PipelineDeclaration& PipelineDeclaration::operator =(const JsonValue& jsonValue)
+PipelineDeclaration& PipelineDeclaration::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -72,9 +74,19 @@ PipelineDeclaration& PipelineDeclaration::operator =(const JsonValue& jsonValue)
     m_artifactStoreHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("artifactStores"))
+  {
+    Aws::Map<Aws::String, JsonView> artifactStoresJsonMap = jsonValue.GetObject("artifactStores").GetAllObjects();
+    for(auto& artifactStoresItem : artifactStoresJsonMap)
+    {
+      m_artifactStores[artifactStoresItem.first] = artifactStoresItem.second.AsObject();
+    }
+    m_artifactStoresHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("stages"))
   {
-    Array<JsonValue> stagesJsonList = jsonValue.GetArray("stages");
+    Array<JsonView> stagesJsonList = jsonValue.GetArray("stages");
     for(unsigned stagesIndex = 0; stagesIndex < stagesJsonList.GetLength(); ++stagesIndex)
     {
       m_stages.push_back(stagesJsonList[stagesIndex].AsObject());
@@ -111,6 +123,17 @@ JsonValue PipelineDeclaration::Jsonize() const
   if(m_artifactStoreHasBeenSet)
   {
    payload.WithObject("artifactStore", m_artifactStore.Jsonize());
+
+  }
+
+  if(m_artifactStoresHasBeenSet)
+  {
+   JsonValue artifactStoresJsonMap;
+   for(auto& artifactStoresItem : m_artifactStores)
+   {
+     artifactStoresJsonMap.WithObject(artifactStoresItem.first, artifactStoresItem.second.Jsonize());
+   }
+   payload.WithObject("artifactStores", std::move(artifactStoresJsonMap));
 
   }
 

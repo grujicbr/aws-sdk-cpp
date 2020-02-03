@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ACMPCA
@@ -49,8 +50,8 @@ namespace Model
   {
   public:
     ASN1Subject();
-    ASN1Subject(const Aws::Utils::Json::JsonValue& jsonValue);
-    ASN1Subject& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ASN1Subject(Aws::Utils::Json::JsonView jsonValue);
+    ASN1Subject& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +60,12 @@ namespace Model
      * located.</p>
      */
     inline const Aws::String& GetCountry() const{ return m_country; }
+
+    /**
+     * <p>Two-digit code that specifies the country in which the certificate subject
+     * located.</p>
+     */
+    inline bool CountryHasBeenSet() const { return m_countryHasBeenSet; }
 
     /**
      * <p>Two-digit code that specifies the country in which the certificate subject
@@ -107,6 +114,12 @@ namespace Model
      * <p>Legal name of the organization with which the certificate subject is
      * affiliated. </p>
      */
+    inline bool OrganizationHasBeenSet() const { return m_organizationHasBeenSet; }
+
+    /**
+     * <p>Legal name of the organization with which the certificate subject is
+     * affiliated. </p>
+     */
     inline void SetOrganization(const Aws::String& value) { m_organizationHasBeenSet = true; m_organization = value; }
 
     /**
@@ -145,6 +158,12 @@ namespace Model
      * which the certificate subject is affiliated.</p>
      */
     inline const Aws::String& GetOrganizationalUnit() const{ return m_organizationalUnit; }
+
+    /**
+     * <p>A subdivision or unit of the organization (such as sales or finance) with
+     * which the certificate subject is affiliated.</p>
+     */
+    inline bool OrganizationalUnitHasBeenSet() const { return m_organizationalUnitHasBeenSet; }
 
     /**
      * <p>A subdivision or unit of the organization (such as sales or finance) with
@@ -191,6 +210,11 @@ namespace Model
     /**
      * <p>Disambiguating information for the certificate subject.</p>
      */
+    inline bool DistinguishedNameQualifierHasBeenSet() const { return m_distinguishedNameQualifierHasBeenSet; }
+
+    /**
+     * <p>Disambiguating information for the certificate subject.</p>
+     */
     inline void SetDistinguishedNameQualifier(const Aws::String& value) { m_distinguishedNameQualifierHasBeenSet = true; m_distinguishedNameQualifier = value; }
 
     /**
@@ -223,6 +247,11 @@ namespace Model
      * <p>State in which the subject of the certificate is located.</p>
      */
     inline const Aws::String& GetState() const{ return m_state; }
+
+    /**
+     * <p>State in which the subject of the certificate is located.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>State in which the subject of the certificate is located.</p>
@@ -260,6 +289,12 @@ namespace Model
      * subject.</p>
      */
     inline const Aws::String& GetCommonName() const{ return m_commonName; }
+
+    /**
+     * <p>Fully qualified domain name (FQDN) associated with the certificate
+     * subject.</p>
+     */
+    inline bool CommonNameHasBeenSet() const { return m_commonNameHasBeenSet; }
 
     /**
      * <p>Fully qualified domain name (FQDN) associated with the certificate
@@ -306,6 +341,11 @@ namespace Model
     /**
      * <p>The certificate serial number.</p>
      */
+    inline bool SerialNumberHasBeenSet() const { return m_serialNumberHasBeenSet; }
+
+    /**
+     * <p>The certificate serial number.</p>
+     */
     inline void SetSerialNumber(const Aws::String& value) { m_serialNumberHasBeenSet = true; m_serialNumber = value; }
 
     /**
@@ -339,6 +379,12 @@ namespace Model
      * located.</p>
      */
     inline const Aws::String& GetLocality() const{ return m_locality; }
+
+    /**
+     * <p>The locality (such as a city or town) in which the certificate subject is
+     * located.</p>
+     */
+    inline bool LocalityHasBeenSet() const { return m_localityHasBeenSet; }
 
     /**
      * <p>The locality (such as a city or town) in which the certificate subject is
@@ -387,6 +433,12 @@ namespace Model
      * <p>A title such as Mr. or Ms., which is pre-pended to the name to refer formally
      * to the certificate subject.</p>
      */
+    inline bool TitleHasBeenSet() const { return m_titleHasBeenSet; }
+
+    /**
+     * <p>A title such as Mr. or Ms., which is pre-pended to the name to refer formally
+     * to the certificate subject.</p>
+     */
     inline void SetTitle(const Aws::String& value) { m_titleHasBeenSet = true; m_title = value; }
 
     /**
@@ -425,6 +477,12 @@ namespace Model
      * is ordered last. In Asian cultures the surname is typically ordered first.</p>
      */
     inline const Aws::String& GetSurname() const{ return m_surname; }
+
+    /**
+     * <p>Family name. In the US and the UK, for example, the surname of an individual
+     * is ordered last. In Asian cultures the surname is typically ordered first.</p>
+     */
+    inline bool SurnameHasBeenSet() const { return m_surnameHasBeenSet; }
 
     /**
      * <p>Family name. In the US and the UK, for example, the surname of an individual
@@ -471,6 +529,11 @@ namespace Model
     /**
      * <p>First name.</p>
      */
+    inline bool GivenNameHasBeenSet() const { return m_givenNameHasBeenSet; }
+
+    /**
+     * <p>First name.</p>
+     */
     inline void SetGivenName(const Aws::String& value) { m_givenNameHasBeenSet = true; m_givenName = value; }
 
     /**
@@ -505,6 +568,13 @@ namespace Model
      * first letter of the <b>SurName</b>.</p>
      */
     inline const Aws::String& GetInitials() const{ return m_initials; }
+
+    /**
+     * <p>Concatenation that typically contains the first letter of the
+     * <b>GivenName</b>, the first letter of the middle name if one exists, and the
+     * first letter of the <b>SurName</b>.</p>
+     */
+    inline bool InitialsHasBeenSet() const { return m_initialsHasBeenSet; }
 
     /**
      * <p>Concatenation that typically contains the first letter of the
@@ -561,6 +631,13 @@ namespace Model
      * Jonathan is often shortened to John. Elizabeth is often shortened to Beth, Liz,
      * or Eliza.</p>
      */
+    inline bool PseudonymHasBeenSet() const { return m_pseudonymHasBeenSet; }
+
+    /**
+     * <p>Typically a shortened version of a longer <b>GivenName</b>. For example,
+     * Jonathan is often shortened to John. Elizabeth is often shortened to Beth, Liz,
+     * or Eliza.</p>
+     */
     inline void SetPseudonym(const Aws::String& value) { m_pseudonymHasBeenSet = true; m_pseudonym = value; }
 
     /**
@@ -604,6 +681,12 @@ namespace Model
      * Jr. for junior, Sr. for senior, and III for third.</p>
      */
     inline const Aws::String& GetGenerationQualifier() const{ return m_generationQualifier; }
+
+    /**
+     * <p>Typically a qualifier appended to the name of an individual. Examples include
+     * Jr. for junior, Sr. for senior, and III for third.</p>
+     */
+    inline bool GenerationQualifierHasBeenSet() const { return m_generationQualifierHasBeenSet; }
 
     /**
      * <p>Typically a qualifier appended to the name of an individual. Examples include

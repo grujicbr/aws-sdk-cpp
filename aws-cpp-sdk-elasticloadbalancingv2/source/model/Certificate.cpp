@@ -54,13 +54,13 @@ Certificate& Certificate::operator =(const XmlNode& xmlNode)
     XmlNode certificateArnNode = resultNode.FirstChild("CertificateArn");
     if(!certificateArnNode.IsNull())
     {
-      m_certificateArn = StringUtils::Trim(certificateArnNode.GetText().c_str());
+      m_certificateArn = Aws::Utils::Xml::DecodeEscapedXmlText(certificateArnNode.GetText());
       m_certificateArnHasBeenSet = true;
     }
     XmlNode isDefaultNode = resultNode.FirstChild("IsDefault");
     if(!isDefaultNode.IsNull())
     {
-      m_isDefault = StringUtils::ConvertToBool(StringUtils::Trim(isDefaultNode.GetText().c_str()).c_str());
+      m_isDefault = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isDefaultNode.GetText()).c_str()).c_str());
       m_isDefaultHasBeenSet = true;
     }
   }

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ConfigService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     EvaluationResultQualifier();
-    EvaluationResultQualifier(const Aws::Utils::Json::JsonValue& jsonValue);
-    EvaluationResultQualifier& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EvaluationResultQualifier(Aws::Utils::Json::JsonView jsonValue);
+    EvaluationResultQualifier& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the AWS Config rule that was used in the evaluation.</p>
      */
     inline const Aws::String& GetConfigRuleName() const{ return m_configRuleName; }
+
+    /**
+     * <p>The name of the AWS Config rule that was used in the evaluation.</p>
+     */
+    inline bool ConfigRuleNameHasBeenSet() const { return m_configRuleNameHasBeenSet; }
 
     /**
      * <p>The name of the AWS Config rule that was used in the evaluation.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The type of AWS resource that was evaluated.</p>
      */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
+
+    /**
+     * <p>The type of AWS resource that was evaluated.</p>
+     */
     inline void SetResourceType(const Aws::String& value) { m_resourceTypeHasBeenSet = true; m_resourceType = value; }
 
     /**
@@ -124,6 +135,11 @@ namespace Model
      * <p>The ID of the evaluated AWS resource.</p>
      */
     inline const Aws::String& GetResourceId() const{ return m_resourceId; }
+
+    /**
+     * <p>The ID of the evaluated AWS resource.</p>
+     */
+    inline bool ResourceIdHasBeenSet() const { return m_resourceIdHasBeenSet; }
 
     /**
      * <p>The ID of the evaluated AWS resource.</p>

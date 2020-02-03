@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     S3Action();
-    S3Action(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3Action& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3Action(Aws::Utils::Json::JsonView jsonValue);
+    S3Action& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The ARN of the IAM role that grants access.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The ARN of the IAM role that grants access.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The ARN of the IAM role that grants access.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The Amazon S3 bucket.</p>
      */
+    inline bool BucketNameHasBeenSet() const { return m_bucketNameHasBeenSet; }
+
+    /**
+     * <p>The Amazon S3 bucket.</p>
+     */
     inline void SetBucketName(const Aws::String& value) { m_bucketNameHasBeenSet = true; m_bucketName = value; }
 
     /**
@@ -128,6 +139,11 @@ namespace Model
     /**
      * <p>The object key.</p>
      */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
+
+    /**
+     * <p>The object key.</p>
+     */
     inline void SetKey(const Aws::String& value) { m_keyHasBeenSet = true; m_key = value; }
 
     /**
@@ -159,7 +175,7 @@ namespace Model
     /**
      * <p>The Amazon S3 canned ACL that controls access to the object identified by the
      * object key. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
      * canned ACLs</a>.</p>
      */
     inline const CannedAccessControlList& GetCannedAcl() const{ return m_cannedAcl; }
@@ -167,7 +183,15 @@ namespace Model
     /**
      * <p>The Amazon S3 canned ACL that controls access to the object identified by the
      * object key. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
+     * canned ACLs</a>.</p>
+     */
+    inline bool CannedAclHasBeenSet() const { return m_cannedAclHasBeenSet; }
+
+    /**
+     * <p>The Amazon S3 canned ACL that controls access to the object identified by the
+     * object key. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
      * canned ACLs</a>.</p>
      */
     inline void SetCannedAcl(const CannedAccessControlList& value) { m_cannedAclHasBeenSet = true; m_cannedAcl = value; }
@@ -175,7 +199,7 @@ namespace Model
     /**
      * <p>The Amazon S3 canned ACL that controls access to the object identified by the
      * object key. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
      * canned ACLs</a>.</p>
      */
     inline void SetCannedAcl(CannedAccessControlList&& value) { m_cannedAclHasBeenSet = true; m_cannedAcl = std::move(value); }
@@ -183,7 +207,7 @@ namespace Model
     /**
      * <p>The Amazon S3 canned ACL that controls access to the object identified by the
      * object key. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
      * canned ACLs</a>.</p>
      */
     inline S3Action& WithCannedAcl(const CannedAccessControlList& value) { SetCannedAcl(value); return *this;}
@@ -191,7 +215,7 @@ namespace Model
     /**
      * <p>The Amazon S3 canned ACL that controls access to the object identified by the
      * object key. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">S3
      * canned ACLs</a>.</p>
      */
     inline S3Action& WithCannedAcl(CannedAccessControlList&& value) { SetCannedAcl(std::move(value)); return *this;}

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Principal();
-    Principal(const Aws::Utils::Json::JsonValue& jsonValue);
-    Principal& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Principal(Aws::Utils::Json::JsonView jsonValue);
+    Principal& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ARN of the principal (IAM user, role, or group).</p>
      */
     inline const Aws::String& GetPrincipalARN() const{ return m_principalARN; }
+
+    /**
+     * <p>The ARN of the principal (IAM user, role, or group).</p>
+     */
+    inline bool PrincipalARNHasBeenSet() const { return m_principalARNHasBeenSet; }
 
     /**
      * <p>The ARN of the principal (IAM user, role, or group).</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The principal type. The supported value is <code>IAM</code>.</p>
      */
     inline const PrincipalType& GetPrincipalType() const{ return m_principalType; }
+
+    /**
+     * <p>The principal type. The supported value is <code>IAM</code>.</p>
+     */
+    inline bool PrincipalTypeHasBeenSet() const { return m_principalTypeHasBeenSet; }
 
     /**
      * <p>The principal type. The supported value is <code>IAM</code>.</p>

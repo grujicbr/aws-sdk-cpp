@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Principal();
-    Principal(const Aws::Utils::Json::JsonValue& jsonValue);
-    Principal& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Principal(Aws::Utils::Json::JsonView jsonValue);
+    Principal& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The ID of the resource.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the resource.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the resource.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The type of resource.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The type of resource.</p>
+     */
     inline void SetType(const PrincipalType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -115,6 +126,11 @@ namespace Model
      * <p>The permission information for the resource.</p>
      */
     inline const Aws::Vector<PermissionInfo>& GetRoles() const{ return m_roles; }
+
+    /**
+     * <p>The permission information for the resource.</p>
+     */
+    inline bool RolesHasBeenSet() const { return m_rolesHasBeenSet; }
 
     /**
      * <p>The permission information for the resource.</p>

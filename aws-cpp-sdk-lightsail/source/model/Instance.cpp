@@ -36,9 +36,11 @@ Instance::Instance() :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_blueprintIdHasBeenSet(false),
     m_blueprintNameHasBeenSet(false),
     m_bundleIdHasBeenSet(false),
+    m_addOnsHasBeenSet(false),
     m_isStaticIp(false),
     m_isStaticIpHasBeenSet(false),
     m_privateIpAddressHasBeenSet(false),
@@ -52,7 +54,7 @@ Instance::Instance() :
 {
 }
 
-Instance::Instance(const JsonValue& jsonValue) : 
+Instance::Instance(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_supportCodeHasBeenSet(false),
@@ -60,9 +62,11 @@ Instance::Instance(const JsonValue& jsonValue) :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_blueprintIdHasBeenSet(false),
     m_blueprintNameHasBeenSet(false),
     m_bundleIdHasBeenSet(false),
+    m_addOnsHasBeenSet(false),
     m_isStaticIp(false),
     m_isStaticIpHasBeenSet(false),
     m_privateIpAddressHasBeenSet(false),
@@ -77,7 +81,7 @@ Instance::Instance(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Instance& Instance::operator =(const JsonValue& jsonValue)
+Instance& Instance::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -121,6 +125,16 @@ Instance& Instance::operator =(const JsonValue& jsonValue)
     m_resourceTypeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("blueprintId"))
   {
     m_blueprintId = jsonValue.GetString("blueprintId");
@@ -140,6 +154,16 @@ Instance& Instance::operator =(const JsonValue& jsonValue)
     m_bundleId = jsonValue.GetString("bundleId");
 
     m_bundleIdHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("addOns"))
+  {
+    Array<JsonView> addOnsJsonList = jsonValue.GetArray("addOns");
+    for(unsigned addOnsIndex = 0; addOnsIndex < addOnsJsonList.GetLength(); ++addOnsIndex)
+    {
+      m_addOns.push_back(addOnsJsonList[addOnsIndex].AsObject());
+    }
+    m_addOnsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("isStaticIp"))
@@ -246,6 +270,17 @@ JsonValue Instance::Jsonize() const
    payload.WithString("resourceType", ResourceTypeMapper::GetNameForResourceType(m_resourceType));
   }
 
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
   if(m_blueprintIdHasBeenSet)
   {
    payload.WithString("blueprintId", m_blueprintId);
@@ -261,6 +296,17 @@ JsonValue Instance::Jsonize() const
   if(m_bundleIdHasBeenSet)
   {
    payload.WithString("bundleId", m_bundleId);
+
+  }
+
+  if(m_addOnsHasBeenSet)
+  {
+   Array<JsonValue> addOnsJsonList(m_addOns.size());
+   for(unsigned addOnsIndex = 0; addOnsIndex < addOnsJsonList.GetLength(); ++addOnsIndex)
+   {
+     addOnsJsonList[addOnsIndex].AsObject(m_addOns[addOnsIndex].Jsonize());
+   }
+   payload.WithArray("addOns", std::move(addOnsJsonList));
 
   }
 

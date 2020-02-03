@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     DescribeScheduledActionsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,6 +52,11 @@ namespace Model
      * <p>The name of the Auto Scaling group.</p>
      */
     inline const Aws::String& GetAutoScalingGroupName() const{ return m_autoScalingGroupName; }
+
+    /**
+     * <p>The name of the Auto Scaling group.</p>
+     */
+    inline bool AutoScalingGroupNameHasBeenSet() const { return m_autoScalingGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the Auto Scaling group.</p>
@@ -85,82 +90,65 @@ namespace Model
 
 
     /**
-     * <p>Describes one or more scheduled actions. If you omit this parameter, all
-     * scheduled actions are described. If you specify an unknown scheduled action, it
-     * is ignored with no error.</p> <p>You can describe up to a maximum of 50
-     * instances with a single call. If there are more items to return, the call
-     * returns a token. To get the next set of items, repeat the call with the returned
-     * token.</p>
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
      */
     inline const Aws::Vector<Aws::String>& GetScheduledActionNames() const{ return m_scheduledActionNames; }
 
     /**
-     * <p>Describes one or more scheduled actions. If you omit this parameter, all
-     * scheduled actions are described. If you specify an unknown scheduled action, it
-     * is ignored with no error.</p> <p>You can describe up to a maximum of 50
-     * instances with a single call. If there are more items to return, the call
-     * returns a token. To get the next set of items, repeat the call with the returned
-     * token.</p>
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
+     */
+    inline bool ScheduledActionNamesHasBeenSet() const { return m_scheduledActionNamesHasBeenSet; }
+
+    /**
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
      */
     inline void SetScheduledActionNames(const Aws::Vector<Aws::String>& value) { m_scheduledActionNamesHasBeenSet = true; m_scheduledActionNames = value; }
 
     /**
-     * <p>Describes one or more scheduled actions. If you omit this parameter, all
-     * scheduled actions are described. If you specify an unknown scheduled action, it
-     * is ignored with no error.</p> <p>You can describe up to a maximum of 50
-     * instances with a single call. If there are more items to return, the call
-     * returns a token. To get the next set of items, repeat the call with the returned
-     * token.</p>
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
      */
     inline void SetScheduledActionNames(Aws::Vector<Aws::String>&& value) { m_scheduledActionNamesHasBeenSet = true; m_scheduledActionNames = std::move(value); }
 
     /**
-     * <p>Describes one or more scheduled actions. If you omit this parameter, all
-     * scheduled actions are described. If you specify an unknown scheduled action, it
-     * is ignored with no error.</p> <p>You can describe up to a maximum of 50
-     * instances with a single call. If there are more items to return, the call
-     * returns a token. To get the next set of items, repeat the call with the returned
-     * token.</p>
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
      */
     inline DescribeScheduledActionsRequest& WithScheduledActionNames(const Aws::Vector<Aws::String>& value) { SetScheduledActionNames(value); return *this;}
 
     /**
-     * <p>Describes one or more scheduled actions. If you omit this parameter, all
-     * scheduled actions are described. If you specify an unknown scheduled action, it
-     * is ignored with no error.</p> <p>You can describe up to a maximum of 50
-     * instances with a single call. If there are more items to return, the call
-     * returns a token. To get the next set of items, repeat the call with the returned
-     * token.</p>
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
      */
     inline DescribeScheduledActionsRequest& WithScheduledActionNames(Aws::Vector<Aws::String>&& value) { SetScheduledActionNames(std::move(value)); return *this;}
 
     /**
-     * <p>Describes one or more scheduled actions. If you omit this parameter, all
-     * scheduled actions are described. If you specify an unknown scheduled action, it
-     * is ignored with no error.</p> <p>You can describe up to a maximum of 50
-     * instances with a single call. If there are more items to return, the call
-     * returns a token. To get the next set of items, repeat the call with the returned
-     * token.</p>
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
      */
     inline DescribeScheduledActionsRequest& AddScheduledActionNames(const Aws::String& value) { m_scheduledActionNamesHasBeenSet = true; m_scheduledActionNames.push_back(value); return *this; }
 
     /**
-     * <p>Describes one or more scheduled actions. If you omit this parameter, all
-     * scheduled actions are described. If you specify an unknown scheduled action, it
-     * is ignored with no error.</p> <p>You can describe up to a maximum of 50
-     * instances with a single call. If there are more items to return, the call
-     * returns a token. To get the next set of items, repeat the call with the returned
-     * token.</p>
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
      */
     inline DescribeScheduledActionsRequest& AddScheduledActionNames(Aws::String&& value) { m_scheduledActionNamesHasBeenSet = true; m_scheduledActionNames.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>Describes one or more scheduled actions. If you omit this parameter, all
-     * scheduled actions are described. If you specify an unknown scheduled action, it
-     * is ignored with no error.</p> <p>You can describe up to a maximum of 50
-     * instances with a single call. If there are more items to return, the call
-     * returns a token. To get the next set of items, repeat the call with the returned
-     * token.</p>
+     * <p>The names of one or more scheduled actions. You can specify up to 50 actions.
+     * If you omit this parameter, all scheduled actions are described. If you specify
+     * an unknown scheduled action, it is ignored with no error.</p>
      */
     inline DescribeScheduledActionsRequest& AddScheduledActionNames(const char* value) { m_scheduledActionNamesHasBeenSet = true; m_scheduledActionNames.push_back(value); return *this; }
 
@@ -170,6 +158,12 @@ namespace Model
      * provided, this parameter is ignored.</p>
      */
     inline const Aws::Utils::DateTime& GetStartTime() const{ return m_startTime; }
+
+    /**
+     * <p>The earliest scheduled start time to return. If scheduled action names are
+     * provided, this parameter is ignored.</p>
+     */
+    inline bool StartTimeHasBeenSet() const { return m_startTimeHasBeenSet; }
 
     /**
      * <p>The earliest scheduled start time to return. If scheduled action names are
@@ -206,6 +200,12 @@ namespace Model
      * <p>The latest scheduled start time to return. If scheduled action names are
      * provided, this parameter is ignored.</p>
      */
+    inline bool EndTimeHasBeenSet() const { return m_endTimeHasBeenSet; }
+
+    /**
+     * <p>The latest scheduled start time to return. If scheduled action names are
+     * provided, this parameter is ignored.</p>
+     */
     inline void SetEndTime(const Aws::Utils::DateTime& value) { m_endTimeHasBeenSet = true; m_endTime = value; }
 
     /**
@@ -232,6 +232,12 @@ namespace Model
      * a previous call.)</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The token for the next set of items to return. (You received this token from
+     * a previous call.)</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
@@ -271,20 +277,26 @@ namespace Model
 
 
     /**
-     * <p>The maximum number of items to return with this call. The default value is 50
-     * and the maximum value is 100.</p>
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>50</code> and the maximum value is <code>100</code>.</p>
      */
     inline int GetMaxRecords() const{ return m_maxRecords; }
 
     /**
-     * <p>The maximum number of items to return with this call. The default value is 50
-     * and the maximum value is 100.</p>
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>50</code> and the maximum value is <code>100</code>.</p>
+     */
+    inline bool MaxRecordsHasBeenSet() const { return m_maxRecordsHasBeenSet; }
+
+    /**
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>50</code> and the maximum value is <code>100</code>.</p>
      */
     inline void SetMaxRecords(int value) { m_maxRecordsHasBeenSet = true; m_maxRecords = value; }
 
     /**
-     * <p>The maximum number of items to return with this call. The default value is 50
-     * and the maximum value is 100.</p>
+     * <p>The maximum number of items to return with this call. The default value is
+     * <code>50</code> and the maximum value is <code>100</code>.</p>
      */
     inline DescribeScheduledActionsRequest& WithMaxRecords(int value) { SetMaxRecords(value); return *this;}
 

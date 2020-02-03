@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     LambdaAction();
-    LambdaAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    LambdaAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LambdaAction(Aws::Utils::Json::JsonView jsonValue);
+    LambdaAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ARN of the Lambda function.</p>
      */
     inline const Aws::String& GetFunctionArn() const{ return m_functionArn; }
+
+    /**
+     * <p>The ARN of the Lambda function.</p>
+     */
+    inline bool FunctionArnHasBeenSet() const { return m_functionArnHasBeenSet; }
 
     /**
      * <p>The ARN of the Lambda function.</p>

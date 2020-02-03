@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Message();
-    Message(const Aws::Utils::Json::JsonValue& jsonValue);
-    Message& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Message(Aws::Utils::Json::JsonView jsonValue);
+    Message& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The content type of the message string.</p>
      */
     inline const ContentType& GetContentType() const{ return m_contentType; }
+
+    /**
+     * <p>The content type of the message string.</p>
+     */
+    inline bool ContentTypeHasBeenSet() const { return m_contentTypeHasBeenSet; }
 
     /**
      * <p>The content type of the message string.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The text of the message.</p>
      */
     inline const Aws::String& GetContent() const{ return m_content; }
+
+    /**
+     * <p>The text of the message.</p>
+     */
+    inline bool ContentHasBeenSet() const { return m_contentHasBeenSet; }
 
     /**
      * <p>The text of the message.</p>
@@ -116,6 +127,13 @@ namespace Model
      * response.</p>
      */
     inline int GetGroupNumber() const{ return m_groupNumber; }
+
+    /**
+     * <p>Identifies the message group that the message belongs to. When a group is
+     * assigned to a message, Amazon Lex returns one message from each group in the
+     * response.</p>
+     */
+    inline bool GroupNumberHasBeenSet() const { return m_groupNumberHasBeenSet; }
 
     /**
      * <p>Identifies the message group that the message belongs to. When a group is

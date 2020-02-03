@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudTrail
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     LookupAttribute();
-    LookupAttribute(const Aws::Utils::Json::JsonValue& jsonValue);
-    LookupAttribute& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LookupAttribute(Aws::Utils::Json::JsonView jsonValue);
+    LookupAttribute& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Specifies an attribute on which to filter the events returned.</p>
      */
     inline const LookupAttributeKey& GetAttributeKey() const{ return m_attributeKey; }
+
+    /**
+     * <p>Specifies an attribute on which to filter the events returned.</p>
+     */
+    inline bool AttributeKeyHasBeenSet() const { return m_attributeKeyHasBeenSet; }
 
     /**
      * <p>Specifies an attribute on which to filter the events returned.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>Specifies a value for the specified AttributeKey.</p>
      */
     inline const Aws::String& GetAttributeValue() const{ return m_attributeValue; }
+
+    /**
+     * <p>Specifies a value for the specified AttributeKey.</p>
+     */
+    inline bool AttributeValueHasBeenSet() const { return m_attributeValueHasBeenSet; }
 
     /**
      * <p>Specifies a value for the specified AttributeKey.</p>

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     PortInfo();
-    PortInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    PortInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PortInfo(Aws::Utils::Json::JsonView jsonValue);
+    PortInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The first port in the range.</p>
      */
     inline int GetFromPort() const{ return m_fromPort; }
+
+    /**
+     * <p>The first port in the range.</p>
+     */
+    inline bool FromPortHasBeenSet() const { return m_fromPortHasBeenSet; }
 
     /**
      * <p>The first port in the range.</p>
@@ -71,6 +77,11 @@ namespace Model
     /**
      * <p>The last port in the range.</p>
      */
+    inline bool ToPortHasBeenSet() const { return m_toPortHasBeenSet; }
+
+    /**
+     * <p>The last port in the range.</p>
+     */
     inline void SetToPort(int value) { m_toPortHasBeenSet = true; m_toPort = value; }
 
     /**
@@ -83,6 +94,11 @@ namespace Model
      * <p>The protocol. </p>
      */
     inline const NetworkProtocol& GetProtocol() const{ return m_protocol; }
+
+    /**
+     * <p>The protocol. </p>
+     */
+    inline bool ProtocolHasBeenSet() const { return m_protocolHasBeenSet; }
 
     /**
      * <p>The protocol. </p>

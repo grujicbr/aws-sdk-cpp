@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BatchListObjectPolicies();
-    BatchListObjectPolicies(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchListObjectPolicies& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchListObjectPolicies(Aws::Utils::Json::JsonView jsonValue);
+    BatchListObjectPolicies& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The reference that identifies the object whose attributes will be listed.</p>
      */
     inline const ObjectReference& GetObjectReference() const{ return m_objectReference; }
+
+    /**
+     * <p>The reference that identifies the object whose attributes will be listed.</p>
+     */
+    inline bool ObjectReferenceHasBeenSet() const { return m_objectReferenceHasBeenSet; }
 
     /**
      * <p>The reference that identifies the object whose attributes will be listed.</p>
@@ -79,6 +85,11 @@ namespace Model
      * <p>The pagination token.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The pagination token.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The pagination token.</p>
@@ -115,6 +126,11 @@ namespace Model
      * <p>The maximum number of results to retrieve.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>The maximum number of results to retrieve.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>The maximum number of results to retrieve.</p>

@@ -69,11 +69,13 @@ Run::Run() :
     m_customerArtifactPathsHasBeenSet(false),
     m_webUrlHasBeenSet(false),
     m_skipAppResign(false),
-    m_skipAppResignHasBeenSet(false)
+    m_skipAppResignHasBeenSet(false),
+    m_testSpecArnHasBeenSet(false),
+    m_deviceSelectionResultHasBeenSet(false)
 {
 }
 
-Run::Run(const JsonValue& jsonValue) : 
+Run::Run(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
     m_nameHasBeenSet(false),
     m_type(TestType::NOT_SET),
@@ -114,12 +116,14 @@ Run::Run(const JsonValue& jsonValue) :
     m_customerArtifactPathsHasBeenSet(false),
     m_webUrlHasBeenSet(false),
     m_skipAppResign(false),
-    m_skipAppResignHasBeenSet(false)
+    m_skipAppResignHasBeenSet(false),
+    m_testSpecArnHasBeenSet(false),
+    m_deviceSelectionResultHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Run& Run::operator =(const JsonValue& jsonValue)
+Run& Run::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("arn"))
   {
@@ -324,6 +328,20 @@ Run& Run::operator =(const JsonValue& jsonValue)
     m_skipAppResignHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("testSpecArn"))
+  {
+    m_testSpecArn = jsonValue.GetString("testSpecArn");
+
+    m_testSpecArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("deviceSelectionResult"))
+  {
+    m_deviceSelectionResult = jsonValue.GetObject("deviceSelectionResult");
+
+    m_deviceSelectionResultHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -493,6 +511,18 @@ JsonValue Run::Jsonize() const
   if(m_skipAppResignHasBeenSet)
   {
    payload.WithBool("skipAppResign", m_skipAppResign);
+
+  }
+
+  if(m_testSpecArnHasBeenSet)
+  {
+   payload.WithString("testSpecArn", m_testSpecArn);
+
+  }
+
+  if(m_deviceSelectionResultHasBeenSet)
+  {
+   payload.WithObject("deviceSelectionResult", m_deviceSelectionResult.Jsonize());
 
   }
 

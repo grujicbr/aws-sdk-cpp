@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     S3Resource();
-    S3Resource(const Aws::Utils::Json::JsonValue& jsonValue);
-    S3Resource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    S3Resource(Aws::Utils::Json::JsonView jsonValue);
+    S3Resource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of an Amazon S3 bucket.</p>
      */
     inline const Aws::String& GetBucketArn() const{ return m_bucketArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of an Amazon S3 bucket.</p>
+     */
+    inline bool BucketArnHasBeenSet() const { return m_bucketArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of an Amazon S3 bucket.</p>
@@ -95,6 +101,14 @@ namespace Model
      * <code>EndMarker</code>, or both. Ranges are UTF-8 binary sorted.</p>
      */
     inline const KeyRange& GetKeyRange() const{ return m_keyRange; }
+
+    /**
+     * <p>For export jobs, you can provide an optional <code>KeyRange</code> within a
+     * specific Amazon S3 bucket. The length of the range is defined at job creation,
+     * and has either an inclusive <code>BeginMarker</code>, an inclusive
+     * <code>EndMarker</code>, or both. Ranges are UTF-8 binary sorted.</p>
+     */
+    inline bool KeyRangeHasBeenSet() const { return m_keyRangeHasBeenSet; }
 
     /**
      * <p>For export jobs, you can provide an optional <code>KeyRange</code> within a

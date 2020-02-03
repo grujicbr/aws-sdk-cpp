@@ -50,7 +50,7 @@ AttributeValue& AttributeValue::operator =(const XmlNode& xmlNode)
     XmlNode valueNode = resultNode.FirstChild("value");
     if(!valueNode.IsNull())
     {
-      m_value = StringUtils::Trim(valueNode.GetText().c_str());
+      m_value = Aws::Utils::Xml::DecodeEscapedXmlText(valueNode.GetText());
       m_valueHasBeenSet = true;
     }
   }

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ProductViewSummary();
-    ProductViewSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProductViewSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProductViewSummary(Aws::Utils::Json::JsonView jsonValue);
+    ProductViewSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The product view identifier.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The product view identifier.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The product view identifier.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The product identifier.</p>
      */
+    inline bool ProductIdHasBeenSet() const { return m_productIdHasBeenSet; }
+
+    /**
+     * <p>The product identifier.</p>
+     */
     inline void SetProductId(const Aws::String& value) { m_productIdHasBeenSet = true; m_productId = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The name of the product.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the product.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the product.</p>
@@ -160,6 +176,12 @@ namespace Model
      * significance of this value.</p>
      */
     inline const Aws::String& GetOwner() const{ return m_owner; }
+
+    /**
+     * <p>The owner of the product. Contact the product administrator for the
+     * significance of this value.</p>
+     */
+    inline bool OwnerHasBeenSet() const { return m_ownerHasBeenSet; }
 
     /**
      * <p>The owner of the product. Contact the product administrator for the
@@ -206,6 +228,11 @@ namespace Model
     /**
      * <p>Short description of the product.</p>
      */
+    inline bool ShortDescriptionHasBeenSet() const { return m_shortDescriptionHasBeenSet; }
+
+    /**
+     * <p>Short description of the product.</p>
+     */
     inline void SetShortDescription(const Aws::String& value) { m_shortDescriptionHasBeenSet = true; m_shortDescription = value; }
 
     /**
@@ -246,6 +273,13 @@ namespace Model
      * this value. If this value is <code>MARKETPLACE</code>, the product was created
      * by AWS Marketplace.</p>
      */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
+
+    /**
+     * <p>The product type. Contact the product administrator for the significance of
+     * this value. If this value is <code>MARKETPLACE</code>, the product was created
+     * by AWS Marketplace.</p>
+     */
     inline void SetType(const ProductType& value) { m_typeHasBeenSet = true; m_type = value; }
 
     /**
@@ -275,6 +309,12 @@ namespace Model
      * significance of this value.</p>
      */
     inline const Aws::String& GetDistributor() const{ return m_distributor; }
+
+    /**
+     * <p>The distributor of the product. Contact the product administrator for the
+     * significance of this value.</p>
+     */
+    inline bool DistributorHasBeenSet() const { return m_distributorHasBeenSet; }
 
     /**
      * <p>The distributor of the product. Contact the product administrator for the
@@ -329,6 +369,15 @@ namespace Model
      * <a>ProductViewSummary</a> can be used directly with
      * <a>DescribeProvisioningParameters</a>.</p>
      */
+    inline bool HasDefaultPathHasBeenSet() const { return m_hasDefaultPathHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the product has a default path. If the product does not
+     * have a default path, call <a>ListLaunchPaths</a> to disambiguate between paths.
+     * Otherwise, <a>ListLaunchPaths</a> is not required, and the output of
+     * <a>ProductViewSummary</a> can be used directly with
+     * <a>DescribeProvisioningParameters</a>.</p>
+     */
     inline void SetHasDefaultPath(bool value) { m_hasDefaultPathHasBeenSet = true; m_hasDefaultPath = value; }
 
     /**
@@ -345,6 +394,11 @@ namespace Model
      * <p>The email contact information to obtain support for this Product.</p>
      */
     inline const Aws::String& GetSupportEmail() const{ return m_supportEmail; }
+
+    /**
+     * <p>The email contact information to obtain support for this Product.</p>
+     */
+    inline bool SupportEmailHasBeenSet() const { return m_supportEmailHasBeenSet; }
 
     /**
      * <p>The email contact information to obtain support for this Product.</p>
@@ -385,6 +439,11 @@ namespace Model
     /**
      * <p>The description of the support for this Product.</p>
      */
+    inline bool SupportDescriptionHasBeenSet() const { return m_supportDescriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the support for this Product.</p>
+     */
     inline void SetSupportDescription(const Aws::String& value) { m_supportDescriptionHasBeenSet = true; m_supportDescription = value; }
 
     /**
@@ -417,6 +476,11 @@ namespace Model
      * <p>The URL information to obtain support for this Product.</p>
      */
     inline const Aws::String& GetSupportUrl() const{ return m_supportUrl; }
+
+    /**
+     * <p>The URL information to obtain support for this Product.</p>
+     */
+    inline bool SupportUrlHasBeenSet() const { return m_supportUrlHasBeenSet; }
 
     /**
      * <p>The URL information to obtain support for this Product.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     InventoryItemAttribute();
-    InventoryItemAttribute(const Aws::Utils::Json::JsonValue& jsonValue);
-    InventoryItemAttribute& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InventoryItemAttribute(Aws::Utils::Json::JsonView jsonValue);
+    InventoryItemAttribute& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Name of the inventory item attribute.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>Name of the inventory item attribute.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>Name of the inventory item attribute.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The data type of the inventory item attribute. </p>
      */
     inline const InventoryAttributeDataType& GetDataType() const{ return m_dataType; }
+
+    /**
+     * <p>The data type of the inventory item attribute. </p>
+     */
+    inline bool DataTypeHasBeenSet() const { return m_dataTypeHasBeenSet; }
 
     /**
      * <p>The data type of the inventory item attribute. </p>

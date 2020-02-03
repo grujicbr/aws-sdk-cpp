@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudWatchLogs
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     MetricFilter();
-    MetricFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    MetricFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MetricFilter(Aws::Utils::Json::JsonView jsonValue);
+    MetricFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The name of the metric filter.</p>
      */
     inline const Aws::String& GetFilterName() const{ return m_filterName; }
+
+    /**
+     * <p>The name of the metric filter.</p>
+     */
+    inline bool FilterNameHasBeenSet() const { return m_filterNameHasBeenSet; }
 
     /**
      * <p>The name of the metric filter.</p>
@@ -90,6 +96,9 @@ namespace Model
     inline const Aws::String& GetFilterPattern() const{ return m_filterPattern; }
 
     
+    inline bool FilterPatternHasBeenSet() const { return m_filterPatternHasBeenSet; }
+
+    
     inline void SetFilterPattern(const Aws::String& value) { m_filterPatternHasBeenSet = true; m_filterPattern = value; }
 
     
@@ -112,6 +121,11 @@ namespace Model
      * <p>The metric transformations.</p>
      */
     inline const Aws::Vector<MetricTransformation>& GetMetricTransformations() const{ return m_metricTransformations; }
+
+    /**
+     * <p>The metric transformations.</p>
+     */
+    inline bool MetricTransformationsHasBeenSet() const { return m_metricTransformationsHasBeenSet; }
 
     /**
      * <p>The metric transformations.</p>
@@ -154,6 +168,12 @@ namespace Model
      * <p>The creation time of the metric filter, expressed as the number of
      * milliseconds after Jan 1, 1970 00:00:00 UTC.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>The creation time of the metric filter, expressed as the number of
+     * milliseconds after Jan 1, 1970 00:00:00 UTC.</p>
+     */
     inline void SetCreationTime(long long value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -167,6 +187,11 @@ namespace Model
      * <p>The name of the log group.</p>
      */
     inline const Aws::String& GetLogGroupName() const{ return m_logGroupName; }
+
+    /**
+     * <p>The name of the log group.</p>
+     */
+    inline bool LogGroupNameHasBeenSet() const { return m_logGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the log group.</p>

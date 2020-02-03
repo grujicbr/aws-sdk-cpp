@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -31,7 +32,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for Scte27SourceSettings<p><h3>See Also:</h3>   <a
+   * Scte27 Source Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte27SourceSettings">AWS
    * API Reference</a></p>
    */
@@ -39,8 +40,8 @@ namespace Model
   {
   public:
     Scte27SourceSettings();
-    Scte27SourceSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    Scte27SourceSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Scte27SourceSettings(Aws::Utils::Json::JsonView jsonValue);
+    Scte27SourceSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,21 @@ namespace Model
      * be passed through.
      */
     inline int GetPid() const{ return m_pid; }
+
+    /**
+     * The pid field is used in conjunction with the caption selector languageCode
+     * field as follows:
+  - Specify PID and Language: Extracts captions from that PID;
+     * the language is "informational".
+  - Specify PID and omit Language: Extracts the
+     * specified PID.
+  - Omit PID and specify Language: Extracts the specified
+     * language, whichever PID that happens to be.
+  - Omit PID and omit Language:
+     * Valid only if source is DVB-Sub that is being passed through; all languages will
+     * be passed through.
+     */
+    inline bool PidHasBeenSet() const { return m_pidHasBeenSet; }
 
     /**
      * The pid field is used in conjunction with the caption selector languageCode

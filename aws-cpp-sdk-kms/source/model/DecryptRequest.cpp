@@ -26,7 +26,10 @@ using namespace Aws::Utils;
 DecryptRequest::DecryptRequest() : 
     m_ciphertextBlobHasBeenSet(false),
     m_encryptionContextHasBeenSet(false),
-    m_grantTokensHasBeenSet(false)
+    m_grantTokensHasBeenSet(false),
+    m_keyIdHasBeenSet(false),
+    m_encryptionAlgorithm(EncryptionAlgorithmSpec::NOT_SET),
+    m_encryptionAlgorithmHasBeenSet(false)
 {
 }
 
@@ -61,7 +64,18 @@ Aws::String DecryptRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_keyIdHasBeenSet)
+  {
+   payload.WithString("KeyId", m_keyId);
+
+  }
+
+  if(m_encryptionAlgorithmHasBeenSet)
+  {
+   payload.WithString("EncryptionAlgorithm", EncryptionAlgorithmSpecMapper::GetNameForEncryptionAlgorithmSpec(m_encryptionAlgorithm));
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DecryptRequest::GetRequestSpecificHeaders() const

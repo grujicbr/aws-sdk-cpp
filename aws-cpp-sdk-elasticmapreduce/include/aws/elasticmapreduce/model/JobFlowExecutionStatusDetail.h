@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     JobFlowExecutionStatusDetail();
-    JobFlowExecutionStatusDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobFlowExecutionStatusDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobFlowExecutionStatusDetail(Aws::Utils::Json::JsonView jsonValue);
+    JobFlowExecutionStatusDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The state of the job flow.</p>
      */
     inline const JobFlowExecutionState& GetState() const{ return m_state; }
+
+    /**
+     * <p>The state of the job flow.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The state of the job flow.</p>
@@ -82,6 +88,11 @@ namespace Model
     /**
      * <p>The creation date and time of the job flow.</p>
      */
+    inline bool CreationDateTimeHasBeenSet() const { return m_creationDateTimeHasBeenSet; }
+
+    /**
+     * <p>The creation date and time of the job flow.</p>
+     */
     inline void SetCreationDateTime(const Aws::Utils::DateTime& value) { m_creationDateTimeHasBeenSet = true; m_creationDateTime = value; }
 
     /**
@@ -104,6 +115,11 @@ namespace Model
      * <p>The start date and time of the job flow.</p>
      */
     inline const Aws::Utils::DateTime& GetStartDateTime() const{ return m_startDateTime; }
+
+    /**
+     * <p>The start date and time of the job flow.</p>
+     */
+    inline bool StartDateTimeHasBeenSet() const { return m_startDateTimeHasBeenSet; }
 
     /**
      * <p>The start date and time of the job flow.</p>
@@ -131,6 +147,12 @@ namespace Model
      * actions.</p>
      */
     inline const Aws::Utils::DateTime& GetReadyDateTime() const{ return m_readyDateTime; }
+
+    /**
+     * <p>The date and time when the job flow was ready to start running bootstrap
+     * actions.</p>
+     */
+    inline bool ReadyDateTimeHasBeenSet() const { return m_readyDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time when the job flow was ready to start running bootstrap
@@ -165,6 +187,11 @@ namespace Model
     /**
      * <p>The completion date and time of the job flow.</p>
      */
+    inline bool EndDateTimeHasBeenSet() const { return m_endDateTimeHasBeenSet; }
+
+    /**
+     * <p>The completion date and time of the job flow.</p>
+     */
     inline void SetEndDateTime(const Aws::Utils::DateTime& value) { m_endDateTimeHasBeenSet = true; m_endDateTime = value; }
 
     /**
@@ -187,6 +214,11 @@ namespace Model
      * <p>Description of the job flow last changed state.</p>
      */
     inline const Aws::String& GetLastStateChangeReason() const{ return m_lastStateChangeReason; }
+
+    /**
+     * <p>Description of the job flow last changed state.</p>
+     */
+    inline bool LastStateChangeReasonHasBeenSet() const { return m_lastStateChangeReasonHasBeenSet; }
 
     /**
      * <p>Description of the job flow last changed state.</p>

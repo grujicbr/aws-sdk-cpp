@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     InstanceInformation();
-    InstanceInformation(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceInformation& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceInformation(Aws::Utils::Json::JsonView jsonValue);
+    InstanceInformation& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The instance ID. </p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The instance ID. </p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The instance ID. </p>
@@ -96,6 +102,11 @@ namespace Model
     /**
      * <p>Connection status of SSM Agent. </p>
      */
+    inline bool PingStatusHasBeenSet() const { return m_pingStatusHasBeenSet; }
+
+    /**
+     * <p>Connection status of SSM Agent. </p>
+     */
     inline void SetPingStatus(const PingStatus& value) { m_pingStatusHasBeenSet = true; m_pingStatus = value; }
 
     /**
@@ -122,6 +133,11 @@ namespace Model
     /**
      * <p>The date and time when agent last pinged Systems Manager service. </p>
      */
+    inline bool LastPingDateTimeHasBeenSet() const { return m_lastPingDateTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time when agent last pinged Systems Manager service. </p>
+     */
     inline void SetLastPingDateTime(const Aws::Utils::DateTime& value) { m_lastPingDateTimeHasBeenSet = true; m_lastPingDateTime = value; }
 
     /**
@@ -144,6 +160,11 @@ namespace Model
      * <p>The version of SSM Agent running on your Linux instance. </p>
      */
     inline const Aws::String& GetAgentVersion() const{ return m_agentVersion; }
+
+    /**
+     * <p>The version of SSM Agent running on your Linux instance. </p>
+     */
+    inline bool AgentVersionHasBeenSet() const { return m_agentVersionHasBeenSet; }
 
     /**
      * <p>The version of SSM Agent running on your Linux instance. </p>
@@ -177,26 +198,34 @@ namespace Model
 
 
     /**
-     * <p>Indicates whether latest version of SSM Agent is running on your instance.
-     * Some older versions of Windows Server use the EC2Config service to process SSM
-     * requests. For this reason, this field does not indicate whether or not the
-     * latest version is installed on Windows managed instances.</p>
+     * <p>Indicates whether the latest version of SSM Agent is running on your Linux
+     * Managed Instance. This field does not indicate whether or not the latest version
+     * is installed on Windows managed instances, because some older versions of
+     * Windows Server use the EC2Config service to process SSM requests.</p>
      */
     inline bool GetIsLatestVersion() const{ return m_isLatestVersion; }
 
     /**
-     * <p>Indicates whether latest version of SSM Agent is running on your instance.
-     * Some older versions of Windows Server use the EC2Config service to process SSM
-     * requests. For this reason, this field does not indicate whether or not the
-     * latest version is installed on Windows managed instances.</p>
+     * <p>Indicates whether the latest version of SSM Agent is running on your Linux
+     * Managed Instance. This field does not indicate whether or not the latest version
+     * is installed on Windows managed instances, because some older versions of
+     * Windows Server use the EC2Config service to process SSM requests.</p>
+     */
+    inline bool IsLatestVersionHasBeenSet() const { return m_isLatestVersionHasBeenSet; }
+
+    /**
+     * <p>Indicates whether the latest version of SSM Agent is running on your Linux
+     * Managed Instance. This field does not indicate whether or not the latest version
+     * is installed on Windows managed instances, because some older versions of
+     * Windows Server use the EC2Config service to process SSM requests.</p>
      */
     inline void SetIsLatestVersion(bool value) { m_isLatestVersionHasBeenSet = true; m_isLatestVersion = value; }
 
     /**
-     * <p>Indicates whether latest version of SSM Agent is running on your instance.
-     * Some older versions of Windows Server use the EC2Config service to process SSM
-     * requests. For this reason, this field does not indicate whether or not the
-     * latest version is installed on Windows managed instances.</p>
+     * <p>Indicates whether the latest version of SSM Agent is running on your Linux
+     * Managed Instance. This field does not indicate whether or not the latest version
+     * is installed on Windows managed instances, because some older versions of
+     * Windows Server use the EC2Config service to process SSM requests.</p>
      */
     inline InstanceInformation& WithIsLatestVersion(bool value) { SetIsLatestVersion(value); return *this;}
 
@@ -205,6 +234,11 @@ namespace Model
      * <p>The operating system platform type. </p>
      */
     inline const PlatformType& GetPlatformType() const{ return m_platformType; }
+
+    /**
+     * <p>The operating system platform type. </p>
+     */
+    inline bool PlatformTypeHasBeenSet() const { return m_platformTypeHasBeenSet; }
 
     /**
      * <p>The operating system platform type. </p>
@@ -231,6 +265,11 @@ namespace Model
      * <p>The name of the operating system platform running on your instance. </p>
      */
     inline const Aws::String& GetPlatformName() const{ return m_platformName; }
+
+    /**
+     * <p>The name of the operating system platform running on your instance. </p>
+     */
+    inline bool PlatformNameHasBeenSet() const { return m_platformNameHasBeenSet; }
 
     /**
      * <p>The name of the operating system platform running on your instance. </p>
@@ -271,6 +310,11 @@ namespace Model
     /**
      * <p>The version of the OS platform running on your instance. </p>
      */
+    inline bool PlatformVersionHasBeenSet() const { return m_platformVersionHasBeenSet; }
+
+    /**
+     * <p>The version of the OS platform running on your instance. </p>
+     */
     inline void SetPlatformVersion(const Aws::String& value) { m_platformVersionHasBeenSet = true; m_platformVersion = value; }
 
     /**
@@ -304,6 +348,12 @@ namespace Model
      * registered.</p>
      */
     inline const Aws::String& GetActivationId() const{ return m_activationId; }
+
+    /**
+     * <p>The activation ID created by Systems Manager when the server or VM was
+     * registered.</p>
+     */
+    inline bool ActivationIdHasBeenSet() const { return m_activationIdHasBeenSet; }
 
     /**
      * <p>The activation ID created by Systems Manager when the server or VM was
@@ -348,6 +398,13 @@ namespace Model
      * role for Amazon EC2 instances. </p>
      */
     inline const Aws::String& GetIamRole() const{ return m_iamRole; }
+
+    /**
+     * <p>The Amazon Identity and Access Management (IAM) role assigned to the
+     * on-premises Systems Manager managed instances. This call does not return the IAM
+     * role for Amazon EC2 instances. </p>
+     */
+    inline bool IamRoleHasBeenSet() const { return m_iamRoleHasBeenSet; }
 
     /**
      * <p>The Amazon Identity and Access Management (IAM) role assigned to the
@@ -400,6 +457,11 @@ namespace Model
     /**
      * <p>The date the server or VM was registered with AWS as a managed instance.</p>
      */
+    inline bool RegistrationDateHasBeenSet() const { return m_registrationDateHasBeenSet; }
+
+    /**
+     * <p>The date the server or VM was registered with AWS as a managed instance.</p>
+     */
     inline void SetRegistrationDate(const Aws::Utils::DateTime& value) { m_registrationDateHasBeenSet = true; m_registrationDate = value; }
 
     /**
@@ -423,6 +485,12 @@ namespace Model
      * instances. </p>
      */
     inline const ResourceType& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The type of instance. Instances are either EC2 instances or managed
+     * instances. </p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The type of instance. Instances are either EC2 instances or managed
@@ -453,6 +521,11 @@ namespace Model
      * <p>The name of the managed instance.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the managed instance.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the managed instance.</p>
@@ -493,6 +566,11 @@ namespace Model
     /**
      * <p>The IP address of the managed instance.</p>
      */
+    inline bool IPAddressHasBeenSet() const { return m_iPAddressHasBeenSet; }
+
+    /**
+     * <p>The IP address of the managed instance.</p>
+     */
     inline void SetIPAddress(const Aws::String& value) { m_iPAddressHasBeenSet = true; m_iPAddress = value; }
 
     /**
@@ -525,6 +603,11 @@ namespace Model
      * <p>The fully qualified host name of the managed instance.</p>
      */
     inline const Aws::String& GetComputerName() const{ return m_computerName; }
+
+    /**
+     * <p>The fully qualified host name of the managed instance.</p>
+     */
+    inline bool ComputerNameHasBeenSet() const { return m_computerNameHasBeenSet; }
 
     /**
      * <p>The fully qualified host name of the managed instance.</p>
@@ -565,6 +648,11 @@ namespace Model
     /**
      * <p>The status of the association.</p>
      */
+    inline bool AssociationStatusHasBeenSet() const { return m_associationStatusHasBeenSet; }
+
+    /**
+     * <p>The status of the association.</p>
+     */
     inline void SetAssociationStatus(const Aws::String& value) { m_associationStatusHasBeenSet = true; m_associationStatus = value; }
 
     /**
@@ -594,27 +682,32 @@ namespace Model
 
 
     /**
-     * <p>The date the association was last executed.</p>
+     * <p>The date the association was last run.</p>
      */
     inline const Aws::Utils::DateTime& GetLastAssociationExecutionDate() const{ return m_lastAssociationExecutionDate; }
 
     /**
-     * <p>The date the association was last executed.</p>
+     * <p>The date the association was last run.</p>
+     */
+    inline bool LastAssociationExecutionDateHasBeenSet() const { return m_lastAssociationExecutionDateHasBeenSet; }
+
+    /**
+     * <p>The date the association was last run.</p>
      */
     inline void SetLastAssociationExecutionDate(const Aws::Utils::DateTime& value) { m_lastAssociationExecutionDateHasBeenSet = true; m_lastAssociationExecutionDate = value; }
 
     /**
-     * <p>The date the association was last executed.</p>
+     * <p>The date the association was last run.</p>
      */
     inline void SetLastAssociationExecutionDate(Aws::Utils::DateTime&& value) { m_lastAssociationExecutionDateHasBeenSet = true; m_lastAssociationExecutionDate = std::move(value); }
 
     /**
-     * <p>The date the association was last executed.</p>
+     * <p>The date the association was last run.</p>
      */
     inline InstanceInformation& WithLastAssociationExecutionDate(const Aws::Utils::DateTime& value) { SetLastAssociationExecutionDate(value); return *this;}
 
     /**
-     * <p>The date the association was last executed.</p>
+     * <p>The date the association was last run.</p>
      */
     inline InstanceInformation& WithLastAssociationExecutionDate(Aws::Utils::DateTime&& value) { SetLastAssociationExecutionDate(std::move(value)); return *this;}
 
@@ -623,6 +716,11 @@ namespace Model
      * <p>The last date the association was successfully run.</p>
      */
     inline const Aws::Utils::DateTime& GetLastSuccessfulAssociationExecutionDate() const{ return m_lastSuccessfulAssociationExecutionDate; }
+
+    /**
+     * <p>The last date the association was successfully run.</p>
+     */
+    inline bool LastSuccessfulAssociationExecutionDateHasBeenSet() const { return m_lastSuccessfulAssociationExecutionDateHasBeenSet; }
 
     /**
      * <p>The last date the association was successfully run.</p>
@@ -649,6 +747,11 @@ namespace Model
      * <p>Information about the association.</p>
      */
     inline const InstanceAggregatedAssociationOverview& GetAssociationOverview() const{ return m_associationOverview; }
+
+    /**
+     * <p>Information about the association.</p>
+     */
+    inline bool AssociationOverviewHasBeenSet() const { return m_associationOverviewHasBeenSet; }
 
     /**
      * <p>Information about the association.</p>

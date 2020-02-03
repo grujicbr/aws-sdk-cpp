@@ -16,8 +16,8 @@
 #pragma once
 #include <aws/elasticache/ElastiCache_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSStreamFwd.h>
-#include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/core/utils/memory/stl/AWSVector.h>
 #include <utility>
 
 namespace Aws
@@ -53,9 +53,63 @@ namespace Model
 
 
     /**
+     * <p>Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
+     * for the node group these configuration values apply to.</p>
+     */
+    inline const Aws::String& GetNodeGroupId() const{ return m_nodeGroupId; }
+
+    /**
+     * <p>Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
+     * for the node group these configuration values apply to.</p>
+     */
+    inline bool NodeGroupIdHasBeenSet() const { return m_nodeGroupIdHasBeenSet; }
+
+    /**
+     * <p>Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
+     * for the node group these configuration values apply to.</p>
+     */
+    inline void SetNodeGroupId(const Aws::String& value) { m_nodeGroupIdHasBeenSet = true; m_nodeGroupId = value; }
+
+    /**
+     * <p>Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
+     * for the node group these configuration values apply to.</p>
+     */
+    inline void SetNodeGroupId(Aws::String&& value) { m_nodeGroupIdHasBeenSet = true; m_nodeGroupId = std::move(value); }
+
+    /**
+     * <p>Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
+     * for the node group these configuration values apply to.</p>
+     */
+    inline void SetNodeGroupId(const char* value) { m_nodeGroupIdHasBeenSet = true; m_nodeGroupId.assign(value); }
+
+    /**
+     * <p>Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
+     * for the node group these configuration values apply to.</p>
+     */
+    inline ReshardingConfiguration& WithNodeGroupId(const Aws::String& value) { SetNodeGroupId(value); return *this;}
+
+    /**
+     * <p>Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
+     * for the node group these configuration values apply to.</p>
+     */
+    inline ReshardingConfiguration& WithNodeGroupId(Aws::String&& value) { SetNodeGroupId(std::move(value)); return *this;}
+
+    /**
+     * <p>Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
+     * for the node group these configuration values apply to.</p>
+     */
+    inline ReshardingConfiguration& WithNodeGroupId(const char* value) { SetNodeGroupId(value); return *this;}
+
+
+    /**
      * <p>A list of preferred availability zones for the nodes in this cluster.</p>
      */
     inline const Aws::Vector<Aws::String>& GetPreferredAvailabilityZones() const{ return m_preferredAvailabilityZones; }
+
+    /**
+     * <p>A list of preferred availability zones for the nodes in this cluster.</p>
+     */
+    inline bool PreferredAvailabilityZonesHasBeenSet() const { return m_preferredAvailabilityZonesHasBeenSet; }
 
     /**
      * <p>A list of preferred availability zones for the nodes in this cluster.</p>
@@ -93,6 +147,9 @@ namespace Model
     inline ReshardingConfiguration& AddPreferredAvailabilityZones(const char* value) { m_preferredAvailabilityZonesHasBeenSet = true; m_preferredAvailabilityZones.push_back(value); return *this; }
 
   private:
+
+    Aws::String m_nodeGroupId;
+    bool m_nodeGroupIdHasBeenSet;
 
     Aws::Vector<Aws::String> m_preferredAvailabilityZones;
     bool m_preferredAvailabilityZonesHasBeenSet;

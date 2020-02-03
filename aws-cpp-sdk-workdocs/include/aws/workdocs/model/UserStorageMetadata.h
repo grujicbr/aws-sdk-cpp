@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WorkDocs
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     UserStorageMetadata();
-    UserStorageMetadata(const Aws::Utils::Json::JsonValue& jsonValue);
-    UserStorageMetadata& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UserStorageMetadata(Aws::Utils::Json::JsonView jsonValue);
+    UserStorageMetadata& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The amount of storage used, in bytes.</p>
      */
     inline long long GetStorageUtilizedInBytes() const{ return m_storageUtilizedInBytes; }
+
+    /**
+     * <p>The amount of storage used, in bytes.</p>
+     */
+    inline bool StorageUtilizedInBytesHasBeenSet() const { return m_storageUtilizedInBytesHasBeenSet; }
 
     /**
      * <p>The amount of storage used, in bytes.</p>
@@ -66,6 +72,11 @@ namespace Model
      * <p>The storage for a user.</p>
      */
     inline const StorageRuleType& GetStorageRule() const{ return m_storageRule; }
+
+    /**
+     * <p>The storage for a user.</p>
+     */
+    inline bool StorageRuleHasBeenSet() const { return m_storageRuleHasBeenSet; }
 
     /**
      * <p>The storage for a user.</p>

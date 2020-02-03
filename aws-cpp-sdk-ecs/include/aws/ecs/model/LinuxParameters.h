@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ECS
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     LinuxParameters();
-    LinuxParameters(const Aws::Utils::Json::JsonValue& jsonValue);
-    LinuxParameters& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LinuxParameters(Aws::Utils::Json::JsonView jsonValue);
+    LinuxParameters& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,14 @@ namespace Model
      * but the <code>add</code> parameter is not supported.</p> </note>
      */
     inline const KernelCapabilities& GetCapabilities() const{ return m_capabilities; }
+
+    /**
+     * <p>The Linux capabilities for the container that are added to or dropped from
+     * the default configuration provided by Docker.</p> <note> <p>If you are using
+     * tasks that use the Fargate launch type, <code>capabilities</code> is supported
+     * but the <code>add</code> parameter is not supported.</p> </note>
+     */
+    inline bool CapabilitiesHasBeenSet() const { return m_capabilitiesHasBeenSet; }
 
     /**
      * <p>The Linux capabilities for the container that are added to or dropped from
@@ -94,10 +103,10 @@ namespace Model
     /**
      * <p>Any host devices to expose to the container. This parameter maps to
      * <code>Devices</code> in the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container">Create
+     * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create
      * a container</a> section of the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/">Docker
-     * Remote API</a> and the <code>--device</code> option to <a
+     * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
+     * <code>--device</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
      * <p>If you are using tasks that use the Fargate launch type, the
      * <code>devices</code> parameter is not supported.</p> </note>
@@ -107,10 +116,23 @@ namespace Model
     /**
      * <p>Any host devices to expose to the container. This parameter maps to
      * <code>Devices</code> in the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container">Create
+     * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create
      * a container</a> section of the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/">Docker
-     * Remote API</a> and the <code>--device</code> option to <a
+     * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
+     * <code>--device</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     * <p>If you are using tasks that use the Fargate launch type, the
+     * <code>devices</code> parameter is not supported.</p> </note>
+     */
+    inline bool DevicesHasBeenSet() const { return m_devicesHasBeenSet; }
+
+    /**
+     * <p>Any host devices to expose to the container. This parameter maps to
+     * <code>Devices</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create
+     * a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
+     * <code>--device</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
      * <p>If you are using tasks that use the Fargate launch type, the
      * <code>devices</code> parameter is not supported.</p> </note>
@@ -120,10 +142,10 @@ namespace Model
     /**
      * <p>Any host devices to expose to the container. This parameter maps to
      * <code>Devices</code> in the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container">Create
+     * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create
      * a container</a> section of the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/">Docker
-     * Remote API</a> and the <code>--device</code> option to <a
+     * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
+     * <code>--device</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
      * <p>If you are using tasks that use the Fargate launch type, the
      * <code>devices</code> parameter is not supported.</p> </note>
@@ -133,10 +155,10 @@ namespace Model
     /**
      * <p>Any host devices to expose to the container. This parameter maps to
      * <code>Devices</code> in the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container">Create
+     * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create
      * a container</a> section of the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/">Docker
-     * Remote API</a> and the <code>--device</code> option to <a
+     * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
+     * <code>--device</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
      * <p>If you are using tasks that use the Fargate launch type, the
      * <code>devices</code> parameter is not supported.</p> </note>
@@ -146,10 +168,10 @@ namespace Model
     /**
      * <p>Any host devices to expose to the container. This parameter maps to
      * <code>Devices</code> in the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container">Create
+     * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create
      * a container</a> section of the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/">Docker
-     * Remote API</a> and the <code>--device</code> option to <a
+     * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
+     * <code>--device</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
      * <p>If you are using tasks that use the Fargate launch type, the
      * <code>devices</code> parameter is not supported.</p> </note>
@@ -159,10 +181,10 @@ namespace Model
     /**
      * <p>Any host devices to expose to the container. This parameter maps to
      * <code>Devices</code> in the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container">Create
+     * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create
      * a container</a> section of the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/">Docker
-     * Remote API</a> and the <code>--device</code> option to <a
+     * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
+     * <code>--device</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
      * <p>If you are using tasks that use the Fargate launch type, the
      * <code>devices</code> parameter is not supported.</p> </note>
@@ -172,10 +194,10 @@ namespace Model
     /**
      * <p>Any host devices to expose to the container. This parameter maps to
      * <code>Devices</code> in the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container">Create
+     * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create
      * a container</a> section of the <a
-     * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/">Docker
-     * Remote API</a> and the <code>--device</code> option to <a
+     * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
+     * <code>--device</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
      * <p>If you are using tasks that use the Fargate launch type, the
      * <code>devices</code> parameter is not supported.</p> </note>
@@ -190,7 +212,7 @@ namespace Model
      * parameter requires version 1.25 of the Docker Remote API or greater on your
      * container instance. To check the Docker Remote API version on your container
      * instance, log in to your container instance and run the following command:
-     * <code>sudo docker version | grep "Server API version"</code> </p>
+     * <code>sudo docker version --format '{{.Server.APIVersion}}'</code> </p>
      */
     inline bool GetInitProcessEnabled() const{ return m_initProcessEnabled; }
 
@@ -201,7 +223,18 @@ namespace Model
      * parameter requires version 1.25 of the Docker Remote API or greater on your
      * container instance. To check the Docker Remote API version on your container
      * instance, log in to your container instance and run the following command:
-     * <code>sudo docker version | grep "Server API version"</code> </p>
+     * <code>sudo docker version --format '{{.Server.APIVersion}}'</code> </p>
+     */
+    inline bool InitProcessEnabledHasBeenSet() const { return m_initProcessEnabledHasBeenSet; }
+
+    /**
+     * <p>Run an <code>init</code> process inside the container that forwards signals
+     * and reaps processes. This parameter maps to the <code>--init</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>. This
+     * parameter requires version 1.25 of the Docker Remote API or greater on your
+     * container instance. To check the Docker Remote API version on your container
+     * instance, log in to your container instance and run the following command:
+     * <code>sudo docker version --format '{{.Server.APIVersion}}'</code> </p>
      */
     inline void SetInitProcessEnabled(bool value) { m_initProcessEnabledHasBeenSet = true; m_initProcessEnabled = value; }
 
@@ -212,7 +245,7 @@ namespace Model
      * parameter requires version 1.25 of the Docker Remote API or greater on your
      * container instance. To check the Docker Remote API version on your container
      * instance, log in to your container instance and run the following command:
-     * <code>sudo docker version | grep "Server API version"</code> </p>
+     * <code>sudo docker version --format '{{.Server.APIVersion}}'</code> </p>
      */
     inline LinuxParameters& WithInitProcessEnabled(bool value) { SetInitProcessEnabled(value); return *this;}
 
@@ -225,6 +258,15 @@ namespace Model
      * <code>sharedMemorySize</code> parameter is not supported.</p> </note>
      */
     inline int GetSharedMemorySize() const{ return m_sharedMemorySize; }
+
+    /**
+     * <p>The value for the size (in MiB) of the <code>/dev/shm</code> volume. This
+     * parameter maps to the <code>--shm-size</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     * <p>If you are using tasks that use the Fargate launch type, the
+     * <code>sharedMemorySize</code> parameter is not supported.</p> </note>
+     */
+    inline bool SharedMemorySizeHasBeenSet() const { return m_sharedMemorySizeHasBeenSet; }
 
     /**
      * <p>The value for the size (in MiB) of the <code>/dev/shm</code> volume. This
@@ -253,6 +295,15 @@ namespace Model
      * <code>tmpfs</code> parameter is not supported.</p> </note>
      */
     inline const Aws::Vector<Tmpfs>& GetTmpfs() const{ return m_tmpfs; }
+
+    /**
+     * <p>The container path, mount options, and size (in MiB) of the tmpfs mount. This
+     * parameter maps to the <code>--tmpfs</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     * <p>If you are using tasks that use the Fargate launch type, the
+     * <code>tmpfs</code> parameter is not supported.</p> </note>
+     */
+    inline bool TmpfsHasBeenSet() const { return m_tmpfsHasBeenSet; }
 
     /**
      * <p>The container path, mount options, and size (in MiB) of the tmpfs mount. This
@@ -308,6 +359,136 @@ namespace Model
      */
     inline LinuxParameters& AddTmpfs(Tmpfs&& value) { m_tmpfsHasBeenSet = true; m_tmpfs.push_back(std::move(value)); return *this; }
 
+
+    /**
+     * <p>The total amount of swap memory (in MiB) a container can use. This parameter
+     * will be translated to the <code>--memory-swap</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a> where the
+     * value would be the sum of the container memory plus the <code>maxSwap</code>
+     * value.</p> <p>If a <code>maxSwap</code> value of <code>0</code> is specified,
+     * the container will not use swap. Accepted values are <code>0</code> or any
+     * positive integer. If the <code>maxSwap</code> parameter is omitted, the
+     * container will use the swap configuration for the container instance it is
+     * running on. A <code>maxSwap</code> value must be set for the
+     * <code>swappiness</code> parameter to be used.</p> <note> <p>If you are using
+     * tasks that use the Fargate launch type, the <code>maxSwap</code> parameter is
+     * not supported.</p> </note>
+     */
+    inline int GetMaxSwap() const{ return m_maxSwap; }
+
+    /**
+     * <p>The total amount of swap memory (in MiB) a container can use. This parameter
+     * will be translated to the <code>--memory-swap</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a> where the
+     * value would be the sum of the container memory plus the <code>maxSwap</code>
+     * value.</p> <p>If a <code>maxSwap</code> value of <code>0</code> is specified,
+     * the container will not use swap. Accepted values are <code>0</code> or any
+     * positive integer. If the <code>maxSwap</code> parameter is omitted, the
+     * container will use the swap configuration for the container instance it is
+     * running on. A <code>maxSwap</code> value must be set for the
+     * <code>swappiness</code> parameter to be used.</p> <note> <p>If you are using
+     * tasks that use the Fargate launch type, the <code>maxSwap</code> parameter is
+     * not supported.</p> </note>
+     */
+    inline bool MaxSwapHasBeenSet() const { return m_maxSwapHasBeenSet; }
+
+    /**
+     * <p>The total amount of swap memory (in MiB) a container can use. This parameter
+     * will be translated to the <code>--memory-swap</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a> where the
+     * value would be the sum of the container memory plus the <code>maxSwap</code>
+     * value.</p> <p>If a <code>maxSwap</code> value of <code>0</code> is specified,
+     * the container will not use swap. Accepted values are <code>0</code> or any
+     * positive integer. If the <code>maxSwap</code> parameter is omitted, the
+     * container will use the swap configuration for the container instance it is
+     * running on. A <code>maxSwap</code> value must be set for the
+     * <code>swappiness</code> parameter to be used.</p> <note> <p>If you are using
+     * tasks that use the Fargate launch type, the <code>maxSwap</code> parameter is
+     * not supported.</p> </note>
+     */
+    inline void SetMaxSwap(int value) { m_maxSwapHasBeenSet = true; m_maxSwap = value; }
+
+    /**
+     * <p>The total amount of swap memory (in MiB) a container can use. This parameter
+     * will be translated to the <code>--memory-swap</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a> where the
+     * value would be the sum of the container memory plus the <code>maxSwap</code>
+     * value.</p> <p>If a <code>maxSwap</code> value of <code>0</code> is specified,
+     * the container will not use swap. Accepted values are <code>0</code> or any
+     * positive integer. If the <code>maxSwap</code> parameter is omitted, the
+     * container will use the swap configuration for the container instance it is
+     * running on. A <code>maxSwap</code> value must be set for the
+     * <code>swappiness</code> parameter to be used.</p> <note> <p>If you are using
+     * tasks that use the Fargate launch type, the <code>maxSwap</code> parameter is
+     * not supported.</p> </note>
+     */
+    inline LinuxParameters& WithMaxSwap(int value) { SetMaxSwap(value); return *this;}
+
+
+    /**
+     * <p>This allows you to tune a container's memory swappiness behavior. A
+     * <code>swappiness</code> value of <code>0</code> will cause swapping to not
+     * happen unless absolutely necessary. A <code>swappiness</code> value of
+     * <code>100</code> will cause pages to be swapped very aggressively. Accepted
+     * values are whole numbers between <code>0</code> and <code>100</code>. If the
+     * <code>swappiness</code> parameter is not specified, a default value of
+     * <code>60</code> is used. If a value is not specified for <code>maxSwap</code>
+     * then this parameter is ignored. This parameter maps to the
+     * <code>--memory-swappiness</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     * <p>If you are using tasks that use the Fargate launch type, the
+     * <code>swappiness</code> parameter is not supported.</p> </note>
+     */
+    inline int GetSwappiness() const{ return m_swappiness; }
+
+    /**
+     * <p>This allows you to tune a container's memory swappiness behavior. A
+     * <code>swappiness</code> value of <code>0</code> will cause swapping to not
+     * happen unless absolutely necessary. A <code>swappiness</code> value of
+     * <code>100</code> will cause pages to be swapped very aggressively. Accepted
+     * values are whole numbers between <code>0</code> and <code>100</code>. If the
+     * <code>swappiness</code> parameter is not specified, a default value of
+     * <code>60</code> is used. If a value is not specified for <code>maxSwap</code>
+     * then this parameter is ignored. This parameter maps to the
+     * <code>--memory-swappiness</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     * <p>If you are using tasks that use the Fargate launch type, the
+     * <code>swappiness</code> parameter is not supported.</p> </note>
+     */
+    inline bool SwappinessHasBeenSet() const { return m_swappinessHasBeenSet; }
+
+    /**
+     * <p>This allows you to tune a container's memory swappiness behavior. A
+     * <code>swappiness</code> value of <code>0</code> will cause swapping to not
+     * happen unless absolutely necessary. A <code>swappiness</code> value of
+     * <code>100</code> will cause pages to be swapped very aggressively. Accepted
+     * values are whole numbers between <code>0</code> and <code>100</code>. If the
+     * <code>swappiness</code> parameter is not specified, a default value of
+     * <code>60</code> is used. If a value is not specified for <code>maxSwap</code>
+     * then this parameter is ignored. This parameter maps to the
+     * <code>--memory-swappiness</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     * <p>If you are using tasks that use the Fargate launch type, the
+     * <code>swappiness</code> parameter is not supported.</p> </note>
+     */
+    inline void SetSwappiness(int value) { m_swappinessHasBeenSet = true; m_swappiness = value; }
+
+    /**
+     * <p>This allows you to tune a container's memory swappiness behavior. A
+     * <code>swappiness</code> value of <code>0</code> will cause swapping to not
+     * happen unless absolutely necessary. A <code>swappiness</code> value of
+     * <code>100</code> will cause pages to be swapped very aggressively. Accepted
+     * values are whole numbers between <code>0</code> and <code>100</code>. If the
+     * <code>swappiness</code> parameter is not specified, a default value of
+     * <code>60</code> is used. If a value is not specified for <code>maxSwap</code>
+     * then this parameter is ignored. This parameter maps to the
+     * <code>--memory-swappiness</code> option to <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     * <p>If you are using tasks that use the Fargate launch type, the
+     * <code>swappiness</code> parameter is not supported.</p> </note>
+     */
+    inline LinuxParameters& WithSwappiness(int value) { SetSwappiness(value); return *this;}
+
   private:
 
     KernelCapabilities m_capabilities;
@@ -324,6 +505,12 @@ namespace Model
 
     Aws::Vector<Tmpfs> m_tmpfs;
     bool m_tmpfsHasBeenSet;
+
+    int m_maxSwap;
+    bool m_maxSwapHasBeenSet;
+
+    int m_swappiness;
+    bool m_swappinessHasBeenSet;
   };
 
 } // namespace Model

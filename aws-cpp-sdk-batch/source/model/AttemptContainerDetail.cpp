@@ -34,22 +34,24 @@ AttemptContainerDetail::AttemptContainerDetail() :
     m_exitCode(0),
     m_exitCodeHasBeenSet(false),
     m_reasonHasBeenSet(false),
-    m_logStreamNameHasBeenSet(false)
+    m_logStreamNameHasBeenSet(false),
+    m_networkInterfacesHasBeenSet(false)
 {
 }
 
-AttemptContainerDetail::AttemptContainerDetail(const JsonValue& jsonValue) : 
+AttemptContainerDetail::AttemptContainerDetail(JsonView jsonValue) : 
     m_containerInstanceArnHasBeenSet(false),
     m_taskArnHasBeenSet(false),
     m_exitCode(0),
     m_exitCodeHasBeenSet(false),
     m_reasonHasBeenSet(false),
-    m_logStreamNameHasBeenSet(false)
+    m_logStreamNameHasBeenSet(false),
+    m_networkInterfacesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-AttemptContainerDetail& AttemptContainerDetail::operator =(const JsonValue& jsonValue)
+AttemptContainerDetail& AttemptContainerDetail::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("containerInstanceArn"))
   {
@@ -86,6 +88,16 @@ AttemptContainerDetail& AttemptContainerDetail::operator =(const JsonValue& json
     m_logStreamNameHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("networkInterfaces"))
+  {
+    Array<JsonView> networkInterfacesJsonList = jsonValue.GetArray("networkInterfaces");
+    for(unsigned networkInterfacesIndex = 0; networkInterfacesIndex < networkInterfacesJsonList.GetLength(); ++networkInterfacesIndex)
+    {
+      m_networkInterfaces.push_back(networkInterfacesJsonList[networkInterfacesIndex].AsObject());
+    }
+    m_networkInterfacesHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -120,6 +132,17 @@ JsonValue AttemptContainerDetail::Jsonize() const
   if(m_logStreamNameHasBeenSet)
   {
    payload.WithString("logStreamName", m_logStreamName);
+
+  }
+
+  if(m_networkInterfacesHasBeenSet)
+  {
+   Array<JsonValue> networkInterfacesJsonList(m_networkInterfaces.size());
+   for(unsigned networkInterfacesIndex = 0; networkInterfacesIndex < networkInterfacesJsonList.GetLength(); ++networkInterfacesIndex)
+   {
+     networkInterfacesJsonList[networkInterfacesIndex].AsObject(m_networkInterfaces[networkInterfacesIndex].Jsonize());
+   }
+   payload.WithArray("networkInterfaces", std::move(networkInterfacesJsonList));
 
   }
 

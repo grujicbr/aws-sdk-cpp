@@ -32,6 +32,8 @@ Activity::Activity() :
     m_type(ActivityType::NOT_SET),
     m_typeHasBeenSet(false),
     m_timeStampHasBeenSet(false),
+    m_isIndirectActivity(false),
+    m_isIndirectActivityHasBeenSet(false),
     m_organizationIdHasBeenSet(false),
     m_initiatorHasBeenSet(false),
     m_participantsHasBeenSet(false),
@@ -41,10 +43,12 @@ Activity::Activity() :
 {
 }
 
-Activity::Activity(const JsonValue& jsonValue) : 
+Activity::Activity(JsonView jsonValue) : 
     m_type(ActivityType::NOT_SET),
     m_typeHasBeenSet(false),
     m_timeStampHasBeenSet(false),
+    m_isIndirectActivity(false),
+    m_isIndirectActivityHasBeenSet(false),
     m_organizationIdHasBeenSet(false),
     m_initiatorHasBeenSet(false),
     m_participantsHasBeenSet(false),
@@ -55,7 +59,7 @@ Activity::Activity(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-Activity& Activity::operator =(const JsonValue& jsonValue)
+Activity& Activity::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("Type"))
   {
@@ -69,6 +73,13 @@ Activity& Activity::operator =(const JsonValue& jsonValue)
     m_timeStamp = jsonValue.GetDouble("TimeStamp");
 
     m_timeStampHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("IsIndirectActivity"))
+  {
+    m_isIndirectActivity = jsonValue.GetBool("IsIndirectActivity");
+
+    m_isIndirectActivityHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("OrganizationId"))
@@ -128,6 +139,12 @@ JsonValue Activity::Jsonize() const
   if(m_timeStampHasBeenSet)
   {
    payload.WithDouble("TimeStamp", m_timeStamp.SecondsWithMSPrecision());
+  }
+
+  if(m_isIndirectActivityHasBeenSet)
+  {
+   payload.WithBool("IsIndirectActivity", m_isIndirectActivity);
+
   }
 
   if(m_organizationIdHasBeenSet)

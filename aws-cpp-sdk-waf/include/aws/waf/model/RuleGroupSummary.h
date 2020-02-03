@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     RuleGroupSummary();
-    RuleGroupSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    RuleGroupSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    RuleGroupSummary(Aws::Utils::Json::JsonView jsonValue);
+    RuleGroupSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,18 @@ namespace Model
      * <a>CreateRuleGroup</a> and by <a>ListRuleGroups</a>.</p>
      */
     inline const Aws::String& GetRuleGroupId() const{ return m_ruleGroupId; }
+
+    /**
+     * <p>A unique identifier for a <code>RuleGroup</code>. You use
+     * <code>RuleGroupId</code> to get more information about a <code>RuleGroup</code>
+     * (see <a>GetRuleGroup</a>), update a <code>RuleGroup</code> (see
+     * <a>UpdateRuleGroup</a>), insert a <code>RuleGroup</code> into a
+     * <code>WebACL</code> or delete one from a <code>WebACL</code> (see
+     * <a>UpdateWebACL</a>), or delete a <code>RuleGroup</code> from AWS WAF (see
+     * <a>DeleteRuleGroup</a>).</p> <p> <code>RuleGroupId</code> is returned by
+     * <a>CreateRuleGroup</a> and by <a>ListRuleGroups</a>.</p>
+     */
+    inline bool RuleGroupIdHasBeenSet() const { return m_ruleGroupIdHasBeenSet; }
 
     /**
      * <p>A unique identifier for a <code>RuleGroup</code>. You use
@@ -137,6 +150,12 @@ namespace Model
      * name of a <code>RuleGroup</code> after you create it.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>A friendly name or description of the <a>RuleGroup</a>. You can't change the
+     * name of a <code>RuleGroup</code> after you create it.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>A friendly name or description of the <a>RuleGroup</a>. You can't change the

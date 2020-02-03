@@ -29,15 +29,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for DescribeKeyPairs.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeKeyPairsRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API DescribeKeyPairsRequest : public EC2Request
   {
   public:
     DescribeKeyPairsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -52,94 +49,152 @@ namespace Model
   public:
 
     /**
-     * <p>One or more filters.</p> <ul> <li> <p> <code>fingerprint</code> - The
-     * fingerprint of the key pair.</p> </li> <li> <p> <code>key-name</code> - The name
-     * of the key pair.</p> </li> </ul>
+     * <p>The filters.</p> <ul> <li> <p> <code>fingerprint</code> - The fingerprint of
+     * the key pair.</p> </li> <li> <p> <code>key-name</code> - The name of the key
+     * pair.</p> </li> </ul>
      */
     inline const Aws::Vector<Filter>& GetFilters() const{ return m_filters; }
 
     /**
-     * <p>One or more filters.</p> <ul> <li> <p> <code>fingerprint</code> - The
-     * fingerprint of the key pair.</p> </li> <li> <p> <code>key-name</code> - The name
-     * of the key pair.</p> </li> </ul>
+     * <p>The filters.</p> <ul> <li> <p> <code>fingerprint</code> - The fingerprint of
+     * the key pair.</p> </li> <li> <p> <code>key-name</code> - The name of the key
+     * pair.</p> </li> </ul>
+     */
+    inline bool FiltersHasBeenSet() const { return m_filtersHasBeenSet; }
+
+    /**
+     * <p>The filters.</p> <ul> <li> <p> <code>fingerprint</code> - The fingerprint of
+     * the key pair.</p> </li> <li> <p> <code>key-name</code> - The name of the key
+     * pair.</p> </li> </ul>
      */
     inline void SetFilters(const Aws::Vector<Filter>& value) { m_filtersHasBeenSet = true; m_filters = value; }
 
     /**
-     * <p>One or more filters.</p> <ul> <li> <p> <code>fingerprint</code> - The
-     * fingerprint of the key pair.</p> </li> <li> <p> <code>key-name</code> - The name
-     * of the key pair.</p> </li> </ul>
+     * <p>The filters.</p> <ul> <li> <p> <code>fingerprint</code> - The fingerprint of
+     * the key pair.</p> </li> <li> <p> <code>key-name</code> - The name of the key
+     * pair.</p> </li> </ul>
      */
     inline void SetFilters(Aws::Vector<Filter>&& value) { m_filtersHasBeenSet = true; m_filters = std::move(value); }
 
     /**
-     * <p>One or more filters.</p> <ul> <li> <p> <code>fingerprint</code> - The
-     * fingerprint of the key pair.</p> </li> <li> <p> <code>key-name</code> - The name
-     * of the key pair.</p> </li> </ul>
+     * <p>The filters.</p> <ul> <li> <p> <code>fingerprint</code> - The fingerprint of
+     * the key pair.</p> </li> <li> <p> <code>key-name</code> - The name of the key
+     * pair.</p> </li> </ul>
      */
     inline DescribeKeyPairsRequest& WithFilters(const Aws::Vector<Filter>& value) { SetFilters(value); return *this;}
 
     /**
-     * <p>One or more filters.</p> <ul> <li> <p> <code>fingerprint</code> - The
-     * fingerprint of the key pair.</p> </li> <li> <p> <code>key-name</code> - The name
-     * of the key pair.</p> </li> </ul>
+     * <p>The filters.</p> <ul> <li> <p> <code>fingerprint</code> - The fingerprint of
+     * the key pair.</p> </li> <li> <p> <code>key-name</code> - The name of the key
+     * pair.</p> </li> </ul>
      */
     inline DescribeKeyPairsRequest& WithFilters(Aws::Vector<Filter>&& value) { SetFilters(std::move(value)); return *this;}
 
     /**
-     * <p>One or more filters.</p> <ul> <li> <p> <code>fingerprint</code> - The
-     * fingerprint of the key pair.</p> </li> <li> <p> <code>key-name</code> - The name
-     * of the key pair.</p> </li> </ul>
+     * <p>The filters.</p> <ul> <li> <p> <code>fingerprint</code> - The fingerprint of
+     * the key pair.</p> </li> <li> <p> <code>key-name</code> - The name of the key
+     * pair.</p> </li> </ul>
      */
     inline DescribeKeyPairsRequest& AddFilters(const Filter& value) { m_filtersHasBeenSet = true; m_filters.push_back(value); return *this; }
 
     /**
-     * <p>One or more filters.</p> <ul> <li> <p> <code>fingerprint</code> - The
-     * fingerprint of the key pair.</p> </li> <li> <p> <code>key-name</code> - The name
-     * of the key pair.</p> </li> </ul>
+     * <p>The filters.</p> <ul> <li> <p> <code>fingerprint</code> - The fingerprint of
+     * the key pair.</p> </li> <li> <p> <code>key-name</code> - The name of the key
+     * pair.</p> </li> </ul>
      */
     inline DescribeKeyPairsRequest& AddFilters(Filter&& value) { m_filtersHasBeenSet = true; m_filters.push_back(std::move(value)); return *this; }
 
 
     /**
-     * <p>One or more key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
      */
     inline const Aws::Vector<Aws::String>& GetKeyNames() const{ return m_keyNames; }
 
     /**
-     * <p>One or more key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     */
+    inline bool KeyNamesHasBeenSet() const { return m_keyNamesHasBeenSet; }
+
+    /**
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
      */
     inline void SetKeyNames(const Aws::Vector<Aws::String>& value) { m_keyNamesHasBeenSet = true; m_keyNames = value; }
 
     /**
-     * <p>One or more key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
      */
     inline void SetKeyNames(Aws::Vector<Aws::String>&& value) { m_keyNamesHasBeenSet = true; m_keyNames = std::move(value); }
 
     /**
-     * <p>One or more key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
      */
     inline DescribeKeyPairsRequest& WithKeyNames(const Aws::Vector<Aws::String>& value) { SetKeyNames(value); return *this;}
 
     /**
-     * <p>One or more key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
      */
     inline DescribeKeyPairsRequest& WithKeyNames(Aws::Vector<Aws::String>&& value) { SetKeyNames(std::move(value)); return *this;}
 
     /**
-     * <p>One or more key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
      */
     inline DescribeKeyPairsRequest& AddKeyNames(const Aws::String& value) { m_keyNamesHasBeenSet = true; m_keyNames.push_back(value); return *this; }
 
     /**
-     * <p>One or more key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
      */
     inline DescribeKeyPairsRequest& AddKeyNames(Aws::String&& value) { m_keyNamesHasBeenSet = true; m_keyNames.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>One or more key pair names.</p> <p>Default: Describes all your key pairs.</p>
+     * <p>The key pair names.</p> <p>Default: Describes all your key pairs.</p>
      */
     inline DescribeKeyPairsRequest& AddKeyNames(const char* value) { m_keyNamesHasBeenSet = true; m_keyNames.push_back(value); return *this; }
+
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline const Aws::Vector<Aws::String>& GetKeyPairIds() const{ return m_keyPairIds; }
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline bool KeyPairIdsHasBeenSet() const { return m_keyPairIdsHasBeenSet; }
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline void SetKeyPairIds(const Aws::Vector<Aws::String>& value) { m_keyPairIdsHasBeenSet = true; m_keyPairIds = value; }
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline void SetKeyPairIds(Aws::Vector<Aws::String>&& value) { m_keyPairIdsHasBeenSet = true; m_keyPairIds = std::move(value); }
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline DescribeKeyPairsRequest& WithKeyPairIds(const Aws::Vector<Aws::String>& value) { SetKeyPairIds(value); return *this;}
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline DescribeKeyPairsRequest& WithKeyPairIds(Aws::Vector<Aws::String>&& value) { SetKeyPairIds(std::move(value)); return *this;}
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline DescribeKeyPairsRequest& AddKeyPairIds(const Aws::String& value) { m_keyPairIdsHasBeenSet = true; m_keyPairIds.push_back(value); return *this; }
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline DescribeKeyPairsRequest& AddKeyPairIds(Aws::String&& value) { m_keyPairIdsHasBeenSet = true; m_keyPairIds.push_back(std::move(value)); return *this; }
+
+    /**
+     * <p>The IDs of the key pairs.</p>
+     */
+    inline DescribeKeyPairsRequest& AddKeyPairIds(const char* value) { m_keyPairIdsHasBeenSet = true; m_keyPairIds.push_back(value); return *this; }
 
 
     /**
@@ -149,6 +204,14 @@ namespace Model
      * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
      */
     inline bool GetDryRun() const{ return m_dryRun; }
+
+    /**
+     * <p>Checks whether you have the required permissions for the action, without
+     * actually making the request, and provides an error response. If you have the
+     * required permissions, the error response is <code>DryRunOperation</code>.
+     * Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+     */
+    inline bool DryRunHasBeenSet() const { return m_dryRunHasBeenSet; }
 
     /**
      * <p>Checks whether you have the required permissions for the action, without
@@ -173,6 +236,9 @@ namespace Model
 
     Aws::Vector<Aws::String> m_keyNames;
     bool m_keyNamesHasBeenSet;
+
+    Aws::Vector<Aws::String> m_keyPairIds;
+    bool m_keyPairIdsHasBeenSet;
 
     bool m_dryRun;
     bool m_dryRunHasBeenSet;

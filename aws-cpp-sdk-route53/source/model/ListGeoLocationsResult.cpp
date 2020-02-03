@@ -57,27 +57,27 @@ ListGeoLocationsResult& ListGeoLocationsResult::operator =(const Aws::AmazonWebS
     XmlNode isTruncatedNode = resultNode.FirstChild("IsTruncated");
     if(!isTruncatedNode.IsNull())
     {
-      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(isTruncatedNode.GetText().c_str()).c_str());
+      m_isTruncated = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(isTruncatedNode.GetText()).c_str()).c_str());
     }
     XmlNode nextContinentCodeNode = resultNode.FirstChild("NextContinentCode");
     if(!nextContinentCodeNode.IsNull())
     {
-      m_nextContinentCode = StringUtils::Trim(nextContinentCodeNode.GetText().c_str());
+      m_nextContinentCode = Aws::Utils::Xml::DecodeEscapedXmlText(nextContinentCodeNode.GetText());
     }
     XmlNode nextCountryCodeNode = resultNode.FirstChild("NextCountryCode");
     if(!nextCountryCodeNode.IsNull())
     {
-      m_nextCountryCode = StringUtils::Trim(nextCountryCodeNode.GetText().c_str());
+      m_nextCountryCode = Aws::Utils::Xml::DecodeEscapedXmlText(nextCountryCodeNode.GetText());
     }
     XmlNode nextSubdivisionCodeNode = resultNode.FirstChild("NextSubdivisionCode");
     if(!nextSubdivisionCodeNode.IsNull())
     {
-      m_nextSubdivisionCode = StringUtils::Trim(nextSubdivisionCodeNode.GetText().c_str());
+      m_nextSubdivisionCode = Aws::Utils::Xml::DecodeEscapedXmlText(nextSubdivisionCodeNode.GetText());
     }
     XmlNode maxItemsNode = resultNode.FirstChild("MaxItems");
     if(!maxItemsNode.IsNull())
     {
-      m_maxItems = StringUtils::Trim(maxItemsNode.GetText().c_str());
+      m_maxItems = Aws::Utils::Xml::DecodeEscapedXmlText(maxItemsNode.GetText());
     }
   }
 

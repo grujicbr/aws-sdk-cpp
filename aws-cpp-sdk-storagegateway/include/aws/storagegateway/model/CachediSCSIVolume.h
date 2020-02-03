@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     CachediSCSIVolume();
-    CachediSCSIVolume(const Aws::Utils::Json::JsonValue& jsonValue);
-    CachediSCSIVolume& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CachediSCSIVolume(Aws::Utils::Json::JsonView jsonValue);
+    CachediSCSIVolume& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the storage volume.</p>
      */
     inline const Aws::String& GetVolumeARN() const{ return m_volumeARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the storage volume.</p>
+     */
+    inline bool VolumeARNHasBeenSet() const { return m_volumeARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the storage volume.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The unique identifier of the volume, e.g. vol-AE4B946D.</p>
      */
+    inline bool VolumeIdHasBeenSet() const { return m_volumeIdHasBeenSet; }
+
+    /**
+     * <p>The unique identifier of the volume, e.g. vol-AE4B946D.</p>
+     */
     inline void SetVolumeId(const Aws::String& value) { m_volumeIdHasBeenSet = true; m_volumeId = value; }
 
     /**
@@ -125,6 +136,12 @@ namespace Model
      * volume.</p>
      */
     inline const Aws::String& GetVolumeType() const{ return m_volumeType; }
+
+    /**
+     * <p>One of the VolumeType enumeration values that describes the type of the
+     * volume.</p>
+     */
+    inline bool VolumeTypeHasBeenSet() const { return m_volumeTypeHasBeenSet; }
 
     /**
      * <p>One of the VolumeType enumeration values that describes the type of the
@@ -173,6 +190,12 @@ namespace Model
      * <p>One of the VolumeStatus values that indicates the state of the storage
      * volume.</p>
      */
+    inline bool VolumeStatusHasBeenSet() const { return m_volumeStatusHasBeenSet; }
+
+    /**
+     * <p>One of the VolumeStatus values that indicates the state of the storage
+     * volume.</p>
+     */
     inline void SetVolumeStatus(const Aws::String& value) { m_volumeStatusHasBeenSet = true; m_volumeStatus = value; }
 
     /**
@@ -207,9 +230,79 @@ namespace Model
 
 
     /**
+     * <p>A value that indicates whether a storage volume is attached to or detached
+     * from a gateway. For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving
+     * Your Volumes to a Different Gateway</a>.</p>
+     */
+    inline const Aws::String& GetVolumeAttachmentStatus() const{ return m_volumeAttachmentStatus; }
+
+    /**
+     * <p>A value that indicates whether a storage volume is attached to or detached
+     * from a gateway. For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving
+     * Your Volumes to a Different Gateway</a>.</p>
+     */
+    inline bool VolumeAttachmentStatusHasBeenSet() const { return m_volumeAttachmentStatusHasBeenSet; }
+
+    /**
+     * <p>A value that indicates whether a storage volume is attached to or detached
+     * from a gateway. For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving
+     * Your Volumes to a Different Gateway</a>.</p>
+     */
+    inline void SetVolumeAttachmentStatus(const Aws::String& value) { m_volumeAttachmentStatusHasBeenSet = true; m_volumeAttachmentStatus = value; }
+
+    /**
+     * <p>A value that indicates whether a storage volume is attached to or detached
+     * from a gateway. For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving
+     * Your Volumes to a Different Gateway</a>.</p>
+     */
+    inline void SetVolumeAttachmentStatus(Aws::String&& value) { m_volumeAttachmentStatusHasBeenSet = true; m_volumeAttachmentStatus = std::move(value); }
+
+    /**
+     * <p>A value that indicates whether a storage volume is attached to or detached
+     * from a gateway. For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving
+     * Your Volumes to a Different Gateway</a>.</p>
+     */
+    inline void SetVolumeAttachmentStatus(const char* value) { m_volumeAttachmentStatusHasBeenSet = true; m_volumeAttachmentStatus.assign(value); }
+
+    /**
+     * <p>A value that indicates whether a storage volume is attached to or detached
+     * from a gateway. For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving
+     * Your Volumes to a Different Gateway</a>.</p>
+     */
+    inline CachediSCSIVolume& WithVolumeAttachmentStatus(const Aws::String& value) { SetVolumeAttachmentStatus(value); return *this;}
+
+    /**
+     * <p>A value that indicates whether a storage volume is attached to or detached
+     * from a gateway. For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving
+     * Your Volumes to a Different Gateway</a>.</p>
+     */
+    inline CachediSCSIVolume& WithVolumeAttachmentStatus(Aws::String&& value) { SetVolumeAttachmentStatus(std::move(value)); return *this;}
+
+    /**
+     * <p>A value that indicates whether a storage volume is attached to or detached
+     * from a gateway. For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume">Moving
+     * Your Volumes to a Different Gateway</a>.</p>
+     */
+    inline CachediSCSIVolume& WithVolumeAttachmentStatus(const char* value) { SetVolumeAttachmentStatus(value); return *this;}
+
+
+    /**
      * <p>The size, in bytes, of the volume capacity.</p>
      */
     inline long long GetVolumeSizeInBytes() const{ return m_volumeSizeInBytes; }
+
+    /**
+     * <p>The size, in bytes, of the volume capacity.</p>
+     */
+    inline bool VolumeSizeInBytesHasBeenSet() const { return m_volumeSizeInBytesHasBeenSet; }
 
     /**
      * <p>The size, in bytes, of the volume capacity.</p>
@@ -236,6 +329,14 @@ namespace Model
      * not appear in the response if the cached volume is not restoring or
      * bootstrapping.</p>
      */
+    inline bool VolumeProgressHasBeenSet() const { return m_volumeProgressHasBeenSet; }
+
+    /**
+     * <p>Represents the percentage complete if the volume is restoring or
+     * bootstrapping that represents the percent of data transferred. This field does
+     * not appear in the response if the cached volume is not restoring or
+     * bootstrapping.</p>
+     */
     inline void SetVolumeProgress(double value) { m_volumeProgressHasBeenSet = true; m_volumeProgress = value; }
 
     /**
@@ -252,6 +353,12 @@ namespace Model
      * snapshot ID used, e.g. snap-78e22663. Otherwise, this field is not included.</p>
      */
     inline const Aws::String& GetSourceSnapshotId() const{ return m_sourceSnapshotId; }
+
+    /**
+     * <p>If the cached volume was created from a snapshot, this field contains the
+     * snapshot ID used, e.g. snap-78e22663. Otherwise, this field is not included.</p>
+     */
+    inline bool SourceSnapshotIdHasBeenSet() const { return m_sourceSnapshotIdHasBeenSet; }
 
     /**
      * <p>If the cached volume was created from a snapshot, this field contains the
@@ -300,6 +407,12 @@ namespace Model
      * <p>An <a>VolumeiSCSIAttributes</a> object that represents a collection of iSCSI
      * attributes for one stored volume.</p>
      */
+    inline bool VolumeiSCSIAttributesHasBeenSet() const { return m_volumeiSCSIAttributesHasBeenSet; }
+
+    /**
+     * <p>An <a>VolumeiSCSIAttributes</a> object that represents a collection of iSCSI
+     * attributes for one stored volume.</p>
+     */
     inline void SetVolumeiSCSIAttributes(const VolumeiSCSIAttributes& value) { m_volumeiSCSIAttributesHasBeenSet = true; m_volumeiSCSIAttributes = value; }
 
     /**
@@ -331,6 +444,12 @@ namespace Model
      * <p>The date the volume was created. Volumes created prior to March 28, 2017
      * don’t have this time stamp.</p>
      */
+    inline bool CreatedDateHasBeenSet() const { return m_createdDateHasBeenSet; }
+
+    /**
+     * <p>The date the volume was created. Volumes created prior to March 28, 2017
+     * don’t have this time stamp.</p>
+     */
     inline void SetCreatedDate(const Aws::Utils::DateTime& value) { m_createdDateHasBeenSet = true; m_createdDate = value; }
 
     /**
@@ -353,29 +472,55 @@ namespace Model
 
 
     /**
-     * <p>The size of the data stored on the volume in bytes.</p> <note> <p>This value
-     * is not available for volumes created prior to May 13, 2015, until you store data
-     * on the volume.</p> </note>
+     * <p>The size of the data stored on the volume in bytes. This value is calculated
+     * based on the number of blocks that are touched, instead of the actual amount of
+     * data written. This value can be useful for sequential write patterns but less
+     * accurate for random write patterns. <code>VolumeUsedInBytes</code> is different
+     * from the compressed size of the volume, which is the value that is used to
+     * calculate your bill.</p> <note> <p>This value is not available for volumes
+     * created prior to May 13, 2015, until you store data on the volume.</p> </note>
      */
     inline long long GetVolumeUsedInBytes() const{ return m_volumeUsedInBytes; }
 
     /**
-     * <p>The size of the data stored on the volume in bytes.</p> <note> <p>This value
-     * is not available for volumes created prior to May 13, 2015, until you store data
-     * on the volume.</p> </note>
+     * <p>The size of the data stored on the volume in bytes. This value is calculated
+     * based on the number of blocks that are touched, instead of the actual amount of
+     * data written. This value can be useful for sequential write patterns but less
+     * accurate for random write patterns. <code>VolumeUsedInBytes</code> is different
+     * from the compressed size of the volume, which is the value that is used to
+     * calculate your bill.</p> <note> <p>This value is not available for volumes
+     * created prior to May 13, 2015, until you store data on the volume.</p> </note>
+     */
+    inline bool VolumeUsedInBytesHasBeenSet() const { return m_volumeUsedInBytesHasBeenSet; }
+
+    /**
+     * <p>The size of the data stored on the volume in bytes. This value is calculated
+     * based on the number of blocks that are touched, instead of the actual amount of
+     * data written. This value can be useful for sequential write patterns but less
+     * accurate for random write patterns. <code>VolumeUsedInBytes</code> is different
+     * from the compressed size of the volume, which is the value that is used to
+     * calculate your bill.</p> <note> <p>This value is not available for volumes
+     * created prior to May 13, 2015, until you store data on the volume.</p> </note>
      */
     inline void SetVolumeUsedInBytes(long long value) { m_volumeUsedInBytesHasBeenSet = true; m_volumeUsedInBytes = value; }
 
     /**
-     * <p>The size of the data stored on the volume in bytes.</p> <note> <p>This value
-     * is not available for volumes created prior to May 13, 2015, until you store data
-     * on the volume.</p> </note>
+     * <p>The size of the data stored on the volume in bytes. This value is calculated
+     * based on the number of blocks that are touched, instead of the actual amount of
+     * data written. This value can be useful for sequential write patterns but less
+     * accurate for random write patterns. <code>VolumeUsedInBytes</code> is different
+     * from the compressed size of the volume, which is the value that is used to
+     * calculate your bill.</p> <note> <p>This value is not available for volumes
+     * created prior to May 13, 2015, until you store data on the volume.</p> </note>
      */
     inline CachediSCSIVolume& WithVolumeUsedInBytes(long long value) { SetVolumeUsedInBytes(value); return *this;}
 
 
     
     inline const Aws::String& GetKMSKey() const{ return m_kMSKey; }
+
+    
+    inline bool KMSKeyHasBeenSet() const { return m_kMSKeyHasBeenSet; }
 
     
     inline void SetKMSKey(const Aws::String& value) { m_kMSKeyHasBeenSet = true; m_kMSKey = value; }
@@ -395,6 +540,95 @@ namespace Model
     
     inline CachediSCSIVolume& WithKMSKey(const char* value) { SetKMSKey(value); return *this;}
 
+
+    /**
+     * <p>The name of the iSCSI target used by an initiator to connect to a volume and
+     * used as a suffix for the target ARN. For example, specifying
+     * <code>TargetName</code> as <i>myvolume</i> results in the target ARN of
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume</code>.
+     * The target name must be unique across all volumes on a gateway.</p> <p>If you
+     * don't specify a value, Storage Gateway uses the value that was previously used
+     * for this volume as the new target name.</p>
+     */
+    inline const Aws::String& GetTargetName() const{ return m_targetName; }
+
+    /**
+     * <p>The name of the iSCSI target used by an initiator to connect to a volume and
+     * used as a suffix for the target ARN. For example, specifying
+     * <code>TargetName</code> as <i>myvolume</i> results in the target ARN of
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume</code>.
+     * The target name must be unique across all volumes on a gateway.</p> <p>If you
+     * don't specify a value, Storage Gateway uses the value that was previously used
+     * for this volume as the new target name.</p>
+     */
+    inline bool TargetNameHasBeenSet() const { return m_targetNameHasBeenSet; }
+
+    /**
+     * <p>The name of the iSCSI target used by an initiator to connect to a volume and
+     * used as a suffix for the target ARN. For example, specifying
+     * <code>TargetName</code> as <i>myvolume</i> results in the target ARN of
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume</code>.
+     * The target name must be unique across all volumes on a gateway.</p> <p>If you
+     * don't specify a value, Storage Gateway uses the value that was previously used
+     * for this volume as the new target name.</p>
+     */
+    inline void SetTargetName(const Aws::String& value) { m_targetNameHasBeenSet = true; m_targetName = value; }
+
+    /**
+     * <p>The name of the iSCSI target used by an initiator to connect to a volume and
+     * used as a suffix for the target ARN. For example, specifying
+     * <code>TargetName</code> as <i>myvolume</i> results in the target ARN of
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume</code>.
+     * The target name must be unique across all volumes on a gateway.</p> <p>If you
+     * don't specify a value, Storage Gateway uses the value that was previously used
+     * for this volume as the new target name.</p>
+     */
+    inline void SetTargetName(Aws::String&& value) { m_targetNameHasBeenSet = true; m_targetName = std::move(value); }
+
+    /**
+     * <p>The name of the iSCSI target used by an initiator to connect to a volume and
+     * used as a suffix for the target ARN. For example, specifying
+     * <code>TargetName</code> as <i>myvolume</i> results in the target ARN of
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume</code>.
+     * The target name must be unique across all volumes on a gateway.</p> <p>If you
+     * don't specify a value, Storage Gateway uses the value that was previously used
+     * for this volume as the new target name.</p>
+     */
+    inline void SetTargetName(const char* value) { m_targetNameHasBeenSet = true; m_targetName.assign(value); }
+
+    /**
+     * <p>The name of the iSCSI target used by an initiator to connect to a volume and
+     * used as a suffix for the target ARN. For example, specifying
+     * <code>TargetName</code> as <i>myvolume</i> results in the target ARN of
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume</code>.
+     * The target name must be unique across all volumes on a gateway.</p> <p>If you
+     * don't specify a value, Storage Gateway uses the value that was previously used
+     * for this volume as the new target name.</p>
+     */
+    inline CachediSCSIVolume& WithTargetName(const Aws::String& value) { SetTargetName(value); return *this;}
+
+    /**
+     * <p>The name of the iSCSI target used by an initiator to connect to a volume and
+     * used as a suffix for the target ARN. For example, specifying
+     * <code>TargetName</code> as <i>myvolume</i> results in the target ARN of
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume</code>.
+     * The target name must be unique across all volumes on a gateway.</p> <p>If you
+     * don't specify a value, Storage Gateway uses the value that was previously used
+     * for this volume as the new target name.</p>
+     */
+    inline CachediSCSIVolume& WithTargetName(Aws::String&& value) { SetTargetName(std::move(value)); return *this;}
+
+    /**
+     * <p>The name of the iSCSI target used by an initiator to connect to a volume and
+     * used as a suffix for the target ARN. For example, specifying
+     * <code>TargetName</code> as <i>myvolume</i> results in the target ARN of
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:myvolume</code>.
+     * The target name must be unique across all volumes on a gateway.</p> <p>If you
+     * don't specify a value, Storage Gateway uses the value that was previously used
+     * for this volume as the new target name.</p>
+     */
+    inline CachediSCSIVolume& WithTargetName(const char* value) { SetTargetName(value); return *this;}
+
   private:
 
     Aws::String m_volumeARN;
@@ -408,6 +642,9 @@ namespace Model
 
     Aws::String m_volumeStatus;
     bool m_volumeStatusHasBeenSet;
+
+    Aws::String m_volumeAttachmentStatus;
+    bool m_volumeAttachmentStatusHasBeenSet;
 
     long long m_volumeSizeInBytes;
     bool m_volumeSizeInBytesHasBeenSet;
@@ -429,6 +666,9 @@ namespace Model
 
     Aws::String m_kMSKey;
     bool m_kMSKeyHasBeenSet;
+
+    Aws::String m_targetName;
+    bool m_targetNameHasBeenSet;
   };
 
 } // namespace Model

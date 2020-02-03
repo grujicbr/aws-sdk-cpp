@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     UpdateDeviceInstanceRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +49,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) of the device instance.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the device instance.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the device instance.</p>
@@ -82,44 +87,50 @@ namespace Model
 
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the profile that you want to associate with
-     * the device instance.</p>
+     * <p>The ARN of the profile that you want to associate with the device
+     * instance.</p>
      */
     inline const Aws::String& GetProfileArn() const{ return m_profileArn; }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the profile that you want to associate with
-     * the device instance.</p>
+     * <p>The ARN of the profile that you want to associate with the device
+     * instance.</p>
+     */
+    inline bool ProfileArnHasBeenSet() const { return m_profileArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the profile that you want to associate with the device
+     * instance.</p>
      */
     inline void SetProfileArn(const Aws::String& value) { m_profileArnHasBeenSet = true; m_profileArn = value; }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the profile that you want to associate with
-     * the device instance.</p>
+     * <p>The ARN of the profile that you want to associate with the device
+     * instance.</p>
      */
     inline void SetProfileArn(Aws::String&& value) { m_profileArnHasBeenSet = true; m_profileArn = std::move(value); }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the profile that you want to associate with
-     * the device instance.</p>
+     * <p>The ARN of the profile that you want to associate with the device
+     * instance.</p>
      */
     inline void SetProfileArn(const char* value) { m_profileArnHasBeenSet = true; m_profileArn.assign(value); }
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the profile that you want to associate with
-     * the device instance.</p>
+     * <p>The ARN of the profile that you want to associate with the device
+     * instance.</p>
      */
     inline UpdateDeviceInstanceRequest& WithProfileArn(const Aws::String& value) { SetProfileArn(value); return *this;}
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the profile that you want to associate with
-     * the device instance.</p>
+     * <p>The ARN of the profile that you want to associate with the device
+     * instance.</p>
      */
     inline UpdateDeviceInstanceRequest& WithProfileArn(Aws::String&& value) { SetProfileArn(std::move(value)); return *this;}
 
     /**
-     * <p>The Amazon Resource Name (ARN) of the profile that you want to associate with
-     * the device instance.</p>
+     * <p>The ARN of the profile that you want to associate with the device
+     * instance.</p>
      */
     inline UpdateDeviceInstanceRequest& WithProfileArn(const char* value) { SetProfileArn(value); return *this;}
 
@@ -128,6 +139,11 @@ namespace Model
      * <p>An array of strings that you want to associate with the device instance.</p>
      */
     inline const Aws::Vector<Aws::String>& GetLabels() const{ return m_labels; }
+
+    /**
+     * <p>An array of strings that you want to associate with the device instance.</p>
+     */
+    inline bool LabelsHasBeenSet() const { return m_labelsHasBeenSet; }
 
     /**
      * <p>An array of strings that you want to associate with the device instance.</p>

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace WAF
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     IPSetUpdate();
-    IPSetUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    IPSetUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    IPSetUpdate(Aws::Utils::Json::JsonView jsonValue);
+    IPSetUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * <a>UpdateIPSet</a>.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>Specifies whether to insert or delete an IP address with
+     * <a>UpdateIPSet</a>.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>Specifies whether to insert or delete an IP address with
@@ -84,6 +91,12 @@ namespace Model
      * address range (in CIDR notation) that web requests originate from.</p>
      */
     inline const IPSetDescriptor& GetIPSetDescriptor() const{ return m_iPSetDescriptor; }
+
+    /**
+     * <p>The IP address type (<code>IPV4</code> or <code>IPV6</code>) and the IP
+     * address range (in CIDR notation) that web requests originate from.</p>
+     */
+    inline bool IPSetDescriptorHasBeenSet() const { return m_iPSetDescriptorHasBeenSet; }
 
     /**
      * <p>The IP address type (<code>IPV4</code> or <code>IPV6</code>) and the IP

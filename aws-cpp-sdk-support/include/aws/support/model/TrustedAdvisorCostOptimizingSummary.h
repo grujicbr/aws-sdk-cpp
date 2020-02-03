@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Support
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     TrustedAdvisorCostOptimizingSummary();
-    TrustedAdvisorCostOptimizingSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrustedAdvisorCostOptimizingSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrustedAdvisorCostOptimizingSummary(Aws::Utils::Json::JsonView jsonValue);
+    TrustedAdvisorCostOptimizingSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * actions are taken.</p>
      */
     inline double GetEstimatedMonthlySavings() const{ return m_estimatedMonthlySavings; }
+
+    /**
+     * <p>The estimated monthly savings that might be realized if the recommended
+     * actions are taken.</p>
+     */
+    inline bool EstimatedMonthlySavingsHasBeenSet() const { return m_estimatedMonthlySavingsHasBeenSet; }
 
     /**
      * <p>The estimated monthly savings that might be realized if the recommended
@@ -69,6 +76,12 @@ namespace Model
      * actions are taken.</p>
      */
     inline double GetEstimatedPercentMonthlySavings() const{ return m_estimatedPercentMonthlySavings; }
+
+    /**
+     * <p>The estimated percentage of savings that might be realized if the recommended
+     * actions are taken.</p>
+     */
+    inline bool EstimatedPercentMonthlySavingsHasBeenSet() const { return m_estimatedPercentMonthlySavingsHasBeenSet; }
 
     /**
      * <p>The estimated percentage of savings that might be realized if the recommended

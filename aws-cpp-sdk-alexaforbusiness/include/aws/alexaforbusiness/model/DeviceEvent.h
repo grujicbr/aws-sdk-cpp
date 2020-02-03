@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     DeviceEvent();
-    DeviceEvent(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceEvent& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceEvent(Aws::Utils::Json::JsonView jsonValue);
+    DeviceEvent& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The type of device event.</p>
      */
     inline const DeviceEventType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of device event.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of device event.</p>
@@ -78,6 +84,11 @@ namespace Model
      * <p>The value of the event.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The value of the event.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The value of the event.</p>
@@ -114,6 +125,11 @@ namespace Model
      * <p>The time (in epoch) when the event occurred. </p>
      */
     inline const Aws::Utils::DateTime& GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>The time (in epoch) when the event occurred. </p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>The time (in epoch) when the event occurred. </p>

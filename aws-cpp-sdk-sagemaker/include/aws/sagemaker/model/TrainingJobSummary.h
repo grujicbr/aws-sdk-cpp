@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SageMaker
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     TrainingJobSummary();
-    TrainingJobSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    TrainingJobSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TrainingJobSummary(Aws::Utils::Json::JsonView jsonValue);
+    TrainingJobSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the training job that you want a summary for.</p>
      */
     inline const Aws::String& GetTrainingJobName() const{ return m_trainingJobName; }
+
+    /**
+     * <p>The name of the training job that you want a summary for.</p>
+     */
+    inline bool TrainingJobNameHasBeenSet() const { return m_trainingJobNameHasBeenSet; }
 
     /**
      * <p>The name of the training job that you want a summary for.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>The Amazon Resource Name (ARN) of the training job.</p>
      */
+    inline bool TrainingJobArnHasBeenSet() const { return m_trainingJobArnHasBeenSet; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the training job.</p>
+     */
     inline void SetTrainingJobArn(const Aws::String& value) { m_trainingJobArnHasBeenSet = true; m_trainingJobArn = value; }
 
     /**
@@ -129,6 +140,11 @@ namespace Model
     /**
      * <p>A timestamp that shows when the training job was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>A timestamp that shows when the training job was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -153,6 +169,13 @@ namespace Model
      * <code>Failed</code>, or <code>Stopped</code>). </p>
      */
     inline const Aws::Utils::DateTime& GetTrainingEndTime() const{ return m_trainingEndTime; }
+
+    /**
+     * <p>A timestamp that shows when the training job ended. This field is set only if
+     * the training job has one of the terminal statuses (<code>Completed</code>,
+     * <code>Failed</code>, or <code>Stopped</code>). </p>
+     */
+    inline bool TrainingEndTimeHasBeenSet() const { return m_trainingEndTimeHasBeenSet; }
 
     /**
      * <p>A timestamp that shows when the training job ended. This field is set only if
@@ -191,6 +214,11 @@ namespace Model
     /**
      * <p> Timestamp when the training job was last modified. </p>
      */
+    inline bool LastModifiedTimeHasBeenSet() const { return m_lastModifiedTimeHasBeenSet; }
+
+    /**
+     * <p> Timestamp when the training job was last modified. </p>
+     */
     inline void SetLastModifiedTime(const Aws::Utils::DateTime& value) { m_lastModifiedTimeHasBeenSet = true; m_lastModifiedTime = value; }
 
     /**
@@ -213,6 +241,11 @@ namespace Model
      * <p>The status of the training job.</p>
      */
     inline const TrainingJobStatus& GetTrainingJobStatus() const{ return m_trainingJobStatus; }
+
+    /**
+     * <p>The status of the training job.</p>
+     */
+    inline bool TrainingJobStatusHasBeenSet() const { return m_trainingJobStatusHasBeenSet; }
 
     /**
      * <p>The status of the training job.</p>

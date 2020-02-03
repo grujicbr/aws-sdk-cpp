@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -37,7 +38,7 @@ namespace Model
 
   /**
    * <p>A structure used to provide information used to update a trigger. This object
-   * will update the the previous trigger definition by overwriting it
+   * updates the previous trigger definition by overwriting it
    * completely.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/TriggerUpdate">AWS
    * API Reference</a></p>
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     TriggerUpdate();
-    TriggerUpdate(const Aws::Utils::Json::JsonValue& jsonValue);
-    TriggerUpdate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TriggerUpdate(Aws::Utils::Json::JsonView jsonValue);
+    TriggerUpdate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>Reserved for future use.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>Reserved for future use.</p>
@@ -95,6 +101,11 @@ namespace Model
     /**
      * <p>A description of this trigger.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>A description of this trigger.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -125,7 +136,7 @@ namespace Model
 
     /**
      * <p>A <code>cron</code> expression used to specify the schedule (see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
      * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
      */
@@ -133,7 +144,15 @@ namespace Model
 
     /**
      * <p>A <code>cron</code> expression used to specify the schedule (see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
+     * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
+     */
+    inline bool ScheduleHasBeenSet() const { return m_scheduleHasBeenSet; }
+
+    /**
+     * <p>A <code>cron</code> expression used to specify the schedule (see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
      * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
      */
@@ -141,7 +160,7 @@ namespace Model
 
     /**
      * <p>A <code>cron</code> expression used to specify the schedule (see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
      * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
      */
@@ -149,7 +168,7 @@ namespace Model
 
     /**
      * <p>A <code>cron</code> expression used to specify the schedule (see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
      * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
      */
@@ -157,7 +176,7 @@ namespace Model
 
     /**
      * <p>A <code>cron</code> expression used to specify the schedule (see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
      * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
      */
@@ -165,7 +184,7 @@ namespace Model
 
     /**
      * <p>A <code>cron</code> expression used to specify the schedule (see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
      * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
      */
@@ -173,7 +192,7 @@ namespace Model
 
     /**
      * <p>A <code>cron</code> expression used to specify the schedule (see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
      * Schedules for Jobs and Crawlers</a>. For example, to run something every day at
      * 12:15 UTC, you would specify: <code>cron(15 12 * * ? *)</code>.</p>
      */
@@ -184,6 +203,11 @@ namespace Model
      * <p>The actions initiated by this trigger.</p>
      */
     inline const Aws::Vector<Action>& GetActions() const{ return m_actions; }
+
+    /**
+     * <p>The actions initiated by this trigger.</p>
+     */
+    inline bool ActionsHasBeenSet() const { return m_actionsHasBeenSet; }
 
     /**
      * <p>The actions initiated by this trigger.</p>
@@ -220,6 +244,11 @@ namespace Model
      * <p>The predicate of this trigger, which defines when it will fire.</p>
      */
     inline const Predicate& GetPredicate() const{ return m_predicate; }
+
+    /**
+     * <p>The predicate of this trigger, which defines when it will fire.</p>
+     */
+    inline bool PredicateHasBeenSet() const { return m_predicateHasBeenSet; }
 
     /**
      * <p>The predicate of this trigger, which defines when it will fire.</p>

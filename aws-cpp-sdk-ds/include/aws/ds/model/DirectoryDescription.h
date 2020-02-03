@@ -20,12 +20,15 @@
 #include <aws/ds/model/DirectoryEdition.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/ds/model/DirectoryStage.h>
+#include <aws/ds/model/ShareStatus.h>
+#include <aws/ds/model/ShareMethod.h>
 #include <aws/core/utils/DateTime.h>
 #include <aws/ds/model/DirectoryType.h>
 #include <aws/ds/model/DirectoryVpcSettingsDescription.h>
 #include <aws/ds/model/DirectoryConnectSettingsDescription.h>
 #include <aws/ds/model/RadiusSettings.h>
 #include <aws/ds/model/RadiusStatus.h>
+#include <aws/ds/model/OwnerDirectoryDescription.h>
 #include <utility>
 
 namespace Aws
@@ -35,6 +38,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -52,8 +56,8 @@ namespace Model
   {
   public:
     DirectoryDescription();
-    DirectoryDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    DirectoryDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DirectoryDescription(Aws::Utils::Json::JsonView jsonValue);
+    DirectoryDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -61,6 +65,11 @@ namespace Model
      * <p>The directory identifier.</p>
      */
     inline const Aws::String& GetDirectoryId() const{ return m_directoryId; }
+
+    /**
+     * <p>The directory identifier.</p>
+     */
+    inline bool DirectoryIdHasBeenSet() const { return m_directoryIdHasBeenSet; }
 
     /**
      * <p>The directory identifier.</p>
@@ -94,37 +103,42 @@ namespace Model
 
 
     /**
-     * <p>The fully-qualified name of the directory.</p>
+     * <p>The fully qualified name of the directory.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
 
     /**
-     * <p>The fully-qualified name of the directory.</p>
+     * <p>The fully qualified name of the directory.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The fully qualified name of the directory.</p>
      */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
-     * <p>The fully-qualified name of the directory.</p>
+     * <p>The fully qualified name of the directory.</p>
      */
     inline void SetName(Aws::String&& value) { m_nameHasBeenSet = true; m_name = std::move(value); }
 
     /**
-     * <p>The fully-qualified name of the directory.</p>
+     * <p>The fully qualified name of the directory.</p>
      */
     inline void SetName(const char* value) { m_nameHasBeenSet = true; m_name.assign(value); }
 
     /**
-     * <p>The fully-qualified name of the directory.</p>
+     * <p>The fully qualified name of the directory.</p>
      */
     inline DirectoryDescription& WithName(const Aws::String& value) { SetName(value); return *this;}
 
     /**
-     * <p>The fully-qualified name of the directory.</p>
+     * <p>The fully qualified name of the directory.</p>
      */
     inline DirectoryDescription& WithName(Aws::String&& value) { SetName(std::move(value)); return *this;}
 
     /**
-     * <p>The fully-qualified name of the directory.</p>
+     * <p>The fully qualified name of the directory.</p>
      */
     inline DirectoryDescription& WithName(const char* value) { SetName(value); return *this;}
 
@@ -133,6 +147,11 @@ namespace Model
      * <p>The short name of the directory.</p>
      */
     inline const Aws::String& GetShortName() const{ return m_shortName; }
+
+    /**
+     * <p>The short name of the directory.</p>
+     */
+    inline bool ShortNameHasBeenSet() const { return m_shortNameHasBeenSet; }
 
     /**
      * <p>The short name of the directory.</p>
@@ -173,6 +192,11 @@ namespace Model
     /**
      * <p>The directory size.</p>
      */
+    inline bool SizeHasBeenSet() const { return m_sizeHasBeenSet; }
+
+    /**
+     * <p>The directory size.</p>
+     */
     inline void SetSize(const DirectorySize& value) { m_sizeHasBeenSet = true; m_size = value; }
 
     /**
@@ -195,6 +219,11 @@ namespace Model
      * <p>The edition associated with this directory.</p>
      */
     inline const DirectoryEdition& GetEdition() const{ return m_edition; }
+
+    /**
+     * <p>The edition associated with this directory.</p>
+     */
+    inline bool EditionHasBeenSet() const { return m_editionHasBeenSet; }
 
     /**
      * <p>The edition associated with this directory.</p>
@@ -222,6 +251,12 @@ namespace Model
      * the alias is the directory identifier, such as <code>d-XXXXXXXXXX</code>.</p>
      */
     inline const Aws::String& GetAlias() const{ return m_alias; }
+
+    /**
+     * <p>The alias for the directory. If no alias has been created for the directory,
+     * the alias is the directory identifier, such as <code>d-XXXXXXXXXX</code>.</p>
+     */
+    inline bool AliasHasBeenSet() const { return m_aliasHasBeenSet; }
 
     /**
      * <p>The alias for the directory. If no alias has been created for the directory,
@@ -274,6 +309,14 @@ namespace Model
      * the directory, <code>&lt;alias&gt;</code> is the directory identifier, such as
      * <code>d-XXXXXXXXXX</code>.</p>
      */
+    inline bool AccessUrlHasBeenSet() const { return m_accessUrlHasBeenSet; }
+
+    /**
+     * <p>The access URL for the directory, such as
+     * <code>http://&lt;alias&gt;.awsapps.com</code>. If no alias has been created for
+     * the directory, <code>&lt;alias&gt;</code> is the directory identifier, such as
+     * <code>d-XXXXXXXXXX</code>.</p>
+     */
     inline void SetAccessUrl(const Aws::String& value) { m_accessUrlHasBeenSet = true; m_accessUrl = value; }
 
     /**
@@ -318,37 +361,42 @@ namespace Model
 
 
     /**
-     * <p>The textual description for the directory.</p>
+     * <p>The description for the directory.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
 
     /**
-     * <p>The textual description for the directory.</p>
+     * <p>The description for the directory.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description for the directory.</p>
      */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
-     * <p>The textual description for the directory.</p>
+     * <p>The description for the directory.</p>
      */
     inline void SetDescription(Aws::String&& value) { m_descriptionHasBeenSet = true; m_description = std::move(value); }
 
     /**
-     * <p>The textual description for the directory.</p>
+     * <p>The description for the directory.</p>
      */
     inline void SetDescription(const char* value) { m_descriptionHasBeenSet = true; m_description.assign(value); }
 
     /**
-     * <p>The textual description for the directory.</p>
+     * <p>The description for the directory.</p>
      */
     inline DirectoryDescription& WithDescription(const Aws::String& value) { SetDescription(value); return *this;}
 
     /**
-     * <p>The textual description for the directory.</p>
+     * <p>The description for the directory.</p>
      */
     inline DirectoryDescription& WithDescription(Aws::String&& value) { SetDescription(std::move(value)); return *this;}
 
     /**
-     * <p>The textual description for the directory.</p>
+     * <p>The description for the directory.</p>
      */
     inline DirectoryDescription& WithDescription(const char* value) { SetDescription(value); return *this;}
 
@@ -361,6 +409,15 @@ namespace Model
      * the AD Connector is connected.</p>
      */
     inline const Aws::Vector<Aws::String>& GetDnsIpAddrs() const{ return m_dnsIpAddrs; }
+
+    /**
+     * <p>The IP addresses of the DNS servers for the directory. For a Simple AD or
+     * Microsoft AD directory, these are the IP addresses of the Simple AD or Microsoft
+     * AD directory servers. For an AD Connector directory, these are the IP addresses
+     * of the DNS servers or domain controllers in the on-premises directory to which
+     * the AD Connector is connected.</p>
+     */
+    inline bool DnsIpAddrsHasBeenSet() const { return m_dnsIpAddrsHasBeenSet; }
 
     /**
      * <p>The IP addresses of the DNS servers for the directory. For a Simple AD or
@@ -434,6 +491,11 @@ namespace Model
     /**
      * <p>The current stage of the directory.</p>
      */
+    inline bool StageHasBeenSet() const { return m_stageHasBeenSet; }
+
+    /**
+     * <p>The current stage of the directory.</p>
+     */
     inline void SetStage(const DirectoryStage& value) { m_stageHasBeenSet = true; m_stage = value; }
 
     /**
@@ -453,9 +515,165 @@ namespace Model
 
 
     /**
+     * <p>Current directory status of the shared AWS Managed Microsoft AD
+     * directory.</p>
+     */
+    inline const ShareStatus& GetShareStatus() const{ return m_shareStatus; }
+
+    /**
+     * <p>Current directory status of the shared AWS Managed Microsoft AD
+     * directory.</p>
+     */
+    inline bool ShareStatusHasBeenSet() const { return m_shareStatusHasBeenSet; }
+
+    /**
+     * <p>Current directory status of the shared AWS Managed Microsoft AD
+     * directory.</p>
+     */
+    inline void SetShareStatus(const ShareStatus& value) { m_shareStatusHasBeenSet = true; m_shareStatus = value; }
+
+    /**
+     * <p>Current directory status of the shared AWS Managed Microsoft AD
+     * directory.</p>
+     */
+    inline void SetShareStatus(ShareStatus&& value) { m_shareStatusHasBeenSet = true; m_shareStatus = std::move(value); }
+
+    /**
+     * <p>Current directory status of the shared AWS Managed Microsoft AD
+     * directory.</p>
+     */
+    inline DirectoryDescription& WithShareStatus(const ShareStatus& value) { SetShareStatus(value); return *this;}
+
+    /**
+     * <p>Current directory status of the shared AWS Managed Microsoft AD
+     * directory.</p>
+     */
+    inline DirectoryDescription& WithShareStatus(ShareStatus&& value) { SetShareStatus(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The method used when sharing a directory to determine whether the directory
+     * should be shared within your AWS organization (<code>ORGANIZATIONS</code>) or
+     * with any AWS account by sending a shared directory request
+     * (<code>HANDSHAKE</code>).</p>
+     */
+    inline const ShareMethod& GetShareMethod() const{ return m_shareMethod; }
+
+    /**
+     * <p>The method used when sharing a directory to determine whether the directory
+     * should be shared within your AWS organization (<code>ORGANIZATIONS</code>) or
+     * with any AWS account by sending a shared directory request
+     * (<code>HANDSHAKE</code>).</p>
+     */
+    inline bool ShareMethodHasBeenSet() const { return m_shareMethodHasBeenSet; }
+
+    /**
+     * <p>The method used when sharing a directory to determine whether the directory
+     * should be shared within your AWS organization (<code>ORGANIZATIONS</code>) or
+     * with any AWS account by sending a shared directory request
+     * (<code>HANDSHAKE</code>).</p>
+     */
+    inline void SetShareMethod(const ShareMethod& value) { m_shareMethodHasBeenSet = true; m_shareMethod = value; }
+
+    /**
+     * <p>The method used when sharing a directory to determine whether the directory
+     * should be shared within your AWS organization (<code>ORGANIZATIONS</code>) or
+     * with any AWS account by sending a shared directory request
+     * (<code>HANDSHAKE</code>).</p>
+     */
+    inline void SetShareMethod(ShareMethod&& value) { m_shareMethodHasBeenSet = true; m_shareMethod = std::move(value); }
+
+    /**
+     * <p>The method used when sharing a directory to determine whether the directory
+     * should be shared within your AWS organization (<code>ORGANIZATIONS</code>) or
+     * with any AWS account by sending a shared directory request
+     * (<code>HANDSHAKE</code>).</p>
+     */
+    inline DirectoryDescription& WithShareMethod(const ShareMethod& value) { SetShareMethod(value); return *this;}
+
+    /**
+     * <p>The method used when sharing a directory to determine whether the directory
+     * should be shared within your AWS organization (<code>ORGANIZATIONS</code>) or
+     * with any AWS account by sending a shared directory request
+     * (<code>HANDSHAKE</code>).</p>
+     */
+    inline DirectoryDescription& WithShareMethod(ShareMethod&& value) { SetShareMethod(std::move(value)); return *this;}
+
+
+    /**
+     * <p>A directory share request that is sent by the directory owner to the
+     * directory consumer. The request includes a typed message to help the directory
+     * consumer administrator determine whether to approve or reject the share
+     * invitation.</p>
+     */
+    inline const Aws::String& GetShareNotes() const{ return m_shareNotes; }
+
+    /**
+     * <p>A directory share request that is sent by the directory owner to the
+     * directory consumer. The request includes a typed message to help the directory
+     * consumer administrator determine whether to approve or reject the share
+     * invitation.</p>
+     */
+    inline bool ShareNotesHasBeenSet() const { return m_shareNotesHasBeenSet; }
+
+    /**
+     * <p>A directory share request that is sent by the directory owner to the
+     * directory consumer. The request includes a typed message to help the directory
+     * consumer administrator determine whether to approve or reject the share
+     * invitation.</p>
+     */
+    inline void SetShareNotes(const Aws::String& value) { m_shareNotesHasBeenSet = true; m_shareNotes = value; }
+
+    /**
+     * <p>A directory share request that is sent by the directory owner to the
+     * directory consumer. The request includes a typed message to help the directory
+     * consumer administrator determine whether to approve or reject the share
+     * invitation.</p>
+     */
+    inline void SetShareNotes(Aws::String&& value) { m_shareNotesHasBeenSet = true; m_shareNotes = std::move(value); }
+
+    /**
+     * <p>A directory share request that is sent by the directory owner to the
+     * directory consumer. The request includes a typed message to help the directory
+     * consumer administrator determine whether to approve or reject the share
+     * invitation.</p>
+     */
+    inline void SetShareNotes(const char* value) { m_shareNotesHasBeenSet = true; m_shareNotes.assign(value); }
+
+    /**
+     * <p>A directory share request that is sent by the directory owner to the
+     * directory consumer. The request includes a typed message to help the directory
+     * consumer administrator determine whether to approve or reject the share
+     * invitation.</p>
+     */
+    inline DirectoryDescription& WithShareNotes(const Aws::String& value) { SetShareNotes(value); return *this;}
+
+    /**
+     * <p>A directory share request that is sent by the directory owner to the
+     * directory consumer. The request includes a typed message to help the directory
+     * consumer administrator determine whether to approve or reject the share
+     * invitation.</p>
+     */
+    inline DirectoryDescription& WithShareNotes(Aws::String&& value) { SetShareNotes(std::move(value)); return *this;}
+
+    /**
+     * <p>A directory share request that is sent by the directory owner to the
+     * directory consumer. The request includes a typed message to help the directory
+     * consumer administrator determine whether to approve or reject the share
+     * invitation.</p>
+     */
+    inline DirectoryDescription& WithShareNotes(const char* value) { SetShareNotes(value); return *this;}
+
+
+    /**
      * <p>Specifies when the directory was created.</p>
      */
     inline const Aws::Utils::DateTime& GetLaunchTime() const{ return m_launchTime; }
+
+    /**
+     * <p>Specifies when the directory was created.</p>
+     */
+    inline bool LaunchTimeHasBeenSet() const { return m_launchTimeHasBeenSet; }
 
     /**
      * <p>Specifies when the directory was created.</p>
@@ -486,6 +704,11 @@ namespace Model
     /**
      * <p>The date and time that the stage was last updated.</p>
      */
+    inline bool StageLastUpdatedDateTimeHasBeenSet() const { return m_stageLastUpdatedDateTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time that the stage was last updated.</p>
+     */
     inline void SetStageLastUpdatedDateTime(const Aws::Utils::DateTime& value) { m_stageLastUpdatedDateTimeHasBeenSet = true; m_stageLastUpdatedDateTime = value; }
 
     /**
@@ -508,6 +731,11 @@ namespace Model
      * <p>The directory size.</p>
      */
     inline const DirectoryType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The directory size.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The directory size.</p>
@@ -536,6 +764,13 @@ namespace Model
      * Simple AD or Managed AD directory.</p>
      */
     inline const DirectoryVpcSettingsDescription& GetVpcSettings() const{ return m_vpcSettings; }
+
+    /**
+     * <p>A <a>DirectoryVpcSettingsDescription</a> object that contains additional
+     * information about a directory. This member is only present if the directory is a
+     * Simple AD or Managed AD directory.</p>
+     */
+    inline bool VpcSettingsHasBeenSet() const { return m_vpcSettingsHasBeenSet; }
 
     /**
      * <p>A <a>DirectoryVpcSettingsDescription</a> object that contains additional
@@ -578,6 +813,13 @@ namespace Model
      * information about an AD Connector directory. This member is only present if the
      * directory is an AD Connector directory.</p>
      */
+    inline bool ConnectSettingsHasBeenSet() const { return m_connectSettingsHasBeenSet; }
+
+    /**
+     * <p>A <a>DirectoryConnectSettingsDescription</a> object that contains additional
+     * information about an AD Connector directory. This member is only present if the
+     * directory is an AD Connector directory.</p>
+     */
     inline void SetConnectSettings(const DirectoryConnectSettingsDescription& value) { m_connectSettingsHasBeenSet = true; m_connectSettings = value; }
 
     /**
@@ -612,6 +854,12 @@ namespace Model
      * <p>A <a>RadiusSettings</a> object that contains information about the RADIUS
      * server configured for this directory.</p>
      */
+    inline bool RadiusSettingsHasBeenSet() const { return m_radiusSettingsHasBeenSet; }
+
+    /**
+     * <p>A <a>RadiusSettings</a> object that contains information about the RADIUS
+     * server configured for this directory.</p>
+     */
     inline void SetRadiusSettings(const RadiusSettings& value) { m_radiusSettingsHasBeenSet = true; m_radiusSettings = value; }
 
     /**
@@ -641,6 +889,11 @@ namespace Model
     /**
      * <p>The status of the RADIUS MFA server connection.</p>
      */
+    inline bool RadiusStatusHasBeenSet() const { return m_radiusStatusHasBeenSet; }
+
+    /**
+     * <p>The status of the RADIUS MFA server connection.</p>
+     */
     inline void SetRadiusStatus(const RadiusStatus& value) { m_radiusStatusHasBeenSet = true; m_radiusStatus = value; }
 
     /**
@@ -663,6 +916,11 @@ namespace Model
      * <p>Additional information about the directory stage.</p>
      */
     inline const Aws::String& GetStageReason() const{ return m_stageReason; }
+
+    /**
+     * <p>Additional information about the directory stage.</p>
+     */
+    inline bool StageReasonHasBeenSet() const { return m_stageReasonHasBeenSet; }
 
     /**
      * <p>Additional information about the directory stage.</p>
@@ -696,19 +954,25 @@ namespace Model
 
 
     /**
-     * <p>Indicates if single-sign on is enabled for the directory. For more
+     * <p>Indicates if single sign-on is enabled for the directory. For more
      * information, see <a>EnableSso</a> and <a>DisableSso</a>.</p>
      */
     inline bool GetSsoEnabled() const{ return m_ssoEnabled; }
 
     /**
-     * <p>Indicates if single-sign on is enabled for the directory. For more
+     * <p>Indicates if single sign-on is enabled for the directory. For more
+     * information, see <a>EnableSso</a> and <a>DisableSso</a>.</p>
+     */
+    inline bool SsoEnabledHasBeenSet() const { return m_ssoEnabledHasBeenSet; }
+
+    /**
+     * <p>Indicates if single sign-on is enabled for the directory. For more
      * information, see <a>EnableSso</a> and <a>DisableSso</a>.</p>
      */
     inline void SetSsoEnabled(bool value) { m_ssoEnabledHasBeenSet = true; m_ssoEnabled = value; }
 
     /**
-     * <p>Indicates if single-sign on is enabled for the directory. For more
+     * <p>Indicates if single sign-on is enabled for the directory. For more
      * information, see <a>EnableSso</a> and <a>DisableSso</a>.</p>
      */
     inline DirectoryDescription& WithSsoEnabled(bool value) { SetSsoEnabled(value); return *this;}
@@ -724,6 +988,12 @@ namespace Model
      * <p>The desired number of domain controllers in the directory if the directory is
      * Microsoft AD.</p>
      */
+    inline bool DesiredNumberOfDomainControllersHasBeenSet() const { return m_desiredNumberOfDomainControllersHasBeenSet; }
+
+    /**
+     * <p>The desired number of domain controllers in the directory if the directory is
+     * Microsoft AD.</p>
+     */
     inline void SetDesiredNumberOfDomainControllers(int value) { m_desiredNumberOfDomainControllersHasBeenSet = true; m_desiredNumberOfDomainControllers = value; }
 
     /**
@@ -731,6 +1001,43 @@ namespace Model
      * Microsoft AD.</p>
      */
     inline DirectoryDescription& WithDesiredNumberOfDomainControllers(int value) { SetDesiredNumberOfDomainControllers(value); return *this;}
+
+
+    /**
+     * <p>Describes the AWS Managed Microsoft AD directory in the directory owner
+     * account.</p>
+     */
+    inline const OwnerDirectoryDescription& GetOwnerDirectoryDescription() const{ return m_ownerDirectoryDescription; }
+
+    /**
+     * <p>Describes the AWS Managed Microsoft AD directory in the directory owner
+     * account.</p>
+     */
+    inline bool OwnerDirectoryDescriptionHasBeenSet() const { return m_ownerDirectoryDescriptionHasBeenSet; }
+
+    /**
+     * <p>Describes the AWS Managed Microsoft AD directory in the directory owner
+     * account.</p>
+     */
+    inline void SetOwnerDirectoryDescription(const OwnerDirectoryDescription& value) { m_ownerDirectoryDescriptionHasBeenSet = true; m_ownerDirectoryDescription = value; }
+
+    /**
+     * <p>Describes the AWS Managed Microsoft AD directory in the directory owner
+     * account.</p>
+     */
+    inline void SetOwnerDirectoryDescription(OwnerDirectoryDescription&& value) { m_ownerDirectoryDescriptionHasBeenSet = true; m_ownerDirectoryDescription = std::move(value); }
+
+    /**
+     * <p>Describes the AWS Managed Microsoft AD directory in the directory owner
+     * account.</p>
+     */
+    inline DirectoryDescription& WithOwnerDirectoryDescription(const OwnerDirectoryDescription& value) { SetOwnerDirectoryDescription(value); return *this;}
+
+    /**
+     * <p>Describes the AWS Managed Microsoft AD directory in the directory owner
+     * account.</p>
+     */
+    inline DirectoryDescription& WithOwnerDirectoryDescription(OwnerDirectoryDescription&& value) { SetOwnerDirectoryDescription(std::move(value)); return *this;}
 
   private:
 
@@ -764,6 +1071,15 @@ namespace Model
     DirectoryStage m_stage;
     bool m_stageHasBeenSet;
 
+    ShareStatus m_shareStatus;
+    bool m_shareStatusHasBeenSet;
+
+    ShareMethod m_shareMethod;
+    bool m_shareMethodHasBeenSet;
+
+    Aws::String m_shareNotes;
+    bool m_shareNotesHasBeenSet;
+
     Aws::Utils::DateTime m_launchTime;
     bool m_launchTimeHasBeenSet;
 
@@ -793,6 +1109,9 @@ namespace Model
 
     int m_desiredNumberOfDomainControllers;
     bool m_desiredNumberOfDomainControllersHasBeenSet;
+
+    OwnerDirectoryDescription m_ownerDirectoryDescription;
+    bool m_ownerDirectoryDescriptionHasBeenSet;
   };
 
 } // namespace Model

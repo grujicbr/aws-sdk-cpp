@@ -36,6 +36,7 @@ LoadBalancer::LoadBalancer() :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_dnsNameHasBeenSet(false),
     m_state(LoadBalancerState::NOT_SET),
     m_stateHasBeenSet(false),
@@ -51,7 +52,7 @@ LoadBalancer::LoadBalancer() :
 {
 }
 
-LoadBalancer::LoadBalancer(const JsonValue& jsonValue) : 
+LoadBalancer::LoadBalancer(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_arnHasBeenSet(false),
     m_supportCodeHasBeenSet(false),
@@ -59,6 +60,7 @@ LoadBalancer::LoadBalancer(const JsonValue& jsonValue) :
     m_locationHasBeenSet(false),
     m_resourceType(ResourceType::NOT_SET),
     m_resourceTypeHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_dnsNameHasBeenSet(false),
     m_state(LoadBalancerState::NOT_SET),
     m_stateHasBeenSet(false),
@@ -75,7 +77,7 @@ LoadBalancer::LoadBalancer(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-LoadBalancer& LoadBalancer::operator =(const JsonValue& jsonValue)
+LoadBalancer& LoadBalancer::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -119,6 +121,16 @@ LoadBalancer& LoadBalancer::operator =(const JsonValue& jsonValue)
     m_resourceTypeHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("dnsName"))
   {
     m_dnsName = jsonValue.GetString("dnsName");
@@ -142,7 +154,7 @@ LoadBalancer& LoadBalancer::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("publicPorts"))
   {
-    Array<JsonValue> publicPortsJsonList = jsonValue.GetArray("publicPorts");
+    Array<JsonView> publicPortsJsonList = jsonValue.GetArray("publicPorts");
     for(unsigned publicPortsIndex = 0; publicPortsIndex < publicPortsJsonList.GetLength(); ++publicPortsIndex)
     {
       m_publicPorts.push_back(publicPortsJsonList[publicPortsIndex].AsInteger());
@@ -166,7 +178,7 @@ LoadBalancer& LoadBalancer::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("instanceHealthSummary"))
   {
-    Array<JsonValue> instanceHealthSummaryJsonList = jsonValue.GetArray("instanceHealthSummary");
+    Array<JsonView> instanceHealthSummaryJsonList = jsonValue.GetArray("instanceHealthSummary");
     for(unsigned instanceHealthSummaryIndex = 0; instanceHealthSummaryIndex < instanceHealthSummaryJsonList.GetLength(); ++instanceHealthSummaryIndex)
     {
       m_instanceHealthSummary.push_back(instanceHealthSummaryJsonList[instanceHealthSummaryIndex].AsObject());
@@ -176,7 +188,7 @@ LoadBalancer& LoadBalancer::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("tlsCertificateSummaries"))
   {
-    Array<JsonValue> tlsCertificateSummariesJsonList = jsonValue.GetArray("tlsCertificateSummaries");
+    Array<JsonView> tlsCertificateSummariesJsonList = jsonValue.GetArray("tlsCertificateSummaries");
     for(unsigned tlsCertificateSummariesIndex = 0; tlsCertificateSummariesIndex < tlsCertificateSummariesJsonList.GetLength(); ++tlsCertificateSummariesIndex)
     {
       m_tlsCertificateSummaries.push_back(tlsCertificateSummariesJsonList[tlsCertificateSummariesIndex].AsObject());
@@ -186,7 +198,7 @@ LoadBalancer& LoadBalancer::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("configurationOptions"))
   {
-    Aws::Map<Aws::String, JsonValue> configurationOptionsJsonMap = jsonValue.GetObject("configurationOptions").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> configurationOptionsJsonMap = jsonValue.GetObject("configurationOptions").GetAllObjects();
     for(auto& configurationOptionsItem : configurationOptionsJsonMap)
     {
       m_configurationOptions[LoadBalancerAttributeNameMapper::GetLoadBalancerAttributeNameForName(configurationOptionsItem.first)] = configurationOptionsItem.second.AsString();
@@ -233,6 +245,17 @@ JsonValue LoadBalancer::Jsonize() const
   if(m_resourceTypeHasBeenSet)
   {
    payload.WithString("resourceType", ResourceTypeMapper::GetNameForResourceType(m_resourceType));
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
   }
 
   if(m_dnsNameHasBeenSet)

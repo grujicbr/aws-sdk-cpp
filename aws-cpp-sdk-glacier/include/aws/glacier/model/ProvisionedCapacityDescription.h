@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glacier
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ProvisionedCapacityDescription();
-    ProvisionedCapacityDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    ProvisionedCapacityDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ProvisionedCapacityDescription(Aws::Utils::Json::JsonView jsonValue);
+    ProvisionedCapacityDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ID that identifies the provisioned capacity unit.</p>
      */
     inline const Aws::String& GetCapacityId() const{ return m_capacityId; }
+
+    /**
+     * <p>The ID that identifies the provisioned capacity unit.</p>
+     */
+    inline bool CapacityIdHasBeenSet() const { return m_capacityIdHasBeenSet; }
 
     /**
      * <p>The ID that identifies the provisioned capacity unit.</p>
@@ -87,6 +93,12 @@ namespace Model
      * Coordinated Time (UTC).</p>
      */
     inline const Aws::String& GetStartDate() const{ return m_startDate; }
+
+    /**
+     * <p>The date that the provisioned capacity unit was purchased, in Universal
+     * Coordinated Time (UTC).</p>
+     */
+    inline bool StartDateHasBeenSet() const { return m_startDateHasBeenSet; }
 
     /**
      * <p>The date that the provisioned capacity unit was purchased, in Universal
@@ -130,6 +142,12 @@ namespace Model
      * Time (UTC).</p>
      */
     inline const Aws::String& GetExpirationDate() const{ return m_expirationDate; }
+
+    /**
+     * <p>The date that the provisioned capacity unit expires, in Universal Coordinated
+     * Time (UTC).</p>
+     */
+    inline bool ExpirationDateHasBeenSet() const { return m_expirationDateHasBeenSet; }
 
     /**
      * <p>The date that the provisioned capacity unit expires, in Universal Coordinated

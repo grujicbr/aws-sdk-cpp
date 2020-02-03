@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -43,43 +44,50 @@ namespace Model
   {
   public:
     ActionTypeId();
-    ActionTypeId(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActionTypeId& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActionTypeId(Aws::Utils::Json::JsonView jsonValue);
+    ActionTypeId& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>A category defines what kind of action can be taken in the stage, and
      * constrains the provider type for the action. Valid categories are limited to one
-     * of the values below.</p>
+     * of the following values. </p>
      */
     inline const ActionCategory& GetCategory() const{ return m_category; }
 
     /**
      * <p>A category defines what kind of action can be taken in the stage, and
      * constrains the provider type for the action. Valid categories are limited to one
-     * of the values below.</p>
+     * of the following values. </p>
+     */
+    inline bool CategoryHasBeenSet() const { return m_categoryHasBeenSet; }
+
+    /**
+     * <p>A category defines what kind of action can be taken in the stage, and
+     * constrains the provider type for the action. Valid categories are limited to one
+     * of the following values. </p>
      */
     inline void SetCategory(const ActionCategory& value) { m_categoryHasBeenSet = true; m_category = value; }
 
     /**
      * <p>A category defines what kind of action can be taken in the stage, and
      * constrains the provider type for the action. Valid categories are limited to one
-     * of the values below.</p>
+     * of the following values. </p>
      */
     inline void SetCategory(ActionCategory&& value) { m_categoryHasBeenSet = true; m_category = std::move(value); }
 
     /**
      * <p>A category defines what kind of action can be taken in the stage, and
      * constrains the provider type for the action. Valid categories are limited to one
-     * of the values below.</p>
+     * of the following values. </p>
      */
     inline ActionTypeId& WithCategory(const ActionCategory& value) { SetCategory(value); return *this;}
 
     /**
      * <p>A category defines what kind of action can be taken in the stage, and
      * constrains the provider type for the action. Valid categories are limited to one
-     * of the values below.</p>
+     * of the following values. </p>
      */
     inline ActionTypeId& WithCategory(ActionCategory&& value) { SetCategory(std::move(value)); return *this;}
 
@@ -88,6 +96,11 @@ namespace Model
      * <p>The creator of the action being called.</p>
      */
     inline const ActionOwner& GetOwner() const{ return m_owner; }
+
+    /**
+     * <p>The creator of the action being called.</p>
+     */
+    inline bool OwnerHasBeenSet() const { return m_ownerHasBeenSet; }
 
     /**
      * <p>The creator of the action being called.</p>
@@ -114,7 +127,9 @@ namespace Model
      * <p>The provider of the service being called by the action. Valid providers are
      * determined by the action category. For example, an action in the Deploy category
      * type might have a provider of AWS CodeDeploy, which would be specified as
-     * CodeDeploy.</p>
+     * CodeDeploy. For more information, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers">Valid
+     * Action Types and Providers in CodePipeline</a>.</p>
      */
     inline const Aws::String& GetProvider() const{ return m_provider; }
 
@@ -122,7 +137,19 @@ namespace Model
      * <p>The provider of the service being called by the action. Valid providers are
      * determined by the action category. For example, an action in the Deploy category
      * type might have a provider of AWS CodeDeploy, which would be specified as
-     * CodeDeploy.</p>
+     * CodeDeploy. For more information, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers">Valid
+     * Action Types and Providers in CodePipeline</a>.</p>
+     */
+    inline bool ProviderHasBeenSet() const { return m_providerHasBeenSet; }
+
+    /**
+     * <p>The provider of the service being called by the action. Valid providers are
+     * determined by the action category. For example, an action in the Deploy category
+     * type might have a provider of AWS CodeDeploy, which would be specified as
+     * CodeDeploy. For more information, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers">Valid
+     * Action Types and Providers in CodePipeline</a>.</p>
      */
     inline void SetProvider(const Aws::String& value) { m_providerHasBeenSet = true; m_provider = value; }
 
@@ -130,7 +157,9 @@ namespace Model
      * <p>The provider of the service being called by the action. Valid providers are
      * determined by the action category. For example, an action in the Deploy category
      * type might have a provider of AWS CodeDeploy, which would be specified as
-     * CodeDeploy.</p>
+     * CodeDeploy. For more information, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers">Valid
+     * Action Types and Providers in CodePipeline</a>.</p>
      */
     inline void SetProvider(Aws::String&& value) { m_providerHasBeenSet = true; m_provider = std::move(value); }
 
@@ -138,7 +167,9 @@ namespace Model
      * <p>The provider of the service being called by the action. Valid providers are
      * determined by the action category. For example, an action in the Deploy category
      * type might have a provider of AWS CodeDeploy, which would be specified as
-     * CodeDeploy.</p>
+     * CodeDeploy. For more information, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers">Valid
+     * Action Types and Providers in CodePipeline</a>.</p>
      */
     inline void SetProvider(const char* value) { m_providerHasBeenSet = true; m_provider.assign(value); }
 
@@ -146,7 +177,9 @@ namespace Model
      * <p>The provider of the service being called by the action. Valid providers are
      * determined by the action category. For example, an action in the Deploy category
      * type might have a provider of AWS CodeDeploy, which would be specified as
-     * CodeDeploy.</p>
+     * CodeDeploy. For more information, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers">Valid
+     * Action Types and Providers in CodePipeline</a>.</p>
      */
     inline ActionTypeId& WithProvider(const Aws::String& value) { SetProvider(value); return *this;}
 
@@ -154,7 +187,9 @@ namespace Model
      * <p>The provider of the service being called by the action. Valid providers are
      * determined by the action category. For example, an action in the Deploy category
      * type might have a provider of AWS CodeDeploy, which would be specified as
-     * CodeDeploy.</p>
+     * CodeDeploy. For more information, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers">Valid
+     * Action Types and Providers in CodePipeline</a>.</p>
      */
     inline ActionTypeId& WithProvider(Aws::String&& value) { SetProvider(std::move(value)); return *this;}
 
@@ -162,7 +197,9 @@ namespace Model
      * <p>The provider of the service being called by the action. Valid providers are
      * determined by the action category. For example, an action in the Deploy category
      * type might have a provider of AWS CodeDeploy, which would be specified as
-     * CodeDeploy.</p>
+     * CodeDeploy. For more information, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers">Valid
+     * Action Types and Providers in CodePipeline</a>.</p>
      */
     inline ActionTypeId& WithProvider(const char* value) { SetProvider(value); return *this;}
 
@@ -171,6 +208,11 @@ namespace Model
      * <p>A string that describes the action version.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>A string that describes the action version.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>A string that describes the action version.</p>

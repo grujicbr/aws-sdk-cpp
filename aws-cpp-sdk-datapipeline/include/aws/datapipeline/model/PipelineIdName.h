@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DataPipeline
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     PipelineIdName();
-    PipelineIdName(const Aws::Utils::Json::JsonValue& jsonValue);
-    PipelineIdName& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PipelineIdName(Aws::Utils::Json::JsonView jsonValue);
+    PipelineIdName& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,12 @@ namespace Model
      * string of the form <code>df-297EG78HU43EEXAMPLE</code>.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The ID of the pipeline that was assigned by AWS Data Pipeline. This is a
+     * string of the form <code>df-297EG78HU43EEXAMPLE</code>.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The ID of the pipeline that was assigned by AWS Data Pipeline. This is a
@@ -93,6 +100,11 @@ namespace Model
      * <p>The name of the pipeline.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the pipeline.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the pipeline.</p>

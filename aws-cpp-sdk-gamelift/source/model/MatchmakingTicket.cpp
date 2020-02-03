@@ -31,6 +31,7 @@ namespace Model
 MatchmakingTicket::MatchmakingTicket() : 
     m_ticketIdHasBeenSet(false),
     m_configurationNameHasBeenSet(false),
+    m_configurationArnHasBeenSet(false),
     m_status(MatchmakingConfigurationStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_statusReasonHasBeenSet(false),
@@ -44,9 +45,10 @@ MatchmakingTicket::MatchmakingTicket() :
 {
 }
 
-MatchmakingTicket::MatchmakingTicket(const JsonValue& jsonValue) : 
+MatchmakingTicket::MatchmakingTicket(JsonView jsonValue) : 
     m_ticketIdHasBeenSet(false),
     m_configurationNameHasBeenSet(false),
+    m_configurationArnHasBeenSet(false),
     m_status(MatchmakingConfigurationStatus::NOT_SET),
     m_statusHasBeenSet(false),
     m_statusReasonHasBeenSet(false),
@@ -61,7 +63,7 @@ MatchmakingTicket::MatchmakingTicket(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-MatchmakingTicket& MatchmakingTicket::operator =(const JsonValue& jsonValue)
+MatchmakingTicket& MatchmakingTicket::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TicketId"))
   {
@@ -75,6 +77,13 @@ MatchmakingTicket& MatchmakingTicket::operator =(const JsonValue& jsonValue)
     m_configurationName = jsonValue.GetString("ConfigurationName");
 
     m_configurationNameHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ConfigurationArn"))
+  {
+    m_configurationArn = jsonValue.GetString("ConfigurationArn");
+
+    m_configurationArnHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("Status"))
@@ -114,7 +123,7 @@ MatchmakingTicket& MatchmakingTicket::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("Players"))
   {
-    Array<JsonValue> playersJsonList = jsonValue.GetArray("Players");
+    Array<JsonView> playersJsonList = jsonValue.GetArray("Players");
     for(unsigned playersIndex = 0; playersIndex < playersJsonList.GetLength(); ++playersIndex)
     {
       m_players.push_back(playersJsonList[playersIndex].AsObject());
@@ -152,6 +161,12 @@ JsonValue MatchmakingTicket::Jsonize() const
   if(m_configurationNameHasBeenSet)
   {
    payload.WithString("ConfigurationName", m_configurationName);
+
+  }
+
+  if(m_configurationArnHasBeenSet)
+  {
+   payload.WithString("ConfigurationArn", m_configurationArn);
 
   }
 

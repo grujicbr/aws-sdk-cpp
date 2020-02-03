@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AutoScalingPlans
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ScalingPolicy();
-    ScalingPolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    ScalingPolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ScalingPolicy(Aws::Utils::Json::JsonView jsonValue);
+    ScalingPolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The name of the scaling policy.</p>
      */
     inline const Aws::String& GetPolicyName() const{ return m_policyName; }
+
+    /**
+     * <p>The name of the scaling policy.</p>
+     */
+    inline bool PolicyNameHasBeenSet() const { return m_policyNameHasBeenSet; }
 
     /**
      * <p>The name of the scaling policy.</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The type of scaling policy.</p>
      */
+    inline bool PolicyTypeHasBeenSet() const { return m_policyTypeHasBeenSet; }
+
+    /**
+     * <p>The type of scaling policy.</p>
+     */
     inline void SetPolicyType(const PolicyType& value) { m_policyTypeHasBeenSet = true; m_policyType = value; }
 
     /**
@@ -111,27 +122,38 @@ namespace Model
 
 
     /**
-     * <p>The target tracking scaling policy.</p>
+     * <p>The target tracking scaling policy. Includes support for predefined or
+     * customized metrics.</p>
      */
     inline const TargetTrackingConfiguration& GetTargetTrackingConfiguration() const{ return m_targetTrackingConfiguration; }
 
     /**
-     * <p>The target tracking scaling policy.</p>
+     * <p>The target tracking scaling policy. Includes support for predefined or
+     * customized metrics.</p>
+     */
+    inline bool TargetTrackingConfigurationHasBeenSet() const { return m_targetTrackingConfigurationHasBeenSet; }
+
+    /**
+     * <p>The target tracking scaling policy. Includes support for predefined or
+     * customized metrics.</p>
      */
     inline void SetTargetTrackingConfiguration(const TargetTrackingConfiguration& value) { m_targetTrackingConfigurationHasBeenSet = true; m_targetTrackingConfiguration = value; }
 
     /**
-     * <p>The target tracking scaling policy.</p>
+     * <p>The target tracking scaling policy. Includes support for predefined or
+     * customized metrics.</p>
      */
     inline void SetTargetTrackingConfiguration(TargetTrackingConfiguration&& value) { m_targetTrackingConfigurationHasBeenSet = true; m_targetTrackingConfiguration = std::move(value); }
 
     /**
-     * <p>The target tracking scaling policy.</p>
+     * <p>The target tracking scaling policy. Includes support for predefined or
+     * customized metrics.</p>
      */
     inline ScalingPolicy& WithTargetTrackingConfiguration(const TargetTrackingConfiguration& value) { SetTargetTrackingConfiguration(value); return *this;}
 
     /**
-     * <p>The target tracking scaling policy.</p>
+     * <p>The target tracking scaling policy. Includes support for predefined or
+     * customized metrics.</p>
      */
     inline ScalingPolicy& WithTargetTrackingConfiguration(TargetTrackingConfiguration&& value) { SetTargetTrackingConfiguration(std::move(value)); return *this;}
 

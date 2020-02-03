@@ -31,6 +31,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     WorkflowExecutionInfo();
-    WorkflowExecutionInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkflowExecutionInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkflowExecutionInfo(Aws::Utils::Json::JsonView jsonValue);
+    WorkflowExecutionInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>The workflow execution this information is about.</p>
      */
     inline const WorkflowExecution& GetExecution() const{ return m_execution; }
+
+    /**
+     * <p>The workflow execution this information is about.</p>
+     */
+    inline bool ExecutionHasBeenSet() const { return m_executionHasBeenSet; }
 
     /**
      * <p>The workflow execution this information is about.</p>
@@ -87,6 +93,11 @@ namespace Model
     /**
      * <p>The type of the workflow execution.</p>
      */
+    inline bool WorkflowTypeHasBeenSet() const { return m_workflowTypeHasBeenSet; }
+
+    /**
+     * <p>The type of the workflow execution.</p>
+     */
     inline void SetWorkflowType(const WorkflowType& value) { m_workflowTypeHasBeenSet = true; m_workflowType = value; }
 
     /**
@@ -109,6 +120,11 @@ namespace Model
      * <p>The time when the execution was started.</p>
      */
     inline const Aws::Utils::DateTime& GetStartTimestamp() const{ return m_startTimestamp; }
+
+    /**
+     * <p>The time when the execution was started.</p>
+     */
+    inline bool StartTimestampHasBeenSet() const { return m_startTimestampHasBeenSet; }
 
     /**
      * <p>The time when the execution was started.</p>
@@ -141,6 +157,12 @@ namespace Model
      * <p>The time when the workflow execution was closed. Set only if the execution
      * status is CLOSED.</p>
      */
+    inline bool CloseTimestampHasBeenSet() const { return m_closeTimestampHasBeenSet; }
+
+    /**
+     * <p>The time when the workflow execution was closed. Set only if the execution
+     * status is CLOSED.</p>
+     */
     inline void SetCloseTimestamp(const Aws::Utils::DateTime& value) { m_closeTimestampHasBeenSet = true; m_closeTimestamp = value; }
 
     /**
@@ -166,6 +188,11 @@ namespace Model
      * <p>The current status of the execution.</p>
      */
     inline const ExecutionStatus& GetExecutionStatus() const{ return m_executionStatus; }
+
+    /**
+     * <p>The current status of the execution.</p>
+     */
+    inline bool ExecutionStatusHasBeenSet() const { return m_executionStatusHasBeenSet; }
 
     /**
      * <p>The current status of the execution.</p>
@@ -202,6 +229,21 @@ namespace Model
      * execution was started to carry on the workflow.</p> </li> </ul>
      */
     inline const CloseStatus& GetCloseStatus() const{ return m_closeStatus; }
+
+    /**
+     * <p>If the execution status is closed then this specifies how the execution was
+     * closed:</p> <ul> <li> <p> <code>COMPLETED</code> – the execution was
+     * successfully completed.</p> </li> <li> <p> <code>CANCELED</code> – the execution
+     * was canceled.Cancellation allows the implementation to gracefully clean up
+     * before the execution is closed.</p> </li> <li> <p> <code>TERMINATED</code> – the
+     * execution was force terminated.</p> </li> <li> <p> <code>FAILED</code> – the
+     * execution failed to complete.</p> </li> <li> <p> <code>TIMED_OUT</code> – the
+     * execution did not complete in the alloted time and was automatically timed
+     * out.</p> </li> <li> <p> <code>CONTINUED_AS_NEW</code> – the execution is
+     * logically continued. This means the current execution was completed and a new
+     * execution was started to carry on the workflow.</p> </li> </ul>
+     */
+    inline bool CloseStatusHasBeenSet() const { return m_closeStatusHasBeenSet; }
 
     /**
      * <p>If the execution status is closed then this specifies how the execution was
@@ -274,6 +316,12 @@ namespace Model
      * <p>If this workflow execution is a child of another execution then contains the
      * workflow execution that started this execution.</p>
      */
+    inline bool ParentHasBeenSet() const { return m_parentHasBeenSet; }
+
+    /**
+     * <p>If this workflow execution is a child of another execution then contains the
+     * workflow execution that started this execution.</p>
+     */
     inline void SetParent(const WorkflowExecution& value) { m_parentHasBeenSet = true; m_parent = value; }
 
     /**
@@ -301,6 +349,13 @@ namespace Model
      * workflow execution can have a maximum of 5 tags.</p>
      */
     inline const Aws::Vector<Aws::String>& GetTagList() const{ return m_tagList; }
+
+    /**
+     * <p>The list of tags associated with the workflow execution. Tags can be used to
+     * identify and list workflow executions of interest through the visibility APIs. A
+     * workflow execution can have a maximum of 5 tags.</p>
+     */
+    inline bool TagListHasBeenSet() const { return m_tagListHasBeenSet; }
 
     /**
      * <p>The list of tags associated with the workflow execution. Tags can be used to
@@ -356,6 +411,11 @@ namespace Model
      * <p>Set to true if a cancellation is requested for this workflow execution.</p>
      */
     inline bool GetCancelRequested() const{ return m_cancelRequested; }
+
+    /**
+     * <p>Set to true if a cancellation is requested for this workflow execution.</p>
+     */
+    inline bool CancelRequestedHasBeenSet() const { return m_cancelRequestedHasBeenSet; }
 
     /**
      * <p>Set to true if a cancellation is requested for this workflow execution.</p>

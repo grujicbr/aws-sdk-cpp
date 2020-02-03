@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeCommit
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Difference();
-    Difference(const Aws::Utils::Json::JsonValue& jsonValue);
-    Difference& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Difference(Aws::Utils::Json::JsonView jsonValue);
+    Difference& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * ID, the file mode permission code, and the path.</p>
      */
     inline const BlobMetadata& GetBeforeBlob() const{ return m_beforeBlob; }
+
+    /**
+     * <p>Information about a <code>beforeBlob</code> data type object, including the
+     * ID, the file mode permission code, and the path.</p>
+     */
+    inline bool BeforeBlobHasBeenSet() const { return m_beforeBlobHasBeenSet; }
 
     /**
      * <p>Information about a <code>beforeBlob</code> data type object, including the
@@ -89,6 +96,12 @@ namespace Model
      * <p>Information about an <code>afterBlob</code> data type object, including the
      * ID, the file mode permission code, and the path.</p>
      */
+    inline bool AfterBlobHasBeenSet() const { return m_afterBlobHasBeenSet; }
+
+    /**
+     * <p>Information about an <code>afterBlob</code> data type object, including the
+     * ID, the file mode permission code, and the path.</p>
+     */
     inline void SetAfterBlob(const BlobMetadata& value) { m_afterBlobHasBeenSet = true; m_afterBlob = value; }
 
     /**
@@ -115,6 +128,12 @@ namespace Model
      * or modification (M).</p>
      */
     inline const ChangeTypeEnum& GetChangeType() const{ return m_changeType; }
+
+    /**
+     * <p>Whether the change type of the difference is an addition (A), deletion (D),
+     * or modification (M).</p>
+     */
+    inline bool ChangeTypeHasBeenSet() const { return m_changeTypeHasBeenSet; }
 
     /**
      * <p>Whether the change type of the difference is an addition (A), deletion (D),

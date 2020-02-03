@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     WorkflowExecutionCancelRequestedEventAttributes();
-    WorkflowExecutionCancelRequestedEventAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    WorkflowExecutionCancelRequestedEventAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WorkflowExecutionCancelRequestedEventAttributes(Aws::Utils::Json::JsonView jsonValue);
+    WorkflowExecutionCancelRequestedEventAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The external workflow execution for which the cancellation was requested.</p>
      */
     inline const WorkflowExecution& GetExternalWorkflowExecution() const{ return m_externalWorkflowExecution; }
+
+    /**
+     * <p>The external workflow execution for which the cancellation was requested.</p>
+     */
+    inline bool ExternalWorkflowExecutionHasBeenSet() const { return m_externalWorkflowExecutionHasBeenSet; }
 
     /**
      * <p>The external workflow execution for which the cancellation was requested.</p>
@@ -92,6 +98,16 @@ namespace Model
      * useful for diagnosing problems by tracing back the chain of events leading up to
      * this event.</p>
      */
+    inline bool ExternalInitiatedEventIdHasBeenSet() const { return m_externalInitiatedEventIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the <code>RequestCancelExternalWorkflowExecutionInitiated</code>
+     * event corresponding to the <code>RequestCancelExternalWorkflowExecution</code>
+     * decision to cancel this workflow execution.The source event with this ID can be
+     * found in the history of the source workflow execution. This information can be
+     * useful for diagnosing problems by tracing back the chain of events leading up to
+     * this event.</p>
+     */
     inline void SetExternalInitiatedEventId(long long value) { m_externalInitiatedEventIdHasBeenSet = true; m_externalInitiatedEventId = value; }
 
     /**
@@ -112,6 +128,14 @@ namespace Model
      * cancel child executions.</p>
      */
     inline const WorkflowExecutionCancelRequestedCause& GetCause() const{ return m_cause; }
+
+    /**
+     * <p>If set, indicates that the request to cancel the workflow execution was
+     * automatically generated, and specifies the cause. This happens if the parent
+     * workflow execution times out or is terminated, and the child policy is set to
+     * cancel child executions.</p>
+     */
+    inline bool CauseHasBeenSet() const { return m_causeHasBeenSet; }
 
     /**
      * <p>If set, indicates that the request to cancel the workflow execution was

@@ -50,18 +50,22 @@ enum class ACMErrors
   INVALID_SIGNATURE = 21,
   SIGNATURE_DOES_NOT_MATCH = 22,
   INVALID_ACCESS_KEY_ID = 23,
+  REQUEST_TIMEOUT = 24,
   NETWORK_CONNECTION = 99,
   
   UNKNOWN = 100,
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  INVALID_ARN= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  INVALID_ARGS= static_cast<int>(Aws::Client::CoreErrors::SERVICE_EXTENSION_START_RANGE) + 1,
+  INVALID_ARN,
   INVALID_DOMAIN_VALIDATION_OPTIONS,
+  INVALID_PARAMETER,
   INVALID_STATE,
   INVALID_TAG,
   LIMIT_EXCEEDED,
   REQUEST_IN_PROGRESS,
   RESOURCE_IN_USE,
+  TAG_POLICY,
   TOO_MANY_TAGS
 };
 namespace ACMErrorMapper

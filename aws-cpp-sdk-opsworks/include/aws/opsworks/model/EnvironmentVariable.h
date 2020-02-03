@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     EnvironmentVariable();
-    EnvironmentVariable(const Aws::Utils::Json::JsonValue& jsonValue);
-    EnvironmentVariable& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EnvironmentVariable(Aws::Utils::Json::JsonView jsonValue);
+    EnvironmentVariable& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,14 @@ namespace Model
      * underscore.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>(Required) The environment variable's name, which can consist of up to 64
+     * characters and must be specified. The name can contain upper- and lowercase
+     * letters, numbers, and underscores (_), but it must start with a letter or
+     * underscore.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>(Required) The environment variable's name, which can consist of up to 64
@@ -115,6 +124,13 @@ namespace Model
      * specify a value, it can contain up to 256 characters, which must all be
      * printable.</p>
      */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
+
+    /**
+     * <p>(Optional) The environment variable's value, which can be left empty. If you
+     * specify a value, it can contain up to 256 characters, which must all be
+     * printable.</p>
+     */
     inline void SetValue(const Aws::String& value) { m_valueHasBeenSet = true; m_value = value; }
 
     /**
@@ -161,6 +177,15 @@ namespace Model
      * for <code>Secure</code> is <code>false</code>. </p>
      */
     inline bool GetSecure() const{ return m_secure; }
+
+    /**
+     * <p>(Optional) Whether the variable's value will be returned by the
+     * <a>DescribeApps</a> action. To conceal an environment variable's value, set
+     * <code>Secure</code> to <code>true</code>. <code>DescribeApps</code> then returns
+     * <code>*****FILTERED*****</code> instead of the actual value. The default value
+     * for <code>Secure</code> is <code>false</code>. </p>
+     */
+    inline bool SecureHasBeenSet() const { return m_secureHasBeenSet; }
 
     /**
      * <p>(Optional) Whether the variable's value will be returned by the

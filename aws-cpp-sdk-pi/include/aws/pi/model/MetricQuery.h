@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace PI
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     MetricQuery();
-    MetricQuery(const Aws::Utils::Json::JsonValue& jsonValue);
-    MetricQuery& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MetricQuery(Aws::Utils::Json::JsonView jsonValue);
+    MetricQuery& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -61,6 +62,15 @@ namespace Model
      * active sessions for the database engine.</p> </li> </ul>
      */
     inline const Aws::String& GetMetric() const{ return m_metric; }
+
+    /**
+     * <p>The name of a Performance Insights metric to be measured.</p> <p>Valid values
+     * for <code>Metric</code> are:</p> <ul> <li> <p> <code>db.load.avg</code> - a
+     * scaled representation of the number of active sessions for the database
+     * engine.</p> </li> <li> <p> <code>db.sampledload.avg</code> - the raw number of
+     * active sessions for the database engine.</p> </li> </ul>
+     */
+    inline bool MetricHasBeenSet() const { return m_metricHasBeenSet; }
 
     /**
      * <p>The name of a Performance Insights metric to be measured.</p> <p>Valid values
@@ -133,6 +143,15 @@ namespace Model
      * dimensions within that group. You can also request that Performance Insights
      * return a limited number of values for a dimension.</p>
      */
+    inline bool GroupByHasBeenSet() const { return m_groupByHasBeenSet; }
+
+    /**
+     * <p>A specification for how to aggregate the data points from a query result. You
+     * must specify a valid dimension group. Performance Insights will return all of
+     * the dimensions within that group, unless you provide the names of specific
+     * dimensions within that group. You can also request that Performance Insights
+     * return a limited number of values for a dimension.</p>
+     */
     inline void SetGroupBy(const DimensionGroup& value) { m_groupByHasBeenSet = true; m_groupBy = value; }
 
     /**
@@ -170,6 +189,14 @@ namespace Model
      * dimension in this dimension group.</p> </li> </ul>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetFilter() const{ return m_filter; }
+
+    /**
+     * <p>One or more filters to apply in the request. Restrictions:</p> <ul> <li>
+     * <p>Any number of filters by the same dimension, as specified in the
+     * <code>GroupBy</code> parameter.</p> </li> <li> <p>A single filter for any other
+     * dimension in this dimension group.</p> </li> </ul>
+     */
+    inline bool FilterHasBeenSet() const { return m_filterHasBeenSet; }
 
     /**
      * <p>One or more filters to apply in the request. Restrictions:</p> <ul> <li>

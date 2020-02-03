@@ -32,16 +32,24 @@ ConsumedCapacity::ConsumedCapacity() :
     m_tableNameHasBeenSet(false),
     m_capacityUnits(0.0),
     m_capacityUnitsHasBeenSet(false),
+    m_readCapacityUnits(0.0),
+    m_readCapacityUnitsHasBeenSet(false),
+    m_writeCapacityUnits(0.0),
+    m_writeCapacityUnitsHasBeenSet(false),
     m_tableHasBeenSet(false),
     m_localSecondaryIndexesHasBeenSet(false),
     m_globalSecondaryIndexesHasBeenSet(false)
 {
 }
 
-ConsumedCapacity::ConsumedCapacity(const JsonValue& jsonValue) : 
+ConsumedCapacity::ConsumedCapacity(JsonView jsonValue) : 
     m_tableNameHasBeenSet(false),
     m_capacityUnits(0.0),
     m_capacityUnitsHasBeenSet(false),
+    m_readCapacityUnits(0.0),
+    m_readCapacityUnitsHasBeenSet(false),
+    m_writeCapacityUnits(0.0),
+    m_writeCapacityUnitsHasBeenSet(false),
     m_tableHasBeenSet(false),
     m_localSecondaryIndexesHasBeenSet(false),
     m_globalSecondaryIndexesHasBeenSet(false)
@@ -49,7 +57,7 @@ ConsumedCapacity::ConsumedCapacity(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-ConsumedCapacity& ConsumedCapacity::operator =(const JsonValue& jsonValue)
+ConsumedCapacity& ConsumedCapacity::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("TableName"))
   {
@@ -65,6 +73,20 @@ ConsumedCapacity& ConsumedCapacity::operator =(const JsonValue& jsonValue)
     m_capacityUnitsHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("ReadCapacityUnits"))
+  {
+    m_readCapacityUnits = jsonValue.GetDouble("ReadCapacityUnits");
+
+    m_readCapacityUnitsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("WriteCapacityUnits"))
+  {
+    m_writeCapacityUnits = jsonValue.GetDouble("WriteCapacityUnits");
+
+    m_writeCapacityUnitsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("Table"))
   {
     m_table = jsonValue.GetObject("Table");
@@ -74,7 +96,7 @@ ConsumedCapacity& ConsumedCapacity::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("LocalSecondaryIndexes"))
   {
-    Aws::Map<Aws::String, JsonValue> localSecondaryIndexesJsonMap = jsonValue.GetObject("LocalSecondaryIndexes").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> localSecondaryIndexesJsonMap = jsonValue.GetObject("LocalSecondaryIndexes").GetAllObjects();
     for(auto& localSecondaryIndexesItem : localSecondaryIndexesJsonMap)
     {
       m_localSecondaryIndexes[localSecondaryIndexesItem.first] = localSecondaryIndexesItem.second.AsObject();
@@ -84,7 +106,7 @@ ConsumedCapacity& ConsumedCapacity::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("GlobalSecondaryIndexes"))
   {
-    Aws::Map<Aws::String, JsonValue> globalSecondaryIndexesJsonMap = jsonValue.GetObject("GlobalSecondaryIndexes").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> globalSecondaryIndexesJsonMap = jsonValue.GetObject("GlobalSecondaryIndexes").GetAllObjects();
     for(auto& globalSecondaryIndexesItem : globalSecondaryIndexesJsonMap)
     {
       m_globalSecondaryIndexes[globalSecondaryIndexesItem.first] = globalSecondaryIndexesItem.second.AsObject();
@@ -108,6 +130,18 @@ JsonValue ConsumedCapacity::Jsonize() const
   if(m_capacityUnitsHasBeenSet)
   {
    payload.WithDouble("CapacityUnits", m_capacityUnits);
+
+  }
+
+  if(m_readCapacityUnitsHasBeenSet)
+  {
+   payload.WithDouble("ReadCapacityUnits", m_readCapacityUnits);
+
+  }
+
+  if(m_writeCapacityUnitsHasBeenSet)
+  {
+   payload.WithDouble("WriteCapacityUnits", m_writeCapacityUnits);
 
   }
 

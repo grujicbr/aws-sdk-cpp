@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Route53Domains
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Nameserver();
-    Nameserver(const Aws::Utils::Json::JsonValue& jsonValue);
-    Nameserver& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Nameserver(Aws::Utils::Json::JsonView jsonValue);
+    Nameserver& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * 255 characters</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The fully qualified host name of the name server.</p> <p>Constraint: Maximum
+     * 255 characters</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The fully qualified host name of the name server.</p> <p>Constraint: Maximum
@@ -98,6 +105,15 @@ namespace Model
      * list can contain only one IPv4 and one IPv6 address.</p>
      */
     inline const Aws::Vector<Aws::String>& GetGlueIps() const{ return m_glueIps; }
+
+    /**
+     * <p>Glue IP address of a name server entry. Glue IP addresses are required only
+     * when the name of the name server is a subdomain of the domain. For example, if
+     * your domain is example.com and the name server for the domain is ns.example.com,
+     * you need to specify the IP address for ns.example.com.</p> <p>Constraints: The
+     * list can contain only one IPv4 and one IPv6 address.</p>
+     */
+    inline bool GlueIpsHasBeenSet() const { return m_glueIpsHasBeenSet; }
 
     /**
      * <p>Glue IP address of a name server entry. Glue IP addresses are required only

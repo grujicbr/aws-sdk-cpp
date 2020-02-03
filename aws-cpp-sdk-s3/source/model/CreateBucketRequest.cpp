@@ -36,6 +36,8 @@ CreateBucketRequest::CreateBucketRequest() :
     m_grantReadACPHasBeenSet(false),
     m_grantWriteHasBeenSet(false),
     m_grantWriteACPHasBeenSet(false),
+    m_objectLockEnabledForBucket(false),
+    m_objectLockEnabledForBucketHasBeenSet(false),
     m_customizedAccessLogTagHasBeenSet(false)
 {
 }
@@ -53,7 +55,7 @@ Aws::String CreateBucketRequest::SerializePayload() const
     return payloadDoc.ConvertToString();
   }
 
-  return "";
+  return {};
 }
 
 void CreateBucketRequest::AddQueryStringParameters(URI& uri) const
@@ -84,41 +86,48 @@ Aws::Http::HeaderValueCollection CreateBucketRequest::GetRequestSpecificHeaders(
   Aws::StringStream ss;
   if(m_aCLHasBeenSet)
   {
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-acl", BucketCannedACLMapper::GetNameForBucketCannedACL(m_aCL)));
+    headers.emplace("x-amz-acl", BucketCannedACLMapper::GetNameForBucketCannedACL(m_aCL));
   }
 
   if(m_grantFullControlHasBeenSet)
   {
     ss << m_grantFullControl;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-grant-full-control", ss.str()));
+    headers.emplace("x-amz-grant-full-control",  ss.str());
     ss.str("");
   }
 
   if(m_grantReadHasBeenSet)
   {
     ss << m_grantRead;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-grant-read", ss.str()));
+    headers.emplace("x-amz-grant-read",  ss.str());
     ss.str("");
   }
 
   if(m_grantReadACPHasBeenSet)
   {
     ss << m_grantReadACP;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-grant-read-acp", ss.str()));
+    headers.emplace("x-amz-grant-read-acp",  ss.str());
     ss.str("");
   }
 
   if(m_grantWriteHasBeenSet)
   {
     ss << m_grantWrite;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-grant-write", ss.str()));
+    headers.emplace("x-amz-grant-write",  ss.str());
     ss.str("");
   }
 
   if(m_grantWriteACPHasBeenSet)
   {
     ss << m_grantWriteACP;
-    headers.insert(Aws::Http::HeaderValuePair("x-amz-grant-write-acp", ss.str()));
+    headers.emplace("x-amz-grant-write-acp",  ss.str());
+    ss.str("");
+  }
+
+  if(m_objectLockEnabledForBucketHasBeenSet)
+  {
+    ss << m_objectLockEnabledForBucket;
+    headers.emplace("x-amz-bucket-object-lock-enabled",  ss.str());
     ss.str("");
   }
 

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ApplicationDiscoveryService
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     NeighborConnectionDetail();
-    NeighborConnectionDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    NeighborConnectionDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NeighborConnectionDetail(Aws::Utils::Json::JsonView jsonValue);
+    NeighborConnectionDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The ID of the server that opened the network connection.</p>
      */
     inline const Aws::String& GetSourceServerId() const{ return m_sourceServerId; }
+
+    /**
+     * <p>The ID of the server that opened the network connection.</p>
+     */
+    inline bool SourceServerIdHasBeenSet() const { return m_sourceServerIdHasBeenSet; }
 
     /**
      * <p>The ID of the server that opened the network connection.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The ID of the server that accepted the network connection.</p>
      */
+    inline bool DestinationServerIdHasBeenSet() const { return m_destinationServerIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the server that accepted the network connection.</p>
+     */
     inline void SetDestinationServerId(const Aws::String& value) { m_destinationServerIdHasBeenSet = true; m_destinationServerId = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
     /**
      * <p>The destination network port for the connection.</p>
      */
+    inline bool DestinationPortHasBeenSet() const { return m_destinationPortHasBeenSet; }
+
+    /**
+     * <p>The destination network port for the connection.</p>
+     */
     inline void SetDestinationPort(int value) { m_destinationPortHasBeenSet = true; m_destinationPort = value; }
 
     /**
@@ -138,6 +154,11 @@ namespace Model
      * <p>The network protocol used for the connection.</p>
      */
     inline const Aws::String& GetTransportProtocol() const{ return m_transportProtocol; }
+
+    /**
+     * <p>The network protocol used for the connection.</p>
+     */
+    inline bool TransportProtocolHasBeenSet() const { return m_transportProtocolHasBeenSet; }
 
     /**
      * <p>The network protocol used for the connection.</p>
@@ -174,6 +195,11 @@ namespace Model
      * <p>The number of open network connections with the neighboring server.</p>
      */
     inline long long GetConnectionsCount() const{ return m_connectionsCount; }
+
+    /**
+     * <p>The number of open network connections with the neighboring server.</p>
+     */
+    inline bool ConnectionsCountHasBeenSet() const { return m_connectionsCountHasBeenSet; }
 
     /**
      * <p>The number of open network connections with the neighboring server.</p>

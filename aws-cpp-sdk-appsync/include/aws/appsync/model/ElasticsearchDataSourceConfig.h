@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppSync
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ElasticsearchDataSourceConfig();
-    ElasticsearchDataSourceConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    ElasticsearchDataSourceConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ElasticsearchDataSourceConfig(Aws::Utils::Json::JsonView jsonValue);
+    ElasticsearchDataSourceConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The endpoint.</p>
      */
     inline const Aws::String& GetEndpoint() const{ return m_endpoint; }
+
+    /**
+     * <p>The endpoint.</p>
+     */
+    inline bool EndpointHasBeenSet() const { return m_endpointHasBeenSet; }
 
     /**
      * <p>The endpoint.</p>
@@ -84,37 +90,42 @@ namespace Model
 
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline const Aws::String& GetAwsRegion() const{ return m_awsRegion; }
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
+     */
+    inline bool AwsRegionHasBeenSet() const { return m_awsRegionHasBeenSet; }
+
+    /**
+     * <p>The AWS Region.</p>
      */
     inline void SetAwsRegion(const Aws::String& value) { m_awsRegionHasBeenSet = true; m_awsRegion = value; }
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline void SetAwsRegion(Aws::String&& value) { m_awsRegionHasBeenSet = true; m_awsRegion = std::move(value); }
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline void SetAwsRegion(const char* value) { m_awsRegionHasBeenSet = true; m_awsRegion.assign(value); }
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline ElasticsearchDataSourceConfig& WithAwsRegion(const Aws::String& value) { SetAwsRegion(value); return *this;}
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline ElasticsearchDataSourceConfig& WithAwsRegion(Aws::String&& value) { SetAwsRegion(std::move(value)); return *this;}
 
     /**
-     * <p>The AWS region.</p>
+     * <p>The AWS Region.</p>
      */
     inline ElasticsearchDataSourceConfig& WithAwsRegion(const char* value) { SetAwsRegion(value); return *this;}
 

@@ -60,13 +60,13 @@ TaggedResource& TaggedResource::operator =(const XmlNode& xmlNode)
     XmlNode resourceNameNode = resultNode.FirstChild("ResourceName");
     if(!resourceNameNode.IsNull())
     {
-      m_resourceName = StringUtils::Trim(resourceNameNode.GetText().c_str());
+      m_resourceName = Aws::Utils::Xml::DecodeEscapedXmlText(resourceNameNode.GetText());
       m_resourceNameHasBeenSet = true;
     }
     XmlNode resourceTypeNode = resultNode.FirstChild("ResourceType");
     if(!resourceTypeNode.IsNull())
     {
-      m_resourceType = StringUtils::Trim(resourceTypeNode.GetText().c_str());
+      m_resourceType = Aws::Utils::Xml::DecodeEscapedXmlText(resourceTypeNode.GetText());
       m_resourceTypeHasBeenSet = true;
     }
   }

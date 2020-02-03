@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     NumberAttributeConstraintsType();
-    NumberAttributeConstraintsType(const Aws::Utils::Json::JsonValue& jsonValue);
-    NumberAttributeConstraintsType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NumberAttributeConstraintsType(Aws::Utils::Json::JsonView jsonValue);
+    NumberAttributeConstraintsType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The minimum value of an attribute that is of the number data type.</p>
      */
     inline const Aws::String& GetMinValue() const{ return m_minValue; }
+
+    /**
+     * <p>The minimum value of an attribute that is of the number data type.</p>
+     */
+    inline bool MinValueHasBeenSet() const { return m_minValueHasBeenSet; }
 
     /**
      * <p>The minimum value of an attribute that is of the number data type.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The maximum value of an attribute that is of the number data type.</p>
      */
     inline const Aws::String& GetMaxValue() const{ return m_maxValue; }
+
+    /**
+     * <p>The maximum value of an attribute that is of the number data type.</p>
+     */
+    inline bool MaxValueHasBeenSet() const { return m_maxValueHasBeenSet; }
 
     /**
      * <p>The maximum value of an attribute that is of the number data type.</p>

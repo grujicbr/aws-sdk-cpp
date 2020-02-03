@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     DomainConfiguration();
-    DomainConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    DomainConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DomainConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    DomainConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The retention period for workflow executions in this domain.</p>
      */
     inline const Aws::String& GetWorkflowExecutionRetentionPeriodInDays() const{ return m_workflowExecutionRetentionPeriodInDays; }
+
+    /**
+     * <p>The retention period for workflow executions in this domain.</p>
+     */
+    inline bool WorkflowExecutionRetentionPeriodInDaysHasBeenSet() const { return m_workflowExecutionRetentionPeriodInDaysHasBeenSet; }
 
     /**
      * <p>The retention period for workflow executions in this domain.</p>

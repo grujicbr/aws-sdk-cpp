@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     PipelineSummary();
-    PipelineSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    PipelineSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    PipelineSummary(Aws::Utils::Json::JsonView jsonValue);
+    PipelineSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the pipeline.</p>
      */
     inline const Aws::String& GetPipelineName() const{ return m_pipelineName; }
+
+    /**
+     * <p>The name of the pipeline.</p>
+     */
+    inline bool PipelineNameHasBeenSet() const { return m_pipelineNameHasBeenSet; }
 
     /**
      * <p>The name of the pipeline.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>A summary of information about the pipeline reprocessing.</p>
      */
+    inline bool ReprocessingSummariesHasBeenSet() const { return m_reprocessingSummariesHasBeenSet; }
+
+    /**
+     * <p>A summary of information about the pipeline reprocessing.</p>
+     */
     inline void SetReprocessingSummaries(const Aws::Vector<ReprocessingSummary>& value) { m_reprocessingSummariesHasBeenSet = true; m_reprocessingSummaries = value; }
 
     /**
@@ -129,6 +140,11 @@ namespace Model
     /**
      * <p>When the pipeline was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>When the pipeline was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -151,6 +167,11 @@ namespace Model
      * <p>When the pipeline was last updated.</p>
      */
     inline const Aws::Utils::DateTime& GetLastUpdateTime() const{ return m_lastUpdateTime; }
+
+    /**
+     * <p>When the pipeline was last updated.</p>
+     */
+    inline bool LastUpdateTimeHasBeenSet() const { return m_lastUpdateTimeHasBeenSet; }
 
     /**
      * <p>When the pipeline was last updated.</p>

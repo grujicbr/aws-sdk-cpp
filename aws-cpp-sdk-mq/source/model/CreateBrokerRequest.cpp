@@ -31,15 +31,20 @@ CreateBrokerRequest::CreateBrokerRequest() :
     m_creatorRequestIdHasBeenSet(true),
     m_deploymentMode(DeploymentMode::NOT_SET),
     m_deploymentModeHasBeenSet(false),
+    m_encryptionOptionsHasBeenSet(false),
     m_engineType(EngineType::NOT_SET),
     m_engineTypeHasBeenSet(false),
     m_engineVersionHasBeenSet(false),
     m_hostInstanceTypeHasBeenSet(false),
+    m_logsHasBeenSet(false),
     m_maintenanceWindowStartTimeHasBeenSet(false),
     m_publiclyAccessible(false),
     m_publiclyAccessibleHasBeenSet(false),
     m_securityGroupsHasBeenSet(false),
+    m_storageType(BrokerStorageType::NOT_SET),
+    m_storageTypeHasBeenSet(false),
     m_subnetIdsHasBeenSet(false),
+    m_tagsHasBeenSet(false),
     m_usersHasBeenSet(false)
 {
 }
@@ -77,6 +82,12 @@ Aws::String CreateBrokerRequest::SerializePayload() const
    payload.WithString("deploymentMode", DeploymentModeMapper::GetNameForDeploymentMode(m_deploymentMode));
   }
 
+  if(m_encryptionOptionsHasBeenSet)
+  {
+   payload.WithObject("encryptionOptions", m_encryptionOptions.Jsonize());
+
+  }
+
   if(m_engineTypeHasBeenSet)
   {
    payload.WithString("engineType", EngineTypeMapper::GetNameForEngineType(m_engineType));
@@ -91,6 +102,12 @@ Aws::String CreateBrokerRequest::SerializePayload() const
   if(m_hostInstanceTypeHasBeenSet)
   {
    payload.WithString("hostInstanceType", m_hostInstanceType);
+
+  }
+
+  if(m_logsHasBeenSet)
+  {
+   payload.WithObject("logs", m_logs.Jsonize());
 
   }
 
@@ -117,6 +134,11 @@ Aws::String CreateBrokerRequest::SerializePayload() const
 
   }
 
+  if(m_storageTypeHasBeenSet)
+  {
+   payload.WithString("storageType", BrokerStorageTypeMapper::GetNameForBrokerStorageType(m_storageType));
+  }
+
   if(m_subnetIdsHasBeenSet)
   {
    Array<JsonValue> subnetIdsJsonList(m_subnetIds.size());
@@ -125,6 +147,17 @@ Aws::String CreateBrokerRequest::SerializePayload() const
      subnetIdsJsonList[subnetIdsIndex].AsString(m_subnetIds[subnetIdsIndex]);
    }
    payload.WithArray("subnetIds", std::move(subnetIdsJsonList));
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
 
   }
 
@@ -139,7 +172,7 @@ Aws::String CreateBrokerRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 

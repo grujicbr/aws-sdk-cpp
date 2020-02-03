@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MQ
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     ConfigurationId();
-    ConfigurationId(const Aws::Utils::Json::JsonValue& jsonValue);
-    ConfigurationId& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ConfigurationId(Aws::Utils::Json::JsonView jsonValue);
+    ConfigurationId& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * Required. The unique ID that Amazon MQ generates for the configuration.
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * Required. The unique ID that Amazon MQ generates for the configuration.
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * Required. The unique ID that Amazon MQ generates for the configuration.
@@ -83,17 +89,22 @@ namespace Model
 
 
     /**
-     * The Universally Unique Identifier (UUID) of the request.
+     * The revision number of the configuration.
      */
     inline int GetRevision() const{ return m_revision; }
 
     /**
-     * The Universally Unique Identifier (UUID) of the request.
+     * The revision number of the configuration.
+     */
+    inline bool RevisionHasBeenSet() const { return m_revisionHasBeenSet; }
+
+    /**
+     * The revision number of the configuration.
      */
     inline void SetRevision(int value) { m_revisionHasBeenSet = true; m_revision = value; }
 
     /**
-     * The Universally Unique Identifier (UUID) of the request.
+     * The revision number of the configuration.
      */
     inline ConfigurationId& WithRevision(int value) { SetRevision(value); return *this;}
 

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudTrail
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Resource();
-    Resource(const Aws::Utils::Json::JsonValue& jsonValue);
-    Resource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Resource(Aws::Utils::Json::JsonView jsonValue);
+    Resource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,10 +52,10 @@ namespace Model
      * <p>The type of a resource referenced by the event returned. When the resource
      * type cannot be determined, null is returned. Some examples of resource types
      * are: <b>Instance</b> for EC2, <b>Trail</b> for CloudTrail, <b>DBInstance</b> for
-     * RDS, and <b>AccessKey</b> for IAM. For a list of resource types supported for
-     * event lookup, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html">Resource
-     * Types Supported for Event Lookup</a>.</p>
+     * RDS, and <b>AccessKey</b> for IAM. To learn more about how to look up and filter
+     * events by the resource types supported for a service, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html#filtering-cloudtrail-events">Filtering
+     * CloudTrail Events</a>.</p>
      */
     inline const Aws::String& GetResourceType() const{ return m_resourceType; }
 
@@ -62,10 +63,21 @@ namespace Model
      * <p>The type of a resource referenced by the event returned. When the resource
      * type cannot be determined, null is returned. Some examples of resource types
      * are: <b>Instance</b> for EC2, <b>Trail</b> for CloudTrail, <b>DBInstance</b> for
-     * RDS, and <b>AccessKey</b> for IAM. For a list of resource types supported for
-     * event lookup, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html">Resource
-     * Types Supported for Event Lookup</a>.</p>
+     * RDS, and <b>AccessKey</b> for IAM. To learn more about how to look up and filter
+     * events by the resource types supported for a service, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html#filtering-cloudtrail-events">Filtering
+     * CloudTrail Events</a>.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
+
+    /**
+     * <p>The type of a resource referenced by the event returned. When the resource
+     * type cannot be determined, null is returned. Some examples of resource types
+     * are: <b>Instance</b> for EC2, <b>Trail</b> for CloudTrail, <b>DBInstance</b> for
+     * RDS, and <b>AccessKey</b> for IAM. To learn more about how to look up and filter
+     * events by the resource types supported for a service, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html#filtering-cloudtrail-events">Filtering
+     * CloudTrail Events</a>.</p>
      */
     inline void SetResourceType(const Aws::String& value) { m_resourceTypeHasBeenSet = true; m_resourceType = value; }
 
@@ -73,10 +85,10 @@ namespace Model
      * <p>The type of a resource referenced by the event returned. When the resource
      * type cannot be determined, null is returned. Some examples of resource types
      * are: <b>Instance</b> for EC2, <b>Trail</b> for CloudTrail, <b>DBInstance</b> for
-     * RDS, and <b>AccessKey</b> for IAM. For a list of resource types supported for
-     * event lookup, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html">Resource
-     * Types Supported for Event Lookup</a>.</p>
+     * RDS, and <b>AccessKey</b> for IAM. To learn more about how to look up and filter
+     * events by the resource types supported for a service, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html#filtering-cloudtrail-events">Filtering
+     * CloudTrail Events</a>.</p>
      */
     inline void SetResourceType(Aws::String&& value) { m_resourceTypeHasBeenSet = true; m_resourceType = std::move(value); }
 
@@ -84,10 +96,10 @@ namespace Model
      * <p>The type of a resource referenced by the event returned. When the resource
      * type cannot be determined, null is returned. Some examples of resource types
      * are: <b>Instance</b> for EC2, <b>Trail</b> for CloudTrail, <b>DBInstance</b> for
-     * RDS, and <b>AccessKey</b> for IAM. For a list of resource types supported for
-     * event lookup, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html">Resource
-     * Types Supported for Event Lookup</a>.</p>
+     * RDS, and <b>AccessKey</b> for IAM. To learn more about how to look up and filter
+     * events by the resource types supported for a service, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html#filtering-cloudtrail-events">Filtering
+     * CloudTrail Events</a>.</p>
      */
     inline void SetResourceType(const char* value) { m_resourceTypeHasBeenSet = true; m_resourceType.assign(value); }
 
@@ -95,10 +107,10 @@ namespace Model
      * <p>The type of a resource referenced by the event returned. When the resource
      * type cannot be determined, null is returned. Some examples of resource types
      * are: <b>Instance</b> for EC2, <b>Trail</b> for CloudTrail, <b>DBInstance</b> for
-     * RDS, and <b>AccessKey</b> for IAM. For a list of resource types supported for
-     * event lookup, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html">Resource
-     * Types Supported for Event Lookup</a>.</p>
+     * RDS, and <b>AccessKey</b> for IAM. To learn more about how to look up and filter
+     * events by the resource types supported for a service, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html#filtering-cloudtrail-events">Filtering
+     * CloudTrail Events</a>.</p>
      */
     inline Resource& WithResourceType(const Aws::String& value) { SetResourceType(value); return *this;}
 
@@ -106,10 +118,10 @@ namespace Model
      * <p>The type of a resource referenced by the event returned. When the resource
      * type cannot be determined, null is returned. Some examples of resource types
      * are: <b>Instance</b> for EC2, <b>Trail</b> for CloudTrail, <b>DBInstance</b> for
-     * RDS, and <b>AccessKey</b> for IAM. For a list of resource types supported for
-     * event lookup, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html">Resource
-     * Types Supported for Event Lookup</a>.</p>
+     * RDS, and <b>AccessKey</b> for IAM. To learn more about how to look up and filter
+     * events by the resource types supported for a service, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html#filtering-cloudtrail-events">Filtering
+     * CloudTrail Events</a>.</p>
      */
     inline Resource& WithResourceType(Aws::String&& value) { SetResourceType(std::move(value)); return *this;}
 
@@ -117,10 +129,10 @@ namespace Model
      * <p>The type of a resource referenced by the event returned. When the resource
      * type cannot be determined, null is returned. Some examples of resource types
      * are: <b>Instance</b> for EC2, <b>Trail</b> for CloudTrail, <b>DBInstance</b> for
-     * RDS, and <b>AccessKey</b> for IAM. For a list of resource types supported for
-     * event lookup, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html">Resource
-     * Types Supported for Event Lookup</a>.</p>
+     * RDS, and <b>AccessKey</b> for IAM. To learn more about how to look up and filter
+     * events by the resource types supported for a service, see <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html#filtering-cloudtrail-events">Filtering
+     * CloudTrail Events</a>.</p>
      */
     inline Resource& WithResourceType(const char* value) { SetResourceType(value); return *this;}
 
@@ -132,6 +144,14 @@ namespace Model
      * "i-1234567" for an EC2 Instance.</p>
      */
     inline const Aws::String& GetResourceName() const{ return m_resourceName; }
+
+    /**
+     * <p>The name of the resource referenced by the event returned. These are
+     * user-created names whose values will depend on the environment. For example, the
+     * resource name might be "auto-scaling-test-group" for an Auto Scaling Group or
+     * "i-1234567" for an EC2 Instance.</p>
+     */
+    inline bool ResourceNameHasBeenSet() const { return m_resourceNameHasBeenSet; }
 
     /**
      * <p>The name of the resource referenced by the event returned. These are

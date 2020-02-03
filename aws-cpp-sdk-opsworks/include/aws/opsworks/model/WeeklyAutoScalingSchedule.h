@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -53,8 +54,8 @@ namespace Model
   {
   public:
     WeeklyAutoScalingSchedule();
-    WeeklyAutoScalingSchedule(const Aws::Utils::Json::JsonValue& jsonValue);
-    WeeklyAutoScalingSchedule& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    WeeklyAutoScalingSchedule(Aws::Utils::Json::JsonView jsonValue);
+    WeeklyAutoScalingSchedule& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -62,6 +63,11 @@ namespace Model
      * <p>The schedule for Monday.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetMonday() const{ return m_monday; }
+
+    /**
+     * <p>The schedule for Monday.</p>
+     */
+    inline bool MondayHasBeenSet() const { return m_mondayHasBeenSet; }
 
     /**
      * <p>The schedule for Monday.</p>
@@ -127,6 +133,11 @@ namespace Model
     /**
      * <p>The schedule for Tuesday.</p>
      */
+    inline bool TuesdayHasBeenSet() const { return m_tuesdayHasBeenSet; }
+
+    /**
+     * <p>The schedule for Tuesday.</p>
+     */
     inline void SetTuesday(const Aws::Map<Aws::String, Aws::String>& value) { m_tuesdayHasBeenSet = true; m_tuesday = value; }
 
     /**
@@ -184,6 +195,11 @@ namespace Model
      * <p>The schedule for Wednesday.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetWednesday() const{ return m_wednesday; }
+
+    /**
+     * <p>The schedule for Wednesday.</p>
+     */
+    inline bool WednesdayHasBeenSet() const { return m_wednesdayHasBeenSet; }
 
     /**
      * <p>The schedule for Wednesday.</p>
@@ -249,6 +265,11 @@ namespace Model
     /**
      * <p>The schedule for Thursday.</p>
      */
+    inline bool ThursdayHasBeenSet() const { return m_thursdayHasBeenSet; }
+
+    /**
+     * <p>The schedule for Thursday.</p>
+     */
     inline void SetThursday(const Aws::Map<Aws::String, Aws::String>& value) { m_thursdayHasBeenSet = true; m_thursday = value; }
 
     /**
@@ -306,6 +327,11 @@ namespace Model
      * <p>The schedule for Friday.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetFriday() const{ return m_friday; }
+
+    /**
+     * <p>The schedule for Friday.</p>
+     */
+    inline bool FridayHasBeenSet() const { return m_fridayHasBeenSet; }
 
     /**
      * <p>The schedule for Friday.</p>
@@ -371,6 +397,11 @@ namespace Model
     /**
      * <p>The schedule for Saturday.</p>
      */
+    inline bool SaturdayHasBeenSet() const { return m_saturdayHasBeenSet; }
+
+    /**
+     * <p>The schedule for Saturday.</p>
+     */
     inline void SetSaturday(const Aws::Map<Aws::String, Aws::String>& value) { m_saturdayHasBeenSet = true; m_saturday = value; }
 
     /**
@@ -428,6 +459,11 @@ namespace Model
      * <p>The schedule for Sunday.</p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetSunday() const{ return m_sunday; }
+
+    /**
+     * <p>The schedule for Sunday.</p>
+     */
+    inline bool SundayHasBeenSet() const { return m_sundayHasBeenSet; }
 
     /**
      * <p>The schedule for Sunday.</p>

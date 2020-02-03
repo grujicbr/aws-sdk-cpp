@@ -32,7 +32,7 @@ namespace Model
   {
   public:
     GetTableVersionsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -45,43 +45,49 @@ namespace Model
 
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline const Aws::String& GetCatalogId() const{ return m_catalogId; }
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
+     * AWS account ID is used by default.</p>
+     */
+    inline bool CatalogIdHasBeenSet() const { return m_catalogIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const Aws::String& value) { m_catalogIdHasBeenSet = true; m_catalogId = value; }
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(Aws::String&& value) { m_catalogIdHasBeenSet = true; m_catalogId = std::move(value); }
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline void SetCatalogId(const char* value) { m_catalogIdHasBeenSet = true; m_catalogId.assign(value); }
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableVersionsRequest& WithCatalogId(const Aws::String& value) { SetCatalogId(value); return *this;}
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableVersionsRequest& WithCatalogId(Aws::String&& value) { SetCatalogId(std::move(value)); return *this;}
 
     /**
-     * <p>The ID of the Data Catalog where the tables reside. If none is supplied, the
+     * <p>The ID of the Data Catalog where the tables reside. If none is provided, the
      * AWS account ID is used by default.</p>
      */
     inline GetTableVersionsRequest& WithCatalogId(const char* value) { SetCatalogId(value); return *this;}
@@ -92,6 +98,12 @@ namespace Model
      * compatibility, this name is entirely lowercase.</p>
      */
     inline const Aws::String& GetDatabaseName() const{ return m_databaseName; }
+
+    /**
+     * <p>The database in the catalog in which the table resides. For Hive
+     * compatibility, this name is entirely lowercase.</p>
+     */
+    inline bool DatabaseNameHasBeenSet() const { return m_databaseNameHasBeenSet; }
 
     /**
      * <p>The database in the catalog in which the table resides. For Hive
@@ -140,6 +152,12 @@ namespace Model
      * <p>The name of the table. For Hive compatibility, this name is entirely
      * lowercase.</p>
      */
+    inline bool TableNameHasBeenSet() const { return m_tableNameHasBeenSet; }
+
+    /**
+     * <p>The name of the table. For Hive compatibility, this name is entirely
+     * lowercase.</p>
+     */
     inline void SetTableName(const Aws::String& value) { m_tableNameHasBeenSet = true; m_tableName = value; }
 
     /**
@@ -181,6 +199,11 @@ namespace Model
     /**
      * <p>A continuation token, if this is not the first call.</p>
      */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>A continuation token, if this is not the first call.</p>
+     */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
 
     /**
@@ -213,6 +236,11 @@ namespace Model
      * <p>The maximum number of table versions to return in one response.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>The maximum number of table versions to return in one response.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>The maximum number of table versions to return in one response.</p>

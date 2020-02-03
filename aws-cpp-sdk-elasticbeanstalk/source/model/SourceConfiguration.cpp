@@ -52,13 +52,13 @@ SourceConfiguration& SourceConfiguration::operator =(const XmlNode& xmlNode)
     XmlNode applicationNameNode = resultNode.FirstChild("ApplicationName");
     if(!applicationNameNode.IsNull())
     {
-      m_applicationName = StringUtils::Trim(applicationNameNode.GetText().c_str());
+      m_applicationName = Aws::Utils::Xml::DecodeEscapedXmlText(applicationNameNode.GetText());
       m_applicationNameHasBeenSet = true;
     }
     XmlNode templateNameNode = resultNode.FirstChild("TemplateName");
     if(!templateNameNode.IsNull())
     {
-      m_templateName = StringUtils::Trim(templateNameNode.GetText().c_str());
+      m_templateName = Aws::Utils::Xml::DecodeEscapedXmlText(templateNameNode.GetText());
       m_templateNameHasBeenSet = true;
     }
   }

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Shield
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Protection();
-    Protection(const Aws::Utils::Json::JsonValue& jsonValue);
-    Protection& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Protection(Aws::Utils::Json::JsonView jsonValue);
+    Protection& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The unique identifier (ID) of the protection.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier (ID) of the protection.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier (ID) of the protection.</p>
@@ -93,6 +99,12 @@ namespace Model
      * <p>The friendly name of the protection. For example, <code>My CloudFront
      * distributions</code>.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The friendly name of the protection. For example, <code>My CloudFront
+     * distributions</code>.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -130,6 +142,11 @@ namespace Model
      * <p>The ARN (Amazon Resource Name) of the AWS resource that is protected.</p>
      */
     inline const Aws::String& GetResourceArn() const{ return m_resourceArn; }
+
+    /**
+     * <p>The ARN (Amazon Resource Name) of the AWS resource that is protected.</p>
+     */
+    inline bool ResourceArnHasBeenSet() const { return m_resourceArnHasBeenSet; }
 
     /**
      * <p>The ARN (Amazon Resource Name) of the AWS resource that is protected.</p>

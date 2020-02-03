@@ -24,6 +24,8 @@ using namespace Aws::Utils;
 
 DescribeWorkspaceDirectoriesRequest::DescribeWorkspaceDirectoriesRequest() : 
     m_directoryIdsHasBeenSet(false),
+    m_limit(0),
+    m_limitHasBeenSet(false),
     m_nextTokenHasBeenSet(false)
 {
 }
@@ -43,13 +45,19 @@ Aws::String DescribeWorkspaceDirectoriesRequest::SerializePayload() const
 
   }
 
+  if(m_limitHasBeenSet)
+  {
+   payload.WithInteger("Limit", m_limit);
+
+  }
+
   if(m_nextTokenHasBeenSet)
   {
    payload.WithString("NextToken", m_nextToken);
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DescribeWorkspaceDirectoriesRequest::GetRequestSpecificHeaders() const

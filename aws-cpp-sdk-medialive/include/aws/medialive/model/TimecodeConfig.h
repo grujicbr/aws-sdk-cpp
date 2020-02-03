@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -33,7 +34,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for TimecodeConfig<p><h3>See Also:</h3>   <a
+   * Timecode Config<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TimecodeConfig">AWS
    * API Reference</a></p>
    */
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     TimecodeConfig();
-    TimecodeConfig(const Aws::Utils::Json::JsonValue& jsonValue);
-    TimecodeConfig& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    TimecodeConfig(Aws::Utils::Json::JsonView jsonValue);
+    TimecodeConfig& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,19 @@ namespace Model
      * will be 00:00:00:00.
      */
     inline const TimecodeConfigSource& GetSource() const{ return m_source; }
+
+    /**
+     * Identifies the source for the timecode that will be associated with the events
+     * outputs.
+-Embedded (embedded): Initialize the output timecode with timecode from
+     * the the source.  If no embedded timecode is detected in the source, the system
+     * falls back to using "Start at 0" (zerobased).
+-System Clock (systemclock): Use
+     * the UTC time.
+-Start at 0 (zerobased): The time of the first frame of the event
+     * will be 00:00:00:00.
+     */
+    inline bool SourceHasBeenSet() const { return m_sourceHasBeenSet; }
 
     /**
      * Identifies the source for the timecode that will be associated with the events
@@ -119,6 +133,14 @@ namespace Model
      * specified.
      */
     inline int GetSyncThreshold() const{ return m_syncThreshold; }
+
+    /**
+     * Threshold in frames beyond which output timecode is resynchronized to the input
+     * timecode. Discrepancies below this threshold are permitted to avoid unnecessary
+     * discontinuities in the output timecode. No timecode sync when this is not
+     * specified.
+     */
+    inline bool SyncThresholdHasBeenSet() const { return m_syncThresholdHasBeenSet; }
 
     /**
      * Threshold in frames beyond which output timecode is resynchronized to the input

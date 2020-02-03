@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -49,8 +50,8 @@ namespace Model
   {
   public:
     Deserializer();
-    Deserializer(const Aws::Utils::Json::JsonValue& jsonValue);
-    Deserializer& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Deserializer(Aws::Utils::Json::JsonView jsonValue);
+    Deserializer& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -62,6 +63,15 @@ namespace Model
      * the native Hive / HCatalog JsonSerDe.</p>
      */
     inline const OpenXJsonSerDe& GetOpenXJsonSerDe() const{ return m_openXJsonSerDe; }
+
+    /**
+     * <p>The OpenX SerDe. Used by Kinesis Data Firehose for deserializing data, which
+     * means converting it from the JSON format in preparation for serializing it to
+     * the Parquet or ORC format. This is one of two deserializers you can choose,
+     * depending on which one offers the functionality you need. The other option is
+     * the native Hive / HCatalog JsonSerDe.</p>
+     */
+    inline bool OpenXJsonSerDeHasBeenSet() const { return m_openXJsonSerDeHasBeenSet; }
 
     /**
      * <p>The OpenX SerDe. Used by Kinesis Data Firehose for deserializing data, which
@@ -108,6 +118,15 @@ namespace Model
      * you need. The other option is the OpenX SerDe.</p>
      */
     inline const HiveJsonSerDe& GetHiveJsonSerDe() const{ return m_hiveJsonSerDe; }
+
+    /**
+     * <p>The native Hive / HCatalog JsonSerDe. Used by Kinesis Data Firehose for
+     * deserializing data, which means converting it from the JSON format in
+     * preparation for serializing it to the Parquet or ORC format. This is one of two
+     * deserializers you can choose, depending on which one offers the functionality
+     * you need. The other option is the OpenX SerDe.</p>
+     */
+    inline bool HiveJsonSerDeHasBeenSet() const { return m_hiveJsonSerDeHasBeenSet; }
 
     /**
      * <p>The native Hive / HCatalog JsonSerDe. Used by Kinesis Data Firehose for

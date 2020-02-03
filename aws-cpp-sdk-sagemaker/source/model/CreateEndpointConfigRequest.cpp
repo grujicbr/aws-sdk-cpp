@@ -25,6 +25,7 @@ using namespace Aws::Utils;
 CreateEndpointConfigRequest::CreateEndpointConfigRequest() : 
     m_endpointConfigNameHasBeenSet(false),
     m_productionVariantsHasBeenSet(false),
+    m_dataCaptureConfigHasBeenSet(false),
     m_tagsHasBeenSet(false),
     m_kmsKeyIdHasBeenSet(false)
 {
@@ -51,6 +52,12 @@ Aws::String CreateEndpointConfigRequest::SerializePayload() const
 
   }
 
+  if(m_dataCaptureConfigHasBeenSet)
+  {
+   payload.WithObject("DataCaptureConfig", m_dataCaptureConfig.Jsonize());
+
+  }
+
   if(m_tagsHasBeenSet)
   {
    Array<JsonValue> tagsJsonList(m_tags.size());
@@ -68,7 +75,7 @@ Aws::String CreateEndpointConfigRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateEndpointConfigRequest::GetRequestSpecificHeaders() const

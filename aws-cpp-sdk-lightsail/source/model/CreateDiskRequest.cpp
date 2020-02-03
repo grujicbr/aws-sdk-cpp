@@ -26,7 +26,9 @@ CreateDiskRequest::CreateDiskRequest() :
     m_diskNameHasBeenSet(false),
     m_availabilityZoneHasBeenSet(false),
     m_sizeInGb(0),
-    m_sizeInGbHasBeenSet(false)
+    m_sizeInGbHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_addOnsHasBeenSet(false)
 {
 }
 
@@ -52,7 +54,29 @@ Aws::String CreateDiskRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_addOnsHasBeenSet)
+  {
+   Array<JsonValue> addOnsJsonList(m_addOns.size());
+   for(unsigned addOnsIndex = 0; addOnsIndex < addOnsJsonList.GetLength(); ++addOnsIndex)
+   {
+     addOnsJsonList[addOnsIndex].AsObject(m_addOns[addOnsIndex].Jsonize());
+   }
+   payload.WithArray("addOns", std::move(addOnsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateDiskRequest::GetRequestSpecificHeaders() const

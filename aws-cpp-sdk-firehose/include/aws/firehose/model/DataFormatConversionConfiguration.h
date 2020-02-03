@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -50,8 +51,8 @@ namespace Model
   {
   public:
     DataFormatConversionConfiguration();
-    DataFormatConversionConfiguration(const Aws::Utils::Json::JsonValue& jsonValue);
-    DataFormatConversionConfiguration& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DataFormatConversionConfiguration(Aws::Utils::Json::JsonView jsonValue);
+    DataFormatConversionConfiguration& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +61,12 @@ namespace Model
      * information.</p>
      */
     inline const SchemaConfiguration& GetSchemaConfiguration() const{ return m_schemaConfiguration; }
+
+    /**
+     * <p>Specifies the AWS Glue Data Catalog table that contains the column
+     * information.</p>
+     */
+    inline bool SchemaConfigurationHasBeenSet() const { return m_schemaConfigurationHasBeenSet; }
 
     /**
      * <p>Specifies the AWS Glue Data Catalog table that contains the column
@@ -96,6 +103,12 @@ namespace Model
      * <p>Specifies the deserializer that you want Kinesis Data Firehose to use to
      * convert the format of your data from JSON.</p>
      */
+    inline bool InputFormatConfigurationHasBeenSet() const { return m_inputFormatConfigurationHasBeenSet; }
+
+    /**
+     * <p>Specifies the deserializer that you want Kinesis Data Firehose to use to
+     * convert the format of your data from JSON.</p>
+     */
     inline void SetInputFormatConfiguration(const InputFormatConfiguration& value) { m_inputFormatConfigurationHasBeenSet = true; m_inputFormatConfiguration = value; }
 
     /**
@@ -127,6 +140,12 @@ namespace Model
      * <p>Specifies the serializer that you want Kinesis Data Firehose to use to
      * convert the format of your data to the Parquet or ORC format.</p>
      */
+    inline bool OutputFormatConfigurationHasBeenSet() const { return m_outputFormatConfigurationHasBeenSet; }
+
+    /**
+     * <p>Specifies the serializer that you want Kinesis Data Firehose to use to
+     * convert the format of your data to the Parquet or ORC format.</p>
+     */
     inline void SetOutputFormatConfiguration(const OutputFormatConfiguration& value) { m_outputFormatConfigurationHasBeenSet = true; m_outputFormatConfiguration = value; }
 
     /**
@@ -153,6 +172,12 @@ namespace Model
      * disable format conversion while preserving the configuration details.</p>
      */
     inline bool GetEnabled() const{ return m_enabled; }
+
+    /**
+     * <p>Defaults to <code>true</code>. Set it to <code>false</code> if you want to
+     * disable format conversion while preserving the configuration details.</p>
+     */
+    inline bool EnabledHasBeenSet() const { return m_enabledHasBeenSet; }
 
     /**
      * <p>Defaults to <code>true</code>. Set it to <code>false</code> if you want to

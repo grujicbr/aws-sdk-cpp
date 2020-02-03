@@ -55,16 +55,10 @@ namespace Http
 namespace Utils
 {
   template< typename R, typename E> class Outcome;
-
 namespace Threading
 {
   class Executor;
 } // namespace Threading
-
-namespace Json
-{
-  class JsonValue;
-} // namespace Json
 } // namespace Utils
 
 namespace Auth
@@ -164,7 +158,7 @@ namespace Model
    * about the AWS Shield Advanced API actions, data types, and errors. For detailed
    * information about AWS WAF and AWS Shield Advanced features and an overview of
    * how to use the AWS WAF and AWS Shield Advanced APIs, see the <a
-   * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF and AWS
+   * href="https://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF and AWS
    * Shield Developer Guide</a>.</p>
    */
   class AWS_SHIELD_API ShieldClient : public Aws::Client::AWSJsonClient
@@ -193,14 +187,14 @@ namespace Model
 
         virtual ~ShieldClient();
 
-        inline virtual const char* GetServiceClientName() const override { return "shield"; }
+        inline virtual const char* GetServiceClientName() const override { return "Shield"; }
 
 
         /**
          * <p>Authorizes the DDoS Response team (DRT) to access the specified Amazon S3
-         * bucket containing your flow logs. You can associate up to 10 Amazon S3 buckets
-         * with your subscription.</p> <p>To use the services of the DRT and make an
-         * <code>AssociateDRTLogBucket</code> request, you must be subscribed to the <a
+         * bucket containing your AWS WAF logs. You can associate up to 10 Amazon S3
+         * buckets with your subscription.</p> <p>To use the services of the DRT and make
+         * an <code>AssociateDRTLogBucket</code> request, you must be subscribed to the <a
          * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
          * plan</a> or the <a
          * href="https://aws.amazon.com/premiumsupport/enterprise-support/">Enterprise
@@ -212,9 +206,9 @@ namespace Model
 
         /**
          * <p>Authorizes the DDoS Response team (DRT) to access the specified Amazon S3
-         * bucket containing your flow logs. You can associate up to 10 Amazon S3 buckets
-         * with your subscription.</p> <p>To use the services of the DRT and make an
-         * <code>AssociateDRTLogBucket</code> request, you must be subscribed to the <a
+         * bucket containing your AWS WAF logs. You can associate up to 10 Amazon S3
+         * buckets with your subscription.</p> <p>To use the services of the DRT and make
+         * an <code>AssociateDRTLogBucket</code> request, you must be subscribed to the <a
          * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
          * plan</a> or the <a
          * href="https://aws.amazon.com/premiumsupport/enterprise-support/">Enterprise
@@ -228,9 +222,9 @@ namespace Model
 
         /**
          * <p>Authorizes the DDoS Response team (DRT) to access the specified Amazon S3
-         * bucket containing your flow logs. You can associate up to 10 Amazon S3 buckets
-         * with your subscription.</p> <p>To use the services of the DRT and make an
-         * <code>AssociateDRTLogBucket</code> request, you must be subscribed to the <a
+         * bucket containing your AWS WAF logs. You can associate up to 10 Amazon S3
+         * buckets with your subscription.</p> <p>To use the services of the DRT and make
+         * an <code>AssociateDRTLogBucket</code> request, you must be subscribed to the <a
          * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
          * plan</a> or the <a
          * href="https://aws.amazon.com/premiumsupport/enterprise-support/">Enterprise
@@ -359,12 +353,12 @@ namespace Model
 
         /**
          * <p>Enables AWS Shield Advanced for a specific AWS resource. The resource can be
-         * an Amazon CloudFront distribution, Elastic Load Balancing load balancer, Elastic
-         * IP Address, or an Amazon Route 53 hosted zone.</p> <p>You can add protection to
-         * only a single resource with each CreateProtection request. If you want to add
-         * protection to multiple resources at once, use the <a
-         * href="https://console.aws.amazon.com/waf/">AWS WAF console</a>. For more
-         * information see <a
+         * an Amazon CloudFront distribution, Elastic Load Balancing load balancer, AWS
+         * Global Accelerator accelerator, Elastic IP Address, or an Amazon Route 53 hosted
+         * zone.</p> <p>You can add protection to only a single resource with each
+         * CreateProtection request. If you want to add protection to multiple resources at
+         * once, use the <a href="https://console.aws.amazon.com/waf/">AWS WAF console</a>.
+         * For more information see <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/getting-started-ddos.html">Getting
          * Started with AWS Shield Advanced</a> and <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/configure-new-protection.html">Add
@@ -377,12 +371,12 @@ namespace Model
 
         /**
          * <p>Enables AWS Shield Advanced for a specific AWS resource. The resource can be
-         * an Amazon CloudFront distribution, Elastic Load Balancing load balancer, Elastic
-         * IP Address, or an Amazon Route 53 hosted zone.</p> <p>You can add protection to
-         * only a single resource with each CreateProtection request. If you want to add
-         * protection to multiple resources at once, use the <a
-         * href="https://console.aws.amazon.com/waf/">AWS WAF console</a>. For more
-         * information see <a
+         * an Amazon CloudFront distribution, Elastic Load Balancing load balancer, AWS
+         * Global Accelerator accelerator, Elastic IP Address, or an Amazon Route 53 hosted
+         * zone.</p> <p>You can add protection to only a single resource with each
+         * CreateProtection request. If you want to add protection to multiple resources at
+         * once, use the <a href="https://console.aws.amazon.com/waf/">AWS WAF console</a>.
+         * For more information see <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/getting-started-ddos.html">Getting
          * Started with AWS Shield Advanced</a> and <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/configure-new-protection.html">Add
@@ -397,12 +391,12 @@ namespace Model
 
         /**
          * <p>Enables AWS Shield Advanced for a specific AWS resource. The resource can be
-         * an Amazon CloudFront distribution, Elastic Load Balancing load balancer, Elastic
-         * IP Address, or an Amazon Route 53 hosted zone.</p> <p>You can add protection to
-         * only a single resource with each CreateProtection request. If you want to add
-         * protection to multiple resources at once, use the <a
-         * href="https://console.aws.amazon.com/waf/">AWS WAF console</a>. For more
-         * information see <a
+         * an Amazon CloudFront distribution, Elastic Load Balancing load balancer, AWS
+         * Global Accelerator accelerator, Elastic IP Address, or an Amazon Route 53 hosted
+         * zone.</p> <p>You can add protection to only a single resource with each
+         * CreateProtection request. If you want to add protection to multiple resources at
+         * once, use the <a href="https://console.aws.amazon.com/waf/">AWS WAF console</a>.
+         * For more information see <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/getting-started-ddos.html">Getting
          * Started with AWS Shield Advanced</a> and <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/configure-new-protection.html">Add
@@ -422,10 +416,14 @@ namespace Model
          * attack. For more information see <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/authorize-DRT.html">Authorize
          * the DDoS Response Team to Create Rules and Web ACLs on Your Behalf</a>.</p>
-         * <p>When you initally create a subscription, your subscription is set to be
-         * automatically renewed at the end of the existing subscription period. You can
-         * change this by submitting an <code>UpdateSubscription</code> request.
-         * </p><p><h3>See Also:</h3>   <a
+         * <p>To use the services of the DRT, you must be subscribed to the <a
+         * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
+         * plan</a> or the <a
+         * href="https://aws.amazon.com/premiumsupport/enterprise-support/">Enterprise
+         * Support plan</a>.</p> <p>When you initally create a subscription, your
+         * subscription is set to be automatically renewed at the end of the existing
+         * subscription period. You can change this by submitting an
+         * <code>UpdateSubscription</code> request. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateSubscription">AWS
          * API Reference</a></p>
          */
@@ -438,10 +436,14 @@ namespace Model
          * attack. For more information see <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/authorize-DRT.html">Authorize
          * the DDoS Response Team to Create Rules and Web ACLs on Your Behalf</a>.</p>
-         * <p>When you initally create a subscription, your subscription is set to be
-         * automatically renewed at the end of the existing subscription period. You can
-         * change this by submitting an <code>UpdateSubscription</code> request.
-         * </p><p><h3>See Also:</h3>   <a
+         * <p>To use the services of the DRT, you must be subscribed to the <a
+         * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
+         * plan</a> or the <a
+         * href="https://aws.amazon.com/premiumsupport/enterprise-support/">Enterprise
+         * Support plan</a>.</p> <p>When you initally create a subscription, your
+         * subscription is set to be automatically renewed at the end of the existing
+         * subscription period. You can change this by submitting an
+         * <code>UpdateSubscription</code> request. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateSubscription">AWS
          * API Reference</a></p>
          *
@@ -456,10 +458,14 @@ namespace Model
          * attack. For more information see <a
          * href="https://docs.aws.amazon.com/waf/latest/developerguide/authorize-DRT.html">Authorize
          * the DDoS Response Team to Create Rules and Web ACLs on Your Behalf</a>.</p>
-         * <p>When you initally create a subscription, your subscription is set to be
-         * automatically renewed at the end of the existing subscription period. You can
-         * change this by submitting an <code>UpdateSubscription</code> request.
-         * </p><p><h3>See Also:</h3>   <a
+         * <p>To use the services of the DRT, you must be subscribed to the <a
+         * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
+         * plan</a> or the <a
+         * href="https://aws.amazon.com/premiumsupport/enterprise-support/">Enterprise
+         * Support plan</a>.</p> <p>When you initally create a subscription, your
+         * subscription is set to be automatically renewed at the end of the existing
+         * subscription period. You can change this by submitting an
+         * <code>UpdateSubscription</code> request. </p><p><h3>See Also:</h3>   <a
          * href="http://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateSubscription">AWS
          * API Reference</a></p>
          *
@@ -637,7 +643,7 @@ namespace Model
 
         /**
          * <p>Removes the DDoS Response team's (DRT) access to the specified Amazon S3
-         * bucket containing your flow logs.</p> <p>To make a
+         * bucket containing your AWS WAF logs.</p> <p>To make a
          * <code>DisassociateDRTLogBucket</code> request, you must be subscribed to the <a
          * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
          * plan</a> or the <a
@@ -653,7 +659,7 @@ namespace Model
 
         /**
          * <p>Removes the DDoS Response team's (DRT) access to the specified Amazon S3
-         * bucket containing your flow logs.</p> <p>To make a
+         * bucket containing your AWS WAF logs.</p> <p>To make a
          * <code>DisassociateDRTLogBucket</code> request, you must be subscribed to the <a
          * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
          * plan</a> or the <a
@@ -671,7 +677,7 @@ namespace Model
 
         /**
          * <p>Removes the DDoS Response team's (DRT) access to the specified Amazon S3
-         * bucket containing your flow logs.</p> <p>To make a
+         * bucket containing your AWS WAF logs.</p> <p>To make a
          * <code>DisassociateDRTLogBucket</code> request, you must be subscribed to the <a
          * href="https://aws.amazon.com/premiumsupport/business-support/">Business Support
          * plan</a> or the <a
@@ -880,10 +886,9 @@ namespace Model
         virtual void UpdateSubscriptionAsync(const Model::UpdateSubscriptionRequest& request, const UpdateSubscriptionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context = nullptr) const;
 
 
+      void OverrideEndpoint(const Aws::String& endpoint);
     private:
       void init(const Aws::Client::ClientConfiguration& clientConfiguration);
-
-        /**Async helpers**/
         void AssociateDRTLogBucketAsyncHelper(const Model::AssociateDRTLogBucketRequest& request, const AssociateDRTLogBucketResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void AssociateDRTRoleAsyncHelper(const Model::AssociateDRTRoleRequest& request, const AssociateDRTRoleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
         void CreateProtectionAsyncHelper(const Model::CreateProtectionRequest& request, const CreateProtectionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
@@ -903,6 +908,7 @@ namespace Model
         void UpdateSubscriptionAsyncHelper(const Model::UpdateSubscriptionRequest& request, const UpdateSubscriptionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const;
 
       Aws::String m_uri;
+      Aws::String m_configScheme;
       std::shared_ptr<Aws::Utils::Threading::Executor> m_executor;
   };
 

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ActionState();
-    ActionState(const Aws::Utils::Json::JsonValue& jsonValue);
-    ActionState& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ActionState(Aws::Utils::Json::JsonView jsonValue);
+    ActionState& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the action.</p>
      */
     inline const Aws::String& GetActionName() const{ return m_actionName; }
+
+    /**
+     * <p>The name of the action.</p>
+     */
+    inline bool ActionNameHasBeenSet() const { return m_actionNameHasBeenSet; }
 
     /**
      * <p>The name of the action.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>Represents information about the version (or revision) of an action.</p>
      */
+    inline bool CurrentRevisionHasBeenSet() const { return m_currentRevisionHasBeenSet; }
+
+    /**
+     * <p>Represents information about the version (or revision) of an action.</p>
+     */
     inline void SetCurrentRevision(const ActionRevision& value) { m_currentRevisionHasBeenSet = true; m_currentRevision = value; }
 
     /**
@@ -115,6 +126,11 @@ namespace Model
      * <p>Represents information about the run of an action.</p>
      */
     inline const ActionExecution& GetLatestExecution() const{ return m_latestExecution; }
+
+    /**
+     * <p>Represents information about the run of an action.</p>
+     */
+    inline bool LatestExecutionHasBeenSet() const { return m_latestExecutionHasBeenSet; }
 
     /**
      * <p>Represents information about the run of an action.</p>
@@ -142,6 +158,12 @@ namespace Model
      * deployment group details page.</p>
      */
     inline const Aws::String& GetEntityUrl() const{ return m_entityUrl; }
+
+    /**
+     * <p>A URL link for more information about the state of the action, such as a
+     * deployment group details page.</p>
+     */
+    inline bool EntityUrlHasBeenSet() const { return m_entityUrlHasBeenSet; }
 
     /**
      * <p>A URL link for more information about the state of the action, such as a
@@ -185,6 +207,12 @@ namespace Model
      * page.</p>
      */
     inline const Aws::String& GetRevisionUrl() const{ return m_revisionUrl; }
+
+    /**
+     * <p>A URL link for more information about the revision, such as a commit details
+     * page.</p>
+     */
+    inline bool RevisionUrlHasBeenSet() const { return m_revisionUrlHasBeenSet; }
 
     /**
      * <p>A URL link for more information about the revision, such as a commit details

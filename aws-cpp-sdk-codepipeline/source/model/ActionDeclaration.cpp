@@ -36,11 +36,13 @@ ActionDeclaration::ActionDeclaration() :
     m_configurationHasBeenSet(false),
     m_outputArtifactsHasBeenSet(false),
     m_inputArtifactsHasBeenSet(false),
-    m_roleArnHasBeenSet(false)
+    m_roleArnHasBeenSet(false),
+    m_regionHasBeenSet(false),
+    m_namespaceHasBeenSet(false)
 {
 }
 
-ActionDeclaration::ActionDeclaration(const JsonValue& jsonValue) : 
+ActionDeclaration::ActionDeclaration(JsonView jsonValue) : 
     m_nameHasBeenSet(false),
     m_actionTypeIdHasBeenSet(false),
     m_runOrder(0),
@@ -48,12 +50,14 @@ ActionDeclaration::ActionDeclaration(const JsonValue& jsonValue) :
     m_configurationHasBeenSet(false),
     m_outputArtifactsHasBeenSet(false),
     m_inputArtifactsHasBeenSet(false),
-    m_roleArnHasBeenSet(false)
+    m_roleArnHasBeenSet(false),
+    m_regionHasBeenSet(false),
+    m_namespaceHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-ActionDeclaration& ActionDeclaration::operator =(const JsonValue& jsonValue)
+ActionDeclaration& ActionDeclaration::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("name"))
   {
@@ -78,7 +82,7 @@ ActionDeclaration& ActionDeclaration::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("configuration"))
   {
-    Aws::Map<Aws::String, JsonValue> configurationJsonMap = jsonValue.GetObject("configuration").GetAllObjects();
+    Aws::Map<Aws::String, JsonView> configurationJsonMap = jsonValue.GetObject("configuration").GetAllObjects();
     for(auto& configurationItem : configurationJsonMap)
     {
       m_configuration[configurationItem.first] = configurationItem.second.AsString();
@@ -88,7 +92,7 @@ ActionDeclaration& ActionDeclaration::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("outputArtifacts"))
   {
-    Array<JsonValue> outputArtifactsJsonList = jsonValue.GetArray("outputArtifacts");
+    Array<JsonView> outputArtifactsJsonList = jsonValue.GetArray("outputArtifacts");
     for(unsigned outputArtifactsIndex = 0; outputArtifactsIndex < outputArtifactsJsonList.GetLength(); ++outputArtifactsIndex)
     {
       m_outputArtifacts.push_back(outputArtifactsJsonList[outputArtifactsIndex].AsObject());
@@ -98,7 +102,7 @@ ActionDeclaration& ActionDeclaration::operator =(const JsonValue& jsonValue)
 
   if(jsonValue.ValueExists("inputArtifacts"))
   {
-    Array<JsonValue> inputArtifactsJsonList = jsonValue.GetArray("inputArtifacts");
+    Array<JsonView> inputArtifactsJsonList = jsonValue.GetArray("inputArtifacts");
     for(unsigned inputArtifactsIndex = 0; inputArtifactsIndex < inputArtifactsJsonList.GetLength(); ++inputArtifactsIndex)
     {
       m_inputArtifacts.push_back(inputArtifactsJsonList[inputArtifactsIndex].AsObject());
@@ -111,6 +115,20 @@ ActionDeclaration& ActionDeclaration::operator =(const JsonValue& jsonValue)
     m_roleArn = jsonValue.GetString("roleArn");
 
     m_roleArnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("region"))
+  {
+    m_region = jsonValue.GetString("region");
+
+    m_regionHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("namespace"))
+  {
+    m_namespace = jsonValue.GetString("namespace");
+
+    m_namespaceHasBeenSet = true;
   }
 
   return *this;
@@ -174,6 +192,18 @@ JsonValue ActionDeclaration::Jsonize() const
   if(m_roleArnHasBeenSet)
   {
    payload.WithString("roleArn", m_roleArn);
+
+  }
+
+  if(m_regionHasBeenSet)
+  {
+   payload.WithString("region", m_region);
+
+  }
+
+  if(m_namespaceHasBeenSet)
+  {
+   payload.WithString("namespace", m_namespace);
 
   }
 

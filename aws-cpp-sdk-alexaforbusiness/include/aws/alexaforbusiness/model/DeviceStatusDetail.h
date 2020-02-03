@@ -15,6 +15,7 @@
 
 #pragma once
 #include <aws/alexaforbusiness/AlexaForBusiness_EXPORTS.h>
+#include <aws/alexaforbusiness/model/Feature.h>
 #include <aws/alexaforbusiness/model/DeviceStatusDetailCode.h>
 #include <utility>
 
@@ -25,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AlexaForBusiness
@@ -41,15 +43,51 @@ namespace Model
   {
   public:
     DeviceStatusDetail();
-    DeviceStatusDetail(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeviceStatusDetail& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeviceStatusDetail(Aws::Utils::Json::JsonView jsonValue);
+    DeviceStatusDetail& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
+
+
+    /**
+     * <p>The list of available features on the device.</p>
+     */
+    inline const Feature& GetFeature() const{ return m_feature; }
+
+    /**
+     * <p>The list of available features on the device.</p>
+     */
+    inline bool FeatureHasBeenSet() const { return m_featureHasBeenSet; }
+
+    /**
+     * <p>The list of available features on the device.</p>
+     */
+    inline void SetFeature(const Feature& value) { m_featureHasBeenSet = true; m_feature = value; }
+
+    /**
+     * <p>The list of available features on the device.</p>
+     */
+    inline void SetFeature(Feature&& value) { m_featureHasBeenSet = true; m_feature = std::move(value); }
+
+    /**
+     * <p>The list of available features on the device.</p>
+     */
+    inline DeviceStatusDetail& WithFeature(const Feature& value) { SetFeature(value); return *this;}
+
+    /**
+     * <p>The list of available features on the device.</p>
+     */
+    inline DeviceStatusDetail& WithFeature(Feature&& value) { SetFeature(std::move(value)); return *this;}
 
 
     /**
      * <p>The device status detail code.</p>
      */
     inline const DeviceStatusDetailCode& GetCode() const{ return m_code; }
+
+    /**
+     * <p>The device status detail code.</p>
+     */
+    inline bool CodeHasBeenSet() const { return m_codeHasBeenSet; }
 
     /**
      * <p>The device status detail code.</p>
@@ -72,6 +110,9 @@ namespace Model
     inline DeviceStatusDetail& WithCode(DeviceStatusDetailCode&& value) { SetCode(std::move(value)); return *this;}
 
   private:
+
+    Feature m_feature;
+    bool m_featureHasBeenSet;
 
     DeviceStatusDetailCode m_code;
     bool m_codeHasBeenSet;

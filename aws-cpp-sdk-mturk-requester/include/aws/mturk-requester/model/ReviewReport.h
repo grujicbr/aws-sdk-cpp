@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ReviewReport();
-    ReviewReport(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReviewReport& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReviewReport(Aws::Utils::Json::JsonView jsonValue);
+    ReviewReport& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * Policy. </p>
      */
     inline const Aws::Vector<ReviewResultDetail>& GetReviewResults() const{ return m_reviewResults; }
+
+    /**
+     * <p> A list of ReviewResults objects for each action specified in the Review
+     * Policy. </p>
+     */
+    inline bool ReviewResultsHasBeenSet() const { return m_reviewResultsHasBeenSet; }
 
     /**
      * <p> A list of ReviewResults objects for each action specified in the Review
@@ -97,6 +104,12 @@ namespace Model
      * Policy. </p>
      */
     inline const Aws::Vector<ReviewActionDetail>& GetReviewActions() const{ return m_reviewActions; }
+
+    /**
+     * <p> A list of ReviewAction objects for each action specified in the Review
+     * Policy. </p>
+     */
+    inline bool ReviewActionsHasBeenSet() const { return m_reviewActionsHasBeenSet; }
 
     /**
      * <p> A list of ReviewAction objects for each action specified in the Review

@@ -16,6 +16,7 @@
 #pragma once
 #include <aws/iotanalytics/IoTAnalytics_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/iotanalytics/model/ChannelStorage.h>
 #include <aws/iotanalytics/model/ChannelStatus.h>
 #include <aws/iotanalytics/model/RetentionPeriod.h>
 #include <aws/core/utils/DateTime.h>
@@ -28,6 +29,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -46,8 +48,8 @@ namespace Model
   {
   public:
     Channel();
-    Channel(const Aws::Utils::Json::JsonValue& jsonValue);
-    Channel& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Channel(Aws::Utils::Json::JsonView jsonValue);
+    Channel& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +57,11 @@ namespace Model
      * <p>The name of the channel.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the channel.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the channel.</p>
@@ -88,9 +95,57 @@ namespace Model
 
 
     /**
+     * <p>Where channel data is stored. You may choose one of "serviceManagedS3" or
+     * "customerManagedS3" storage. If not specified, the default is
+     * "serviceManagedS3". This cannot be changed after creation of the channel.</p>
+     */
+    inline const ChannelStorage& GetStorage() const{ return m_storage; }
+
+    /**
+     * <p>Where channel data is stored. You may choose one of "serviceManagedS3" or
+     * "customerManagedS3" storage. If not specified, the default is
+     * "serviceManagedS3". This cannot be changed after creation of the channel.</p>
+     */
+    inline bool StorageHasBeenSet() const { return m_storageHasBeenSet; }
+
+    /**
+     * <p>Where channel data is stored. You may choose one of "serviceManagedS3" or
+     * "customerManagedS3" storage. If not specified, the default is
+     * "serviceManagedS3". This cannot be changed after creation of the channel.</p>
+     */
+    inline void SetStorage(const ChannelStorage& value) { m_storageHasBeenSet = true; m_storage = value; }
+
+    /**
+     * <p>Where channel data is stored. You may choose one of "serviceManagedS3" or
+     * "customerManagedS3" storage. If not specified, the default is
+     * "serviceManagedS3". This cannot be changed after creation of the channel.</p>
+     */
+    inline void SetStorage(ChannelStorage&& value) { m_storageHasBeenSet = true; m_storage = std::move(value); }
+
+    /**
+     * <p>Where channel data is stored. You may choose one of "serviceManagedS3" or
+     * "customerManagedS3" storage. If not specified, the default is
+     * "serviceManagedS3". This cannot be changed after creation of the channel.</p>
+     */
+    inline Channel& WithStorage(const ChannelStorage& value) { SetStorage(value); return *this;}
+
+    /**
+     * <p>Where channel data is stored. You may choose one of "serviceManagedS3" or
+     * "customerManagedS3" storage. If not specified, the default is
+     * "serviceManagedS3". This cannot be changed after creation of the channel.</p>
+     */
+    inline Channel& WithStorage(ChannelStorage&& value) { SetStorage(std::move(value)); return *this;}
+
+
+    /**
      * <p>The ARN of the channel.</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The ARN of the channel.</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The ARN of the channel.</p>
@@ -131,6 +186,11 @@ namespace Model
     /**
      * <p>The status of the channel.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the channel.</p>
+     */
     inline void SetStatus(const ChannelStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -153,6 +213,11 @@ namespace Model
      * <p>How long, in days, message data is kept for the channel.</p>
      */
     inline const RetentionPeriod& GetRetentionPeriod() const{ return m_retentionPeriod; }
+
+    /**
+     * <p>How long, in days, message data is kept for the channel.</p>
+     */
+    inline bool RetentionPeriodHasBeenSet() const { return m_retentionPeriodHasBeenSet; }
 
     /**
      * <p>How long, in days, message data is kept for the channel.</p>
@@ -183,6 +248,11 @@ namespace Model
     /**
      * <p>When the channel was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>When the channel was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -209,6 +279,11 @@ namespace Model
     /**
      * <p>When the channel was last updated.</p>
      */
+    inline bool LastUpdateTimeHasBeenSet() const { return m_lastUpdateTimeHasBeenSet; }
+
+    /**
+     * <p>When the channel was last updated.</p>
+     */
     inline void SetLastUpdateTime(const Aws::Utils::DateTime& value) { m_lastUpdateTimeHasBeenSet = true; m_lastUpdateTime = value; }
 
     /**
@@ -230,6 +305,9 @@ namespace Model
 
     Aws::String m_name;
     bool m_nameHasBeenSet;
+
+    ChannelStorage m_storage;
+    bool m_storageHasBeenSet;
 
     Aws::String m_arn;
     bool m_arnHasBeenSet;

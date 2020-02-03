@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace XRay
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     ServiceStatistics();
-    ServiceStatistics(const Aws::Utils::Json::JsonValue& jsonValue);
-    ServiceStatistics& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ServiceStatistics(Aws::Utils::Json::JsonView jsonValue);
+    ServiceStatistics& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The number of requests that completed with a 2xx Success status code.</p>
      */
     inline long long GetOkCount() const{ return m_okCount; }
+
+    /**
+     * <p>The number of requests that completed with a 2xx Success status code.</p>
+     */
+    inline bool OkCountHasBeenSet() const { return m_okCountHasBeenSet; }
 
     /**
      * <p>The number of requests that completed with a 2xx Success status code.</p>
@@ -68,6 +74,12 @@ namespace Model
      * code.</p>
      */
     inline const ErrorStatistics& GetErrorStatistics() const{ return m_errorStatistics; }
+
+    /**
+     * <p>Information about requests that failed with a 4xx Client Error status
+     * code.</p>
+     */
+    inline bool ErrorStatisticsHasBeenSet() const { return m_errorStatisticsHasBeenSet; }
 
     /**
      * <p>Information about requests that failed with a 4xx Client Error status
@@ -104,6 +116,12 @@ namespace Model
      * <p>Information about requests that failed with a 5xx Server Error status
      * code.</p>
      */
+    inline bool FaultStatisticsHasBeenSet() const { return m_faultStatisticsHasBeenSet; }
+
+    /**
+     * <p>Information about requests that failed with a 5xx Server Error status
+     * code.</p>
+     */
     inline void SetFaultStatistics(const FaultStatistics& value) { m_faultStatisticsHasBeenSet = true; m_faultStatistics = value; }
 
     /**
@@ -133,6 +151,11 @@ namespace Model
     /**
      * <p>The total number of completed requests.</p>
      */
+    inline bool TotalCountHasBeenSet() const { return m_totalCountHasBeenSet; }
+
+    /**
+     * <p>The total number of completed requests.</p>
+     */
     inline void SetTotalCount(long long value) { m_totalCountHasBeenSet = true; m_totalCount = value; }
 
     /**
@@ -145,6 +168,11 @@ namespace Model
      * <p>The aggregate response time of completed requests.</p>
      */
     inline double GetTotalResponseTime() const{ return m_totalResponseTime; }
+
+    /**
+     * <p>The aggregate response time of completed requests.</p>
+     */
+    inline bool TotalResponseTimeHasBeenSet() const { return m_totalResponseTimeHasBeenSet; }
 
     /**
      * <p>The aggregate response time of completed requests.</p>

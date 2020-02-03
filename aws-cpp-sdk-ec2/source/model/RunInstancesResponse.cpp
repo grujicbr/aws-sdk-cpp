@@ -73,23 +73,26 @@ RunInstancesResponse& RunInstancesResponse::operator =(const Aws::AmazonWebServi
     XmlNode ownerIdNode = resultNode.FirstChild("ownerId");
     if(!ownerIdNode.IsNull())
     {
-      m_ownerId = StringUtils::Trim(ownerIdNode.GetText().c_str());
+      m_ownerId = Aws::Utils::Xml::DecodeEscapedXmlText(ownerIdNode.GetText());
     }
     XmlNode requesterIdNode = resultNode.FirstChild("requesterId");
     if(!requesterIdNode.IsNull())
     {
-      m_requesterId = StringUtils::Trim(requesterIdNode.GetText().c_str());
+      m_requesterId = Aws::Utils::Xml::DecodeEscapedXmlText(requesterIdNode.GetText());
     }
     XmlNode reservationIdNode = resultNode.FirstChild("reservationId");
     if(!reservationIdNode.IsNull())
     {
-      m_reservationId = StringUtils::Trim(reservationIdNode.GetText().c_str());
+      m_reservationId = Aws::Utils::Xml::DecodeEscapedXmlText(reservationIdNode.GetText());
     }
   }
 
   if (!rootNode.IsNull()) {
-    XmlNode responseMetadataNode = rootNode.FirstChild("ResponseMetadata");
-    m_responseMetadata = responseMetadataNode;
+    XmlNode requestIdNode = rootNode.FirstChild("requestId");
+    if (!requestIdNode.IsNull())
+    {
+      m_responseMetadata.SetRequestId(StringUtils::Trim(requestIdNode.GetText().c_str()));
+    }
     AWS_LOGSTREAM_DEBUG("Aws::EC2::Model::RunInstancesResponse", "x-amzn-request-id: " << m_responseMetadata.GetRequestId() );
   }
   return *this;

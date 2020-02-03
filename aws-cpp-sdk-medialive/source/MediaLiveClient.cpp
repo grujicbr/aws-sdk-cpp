@@ -24,32 +24,55 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/medialive/MediaLiveClient.h>
 #include <aws/medialive/MediaLiveEndpoint.h>
 #include <aws/medialive/MediaLiveErrorMarshaller.h>
+#include <aws/medialive/model/BatchUpdateScheduleRequest.h>
 #include <aws/medialive/model/CreateChannelRequest.h>
 #include <aws/medialive/model/CreateInputRequest.h>
 #include <aws/medialive/model/CreateInputSecurityGroupRequest.h>
+#include <aws/medialive/model/CreateMultiplexRequest.h>
+#include <aws/medialive/model/CreateMultiplexProgramRequest.h>
+#include <aws/medialive/model/CreateTagsRequest.h>
 #include <aws/medialive/model/DeleteChannelRequest.h>
 #include <aws/medialive/model/DeleteInputRequest.h>
 #include <aws/medialive/model/DeleteInputSecurityGroupRequest.h>
+#include <aws/medialive/model/DeleteMultiplexRequest.h>
+#include <aws/medialive/model/DeleteMultiplexProgramRequest.h>
 #include <aws/medialive/model/DeleteReservationRequest.h>
+#include <aws/medialive/model/DeleteScheduleRequest.h>
+#include <aws/medialive/model/DeleteTagsRequest.h>
 #include <aws/medialive/model/DescribeChannelRequest.h>
 #include <aws/medialive/model/DescribeInputRequest.h>
 #include <aws/medialive/model/DescribeInputSecurityGroupRequest.h>
+#include <aws/medialive/model/DescribeMultiplexRequest.h>
+#include <aws/medialive/model/DescribeMultiplexProgramRequest.h>
 #include <aws/medialive/model/DescribeOfferingRequest.h>
 #include <aws/medialive/model/DescribeReservationRequest.h>
+#include <aws/medialive/model/DescribeScheduleRequest.h>
 #include <aws/medialive/model/ListChannelsRequest.h>
 #include <aws/medialive/model/ListInputSecurityGroupsRequest.h>
 #include <aws/medialive/model/ListInputsRequest.h>
+#include <aws/medialive/model/ListMultiplexProgramsRequest.h>
+#include <aws/medialive/model/ListMultiplexesRequest.h>
 #include <aws/medialive/model/ListOfferingsRequest.h>
 #include <aws/medialive/model/ListReservationsRequest.h>
+#include <aws/medialive/model/ListTagsForResourceRequest.h>
 #include <aws/medialive/model/PurchaseOfferingRequest.h>
 #include <aws/medialive/model/StartChannelRequest.h>
+#include <aws/medialive/model/StartMultiplexRequest.h>
 #include <aws/medialive/model/StopChannelRequest.h>
+#include <aws/medialive/model/StopMultiplexRequest.h>
 #include <aws/medialive/model/UpdateChannelRequest.h>
+#include <aws/medialive/model/UpdateChannelClassRequest.h>
 #include <aws/medialive/model/UpdateInputRequest.h>
 #include <aws/medialive/model/UpdateInputSecurityGroupRequest.h>
+#include <aws/medialive/model/UpdateMultiplexRequest.h>
+#include <aws/medialive/model/UpdateMultiplexProgramRequest.h>
+#include <aws/medialive/model/UpdateReservationRequest.h>
 
 using namespace Aws;
 using namespace Aws::Auth;
@@ -100,28 +123,78 @@ MediaLiveClient::~MediaLiveClient()
 
 void MediaLiveClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << MediaLiveEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + MediaLiveEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void MediaLiveClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
+}
+
+BatchUpdateScheduleOutcome MediaLiveClient::BatchUpdateSchedule(const BatchUpdateScheduleRequest& request) const
+{
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("BatchUpdateSchedule", "Required field: ChannelId, is not set");
+    return BatchUpdateScheduleOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/channels/";
+  ss << request.GetChannelId();
+  ss << "/schedule";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return BatchUpdateScheduleOutcome(BatchUpdateScheduleResult(outcome.GetResult()));
+  }
+  else
+  {
+    return BatchUpdateScheduleOutcome(outcome.GetError());
+  }
+}
+
+BatchUpdateScheduleOutcomeCallable MediaLiveClient::BatchUpdateScheduleCallable(const BatchUpdateScheduleRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< BatchUpdateScheduleOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->BatchUpdateSchedule(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::BatchUpdateScheduleAsync(const BatchUpdateScheduleRequest& request, const BatchUpdateScheduleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->BatchUpdateScheduleAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::BatchUpdateScheduleAsyncHelper(const BatchUpdateScheduleRequest& request, const BatchUpdateScheduleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, BatchUpdateSchedule(request), context);
 }
 
 CreateChannelOutcome MediaLiveClient::CreateChannel(const CreateChannelRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/channels";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateChannelOutcome(CreateChannelResult(outcome.GetResult()));
@@ -152,11 +225,11 @@ void MediaLiveClient::CreateChannelAsyncHelper(const CreateChannelRequest& reque
 
 CreateInputOutcome MediaLiveClient::CreateInput(const CreateInputRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputs";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateInputOutcome(CreateInputResult(outcome.GetResult()));
@@ -187,11 +260,11 @@ void MediaLiveClient::CreateInputAsyncHelper(const CreateInputRequest& request, 
 
 CreateInputSecurityGroupOutcome MediaLiveClient::CreateInputSecurityGroup(const CreateInputSecurityGroupRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputSecurityGroups";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return CreateInputSecurityGroupOutcome(CreateInputSecurityGroupResult(outcome.GetResult()));
@@ -220,14 +293,137 @@ void MediaLiveClient::CreateInputSecurityGroupAsyncHelper(const CreateInputSecur
   handler(this, request, CreateInputSecurityGroup(request), context);
 }
 
+CreateMultiplexOutcome MediaLiveClient::CreateMultiplex(const CreateMultiplexRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return CreateMultiplexOutcome(CreateMultiplexResult(outcome.GetResult()));
+  }
+  else
+  {
+    return CreateMultiplexOutcome(outcome.GetError());
+  }
+}
+
+CreateMultiplexOutcomeCallable MediaLiveClient::CreateMultiplexCallable(const CreateMultiplexRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< CreateMultiplexOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->CreateMultiplex(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::CreateMultiplexAsync(const CreateMultiplexRequest& request, const CreateMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->CreateMultiplexAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::CreateMultiplexAsyncHelper(const CreateMultiplexRequest& request, const CreateMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, CreateMultiplex(request), context);
+}
+
+CreateMultiplexProgramOutcome MediaLiveClient::CreateMultiplexProgram(const CreateMultiplexProgramRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateMultiplexProgram", "Required field: MultiplexId, is not set");
+    return CreateMultiplexProgramOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  ss << "/programs";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return CreateMultiplexProgramOutcome(CreateMultiplexProgramResult(outcome.GetResult()));
+  }
+  else
+  {
+    return CreateMultiplexProgramOutcome(outcome.GetError());
+  }
+}
+
+CreateMultiplexProgramOutcomeCallable MediaLiveClient::CreateMultiplexProgramCallable(const CreateMultiplexProgramRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< CreateMultiplexProgramOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->CreateMultiplexProgram(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::CreateMultiplexProgramAsync(const CreateMultiplexProgramRequest& request, const CreateMultiplexProgramResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->CreateMultiplexProgramAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::CreateMultiplexProgramAsyncHelper(const CreateMultiplexProgramRequest& request, const CreateMultiplexProgramResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, CreateMultiplexProgram(request), context);
+}
+
+CreateTagsOutcome MediaLiveClient::CreateTags(const CreateTagsRequest& request) const
+{
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("CreateTags", "Required field: ResourceArn, is not set");
+    return CreateTagsOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/tags/";
+  ss << request.GetResourceArn();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return CreateTagsOutcome(NoResult());
+  }
+  else
+  {
+    return CreateTagsOutcome(outcome.GetError());
+  }
+}
+
+CreateTagsOutcomeCallable MediaLiveClient::CreateTagsCallable(const CreateTagsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< CreateTagsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->CreateTags(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::CreateTagsAsync(const CreateTagsRequest& request, const CreateTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->CreateTagsAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::CreateTagsAsyncHelper(const CreateTagsRequest& request, const CreateTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, CreateTags(request), context);
+}
+
 DeleteChannelOutcome MediaLiveClient::DeleteChannel(const DeleteChannelRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteChannel", "Required field: ChannelId, is not set");
+    return DeleteChannelOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/channels/";
   ss << request.GetChannelId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteChannelOutcome(DeleteChannelResult(outcome.GetResult()));
@@ -258,12 +454,17 @@ void MediaLiveClient::DeleteChannelAsyncHelper(const DeleteChannelRequest& reque
 
 DeleteInputOutcome MediaLiveClient::DeleteInput(const DeleteInputRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.InputIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteInput", "Required field: InputId, is not set");
+    return DeleteInputOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [InputId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputs/";
   ss << request.GetInputId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteInputOutcome(DeleteInputResult(outcome.GetResult()));
@@ -294,12 +495,17 @@ void MediaLiveClient::DeleteInputAsyncHelper(const DeleteInputRequest& request, 
 
 DeleteInputSecurityGroupOutcome MediaLiveClient::DeleteInputSecurityGroup(const DeleteInputSecurityGroupRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.InputSecurityGroupIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteInputSecurityGroup", "Required field: InputSecurityGroupId, is not set");
+    return DeleteInputSecurityGroupOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [InputSecurityGroupId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputSecurityGroups/";
   ss << request.GetInputSecurityGroupId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteInputSecurityGroupOutcome(DeleteInputSecurityGroupResult(outcome.GetResult()));
@@ -328,14 +534,108 @@ void MediaLiveClient::DeleteInputSecurityGroupAsyncHelper(const DeleteInputSecur
   handler(this, request, DeleteInputSecurityGroup(request), context);
 }
 
+DeleteMultiplexOutcome MediaLiveClient::DeleteMultiplex(const DeleteMultiplexRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteMultiplex", "Required field: MultiplexId, is not set");
+    return DeleteMultiplexOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DeleteMultiplexOutcome(DeleteMultiplexResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DeleteMultiplexOutcome(outcome.GetError());
+  }
+}
+
+DeleteMultiplexOutcomeCallable MediaLiveClient::DeleteMultiplexCallable(const DeleteMultiplexRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DeleteMultiplexOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DeleteMultiplex(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::DeleteMultiplexAsync(const DeleteMultiplexRequest& request, const DeleteMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DeleteMultiplexAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::DeleteMultiplexAsyncHelper(const DeleteMultiplexRequest& request, const DeleteMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DeleteMultiplex(request), context);
+}
+
+DeleteMultiplexProgramOutcome MediaLiveClient::DeleteMultiplexProgram(const DeleteMultiplexProgramRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteMultiplexProgram", "Required field: MultiplexId, is not set");
+    return DeleteMultiplexProgramOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  if (!request.ProgramNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteMultiplexProgram", "Required field: ProgramName, is not set");
+    return DeleteMultiplexProgramOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ProgramName]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  ss << "/programs/";
+  ss << request.GetProgramName();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DeleteMultiplexProgramOutcome(DeleteMultiplexProgramResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DeleteMultiplexProgramOutcome(outcome.GetError());
+  }
+}
+
+DeleteMultiplexProgramOutcomeCallable MediaLiveClient::DeleteMultiplexProgramCallable(const DeleteMultiplexProgramRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DeleteMultiplexProgramOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DeleteMultiplexProgram(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::DeleteMultiplexProgramAsync(const DeleteMultiplexProgramRequest& request, const DeleteMultiplexProgramResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DeleteMultiplexProgramAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::DeleteMultiplexProgramAsyncHelper(const DeleteMultiplexProgramRequest& request, const DeleteMultiplexProgramResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DeleteMultiplexProgram(request), context);
+}
+
 DeleteReservationOutcome MediaLiveClient::DeleteReservation(const DeleteReservationRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ReservationIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteReservation", "Required field: ReservationId, is not set");
+    return DeleteReservationOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ReservationId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/reservations/";
   ss << request.GetReservationId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteReservationOutcome(DeleteReservationResult(outcome.GetResult()));
@@ -364,14 +664,107 @@ void MediaLiveClient::DeleteReservationAsyncHelper(const DeleteReservationReques
   handler(this, request, DeleteReservation(request), context);
 }
 
+DeleteScheduleOutcome MediaLiveClient::DeleteSchedule(const DeleteScheduleRequest& request) const
+{
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteSchedule", "Required field: ChannelId, is not set");
+    return DeleteScheduleOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/channels/";
+  ss << request.GetChannelId();
+  ss << "/schedule";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DeleteScheduleOutcome(DeleteScheduleResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DeleteScheduleOutcome(outcome.GetError());
+  }
+}
+
+DeleteScheduleOutcomeCallable MediaLiveClient::DeleteScheduleCallable(const DeleteScheduleRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DeleteScheduleOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DeleteSchedule(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::DeleteScheduleAsync(const DeleteScheduleRequest& request, const DeleteScheduleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DeleteScheduleAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::DeleteScheduleAsyncHelper(const DeleteScheduleRequest& request, const DeleteScheduleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DeleteSchedule(request), context);
+}
+
+DeleteTagsOutcome MediaLiveClient::DeleteTags(const DeleteTagsRequest& request) const
+{
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteTags", "Required field: ResourceArn, is not set");
+    return DeleteTagsOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
+  if (!request.TagKeysHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DeleteTags", "Required field: TagKeys, is not set");
+    return DeleteTagsOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [TagKeys]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/tags/";
+  ss << request.GetResourceArn();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_DELETE, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DeleteTagsOutcome(NoResult());
+  }
+  else
+  {
+    return DeleteTagsOutcome(outcome.GetError());
+  }
+}
+
+DeleteTagsOutcomeCallable MediaLiveClient::DeleteTagsCallable(const DeleteTagsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DeleteTagsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DeleteTags(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::DeleteTagsAsync(const DeleteTagsRequest& request, const DeleteTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DeleteTagsAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::DeleteTagsAsyncHelper(const DeleteTagsRequest& request, const DeleteTagsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DeleteTags(request), context);
+}
+
 DescribeChannelOutcome MediaLiveClient::DescribeChannel(const DescribeChannelRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeChannel", "Required field: ChannelId, is not set");
+    return DescribeChannelOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/channels/";
   ss << request.GetChannelId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeChannelOutcome(DescribeChannelResult(outcome.GetResult()));
@@ -402,12 +795,17 @@ void MediaLiveClient::DescribeChannelAsyncHelper(const DescribeChannelRequest& r
 
 DescribeInputOutcome MediaLiveClient::DescribeInput(const DescribeInputRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.InputIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeInput", "Required field: InputId, is not set");
+    return DescribeInputOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [InputId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputs/";
   ss << request.GetInputId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeInputOutcome(DescribeInputResult(outcome.GetResult()));
@@ -438,12 +836,17 @@ void MediaLiveClient::DescribeInputAsyncHelper(const DescribeInputRequest& reque
 
 DescribeInputSecurityGroupOutcome MediaLiveClient::DescribeInputSecurityGroup(const DescribeInputSecurityGroupRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.InputSecurityGroupIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeInputSecurityGroup", "Required field: InputSecurityGroupId, is not set");
+    return DescribeInputSecurityGroupOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [InputSecurityGroupId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputSecurityGroups/";
   ss << request.GetInputSecurityGroupId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeInputSecurityGroupOutcome(DescribeInputSecurityGroupResult(outcome.GetResult()));
@@ -472,14 +875,108 @@ void MediaLiveClient::DescribeInputSecurityGroupAsyncHelper(const DescribeInputS
   handler(this, request, DescribeInputSecurityGroup(request), context);
 }
 
+DescribeMultiplexOutcome MediaLiveClient::DescribeMultiplex(const DescribeMultiplexRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeMultiplex", "Required field: MultiplexId, is not set");
+    return DescribeMultiplexOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeMultiplexOutcome(DescribeMultiplexResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeMultiplexOutcome(outcome.GetError());
+  }
+}
+
+DescribeMultiplexOutcomeCallable MediaLiveClient::DescribeMultiplexCallable(const DescribeMultiplexRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeMultiplexOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeMultiplex(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::DescribeMultiplexAsync(const DescribeMultiplexRequest& request, const DescribeMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeMultiplexAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::DescribeMultiplexAsyncHelper(const DescribeMultiplexRequest& request, const DescribeMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeMultiplex(request), context);
+}
+
+DescribeMultiplexProgramOutcome MediaLiveClient::DescribeMultiplexProgram(const DescribeMultiplexProgramRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeMultiplexProgram", "Required field: MultiplexId, is not set");
+    return DescribeMultiplexProgramOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  if (!request.ProgramNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeMultiplexProgram", "Required field: ProgramName, is not set");
+    return DescribeMultiplexProgramOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ProgramName]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  ss << "/programs/";
+  ss << request.GetProgramName();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeMultiplexProgramOutcome(DescribeMultiplexProgramResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeMultiplexProgramOutcome(outcome.GetError());
+  }
+}
+
+DescribeMultiplexProgramOutcomeCallable MediaLiveClient::DescribeMultiplexProgramCallable(const DescribeMultiplexProgramRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeMultiplexProgramOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeMultiplexProgram(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::DescribeMultiplexProgramAsync(const DescribeMultiplexProgramRequest& request, const DescribeMultiplexProgramResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeMultiplexProgramAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::DescribeMultiplexProgramAsyncHelper(const DescribeMultiplexProgramRequest& request, const DescribeMultiplexProgramResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeMultiplexProgram(request), context);
+}
+
 DescribeOfferingOutcome MediaLiveClient::DescribeOffering(const DescribeOfferingRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.OfferingIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeOffering", "Required field: OfferingId, is not set");
+    return DescribeOfferingOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [OfferingId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/offerings/";
   ss << request.GetOfferingId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeOfferingOutcome(DescribeOfferingResult(outcome.GetResult()));
@@ -510,12 +1007,17 @@ void MediaLiveClient::DescribeOfferingAsyncHelper(const DescribeOfferingRequest&
 
 DescribeReservationOutcome MediaLiveClient::DescribeReservation(const DescribeReservationRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ReservationIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeReservation", "Required field: ReservationId, is not set");
+    return DescribeReservationOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ReservationId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/reservations/";
   ss << request.GetReservationId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeReservationOutcome(DescribeReservationResult(outcome.GetResult()));
@@ -544,13 +1046,55 @@ void MediaLiveClient::DescribeReservationAsyncHelper(const DescribeReservationRe
   handler(this, request, DescribeReservation(request), context);
 }
 
+DescribeScheduleOutcome MediaLiveClient::DescribeSchedule(const DescribeScheduleRequest& request) const
+{
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("DescribeSchedule", "Required field: ChannelId, is not set");
+    return DescribeScheduleOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/channels/";
+  ss << request.GetChannelId();
+  ss << "/schedule";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeScheduleOutcome(DescribeScheduleResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeScheduleOutcome(outcome.GetError());
+  }
+}
+
+DescribeScheduleOutcomeCallable MediaLiveClient::DescribeScheduleCallable(const DescribeScheduleRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeScheduleOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeSchedule(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::DescribeScheduleAsync(const DescribeScheduleRequest& request, const DescribeScheduleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeScheduleAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::DescribeScheduleAsyncHelper(const DescribeScheduleRequest& request, const DescribeScheduleResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeSchedule(request), context);
+}
+
 ListChannelsOutcome MediaLiveClient::ListChannels(const ListChannelsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/channels";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListChannelsOutcome(ListChannelsResult(outcome.GetResult()));
@@ -581,11 +1125,11 @@ void MediaLiveClient::ListChannelsAsyncHelper(const ListChannelsRequest& request
 
 ListInputSecurityGroupsOutcome MediaLiveClient::ListInputSecurityGroups(const ListInputSecurityGroupsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputSecurityGroups";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListInputSecurityGroupsOutcome(ListInputSecurityGroupsResult(outcome.GetResult()));
@@ -616,11 +1160,11 @@ void MediaLiveClient::ListInputSecurityGroupsAsyncHelper(const ListInputSecurity
 
 ListInputsOutcome MediaLiveClient::ListInputs(const ListInputsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputs";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListInputsOutcome(ListInputsResult(outcome.GetResult()));
@@ -649,13 +1193,90 @@ void MediaLiveClient::ListInputsAsyncHelper(const ListInputsRequest& request, co
   handler(this, request, ListInputs(request), context);
 }
 
+ListMultiplexProgramsOutcome MediaLiveClient::ListMultiplexPrograms(const ListMultiplexProgramsRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListMultiplexPrograms", "Required field: MultiplexId, is not set");
+    return ListMultiplexProgramsOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  ss << "/programs";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ListMultiplexProgramsOutcome(ListMultiplexProgramsResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListMultiplexProgramsOutcome(outcome.GetError());
+  }
+}
+
+ListMultiplexProgramsOutcomeCallable MediaLiveClient::ListMultiplexProgramsCallable(const ListMultiplexProgramsRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListMultiplexProgramsOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListMultiplexPrograms(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::ListMultiplexProgramsAsync(const ListMultiplexProgramsRequest& request, const ListMultiplexProgramsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListMultiplexProgramsAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::ListMultiplexProgramsAsyncHelper(const ListMultiplexProgramsRequest& request, const ListMultiplexProgramsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListMultiplexPrograms(request), context);
+}
+
+ListMultiplexesOutcome MediaLiveClient::ListMultiplexes(const ListMultiplexesRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ListMultiplexesOutcome(ListMultiplexesResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListMultiplexesOutcome(outcome.GetError());
+  }
+}
+
+ListMultiplexesOutcomeCallable MediaLiveClient::ListMultiplexesCallable(const ListMultiplexesRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListMultiplexesOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListMultiplexes(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::ListMultiplexesAsync(const ListMultiplexesRequest& request, const ListMultiplexesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListMultiplexesAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::ListMultiplexesAsyncHelper(const ListMultiplexesRequest& request, const ListMultiplexesResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListMultiplexes(request), context);
+}
+
 ListOfferingsOutcome MediaLiveClient::ListOfferings(const ListOfferingsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/offerings";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListOfferingsOutcome(ListOfferingsResult(outcome.GetResult()));
@@ -686,11 +1307,11 @@ void MediaLiveClient::ListOfferingsAsyncHelper(const ListOfferingsRequest& reque
 
 ListReservationsOutcome MediaLiveClient::ListReservations(const ListReservationsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/reservations";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return ListReservationsOutcome(ListReservationsResult(outcome.GetResult()));
@@ -719,15 +1340,61 @@ void MediaLiveClient::ListReservationsAsyncHelper(const ListReservationsRequest&
   handler(this, request, ListReservations(request), context);
 }
 
+ListTagsForResourceOutcome MediaLiveClient::ListTagsForResource(const ListTagsForResourceRequest& request) const
+{
+  if (!request.ResourceArnHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("ListTagsForResource", "Required field: ResourceArn, is not set");
+    return ListTagsForResourceOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ResourceArn]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/tags/";
+  ss << request.GetResourceArn();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_GET, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ListTagsForResourceOutcome(ListTagsForResourceResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ListTagsForResourceOutcome(outcome.GetError());
+  }
+}
+
+ListTagsForResourceOutcomeCallable MediaLiveClient::ListTagsForResourceCallable(const ListTagsForResourceRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ListTagsForResourceOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ListTagsForResource(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::ListTagsForResourceAsync(const ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ListTagsForResourceAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::ListTagsForResourceAsyncHelper(const ListTagsForResourceRequest& request, const ListTagsForResourceResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ListTagsForResource(request), context);
+}
+
 PurchaseOfferingOutcome MediaLiveClient::PurchaseOffering(const PurchaseOfferingRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.OfferingIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("PurchaseOffering", "Required field: OfferingId, is not set");
+    return PurchaseOfferingOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [OfferingId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/offerings/";
   ss << request.GetOfferingId();
   ss << "/purchase";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return PurchaseOfferingOutcome(PurchaseOfferingResult(outcome.GetResult()));
@@ -758,13 +1425,18 @@ void MediaLiveClient::PurchaseOfferingAsyncHelper(const PurchaseOfferingRequest&
 
 StartChannelOutcome MediaLiveClient::StartChannel(const StartChannelRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("StartChannel", "Required field: ChannelId, is not set");
+    return StartChannelOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/channels/";
   ss << request.GetChannelId();
   ss << "/start";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return StartChannelOutcome(StartChannelResult(outcome.GetResult()));
@@ -793,15 +1465,62 @@ void MediaLiveClient::StartChannelAsyncHelper(const StartChannelRequest& request
   handler(this, request, StartChannel(request), context);
 }
 
+StartMultiplexOutcome MediaLiveClient::StartMultiplex(const StartMultiplexRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("StartMultiplex", "Required field: MultiplexId, is not set");
+    return StartMultiplexOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  ss << "/start";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return StartMultiplexOutcome(StartMultiplexResult(outcome.GetResult()));
+  }
+  else
+  {
+    return StartMultiplexOutcome(outcome.GetError());
+  }
+}
+
+StartMultiplexOutcomeCallable MediaLiveClient::StartMultiplexCallable(const StartMultiplexRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< StartMultiplexOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->StartMultiplex(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::StartMultiplexAsync(const StartMultiplexRequest& request, const StartMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->StartMultiplexAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::StartMultiplexAsyncHelper(const StartMultiplexRequest& request, const StartMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, StartMultiplex(request), context);
+}
+
 StopChannelOutcome MediaLiveClient::StopChannel(const StopChannelRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("StopChannel", "Required field: ChannelId, is not set");
+    return StopChannelOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/channels/";
   ss << request.GetChannelId();
   ss << "/stop";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return StopChannelOutcome(StopChannelResult(outcome.GetResult()));
@@ -830,14 +1549,61 @@ void MediaLiveClient::StopChannelAsyncHelper(const StopChannelRequest& request, 
   handler(this, request, StopChannel(request), context);
 }
 
+StopMultiplexOutcome MediaLiveClient::StopMultiplex(const StopMultiplexRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("StopMultiplex", "Required field: MultiplexId, is not set");
+    return StopMultiplexOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  ss << "/stop";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return StopMultiplexOutcome(StopMultiplexResult(outcome.GetResult()));
+  }
+  else
+  {
+    return StopMultiplexOutcome(outcome.GetError());
+  }
+}
+
+StopMultiplexOutcomeCallable MediaLiveClient::StopMultiplexCallable(const StopMultiplexRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< StopMultiplexOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->StopMultiplex(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::StopMultiplexAsync(const StopMultiplexRequest& request, const StopMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->StopMultiplexAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::StopMultiplexAsyncHelper(const StopMultiplexRequest& request, const StopMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, StopMultiplex(request), context);
+}
+
 UpdateChannelOutcome MediaLiveClient::UpdateChannel(const UpdateChannelRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateChannel", "Required field: ChannelId, is not set");
+    return UpdateChannelOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/channels/";
   ss << request.GetChannelId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateChannelOutcome(UpdateChannelResult(outcome.GetResult()));
@@ -866,14 +1632,61 @@ void MediaLiveClient::UpdateChannelAsyncHelper(const UpdateChannelRequest& reque
   handler(this, request, UpdateChannel(request), context);
 }
 
+UpdateChannelClassOutcome MediaLiveClient::UpdateChannelClass(const UpdateChannelClassRequest& request) const
+{
+  if (!request.ChannelIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateChannelClass", "Required field: ChannelId, is not set");
+    return UpdateChannelClassOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ChannelId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/channels/";
+  ss << request.GetChannelId();
+  ss << "/channelClass";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UpdateChannelClassOutcome(UpdateChannelClassResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UpdateChannelClassOutcome(outcome.GetError());
+  }
+}
+
+UpdateChannelClassOutcomeCallable MediaLiveClient::UpdateChannelClassCallable(const UpdateChannelClassRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UpdateChannelClassOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UpdateChannelClass(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::UpdateChannelClassAsync(const UpdateChannelClassRequest& request, const UpdateChannelClassResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UpdateChannelClassAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::UpdateChannelClassAsyncHelper(const UpdateChannelClassRequest& request, const UpdateChannelClassResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UpdateChannelClass(request), context);
+}
+
 UpdateInputOutcome MediaLiveClient::UpdateInput(const UpdateInputRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.InputIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateInput", "Required field: InputId, is not set");
+    return UpdateInputOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [InputId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputs/";
   ss << request.GetInputId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateInputOutcome(UpdateInputResult(outcome.GetResult()));
@@ -904,12 +1717,17 @@ void MediaLiveClient::UpdateInputAsyncHelper(const UpdateInputRequest& request, 
 
 UpdateInputSecurityGroupOutcome MediaLiveClient::UpdateInputSecurityGroup(const UpdateInputSecurityGroupRequest& request) const
 {
-  Aws::StringStream ss;
+  if (!request.InputSecurityGroupIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateInputSecurityGroup", "Required field: InputSecurityGroupId, is not set");
+    return UpdateInputSecurityGroupOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [InputSecurityGroupId]", false));
+  }
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/prod/inputSecurityGroups/";
   ss << request.GetInputSecurityGroupId();
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return UpdateInputSecurityGroupOutcome(UpdateInputSecurityGroupResult(outcome.GetResult()));
@@ -936,5 +1754,135 @@ void MediaLiveClient::UpdateInputSecurityGroupAsync(const UpdateInputSecurityGro
 void MediaLiveClient::UpdateInputSecurityGroupAsyncHelper(const UpdateInputSecurityGroupRequest& request, const UpdateInputSecurityGroupResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
 {
   handler(this, request, UpdateInputSecurityGroup(request), context);
+}
+
+UpdateMultiplexOutcome MediaLiveClient::UpdateMultiplex(const UpdateMultiplexRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateMultiplex", "Required field: MultiplexId, is not set");
+    return UpdateMultiplexOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UpdateMultiplexOutcome(UpdateMultiplexResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UpdateMultiplexOutcome(outcome.GetError());
+  }
+}
+
+UpdateMultiplexOutcomeCallable MediaLiveClient::UpdateMultiplexCallable(const UpdateMultiplexRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UpdateMultiplexOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UpdateMultiplex(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::UpdateMultiplexAsync(const UpdateMultiplexRequest& request, const UpdateMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UpdateMultiplexAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::UpdateMultiplexAsyncHelper(const UpdateMultiplexRequest& request, const UpdateMultiplexResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UpdateMultiplex(request), context);
+}
+
+UpdateMultiplexProgramOutcome MediaLiveClient::UpdateMultiplexProgram(const UpdateMultiplexProgramRequest& request) const
+{
+  if (!request.MultiplexIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateMultiplexProgram", "Required field: MultiplexId, is not set");
+    return UpdateMultiplexProgramOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [MultiplexId]", false));
+  }
+  if (!request.ProgramNameHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateMultiplexProgram", "Required field: ProgramName, is not set");
+    return UpdateMultiplexProgramOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ProgramName]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/multiplexes/";
+  ss << request.GetMultiplexId();
+  ss << "/programs/";
+  ss << request.GetProgramName();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UpdateMultiplexProgramOutcome(UpdateMultiplexProgramResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UpdateMultiplexProgramOutcome(outcome.GetError());
+  }
+}
+
+UpdateMultiplexProgramOutcomeCallable MediaLiveClient::UpdateMultiplexProgramCallable(const UpdateMultiplexProgramRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UpdateMultiplexProgramOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UpdateMultiplexProgram(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::UpdateMultiplexProgramAsync(const UpdateMultiplexProgramRequest& request, const UpdateMultiplexProgramResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UpdateMultiplexProgramAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::UpdateMultiplexProgramAsyncHelper(const UpdateMultiplexProgramRequest& request, const UpdateMultiplexProgramResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UpdateMultiplexProgram(request), context);
+}
+
+UpdateReservationOutcome MediaLiveClient::UpdateReservation(const UpdateReservationRequest& request) const
+{
+  if (!request.ReservationIdHasBeenSet())
+  {
+    AWS_LOGSTREAM_ERROR("UpdateReservation", "Required field: ReservationId, is not set");
+    return UpdateReservationOutcome(Aws::Client::AWSError<MediaLiveErrors>(MediaLiveErrors::MISSING_PARAMETER, "MISSING_PARAMETER", "Missing required field [ReservationId]", false));
+  }
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/prod/reservations/";
+  ss << request.GetReservationId();
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_PUT, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return UpdateReservationOutcome(UpdateReservationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return UpdateReservationOutcome(outcome.GetError());
+  }
+}
+
+UpdateReservationOutcomeCallable MediaLiveClient::UpdateReservationCallable(const UpdateReservationRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< UpdateReservationOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->UpdateReservation(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void MediaLiveClient::UpdateReservationAsync(const UpdateReservationRequest& request, const UpdateReservationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->UpdateReservationAsyncHelper( request, handler, context ); } );
+}
+
+void MediaLiveClient::UpdateReservationAsyncHelper(const UpdateReservationRequest& request, const UpdateReservationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, UpdateReservation(request), context);
 }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Pinpoint
@@ -34,7 +35,8 @@ namespace Model
 {
 
   /**
-   * The result from sending a message to an endpoint.<p><h3>See Also:</h3>   <a
+   * <p>Provides information about the delivery status and results of sending a
+   * message directly to an endpoint.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/EndpointMessageResult">AWS
    * API Reference</a></p>
    */
@@ -42,193 +44,317 @@ namespace Model
   {
   public:
     EndpointMessageResult();
-    EndpointMessageResult(const Aws::Utils::Json::JsonValue& jsonValue);
-    EndpointMessageResult& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EndpointMessageResult(Aws::Utils::Json::JsonView jsonValue);
+    EndpointMessageResult& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * Address that endpoint message was delivered to.
+     * <p>The endpoint address that the message was delivered to.</p>
      */
     inline const Aws::String& GetAddress() const{ return m_address; }
 
     /**
-     * Address that endpoint message was delivered to.
+     * <p>The endpoint address that the message was delivered to.</p>
+     */
+    inline bool AddressHasBeenSet() const { return m_addressHasBeenSet; }
+
+    /**
+     * <p>The endpoint address that the message was delivered to.</p>
      */
     inline void SetAddress(const Aws::String& value) { m_addressHasBeenSet = true; m_address = value; }
 
     /**
-     * Address that endpoint message was delivered to.
+     * <p>The endpoint address that the message was delivered to.</p>
      */
     inline void SetAddress(Aws::String&& value) { m_addressHasBeenSet = true; m_address = std::move(value); }
 
     /**
-     * Address that endpoint message was delivered to.
+     * <p>The endpoint address that the message was delivered to.</p>
      */
     inline void SetAddress(const char* value) { m_addressHasBeenSet = true; m_address.assign(value); }
 
     /**
-     * Address that endpoint message was delivered to.
+     * <p>The endpoint address that the message was delivered to.</p>
      */
     inline EndpointMessageResult& WithAddress(const Aws::String& value) { SetAddress(value); return *this;}
 
     /**
-     * Address that endpoint message was delivered to.
+     * <p>The endpoint address that the message was delivered to.</p>
      */
     inline EndpointMessageResult& WithAddress(Aws::String&& value) { SetAddress(std::move(value)); return *this;}
 
     /**
-     * Address that endpoint message was delivered to.
+     * <p>The endpoint address that the message was delivered to.</p>
      */
     inline EndpointMessageResult& WithAddress(const char* value) { SetAddress(value); return *this;}
 
 
     /**
-     * Delivery status of message.
+     * <p>The delivery status of the message. Possible values are:</p> <ul>
+     * <li><p>DUPLICATE - The endpoint address is a duplicate of another endpoint
+     * address. Amazon Pinpoint won't attempt to send the message again.</p></li>
+     * <li><p>OPT_OUT - The user who's associated with the endpoint has opted out of
+     * receiving messages from you. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li> <li><p>PERMANENT_FAILURE - An error occurred when delivering the
+     * message to the endpoint. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li>    <li><p>SUCCESSFUL - The message was successfully delivered to
+     * the endpoint.</p></li> <li><p>TEMPORARY_FAILURE - A temporary error occurred.
+     * Amazon Pinpoint will attempt to deliver the message again later.</p></li>
+     * <li><p>THROTTLED - Amazon Pinpoint throttled the operation to send the message
+     * to the endpoint.</p></li> <li><p>TIMEOUT - The message couldn't be sent within
+     * the timeout period.</p></li> <li><p>UNKNOWN_FAILURE - An unknown error
+     * occurred.</p></li></ul>
      */
     inline const DeliveryStatus& GetDeliveryStatus() const{ return m_deliveryStatus; }
 
     /**
-     * Delivery status of message.
+     * <p>The delivery status of the message. Possible values are:</p> <ul>
+     * <li><p>DUPLICATE - The endpoint address is a duplicate of another endpoint
+     * address. Amazon Pinpoint won't attempt to send the message again.</p></li>
+     * <li><p>OPT_OUT - The user who's associated with the endpoint has opted out of
+     * receiving messages from you. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li> <li><p>PERMANENT_FAILURE - An error occurred when delivering the
+     * message to the endpoint. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li>    <li><p>SUCCESSFUL - The message was successfully delivered to
+     * the endpoint.</p></li> <li><p>TEMPORARY_FAILURE - A temporary error occurred.
+     * Amazon Pinpoint will attempt to deliver the message again later.</p></li>
+     * <li><p>THROTTLED - Amazon Pinpoint throttled the operation to send the message
+     * to the endpoint.</p></li> <li><p>TIMEOUT - The message couldn't be sent within
+     * the timeout period.</p></li> <li><p>UNKNOWN_FAILURE - An unknown error
+     * occurred.</p></li></ul>
+     */
+    inline bool DeliveryStatusHasBeenSet() const { return m_deliveryStatusHasBeenSet; }
+
+    /**
+     * <p>The delivery status of the message. Possible values are:</p> <ul>
+     * <li><p>DUPLICATE - The endpoint address is a duplicate of another endpoint
+     * address. Amazon Pinpoint won't attempt to send the message again.</p></li>
+     * <li><p>OPT_OUT - The user who's associated with the endpoint has opted out of
+     * receiving messages from you. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li> <li><p>PERMANENT_FAILURE - An error occurred when delivering the
+     * message to the endpoint. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li>    <li><p>SUCCESSFUL - The message was successfully delivered to
+     * the endpoint.</p></li> <li><p>TEMPORARY_FAILURE - A temporary error occurred.
+     * Amazon Pinpoint will attempt to deliver the message again later.</p></li>
+     * <li><p>THROTTLED - Amazon Pinpoint throttled the operation to send the message
+     * to the endpoint.</p></li> <li><p>TIMEOUT - The message couldn't be sent within
+     * the timeout period.</p></li> <li><p>UNKNOWN_FAILURE - An unknown error
+     * occurred.</p></li></ul>
      */
     inline void SetDeliveryStatus(const DeliveryStatus& value) { m_deliveryStatusHasBeenSet = true; m_deliveryStatus = value; }
 
     /**
-     * Delivery status of message.
+     * <p>The delivery status of the message. Possible values are:</p> <ul>
+     * <li><p>DUPLICATE - The endpoint address is a duplicate of another endpoint
+     * address. Amazon Pinpoint won't attempt to send the message again.</p></li>
+     * <li><p>OPT_OUT - The user who's associated with the endpoint has opted out of
+     * receiving messages from you. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li> <li><p>PERMANENT_FAILURE - An error occurred when delivering the
+     * message to the endpoint. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li>    <li><p>SUCCESSFUL - The message was successfully delivered to
+     * the endpoint.</p></li> <li><p>TEMPORARY_FAILURE - A temporary error occurred.
+     * Amazon Pinpoint will attempt to deliver the message again later.</p></li>
+     * <li><p>THROTTLED - Amazon Pinpoint throttled the operation to send the message
+     * to the endpoint.</p></li> <li><p>TIMEOUT - The message couldn't be sent within
+     * the timeout period.</p></li> <li><p>UNKNOWN_FAILURE - An unknown error
+     * occurred.</p></li></ul>
      */
     inline void SetDeliveryStatus(DeliveryStatus&& value) { m_deliveryStatusHasBeenSet = true; m_deliveryStatus = std::move(value); }
 
     /**
-     * Delivery status of message.
+     * <p>The delivery status of the message. Possible values are:</p> <ul>
+     * <li><p>DUPLICATE - The endpoint address is a duplicate of another endpoint
+     * address. Amazon Pinpoint won't attempt to send the message again.</p></li>
+     * <li><p>OPT_OUT - The user who's associated with the endpoint has opted out of
+     * receiving messages from you. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li> <li><p>PERMANENT_FAILURE - An error occurred when delivering the
+     * message to the endpoint. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li>    <li><p>SUCCESSFUL - The message was successfully delivered to
+     * the endpoint.</p></li> <li><p>TEMPORARY_FAILURE - A temporary error occurred.
+     * Amazon Pinpoint will attempt to deliver the message again later.</p></li>
+     * <li><p>THROTTLED - Amazon Pinpoint throttled the operation to send the message
+     * to the endpoint.</p></li> <li><p>TIMEOUT - The message couldn't be sent within
+     * the timeout period.</p></li> <li><p>UNKNOWN_FAILURE - An unknown error
+     * occurred.</p></li></ul>
      */
     inline EndpointMessageResult& WithDeliveryStatus(const DeliveryStatus& value) { SetDeliveryStatus(value); return *this;}
 
     /**
-     * Delivery status of message.
+     * <p>The delivery status of the message. Possible values are:</p> <ul>
+     * <li><p>DUPLICATE - The endpoint address is a duplicate of another endpoint
+     * address. Amazon Pinpoint won't attempt to send the message again.</p></li>
+     * <li><p>OPT_OUT - The user who's associated with the endpoint has opted out of
+     * receiving messages from you. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li> <li><p>PERMANENT_FAILURE - An error occurred when delivering the
+     * message to the endpoint. Amazon Pinpoint won't attempt to send the message
+     * again.</p></li>    <li><p>SUCCESSFUL - The message was successfully delivered to
+     * the endpoint.</p></li> <li><p>TEMPORARY_FAILURE - A temporary error occurred.
+     * Amazon Pinpoint will attempt to deliver the message again later.</p></li>
+     * <li><p>THROTTLED - Amazon Pinpoint throttled the operation to send the message
+     * to the endpoint.</p></li> <li><p>TIMEOUT - The message couldn't be sent within
+     * the timeout period.</p></li> <li><p>UNKNOWN_FAILURE - An unknown error
+     * occurred.</p></li></ul>
      */
     inline EndpointMessageResult& WithDeliveryStatus(DeliveryStatus&& value) { SetDeliveryStatus(std::move(value)); return *this;}
 
 
     /**
-     * Unique message identifier associated with the message that was sent.
+     * <p>The unique identifier for the message that was sent.</p>
      */
     inline const Aws::String& GetMessageId() const{ return m_messageId; }
 
     /**
-     * Unique message identifier associated with the message that was sent.
+     * <p>The unique identifier for the message that was sent.</p>
+     */
+    inline bool MessageIdHasBeenSet() const { return m_messageIdHasBeenSet; }
+
+    /**
+     * <p>The unique identifier for the message that was sent.</p>
      */
     inline void SetMessageId(const Aws::String& value) { m_messageIdHasBeenSet = true; m_messageId = value; }
 
     /**
-     * Unique message identifier associated with the message that was sent.
+     * <p>The unique identifier for the message that was sent.</p>
      */
     inline void SetMessageId(Aws::String&& value) { m_messageIdHasBeenSet = true; m_messageId = std::move(value); }
 
     /**
-     * Unique message identifier associated with the message that was sent.
+     * <p>The unique identifier for the message that was sent.</p>
      */
     inline void SetMessageId(const char* value) { m_messageIdHasBeenSet = true; m_messageId.assign(value); }
 
     /**
-     * Unique message identifier associated with the message that was sent.
+     * <p>The unique identifier for the message that was sent.</p>
      */
     inline EndpointMessageResult& WithMessageId(const Aws::String& value) { SetMessageId(value); return *this;}
 
     /**
-     * Unique message identifier associated with the message that was sent.
+     * <p>The unique identifier for the message that was sent.</p>
      */
     inline EndpointMessageResult& WithMessageId(Aws::String&& value) { SetMessageId(std::move(value)); return *this;}
 
     /**
-     * Unique message identifier associated with the message that was sent.
+     * <p>The unique identifier for the message that was sent.</p>
      */
     inline EndpointMessageResult& WithMessageId(const char* value) { SetMessageId(value); return *this;}
 
 
     /**
-     * Downstream service status code.
+     * <p>The downstream service status code for delivering the message.</p>
      */
     inline int GetStatusCode() const{ return m_statusCode; }
 
     /**
-     * Downstream service status code.
+     * <p>The downstream service status code for delivering the message.</p>
+     */
+    inline bool StatusCodeHasBeenSet() const { return m_statusCodeHasBeenSet; }
+
+    /**
+     * <p>The downstream service status code for delivering the message.</p>
      */
     inline void SetStatusCode(int value) { m_statusCodeHasBeenSet = true; m_statusCode = value; }
 
     /**
-     * Downstream service status code.
+     * <p>The downstream service status code for delivering the message.</p>
      */
     inline EndpointMessageResult& WithStatusCode(int value) { SetStatusCode(value); return *this;}
 
 
     /**
-     * Status message for message delivery.
+     * <p>The status message for delivering the message.</p>
      */
     inline const Aws::String& GetStatusMessage() const{ return m_statusMessage; }
 
     /**
-     * Status message for message delivery.
+     * <p>The status message for delivering the message.</p>
+     */
+    inline bool StatusMessageHasBeenSet() const { return m_statusMessageHasBeenSet; }
+
+    /**
+     * <p>The status message for delivering the message.</p>
      */
     inline void SetStatusMessage(const Aws::String& value) { m_statusMessageHasBeenSet = true; m_statusMessage = value; }
 
     /**
-     * Status message for message delivery.
+     * <p>The status message for delivering the message.</p>
      */
     inline void SetStatusMessage(Aws::String&& value) { m_statusMessageHasBeenSet = true; m_statusMessage = std::move(value); }
 
     /**
-     * Status message for message delivery.
+     * <p>The status message for delivering the message.</p>
      */
     inline void SetStatusMessage(const char* value) { m_statusMessageHasBeenSet = true; m_statusMessage.assign(value); }
 
     /**
-     * Status message for message delivery.
+     * <p>The status message for delivering the message.</p>
      */
     inline EndpointMessageResult& WithStatusMessage(const Aws::String& value) { SetStatusMessage(value); return *this;}
 
     /**
-     * Status message for message delivery.
+     * <p>The status message for delivering the message.</p>
      */
     inline EndpointMessageResult& WithStatusMessage(Aws::String&& value) { SetStatusMessage(std::move(value)); return *this;}
 
     /**
-     * Status message for message delivery.
+     * <p>The status message for delivering the message.</p>
      */
     inline EndpointMessageResult& WithStatusMessage(const char* value) { SetStatusMessage(value); return *this;}
 
 
     /**
-     * If token was updated as part of delivery. (This is GCM Specific)
+     * <p>For push notifications that are sent through the GCM channel, specifies
+     * whether the endpoint's device registration token was updated as part of
+     * delivering the message.</p>
      */
     inline const Aws::String& GetUpdatedToken() const{ return m_updatedToken; }
 
     /**
-     * If token was updated as part of delivery. (This is GCM Specific)
+     * <p>For push notifications that are sent through the GCM channel, specifies
+     * whether the endpoint's device registration token was updated as part of
+     * delivering the message.</p>
+     */
+    inline bool UpdatedTokenHasBeenSet() const { return m_updatedTokenHasBeenSet; }
+
+    /**
+     * <p>For push notifications that are sent through the GCM channel, specifies
+     * whether the endpoint's device registration token was updated as part of
+     * delivering the message.</p>
      */
     inline void SetUpdatedToken(const Aws::String& value) { m_updatedTokenHasBeenSet = true; m_updatedToken = value; }
 
     /**
-     * If token was updated as part of delivery. (This is GCM Specific)
+     * <p>For push notifications that are sent through the GCM channel, specifies
+     * whether the endpoint's device registration token was updated as part of
+     * delivering the message.</p>
      */
     inline void SetUpdatedToken(Aws::String&& value) { m_updatedTokenHasBeenSet = true; m_updatedToken = std::move(value); }
 
     /**
-     * If token was updated as part of delivery. (This is GCM Specific)
+     * <p>For push notifications that are sent through the GCM channel, specifies
+     * whether the endpoint's device registration token was updated as part of
+     * delivering the message.</p>
      */
     inline void SetUpdatedToken(const char* value) { m_updatedTokenHasBeenSet = true; m_updatedToken.assign(value); }
 
     /**
-     * If token was updated as part of delivery. (This is GCM Specific)
+     * <p>For push notifications that are sent through the GCM channel, specifies
+     * whether the endpoint's device registration token was updated as part of
+     * delivering the message.</p>
      */
     inline EndpointMessageResult& WithUpdatedToken(const Aws::String& value) { SetUpdatedToken(value); return *this;}
 
     /**
-     * If token was updated as part of delivery. (This is GCM Specific)
+     * <p>For push notifications that are sent through the GCM channel, specifies
+     * whether the endpoint's device registration token was updated as part of
+     * delivering the message.</p>
      */
     inline EndpointMessageResult& WithUpdatedToken(Aws::String&& value) { SetUpdatedToken(std::move(value)); return *this;}
 
     /**
-     * If token was updated as part of delivery. (This is GCM Specific)
+     * <p>For push notifications that are sent through the GCM channel, specifies
+     * whether the endpoint's device registration token was updated as part of
+     * delivering the message.</p>
      */
     inline EndpointMessageResult& WithUpdatedToken(const char* value) { SetUpdatedToken(value); return *this;}
 

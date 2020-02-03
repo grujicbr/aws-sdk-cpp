@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     Predecessor();
-    Predecessor(const Aws::Utils::Json::JsonValue& jsonValue);
-    Predecessor& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Predecessor(Aws::Utils::Json::JsonView jsonValue);
+    Predecessor& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The name of the job definition used by the predecessor job run.</p>
      */
     inline const Aws::String& GetJobName() const{ return m_jobName; }
+
+    /**
+     * <p>The name of the job definition used by the predecessor job run.</p>
+     */
+    inline bool JobNameHasBeenSet() const { return m_jobNameHasBeenSet; }
 
     /**
      * <p>The name of the job definition used by the predecessor job run.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The job-run ID of the predecessor job run.</p>
      */
     inline const Aws::String& GetRunId() const{ return m_runId; }
+
+    /**
+     * <p>The job-run ID of the predecessor job run.</p>
+     */
+    inline bool RunIdHasBeenSet() const { return m_runIdHasBeenSet; }
 
     /**
      * <p>The job-run ID of the predecessor job run.</p>

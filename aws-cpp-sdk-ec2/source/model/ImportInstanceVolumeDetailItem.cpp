@@ -64,19 +64,19 @@ ImportInstanceVolumeDetailItem& ImportInstanceVolumeDetailItem::operator =(const
     XmlNode availabilityZoneNode = resultNode.FirstChild("availabilityZone");
     if(!availabilityZoneNode.IsNull())
     {
-      m_availabilityZone = StringUtils::Trim(availabilityZoneNode.GetText().c_str());
+      m_availabilityZone = Aws::Utils::Xml::DecodeEscapedXmlText(availabilityZoneNode.GetText());
       m_availabilityZoneHasBeenSet = true;
     }
     XmlNode bytesConvertedNode = resultNode.FirstChild("bytesConverted");
     if(!bytesConvertedNode.IsNull())
     {
-      m_bytesConverted = StringUtils::ConvertToInt64(StringUtils::Trim(bytesConvertedNode.GetText().c_str()).c_str());
+      m_bytesConverted = StringUtils::ConvertToInt64(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(bytesConvertedNode.GetText()).c_str()).c_str());
       m_bytesConvertedHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode imageNode = resultNode.FirstChild("image");
@@ -88,13 +88,13 @@ ImportInstanceVolumeDetailItem& ImportInstanceVolumeDetailItem::operator =(const
     XmlNode statusNode = resultNode.FirstChild("status");
     if(!statusNode.IsNull())
     {
-      m_status = StringUtils::Trim(statusNode.GetText().c_str());
+      m_status = Aws::Utils::Xml::DecodeEscapedXmlText(statusNode.GetText());
       m_statusHasBeenSet = true;
     }
     XmlNode statusMessageNode = resultNode.FirstChild("statusMessage");
     if(!statusMessageNode.IsNull())
     {
-      m_statusMessage = StringUtils::Trim(statusMessageNode.GetText().c_str());
+      m_statusMessage = Aws::Utils::Xml::DecodeEscapedXmlText(statusMessageNode.GetText());
       m_statusMessageHasBeenSet = true;
     }
     XmlNode volumeNode = resultNode.FirstChild("volume");

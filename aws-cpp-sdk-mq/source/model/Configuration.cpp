@@ -30,36 +30,47 @@ namespace Model
 
 Configuration::Configuration() : 
     m_arnHasBeenSet(false),
+    m_createdHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_engineType(EngineType::NOT_SET),
     m_engineTypeHasBeenSet(false),
     m_engineVersionHasBeenSet(false),
     m_idHasBeenSet(false),
     m_latestRevisionHasBeenSet(false),
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-Configuration::Configuration(const JsonValue& jsonValue) : 
+Configuration::Configuration(JsonView jsonValue) : 
     m_arnHasBeenSet(false),
+    m_createdHasBeenSet(false),
     m_descriptionHasBeenSet(false),
     m_engineType(EngineType::NOT_SET),
     m_engineTypeHasBeenSet(false),
     m_engineVersionHasBeenSet(false),
     m_idHasBeenSet(false),
     m_latestRevisionHasBeenSet(false),
-    m_nameHasBeenSet(false)
+    m_nameHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-Configuration& Configuration::operator =(const JsonValue& jsonValue)
+Configuration& Configuration::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("arn"))
   {
     m_arn = jsonValue.GetString("arn");
 
     m_arnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("created"))
+  {
+    m_created = jsonValue.GetString("created");
+
+    m_createdHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("description"))
@@ -104,6 +115,16 @@ Configuration& Configuration::operator =(const JsonValue& jsonValue)
     m_nameHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Aws::Map<Aws::String, JsonView> tagsJsonMap = jsonValue.GetObject("tags").GetAllObjects();
+    for(auto& tagsItem : tagsJsonMap)
+    {
+      m_tags[tagsItem.first] = tagsItem.second.AsString();
+    }
+    m_tagsHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -115,6 +136,11 @@ JsonValue Configuration::Jsonize() const
   {
    payload.WithString("arn", m_arn);
 
+  }
+
+  if(m_createdHasBeenSet)
+  {
+   payload.WithString("created", m_created.ToGmtString(DateFormat::ISO_8601));
   }
 
   if(m_descriptionHasBeenSet)
@@ -149,6 +175,17 @@ JsonValue Configuration::Jsonize() const
   if(m_nameHasBeenSet)
   {
    payload.WithString("name", m_name);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   JsonValue tagsJsonMap;
+   for(auto& tagsItem : m_tags)
+   {
+     tagsJsonMap.WithString(tagsItem.first, tagsItem.second);
+   }
+   payload.WithObject("tags", std::move(tagsJsonMap));
 
   }
 

@@ -22,15 +22,19 @@
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/redshift/model/PendingModifiedValues.h>
 #include <aws/redshift/model/RestoreStatus.h>
+#include <aws/redshift/model/DataTransferProgress.h>
 #include <aws/redshift/model/HsmStatus.h>
 #include <aws/redshift/model/ClusterSnapshotCopyStatus.h>
 #include <aws/redshift/model/ElasticIpStatus.h>
+#include <aws/redshift/model/ScheduleState.h>
+#include <aws/redshift/model/ResizeInfo.h>
 #include <aws/redshift/model/ClusterSecurityGroupMembership.h>
 #include <aws/redshift/model/VpcSecurityGroupMembership.h>
 #include <aws/redshift/model/ClusterParameterGroupStatus.h>
 #include <aws/redshift/model/ClusterNode.h>
 #include <aws/redshift/model/Tag.h>
 #include <aws/redshift/model/ClusterIamRole.h>
+#include <aws/redshift/model/DeferredMaintenanceWindow.h>
 #include <utility>
 
 namespace Aws
@@ -71,6 +75,11 @@ namespace Model
     /**
      * <p>The unique identifier of the cluster.</p>
      */
+    inline bool ClusterIdentifierHasBeenSet() const { return m_clusterIdentifierHasBeenSet; }
+
+    /**
+     * <p>The unique identifier of the cluster.</p>
+     */
     inline void SetClusterIdentifier(const Aws::String& value) { m_clusterIdentifierHasBeenSet = true; m_clusterIdentifier = value; }
 
     /**
@@ -107,6 +116,11 @@ namespace Model
     /**
      * <p>The node type for the nodes in the cluster.</p>
      */
+    inline bool NodeTypeHasBeenSet() const { return m_nodeTypeHasBeenSet; }
+
+    /**
+     * <p>The node type for the nodes in the cluster.</p>
+     */
     inline void SetNodeType(const Aws::String& value) { m_nodeTypeHasBeenSet = true; m_nodeType = value; }
 
     /**
@@ -137,11 +151,13 @@ namespace Model
 
     /**
      * <p> The current state of the cluster. Possible values are the following:</p>
-     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>creating</code>
-     * </p> </li> <li> <p> <code>deleting</code> </p> </li> <li> <p>
-     * <code>final-snapshot</code> </p> </li> <li> <p> <code>hardware-failure</code>
-     * </p> </li> <li> <p> <code>incompatible-hsm</code> </p> </li> <li> <p>
-     * <code>incompatible-network</code> </p> </li> <li> <p>
+     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>available,
+     * prep-for-resize</code> </p> </li> <li> <p> <code>available,
+     * resize-cleanup</code> </p> </li> <li> <p> <code>cancelling-resize</code> </p>
+     * </li> <li> <p> <code>creating</code> </p> </li> <li> <p> <code>deleting</code>
+     * </p> </li> <li> <p> <code>final-snapshot</code> </p> </li> <li> <p>
+     * <code>hardware-failure</code> </p> </li> <li> <p> <code>incompatible-hsm</code>
+     * </p> </li> <li> <p> <code>incompatible-network</code> </p> </li> <li> <p>
      * <code>incompatible-parameters</code> </p> </li> <li> <p>
      * <code>incompatible-restore</code> </p> </li> <li> <p> <code>modifying</code>
      * </p> </li> <li> <p> <code>rebooting</code> </p> </li> <li> <p>
@@ -153,11 +169,31 @@ namespace Model
 
     /**
      * <p> The current state of the cluster. Possible values are the following:</p>
-     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>creating</code>
-     * </p> </li> <li> <p> <code>deleting</code> </p> </li> <li> <p>
-     * <code>final-snapshot</code> </p> </li> <li> <p> <code>hardware-failure</code>
-     * </p> </li> <li> <p> <code>incompatible-hsm</code> </p> </li> <li> <p>
-     * <code>incompatible-network</code> </p> </li> <li> <p>
+     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>available,
+     * prep-for-resize</code> </p> </li> <li> <p> <code>available,
+     * resize-cleanup</code> </p> </li> <li> <p> <code>cancelling-resize</code> </p>
+     * </li> <li> <p> <code>creating</code> </p> </li> <li> <p> <code>deleting</code>
+     * </p> </li> <li> <p> <code>final-snapshot</code> </p> </li> <li> <p>
+     * <code>hardware-failure</code> </p> </li> <li> <p> <code>incompatible-hsm</code>
+     * </p> </li> <li> <p> <code>incompatible-network</code> </p> </li> <li> <p>
+     * <code>incompatible-parameters</code> </p> </li> <li> <p>
+     * <code>incompatible-restore</code> </p> </li> <li> <p> <code>modifying</code>
+     * </p> </li> <li> <p> <code>rebooting</code> </p> </li> <li> <p>
+     * <code>renaming</code> </p> </li> <li> <p> <code>resizing</code> </p> </li> <li>
+     * <p> <code>rotating-keys</code> </p> </li> <li> <p> <code>storage-full</code>
+     * </p> </li> <li> <p> <code>updating-hsm</code> </p> </li> </ul>
+     */
+    inline bool ClusterStatusHasBeenSet() const { return m_clusterStatusHasBeenSet; }
+
+    /**
+     * <p> The current state of the cluster. Possible values are the following:</p>
+     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>available,
+     * prep-for-resize</code> </p> </li> <li> <p> <code>available,
+     * resize-cleanup</code> </p> </li> <li> <p> <code>cancelling-resize</code> </p>
+     * </li> <li> <p> <code>creating</code> </p> </li> <li> <p> <code>deleting</code>
+     * </p> </li> <li> <p> <code>final-snapshot</code> </p> </li> <li> <p>
+     * <code>hardware-failure</code> </p> </li> <li> <p> <code>incompatible-hsm</code>
+     * </p> </li> <li> <p> <code>incompatible-network</code> </p> </li> <li> <p>
      * <code>incompatible-parameters</code> </p> </li> <li> <p>
      * <code>incompatible-restore</code> </p> </li> <li> <p> <code>modifying</code>
      * </p> </li> <li> <p> <code>rebooting</code> </p> </li> <li> <p>
@@ -169,11 +205,13 @@ namespace Model
 
     /**
      * <p> The current state of the cluster. Possible values are the following:</p>
-     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>creating</code>
-     * </p> </li> <li> <p> <code>deleting</code> </p> </li> <li> <p>
-     * <code>final-snapshot</code> </p> </li> <li> <p> <code>hardware-failure</code>
-     * </p> </li> <li> <p> <code>incompatible-hsm</code> </p> </li> <li> <p>
-     * <code>incompatible-network</code> </p> </li> <li> <p>
+     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>available,
+     * prep-for-resize</code> </p> </li> <li> <p> <code>available,
+     * resize-cleanup</code> </p> </li> <li> <p> <code>cancelling-resize</code> </p>
+     * </li> <li> <p> <code>creating</code> </p> </li> <li> <p> <code>deleting</code>
+     * </p> </li> <li> <p> <code>final-snapshot</code> </p> </li> <li> <p>
+     * <code>hardware-failure</code> </p> </li> <li> <p> <code>incompatible-hsm</code>
+     * </p> </li> <li> <p> <code>incompatible-network</code> </p> </li> <li> <p>
      * <code>incompatible-parameters</code> </p> </li> <li> <p>
      * <code>incompatible-restore</code> </p> </li> <li> <p> <code>modifying</code>
      * </p> </li> <li> <p> <code>rebooting</code> </p> </li> <li> <p>
@@ -185,11 +223,13 @@ namespace Model
 
     /**
      * <p> The current state of the cluster. Possible values are the following:</p>
-     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>creating</code>
-     * </p> </li> <li> <p> <code>deleting</code> </p> </li> <li> <p>
-     * <code>final-snapshot</code> </p> </li> <li> <p> <code>hardware-failure</code>
-     * </p> </li> <li> <p> <code>incompatible-hsm</code> </p> </li> <li> <p>
-     * <code>incompatible-network</code> </p> </li> <li> <p>
+     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>available,
+     * prep-for-resize</code> </p> </li> <li> <p> <code>available,
+     * resize-cleanup</code> </p> </li> <li> <p> <code>cancelling-resize</code> </p>
+     * </li> <li> <p> <code>creating</code> </p> </li> <li> <p> <code>deleting</code>
+     * </p> </li> <li> <p> <code>final-snapshot</code> </p> </li> <li> <p>
+     * <code>hardware-failure</code> </p> </li> <li> <p> <code>incompatible-hsm</code>
+     * </p> </li> <li> <p> <code>incompatible-network</code> </p> </li> <li> <p>
      * <code>incompatible-parameters</code> </p> </li> <li> <p>
      * <code>incompatible-restore</code> </p> </li> <li> <p> <code>modifying</code>
      * </p> </li> <li> <p> <code>rebooting</code> </p> </li> <li> <p>
@@ -201,11 +241,13 @@ namespace Model
 
     /**
      * <p> The current state of the cluster. Possible values are the following:</p>
-     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>creating</code>
-     * </p> </li> <li> <p> <code>deleting</code> </p> </li> <li> <p>
-     * <code>final-snapshot</code> </p> </li> <li> <p> <code>hardware-failure</code>
-     * </p> </li> <li> <p> <code>incompatible-hsm</code> </p> </li> <li> <p>
-     * <code>incompatible-network</code> </p> </li> <li> <p>
+     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>available,
+     * prep-for-resize</code> </p> </li> <li> <p> <code>available,
+     * resize-cleanup</code> </p> </li> <li> <p> <code>cancelling-resize</code> </p>
+     * </li> <li> <p> <code>creating</code> </p> </li> <li> <p> <code>deleting</code>
+     * </p> </li> <li> <p> <code>final-snapshot</code> </p> </li> <li> <p>
+     * <code>hardware-failure</code> </p> </li> <li> <p> <code>incompatible-hsm</code>
+     * </p> </li> <li> <p> <code>incompatible-network</code> </p> </li> <li> <p>
      * <code>incompatible-parameters</code> </p> </li> <li> <p>
      * <code>incompatible-restore</code> </p> </li> <li> <p> <code>modifying</code>
      * </p> </li> <li> <p> <code>rebooting</code> </p> </li> <li> <p>
@@ -217,11 +259,13 @@ namespace Model
 
     /**
      * <p> The current state of the cluster. Possible values are the following:</p>
-     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>creating</code>
-     * </p> </li> <li> <p> <code>deleting</code> </p> </li> <li> <p>
-     * <code>final-snapshot</code> </p> </li> <li> <p> <code>hardware-failure</code>
-     * </p> </li> <li> <p> <code>incompatible-hsm</code> </p> </li> <li> <p>
-     * <code>incompatible-network</code> </p> </li> <li> <p>
+     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>available,
+     * prep-for-resize</code> </p> </li> <li> <p> <code>available,
+     * resize-cleanup</code> </p> </li> <li> <p> <code>cancelling-resize</code> </p>
+     * </li> <li> <p> <code>creating</code> </p> </li> <li> <p> <code>deleting</code>
+     * </p> </li> <li> <p> <code>final-snapshot</code> </p> </li> <li> <p>
+     * <code>hardware-failure</code> </p> </li> <li> <p> <code>incompatible-hsm</code>
+     * </p> </li> <li> <p> <code>incompatible-network</code> </p> </li> <li> <p>
      * <code>incompatible-parameters</code> </p> </li> <li> <p>
      * <code>incompatible-restore</code> </p> </li> <li> <p> <code>modifying</code>
      * </p> </li> <li> <p> <code>rebooting</code> </p> </li> <li> <p>
@@ -233,11 +277,13 @@ namespace Model
 
     /**
      * <p> The current state of the cluster. Possible values are the following:</p>
-     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>creating</code>
-     * </p> </li> <li> <p> <code>deleting</code> </p> </li> <li> <p>
-     * <code>final-snapshot</code> </p> </li> <li> <p> <code>hardware-failure</code>
-     * </p> </li> <li> <p> <code>incompatible-hsm</code> </p> </li> <li> <p>
-     * <code>incompatible-network</code> </p> </li> <li> <p>
+     * <ul> <li> <p> <code>available</code> </p> </li> <li> <p> <code>available,
+     * prep-for-resize</code> </p> </li> <li> <p> <code>available,
+     * resize-cleanup</code> </p> </li> <li> <p> <code>cancelling-resize</code> </p>
+     * </li> <li> <p> <code>creating</code> </p> </li> <li> <p> <code>deleting</code>
+     * </p> </li> <li> <p> <code>final-snapshot</code> </p> </li> <li> <p>
+     * <code>hardware-failure</code> </p> </li> <li> <p> <code>incompatible-hsm</code>
+     * </p> </li> <li> <p> <code>incompatible-network</code> </p> </li> <li> <p>
      * <code>incompatible-parameters</code> </p> </li> <li> <p>
      * <code>incompatible-restore</code> </p> </li> <li> <p> <code>modifying</code>
      * </p> </li> <li> <p> <code>rebooting</code> </p> </li> <li> <p>
@@ -249,9 +295,111 @@ namespace Model
 
 
     /**
+     * <p>The availability status of the cluster for queries. Possible values are the
+     * following:</p> <ul> <li> <p>Available - The cluster is available for queries.
+     * </p> </li> <li> <p>Unavailable - The cluster is not available for queries.</p>
+     * </li> <li> <p>Maintenance - The cluster is intermittently available for queries
+     * due to maintenance activities.</p> </li> <li> <p>Modifying - The cluster is
+     * intermittently available for queries due to changes that modify the cluster.</p>
+     * </li> <li> <p>Failed - The cluster failed and is not available for queries.</p>
+     * </li> </ul>
+     */
+    inline const Aws::String& GetClusterAvailabilityStatus() const{ return m_clusterAvailabilityStatus; }
+
+    /**
+     * <p>The availability status of the cluster for queries. Possible values are the
+     * following:</p> <ul> <li> <p>Available - The cluster is available for queries.
+     * </p> </li> <li> <p>Unavailable - The cluster is not available for queries.</p>
+     * </li> <li> <p>Maintenance - The cluster is intermittently available for queries
+     * due to maintenance activities.</p> </li> <li> <p>Modifying - The cluster is
+     * intermittently available for queries due to changes that modify the cluster.</p>
+     * </li> <li> <p>Failed - The cluster failed and is not available for queries.</p>
+     * </li> </ul>
+     */
+    inline bool ClusterAvailabilityStatusHasBeenSet() const { return m_clusterAvailabilityStatusHasBeenSet; }
+
+    /**
+     * <p>The availability status of the cluster for queries. Possible values are the
+     * following:</p> <ul> <li> <p>Available - The cluster is available for queries.
+     * </p> </li> <li> <p>Unavailable - The cluster is not available for queries.</p>
+     * </li> <li> <p>Maintenance - The cluster is intermittently available for queries
+     * due to maintenance activities.</p> </li> <li> <p>Modifying - The cluster is
+     * intermittently available for queries due to changes that modify the cluster.</p>
+     * </li> <li> <p>Failed - The cluster failed and is not available for queries.</p>
+     * </li> </ul>
+     */
+    inline void SetClusterAvailabilityStatus(const Aws::String& value) { m_clusterAvailabilityStatusHasBeenSet = true; m_clusterAvailabilityStatus = value; }
+
+    /**
+     * <p>The availability status of the cluster for queries. Possible values are the
+     * following:</p> <ul> <li> <p>Available - The cluster is available for queries.
+     * </p> </li> <li> <p>Unavailable - The cluster is not available for queries.</p>
+     * </li> <li> <p>Maintenance - The cluster is intermittently available for queries
+     * due to maintenance activities.</p> </li> <li> <p>Modifying - The cluster is
+     * intermittently available for queries due to changes that modify the cluster.</p>
+     * </li> <li> <p>Failed - The cluster failed and is not available for queries.</p>
+     * </li> </ul>
+     */
+    inline void SetClusterAvailabilityStatus(Aws::String&& value) { m_clusterAvailabilityStatusHasBeenSet = true; m_clusterAvailabilityStatus = std::move(value); }
+
+    /**
+     * <p>The availability status of the cluster for queries. Possible values are the
+     * following:</p> <ul> <li> <p>Available - The cluster is available for queries.
+     * </p> </li> <li> <p>Unavailable - The cluster is not available for queries.</p>
+     * </li> <li> <p>Maintenance - The cluster is intermittently available for queries
+     * due to maintenance activities.</p> </li> <li> <p>Modifying - The cluster is
+     * intermittently available for queries due to changes that modify the cluster.</p>
+     * </li> <li> <p>Failed - The cluster failed and is not available for queries.</p>
+     * </li> </ul>
+     */
+    inline void SetClusterAvailabilityStatus(const char* value) { m_clusterAvailabilityStatusHasBeenSet = true; m_clusterAvailabilityStatus.assign(value); }
+
+    /**
+     * <p>The availability status of the cluster for queries. Possible values are the
+     * following:</p> <ul> <li> <p>Available - The cluster is available for queries.
+     * </p> </li> <li> <p>Unavailable - The cluster is not available for queries.</p>
+     * </li> <li> <p>Maintenance - The cluster is intermittently available for queries
+     * due to maintenance activities.</p> </li> <li> <p>Modifying - The cluster is
+     * intermittently available for queries due to changes that modify the cluster.</p>
+     * </li> <li> <p>Failed - The cluster failed and is not available for queries.</p>
+     * </li> </ul>
+     */
+    inline Cluster& WithClusterAvailabilityStatus(const Aws::String& value) { SetClusterAvailabilityStatus(value); return *this;}
+
+    /**
+     * <p>The availability status of the cluster for queries. Possible values are the
+     * following:</p> <ul> <li> <p>Available - The cluster is available for queries.
+     * </p> </li> <li> <p>Unavailable - The cluster is not available for queries.</p>
+     * </li> <li> <p>Maintenance - The cluster is intermittently available for queries
+     * due to maintenance activities.</p> </li> <li> <p>Modifying - The cluster is
+     * intermittently available for queries due to changes that modify the cluster.</p>
+     * </li> <li> <p>Failed - The cluster failed and is not available for queries.</p>
+     * </li> </ul>
+     */
+    inline Cluster& WithClusterAvailabilityStatus(Aws::String&& value) { SetClusterAvailabilityStatus(std::move(value)); return *this;}
+
+    /**
+     * <p>The availability status of the cluster for queries. Possible values are the
+     * following:</p> <ul> <li> <p>Available - The cluster is available for queries.
+     * </p> </li> <li> <p>Unavailable - The cluster is not available for queries.</p>
+     * </li> <li> <p>Maintenance - The cluster is intermittently available for queries
+     * due to maintenance activities.</p> </li> <li> <p>Modifying - The cluster is
+     * intermittently available for queries due to changes that modify the cluster.</p>
+     * </li> <li> <p>Failed - The cluster failed and is not available for queries.</p>
+     * </li> </ul>
+     */
+    inline Cluster& WithClusterAvailabilityStatus(const char* value) { SetClusterAvailabilityStatus(value); return *this;}
+
+
+    /**
      * <p>The status of a modify operation, if any, initiated for the cluster.</p>
      */
     inline const Aws::String& GetModifyStatus() const{ return m_modifyStatus; }
+
+    /**
+     * <p>The status of a modify operation, if any, initiated for the cluster.</p>
+     */
+    inline bool ModifyStatusHasBeenSet() const { return m_modifyStatusHasBeenSet; }
 
     /**
      * <p>The status of a modify operation, if any, initiated for the cluster.</p>
@@ -289,6 +437,12 @@ namespace Model
      * database that is specified in the <b>DBName</b> parameter. </p>
      */
     inline const Aws::String& GetMasterUsername() const{ return m_masterUsername; }
+
+    /**
+     * <p>The master user name for the cluster. This name is used to connect to the
+     * database that is specified in the <b>DBName</b> parameter. </p>
+     */
+    inline bool MasterUsernameHasBeenSet() const { return m_masterUsernameHasBeenSet; }
 
     /**
      * <p>The master user name for the cluster. This name is used to connect to the
@@ -334,6 +488,14 @@ namespace Model
      * default. </p>
      */
     inline const Aws::String& GetDBName() const{ return m_dBName; }
+
+    /**
+     * <p>The name of the initial database that was created when the cluster was
+     * created. This same name is returned for the life of the cluster. If an initial
+     * database was not specified, a database named <code>dev</code>dev was created by
+     * default. </p>
+     */
+    inline bool DBNameHasBeenSet() const { return m_dBNameHasBeenSet; }
 
     /**
      * <p>The name of the initial database that was created when the cluster was
@@ -392,6 +554,11 @@ namespace Model
     /**
      * <p>The connection endpoint.</p>
      */
+    inline bool EndpointHasBeenSet() const { return m_endpointHasBeenSet; }
+
+    /**
+     * <p>The connection endpoint.</p>
+     */
     inline void SetEndpoint(const Endpoint& value) { m_endpointHasBeenSet = true; m_endpoint = value; }
 
     /**
@@ -414,6 +581,11 @@ namespace Model
      * <p>The date and time that the cluster was created.</p>
      */
     inline const Aws::Utils::DateTime& GetClusterCreateTime() const{ return m_clusterCreateTime; }
+
+    /**
+     * <p>The date and time that the cluster was created.</p>
+     */
+    inline bool ClusterCreateTimeHasBeenSet() const { return m_clusterCreateTimeHasBeenSet; }
 
     /**
      * <p>The date and time that the cluster was created.</p>
@@ -444,12 +616,50 @@ namespace Model
     /**
      * <p>The number of days that automatic cluster snapshots are retained.</p>
      */
+    inline bool AutomatedSnapshotRetentionPeriodHasBeenSet() const { return m_automatedSnapshotRetentionPeriodHasBeenSet; }
+
+    /**
+     * <p>The number of days that automatic cluster snapshots are retained.</p>
+     */
     inline void SetAutomatedSnapshotRetentionPeriod(int value) { m_automatedSnapshotRetentionPeriodHasBeenSet = true; m_automatedSnapshotRetentionPeriod = value; }
 
     /**
      * <p>The number of days that automatic cluster snapshots are retained.</p>
      */
     inline Cluster& WithAutomatedSnapshotRetentionPeriod(int value) { SetAutomatedSnapshotRetentionPeriod(value); return *this;}
+
+
+    /**
+     * <p>The default number of days to retain a manual snapshot. If the value is -1,
+     * the snapshot is retained indefinitely. This setting doesn't change the retention
+     * period of existing snapshots.</p> <p>The value must be either -1 or an integer
+     * between 1 and 3,653.</p>
+     */
+    inline int GetManualSnapshotRetentionPeriod() const{ return m_manualSnapshotRetentionPeriod; }
+
+    /**
+     * <p>The default number of days to retain a manual snapshot. If the value is -1,
+     * the snapshot is retained indefinitely. This setting doesn't change the retention
+     * period of existing snapshots.</p> <p>The value must be either -1 or an integer
+     * between 1 and 3,653.</p>
+     */
+    inline bool ManualSnapshotRetentionPeriodHasBeenSet() const { return m_manualSnapshotRetentionPeriodHasBeenSet; }
+
+    /**
+     * <p>The default number of days to retain a manual snapshot. If the value is -1,
+     * the snapshot is retained indefinitely. This setting doesn't change the retention
+     * period of existing snapshots.</p> <p>The value must be either -1 or an integer
+     * between 1 and 3,653.</p>
+     */
+    inline void SetManualSnapshotRetentionPeriod(int value) { m_manualSnapshotRetentionPeriodHasBeenSet = true; m_manualSnapshotRetentionPeriod = value; }
+
+    /**
+     * <p>The default number of days to retain a manual snapshot. If the value is -1,
+     * the snapshot is retained indefinitely. This setting doesn't change the retention
+     * period of existing snapshots.</p> <p>The value must be either -1 or an integer
+     * between 1 and 3,653.</p>
+     */
+    inline Cluster& WithManualSnapshotRetentionPeriod(int value) { SetManualSnapshotRetentionPeriod(value); return *this;}
 
 
     /**
@@ -462,6 +672,17 @@ namespace Model
      * are listed by the <b>VpcSecurityGroups</b> parameter. </p>
      */
     inline const Aws::Vector<ClusterSecurityGroupMembership>& GetClusterSecurityGroups() const{ return m_clusterSecurityGroups; }
+
+    /**
+     * <p>A list of cluster security group that are associated with the cluster. Each
+     * security group is represented by an element that contains
+     * <code>ClusterSecurityGroup.Name</code> and
+     * <code>ClusterSecurityGroup.Status</code> subelements. </p> <p>Cluster security
+     * groups are used when the cluster is not created in an Amazon Virtual Private
+     * Cloud (VPC). Clusters that are created in a VPC use VPC security groups, which
+     * are listed by the <b>VpcSecurityGroups</b> parameter. </p>
+     */
+    inline bool ClusterSecurityGroupsHasBeenSet() const { return m_clusterSecurityGroupsHasBeenSet; }
 
     /**
      * <p>A list of cluster security group that are associated with the cluster. Each
@@ -542,6 +763,13 @@ namespace Model
      * associated with the cluster. This parameter is returned only if the cluster is
      * in a VPC.</p>
      */
+    inline bool VpcSecurityGroupsHasBeenSet() const { return m_vpcSecurityGroupsHasBeenSet; }
+
+    /**
+     * <p>A list of Amazon Virtual Private Cloud (Amazon VPC) security groups that are
+     * associated with the cluster. This parameter is returned only if the cluster is
+     * in a VPC.</p>
+     */
     inline void SetVpcSecurityGroups(const Aws::Vector<VpcSecurityGroupMembership>& value) { m_vpcSecurityGroupsHasBeenSet = true; m_vpcSecurityGroups = value; }
 
     /**
@@ -590,6 +818,12 @@ namespace Model
      * <p>The list of cluster parameter groups that are associated with this cluster.
      * Each parameter group in the list is returned with its status.</p>
      */
+    inline bool ClusterParameterGroupsHasBeenSet() const { return m_clusterParameterGroupsHasBeenSet; }
+
+    /**
+     * <p>The list of cluster parameter groups that are associated with this cluster.
+     * Each parameter group in the list is returned with its status.</p>
+     */
     inline void SetClusterParameterGroups(const Aws::Vector<ClusterParameterGroupStatus>& value) { m_clusterParameterGroupsHasBeenSet = true; m_clusterParameterGroups = value; }
 
     /**
@@ -628,6 +862,12 @@ namespace Model
      * parameter is valid only when the cluster is in a VPC.</p>
      */
     inline const Aws::String& GetClusterSubnetGroupName() const{ return m_clusterSubnetGroupName; }
+
+    /**
+     * <p>The name of the subnet group that is associated with the cluster. This
+     * parameter is valid only when the cluster is in a VPC.</p>
+     */
+    inline bool ClusterSubnetGroupNameHasBeenSet() const { return m_clusterSubnetGroupNameHasBeenSet; }
 
     /**
      * <p>The name of the subnet group that is associated with the cluster. This
@@ -674,6 +914,11 @@ namespace Model
     /**
      * <p>The identifier of the VPC the cluster is in, if the cluster is in a VPC.</p>
      */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
+
+    /**
+     * <p>The identifier of the VPC the cluster is in, if the cluster is in a VPC.</p>
+     */
     inline void SetVpcId(const Aws::String& value) { m_vpcIdHasBeenSet = true; m_vpcId = value; }
 
     /**
@@ -706,6 +951,11 @@ namespace Model
      * <p>The name of the Availability Zone in which the cluster is located.</p>
      */
     inline const Aws::String& GetAvailabilityZone() const{ return m_availabilityZone; }
+
+    /**
+     * <p>The name of the Availability Zone in which the cluster is located.</p>
+     */
+    inline bool AvailabilityZoneHasBeenSet() const { return m_availabilityZoneHasBeenSet; }
 
     /**
      * <p>The name of the Availability Zone in which the cluster is located.</p>
@@ -743,6 +993,12 @@ namespace Model
      * system maintenance can occur.</p>
      */
     inline const Aws::String& GetPreferredMaintenanceWindow() const{ return m_preferredMaintenanceWindow; }
+
+    /**
+     * <p>The weekly time range, in Universal Coordinated Time (UTC), during which
+     * system maintenance can occur.</p>
+     */
+    inline bool PreferredMaintenanceWindowHasBeenSet() const { return m_preferredMaintenanceWindowHasBeenSet; }
 
     /**
      * <p>The weekly time range, in Universal Coordinated Time (UTC), during which
@@ -791,6 +1047,12 @@ namespace Model
      * <p>A value that, if present, indicates that changes to the cluster are pending.
      * Specific pending changes are identified by subelements.</p>
      */
+    inline bool PendingModifiedValuesHasBeenSet() const { return m_pendingModifiedValuesHasBeenSet; }
+
+    /**
+     * <p>A value that, if present, indicates that changes to the cluster are pending.
+     * Specific pending changes are identified by subelements.</p>
+     */
     inline void SetPendingModifiedValues(const PendingModifiedValues& value) { m_pendingModifiedValuesHasBeenSet = true; m_pendingModifiedValues = value; }
 
     /**
@@ -817,6 +1079,12 @@ namespace Model
      * cluster.</p>
      */
     inline const Aws::String& GetClusterVersion() const{ return m_clusterVersion; }
+
+    /**
+     * <p>The version ID of the Amazon Redshift engine that is running on the
+     * cluster.</p>
+     */
+    inline bool ClusterVersionHasBeenSet() const { return m_clusterVersionHasBeenSet; }
 
     /**
      * <p>The version ID of the Amazon Redshift engine that is running on the
@@ -856,21 +1124,28 @@ namespace Model
 
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that major version
+     * <p>A boolean value that, if <code>true</code>, indicates that major version
      * upgrades will be applied automatically to the cluster during the maintenance
      * window. </p>
      */
     inline bool GetAllowVersionUpgrade() const{ return m_allowVersionUpgrade; }
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that major version
+     * <p>A boolean value that, if <code>true</code>, indicates that major version
+     * upgrades will be applied automatically to the cluster during the maintenance
+     * window. </p>
+     */
+    inline bool AllowVersionUpgradeHasBeenSet() const { return m_allowVersionUpgradeHasBeenSet; }
+
+    /**
+     * <p>A boolean value that, if <code>true</code>, indicates that major version
      * upgrades will be applied automatically to the cluster during the maintenance
      * window. </p>
      */
     inline void SetAllowVersionUpgrade(bool value) { m_allowVersionUpgradeHasBeenSet = true; m_allowVersionUpgrade = value; }
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that major version
+     * <p>A boolean value that, if <code>true</code>, indicates that major version
      * upgrades will be applied automatically to the cluster during the maintenance
      * window. </p>
      */
@@ -885,6 +1160,11 @@ namespace Model
     /**
      * <p>The number of compute nodes in the cluster.</p>
      */
+    inline bool NumberOfNodesHasBeenSet() const { return m_numberOfNodesHasBeenSet; }
+
+    /**
+     * <p>The number of compute nodes in the cluster.</p>
+     */
     inline void SetNumberOfNodes(int value) { m_numberOfNodesHasBeenSet = true; m_numberOfNodes = value; }
 
     /**
@@ -894,38 +1174,50 @@ namespace Model
 
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that the cluster can be
+     * <p>A boolean value that, if <code>true</code>, indicates that the cluster can be
      * accessed from a public network.</p>
      */
     inline bool GetPubliclyAccessible() const{ return m_publiclyAccessible; }
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that the cluster can be
+     * <p>A boolean value that, if <code>true</code>, indicates that the cluster can be
+     * accessed from a public network.</p>
+     */
+    inline bool PubliclyAccessibleHasBeenSet() const { return m_publiclyAccessibleHasBeenSet; }
+
+    /**
+     * <p>A boolean value that, if <code>true</code>, indicates that the cluster can be
      * accessed from a public network.</p>
      */
     inline void SetPubliclyAccessible(bool value) { m_publiclyAccessibleHasBeenSet = true; m_publiclyAccessible = value; }
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that the cluster can be
+     * <p>A boolean value that, if <code>true</code>, indicates that the cluster can be
      * accessed from a public network.</p>
      */
     inline Cluster& WithPubliclyAccessible(bool value) { SetPubliclyAccessible(value); return *this;}
 
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that data in the
+     * <p>A boolean value that, if <code>true</code>, indicates that data in the
      * cluster is encrypted at rest.</p>
      */
     inline bool GetEncrypted() const{ return m_encrypted; }
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that data in the
+     * <p>A boolean value that, if <code>true</code>, indicates that data in the
+     * cluster is encrypted at rest.</p>
+     */
+    inline bool EncryptedHasBeenSet() const { return m_encryptedHasBeenSet; }
+
+    /**
+     * <p>A boolean value that, if <code>true</code>, indicates that data in the
      * cluster is encrypted at rest.</p>
      */
     inline void SetEncrypted(bool value) { m_encryptedHasBeenSet = true; m_encrypted = value; }
 
     /**
-     * <p>A Boolean value that, if <code>true</code>, indicates that data in the
+     * <p>A boolean value that, if <code>true</code>, indicates that data in the
      * cluster is encrypted at rest.</p>
      */
     inline Cluster& WithEncrypted(bool value) { SetEncrypted(value); return *this;}
@@ -936,6 +1228,12 @@ namespace Model
      * returns null if the cluster was not created by restoring a snapshot.</p>
      */
     inline const RestoreStatus& GetRestoreStatus() const{ return m_restoreStatus; }
+
+    /**
+     * <p>A value that describes the status of a cluster restore action. This parameter
+     * returns null if the cluster was not created by restoring a snapshot.</p>
+     */
+    inline bool RestoreStatusHasBeenSet() const { return m_restoreStatusHasBeenSet; }
 
     /**
      * <p>A value that describes the status of a cluster restore action. This parameter
@@ -963,11 +1261,49 @@ namespace Model
 
 
     /**
+     * <p/>
+     */
+    inline const DataTransferProgress& GetDataTransferProgress() const{ return m_dataTransferProgress; }
+
+    /**
+     * <p/>
+     */
+    inline bool DataTransferProgressHasBeenSet() const { return m_dataTransferProgressHasBeenSet; }
+
+    /**
+     * <p/>
+     */
+    inline void SetDataTransferProgress(const DataTransferProgress& value) { m_dataTransferProgressHasBeenSet = true; m_dataTransferProgress = value; }
+
+    /**
+     * <p/>
+     */
+    inline void SetDataTransferProgress(DataTransferProgress&& value) { m_dataTransferProgressHasBeenSet = true; m_dataTransferProgress = std::move(value); }
+
+    /**
+     * <p/>
+     */
+    inline Cluster& WithDataTransferProgress(const DataTransferProgress& value) { SetDataTransferProgress(value); return *this;}
+
+    /**
+     * <p/>
+     */
+    inline Cluster& WithDataTransferProgress(DataTransferProgress&& value) { SetDataTransferProgress(std::move(value)); return *this;}
+
+
+    /**
      * <p>A value that reports whether the Amazon Redshift cluster has finished
      * applying any hardware security module (HSM) settings changes specified in a
      * modify cluster command.</p> <p>Values: active, applying</p>
      */
     inline const HsmStatus& GetHsmStatus() const{ return m_hsmStatus; }
+
+    /**
+     * <p>A value that reports whether the Amazon Redshift cluster has finished
+     * applying any hardware security module (HSM) settings changes specified in a
+     * modify cluster command.</p> <p>Values: active, applying</p>
+     */
+    inline bool HsmStatusHasBeenSet() const { return m_hsmStatusHasBeenSet; }
 
     /**
      * <p>A value that reports whether the Amazon Redshift cluster has finished
@@ -1008,6 +1344,12 @@ namespace Model
      * <p>A value that returns the destination region and retention period that are
      * configured for cross-region snapshot copy.</p>
      */
+    inline bool ClusterSnapshotCopyStatusHasBeenSet() const { return m_clusterSnapshotCopyStatusHasBeenSet; }
+
+    /**
+     * <p>A value that returns the destination region and retention period that are
+     * configured for cross-region snapshot copy.</p>
+     */
     inline void SetClusterSnapshotCopyStatus(const ClusterSnapshotCopyStatus& value) { m_clusterSnapshotCopyStatusHasBeenSet = true; m_clusterSnapshotCopyStatus = value; }
 
     /**
@@ -1033,6 +1375,11 @@ namespace Model
      * <p>The public key for the cluster.</p>
      */
     inline const Aws::String& GetClusterPublicKey() const{ return m_clusterPublicKey; }
+
+    /**
+     * <p>The public key for the cluster.</p>
+     */
+    inline bool ClusterPublicKeyHasBeenSet() const { return m_clusterPublicKeyHasBeenSet; }
 
     /**
      * <p>The public key for the cluster.</p>
@@ -1073,6 +1420,11 @@ namespace Model
     /**
      * <p>The nodes in the cluster.</p>
      */
+    inline bool ClusterNodesHasBeenSet() const { return m_clusterNodesHasBeenSet; }
+
+    /**
+     * <p>The nodes in the cluster.</p>
+     */
     inline void SetClusterNodes(const Aws::Vector<ClusterNode>& value) { m_clusterNodesHasBeenSet = true; m_clusterNodes = value; }
 
     /**
@@ -1109,6 +1461,11 @@ namespace Model
     /**
      * <p>The status of the elastic IP (EIP) address.</p>
      */
+    inline bool ElasticIpStatusHasBeenSet() const { return m_elasticIpStatusHasBeenSet; }
+
+    /**
+     * <p>The status of the elastic IP (EIP) address.</p>
+     */
     inline void SetElasticIpStatus(const ElasticIpStatus& value) { m_elasticIpStatusHasBeenSet = true; m_elasticIpStatus = value; }
 
     /**
@@ -1131,6 +1488,11 @@ namespace Model
      * <p>The specific revision number of the database in the cluster.</p>
      */
     inline const Aws::String& GetClusterRevisionNumber() const{ return m_clusterRevisionNumber; }
+
+    /**
+     * <p>The specific revision number of the database in the cluster.</p>
+     */
+    inline bool ClusterRevisionNumberHasBeenSet() const { return m_clusterRevisionNumberHasBeenSet; }
 
     /**
      * <p>The specific revision number of the database in the cluster.</p>
@@ -1167,6 +1529,11 @@ namespace Model
      * <p>The list of tags for the cluster.</p>
      */
     inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The list of tags for the cluster.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * <p>The list of tags for the cluster.</p>
@@ -1209,6 +1576,12 @@ namespace Model
      * <p>The AWS Key Management Service (AWS KMS) key ID of the encryption key used to
      * encrypt data in the cluster.</p>
      */
+    inline bool KmsKeyIdHasBeenSet() const { return m_kmsKeyIdHasBeenSet; }
+
+    /**
+     * <p>The AWS Key Management Service (AWS KMS) key ID of the encryption key used to
+     * encrypt data in the cluster.</p>
+     */
     inline void SetKmsKeyId(const Aws::String& value) { m_kmsKeyIdHasBeenSet = true; m_kmsKeyId = value; }
 
     /**
@@ -1246,7 +1619,7 @@ namespace Model
      * <p>An option that specifies whether to create the cluster with enhanced VPC
      * routing enabled. To create a cluster that uses enhanced VPC routing, the cluster
      * must be in a VPC. For more information, see <a
-     * href="http://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
      * VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this
      * option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default:
      * false</p>
@@ -1257,7 +1630,18 @@ namespace Model
      * <p>An option that specifies whether to create the cluster with enhanced VPC
      * routing enabled. To create a cluster that uses enhanced VPC routing, the cluster
      * must be in a VPC. For more information, see <a
-     * href="http://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
+     * VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this
+     * option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default:
+     * false</p>
+     */
+    inline bool EnhancedVpcRoutingHasBeenSet() const { return m_enhancedVpcRoutingHasBeenSet; }
+
+    /**
+     * <p>An option that specifies whether to create the cluster with enhanced VPC
+     * routing enabled. To create a cluster that uses enhanced VPC routing, the cluster
+     * must be in a VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
      * VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this
      * option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default:
      * false</p>
@@ -1268,7 +1652,7 @@ namespace Model
      * <p>An option that specifies whether to create the cluster with enhanced VPC
      * routing enabled. To create a cluster that uses enhanced VPC routing, the cluster
      * must be in a VPC. For more information, see <a
-     * href="http://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced
      * VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p> <p>If this
      * option is <code>true</code>, enhanced VPC routing is enabled. </p> <p>Default:
      * false</p>
@@ -1281,6 +1665,12 @@ namespace Model
      * the cluster to access other AWS services.</p>
      */
     inline const Aws::Vector<ClusterIamRole>& GetIamRoles() const{ return m_iamRoles; }
+
+    /**
+     * <p>A list of AWS Identity and Access Management (IAM) roles that can be used by
+     * the cluster to access other AWS services.</p>
+     */
+    inline bool IamRolesHasBeenSet() const { return m_iamRolesHasBeenSet; }
 
     /**
      * <p>A list of AWS Identity and Access Management (IAM) roles that can be used by
@@ -1327,6 +1717,11 @@ namespace Model
     /**
      * <p>Cluster operations that are waiting to be started.</p>
      */
+    inline bool PendingActionsHasBeenSet() const { return m_pendingActionsHasBeenSet; }
+
+    /**
+     * <p>Cluster operations that are waiting to be started.</p>
+     */
     inline void SetPendingActions(const Aws::Vector<Aws::String>& value) { m_pendingActionsHasBeenSet = true; m_pendingActions = value; }
 
     /**
@@ -1359,6 +1754,385 @@ namespace Model
      */
     inline Cluster& AddPendingActions(const char* value) { m_pendingActionsHasBeenSet = true; m_pendingActions.push_back(value); return *this; }
 
+
+    /**
+     * <p>The name of the maintenance track for the cluster.</p>
+     */
+    inline const Aws::String& GetMaintenanceTrackName() const{ return m_maintenanceTrackName; }
+
+    /**
+     * <p>The name of the maintenance track for the cluster.</p>
+     */
+    inline bool MaintenanceTrackNameHasBeenSet() const { return m_maintenanceTrackNameHasBeenSet; }
+
+    /**
+     * <p>The name of the maintenance track for the cluster.</p>
+     */
+    inline void SetMaintenanceTrackName(const Aws::String& value) { m_maintenanceTrackNameHasBeenSet = true; m_maintenanceTrackName = value; }
+
+    /**
+     * <p>The name of the maintenance track for the cluster.</p>
+     */
+    inline void SetMaintenanceTrackName(Aws::String&& value) { m_maintenanceTrackNameHasBeenSet = true; m_maintenanceTrackName = std::move(value); }
+
+    /**
+     * <p>The name of the maintenance track for the cluster.</p>
+     */
+    inline void SetMaintenanceTrackName(const char* value) { m_maintenanceTrackNameHasBeenSet = true; m_maintenanceTrackName.assign(value); }
+
+    /**
+     * <p>The name of the maintenance track for the cluster.</p>
+     */
+    inline Cluster& WithMaintenanceTrackName(const Aws::String& value) { SetMaintenanceTrackName(value); return *this;}
+
+    /**
+     * <p>The name of the maintenance track for the cluster.</p>
+     */
+    inline Cluster& WithMaintenanceTrackName(Aws::String&& value) { SetMaintenanceTrackName(std::move(value)); return *this;}
+
+    /**
+     * <p>The name of the maintenance track for the cluster.</p>
+     */
+    inline Cluster& WithMaintenanceTrackName(const char* value) { SetMaintenanceTrackName(value); return *this;}
+
+
+    /**
+     * <p>The number of nodes that you can resize the cluster to with the elastic
+     * resize method. </p>
+     */
+    inline const Aws::String& GetElasticResizeNumberOfNodeOptions() const{ return m_elasticResizeNumberOfNodeOptions; }
+
+    /**
+     * <p>The number of nodes that you can resize the cluster to with the elastic
+     * resize method. </p>
+     */
+    inline bool ElasticResizeNumberOfNodeOptionsHasBeenSet() const { return m_elasticResizeNumberOfNodeOptionsHasBeenSet; }
+
+    /**
+     * <p>The number of nodes that you can resize the cluster to with the elastic
+     * resize method. </p>
+     */
+    inline void SetElasticResizeNumberOfNodeOptions(const Aws::String& value) { m_elasticResizeNumberOfNodeOptionsHasBeenSet = true; m_elasticResizeNumberOfNodeOptions = value; }
+
+    /**
+     * <p>The number of nodes that you can resize the cluster to with the elastic
+     * resize method. </p>
+     */
+    inline void SetElasticResizeNumberOfNodeOptions(Aws::String&& value) { m_elasticResizeNumberOfNodeOptionsHasBeenSet = true; m_elasticResizeNumberOfNodeOptions = std::move(value); }
+
+    /**
+     * <p>The number of nodes that you can resize the cluster to with the elastic
+     * resize method. </p>
+     */
+    inline void SetElasticResizeNumberOfNodeOptions(const char* value) { m_elasticResizeNumberOfNodeOptionsHasBeenSet = true; m_elasticResizeNumberOfNodeOptions.assign(value); }
+
+    /**
+     * <p>The number of nodes that you can resize the cluster to with the elastic
+     * resize method. </p>
+     */
+    inline Cluster& WithElasticResizeNumberOfNodeOptions(const Aws::String& value) { SetElasticResizeNumberOfNodeOptions(value); return *this;}
+
+    /**
+     * <p>The number of nodes that you can resize the cluster to with the elastic
+     * resize method. </p>
+     */
+    inline Cluster& WithElasticResizeNumberOfNodeOptions(Aws::String&& value) { SetElasticResizeNumberOfNodeOptions(std::move(value)); return *this;}
+
+    /**
+     * <p>The number of nodes that you can resize the cluster to with the elastic
+     * resize method. </p>
+     */
+    inline Cluster& WithElasticResizeNumberOfNodeOptions(const char* value) { SetElasticResizeNumberOfNodeOptions(value); return *this;}
+
+
+    /**
+     * <p>Describes a group of <code>DeferredMaintenanceWindow</code> objects.</p>
+     */
+    inline const Aws::Vector<DeferredMaintenanceWindow>& GetDeferredMaintenanceWindows() const{ return m_deferredMaintenanceWindows; }
+
+    /**
+     * <p>Describes a group of <code>DeferredMaintenanceWindow</code> objects.</p>
+     */
+    inline bool DeferredMaintenanceWindowsHasBeenSet() const { return m_deferredMaintenanceWindowsHasBeenSet; }
+
+    /**
+     * <p>Describes a group of <code>DeferredMaintenanceWindow</code> objects.</p>
+     */
+    inline void SetDeferredMaintenanceWindows(const Aws::Vector<DeferredMaintenanceWindow>& value) { m_deferredMaintenanceWindowsHasBeenSet = true; m_deferredMaintenanceWindows = value; }
+
+    /**
+     * <p>Describes a group of <code>DeferredMaintenanceWindow</code> objects.</p>
+     */
+    inline void SetDeferredMaintenanceWindows(Aws::Vector<DeferredMaintenanceWindow>&& value) { m_deferredMaintenanceWindowsHasBeenSet = true; m_deferredMaintenanceWindows = std::move(value); }
+
+    /**
+     * <p>Describes a group of <code>DeferredMaintenanceWindow</code> objects.</p>
+     */
+    inline Cluster& WithDeferredMaintenanceWindows(const Aws::Vector<DeferredMaintenanceWindow>& value) { SetDeferredMaintenanceWindows(value); return *this;}
+
+    /**
+     * <p>Describes a group of <code>DeferredMaintenanceWindow</code> objects.</p>
+     */
+    inline Cluster& WithDeferredMaintenanceWindows(Aws::Vector<DeferredMaintenanceWindow>&& value) { SetDeferredMaintenanceWindows(std::move(value)); return *this;}
+
+    /**
+     * <p>Describes a group of <code>DeferredMaintenanceWindow</code> objects.</p>
+     */
+    inline Cluster& AddDeferredMaintenanceWindows(const DeferredMaintenanceWindow& value) { m_deferredMaintenanceWindowsHasBeenSet = true; m_deferredMaintenanceWindows.push_back(value); return *this; }
+
+    /**
+     * <p>Describes a group of <code>DeferredMaintenanceWindow</code> objects.</p>
+     */
+    inline Cluster& AddDeferredMaintenanceWindows(DeferredMaintenanceWindow&& value) { m_deferredMaintenanceWindowsHasBeenSet = true; m_deferredMaintenanceWindows.push_back(std::move(value)); return *this; }
+
+
+    /**
+     * <p>A unique identifier for the cluster snapshot schedule.</p>
+     */
+    inline const Aws::String& GetSnapshotScheduleIdentifier() const{ return m_snapshotScheduleIdentifier; }
+
+    /**
+     * <p>A unique identifier for the cluster snapshot schedule.</p>
+     */
+    inline bool SnapshotScheduleIdentifierHasBeenSet() const { return m_snapshotScheduleIdentifierHasBeenSet; }
+
+    /**
+     * <p>A unique identifier for the cluster snapshot schedule.</p>
+     */
+    inline void SetSnapshotScheduleIdentifier(const Aws::String& value) { m_snapshotScheduleIdentifierHasBeenSet = true; m_snapshotScheduleIdentifier = value; }
+
+    /**
+     * <p>A unique identifier for the cluster snapshot schedule.</p>
+     */
+    inline void SetSnapshotScheduleIdentifier(Aws::String&& value) { m_snapshotScheduleIdentifierHasBeenSet = true; m_snapshotScheduleIdentifier = std::move(value); }
+
+    /**
+     * <p>A unique identifier for the cluster snapshot schedule.</p>
+     */
+    inline void SetSnapshotScheduleIdentifier(const char* value) { m_snapshotScheduleIdentifierHasBeenSet = true; m_snapshotScheduleIdentifier.assign(value); }
+
+    /**
+     * <p>A unique identifier for the cluster snapshot schedule.</p>
+     */
+    inline Cluster& WithSnapshotScheduleIdentifier(const Aws::String& value) { SetSnapshotScheduleIdentifier(value); return *this;}
+
+    /**
+     * <p>A unique identifier for the cluster snapshot schedule.</p>
+     */
+    inline Cluster& WithSnapshotScheduleIdentifier(Aws::String&& value) { SetSnapshotScheduleIdentifier(std::move(value)); return *this;}
+
+    /**
+     * <p>A unique identifier for the cluster snapshot schedule.</p>
+     */
+    inline Cluster& WithSnapshotScheduleIdentifier(const char* value) { SetSnapshotScheduleIdentifier(value); return *this;}
+
+
+    /**
+     * <p>The current state of the cluster snapshot schedule.</p>
+     */
+    inline const ScheduleState& GetSnapshotScheduleState() const{ return m_snapshotScheduleState; }
+
+    /**
+     * <p>The current state of the cluster snapshot schedule.</p>
+     */
+    inline bool SnapshotScheduleStateHasBeenSet() const { return m_snapshotScheduleStateHasBeenSet; }
+
+    /**
+     * <p>The current state of the cluster snapshot schedule.</p>
+     */
+    inline void SetSnapshotScheduleState(const ScheduleState& value) { m_snapshotScheduleStateHasBeenSet = true; m_snapshotScheduleState = value; }
+
+    /**
+     * <p>The current state of the cluster snapshot schedule.</p>
+     */
+    inline void SetSnapshotScheduleState(ScheduleState&& value) { m_snapshotScheduleStateHasBeenSet = true; m_snapshotScheduleState = std::move(value); }
+
+    /**
+     * <p>The current state of the cluster snapshot schedule.</p>
+     */
+    inline Cluster& WithSnapshotScheduleState(const ScheduleState& value) { SetSnapshotScheduleState(value); return *this;}
+
+    /**
+     * <p>The current state of the cluster snapshot schedule.</p>
+     */
+    inline Cluster& WithSnapshotScheduleState(ScheduleState&& value) { SetSnapshotScheduleState(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The date and time when the next snapshot is expected to be taken for clusters
+     * with a valid snapshot schedule and backups enabled. </p>
+     */
+    inline const Aws::Utils::DateTime& GetExpectedNextSnapshotScheduleTime() const{ return m_expectedNextSnapshotScheduleTime; }
+
+    /**
+     * <p>The date and time when the next snapshot is expected to be taken for clusters
+     * with a valid snapshot schedule and backups enabled. </p>
+     */
+    inline bool ExpectedNextSnapshotScheduleTimeHasBeenSet() const { return m_expectedNextSnapshotScheduleTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time when the next snapshot is expected to be taken for clusters
+     * with a valid snapshot schedule and backups enabled. </p>
+     */
+    inline void SetExpectedNextSnapshotScheduleTime(const Aws::Utils::DateTime& value) { m_expectedNextSnapshotScheduleTimeHasBeenSet = true; m_expectedNextSnapshotScheduleTime = value; }
+
+    /**
+     * <p>The date and time when the next snapshot is expected to be taken for clusters
+     * with a valid snapshot schedule and backups enabled. </p>
+     */
+    inline void SetExpectedNextSnapshotScheduleTime(Aws::Utils::DateTime&& value) { m_expectedNextSnapshotScheduleTimeHasBeenSet = true; m_expectedNextSnapshotScheduleTime = std::move(value); }
+
+    /**
+     * <p>The date and time when the next snapshot is expected to be taken for clusters
+     * with a valid snapshot schedule and backups enabled. </p>
+     */
+    inline Cluster& WithExpectedNextSnapshotScheduleTime(const Aws::Utils::DateTime& value) { SetExpectedNextSnapshotScheduleTime(value); return *this;}
+
+    /**
+     * <p>The date and time when the next snapshot is expected to be taken for clusters
+     * with a valid snapshot schedule and backups enabled. </p>
+     */
+    inline Cluster& WithExpectedNextSnapshotScheduleTime(Aws::Utils::DateTime&& value) { SetExpectedNextSnapshotScheduleTime(std::move(value)); return *this;}
+
+
+    /**
+     * <p> The status of next expected snapshot for clusters having a valid snapshot
+     * schedule and backups enabled. Possible values are the following:</p> <ul> <li>
+     * <p>OnTrack - The next snapshot is expected to be taken on time. </p> </li> <li>
+     * <p>Pending - The next snapshot is pending to be taken. </p> </li> </ul>
+     */
+    inline const Aws::String& GetExpectedNextSnapshotScheduleTimeStatus() const{ return m_expectedNextSnapshotScheduleTimeStatus; }
+
+    /**
+     * <p> The status of next expected snapshot for clusters having a valid snapshot
+     * schedule and backups enabled. Possible values are the following:</p> <ul> <li>
+     * <p>OnTrack - The next snapshot is expected to be taken on time. </p> </li> <li>
+     * <p>Pending - The next snapshot is pending to be taken. </p> </li> </ul>
+     */
+    inline bool ExpectedNextSnapshotScheduleTimeStatusHasBeenSet() const { return m_expectedNextSnapshotScheduleTimeStatusHasBeenSet; }
+
+    /**
+     * <p> The status of next expected snapshot for clusters having a valid snapshot
+     * schedule and backups enabled. Possible values are the following:</p> <ul> <li>
+     * <p>OnTrack - The next snapshot is expected to be taken on time. </p> </li> <li>
+     * <p>Pending - The next snapshot is pending to be taken. </p> </li> </ul>
+     */
+    inline void SetExpectedNextSnapshotScheduleTimeStatus(const Aws::String& value) { m_expectedNextSnapshotScheduleTimeStatusHasBeenSet = true; m_expectedNextSnapshotScheduleTimeStatus = value; }
+
+    /**
+     * <p> The status of next expected snapshot for clusters having a valid snapshot
+     * schedule and backups enabled. Possible values are the following:</p> <ul> <li>
+     * <p>OnTrack - The next snapshot is expected to be taken on time. </p> </li> <li>
+     * <p>Pending - The next snapshot is pending to be taken. </p> </li> </ul>
+     */
+    inline void SetExpectedNextSnapshotScheduleTimeStatus(Aws::String&& value) { m_expectedNextSnapshotScheduleTimeStatusHasBeenSet = true; m_expectedNextSnapshotScheduleTimeStatus = std::move(value); }
+
+    /**
+     * <p> The status of next expected snapshot for clusters having a valid snapshot
+     * schedule and backups enabled. Possible values are the following:</p> <ul> <li>
+     * <p>OnTrack - The next snapshot is expected to be taken on time. </p> </li> <li>
+     * <p>Pending - The next snapshot is pending to be taken. </p> </li> </ul>
+     */
+    inline void SetExpectedNextSnapshotScheduleTimeStatus(const char* value) { m_expectedNextSnapshotScheduleTimeStatusHasBeenSet = true; m_expectedNextSnapshotScheduleTimeStatus.assign(value); }
+
+    /**
+     * <p> The status of next expected snapshot for clusters having a valid snapshot
+     * schedule and backups enabled. Possible values are the following:</p> <ul> <li>
+     * <p>OnTrack - The next snapshot is expected to be taken on time. </p> </li> <li>
+     * <p>Pending - The next snapshot is pending to be taken. </p> </li> </ul>
+     */
+    inline Cluster& WithExpectedNextSnapshotScheduleTimeStatus(const Aws::String& value) { SetExpectedNextSnapshotScheduleTimeStatus(value); return *this;}
+
+    /**
+     * <p> The status of next expected snapshot for clusters having a valid snapshot
+     * schedule and backups enabled. Possible values are the following:</p> <ul> <li>
+     * <p>OnTrack - The next snapshot is expected to be taken on time. </p> </li> <li>
+     * <p>Pending - The next snapshot is pending to be taken. </p> </li> </ul>
+     */
+    inline Cluster& WithExpectedNextSnapshotScheduleTimeStatus(Aws::String&& value) { SetExpectedNextSnapshotScheduleTimeStatus(std::move(value)); return *this;}
+
+    /**
+     * <p> The status of next expected snapshot for clusters having a valid snapshot
+     * schedule and backups enabled. Possible values are the following:</p> <ul> <li>
+     * <p>OnTrack - The next snapshot is expected to be taken on time. </p> </li> <li>
+     * <p>Pending - The next snapshot is pending to be taken. </p> </li> </ul>
+     */
+    inline Cluster& WithExpectedNextSnapshotScheduleTimeStatus(const char* value) { SetExpectedNextSnapshotScheduleTimeStatus(value); return *this;}
+
+
+    /**
+     * <p>The date and time in UTC when system maintenance can begin.</p>
+     */
+    inline const Aws::Utils::DateTime& GetNextMaintenanceWindowStartTime() const{ return m_nextMaintenanceWindowStartTime; }
+
+    /**
+     * <p>The date and time in UTC when system maintenance can begin.</p>
+     */
+    inline bool NextMaintenanceWindowStartTimeHasBeenSet() const { return m_nextMaintenanceWindowStartTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time in UTC when system maintenance can begin.</p>
+     */
+    inline void SetNextMaintenanceWindowStartTime(const Aws::Utils::DateTime& value) { m_nextMaintenanceWindowStartTimeHasBeenSet = true; m_nextMaintenanceWindowStartTime = value; }
+
+    /**
+     * <p>The date and time in UTC when system maintenance can begin.</p>
+     */
+    inline void SetNextMaintenanceWindowStartTime(Aws::Utils::DateTime&& value) { m_nextMaintenanceWindowStartTimeHasBeenSet = true; m_nextMaintenanceWindowStartTime = std::move(value); }
+
+    /**
+     * <p>The date and time in UTC when system maintenance can begin.</p>
+     */
+    inline Cluster& WithNextMaintenanceWindowStartTime(const Aws::Utils::DateTime& value) { SetNextMaintenanceWindowStartTime(value); return *this;}
+
+    /**
+     * <p>The date and time in UTC when system maintenance can begin.</p>
+     */
+    inline Cluster& WithNextMaintenanceWindowStartTime(Aws::Utils::DateTime&& value) { SetNextMaintenanceWindowStartTime(std::move(value)); return *this;}
+
+
+    /**
+     * <p>Returns the following:</p> <ul> <li> <p>AllowCancelResize: a boolean value
+     * indicating if the resize operation can be cancelled.</p> </li> <li>
+     * <p>ResizeType: Returns ClassicResize</p> </li> </ul>
+     */
+    inline const ResizeInfo& GetResizeInfo() const{ return m_resizeInfo; }
+
+    /**
+     * <p>Returns the following:</p> <ul> <li> <p>AllowCancelResize: a boolean value
+     * indicating if the resize operation can be cancelled.</p> </li> <li>
+     * <p>ResizeType: Returns ClassicResize</p> </li> </ul>
+     */
+    inline bool ResizeInfoHasBeenSet() const { return m_resizeInfoHasBeenSet; }
+
+    /**
+     * <p>Returns the following:</p> <ul> <li> <p>AllowCancelResize: a boolean value
+     * indicating if the resize operation can be cancelled.</p> </li> <li>
+     * <p>ResizeType: Returns ClassicResize</p> </li> </ul>
+     */
+    inline void SetResizeInfo(const ResizeInfo& value) { m_resizeInfoHasBeenSet = true; m_resizeInfo = value; }
+
+    /**
+     * <p>Returns the following:</p> <ul> <li> <p>AllowCancelResize: a boolean value
+     * indicating if the resize operation can be cancelled.</p> </li> <li>
+     * <p>ResizeType: Returns ClassicResize</p> </li> </ul>
+     */
+    inline void SetResizeInfo(ResizeInfo&& value) { m_resizeInfoHasBeenSet = true; m_resizeInfo = std::move(value); }
+
+    /**
+     * <p>Returns the following:</p> <ul> <li> <p>AllowCancelResize: a boolean value
+     * indicating if the resize operation can be cancelled.</p> </li> <li>
+     * <p>ResizeType: Returns ClassicResize</p> </li> </ul>
+     */
+    inline Cluster& WithResizeInfo(const ResizeInfo& value) { SetResizeInfo(value); return *this;}
+
+    /**
+     * <p>Returns the following:</p> <ul> <li> <p>AllowCancelResize: a boolean value
+     * indicating if the resize operation can be cancelled.</p> </li> <li>
+     * <p>ResizeType: Returns ClassicResize</p> </li> </ul>
+     */
+    inline Cluster& WithResizeInfo(ResizeInfo&& value) { SetResizeInfo(std::move(value)); return *this;}
+
   private:
 
     Aws::String m_clusterIdentifier;
@@ -1369,6 +2143,9 @@ namespace Model
 
     Aws::String m_clusterStatus;
     bool m_clusterStatusHasBeenSet;
+
+    Aws::String m_clusterAvailabilityStatus;
+    bool m_clusterAvailabilityStatusHasBeenSet;
 
     Aws::String m_modifyStatus;
     bool m_modifyStatusHasBeenSet;
@@ -1387,6 +2164,9 @@ namespace Model
 
     int m_automatedSnapshotRetentionPeriod;
     bool m_automatedSnapshotRetentionPeriodHasBeenSet;
+
+    int m_manualSnapshotRetentionPeriod;
+    bool m_manualSnapshotRetentionPeriodHasBeenSet;
 
     Aws::Vector<ClusterSecurityGroupMembership> m_clusterSecurityGroups;
     bool m_clusterSecurityGroupsHasBeenSet;
@@ -1430,6 +2210,9 @@ namespace Model
     RestoreStatus m_restoreStatus;
     bool m_restoreStatusHasBeenSet;
 
+    DataTransferProgress m_dataTransferProgress;
+    bool m_dataTransferProgressHasBeenSet;
+
     HsmStatus m_hsmStatus;
     bool m_hsmStatusHasBeenSet;
 
@@ -1462,6 +2245,33 @@ namespace Model
 
     Aws::Vector<Aws::String> m_pendingActions;
     bool m_pendingActionsHasBeenSet;
+
+    Aws::String m_maintenanceTrackName;
+    bool m_maintenanceTrackNameHasBeenSet;
+
+    Aws::String m_elasticResizeNumberOfNodeOptions;
+    bool m_elasticResizeNumberOfNodeOptionsHasBeenSet;
+
+    Aws::Vector<DeferredMaintenanceWindow> m_deferredMaintenanceWindows;
+    bool m_deferredMaintenanceWindowsHasBeenSet;
+
+    Aws::String m_snapshotScheduleIdentifier;
+    bool m_snapshotScheduleIdentifierHasBeenSet;
+
+    ScheduleState m_snapshotScheduleState;
+    bool m_snapshotScheduleStateHasBeenSet;
+
+    Aws::Utils::DateTime m_expectedNextSnapshotScheduleTime;
+    bool m_expectedNextSnapshotScheduleTimeHasBeenSet;
+
+    Aws::String m_expectedNextSnapshotScheduleTimeStatus;
+    bool m_expectedNextSnapshotScheduleTimeStatusHasBeenSet;
+
+    Aws::Utils::DateTime m_nextMaintenanceWindowStartTime;
+    bool m_nextMaintenanceWindowStartTimeHasBeenSet;
+
+    ResizeInfo m_resizeInfo;
+    bool m_resizeInfoHasBeenSet;
   };
 
 } // namespace Model

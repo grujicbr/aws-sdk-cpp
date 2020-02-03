@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SWF
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     CloseStatusFilter();
-    CloseStatusFilter(const Aws::Utils::Json::JsonValue& jsonValue);
-    CloseStatusFilter& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CloseStatusFilter(Aws::Utils::Json::JsonView jsonValue);
+    CloseStatusFilter& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * meet the criteria of this filter.</p>
      */
     inline const CloseStatus& GetStatus() const{ return m_status; }
+
+    /**
+     * <p> The close status that must match the close status of an execution for it to
+     * meet the criteria of this filter.</p>
+     */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
 
     /**
      * <p> The close status that must match the close status of an execution for it to

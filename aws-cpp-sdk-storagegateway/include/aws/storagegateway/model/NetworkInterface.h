@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     NetworkInterface();
-    NetworkInterface(const Aws::Utils::Json::JsonValue& jsonValue);
-    NetworkInterface& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NetworkInterface(Aws::Utils::Json::JsonView jsonValue);
+    NetworkInterface& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The Internet Protocol version 4 (IPv4) address of the interface.</p>
      */
     inline const Aws::String& GetIpv4Address() const{ return m_ipv4Address; }
+
+    /**
+     * <p>The Internet Protocol version 4 (IPv4) address of the interface.</p>
+     */
+    inline bool Ipv4AddressHasBeenSet() const { return m_ipv4AddressHasBeenSet; }
 
     /**
      * <p>The Internet Protocol version 4 (IPv4) address of the interface.</p>
@@ -87,6 +93,12 @@ namespace Model
      * is currently unsupported and will not be returned in output.</p> </note>
      */
     inline const Aws::String& GetMacAddress() const{ return m_macAddress; }
+
+    /**
+     * <p>The Media Access Control (MAC) address of the interface.</p> <note> <p>This
+     * is currently unsupported and will not be returned in output.</p> </note>
+     */
+    inline bool MacAddressHasBeenSet() const { return m_macAddressHasBeenSet; }
 
     /**
      * <p>The Media Access Control (MAC) address of the interface.</p> <note> <p>This
@@ -130,6 +142,12 @@ namespace Model
      * not supported</i>.</p>
      */
     inline const Aws::String& GetIpv6Address() const{ return m_ipv6Address; }
+
+    /**
+     * <p>The Internet Protocol version 6 (IPv6) address of the interface. <i>Currently
+     * not supported</i>.</p>
+     */
+    inline bool Ipv6AddressHasBeenSet() const { return m_ipv6AddressHasBeenSet; }
 
     /**
      * <p>The Internet Protocol version 6 (IPv6) address of the interface. <i>Currently

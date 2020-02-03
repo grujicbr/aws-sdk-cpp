@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoTAnalytics
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ReprocessingSummary();
-    ReprocessingSummary(const Aws::Utils::Json::JsonValue& jsonValue);
-    ReprocessingSummary& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ReprocessingSummary(Aws::Utils::Json::JsonView jsonValue);
+    ReprocessingSummary& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The 'reprocessingId' returned by "StartPipelineReprocessing".</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The 'reprocessingId' returned by "StartPipelineReprocessing".</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The 'reprocessingId' returned by "StartPipelineReprocessing".</p>
@@ -92,6 +98,11 @@ namespace Model
     /**
      * <p>The status of the pipeline reprocessing.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The status of the pipeline reprocessing.</p>
+     */
     inline void SetStatus(const ReprocessingStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -114,6 +125,11 @@ namespace Model
      * <p>The time the pipeline reprocessing was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationTime() const{ return m_creationTime; }
+
+    /**
+     * <p>The time the pipeline reprocessing was created.</p>
+     */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
 
     /**
      * <p>The time the pipeline reprocessing was created.</p>

@@ -21,6 +21,7 @@
 #include <aws/core/utils/DateTime.h>
 #include <aws/cloudformation/model/RollbackConfiguration.h>
 #include <aws/cloudformation/model/StackStatus.h>
+#include <aws/cloudformation/model/StackDriftInformation.h>
 #include <aws/cloudformation/model/Parameter.h>
 #include <aws/cloudformation/model/Capability.h>
 #include <aws/cloudformation/model/Output.h>
@@ -65,6 +66,11 @@ namespace Model
     /**
      * <p>Unique identifier of the stack.</p>
      */
+    inline bool StackIdHasBeenSet() const { return m_stackIdHasBeenSet; }
+
+    /**
+     * <p>Unique identifier of the stack.</p>
+     */
     inline void SetStackId(const Aws::String& value) { m_stackIdHasBeenSet = true; m_stackId = value; }
 
     /**
@@ -97,6 +103,11 @@ namespace Model
      * <p>The name associated with the stack.</p>
      */
     inline const Aws::String& GetStackName() const{ return m_stackName; }
+
+    /**
+     * <p>The name associated with the stack.</p>
+     */
+    inline bool StackNameHasBeenSet() const { return m_stackNameHasBeenSet; }
 
     /**
      * <p>The name associated with the stack.</p>
@@ -137,6 +148,11 @@ namespace Model
     /**
      * <p>The unique ID of the change set.</p>
      */
+    inline bool ChangeSetIdHasBeenSet() const { return m_changeSetIdHasBeenSet; }
+
+    /**
+     * <p>The unique ID of the change set.</p>
+     */
     inline void SetChangeSetId(const Aws::String& value) { m_changeSetIdHasBeenSet = true; m_changeSetId = value; }
 
     /**
@@ -169,6 +185,11 @@ namespace Model
      * <p>A user-defined description associated with the stack.</p>
      */
     inline const Aws::String& GetDescription() const{ return m_description; }
+
+    /**
+     * <p>A user-defined description associated with the stack.</p>
+     */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
 
     /**
      * <p>A user-defined description associated with the stack.</p>
@@ -209,6 +230,11 @@ namespace Model
     /**
      * <p>A list of <code>Parameter</code> structures.</p>
      */
+    inline bool ParametersHasBeenSet() const { return m_parametersHasBeenSet; }
+
+    /**
+     * <p>A list of <code>Parameter</code> structures.</p>
+     */
     inline void SetParameters(const Aws::Vector<Parameter>& value) { m_parametersHasBeenSet = true; m_parameters = value; }
 
     /**
@@ -245,6 +271,11 @@ namespace Model
     /**
      * <p>The time at which the stack was created.</p>
      */
+    inline bool CreationTimeHasBeenSet() const { return m_creationTimeHasBeenSet; }
+
+    /**
+     * <p>The time at which the stack was created.</p>
+     */
     inline void SetCreationTime(const Aws::Utils::DateTime& value) { m_creationTimeHasBeenSet = true; m_creationTime = value; }
 
     /**
@@ -267,6 +298,11 @@ namespace Model
      * <p>The time the stack was deleted.</p>
      */
     inline const Aws::Utils::DateTime& GetDeletionTime() const{ return m_deletionTime; }
+
+    /**
+     * <p>The time the stack was deleted.</p>
+     */
+    inline bool DeletionTimeHasBeenSet() const { return m_deletionTimeHasBeenSet; }
 
     /**
      * <p>The time the stack was deleted.</p>
@@ -294,6 +330,12 @@ namespace Model
      * stack has been updated at least once.</p>
      */
     inline const Aws::Utils::DateTime& GetLastUpdatedTime() const{ return m_lastUpdatedTime; }
+
+    /**
+     * <p>The time the stack was last updated. This field will only be returned if the
+     * stack has been updated at least once.</p>
+     */
+    inline bool LastUpdatedTimeHasBeenSet() const { return m_lastUpdatedTimeHasBeenSet; }
 
     /**
      * <p>The time the stack was last updated. This field will only be returned if the
@@ -330,6 +372,12 @@ namespace Model
      * <p>The rollback triggers for AWS CloudFormation to monitor during stack creation
      * and updating operations, and for the specified monitoring period afterwards.</p>
      */
+    inline bool RollbackConfigurationHasBeenSet() const { return m_rollbackConfigurationHasBeenSet; }
+
+    /**
+     * <p>The rollback triggers for AWS CloudFormation to monitor during stack creation
+     * and updating operations, and for the specified monitoring period afterwards.</p>
+     */
     inline void SetRollbackConfiguration(const RollbackConfiguration& value) { m_rollbackConfigurationHasBeenSet = true; m_rollbackConfiguration = value; }
 
     /**
@@ -359,6 +407,11 @@ namespace Model
     /**
      * <p>Current status of the stack.</p>
      */
+    inline bool StackStatusHasBeenSet() const { return m_stackStatusHasBeenSet; }
+
+    /**
+     * <p>Current status of the stack.</p>
+     */
     inline void SetStackStatus(const StackStatus& value) { m_stackStatusHasBeenSet = true; m_stackStatus = value; }
 
     /**
@@ -381,6 +434,11 @@ namespace Model
      * <p>Success/failure message associated with the stack status.</p>
      */
     inline const Aws::String& GetStackStatusReason() const{ return m_stackStatusReason; }
+
+    /**
+     * <p>Success/failure message associated with the stack status.</p>
+     */
+    inline bool StackStatusReasonHasBeenSet() const { return m_stackStatusReasonHasBeenSet; }
 
     /**
      * <p>Success/failure message associated with the stack status.</p>
@@ -425,6 +483,13 @@ namespace Model
      * <li> <p> <code>true</code>: disable rollback</p> </li> <li> <p>
      * <code>false</code>: enable rollback</p> </li> </ul>
      */
+    inline bool DisableRollbackHasBeenSet() const { return m_disableRollbackHasBeenSet; }
+
+    /**
+     * <p>Boolean to enable or disable rollback on stack creation failures:</p> <ul>
+     * <li> <p> <code>true</code>: disable rollback</p> </li> <li> <p>
+     * <code>false</code>: enable rollback</p> </li> </ul>
+     */
     inline void SetDisableRollback(bool value) { m_disableRollbackHasBeenSet = true; m_disableRollback = value; }
 
     /**
@@ -439,6 +504,11 @@ namespace Model
      * <p>SNS topic ARNs to which stack related events are published.</p>
      */
     inline const Aws::Vector<Aws::String>& GetNotificationARNs() const{ return m_notificationARNs; }
+
+    /**
+     * <p>SNS topic ARNs to which stack related events are published.</p>
+     */
+    inline bool NotificationARNsHasBeenSet() const { return m_notificationARNsHasBeenSet; }
 
     /**
      * <p>SNS topic ARNs to which stack related events are published.</p>
@@ -484,6 +554,11 @@ namespace Model
     /**
      * <p>The amount of time within which stack creation should complete.</p>
      */
+    inline bool TimeoutInMinutesHasBeenSet() const { return m_timeoutInMinutesHasBeenSet; }
+
+    /**
+     * <p>The amount of time within which stack creation should complete.</p>
+     */
     inline void SetTimeoutInMinutes(int value) { m_timeoutInMinutesHasBeenSet = true; m_timeoutInMinutes = value; }
 
     /**
@@ -496,6 +571,11 @@ namespace Model
      * <p>The capabilities allowed in the stack.</p>
      */
     inline const Aws::Vector<Capability>& GetCapabilities() const{ return m_capabilities; }
+
+    /**
+     * <p>The capabilities allowed in the stack.</p>
+     */
+    inline bool CapabilitiesHasBeenSet() const { return m_capabilitiesHasBeenSet; }
 
     /**
      * <p>The capabilities allowed in the stack.</p>
@@ -536,6 +616,11 @@ namespace Model
     /**
      * <p>A list of output structures.</p>
      */
+    inline bool OutputsHasBeenSet() const { return m_outputsHasBeenSet; }
+
+    /**
+     * <p>A list of output structures.</p>
+     */
     inline void SetOutputs(const Aws::Vector<Output>& value) { m_outputsHasBeenSet = true; m_outputs = value; }
 
     /**
@@ -570,6 +655,13 @@ namespace Model
      * CloudFormation uses this role's credentials to make calls on your behalf.</p>
      */
     inline const Aws::String& GetRoleARN() const{ return m_roleARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM)
+     * role that is associated with the stack. During a stack operation, AWS
+     * CloudFormation uses this role's credentials to make calls on your behalf.</p>
+     */
+    inline bool RoleARNHasBeenSet() const { return m_roleARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM)
@@ -622,6 +714,11 @@ namespace Model
     /**
      * <p>A list of <code>Tag</code>s that specify information about the stack.</p>
      */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>A list of <code>Tag</code>s that specify information about the stack.</p>
+     */
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
     /**
@@ -668,6 +765,16 @@ namespace Model
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html">Protecting
      * a Stack From Being Deleted</a> in the <i>AWS CloudFormation User Guide</i>.</p>
      */
+    inline bool EnableTerminationProtectionHasBeenSet() const { return m_enableTerminationProtectionHasBeenSet; }
+
+    /**
+     * <p>Whether termination protection is enabled for the stack.</p> <p> For <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">nested
+     * stacks</a>, termination protection is set on the root stack and cannot be
+     * changed directly on the nested stack. For more information, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html">Protecting
+     * a Stack From Being Deleted</a> in the <i>AWS CloudFormation User Guide</i>.</p>
+     */
     inline void SetEnableTerminationProtection(bool value) { m_enableTerminationProtectionHasBeenSet = true; m_enableTerminationProtection = value; }
 
     /**
@@ -689,6 +796,15 @@ namespace Model
      * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
      */
     inline const Aws::String& GetParentId() const{ return m_parentId; }
+
+    /**
+     * <p>For nested stacks--stacks created as resources for another stack--the stack
+     * ID of the direct parent of this stack. For the first level of nested stacks, the
+     * root stack is also the parent stack.</p> <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
+     * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
+     */
+    inline bool ParentIdHasBeenSet() const { return m_parentIdHasBeenSet; }
 
     /**
      * <p>For nested stacks--stacks created as resources for another stack--the stack
@@ -747,7 +863,7 @@ namespace Model
 
     /**
      * <p>For nested stacks--stacks created as resources for another stack--the stack
-     * ID of the the top-level stack to which the nested stack ultimately belongs.</p>
+     * ID of the top-level stack to which the nested stack ultimately belongs.</p>
      * <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
      * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
@@ -756,7 +872,16 @@ namespace Model
 
     /**
      * <p>For nested stacks--stacks created as resources for another stack--the stack
-     * ID of the the top-level stack to which the nested stack ultimately belongs.</p>
+     * ID of the top-level stack to which the nested stack ultimately belongs.</p>
+     * <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
+     * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
+     */
+    inline bool RootIdHasBeenSet() const { return m_rootIdHasBeenSet; }
+
+    /**
+     * <p>For nested stacks--stacks created as resources for another stack--the stack
+     * ID of the top-level stack to which the nested stack ultimately belongs.</p>
      * <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
      * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
@@ -765,7 +890,7 @@ namespace Model
 
     /**
      * <p>For nested stacks--stacks created as resources for another stack--the stack
-     * ID of the the top-level stack to which the nested stack ultimately belongs.</p>
+     * ID of the top-level stack to which the nested stack ultimately belongs.</p>
      * <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
      * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
@@ -774,7 +899,7 @@ namespace Model
 
     /**
      * <p>For nested stacks--stacks created as resources for another stack--the stack
-     * ID of the the top-level stack to which the nested stack ultimately belongs.</p>
+     * ID of the top-level stack to which the nested stack ultimately belongs.</p>
      * <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
      * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
@@ -783,7 +908,7 @@ namespace Model
 
     /**
      * <p>For nested stacks--stacks created as resources for another stack--the stack
-     * ID of the the top-level stack to which the nested stack ultimately belongs.</p>
+     * ID of the top-level stack to which the nested stack ultimately belongs.</p>
      * <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
      * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
@@ -792,7 +917,7 @@ namespace Model
 
     /**
      * <p>For nested stacks--stacks created as resources for another stack--the stack
-     * ID of the the top-level stack to which the nested stack ultimately belongs.</p>
+     * ID of the top-level stack to which the nested stack ultimately belongs.</p>
      * <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
      * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
@@ -801,12 +926,73 @@ namespace Model
 
     /**
      * <p>For nested stacks--stacks created as resources for another stack--the stack
-     * ID of the the top-level stack to which the nested stack ultimately belongs.</p>
+     * ID of the top-level stack to which the nested stack ultimately belongs.</p>
      * <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">Working
      * with Nested Stacks</a> in the <i>AWS CloudFormation User Guide</i>.</p>
      */
     inline Stack& WithRootId(const char* value) { SetRootId(value); return *this;}
+
+
+    /**
+     * <p>Information on whether a stack's actual configuration differs, or has
+     * <i>drifted</i>, from it's expected configuration, as defined in the stack
+     * template and any values specified as template parameters. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.</p>
+     */
+    inline const StackDriftInformation& GetDriftInformation() const{ return m_driftInformation; }
+
+    /**
+     * <p>Information on whether a stack's actual configuration differs, or has
+     * <i>drifted</i>, from it's expected configuration, as defined in the stack
+     * template and any values specified as template parameters. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.</p>
+     */
+    inline bool DriftInformationHasBeenSet() const { return m_driftInformationHasBeenSet; }
+
+    /**
+     * <p>Information on whether a stack's actual configuration differs, or has
+     * <i>drifted</i>, from it's expected configuration, as defined in the stack
+     * template and any values specified as template parameters. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.</p>
+     */
+    inline void SetDriftInformation(const StackDriftInformation& value) { m_driftInformationHasBeenSet = true; m_driftInformation = value; }
+
+    /**
+     * <p>Information on whether a stack's actual configuration differs, or has
+     * <i>drifted</i>, from it's expected configuration, as defined in the stack
+     * template and any values specified as template parameters. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.</p>
+     */
+    inline void SetDriftInformation(StackDriftInformation&& value) { m_driftInformationHasBeenSet = true; m_driftInformation = std::move(value); }
+
+    /**
+     * <p>Information on whether a stack's actual configuration differs, or has
+     * <i>drifted</i>, from it's expected configuration, as defined in the stack
+     * template and any values specified as template parameters. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.</p>
+     */
+    inline Stack& WithDriftInformation(const StackDriftInformation& value) { SetDriftInformation(value); return *this;}
+
+    /**
+     * <p>Information on whether a stack's actual configuration differs, or has
+     * <i>drifted</i>, from it's expected configuration, as defined in the stack
+     * template and any values specified as template parameters. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.</p>
+     */
+    inline Stack& WithDriftInformation(StackDriftInformation&& value) { SetDriftInformation(std::move(value)); return *this;}
 
   private:
 
@@ -872,6 +1058,9 @@ namespace Model
 
     Aws::String m_rootId;
     bool m_rootIdHasBeenSet;
+
+    StackDriftInformation m_driftInformation;
+    bool m_driftInformationHasBeenSet;
   };
 
 } // namespace Model

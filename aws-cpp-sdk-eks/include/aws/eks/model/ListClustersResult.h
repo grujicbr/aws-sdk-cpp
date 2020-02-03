@@ -44,42 +44,42 @@ namespace Model
 
 
     /**
-     * <p>A list of all of the clusters for your account in the specified region.</p>
+     * <p>A list of all of the clusters for your account in the specified Region.</p>
      */
     inline const Aws::Vector<Aws::String>& GetClusters() const{ return m_clusters; }
 
     /**
-     * <p>A list of all of the clusters for your account in the specified region.</p>
+     * <p>A list of all of the clusters for your account in the specified Region.</p>
      */
     inline void SetClusters(const Aws::Vector<Aws::String>& value) { m_clusters = value; }
 
     /**
-     * <p>A list of all of the clusters for your account in the specified region.</p>
+     * <p>A list of all of the clusters for your account in the specified Region.</p>
      */
     inline void SetClusters(Aws::Vector<Aws::String>&& value) { m_clusters = std::move(value); }
 
     /**
-     * <p>A list of all of the clusters for your account in the specified region.</p>
+     * <p>A list of all of the clusters for your account in the specified Region.</p>
      */
     inline ListClustersResult& WithClusters(const Aws::Vector<Aws::String>& value) { SetClusters(value); return *this;}
 
     /**
-     * <p>A list of all of the clusters for your account in the specified region.</p>
+     * <p>A list of all of the clusters for your account in the specified Region.</p>
      */
     inline ListClustersResult& WithClusters(Aws::Vector<Aws::String>&& value) { SetClusters(std::move(value)); return *this;}
 
     /**
-     * <p>A list of all of the clusters for your account in the specified region.</p>
+     * <p>A list of all of the clusters for your account in the specified Region.</p>
      */
     inline ListClustersResult& AddClusters(const Aws::String& value) { m_clusters.push_back(value); return *this; }
 
     /**
-     * <p>A list of all of the clusters for your account in the specified region.</p>
+     * <p>A list of all of the clusters for your account in the specified Region.</p>
      */
     inline ListClustersResult& AddClusters(Aws::String&& value) { m_clusters.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>A list of all of the clusters for your account in the specified region.</p>
+     * <p>A list of all of the clusters for your account in the specified Region.</p>
      */
     inline ListClustersResult& AddClusters(const char* value) { m_clusters.push_back(value); return *this; }
 
@@ -87,8 +87,8 @@ namespace Model
     /**
      * <p>The <code>nextToken</code> value to include in a future
      * <code>ListClusters</code> request. When the results of a
-     * <code>ListClusters</code> request exceed <code>maxResults</code>, this value can
-     * be used to retrieve the next page of results. This value is <code>null</code>
+     * <code>ListClusters</code> request exceed <code>maxResults</code>, you can use
+     * this value to retrieve the next page of results. This value is <code>null</code>
      * when there are no more results to return.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
@@ -96,8 +96,8 @@ namespace Model
     /**
      * <p>The <code>nextToken</code> value to include in a future
      * <code>ListClusters</code> request. When the results of a
-     * <code>ListClusters</code> request exceed <code>maxResults</code>, this value can
-     * be used to retrieve the next page of results. This value is <code>null</code>
+     * <code>ListClusters</code> request exceed <code>maxResults</code>, you can use
+     * this value to retrieve the next page of results. This value is <code>null</code>
      * when there are no more results to return.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextToken = value; }
@@ -105,8 +105,8 @@ namespace Model
     /**
      * <p>The <code>nextToken</code> value to include in a future
      * <code>ListClusters</code> request. When the results of a
-     * <code>ListClusters</code> request exceed <code>maxResults</code>, this value can
-     * be used to retrieve the next page of results. This value is <code>null</code>
+     * <code>ListClusters</code> request exceed <code>maxResults</code>, you can use
+     * this value to retrieve the next page of results. This value is <code>null</code>
      * when there are no more results to return.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextToken = std::move(value); }
@@ -114,8 +114,8 @@ namespace Model
     /**
      * <p>The <code>nextToken</code> value to include in a future
      * <code>ListClusters</code> request. When the results of a
-     * <code>ListClusters</code> request exceed <code>maxResults</code>, this value can
-     * be used to retrieve the next page of results. This value is <code>null</code>
+     * <code>ListClusters</code> request exceed <code>maxResults</code>, you can use
+     * this value to retrieve the next page of results. This value is <code>null</code>
      * when there are no more results to return.</p>
      */
     inline void SetNextToken(const char* value) { m_nextToken.assign(value); }
@@ -123,8 +123,8 @@ namespace Model
     /**
      * <p>The <code>nextToken</code> value to include in a future
      * <code>ListClusters</code> request. When the results of a
-     * <code>ListClusters</code> request exceed <code>maxResults</code>, this value can
-     * be used to retrieve the next page of results. This value is <code>null</code>
+     * <code>ListClusters</code> request exceed <code>maxResults</code>, you can use
+     * this value to retrieve the next page of results. This value is <code>null</code>
      * when there are no more results to return.</p>
      */
     inline ListClustersResult& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
@@ -132,8 +132,8 @@ namespace Model
     /**
      * <p>The <code>nextToken</code> value to include in a future
      * <code>ListClusters</code> request. When the results of a
-     * <code>ListClusters</code> request exceed <code>maxResults</code>, this value can
-     * be used to retrieve the next page of results. This value is <code>null</code>
+     * <code>ListClusters</code> request exceed <code>maxResults</code>, you can use
+     * this value to retrieve the next page of results. This value is <code>null</code>
      * when there are no more results to return.</p>
      */
     inline ListClustersResult& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
@@ -141,8 +141,8 @@ namespace Model
     /**
      * <p>The <code>nextToken</code> value to include in a future
      * <code>ListClusters</code> request. When the results of a
-     * <code>ListClusters</code> request exceed <code>maxResults</code>, this value can
-     * be used to retrieve the next page of results. This value is <code>null</code>
+     * <code>ListClusters</code> request exceed <code>maxResults</code>, you can use
+     * this value to retrieve the next page of results. This value is <code>null</code>
      * when there are no more results to return.</p>
      */
     inline ListClustersResult& WithNextToken(const char* value) { SetNextToken(value); return *this;}

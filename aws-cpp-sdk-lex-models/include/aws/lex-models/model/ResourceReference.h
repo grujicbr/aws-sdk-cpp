@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ResourceReference();
-    ResourceReference(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceReference& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceReference(Aws::Utils::Json::JsonView jsonValue);
+    ResourceReference& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * delete.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the resource that is using the resource that you are trying to
+     * delete.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the resource that is using the resource that you are trying to
@@ -96,6 +103,12 @@ namespace Model
      * delete.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version of the resource that is using the resource that you are trying to
+     * delete.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version of the resource that is using the resource that you are trying to

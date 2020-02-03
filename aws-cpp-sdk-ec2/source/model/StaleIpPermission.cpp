@@ -64,13 +64,13 @@ StaleIpPermission& StaleIpPermission::operator =(const XmlNode& xmlNode)
     XmlNode fromPortNode = resultNode.FirstChild("fromPort");
     if(!fromPortNode.IsNull())
     {
-      m_fromPort = StringUtils::ConvertToInt32(StringUtils::Trim(fromPortNode.GetText().c_str()).c_str());
+      m_fromPort = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(fromPortNode.GetText()).c_str()).c_str());
       m_fromPortHasBeenSet = true;
     }
     XmlNode ipProtocolNode = resultNode.FirstChild("ipProtocol");
     if(!ipProtocolNode.IsNull())
     {
-      m_ipProtocol = StringUtils::Trim(ipProtocolNode.GetText().c_str());
+      m_ipProtocol = Aws::Utils::Xml::DecodeEscapedXmlText(ipProtocolNode.GetText());
       m_ipProtocolHasBeenSet = true;
     }
     XmlNode ipRangesNode = resultNode.FirstChild("ipRanges");
@@ -79,7 +79,7 @@ StaleIpPermission& StaleIpPermission::operator =(const XmlNode& xmlNode)
       XmlNode ipRangesMember = ipRangesNode.FirstChild("item");
       while(!ipRangesMember.IsNull())
       {
-        m_ipRanges.push_back(StringUtils::Trim(ipRangesMember.GetText().c_str()));
+        m_ipRanges.push_back(ipRangesMember.GetText());
         ipRangesMember = ipRangesMember.NextNode("item");
       }
 
@@ -91,7 +91,7 @@ StaleIpPermission& StaleIpPermission::operator =(const XmlNode& xmlNode)
       XmlNode prefixListIdsMember = prefixListIdsNode.FirstChild("item");
       while(!prefixListIdsMember.IsNull())
       {
-        m_prefixListIds.push_back(StringUtils::Trim(prefixListIdsMember.GetText().c_str()));
+        m_prefixListIds.push_back(prefixListIdsMember.GetText());
         prefixListIdsMember = prefixListIdsMember.NextNode("item");
       }
 
@@ -100,7 +100,7 @@ StaleIpPermission& StaleIpPermission::operator =(const XmlNode& xmlNode)
     XmlNode toPortNode = resultNode.FirstChild("toPort");
     if(!toPortNode.IsNull())
     {
-      m_toPort = StringUtils::ConvertToInt32(StringUtils::Trim(toPortNode.GetText().c_str()).c_str());
+      m_toPort = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(toPortNode.GetText()).c_str()).c_str());
       m_toPortHasBeenSet = true;
     }
     XmlNode userIdGroupPairsNode = resultNode.FirstChild("groups");

@@ -56,13 +56,13 @@ LaunchTemplateBlockDeviceMappingRequest& LaunchTemplateBlockDeviceMappingRequest
     XmlNode deviceNameNode = resultNode.FirstChild("DeviceName");
     if(!deviceNameNode.IsNull())
     {
-      m_deviceName = StringUtils::Trim(deviceNameNode.GetText().c_str());
+      m_deviceName = Aws::Utils::Xml::DecodeEscapedXmlText(deviceNameNode.GetText());
       m_deviceNameHasBeenSet = true;
     }
     XmlNode virtualNameNode = resultNode.FirstChild("VirtualName");
     if(!virtualNameNode.IsNull())
     {
-      m_virtualName = StringUtils::Trim(virtualNameNode.GetText().c_str());
+      m_virtualName = Aws::Utils::Xml::DecodeEscapedXmlText(virtualNameNode.GetText());
       m_virtualNameHasBeenSet = true;
     }
     XmlNode ebsNode = resultNode.FirstChild("Ebs");
@@ -74,7 +74,7 @@ LaunchTemplateBlockDeviceMappingRequest& LaunchTemplateBlockDeviceMappingRequest
     XmlNode noDeviceNode = resultNode.FirstChild("NoDevice");
     if(!noDeviceNode.IsNull())
     {
-      m_noDevice = StringUtils::Trim(noDeviceNode.GetText().c_str());
+      m_noDevice = Aws::Utils::Xml::DecodeEscapedXmlText(noDeviceNode.GetText());
       m_noDeviceHasBeenSet = true;
     }
   }

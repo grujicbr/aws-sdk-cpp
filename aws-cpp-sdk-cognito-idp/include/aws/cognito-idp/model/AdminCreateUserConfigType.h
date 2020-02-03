@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AdminCreateUserConfigType();
-    AdminCreateUserConfigType(const Aws::Utils::Json::JsonValue& jsonValue);
-    AdminCreateUserConfigType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AdminCreateUserConfigType(Aws::Utils::Json::JsonView jsonValue);
+    AdminCreateUserConfigType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * app.</p>
      */
     inline bool GetAllowAdminCreateUserOnly() const{ return m_allowAdminCreateUserOnly; }
+
+    /**
+     * <p>Set to <code>True</code> if only the administrator is allowed to create user
+     * profiles. Set to <code>False</code> if users can sign themselves up via an
+     * app.</p>
+     */
+    inline bool AllowAdminCreateUserOnlyHasBeenSet() const { return m_allowAdminCreateUserOnlyHasBeenSet; }
 
     /**
      * <p>Set to <code>True</code> if only the administrator is allowed to create user
@@ -73,8 +81,11 @@ namespace Model
      * <p>The user account expiration limit, in days, after which the account is no
      * longer usable. To reset the account after that time limit, you must call
      * <code>AdminCreateUser</code> again, specifying <code>"RESEND"</code> for the
-     * <code>MessageAction</code> parameter. The default value for this parameter is
-     * 7.</p>
+     * <code>MessageAction</code> parameter. The default value for this parameter is 7.
+     * </p> <note> <p>If you set a value for <code>TemporaryPasswordValidityDays</code>
+     * in <code>PasswordPolicy</code>, that value will be used and
+     * <code>UnusedAccountValidityDays</code> will be deprecated for that user pool.
+     * </p> </note>
      */
     inline int GetUnusedAccountValidityDays() const{ return m_unusedAccountValidityDays; }
 
@@ -82,8 +93,23 @@ namespace Model
      * <p>The user account expiration limit, in days, after which the account is no
      * longer usable. To reset the account after that time limit, you must call
      * <code>AdminCreateUser</code> again, specifying <code>"RESEND"</code> for the
-     * <code>MessageAction</code> parameter. The default value for this parameter is
-     * 7.</p>
+     * <code>MessageAction</code> parameter. The default value for this parameter is 7.
+     * </p> <note> <p>If you set a value for <code>TemporaryPasswordValidityDays</code>
+     * in <code>PasswordPolicy</code>, that value will be used and
+     * <code>UnusedAccountValidityDays</code> will be deprecated for that user pool.
+     * </p> </note>
+     */
+    inline bool UnusedAccountValidityDaysHasBeenSet() const { return m_unusedAccountValidityDaysHasBeenSet; }
+
+    /**
+     * <p>The user account expiration limit, in days, after which the account is no
+     * longer usable. To reset the account after that time limit, you must call
+     * <code>AdminCreateUser</code> again, specifying <code>"RESEND"</code> for the
+     * <code>MessageAction</code> parameter. The default value for this parameter is 7.
+     * </p> <note> <p>If you set a value for <code>TemporaryPasswordValidityDays</code>
+     * in <code>PasswordPolicy</code>, that value will be used and
+     * <code>UnusedAccountValidityDays</code> will be deprecated for that user pool.
+     * </p> </note>
      */
     inline void SetUnusedAccountValidityDays(int value) { m_unusedAccountValidityDaysHasBeenSet = true; m_unusedAccountValidityDays = value; }
 
@@ -91,8 +117,11 @@ namespace Model
      * <p>The user account expiration limit, in days, after which the account is no
      * longer usable. To reset the account after that time limit, you must call
      * <code>AdminCreateUser</code> again, specifying <code>"RESEND"</code> for the
-     * <code>MessageAction</code> parameter. The default value for this parameter is
-     * 7.</p>
+     * <code>MessageAction</code> parameter. The default value for this parameter is 7.
+     * </p> <note> <p>If you set a value for <code>TemporaryPasswordValidityDays</code>
+     * in <code>PasswordPolicy</code>, that value will be used and
+     * <code>UnusedAccountValidityDays</code> will be deprecated for that user pool.
+     * </p> </note>
      */
     inline AdminCreateUserConfigType& WithUnusedAccountValidityDays(int value) { SetUnusedAccountValidityDays(value); return *this;}
 
@@ -100,7 +129,7 @@ namespace Model
     /**
      * <p>The message template to be used for the welcome message to new users.</p>
      * <p>See also <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
      * User Invitation Messages</a>.</p>
      */
     inline const MessageTemplateType& GetInviteMessageTemplate() const{ return m_inviteMessageTemplate; }
@@ -108,7 +137,15 @@ namespace Model
     /**
      * <p>The message template to be used for the welcome message to new users.</p>
      * <p>See also <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
+     * User Invitation Messages</a>.</p>
+     */
+    inline bool InviteMessageTemplateHasBeenSet() const { return m_inviteMessageTemplateHasBeenSet; }
+
+    /**
+     * <p>The message template to be used for the welcome message to new users.</p>
+     * <p>See also <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
      * User Invitation Messages</a>.</p>
      */
     inline void SetInviteMessageTemplate(const MessageTemplateType& value) { m_inviteMessageTemplateHasBeenSet = true; m_inviteMessageTemplate = value; }
@@ -116,7 +153,7 @@ namespace Model
     /**
      * <p>The message template to be used for the welcome message to new users.</p>
      * <p>See also <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
      * User Invitation Messages</a>.</p>
      */
     inline void SetInviteMessageTemplate(MessageTemplateType&& value) { m_inviteMessageTemplateHasBeenSet = true; m_inviteMessageTemplate = std::move(value); }
@@ -124,7 +161,7 @@ namespace Model
     /**
      * <p>The message template to be used for the welcome message to new users.</p>
      * <p>See also <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
      * User Invitation Messages</a>.</p>
      */
     inline AdminCreateUserConfigType& WithInviteMessageTemplate(const MessageTemplateType& value) { SetInviteMessageTemplate(value); return *this;}
@@ -132,7 +169,7 @@ namespace Model
     /**
      * <p>The message template to be used for the welcome message to new users.</p>
      * <p>See also <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization">Customizing
      * User Invitation Messages</a>.</p>
      */
     inline AdminCreateUserConfigType& WithInviteMessageTemplate(MessageTemplateType&& value) { SetInviteMessageTemplate(std::move(value)); return *this;}

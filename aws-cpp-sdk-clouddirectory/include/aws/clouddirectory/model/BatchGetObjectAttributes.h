@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     BatchGetObjectAttributes();
-    BatchGetObjectAttributes(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchGetObjectAttributes& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchGetObjectAttributes(Aws::Utils::Json::JsonView jsonValue);
+    BatchGetObjectAttributes& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>Reference that identifies the object whose attributes will be retrieved.</p>
      */
     inline const ObjectReference& GetObjectReference() const{ return m_objectReference; }
+
+    /**
+     * <p>Reference that identifies the object whose attributes will be retrieved.</p>
+     */
+    inline bool ObjectReferenceHasBeenSet() const { return m_objectReferenceHasBeenSet; }
 
     /**
      * <p>Reference that identifies the object whose attributes will be retrieved.</p>
@@ -88,6 +94,12 @@ namespace Model
      * <p>Identifier for the facet whose attributes will be retrieved. See
      * <a>SchemaFacet</a> for details.</p>
      */
+    inline bool SchemaFacetHasBeenSet() const { return m_schemaFacetHasBeenSet; }
+
+    /**
+     * <p>Identifier for the facet whose attributes will be retrieved. See
+     * <a>SchemaFacet</a> for details.</p>
+     */
     inline void SetSchemaFacet(const SchemaFacet& value) { m_schemaFacetHasBeenSet = true; m_schemaFacet = value; }
 
     /**
@@ -113,6 +125,11 @@ namespace Model
      * <p>List of attribute names whose values will be retrieved.</p>
      */
     inline const Aws::Vector<Aws::String>& GetAttributeNames() const{ return m_attributeNames; }
+
+    /**
+     * <p>List of attribute names whose values will be retrieved.</p>
+     */
+    inline bool AttributeNamesHasBeenSet() const { return m_attributeNamesHasBeenSet; }
 
     /**
      * <p>List of attribute names whose values will be retrieved.</p>

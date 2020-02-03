@@ -33,49 +33,69 @@ InstancePatchState::InstancePatchState() :
     m_patchGroupHasBeenSet(false),
     m_baselineIdHasBeenSet(false),
     m_snapshotIdHasBeenSet(false),
+    m_installOverrideListHasBeenSet(false),
     m_ownerInformationHasBeenSet(false),
     m_installedCount(0),
     m_installedCountHasBeenSet(false),
     m_installedOtherCount(0),
     m_installedOtherCountHasBeenSet(false),
+    m_installedPendingRebootCount(0),
+    m_installedPendingRebootCountHasBeenSet(false),
+    m_installedRejectedCount(0),
+    m_installedRejectedCountHasBeenSet(false),
     m_missingCount(0),
     m_missingCountHasBeenSet(false),
     m_failedCount(0),
     m_failedCountHasBeenSet(false),
+    m_unreportedNotApplicableCount(0),
+    m_unreportedNotApplicableCountHasBeenSet(false),
     m_notApplicableCount(0),
     m_notApplicableCountHasBeenSet(false),
     m_operationStartTimeHasBeenSet(false),
     m_operationEndTimeHasBeenSet(false),
     m_operation(PatchOperationType::NOT_SET),
-    m_operationHasBeenSet(false)
+    m_operationHasBeenSet(false),
+    m_lastNoRebootInstallOperationTimeHasBeenSet(false),
+    m_rebootOption(RebootOption::NOT_SET),
+    m_rebootOptionHasBeenSet(false)
 {
 }
 
-InstancePatchState::InstancePatchState(const JsonValue& jsonValue) : 
+InstancePatchState::InstancePatchState(JsonView jsonValue) : 
     m_instanceIdHasBeenSet(false),
     m_patchGroupHasBeenSet(false),
     m_baselineIdHasBeenSet(false),
     m_snapshotIdHasBeenSet(false),
+    m_installOverrideListHasBeenSet(false),
     m_ownerInformationHasBeenSet(false),
     m_installedCount(0),
     m_installedCountHasBeenSet(false),
     m_installedOtherCount(0),
     m_installedOtherCountHasBeenSet(false),
+    m_installedPendingRebootCount(0),
+    m_installedPendingRebootCountHasBeenSet(false),
+    m_installedRejectedCount(0),
+    m_installedRejectedCountHasBeenSet(false),
     m_missingCount(0),
     m_missingCountHasBeenSet(false),
     m_failedCount(0),
     m_failedCountHasBeenSet(false),
+    m_unreportedNotApplicableCount(0),
+    m_unreportedNotApplicableCountHasBeenSet(false),
     m_notApplicableCount(0),
     m_notApplicableCountHasBeenSet(false),
     m_operationStartTimeHasBeenSet(false),
     m_operationEndTimeHasBeenSet(false),
     m_operation(PatchOperationType::NOT_SET),
-    m_operationHasBeenSet(false)
+    m_operationHasBeenSet(false),
+    m_lastNoRebootInstallOperationTimeHasBeenSet(false),
+    m_rebootOption(RebootOption::NOT_SET),
+    m_rebootOptionHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-InstancePatchState& InstancePatchState::operator =(const JsonValue& jsonValue)
+InstancePatchState& InstancePatchState::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("InstanceId"))
   {
@@ -105,6 +125,13 @@ InstancePatchState& InstancePatchState::operator =(const JsonValue& jsonValue)
     m_snapshotIdHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("InstallOverrideList"))
+  {
+    m_installOverrideList = jsonValue.GetString("InstallOverrideList");
+
+    m_installOverrideListHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("OwnerInformation"))
   {
     m_ownerInformation = jsonValue.GetString("OwnerInformation");
@@ -126,6 +153,20 @@ InstancePatchState& InstancePatchState::operator =(const JsonValue& jsonValue)
     m_installedOtherCountHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("InstalledPendingRebootCount"))
+  {
+    m_installedPendingRebootCount = jsonValue.GetInteger("InstalledPendingRebootCount");
+
+    m_installedPendingRebootCountHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("InstalledRejectedCount"))
+  {
+    m_installedRejectedCount = jsonValue.GetInteger("InstalledRejectedCount");
+
+    m_installedRejectedCountHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("MissingCount"))
   {
     m_missingCount = jsonValue.GetInteger("MissingCount");
@@ -138,6 +179,13 @@ InstancePatchState& InstancePatchState::operator =(const JsonValue& jsonValue)
     m_failedCount = jsonValue.GetInteger("FailedCount");
 
     m_failedCountHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("UnreportedNotApplicableCount"))
+  {
+    m_unreportedNotApplicableCount = jsonValue.GetInteger("UnreportedNotApplicableCount");
+
+    m_unreportedNotApplicableCountHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("NotApplicableCount"))
@@ -166,6 +214,20 @@ InstancePatchState& InstancePatchState::operator =(const JsonValue& jsonValue)
     m_operation = PatchOperationTypeMapper::GetPatchOperationTypeForName(jsonValue.GetString("Operation"));
 
     m_operationHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("LastNoRebootInstallOperationTime"))
+  {
+    m_lastNoRebootInstallOperationTime = jsonValue.GetDouble("LastNoRebootInstallOperationTime");
+
+    m_lastNoRebootInstallOperationTimeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("RebootOption"))
+  {
+    m_rebootOption = RebootOptionMapper::GetRebootOptionForName(jsonValue.GetString("RebootOption"));
+
+    m_rebootOptionHasBeenSet = true;
   }
 
   return *this;
@@ -199,6 +261,12 @@ JsonValue InstancePatchState::Jsonize() const
 
   }
 
+  if(m_installOverrideListHasBeenSet)
+  {
+   payload.WithString("InstallOverrideList", m_installOverrideList);
+
+  }
+
   if(m_ownerInformationHasBeenSet)
   {
    payload.WithString("OwnerInformation", m_ownerInformation);
@@ -217,6 +285,18 @@ JsonValue InstancePatchState::Jsonize() const
 
   }
 
+  if(m_installedPendingRebootCountHasBeenSet)
+  {
+   payload.WithInteger("InstalledPendingRebootCount", m_installedPendingRebootCount);
+
+  }
+
+  if(m_installedRejectedCountHasBeenSet)
+  {
+   payload.WithInteger("InstalledRejectedCount", m_installedRejectedCount);
+
+  }
+
   if(m_missingCountHasBeenSet)
   {
    payload.WithInteger("MissingCount", m_missingCount);
@@ -226,6 +306,12 @@ JsonValue InstancePatchState::Jsonize() const
   if(m_failedCountHasBeenSet)
   {
    payload.WithInteger("FailedCount", m_failedCount);
+
+  }
+
+  if(m_unreportedNotApplicableCountHasBeenSet)
+  {
+   payload.WithInteger("UnreportedNotApplicableCount", m_unreportedNotApplicableCount);
 
   }
 
@@ -248,6 +334,16 @@ JsonValue InstancePatchState::Jsonize() const
   if(m_operationHasBeenSet)
   {
    payload.WithString("Operation", PatchOperationTypeMapper::GetNameForPatchOperationType(m_operation));
+  }
+
+  if(m_lastNoRebootInstallOperationTimeHasBeenSet)
+  {
+   payload.WithDouble("LastNoRebootInstallOperationTime", m_lastNoRebootInstallOperationTime.SecondsWithMSPrecision());
+  }
+
+  if(m_rebootOptionHasBeenSet)
+  {
+   payload.WithString("RebootOption", RebootOptionMapper::GetNameForRebootOption(m_rebootOption));
   }
 
   return payload;

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT1ClickDevicesService
@@ -37,8 +38,8 @@ namespace Model
   {
   public:
     Device();
-    Device(const Aws::Utils::Json::JsonValue& jsonValue);
-    Device& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Device(Aws::Utils::Json::JsonView jsonValue);
+    Device& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -46,6 +47,11 @@ namespace Model
      * <p>The user specified attributes associated with the device for an event.</p>
      */
     inline const Attributes& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>The user specified attributes associated with the device for an event.</p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>The user specified attributes associated with the device for an event.</p>
@@ -72,6 +78,11 @@ namespace Model
      * <p>The unique identifier of the device.</p>
      */
     inline const Aws::String& GetDeviceId() const{ return m_deviceId; }
+
+    /**
+     * <p>The unique identifier of the device.</p>
+     */
+    inline bool DeviceIdHasBeenSet() const { return m_deviceIdHasBeenSet; }
 
     /**
      * <p>The unique identifier of the device.</p>
@@ -108,6 +119,11 @@ namespace Model
      * <p>The device type, such as "button".</p>
      */
     inline const Aws::String& GetType() const{ return m_type; }
+
+    /**
+     * <p>The device type, such as "button".</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The device type, such as "button".</p>

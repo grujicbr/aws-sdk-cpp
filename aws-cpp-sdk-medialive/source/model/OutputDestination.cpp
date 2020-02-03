@@ -30,18 +30,22 @@ namespace Model
 
 OutputDestination::OutputDestination() : 
     m_idHasBeenSet(false),
+    m_mediaPackageSettingsHasBeenSet(false),
+    m_multiplexSettingsHasBeenSet(false),
     m_settingsHasBeenSet(false)
 {
 }
 
-OutputDestination::OutputDestination(const JsonValue& jsonValue) : 
+OutputDestination::OutputDestination(JsonView jsonValue) : 
     m_idHasBeenSet(false),
+    m_mediaPackageSettingsHasBeenSet(false),
+    m_multiplexSettingsHasBeenSet(false),
     m_settingsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-OutputDestination& OutputDestination::operator =(const JsonValue& jsonValue)
+OutputDestination& OutputDestination::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("id"))
   {
@@ -50,9 +54,26 @@ OutputDestination& OutputDestination::operator =(const JsonValue& jsonValue)
     m_idHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("mediaPackageSettings"))
+  {
+    Array<JsonView> mediaPackageSettingsJsonList = jsonValue.GetArray("mediaPackageSettings");
+    for(unsigned mediaPackageSettingsIndex = 0; mediaPackageSettingsIndex < mediaPackageSettingsJsonList.GetLength(); ++mediaPackageSettingsIndex)
+    {
+      m_mediaPackageSettings.push_back(mediaPackageSettingsJsonList[mediaPackageSettingsIndex].AsObject());
+    }
+    m_mediaPackageSettingsHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("multiplexSettings"))
+  {
+    m_multiplexSettings = jsonValue.GetObject("multiplexSettings");
+
+    m_multiplexSettingsHasBeenSet = true;
+  }
+
   if(jsonValue.ValueExists("settings"))
   {
-    Array<JsonValue> settingsJsonList = jsonValue.GetArray("settings");
+    Array<JsonView> settingsJsonList = jsonValue.GetArray("settings");
     for(unsigned settingsIndex = 0; settingsIndex < settingsJsonList.GetLength(); ++settingsIndex)
     {
       m_settings.push_back(settingsJsonList[settingsIndex].AsObject());
@@ -70,6 +91,23 @@ JsonValue OutputDestination::Jsonize() const
   if(m_idHasBeenSet)
   {
    payload.WithString("id", m_id);
+
+  }
+
+  if(m_mediaPackageSettingsHasBeenSet)
+  {
+   Array<JsonValue> mediaPackageSettingsJsonList(m_mediaPackageSettings.size());
+   for(unsigned mediaPackageSettingsIndex = 0; mediaPackageSettingsIndex < mediaPackageSettingsJsonList.GetLength(); ++mediaPackageSettingsIndex)
+   {
+     mediaPackageSettingsJsonList[mediaPackageSettingsIndex].AsObject(m_mediaPackageSettings[mediaPackageSettingsIndex].Jsonize());
+   }
+   payload.WithArray("mediaPackageSettings", std::move(mediaPackageSettingsJsonList));
+
+  }
+
+  if(m_multiplexSettingsHasBeenSet)
+  {
+   payload.WithObject("multiplexSettings", m_multiplexSettings.Jsonize());
 
   }
 

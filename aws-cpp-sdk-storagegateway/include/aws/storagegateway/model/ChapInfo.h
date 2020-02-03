@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace StorageGateway
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ChapInfo();
-    ChapInfo(const Aws::Utils::Json::JsonValue& jsonValue);
-    ChapInfo& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ChapInfo(Aws::Utils::Json::JsonView jsonValue);
+    ChapInfo& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,12 @@ namespace Model
      * lowercase letters, numbers, periods (.), and hyphens (-).</p>
      */
     inline const Aws::String& GetTargetARN() const{ return m_targetARN; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the volume.</p> <p> Valid Values: 50 to 500
+     * lowercase letters, numbers, periods (.), and hyphens (-).</p>
+     */
+    inline bool TargetARNHasBeenSet() const { return m_targetARNHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the volume.</p> <p> Valid Values: 50 to 500
@@ -101,6 +108,12 @@ namespace Model
      * <p>The secret key that the initiator (for example, the Windows client) must
      * provide to participate in mutual CHAP with the target.</p>
      */
+    inline bool SecretToAuthenticateInitiatorHasBeenSet() const { return m_secretToAuthenticateInitiatorHasBeenSet; }
+
+    /**
+     * <p>The secret key that the initiator (for example, the Windows client) must
+     * provide to participate in mutual CHAP with the target.</p>
+     */
     inline void SetSecretToAuthenticateInitiator(const Aws::String& value) { m_secretToAuthenticateInitiatorHasBeenSet = true; m_secretToAuthenticateInitiator = value; }
 
     /**
@@ -142,6 +155,11 @@ namespace Model
     /**
      * <p>The iSCSI initiator that connects to the target.</p>
      */
+    inline bool InitiatorNameHasBeenSet() const { return m_initiatorNameHasBeenSet; }
+
+    /**
+     * <p>The iSCSI initiator that connects to the target.</p>
+     */
     inline void SetInitiatorName(const Aws::String& value) { m_initiatorNameHasBeenSet = true; m_initiatorName = value; }
 
     /**
@@ -175,6 +193,12 @@ namespace Model
      * with the initiator (e.g. Windows client).</p>
      */
     inline const Aws::String& GetSecretToAuthenticateTarget() const{ return m_secretToAuthenticateTarget; }
+
+    /**
+     * <p>The secret key that the target must provide to participate in mutual CHAP
+     * with the initiator (e.g. Windows client).</p>
+     */
+    inline bool SecretToAuthenticateTargetHasBeenSet() const { return m_secretToAuthenticateTargetHasBeenSet; }
 
     /**
      * <p>The secret key that the target must provide to participate in mutual CHAP

@@ -44,7 +44,7 @@ CreateVPCAssociationAuthorizationResult& CreateVPCAssociationAuthorizationResult
     XmlNode hostedZoneIdNode = resultNode.FirstChild("HostedZoneId");
     if(!hostedZoneIdNode.IsNull())
     {
-      m_hostedZoneId = StringUtils::Trim(hostedZoneIdNode.GetText().c_str());
+      m_hostedZoneId = Aws::Utils::Xml::DecodeEscapedXmlText(hostedZoneIdNode.GetText());
     }
     XmlNode vPCNode = resultNode.FirstChild("VPC");
     if(!vPCNode.IsNull())

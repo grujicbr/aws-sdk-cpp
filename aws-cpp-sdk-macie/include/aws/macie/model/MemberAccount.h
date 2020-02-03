@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Macie
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     MemberAccount();
-    MemberAccount(const Aws::Utils::Json::JsonValue& jsonValue);
-    MemberAccount& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MemberAccount(Aws::Utils::Json::JsonView jsonValue);
+    MemberAccount& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The AWS account ID of the Amazon Macie member account.</p>
      */
     inline const Aws::String& GetAccountId() const{ return m_accountId; }
+
+    /**
+     * <p>The AWS account ID of the Amazon Macie member account.</p>
+     */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
 
     /**
      * <p>The AWS account ID of the Amazon Macie member account.</p>

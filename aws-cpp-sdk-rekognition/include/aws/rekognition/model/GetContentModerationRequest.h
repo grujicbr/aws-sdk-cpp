@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     GetContentModerationRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -46,44 +46,50 @@ namespace Model
 
 
     /**
-     * <p>The identifier for the content moderation job. Use <code>JobId</code> to
-     * identify the job in a subsequent call to <code>GetContentModeration</code>.</p>
+     * <p>The identifier for the unsafe content job. Use <code>JobId</code> to identify
+     * the job in a subsequent call to <code>GetContentModeration</code>.</p>
      */
     inline const Aws::String& GetJobId() const{ return m_jobId; }
 
     /**
-     * <p>The identifier for the content moderation job. Use <code>JobId</code> to
-     * identify the job in a subsequent call to <code>GetContentModeration</code>.</p>
+     * <p>The identifier for the unsafe content job. Use <code>JobId</code> to identify
+     * the job in a subsequent call to <code>GetContentModeration</code>.</p>
+     */
+    inline bool JobIdHasBeenSet() const { return m_jobIdHasBeenSet; }
+
+    /**
+     * <p>The identifier for the unsafe content job. Use <code>JobId</code> to identify
+     * the job in a subsequent call to <code>GetContentModeration</code>.</p>
      */
     inline void SetJobId(const Aws::String& value) { m_jobIdHasBeenSet = true; m_jobId = value; }
 
     /**
-     * <p>The identifier for the content moderation job. Use <code>JobId</code> to
-     * identify the job in a subsequent call to <code>GetContentModeration</code>.</p>
+     * <p>The identifier for the unsafe content job. Use <code>JobId</code> to identify
+     * the job in a subsequent call to <code>GetContentModeration</code>.</p>
      */
     inline void SetJobId(Aws::String&& value) { m_jobIdHasBeenSet = true; m_jobId = std::move(value); }
 
     /**
-     * <p>The identifier for the content moderation job. Use <code>JobId</code> to
-     * identify the job in a subsequent call to <code>GetContentModeration</code>.</p>
+     * <p>The identifier for the unsafe content job. Use <code>JobId</code> to identify
+     * the job in a subsequent call to <code>GetContentModeration</code>.</p>
      */
     inline void SetJobId(const char* value) { m_jobIdHasBeenSet = true; m_jobId.assign(value); }
 
     /**
-     * <p>The identifier for the content moderation job. Use <code>JobId</code> to
-     * identify the job in a subsequent call to <code>GetContentModeration</code>.</p>
+     * <p>The identifier for the unsafe content job. Use <code>JobId</code> to identify
+     * the job in a subsequent call to <code>GetContentModeration</code>.</p>
      */
     inline GetContentModerationRequest& WithJobId(const Aws::String& value) { SetJobId(value); return *this;}
 
     /**
-     * <p>The identifier for the content moderation job. Use <code>JobId</code> to
-     * identify the job in a subsequent call to <code>GetContentModeration</code>.</p>
+     * <p>The identifier for the unsafe content job. Use <code>JobId</code> to identify
+     * the job in a subsequent call to <code>GetContentModeration</code>.</p>
      */
     inline GetContentModerationRequest& WithJobId(Aws::String&& value) { SetJobId(std::move(value)); return *this;}
 
     /**
-     * <p>The identifier for the content moderation job. Use <code>JobId</code> to
-     * identify the job in a subsequent call to <code>GetContentModeration</code>.</p>
+     * <p>The identifier for the unsafe content job. Use <code>JobId</code> to identify
+     * the job in a subsequent call to <code>GetContentModeration</code>.</p>
      */
     inline GetContentModerationRequest& WithJobId(const char* value) { SetJobId(value); return *this;}
 
@@ -94,6 +100,13 @@ namespace Model
      * results is returned. The default value is 1000.</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>Maximum number of results to return per paginated call. The largest value you
+     * can specify is 1000. If you specify a value greater than 1000, a maximum of 1000
+     * results is returned. The default value is 1000.</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>Maximum number of results to return per paginated call. The largest value you
@@ -113,7 +126,7 @@ namespace Model
     /**
      * <p>If the previous response was incomplete (because there is more data to
      * retrieve), Amazon Rekognition returns a pagination token in the response. You
-     * can use this pagination token to retrieve the next set of content moderation
+     * can use this pagination token to retrieve the next set of unsafe content
      * labels.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
@@ -121,7 +134,15 @@ namespace Model
     /**
      * <p>If the previous response was incomplete (because there is more data to
      * retrieve), Amazon Rekognition returns a pagination token in the response. You
-     * can use this pagination token to retrieve the next set of content moderation
+     * can use this pagination token to retrieve the next set of unsafe content
+     * labels.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
+
+    /**
+     * <p>If the previous response was incomplete (because there is more data to
+     * retrieve), Amazon Rekognition returns a pagination token in the response. You
+     * can use this pagination token to retrieve the next set of unsafe content
      * labels.</p>
      */
     inline void SetNextToken(const Aws::String& value) { m_nextTokenHasBeenSet = true; m_nextToken = value; }
@@ -129,7 +150,7 @@ namespace Model
     /**
      * <p>If the previous response was incomplete (because there is more data to
      * retrieve), Amazon Rekognition returns a pagination token in the response. You
-     * can use this pagination token to retrieve the next set of content moderation
+     * can use this pagination token to retrieve the next set of unsafe content
      * labels.</p>
      */
     inline void SetNextToken(Aws::String&& value) { m_nextTokenHasBeenSet = true; m_nextToken = std::move(value); }
@@ -137,7 +158,7 @@ namespace Model
     /**
      * <p>If the previous response was incomplete (because there is more data to
      * retrieve), Amazon Rekognition returns a pagination token in the response. You
-     * can use this pagination token to retrieve the next set of content moderation
+     * can use this pagination token to retrieve the next set of unsafe content
      * labels.</p>
      */
     inline void SetNextToken(const char* value) { m_nextTokenHasBeenSet = true; m_nextToken.assign(value); }
@@ -145,7 +166,7 @@ namespace Model
     /**
      * <p>If the previous response was incomplete (because there is more data to
      * retrieve), Amazon Rekognition returns a pagination token in the response. You
-     * can use this pagination token to retrieve the next set of content moderation
+     * can use this pagination token to retrieve the next set of unsafe content
      * labels.</p>
      */
     inline GetContentModerationRequest& WithNextToken(const Aws::String& value) { SetNextToken(value); return *this;}
@@ -153,7 +174,7 @@ namespace Model
     /**
      * <p>If the previous response was incomplete (because there is more data to
      * retrieve), Amazon Rekognition returns a pagination token in the response. You
-     * can use this pagination token to retrieve the next set of content moderation
+     * can use this pagination token to retrieve the next set of unsafe content
      * labels.</p>
      */
     inline GetContentModerationRequest& WithNextToken(Aws::String&& value) { SetNextToken(std::move(value)); return *this;}
@@ -161,7 +182,7 @@ namespace Model
     /**
      * <p>If the previous response was incomplete (because there is more data to
      * retrieve), Amazon Rekognition returns a pagination token in the response. You
-     * can use this pagination token to retrieve the next set of content moderation
+     * can use this pagination token to retrieve the next set of unsafe content
      * labels.</p>
      */
     inline GetContentModerationRequest& WithNextToken(const char* value) { SetNextToken(value); return *this;}
@@ -175,6 +196,15 @@ namespace Model
      * confidence. The default sort is by <code>TIMESTAMP</code>.</p>
      */
     inline const ContentModerationSortBy& GetSortBy() const{ return m_sortBy; }
+
+    /**
+     * <p>Sort to use for elements in the <code>ModerationLabelDetections</code> array.
+     * Use <code>TIMESTAMP</code> to sort array elements by the time labels are
+     * detected. Use <code>NAME</code> to alphabetically group elements for a label
+     * together. Within each label group, the array element are sorted by detection
+     * confidence. The default sort is by <code>TIMESTAMP</code>.</p>
+     */
+    inline bool SortByHasBeenSet() const { return m_sortByHasBeenSet; }
 
     /**
      * <p>Sort to use for elements in the <code>ModerationLabelDetections</code> array.

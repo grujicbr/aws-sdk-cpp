@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     CaptionSelector();
-    CaptionSelector(const Aws::Utils::Json::JsonValue& jsonValue);
-    CaptionSelector& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CaptionSelector(Aws::Utils::Json::JsonView jsonValue);
+    CaptionSelector& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -59,6 +60,17 @@ namespace Model
      * pass-through captions.
      */
     inline const Aws::String& GetCustomLanguageCode() const{ return m_customLanguageCode; }
+
+    /**
+     * The specific language to extract from source, using the ISO 639-2 or ISO 639-3
+     * three-letter language code. If input is SCTE-27, complete this field and/or PID
+     * to select the caption language to extract. If input is DVB-Sub and output is
+     * Burn-in or SMPTE-TT, complete this field and/or PID to select the caption
+     * language to extract. If input is DVB-Sub that is being passed through, omit this
+     * field (and PID field); there is no way to extract a specific language with
+     * pass-through captions.
+     */
+    inline bool CustomLanguageCodeHasBeenSet() const { return m_customLanguageCodeHasBeenSet; }
 
     /**
      * The specific language to extract from source, using the ISO 639-2 or ISO 639-3
@@ -145,6 +157,16 @@ namespace Model
      * omit this field (and PID field); there is no way to extract a specific language
      * with pass-through captions.
      */
+    inline bool LanguageCodeHasBeenSet() const { return m_languageCodeHasBeenSet; }
+
+    /**
+     * The specific language to extract from source. If input is SCTE-27, complete this
+     * field and/or PID to select the caption language to extract. If input is DVB-Sub
+     * and output is Burn-in or SMPTE-TT, complete this field and/or PID to select the
+     * caption language to extract. If input is DVB-Sub that is being passed through,
+     * omit this field (and PID field); there is no way to extract a specific language
+     * with pass-through captions.
+     */
     inline void SetLanguageCode(const LanguageCode& value) { m_languageCodeHasBeenSet = true; m_languageCode = value; }
 
     /**
@@ -178,19 +200,46 @@ namespace Model
     inline CaptionSelector& WithLanguageCode(LanguageCode&& value) { SetLanguageCode(std::move(value)); return *this;}
 
 
-    
+    /**
+     * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file,
+     * specify the URI of the input captions source file. If your input captions are
+     * IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+     */
     inline const CaptionSourceSettings& GetSourceSettings() const{ return m_sourceSettings; }
 
-    
+    /**
+     * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file,
+     * specify the URI of the input captions source file. If your input captions are
+     * IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+     */
+    inline bool SourceSettingsHasBeenSet() const { return m_sourceSettingsHasBeenSet; }
+
+    /**
+     * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file,
+     * specify the URI of the input captions source file. If your input captions are
+     * IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+     */
     inline void SetSourceSettings(const CaptionSourceSettings& value) { m_sourceSettingsHasBeenSet = true; m_sourceSettings = value; }
 
-    
+    /**
+     * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file,
+     * specify the URI of the input captions source file. If your input captions are
+     * IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+     */
     inline void SetSourceSettings(CaptionSourceSettings&& value) { m_sourceSettingsHasBeenSet = true; m_sourceSettings = std::move(value); }
 
-    
+    /**
+     * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file,
+     * specify the URI of the input captions source file. If your input captions are
+     * IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+     */
     inline CaptionSelector& WithSourceSettings(const CaptionSourceSettings& value) { SetSourceSettings(value); return *this;}
 
-    
+    /**
+     * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file,
+     * specify the URI of the input captions source file. If your input captions are
+     * IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+     */
     inline CaptionSelector& WithSourceSettings(CaptionSourceSettings&& value) { SetSourceSettings(std::move(value)); return *this;}
 
   private:

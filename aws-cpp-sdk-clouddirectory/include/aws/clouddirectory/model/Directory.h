@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Directory();
-    Directory(const Aws::Utils::Json::JsonValue& jsonValue);
-    Directory& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Directory(Aws::Utils::Json::JsonView jsonValue);
+    Directory& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The name of the directory.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the directory.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the directory.</p>
@@ -90,6 +96,12 @@ namespace Model
      * more information, see <a>arns</a>.</p>
      */
     inline const Aws::String& GetDirectoryArn() const{ return m_directoryArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that is associated with the directory. For
+     * more information, see <a>arns</a>.</p>
+     */
+    inline bool DirectoryArnHasBeenSet() const { return m_directoryArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that is associated with the directory. For
@@ -138,6 +150,12 @@ namespace Model
      * <p>The state of the directory. Can be either <code>Enabled</code>,
      * <code>Disabled</code>, or <code>Deleted</code>.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The state of the directory. Can be either <code>Enabled</code>,
+     * <code>Disabled</code>, or <code>Deleted</code>.</p>
+     */
     inline void SetState(const DirectoryState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -163,6 +181,11 @@ namespace Model
      * <p>The date and time when the directory was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDateTime() const{ return m_creationDateTime; }
+
+    /**
+     * <p>The date and time when the directory was created.</p>
+     */
+    inline bool CreationDateTimeHasBeenSet() const { return m_creationDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time when the directory was created.</p>

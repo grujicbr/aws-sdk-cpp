@@ -37,7 +37,7 @@ namespace Model
 {
   /**
    * <p>This data type is used as a response element to
-   * <a>DownloadDBLogFilePortion</a>.</p><p><h3>See Also:</h3>   <a
+   * <code>DownloadDBLogFilePortion</code>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DownloadDBLogFilePortionDetails">AWS
    * API Reference</a></p>
    */
@@ -86,43 +86,43 @@ namespace Model
 
 
     /**
-     * <p>A pagination token that can be used in a subsequent DownloadDBLogFilePortion
+     * <p>A pagination token that can be used in a later DownloadDBLogFilePortion
      * request.</p>
      */
     inline const Aws::String& GetMarker() const{ return m_marker; }
 
     /**
-     * <p>A pagination token that can be used in a subsequent DownloadDBLogFilePortion
+     * <p>A pagination token that can be used in a later DownloadDBLogFilePortion
      * request.</p>
      */
     inline void SetMarker(const Aws::String& value) { m_marker = value; }
 
     /**
-     * <p>A pagination token that can be used in a subsequent DownloadDBLogFilePortion
+     * <p>A pagination token that can be used in a later DownloadDBLogFilePortion
      * request.</p>
      */
     inline void SetMarker(Aws::String&& value) { m_marker = std::move(value); }
 
     /**
-     * <p>A pagination token that can be used in a subsequent DownloadDBLogFilePortion
+     * <p>A pagination token that can be used in a later DownloadDBLogFilePortion
      * request.</p>
      */
     inline void SetMarker(const char* value) { m_marker.assign(value); }
 
     /**
-     * <p>A pagination token that can be used in a subsequent DownloadDBLogFilePortion
+     * <p>A pagination token that can be used in a later DownloadDBLogFilePortion
      * request.</p>
      */
     inline DownloadDBLogFilePortionResult& WithMarker(const Aws::String& value) { SetMarker(value); return *this;}
 
     /**
-     * <p>A pagination token that can be used in a subsequent DownloadDBLogFilePortion
+     * <p>A pagination token that can be used in a later DownloadDBLogFilePortion
      * request.</p>
      */
     inline DownloadDBLogFilePortionResult& WithMarker(Aws::String&& value) { SetMarker(std::move(value)); return *this;}
 
     /**
-     * <p>A pagination token that can be used in a subsequent DownloadDBLogFilePortion
+     * <p>A pagination token that can be used in a later DownloadDBLogFilePortion
      * request.</p>
      */
     inline DownloadDBLogFilePortionResult& WithMarker(const char* value) { SetMarker(value); return *this;}

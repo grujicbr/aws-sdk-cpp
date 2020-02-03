@@ -33,7 +33,7 @@ namespace Model
   {
   public:
     DescribeSessionsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -49,6 +49,11 @@ namespace Model
      * <p>The name of the stack. This value is case-sensitive.</p>
      */
     inline const Aws::String& GetStackName() const{ return m_stackName; }
+
+    /**
+     * <p>The name of the stack. This value is case-sensitive.</p>
+     */
+    inline bool StackNameHasBeenSet() const { return m_stackNameHasBeenSet; }
 
     /**
      * <p>The name of the stack. This value is case-sensitive.</p>
@@ -89,6 +94,11 @@ namespace Model
     /**
      * <p>The name of the fleet. This value is case-sensitive.</p>
      */
+    inline bool FleetNameHasBeenSet() const { return m_fleetNameHasBeenSet; }
+
+    /**
+     * <p>The name of the fleet. This value is case-sensitive.</p>
+     */
     inline void SetFleetName(const Aws::String& value) { m_fleetNameHasBeenSet = true; m_fleetName = value; }
 
     /**
@@ -118,37 +128,42 @@ namespace Model
 
 
     /**
-     * <p>The user ID.</p>
+     * <p>The user identifier.</p>
      */
     inline const Aws::String& GetUserId() const{ return m_userId; }
 
     /**
-     * <p>The user ID.</p>
+     * <p>The user identifier.</p>
+     */
+    inline bool UserIdHasBeenSet() const { return m_userIdHasBeenSet; }
+
+    /**
+     * <p>The user identifier.</p>
      */
     inline void SetUserId(const Aws::String& value) { m_userIdHasBeenSet = true; m_userId = value; }
 
     /**
-     * <p>The user ID.</p>
+     * <p>The user identifier.</p>
      */
     inline void SetUserId(Aws::String&& value) { m_userIdHasBeenSet = true; m_userId = std::move(value); }
 
     /**
-     * <p>The user ID.</p>
+     * <p>The user identifier.</p>
      */
     inline void SetUserId(const char* value) { m_userIdHasBeenSet = true; m_userId.assign(value); }
 
     /**
-     * <p>The user ID.</p>
+     * <p>The user identifier.</p>
      */
     inline DescribeSessionsRequest& WithUserId(const Aws::String& value) { SetUserId(value); return *this;}
 
     /**
-     * <p>The user ID.</p>
+     * <p>The user identifier.</p>
      */
     inline DescribeSessionsRequest& WithUserId(Aws::String&& value) { SetUserId(std::move(value)); return *this;}
 
     /**
-     * <p>The user ID.</p>
+     * <p>The user identifier.</p>
      */
     inline DescribeSessionsRequest& WithUserId(const char* value) { SetUserId(value); return *this;}
 
@@ -158,6 +173,12 @@ namespace Model
      * operation. If this value is null, it retrieves the first page.</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The pagination token to use to retrieve the next page of results for this
+     * operation. If this value is null, it retrieves the first page.</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The pagination token to use to retrieve the next page of results for this
@@ -206,6 +227,12 @@ namespace Model
      * <p>The size of each page of results. The default value is 20 and the maximum
      * value is 50.</p>
      */
+    inline bool LimitHasBeenSet() const { return m_limitHasBeenSet; }
+
+    /**
+     * <p>The size of each page of results. The default value is 20 and the maximum
+     * value is 50.</p>
+     */
     inline void SetLimit(int value) { m_limitHasBeenSet = true; m_limit = value; }
 
     /**
@@ -221,6 +248,13 @@ namespace Model
      * default is to authenticate users using a streaming URL.</p>
      */
     inline const AuthenticationType& GetAuthenticationType() const{ return m_authenticationType; }
+
+    /**
+     * <p>The authentication method. Specify <code>API</code> for a user authenticated
+     * using a streaming URL or <code>SAML</code> for a SAML federated user. The
+     * default is to authenticate users using a streaming URL.</p>
+     */
+    inline bool AuthenticationTypeHasBeenSet() const { return m_authenticationTypeHasBeenSet; }
 
     /**
      * <p>The authentication method. Specify <code>API</code> for a user authenticated

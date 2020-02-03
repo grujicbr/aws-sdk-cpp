@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     StepTimeline();
-    StepTimeline(const Aws::Utils::Json::JsonValue& jsonValue);
-    StepTimeline& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StepTimeline(Aws::Utils::Json::JsonView jsonValue);
+    StepTimeline& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The date and time when the cluster step was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreationDateTime() const{ return m_creationDateTime; }
+
+    /**
+     * <p>The date and time when the cluster step was created.</p>
+     */
+    inline bool CreationDateTimeHasBeenSet() const { return m_creationDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time when the cluster step was created.</p>
@@ -80,6 +86,11 @@ namespace Model
     /**
      * <p>The date and time when the cluster step execution started.</p>
      */
+    inline bool StartDateTimeHasBeenSet() const { return m_startDateTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time when the cluster step execution started.</p>
+     */
     inline void SetStartDateTime(const Aws::Utils::DateTime& value) { m_startDateTimeHasBeenSet = true; m_startDateTime = value; }
 
     /**
@@ -102,6 +113,11 @@ namespace Model
      * <p>The date and time when the cluster step execution completed or failed.</p>
      */
     inline const Aws::Utils::DateTime& GetEndDateTime() const{ return m_endDateTime; }
+
+    /**
+     * <p>The date and time when the cluster step execution completed or failed.</p>
+     */
+    inline bool EndDateTimeHasBeenSet() const { return m_endDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time when the cluster step execution completed or failed.</p>

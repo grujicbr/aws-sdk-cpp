@@ -37,7 +37,7 @@ GetBotAliasResult::GetBotAliasResult(const Aws::AmazonWebServiceResult<JsonValue
 
 GetBotAliasResult& GetBotAliasResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("name"))
   {
     m_name = jsonValue.GetString("name");
@@ -77,6 +77,12 @@ GetBotAliasResult& GetBotAliasResult::operator =(const Aws::AmazonWebServiceResu
   if(jsonValue.ValueExists("checksum"))
   {
     m_checksum = jsonValue.GetString("checksum");
+
+  }
+
+  if(jsonValue.ValueExists("conversationLogs"))
+  {
+    m_conversationLogs = jsonValue.GetObject("conversationLogs");
 
   }
 

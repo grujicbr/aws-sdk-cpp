@@ -19,8 +19,9 @@
 #include <aws/core/utils/DateTime.h>
 #include <aws/lightsail/model/ResourceLocation.h>
 #include <aws/lightsail/model/ResourceType.h>
-#include <aws/lightsail/model/InstanceSnapshotState.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
+#include <aws/lightsail/model/InstanceSnapshotState.h>
+#include <aws/lightsail/model/Tag.h>
 #include <aws/lightsail/model/Disk.h>
 #include <utility>
 
@@ -31,6 +32,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Lightsail
@@ -39,8 +41,7 @@ namespace Model
 {
 
   /**
-   * <p>Describes the snapshot of the virtual private server, or
-   * <i>instance</i>.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes an instance snapshot.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstanceSnapshot">AWS
    * API Reference</a></p>
    */
@@ -48,8 +49,8 @@ namespace Model
   {
   public:
     InstanceSnapshot();
-    InstanceSnapshot(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceSnapshot& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceSnapshot(Aws::Utils::Json::JsonView jsonValue);
+    InstanceSnapshot& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +58,11 @@ namespace Model
      * <p>The name of the snapshot.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the snapshot.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the snapshot.</p>
@@ -94,6 +100,12 @@ namespace Model
      * <code>arn:aws:lightsail:us-east-2:123456789101:InstanceSnapshot/d23b5706-3322-4d83-81e5-12345EXAMPLE</code>).</p>
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the snapshot (e.g.,
+     * <code>arn:aws:lightsail:us-east-2:123456789101:InstanceSnapshot/d23b5706-3322-4d83-81e5-12345EXAMPLE</code>).</p>
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the snapshot (e.g.,
@@ -138,6 +150,13 @@ namespace Model
      * our support team to look up your Lightsail information more easily.</p>
      */
     inline const Aws::String& GetSupportCode() const{ return m_supportCode; }
+
+    /**
+     * <p>The support code. Include this code in your email to support when you have
+     * questions about an instance or another resource in Lightsail. This code enables
+     * our support team to look up your Lightsail information more easily.</p>
+     */
+    inline bool SupportCodeHasBeenSet() const { return m_supportCodeHasBeenSet; }
 
     /**
      * <p>The support code. Include this code in your email to support when you have
@@ -192,6 +211,12 @@ namespace Model
      * <p>The timestamp when the snapshot was created (e.g.,
      * <code>1479907467.024</code>).</p>
      */
+    inline bool CreatedAtHasBeenSet() const { return m_createdAtHasBeenSet; }
+
+    /**
+     * <p>The timestamp when the snapshot was created (e.g.,
+     * <code>1479907467.024</code>).</p>
+     */
     inline void SetCreatedAt(const Aws::Utils::DateTime& value) { m_createdAtHasBeenSet = true; m_createdAt = value; }
 
     /**
@@ -214,27 +239,32 @@ namespace Model
 
 
     /**
-     * <p>The region name and availability zone where you created the snapshot.</p>
+     * <p>The region name and Availability Zone where you created the snapshot.</p>
      */
     inline const ResourceLocation& GetLocation() const{ return m_location; }
 
     /**
-     * <p>The region name and availability zone where you created the snapshot.</p>
+     * <p>The region name and Availability Zone where you created the snapshot.</p>
+     */
+    inline bool LocationHasBeenSet() const { return m_locationHasBeenSet; }
+
+    /**
+     * <p>The region name and Availability Zone where you created the snapshot.</p>
      */
     inline void SetLocation(const ResourceLocation& value) { m_locationHasBeenSet = true; m_location = value; }
 
     /**
-     * <p>The region name and availability zone where you created the snapshot.</p>
+     * <p>The region name and Availability Zone where you created the snapshot.</p>
      */
     inline void SetLocation(ResourceLocation&& value) { m_locationHasBeenSet = true; m_location = std::move(value); }
 
     /**
-     * <p>The region name and availability zone where you created the snapshot.</p>
+     * <p>The region name and Availability Zone where you created the snapshot.</p>
      */
     inline InstanceSnapshot& WithLocation(const ResourceLocation& value) { SetLocation(value); return *this;}
 
     /**
-     * <p>The region name and availability zone where you created the snapshot.</p>
+     * <p>The region name and Availability Zone where you created the snapshot.</p>
      */
     inline InstanceSnapshot& WithLocation(ResourceLocation&& value) { SetLocation(std::move(value)); return *this;}
 
@@ -243,6 +273,11 @@ namespace Model
      * <p>The type of resource (usually <code>InstanceSnapshot</code>).</p>
      */
     inline const ResourceType& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The type of resource (usually <code>InstanceSnapshot</code>).</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The type of resource (usually <code>InstanceSnapshot</code>).</p>
@@ -266,9 +301,79 @@ namespace Model
 
 
     /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline const Aws::Vector<Tag>& GetTags() const{ return m_tags; }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline void SetTags(Aws::Vector<Tag>&& value) { m_tagsHasBeenSet = true; m_tags = std::move(value); }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline InstanceSnapshot& WithTags(const Aws::Vector<Tag>& value) { SetTags(value); return *this;}
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline InstanceSnapshot& WithTags(Aws::Vector<Tag>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline InstanceSnapshot& AddTags(const Tag& value) { m_tagsHasBeenSet = true; m_tags.push_back(value); return *this; }
+
+    /**
+     * <p>The tag keys and optional values for the resource. For more information about
+     * tags in Lightsail, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
+     * Dev Guide</a>.</p>
+     */
+    inline InstanceSnapshot& AddTags(Tag&& value) { m_tagsHasBeenSet = true; m_tags.push_back(std::move(value)); return *this; }
+
+
+    /**
      * <p>The state the snapshot is in.</p>
      */
     inline const InstanceSnapshotState& GetState() const{ return m_state; }
+
+    /**
+     * <p>The state the snapshot is in.</p>
+     */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
 
     /**
      * <p>The state the snapshot is in.</p>
@@ -295,6 +400,11 @@ namespace Model
      * <p>The progress of the snapshot.</p>
      */
     inline const Aws::String& GetProgress() const{ return m_progress; }
+
+    /**
+     * <p>The progress of the snapshot.</p>
+     */
+    inline bool ProgressHasBeenSet() const { return m_progressHasBeenSet; }
 
     /**
      * <p>The progress of the snapshot.</p>
@@ -332,6 +442,12 @@ namespace Model
      * disks.</p>
      */
     inline const Aws::Vector<Disk>& GetFromAttachedDisks() const{ return m_fromAttachedDisks; }
+
+    /**
+     * <p>An array of disk objects containing information about all block storage
+     * disks.</p>
+     */
+    inline bool FromAttachedDisksHasBeenSet() const { return m_fromAttachedDisksHasBeenSet; }
 
     /**
      * <p>An array of disk objects containing information about all block storage
@@ -378,6 +494,11 @@ namespace Model
     /**
      * <p>The instance from which the snapshot was created.</p>
      */
+    inline bool FromInstanceNameHasBeenSet() const { return m_fromInstanceNameHasBeenSet; }
+
+    /**
+     * <p>The instance from which the snapshot was created.</p>
+     */
     inline void SetFromInstanceName(const Aws::String& value) { m_fromInstanceNameHasBeenSet = true; m_fromInstanceName = value; }
 
     /**
@@ -412,6 +533,13 @@ namespace Model
      * <code>arn:aws:lightsail:us-east-2:123456789101:Instance/64b8404c-ccb1-430b-8daf-12345EXAMPLE</code>).</p>
      */
     inline const Aws::String& GetFromInstanceArn() const{ return m_fromInstanceArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) of the instance from which the snapshot was
+     * created (e.g.,
+     * <code>arn:aws:lightsail:us-east-2:123456789101:Instance/64b8404c-ccb1-430b-8daf-12345EXAMPLE</code>).</p>
+     */
+    inline bool FromInstanceArnHasBeenSet() const { return m_fromInstanceArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) of the instance from which the snapshot was
@@ -468,6 +596,13 @@ namespace Model
      * <code>os_debian_8_3</code>). A blueprint is a virtual private server (or
      * <i>instance</i>) image used to create instances quickly.</p>
      */
+    inline bool FromBlueprintIdHasBeenSet() const { return m_fromBlueprintIdHasBeenSet; }
+
+    /**
+     * <p>The blueprint ID from which you created the snapshot (e.g.,
+     * <code>os_debian_8_3</code>). A blueprint is a virtual private server (or
+     * <i>instance</i>) image used to create instances quickly.</p>
+     */
     inline void SetFromBlueprintId(const Aws::String& value) { m_fromBlueprintIdHasBeenSet = true; m_fromBlueprintId = value; }
 
     /**
@@ -516,6 +651,12 @@ namespace Model
      * <p>The bundle ID from which you created the snapshot (e.g.,
      * <code>micro_1_0</code>).</p>
      */
+    inline bool FromBundleIdHasBeenSet() const { return m_fromBundleIdHasBeenSet; }
+
+    /**
+     * <p>The bundle ID from which you created the snapshot (e.g.,
+     * <code>micro_1_0</code>).</p>
+     */
     inline void SetFromBundleId(const Aws::String& value) { m_fromBundleIdHasBeenSet = true; m_fromBundleId = value; }
 
     /**
@@ -550,9 +691,39 @@ namespace Model
 
 
     /**
+     * <p>A Boolean value indicating whether the snapshot was created from an automatic
+     * snapshot.</p>
+     */
+    inline bool GetIsFromAutoSnapshot() const{ return m_isFromAutoSnapshot; }
+
+    /**
+     * <p>A Boolean value indicating whether the snapshot was created from an automatic
+     * snapshot.</p>
+     */
+    inline bool IsFromAutoSnapshotHasBeenSet() const { return m_isFromAutoSnapshotHasBeenSet; }
+
+    /**
+     * <p>A Boolean value indicating whether the snapshot was created from an automatic
+     * snapshot.</p>
+     */
+    inline void SetIsFromAutoSnapshot(bool value) { m_isFromAutoSnapshotHasBeenSet = true; m_isFromAutoSnapshot = value; }
+
+    /**
+     * <p>A Boolean value indicating whether the snapshot was created from an automatic
+     * snapshot.</p>
+     */
+    inline InstanceSnapshot& WithIsFromAutoSnapshot(bool value) { SetIsFromAutoSnapshot(value); return *this;}
+
+
+    /**
      * <p>The size in GB of the SSD.</p>
      */
     inline int GetSizeInGb() const{ return m_sizeInGb; }
+
+    /**
+     * <p>The size in GB of the SSD.</p>
+     */
+    inline bool SizeInGbHasBeenSet() const { return m_sizeInGbHasBeenSet; }
 
     /**
      * <p>The size in GB of the SSD.</p>
@@ -584,6 +755,9 @@ namespace Model
     ResourceType m_resourceType;
     bool m_resourceTypeHasBeenSet;
 
+    Aws::Vector<Tag> m_tags;
+    bool m_tagsHasBeenSet;
+
     InstanceSnapshotState m_state;
     bool m_stateHasBeenSet;
 
@@ -604,6 +778,9 @@ namespace Model
 
     Aws::String m_fromBundleId;
     bool m_fromBundleIdHasBeenSet;
+
+    bool m_isFromAutoSnapshot;
+    bool m_isFromAutoSnapshotHasBeenSet;
 
     int m_sizeInGb;
     bool m_sizeInGbHasBeenSet;

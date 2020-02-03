@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodePipeline
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     JobDetails();
-    JobDetails(const Aws::Utils::Json::JsonValue& jsonValue);
-    JobDetails& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    JobDetails(Aws::Utils::Json::JsonView jsonValue);
+    JobDetails& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The unique system-generated ID of the job.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique system-generated ID of the job.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique system-generated ID of the job.</p>
@@ -85,31 +91,37 @@ namespace Model
 
 
     /**
-     * <p>Represents additional information about a job required for a job worker to
+     * <p>Represents other information about a job required for a job worker to
      * complete the job. </p>
      */
     inline const JobData& GetData() const{ return m_data; }
 
     /**
-     * <p>Represents additional information about a job required for a job worker to
+     * <p>Represents other information about a job required for a job worker to
+     * complete the job. </p>
+     */
+    inline bool DataHasBeenSet() const { return m_dataHasBeenSet; }
+
+    /**
+     * <p>Represents other information about a job required for a job worker to
      * complete the job. </p>
      */
     inline void SetData(const JobData& value) { m_dataHasBeenSet = true; m_data = value; }
 
     /**
-     * <p>Represents additional information about a job required for a job worker to
+     * <p>Represents other information about a job required for a job worker to
      * complete the job. </p>
      */
     inline void SetData(JobData&& value) { m_dataHasBeenSet = true; m_data = std::move(value); }
 
     /**
-     * <p>Represents additional information about a job required for a job worker to
+     * <p>Represents other information about a job required for a job worker to
      * complete the job. </p>
      */
     inline JobDetails& WithData(const JobData& value) { SetData(value); return *this;}
 
     /**
-     * <p>Represents additional information about a job required for a job worker to
+     * <p>Represents other information about a job required for a job worker to
      * complete the job. </p>
      */
     inline JobDetails& WithData(JobData&& value) { SetData(std::move(value)); return *this;}
@@ -119,6 +131,11 @@ namespace Model
      * <p>The AWS account ID associated with the job.</p>
      */
     inline const Aws::String& GetAccountId() const{ return m_accountId; }
+
+    /**
+     * <p>The AWS account ID associated with the job.</p>
+     */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
 
     /**
      * <p>The AWS account ID associated with the job.</p>

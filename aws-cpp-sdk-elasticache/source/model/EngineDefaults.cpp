@@ -56,13 +56,13 @@ EngineDefaults& EngineDefaults::operator =(const XmlNode& xmlNode)
     XmlNode cacheParameterGroupFamilyNode = resultNode.FirstChild("CacheParameterGroupFamily");
     if(!cacheParameterGroupFamilyNode.IsNull())
     {
-      m_cacheParameterGroupFamily = StringUtils::Trim(cacheParameterGroupFamilyNode.GetText().c_str());
+      m_cacheParameterGroupFamily = Aws::Utils::Xml::DecodeEscapedXmlText(cacheParameterGroupFamilyNode.GetText());
       m_cacheParameterGroupFamilyHasBeenSet = true;
     }
     XmlNode markerNode = resultNode.FirstChild("Marker");
     if(!markerNode.IsNull())
     {
-      m_marker = StringUtils::Trim(markerNode.GetText().c_str());
+      m_marker = Aws::Utils::Xml::DecodeEscapedXmlText(markerNode.GetText());
       m_markerHasBeenSet = true;
     }
     XmlNode parametersNode = resultNode.FirstChild("Parameters");

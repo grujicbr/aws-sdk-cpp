@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CognitoIdentityProvider
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     ContextDataType();
-    ContextDataType(const Aws::Utils::Json::JsonValue& jsonValue);
-    ContextDataType& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ContextDataType(Aws::Utils::Json::JsonView jsonValue);
+    ContextDataType& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>Source IP address of your user.</p>
      */
     inline const Aws::String& GetIpAddress() const{ return m_ipAddress; }
+
+    /**
+     * <p>Source IP address of your user.</p>
+     */
+    inline bool IpAddressHasBeenSet() const { return m_ipAddressHasBeenSet; }
 
     /**
      * <p>Source IP address of your user.</p>
@@ -93,6 +99,11 @@ namespace Model
     /**
      * <p>Your server endpoint where this API is invoked.</p>
      */
+    inline bool ServerNameHasBeenSet() const { return m_serverNameHasBeenSet; }
+
+    /**
+     * <p>Your server endpoint where this API is invoked.</p>
+     */
     inline void SetServerName(const Aws::String& value) { m_serverNameHasBeenSet = true; m_serverName = value; }
 
     /**
@@ -125,6 +136,11 @@ namespace Model
      * <p>Your server path where this API is invoked. </p>
      */
     inline const Aws::String& GetServerPath() const{ return m_serverPath; }
+
+    /**
+     * <p>Your server path where this API is invoked. </p>
+     */
+    inline bool ServerPathHasBeenSet() const { return m_serverPathHasBeenSet; }
 
     /**
      * <p>Your server path where this API is invoked. </p>
@@ -165,6 +181,11 @@ namespace Model
     /**
      * <p>HttpHeaders received on your server in same order.</p>
      */
+    inline bool HttpHeadersHasBeenSet() const { return m_httpHeadersHasBeenSet; }
+
+    /**
+     * <p>HttpHeaders received on your server in same order.</p>
+     */
     inline void SetHttpHeaders(const Aws::Vector<HttpHeader>& value) { m_httpHeadersHasBeenSet = true; m_httpHeaders = value; }
 
     /**
@@ -198,6 +219,12 @@ namespace Model
      * Amazon Cognito context data collection library.</p>
      */
     inline const Aws::String& GetEncodedData() const{ return m_encodedData; }
+
+    /**
+     * <p>Encoded data containing device fingerprinting details, collected using the
+     * Amazon Cognito context data collection library.</p>
+     */
+    inline bool EncodedDataHasBeenSet() const { return m_encodedDataHasBeenSet; }
 
     /**
      * <p>Encoded data containing device fingerprinting details, collected using the

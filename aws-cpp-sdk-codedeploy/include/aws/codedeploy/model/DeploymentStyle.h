@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeDeploy
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     DeploymentStyle();
-    DeploymentStyle(const Aws::Utils::Json::JsonValue& jsonValue);
-    DeploymentStyle& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DeploymentStyle(Aws::Utils::Json::JsonView jsonValue);
+    DeploymentStyle& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,12 @@ namespace Model
      * deployment.</p>
      */
     inline const DeploymentType& GetDeploymentType() const{ return m_deploymentType; }
+
+    /**
+     * <p>Indicates whether to run an in-place deployment or a blue/green
+     * deployment.</p>
+     */
+    inline bool DeploymentTypeHasBeenSet() const { return m_deploymentTypeHasBeenSet; }
 
     /**
      * <p>Indicates whether to run an in-place deployment or a blue/green
@@ -84,6 +91,11 @@ namespace Model
      * <p>Indicates whether to route deployment traffic behind a load balancer.</p>
      */
     inline const DeploymentOption& GetDeploymentOption() const{ return m_deploymentOption; }
+
+    /**
+     * <p>Indicates whether to route deployment traffic behind a load balancer.</p>
+     */
+    inline bool DeploymentOptionHasBeenSet() const { return m_deploymentOptionHasBeenSet; }
 
     /**
      * <p>Indicates whether to route deployment traffic behind a load balancer.</p>

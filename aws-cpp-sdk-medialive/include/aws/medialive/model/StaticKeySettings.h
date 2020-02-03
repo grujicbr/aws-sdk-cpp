@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaLive
@@ -34,7 +35,7 @@ namespace Model
 {
 
   /**
-   * Placeholder documentation for StaticKeySettings<p><h3>See Also:</h3>   <a
+   * Static Key Settings<p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StaticKeySettings">AWS
    * API Reference</a></p>
    */
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     StaticKeySettings();
-    StaticKeySettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    StaticKeySettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StaticKeySettings(Aws::Utils::Json::JsonView jsonValue);
+    StaticKeySettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * The URL of the license server used for protecting content.
      */
     inline const InputLocation& GetKeyProviderServer() const{ return m_keyProviderServer; }
+
+    /**
+     * The URL of the license server used for protecting content.
+     */
+    inline bool KeyProviderServerHasBeenSet() const { return m_keyProviderServerHasBeenSet; }
 
     /**
      * The URL of the license server used for protecting content.
@@ -77,6 +83,11 @@ namespace Model
      * Static key value as a 32 character hexadecimal string.
      */
     inline const Aws::String& GetStaticKeyValue() const{ return m_staticKeyValue; }
+
+    /**
+     * Static key value as a 32 character hexadecimal string.
+     */
+    inline bool StaticKeyValueHasBeenSet() const { return m_staticKeyValueHasBeenSet; }
 
     /**
      * Static key value as a 32 character hexadecimal string.

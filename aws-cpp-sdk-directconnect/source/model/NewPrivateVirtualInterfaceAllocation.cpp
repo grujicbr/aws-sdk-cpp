@@ -34,30 +34,36 @@ NewPrivateVirtualInterfaceAllocation::NewPrivateVirtualInterfaceAllocation() :
     m_vlanHasBeenSet(false),
     m_asn(0),
     m_asnHasBeenSet(false),
+    m_mtu(0),
+    m_mtuHasBeenSet(false),
     m_authKeyHasBeenSet(false),
     m_amazonAddressHasBeenSet(false),
     m_addressFamily(AddressFamily::NOT_SET),
     m_addressFamilyHasBeenSet(false),
-    m_customerAddressHasBeenSet(false)
+    m_customerAddressHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
-NewPrivateVirtualInterfaceAllocation::NewPrivateVirtualInterfaceAllocation(const JsonValue& jsonValue) : 
+NewPrivateVirtualInterfaceAllocation::NewPrivateVirtualInterfaceAllocation(JsonView jsonValue) : 
     m_virtualInterfaceNameHasBeenSet(false),
     m_vlan(0),
     m_vlanHasBeenSet(false),
     m_asn(0),
     m_asnHasBeenSet(false),
+    m_mtu(0),
+    m_mtuHasBeenSet(false),
     m_authKeyHasBeenSet(false),
     m_amazonAddressHasBeenSet(false),
     m_addressFamily(AddressFamily::NOT_SET),
     m_addressFamilyHasBeenSet(false),
-    m_customerAddressHasBeenSet(false)
+    m_customerAddressHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-NewPrivateVirtualInterfaceAllocation& NewPrivateVirtualInterfaceAllocation::operator =(const JsonValue& jsonValue)
+NewPrivateVirtualInterfaceAllocation& NewPrivateVirtualInterfaceAllocation::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("virtualInterfaceName"))
   {
@@ -78,6 +84,13 @@ NewPrivateVirtualInterfaceAllocation& NewPrivateVirtualInterfaceAllocation::oper
     m_asn = jsonValue.GetInteger("asn");
 
     m_asnHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("mtu"))
+  {
+    m_mtu = jsonValue.GetInteger("mtu");
+
+    m_mtuHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("authKey"))
@@ -108,6 +121,16 @@ NewPrivateVirtualInterfaceAllocation& NewPrivateVirtualInterfaceAllocation::oper
     m_customerAddressHasBeenSet = true;
   }
 
+  if(jsonValue.ValueExists("tags"))
+  {
+    Array<JsonView> tagsJsonList = jsonValue.GetArray("tags");
+    for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+    {
+      m_tags.push_back(tagsJsonList[tagsIndex].AsObject());
+    }
+    m_tagsHasBeenSet = true;
+  }
+
   return *this;
 }
 
@@ -133,6 +156,12 @@ JsonValue NewPrivateVirtualInterfaceAllocation::Jsonize() const
 
   }
 
+  if(m_mtuHasBeenSet)
+  {
+   payload.WithInteger("mtu", m_mtu);
+
+  }
+
   if(m_authKeyHasBeenSet)
   {
    payload.WithString("authKey", m_authKey);
@@ -153,6 +182,17 @@ JsonValue NewPrivateVirtualInterfaceAllocation::Jsonize() const
   if(m_customerAddressHasBeenSet)
   {
    payload.WithString("customerAddress", m_customerAddress);
+
+  }
+
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
 
   }
 

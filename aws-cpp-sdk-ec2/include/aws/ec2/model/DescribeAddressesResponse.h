@@ -36,11 +36,6 @@ namespace EC2
 {
 namespace Model
 {
-  /**
-   * <p>Contains the output of DescribeAddresses.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeAddressesResult">AWS
-   * API Reference</a></p>
-   */
   class AWS_EC2_API DescribeAddressesResponse
   {
   public:
@@ -50,37 +45,37 @@ namespace Model
 
 
     /**
-     * <p>Information about one or more Elastic IP addresses.</p>
+     * <p>Information about the Elastic IP addresses.</p>
      */
     inline const Aws::Vector<Address>& GetAddresses() const{ return m_addresses; }
 
     /**
-     * <p>Information about one or more Elastic IP addresses.</p>
+     * <p>Information about the Elastic IP addresses.</p>
      */
     inline void SetAddresses(const Aws::Vector<Address>& value) { m_addresses = value; }
 
     /**
-     * <p>Information about one or more Elastic IP addresses.</p>
+     * <p>Information about the Elastic IP addresses.</p>
      */
     inline void SetAddresses(Aws::Vector<Address>&& value) { m_addresses = std::move(value); }
 
     /**
-     * <p>Information about one or more Elastic IP addresses.</p>
+     * <p>Information about the Elastic IP addresses.</p>
      */
     inline DescribeAddressesResponse& WithAddresses(const Aws::Vector<Address>& value) { SetAddresses(value); return *this;}
 
     /**
-     * <p>Information about one or more Elastic IP addresses.</p>
+     * <p>Information about the Elastic IP addresses.</p>
      */
     inline DescribeAddressesResponse& WithAddresses(Aws::Vector<Address>&& value) { SetAddresses(std::move(value)); return *this;}
 
     /**
-     * <p>Information about one or more Elastic IP addresses.</p>
+     * <p>Information about the Elastic IP addresses.</p>
      */
     inline DescribeAddressesResponse& AddAddresses(const Address& value) { m_addresses.push_back(value); return *this; }
 
     /**
-     * <p>Information about one or more Elastic IP addresses.</p>
+     * <p>Information about the Elastic IP addresses.</p>
      */
     inline DescribeAddressesResponse& AddAddresses(Address&& value) { m_addresses.push_back(std::move(value)); return *this; }
 

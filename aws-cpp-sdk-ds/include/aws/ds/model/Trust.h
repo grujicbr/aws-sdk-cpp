@@ -20,6 +20,7 @@
 #include <aws/ds/model/TrustDirection.h>
 #include <aws/ds/model/TrustState.h>
 #include <aws/core/utils/DateTime.h>
+#include <aws/ds/model/SelectiveAuth.h>
 #include <utility>
 
 namespace Aws
@@ -29,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DirectoryService
@@ -37,8 +39,8 @@ namespace Model
 {
 
   /**
-   * <p>Describes a trust relationship between an Microsoft AD in the AWS cloud and
-   * an external domain.</p><p><h3>See Also:</h3>   <a
+   * <p>Describes a trust relationship between an AWS Managed Microsoft AD directory
+   * and an external domain.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/Trust">AWS API
    * Reference</a></p>
    */
@@ -46,8 +48,8 @@ namespace Model
   {
   public:
     Trust();
-    Trust(const Aws::Utils::Json::JsonValue& jsonValue);
-    Trust& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Trust(Aws::Utils::Json::JsonView jsonValue);
+    Trust& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +57,11 @@ namespace Model
      * <p>The Directory ID of the AWS directory involved in the trust relationship.</p>
      */
     inline const Aws::String& GetDirectoryId() const{ return m_directoryId; }
+
+    /**
+     * <p>The Directory ID of the AWS directory involved in the trust relationship.</p>
+     */
+    inline bool DirectoryIdHasBeenSet() const { return m_directoryIdHasBeenSet; }
 
     /**
      * <p>The Directory ID of the AWS directory involved in the trust relationship.</p>
@@ -91,6 +98,11 @@ namespace Model
      * <p>The unique ID of the trust relationship.</p>
      */
     inline const Aws::String& GetTrustId() const{ return m_trustId; }
+
+    /**
+     * <p>The unique ID of the trust relationship.</p>
+     */
+    inline bool TrustIdHasBeenSet() const { return m_trustIdHasBeenSet; }
 
     /**
      * <p>The unique ID of the trust relationship.</p>
@@ -133,6 +145,12 @@ namespace Model
      * <p>The Fully Qualified Domain Name (FQDN) of the external domain involved in the
      * trust relationship.</p>
      */
+    inline bool RemoteDomainNameHasBeenSet() const { return m_remoteDomainNameHasBeenSet; }
+
+    /**
+     * <p>The Fully Qualified Domain Name (FQDN) of the external domain involved in the
+     * trust relationship.</p>
+     */
     inline void SetRemoteDomainName(const Aws::String& value) { m_remoteDomainNameHasBeenSet = true; m_remoteDomainName = value; }
 
     /**
@@ -167,27 +185,32 @@ namespace Model
 
 
     /**
-     * <p>The trust relationship type.</p>
+     * <p>The trust relationship type. <code>Forest</code> is the default.</p>
      */
     inline const TrustType& GetTrustType() const{ return m_trustType; }
 
     /**
-     * <p>The trust relationship type.</p>
+     * <p>The trust relationship type. <code>Forest</code> is the default.</p>
+     */
+    inline bool TrustTypeHasBeenSet() const { return m_trustTypeHasBeenSet; }
+
+    /**
+     * <p>The trust relationship type. <code>Forest</code> is the default.</p>
      */
     inline void SetTrustType(const TrustType& value) { m_trustTypeHasBeenSet = true; m_trustType = value; }
 
     /**
-     * <p>The trust relationship type.</p>
+     * <p>The trust relationship type. <code>Forest</code> is the default.</p>
      */
     inline void SetTrustType(TrustType&& value) { m_trustTypeHasBeenSet = true; m_trustType = std::move(value); }
 
     /**
-     * <p>The trust relationship type.</p>
+     * <p>The trust relationship type. <code>Forest</code> is the default.</p>
      */
     inline Trust& WithTrustType(const TrustType& value) { SetTrustType(value); return *this;}
 
     /**
-     * <p>The trust relationship type.</p>
+     * <p>The trust relationship type. <code>Forest</code> is the default.</p>
      */
     inline Trust& WithTrustType(TrustType&& value) { SetTrustType(std::move(value)); return *this;}
 
@@ -196,6 +219,11 @@ namespace Model
      * <p>The trust relationship direction.</p>
      */
     inline const TrustDirection& GetTrustDirection() const{ return m_trustDirection; }
+
+    /**
+     * <p>The trust relationship direction.</p>
+     */
+    inline bool TrustDirectionHasBeenSet() const { return m_trustDirectionHasBeenSet; }
 
     /**
      * <p>The trust relationship direction.</p>
@@ -226,6 +254,11 @@ namespace Model
     /**
      * <p>The trust relationship state.</p>
      */
+    inline bool TrustStateHasBeenSet() const { return m_trustStateHasBeenSet; }
+
+    /**
+     * <p>The trust relationship state.</p>
+     */
     inline void SetTrustState(const TrustState& value) { m_trustStateHasBeenSet = true; m_trustState = value; }
 
     /**
@@ -248,6 +281,11 @@ namespace Model
      * <p>The date and time that the trust relationship was created.</p>
      */
     inline const Aws::Utils::DateTime& GetCreatedDateTime() const{ return m_createdDateTime; }
+
+    /**
+     * <p>The date and time that the trust relationship was created.</p>
+     */
+    inline bool CreatedDateTimeHasBeenSet() const { return m_createdDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time that the trust relationship was created.</p>
@@ -278,6 +316,11 @@ namespace Model
     /**
      * <p>The date and time that the trust relationship was last updated.</p>
      */
+    inline bool LastUpdatedDateTimeHasBeenSet() const { return m_lastUpdatedDateTimeHasBeenSet; }
+
+    /**
+     * <p>The date and time that the trust relationship was last updated.</p>
+     */
     inline void SetLastUpdatedDateTime(const Aws::Utils::DateTime& value) { m_lastUpdatedDateTimeHasBeenSet = true; m_lastUpdatedDateTime = value; }
 
     /**
@@ -300,6 +343,11 @@ namespace Model
      * <p>The date and time that the TrustState was last updated.</p>
      */
     inline const Aws::Utils::DateTime& GetStateLastUpdatedDateTime() const{ return m_stateLastUpdatedDateTime; }
+
+    /**
+     * <p>The date and time that the TrustState was last updated.</p>
+     */
+    inline bool StateLastUpdatedDateTimeHasBeenSet() const { return m_stateLastUpdatedDateTimeHasBeenSet; }
 
     /**
      * <p>The date and time that the TrustState was last updated.</p>
@@ -330,6 +378,11 @@ namespace Model
     /**
      * <p>The reason for the TrustState.</p>
      */
+    inline bool TrustStateReasonHasBeenSet() const { return m_trustStateReasonHasBeenSet; }
+
+    /**
+     * <p>The reason for the TrustState.</p>
+     */
     inline void SetTrustStateReason(const Aws::String& value) { m_trustStateReasonHasBeenSet = true; m_trustStateReason = value; }
 
     /**
@@ -356,6 +409,37 @@ namespace Model
      * <p>The reason for the TrustState.</p>
      */
     inline Trust& WithTrustStateReason(const char* value) { SetTrustStateReason(value); return *this;}
+
+
+    /**
+     * <p>Current state of selective authentication for the trust.</p>
+     */
+    inline const SelectiveAuth& GetSelectiveAuth() const{ return m_selectiveAuth; }
+
+    /**
+     * <p>Current state of selective authentication for the trust.</p>
+     */
+    inline bool SelectiveAuthHasBeenSet() const { return m_selectiveAuthHasBeenSet; }
+
+    /**
+     * <p>Current state of selective authentication for the trust.</p>
+     */
+    inline void SetSelectiveAuth(const SelectiveAuth& value) { m_selectiveAuthHasBeenSet = true; m_selectiveAuth = value; }
+
+    /**
+     * <p>Current state of selective authentication for the trust.</p>
+     */
+    inline void SetSelectiveAuth(SelectiveAuth&& value) { m_selectiveAuthHasBeenSet = true; m_selectiveAuth = std::move(value); }
+
+    /**
+     * <p>Current state of selective authentication for the trust.</p>
+     */
+    inline Trust& WithSelectiveAuth(const SelectiveAuth& value) { SetSelectiveAuth(value); return *this;}
+
+    /**
+     * <p>Current state of selective authentication for the trust.</p>
+     */
+    inline Trust& WithSelectiveAuth(SelectiveAuth&& value) { SetSelectiveAuth(std::move(value)); return *this;}
 
   private:
 
@@ -388,6 +472,9 @@ namespace Model
 
     Aws::String m_trustStateReason;
     bool m_trustStateReasonHasBeenSet;
+
+    SelectiveAuth m_selectiveAuth;
+    bool m_selectiveAuthHasBeenSet;
   };
 
 } // namespace Model

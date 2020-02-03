@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     AttributePayload();
-    AttributePayload(const Aws::Utils::Json::JsonValue& jsonValue);
-    AttributePayload& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    AttributePayload(Aws::Utils::Json::JsonView jsonValue);
+    AttributePayload& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * example:</p> <p> <code>{\"attributes\":{\"string1\":\"string2\"}}</code> </p>
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetAttributes() const{ return m_attributes; }
+
+    /**
+     * <p>A JSON string containing up to three key-value pair in JSON format. For
+     * example:</p> <p> <code>{\"attributes\":{\"string1\":\"string2\"}}</code> </p>
+     */
+    inline bool AttributesHasBeenSet() const { return m_attributesHasBeenSet; }
 
     /**
      * <p>A JSON string containing up to three key-value pair in JSON format. For
@@ -125,8 +132,8 @@ namespace Model
      * <code>AttributePayload</code> is merged with the attributes stored in the
      * registry, instead of overwriting them.</p> <p>To remove an attribute, call
      * <code>UpdateThing</code> with an empty attribute value.</p> <note> <p>The
-     * <code>merge</code> attribute is only valid when calling
-     * <code>UpdateThing</code>.</p> </note>
+     * <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>
+     * or <code>UpdateThingGroup</code>.</p> </note>
      */
     inline bool GetMerge() const{ return m_merge; }
 
@@ -135,8 +142,18 @@ namespace Model
      * <code>AttributePayload</code> is merged with the attributes stored in the
      * registry, instead of overwriting them.</p> <p>To remove an attribute, call
      * <code>UpdateThing</code> with an empty attribute value.</p> <note> <p>The
-     * <code>merge</code> attribute is only valid when calling
-     * <code>UpdateThing</code>.</p> </note>
+     * <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>
+     * or <code>UpdateThingGroup</code>.</p> </note>
+     */
+    inline bool MergeHasBeenSet() const { return m_mergeHasBeenSet; }
+
+    /**
+     * <p>Specifies whether the list of attributes provided in the
+     * <code>AttributePayload</code> is merged with the attributes stored in the
+     * registry, instead of overwriting them.</p> <p>To remove an attribute, call
+     * <code>UpdateThing</code> with an empty attribute value.</p> <note> <p>The
+     * <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>
+     * or <code>UpdateThingGroup</code>.</p> </note>
      */
     inline void SetMerge(bool value) { m_mergeHasBeenSet = true; m_merge = value; }
 
@@ -145,8 +162,8 @@ namespace Model
      * <code>AttributePayload</code> is merged with the attributes stored in the
      * registry, instead of overwriting them.</p> <p>To remove an attribute, call
      * <code>UpdateThing</code> with an empty attribute value.</p> <note> <p>The
-     * <code>merge</code> attribute is only valid when calling
-     * <code>UpdateThing</code>.</p> </note>
+     * <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>
+     * or <code>UpdateThingGroup</code>.</p> </note>
      */
     inline AttributePayload& WithMerge(bool value) { SetMerge(value); return *this;}
 

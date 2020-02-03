@@ -37,11 +37,6 @@ namespace EC2
 {
 namespace Model
 {
-  /**
-   * <p>Contains the output of DescribeInstanceStatus.</p><p><h3>See Also:</h3>   <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceStatusResult">AWS
-   * API Reference</a></p>
-   */
   class AWS_EC2_API DescribeInstanceStatusResponse
   {
   public:
@@ -51,37 +46,37 @@ namespace Model
 
 
     /**
-     * <p>One or more instance status descriptions.</p>
+     * <p>Information about the status of the instances.</p>
      */
     inline const Aws::Vector<InstanceStatus>& GetInstanceStatuses() const{ return m_instanceStatuses; }
 
     /**
-     * <p>One or more instance status descriptions.</p>
+     * <p>Information about the status of the instances.</p>
      */
     inline void SetInstanceStatuses(const Aws::Vector<InstanceStatus>& value) { m_instanceStatuses = value; }
 
     /**
-     * <p>One or more instance status descriptions.</p>
+     * <p>Information about the status of the instances.</p>
      */
     inline void SetInstanceStatuses(Aws::Vector<InstanceStatus>&& value) { m_instanceStatuses = std::move(value); }
 
     /**
-     * <p>One or more instance status descriptions.</p>
+     * <p>Information about the status of the instances.</p>
      */
     inline DescribeInstanceStatusResponse& WithInstanceStatuses(const Aws::Vector<InstanceStatus>& value) { SetInstanceStatuses(value); return *this;}
 
     /**
-     * <p>One or more instance status descriptions.</p>
+     * <p>Information about the status of the instances.</p>
      */
     inline DescribeInstanceStatusResponse& WithInstanceStatuses(Aws::Vector<InstanceStatus>&& value) { SetInstanceStatuses(std::move(value)); return *this;}
 
     /**
-     * <p>One or more instance status descriptions.</p>
+     * <p>Information about the status of the instances.</p>
      */
     inline DescribeInstanceStatusResponse& AddInstanceStatuses(const InstanceStatus& value) { m_instanceStatuses.push_back(value); return *this; }
 
     /**
-     * <p>One or more instance status descriptions.</p>
+     * <p>Information about the status of the instances.</p>
      */
     inline DescribeInstanceStatusResponse& AddInstanceStatuses(InstanceStatus&& value) { m_instanceStatuses.push_back(std::move(value)); return *this; }
 

@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace APIGateway
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     QuotaSettings();
-    QuotaSettings(const Aws::Utils::Json::JsonValue& jsonValue);
-    QuotaSettings& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    QuotaSettings(Aws::Utils::Json::JsonView jsonValue);
+    QuotaSettings& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The maximum number of requests that can be made in a given time period.</p>
      */
     inline int GetLimit() const{ return m_limit; }
+
+    /**
+     * <p>The maximum number of requests that can be made in a given time period.</p>
+     */
+    inline bool LimitHasBeenSet() const { return m_limitHasBeenSet; }
 
     /**
      * <p>The maximum number of requests that can be made in a given time period.</p>
@@ -72,6 +78,12 @@ namespace Model
      * <p>The number of requests subtracted from the given limit in the initial time
      * period.</p>
      */
+    inline bool OffsetHasBeenSet() const { return m_offsetHasBeenSet; }
+
+    /**
+     * <p>The number of requests subtracted from the given limit in the initial time
+     * period.</p>
+     */
     inline void SetOffset(int value) { m_offsetHasBeenSet = true; m_offset = value; }
 
     /**
@@ -86,6 +98,12 @@ namespace Model
      * "MONTH".</p>
      */
     inline const QuotaPeriodType& GetPeriod() const{ return m_period; }
+
+    /**
+     * <p>The time period in which the limit applies. Valid values are "DAY", "WEEK" or
+     * "MONTH".</p>
+     */
+    inline bool PeriodHasBeenSet() const { return m_periodHasBeenSet; }
 
     /**
      * <p>The time period in which the limit applies. Valid values are "DAY", "WEEK" or

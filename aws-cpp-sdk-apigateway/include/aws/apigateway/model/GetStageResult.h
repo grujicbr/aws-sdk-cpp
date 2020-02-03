@@ -44,7 +44,7 @@ namespace Model
   /**
    * <p>Represents a unique identifier for a version of a deployed <a>RestApi</a>
    * that is callable by users.</p> <div class="seeAlso"> <a
-   * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-deploy-api.html">Deploy
+   * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-deploy-api.html">Deploy
    * an API</a> </div><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/apigateway-2015-07-09/Stage">AWS
    * API Reference</a></p>
@@ -131,43 +131,57 @@ namespace Model
 
     /**
      * <p>The name of the stage is the first path segment in the Uniform Resource
-     * Identifier (URI) of a call to API Gateway.</p>
+     * Identifier (URI) of a call to API Gateway. Stage names can only contain
+     * alphanumeric characters, hyphens, and underscores. Maximum length is 128
+     * characters.</p>
      */
     inline const Aws::String& GetStageName() const{ return m_stageName; }
 
     /**
      * <p>The name of the stage is the first path segment in the Uniform Resource
-     * Identifier (URI) of a call to API Gateway.</p>
+     * Identifier (URI) of a call to API Gateway. Stage names can only contain
+     * alphanumeric characters, hyphens, and underscores. Maximum length is 128
+     * characters.</p>
      */
     inline void SetStageName(const Aws::String& value) { m_stageName = value; }
 
     /**
      * <p>The name of the stage is the first path segment in the Uniform Resource
-     * Identifier (URI) of a call to API Gateway.</p>
+     * Identifier (URI) of a call to API Gateway. Stage names can only contain
+     * alphanumeric characters, hyphens, and underscores. Maximum length is 128
+     * characters.</p>
      */
     inline void SetStageName(Aws::String&& value) { m_stageName = std::move(value); }
 
     /**
      * <p>The name of the stage is the first path segment in the Uniform Resource
-     * Identifier (URI) of a call to API Gateway.</p>
+     * Identifier (URI) of a call to API Gateway. Stage names can only contain
+     * alphanumeric characters, hyphens, and underscores. Maximum length is 128
+     * characters.</p>
      */
     inline void SetStageName(const char* value) { m_stageName.assign(value); }
 
     /**
      * <p>The name of the stage is the first path segment in the Uniform Resource
-     * Identifier (URI) of a call to API Gateway.</p>
+     * Identifier (URI) of a call to API Gateway. Stage names can only contain
+     * alphanumeric characters, hyphens, and underscores. Maximum length is 128
+     * characters.</p>
      */
     inline GetStageResult& WithStageName(const Aws::String& value) { SetStageName(value); return *this;}
 
     /**
      * <p>The name of the stage is the first path segment in the Uniform Resource
-     * Identifier (URI) of a call to API Gateway.</p>
+     * Identifier (URI) of a call to API Gateway. Stage names can only contain
+     * alphanumeric characters, hyphens, and underscores. Maximum length is 128
+     * characters.</p>
      */
     inline GetStageResult& WithStageName(Aws::String&& value) { SetStageName(std::move(value)); return *this;}
 
     /**
      * <p>The name of the stage is the first path segment in the Uniform Resource
-     * Identifier (URI) of a call to API Gateway.</p>
+     * Identifier (URI) of a call to API Gateway. Stage names can only contain
+     * alphanumeric characters, hyphens, and underscores. Maximum length is 128
+     * characters.</p>
      */
     inline GetStageResult& WithStageName(const char* value) { SetStageName(value); return *this;}
 
@@ -539,6 +553,61 @@ namespace Model
 
 
     /**
+     * <p>Specifies whether active tracing with X-ray is enabled for the
+     * <a>Stage</a>.</p>
+     */
+    inline bool GetTracingEnabled() const{ return m_tracingEnabled; }
+
+    /**
+     * <p>Specifies whether active tracing with X-ray is enabled for the
+     * <a>Stage</a>.</p>
+     */
+    inline void SetTracingEnabled(bool value) { m_tracingEnabled = value; }
+
+    /**
+     * <p>Specifies whether active tracing with X-ray is enabled for the
+     * <a>Stage</a>.</p>
+     */
+    inline GetStageResult& WithTracingEnabled(bool value) { SetTracingEnabled(value); return *this;}
+
+
+    /**
+     * <p>The ARN of the WebAcl associated with the <a>Stage</a>.</p>
+     */
+    inline const Aws::String& GetWebAclArn() const{ return m_webAclArn; }
+
+    /**
+     * <p>The ARN of the WebAcl associated with the <a>Stage</a>.</p>
+     */
+    inline void SetWebAclArn(const Aws::String& value) { m_webAclArn = value; }
+
+    /**
+     * <p>The ARN of the WebAcl associated with the <a>Stage</a>.</p>
+     */
+    inline void SetWebAclArn(Aws::String&& value) { m_webAclArn = std::move(value); }
+
+    /**
+     * <p>The ARN of the WebAcl associated with the <a>Stage</a>.</p>
+     */
+    inline void SetWebAclArn(const char* value) { m_webAclArn.assign(value); }
+
+    /**
+     * <p>The ARN of the WebAcl associated with the <a>Stage</a>.</p>
+     */
+    inline GetStageResult& WithWebAclArn(const Aws::String& value) { SetWebAclArn(value); return *this;}
+
+    /**
+     * <p>The ARN of the WebAcl associated with the <a>Stage</a>.</p>
+     */
+    inline GetStageResult& WithWebAclArn(Aws::String&& value) { SetWebAclArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The ARN of the WebAcl associated with the <a>Stage</a>.</p>
+     */
+    inline GetStageResult& WithWebAclArn(const char* value) { SetWebAclArn(value); return *this;}
+
+
+    /**
      * <p>The collection of tags. Each tag element is associated with a given
      * resource.</p>
      */
@@ -687,6 +756,10 @@ namespace Model
     AccessLogSettings m_accessLogSettings;
 
     CanarySettings m_canarySettings;
+
+    bool m_tracingEnabled;
+
+    Aws::String m_webAclArn;
 
     Aws::Map<Aws::String, Aws::String> m_tags;
 

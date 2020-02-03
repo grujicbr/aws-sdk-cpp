@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MTurk
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     NotificationSpecification();
-    NotificationSpecification(const Aws::Utils::Json::JsonValue& jsonValue);
-    NotificationSpecification& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NotificationSpecification(Aws::Utils::Json::JsonView jsonValue);
+    NotificationSpecification& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -58,6 +59,15 @@ namespace Model
      * Destination is the ARN of your topic.</p> </li> </ul>
      */
     inline const Aws::String& GetDestination() const{ return m_destination; }
+
+    /**
+     * <p> The target for notification messages. The Destination’s format is determined
+     * by the specified Transport: </p> <ul> <li> <p>When Transport is Email, the
+     * Destination is your email address.</p> </li> <li> <p>When Transport is SQS, the
+     * Destination is your queue URL.</p> </li> <li> <p>When Transport is SNS, the
+     * Destination is the ARN of your topic.</p> </li> </ul>
+     */
+    inline bool DestinationHasBeenSet() const { return m_destinationHasBeenSet; }
 
     /**
      * <p> The target for notification messages. The Destination’s format is determined
@@ -124,6 +134,12 @@ namespace Model
      * <p> The method Amazon Mechanical Turk uses to send the notification. Valid
      * Values: Email | SQS | SNS. </p>
      */
+    inline bool TransportHasBeenSet() const { return m_transportHasBeenSet; }
+
+    /**
+     * <p> The method Amazon Mechanical Turk uses to send the notification. Valid
+     * Values: Email | SQS | SNS. </p>
+     */
     inline void SetTransport(const NotificationTransport& value) { m_transportHasBeenSet = true; m_transport = value; }
 
     /**
@@ -149,6 +165,11 @@ namespace Model
      * <p>The version of the Notification API to use. Valid value is 2006-05-05.</p>
      */
     inline const Aws::String& GetVersion() const{ return m_version; }
+
+    /**
+     * <p>The version of the Notification API to use. Valid value is 2006-05-05.</p>
+     */
+    inline bool VersionHasBeenSet() const { return m_versionHasBeenSet; }
 
     /**
      * <p>The version of the Notification API to use. Valid value is 2006-05-05.</p>
@@ -189,6 +210,15 @@ namespace Model
      * only valid for the SendTestEventNotification operation. </p>
      */
     inline const Aws::Vector<EventType>& GetEventTypes() const{ return m_eventTypes; }
+
+    /**
+     * <p> The list of events that should cause notifications to be sent. Valid Values:
+     * AssignmentAccepted | AssignmentAbandoned | AssignmentReturned |
+     * AssignmentSubmitted | AssignmentRejected | AssignmentApproved | HITCreated |
+     * HITExtended | HITDisposed | HITReviewable | HITExpired | Ping. The Ping event is
+     * only valid for the SendTestEventNotification operation. </p>
+     */
+    inline bool EventTypesHasBeenSet() const { return m_eventTypesHasBeenSet; }
 
     /**
      * <p> The list of events that should cause notifications to be sent. Valid Values:

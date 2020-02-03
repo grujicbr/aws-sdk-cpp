@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     Endpoint();
-    Endpoint(const Aws::Utils::Json::JsonValue& jsonValue);
-    Endpoint& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Endpoint(Aws::Utils::Json::JsonView jsonValue);
+    Endpoint& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>The DNS hostname of the endpoint.</p>
      */
     inline const Aws::String& GetAddress() const{ return m_address; }
+
+    /**
+     * <p>The DNS hostname of the endpoint.</p>
+     */
+    inline bool AddressHasBeenSet() const { return m_addressHasBeenSet; }
 
     /**
      * <p>The DNS hostname of the endpoint.</p>
@@ -88,6 +94,11 @@ namespace Model
      * <p>The port number that applications should use to connect to the endpoint.</p>
      */
     inline int GetPort() const{ return m_port; }
+
+    /**
+     * <p>The port number that applications should use to connect to the endpoint.</p>
+     */
+    inline bool PortHasBeenSet() const { return m_portHasBeenSet; }
 
     /**
      * <p>The port number that applications should use to connect to the endpoint.</p>

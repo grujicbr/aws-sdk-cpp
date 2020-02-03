@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     CustomCodeSigning();
-    CustomCodeSigning(const Aws::Utils::Json::JsonValue& jsonValue);
-    CustomCodeSigning& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CustomCodeSigning(Aws::Utils::Json::JsonView jsonValue);
+    CustomCodeSigning& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The signature for the file.</p>
      */
     inline const CodeSigningSignature& GetSignature() const{ return m_signature; }
+
+    /**
+     * <p>The signature for the file.</p>
+     */
+    inline bool SignatureHasBeenSet() const { return m_signatureHasBeenSet; }
 
     /**
      * <p>The signature for the file.</p>
@@ -83,6 +89,11 @@ namespace Model
     /**
      * <p>The certificate chain.</p>
      */
+    inline bool CertificateChainHasBeenSet() const { return m_certificateChainHasBeenSet; }
+
+    /**
+     * <p>The certificate chain.</p>
+     */
     inline void SetCertificateChain(const CodeSigningCertificateChain& value) { m_certificateChainHasBeenSet = true; m_certificateChain = value; }
 
     /**
@@ -105,6 +116,11 @@ namespace Model
      * <p>The hash algorithm used to code sign the file.</p>
      */
     inline const Aws::String& GetHashAlgorithm() const{ return m_hashAlgorithm; }
+
+    /**
+     * <p>The hash algorithm used to code sign the file.</p>
+     */
+    inline bool HashAlgorithmHasBeenSet() const { return m_hashAlgorithmHasBeenSet; }
 
     /**
      * <p>The hash algorithm used to code sign the file.</p>
@@ -141,6 +157,11 @@ namespace Model
      * <p>The signature algorithm used to code sign the file.</p>
      */
     inline const Aws::String& GetSignatureAlgorithm() const{ return m_signatureAlgorithm; }
+
+    /**
+     * <p>The signature algorithm used to code sign the file.</p>
+     */
+    inline bool SignatureAlgorithmHasBeenSet() const { return m_signatureAlgorithmHasBeenSet; }
 
     /**
      * <p>The signature algorithm used to code sign the file.</p>

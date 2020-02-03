@@ -20,6 +20,7 @@
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/dax/model/NotificationConfiguration.h>
 #include <aws/dax/model/ParameterGroupStatus.h>
+#include <aws/dax/model/SSEDescription.h>
 #include <aws/dax/model/Node.h>
 #include <aws/dax/model/SecurityGroupMembership.h>
 #include <utility>
@@ -31,6 +32,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DAX
@@ -48,8 +50,8 @@ namespace Model
   {
   public:
     Cluster();
-    Cluster(const Aws::Utils::Json::JsonValue& jsonValue);
-    Cluster& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Cluster(Aws::Utils::Json::JsonView jsonValue);
+    Cluster& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -57,6 +59,11 @@ namespace Model
      * <p>The name of the DAX cluster.</p>
      */
     inline const Aws::String& GetClusterName() const{ return m_clusterName; }
+
+    /**
+     * <p>The name of the DAX cluster.</p>
+     */
+    inline bool ClusterNameHasBeenSet() const { return m_clusterNameHasBeenSet; }
 
     /**
      * <p>The name of the DAX cluster.</p>
@@ -97,6 +104,11 @@ namespace Model
     /**
      * <p>The description of the cluster.</p>
      */
+    inline bool DescriptionHasBeenSet() const { return m_descriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the cluster.</p>
+     */
     inline void SetDescription(const Aws::String& value) { m_descriptionHasBeenSet = true; m_description = value; }
 
     /**
@@ -129,6 +141,11 @@ namespace Model
      * <p>The Amazon Resource Name (ARN) that uniquely identifies the cluster. </p>
      */
     inline const Aws::String& GetClusterArn() const{ return m_clusterArn; }
+
+    /**
+     * <p>The Amazon Resource Name (ARN) that uniquely identifies the cluster. </p>
+     */
+    inline bool ClusterArnHasBeenSet() const { return m_clusterArnHasBeenSet; }
 
     /**
      * <p>The Amazon Resource Name (ARN) that uniquely identifies the cluster. </p>
@@ -169,6 +186,11 @@ namespace Model
     /**
      * <p>The total number of nodes in the cluster.</p>
      */
+    inline bool TotalNodesHasBeenSet() const { return m_totalNodesHasBeenSet; }
+
+    /**
+     * <p>The total number of nodes in the cluster.</p>
+     */
     inline void SetTotalNodes(int value) { m_totalNodesHasBeenSet = true; m_totalNodes = value; }
 
     /**
@@ -182,6 +204,12 @@ namespace Model
      * requests).</p>
      */
     inline int GetActiveNodes() const{ return m_activeNodes; }
+
+    /**
+     * <p>The number of nodes in the cluster that are active (i.e., capable of serving
+     * requests).</p>
+     */
+    inline bool ActiveNodesHasBeenSet() const { return m_activeNodesHasBeenSet; }
 
     /**
      * <p>The number of nodes in the cluster that are active (i.e., capable of serving
@@ -201,6 +229,12 @@ namespace Model
      * of the same type.)</p>
      */
     inline const Aws::String& GetNodeType() const{ return m_nodeType; }
+
+    /**
+     * <p>The node type for the nodes in the cluster. (All nodes in a DAX cluster are
+     * of the same type.)</p>
+     */
+    inline bool NodeTypeHasBeenSet() const { return m_nodeTypeHasBeenSet; }
 
     /**
      * <p>The node type for the nodes in the cluster. (All nodes in a DAX cluster are
@@ -247,6 +281,11 @@ namespace Model
     /**
      * <p>The current status of the cluster.</p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The current status of the cluster.</p>
+     */
     inline void SetStatus(const Aws::String& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -289,6 +328,14 @@ namespace Model
      * individual node endpoint, and allow the DAX client software to intelligently
      * route requests and responses to nodes in the DAX cluster.</p>
      */
+    inline bool ClusterDiscoveryEndpointHasBeenSet() const { return m_clusterDiscoveryEndpointHasBeenSet; }
+
+    /**
+     * <p>The configuration endpoint for this DAX cluster, consisting of a DNS name and
+     * a port number. Client applications can specify this endpoint, rather than an
+     * individual node endpoint, and allow the DAX client software to intelligently
+     * route requests and responses to nodes in the DAX cluster.</p>
+     */
     inline void SetClusterDiscoveryEndpoint(const Endpoint& value) { m_clusterDiscoveryEndpointHasBeenSet = true; m_clusterDiscoveryEndpoint = value; }
 
     /**
@@ -320,6 +367,11 @@ namespace Model
      * <p>A list of nodes to be removed from the cluster.</p>
      */
     inline const Aws::Vector<Aws::String>& GetNodeIdsToRemove() const{ return m_nodeIdsToRemove; }
+
+    /**
+     * <p>A list of nodes to be removed from the cluster.</p>
+     */
+    inline bool NodeIdsToRemoveHasBeenSet() const { return m_nodeIdsToRemoveHasBeenSet; }
 
     /**
      * <p>A list of nodes to be removed from the cluster.</p>
@@ -365,6 +417,11 @@ namespace Model
     /**
      * <p>A list of nodes that are currently in the cluster.</p>
      */
+    inline bool NodesHasBeenSet() const { return m_nodesHasBeenSet; }
+
+    /**
+     * <p>A list of nodes that are currently in the cluster.</p>
+     */
     inline void SetNodes(const Aws::Vector<Node>& value) { m_nodesHasBeenSet = true; m_nodes = value; }
 
     /**
@@ -400,6 +457,14 @@ namespace Model
      * maintenance window.</p>
      */
     inline const Aws::String& GetPreferredMaintenanceWindow() const{ return m_preferredMaintenanceWindow; }
+
+    /**
+     * <p>A range of time when maintenance of DAX cluster software will be performed.
+     * For example: <code>sun:01:00-sun:09:00</code>. Cluster maintenance normally
+     * takes less than 30 minutes, and is performed automatically within the
+     * maintenance window.</p>
+     */
+    inline bool PreferredMaintenanceWindowHasBeenSet() const { return m_preferredMaintenanceWindowHasBeenSet; }
 
     /**
      * <p>A range of time when maintenance of DAX cluster software will be performed.
@@ -462,6 +527,13 @@ namespace Model
      * for publishing DAX events to subscribers using Amazon Simple Notification
      * Service (SNS).</p>
      */
+    inline bool NotificationConfigurationHasBeenSet() const { return m_notificationConfigurationHasBeenSet; }
+
+    /**
+     * <p>Describes a notification topic and its status. Notification topics are used
+     * for publishing DAX events to subscribers using Amazon Simple Notification
+     * Service (SNS).</p>
+     */
     inline void SetNotificationConfiguration(const NotificationConfiguration& value) { m_notificationConfigurationHasBeenSet = true; m_notificationConfiguration = value; }
 
     /**
@@ -490,6 +562,11 @@ namespace Model
      * <p>The subnet group where the DAX cluster is running.</p>
      */
     inline const Aws::String& GetSubnetGroup() const{ return m_subnetGroup; }
+
+    /**
+     * <p>The subnet group where the DAX cluster is running.</p>
+     */
+    inline bool SubnetGroupHasBeenSet() const { return m_subnetGroupHasBeenSet; }
 
     /**
      * <p>The subnet group where the DAX cluster is running.</p>
@@ -527,6 +604,12 @@ namespace Model
      * cluster.</p>
      */
     inline const Aws::Vector<SecurityGroupMembership>& GetSecurityGroups() const{ return m_securityGroups; }
+
+    /**
+     * <p>A list of security groups, and the status of each, for the nodes in the
+     * cluster.</p>
+     */
+    inline bool SecurityGroupsHasBeenSet() const { return m_securityGroupsHasBeenSet; }
 
     /**
      * <p>A list of security groups, and the status of each, for the nodes in the
@@ -571,6 +654,13 @@ namespace Model
      * your behalf.</p>
      */
     inline const Aws::String& GetIamRoleArn() const{ return m_iamRoleArn; }
+
+    /**
+     * <p>A valid Amazon Resource Name (ARN) that identifies an IAM role. At runtime,
+     * DAX will assume this role and use the role's permissions to access DynamoDB on
+     * your behalf.</p>
+     */
+    inline bool IamRoleArnHasBeenSet() const { return m_iamRoleArnHasBeenSet; }
 
     /**
      * <p>A valid Amazon Resource Name (ARN) that identifies an IAM role. At runtime,
@@ -623,6 +713,11 @@ namespace Model
     /**
      * <p>The parameter group being used by nodes in the cluster.</p>
      */
+    inline bool ParameterGroupHasBeenSet() const { return m_parameterGroupHasBeenSet; }
+
+    /**
+     * <p>The parameter group being used by nodes in the cluster.</p>
+     */
     inline void SetParameterGroup(const ParameterGroupStatus& value) { m_parameterGroupHasBeenSet = true; m_parameterGroup = value; }
 
     /**
@@ -639,6 +734,43 @@ namespace Model
      * <p>The parameter group being used by nodes in the cluster.</p>
      */
     inline Cluster& WithParameterGroup(ParameterGroupStatus&& value) { SetParameterGroup(std::move(value)); return *this;}
+
+
+    /**
+     * <p>The description of the server-side encryption status on the specified DAX
+     * cluster.</p>
+     */
+    inline const SSEDescription& GetSSEDescription() const{ return m_sSEDescription; }
+
+    /**
+     * <p>The description of the server-side encryption status on the specified DAX
+     * cluster.</p>
+     */
+    inline bool SSEDescriptionHasBeenSet() const { return m_sSEDescriptionHasBeenSet; }
+
+    /**
+     * <p>The description of the server-side encryption status on the specified DAX
+     * cluster.</p>
+     */
+    inline void SetSSEDescription(const SSEDescription& value) { m_sSEDescriptionHasBeenSet = true; m_sSEDescription = value; }
+
+    /**
+     * <p>The description of the server-side encryption status on the specified DAX
+     * cluster.</p>
+     */
+    inline void SetSSEDescription(SSEDescription&& value) { m_sSEDescriptionHasBeenSet = true; m_sSEDescription = std::move(value); }
+
+    /**
+     * <p>The description of the server-side encryption status on the specified DAX
+     * cluster.</p>
+     */
+    inline Cluster& WithSSEDescription(const SSEDescription& value) { SetSSEDescription(value); return *this;}
+
+    /**
+     * <p>The description of the server-side encryption status on the specified DAX
+     * cluster.</p>
+     */
+    inline Cluster& WithSSEDescription(SSEDescription&& value) { SetSSEDescription(std::move(value)); return *this;}
 
   private:
 
@@ -689,6 +821,9 @@ namespace Model
 
     ParameterGroupStatus m_parameterGroup;
     bool m_parameterGroupHasBeenSet;
+
+    SSEDescription m_sSEDescription;
+    bool m_sSEDescriptionHasBeenSet;
   };
 
 } // namespace Model

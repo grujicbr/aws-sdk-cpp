@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     KeyPair();
-    KeyPair(const Aws::Utils::Json::JsonValue& jsonValue);
-    KeyPair& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KeyPair(Aws::Utils::Json::JsonView jsonValue);
+    KeyPair& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The public key.</p>
      */
     inline const Aws::String& GetPublicKey() const{ return m_publicKey; }
+
+    /**
+     * <p>The public key.</p>
+     */
+    inline bool PublicKeyHasBeenSet() const { return m_publicKeyHasBeenSet; }
 
     /**
      * <p>The public key.</p>
@@ -86,6 +92,11 @@ namespace Model
      * <p>The private key.</p>
      */
     inline const Aws::String& GetPrivateKey() const{ return m_privateKey; }
+
+    /**
+     * <p>The private key.</p>
+     */
+    inline bool PrivateKeyHasBeenSet() const { return m_privateKeyHasBeenSet; }
 
     /**
      * <p>The private key.</p>

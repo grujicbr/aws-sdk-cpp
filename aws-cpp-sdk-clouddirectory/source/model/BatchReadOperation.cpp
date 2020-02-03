@@ -35,6 +35,7 @@ BatchReadOperation::BatchReadOperation() :
     m_listObjectParentPathsHasBeenSet(false),
     m_getObjectInformationHasBeenSet(false),
     m_getObjectAttributesHasBeenSet(false),
+    m_listObjectParentsHasBeenSet(false),
     m_listObjectPoliciesHasBeenSet(false),
     m_listPolicyAttachmentsHasBeenSet(false),
     m_lookupPolicyHasBeenSet(false),
@@ -45,13 +46,14 @@ BatchReadOperation::BatchReadOperation() :
 {
 }
 
-BatchReadOperation::BatchReadOperation(const JsonValue& jsonValue) : 
+BatchReadOperation::BatchReadOperation(JsonView jsonValue) : 
     m_listObjectAttributesHasBeenSet(false),
     m_listObjectChildrenHasBeenSet(false),
     m_listAttachedIndicesHasBeenSet(false),
     m_listObjectParentPathsHasBeenSet(false),
     m_getObjectInformationHasBeenSet(false),
     m_getObjectAttributesHasBeenSet(false),
+    m_listObjectParentsHasBeenSet(false),
     m_listObjectPoliciesHasBeenSet(false),
     m_listPolicyAttachmentsHasBeenSet(false),
     m_lookupPolicyHasBeenSet(false),
@@ -63,7 +65,7 @@ BatchReadOperation::BatchReadOperation(const JsonValue& jsonValue) :
   *this = jsonValue;
 }
 
-BatchReadOperation& BatchReadOperation::operator =(const JsonValue& jsonValue)
+BatchReadOperation& BatchReadOperation::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("ListObjectAttributes"))
   {
@@ -105,6 +107,13 @@ BatchReadOperation& BatchReadOperation::operator =(const JsonValue& jsonValue)
     m_getObjectAttributes = jsonValue.GetObject("GetObjectAttributes");
 
     m_getObjectAttributesHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("ListObjectParents"))
+  {
+    m_listObjectParents = jsonValue.GetObject("ListObjectParents");
+
+    m_listObjectParentsHasBeenSet = true;
   }
 
   if(jsonValue.ValueExists("ListObjectPolicies"))
@@ -196,6 +205,12 @@ JsonValue BatchReadOperation::Jsonize() const
   if(m_getObjectAttributesHasBeenSet)
   {
    payload.WithObject("GetObjectAttributes", m_getObjectAttributes.Jsonize());
+
+  }
+
+  if(m_listObjectParentsHasBeenSet)
+  {
+   payload.WithObject("ListObjectParents", m_listObjectParents.Jsonize());
 
   }
 

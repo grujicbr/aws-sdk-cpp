@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Comprehend
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     BatchDetectEntitiesItemResult();
-    BatchDetectEntitiesItemResult(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchDetectEntitiesItemResult& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchDetectEntitiesItemResult(Aws::Utils::Json::JsonView jsonValue);
+    BatchDetectEntitiesItemResult& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The zero-based index of the document in the input list.</p>
      */
     inline int GetIndex() const{ return m_index; }
+
+    /**
+     * <p>The zero-based index of the document in the input list.</p>
+     */
+    inline bool IndexHasBeenSet() const { return m_indexHasBeenSet; }
 
     /**
      * <p>The zero-based index of the document in the input list.</p>
@@ -70,6 +76,12 @@ namespace Model
      * document.</p>
      */
     inline const Aws::Vector<Entity>& GetEntities() const{ return m_entities; }
+
+    /**
+     * <p>One or more <a>Entity</a> objects, one for each entity detected in the
+     * document.</p>
+     */
+    inline bool EntitiesHasBeenSet() const { return m_entitiesHasBeenSet; }
 
     /**
      * <p>One or more <a>Entity</a> objects, one for each entity detected in the

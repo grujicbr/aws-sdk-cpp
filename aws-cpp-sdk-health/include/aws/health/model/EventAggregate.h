@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Health
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     EventAggregate();
-    EventAggregate(const Aws::Utils::Json::JsonValue& jsonValue);
-    EventAggregate& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EventAggregate(Aws::Utils::Json::JsonView jsonValue);
+    EventAggregate& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The issue type for the associated count.</p>
      */
     inline const Aws::String& GetAggregateValue() const{ return m_aggregateValue; }
+
+    /**
+     * <p>The issue type for the associated count.</p>
+     */
+    inline bool AggregateValueHasBeenSet() const { return m_aggregateValueHasBeenSet; }
 
     /**
      * <p>The issue type for the associated count.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The number of events of the associated issue type.</p>
      */
     inline int GetCount() const{ return m_count; }
+
+    /**
+     * <p>The number of events of the associated issue type.</p>
+     */
+    inline bool CountHasBeenSet() const { return m_countHasBeenSet; }
 
     /**
      * <p>The number of events of the associated issue type.</p>

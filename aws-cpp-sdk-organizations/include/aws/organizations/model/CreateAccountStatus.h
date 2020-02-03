@@ -28,6 +28,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -36,8 +37,9 @@ namespace Model
 {
 
   /**
-   * <p>Contains the status about a <a>CreateAccount</a> request to create an AWS
-   * account in an organization.</p><p><h3>See Also:</h3>   <a
+   * <p>Contains the status about a <a>CreateAccount</a> or
+   * <a>CreateGovCloudAccount</a> request to create an AWS account or an AWS GovCloud
+   * (US) account in an organization.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/organizations-2016-11-28/CreateAccountStatus">AWS
    * API Reference</a></p>
    */
@@ -45,8 +47,8 @@ namespace Model
   {
   public:
     CreateAccountStatus();
-    CreateAccountStatus(const Aws::Utils::Json::JsonValue& jsonValue);
-    CreateAccountStatus& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    CreateAccountStatus(Aws::Utils::Json::JsonView jsonValue);
+    CreateAccountStatus& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,7 +56,7 @@ namespace Model
      * <p>The unique identifier (ID) that references this request. You get this value
      * from the response of the initial <a>CreateAccount</a> request to create the
      * account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a>
-     * for an create account request ID string requires "car-" followed by from 8 to 32
+     * for a create account request ID string requires "car-" followed by from 8 to 32
      * lower-case letters or digits.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
@@ -63,7 +65,16 @@ namespace Model
      * <p>The unique identifier (ID) that references this request. You get this value
      * from the response of the initial <a>CreateAccount</a> request to create the
      * account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a>
-     * for an create account request ID string requires "car-" followed by from 8 to 32
+     * for a create account request ID string requires "car-" followed by from 8 to 32
+     * lower-case letters or digits.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
+
+    /**
+     * <p>The unique identifier (ID) that references this request. You get this value
+     * from the response of the initial <a>CreateAccount</a> request to create the
+     * account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a>
+     * for a create account request ID string requires "car-" followed by from 8 to 32
      * lower-case letters or digits.</p>
      */
     inline void SetId(const Aws::String& value) { m_idHasBeenSet = true; m_id = value; }
@@ -72,7 +83,7 @@ namespace Model
      * <p>The unique identifier (ID) that references this request. You get this value
      * from the response of the initial <a>CreateAccount</a> request to create the
      * account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a>
-     * for an create account request ID string requires "car-" followed by from 8 to 32
+     * for a create account request ID string requires "car-" followed by from 8 to 32
      * lower-case letters or digits.</p>
      */
     inline void SetId(Aws::String&& value) { m_idHasBeenSet = true; m_id = std::move(value); }
@@ -81,7 +92,7 @@ namespace Model
      * <p>The unique identifier (ID) that references this request. You get this value
      * from the response of the initial <a>CreateAccount</a> request to create the
      * account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a>
-     * for an create account request ID string requires "car-" followed by from 8 to 32
+     * for a create account request ID string requires "car-" followed by from 8 to 32
      * lower-case letters or digits.</p>
      */
     inline void SetId(const char* value) { m_idHasBeenSet = true; m_id.assign(value); }
@@ -90,7 +101,7 @@ namespace Model
      * <p>The unique identifier (ID) that references this request. You get this value
      * from the response of the initial <a>CreateAccount</a> request to create the
      * account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a>
-     * for an create account request ID string requires "car-" followed by from 8 to 32
+     * for a create account request ID string requires "car-" followed by from 8 to 32
      * lower-case letters or digits.</p>
      */
     inline CreateAccountStatus& WithId(const Aws::String& value) { SetId(value); return *this;}
@@ -99,7 +110,7 @@ namespace Model
      * <p>The unique identifier (ID) that references this request. You get this value
      * from the response of the initial <a>CreateAccount</a> request to create the
      * account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a>
-     * for an create account request ID string requires "car-" followed by from 8 to 32
+     * for a create account request ID string requires "car-" followed by from 8 to 32
      * lower-case letters or digits.</p>
      */
     inline CreateAccountStatus& WithId(Aws::String&& value) { SetId(std::move(value)); return *this;}
@@ -108,7 +119,7 @@ namespace Model
      * <p>The unique identifier (ID) that references this request. You get this value
      * from the response of the initial <a>CreateAccount</a> request to create the
      * account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a>
-     * for an create account request ID string requires "car-" followed by from 8 to 32
+     * for a create account request ID string requires "car-" followed by from 8 to 32
      * lower-case letters or digits.</p>
      */
     inline CreateAccountStatus& WithId(const char* value) { SetId(value); return *this;}
@@ -118,6 +129,11 @@ namespace Model
      * <p>The account name given to the account when it was created.</p>
      */
     inline const Aws::String& GetAccountName() const{ return m_accountName; }
+
+    /**
+     * <p>The account name given to the account when it was created.</p>
+     */
+    inline bool AccountNameHasBeenSet() const { return m_accountNameHasBeenSet; }
 
     /**
      * <p>The account name given to the account when it was created.</p>
@@ -158,6 +174,11 @@ namespace Model
     /**
      * <p>The status of the request.</p>
      */
+    inline bool StateHasBeenSet() const { return m_stateHasBeenSet; }
+
+    /**
+     * <p>The status of the request.</p>
+     */
     inline void SetState(const CreateAccountState& value) { m_stateHasBeenSet = true; m_state = value; }
 
     /**
@@ -180,6 +201,11 @@ namespace Model
      * <p>The date and time that the request was made for the account creation.</p>
      */
     inline const Aws::Utils::DateTime& GetRequestedTimestamp() const{ return m_requestedTimestamp; }
+
+    /**
+     * <p>The date and time that the request was made for the account creation.</p>
+     */
+    inline bool RequestedTimestampHasBeenSet() const { return m_requestedTimestampHasBeenSet; }
 
     /**
      * <p>The date and time that the request was made for the account creation.</p>
@@ -210,6 +236,11 @@ namespace Model
     /**
      * <p>The date and time that the account was created and the request completed.</p>
      */
+    inline bool CompletedTimestampHasBeenSet() const { return m_completedTimestampHasBeenSet; }
+
+    /**
+     * <p>The date and time that the account was created and the request completed.</p>
+     */
     inline void SetCompletedTimestamp(const Aws::Utils::DateTime& value) { m_completedTimestampHasBeenSet = true; m_completedTimestamp = value; }
 
     /**
@@ -234,6 +265,13 @@ namespace Model
      * pattern</a> for an account ID string requires exactly 12 digits.</p>
      */
     inline const Aws::String& GetAccountId() const{ return m_accountId; }
+
+    /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex
+     * pattern</a> for an account ID string requires exactly 12 digits.</p>
+     */
+    inline bool AccountIdHasBeenSet() const { return m_accountIdHasBeenSet; }
 
     /**
      * <p>If the account was created successfully, the unique identifier (ID) of the
@@ -279,17 +317,68 @@ namespace Model
 
 
     /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account in the AWS GovCloud (US) Region.</p>
+     */
+    inline const Aws::String& GetGovCloudAccountId() const{ return m_govCloudAccountId; }
+
+    /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account in the AWS GovCloud (US) Region.</p>
+     */
+    inline bool GovCloudAccountIdHasBeenSet() const { return m_govCloudAccountIdHasBeenSet; }
+
+    /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account in the AWS GovCloud (US) Region.</p>
+     */
+    inline void SetGovCloudAccountId(const Aws::String& value) { m_govCloudAccountIdHasBeenSet = true; m_govCloudAccountId = value; }
+
+    /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account in the AWS GovCloud (US) Region.</p>
+     */
+    inline void SetGovCloudAccountId(Aws::String&& value) { m_govCloudAccountIdHasBeenSet = true; m_govCloudAccountId = std::move(value); }
+
+    /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account in the AWS GovCloud (US) Region.</p>
+     */
+    inline void SetGovCloudAccountId(const char* value) { m_govCloudAccountIdHasBeenSet = true; m_govCloudAccountId.assign(value); }
+
+    /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account in the AWS GovCloud (US) Region.</p>
+     */
+    inline CreateAccountStatus& WithGovCloudAccountId(const Aws::String& value) { SetGovCloudAccountId(value); return *this;}
+
+    /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account in the AWS GovCloud (US) Region.</p>
+     */
+    inline CreateAccountStatus& WithGovCloudAccountId(Aws::String&& value) { SetGovCloudAccountId(std::move(value)); return *this;}
+
+    /**
+     * <p>If the account was created successfully, the unique identifier (ID) of the
+     * new account in the AWS GovCloud (US) Region.</p>
+     */
+    inline CreateAccountStatus& WithGovCloudAccountId(const char* value) { SetGovCloudAccountId(value); return *this;}
+
+
+    /**
      * <p>If the request failed, a description of the reason for the failure.</p> <ul>
      * <li> <p>ACCOUNT_LIMIT_EXCEEDED: The account could not be created because you
      * have reached the limit on the number of accounts in your organization.</p> </li>
      * <li> <p>EMAIL_ALREADY_EXISTS: The account could not be created because another
      * AWS account with that email address already exists.</p> </li> <li>
-     * <p>INVALID_ADDRESS: The account could not be created because the address you
-     * provided is not valid.</p> </li> <li> <p>INVALID_EMAIL: The account could not be
-     * created because the email address you provided is not valid.</p> </li> <li>
-     * <p>INTERNAL_FAILURE: The account could not be created because of an internal
-     * failure. Try again later. If the problem persists, contact Customer Support.</p>
-     * </li> </ul>
+     * <p>GOVCLOUD_ACCOUNT_ALREADY_EXISTS: The account in the AWS GovCloud (US) Region
+     * could not be created because this Region already includes an account with that
+     * email address.</p> </li> <li> <p>INVALID_ADDRESS: The account could not be
+     * created because the address you provided is not valid.</p> </li> <li>
+     * <p>INVALID_EMAIL: The account could not be created because the email address you
+     * provided is not valid.</p> </li> <li> <p>INTERNAL_FAILURE: The account could not
+     * be created because of an internal failure. Try again later. If the problem
+     * persists, contact AWS Support.</p> </li> </ul>
      */
     inline const CreateAccountFailureReason& GetFailureReason() const{ return m_failureReason; }
 
@@ -299,12 +388,31 @@ namespace Model
      * have reached the limit on the number of accounts in your organization.</p> </li>
      * <li> <p>EMAIL_ALREADY_EXISTS: The account could not be created because another
      * AWS account with that email address already exists.</p> </li> <li>
-     * <p>INVALID_ADDRESS: The account could not be created because the address you
-     * provided is not valid.</p> </li> <li> <p>INVALID_EMAIL: The account could not be
-     * created because the email address you provided is not valid.</p> </li> <li>
-     * <p>INTERNAL_FAILURE: The account could not be created because of an internal
-     * failure. Try again later. If the problem persists, contact Customer Support.</p>
-     * </li> </ul>
+     * <p>GOVCLOUD_ACCOUNT_ALREADY_EXISTS: The account in the AWS GovCloud (US) Region
+     * could not be created because this Region already includes an account with that
+     * email address.</p> </li> <li> <p>INVALID_ADDRESS: The account could not be
+     * created because the address you provided is not valid.</p> </li> <li>
+     * <p>INVALID_EMAIL: The account could not be created because the email address you
+     * provided is not valid.</p> </li> <li> <p>INTERNAL_FAILURE: The account could not
+     * be created because of an internal failure. Try again later. If the problem
+     * persists, contact AWS Support.</p> </li> </ul>
+     */
+    inline bool FailureReasonHasBeenSet() const { return m_failureReasonHasBeenSet; }
+
+    /**
+     * <p>If the request failed, a description of the reason for the failure.</p> <ul>
+     * <li> <p>ACCOUNT_LIMIT_EXCEEDED: The account could not be created because you
+     * have reached the limit on the number of accounts in your organization.</p> </li>
+     * <li> <p>EMAIL_ALREADY_EXISTS: The account could not be created because another
+     * AWS account with that email address already exists.</p> </li> <li>
+     * <p>GOVCLOUD_ACCOUNT_ALREADY_EXISTS: The account in the AWS GovCloud (US) Region
+     * could not be created because this Region already includes an account with that
+     * email address.</p> </li> <li> <p>INVALID_ADDRESS: The account could not be
+     * created because the address you provided is not valid.</p> </li> <li>
+     * <p>INVALID_EMAIL: The account could not be created because the email address you
+     * provided is not valid.</p> </li> <li> <p>INTERNAL_FAILURE: The account could not
+     * be created because of an internal failure. Try again later. If the problem
+     * persists, contact AWS Support.</p> </li> </ul>
      */
     inline void SetFailureReason(const CreateAccountFailureReason& value) { m_failureReasonHasBeenSet = true; m_failureReason = value; }
 
@@ -314,12 +422,14 @@ namespace Model
      * have reached the limit on the number of accounts in your organization.</p> </li>
      * <li> <p>EMAIL_ALREADY_EXISTS: The account could not be created because another
      * AWS account with that email address already exists.</p> </li> <li>
-     * <p>INVALID_ADDRESS: The account could not be created because the address you
-     * provided is not valid.</p> </li> <li> <p>INVALID_EMAIL: The account could not be
-     * created because the email address you provided is not valid.</p> </li> <li>
-     * <p>INTERNAL_FAILURE: The account could not be created because of an internal
-     * failure. Try again later. If the problem persists, contact Customer Support.</p>
-     * </li> </ul>
+     * <p>GOVCLOUD_ACCOUNT_ALREADY_EXISTS: The account in the AWS GovCloud (US) Region
+     * could not be created because this Region already includes an account with that
+     * email address.</p> </li> <li> <p>INVALID_ADDRESS: The account could not be
+     * created because the address you provided is not valid.</p> </li> <li>
+     * <p>INVALID_EMAIL: The account could not be created because the email address you
+     * provided is not valid.</p> </li> <li> <p>INTERNAL_FAILURE: The account could not
+     * be created because of an internal failure. Try again later. If the problem
+     * persists, contact AWS Support.</p> </li> </ul>
      */
     inline void SetFailureReason(CreateAccountFailureReason&& value) { m_failureReasonHasBeenSet = true; m_failureReason = std::move(value); }
 
@@ -329,12 +439,14 @@ namespace Model
      * have reached the limit on the number of accounts in your organization.</p> </li>
      * <li> <p>EMAIL_ALREADY_EXISTS: The account could not be created because another
      * AWS account with that email address already exists.</p> </li> <li>
-     * <p>INVALID_ADDRESS: The account could not be created because the address you
-     * provided is not valid.</p> </li> <li> <p>INVALID_EMAIL: The account could not be
-     * created because the email address you provided is not valid.</p> </li> <li>
-     * <p>INTERNAL_FAILURE: The account could not be created because of an internal
-     * failure. Try again later. If the problem persists, contact Customer Support.</p>
-     * </li> </ul>
+     * <p>GOVCLOUD_ACCOUNT_ALREADY_EXISTS: The account in the AWS GovCloud (US) Region
+     * could not be created because this Region already includes an account with that
+     * email address.</p> </li> <li> <p>INVALID_ADDRESS: The account could not be
+     * created because the address you provided is not valid.</p> </li> <li>
+     * <p>INVALID_EMAIL: The account could not be created because the email address you
+     * provided is not valid.</p> </li> <li> <p>INTERNAL_FAILURE: The account could not
+     * be created because of an internal failure. Try again later. If the problem
+     * persists, contact AWS Support.</p> </li> </ul>
      */
     inline CreateAccountStatus& WithFailureReason(const CreateAccountFailureReason& value) { SetFailureReason(value); return *this;}
 
@@ -344,12 +456,14 @@ namespace Model
      * have reached the limit on the number of accounts in your organization.</p> </li>
      * <li> <p>EMAIL_ALREADY_EXISTS: The account could not be created because another
      * AWS account with that email address already exists.</p> </li> <li>
-     * <p>INVALID_ADDRESS: The account could not be created because the address you
-     * provided is not valid.</p> </li> <li> <p>INVALID_EMAIL: The account could not be
-     * created because the email address you provided is not valid.</p> </li> <li>
-     * <p>INTERNAL_FAILURE: The account could not be created because of an internal
-     * failure. Try again later. If the problem persists, contact Customer Support.</p>
-     * </li> </ul>
+     * <p>GOVCLOUD_ACCOUNT_ALREADY_EXISTS: The account in the AWS GovCloud (US) Region
+     * could not be created because this Region already includes an account with that
+     * email address.</p> </li> <li> <p>INVALID_ADDRESS: The account could not be
+     * created because the address you provided is not valid.</p> </li> <li>
+     * <p>INVALID_EMAIL: The account could not be created because the email address you
+     * provided is not valid.</p> </li> <li> <p>INTERNAL_FAILURE: The account could not
+     * be created because of an internal failure. Try again later. If the problem
+     * persists, contact AWS Support.</p> </li> </ul>
      */
     inline CreateAccountStatus& WithFailureReason(CreateAccountFailureReason&& value) { SetFailureReason(std::move(value)); return *this;}
 
@@ -372,6 +486,9 @@ namespace Model
 
     Aws::String m_accountId;
     bool m_accountIdHasBeenSet;
+
+    Aws::String m_govCloudAccountId;
+    bool m_govCloudAccountIdHasBeenSet;
 
     CreateAccountFailureReason m_failureReason;
     bool m_failureReasonHasBeenSet;

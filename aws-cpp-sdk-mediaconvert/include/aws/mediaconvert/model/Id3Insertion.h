@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     Id3Insertion();
-    Id3Insertion(const Aws::Utils::Json::JsonValue& jsonValue);
-    Id3Insertion& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Id3Insertion(Aws::Utils::Json::JsonView jsonValue);
+    Id3Insertion& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * Use ID3 tag (Id3) to provide a tag value in base64-encode format.
      */
     inline const Aws::String& GetId3() const{ return m_id3; }
+
+    /**
+     * Use ID3 tag (Id3) to provide a tag value in base64-encode format.
+     */
+    inline bool Id3HasBeenSet() const { return m_id3HasBeenSet; }
 
     /**
      * Use ID3 tag (Id3) to provide a tag value in base64-encode format.
@@ -90,6 +96,11 @@ namespace Model
      * Provide a Timecode (TimeCode) in HH:MM:SS:FF or HH:MM:SS;FF format.
      */
     inline const Aws::String& GetTimecode() const{ return m_timecode; }
+
+    /**
+     * Provide a Timecode (TimeCode) in HH:MM:SS:FF or HH:MM:SS;FF format.
+     */
+    inline bool TimecodeHasBeenSet() const { return m_timecodeHasBeenSet; }
 
     /**
      * Provide a Timecode (TimeCode) in HH:MM:SS:FF or HH:MM:SS;FF format.

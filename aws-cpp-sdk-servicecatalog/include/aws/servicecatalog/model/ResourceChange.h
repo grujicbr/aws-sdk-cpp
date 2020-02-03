@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ServiceCatalog
@@ -47,8 +48,8 @@ namespace Model
   {
   public:
     ResourceChange();
-    ResourceChange(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceChange& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceChange(Aws::Utils::Json::JsonView jsonValue);
+    ResourceChange& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -56,6 +57,11 @@ namespace Model
      * <p>The change action.</p>
      */
     inline const ChangeAction& GetAction() const{ return m_action; }
+
+    /**
+     * <p>The change action.</p>
+     */
+    inline bool ActionHasBeenSet() const { return m_actionHasBeenSet; }
 
     /**
      * <p>The change action.</p>
@@ -82,6 +88,11 @@ namespace Model
      * <p>The ID of the resource, as defined in the CloudFormation template.</p>
      */
     inline const Aws::String& GetLogicalResourceId() const{ return m_logicalResourceId; }
+
+    /**
+     * <p>The ID of the resource, as defined in the CloudFormation template.</p>
+     */
+    inline bool LogicalResourceIdHasBeenSet() const { return m_logicalResourceIdHasBeenSet; }
 
     /**
      * <p>The ID of the resource, as defined in the CloudFormation template.</p>
@@ -122,6 +133,11 @@ namespace Model
     /**
      * <p>The ID of the resource, if it was already created.</p>
      */
+    inline bool PhysicalResourceIdHasBeenSet() const { return m_physicalResourceIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the resource, if it was already created.</p>
+     */
     inline void SetPhysicalResourceId(const Aws::String& value) { m_physicalResourceIdHasBeenSet = true; m_physicalResourceId = value; }
 
     /**
@@ -154,6 +170,11 @@ namespace Model
      * <p>The type of resource.</p>
      */
     inline const Aws::String& GetResourceType() const{ return m_resourceType; }
+
+    /**
+     * <p>The type of resource.</p>
+     */
+    inline bool ResourceTypeHasBeenSet() const { return m_resourceTypeHasBeenSet; }
 
     /**
      * <p>The type of resource.</p>
@@ -196,6 +217,12 @@ namespace Model
      * <p>If the change type is <code>Modify</code>, indicates whether the existing
      * resource is deleted and replaced with a new one.</p>
      */
+    inline bool ReplacementHasBeenSet() const { return m_replacementHasBeenSet; }
+
+    /**
+     * <p>If the change type is <code>Modify</code>, indicates whether the existing
+     * resource is deleted and replaced with a new one.</p>
+     */
     inline void SetReplacement(const Replacement& value) { m_replacementHasBeenSet = true; m_replacement = value; }
 
     /**
@@ -221,6 +248,11 @@ namespace Model
      * <p>The change scope.</p>
      */
     inline const Aws::Vector<ResourceAttribute>& GetScope() const{ return m_scope; }
+
+    /**
+     * <p>The change scope.</p>
+     */
+    inline bool ScopeHasBeenSet() const { return m_scopeHasBeenSet; }
 
     /**
      * <p>The change scope.</p>
@@ -257,6 +289,11 @@ namespace Model
      * <p>Information about the resource changes.</p>
      */
     inline const Aws::Vector<ResourceChangeDetail>& GetDetails() const{ return m_details; }
+
+    /**
+     * <p>Information about the resource changes.</p>
+     */
+    inline bool DetailsHasBeenSet() const { return m_detailsHasBeenSet; }
 
     /**
      * <p>Information about the resource changes.</p>

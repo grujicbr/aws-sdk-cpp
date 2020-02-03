@@ -33,7 +33,8 @@ CreateCachediSCSIVolumeRequest::CreateCachediSCSIVolumeRequest() :
     m_clientTokenHasBeenSet(false),
     m_kMSEncrypted(false),
     m_kMSEncryptedHasBeenSet(false),
-    m_kMSKeyHasBeenSet(false)
+    m_kMSKeyHasBeenSet(false),
+    m_tagsHasBeenSet(false)
 {
 }
 
@@ -95,7 +96,18 @@ Aws::String CreateCachediSCSIVolumeRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("Tags", std::move(tagsJsonList));
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateCachediSCSIVolumeRequest::GetRequestSpecificHeaders() const

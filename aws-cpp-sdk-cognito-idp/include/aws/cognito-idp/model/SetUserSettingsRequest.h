@@ -37,7 +37,7 @@ namespace Model
   {
   public:
     SetUserSettingsRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -53,6 +53,11 @@ namespace Model
      * <p>The access token for the set user settings request.</p>
      */
     inline const Aws::String& GetAccessToken() const{ return m_accessToken; }
+
+    /**
+     * <p>The access token for the set user settings request.</p>
+     */
+    inline bool AccessTokenHasBeenSet() const { return m_accessTokenHasBeenSet; }
 
     /**
      * <p>The access token for the set user settings request.</p>
@@ -86,37 +91,50 @@ namespace Model
 
 
     /**
-     * <p>Specifies the options for MFA (e.g., email or phone number).</p>
+     * <p>You can use this parameter only to set an SMS configuration that uses SMS for
+     * delivery.</p>
      */
     inline const Aws::Vector<MFAOptionType>& GetMFAOptions() const{ return m_mFAOptions; }
 
     /**
-     * <p>Specifies the options for MFA (e.g., email or phone number).</p>
+     * <p>You can use this parameter only to set an SMS configuration that uses SMS for
+     * delivery.</p>
+     */
+    inline bool MFAOptionsHasBeenSet() const { return m_mFAOptionsHasBeenSet; }
+
+    /**
+     * <p>You can use this parameter only to set an SMS configuration that uses SMS for
+     * delivery.</p>
      */
     inline void SetMFAOptions(const Aws::Vector<MFAOptionType>& value) { m_mFAOptionsHasBeenSet = true; m_mFAOptions = value; }
 
     /**
-     * <p>Specifies the options for MFA (e.g., email or phone number).</p>
+     * <p>You can use this parameter only to set an SMS configuration that uses SMS for
+     * delivery.</p>
      */
     inline void SetMFAOptions(Aws::Vector<MFAOptionType>&& value) { m_mFAOptionsHasBeenSet = true; m_mFAOptions = std::move(value); }
 
     /**
-     * <p>Specifies the options for MFA (e.g., email or phone number).</p>
+     * <p>You can use this parameter only to set an SMS configuration that uses SMS for
+     * delivery.</p>
      */
     inline SetUserSettingsRequest& WithMFAOptions(const Aws::Vector<MFAOptionType>& value) { SetMFAOptions(value); return *this;}
 
     /**
-     * <p>Specifies the options for MFA (e.g., email or phone number).</p>
+     * <p>You can use this parameter only to set an SMS configuration that uses SMS for
+     * delivery.</p>
      */
     inline SetUserSettingsRequest& WithMFAOptions(Aws::Vector<MFAOptionType>&& value) { SetMFAOptions(std::move(value)); return *this;}
 
     /**
-     * <p>Specifies the options for MFA (e.g., email or phone number).</p>
+     * <p>You can use this parameter only to set an SMS configuration that uses SMS for
+     * delivery.</p>
      */
     inline SetUserSettingsRequest& AddMFAOptions(const MFAOptionType& value) { m_mFAOptionsHasBeenSet = true; m_mFAOptions.push_back(value); return *this; }
 
     /**
-     * <p>Specifies the options for MFA (e.g., email or phone number).</p>
+     * <p>You can use this parameter only to set an SMS configuration that uses SMS for
+     * delivery.</p>
      */
     inline SetUserSettingsRequest& AddMFAOptions(MFAOptionType&& value) { m_mFAOptionsHasBeenSet = true; m_mFAOptions.push_back(std::move(value)); return *this; }
 

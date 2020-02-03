@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace SSM
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     DocumentDefaultVersionDescription();
-    DocumentDefaultVersionDescription(const Aws::Utils::Json::JsonValue& jsonValue);
-    DocumentDefaultVersionDescription& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    DocumentDefaultVersionDescription(Aws::Utils::Json::JsonView jsonValue);
+    DocumentDefaultVersionDescription& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The name of the document.</p>
      */
     inline const Aws::String& GetName() const{ return m_name; }
+
+    /**
+     * <p>The name of the document.</p>
+     */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
 
     /**
      * <p>The name of the document.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The default version of the document.</p>
      */
+    inline bool DefaultVersionHasBeenSet() const { return m_defaultVersionHasBeenSet; }
+
+    /**
+     * <p>The default version of the document.</p>
+     */
     inline void SetDefaultVersion(const Aws::String& value) { m_defaultVersionHasBeenSet = true; m_defaultVersion = value; }
 
     /**
@@ -117,6 +128,47 @@ namespace Model
      */
     inline DocumentDefaultVersionDescription& WithDefaultVersion(const char* value) { SetDefaultVersion(value); return *this;}
 
+
+    /**
+     * <p>The default version of the artifact associated with the document.</p>
+     */
+    inline const Aws::String& GetDefaultVersionName() const{ return m_defaultVersionName; }
+
+    /**
+     * <p>The default version of the artifact associated with the document.</p>
+     */
+    inline bool DefaultVersionNameHasBeenSet() const { return m_defaultVersionNameHasBeenSet; }
+
+    /**
+     * <p>The default version of the artifact associated with the document.</p>
+     */
+    inline void SetDefaultVersionName(const Aws::String& value) { m_defaultVersionNameHasBeenSet = true; m_defaultVersionName = value; }
+
+    /**
+     * <p>The default version of the artifact associated with the document.</p>
+     */
+    inline void SetDefaultVersionName(Aws::String&& value) { m_defaultVersionNameHasBeenSet = true; m_defaultVersionName = std::move(value); }
+
+    /**
+     * <p>The default version of the artifact associated with the document.</p>
+     */
+    inline void SetDefaultVersionName(const char* value) { m_defaultVersionNameHasBeenSet = true; m_defaultVersionName.assign(value); }
+
+    /**
+     * <p>The default version of the artifact associated with the document.</p>
+     */
+    inline DocumentDefaultVersionDescription& WithDefaultVersionName(const Aws::String& value) { SetDefaultVersionName(value); return *this;}
+
+    /**
+     * <p>The default version of the artifact associated with the document.</p>
+     */
+    inline DocumentDefaultVersionDescription& WithDefaultVersionName(Aws::String&& value) { SetDefaultVersionName(std::move(value)); return *this;}
+
+    /**
+     * <p>The default version of the artifact associated with the document.</p>
+     */
+    inline DocumentDefaultVersionDescription& WithDefaultVersionName(const char* value) { SetDefaultVersionName(value); return *this;}
+
   private:
 
     Aws::String m_name;
@@ -124,6 +176,9 @@ namespace Model
 
     Aws::String m_defaultVersion;
     bool m_defaultVersionHasBeenSet;
+
+    Aws::String m_defaultVersionName;
+    bool m_defaultVersionNameHasBeenSet;
   };
 
 } // namespace Model

@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace LexModelBuildingService
@@ -45,8 +46,8 @@ namespace Model
   {
   public:
     UtteranceList();
-    UtteranceList(const Aws::Utils::Json::JsonValue& jsonValue);
-    UtteranceList& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    UtteranceList(Aws::Utils::Json::JsonView jsonValue);
+    UtteranceList& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -54,6 +55,11 @@ namespace Model
      * <p>The version of the bot that processed the list.</p>
      */
     inline const Aws::String& GetBotVersion() const{ return m_botVersion; }
+
+    /**
+     * <p>The version of the bot that processed the list.</p>
+     */
+    inline bool BotVersionHasBeenSet() const { return m_botVersionHasBeenSet; }
 
     /**
      * <p>The version of the bot that processed the list.</p>
@@ -92,6 +98,13 @@ namespace Model
      * 100.</p>
      */
     inline const Aws::Vector<UtteranceData>& GetUtterances() const{ return m_utterances; }
+
+    /**
+     * <p>One or more <a>UtteranceData</a> objects that contain information about the
+     * utterances that have been made to a bot. The maximum number of object is
+     * 100.</p>
+     */
+    inline bool UtterancesHasBeenSet() const { return m_utterancesHasBeenSet; }
 
     /**
      * <p>One or more <a>UtteranceData</a> objects that contain information about the

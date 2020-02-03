@@ -23,7 +23,9 @@ using namespace Aws::Utils::Json;
 using namespace Aws::Utils;
 
 DeleteInstanceRequest::DeleteInstanceRequest() : 
-    m_instanceNameHasBeenSet(false)
+    m_instanceNameHasBeenSet(false),
+    m_forceDeleteAddOns(false),
+    m_forceDeleteAddOnsHasBeenSet(false)
 {
 }
 
@@ -37,7 +39,13 @@ Aws::String DeleteInstanceRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_forceDeleteAddOnsHasBeenSet)
+  {
+   payload.WithBool("forceDeleteAddOns", m_forceDeleteAddOns);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DeleteInstanceRequest::GetRequestSpecificHeaders() const

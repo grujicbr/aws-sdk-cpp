@@ -34,7 +34,7 @@ namespace Model
   {
   public:
     DescribeInstancePatchesRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -50,6 +50,11 @@ namespace Model
      * <p>The ID of the instance whose patch state information should be retrieved.</p>
      */
     inline const Aws::String& GetInstanceId() const{ return m_instanceId; }
+
+    /**
+     * <p>The ID of the instance whose patch state information should be retrieved.</p>
+     */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
 
     /**
      * <p>The ID of the instance whose patch state information should be retrieved.</p>
@@ -83,51 +88,58 @@ namespace Model
 
 
     /**
-     * <p>Each entry in the array is a structure containing:</p> <p>Key (string,
-     * between 1 and 128 characters)</p> <p>Values (array of strings, each string
-     * between 1 and 256 characters)</p>
+     * <p>An array of structures. Each entry in the array is a structure containing a
+     * Key, Value combination. Valid values for Key are <code>Classification</code> |
+     * <code>KBId</code> | <code>Severity</code> | <code>State</code>.</p>
      */
     inline const Aws::Vector<PatchOrchestratorFilter>& GetFilters() const{ return m_filters; }
 
     /**
-     * <p>Each entry in the array is a structure containing:</p> <p>Key (string,
-     * between 1 and 128 characters)</p> <p>Values (array of strings, each string
-     * between 1 and 256 characters)</p>
+     * <p>An array of structures. Each entry in the array is a structure containing a
+     * Key, Value combination. Valid values for Key are <code>Classification</code> |
+     * <code>KBId</code> | <code>Severity</code> | <code>State</code>.</p>
+     */
+    inline bool FiltersHasBeenSet() const { return m_filtersHasBeenSet; }
+
+    /**
+     * <p>An array of structures. Each entry in the array is a structure containing a
+     * Key, Value combination. Valid values for Key are <code>Classification</code> |
+     * <code>KBId</code> | <code>Severity</code> | <code>State</code>.</p>
      */
     inline void SetFilters(const Aws::Vector<PatchOrchestratorFilter>& value) { m_filtersHasBeenSet = true; m_filters = value; }
 
     /**
-     * <p>Each entry in the array is a structure containing:</p> <p>Key (string,
-     * between 1 and 128 characters)</p> <p>Values (array of strings, each string
-     * between 1 and 256 characters)</p>
+     * <p>An array of structures. Each entry in the array is a structure containing a
+     * Key, Value combination. Valid values for Key are <code>Classification</code> |
+     * <code>KBId</code> | <code>Severity</code> | <code>State</code>.</p>
      */
     inline void SetFilters(Aws::Vector<PatchOrchestratorFilter>&& value) { m_filtersHasBeenSet = true; m_filters = std::move(value); }
 
     /**
-     * <p>Each entry in the array is a structure containing:</p> <p>Key (string,
-     * between 1 and 128 characters)</p> <p>Values (array of strings, each string
-     * between 1 and 256 characters)</p>
+     * <p>An array of structures. Each entry in the array is a structure containing a
+     * Key, Value combination. Valid values for Key are <code>Classification</code> |
+     * <code>KBId</code> | <code>Severity</code> | <code>State</code>.</p>
      */
     inline DescribeInstancePatchesRequest& WithFilters(const Aws::Vector<PatchOrchestratorFilter>& value) { SetFilters(value); return *this;}
 
     /**
-     * <p>Each entry in the array is a structure containing:</p> <p>Key (string,
-     * between 1 and 128 characters)</p> <p>Values (array of strings, each string
-     * between 1 and 256 characters)</p>
+     * <p>An array of structures. Each entry in the array is a structure containing a
+     * Key, Value combination. Valid values for Key are <code>Classification</code> |
+     * <code>KBId</code> | <code>Severity</code> | <code>State</code>.</p>
      */
     inline DescribeInstancePatchesRequest& WithFilters(Aws::Vector<PatchOrchestratorFilter>&& value) { SetFilters(std::move(value)); return *this;}
 
     /**
-     * <p>Each entry in the array is a structure containing:</p> <p>Key (string,
-     * between 1 and 128 characters)</p> <p>Values (array of strings, each string
-     * between 1 and 256 characters)</p>
+     * <p>An array of structures. Each entry in the array is a structure containing a
+     * Key, Value combination. Valid values for Key are <code>Classification</code> |
+     * <code>KBId</code> | <code>Severity</code> | <code>State</code>.</p>
      */
     inline DescribeInstancePatchesRequest& AddFilters(const PatchOrchestratorFilter& value) { m_filtersHasBeenSet = true; m_filters.push_back(value); return *this; }
 
     /**
-     * <p>Each entry in the array is a structure containing:</p> <p>Key (string,
-     * between 1 and 128 characters)</p> <p>Values (array of strings, each string
-     * between 1 and 256 characters)</p>
+     * <p>An array of structures. Each entry in the array is a structure containing a
+     * Key, Value combination. Valid values for Key are <code>Classification</code> |
+     * <code>KBId</code> | <code>Severity</code> | <code>State</code>.</p>
      */
     inline DescribeInstancePatchesRequest& AddFilters(PatchOrchestratorFilter&& value) { m_filtersHasBeenSet = true; m_filters.push_back(std::move(value)); return *this; }
 
@@ -137,6 +149,12 @@ namespace Model
      * a previous call.)</p>
      */
     inline const Aws::String& GetNextToken() const{ return m_nextToken; }
+
+    /**
+     * <p>The token for the next set of items to return. (You received this token from
+     * a previous call.)</p>
+     */
+    inline bool NextTokenHasBeenSet() const { return m_nextTokenHasBeenSet; }
 
     /**
      * <p>The token for the next set of items to return. (You received this token from
@@ -179,6 +197,11 @@ namespace Model
      * <p>The maximum number of patches to return (per page).</p>
      */
     inline int GetMaxResults() const{ return m_maxResults; }
+
+    /**
+     * <p>The maximum number of patches to return (per page).</p>
+     */
+    inline bool MaxResultsHasBeenSet() const { return m_maxResultsHasBeenSet; }
 
     /**
      * <p>The maximum number of patches to return (per page).</p>

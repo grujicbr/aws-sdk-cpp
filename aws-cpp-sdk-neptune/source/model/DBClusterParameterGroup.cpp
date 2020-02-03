@@ -56,25 +56,25 @@ DBClusterParameterGroup& DBClusterParameterGroup::operator =(const XmlNode& xmlN
     XmlNode dBClusterParameterGroupNameNode = resultNode.FirstChild("DBClusterParameterGroupName");
     if(!dBClusterParameterGroupNameNode.IsNull())
     {
-      m_dBClusterParameterGroupName = StringUtils::Trim(dBClusterParameterGroupNameNode.GetText().c_str());
+      m_dBClusterParameterGroupName = Aws::Utils::Xml::DecodeEscapedXmlText(dBClusterParameterGroupNameNode.GetText());
       m_dBClusterParameterGroupNameHasBeenSet = true;
     }
     XmlNode dBParameterGroupFamilyNode = resultNode.FirstChild("DBParameterGroupFamily");
     if(!dBParameterGroupFamilyNode.IsNull())
     {
-      m_dBParameterGroupFamily = StringUtils::Trim(dBParameterGroupFamilyNode.GetText().c_str());
+      m_dBParameterGroupFamily = Aws::Utils::Xml::DecodeEscapedXmlText(dBParameterGroupFamilyNode.GetText());
       m_dBParameterGroupFamilyHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("Description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode dBClusterParameterGroupArnNode = resultNode.FirstChild("DBClusterParameterGroupArn");
     if(!dBClusterParameterGroupArnNode.IsNull())
     {
-      m_dBClusterParameterGroupArn = StringUtils::Trim(dBClusterParameterGroupArnNode.GetText().c_str());
+      m_dBClusterParameterGroupArn = Aws::Utils::Xml::DecodeEscapedXmlText(dBClusterParameterGroupArnNode.GetText());
       m_dBClusterParameterGroupArnHasBeenSet = true;
     }
   }

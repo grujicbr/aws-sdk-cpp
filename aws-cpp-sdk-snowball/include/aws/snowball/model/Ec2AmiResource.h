@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Snowball
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     Ec2AmiResource();
-    Ec2AmiResource(const Aws::Utils::Json::JsonValue& jsonValue);
-    Ec2AmiResource& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Ec2AmiResource(Aws::Utils::Json::JsonView jsonValue);
+    Ec2AmiResource& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The ID of the AMI in Amazon EC2.</p>
      */
     inline const Aws::String& GetAmiId() const{ return m_amiId; }
+
+    /**
+     * <p>The ID of the AMI in Amazon EC2.</p>
+     */
+    inline bool AmiIdHasBeenSet() const { return m_amiIdHasBeenSet; }
 
     /**
      * <p>The ID of the AMI in Amazon EC2.</p>
@@ -89,6 +95,11 @@ namespace Model
      * <p>The ID of the AMI on the Snowball Edge device.</p>
      */
     inline const Aws::String& GetSnowballAmiId() const{ return m_snowballAmiId; }
+
+    /**
+     * <p>The ID of the AMI on the Snowball Edge device.</p>
+     */
+    inline bool SnowballAmiIdHasBeenSet() const { return m_snowballAmiIdHasBeenSet; }
 
     /**
      * <p>The ID of the AMI on the Snowball Edge device.</p>

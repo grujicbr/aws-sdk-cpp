@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace DynamoDBStreams
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     KeySchemaElement();
-    KeySchemaElement(const Aws::Utils::Json::JsonValue& jsonValue);
-    KeySchemaElement& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KeySchemaElement(Aws::Utils::Json::JsonView jsonValue);
+    KeySchemaElement& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The name of a key attribute.</p>
      */
     inline const Aws::String& GetAttributeName() const{ return m_attributeName; }
+
+    /**
+     * <p>The name of a key attribute.</p>
+     */
+    inline bool AttributeNameHasBeenSet() const { return m_attributeNameHasBeenSet; }
 
     /**
      * <p>The name of a key attribute.</p>
@@ -92,6 +98,12 @@ namespace Model
      * itself.</p>
      */
     inline const KeyType& GetKeyType() const{ return m_keyType; }
+
+    /**
+     * <p>The attribute data, consisting of the data type and the attribute value
+     * itself.</p>
+     */
+    inline bool KeyTypeHasBeenSet() const { return m_keyTypeHasBeenSet; }
 
     /**
      * <p>The attribute data, consisting of the data type and the attribute value

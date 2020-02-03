@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Glue
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     NotificationProperty();
-    NotificationProperty(const Aws::Utils::Json::JsonValue& jsonValue);
-    NotificationProperty& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    NotificationProperty(Aws::Utils::Json::JsonView jsonValue);
+    NotificationProperty& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * run delay notification.</p>
      */
     inline int GetNotifyDelayAfter() const{ return m_notifyDelayAfter; }
+
+    /**
+     * <p>After a job run starts, the number of minutes to wait before sending a job
+     * run delay notification.</p>
+     */
+    inline bool NotifyDelayAfterHasBeenSet() const { return m_notifyDelayAfterHasBeenSet; }
 
     /**
      * <p>After a job run starts, the number of minutes to wait before sending a job

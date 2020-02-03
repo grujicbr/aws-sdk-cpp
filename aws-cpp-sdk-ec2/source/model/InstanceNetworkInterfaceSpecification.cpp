@@ -47,7 +47,8 @@ InstanceNetworkInterfaceSpecification::InstanceNetworkInterfaceSpecification() :
     m_privateIpAddressesHasBeenSet(false),
     m_secondaryPrivateIpAddressCount(0),
     m_secondaryPrivateIpAddressCountHasBeenSet(false),
-    m_subnetIdHasBeenSet(false)
+    m_subnetIdHasBeenSet(false),
+    m_interfaceTypeHasBeenSet(false)
 {
 }
 
@@ -68,7 +69,8 @@ InstanceNetworkInterfaceSpecification::InstanceNetworkInterfaceSpecification(con
     m_privateIpAddressesHasBeenSet(false),
     m_secondaryPrivateIpAddressCount(0),
     m_secondaryPrivateIpAddressCountHasBeenSet(false),
-    m_subnetIdHasBeenSet(false)
+    m_subnetIdHasBeenSet(false),
+    m_interfaceTypeHasBeenSet(false)
 {
   *this = xmlNode;
 }
@@ -82,25 +84,25 @@ InstanceNetworkInterfaceSpecification& InstanceNetworkInterfaceSpecification::op
     XmlNode associatePublicIpAddressNode = resultNode.FirstChild("associatePublicIpAddress");
     if(!associatePublicIpAddressNode.IsNull())
     {
-      m_associatePublicIpAddress = StringUtils::ConvertToBool(StringUtils::Trim(associatePublicIpAddressNode.GetText().c_str()).c_str());
+      m_associatePublicIpAddress = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(associatePublicIpAddressNode.GetText()).c_str()).c_str());
       m_associatePublicIpAddressHasBeenSet = true;
     }
     XmlNode deleteOnTerminationNode = resultNode.FirstChild("deleteOnTermination");
     if(!deleteOnTerminationNode.IsNull())
     {
-      m_deleteOnTermination = StringUtils::ConvertToBool(StringUtils::Trim(deleteOnTerminationNode.GetText().c_str()).c_str());
+      m_deleteOnTermination = StringUtils::ConvertToBool(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(deleteOnTerminationNode.GetText()).c_str()).c_str());
       m_deleteOnTerminationHasBeenSet = true;
     }
     XmlNode descriptionNode = resultNode.FirstChild("description");
     if(!descriptionNode.IsNull())
     {
-      m_description = StringUtils::Trim(descriptionNode.GetText().c_str());
+      m_description = Aws::Utils::Xml::DecodeEscapedXmlText(descriptionNode.GetText());
       m_descriptionHasBeenSet = true;
     }
     XmlNode deviceIndexNode = resultNode.FirstChild("deviceIndex");
     if(!deviceIndexNode.IsNull())
     {
-      m_deviceIndex = StringUtils::ConvertToInt32(StringUtils::Trim(deviceIndexNode.GetText().c_str()).c_str());
+      m_deviceIndex = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(deviceIndexNode.GetText()).c_str()).c_str());
       m_deviceIndexHasBeenSet = true;
     }
     XmlNode groupsNode = resultNode.FirstChild("SecurityGroupId");
@@ -109,7 +111,7 @@ InstanceNetworkInterfaceSpecification& InstanceNetworkInterfaceSpecification::op
       XmlNode groupsMember = groupsNode.FirstChild("SecurityGroupId");
       while(!groupsMember.IsNull())
       {
-        m_groups.push_back(StringUtils::Trim(groupsMember.GetText().c_str()));
+        m_groups.push_back(groupsMember.GetText());
         groupsMember = groupsMember.NextNode("SecurityGroupId");
       }
 
@@ -118,7 +120,7 @@ InstanceNetworkInterfaceSpecification& InstanceNetworkInterfaceSpecification::op
     XmlNode ipv6AddressCountNode = resultNode.FirstChild("ipv6AddressCount");
     if(!ipv6AddressCountNode.IsNull())
     {
-      m_ipv6AddressCount = StringUtils::ConvertToInt32(StringUtils::Trim(ipv6AddressCountNode.GetText().c_str()).c_str());
+      m_ipv6AddressCount = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(ipv6AddressCountNode.GetText()).c_str()).c_str());
       m_ipv6AddressCountHasBeenSet = true;
     }
     XmlNode ipv6AddressesNode = resultNode.FirstChild("ipv6AddressesSet");
@@ -136,13 +138,13 @@ InstanceNetworkInterfaceSpecification& InstanceNetworkInterfaceSpecification::op
     XmlNode networkInterfaceIdNode = resultNode.FirstChild("networkInterfaceId");
     if(!networkInterfaceIdNode.IsNull())
     {
-      m_networkInterfaceId = StringUtils::Trim(networkInterfaceIdNode.GetText().c_str());
+      m_networkInterfaceId = Aws::Utils::Xml::DecodeEscapedXmlText(networkInterfaceIdNode.GetText());
       m_networkInterfaceIdHasBeenSet = true;
     }
     XmlNode privateIpAddressNode = resultNode.FirstChild("privateIpAddress");
     if(!privateIpAddressNode.IsNull())
     {
-      m_privateIpAddress = StringUtils::Trim(privateIpAddressNode.GetText().c_str());
+      m_privateIpAddress = Aws::Utils::Xml::DecodeEscapedXmlText(privateIpAddressNode.GetText());
       m_privateIpAddressHasBeenSet = true;
     }
     XmlNode privateIpAddressesNode = resultNode.FirstChild("privateIpAddressesSet");
@@ -160,14 +162,20 @@ InstanceNetworkInterfaceSpecification& InstanceNetworkInterfaceSpecification::op
     XmlNode secondaryPrivateIpAddressCountNode = resultNode.FirstChild("secondaryPrivateIpAddressCount");
     if(!secondaryPrivateIpAddressCountNode.IsNull())
     {
-      m_secondaryPrivateIpAddressCount = StringUtils::ConvertToInt32(StringUtils::Trim(secondaryPrivateIpAddressCountNode.GetText().c_str()).c_str());
+      m_secondaryPrivateIpAddressCount = StringUtils::ConvertToInt32(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(secondaryPrivateIpAddressCountNode.GetText()).c_str()).c_str());
       m_secondaryPrivateIpAddressCountHasBeenSet = true;
     }
     XmlNode subnetIdNode = resultNode.FirstChild("subnetId");
     if(!subnetIdNode.IsNull())
     {
-      m_subnetId = StringUtils::Trim(subnetIdNode.GetText().c_str());
+      m_subnetId = Aws::Utils::Xml::DecodeEscapedXmlText(subnetIdNode.GetText());
       m_subnetIdHasBeenSet = true;
+    }
+    XmlNode interfaceTypeNode = resultNode.FirstChild("InterfaceType");
+    if(!interfaceTypeNode.IsNull())
+    {
+      m_interfaceType = Aws::Utils::Xml::DecodeEscapedXmlText(interfaceTypeNode.GetText());
+      m_interfaceTypeHasBeenSet = true;
     }
   }
 
@@ -252,6 +260,11 @@ void InstanceNetworkInterfaceSpecification::OutputToStream(Aws::OStream& oStream
       oStream << location << index << locationValue << ".SubnetId=" << StringUtils::URLEncode(m_subnetId.c_str()) << "&";
   }
 
+  if(m_interfaceTypeHasBeenSet)
+  {
+      oStream << location << index << locationValue << ".InterfaceType=" << StringUtils::URLEncode(m_interfaceType.c_str()) << "&";
+  }
+
 }
 
 void InstanceNetworkInterfaceSpecification::OutputToStream(Aws::OStream& oStream, const char* location) const
@@ -319,6 +332,10 @@ void InstanceNetworkInterfaceSpecification::OutputToStream(Aws::OStream& oStream
   if(m_subnetIdHasBeenSet)
   {
       oStream << location << ".SubnetId=" << StringUtils::URLEncode(m_subnetId.c_str()) << "&";
+  }
+  if(m_interfaceTypeHasBeenSet)
+  {
+      oStream << location << ".InterfaceType=" << StringUtils::URLEncode(m_interfaceType.c_str()) << "&";
   }
 }
 

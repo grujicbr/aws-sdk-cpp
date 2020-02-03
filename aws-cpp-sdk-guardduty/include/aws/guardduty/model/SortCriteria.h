@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace GuardDuty
@@ -34,7 +35,8 @@ namespace Model
 {
 
   /**
-   * Represents the criteria used for sorting findings.<p><h3>See Also:</h3>   <a
+   * <p>Contains information about the criteria used for sorting
+   * findings.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/SortCriteria">AWS
    * API Reference</a></p>
    */
@@ -42,76 +44,87 @@ namespace Model
   {
   public:
     SortCriteria();
-    SortCriteria(const Aws::Utils::Json::JsonValue& jsonValue);
-    SortCriteria& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SortCriteria(Aws::Utils::Json::JsonView jsonValue);
+    SortCriteria& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * Represents the finding attribute (for example, accountId) by which to sort
-     * findings.
+     * <p>Represents the finding attribute (for example, accountId) by which to sort
+     * findings.</p>
      */
     inline const Aws::String& GetAttributeName() const{ return m_attributeName; }
 
     /**
-     * Represents the finding attribute (for example, accountId) by which to sort
-     * findings.
+     * <p>Represents the finding attribute (for example, accountId) by which to sort
+     * findings.</p>
+     */
+    inline bool AttributeNameHasBeenSet() const { return m_attributeNameHasBeenSet; }
+
+    /**
+     * <p>Represents the finding attribute (for example, accountId) by which to sort
+     * findings.</p>
      */
     inline void SetAttributeName(const Aws::String& value) { m_attributeNameHasBeenSet = true; m_attributeName = value; }
 
     /**
-     * Represents the finding attribute (for example, accountId) by which to sort
-     * findings.
+     * <p>Represents the finding attribute (for example, accountId) by which to sort
+     * findings.</p>
      */
     inline void SetAttributeName(Aws::String&& value) { m_attributeNameHasBeenSet = true; m_attributeName = std::move(value); }
 
     /**
-     * Represents the finding attribute (for example, accountId) by which to sort
-     * findings.
+     * <p>Represents the finding attribute (for example, accountId) by which to sort
+     * findings.</p>
      */
     inline void SetAttributeName(const char* value) { m_attributeNameHasBeenSet = true; m_attributeName.assign(value); }
 
     /**
-     * Represents the finding attribute (for example, accountId) by which to sort
-     * findings.
+     * <p>Represents the finding attribute (for example, accountId) by which to sort
+     * findings.</p>
      */
     inline SortCriteria& WithAttributeName(const Aws::String& value) { SetAttributeName(value); return *this;}
 
     /**
-     * Represents the finding attribute (for example, accountId) by which to sort
-     * findings.
+     * <p>Represents the finding attribute (for example, accountId) by which to sort
+     * findings.</p>
      */
     inline SortCriteria& WithAttributeName(Aws::String&& value) { SetAttributeName(std::move(value)); return *this;}
 
     /**
-     * Represents the finding attribute (for example, accountId) by which to sort
-     * findings.
+     * <p>Represents the finding attribute (for example, accountId) by which to sort
+     * findings.</p>
      */
     inline SortCriteria& WithAttributeName(const char* value) { SetAttributeName(value); return *this;}
 
 
     /**
-     * Order by which the sorted findings are to be displayed.
+     * <p>Order by which the sorted findings are to be displayed.</p>
      */
     inline const OrderBy& GetOrderBy() const{ return m_orderBy; }
 
     /**
-     * Order by which the sorted findings are to be displayed.
+     * <p>Order by which the sorted findings are to be displayed.</p>
+     */
+    inline bool OrderByHasBeenSet() const { return m_orderByHasBeenSet; }
+
+    /**
+     * <p>Order by which the sorted findings are to be displayed.</p>
      */
     inline void SetOrderBy(const OrderBy& value) { m_orderByHasBeenSet = true; m_orderBy = value; }
 
     /**
-     * Order by which the sorted findings are to be displayed.
+     * <p>Order by which the sorted findings are to be displayed.</p>
      */
     inline void SetOrderBy(OrderBy&& value) { m_orderByHasBeenSet = true; m_orderBy = std::move(value); }
 
     /**
-     * Order by which the sorted findings are to be displayed.
+     * <p>Order by which the sorted findings are to be displayed.</p>
      */
     inline SortCriteria& WithOrderBy(const OrderBy& value) { SetOrderBy(value); return *this;}
 
     /**
-     * Order by which the sorted findings are to be displayed.
+     * <p>Order by which the sorted findings are to be displayed.</p>
      */
     inline SortCriteria& WithOrderBy(OrderBy&& value) { SetOrderBy(std::move(value)); return *this;}
 

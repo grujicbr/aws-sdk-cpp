@@ -33,7 +33,7 @@ GetJobOutputRequest::GetJobOutputRequest() :
 
 Aws::String GetJobOutputRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection GetJobOutputRequest::GetRequestSpecificHeaders() const
@@ -43,7 +43,7 @@ Aws::Http::HeaderValueCollection GetJobOutputRequest::GetRequestSpecificHeaders(
   if(m_rangeHasBeenSet)
   {
     ss << m_range;
-    headers.insert(Aws::Http::HeaderValuePair("range", ss.str()));
+    headers.emplace("range",  ss.str());
     ss.str("");
   }
 

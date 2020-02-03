@@ -33,21 +33,23 @@ S3DataSource::S3DataSource() :
     m_s3DataTypeHasBeenSet(false),
     m_s3UriHasBeenSet(false),
     m_s3DataDistributionType(S3DataDistribution::NOT_SET),
-    m_s3DataDistributionTypeHasBeenSet(false)
+    m_s3DataDistributionTypeHasBeenSet(false),
+    m_attributeNamesHasBeenSet(false)
 {
 }
 
-S3DataSource::S3DataSource(const JsonValue& jsonValue) : 
+S3DataSource::S3DataSource(JsonView jsonValue) : 
     m_s3DataType(S3DataType::NOT_SET),
     m_s3DataTypeHasBeenSet(false),
     m_s3UriHasBeenSet(false),
     m_s3DataDistributionType(S3DataDistribution::NOT_SET),
-    m_s3DataDistributionTypeHasBeenSet(false)
+    m_s3DataDistributionTypeHasBeenSet(false),
+    m_attributeNamesHasBeenSet(false)
 {
   *this = jsonValue;
 }
 
-S3DataSource& S3DataSource::operator =(const JsonValue& jsonValue)
+S3DataSource& S3DataSource::operator =(JsonView jsonValue)
 {
   if(jsonValue.ValueExists("S3DataType"))
   {
@@ -68,6 +70,16 @@ S3DataSource& S3DataSource::operator =(const JsonValue& jsonValue)
     m_s3DataDistributionType = S3DataDistributionMapper::GetS3DataDistributionForName(jsonValue.GetString("S3DataDistributionType"));
 
     m_s3DataDistributionTypeHasBeenSet = true;
+  }
+
+  if(jsonValue.ValueExists("AttributeNames"))
+  {
+    Array<JsonView> attributeNamesJsonList = jsonValue.GetArray("AttributeNames");
+    for(unsigned attributeNamesIndex = 0; attributeNamesIndex < attributeNamesJsonList.GetLength(); ++attributeNamesIndex)
+    {
+      m_attributeNames.push_back(attributeNamesJsonList[attributeNamesIndex].AsString());
+    }
+    m_attributeNamesHasBeenSet = true;
   }
 
   return *this;
@@ -91,6 +103,17 @@ JsonValue S3DataSource::Jsonize() const
   if(m_s3DataDistributionTypeHasBeenSet)
   {
    payload.WithString("S3DataDistributionType", S3DataDistributionMapper::GetNameForS3DataDistribution(m_s3DataDistributionType));
+  }
+
+  if(m_attributeNamesHasBeenSet)
+  {
+   Array<JsonValue> attributeNamesJsonList(m_attributeNames.size());
+   for(unsigned attributeNamesIndex = 0; attributeNamesIndex < attributeNamesJsonList.GetLength(); ++attributeNamesIndex)
+   {
+     attributeNamesJsonList[attributeNamesIndex].AsString(m_attributeNames[attributeNamesIndex]);
+   }
+   payload.WithArray("AttributeNames", std::move(attributeNamesJsonList));
+
   }
 
   return payload;

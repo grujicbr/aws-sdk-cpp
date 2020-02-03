@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace ResourceGroupsTaggingAPI
@@ -36,9 +37,8 @@ namespace Model
    * <p>The metadata that you apply to AWS resources to help you categorize and
    * organize them. Each tag consists of a key and an optional value, both of which
    * you define. For more information, see <a
-   * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-basics">Tag
-   * Basics</a> in the <i>Amazon EC2 User Guide for Linux
-   * Instances</i>.</p><p><h3>See Also:</h3>   <a
+   * href="http://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging AWS
+   * Resources</a> in the <i>AWS General Reference</i>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/resourcegroupstaggingapi-2017-01-26/Tag">AWS
    * API Reference</a></p>
    */
@@ -46,49 +46,55 @@ namespace Model
   {
   public:
     Tag();
-    Tag(const Aws::Utils::Json::JsonValue& jsonValue);
-    Tag& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Tag(Aws::Utils::Json::JsonView jsonValue);
+    Tag& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
-     * <p>One part of a key-value pair that make up a tag. A key is a general label
+     * <p>One part of a key-value pair that makes up a tag. A key is a general label
      * that acts like a category for more specific tag values.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
 
     /**
-     * <p>One part of a key-value pair that make up a tag. A key is a general label
+     * <p>One part of a key-value pair that makes up a tag. A key is a general label
+     * that acts like a category for more specific tag values.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
+
+    /**
+     * <p>One part of a key-value pair that makes up a tag. A key is a general label
      * that acts like a category for more specific tag values.</p>
      */
     inline void SetKey(const Aws::String& value) { m_keyHasBeenSet = true; m_key = value; }
 
     /**
-     * <p>One part of a key-value pair that make up a tag. A key is a general label
+     * <p>One part of a key-value pair that makes up a tag. A key is a general label
      * that acts like a category for more specific tag values.</p>
      */
     inline void SetKey(Aws::String&& value) { m_keyHasBeenSet = true; m_key = std::move(value); }
 
     /**
-     * <p>One part of a key-value pair that make up a tag. A key is a general label
+     * <p>One part of a key-value pair that makes up a tag. A key is a general label
      * that acts like a category for more specific tag values.</p>
      */
     inline void SetKey(const char* value) { m_keyHasBeenSet = true; m_key.assign(value); }
 
     /**
-     * <p>One part of a key-value pair that make up a tag. A key is a general label
+     * <p>One part of a key-value pair that makes up a tag. A key is a general label
      * that acts like a category for more specific tag values.</p>
      */
     inline Tag& WithKey(const Aws::String& value) { SetKey(value); return *this;}
 
     /**
-     * <p>One part of a key-value pair that make up a tag. A key is a general label
+     * <p>One part of a key-value pair that makes up a tag. A key is a general label
      * that acts like a category for more specific tag values.</p>
      */
     inline Tag& WithKey(Aws::String&& value) { SetKey(std::move(value)); return *this;}
 
     /**
-     * <p>One part of a key-value pair that make up a tag. A key is a general label
+     * <p>One part of a key-value pair that makes up a tag. A key is a general label
      * that acts like a category for more specific tag values.</p>
      */
     inline Tag& WithKey(const char* value) { SetKey(value); return *this;}
@@ -99,6 +105,12 @@ namespace Model
      * descriptor within a tag category (key).</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The optional part of a key-value pair that make up a tag. A value acts as a
+     * descriptor within a tag category (key).</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The optional part of a key-value pair that make up a tag. A value acts as a

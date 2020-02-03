@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace MediaConvert
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     ResourceTags();
-    ResourceTags(const Aws::Utils::Json::JsonValue& jsonValue);
-    ResourceTags& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    ResourceTags(Aws::Utils::Json::JsonView jsonValue);
+    ResourceTags& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * The Amazon Resource Name (ARN) of the resource.
      */
     inline const Aws::String& GetArn() const{ return m_arn; }
+
+    /**
+     * The Amazon Resource Name (ARN) of the resource.
+     */
+    inline bool ArnHasBeenSet() const { return m_arnHasBeenSet; }
 
     /**
      * The Amazon Resource Name (ARN) of the resource.
@@ -88,6 +94,11 @@ namespace Model
      * The tags for the resource.
      */
     inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * The tags for the resource.
+     */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
 
     /**
      * The tags for the resource.

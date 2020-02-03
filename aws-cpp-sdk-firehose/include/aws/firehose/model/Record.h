@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Firehose
@@ -41,38 +42,44 @@ namespace Model
   {
   public:
     Record();
-    Record(const Aws::Utils::Json::JsonValue& jsonValue);
-    Record& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Record(Aws::Utils::Json::JsonView jsonValue);
+    Record& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
     /**
      * <p>The data blob, which is base64-encoded when the blob is serialized. The
-     * maximum size of the data blob, before base64-encoding, is 1,000 KB.</p>
+     * maximum size of the data blob, before base64-encoding, is 1,000 KiB.</p>
      */
     inline const Aws::Utils::ByteBuffer& GetData() const{ return m_data; }
 
     /**
      * <p>The data blob, which is base64-encoded when the blob is serialized. The
-     * maximum size of the data blob, before base64-encoding, is 1,000 KB.</p>
+     * maximum size of the data blob, before base64-encoding, is 1,000 KiB.</p>
+     */
+    inline bool DataHasBeenSet() const { return m_dataHasBeenSet; }
+
+    /**
+     * <p>The data blob, which is base64-encoded when the blob is serialized. The
+     * maximum size of the data blob, before base64-encoding, is 1,000 KiB.</p>
      */
     inline void SetData(const Aws::Utils::ByteBuffer& value) { m_dataHasBeenSet = true; m_data = value; }
 
     /**
      * <p>The data blob, which is base64-encoded when the blob is serialized. The
-     * maximum size of the data blob, before base64-encoding, is 1,000 KB.</p>
+     * maximum size of the data blob, before base64-encoding, is 1,000 KiB.</p>
      */
     inline void SetData(Aws::Utils::ByteBuffer&& value) { m_dataHasBeenSet = true; m_data = std::move(value); }
 
     /**
      * <p>The data blob, which is base64-encoded when the blob is serialized. The
-     * maximum size of the data blob, before base64-encoding, is 1,000 KB.</p>
+     * maximum size of the data blob, before base64-encoding, is 1,000 KiB.</p>
      */
     inline Record& WithData(const Aws::Utils::ByteBuffer& value) { SetData(value); return *this;}
 
     /**
      * <p>The data blob, which is base64-encoded when the blob is serialized. The
-     * maximum size of the data blob, before base64-encoding, is 1,000 KB.</p>
+     * maximum size of the data blob, before base64-encoding, is 1,000 KiB.</p>
      */
     inline Record& WithData(Aws::Utils::ByteBuffer&& value) { SetData(std::move(value)); return *this;}
 

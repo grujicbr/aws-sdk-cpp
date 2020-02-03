@@ -16,14 +16,17 @@
 #pragma once
 #include <aws/medialive/MediaLive_EXPORTS.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/medialive/model/ChannelClass.h>
 #include <aws/core/utils/memory/stl/AWSVector.h>
 #include <aws/medialive/model/EncoderSettings.h>
 #include <aws/medialive/model/InputSpecification.h>
 #include <aws/medialive/model/LogLevel.h>
 #include <aws/medialive/model/ChannelState.h>
+#include <aws/core/utils/memory/stl/AWSMap.h>
 #include <aws/medialive/model/OutputDestination.h>
 #include <aws/medialive/model/ChannelEgressEndpoint.h>
 #include <aws/medialive/model/InputAttachment.h>
+#include <aws/medialive/model/PipelineDetail.h>
 #include <utility>
 
 namespace Aws
@@ -89,6 +92,37 @@ namespace Model
      * The unique arn of the channel.
      */
     inline StartChannelResult& WithArn(const char* value) { SetArn(value); return *this;}
+
+
+    /**
+     * The class for this channel. STANDARD for a channel with two pipelines or
+     * SINGLE_PIPELINE for a channel with one pipeline.
+     */
+    inline const ChannelClass& GetChannelClass() const{ return m_channelClass; }
+
+    /**
+     * The class for this channel. STANDARD for a channel with two pipelines or
+     * SINGLE_PIPELINE for a channel with one pipeline.
+     */
+    inline void SetChannelClass(const ChannelClass& value) { m_channelClass = value; }
+
+    /**
+     * The class for this channel. STANDARD for a channel with two pipelines or
+     * SINGLE_PIPELINE for a channel with one pipeline.
+     */
+    inline void SetChannelClass(ChannelClass&& value) { m_channelClass = std::move(value); }
+
+    /**
+     * The class for this channel. STANDARD for a channel with two pipelines or
+     * SINGLE_PIPELINE for a channel with one pipeline.
+     */
+    inline StartChannelResult& WithChannelClass(const ChannelClass& value) { SetChannelClass(value); return *this;}
+
+    /**
+     * The class for this channel. STANDARD for a channel with two pipelines or
+     * SINGLE_PIPELINE for a channel with one pipeline.
+     */
+    inline StartChannelResult& WithChannelClass(ChannelClass&& value) { SetChannelClass(std::move(value)); return *this;}
 
 
     /**
@@ -365,6 +399,42 @@ one destination per
 
 
     /**
+     * Runtime details for the pipelines of a running channel.
+     */
+    inline const Aws::Vector<PipelineDetail>& GetPipelineDetails() const{ return m_pipelineDetails; }
+
+    /**
+     * Runtime details for the pipelines of a running channel.
+     */
+    inline void SetPipelineDetails(const Aws::Vector<PipelineDetail>& value) { m_pipelineDetails = value; }
+
+    /**
+     * Runtime details for the pipelines of a running channel.
+     */
+    inline void SetPipelineDetails(Aws::Vector<PipelineDetail>&& value) { m_pipelineDetails = std::move(value); }
+
+    /**
+     * Runtime details for the pipelines of a running channel.
+     */
+    inline StartChannelResult& WithPipelineDetails(const Aws::Vector<PipelineDetail>& value) { SetPipelineDetails(value); return *this;}
+
+    /**
+     * Runtime details for the pipelines of a running channel.
+     */
+    inline StartChannelResult& WithPipelineDetails(Aws::Vector<PipelineDetail>&& value) { SetPipelineDetails(std::move(value)); return *this;}
+
+    /**
+     * Runtime details for the pipelines of a running channel.
+     */
+    inline StartChannelResult& AddPipelineDetails(const PipelineDetail& value) { m_pipelineDetails.push_back(value); return *this; }
+
+    /**
+     * Runtime details for the pipelines of a running channel.
+     */
+    inline StartChannelResult& AddPipelineDetails(PipelineDetail&& value) { m_pipelineDetails.push_back(std::move(value)); return *this; }
+
+
+    /**
      * The number of currently healthy pipelines.
      */
     inline int GetPipelinesRunningCount() const{ return m_pipelinesRunningCount; }
@@ -431,9 +501,72 @@ one destination per
     
     inline StartChannelResult& WithState(ChannelState&& value) { SetState(std::move(value)); return *this;}
 
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline const Aws::Map<Aws::String, Aws::String>& GetTags() const{ return m_tags; }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline void SetTags(const Aws::Map<Aws::String, Aws::String>& value) { m_tags = value; }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline void SetTags(Aws::Map<Aws::String, Aws::String>&& value) { m_tags = std::move(value); }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& WithTags(const Aws::Map<Aws::String, Aws::String>& value) { SetTags(value); return *this;}
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& WithTags(Aws::Map<Aws::String, Aws::String>&& value) { SetTags(std::move(value)); return *this;}
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& AddTags(const Aws::String& key, const Aws::String& value) { m_tags.emplace(key, value); return *this; }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& AddTags(Aws::String&& key, const Aws::String& value) { m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& AddTags(const Aws::String& key, Aws::String&& value) { m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& AddTags(Aws::String&& key, Aws::String&& value) { m_tags.emplace(std::move(key), std::move(value)); return *this; }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& AddTags(const char* key, Aws::String&& value) { m_tags.emplace(key, std::move(value)); return *this; }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& AddTags(Aws::String&& key, const char* value) { m_tags.emplace(std::move(key), value); return *this; }
+
+    /**
+     * A collection of key-value pairs.
+     */
+    inline StartChannelResult& AddTags(const char* key, const char* value) { m_tags.emplace(key, value); return *this; }
+
   private:
 
     Aws::String m_arn;
+
+    ChannelClass m_channelClass;
 
     Aws::Vector<OutputDestination> m_destinations;
 
@@ -451,11 +584,15 @@ one destination per
 
     Aws::String m_name;
 
+    Aws::Vector<PipelineDetail> m_pipelineDetails;
+
     int m_pipelinesRunningCount;
 
     Aws::String m_roleArn;
 
     ChannelState m_state;
+
+    Aws::Map<Aws::String, Aws::String> m_tags;
   };
 
 } // namespace Model

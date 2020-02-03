@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace OpsWorks
@@ -41,8 +42,8 @@ namespace Model
   {
   public:
     SelfUserProfile();
-    SelfUserProfile(const Aws::Utils::Json::JsonValue& jsonValue);
-    SelfUserProfile& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    SelfUserProfile(Aws::Utils::Json::JsonView jsonValue);
+    SelfUserProfile& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,11 @@ namespace Model
      * <p>The user's IAM ARN.</p>
      */
     inline const Aws::String& GetIamUserArn() const{ return m_iamUserArn; }
+
+    /**
+     * <p>The user's IAM ARN.</p>
+     */
+    inline bool IamUserArnHasBeenSet() const { return m_iamUserArnHasBeenSet; }
 
     /**
      * <p>The user's IAM ARN.</p>
@@ -90,6 +96,11 @@ namespace Model
     /**
      * <p>The user's name.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>The user's name.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -126,6 +137,11 @@ namespace Model
     /**
      * <p>The user's SSH user name.</p>
      */
+    inline bool SshUsernameHasBeenSet() const { return m_sshUsernameHasBeenSet; }
+
+    /**
+     * <p>The user's SSH user name.</p>
+     */
     inline void SetSshUsername(const Aws::String& value) { m_sshUsernameHasBeenSet = true; m_sshUsername = value; }
 
     /**
@@ -158,6 +174,11 @@ namespace Model
      * <p>The user's SSH public key.</p>
      */
     inline const Aws::String& GetSshPublicKey() const{ return m_sshPublicKey; }
+
+    /**
+     * <p>The user's SSH public key.</p>
+     */
+    inline bool SshPublicKeyHasBeenSet() const { return m_sshPublicKeyHasBeenSet; }
 
     /**
      * <p>The user's SSH public key.</p>

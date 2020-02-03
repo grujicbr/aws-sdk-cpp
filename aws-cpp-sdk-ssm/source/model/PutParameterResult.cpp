@@ -27,22 +27,30 @@ using namespace Aws::Utils;
 using namespace Aws;
 
 PutParameterResult::PutParameterResult() : 
-    m_version(0)
+    m_version(0),
+    m_tier(ParameterTier::NOT_SET)
 {
 }
 
 PutParameterResult::PutParameterResult(const Aws::AmazonWebServiceResult<JsonValue>& result) : 
-    m_version(0)
+    m_version(0),
+    m_tier(ParameterTier::NOT_SET)
 {
   *this = result;
 }
 
 PutParameterResult& PutParameterResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("Version"))
   {
     m_version = jsonValue.GetInt64("Version");
+
+  }
+
+  if(jsonValue.ValueExists("Tier"))
+  {
+    m_tier = ParameterTierMapper::GetParameterTierForName(jsonValue.GetString("Tier"));
 
   }
 

@@ -60,31 +60,31 @@ AnalysisOptions& AnalysisOptions::operator =(const XmlNode& xmlNode)
     XmlNode synonymsNode = resultNode.FirstChild("Synonyms");
     if(!synonymsNode.IsNull())
     {
-      m_synonyms = StringUtils::Trim(synonymsNode.GetText().c_str());
+      m_synonyms = Aws::Utils::Xml::DecodeEscapedXmlText(synonymsNode.GetText());
       m_synonymsHasBeenSet = true;
     }
     XmlNode stopwordsNode = resultNode.FirstChild("Stopwords");
     if(!stopwordsNode.IsNull())
     {
-      m_stopwords = StringUtils::Trim(stopwordsNode.GetText().c_str());
+      m_stopwords = Aws::Utils::Xml::DecodeEscapedXmlText(stopwordsNode.GetText());
       m_stopwordsHasBeenSet = true;
     }
     XmlNode stemmingDictionaryNode = resultNode.FirstChild("StemmingDictionary");
     if(!stemmingDictionaryNode.IsNull())
     {
-      m_stemmingDictionary = StringUtils::Trim(stemmingDictionaryNode.GetText().c_str());
+      m_stemmingDictionary = Aws::Utils::Xml::DecodeEscapedXmlText(stemmingDictionaryNode.GetText());
       m_stemmingDictionaryHasBeenSet = true;
     }
     XmlNode japaneseTokenizationDictionaryNode = resultNode.FirstChild("JapaneseTokenizationDictionary");
     if(!japaneseTokenizationDictionaryNode.IsNull())
     {
-      m_japaneseTokenizationDictionary = StringUtils::Trim(japaneseTokenizationDictionaryNode.GetText().c_str());
+      m_japaneseTokenizationDictionary = Aws::Utils::Xml::DecodeEscapedXmlText(japaneseTokenizationDictionaryNode.GetText());
       m_japaneseTokenizationDictionaryHasBeenSet = true;
     }
     XmlNode algorithmicStemmingNode = resultNode.FirstChild("AlgorithmicStemming");
     if(!algorithmicStemmingNode.IsNull())
     {
-      m_algorithmicStemming = AlgorithmicStemmingMapper::GetAlgorithmicStemmingForName(StringUtils::Trim(algorithmicStemmingNode.GetText().c_str()).c_str());
+      m_algorithmicStemming = AlgorithmicStemmingMapper::GetAlgorithmicStemmingForName(StringUtils::Trim(Aws::Utils::Xml::DecodeEscapedXmlText(algorithmicStemmingNode.GetText()).c_str()).c_str());
       m_algorithmicStemmingHasBeenSet = true;
     }
   }

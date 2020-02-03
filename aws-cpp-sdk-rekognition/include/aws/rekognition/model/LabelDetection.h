@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LabelDetection();
-    LabelDetection(const Aws::Utils::Json::JsonValue& jsonValue);
-    LabelDetection& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LabelDetection(Aws::Utils::Json::JsonView jsonValue);
+    LabelDetection& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,12 @@ namespace Model
      * detected.</p>
      */
     inline long long GetTimestamp() const{ return m_timestamp; }
+
+    /**
+     * <p>Time, in milliseconds from the start of the video, that the label was
+     * detected.</p>
+     */
+    inline bool TimestampHasBeenSet() const { return m_timestampHasBeenSet; }
 
     /**
      * <p>Time, in milliseconds from the start of the video, that the label was
@@ -70,6 +77,11 @@ namespace Model
      * <p>Details about the detected label.</p>
      */
     inline const Label& GetLabel() const{ return m_label; }
+
+    /**
+     * <p>Details about the detected label.</p>
+     */
+    inline bool LabelHasBeenSet() const { return m_labelHasBeenSet; }
 
     /**
      * <p>Details about the detected label.</p>

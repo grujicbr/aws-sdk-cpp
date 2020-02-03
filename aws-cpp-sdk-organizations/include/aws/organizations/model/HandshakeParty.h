@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Organizations
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     HandshakeParty();
-    HandshakeParty(const Aws::Utils::Json::JsonValue& jsonValue);
-    HandshakeParty& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    HandshakeParty(Aws::Utils::Json::JsonView jsonValue);
+    HandshakeParty& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,13 @@ namespace Model
      * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier (ID) for the party.</p> <p>The <a
+     * href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string
+     * requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier (ID) for the party.</p> <p>The <a
@@ -101,6 +109,11 @@ namespace Model
      * <p>The type of party.</p>
      */
     inline const HandshakePartyType& GetType() const{ return m_type; }
+
+    /**
+     * <p>The type of party.</p>
+     */
+    inline bool TypeHasBeenSet() const { return m_typeHasBeenSet; }
 
     /**
      * <p>The type of party.</p>

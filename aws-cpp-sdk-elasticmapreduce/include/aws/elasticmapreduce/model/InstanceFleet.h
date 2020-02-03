@@ -30,6 +30,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -51,8 +52,8 @@ namespace Model
   {
   public:
     InstanceFleet();
-    InstanceFleet(const Aws::Utils::Json::JsonValue& jsonValue);
-    InstanceFleet& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    InstanceFleet(Aws::Utils::Json::JsonView jsonValue);
+    InstanceFleet& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -60,6 +61,11 @@ namespace Model
      * <p>The unique identifier of the instance fleet.</p>
      */
     inline const Aws::String& GetId() const{ return m_id; }
+
+    /**
+     * <p>The unique identifier of the instance fleet.</p>
+     */
+    inline bool IdHasBeenSet() const { return m_idHasBeenSet; }
 
     /**
      * <p>The unique identifier of the instance fleet.</p>
@@ -100,6 +106,11 @@ namespace Model
     /**
      * <p>A friendly name for the instance fleet.</p>
      */
+    inline bool NameHasBeenSet() const { return m_nameHasBeenSet; }
+
+    /**
+     * <p>A friendly name for the instance fleet.</p>
+     */
     inline void SetName(const Aws::String& value) { m_nameHasBeenSet = true; m_name = value; }
 
     /**
@@ -136,6 +147,11 @@ namespace Model
     /**
      * <p>The current status of the instance fleet. </p>
      */
+    inline bool StatusHasBeenSet() const { return m_statusHasBeenSet; }
+
+    /**
+     * <p>The current status of the instance fleet. </p>
+     */
     inline void SetStatus(const InstanceFleetStatus& value) { m_statusHasBeenSet = true; m_status = value; }
 
     /**
@@ -159,6 +175,12 @@ namespace Model
      * or TASK. </p>
      */
     inline const InstanceFleetType& GetInstanceFleetType() const{ return m_instanceFleetType; }
+
+    /**
+     * <p>The node type that the instance fleet hosts. Valid values are MASTER, CORE,
+     * or TASK. </p>
+     */
+    inline bool InstanceFleetTypeHasBeenSet() const { return m_instanceFleetTypeHasBeenSet; }
 
     /**
      * <p>The node type that the instance fleet hosts. Valid values are MASTER, CORE,
@@ -207,6 +229,29 @@ namespace Model
      * specified, and its value must be 1.</p> </note>
      */
     inline int GetTargetOnDemandCapacity() const{ return m_targetOnDemandCapacity; }
+
+    /**
+     * <p>The target capacity of On-Demand units for the instance fleet, which
+     * determines how many On-Demand instances to provision. When the instance fleet
+     * launches, Amazon EMR tries to provision On-Demand instances as specified by
+     * <a>InstanceTypeConfig</a>. Each instance configuration has a specified
+     * <code>WeightedCapacity</code>. When an On-Demand instance is provisioned, the
+     * <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
+     * provisions instances until the target capacity is totally fulfilled, even if
+     * this results in an overage. For example, if there are 2 units remaining to
+     * fulfill capacity, and Amazon EMR can only provision an instance with a
+     * <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the
+     * target capacity is exceeded by 3 units. You can use
+     * <a>InstanceFleet$ProvisionedOnDemandCapacity</a> to determine the Spot capacity
+     * units that have been provisioned for the instance fleet.</p> <note> <p>If not
+     * specified or set to 0, only Spot instances are provisioned for the instance
+     * fleet using <code>TargetSpotCapacity</code>. At least one of
+     * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should
+     * be greater than 0. For a master instance fleet, only one of
+     * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be
+     * specified, and its value must be 1.</p> </note>
+     */
+    inline bool TargetOnDemandCapacityHasBeenSet() const { return m_targetOnDemandCapacityHasBeenSet; }
 
     /**
      * <p>The target capacity of On-Demand units for the instance fleet, which
@@ -297,6 +342,28 @@ namespace Model
      * <code>TargetOnDemandCapacity</code> can be specified, and its value must be
      * 1.</p> </note>
      */
+    inline bool TargetSpotCapacityHasBeenSet() const { return m_targetSpotCapacityHasBeenSet; }
+
+    /**
+     * <p>The target capacity of Spot units for the instance fleet, which determines
+     * how many Spot instances to provision. When the instance fleet launches, Amazon
+     * EMR tries to provision Spot instances as specified by <a>InstanceTypeConfig</a>.
+     * Each instance configuration has a specified <code>WeightedCapacity</code>. When
+     * a Spot instance is provisioned, the <code>WeightedCapacity</code> units count
+     * toward the target capacity. Amazon EMR provisions instances until the target
+     * capacity is totally fulfilled, even if this results in an overage. For example,
+     * if there are 2 units remaining to fulfill capacity, and Amazon EMR can only
+     * provision an instance with a <code>WeightedCapacity</code> of 5 units, the
+     * instance is provisioned, and the target capacity is exceeded by 3 units. You can
+     * use <a>InstanceFleet$ProvisionedSpotCapacity</a> to determine the Spot capacity
+     * units that have been provisioned for the instance fleet.</p> <note> <p>If not
+     * specified or set to 0, only On-Demand instances are provisioned for the instance
+     * fleet. At least one of <code>TargetSpotCapacity</code> and
+     * <code>TargetOnDemandCapacity</code> should be greater than 0. For a master
+     * instance fleet, only one of <code>TargetSpotCapacity</code> and
+     * <code>TargetOnDemandCapacity</code> can be specified, and its value must be
+     * 1.</p> </note>
+     */
     inline void SetTargetSpotCapacity(int value) { m_targetSpotCapacityHasBeenSet = true; m_targetSpotCapacity = value; }
 
     /**
@@ -334,6 +401,13 @@ namespace Model
      * fleet to fulfill <code>TargetOnDemandCapacity</code>. This provisioned capacity
      * might be less than or greater than <code>TargetOnDemandCapacity</code>.</p>
      */
+    inline bool ProvisionedOnDemandCapacityHasBeenSet() const { return m_provisionedOnDemandCapacityHasBeenSet; }
+
+    /**
+     * <p>The number of On-Demand units that have been provisioned for the instance
+     * fleet to fulfill <code>TargetOnDemandCapacity</code>. This provisioned capacity
+     * might be less than or greater than <code>TargetOnDemandCapacity</code>.</p>
+     */
     inline void SetProvisionedOnDemandCapacity(int value) { m_provisionedOnDemandCapacityHasBeenSet = true; m_provisionedOnDemandCapacity = value; }
 
     /**
@@ -356,6 +430,13 @@ namespace Model
      * to fulfill <code>TargetSpotCapacity</code>. This provisioned capacity might be
      * less than or greater than <code>TargetSpotCapacity</code>.</p>
      */
+    inline bool ProvisionedSpotCapacityHasBeenSet() const { return m_provisionedSpotCapacityHasBeenSet; }
+
+    /**
+     * <p>The number of Spot units that have been provisioned for this instance fleet
+     * to fulfill <code>TargetSpotCapacity</code>. This provisioned capacity might be
+     * less than or greater than <code>TargetSpotCapacity</code>.</p>
+     */
     inline void SetProvisionedSpotCapacity(int value) { m_provisionedSpotCapacityHasBeenSet = true; m_provisionedSpotCapacity = value; }
 
     /**
@@ -372,6 +453,13 @@ namespace Model
      * </p>
      */
     inline const Aws::Vector<InstanceTypeSpecification>& GetInstanceTypeSpecifications() const{ return m_instanceTypeSpecifications; }
+
+    /**
+     * <p>The specification for the instance types that comprise an instance fleet. Up
+     * to five unique instance specifications may be defined for each instance fleet.
+     * </p>
+     */
+    inline bool InstanceTypeSpecificationsHasBeenSet() const { return m_instanceTypeSpecificationsHasBeenSet; }
 
     /**
      * <p>The specification for the instance types that comprise an instance fleet. Up
@@ -420,6 +508,11 @@ namespace Model
      * <p>Describes the launch specification for an instance fleet. </p>
      */
     inline const InstanceFleetProvisioningSpecifications& GetLaunchSpecifications() const{ return m_launchSpecifications; }
+
+    /**
+     * <p>Describes the launch specification for an instance fleet. </p>
+     */
+    inline bool LaunchSpecificationsHasBeenSet() const { return m_launchSpecificationsHasBeenSet; }
 
     /**
      * <p>Describes the launch specification for an instance fleet. </p>

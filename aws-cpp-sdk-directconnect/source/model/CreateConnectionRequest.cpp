@@ -26,7 +26,9 @@ CreateConnectionRequest::CreateConnectionRequest() :
     m_locationHasBeenSet(false),
     m_bandwidthHasBeenSet(false),
     m_connectionNameHasBeenSet(false),
-    m_lagIdHasBeenSet(false)
+    m_lagIdHasBeenSet(false),
+    m_tagsHasBeenSet(false),
+    m_providerNameHasBeenSet(false)
 {
 }
 
@@ -58,7 +60,24 @@ Aws::String CreateConnectionRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_tagsHasBeenSet)
+  {
+   Array<JsonValue> tagsJsonList(m_tags.size());
+   for(unsigned tagsIndex = 0; tagsIndex < tagsJsonList.GetLength(); ++tagsIndex)
+   {
+     tagsJsonList[tagsIndex].AsObject(m_tags[tagsIndex].Jsonize());
+   }
+   payload.WithArray("tags", std::move(tagsJsonList));
+
+  }
+
+  if(m_providerNameHasBeenSet)
+  {
+   payload.WithString("providerName", m_providerName);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection CreateConnectionRequest::GetRequestSpecificHeaders() const

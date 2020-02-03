@@ -24,7 +24,8 @@ using namespace Aws::Utils;
 
 DescribeDocumentRequest::DescribeDocumentRequest() : 
     m_nameHasBeenSet(false),
-    m_documentVersionHasBeenSet(false)
+    m_documentVersionHasBeenSet(false),
+    m_versionNameHasBeenSet(false)
 {
 }
 
@@ -44,7 +45,13 @@ Aws::String DescribeDocumentRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  if(m_versionNameHasBeenSet)
+  {
+   payload.WithString("VersionName", m_versionName);
+
+  }
+
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection DescribeDocumentRequest::GetRequestSpecificHeaders() const

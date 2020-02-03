@@ -24,11 +24,15 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/cur/CostandUsageReportServiceClient.h>
 #include <aws/cur/CostandUsageReportServiceEndpoint.h>
 #include <aws/cur/CostandUsageReportServiceErrorMarshaller.h>
 #include <aws/cur/model/DeleteReportDefinitionRequest.h>
 #include <aws/cur/model/DescribeReportDefinitionsRequest.h>
+#include <aws/cur/model/ModifyReportDefinitionRequest.h>
 #include <aws/cur/model/PutReportDefinitionRequest.h>
 
 using namespace Aws;
@@ -80,28 +84,36 @@ CostandUsageReportServiceClient::~CostandUsageReportServiceClient()
 
 void CostandUsageReportServiceClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << CostandUsageReportServiceEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + CostandUsageReportServiceEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void CostandUsageReportServiceClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
 }
 
 DeleteReportDefinitionOutcome CostandUsageReportServiceClient::DeleteReportDefinition(const DeleteReportDefinitionRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DeleteReportDefinitionOutcome(DeleteReportDefinitionResult(outcome.GetResult()));
@@ -132,11 +144,11 @@ void CostandUsageReportServiceClient::DeleteReportDefinitionAsyncHelper(const De
 
 DescribeReportDefinitionsOutcome CostandUsageReportServiceClient::DescribeReportDefinitions(const DescribeReportDefinitionsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeReportDefinitionsOutcome(DescribeReportDefinitionsResult(outcome.GetResult()));
@@ -165,13 +177,48 @@ void CostandUsageReportServiceClient::DescribeReportDefinitionsAsyncHelper(const
   handler(this, request, DescribeReportDefinitions(request), context);
 }
 
-PutReportDefinitionOutcome CostandUsageReportServiceClient::PutReportDefinition(const PutReportDefinitionRequest& request) const
+ModifyReportDefinitionOutcome CostandUsageReportServiceClient::ModifyReportDefinition(const ModifyReportDefinitionRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return ModifyReportDefinitionOutcome(ModifyReportDefinitionResult(outcome.GetResult()));
+  }
+  else
+  {
+    return ModifyReportDefinitionOutcome(outcome.GetError());
+  }
+}
+
+ModifyReportDefinitionOutcomeCallable CostandUsageReportServiceClient::ModifyReportDefinitionCallable(const ModifyReportDefinitionRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< ModifyReportDefinitionOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->ModifyReportDefinition(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void CostandUsageReportServiceClient::ModifyReportDefinitionAsync(const ModifyReportDefinitionRequest& request, const ModifyReportDefinitionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->ModifyReportDefinitionAsyncHelper( request, handler, context ); } );
+}
+
+void CostandUsageReportServiceClient::ModifyReportDefinitionAsyncHelper(const ModifyReportDefinitionRequest& request, const ModifyReportDefinitionResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, ModifyReportDefinition(request), context);
+}
+
+PutReportDefinitionOutcome CostandUsageReportServiceClient::PutReportDefinition(const PutReportDefinitionRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return PutReportDefinitionOutcome(PutReportDefinitionResult(outcome.GetResult()));

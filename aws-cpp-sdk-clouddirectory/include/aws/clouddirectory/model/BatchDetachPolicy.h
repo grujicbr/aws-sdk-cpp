@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CloudDirectory
@@ -43,8 +44,8 @@ namespace Model
   {
   public:
     BatchDetachPolicy();
-    BatchDetachPolicy(const Aws::Utils::Json::JsonValue& jsonValue);
-    BatchDetachPolicy& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    BatchDetachPolicy(Aws::Utils::Json::JsonView jsonValue);
+    BatchDetachPolicy& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -52,6 +53,11 @@ namespace Model
      * <p>Reference that identifies the policy object.</p>
      */
     inline const ObjectReference& GetPolicyReference() const{ return m_policyReference; }
+
+    /**
+     * <p>Reference that identifies the policy object.</p>
+     */
+    inline bool PolicyReferenceHasBeenSet() const { return m_policyReferenceHasBeenSet; }
 
     /**
      * <p>Reference that identifies the policy object.</p>
@@ -79,6 +85,12 @@ namespace Model
      * detached.</p>
      */
     inline const ObjectReference& GetObjectReference() const{ return m_objectReference; }
+
+    /**
+     * <p>Reference that identifies the object whose policy object will be
+     * detached.</p>
+     */
+    inline bool ObjectReferenceHasBeenSet() const { return m_objectReferenceHasBeenSet; }
 
     /**
      * <p>Reference that identifies the object whose policy object will be

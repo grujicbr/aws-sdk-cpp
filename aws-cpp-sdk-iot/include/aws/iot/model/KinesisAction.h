@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     KinesisAction();
-    KinesisAction(const Aws::Utils::Json::JsonValue& jsonValue);
-    KinesisAction& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    KinesisAction(Aws::Utils::Json::JsonView jsonValue);
+    KinesisAction& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ARN of the IAM role that grants access to the Amazon Kinesis stream.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The ARN of the IAM role that grants access to the Amazon Kinesis stream.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The ARN of the IAM role that grants access to the Amazon Kinesis stream.</p>
@@ -91,6 +97,11 @@ namespace Model
     /**
      * <p>The name of the Amazon Kinesis stream.</p>
      */
+    inline bool StreamNameHasBeenSet() const { return m_streamNameHasBeenSet; }
+
+    /**
+     * <p>The name of the Amazon Kinesis stream.</p>
+     */
     inline void SetStreamName(const Aws::String& value) { m_streamNameHasBeenSet = true; m_streamName = value; }
 
     /**
@@ -123,6 +134,11 @@ namespace Model
      * <p>The partition key.</p>
      */
     inline const Aws::String& GetPartitionKey() const{ return m_partitionKey; }
+
+    /**
+     * <p>The partition key.</p>
+     */
+    inline bool PartitionKeyHasBeenSet() const { return m_partitionKeyHasBeenSet; }
 
     /**
      * <p>The partition key.</p>

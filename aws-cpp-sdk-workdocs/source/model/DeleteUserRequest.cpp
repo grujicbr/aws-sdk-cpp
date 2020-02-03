@@ -31,7 +31,7 @@ DeleteUserRequest::DeleteUserRequest() :
 
 Aws::String DeleteUserRequest::SerializePayload() const
 {
-  return "";
+  return {};
 }
 
 Aws::Http::HeaderValueCollection DeleteUserRequest::GetRequestSpecificHeaders() const
@@ -41,7 +41,7 @@ Aws::Http::HeaderValueCollection DeleteUserRequest::GetRequestSpecificHeaders() 
   if(m_authenticationTokenHasBeenSet)
   {
     ss << m_authenticationToken;
-    headers.insert(Aws::Http::HeaderValuePair("authentication", ss.str()));
+    headers.emplace("authentication",  ss.str());
     ss.str("");
   }
 

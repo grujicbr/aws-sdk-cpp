@@ -26,6 +26,7 @@ NotifyApplicationStateRequest::NotifyApplicationStateRequest() :
     m_applicationIdHasBeenSet(false),
     m_status(ApplicationStatus::NOT_SET),
     m_statusHasBeenSet(false),
+    m_updateDateTimeHasBeenSet(false),
     m_dryRun(false),
     m_dryRunHasBeenSet(false)
 {
@@ -46,13 +47,18 @@ Aws::String NotifyApplicationStateRequest::SerializePayload() const
    payload.WithString("Status", ApplicationStatusMapper::GetNameForApplicationStatus(m_status));
   }
 
+  if(m_updateDateTimeHasBeenSet)
+  {
+   payload.WithDouble("UpdateDateTime", m_updateDateTime.SecondsWithMSPrecision());
+  }
+
   if(m_dryRunHasBeenSet)
   {
    payload.WithBool("DryRun", m_dryRun);
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection NotifyApplicationStateRequest::GetRequestSpecificHeaders() const

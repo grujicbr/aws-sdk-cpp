@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace CodeBuild
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     EnvironmentLanguage();
-    EnvironmentLanguage(const Aws::Utils::Json::JsonValue& jsonValue);
-    EnvironmentLanguage& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    EnvironmentLanguage(Aws::Utils::Json::JsonView jsonValue);
+    EnvironmentLanguage& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The programming language for the Docker images.</p>
      */
     inline const LanguageType& GetLanguage() const{ return m_language; }
+
+    /**
+     * <p>The programming language for the Docker images.</p>
+     */
+    inline bool LanguageHasBeenSet() const { return m_languageHasBeenSet; }
 
     /**
      * <p>The programming language for the Docker images.</p>
@@ -80,6 +86,12 @@ namespace Model
      * language.</p>
      */
     inline const Aws::Vector<EnvironmentImage>& GetImages() const{ return m_images; }
+
+    /**
+     * <p>The list of Docker images that are related by the specified programming
+     * language.</p>
+     */
+    inline bool ImagesHasBeenSet() const { return m_imagesHasBeenSet; }
 
     /**
      * <p>The list of Docker images that are related by the specified programming

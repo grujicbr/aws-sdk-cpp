@@ -25,6 +25,10 @@ using namespace Aws::Utils;
 JoinDomainRequest::JoinDomainRequest() : 
     m_gatewayARNHasBeenSet(false),
     m_domainNameHasBeenSet(false),
+    m_organizationalUnitHasBeenSet(false),
+    m_domainControllersHasBeenSet(false),
+    m_timeoutInSeconds(0),
+    m_timeoutInSecondsHasBeenSet(false),
     m_userNameHasBeenSet(false),
     m_passwordHasBeenSet(false)
 {
@@ -46,6 +50,29 @@ Aws::String JoinDomainRequest::SerializePayload() const
 
   }
 
+  if(m_organizationalUnitHasBeenSet)
+  {
+   payload.WithString("OrganizationalUnit", m_organizationalUnit);
+
+  }
+
+  if(m_domainControllersHasBeenSet)
+  {
+   Array<JsonValue> domainControllersJsonList(m_domainControllers.size());
+   for(unsigned domainControllersIndex = 0; domainControllersIndex < domainControllersJsonList.GetLength(); ++domainControllersIndex)
+   {
+     domainControllersJsonList[domainControllersIndex].AsString(m_domainControllers[domainControllersIndex]);
+   }
+   payload.WithArray("DomainControllers", std::move(domainControllersJsonList));
+
+  }
+
+  if(m_timeoutInSecondsHasBeenSet)
+  {
+   payload.WithInteger("TimeoutInSeconds", m_timeoutInSeconds);
+
+  }
+
   if(m_userNameHasBeenSet)
   {
    payload.WithString("UserName", m_userName);
@@ -58,7 +85,7 @@ Aws::String JoinDomainRequest::SerializePayload() const
 
   }
 
-  return payload.WriteReadable();
+  return payload.View().WriteReadable();
 }
 
 Aws::Http::HeaderValueCollection JoinDomainRequest::GetRequestSpecificHeaders() const

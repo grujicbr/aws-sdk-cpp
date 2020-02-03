@@ -37,10 +37,10 @@ ListGroupResourcesResult::ListGroupResourcesResult(const Aws::AmazonWebServiceRe
 
 ListGroupResourcesResult& ListGroupResourcesResult::operator =(const Aws::AmazonWebServiceResult<JsonValue>& result)
 {
-  const JsonValue& jsonValue = result.GetPayload();
+  JsonView jsonValue = result.GetPayload().View();
   if(jsonValue.ValueExists("ResourceIdentifiers"))
   {
-    Array<JsonValue> resourceIdentifiersJsonList = jsonValue.GetArray("ResourceIdentifiers");
+    Array<JsonView> resourceIdentifiersJsonList = jsonValue.GetArray("ResourceIdentifiers");
     for(unsigned resourceIdentifiersIndex = 0; resourceIdentifiersIndex < resourceIdentifiersJsonList.GetLength(); ++resourceIdentifiersIndex)
     {
       m_resourceIdentifiers.push_back(resourceIdentifiersJsonList[resourceIdentifiersIndex].AsObject());
@@ -51,6 +51,15 @@ ListGroupResourcesResult& ListGroupResourcesResult::operator =(const Aws::Amazon
   {
     m_nextToken = jsonValue.GetString("NextToken");
 
+  }
+
+  if(jsonValue.ValueExists("QueryErrors"))
+  {
+    Array<JsonView> queryErrorsJsonList = jsonValue.GetArray("QueryErrors");
+    for(unsigned queryErrorsIndex = 0; queryErrorsIndex < queryErrorsJsonList.GetLength(); ++queryErrorsIndex)
+    {
+      m_queryErrors.push_back(queryErrorsJsonList[queryErrorsIndex].AsObject());
+    }
   }
 
 

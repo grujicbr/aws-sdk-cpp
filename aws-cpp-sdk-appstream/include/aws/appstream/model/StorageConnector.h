@@ -27,6 +27,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace AppStream
@@ -35,8 +36,8 @@ namespace Model
 {
 
   /**
-   * <p>Describes a connector to enable persistent storage for users.</p><p><h3>See
-   * Also:</h3>   <a
+   * <p>Describes a connector that enables persistent storage for
+   * users.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StorageConnector">AWS
    * API Reference</a></p>
    */
@@ -44,8 +45,8 @@ namespace Model
   {
   public:
     StorageConnector();
-    StorageConnector(const Aws::Utils::Json::JsonValue& jsonValue);
-    StorageConnector& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    StorageConnector(Aws::Utils::Json::JsonView jsonValue);
+    StorageConnector& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -53,6 +54,11 @@ namespace Model
      * <p>The type of storage connector.</p>
      */
     inline const StorageConnectorType& GetConnectorType() const{ return m_connectorType; }
+
+    /**
+     * <p>The type of storage connector.</p>
+     */
+    inline bool ConnectorTypeHasBeenSet() const { return m_connectorTypeHasBeenSet; }
 
     /**
      * <p>The type of storage connector.</p>
@@ -79,6 +85,11 @@ namespace Model
      * <p>The ARN of the storage connector.</p>
      */
     inline const Aws::String& GetResourceIdentifier() const{ return m_resourceIdentifier; }
+
+    /**
+     * <p>The ARN of the storage connector.</p>
+     */
+    inline bool ResourceIdentifierHasBeenSet() const { return m_resourceIdentifierHasBeenSet; }
 
     /**
      * <p>The ARN of the storage connector.</p>
@@ -112,42 +123,47 @@ namespace Model
 
 
     /**
-     * <p>The names of the domains for the G Suite account.</p>
+     * <p>The names of the domains for the account.</p>
      */
     inline const Aws::Vector<Aws::String>& GetDomains() const{ return m_domains; }
 
     /**
-     * <p>The names of the domains for the G Suite account.</p>
+     * <p>The names of the domains for the account.</p>
+     */
+    inline bool DomainsHasBeenSet() const { return m_domainsHasBeenSet; }
+
+    /**
+     * <p>The names of the domains for the account.</p>
      */
     inline void SetDomains(const Aws::Vector<Aws::String>& value) { m_domainsHasBeenSet = true; m_domains = value; }
 
     /**
-     * <p>The names of the domains for the G Suite account.</p>
+     * <p>The names of the domains for the account.</p>
      */
     inline void SetDomains(Aws::Vector<Aws::String>&& value) { m_domainsHasBeenSet = true; m_domains = std::move(value); }
 
     /**
-     * <p>The names of the domains for the G Suite account.</p>
+     * <p>The names of the domains for the account.</p>
      */
     inline StorageConnector& WithDomains(const Aws::Vector<Aws::String>& value) { SetDomains(value); return *this;}
 
     /**
-     * <p>The names of the domains for the G Suite account.</p>
+     * <p>The names of the domains for the account.</p>
      */
     inline StorageConnector& WithDomains(Aws::Vector<Aws::String>&& value) { SetDomains(std::move(value)); return *this;}
 
     /**
-     * <p>The names of the domains for the G Suite account.</p>
+     * <p>The names of the domains for the account.</p>
      */
     inline StorageConnector& AddDomains(const Aws::String& value) { m_domainsHasBeenSet = true; m_domains.push_back(value); return *this; }
 
     /**
-     * <p>The names of the domains for the G Suite account.</p>
+     * <p>The names of the domains for the account.</p>
      */
     inline StorageConnector& AddDomains(Aws::String&& value) { m_domainsHasBeenSet = true; m_domains.push_back(std::move(value)); return *this; }
 
     /**
-     * <p>The names of the domains for the G Suite account.</p>
+     * <p>The names of the domains for the account.</p>
      */
     inline StorageConnector& AddDomains(const char* value) { m_domainsHasBeenSet = true; m_domains.push_back(value); return *this; }
 

@@ -26,6 +26,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace IoT
@@ -42,8 +43,8 @@ namespace Model
   {
   public:
     LoggingOptionsPayload();
-    LoggingOptionsPayload(const Aws::Utils::Json::JsonValue& jsonValue);
-    LoggingOptionsPayload& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    LoggingOptionsPayload(Aws::Utils::Json::JsonView jsonValue);
+    LoggingOptionsPayload& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -51,6 +52,11 @@ namespace Model
      * <p>The ARN of the IAM role that grants access.</p>
      */
     inline const Aws::String& GetRoleArn() const{ return m_roleArn; }
+
+    /**
+     * <p>The ARN of the IAM role that grants access.</p>
+     */
+    inline bool RoleArnHasBeenSet() const { return m_roleArnHasBeenSet; }
 
     /**
      * <p>The ARN of the IAM role that grants access.</p>
@@ -87,6 +93,11 @@ namespace Model
      * <p>The log level.</p>
      */
     inline const LogLevel& GetLogLevel() const{ return m_logLevel; }
+
+    /**
+     * <p>The log level.</p>
+     */
+    inline bool LogLevelHasBeenSet() const { return m_logLevelHasBeenSet; }
 
     /**
      * <p>The log level.</p>

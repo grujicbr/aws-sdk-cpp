@@ -23,6 +23,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace Rekognition
@@ -40,8 +41,8 @@ namespace Model
   {
   public:
     Sunglasses();
-    Sunglasses(const Aws::Utils::Json::JsonValue& jsonValue);
-    Sunglasses& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    Sunglasses(Aws::Utils::Json::JsonView jsonValue);
+    Sunglasses& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -50,6 +51,12 @@ namespace Model
      * not.</p>
      */
     inline bool GetValue() const{ return m_value; }
+
+    /**
+     * <p>Boolean value that indicates whether the face is wearing sunglasses or
+     * not.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>Boolean value that indicates whether the face is wearing sunglasses or
@@ -68,6 +75,11 @@ namespace Model
      * <p>Level of confidence in the determination.</p>
      */
     inline double GetConfidence() const{ return m_confidence; }
+
+    /**
+     * <p>Level of confidence in the determination.</p>
+     */
+    inline bool ConfidenceHasBeenSet() const { return m_confidenceHasBeenSet; }
 
     /**
      * <p>Level of confidence in the determination.</p>

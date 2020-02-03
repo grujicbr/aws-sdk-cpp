@@ -29,16 +29,12 @@ namespace Model
 {
 
   /**
-   * <p>Contains the parameters for ModifyInstancePlacement.</p><p><h3>See Also:</h3>
-   * <a
-   * href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstancePlacementRequest">AWS
-   * API Reference</a></p>
    */
   class AWS_EC2_API ModifyInstancePlacementRequest : public EC2Request
   {
   public:
     ModifyInstancePlacementRequest();
-    
+
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
     // Note: this is not true for response, multiple operations may have the same response name,
@@ -56,6 +52,11 @@ namespace Model
      * <p>The affinity setting for the instance.</p>
      */
     inline const Affinity& GetAffinity() const{ return m_affinity; }
+
+    /**
+     * <p>The affinity setting for the instance.</p>
+     */
+    inline bool AffinityHasBeenSet() const { return m_affinityHasBeenSet; }
 
     /**
      * <p>The affinity setting for the instance.</p>
@@ -81,7 +82,7 @@ namespace Model
     /**
      * <p>The name of the placement group in which to place the instance. For spread
      * placement groups, the instance must have a tenancy of <code>default</code>. For
-     * cluster placement groups, the instance must have a tenancy of
+     * cluster and partition placement groups, the instance must have a tenancy of
      * <code>default</code> or <code>dedicated</code>.</p> <p>To remove an instance
      * from a placement group, specify an empty string ("").</p>
      */
@@ -90,7 +91,16 @@ namespace Model
     /**
      * <p>The name of the placement group in which to place the instance. For spread
      * placement groups, the instance must have a tenancy of <code>default</code>. For
-     * cluster placement groups, the instance must have a tenancy of
+     * cluster and partition placement groups, the instance must have a tenancy of
+     * <code>default</code> or <code>dedicated</code>.</p> <p>To remove an instance
+     * from a placement group, specify an empty string ("").</p>
+     */
+    inline bool GroupNameHasBeenSet() const { return m_groupNameHasBeenSet; }
+
+    /**
+     * <p>The name of the placement group in which to place the instance. For spread
+     * placement groups, the instance must have a tenancy of <code>default</code>. For
+     * cluster and partition placement groups, the instance must have a tenancy of
      * <code>default</code> or <code>dedicated</code>.</p> <p>To remove an instance
      * from a placement group, specify an empty string ("").</p>
      */
@@ -99,7 +109,7 @@ namespace Model
     /**
      * <p>The name of the placement group in which to place the instance. For spread
      * placement groups, the instance must have a tenancy of <code>default</code>. For
-     * cluster placement groups, the instance must have a tenancy of
+     * cluster and partition placement groups, the instance must have a tenancy of
      * <code>default</code> or <code>dedicated</code>.</p> <p>To remove an instance
      * from a placement group, specify an empty string ("").</p>
      */
@@ -108,7 +118,7 @@ namespace Model
     /**
      * <p>The name of the placement group in which to place the instance. For spread
      * placement groups, the instance must have a tenancy of <code>default</code>. For
-     * cluster placement groups, the instance must have a tenancy of
+     * cluster and partition placement groups, the instance must have a tenancy of
      * <code>default</code> or <code>dedicated</code>.</p> <p>To remove an instance
      * from a placement group, specify an empty string ("").</p>
      */
@@ -117,7 +127,7 @@ namespace Model
     /**
      * <p>The name of the placement group in which to place the instance. For spread
      * placement groups, the instance must have a tenancy of <code>default</code>. For
-     * cluster placement groups, the instance must have a tenancy of
+     * cluster and partition placement groups, the instance must have a tenancy of
      * <code>default</code> or <code>dedicated</code>.</p> <p>To remove an instance
      * from a placement group, specify an empty string ("").</p>
      */
@@ -126,7 +136,7 @@ namespace Model
     /**
      * <p>The name of the placement group in which to place the instance. For spread
      * placement groups, the instance must have a tenancy of <code>default</code>. For
-     * cluster placement groups, the instance must have a tenancy of
+     * cluster and partition placement groups, the instance must have a tenancy of
      * <code>default</code> or <code>dedicated</code>.</p> <p>To remove an instance
      * from a placement group, specify an empty string ("").</p>
      */
@@ -135,7 +145,7 @@ namespace Model
     /**
      * <p>The name of the placement group in which to place the instance. For spread
      * placement groups, the instance must have a tenancy of <code>default</code>. For
-     * cluster placement groups, the instance must have a tenancy of
+     * cluster and partition placement groups, the instance must have a tenancy of
      * <code>default</code> or <code>dedicated</code>.</p> <p>To remove an instance
      * from a placement group, specify an empty string ("").</p>
      */
@@ -146,6 +156,11 @@ namespace Model
      * <p>The ID of the Dedicated Host with which to associate the instance.</p>
      */
     inline const Aws::String& GetHostId() const{ return m_hostId; }
+
+    /**
+     * <p>The ID of the Dedicated Host with which to associate the instance.</p>
+     */
+    inline bool HostIdHasBeenSet() const { return m_hostIdHasBeenSet; }
 
     /**
      * <p>The ID of the Dedicated Host with which to associate the instance.</p>
@@ -186,6 +201,11 @@ namespace Model
     /**
      * <p>The ID of the instance that you are modifying.</p>
      */
+    inline bool InstanceIdHasBeenSet() const { return m_instanceIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the instance that you are modifying.</p>
+     */
     inline void SetInstanceId(const Aws::String& value) { m_instanceIdHasBeenSet = true; m_instanceId = value; }
 
     /**
@@ -222,6 +242,11 @@ namespace Model
     /**
      * <p>The tenancy for the instance.</p>
      */
+    inline bool TenancyHasBeenSet() const { return m_tenancyHasBeenSet; }
+
+    /**
+     * <p>The tenancy for the instance.</p>
+     */
     inline void SetTenancy(const HostTenancy& value) { m_tenancyHasBeenSet = true; m_tenancy = value; }
 
     /**
@@ -239,6 +264,68 @@ namespace Model
      */
     inline ModifyInstancePlacementRequest& WithTenancy(HostTenancy&& value) { SetTenancy(std::move(value)); return *this;}
 
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
+    inline int GetPartitionNumber() const{ return m_partitionNumber; }
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
+    inline bool PartitionNumberHasBeenSet() const { return m_partitionNumberHasBeenSet; }
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
+    inline void SetPartitionNumber(int value) { m_partitionNumberHasBeenSet = true; m_partitionNumber = value; }
+
+    /**
+     * <p>Reserved for future use.</p>
+     */
+    inline ModifyInstancePlacementRequest& WithPartitionNumber(int value) { SetPartitionNumber(value); return *this;}
+
+
+    /**
+     * <p>The ARN of the host resource group in which to place the instance.</p>
+     */
+    inline const Aws::String& GetHostResourceGroupArn() const{ return m_hostResourceGroupArn; }
+
+    /**
+     * <p>The ARN of the host resource group in which to place the instance.</p>
+     */
+    inline bool HostResourceGroupArnHasBeenSet() const { return m_hostResourceGroupArnHasBeenSet; }
+
+    /**
+     * <p>The ARN of the host resource group in which to place the instance.</p>
+     */
+    inline void SetHostResourceGroupArn(const Aws::String& value) { m_hostResourceGroupArnHasBeenSet = true; m_hostResourceGroupArn = value; }
+
+    /**
+     * <p>The ARN of the host resource group in which to place the instance.</p>
+     */
+    inline void SetHostResourceGroupArn(Aws::String&& value) { m_hostResourceGroupArnHasBeenSet = true; m_hostResourceGroupArn = std::move(value); }
+
+    /**
+     * <p>The ARN of the host resource group in which to place the instance.</p>
+     */
+    inline void SetHostResourceGroupArn(const char* value) { m_hostResourceGroupArnHasBeenSet = true; m_hostResourceGroupArn.assign(value); }
+
+    /**
+     * <p>The ARN of the host resource group in which to place the instance.</p>
+     */
+    inline ModifyInstancePlacementRequest& WithHostResourceGroupArn(const Aws::String& value) { SetHostResourceGroupArn(value); return *this;}
+
+    /**
+     * <p>The ARN of the host resource group in which to place the instance.</p>
+     */
+    inline ModifyInstancePlacementRequest& WithHostResourceGroupArn(Aws::String&& value) { SetHostResourceGroupArn(std::move(value)); return *this;}
+
+    /**
+     * <p>The ARN of the host resource group in which to place the instance.</p>
+     */
+    inline ModifyInstancePlacementRequest& WithHostResourceGroupArn(const char* value) { SetHostResourceGroupArn(value); return *this;}
+
   private:
 
     Affinity m_affinity;
@@ -255,6 +342,12 @@ namespace Model
 
     HostTenancy m_tenancy;
     bool m_tenancyHasBeenSet;
+
+    int m_partitionNumber;
+    bool m_partitionNumberHasBeenSet;
+
+    Aws::String m_hostResourceGroupArn;
+    bool m_hostResourceGroupArnHasBeenSet;
   };
 
 } // namespace Model

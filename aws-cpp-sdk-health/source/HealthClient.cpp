@@ -24,15 +24,22 @@
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/DNS.h>
+#include <aws/core/utils/logging/LogMacros.h>
+
 #include <aws/health/HealthClient.h>
 #include <aws/health/HealthEndpoint.h>
 #include <aws/health/HealthErrorMarshaller.h>
+#include <aws/health/model/DescribeAffectedAccountsForOrganizationRequest.h>
 #include <aws/health/model/DescribeAffectedEntitiesRequest.h>
+#include <aws/health/model/DescribeAffectedEntitiesForOrganizationRequest.h>
 #include <aws/health/model/DescribeEntityAggregatesRequest.h>
 #include <aws/health/model/DescribeEventAggregatesRequest.h>
 #include <aws/health/model/DescribeEventDetailsRequest.h>
+#include <aws/health/model/DescribeEventDetailsForOrganizationRequest.h>
 #include <aws/health/model/DescribeEventTypesRequest.h>
 #include <aws/health/model/DescribeEventsRequest.h>
+#include <aws/health/model/DescribeEventsForOrganizationRequest.h>
 
 using namespace Aws;
 using namespace Aws::Auth;
@@ -83,28 +90,71 @@ HealthClient::~HealthClient()
 
 void HealthClient::init(const ClientConfiguration& config)
 {
-  Aws::StringStream ss;
-  ss << SchemeMapper::ToString(config.scheme) << "://";
-
-  if(config.endpointOverride.empty())
+  m_configScheme = SchemeMapper::ToString(config.scheme);
+  if (config.endpointOverride.empty())
   {
-    ss << HealthEndpoint::ForRegion(config.region, config.useDualStack);
+      m_uri = m_configScheme + "://" + HealthEndpoint::ForRegion(config.region, config.useDualStack);
   }
   else
   {
-    ss << config.endpointOverride;
+      OverrideEndpoint(config.endpointOverride);
   }
+}
 
-  m_uri = ss.str();
+void HealthClient::OverrideEndpoint(const Aws::String& endpoint)
+{
+  if (endpoint.compare(0, 7, "http://") == 0 || endpoint.compare(0, 8, "https://") == 0)
+  {
+      m_uri = endpoint;
+  }
+  else
+  {
+      m_uri = m_configScheme + "://" + endpoint;
+  }
+}
+
+DescribeAffectedAccountsForOrganizationOutcome HealthClient::DescribeAffectedAccountsForOrganization(const DescribeAffectedAccountsForOrganizationRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeAffectedAccountsForOrganizationOutcome(DescribeAffectedAccountsForOrganizationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeAffectedAccountsForOrganizationOutcome(outcome.GetError());
+  }
+}
+
+DescribeAffectedAccountsForOrganizationOutcomeCallable HealthClient::DescribeAffectedAccountsForOrganizationCallable(const DescribeAffectedAccountsForOrganizationRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeAffectedAccountsForOrganizationOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeAffectedAccountsForOrganization(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void HealthClient::DescribeAffectedAccountsForOrganizationAsync(const DescribeAffectedAccountsForOrganizationRequest& request, const DescribeAffectedAccountsForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeAffectedAccountsForOrganizationAsyncHelper( request, handler, context ); } );
+}
+
+void HealthClient::DescribeAffectedAccountsForOrganizationAsyncHelper(const DescribeAffectedAccountsForOrganizationRequest& request, const DescribeAffectedAccountsForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeAffectedAccountsForOrganization(request), context);
 }
 
 DescribeAffectedEntitiesOutcome HealthClient::DescribeAffectedEntities(const DescribeAffectedEntitiesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeAffectedEntitiesOutcome(DescribeAffectedEntitiesResult(outcome.GetResult()));
@@ -133,13 +183,48 @@ void HealthClient::DescribeAffectedEntitiesAsyncHelper(const DescribeAffectedEnt
   handler(this, request, DescribeAffectedEntities(request), context);
 }
 
-DescribeEntityAggregatesOutcome HealthClient::DescribeEntityAggregates(const DescribeEntityAggregatesRequest& request) const
+DescribeAffectedEntitiesForOrganizationOutcome HealthClient::DescribeAffectedEntitiesForOrganization(const DescribeAffectedEntitiesForOrganizationRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeAffectedEntitiesForOrganizationOutcome(DescribeAffectedEntitiesForOrganizationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeAffectedEntitiesForOrganizationOutcome(outcome.GetError());
+  }
+}
+
+DescribeAffectedEntitiesForOrganizationOutcomeCallable HealthClient::DescribeAffectedEntitiesForOrganizationCallable(const DescribeAffectedEntitiesForOrganizationRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeAffectedEntitiesForOrganizationOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeAffectedEntitiesForOrganization(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void HealthClient::DescribeAffectedEntitiesForOrganizationAsync(const DescribeAffectedEntitiesForOrganizationRequest& request, const DescribeAffectedEntitiesForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeAffectedEntitiesForOrganizationAsyncHelper( request, handler, context ); } );
+}
+
+void HealthClient::DescribeAffectedEntitiesForOrganizationAsyncHelper(const DescribeAffectedEntitiesForOrganizationRequest& request, const DescribeAffectedEntitiesForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeAffectedEntitiesForOrganization(request), context);
+}
+
+DescribeEntityAggregatesOutcome HealthClient::DescribeEntityAggregates(const DescribeEntityAggregatesRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeEntityAggregatesOutcome(DescribeEntityAggregatesResult(outcome.GetResult()));
@@ -170,11 +255,11 @@ void HealthClient::DescribeEntityAggregatesAsyncHelper(const DescribeEntityAggre
 
 DescribeEventAggregatesOutcome HealthClient::DescribeEventAggregates(const DescribeEventAggregatesRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeEventAggregatesOutcome(DescribeEventAggregatesResult(outcome.GetResult()));
@@ -205,11 +290,11 @@ void HealthClient::DescribeEventAggregatesAsyncHelper(const DescribeEventAggrega
 
 DescribeEventDetailsOutcome HealthClient::DescribeEventDetails(const DescribeEventDetailsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeEventDetailsOutcome(DescribeEventDetailsResult(outcome.GetResult()));
@@ -238,13 +323,48 @@ void HealthClient::DescribeEventDetailsAsyncHelper(const DescribeEventDetailsReq
   handler(this, request, DescribeEventDetails(request), context);
 }
 
-DescribeEventTypesOutcome HealthClient::DescribeEventTypes(const DescribeEventTypesRequest& request) const
+DescribeEventDetailsForOrganizationOutcome HealthClient::DescribeEventDetailsForOrganization(const DescribeEventDetailsForOrganizationRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeEventDetailsForOrganizationOutcome(DescribeEventDetailsForOrganizationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeEventDetailsForOrganizationOutcome(outcome.GetError());
+  }
+}
+
+DescribeEventDetailsForOrganizationOutcomeCallable HealthClient::DescribeEventDetailsForOrganizationCallable(const DescribeEventDetailsForOrganizationRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeEventDetailsForOrganizationOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeEventDetailsForOrganization(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void HealthClient::DescribeEventDetailsForOrganizationAsync(const DescribeEventDetailsForOrganizationRequest& request, const DescribeEventDetailsForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeEventDetailsForOrganizationAsyncHelper( request, handler, context ); } );
+}
+
+void HealthClient::DescribeEventDetailsForOrganizationAsyncHelper(const DescribeEventDetailsForOrganizationRequest& request, const DescribeEventDetailsForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeEventDetailsForOrganization(request), context);
+}
+
+DescribeEventTypesOutcome HealthClient::DescribeEventTypes(const DescribeEventTypesRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeEventTypesOutcome(DescribeEventTypesResult(outcome.GetResult()));
@@ -275,11 +395,11 @@ void HealthClient::DescribeEventTypesAsyncHelper(const DescribeEventTypesRequest
 
 DescribeEventsOutcome HealthClient::DescribeEvents(const DescribeEventsRequest& request) const
 {
-  Aws::StringStream ss;
   Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
   ss << "/";
   uri.SetPath(uri.GetPath() + ss.str());
-  JsonOutcome outcome = MakeRequest(uri, request, HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
   if(outcome.IsSuccess())
   {
     return DescribeEventsOutcome(DescribeEventsResult(outcome.GetResult()));
@@ -306,5 +426,139 @@ void HealthClient::DescribeEventsAsync(const DescribeEventsRequest& request, con
 void HealthClient::DescribeEventsAsyncHelper(const DescribeEventsRequest& request, const DescribeEventsResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
 {
   handler(this, request, DescribeEvents(request), context);
+}
+
+DescribeEventsForOrganizationOutcome HealthClient::DescribeEventsForOrganization(const DescribeEventsForOrganizationRequest& request) const
+{
+  Aws::Http::URI uri = m_uri;
+  Aws::StringStream ss;
+  ss << "/";
+  uri.SetPath(uri.GetPath() + ss.str());
+  JsonOutcome outcome = MakeRequest(uri, request, Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER);
+  if(outcome.IsSuccess())
+  {
+    return DescribeEventsForOrganizationOutcome(DescribeEventsForOrganizationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeEventsForOrganizationOutcome(outcome.GetError());
+  }
+}
+
+DescribeEventsForOrganizationOutcomeCallable HealthClient::DescribeEventsForOrganizationCallable(const DescribeEventsForOrganizationRequest& request) const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeEventsForOrganizationOutcome() > >(ALLOCATION_TAG, [this, request](){ return this->DescribeEventsForOrganization(request); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void HealthClient::DescribeEventsForOrganizationAsync(const DescribeEventsForOrganizationRequest& request, const DescribeEventsForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, request, handler, context](){ this->DescribeEventsForOrganizationAsyncHelper( request, handler, context ); } );
+}
+
+void HealthClient::DescribeEventsForOrganizationAsyncHelper(const DescribeEventsForOrganizationRequest& request, const DescribeEventsForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, request, DescribeEventsForOrganization(request), context);
+}
+
+DescribeHealthServiceStatusForOrganizationOutcome HealthClient::DescribeHealthServiceStatusForOrganization() const
+{
+  Aws::StringStream ss;
+  ss << m_uri << "/";
+  JsonOutcome outcome = MakeRequest(ss.str(), Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER, "DescribeHealthServiceStatusForOrganization");
+  if(outcome.IsSuccess())
+  {
+    return DescribeHealthServiceStatusForOrganizationOutcome(DescribeHealthServiceStatusForOrganizationResult(outcome.GetResult()));
+  }
+  else
+  {
+    return DescribeHealthServiceStatusForOrganizationOutcome(outcome.GetError());
+  }
+}
+
+DescribeHealthServiceStatusForOrganizationOutcomeCallable HealthClient::DescribeHealthServiceStatusForOrganizationCallable() const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DescribeHealthServiceStatusForOrganizationOutcome() > >(ALLOCATION_TAG, [this](){ return this->DescribeHealthServiceStatusForOrganization(); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void HealthClient::DescribeHealthServiceStatusForOrganizationAsync(const DescribeHealthServiceStatusForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, handler, context](){ this->DescribeHealthServiceStatusForOrganizationAsyncHelper( handler, context ); } );
+}
+
+void HealthClient::DescribeHealthServiceStatusForOrganizationAsyncHelper(const DescribeHealthServiceStatusForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, DescribeHealthServiceStatusForOrganization(), context);
+}
+
+DisableHealthServiceAccessForOrganizationOutcome HealthClient::DisableHealthServiceAccessForOrganization() const
+{
+  Aws::StringStream ss;
+  ss << m_uri << "/";
+  JsonOutcome outcome = MakeRequest(ss.str(), Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER, "DisableHealthServiceAccessForOrganization");
+  if(outcome.IsSuccess())
+  {
+    return DisableHealthServiceAccessForOrganizationOutcome(NoResult());
+  }
+  else
+  {
+    return DisableHealthServiceAccessForOrganizationOutcome(outcome.GetError());
+  }
+}
+
+DisableHealthServiceAccessForOrganizationOutcomeCallable HealthClient::DisableHealthServiceAccessForOrganizationCallable() const
+{
+  auto task = Aws::MakeShared< std::packaged_task< DisableHealthServiceAccessForOrganizationOutcome() > >(ALLOCATION_TAG, [this](){ return this->DisableHealthServiceAccessForOrganization(); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void HealthClient::DisableHealthServiceAccessForOrganizationAsync(const DisableHealthServiceAccessForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, handler, context](){ this->DisableHealthServiceAccessForOrganizationAsyncHelper( handler, context ); } );
+}
+
+void HealthClient::DisableHealthServiceAccessForOrganizationAsyncHelper(const DisableHealthServiceAccessForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, DisableHealthServiceAccessForOrganization(), context);
+}
+
+EnableHealthServiceAccessForOrganizationOutcome HealthClient::EnableHealthServiceAccessForOrganization() const
+{
+  Aws::StringStream ss;
+  ss << m_uri << "/";
+  JsonOutcome outcome = MakeRequest(ss.str(), Aws::Http::HttpMethod::HTTP_POST, Aws::Auth::SIGV4_SIGNER, "EnableHealthServiceAccessForOrganization");
+  if(outcome.IsSuccess())
+  {
+    return EnableHealthServiceAccessForOrganizationOutcome(NoResult());
+  }
+  else
+  {
+    return EnableHealthServiceAccessForOrganizationOutcome(outcome.GetError());
+  }
+}
+
+EnableHealthServiceAccessForOrganizationOutcomeCallable HealthClient::EnableHealthServiceAccessForOrganizationCallable() const
+{
+  auto task = Aws::MakeShared< std::packaged_task< EnableHealthServiceAccessForOrganizationOutcome() > >(ALLOCATION_TAG, [this](){ return this->EnableHealthServiceAccessForOrganization(); } );
+  auto packagedFunction = [task]() { (*task)(); };
+  m_executor->Submit(packagedFunction);
+  return task->get_future();
+}
+
+void HealthClient::EnableHealthServiceAccessForOrganizationAsync(const EnableHealthServiceAccessForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  m_executor->Submit( [this, handler, context](){ this->EnableHealthServiceAccessForOrganizationAsyncHelper( handler, context ); } );
+}
+
+void HealthClient::EnableHealthServiceAccessForOrganizationAsyncHelper(const EnableHealthServiceAccessForOrganizationResponseReceivedHandler& handler, const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context) const
+{
+  handler(this, EnableHealthServiceAccessForOrganization(), context);
 }
 

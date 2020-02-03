@@ -25,6 +25,7 @@ namespace Utils
 namespace Json
 {
   class JsonValue;
+  class JsonView;
 } // namespace Json
 } // namespace Utils
 namespace EMR
@@ -46,8 +47,8 @@ namespace Model
   {
   public:
     MetricDimension();
-    MetricDimension(const Aws::Utils::Json::JsonValue& jsonValue);
-    MetricDimension& operator=(const Aws::Utils::Json::JsonValue& jsonValue);
+    MetricDimension(Aws::Utils::Json::JsonView jsonValue);
+    MetricDimension& operator=(Aws::Utils::Json::JsonView jsonValue);
     Aws::Utils::Json::JsonValue Jsonize() const;
 
 
@@ -55,6 +56,11 @@ namespace Model
      * <p>The dimension name.</p>
      */
     inline const Aws::String& GetKey() const{ return m_key; }
+
+    /**
+     * <p>The dimension name.</p>
+     */
+    inline bool KeyHasBeenSet() const { return m_keyHasBeenSet; }
 
     /**
      * <p>The dimension name.</p>
@@ -91,6 +97,11 @@ namespace Model
      * <p>The dimension value.</p>
      */
     inline const Aws::String& GetValue() const{ return m_value; }
+
+    /**
+     * <p>The dimension value.</p>
+     */
+    inline bool ValueHasBeenSet() const { return m_valueHasBeenSet; }
 
     /**
      * <p>The dimension value.</p>

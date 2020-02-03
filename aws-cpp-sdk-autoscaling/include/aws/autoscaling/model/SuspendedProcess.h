@@ -34,7 +34,7 @@ namespace Model
 {
 
   /**
-   * <p>Describes an Auto Scaling process that has been suspended. For more
+   * <p>Describes an automatic scaling process that has been suspended. For more
    * information, see <a>ProcessType</a>.</p><p><h3>See Also:</h3>   <a
    * href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SuspendedProcess">AWS
    * API Reference</a></p>
@@ -54,6 +54,11 @@ namespace Model
      * <p>The name of the suspended process.</p>
      */
     inline const Aws::String& GetProcessName() const{ return m_processName; }
+
+    /**
+     * <p>The name of the suspended process.</p>
+     */
+    inline bool ProcessNameHasBeenSet() const { return m_processNameHasBeenSet; }
 
     /**
      * <p>The name of the suspended process.</p>
@@ -90,6 +95,11 @@ namespace Model
      * <p>The reason that the process was suspended.</p>
      */
     inline const Aws::String& GetSuspensionReason() const{ return m_suspensionReason; }
+
+    /**
+     * <p>The reason that the process was suspended.</p>
+     */
+    inline bool SuspensionReasonHasBeenSet() const { return m_suspensionReasonHasBeenSet; }
 
     /**
      * <p>The reason that the process was suspended.</p>

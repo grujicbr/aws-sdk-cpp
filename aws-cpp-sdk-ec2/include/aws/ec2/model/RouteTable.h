@@ -55,37 +55,50 @@ namespace Model
 
 
     /**
-     * <p>The associations between the route table and one or more subnets.</p>
+     * <p>The associations between the route table and one or more subnets or a
+     * gateway.</p>
      */
     inline const Aws::Vector<RouteTableAssociation>& GetAssociations() const{ return m_associations; }
 
     /**
-     * <p>The associations between the route table and one or more subnets.</p>
+     * <p>The associations between the route table and one or more subnets or a
+     * gateway.</p>
+     */
+    inline bool AssociationsHasBeenSet() const { return m_associationsHasBeenSet; }
+
+    /**
+     * <p>The associations between the route table and one or more subnets or a
+     * gateway.</p>
      */
     inline void SetAssociations(const Aws::Vector<RouteTableAssociation>& value) { m_associationsHasBeenSet = true; m_associations = value; }
 
     /**
-     * <p>The associations between the route table and one or more subnets.</p>
+     * <p>The associations between the route table and one or more subnets or a
+     * gateway.</p>
      */
     inline void SetAssociations(Aws::Vector<RouteTableAssociation>&& value) { m_associationsHasBeenSet = true; m_associations = std::move(value); }
 
     /**
-     * <p>The associations between the route table and one or more subnets.</p>
+     * <p>The associations between the route table and one or more subnets or a
+     * gateway.</p>
      */
     inline RouteTable& WithAssociations(const Aws::Vector<RouteTableAssociation>& value) { SetAssociations(value); return *this;}
 
     /**
-     * <p>The associations between the route table and one or more subnets.</p>
+     * <p>The associations between the route table and one or more subnets or a
+     * gateway.</p>
      */
     inline RouteTable& WithAssociations(Aws::Vector<RouteTableAssociation>&& value) { SetAssociations(std::move(value)); return *this;}
 
     /**
-     * <p>The associations between the route table and one or more subnets.</p>
+     * <p>The associations between the route table and one or more subnets or a
+     * gateway.</p>
      */
     inline RouteTable& AddAssociations(const RouteTableAssociation& value) { m_associationsHasBeenSet = true; m_associations.push_back(value); return *this; }
 
     /**
-     * <p>The associations between the route table and one or more subnets.</p>
+     * <p>The associations between the route table and one or more subnets or a
+     * gateway.</p>
      */
     inline RouteTable& AddAssociations(RouteTableAssociation&& value) { m_associationsHasBeenSet = true; m_associations.push_back(std::move(value)); return *this; }
 
@@ -94,6 +107,11 @@ namespace Model
      * <p>Any virtual private gateway (VGW) propagating routes.</p>
      */
     inline const Aws::Vector<PropagatingVgw>& GetPropagatingVgws() const{ return m_propagatingVgws; }
+
+    /**
+     * <p>Any virtual private gateway (VGW) propagating routes.</p>
+     */
+    inline bool PropagatingVgwsHasBeenSet() const { return m_propagatingVgwsHasBeenSet; }
 
     /**
      * <p>Any virtual private gateway (VGW) propagating routes.</p>
@@ -134,6 +152,11 @@ namespace Model
     /**
      * <p>The ID of the route table.</p>
      */
+    inline bool RouteTableIdHasBeenSet() const { return m_routeTableIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the route table.</p>
+     */
     inline void SetRouteTableId(const Aws::String& value) { m_routeTableIdHasBeenSet = true; m_routeTableId = value; }
 
     /**
@@ -166,6 +189,11 @@ namespace Model
      * <p>The routes in the route table.</p>
      */
     inline const Aws::Vector<Route>& GetRoutes() const{ return m_routes; }
+
+    /**
+     * <p>The routes in the route table.</p>
+     */
+    inline bool RoutesHasBeenSet() const { return m_routesHasBeenSet; }
 
     /**
      * <p>The routes in the route table.</p>
@@ -206,6 +234,11 @@ namespace Model
     /**
      * <p>Any tags assigned to the route table.</p>
      */
+    inline bool TagsHasBeenSet() const { return m_tagsHasBeenSet; }
+
+    /**
+     * <p>Any tags assigned to the route table.</p>
+     */
     inline void SetTags(const Aws::Vector<Tag>& value) { m_tagsHasBeenSet = true; m_tags = value; }
 
     /**
@@ -242,6 +275,11 @@ namespace Model
     /**
      * <p>The ID of the VPC.</p>
      */
+    inline bool VpcIdHasBeenSet() const { return m_vpcIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the VPC.</p>
+     */
     inline void SetVpcId(const Aws::String& value) { m_vpcIdHasBeenSet = true; m_vpcId = value; }
 
     /**
@@ -269,6 +307,47 @@ namespace Model
      */
     inline RouteTable& WithVpcId(const char* value) { SetVpcId(value); return *this;}
 
+
+    /**
+     * <p>The ID of the AWS account that owns the route table.</p>
+     */
+    inline const Aws::String& GetOwnerId() const{ return m_ownerId; }
+
+    /**
+     * <p>The ID of the AWS account that owns the route table.</p>
+     */
+    inline bool OwnerIdHasBeenSet() const { return m_ownerIdHasBeenSet; }
+
+    /**
+     * <p>The ID of the AWS account that owns the route table.</p>
+     */
+    inline void SetOwnerId(const Aws::String& value) { m_ownerIdHasBeenSet = true; m_ownerId = value; }
+
+    /**
+     * <p>The ID of the AWS account that owns the route table.</p>
+     */
+    inline void SetOwnerId(Aws::String&& value) { m_ownerIdHasBeenSet = true; m_ownerId = std::move(value); }
+
+    /**
+     * <p>The ID of the AWS account that owns the route table.</p>
+     */
+    inline void SetOwnerId(const char* value) { m_ownerIdHasBeenSet = true; m_ownerId.assign(value); }
+
+    /**
+     * <p>The ID of the AWS account that owns the route table.</p>
+     */
+    inline RouteTable& WithOwnerId(const Aws::String& value) { SetOwnerId(value); return *this;}
+
+    /**
+     * <p>The ID of the AWS account that owns the route table.</p>
+     */
+    inline RouteTable& WithOwnerId(Aws::String&& value) { SetOwnerId(std::move(value)); return *this;}
+
+    /**
+     * <p>The ID of the AWS account that owns the route table.</p>
+     */
+    inline RouteTable& WithOwnerId(const char* value) { SetOwnerId(value); return *this;}
+
   private:
 
     Aws::Vector<RouteTableAssociation> m_associations;
@@ -288,6 +367,9 @@ namespace Model
 
     Aws::String m_vpcId;
     bool m_vpcIdHasBeenSet;
+
+    Aws::String m_ownerId;
+    bool m_ownerIdHasBeenSet;
   };
 
 } // namespace Model
